@@ -3,6 +3,8 @@ class JobUser < ActiveRecord::Base
   belongs_to :job
 
   validates_presence_of :user, :job
+
+  # TODO: Make sure Job#user != the user of this model
 end
 
 # == Schema Information
@@ -13,7 +15,6 @@ end
 #  user_id    :integer
 #  job_id     :integer
 #  accepted   :boolean
-#  role       :integer
 #  rate       :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
