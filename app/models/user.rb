@@ -1,4 +1,14 @@
 class User < ActiveRecord::Base
+  has_many :user_skills
+  has_many :skills, through: :user_skills
+
+  has_many :job_users
+  has_many :jobs, through: :job_users
+
+  # validates :email, email: true, allow_blank: false
+  validates :name, length: { minimum: 3 }, allow_blank: false
+  validates :phone, length: { minimum: 9 }, allow_blank: false
+  validates :description, length: { minimum: 10 }, allow_blank: false
 end
 
 # == Schema Information

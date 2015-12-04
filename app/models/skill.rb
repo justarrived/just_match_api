@@ -1,4 +1,11 @@
 class Skill < ActiveRecord::Base
+  has_many :job_skills
+  has_many :jobs, through: :skill
+
+  has_many :user_skills
+  has_many :users, through: :user_skills
+
+  validates :name, length: { minimum: 3 }, allow_blank: false
 end
 
 # == Schema Information

@@ -1,6 +1,8 @@
 class JobSkill < ActiveRecord::Base
   belongs_to :job
   belongs_to :skill
+
+  validates_presence_of :skill, :job
 end
 
 # == Schema Information

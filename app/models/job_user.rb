@@ -1,6 +1,8 @@
 class JobUser < ActiveRecord::Base
   belongs_to :user
   belongs_to :job
+
+  validates_presence_of :user, :job
 end
 
 # == Schema Information
