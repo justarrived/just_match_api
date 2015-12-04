@@ -1,0 +1,2 @@
+module JobSkillsHelper
+end

@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Max rate:</strong>
+  <%= @job.max_rate %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @job.description %>
+</p>
+
+<p>
+  <strong>Job date:</strong>
+  <%= @job.job_date %>
+</p>
+
+<p>
+  <strong>Performed:</strong>
+  <%= @job.performed %>
+</p>
+
+<%= link_to 'Edit', edit_job_path(@job) %> |
+<%= link_to 'Back', jobs_path %>

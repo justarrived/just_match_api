@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Job Users</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Job</th>
+      <th>Accepted</th>
+      <th>Role</th>
+      <th>Rate</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @job_users.each do |job_user| %>
+      <tr>
+        <td><%= job_user.user %></td>
+        <td><%= job_user.job %></td>
+        <td><%= job_user.accepted %></td>
+        <td><%= job_user.role %></td>
+        <td><%= job_user.rate %></td>
+        <td><%= link_to 'Show', job_user %></td>
+        <td><%= link_to 'Edit', edit_job_user_path(job_user) %></td>
+        <td><%= link_to 'Destroy', job_user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Job user', new_job_user_path %>
