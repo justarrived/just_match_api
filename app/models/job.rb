@@ -12,6 +12,16 @@ class Job < ActiveRecord::Base
   validates_presence_of :owner
 
   belongs_to :owner, class_name: 'User', foreign_key: 'owner_user_id'
+
+  # NOTE: You need to call this __before__ the record is saved/updated
+  #       otherwise it will always return false
+  def send_performed_notice?
+    performed_changed? && performed
+  end
+
+  def job_user
+    job_users.find_by(accepted: true)
+  end
 end
 
 # == Schema Information
