@@ -1,6 +1,6 @@
 class Job < ActiveRecord::Base
   include Geocodable
-  include SkillMatcher
+  include SkillMatcherQuery
 
   has_many :job_skills, inverse_of: :job
   has_many :skills, through: :job_skills

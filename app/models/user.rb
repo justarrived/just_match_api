@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   include Geocodable
-  include SkillMatcher
+  include SkillMatcherQuery
 
   has_many :user_skills, inverse_of: :user
   has_many :skills, through: :user_skills

@@ -1,4 +1,4 @@
-module SkillMatcher
+module SkillMatcherQuery
   def self.included(receiver)
     receiver.class_eval do
       def self.matches_resource(base_record, distance: 20)
