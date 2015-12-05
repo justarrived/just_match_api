@@ -36,6 +36,8 @@ gem 'rails_12factor'
 gem 'rails-api'
 gem 'active_model_serializers', '~> 0.10.0.rc3'
 
+gem 'apipie-rails'
+
 group :development, :test do
   gem 'faker'
   gem 'byebug'
