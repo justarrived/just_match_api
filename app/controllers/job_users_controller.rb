@@ -1,8 +1,6 @@
 class JobUsersController < ApplicationController
   before_action :set_job_user, only: [:show, :edit, :update, :destroy]
 
-  # GET /job_users
-  # GET /job_users.json
   api :GET, '/job_users/:id', 'Show job users'
   description 'Show list of job users'
   formats ['json']
@@ -11,8 +9,6 @@ class JobUsersController < ApplicationController
     render json: @job_users
   end
 
-  # GET /job_users/1
-  # GET /job_users/1.json
   api :GET, '/job_users/:id', 'Show job user'
   description 'Show job user'
   formats ['json']
@@ -20,8 +16,6 @@ class JobUsersController < ApplicationController
     render json: @job_user
   end
 
-  # POST /job_users
-  # POST /job_users.json
   api :POST, '/job_skills/', 'Create new job user'
   description 'Create a new job user'
   formats ['json']
@@ -40,8 +34,6 @@ class JobUsersController < ApplicationController
     end
   end
 
-  # PATCH/PUT /job_users/1
-  # PATCH/PUT /job_users/1.json
   api :PATCH, '/job_skills/:id', 'Update job user'
   description 'Update job user'
   formats ['json']
@@ -64,8 +56,6 @@ class JobUsersController < ApplicationController
     end
   end
 
-  # DELETE /job_users/1
-  # DELETE /job_users/1.json
   api :DELETE, '/job_users/:id', 'Delete job user'
   description 'Delete job user'
   formats ['json']

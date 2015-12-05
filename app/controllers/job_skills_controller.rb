@@ -1,8 +1,6 @@
 class JobSkillsController < ApplicationController
   before_action :set_job_skill, only: [:show, :edit, :update, :destroy]
 
-  # GET /job_skills
-  # GET /job_skills.json
   api :GET, '/job_skills/:id', 'Show job skills'
   description 'Show list of job skills'
   formats ['json']
@@ -11,8 +9,6 @@ class JobSkillsController < ApplicationController
     render json: @job_skills
   end
 
-  # GET /job_skills/1
-  # GET /job_skills/1.json
   api :GET, '/job_skills/:id', 'Show job skill'
   description 'Show job skill'
   formats ['json']
@@ -20,8 +16,6 @@ class JobSkillsController < ApplicationController
     render json: @job_skill
   end
 
-  # POST /job_skills
-  # POST /job_skills.json
   api :POST, '/job_skills/', 'Create new job skill'
   description 'Create a new job skill'
   formats ['json']
@@ -39,8 +33,6 @@ class JobSkillsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /job_skills/1
-  # PATCH/PUT /job_skills/1.json
   api :PATCH, '/job_skills/:id', 'Update job skill'
   description 'Update job skill'
   formats ['json']
@@ -56,8 +48,6 @@ class JobSkillsController < ApplicationController
     end
   end
 
-  # DELETE /job_skills/1
-  # DELETE /job_skills/1.json
   api :DELETE, '/job_skills/:id', 'Delete job skill'
   description 'Delete job skill'
   formats ['json']

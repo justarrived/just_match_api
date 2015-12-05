@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
   include Geocodable
+  include SkillMatcher
+
   has_many :user_skills, inverse_of: :user
   has_many :skills, through: :user_skills
 
@@ -13,6 +15,10 @@ class User < ActiveRecord::Base
   validates :phone, length: { minimum: 9 }, allow_blank: false
   validates :description, length: { minimum: 10 }, allow_blank: false
   validates :address, length: { minimum: 2 }, allow_blank: false
+
+  def self.matches_job(job, distance: 20)
+    matches_resource(job, distance: 20)
+  end
 end
 
 # == Schema Information

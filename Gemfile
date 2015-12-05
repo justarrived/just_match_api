@@ -46,6 +46,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'bullet'
   gem 'binding_of_caller'
   gem 'better_errors'
   # Access an IRB console on exception pages or by using <%= console %> in views
