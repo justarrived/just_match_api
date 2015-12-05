@@ -1,7 +1,6 @@
 class JobsController < ApplicationController
-  before_action :set_job, only: [:show, :edit, :update, :destroy]
+  before_action :set_job, only: [:show, :edit, :update, :destroy, :matching_users]
 
-  # GET /jobs
   # GET /jobs.json
   api :GET, '/jobs', 'List jobs'
   description 'Show list of jobs'
@@ -11,7 +10,6 @@ class JobsController < ApplicationController
     render json: @jobs
   end
 
-  # GET /jobs/1
   # GET /jobs/1.json
   api :GET, '/jobs/:id', 'Show job'
   description 'Show job'
@@ -20,7 +18,6 @@ class JobsController < ApplicationController
     render json: @job
   end
 
-  # POST /jobs
   # POST /jobs.json
   api :POST, '/jobs/', 'Create new job'
   description 'Create new job'
@@ -45,7 +42,6 @@ class JobsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /jobs/1
   # PATCH/PUT /jobs/1.json
   api :PATCH, '/jobs/:id', 'Update job'
   description 'Update job'
@@ -71,7 +67,6 @@ class JobsController < ApplicationController
     end
   end
 
-  # DELETE /jobs/1
   # DELETE /jobs/1.json
   api :DELETE, '/jobs/:id', 'Delete job'
   description 'Delete job'
@@ -79,6 +74,14 @@ class JobsController < ApplicationController
   def destroy
     @job.destroy
     render json: {}
+  end
+
+  # GET /jobs/:job_id/matching_users.json
+  api :GET, '/jobs/:job_id/matching_users', 'Show matching users'
+  description 'Show matching users'
+  formats ['json']
+  def matching_users
+    render json: User.matches_job(@job)
   end
 
   private
