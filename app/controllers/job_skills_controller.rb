@@ -25,7 +25,7 @@ class JobSkillsController < ApplicationController
   api :POST, '/job_skills/', 'Create new job skill'
   description 'Create a new job skill'
   formats ['json']
-  param :job_skill, Hash, desc: 'Job skill attributes' do
+  param :job_skill, Hash, desc: 'Job skill attributes', required: true do
     param :job_id, Integer, desc: 'Job id', required: true
     param :skill_id, Integer, desc: 'Skill id', required: true
   end
@@ -44,9 +44,9 @@ class JobSkillsController < ApplicationController
   api :PATCH, '/job_skills/:id', 'Update job skill'
   description 'Update job skill'
   formats ['json']
-  param :job_skill, Hash, desc: 'Job skill attributes' do
-    param :job_id, Integer, desc: 'Job id'
-    param :skill_id, Integer, desc: 'Skill id'
+  param :job_skill, Hash, desc: 'Job skill attributes', required: true do
+    param :job_id, Integer, desc: 'Job id', required: true
+    param :skill_id, Integer, desc: 'Skill id', required: true
   end
   def update
     if @job_skill.update(job_skill_params)

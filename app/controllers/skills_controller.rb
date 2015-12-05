@@ -25,8 +25,8 @@ class SkillsController < ApplicationController
   api :POST, '/skills/', 'Create new skill'
   description 'Create new skill'
   formats ['json']
-  param :skill, Hash, desc: 'Skill attributes' do
-    param :name, String, desc: 'Name'
+  param :skill, Hash, desc: 'Skill attributes', required: true do
+    param :name, String, desc: 'Name', required: true
   end
   def create
     @skill = Skill.new(skill_params)
@@ -43,8 +43,8 @@ class SkillsController < ApplicationController
   api :PATCH, '/skills/:id', 'Update skill'
   description 'Update skill'
   formats ['json']
-  param :skill, Hash, desc: 'Skill attributes' do
-    param :name, String, desc: 'Name'
+  param :skill, Hash, desc: 'Skill attributes', required: true do
+    param :name, String, desc: 'Name', required: true
   end
   def update
     if @skill.update(skill_params)

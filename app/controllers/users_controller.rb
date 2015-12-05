@@ -25,12 +25,12 @@ class UsersController < ApplicationController
   api :POST, '/jobs/', 'Create new job'
   description 'Create new job'
   formats ['json']
-  param :user, Hash, desc: 'User attributes' do
+  param :user, Hash, desc: 'User attributes', required: true do
     param :skills, Array, of: Integer, desc: 'List of skill ids', required: true
-    param :name, String, desc: 'Name'
-    param :description, String, desc: 'Description'
-    param :email, String, desc: 'Email'
-    param :phone, String, desc: 'Phone'
+    param :name, String, desc: 'Name', required: true
+    param :description, String, desc: 'Description', required: true
+    param :email, String, desc: 'Email', required: true
+    param :phone, String, desc: 'Phone', required: true
   end
   def create
     @user = User.new(user_params)
@@ -47,11 +47,11 @@ class UsersController < ApplicationController
   api :POST, '/users/', 'Update new user'
   description 'Update new user'
   formats ['json']
-  param :user, Hash, desc: 'User attributes' do
-    param :name, String, desc: 'Name'
-    param :description, String, desc: 'Description'
-    param :email, String, desc: 'Email'
-    param :phone, String, desc: 'Phone'
+  param :user, Hash, desc: 'User attributes', required: true do
+    param :name, String, desc: 'Name', required: true
+    param :description, String, desc: 'Description', required: true
+    param :email, String, desc: 'Email', required: true
+    param :phone, String, desc: 'Phone', required: true
   end
   def update
     if @user.update(user_params)
