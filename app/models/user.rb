@@ -13,6 +13,30 @@ class User < ActiveRecord::Base
   validates :phone, length: { minimum: 9 }, allow_blank: false
   validates :description, length: { minimum: 10 }, allow_blank: false
   validates :address, length: { minimum: 2 }, allow_blank: false
+
+  def self.matches_job(job, distance: 20)
+    job_skills = job.skills.pluck(:id)
+    matching_users = []
+
+    # TODO: The below causes N+1 SQL
+    within(lat: job.latitude, long: job.longitude, distance: distance)
+      .joins(:user_skills)
+      .where('user_skills.skill_id IN (?)', job_skills)
+      .distinct
+      .each do |user|
+      byebug if user.nil?
+      if all_match?(user.skills.pluck(:id), job_skills)
+        matching_users << user
+      end
+    end
+    matching_users
+  end
+
+  private
+
+  def self.all_match?(first_array, second_array)
+    (first_array & second_array).length == second_array.length
+  end
 end
 
 # == Schema Information

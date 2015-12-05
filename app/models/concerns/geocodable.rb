@@ -1,10 +1,4 @@
 module Geocodable
-  module ClassMethods
-    def within(lat:, long:, distance: 20)
-      near([lat, long], distance, units: :km)
-    end
-  end
-
   module InstanceMethods
     def full_street_address
       address
@@ -22,6 +16,10 @@ module Geocodable
       geocoded_by :full_street_address
       after_validation :geocode, if: ->(record){ record.address_changed? }
       after_validation :validate_geocoding
+
+      def self.within(lat:, long:, distance:)
+        near([lat, long], distance, units: :km)
+      end
     end
     receiver.send(:include, InstanceMethods)
   end
