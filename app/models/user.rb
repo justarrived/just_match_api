@@ -13,7 +13,8 @@ class User < ActiveRecord::Base
   validates :address, length: { minimum: 2 }, allow_blank: false
 
   geocoded_by :full_street_address   # can also be an IP address
-  after_validation :geocode          # auto-fetch coordinates
+  after_validation :geocode,
+    if: ->(user){ user.address_changed? }          # auto-fetch coordinates if address changed
 
   def full_street_address
     address

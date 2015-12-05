@@ -15,7 +15,8 @@ class Job < ActiveRecord::Base
   belongs_to :owner, class_name: 'User', foreign_key: 'owner_user_id'
 
   geocoded_by :full_street_address   # can also be an IP address
-  after_validation :geocode          # auto-fetch coordinates
+  after_validation :geocode,
+    if: ->(user){ user.address_changed? }          # auto-fetch coordinates if address changed
 
   def full_street_address
     address
