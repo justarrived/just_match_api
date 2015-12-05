@@ -1,5 +1,5 @@
 class Job < ActiveRecord::Base
-  has_many :job_skills
+  has_many :job_skills, inverse_of: :job
   has_many :skills, through: :job_skills
 
   has_many :job_users
