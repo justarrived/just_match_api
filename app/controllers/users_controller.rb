@@ -1,8 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy, :matching_jobs]
 
-  # GET /users
-  # GET /users.json
   api :GET, '/users', 'List users'
   description 'Show list of users'
   formats ['json']
@@ -11,8 +9,6 @@ class UsersController < ApplicationController
     render json: @users
   end
 
-  # GET /users/1
-  # GET /users/1.json
   api :GET, '/users/:id', 'Show user'
   description 'Show user'
   formats ['json']
@@ -20,9 +16,7 @@ class UsersController < ApplicationController
     render json: @user
   end
 
-  # POST /users
-  # POST /users.json
-  api :POST, '/jobs/', 'Create new user'
+  api :POST, '/users/', 'Create new user'
   description 'Create new user'
   formats ['json']
   param :user, Hash, desc: 'User attributes', required: true do
@@ -42,8 +36,6 @@ class UsersController < ApplicationController
     end
   end
 
-  # PATCH/PUT /users/1
-  # PATCH/PUT /users/1.json
   api :POST, '/users/', 'Update new user'
   description 'Update new user'
   formats ['json']
@@ -61,8 +53,6 @@ class UsersController < ApplicationController
     end
   end
 
-  # DELETE /users/1
-  # DELETE /users/1.json
   api :DELETE, '/users/:id', 'Delete user'
   description 'Delete user'
   formats ['json']
@@ -71,7 +61,6 @@ class UsersController < ApplicationController
     render json: {}
   end
 
-  # GET /users/:user_id/matching_jobs.json
   api :GET, '/users/:user_id/matching_jobs', 'Show matching jobs for user'
   description 'Show matching jobs for user'
   formats ['json']

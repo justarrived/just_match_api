@@ -1,8 +1,6 @@
 class SkillsController < ApplicationController
   before_action :set_skill, only: [:show, :edit, :update, :destroy]
 
-  # GET /skills
-  # GET /skills.json
   api :GET, '/skills', 'List skills'
   description 'Show list of skills'
   formats ['json']
@@ -11,8 +9,6 @@ class SkillsController < ApplicationController
     render json: @skills
   end
 
-  # GET /skills/1
-  # GET /skills/1.json
   api :GET, '/skills/:id', 'Show skill'
   description 'Show skill'
   formats ['json']
@@ -20,8 +16,6 @@ class SkillsController < ApplicationController
     render json: @skill
   end
 
-  # POST /skills
-  # POST /skills.json
   api :POST, '/skills/', 'Create new skill'
   description 'Create new skill'
   formats ['json']
@@ -38,8 +32,6 @@ class SkillsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /skills/1
-  # PATCH/PUT /skills/1.json
   api :PATCH, '/skills/:id', 'Update skill'
   description 'Update skill'
   formats ['json']
@@ -54,8 +46,6 @@ class SkillsController < ApplicationController
     end
   end
 
-  # DELETE /skills/1
-  # DELETE /skills/1.json
   api :DELETE, '/skills/:id', 'Delete skill'
   description 'Delete skill'
   formats ['json']
