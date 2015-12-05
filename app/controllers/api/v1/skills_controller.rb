@@ -1,8 +1,8 @@
-class SkillsController < ApplicationController
+class Api::V1::SkillsController < ApplicationController
   before_action :set_skill, only: [:show, :edit, :update, :destroy]
 
   api :GET, '/skills', 'List skills'
-  description 'Show list of skills'
+  description 'Returns a list of skills.'
   formats ['json']
   def index
     @skills = Skill.all
@@ -10,14 +10,14 @@ class SkillsController < ApplicationController
   end
 
   api :GET, '/skills/:id', 'Show skill'
-  description 'Show skill'
+  description 'Returns skill.'
   formats ['json']
   def show
     render json: @skill
   end
 
   api :POST, '/skills/', 'Create new skill'
-  description 'Create new skill'
+  description 'Creates and returns the new skill.'
   formats ['json']
   param :skill, Hash, desc: 'Skill attributes', required: true do
     param :name, String, desc: 'Name', required: true
@@ -33,7 +33,7 @@ class SkillsController < ApplicationController
   end
 
   api :PATCH, '/skills/:id', 'Update skill'
-  description 'Update skill'
+  description 'Updates and returns the updated skill.'
   formats ['json']
   param :skill, Hash, desc: 'Skill attributes', required: true do
     param :name, String, desc: 'Name', required: true
@@ -47,7 +47,7 @@ class SkillsController < ApplicationController
   end
 
   api :DELETE, '/skills/:id', 'Delete skill'
-  description 'Delete skill'
+  description 'Deletes skill.'
   formats ['json']
   def destroy
     @skill.destroy

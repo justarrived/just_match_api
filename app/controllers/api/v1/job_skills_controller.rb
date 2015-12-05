@@ -1,8 +1,8 @@
-class JobSkillsController < ApplicationController
+class Api::V1::JobSkillsController < ApplicationController
   before_action :set_job_skill, only: [:show, :edit, :update, :destroy]
 
   api :GET, '/job_skills/:id', 'Show job skills'
-  description 'Show list of job skills'
+  description 'Returns a list of job skills.'
   formats ['json']
   def index
     @job_skills = JobSkill.all
@@ -10,14 +10,14 @@ class JobSkillsController < ApplicationController
   end
 
   api :GET, '/job_skills/:id', 'Show job skill'
-  description 'Show job skill'
+  description 'Returns job skill.'
   formats ['json']
   def show
     render json: @job_skill
   end
 
   api :POST, '/job_skills/', 'Create new job skill'
-  description 'Create a new job skill'
+  description 'Creates and returns a new job skill.'
   formats ['json']
   param :job_skill, Hash, desc: 'Job skill attributes', required: true do
     param :job_id, Integer, desc: 'Job id', required: true
@@ -34,7 +34,7 @@ class JobSkillsController < ApplicationController
   end
 
   api :PATCH, '/job_skills/:id', 'Update job skill'
-  description 'Update job skill'
+  description 'Updates and returns the updated job skill.'
   formats ['json']
   param :job_skill, Hash, desc: 'Job skill attributes', required: true do
     param :job_id, Integer, desc: 'Job id', required: true
@@ -49,7 +49,7 @@ class JobSkillsController < ApplicationController
   end
 
   api :DELETE, '/job_skills/:id', 'Delete job skill'
-  description 'Delete job skill'
+  description 'Deletes job skill.'
   formats ['json']
   def destroy
     @job_skill.destroy
