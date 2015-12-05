@@ -1,6 +1,5 @@
 class User < ActiveRecord::Base
   include Geocodable
-  geocoded_by :full_street_address
   has_many :user_skills, inverse_of: :user
   has_many :skills, through: :user_skills
 

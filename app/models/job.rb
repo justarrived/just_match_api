@@ -1,6 +1,5 @@
 class Job < ActiveRecord::Base
   include Geocodable
-  geocoded_by :full_street_address
   has_many :job_skills, inverse_of: :job
   has_many :skills, through: :job_skills
 
