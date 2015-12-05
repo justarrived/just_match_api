@@ -1,4 +1,5 @@
 class Job < ActiveRecord::Base
+  include Geocodable
   has_many :job_skills, inverse_of: :job
   has_many :skills, through: :job_skills
 
@@ -7,6 +8,7 @@ class Job < ActiveRecord::Base
 
   validates :max_rate, numericality: { only_integer: true }, allow_blank: false
   validates :description, length: { minimum: 10 }, allow_blank: false
+  validates :address, length: { minimum: 2 }, allow_blank: false
   # TODO: Validate #job_date format?
 
   validates_presence_of :owner
@@ -36,4 +38,7 @@ end
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #  owner_user_id :integer
+#  latitude      :float
+#  longitude     :float
+#  address       :string
 #

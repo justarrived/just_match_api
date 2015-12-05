@@ -46,6 +46,9 @@ ActiveRecord::Schema.define(version: 20151205120338) do
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
     t.integer  "owner_user_id"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.string   "address"
   end
 
   create_table "skills", force: :cascade do |t|
@@ -71,6 +74,9 @@ ActiveRecord::Schema.define(version: 20151205120338) do
     t.text     "description"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.float    "latitude"
+    t.float    "longitude"
+    t.string   "address"
   end
 
   add_foreign_key "job_skills", "jobs"

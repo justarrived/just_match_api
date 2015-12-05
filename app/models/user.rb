@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  include Geocodable
   has_many :user_skills, inverse_of: :user
   has_many :skills, through: :user_skills
 
@@ -10,6 +11,7 @@ class User < ActiveRecord::Base
   validates :name, length: { minimum: 3 }, allow_blank: false
   validates :phone, length: { minimum: 9 }, allow_blank: false
   validates :description, length: { minimum: 10 }, allow_blank: false
+  validates :address, length: { minimum: 2 }, allow_blank: false
 end
 
 # == Schema Information
@@ -23,4 +25,7 @@ end
 #  description :text
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  latitude    :float
+#  longitude   :float
+#  address     :string
 #
