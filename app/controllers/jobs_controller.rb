@@ -28,7 +28,7 @@ class JobsController < ApplicationController
   def create
     @job = Job.new(job_params)
 
-    if @job.save
+    if @job.save && @job.geocoded?
       @job.skills = Skill.where(id: params[:job][:skills])
       render json: @job, include: ['skills'], status: :created
     else
