@@ -40,10 +40,10 @@ class Api::V1::UsersController < ApplicationController
   description 'Updates and returns the updated user.'
   formats ['json']
   param :user, Hash, desc: 'User attributes', required: true do
-    param :name, String, desc: 'Name', required: true
-    param :description, String, desc: 'Description', required: true
-    param :email, String, desc: 'Email', required: true
-    param :phone, String, desc: 'Phone', required: true
+    param :name, String, desc: 'Name'
+    param :description, String, desc: 'Description'
+    param :email, String, desc: 'Email'
+    param :phone, String, desc: 'Phone'
   end
   def update
     if @user.update(user_params)
@@ -76,6 +76,6 @@ class Api::V1::UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:name, :email, :phone, :description)
+      params.require(:user).permit(:name, :email, :phone, :description, :address)
     end
 end

@@ -43,12 +43,12 @@ class Api::V1::JobsController < ApplicationController
   description 'Updates and returns the updated job.'
   formats ['json']
   param :job, Hash, desc: 'Job attributes', required: true do
-    param :max_rate, Integer, desc: 'Max rate', required: true
-    param :name, String, desc: 'Name', required: true
-    param :description, String, desc: 'Description', required: true
-    param :job_date, String, desc: 'Job date', required: true
+    param :max_rate, Integer, desc: 'Max rate'
+    param :name, String, desc: 'Name'
+    param :description, String, desc: 'Description'
+    param :job_date, String, desc: 'Job date'
     param :performed, [true, false], desc: 'Performed'
-    param :owner_user_id, Integer, desc: 'User id for the job owner', required: true
+    param :owner_user_id, Integer, desc: 'User id for the job owner'
   end
   def update
     @job.assign_attributes(job_params)

@@ -37,8 +37,8 @@ class Api::V1::UserSkillsController < ApplicationController
   description 'Updates and returns the updated user skill.'
   formats ['json']
   param :user_skill, Hash, desc: 'User skill attributes', required: true  do
-    param :user_id, Integer, desc: 'User id', required: true
-    param :skill_id, Integer, desc: 'Skill id', required: true
+    param :user_id, Integer, desc: 'User id'
+    param :skill_id, Integer, desc: 'Skill id'
   end
   def update
     if @user_skill.update(user_skill_params)

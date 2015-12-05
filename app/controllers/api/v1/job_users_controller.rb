@@ -38,8 +38,8 @@ class Api::V1::JobUsersController < ApplicationController
   description 'Updates and returns the updated job user.'
   formats ['json']
   param :job_user, Hash, desc: 'Job user attributes', required: true do
-    param :job_id, Integer, desc: 'Job id', required: true
-    param :user_id, Integer, desc: 'User id', required: true
+    param :job_id, Integer, desc: 'Job id'
+    param :user_id, Integer, desc: 'User id'
   end
   def update
     # TODO: Make sure only the Job#owner can change JobUser#accepted

@@ -36,7 +36,7 @@ class Api::V1::SkillsController < ApplicationController
   description 'Updates and returns the updated skill.'
   formats ['json']
   param :skill, Hash, desc: 'Skill attributes', required: true do
-    param :name, String, desc: 'Name', required: true
+    param :name, String, desc: 'Name'
   end
   def update
     if @skill.update(skill_params)

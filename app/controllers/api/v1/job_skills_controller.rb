@@ -37,8 +37,8 @@ class Api::V1::JobSkillsController < ApplicationController
   description 'Updates and returns the updated job skill.'
   formats ['json']
   param :job_skill, Hash, desc: 'Job skill attributes', required: true do
-    param :job_id, Integer, desc: 'Job id', required: true
-    param :skill_id, Integer, desc: 'Skill id', required: true
+    param :job_id, Integer, desc: 'Job id'
+    param :skill_id, Integer, desc: 'Skill id'
   end
   def update
     if @job_skill.update(job_skill_params)
