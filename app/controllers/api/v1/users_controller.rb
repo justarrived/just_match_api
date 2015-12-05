@@ -1,8 +1,8 @@
-class UsersController < ApplicationController
+class Api::V1::UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy, :matching_jobs]
 
   api :GET, '/users', 'List users'
-  description 'Show list of users'
+  description 'Returns a list of users.'
   formats ['json']
   def index
     @users = User.all
@@ -10,14 +10,14 @@ class UsersController < ApplicationController
   end
 
   api :GET, '/users/:id', 'Show user'
-  description 'Show user'
+  description 'Returns user.'
   formats ['json']
   def show
     render json: @user
   end
 
   api :POST, '/users/', 'Create new user'
-  description 'Create new user'
+  description 'Creates and returns a new user.'
   formats ['json']
   param :user, Hash, desc: 'User attributes', required: true do
     param :skills, Array, of: Integer, desc: 'List of skill ids', required: true
@@ -36,8 +36,8 @@ class UsersController < ApplicationController
     end
   end
 
-  api :POST, '/users/', 'Update new user'
-  description 'Update new user'
+  api :PATCH, '/users/', 'Update new user'
+  description 'Updates and returns the updated user.'
   formats ['json']
   param :user, Hash, desc: 'User attributes', required: true do
     param :name, String, desc: 'Name', required: true
@@ -54,15 +54,15 @@ class UsersController < ApplicationController
   end
 
   api :DELETE, '/users/:id', 'Delete user'
-  description 'Delete user'
+  description 'Deletes user.'
   formats ['json']
   def destroy
     @user.destroy
     render json: {}
   end
 
-  api :GET, '/users/:user_id/matching_jobs', 'Show matching jobs for user'
-  description 'Show matching jobs for user'
+  api :GET, '/users/:id/matching_jobs', 'Show matching jobs for user'
+  description 'Returns the matching jobs for user.'
   formats ['json']
   def matching_jobs
     render json: Job.matches_user(@user)

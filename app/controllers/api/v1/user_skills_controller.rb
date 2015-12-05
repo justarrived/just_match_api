@@ -1,8 +1,8 @@
-class UserSkillsController < ApplicationController
+class Api::V1::UserSkillsController < ApplicationController
   before_action :set_user_skill, only: [:show, :edit, :update, :destroy]
 
   api :GET, '/user_skills/:id', 'Show user skills'
-  description 'Show list of user skills'
+  description 'Returns list of user skills.'
   formats ['json']
   def index
     @user_skills = UserSkill.all
@@ -10,14 +10,14 @@ class UserSkillsController < ApplicationController
   end
 
   api :GET, '/user_skills/:id', 'Show user skill'
-  description 'Show user skill'
+  description 'Returns user skill.'
   formats ['json']
   def show
     render json: @user_skill
   end
 
   api :POST, '/user_skills/', 'Create new user skill'
-  description 'Create a new user skill'
+  description 'Creates and returns new user skill.'
   formats ['json']
   param :user_skill, Hash, desc: 'User skill attributes', required: true  do
     param :user_id, Integer, desc: 'User id', required: true
@@ -34,7 +34,7 @@ class UserSkillsController < ApplicationController
   end
 
   api :PATCH, '/user_skills/:id', 'Update user skill'
-  description 'Update user skill'
+  description 'Updates and returns the updated user skill.'
   formats ['json']
   param :user_skill, Hash, desc: 'User skill attributes', required: true  do
     param :user_id, Integer, desc: 'User id', required: true
@@ -49,7 +49,7 @@ class UserSkillsController < ApplicationController
   end
 
   api :DELETE, '/user_skills/:id', 'Delete user skill'
-  description 'Delete user skill'
+  description 'Deletes user skill.'
   formats ['json']
   def destroy
     @user_skill.destroy

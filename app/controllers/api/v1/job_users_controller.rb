@@ -1,8 +1,8 @@
-class JobUsersController < ApplicationController
+class Api::V1::JobUsersController < ApplicationController
   before_action :set_job_user, only: [:show, :edit, :update, :destroy]
 
   api :GET, '/job_users/:id', 'Show job users'
-  description 'Show list of job users'
+  description 'Returns a list of job users.'
   formats ['json']
   def index
     @job_users = JobUser.all
@@ -10,14 +10,14 @@ class JobUsersController < ApplicationController
   end
 
   api :GET, '/job_users/:id', 'Show job user'
-  description 'Show job user'
+  description 'Returns job user.'
   formats ['json']
   def show
     render json: @job_user
   end
 
   api :POST, '/job_skills/', 'Create new job user'
-  description 'Create a new job user'
+  description 'Creates and returns new job user.'
   formats ['json']
   param :job_user, Hash, desc: 'Job user attributes', required: true do
     param :job_id, Integer, desc: 'Job id', required: true
@@ -35,7 +35,7 @@ class JobUsersController < ApplicationController
   end
 
   api :PATCH, '/job_skills/:id', 'Update job user'
-  description 'Update job user'
+  description 'Updates and returns the updated job user.'
   formats ['json']
   param :job_user, Hash, desc: 'Job user attributes', required: true do
     param :job_id, Integer, desc: 'Job id', required: true
@@ -57,7 +57,7 @@ class JobUsersController < ApplicationController
   end
 
   api :DELETE, '/job_users/:id', 'Delete job user'
-  description 'Delete job user'
+  description 'Deletes job user.'
   formats ['json']
   def destroy
     @job_user.destroy
