@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151204225422) do
+ActiveRecord::Schema.define(version: 20151205113952) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,6 +46,9 @@ ActiveRecord::Schema.define(version: 20151204225422) do
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
     t.integer  "owner_user_id"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.string   "address"
   end
 
   create_table "skills", force: :cascade do |t|
@@ -69,8 +72,13 @@ ActiveRecord::Schema.define(version: 20151204225422) do
     t.string   "email"
     t.string   "phone"
     t.text     "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.float    "latitude"
+    t.float    "longitude"
+    t.string   "address"
+    t.boolean  "is_worker",   default: false
+    t.decimal  "work_area",   default: 0.0
   end
 
   add_foreign_key "job_skills", "jobs"
