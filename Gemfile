@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5'
 # Use postgresql as the database for Active Record
@@ -33,7 +32,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # gem 'capistrano-rails', group: :development
 
 gem 'rails-api'
-gem 'active_model_serializers'
+gem 'active_model_serializers', '~> 0.10.0.rc3'
 
 group :development, :test do
   gem 'faker'

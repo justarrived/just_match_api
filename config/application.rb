@@ -19,7 +19,7 @@ module JustArrived
   class Application < Rails::Application
     config.time_zone = 'Stockholm'
 
-    config.i18n.default_locale = :se
+    config.i18n.default_locale = :en
 
     config.api_only = true
 

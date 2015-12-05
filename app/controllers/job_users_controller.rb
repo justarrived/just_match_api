@@ -5,11 +5,13 @@ class JobUsersController < ApplicationController
   # GET /job_users.json
   def index
     @job_users = JobUser.all
+    render json: @job_users
   end
 
   # GET /job_users/1
   # GET /job_users/1.json
   def show
+    render json: @job_user
   end
 
   # GET /job_users/new

@@ -5,11 +5,13 @@ class JobSkillsController < ApplicationController
   # GET /job_skills.json
   def index
     @job_skills = JobSkill.all
+    render json: @job_skills
   end
 
   # GET /job_skills/1
   # GET /job_skills/1.json
   def show
+    render json: @job_skill
   end
 
   # GET /job_skills/new
@@ -26,11 +28,10 @@ class JobSkillsController < ApplicationController
   def create
     @job_skill = JobSkill.new(job_skill_params)
 
-      if @job_skill.save
-        render json: @job_skill, status: :created
-      else
-        render json: @job_skill.errors, status: :unprocessable_entity
-      end
+    if @job_skill.save
+      render json: @job_skill, status: :created
+    else
+      render json: @job_skill.errors, status: :unprocessable_entity
     end
   end
 
