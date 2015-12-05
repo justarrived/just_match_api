@@ -25,12 +25,14 @@ class JobsController < ApplicationController
   api :POST, '/jobs/', 'Create new job'
   description 'Create new job'
   formats ['json']
-  param :skills, Array, desc: 'List of skill ids'
-  param :max_rate, Integer, desc: 'Max rate'
-  param :description, String, desc: 'Description'
-  param :job_date, String, desc: 'Job date'
-  param :performed, [true, false], desc: 'Performed'
-  param :owner_user_id, Integer, desc: 'User id for the job owner'
+  param :job, Hash, desc: 'Job attributes' do
+    param :skills, Array, of: Integer, desc: 'List of skill ids', required: true
+    param :max_rate, Integer, desc: 'Max rate', required: true
+    param :description, String, desc: 'Description', required: true
+    param :job_date, String, desc: 'Job date', required: true
+    param :performed, [true, false], desc: 'Performed'
+    param :owner_user_id, Integer, desc: 'User id for the job owner', required: true
+  end
   def create
     @job = Job.new(job_params)
 
@@ -47,11 +49,13 @@ class JobsController < ApplicationController
   api :PATCH, '/jobs/:id', 'Update job'
   description 'Update job'
   formats ['json']
-  param :max_rate, Integer, desc: 'Max rate'
-  param :description, String, desc: 'Description'
-  param :job_date, String, desc: 'Job date'
-  param :performed, [true, false], desc: 'Performed'
-  param :owner_user_id, Integer, desc: 'User id for the job owner'
+  param :job, Hash, desc: 'Job attributes' do
+    param :max_rate, Integer, desc: 'Max rate'
+    param :description, String, desc: 'Description'
+    param :job_date, String, desc: 'Job date'
+    param :performed, [true, false], desc: 'Performed'
+    param :owner_user_id, Integer, desc: 'User id for the job owner'
+  end
   def update
     @job.assign_attributes(job_params)
 

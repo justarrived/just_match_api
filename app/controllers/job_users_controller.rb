@@ -25,8 +25,10 @@ class JobUsersController < ApplicationController
   api :POST, '/job_skills/', 'Create new job user'
   description 'Create a new job user'
   formats ['json']
-  param :job_id, Integer, desc: 'Job id'
-  param :user_id, Integer, desc: 'User id'
+  param :job_user, Hash, desc: 'Job user attributes' do
+    param :job_id, Integer, desc: 'Job id', required: true
+    param :user_id, Integer, desc: 'User id', required: true
+  end
   def create
     @job_user = JobUser.new(job_user_params)
 
@@ -43,9 +45,10 @@ class JobUsersController < ApplicationController
   api :PATCH, '/job_skills/:id', 'Update job user'
   description 'Update job user'
   formats ['json']
-  param :id, Integer, desc: 'Job id'
-  param :job_id, Integer, desc: 'Job id'
-  param :user_id, Integer, desc: 'User id'
+  param :job_user, Hash, desc: 'Job user attributes' do
+    param :job_id, Integer, desc: 'Job id'
+    param :user_id, Integer, desc: 'User id'
+  end
   def update
     # TODO: Make sure only the Job#owner can change JobUser#accepted
     # TODO: Maks sure only the JobUser#user can change JobUser#rate

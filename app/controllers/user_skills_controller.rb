@@ -25,8 +25,10 @@ class UserSkillsController < ApplicationController
   api :POST, '/user_skills/', 'Create new user skill'
   description 'Create a new user skill'
   formats ['json']
-  param :user_id, Integer, desc: 'User id'
-  param :skill_id, Integer, desc: 'Skill id'
+  param :user_skill, Hash, desc: 'User skill attributes' do
+    param :user_id, Integer, desc: 'User id'
+    param :skill_id, Integer, desc: 'Skill id'
+  end
   def create
     @user_skill = UserSkill.new(user_skill_params)
 
@@ -42,8 +44,10 @@ class UserSkillsController < ApplicationController
   api :PATCH, '/user_skills/:id', 'Update user skill'
   description 'Update user skill'
   formats ['json']
-  param :user_id, Integer, desc: 'User id'
-  param :skill_id, Integer, desc: 'Skill id'
+  param :user_skill, Hash, desc: 'User skill attributes' do
+    param :user_id, Integer, desc: 'User id'
+    param :skill_id, Integer, desc: 'Skill id'
+  end
   def update
     if @user_skill.update(user_skill_params)
       render json: @user_skill, status: :ok
