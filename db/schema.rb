@@ -72,13 +72,11 @@ ActiveRecord::Schema.define(version: 20151205120338) do
     t.string   "email"
     t.string   "phone"
     t.text     "description"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
     t.float    "latitude"
     t.float    "longitude"
     t.string   "address"
-    t.boolean  "is_worker",   default: false
-    t.decimal  "work_area",   default: 0.0
   end
 
   add_foreign_key "job_skills", "jobs"

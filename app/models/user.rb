@@ -34,6 +34,4 @@ end
 #  latitude    :float
 #  longitude   :float
 #  address     :string
-#  is_worker   :boolean          default(FALSE)
-#  work_area   :decimal(, )      default(0.0)
 #

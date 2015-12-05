@@ -13,15 +13,15 @@ end
 
 # Seed users
 skills = Skill.all
-2.times do
+10.times do
   user = User.create!(
     name: Faker::Name.name,
     email: Faker::Internet.email,
     phone: Faker::PhoneNumber.cell_phone,
     description: Faker::Hipster.paragraph(2),
-    address: address.sample
+    address: address.sample,
   )
-  user.skills << skills.sample
+user.skills << skills.sample
 end
 
 # Seed jobs
