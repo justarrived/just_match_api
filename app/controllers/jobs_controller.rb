@@ -28,6 +28,7 @@ class JobsController < ApplicationController
   param :job, Hash, desc: 'Job attributes', required: true do
     param :skills, Array, of: Integer, desc: 'List of skill ids', required: true
     param :max_rate, Integer, desc: 'Max rate', required: true
+    param :name, String, desc: 'Name', required: true
     param :description, String, desc: 'Description', required: true
     param :job_date, String, desc: 'Job date', required: true
     param :performed, [true, false], desc: 'Performed'
@@ -51,6 +52,7 @@ class JobsController < ApplicationController
   formats ['json']
   param :job, Hash, desc: 'Job attributes', required: true do
     param :max_rate, Integer, desc: 'Max rate', required: true
+    param :name, String, desc: 'Name', required: true
     param :description, String, desc: 'Description', required: true
     param :job_date, String, desc: 'Job date', required: true
     param :performed, [true, false], desc: 'Performed'
@@ -87,6 +89,6 @@ class JobsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def job_params
-      params.require(:job).permit(:max_rate, :description, :job_date, :performed, :owner_user_id, :address)
+      params.require(:job).permit(:max_rate, :description, :job_date, :performed, :owner_user_id, :address, :name)
     end
 end

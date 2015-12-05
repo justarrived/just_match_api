@@ -6,6 +6,7 @@ class Job < ActiveRecord::Base
   has_many :job_users
   has_many :users, through: :job_users
 
+  validates :name, length: { minimum: 2 }, allow_blank: false
   validates :max_rate, numericality: { only_integer: true }, allow_blank: false
   validates :description, length: { minimum: 10 }, allow_blank: false
   validates :address, length: { minimum: 2 }, allow_blank: false
@@ -41,4 +42,5 @@ end
 #  latitude      :float
 #  longitude     :float
 #  address       :string
+#  name          :string
 #
