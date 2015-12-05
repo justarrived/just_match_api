@@ -3,6 +3,9 @@ class JobsController < ApplicationController
 
   # GET /jobs
   # GET /jobs.json
+  api :GET, '/jobs', 'List jobs'
+  description 'Show list of jobs'
+  formats ['json']
   def index
     @jobs = Job.all
     render json: @jobs
@@ -10,21 +13,24 @@ class JobsController < ApplicationController
 
   # GET /jobs/1
   # GET /jobs/1.json
+  api :GET, '/jobs/:id', 'Show job'
+  description 'Show job'
+  formats ['json']
   def show
     render json: @job
   end
 
-  # GET /jobs/new
-  def new
-    @job = Job.new
-  end
-
-  # GET /jobs/1/edit
-  def edit
-  end
-
   # POST /jobs
   # POST /jobs.json
+  api :POST, '/jobs/', 'Create new job'
+  description 'Create new job'
+  formats ['json']
+  param :skills, Array, desc: 'List of skill ids'
+  param :max_rate, Integer, desc: 'Max rate'
+  param :description, String, desc: 'Description'
+  param :job_date, String, desc: 'Job date'
+  param :performed, [true, false], desc: 'Performed'
+  param :owner_user_id, Integer, desc: 'User id for the job owner'
   def create
     @job = Job.new(job_params)
 
@@ -38,6 +44,14 @@ class JobsController < ApplicationController
 
   # PATCH/PUT /jobs/1
   # PATCH/PUT /jobs/1.json
+  api :PATCH, '/jobs/:id', 'Update job'
+  description 'Update job'
+  formats ['json']
+  param :max_rate, Integer, desc: 'Max rate'
+  param :description, String, desc: 'Description'
+  param :job_date, String, desc: 'Job date'
+  param :performed, [true, false], desc: 'Performed'
+  param :owner_user_id, Integer, desc: 'User id for the job owner'
   def update
     @job.assign_attributes(job_params)
 
@@ -53,6 +67,9 @@ class JobsController < ApplicationController
 
   # DELETE /jobs/1
   # DELETE /jobs/1.json
+  api :DELETE, '/jobs/:id', 'Delete job'
+  description 'Delete job'
+  formats ['json']
   def destroy
     @job.destroy
     render json: {}

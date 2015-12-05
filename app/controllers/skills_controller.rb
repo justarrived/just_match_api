@@ -3,6 +3,9 @@ class SkillsController < ApplicationController
 
   # GET /skills
   # GET /skills.json
+  api :GET, '/skills', 'List skills'
+  description 'Show list of skills'
+  formats ['json']
   def index
     @skills = Skill.all
     render json: @skills
@@ -10,21 +13,19 @@ class SkillsController < ApplicationController
 
   # GET /skills/1
   # GET /skills/1.json
+  api :GET, '/skills/:id', 'Show skill'
+  description 'Show skill'
+  formats ['json']
   def show
     render json: @skill
   end
 
-  # GET /skills/new
-  def new
-    @skill = Skill.new
-  end
-
-  # GET /skills/1/edit
-  def edit
-  end
-
   # POST /skills
   # POST /skills.json
+  api :POST, '/skills/', 'Create new skill'
+  description 'Create new skill'
+  formats ['json']
+  param :name, String, desc: 'Name'
   def create
     @skill = Skill.new(skill_params)
 
@@ -37,6 +38,10 @@ class SkillsController < ApplicationController
 
   # PATCH/PUT /skills/1
   # PATCH/PUT /skills/1.json
+  api :PATCH, '/skills/:id', 'Update skill'
+  description 'Update skill'
+  formats ['json']
+  param :name, String, desc: 'Name'
   def update
     if @skill.update(skill_params)
       render json: @skill, status: :ok
@@ -47,6 +52,9 @@ class SkillsController < ApplicationController
 
   # DELETE /skills/1
   # DELETE /skills/1.json
+  api :DELETE, '/skills/:id', 'Delete skill'
+  description 'Delete skill'
+  formats ['json']
   def destroy
     @skill.destroy
     render json: {}

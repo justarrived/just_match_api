@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  root 'users#new'
+  apipie
+  get '/', to: redirect('/api_docs')
 
   resources :user_skills
   resources :job_skills

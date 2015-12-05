@@ -3,6 +3,9 @@ class UsersController < ApplicationController
 
   # GET /users
   # GET /users.json
+  api :GET, '/users', 'List users'
+  description 'Show list of users'
+  formats ['json']
   def index
     @users = User.all
     render json: @users
@@ -10,21 +13,23 @@ class UsersController < ApplicationController
 
   # GET /users/1
   # GET /users/1.json
+  api :GET, '/users/:id', 'Show user'
+  description 'Show user'
+  formats ['json']
   def show
     render json: @user
   end
 
-  # GET /users/new
-  def new
-    @user = User.new
-  end
-
-  # GET /users/1/edit
-  def edit
-  end
-
   # POST /users
   # POST /users.json
+  api :POST, '/jobs/', 'Create new job'
+  description 'Create new job'
+  formats ['json']
+  param :skills, Array, desc: 'List of skill ids'
+  param :name, String, desc: 'Name'
+  param :description, String, desc: 'Description'
+  param :email, String, desc: 'Email'
+  param :phone, String, desc: 'Phone'
   def create
     @user = User.new(user_params)
     if @user.save
@@ -37,6 +42,13 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
+  api :POST, '/users/', 'Update new user'
+  description 'Update new user'
+  formats ['json']
+  param :name, String, desc: 'Name'
+  param :description, String, desc: 'Description'
+  param :email, String, desc: 'Email'
+  param :phone, String, desc: 'Phone'
   def update
     if @user.update(user_params)
       render json: @user, status: :ok
@@ -47,6 +59,9 @@ class UsersController < ApplicationController
 
   # DELETE /users/1
   # DELETE /users/1.json
+  api :DELETE, '/users/:id', 'Delete user'
+  description 'Delete user'
+  formats ['json']
   def destroy
     @user.destroy
     render json: {}
