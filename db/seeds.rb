@@ -31,6 +31,7 @@ users = User.all
 
 10.times do
   job = Job.create!(
+    name: Faker::Name.name,
     max_rate: rates.sample,
     description: Faker::Hipster.paragraph(2),
     job_date: (days_from_now_range.sample).days.from_now,
