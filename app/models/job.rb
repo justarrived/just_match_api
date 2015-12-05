@@ -1,4 +1,6 @@
 class Job < ActiveRecord::Base
+  include Geocodable
+  geocoded_by :full_street_address
   has_many :job_skills, inverse_of: :job
   has_many :skills, through: :job_skills
 
@@ -14,14 +16,6 @@ class Job < ActiveRecord::Base
 
   belongs_to :owner, class_name: 'User', foreign_key: 'owner_user_id'
 
-  geocoded_by :full_street_address   # can also be an IP address
-  after_validation :geocode,
-    if: ->(user){ user.address_changed? }          # auto-fetch coordinates if address changed
-
-  def full_street_address
-    address
-  end
-  
   # NOTE: You need to call this __before__ the record is saved/updated
   #       otherwise it will always return false
   def send_performed_notice?
