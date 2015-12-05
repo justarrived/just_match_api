@@ -38,8 +38,13 @@ class JobsController < ApplicationController
   # PATCH/PUT /jobs/1
   # PATCH/PUT /jobs/1.json
   def update
-    if @job.update(job_params)
+    @job.assign_attributes(job_params)
+
+    send_performed_notice = @job.send_performed_notice?
+
+    if @job.save
       render json: @job, status: :ok
+      JobPerformedNotifier.call(@job) if send_performed_notice
     else
       render json: @job.errors, status: :unprocessable_entity
     end

@@ -30,6 +30,7 @@ class JobUsersController < ApplicationController
 
     if @job_user.save
       render json: @job_user, status: :created
+      NewApplicantNotifier.call(@job_user)
     else
       render json: @job_user.errors, status: :unprocessable_entity
     end
@@ -38,8 +39,15 @@ class JobUsersController < ApplicationController
   # PATCH/PUT /job_users/1
   # PATCH/PUT /job_users/1.json
   def update
-    if @job_user.update(job_user_params)
+    # TODO: Make sure only the Job#owner can change JobUser#accepted
+    # TODO: Maks sure only the JobUser#user can change JobUser#rate
+    @job_user.assign_attributes(job_user_params)
+
+    notify_user = @job_user.send_accepted_notice?
+
+    if @job_user.save
       render json: @job_user, status: :ok
+      ApplicantAcceptedNotifier.call(@job_user) if notify_user
     else
       render json: @job_user.errors, status: :unprocessable_entity
     end
@@ -60,6 +68,6 @@ class JobUsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def job_user_params
-      params.require(:job_user).permit(:user_id, :job_id, :accepted, :role, :rate)
+      params.require(:job_user).permit(:user_id, :job_id, :accepted, :rate)
     end
 end

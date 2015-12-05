@@ -20,6 +20,16 @@ class Job < ActiveRecord::Base
   def full_street_address
     address
   end
+  
+  # NOTE: You need to call this __before__ the record is saved/updated
+  #       otherwise it will always return false
+  def send_performed_notice?
+    performed_changed? && performed
+  end
+
+  def job_user
+    job_users.find_by(accepted: true)
+  end
 end
 
 # == Schema Information

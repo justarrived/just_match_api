@@ -6,6 +6,12 @@ class JobUser < ActiveRecord::Base
 
   # TODO: Make sure Job#user != the user of this model
   # TODO: Validate uniqueness of {job|user}
+
+  # NOTE: You need to call this __before__ the record is saved/updated
+  #       otherwise it will always return false
+  def send_accepted_notice?
+    accepted_changed? && accepted
+  end
 end
 
 # == Schema Information
@@ -15,7 +21,7 @@ end
 #  id         :integer          not null, primary key
 #  user_id    :integer
 #  job_id     :integer
-#  accepted   :boolean
+#  accepted   :boolean          default(FALSE)
 #  rate       :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
