@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   has_many :job_users
   has_many :jobs, through: :job_users
 
+  # TODO: Validates format of email
   # validates :email, email: true, allow_blank: false
   validates :name, length: { minimum: 3 }, allow_blank: false
   validates :phone, length: { minimum: 9 }, allow_blank: false

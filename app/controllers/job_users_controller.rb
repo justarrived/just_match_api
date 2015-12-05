@@ -26,28 +26,20 @@ class JobUsersController < ApplicationController
   def create
     @job_user = JobUser.new(job_user_params)
 
-    respond_to do |format|
-      if @job_user.save
-        format.html { redirect_to @job_user, notice: 'Job user was successfully created.' }
-        format.json { render :show, status: :created, location: @job_user }
-      else
-        format.html { render :new }
-        format.json { render json: @job_user.errors, status: :unprocessable_entity }
-      end
+    if @job_user.save
+      render json: @job_user, status: :created
+    else
+      render json: @job_user.errors, status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /job_users/1
   # PATCH/PUT /job_users/1.json
   def update
-    respond_to do |format|
-      if @job_user.update(job_user_params)
-        format.html { redirect_to @job_user, notice: 'Job user was successfully updated.' }
-        format.json { render :show, status: :ok, location: @job_user }
-      else
-        format.html { render :edit }
-        format.json { render json: @job_user.errors, status: :unprocessable_entity }
-      end
+    if @job_user.update(job_user_params)
+      render json: @job_user, status: :ok
+    else
+      render json: @job_user.errors, status: :unprocessable_entity
     end
   end
 
@@ -55,10 +47,7 @@ class JobUsersController < ApplicationController
   # DELETE /job_users/1.json
   def destroy
     @job_user.destroy
-    respond_to do |format|
-      format.html { redirect_to job_users_url, notice: 'Job user was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    render json: {}
   end
 
   private

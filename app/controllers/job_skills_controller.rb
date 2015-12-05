@@ -26,13 +26,10 @@ class JobSkillsController < ApplicationController
   def create
     @job_skill = JobSkill.new(job_skill_params)
 
-    respond_to do |format|
       if @job_skill.save
-        format.html { redirect_to @job_skill, notice: 'Job skill was successfully created.' }
-        format.json { render :show, status: :created, location: @job_skill }
+        render json: @job_skill, status: :created
       else
-        format.html { render :new }
-        format.json { render json: @job_skill.errors, status: :unprocessable_entity }
+        render json: @job_skill.errors, status: :unprocessable_entity
       end
     end
   end
@@ -40,14 +37,10 @@ class JobSkillsController < ApplicationController
   # PATCH/PUT /job_skills/1
   # PATCH/PUT /job_skills/1.json
   def update
-    respond_to do |format|
-      if @job_skill.update(job_skill_params)
-        format.html { redirect_to @job_skill, notice: 'Job skill was successfully updated.' }
-        format.json { render :show, status: :ok, location: @job_skill }
-      else
-        format.html { render :edit }
-        format.json { render json: @job_skill.errors, status: :unprocessable_entity }
-      end
+    if @job_skill.update(job_skill_params)
+      render json: @job_skill, status: :ok
+    else
+      render json: @job_skill.errors, status: :unprocessable_entity
     end
   end
 
@@ -55,10 +48,7 @@ class JobSkillsController < ApplicationController
   # DELETE /job_skills/1.json
   def destroy
     @job_skill.destroy
-    respond_to do |format|
-      format.html { redirect_to job_skills_url, notice: 'Job skill was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    render json: {}
   end
 
   private

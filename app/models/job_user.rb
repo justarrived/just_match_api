@@ -5,6 +5,7 @@ class JobUser < ActiveRecord::Base
   validates_presence_of :user, :job
 
   # TODO: Make sure Job#user != the user of this model
+  # TODO: Validate uniqueness of {job|user}
 end
 
 # == Schema Information

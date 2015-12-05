@@ -6,6 +6,7 @@ class Skill < ActiveRecord::Base
   has_many :users, through: :user_skills
 
   validates :name, length: { minimum: 3 }, allow_blank: false
+  validates_uniqueness_of :name
 end
 
 # == Schema Information

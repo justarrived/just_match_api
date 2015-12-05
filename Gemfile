@@ -32,7 +32,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-gem 'annotate'
+gem 'rails-api'
+gem 'active_model_serializers'
 
 group :development, :test do
   gem 'faker'
@@ -41,7 +42,10 @@ group :development, :test do
 end
 
 group :development do
+  gem 'binding_of_caller'
+  gem 'better_errors'
   # Access an IRB console on exception pages or by using <%= console %> in views
+  gem 'annotate'
   gem 'web-console', '~> 2.0'
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring

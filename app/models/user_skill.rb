@@ -3,6 +3,7 @@ class UserSkill < ActiveRecord::Base
   belongs_to :skill
 
   validates_presence_of :user, :skill
+  # TODO: Validate uniqueness of {user|skill}
 end
 
 # == Schema Information

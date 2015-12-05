@@ -26,28 +26,20 @@ class UserSkillsController < ApplicationController
   def create
     @user_skill = UserSkill.new(user_skill_params)
 
-    respond_to do |format|
-      if @user_skill.save
-        format.html { redirect_to @user_skill, notice: 'User skill was successfully created.' }
-        format.json { render :show, status: :created, location: @user_skill }
-      else
-        format.html { render :new }
-        format.json { render json: @user_skill.errors, status: :unprocessable_entity }
-      end
+    if @user_skill.save
+      render json: @user_skill, status: :created
+    else
+      render json: @user_skill.errors, status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /user_skills/1
   # PATCH/PUT /user_skills/1.json
   def update
-    respond_to do |format|
-      if @user_skill.update(user_skill_params)
-        format.html { redirect_to @user_skill, notice: 'User skill was successfully updated.' }
-        format.json { render :show, status: :ok, location: @user_skill }
-      else
-        format.html { render :edit }
-        format.json { render json: @user_skill.errors, status: :unprocessable_entity }
-      end
+    if @user_skill.update(user_skill_params)
+      render json: @user_skill, status: :ok
+    else
+      render json: @user_skill.errors, status: :unprocessable_entity
     end
   end
 
@@ -55,10 +47,7 @@ class UserSkillsController < ApplicationController
   # DELETE /user_skills/1.json
   def destroy
     @user_skill.destroy
-    respond_to do |format|
-      format.html { redirect_to user_skills_url, notice: 'User skill was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    render json: {}
   end
 
   private
