@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :matching_jobs]
 
   # GET /users
   # GET /users.json
@@ -22,8 +22,8 @@ class UsersController < ApplicationController
 
   # POST /users
   # POST /users.json
-  api :POST, '/jobs/', 'Create new job'
-  description 'Create new job'
+  api :POST, '/jobs/', 'Create new user'
+  description 'Create new user'
   formats ['json']
   param :user, Hash, desc: 'User attributes', required: true do
     param :skills, Array, of: Integer, desc: 'List of skill ids', required: true
@@ -69,6 +69,14 @@ class UsersController < ApplicationController
   def destroy
     @user.destroy
     render json: {}
+  end
+
+  # GET /users/:user_id/matching_jobs.json
+  api :GET, '/users/:user_id/matching_jobs', 'Show matching jobs for user'
+  description 'Show matching jobs for user'
+  formats ['json']
+  def matching_jobs
+    render json: Job.matches_user(@user)
   end
 
   private

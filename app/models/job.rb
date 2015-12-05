@@ -1,5 +1,7 @@
 class Job < ActiveRecord::Base
   include Geocodable
+  include SkillMatcher
+
   has_many :job_skills, inverse_of: :job
   has_many :skills, through: :job_skills
 
@@ -24,6 +26,10 @@ class Job < ActiveRecord::Base
 
   def job_user
     job_users.find_by(accepted: true)
+  end
+
+  def self.matches_user(user, distance: 20)
+    matches_resource(user, distance: 20)
   end
 end
 

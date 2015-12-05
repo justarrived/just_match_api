@@ -34,7 +34,7 @@ class JobsController < ApplicationController
   def create
     @job = Job.new(job_params)
 
-    if @job.save && @job.geocoded?
+    if @job.save
       @job.skills = Skill.where(id: params[:job][:skills])
       render json: @job, include: ['skills'], status: :created
     else
@@ -77,8 +77,8 @@ class JobsController < ApplicationController
   end
 
   # GET /jobs/:job_id/matching_users.json
-  api :GET, '/jobs/:job_id/matching_users', 'Show matching users'
-  description 'Show matching users'
+  api :GET, '/jobs/:job_id/matching_users', 'Show matching users for job'
+  description 'Show matching users for job'
   formats ['json']
   def matching_users
     render json: User.matches_job(@job)
