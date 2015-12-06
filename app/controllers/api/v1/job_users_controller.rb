@@ -73,9 +73,7 @@ class Api::V1::JobUsersController < Api::V1::BaseController
 
     if job.owner == current_user
       @job_user.accepted = params[:job_user][:accepted]
-    end
-
-    if job.user == current_user
+    elsif user == current_user
       @job_user.rate = params[:job_user][:rate]
     end
 
