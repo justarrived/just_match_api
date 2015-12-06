@@ -76,7 +76,7 @@ class Api::V1::JobsController < ApplicationController
   end
 
   api :DELETE, '/jobs/:id', 'Delete job'
-  description 'Deletes job.'
+  description 'Deletes job if the user is allowed to.'
   formats ['json']
   def destroy
     unless @job.owner == current_user

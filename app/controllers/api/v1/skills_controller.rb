@@ -17,12 +17,17 @@ class Api::V1::SkillsController < ApplicationController
   end
 
   api :POST, '/skills/', 'Create new skill'
-  description 'Creates and returns the new skill.'
+  description 'Creates and returns the new skill if the user is allowed to.'
   formats ['json']
   param :skill, Hash, desc: 'Skill attributes', required: true do
     param :name, String, desc: 'Name', required: true
   end
   def create
+    unless current_user.admin?
+      render json: { error: 'Not authed.' }, status: 401
+      return
+    end
+
     @skill = Skill.new(skill_params)
 
     if @skill.save
@@ -39,6 +44,11 @@ class Api::V1::SkillsController < ApplicationController
     param :name, String, desc: 'Name'
   end
   def update
+    unless current_user.admin?
+      render json: { error: 'Not authed.' }, status: 401
+      return
+    end
+
     if @skill.update(skill_params)
       render json: @skill, status: :ok
     else
@@ -50,6 +60,11 @@ class Api::V1::SkillsController < ApplicationController
   description 'Deletes skill.'
   formats ['json']
   def destroy
+    unless current_user.admin?
+      render json: { error: 'Not authed.' }, status: 401
+      return
+    end
+
     @skill.destroy
     head :no_content
   end

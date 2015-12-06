@@ -2,7 +2,7 @@ class Api::V1::UserSkillsController < ApplicationController
   before_action :set_user_skill, only: [:show, :edit, :update, :destroy]
 
   api :GET, '/user_skills/:id', 'Show user skills'
-  description 'Returns list of user skills.'
+  description 'Returns list of user skills if the user is allowed to.'
   formats ['json']
   def index
     @user_skills = UserSkill.all
@@ -10,21 +10,26 @@ class Api::V1::UserSkillsController < ApplicationController
   end
 
   api :GET, '/user_skills/:id', 'Show user skill'
-  description 'Returns user skill.'
+  description 'Returns user skill if the user is allowed to.'
   formats ['json']
   def show
     render json: @user_skill
   end
 
   api :POST, '/user_skills/', 'Create new user skill'
-  description 'Creates and returns new user skill.'
+  description 'Creates and returns new user skill if the user is allowed to.'
   formats ['json']
   param :user_skill, Hash, desc: 'User skill attributes', required: true  do
-    param :user_id, Integer, desc: 'User id', required: true
     param :skill_id, Integer, desc: 'Skill id', required: true
   end
   def create
+    unless current_user
+      render json: { error: 'Not authed.' }, status: 401
+      return
+    end
+
     @user_skill = UserSkill.new(user_skill_params)
+    @user_skill.user = current_user
 
     if @user_skill.save
       render json: @user_skill, status: :created
@@ -34,13 +39,17 @@ class Api::V1::UserSkillsController < ApplicationController
   end
 
   api :PATCH, '/user_skills/:id', 'Update user skill'
-  description 'Updates and returns the updated user skill.'
+  description 'Updates and returns the updated user skill if the user is allowed to.'
   formats ['json']
   param :user_skill, Hash, desc: 'User skill attributes', required: true  do
-    param :user_id, Integer, desc: 'User id'
     param :skill_id, Integer, desc: 'Skill id'
   end
   def update
+    unless @user_skill.user == current_user
+      render json: { error: 'Not authed.' }, status: 401
+      return
+    end
+
     if @user_skill.update(user_skill_params)
       render json: @user_skill, status: :ok
     else
@@ -49,9 +58,14 @@ class Api::V1::UserSkillsController < ApplicationController
   end
 
   api :DELETE, '/user_skills/:id', 'Delete user skill'
-  description 'Deletes user skill.'
+  description 'Deletes user skill if the user is allowed to.'
   formats ['json']
   def destroy
+    unless @user_skill.user == current_user
+      render json: { error: 'Not authed.' }, status: 401
+      return
+    end
+
     @user_skill.destroy
     head :no_content
   end
@@ -64,6 +78,6 @@ class Api::V1::UserSkillsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_skill_params
-      params.require(:user_skill).permit(:user_id, :skill_id)
+      params.require(:user_skill).permit(:skill_id)
     end
 end
