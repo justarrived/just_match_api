@@ -18,7 +18,7 @@ require 'rails_helper'
 # Message expectations are only used when there is no simpler way to specify
 # that an instance is receiving a specific message.
 
-RSpec.describe LanguagesController, type: :controller do
+RSpec.describe Api::V1::LanguagesController, type: :controller do
 
   # This should return the minimal set of attributes required to create a valid
   # Language. As you add validations to Language, be sure to
@@ -48,21 +48,6 @@ RSpec.describe LanguagesController, type: :controller do
     it "assigns the requested language as @language" do
       language = Language.create! valid_attributes
       get :show, {:id => language.to_param}, valid_session
-      expect(assigns(:language)).to eq(language)
-    end
-  end
-
-  describe "GET #new" do
-    it "assigns a new language as @language" do
-      get :new, {}, valid_session
-      expect(assigns(:language)).to be_a_new(Language)
-    end
-  end
-
-  describe "GET #edit" do
-    it "assigns the requested language as @language" do
-      language = Language.create! valid_attributes
-      get :edit, {:id => language.to_param}, valid_session
       expect(assigns(:language)).to eq(language)
     end
   end

@@ -1,39 +1,29 @@
 require "rails_helper"
 
-RSpec.describe SkillsController, type: :routing do
+RSpec.describe Api::V1::SkillsController, type: :routing do
   describe "routing" do
-
     it "routes to #index" do
-      expect(:get => "/skills").to route_to("skills#index")
-    end
-
-    it "routes to #new" do
-      expect(:get => "/skills/new").to route_to("skills#new")
+      expect(get: "/api/v1/skills").to route_to("api/v1/skills#index")
     end
 
     it "routes to #show" do
-      expect(:get => "/skills/1").to route_to("skills#show", :id => "1")
-    end
-
-    it "routes to #edit" do
-      expect(:get => "/skills/1/edit").to route_to("skills#edit", :id => "1")
+      expect(get: "/api/v1/skills/1").to route_to("api/v1/skills#show", id: "1")
     end
 
     it "routes to #create" do
-      expect(:post => "/skills").to route_to("skills#create")
+      expect(post: "/api/v1/skills").to route_to("api/v1/skills#create")
     end
 
     it "routes to #update via PUT" do
-      expect(:put => "/skills/1").to route_to("skills#update", :id => "1")
+      expect(put: "/api/v1/skills/1").to route_to("api/v1/skills#update", id: "1")
     end
 
     it "routes to #update via PATCH" do
-      expect(:patch => "/skills/1").to route_to("skills#update", :id => "1")
+      expect(patch: "/api/v1/skills/1").to route_to("api/v1/skills#update", id: "1")
     end
 
     it "routes to #destroy" do
-      expect(:delete => "/skills/1").to route_to("skills#destroy", :id => "1")
+      expect(delete: "/api/v1/skills/1").to route_to("api/v1/skills#destroy", id: "1")
     end
-
   end
 end

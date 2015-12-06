@@ -1,39 +1,29 @@
 require "rails_helper"
 
-RSpec.describe UserLanguagesController, type: :routing do
+RSpec.describe Api::V1::UserLanguagesController, type: :routing do
   describe "routing" do
-
     it "routes to #index" do
-      expect(:get => "/user_languages").to route_to("user_languages#index")
-    end
-
-    it "routes to #new" do
-      expect(:get => "/user_languages/new").to route_to("user_languages#new")
+      expect(get: "/api/v1/user_languages").to route_to("api/v1/user_languages#index")
     end
 
     it "routes to #show" do
-      expect(:get => "/user_languages/1").to route_to("user_languages#show", :id => "1")
-    end
-
-    it "routes to #edit" do
-      expect(:get => "/user_languages/1/edit").to route_to("user_languages#edit", :id => "1")
+      expect(get: "/api/v1/user_languages/1").to route_to("api/v1/user_languages#show", id: "1")
     end
 
     it "routes to #create" do
-      expect(:post => "/user_languages").to route_to("user_languages#create")
+      expect(post: "/api/v1/user_languages").to route_to("api/v1/user_languages#create")
     end
 
     it "routes to #update via PUT" do
-      expect(:put => "/user_languages/1").to route_to("user_languages#update", :id => "1")
+      expect(put: "/api/v1/user_languages/1").to route_to("api/v1/user_languages#update", id: "1")
     end
 
     it "routes to #update via PATCH" do
-      expect(:patch => "/user_languages/1").to route_to("user_languages#update", :id => "1")
+      expect(patch: "/api/v1/user_languages/1").to route_to("api/v1/user_languages#update", id: "1")
     end
 
     it "routes to #destroy" do
-      expect(:delete => "/user_languages/1").to route_to("user_languages#destroy", :id => "1")
+      expect(delete: "/api/v1/user_languages/1").to route_to("api/v1/user_languages#destroy", id: "1")
     end
-
   end
 end

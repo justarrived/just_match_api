@@ -18,7 +18,7 @@ require 'rails_helper'
 # Message expectations are only used when there is no simpler way to specify
 # that an instance is receiving a specific message.
 
-RSpec.describe JobUsersController, type: :controller do
+RSpec.describe Api::V1::JobUsersController, type: :controller do
 
   # This should return the minimal set of attributes required to create a valid
   # JobUser. As you add validations to JobUser, be sure to
@@ -48,21 +48,6 @@ RSpec.describe JobUsersController, type: :controller do
     it "assigns the requested job_user as @job_user" do
       job_user = JobUser.create! valid_attributes
       get :show, {:id => job_user.to_param}, valid_session
-      expect(assigns(:job_user)).to eq(job_user)
-    end
-  end
-
-  describe "GET #new" do
-    it "assigns a new job_user as @job_user" do
-      get :new, {}, valid_session
-      expect(assigns(:job_user)).to be_a_new(JobUser)
-    end
-  end
-
-  describe "GET #edit" do
-    it "assigns the requested job_user as @job_user" do
-      job_user = JobUser.create! valid_attributes
-      get :edit, {:id => job_user.to_param}, valid_session
       expect(assigns(:job_user)).to eq(job_user)
     end
   end
