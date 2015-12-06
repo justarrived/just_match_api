@@ -11,10 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151206022353) do
+ActiveRecord::Schema.define(version: 20151206035446) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "comments", force: :cascade do |t|
+    t.text     "body"
+    t.integer  "commentable_id"
+    t.string   "commentable_type"
+    t.integer  "owner_user_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  add_index "comments", ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id", using: :btree
 
   create_table "job_skills", force: :cascade do |t|
     t.integer  "job_id"
@@ -54,9 +65,9 @@ ActiveRecord::Schema.define(version: 20151206022353) do
 
   create_table "languages", force: :cascade do |t|
     t.string   "lang_code"
-    t.boolean  "primary"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.boolean  "primary",    default: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   create_table "skills", force: :cascade do |t|

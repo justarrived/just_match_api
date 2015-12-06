@@ -17,6 +17,7 @@ Rails.application.routes.draw do
         end
       end
 
+      resources :comments, except: [:new, :edit]
       resources :user_languages, except: [:new, :edit]
       resources :user_skills, except: [:new, :edit]
       resources :job_skills, except: [:new, :edit]

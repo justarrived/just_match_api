@@ -3,4 +3,5 @@ class UserSerializer < ActiveModel::Serializer
     :latitude, :address
 
   has_many :languages
+  has_many :comments
 end

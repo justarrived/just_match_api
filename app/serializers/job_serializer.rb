@@ -3,5 +3,7 @@ class JobSerializer < ActiveModel::Serializer
     :performed, :longitude, :latitude, :name, :address
 
   has_many :users, key: :applicants
+  has_many :comments
+
   has_one :owner
 end
