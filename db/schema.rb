@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151205155816) do
+ActiveRecord::Schema.define(version: 20151206022353) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,11 +52,28 @@ ActiveRecord::Schema.define(version: 20151205155816) do
     t.string   "name"
   end
 
+  create_table "languages", force: :cascade do |t|
+    t.string   "lang_code"
+    t.boolean  "primary"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "skills", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "user_languages", force: :cascade do |t|
+    t.integer  "language_id"
+    t.integer  "user_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "user_languages", ["language_id"], name: "index_user_languages_on_language_id", using: :btree
+  add_index "user_languages", ["user_id"], name: "index_user_languages_on_user_id", using: :btree
 
   create_table "user_skills", force: :cascade do |t|
     t.integer  "user_id"
@@ -84,6 +101,8 @@ ActiveRecord::Schema.define(version: 20151205155816) do
   add_foreign_key "job_skills", "skills"
   add_foreign_key "job_users", "jobs"
   add_foreign_key "job_users", "users"
+  add_foreign_key "user_languages", "languages"
+  add_foreign_key "user_languages", "users"
   add_foreign_key "user_skills", "skills"
   add_foreign_key "user_skills", "users"
 end

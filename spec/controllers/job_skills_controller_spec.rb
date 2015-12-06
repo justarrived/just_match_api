@@ -18,7 +18,7 @@ require 'rails_helper'
 # Message expectations are only used when there is no simpler way to specify
 # that an instance is receiving a specific message.
 
-RSpec.describe JobSkillsController, type: :controller do
+RSpec.describe Api::V1::JobSkillsController, type: :controller do
 
   # This should return the minimal set of attributes required to create a valid
   # JobSkill. As you add validations to JobSkill, be sure to
@@ -48,21 +48,6 @@ RSpec.describe JobSkillsController, type: :controller do
     it "assigns the requested job_skill as @job_skill" do
       job_skill = JobSkill.create! valid_attributes
       get :show, {:id => job_skill.to_param}, valid_session
-      expect(assigns(:job_skill)).to eq(job_skill)
-    end
-  end
-
-  describe "GET #new" do
-    it "assigns a new job_skill as @job_skill" do
-      get :new, {}, valid_session
-      expect(assigns(:job_skill)).to be_a_new(JobSkill)
-    end
-  end
-
-  describe "GET #edit" do
-    it "assigns the requested job_skill as @job_skill" do
-      job_skill = JobSkill.create! valid_attributes
-      get :edit, {:id => job_skill.to_param}, valid_session
       expect(assigns(:job_skill)).to eq(job_skill)
     end
   end

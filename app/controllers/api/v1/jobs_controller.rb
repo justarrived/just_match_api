@@ -74,7 +74,7 @@ class Api::V1::JobsController < ApplicationController
   formats ['json']
   def destroy
     @job.destroy
-    render json: {}
+    head :no_content
   end
 
   api :GET, '/jobs/:job_id/matching_users', 'Show matching users for job'

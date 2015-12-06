@@ -63,7 +63,7 @@ class Api::V1::JobUsersController < ApplicationController
   formats ['json']
   def destroy
     @job_user.destroy
-    render json: {}
+    head :no_content
   end
 
   private
