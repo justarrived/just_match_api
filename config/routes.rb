@@ -14,11 +14,11 @@ Rails.application.routes.draw do
       resources :users, param: :user_id, except: [:new, :edit] do
         member do
           get :matching_jobs
-          resources :languages, except: [:new, :edit]
           resources :comments, module: :users, except: [:new, :edit]
         end
       end
 
+      resources :languages, except: [:new, :edit]
       resources :user_languages, except: [:new, :edit, :update]
       resources :user_skills, except: [:new, :edit]
       resources :job_skills, except: [:new, :edit]

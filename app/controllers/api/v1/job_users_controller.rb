@@ -14,7 +14,8 @@ class Api::V1::JobUsersController < Api::V1::BaseController
   api :GET, '/job_users/:id', 'Show job users'
   description 'Returns a list of job users if user is allowed.'
   def index
-    @job_users = JobUser.all
+    page_index = params[:page].to_i
+    @job_users = JobUser.all.page(page_index)
 
     if current_user.admin?
       render json: @job_users

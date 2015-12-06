@@ -4,7 +4,7 @@ Apipie.configure do |config|
   config.doc_base_url            = '/api_docs'
   config.reload_controllers      = Rails.env.development?
   config.namespaced_resources    = false
-  config.validate                = true # Validate params against the doc spec
+  config.validate                = false # Validate params against the doc spec
   config.markup                  = Apipie::Markup::Markdown.new
   config.api_routes              = Rails.application.routes
   config.app_info['1.0'] = '

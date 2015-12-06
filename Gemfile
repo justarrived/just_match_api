@@ -14,6 +14,8 @@ gem 'rails_12factor', '~> 0.0.3'
 gem 'apipie-rails', '~> 0.3' # Easy API documentation
 gem 'maruku', '~> 0.7' # Needed for apipie-rails markdown support
 
+gem 'kaminari'
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 
