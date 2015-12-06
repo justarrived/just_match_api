@@ -13,7 +13,6 @@ class Api::V1::Users::CommentsController < Api::V1::CommentsController
       `users` or `jobs` and just use the records id for `:resource_id`.
     '
     formats [:json]
-    api_versions '1.0'
   end
 
   api :GET, '/:resource_name/:resource_id/comments', 'List comments'
@@ -32,6 +31,7 @@ class Api::V1::Users::CommentsController < Api::V1::CommentsController
   description 'Creates and returns the new comment if the user is allowed to.'
   param :comment, Hash, desc: 'Comment attributes', required: true do
     param :body, String, desc: 'Body of the comment', required: true
+    param :language_id, Integer, desc: 'Language id of the body content', required: true
     param :commentable_id, String, desc: 'Id of the owner resource', required: true
     param :commentable_type, String, desc: 'Owner resource type, i.e "jobs"', required: true
   end
@@ -43,6 +43,7 @@ class Api::V1::Users::CommentsController < Api::V1::CommentsController
   description 'Updates and returns the comment if the user is allowed to.'
   param :comment, Hash, desc: 'Comment attributes', required: true do
     param :body, String, desc: 'Body of the comment'
+    param :language_id, Integer, desc: 'Language id of the body content'
   end
   def update
     super

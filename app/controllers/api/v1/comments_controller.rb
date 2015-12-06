@@ -1,6 +1,8 @@
 class Api::V1::CommentsController < Api::V1::BaseController
   # NOTE: All API documentation for this Controller exists in users/comments_controller
 
+  resource_description { api_versions '1.0' }
+
   def index
     @comments = @commentable.comments
 

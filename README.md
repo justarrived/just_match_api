@@ -1,4 +1,4 @@
-# Just Arrived
+# JustArrived API
 
 Welcome to the, very unofficial, API backend for Just Arrived. Everything in this
 project is completely open source and is built upon open source software.
