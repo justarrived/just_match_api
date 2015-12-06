@@ -11,9 +11,8 @@ class Api::V1::UserSkillsController < Api::V1::BaseController
     api_versions '1.0'
   end
 
-  api :GET, '/user_skills/:id', 'Show user skills'
+  api :GET, '/user_skills', 'Show user skills'
   description 'Returns list of user skills if the user is allowed to.'
-  formats ['json']
   def index
     @user_skills = UserSkill.all
     render json: @user_skills
@@ -21,17 +20,17 @@ class Api::V1::UserSkillsController < Api::V1::BaseController
 
   api :GET, '/user_skills/:id', 'Show user skill'
   description 'Returns user skill if the user is allowed to.'
-  formats ['json']
+  example Doxxer.example_for(UserSkill)
   def show
     render json: @user_skill
   end
 
   api :POST, '/user_skills/', 'Create new user skill'
   description 'Creates and returns new user skill if the user is allowed to.'
-  formats ['json']
   param :user_skill, Hash, desc: 'User skill attributes', required: true  do
     param :skill_id, Integer, desc: 'Skill id', required: true
   end
+  example Doxxer.example_for(UserSkill)
   def create
     unless current_user
       render json: { error: 'Not authed.' }, status: 401
@@ -50,10 +49,10 @@ class Api::V1::UserSkillsController < Api::V1::BaseController
 
   api :PATCH, '/user_skills/:id', 'Update user skill'
   description 'Updates and returns the updated user skill if the user is allowed to.'
-  formats ['json']
   param :user_skill, Hash, desc: 'User skill attributes', required: true  do
     param :skill_id, Integer, desc: 'Skill id'
   end
+  example Doxxer.example_for(UserSkill)
   def update
     unless @user_skill.user == current_user
       render json: { error: 'Not authed.' }, status: 401
@@ -69,7 +68,6 @@ class Api::V1::UserSkillsController < Api::V1::BaseController
 
   api :DELETE, '/user_skills/:id', 'Delete user skill'
   description 'Deletes user skill if the user is allowed to.'
-  formats ['json']
   def destroy
     unless @user_skill.user == current_user
       render json: { error: 'Not authed.' }, status: 401

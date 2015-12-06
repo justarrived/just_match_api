@@ -20,6 +20,7 @@ class Api::V1::SkillsController < Api::V1::BaseController
   api :GET, '/skills/:id', 'Show skill'
   description 'Returns skill.'
   formats ['json']
+  example Doxxer.example_for(Skill)
   def show
     render json: @skill
   end
@@ -31,6 +32,7 @@ class Api::V1::SkillsController < Api::V1::BaseController
     param :name, String, desc: 'Name', required: true
     param :language_id, Integer, desc: 'Langauge id of the text content', required: true
   end
+  example Doxxer.example_for(Skill)
   def create
     unless current_user.admin?
       render json: { error: 'Not authed.' }, status: 401
@@ -53,6 +55,7 @@ class Api::V1::SkillsController < Api::V1::BaseController
     param :name, String, desc: 'Name'
     param :language_id, Integer, desc: 'Langauge id of the text content'
   end
+  example Doxxer.example_for(Skill)
   def update
     unless current_user.admin?
       render json: { error: 'Not authed.' }, status: 401

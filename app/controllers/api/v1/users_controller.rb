@@ -11,7 +11,6 @@ class Api::V1::UsersController < Api::V1::BaseController
 
   api :GET, '/users', 'List users'
   description 'Returns a list of users.'
-  formats ['json']
   def index
     @users = User.all
     render json: @users
@@ -19,14 +18,13 @@ class Api::V1::UsersController < Api::V1::BaseController
 
   api :GET, '/users/:id', 'Show user'
   description 'Returns user.'
-  formats ['json']
+  example Doxxer.example_for(User)
   def show
     render json: @user, include: ['languages']
   end
 
   api :POST, '/users/', 'Create new user'
   description 'Creates and returns a new user.'
-  formats ['json']
   param :user, Hash, desc: 'User attributes', required: true do
     param :skills, Array, of: Integer, desc: 'List of skill ids', required: true
     param :name, String, desc: 'Name', required: true
@@ -35,6 +33,7 @@ class Api::V1::UsersController < Api::V1::BaseController
     param :phone, String, desc: 'Phone', required: true
     param :language_id, Integer, desc: 'Langauge id of the text content', required: true
   end
+  example Doxxer.example_for(User)
   def create
     @user = User.new(user_params)
     if @user.save
@@ -47,7 +46,6 @@ class Api::V1::UsersController < Api::V1::BaseController
 
   api :PATCH, '/users/', 'Update new user'
   description 'Updates and returns the updated user if the user is allowed to.'
-  formats ['json']
   param :user, Hash, desc: 'User attributes', required: true do
     param :name, String, desc: 'Name'
     param :description, String, desc: 'Description'
@@ -55,6 +53,7 @@ class Api::V1::UsersController < Api::V1::BaseController
     param :phone, String, desc: 'Phone'
     param :language_id, Integer, desc: 'Langauge id of the text content'
   end
+  example Doxxer.example_for(User)
   def update
     unless @user == current_user
       render json: { error: 'Not authed.' }, status: 401
@@ -70,7 +69,6 @@ class Api::V1::UsersController < Api::V1::BaseController
 
   api :DELETE, '/users/:id', 'Delete user'
   description 'Deletes user user if the user is allowed to.'
-  formats ['json']
   def destroy
     unless @user == current_user
       render json: { error: 'Not authed.' }, status: 401
@@ -83,7 +81,6 @@ class Api::V1::UsersController < Api::V1::BaseController
 
   api :GET, '/users/:id/matching_jobs', 'Show matching jobs for user'
   description 'Returns the matching jobs for user if the user is allowed to.'
-  formats ['json']
   def matching_jobs
      if @user == current_user
        render json: { error: 'Not authed.' }, status: 401

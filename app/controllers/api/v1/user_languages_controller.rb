@@ -13,7 +13,6 @@ class Api::V1::UserLanguagesController < Api::V1::BaseController
 
   api :GET, '/user_languages', 'List user languages'
   description 'Returns a list of user languages.'
-  formats ['json']
   def index
     @user_languages = UserLanguage.all
 
@@ -22,17 +21,17 @@ class Api::V1::UserLanguagesController < Api::V1::BaseController
 
   api :GET, '/user_languages/:id', 'Show user language'
   description 'Return user language.'
-  formats ['json']
+  example Doxxer.example_for(UserLanguage)
   def show
     render json: @user_language
   end
 
   api :POST, '/user_languages/', 'Create new user language'
   description 'Creates and returns new user language.'
-  formats ['json']
   param :user_language, Hash, desc: 'User language attributes', required: true do
     param :language_id, Integer, desc: 'Language id', required: true
   end
+  example Doxxer.example_for(UserLanguage)
   def create
     unless current_user
       render json: { error: 'Not authed.' }, status: 401
@@ -51,7 +50,6 @@ class Api::V1::UserLanguagesController < Api::V1::BaseController
 
   api :DELETE, '/user_languages/:id', 'Delete user language'
   description 'Deletes user language.'
-  formats ['json']
   def destroy
     unless @user_language.user == current_user
       render json: { error: 'Not authed.' }, status: 401

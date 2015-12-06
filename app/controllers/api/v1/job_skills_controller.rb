@@ -21,6 +21,7 @@ class Api::V1::JobSkillsController < Api::V1::BaseController
 
   api :GET, '/job_skills/:id', 'Show job skill'
   description 'Returns job skill.'
+  example Doxxer.example_for(JobSkill)
   def show
     render json: @job_skill
   end
@@ -31,6 +32,7 @@ class Api::V1::JobSkillsController < Api::V1::BaseController
     param :job_id, Integer, desc: 'Job id', required: true
     param :skill_id, Integer, desc: 'Skill id', required: true
   end
+  example Doxxer.example_for(JobSkill)
   def create
     @job_skill = JobSkill.new(job_skill_params)
     job = current_user.jobs.find(params[:job_skill][:job_id])
@@ -53,6 +55,7 @@ class Api::V1::JobSkillsController < Api::V1::BaseController
   param :job_skill, Hash, desc: 'Job skill attributes', required: true do
     param :skill_id, Integer, desc: 'Skill id'
   end
+  example Doxxer.example_for(JobSkill)
   def update
     job = current_user.jobs.find(@job_skill.job)
     unless job

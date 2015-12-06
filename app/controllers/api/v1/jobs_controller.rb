@@ -18,6 +18,7 @@ class Api::V1::JobsController < Api::V1::BaseController
 
   api :GET, '/jobs/:id', 'Show job'
   description 'Return job.'
+  example Doxxer.example_for(Job)
   def show
     render json: @job
   end
@@ -35,6 +36,7 @@ class Api::V1::JobsController < Api::V1::BaseController
     param :language_id, Integer, desc: 'Langauge id of the text content', required: true
     param :owner_user_id, Integer, desc: 'User id for the job owner', required: true
   end
+  example Doxxer.example_for(Job)
   def create
     @job = Job.new(job_params)
     @job.owner_user_id = current_user.id
@@ -65,6 +67,7 @@ class Api::V1::JobsController < Api::V1::BaseController
     param :language_id, Integer, desc: 'Langauge id of the text content'
     param :owner_user_id, Integer, desc: 'User id for the job owner'
   end
+  example Doxxer.example_for(Job)
   def update
     unless @job.owner == current_user
       render json: { error: 'Not authed.' }, status: 401

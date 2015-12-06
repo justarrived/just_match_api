@@ -19,6 +19,7 @@ class Api::V1::LanguagesController < Api::V1::BaseController
 
   api :GET, '/languages/:id', 'Show language'
   description 'Return language.'
+  example Doxxer.example_for(Language)
   def show
     render json: @language
   end
@@ -28,6 +29,7 @@ class Api::V1::LanguagesController < Api::V1::BaseController
   param :job, Hash, desc: 'Language attributes', required: true do
     param :lang_code, String, desc: 'Language code', required: true
   end
+  example Doxxer.example_for(Language)
   def create
     unless current_user.admin?
       render json: { error: 'Not authed.' }, status: 401
@@ -48,6 +50,7 @@ class Api::V1::LanguagesController < Api::V1::BaseController
   param :job, Hash, desc: 'Language attributes', required: true do
     param :lang_code, String, desc: 'Name'
   end
+  example Doxxer.example_for(Language)
   def update
     unless current_user.admin?
       render json: { error: 'Not authed.' }, status: 401

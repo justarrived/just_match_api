@@ -25,6 +25,7 @@ class Api::V1::JobUsersController < Api::V1::BaseController
 
   api :GET, '/job_users/:id', 'Show job user'
   description 'Returns job user if user is allowed to.'
+  example Doxxer.example_for(JobUser)
   def show
     job = @job_user.job
     applicant = @job_user.user
@@ -41,6 +42,7 @@ class Api::V1::JobUsersController < Api::V1::BaseController
   param :job_user, Hash, desc: 'Job user attributes', required: true do
     param :job_id, Integer, desc: 'Job id', required: true
   end
+  example Doxxer.example_for(JobUser)
   def create
     unless current_user
       render json: { error: 'Not authed.' }, status: 401
@@ -67,6 +69,7 @@ class Api::V1::JobUsersController < Api::V1::BaseController
     param :job_id, Integer, desc: 'Job id'
     param :user_id, Integer, desc: 'User id'
   end
+  example Doxxer.example_for(JobUser)
   def update
     job = @job_user.job
     user = @job_user.user
