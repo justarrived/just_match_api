@@ -48,6 +48,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'letter_opener'
   gem 'bullet'
   gem 'binding_of_caller'
   gem 'better_errors'

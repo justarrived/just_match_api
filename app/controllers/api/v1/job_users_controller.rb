@@ -28,7 +28,7 @@ class Api::V1::JobUsersController < ApplicationController
 
     if @job_user.save
       render json: @job_user, status: :created
-      NewApplicantNotifier.call(@job_user)
+      NewApplicantNotifier.call(job_user: @job_user)
     else
       render json: @job_user.errors, status: :unprocessable_entity
     end
@@ -49,8 +49,10 @@ class Api::V1::JobUsersController < ApplicationController
     notify_user = @job_user.send_accepted_notice?
 
     if @job_user.save
+      if notify_user
+        ApplicantAcceptedNotifier.call(job_user: @job_user)
+      end
       render json: @job_user, status: :ok
-      ApplicantAcceptedNotifier.call(@job_user) if notify_user
     else
       render json: @job_user.errors, status: :unprocessable_entity
     end

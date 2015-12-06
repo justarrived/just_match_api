@@ -1,10 +1,8 @@
 class JobPerformedNotifier
-  # TODO: Actually send a notification
-  def self.call(job)
+  def self.call(job:)
     owner = job.owner
-    user = job.job_user.user
+    user = job.job_user
 
-    message = "Congrats #{user.name}! Its been verified that you've performed a job for #{owner.name}! "
-    Rails.logger.debug { "NOTIFY: #{message}" }
+    UserMailer.job_performed_email(user: user, job: job, owner: owner).deliver_later
   end
 end
