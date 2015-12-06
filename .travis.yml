@@ -1,0 +1,19 @@
+before_install:
+  - "echo '--colour' > ~/.rspec"
+  - "echo 'gem: --no-document' > ~/.gemrc"
+install:
+  - bin/setup
+branches:
+  only:
+    - master
+cache:
+  - bundler
+language:
+  - ruby
+notifications:
+  email: false
+rvm:
+  - 2.2.2
+addons:
+  postgresql: "9.3"
+sudo: false

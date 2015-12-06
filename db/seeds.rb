@@ -53,13 +53,19 @@ users = User.all
 
 max_jobs.times do
   address = addresses.sample
+  estimate = if (num = (1..10).to_a.sample) > 7
+               num
+             else
+              nil
+             end
   job = Job.create!(
     name: Faker::Name.name,
     max_rate: rates.sample,
     description: Faker::Hipster.paragraph(2),
     job_date: (days_from_now_range.sample).days.from_now,
     owner: users.sample,
-    address: address
+    address: address,
+    estimated_completion_time: estimate
   )
   job.skills << skills.sample
   Comment.create!(
