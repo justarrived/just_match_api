@@ -24,7 +24,7 @@ class Api::V1::JobSkillsController < Api::V1::BaseController
   description 'Returns job skill.'
   example Doxxer.example_for(JobSkill)
   def show
-    render json: @job_skill
+    render json: @job_skill, include: ['job', 'skill']
   end
 
   api :POST, '/job_skills/', 'Create new job skill'

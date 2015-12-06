@@ -23,7 +23,7 @@ class Api::V1::UserSkillsController < Api::V1::BaseController
   description 'Returns user skill if the user is allowed to.'
   example Doxxer.example_for(UserSkill)
   def show
-    render json: @user_skill
+    render json: @user_skill, include: ['user', 'skill']
   end
 
   api :POST, '/user_skills/', 'Create new user skill'

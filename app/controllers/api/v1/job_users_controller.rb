@@ -32,7 +32,7 @@ class Api::V1::JobUsersController < Api::V1::BaseController
     applicant = @job_user.user
 
     if job.owner == current_user || applicant == current_user
-      render json: @job_user
+      render json: @job_user, include: ['job', 'user']
     else
       render json: { error: 'Not authed.' }, status: 401
     end

@@ -23,7 +23,7 @@ class Api::V1::SkillsController < Api::V1::BaseController
   formats ['json']
   example Doxxer.example_for(Skill)
   def show
-    render json: @skill
+    render json: @skill, include: ['language']
   end
 
   api :POST, '/skills/', 'Create new skill'

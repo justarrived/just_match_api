@@ -5,5 +5,8 @@ class UserSerializer < ActiveModel::Serializer
   has_one :language
 
   has_many :languages
+  has_many :written_comments
   has_many :comments
+  has_many :skills
+  has_many :jobs
 end

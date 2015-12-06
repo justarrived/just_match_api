@@ -21,7 +21,7 @@ class Api::V1::JobsController < Api::V1::BaseController
   description 'Return job.'
   example Doxxer.example_for(Job)
   def show
-    render json: @job
+    render json: @job, include: ['language', 'owner']
   end
 
   api :POST, '/jobs/', 'Create new job'

@@ -13,7 +13,9 @@ class Api::V1::UsersController < Api::V1::BaseController
   description 'Returns a list of users.'
   def index
     page_index = params[:page].to_i
-    @users = User.all.page(page_index)
+    relations = [:skills, :jobs, :comments, :written_comments, :language, :languages]
+
+    @users = User.all.page(page_index).includes(relations)
     render json: @users
   end
 
@@ -21,7 +23,7 @@ class Api::V1::UsersController < Api::V1::BaseController
   description 'Returns user.'
   example Doxxer.example_for(User)
   def show
-    render json: @user, include: ['languages']
+    render json: @user, include: include_params
   end
 
   api :POST, '/users/', 'Create new user'
@@ -99,5 +101,10 @@ class Api::V1::UsersController < Api::V1::BaseController
 
     def user_params
       params.require(:user).permit(:name, :email, :phone, :description, :address)
+    end
+
+    def include_params
+      whitelist = %w(languages skills jobs)
+      IncludeParams.new(params[:include]).permit(whitelist)
     end
 end

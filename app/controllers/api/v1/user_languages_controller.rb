@@ -24,7 +24,7 @@ class Api::V1::UserLanguagesController < Api::V1::BaseController
   description 'Return user language.'
   example Doxxer.example_for(UserLanguage)
   def show
-    render json: @user_language
+    render json: @user_language, include: ['user', 'language']
   end
 
   api :POST, '/user_languages/', 'Create new user language'
