@@ -53,7 +53,7 @@ class Api::V1::UserSkillsController < ApplicationController
   formats ['json']
   def destroy
     @user_skill.destroy
-    render json: {}
+    head :no_content
   end
 
   private

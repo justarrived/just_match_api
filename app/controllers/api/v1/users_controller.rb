@@ -13,7 +13,7 @@ class Api::V1::UsersController < ApplicationController
   description 'Returns user.'
   formats ['json']
   def show
-    render json: @user
+    render json: @user, include: ['languages']
   end
 
   api :POST, '/users/', 'Create new user'
@@ -58,7 +58,7 @@ class Api::V1::UsersController < ApplicationController
   formats ['json']
   def destroy
     @user.destroy
-    render json: {}
+    head :no_content
   end
 
   api :GET, '/users/:id/matching_jobs', 'Show matching jobs for user'

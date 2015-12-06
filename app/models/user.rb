@@ -8,6 +8,9 @@ class User < ActiveRecord::Base
   has_many :job_users
   has_many :jobs, through: :job_users
 
+  has_many :user_languages
+  has_many :languages, through: :user_languages
+
   validates_presence_of :email
   # TODO: Validates format of email
   # validates :email, email: true, allow_blank: false
