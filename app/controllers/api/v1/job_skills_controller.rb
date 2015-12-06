@@ -15,7 +15,8 @@ class Api::V1::JobSkillsController < Api::V1::BaseController
   api :GET, '/job_skills/:id', 'Show job skills'
   description 'Returns a list of job skills.'
   def index
-    @job_skills = JobSkill.all
+    page_index = params[:page].to_i
+    @job_skills = JobSkill.all.page(page_index)
     render json: @job_skills
   end
 

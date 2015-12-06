@@ -14,7 +14,8 @@ class Api::V1::UserSkillsController < Api::V1::BaseController
   api :GET, '/user_skills', 'Show user skills'
   description 'Returns list of user skills if the user is allowed to.'
   def index
-    @user_skills = UserSkill.all
+    page_index = params[:page].to_i
+    @user_skills = UserSkill.all.page(page_index)
     render json: @user_skills
   end
 

@@ -13,7 +13,8 @@ class Api::V1::SkillsController < Api::V1::BaseController
   description 'Returns a list of skills.'
   formats ['json']
   def index
-    @skills = Skill.all
+    page_index = params[:page].to_i
+    @skills = Skill.all.page(page_index)
     render json: @skills
   end
 

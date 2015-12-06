@@ -12,7 +12,8 @@ class Api::V1::UsersController < Api::V1::BaseController
   api :GET, '/users', 'List users'
   description 'Returns a list of users.'
   def index
-    @users = User.all
+    page_index = params[:page].to_i
+    @users = User.all.page(page_index)
     render json: @users
   end
 

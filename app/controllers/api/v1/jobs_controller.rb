@@ -12,7 +12,8 @@ class Api::V1::JobsController < Api::V1::BaseController
   api :GET, '/jobs', 'List jobs'
   description 'Returns a list of jobs.'
   def index
-    @jobs = Job.all
+    page_index = params[:page].to_i
+    @jobs = Job.all.page(page_index)
     render json: @jobs
   end
 

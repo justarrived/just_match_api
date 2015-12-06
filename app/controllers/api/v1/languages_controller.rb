@@ -12,7 +12,8 @@ class Api::V1::LanguagesController < Api::V1::BaseController
   api :GET, '/languages', 'List languages'
   description 'Returns a list of languages.'
   def index
-    @languages = Language.all
+    page_index = params[:page].to_i
+    @languages = Language.all.page(page_index)
 
     render json: @languages
   end

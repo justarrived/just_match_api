@@ -18,7 +18,8 @@ class Api::V1::CommentsController < Api::V1::BaseController
   api :GET, '/:resource_name/:resource_id/comments', 'List comments'
   description 'Returns a list of comments.'
   def index
-    @comments = @commentable.comments
+    page_index = params[:page].to_i
+    @comments = @commentable.comments.page(page_index)
 
     render json: @comments
   end
@@ -50,7 +51,7 @@ class Api::V1::CommentsController < Api::V1::BaseController
     end
   end
 
-  api :PATCH, '/:resource_name/:resource_id/comments/:id', 'Update new comment'
+  api :PATCH, '/:resource_name/:resource_id/comments/:id', 'Update comment'
   description 'Updates and returns the comment if the user is allowed to.'
   param :comment, Hash, desc: 'Comment attributes', required: true do
     param :body, String, desc: 'Body of the comment'
