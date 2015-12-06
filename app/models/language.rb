@@ -11,7 +11,7 @@ end
 #
 #  id         :integer          not null, primary key
 #  lang_code  :string
-#  primary    :boolean
+#  primary    :boolean          default(FALSE)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
