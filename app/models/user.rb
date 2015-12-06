@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
   has_many :languages, through: :user_languages
 
   has_many :comments, as: :commentable
-  has_many :written_comments, as: :owner, class_name: 'Comment', foreign_key: 'owner_user_id'
+  has_many :written_comments, class_name: 'Comment', foreign_key: 'owner_user_id'
 
   validates_presence_of :email
   # TODO: Validates format of email

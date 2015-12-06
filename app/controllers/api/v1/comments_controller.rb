@@ -23,7 +23,7 @@ class Api::V1::CommentsController < ApplicationController
   param :comment, Hash, desc: 'Comment attributes', required: true do
     param :body, String, desc: 'Body of the comment', required: true
     param :commentable_id, String, desc: 'Id of the owner resource', required: true
-    param :commentable_type, String, desc: 'Owner resource type', required: true
+    param :commentable_type, String, desc: 'Owner resource type, i.e "jobs"', required: true
   end
   def create
     @comment = Comment.new(comment_params)

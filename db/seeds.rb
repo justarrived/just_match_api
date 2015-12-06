@@ -76,7 +76,12 @@ max_job_users.times do
   owner = job.owner
 
   user = users.sample
-  user = users.sample until owner != user
+  max_retries = 5
+  until owner != user
+    user = users.sample
+    max_retries += 1
+    break if max_retries < 1
+  end
 
   job = jobs.sample
   JobUser.create!(
