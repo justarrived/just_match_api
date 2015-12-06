@@ -1,7 +1,6 @@
 # Development seed
 
 max_langs           = ENV.fetch('MAX_LANGS', 5).to_i
-max_skills          = ENV.fetch('MAX_SKILLS', 5).to_i
 max_addresses       = ENV.fetch('MAX_ADDRESSES', 5).to_i
 max_skills          = ENV.fetch('MAX_SKILLS', 10).to_i
 max_users           = ENV.fetch('MAX_USERS', 10).to_i

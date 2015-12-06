@@ -24,7 +24,7 @@ class User < ActiveRecord::Base
   validates :address, length: { minimum: 2 }, allow_blank: false
 
   def self.matches_job(job, distance: 20)
-    matches_resource(job, distance: 20)
+    matches_resource(job, distance: distance)
   end
 
   def admin?
