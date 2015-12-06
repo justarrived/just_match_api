@@ -1,7 +1,7 @@
 # JustArrived API [![Build Status](https://travis-ci.org/buren/just_arrived.svg?branch=master)](https://travis-ci.org/buren/just_arrived) [![Code Climate](https://codeclimate.com/github/buren/just_arrived/badges/gpa.svg)](https://codeclimate.com/github/buren/just_arrived)
 
 Welcome to the, very unofficial, API backend for Just Arrived. Everything in this
-project is completely open source and is built upon open source software.
+project is open source and licensed under the permissive [MIT][LICENSE.txt].
 
 The overall goal of this project is to have it become to backend for the matching
 system. The API is designed to be consumed by multiple clients, so it is very
@@ -24,6 +24,8 @@ $ bin/setup
 $ bin/rails server
 # Now you can open http://localhost:3000
 ```
+
+You can also see the API documentation locally by going to `http://localhost:3000/api_docs`.
 
 ## Tests
 
