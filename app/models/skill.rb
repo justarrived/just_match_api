@@ -2,7 +2,7 @@ class Skill < ActiveRecord::Base
   belongs_to :language
 
   has_many :job_skills
-  has_many :jobs, through: :skill
+  has_many :jobs, through: :job_skills
 
   has_many :user_skills
   has_many :users, through: :user_skills
