@@ -1,9 +1,18 @@
-class Api::V1::JobUsersController < ApplicationController
+class Api::V1::JobUsersController < Api::V1::BaseController
   before_action :set_job_user, only: [:show, :edit, :update, :destroy]
+
+  resource_description do
+    name 'Job users'
+    short 'API for managing job users'
+    description '
+      Job users is the relationship between a Job and a User.
+    '
+    formats [:json]
+    api_versions '1.0'
+  end
 
   api :GET, '/job_users/:id', 'Show job users'
   description 'Returns a list of job users if user is allowed.'
-  formats ['json']
   def index
     @job_users = JobUser.all
 
@@ -16,7 +25,6 @@ class Api::V1::JobUsersController < ApplicationController
 
   api :GET, '/job_users/:id', 'Show job user'
   description 'Returns job user if user is allowed to.'
-  formats ['json']
   def show
     job = @job_user.job
     applicant = @job_user.user
@@ -30,7 +38,6 @@ class Api::V1::JobUsersController < ApplicationController
 
   api :POST, '/job_users/', 'Create new job user'
   description 'Creates and returns new job user if user is allowed to.'
-  formats ['json']
   param :job_user, Hash, desc: 'Job user attributes', required: true do
     param :job_id, Integer, desc: 'Job id', required: true
   end
@@ -56,7 +63,6 @@ class Api::V1::JobUsersController < ApplicationController
 
   api :PATCH, '/job_users/:id', 'Update job user'
   description 'Updates and returns the updated job user if user is allowed to.'
-  formats ['json']
   param :job_user, Hash, desc: 'Job user attributes', required: true do
     param :job_id, Integer, desc: 'Job id'
     param :user_id, Integer, desc: 'User id'
@@ -87,7 +93,6 @@ class Api::V1::JobUsersController < ApplicationController
 
   api :DELETE, '/job_users/:id', 'Delete job user'
   description 'Deletes job user if user is allowed to.'
-  formats ['json']
   def destroy
     if @job_user.user == current_user
       @job_user.destroy

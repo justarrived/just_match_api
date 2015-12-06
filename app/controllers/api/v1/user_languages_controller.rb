@@ -1,5 +1,15 @@
-class Api::V1::UserLanguagesController < ApplicationController
+class Api::V1::UserLanguagesController < Api::V1::BaseController
   before_action :set_user_language, only: [:show, :update, :destroy]
+
+  resource_description do
+    short 'API for managing user languages'
+    name 'User languages'
+    description '
+      User languages is the relationship between a user and a language.
+    '
+    formats [:json]
+    api_versions '1.0'
+  end
 
   api :GET, '/user_languages', 'List user languages'
   description 'Returns a list of user languages.'

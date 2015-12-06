@@ -1,5 +1,13 @@
-class Api::V1::SkillsController < ApplicationController
+class Api::V1::SkillsController < Api::V1::BaseController
   before_action :set_skill, only: [:show, :edit, :update, :destroy]
+
+  resource_description do
+    short 'API for managing skills'
+    name 'Skills'
+    description ''
+    formats [:json]
+    api_versions '1.0'
+  end
 
   api :GET, '/skills', 'List skills'
   description 'Returns a list of skills.'

@@ -1,9 +1,16 @@
-class Api::V1::LanguagesController < ApplicationController
+class Api::V1::LanguagesController < Api::V1::BaseController
   before_action :set_language, only: [:show, :update, :destroy]
+
+  resource_description do
+    short 'API for managing languages'
+    name 'Languages'
+    description ''
+    formats [:json]
+    api_versions '1.0'
+  end
 
   api :GET, '/languages', 'List languages'
   description 'Returns a list of languages.'
-  formats ['json']
   def index
     @languages = Language.all
 
@@ -12,14 +19,12 @@ class Api::V1::LanguagesController < ApplicationController
 
   api :GET, '/languages/:id', 'Show language'
   description 'Return language.'
-  formats ['json']
   def show
     render json: @language
   end
 
   api :POST, '/languages/', 'Create new language'
   description 'Creates and returns new language.'
-  formats ['json']
   param :job, Hash, desc: 'Language attributes', required: true do
     param :lang_code, String, desc: 'Language code', required: true
   end
@@ -40,7 +45,6 @@ class Api::V1::LanguagesController < ApplicationController
 
   api :PATCH, '/languages/:id', 'Update language'
   description 'Updates and returns the updated language.'
-  formats ['json']
   param :job, Hash, desc: 'Language attributes', required: true do
     param :lang_code, String, desc: 'Name'
   end
@@ -61,7 +65,6 @@ class Api::V1::LanguagesController < ApplicationController
 
   api :DELETE, '/languages/:id', 'Delete language'
   description 'Deletes language.'
-  formats ['json']
   def destroy
     if current_user.admin?
       @language.destroy

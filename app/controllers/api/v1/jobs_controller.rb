@@ -1,9 +1,16 @@
-class Api::V1::JobsController < ApplicationController
+class Api::V1::JobsController < Api::V1::BaseController
   before_action :set_job, only: [:show, :edit, :update, :destroy, :matching_users]
+
+  resource_description do
+    short 'API for managing jobs'
+    name 'Jobs'
+    description ''
+    formats [:json]
+    api_versions '1.0'
+  end
 
   api :GET, '/jobs', 'List jobs'
   description 'Returns a list of jobs.'
-  formats ['json']
   def index
     @jobs = Job.all
     render json: @jobs
@@ -11,14 +18,12 @@ class Api::V1::JobsController < ApplicationController
 
   api :GET, '/jobs/:id', 'Show job'
   description 'Return job.'
-  formats ['json']
   def show
     render json: @job
   end
 
   api :POST, '/jobs/', 'Create new job'
   description 'Creates and returns new job.'
-  formats ['json']
   param :job, Hash, desc: 'Job attributes', required: true do
     param :skills, Array, of: Integer, desc: 'List of skill ids', required: true
     param :max_rate, Integer, desc: 'Max rate', required: true
@@ -48,7 +53,6 @@ class Api::V1::JobsController < ApplicationController
 
   api :PATCH, '/jobs/:id', 'Update job'
   description 'Updates and returns the updated job.'
-  formats ['json']
   param :job, Hash, desc: 'Job attributes', required: true do
     param :max_rate, Integer, desc: 'Max rate'
     param :name, String, desc: 'Name'
@@ -77,7 +81,6 @@ class Api::V1::JobsController < ApplicationController
 
   api :DELETE, '/jobs/:id', 'Delete job'
   description 'Deletes job if the user is allowed to.'
-  formats ['json']
   def destroy
     unless @job.owner == current_user
       render json: { error: 'Not authed.' }, status: 401
@@ -91,7 +94,6 @@ class Api::V1::JobsController < ApplicationController
 
   api :GET, '/jobs/:job_id/matching_users', 'Show matching users for job'
   description 'Returns matching users for job if user is allowed to.'
-  formats ['json']
   def matching_users
     unless @job.owner == current_user
       render json: { error: 'Not authed.' }, status: 401
