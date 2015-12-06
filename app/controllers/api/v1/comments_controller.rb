@@ -1,23 +1,21 @@
 class Api::V1::CommentsController < ApplicationController
-  before_action :set_comment, only: [:show, :update, :destroy]
-
-  api :GET, '/comments', 'List comments'
+  api :GET, '/:resource_name/:resource_id/comments', 'List comments'
   description 'Returns a list of comments.'
   formats ['json']
   def index
-    @comments = Comment.all
+    @comments = @commentable.comments
 
     render json: @comments
   end
 
-  api :GET, '/comments/:id', 'Show comment'
+  api :GET, '/:resource_name/:resource_id/comments/:id', 'Show comment'
   description 'Returns comment.'
   formats ['json']
   def show
     render json: @comment
   end
 
-  api :POST, '/comments/', 'Create new comment'
+  api :POST, '/:resource_name/:resource_id/comments/', 'Create new comment'
   description 'Creates and returns the new comment.'
   formats ['json']
   param :comment, Hash, desc: 'Comment attributes', required: true do
@@ -26,7 +24,7 @@ class Api::V1::CommentsController < ApplicationController
     param :commentable_type, String, desc: 'Owner resource type, i.e "jobs"', required: true
   end
   def create
-    @comment = Comment.new(comment_params)
+    @comment = @commentable.comments.new(comment_params)
 
     if @comment.save
       render json: @comment, status: :created
@@ -35,7 +33,7 @@ class Api::V1::CommentsController < ApplicationController
     end
   end
 
-  api :PATCH, '/comments/:id', 'Update new comment'
+  api :PATCH, '/:resource_name/:resource_id/comments/:id', 'Update new comment'
   description 'Updates and returns the comment.'
   formats ['json']
   param :comment, Hash, desc: 'Comment attributes', required: true do
@@ -43,16 +41,16 @@ class Api::V1::CommentsController < ApplicationController
   end
   def update
     @comment = Comment.find(params[:id])
-    comment.body = comment_params[:body]
+    @comment.body = comment_params[:body]
 
     if @comment.save
-      head :no_content
+      render json: @comment, status: :ok
     else
       render json: @comment.errors, status: :unprocessable_entity
     end
   end
 
-  api :DELETE, '/comments/:id', 'Delete comment'
+  api :DELETE, '/:resource_name/:resource_id/comments/:id', 'Delete comment'
   description 'Deletes comment.'
   formats ['json']
   def destroy
@@ -63,11 +61,7 @@ class Api::V1::CommentsController < ApplicationController
 
   private
 
-    def set_comment
-      @comment = Comment.find(params[:id])
-    end
-
     def comment_params
-      params.require(:comment).permit(:body, :user_id, :commentable_id, :commentable_type)
+      params.require(:comment).permit(:body, :owner_user_id)
     end
 end

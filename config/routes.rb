@@ -4,20 +4,21 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :jobs, except: [:new, :edit] do
+      resources :jobs, param: :job_id, except: [:new, :edit] do
         member do
-          get 'matching_users'
+          get :matching_users
+          resources :comments, module: :jobs, except: [:new, :edit]
         end
       end
 
-      resources :users, except: [:new, :edit] do
+      resources :users, param: :user_id, except: [:new, :edit] do
         member do
-          get 'matching_jobs'
+          get :matching_jobs
           resources :languages, except: [:new, :edit]
+          resources :comments, module: :users, except: [:new, :edit]
         end
       end
 
-      resources :comments, except: [:new, :edit]
       resources :user_languages, except: [:new, :edit]
       resources :user_skills, except: [:new, :edit]
       resources :job_skills, except: [:new, :edit]
