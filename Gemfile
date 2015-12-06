@@ -27,6 +27,7 @@ gem 'faker'#, group: [:development, :test] This gem shouldn't need to be in prod
 group :development, :test do
   gem 'byebug'
   gem 'rspec-rails'
+  gem 'regressor'
 end
 
 group :development do
