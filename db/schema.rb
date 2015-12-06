@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151206162348) do
+ActiveRecord::Schema.define(version: 20151206181345) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,9 +23,11 @@ ActiveRecord::Schema.define(version: 20151206162348) do
     t.integer  "owner_user_id"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
+    t.integer  "language_id"
   end
 
   add_index "comments", ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id", using: :btree
+  add_index "comments", ["language_id"], name: "index_comments_on_language_id", using: :btree
 
   create_table "job_skills", force: :cascade do |t|
     t.integer  "job_id"
@@ -62,7 +64,10 @@ ActiveRecord::Schema.define(version: 20151206162348) do
     t.string   "address"
     t.string   "name"
     t.float    "estimated_completion_time"
+    t.integer  "language_id"
   end
+
+  add_index "jobs", ["language_id"], name: "index_jobs_on_language_id", using: :btree
 
   create_table "languages", force: :cascade do |t|
     t.string   "lang_code"
@@ -73,9 +78,12 @@ ActiveRecord::Schema.define(version: 20151206162348) do
 
   create_table "skills", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "language_id"
   end
+
+  add_index "skills", ["language_id"], name: "index_skills_on_language_id", using: :btree
 
   create_table "user_languages", force: :cascade do |t|
     t.integer  "language_id"
@@ -107,14 +115,21 @@ ActiveRecord::Schema.define(version: 20151206162348) do
     t.float    "latitude"
     t.float    "longitude"
     t.string   "address"
+    t.integer  "language_id"
   end
 
+  add_index "users", ["language_id"], name: "index_users_on_language_id", using: :btree
+
+  add_foreign_key "comments", "languages"
   add_foreign_key "job_skills", "jobs"
   add_foreign_key "job_skills", "skills"
   add_foreign_key "job_users", "jobs"
   add_foreign_key "job_users", "users"
+  add_foreign_key "jobs", "languages"
+  add_foreign_key "skills", "languages"
   add_foreign_key "user_languages", "languages"
   add_foreign_key "user_languages", "users"
   add_foreign_key "user_skills", "skills"
   add_foreign_key "user_skills", "users"
+  add_foreign_key "users", "languages"
 end

@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   include Geocodable
   include SkillMatcherQuery
+  belongs_to :language
 
   has_many :user_skills, inverse_of: :user
   has_many :skills, through: :user_skills
@@ -45,4 +46,9 @@ end
 #  latitude    :float
 #  longitude   :float
 #  address     :string
+#  language_id :integer
+#
+# Indexes
+#
+#  index_users_on_language_id  (language_id)
 #
