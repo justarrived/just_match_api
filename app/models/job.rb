@@ -12,6 +12,7 @@ class Job < ActiveRecord::Base
 
   has_many :comments, as: :commentable
 
+  validates_presence_of :language
   validates :name, length: { minimum: 2 }, allow_blank: false
   validates :max_rate, numericality: { only_integer: true }, allow_blank: false
   validates :description, length: { minimum: 10 }, allow_blank: false

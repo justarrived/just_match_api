@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
   has_many :comments, as: :commentable
   has_many :written_comments, class_name: 'Comment', foreign_key: 'owner_user_id'
 
-  validates_presence_of :email
+  validates_presence_of :email, :language
   # TODO: Validates format of email
   # validates :email, email: true, allow_blank: false
   validates :name, length: { minimum: 3 }, allow_blank: false

@@ -13,9 +13,11 @@ max_langs.times do
   Language.create!(lang_code: Faker::Company.bs[0..1])
 end
 
+languages = Language.all
+
 # Seed skills
 max_skills.times do
-  Skill.create!(name: Faker::Name.title)
+  Skill.create!(name: Faker::Name.title, language: languages.sample)
 end
 
 # Seed addresses
@@ -27,7 +29,6 @@ end
 
 # Seed users
 skills = Skill.all
-languages = Language.all
 max_users.times do
   address = addresses.sample
   user = User.create!(
@@ -36,13 +37,15 @@ max_users.times do
     phone: Faker::PhoneNumber.cell_phone,
     description: Faker::Hipster.paragraph(2),
     address: address,
+    language: languages.sample
   )
   user.skills << skills.sample
   user.languages << languages.sample
   Comment.create!(
     body: Faker::Company.bs,
     owner_user_id: user.id,
-    commentable: User.all.sample
+    commentable: User.all.sample,
+    language: languages.sample
   )
 end
 
@@ -65,13 +68,15 @@ max_jobs.times do
     job_date: (days_from_now_range.sample).days.from_now,
     owner: users.sample,
     address: address,
-    estimated_completion_time: estimate
+    estimated_completion_time: estimate,
+    language: languages.sample
   )
   job.skills << skills.sample
   Comment.create!(
     body: Faker::Company.bs,
     owner_user_id: users.sample.id,
-    commentable: users.sample
+    commentable: users.sample,
+    language: languages.sample
   )
 end
 

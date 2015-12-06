@@ -9,6 +9,7 @@ class Skill < ActiveRecord::Base
 
   validates :name, length: { minimum: 3 }, allow_blank: false
   validates_uniqueness_of :name
+  validates_presence_of :language
 end
 
 # == Schema Information
