@@ -1,6 +1,5 @@
 class NewApplicantNotifier
-  # TODO: Actually send a notification
-  def self.call(job_user)
+  def self.call(job_user: job_user)
     job = job_user.job
     user = job_user.user
     owner = job.owner

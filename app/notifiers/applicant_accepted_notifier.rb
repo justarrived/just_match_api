@@ -1,11 +1,9 @@
 class ApplicantAcceptedNotifier
-  # TODO: Actually send a notification
-  def self.call(job_user)
-    name = job_user.user.name
-    owner_email = job_user.job.owner.email
+  def self.call(job_user:)
+    job = job_user.job
+    owner = job_user.job.owner
+    user = job_user.user
 
-    message = "Congrats #{name}! You've been accepted for a job! "
-    message << "You can contact #{owner_email}, for more details."
-    Rails.logger.debug { "NOTIFY: #{message}" }
+    UserMailer.applicant_accepted_email(user: user, job: job, owner: owner).deliver_later
   end
 end

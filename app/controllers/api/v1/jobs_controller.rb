@@ -33,6 +33,12 @@ class Api::V1::JobsController < ApplicationController
 
     if @job.save
       @job.skills = Skill.where(id: params[:job][:skills])
+
+      owner = @job.owner
+      User.matches_job(@job).each do |user|
+        UserJobMatchNotifier.call(user: user, job: @job, owner: owner)
+      end
+
       render json: @job, include: ['skills'], status: :created
     else
       render json: @job.errors, status: :unprocessable_entity
@@ -56,8 +62,8 @@ class Api::V1::JobsController < ApplicationController
     send_performed_notice = @job.send_performed_notice?
 
     if @job.save
+      JobPerformedNotifier.call(job: @job) if send_performed_notice
       render json: @job, status: :ok
-      JobPerformedNotifier.call(@job) if send_performed_notice
     else
       render json: @job.errors, status: :unprocessable_entity
     end
