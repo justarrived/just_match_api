@@ -39,16 +39,17 @@ end
 #
 # Table name: jobs
 #
-#  id            :integer          not null, primary key
-#  max_rate      :integer
-#  description   :text
-#  job_date      :datetime
-#  performed     :boolean          default(FALSE)
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  owner_user_id :integer
-#  latitude      :float
-#  longitude     :float
-#  address       :string
-#  name          :string
+#  id                        :integer          not null, primary key
+#  max_rate                  :integer
+#  description               :text
+#  job_date                  :datetime
+#  performed                 :boolean          default(FALSE)
+#  created_at                :datetime         not null
+#  updated_at                :datetime         not null
+#  owner_user_id             :integer
+#  latitude                  :float
+#  longitude                 :float
+#  address                   :string
+#  name                      :string
+#  estimated_completion_time :float
 #

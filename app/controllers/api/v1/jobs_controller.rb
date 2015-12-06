@@ -27,6 +27,7 @@ class Api::V1::JobsController < Api::V1::BaseController
   param :job, Hash, desc: 'Job attributes', required: true do
     param :skills, Array, of: Integer, desc: 'List of skill ids', required: true
     param :max_rate, Integer, desc: 'Max rate', required: true
+    param :estimated_completion_time, Float, desc: 'Estmiated completion time'
     param :name, String, desc: 'Name', required: true
     param :description, String, desc: 'Description', required: true
     param :job_date, String, desc: 'Job date', required: true
@@ -59,6 +60,7 @@ class Api::V1::JobsController < Api::V1::BaseController
     param :description, String, desc: 'Description'
     param :job_date, String, desc: 'Job date'
     param :performed, [true, false], desc: 'Performed'
+    param :estimated_completion_time, Float, desc: 'Estmiated completion time'
     param :owner_user_id, Integer, desc: 'User id for the job owner'
   end
   def update
@@ -110,6 +112,6 @@ class Api::V1::JobsController < Api::V1::BaseController
     end
 
     def job_params
-      params.require(:job).permit(:max_rate, :description, :job_date, :performed, :address, :name)
+      params.require(:job).permit(:max_rate, :description, :job_date, :performed, :address, :name, :estimated_completion_time)
     end
 end
