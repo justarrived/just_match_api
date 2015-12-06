@@ -70,12 +70,11 @@ class Api::V1::SkillsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+
     def set_skill
       @skill = Skill.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def skill_params
       params.require(:skill).permit(:name)
     end

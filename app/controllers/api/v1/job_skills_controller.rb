@@ -73,12 +73,11 @@ class Api::V1::JobSkillsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+
     def set_job_skill
       @job_skill = JobSkill.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def job_skill_params
       params.require(:job_skill).permit(:skill_id)
     end

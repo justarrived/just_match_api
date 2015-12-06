@@ -6,9 +6,8 @@ class Api::V1::JobUsersController < ApplicationController
   formats ['json']
   def index
     @job_users = JobUser.all
-    job = @job_users.job
 
-    if job.owner == current_user
+    if current_user.admin?
       render json: @job_users
     else
       render json: { error: 'Not authed.' }, status: 401
@@ -97,12 +96,11 @@ class Api::V1::JobUsersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+
     def set_job_user
       @job_user = JobUser.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def job_user_params
       params.require(:job_user).permit(:job_id)
     end

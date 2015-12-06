@@ -71,12 +71,11 @@ class Api::V1::UserSkillsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+
     def set_user_skill
       @user_skill = UserSkill.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def user_skill_params
       params.require(:user_skill).permit(:skill_id)
     end
