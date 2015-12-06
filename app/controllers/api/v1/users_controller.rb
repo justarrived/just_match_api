@@ -1,5 +1,13 @@
-class Api::V1::UsersController < ApplicationController
+class Api::V1::UsersController < Api::V1::BaseController
   before_action :set_user, only: [:show, :edit, :update, :destroy, :matching_jobs]
+
+  resource_description do
+    short 'API for managing users'
+    name 'Users'
+    description ''
+    formats [:json]
+    api_versions '1.0'
+  end
 
   api :GET, '/users', 'List users'
   description 'Returns a list of users.'

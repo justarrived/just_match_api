@@ -79,6 +79,7 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
+    maruku (0.7.0)
     mime-types (2.99)
     mini_portile2 (2.0.0)
     minitest (5.8.3)
@@ -176,6 +177,7 @@ DEPENDENCIES
   faker
   geocoder (~> 1.2)
   letter_opener
+  maruku (~> 0.7)
   pg (~> 0.15)
   rails (= 4.2.5)
   rails-api (~> 0.4)

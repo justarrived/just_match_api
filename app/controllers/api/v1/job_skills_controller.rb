@@ -1,9 +1,19 @@
-class Api::V1::JobSkillsController < ApplicationController
+class Api::V1::JobSkillsController < Api::V1::BaseController
   before_action :set_job_skill, only: [:show, :edit, :update, :destroy]
+
+  resource_description do
+    name 'Job skills'
+    short 'API for managing job skills'
+    description '
+      Job skills is the relationship between a Job and a Skill.
+    '
+    formats [:json]
+    api_versions '1.0'
+  end
+
 
   api :GET, '/job_skills/:id', 'Show job skills'
   description 'Returns a list of job skills.'
-  formats ['json']
   def index
     @job_skills = JobSkill.all
     render json: @job_skills
@@ -11,14 +21,12 @@ class Api::V1::JobSkillsController < ApplicationController
 
   api :GET, '/job_skills/:id', 'Show job skill'
   description 'Returns job skill.'
-  formats ['json']
   def show
     render json: @job_skill
   end
 
   api :POST, '/job_skills/', 'Create new job skill'
   description 'Creates and returns a new job skill is user is allowed.'
-  formats ['json']
   param :job_skill, Hash, desc: 'Job skill attributes', required: true do
     param :job_id, Integer, desc: 'Job id', required: true
     param :skill_id, Integer, desc: 'Skill id', required: true
@@ -42,7 +50,6 @@ class Api::V1::JobSkillsController < ApplicationController
 
   api :PATCH, '/job_skills/:id', 'Update job skill'
   description 'Updates and returns the updated job skill if user is allowed.'
-  formats ['json']
   param :job_skill, Hash, desc: 'Job skill attributes', required: true do
     param :skill_id, Integer, desc: 'Skill id'
   end
@@ -62,7 +69,6 @@ class Api::V1::JobSkillsController < ApplicationController
 
   api :DELETE, '/job_skills/:id', 'Delete job skill'
   description 'Deletes job skill if user is allowed to.'
-  formats ['json']
   def destroy
     job = current_user.jobs.find(@job_skill.job)
     if job

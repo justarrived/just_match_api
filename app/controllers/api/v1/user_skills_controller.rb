@@ -1,5 +1,15 @@
-class Api::V1::UserSkillsController < ApplicationController
+class Api::V1::UserSkillsController < Api::V1::BaseController
   before_action :set_user_skill, only: [:show, :edit, :update, :destroy]
+
+  resource_description do
+    short 'API for managing user skills'
+    name 'User languages'
+    description '
+      User skills is the relationship between a user and a skill.
+    '
+    formats [:json]
+    api_versions '1.0'
+  end
 
   api :GET, '/user_skills/:id', 'Show user skills'
   description 'Returns list of user skills if the user is allowed to.'

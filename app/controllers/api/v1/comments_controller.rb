@@ -1,4 +1,4 @@
-class Api::V1::CommentsController < ApplicationController
+class Api::V1::CommentsController < Api::V1::BaseController
   # NOTE: All API documentation for this Controller exists in users/comments_controller
 
   def index
