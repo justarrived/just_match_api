@@ -20,8 +20,9 @@ gem 'maruku', '~> 0.7' # Needed for apipie-rails markdown support
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+gem 'faker'#, group: [:development, :test] This gem shouldn't need to be in production, but its handy during development
+
 group :development, :test do
-  gem 'faker'
   gem 'byebug'
   gem 'rspec-rails'
 end
