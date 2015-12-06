@@ -32,6 +32,7 @@ class Api::V1::JobsController < Api::V1::BaseController
     param :description, String, desc: 'Description', required: true
     param :job_date, String, desc: 'Job date', required: true
     param :performed, [true, false], desc: 'Performed'
+    param :language_id, Integer, desc: 'Langauge id of the text content', required: true
     param :owner_user_id, Integer, desc: 'User id for the job owner', required: true
   end
   def create
@@ -61,6 +62,7 @@ class Api::V1::JobsController < Api::V1::BaseController
     param :job_date, String, desc: 'Job date'
     param :performed, [true, false], desc: 'Performed'
     param :estimated_completion_time, Float, desc: 'Estmiated completion time'
+    param :language_id, Integer, desc: 'Langauge id of the text content'
     param :owner_user_id, Integer, desc: 'User id for the job owner'
   end
   def update

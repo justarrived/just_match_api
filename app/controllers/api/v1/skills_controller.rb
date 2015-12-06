@@ -29,6 +29,7 @@ class Api::V1::SkillsController < Api::V1::BaseController
   formats ['json']
   param :skill, Hash, desc: 'Skill attributes', required: true do
     param :name, String, desc: 'Name', required: true
+    param :language_id, Integer, desc: 'Langauge id of the text content', required: true
   end
   def create
     unless current_user.admin?
@@ -50,6 +51,7 @@ class Api::V1::SkillsController < Api::V1::BaseController
   formats ['json']
   param :skill, Hash, desc: 'Skill attributes', required: true do
     param :name, String, desc: 'Name'
+    param :language_id, Integer, desc: 'Langauge id of the text content'
   end
   def update
     unless current_user.admin?

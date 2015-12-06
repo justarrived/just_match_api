@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   include Geocodable
   include SkillMatcherQuery
+  belongs_to :language
 
   has_many :user_skills, inverse_of: :user
   has_many :skills, through: :user_skills
@@ -14,7 +15,7 @@ class User < ActiveRecord::Base
   has_many :comments, as: :commentable
   has_many :written_comments, class_name: 'Comment', foreign_key: 'owner_user_id'
 
-  validates_presence_of :email
+  validates_presence_of :email, :language
   # TODO: Validates format of email
   # validates :email, email: true, allow_blank: false
   validates :name, length: { minimum: 3 }, allow_blank: false
@@ -45,4 +46,9 @@ end
 #  latitude    :float
 #  longitude   :float
 #  address     :string
+#  language_id :integer
+#
+# Indexes
+#
+#  index_users_on_language_id  (language_id)
 #

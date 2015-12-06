@@ -33,6 +33,7 @@ class Api::V1::UsersController < Api::V1::BaseController
     param :description, String, desc: 'Description', required: true
     param :email, String, desc: 'Email', required: true
     param :phone, String, desc: 'Phone', required: true
+    param :language_id, Integer, desc: 'Langauge id of the text content', required: true
   end
   def create
     @user = User.new(user_params)
@@ -52,6 +53,7 @@ class Api::V1::UsersController < Api::V1::BaseController
     param :description, String, desc: 'Description'
     param :email, String, desc: 'Email'
     param :phone, String, desc: 'Phone'
+    param :language_id, Integer, desc: 'Langauge id of the text content'
   end
   def update
     unless @user == current_user

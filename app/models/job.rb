@@ -2,6 +2,8 @@ class Job < ActiveRecord::Base
   include Geocodable
   include SkillMatcherQuery
 
+  belongs_to :language
+
   has_many :job_skills, inverse_of: :job
   has_many :skills, through: :job_skills
 
@@ -10,6 +12,7 @@ class Job < ActiveRecord::Base
 
   has_many :comments, as: :commentable
 
+  validates_presence_of :language
   validates :name, length: { minimum: 2 }, allow_blank: false
   validates :max_rate, numericality: { only_integer: true }, allow_blank: false
   validates :description, length: { minimum: 10 }, allow_blank: false
@@ -52,4 +55,9 @@ end
 #  address                   :string
 #  name                      :string
 #  estimated_completion_time :float
+#  language_id               :integer
+#
+# Indexes
+#
+#  index_jobs_on_language_id  (language_id)
 #

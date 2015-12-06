@@ -6,4 +6,5 @@ class JobSerializer < ActiveModel::Serializer
   has_many :comments
 
   has_one :owner
+  has_one :language
 end

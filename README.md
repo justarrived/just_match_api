@@ -1,4 +1,4 @@
-# Just Arrived
+# JustArrived API
 
 Welcome to the, very unofficial, API backend for Just Arrived. Everything in this
 project is completely open source and is built upon open source software.
@@ -38,7 +38,7 @@ $ bin/rspec
 ## Contributing
 
 We would love if you'd like to help us build and improve this product for the
-benefit of everyone.
+benefit of everyone. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org/) code of conduct.
 
 Any contributions, feedback and suggestions are more than welcome.
 
