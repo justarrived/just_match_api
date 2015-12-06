@@ -25,6 +25,10 @@ class User < ActiveRecord::Base
   def self.matches_job(job, distance: 20)
     matches_resource(job, distance: 20)
   end
+
+  def admin?
+    true
+  end
 end
 
 # == Schema Information

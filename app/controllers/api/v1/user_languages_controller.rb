@@ -21,11 +21,16 @@ class Api::V1::UserLanguagesController < ApplicationController
   description 'Creates and returns new user language.'
   formats ['json']
   param :user_language, Hash, desc: 'User language attributes', required: true do
-    param :user_id, Integer, desc: 'User id', required: true
     param :language_id, Integer, desc: 'Language id', required: true
   end
   def create
+    unless current_user
+      render json: { error: 'Not authed.' }, status: 401
+      return
+    end
+
     @user_language = UserLanguage.new(user_language_params)
+    @user_language.user = current_user
 
     if @user_language.save
       render json: @user_language, status: :created, location: @user_language
@@ -38,6 +43,11 @@ class Api::V1::UserLanguagesController < ApplicationController
   description 'Deletes user language.'
   formats ['json']
   def destroy
+    unless @user_language.user == current_user
+      render json: { error: 'Not authed.' }, status: 401
+      return
+    end
+
     @user_language.destroy
 
     head :no_content
@@ -50,6 +60,6 @@ class Api::V1::UserLanguagesController < ApplicationController
     end
 
     def user_language_params
-      params.require(:user_language).permit(:language_id, :user_id)
+      params.require(:user_language).permit(:language_id)
     end
 end

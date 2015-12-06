@@ -37,7 +37,7 @@ class Api::V1::UsersController < ApplicationController
   end
 
   api :PATCH, '/users/', 'Update new user'
-  description 'Updates and returns the updated user.'
+  description 'Updates and returns the updated user if the user is allowed to.'
   formats ['json']
   param :user, Hash, desc: 'User attributes', required: true do
     param :name, String, desc: 'Name'
@@ -46,6 +46,11 @@ class Api::V1::UsersController < ApplicationController
     param :phone, String, desc: 'Phone'
   end
   def update
+    unless @user == current_user
+      render json: { error: 'Not authed.' }, status: 401
+      return
+    end
+
     if @user.update(user_params)
       render json: @user, status: :ok
     else
@@ -54,27 +59,36 @@ class Api::V1::UsersController < ApplicationController
   end
 
   api :DELETE, '/users/:id', 'Delete user'
-  description 'Deletes user.'
+  description 'Deletes user user if the user is allowed to.'
   formats ['json']
   def destroy
+    unless @user == current_user
+      render json: { error: 'Not authed.' }, status: 401
+      return
+    end
+
     @user.destroy
     head :no_content
   end
 
   api :GET, '/users/:id/matching_jobs', 'Show matching jobs for user'
-  description 'Returns the matching jobs for user.'
+  description 'Returns the matching jobs for user if the user is allowed to.'
   formats ['json']
   def matching_jobs
+     if @user == current_user
+       render json: { error: 'Not authed.' }, status: 401
+       return
+     end
+
     render json: Job.matches_user(@user)
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+
     def set_user
       @user = User.find(params[:user_id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
       params.require(:user).permit(:name, :email, :phone, :description, :address)
     end

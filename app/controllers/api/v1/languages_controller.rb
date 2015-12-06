@@ -24,6 +24,11 @@ class Api::V1::LanguagesController < ApplicationController
     param :lang_code, String, desc: 'Language code', required: true
   end
   def create
+    unless current_user.admin?
+      render json: { error: 'Not authed.' }, status: 401
+      return
+    end
+
     @language = Language.new(language_params)
 
     if @language.save
@@ -40,6 +45,11 @@ class Api::V1::LanguagesController < ApplicationController
     param :lang_code, String, desc: 'Name'
   end
   def update
+    unless current_user.admin?
+      render json: { error: 'Not authed.' }, status: 401
+      return
+    end
+
     @language = Language.find(params[:id])
 
     if @language.update(language_params)
@@ -53,7 +63,11 @@ class Api::V1::LanguagesController < ApplicationController
   description 'Deletes language.'
   formats ['json']
   def destroy
-    @language.destroy
+    if current_user.admin?
+      @language.destroy
+    else
+      render json: { error: 'Not authed.' }, status: 401
+    end
 
     head :no_content
   end
