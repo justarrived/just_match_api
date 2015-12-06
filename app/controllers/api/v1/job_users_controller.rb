@@ -2,29 +2,50 @@ class Api::V1::JobUsersController < ApplicationController
   before_action :set_job_user, only: [:show, :edit, :update, :destroy]
 
   api :GET, '/job_users/:id', 'Show job users'
-  description 'Returns a list of job users.'
+  description 'Returns a list of job users if user is allowed.'
   formats ['json']
   def index
     @job_users = JobUser.all
-    render json: @job_users
+    job = @job_users.job
+
+    if job.owner == current_user
+      render json: @job_users
+    else
+      render json: { error: 'Not authed.' }, status: 401
+    end
   end
 
   api :GET, '/job_users/:id', 'Show job user'
-  description 'Returns job user.'
+  description 'Returns job user if user is allowed to.'
   formats ['json']
   def show
-    render json: @job_user
+    job = @job_user.job
+    applicant = @job_user.user
+
+    if job.owner == current_user || applicant == current_user
+      render json: @job_user
+    else
+      render json: { error: 'Not authed.' }, status: 401
+    end
   end
 
-  api :POST, '/job_skills/', 'Create new job user'
-  description 'Creates and returns new job user.'
+  api :POST, '/job_users/', 'Create new job user'
+  description 'Creates and returns new job user if user is allowed to.'
   formats ['json']
   param :job_user, Hash, desc: 'Job user attributes', required: true do
     param :job_id, Integer, desc: 'Job id', required: true
-    param :user_id, Integer, desc: 'User id', required: true
   end
   def create
+    unless current_user
+      render json: { error: 'Not authed.' }, status: 401
+      return
+    end
     @job_user = JobUser.new(job_user_params)
+    @job_user.user = current_user
+
+    if job.user == current_user
+      @job_user.rate = params[:job_user][:rate]
+    end
 
     if @job_user.save
       render json: @job_user, status: :created
@@ -34,22 +55,29 @@ class Api::V1::JobUsersController < ApplicationController
     end
   end
 
-  api :PATCH, '/job_skills/:id', 'Update job user'
-  description 'Updates and returns the updated job user.'
+  api :PATCH, '/job_users/:id', 'Update job user'
+  description 'Updates and returns the updated job user if user is allowed to.'
   formats ['json']
   param :job_user, Hash, desc: 'Job user attributes', required: true do
     param :job_id, Integer, desc: 'Job id'
     param :user_id, Integer, desc: 'User id'
   end
   def update
-    # TODO: Make sure only the Job#owner can change JobUser#accepted
-    # TODO: Maks sure only the JobUser#user can change JobUser#rate
-    @job_user.assign_attributes(job_user_params)
+    job = @job_user.job
+    user = @job_user.user
 
-    notify_user = @job_user.send_accepted_notice?
+    if job.owner == current_user
+      @job_user.accepted = params[:job_user][:accepted]
+    end
+
+    if job.user == current_user
+      @job_user.rate = params[:job_user][:rate]
+    end
+
+    should_notify_user = @job_user.send_accepted_notice?
 
     if @job_user.save
-      if notify_user
+      if should_notify_user
         ApplicantAcceptedNotifier.call(job_user: @job_user)
       end
       render json: @job_user, status: :ok
@@ -59,10 +87,12 @@ class Api::V1::JobUsersController < ApplicationController
   end
 
   api :DELETE, '/job_users/:id', 'Delete job user'
-  description 'Deletes job user.'
+  description 'Deletes job user if user is allowed to.'
   formats ['json']
   def destroy
-    @job_user.destroy
+    if @job_user.user == current_user
+      @job_user.destroy
+    end
     head :no_content
   end
 
@@ -74,6 +104,6 @@ class Api::V1::JobUsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def job_user_params
-      params.require(:job_user).permit(:user_id, :job_id, :accepted, :rate)
+      params.require(:job_user).permit(:job_id)
     end
 end

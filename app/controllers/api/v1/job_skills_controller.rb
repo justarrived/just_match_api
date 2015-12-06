@@ -17,7 +17,7 @@ class Api::V1::JobSkillsController < ApplicationController
   end
 
   api :POST, '/job_skills/', 'Create new job skill'
-  description 'Creates and returns a new job skill.'
+  description 'Creates and returns a new job skill is user is allowed.'
   formats ['json']
   param :job_skill, Hash, desc: 'Job skill attributes', required: true do
     param :job_id, Integer, desc: 'Job id', required: true
@@ -25,6 +25,13 @@ class Api::V1::JobSkillsController < ApplicationController
   end
   def create
     @job_skill = JobSkill.new(job_skill_params)
+    job = current_user.jobs.find(params[:job_skill][:job_id])
+    unless job
+       render json: { error: 'Not authed.' }, status: 401
+       return
+    end
+
+    @job_skill.job = job
 
     if @job_skill.save
       render json: @job_skill, status: :created
@@ -34,13 +41,18 @@ class Api::V1::JobSkillsController < ApplicationController
   end
 
   api :PATCH, '/job_skills/:id', 'Update job skill'
-  description 'Updates and returns the updated job skill.'
+  description 'Updates and returns the updated job skill if user is allowed.'
   formats ['json']
   param :job_skill, Hash, desc: 'Job skill attributes', required: true do
-    param :job_id, Integer, desc: 'Job id'
     param :skill_id, Integer, desc: 'Skill id'
   end
   def update
+    job = current_user.jobs.find(@job_skill.job)
+    unless job
+       render json: { error: 'Not authed.' }, status: 401
+       return
+    end
+
     if @job_skill.update(job_skill_params)
       render json: @job_skill, status: :ok
     else
@@ -49,10 +61,14 @@ class Api::V1::JobSkillsController < ApplicationController
   end
 
   api :DELETE, '/job_skills/:id', 'Delete job skill'
-  description 'Deletes job skill.'
+  description 'Deletes job skill if user is allowed to.'
   formats ['json']
   def destroy
-    @job_skill.destroy
+    job = current_user.jobs.find(@job_skill.job)
+    if job
+      @job_skill.destroy
+    end
+
     head :no_content
   end
 
@@ -64,6 +80,6 @@ class Api::V1::JobSkillsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def job_skill_params
-      params.require(:job_skill).permit(:job_id, :skill_id)
+      params.require(:job_skill).permit(:skill_id)
     end
 end

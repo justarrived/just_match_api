@@ -1,6 +1,6 @@
 class Api::V1::Jobs::CommentsController < Api::V1::CommentsController
   before_action :set_commentable
-  before_action :set_comment, only: [:show, :update, :destroy]
+  before_action :set_comment, only: [:show]
 
   private
 

@@ -1,4 +1,6 @@
 class Api::V1::CommentsController < ApplicationController
+  # NOTE: All API documentation for this Controller exists in users/comments_controller
+
   def index
     @comments = @commentable.comments
 
@@ -11,6 +13,7 @@ class Api::V1::CommentsController < ApplicationController
 
   def create
     @comment = @commentable.comments.new(comment_params)
+    @comment.owner_user_id = current_user.id
 
     if @comment.save
       render json: @comment, status: :created
@@ -20,7 +23,7 @@ class Api::V1::CommentsController < ApplicationController
   end
 
   def update
-    @comment = Comment.find(params[:id])
+    @comment = current_user.written_comments.find(params[:id])
     @comment.body = comment_params[:body]
 
     if @comment.save
@@ -31,6 +34,7 @@ class Api::V1::CommentsController < ApplicationController
   end
 
   def destroy
+    @comment = current_user.written_comments.find(params[:id])
     @comment.destroy
 
     head :no_content
@@ -39,6 +43,6 @@ class Api::V1::CommentsController < ApplicationController
   private
 
     def comment_params
-      params.require(:comment).permit(:body, :owner_user_id)
+      params.require(:comment).permit(:body)
     end
 end

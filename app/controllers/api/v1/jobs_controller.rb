@@ -30,6 +30,7 @@ class Api::V1::JobsController < ApplicationController
   end
   def create
     @job = Job.new(job_params)
+    @job.owner_user_id = current_user.id
 
     if @job.save
       @job.skills = Skill.where(id: params[:job][:skills])
@@ -57,12 +58,17 @@ class Api::V1::JobsController < ApplicationController
     param :owner_user_id, Integer, desc: 'User id for the job owner'
   end
   def update
+    unless @job.owner == current_user
+      render json: { error: 'Not authed.' }, status: 401
+      return
+    end
+
     @job.assign_attributes(job_params)
 
-    send_performed_notice = @job.send_performed_notice?
+    should_notify = @job.send_performed_notice?
 
     if @job.save
-      JobPerformedNotifier.call(job: @job) if send_performed_notice
+      JobPerformedNotifier.call(job: @job) if should_notify
       render json: @job, status: :ok
     else
       render json: @job.errors, status: :unprocessable_entity
@@ -73,14 +79,25 @@ class Api::V1::JobsController < ApplicationController
   description 'Deletes job.'
   formats ['json']
   def destroy
+    unless @job.owner == current_user
+      render json: { error: 'Not authed.' }, status: 401
+      return
+    end
+
     @job.destroy
+
     head :no_content
   end
 
   api :GET, '/jobs/:job_id/matching_users', 'Show matching users for job'
-  description 'Returns matching users for job.'
+  description 'Returns matching users for job if user is allowed to.'
   formats ['json']
   def matching_users
+    unless @job.owner == current_user
+      render json: { error: 'Not authed.' }, status: 401
+      return
+    end
+
     render json: User.matches_job(@job)
   end
 
@@ -92,6 +109,6 @@ class Api::V1::JobsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def job_params
-      params.require(:job).permit(:max_rate, :description, :job_date, :performed, :owner_user_id, :address, :name)
+      params.require(:job).permit(:max_rate, :description, :job_date, :performed, :address, :name)
     end
 end
