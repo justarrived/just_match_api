@@ -1,28 +1,31 @@
 module SkillMatcherQuery
   def self.included(receiver)
     receiver.class_eval do
-      def self.matches_resource(base_record, distance: 20)
-        name = if base_record.is_a?(User)
-                 'job_skills'
-               elsif base_record.is_a?(Job)
-                'user_skills'
-               end
+      def self._order_by_matching(skills)
+        select_statement = [
+          "#{table_name}.*",
+          "count(skills.id) as skill_count"
+        ].join(',')
 
-        resource_skills = base_record.skills.pluck(:id)
-        matching_records = []
+        joins(:skills)
+          .where(skills: { id: skills })
+          .select(select_statement)
+          .group("#{table_name}.id")
+          .order('skill_count DESC')
+      end
 
-        # TODO: The below causes N+1 SQL
-        within(lat: base_record.latitude, long: base_record.longitude, distance: distance)
-          .joins(name.to_sym)
-          .where("#{name}.skill_id IN (?)", resource_skills)
-          .distinct
-          .each do |record|
-            if ArrayUtils.all_match?(record.skills.pluck(:id), resource_skills)
-              matching_records << record
-            end
-          end
+      def self.order_by_matching(base_record, distance: 20, strict_match: true)
+        skills = base_record.skills
 
-        matching_records
+        lat = base_record.latitude
+        long = base_record.longitude
+
+        records = within(lat: lat, long: long, distance: distance)
+          ._order_by_matching(skills)
+        if strict_match
+          records = records.having('count(skills.id) = ?', skills.length)
+        end
+        records
       end
     end
   end
