@@ -1,0 +1,16 @@
+{
+  "name": "JustArrived",
+  "description": "Match jobs/taks with user skills.",
+  "repository": "https://github.com/buren/just_arrived",
+  "keywords": [],
+  "env": {
+    "RAILS_ENV": "production",
+    "SECRET_KEY_BASE": {
+      "description": "Rails secret token",
+      "generator": "secret"
+    }
+  },
+  "scripts": {
+    "postdeploy": "bundle exec rake db:migrate"
+  }
+}
