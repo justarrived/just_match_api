@@ -14,7 +14,7 @@ module SkillMatcherQuery
           .order('skill_count DESC')
       end
 
-      def self.order_by_matching(base_record, distance: 20, strict_match: true)
+      def self.order_by_matching_skills(base_record, distance: 20, strict_match: true)
         skills = base_record.skills
 
         lat = base_record.latitude

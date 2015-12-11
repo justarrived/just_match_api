@@ -34,7 +34,7 @@ class Job < ActiveRecord::Base
   end
 
   def self.matches_user(user, distance: 20)
-    order_by_matching(user, distance: distance)
+    order_by_matching_skills(user, distance: distance)
   end
 end
 
