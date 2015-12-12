@@ -37,4 +37,19 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+
+  # Before the test suite is run
+  config.before(:suite) do
+    begin
+      # Since we're using Spring we must reload all factories
+      # see: https://github.com/thoughtbot/factory_girl/blob/master/GETTING_STARTED.md#rails-preloaders-and-rspec
+      FactoryGirl.reload
+      # Validate that all factories are valid
+      FactoryGirl.lint
+      DatabaseCleaner.strategy = :truncation
+      DatabaseCleaner.start
+    ensure
+      DatabaseCleaner.clean
+    end
+  end
 end

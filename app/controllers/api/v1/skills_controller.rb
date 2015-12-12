@@ -90,6 +90,6 @@ class Api::V1::SkillsController < Api::V1::BaseController
     end
 
     def skill_params
-      params.require(:skill).permit(:name)
+      params.require(:skill).permit(:name, :language_id)
     end
 end
