@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   include Geocodable
-  include SkillMatcherQuery
+  include SkillMatchable
   belongs_to :language
 
   has_many :user_skills, inverse_of: :user
@@ -23,10 +23,15 @@ class User < ActiveRecord::Base
   validates :description, length: { minimum: 10 }, allow_blank: false
   validates :address, length: { minimum: 2 }, allow_blank: false
 
-  def self.matches_job(job, distance: 20)
-    order_by_matching_skills(job, distance: distance)
+  def self.matches_job(job, distance: 20, strict_match: false)
+    lat = job.latitude
+    long = job.longitude
+
+    within(lat: lat, long: long, distance: distance)
+      .order_by_matching_skills(job, strict_match: strict_match)
   end
 
+  # TODO: Obvious placeholder until user roles is implemented..
   def admin?
     true
   end

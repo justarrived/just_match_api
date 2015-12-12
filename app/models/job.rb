@@ -1,6 +1,6 @@
 class Job < ActiveRecord::Base
   include Geocodable
-  include SkillMatcherQuery
+  include SkillMatchable
 
   belongs_to :language
 
@@ -23,18 +23,34 @@ class Job < ActiveRecord::Base
 
   belongs_to :owner, class_name: 'User', foreign_key: 'owner_user_id'
 
+  def self.matches_user(user, distance: 20, strict_match: false)
+    lat = user.latitude
+    long = user.longitude
+
+    within(lat: lat, long: long, distance: distance)
+      .order_by_matching_skills(user, strict_match: strict_match)
+  end
+
   # NOTE: You need to call this __before__ the record is saved/updated
   #       otherwise it will always return false
   def send_performed_notice?
     performed_changed? && performed
   end
 
-  def job_user
-    job_users.find_by(accepted: true)
+  def accepted_applicant
+    job_users.find_by(accepted: true).try!(:user)
   end
 
-  def self.matches_user(user, distance: 20)
-    order_by_matching_skills(user, distance: distance)
+  def accept_applicant!(user)
+    applicants.find_by(user: user).accept!
+  end
+
+  def create_applicant!(user)
+    users << user
+  end
+
+  def applicants
+    job_users
   end
 end
 

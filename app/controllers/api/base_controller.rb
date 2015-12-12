@@ -1,6 +1,4 @@
-class Api::BaseController < ActionController::API
-  include ActionController::Serialization
-
+class Api::BaseController < ApplicationController
   def current_user
     User.first || User.new
   end

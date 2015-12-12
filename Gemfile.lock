@@ -60,10 +60,18 @@ GEM
     byebug (8.2.1)
     coderay (1.1.0)
     concurrent-ruby (1.0.0)
+    crack (0.4.2)
+      safe_yaml (~> 1.0.0)
+    database_cleaner (1.5.0)
     debug_inspector (0.0.2)
     diff-lcs (1.2.5)
     docile (1.1.5)
     erubis (2.7.0)
+    factory_girl (4.5.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.5.0)
+      factory_girl (~> 4.5.0)
+      railties (>= 3.0.0)
     faker (1.6.1)
       i18n (~> 0.5)
     geocoder (1.2.12)
@@ -146,6 +154,7 @@ GEM
       rspec-mocks (~> 3.4.0)
       rspec-support (~> 3.4.0)
     rspec-support (3.4.1)
+    safe_yaml (1.0.4)
     shoulda-matchers (2.7.0)
       activesupport (>= 3.0.0)
     simplecov (0.11.1)
@@ -173,33 +182,39 @@ GEM
       binding_of_caller (>= 0.7.2)
       railties (>= 4.0)
       sprockets-rails (>= 2.0, < 4.0)
+    webmock (1.21.0)
+      addressable (>= 2.3.6)
+      crack (>= 0.3.2)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   active_model_serializers (~> 0.10.0.rc3)
-  annotate
+  annotate (~> 2.6)
   apipie-rails (~> 0.3)
-  better_errors
-  binding_of_caller
-  bullet
-  byebug
-  faker
+  better_errors (~> 2.1)
+  binding_of_caller (~> 0.7)
+  bullet (~> 4.14)
+  byebug (~> 8.2)
+  database_cleaner (~> 1.5)
+  factory_girl_rails (~> 4.0)
+  faker (~> 1.6)
   geocoder (~> 1.2)
-  kaminari
-  letter_opener
+  kaminari (~> 0.16)
+  letter_opener (~> 1.4)
   maruku (~> 0.7)
   pg (~> 0.15)
   rails (= 4.2.5)
   rails-api (~> 0.4)
   rails_12factor (~> 0.0.3)
-  regressor
-  rspec-rails
-  simplecov
-  spring
-  spring-commands-rspec
+  regressor (~> 0.6)
+  rspec-rails (~> 3.4)
+  simplecov (~> 0.11)
+  spring (~> 1.5)
+  spring-commands-rspec (~> 1.0)
   web-console (~> 2.0)
+  webmock (~> 1.21)
 
 BUNDLED WITH
    1.10.6

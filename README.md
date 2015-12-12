@@ -1,15 +1,11 @@
-# JustArrived API [![Build Status](https://travis-ci.org/buren/just_arrived.svg?branch=master)](https://travis-ci.org/buren/just_arrived) [![Code Climate](https://codeclimate.com/github/buren/just_arrived/badges/gpa.svg)](https://codeclimate.com/github/buren/just_arrived)
-
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/buren/just_arrived)
+# JustArrived API [![Build Status](https://travis-ci.org/buren/just_arrived.svg?branch=master)](https://travis-ci.org/buren/just_arrived) [![Code Climate](https://codeclimate.com/github/buren/just_arrived/badges/gpa.svg)](https://codeclimate.com/github/buren/just_arrived) [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/buren/just_arrived)
 
 Welcome to the, very unofficial, API backend for Just Arrived. Everything in this
 project is open source and licensed under the permissive [MIT](LICENSE.txt) license.
 
 The overall goal of this project is to have it become to backend for the matching
 system. The API is designed to be consumed by multiple clients, so it is very
-easy to implement a client (i.e Web/Android/iOS).
-
-### Index
+easy to implement a client (Web/Android/iOS etc..).
 
 * [Getting started](#getting-started)
 * [Tests](#tests)
@@ -39,9 +35,11 @@ To run the test
 $ bin/rspec
 ```
 
+_Note_: Running the tests with `bundle exec rspec` will not work, please use `bin/rspec` instead.
+
 ## Deploy
 
-The simplest way to deploy is with Heroku, you can get your version running in a few minutes.
+The simplest way to deploy is with Heroku, you can get your own version running in a few minutes.
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/buren/just_arrived)
 

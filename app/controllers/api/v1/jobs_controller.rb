@@ -46,7 +46,7 @@ class Api::V1::JobsController < Api::V1::BaseController
       @job.skills = Skill.where(id: params[:job][:skills])
 
       owner = @job.owner
-      User.matches_job(@job).each do |user|
+      User.matches_job(@job, strict_match: true).each do |user|
         UserJobMatchNotifier.call(user: user, job: @job, owner: owner)
       end
 
