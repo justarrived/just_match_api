@@ -1,5 +1,5 @@
 class Api::V1::JobsController < Api::V1::BaseController
-  before_action :set_job, only: [:show, :edit, :update, :destroy, :matching_users]
+  before_action :set_job, only: [:show, :edit, :update, :matching_users]
 
   resource_description do
     short 'API for managing jobs'
@@ -85,19 +85,6 @@ class Api::V1::JobsController < Api::V1::BaseController
     else
       render json: @job.errors, status: :unprocessable_entity
     end
-  end
-
-  api :DELETE, '/jobs/:id', 'Delete job'
-  description 'Deletes job if the user is allowed to.'
-  def destroy
-    unless @job.owner == current_user
-      render json: { error: 'Not authed.' }, status: 401
-      return
-    end
-
-    @job.destroy
-
-    head :no_content
   end
 
   api :GET, '/jobs/:job_id/matching_users', 'Show matching users for job'
