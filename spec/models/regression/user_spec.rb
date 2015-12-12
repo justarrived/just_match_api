@@ -46,6 +46,8 @@ RSpec.describe User, regressor: true do
   it { is_expected.to validate_presence_of :email }
   it { is_expected.to validate_presence_of :language }
 
+  it { is_expected.to validate_uniqueness_of :email }
+
   # === Validations (Numericality) ===
 
 

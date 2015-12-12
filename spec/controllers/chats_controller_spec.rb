@@ -7,11 +7,11 @@ RSpec.describe Api::V1::ChatsController, type: :controller do
   let(:valid_attributes) {
     first = FactoryGirl.create(:user)
     second = FactoryGirl.create(:user)
-    { users: [first, second] }
+    { user_ids: [first, second] }
   }
 
   let(:invalid_attributes) {
-    { users: [] }
+    { user_ids: [] }
   }
 
   # This should return the minimal set of values that should be in the session

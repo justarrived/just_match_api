@@ -1,8 +1,6 @@
 class Api::V1::ChatsController < Api::V1::BaseController
   before_action :set_chat, only: [:show, :update, :create_message, :messages]
 
-  MAX_CHAT_USERS = 10
-
   resource_description do
     api_versions '1.0'
     name 'Chats'
@@ -37,9 +35,14 @@ class Api::V1::ChatsController < Api::V1::BaseController
   end
 
   api :POST, '/chats/', 'Create new chat'
-  description "Creates and returns new chat. Max #{MAX_CHAT_USERS} users per chat."
+  description "
+    Creates and returns new chat.
+
+    * Min #{Chat::MIN_USERS} users per chat.
+    * Max #{Chat::MAX_USERS} users per chat.
+  "
   param :chat, Hash, desc: 'Chat attributes', required: true do
-    param :users, Array, of: Integer, desc: 'List of user ids', required: true
+    param :user_ids, Array, of: Integer, desc: "Must be between #{Chat::MIN_USERS}-#{Chat::MAX_USERS} users per chat.", required: true
   end
   example Doxxer.example_for(Chat)
   def create
@@ -51,7 +54,7 @@ class Api::V1::ChatsController < Api::V1::BaseController
     users = User.where(id: param_user_ids)
     @chat = Chat.find_or_create_private_chat(users)
 
-    if @chat.errors[:users].empty?
+    if @chat.errors[:user_ids].empty?
       render json: @chat, include: ['users'], status: :created
     else
       render json: @chat.errors, status: :unprocessable_entity
@@ -62,7 +65,7 @@ class Api::V1::ChatsController < Api::V1::BaseController
   description 'Creates and returns new chat message.'
   param :message, Hash, desc: 'Message attributes', required: true do
     param :body, String, desc: 'Message body', required: true
-    param :language_id, Integer, desc: 'Langauge id', required: true
+    param :language_id, Integer, desc: 'Language id', required: true
   end
   example Doxxer.example_for(Message)
   def create_message
@@ -96,9 +99,9 @@ class Api::V1::ChatsController < Api::V1::BaseController
     end
 
     def param_user_ids
-      param_users = (params[:chat][:users] || []).map(&:to_i)
+      param_users = (params[:chat][:user_ids] || []).map(&:to_i)
       user_ids = (
         ([current_user.id] + param_users).uniq
-      ).take(MAX_CHAT_USERS)
+      ).take(Chat::MAX_USERS)
     end
 end

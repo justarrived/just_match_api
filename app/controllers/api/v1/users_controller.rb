@@ -29,18 +29,21 @@ class Api::V1::UsersController < Api::V1::BaseController
   api :POST, '/users/', 'Create new user'
   description 'Creates and returns a new user.'
   param :user, Hash, desc: 'User attributes', required: true do
-    param :skills, Array, of: Integer, desc: 'List of skill ids', required: true
+    param :skill_ids, Array, of: Integer, desc: 'List of skill ids', required: true
     param :name, String, desc: 'Name', required: true
     param :description, String, desc: 'Description', required: true
     param :email, String, desc: 'Email', required: true
     param :phone, String, desc: 'Phone', required: true
-    param :language_id, Integer, desc: 'Langauge id of the text content', required: true
+    param :language_id, Integer, desc: 'Primary language id for user', required: true
+    param :language_ids, Array, of: Integer, desc: 'Language ids of languages that the user knows', required: true
   end
   example Doxxer.example_for(User)
   def create
     @user = User.new(user_params)
+
     if @user.save
-      @user.skills = Skill.where(id: params[:user][:skills])
+      @user.skills = Skill.where(id: params[:user][:skill_ids])
+      @user.languages = Language.where(id: params[:user][:language_ids])
       render json: @user, status: :created
     else
       render json: @user.errors, status: :unprocessable_entity
@@ -54,7 +57,7 @@ class Api::V1::UsersController < Api::V1::BaseController
     param :description, String, desc: 'Description'
     param :email, String, desc: 'Email'
     param :phone, String, desc: 'Phone'
-    param :language_id, Integer, desc: 'Langauge id of the text content'
+    param :language_id, Integer, desc: 'Primary language id for user'
   end
   example Doxxer.example_for(User)
   def update
@@ -86,7 +89,7 @@ class Api::V1::UsersController < Api::V1::BaseController
   description 'Creates and returns new message.'
   param :message, Hash, desc: 'Message attributes', required: true do
     param :body, String, desc: 'Message body', required: true
-    param :language_id, Integer, desc: 'Langauge id', required: true
+    param :language_id, Integer, desc: 'Language id', required: true
   end
   example Doxxer.example_for(Message)
   def create_message
@@ -136,7 +139,7 @@ class Api::V1::UsersController < Api::V1::BaseController
     end
 
     def user_params
-      params.require(:user).permit(:name, :email, :phone, :description, :address)
+      params.require(:user).permit(:name, :email, :phone, :description, :address, :language_id)
     end
 
     def include_params

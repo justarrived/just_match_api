@@ -20,8 +20,7 @@ class User < ActiveRecord::Base
   has_many :messages
 
   validates_presence_of :email, :language
-  # TODO: Validates format of email
-  # validates :email, email: true, allow_blank: false
+  validates_uniqueness_of :email
   validates :name, length: { minimum: 3 }, allow_blank: false
   validates :phone, length: { minimum: 9 }, allow_blank: false
   validates :description, length: { minimum: 10 }, allow_blank: false

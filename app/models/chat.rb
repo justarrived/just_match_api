@@ -3,9 +3,12 @@ class Chat < ActiveRecord::Base
   has_many :users, through: :chat_users
   has_many :messages
 
+  MIN_USERS = 2
+  MAX_USERS = 10
+
   def self.find_or_create_private_chat(users)
     find_private_chat(users) || begin
-      if users.length > 1
+      if users.length >= MIN_USERS
         chat = create!
         chat.users = users
         chat
