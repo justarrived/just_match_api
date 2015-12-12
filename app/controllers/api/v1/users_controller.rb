@@ -1,5 +1,5 @@
 class Api::V1::UsersController < Api::V1::BaseController
-  before_action :set_user, only: [:show, :edit, :update, :destroy, :matching_jobs]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :matching_jobs, :create_message, :messages]
 
   resource_description do
     short 'API for managing users'
@@ -29,18 +29,21 @@ class Api::V1::UsersController < Api::V1::BaseController
   api :POST, '/users/', 'Create new user'
   description 'Creates and returns a new user.'
   param :user, Hash, desc: 'User attributes', required: true do
-    param :skills, Array, of: Integer, desc: 'List of skill ids', required: true
+    param :skill_ids, Array, of: Integer, desc: 'List of skill ids', required: true
     param :name, String, desc: 'Name', required: true
     param :description, String, desc: 'Description', required: true
     param :email, String, desc: 'Email', required: true
     param :phone, String, desc: 'Phone', required: true
-    param :language_id, Integer, desc: 'Langauge id of the text content', required: true
+    param :language_id, Integer, desc: 'Primary language id for user', required: true
+    param :language_ids, Array, of: Integer, desc: 'Language ids of languages that the user knows', required: true
   end
   example Doxxer.example_for(User)
   def create
     @user = User.new(user_params)
+
     if @user.save
-      @user.skills = Skill.where(id: params[:user][:skills])
+      @user.skills = Skill.where(id: params[:user][:skill_ids])
+      @user.languages = Language.where(id: params[:user][:language_ids])
       render json: @user, status: :created
     else
       render json: @user.errors, status: :unprocessable_entity
@@ -54,7 +57,7 @@ class Api::V1::UsersController < Api::V1::BaseController
     param :description, String, desc: 'Description'
     param :email, String, desc: 'Email'
     param :phone, String, desc: 'Phone'
-    param :language_id, Integer, desc: 'Langauge id of the text content'
+    param :language_id, Integer, desc: 'Primary language id for user'
   end
   example Doxxer.example_for(User)
   def update
@@ -82,6 +85,38 @@ class Api::V1::UsersController < Api::V1::BaseController
     head :no_content
   end
 
+  api :POST, '/users/:id/messages', 'Create new message to user.'
+  description 'Creates and returns new message.'
+  param :message, Hash, desc: 'Message attributes', required: true do
+    param :body, String, desc: 'Message body', required: true
+    param :language_id, Integer, desc: 'Language id', required: true
+  end
+  example Doxxer.example_for(Message)
+  def create_message
+    users = User.where(id: [@user.id, current_user.id])
+    chat = Chat.find_or_create_private_chat(users)
+
+    lang = message_params[:language_id]
+    body = message_params[:body]
+    @message = chat.create_message(author: current_user, body: body, language_id: lang)
+
+    if @message.valid?
+      render json: @message, include: ['author', 'language', 'chat'], status: :created
+    else
+      render json: @message.errors, status: :unprocessable_entity
+    end
+  end
+
+  api :GET, '/users/:id/messages', 'Get user messages.'
+  description 'Returns the message between user and logged in user.'
+  def messages
+    user_ids =  @user.id + current_user.id
+    users = User.where(id: user_ids)
+    @messages = Chat.find_or_create_private_chat(users).messages
+
+    render json: @messages, include: ['author', 'language', 'chat']
+  end
+
   api :GET, '/users/:id/matching_jobs', 'Show matching jobs for user'
   description 'Returns the matching jobs for user if the user is allowed to.'
   def matching_jobs
@@ -99,8 +134,12 @@ class Api::V1::UsersController < Api::V1::BaseController
       @user = User.find(params[:user_id])
     end
 
+    def message_params
+      params.require(:message).permit(:body, :language_id)
+    end
+
     def user_params
-      params.require(:user).permit(:name, :email, :phone, :description, :address)
+      params.require(:user).permit(:name, :email, :phone, :description, :address, :language_id)
     end
 
     def include_params

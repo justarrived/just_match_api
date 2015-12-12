@@ -3,7 +3,7 @@ class Api::V1::UserSkillsController < Api::V1::BaseController
 
   resource_description do
     short 'API for managing user skills'
-    name 'User languages'
+    name 'User skills'
     description '
       User skills is the relationship between a user and a skill.
     '

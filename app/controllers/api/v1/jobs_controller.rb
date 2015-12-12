@@ -27,7 +27,7 @@ class Api::V1::JobsController < Api::V1::BaseController
   api :POST, '/jobs/', 'Create new job'
   description 'Creates and returns new job.'
   param :job, Hash, desc: 'Job attributes', required: true do
-    param :skills, Array, of: Integer, desc: 'List of skill ids', required: true
+    param :skill_ids, Array, of: Integer, desc: 'List of skill ids', required: true
     param :max_rate, Integer, desc: 'Max rate', required: true
     param :estimated_completion_time, Float, desc: 'Estmiated completion time'
     param :name, String, desc: 'Name', required: true
@@ -43,7 +43,7 @@ class Api::V1::JobsController < Api::V1::BaseController
     @job.owner_user_id = current_user.id
 
     if @job.save
-      @job.skills = Skill.where(id: params[:job][:skills])
+      @job.skills = Skill.where(id: params[:job][:skill_ids])
 
       owner = @job.owner
       User.matches_job(@job, strict_match: true).each do |user|
@@ -118,6 +118,6 @@ class Api::V1::JobsController < Api::V1::BaseController
     end
 
     def job_params
-      params.require(:job).permit(:max_rate, :description, :job_date, :performed, :address, :name, :estimated_completion_time)
+      params.require(:job).permit(:max_rate, :description, :job_date, :performed, :address, :name, :estimated_completion_time, :language_id)
     end
 end

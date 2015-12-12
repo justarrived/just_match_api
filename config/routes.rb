@@ -13,8 +13,17 @@ Rails.application.routes.draw do
 
       resources :users, param: :user_id, except: [:new, :edit] do
         member do
+          get :messages
+          post :messages, to: 'users#create_message'
           get :matching_jobs
           resources :comments, module: :users, except: [:new, :edit]
+        end
+      end
+
+      resources :chats, except: [:new, :edit, :update, :destroy] do
+        member do
+          get :messages
+          post :messages, to: 'chats#create_message'
         end
       end
 

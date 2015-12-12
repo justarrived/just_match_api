@@ -4,18 +4,17 @@ RSpec.describe User, regressor: true do
 
   # === Relations ===
   it { is_expected.to belong_to :language }
-  
+
   it { is_expected.to have_many :user_skills }
   it { is_expected.to have_many :skills }
   it { is_expected.to have_many :job_users }
   it { is_expected.to have_many :jobs }
   it { is_expected.to have_many :user_languages }
   it { is_expected.to have_many :languages }
-  it { is_expected.to have_many :comments }
   it { is_expected.to have_many :written_comments }
 
   # === Nested Attributes ===
-  
+
 
   # === Database (Columns) ===
   it { is_expected.to have_db_column :id }
@@ -47,11 +46,13 @@ RSpec.describe User, regressor: true do
   it { is_expected.to validate_presence_of :email }
   it { is_expected.to validate_presence_of :language }
 
-  # === Validations (Numericality) ===
-  
+  it { is_expected.to validate_uniqueness_of :email }
 
-  
+  # === Validations (Numericality) ===
+
+
+
   # === Enums ===
-  
-  
+
+
 end
