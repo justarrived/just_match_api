@@ -6,12 +6,12 @@ module Geocodable
 
     def validate_geocoding
       unless geocoded?
-        errors.add(:address_error, 'Must be a valid address')
+        errors.add(:address, 'must be a valid address')
       end
     end
   end
 
-  def Geocodable.included(receiver)
+  def self.included(receiver)
     receiver.class_eval do
       geocoded_by :full_street_address
       after_validation :geocode, if: ->(record){ record.address_changed? }

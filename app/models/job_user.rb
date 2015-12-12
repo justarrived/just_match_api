@@ -4,13 +4,25 @@ class JobUser < ActiveRecord::Base
 
   validates_presence_of :user, :job
 
-  # TODO: Make sure Job#user != the user of this model
-  # TODO: Validate uniqueness of {job|user}
+  validate :applicant_not_owner_of_job
+  validates :user, uniqueness: { scope: :job }
+  validates :job, uniqueness: { scope: :user }
+
+  def applicant_not_owner_of_job
+    if job && job.owner == user
+      errors.add(:user, "can't be both job owner and job applicant")
+    end
+  end
 
   # NOTE: You need to call this __before__ the record is saved/updated
   #       otherwise it will always return false
   def send_accepted_notice?
     accepted_changed? && accepted
+  end
+
+  def accept!
+    self.accepted = true
+    save!
   end
 end
 

@@ -13,3 +13,4 @@
 /tmp
 .byebug_history
 coverage/
+spec/.rspec_examples.txt

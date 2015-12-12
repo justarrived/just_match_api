@@ -1,8 +1,10 @@
 class JobPerformedNotifier
   def self.call(job:)
     owner = job.owner
-    user = job.job_user
+    user = job.accepted_applicant
 
-    UserMailer.job_performed_email(user: user, job: job, owner: owner).deliver_later
+    UserMailer
+      .job_performed_email(user: user, job: job, owner: owner)
+      .deliver_later
   end
 end
