@@ -12,8 +12,12 @@ class User < ActiveRecord::Base
   has_many :user_languages
   has_many :languages, through: :user_languages
 
-  has_many :comments, as: :commentable
   has_many :written_comments, class_name: 'Comment', foreign_key: 'owner_user_id'
+
+  has_many :chat_users
+  has_many :chats, through: :chat_users
+
+  has_many :messages
 
   validates_presence_of :email, :language
   # TODO: Validates format of email

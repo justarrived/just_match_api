@@ -7,7 +7,7 @@ class Api::V1::CommentsController < Api::V1::BaseController
     short 'API for managing comments for various resources'
     description '
       Comments are polymorphic, which means they can belong to different types
-      of resources, i.e jobs or users.
+      of resources, i.e jobs.
 
       So where ever you see `:resource_name` you replace it with for example
       `jobs` and replace `:resource_id` with the job id.

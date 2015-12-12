@@ -86,6 +86,6 @@ class Api::V1::LanguagesController < Api::V1::BaseController
     end
 
     def language_params
-      params.require(:language).permit(:lang_code, :primary)
+      params.require(:language).permit(:lang_code)
     end
 end

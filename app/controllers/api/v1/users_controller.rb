@@ -1,5 +1,5 @@
 class Api::V1::UsersController < Api::V1::BaseController
-  before_action :set_user, only: [:show, :edit, :update, :destroy, :matching_jobs]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :matching_jobs, :create_message, :messages]
 
   resource_description do
     short 'API for managing users'
@@ -82,6 +82,38 @@ class Api::V1::UsersController < Api::V1::BaseController
     head :no_content
   end
 
+  api :POST, '/users/:id/messages', 'Create new message to user.'
+  description 'Creates and returns new message.'
+  param :message, Hash, desc: 'Message attributes', required: true do
+    param :body, String, desc: 'Message body', required: true
+    param :language_id, Integer, desc: 'Langauge id', required: true
+  end
+  example Doxxer.example_for(Message)
+  def create_message
+    users = User.where(id: [@user.id, current_user.id])
+    chat = Chat.find_or_create_private_chat(users)
+
+    lang = message_params[:language_id]
+    body = message_params[:body]
+    @message = chat.create_message(author: current_user, body: body, language_id: lang)
+
+    if @message.valid?
+      render json: @message, include: ['author', 'language', 'chat'], status: :created
+    else
+      render json: @message.errors, status: :unprocessable_entity
+    end
+  end
+
+  api :GET, '/users/:id/messages', 'Get user messages.'
+  description 'Returns the message between user and logged in user.'
+  def messages
+    user_ids =  @user.id + current_user.id
+    users = User.where(id: user_ids)
+    @messages = Chat.find_or_create_private_chat(users).messages
+
+    render json: @messages, include: ['author', 'language', 'chat']
+  end
+
   api :GET, '/users/:id/matching_jobs', 'Show matching jobs for user'
   description 'Returns the matching jobs for user if the user is allowed to.'
   def matching_jobs
@@ -97,6 +129,10 @@ class Api::V1::UsersController < Api::V1::BaseController
 
     def set_user
       @user = User.find(params[:user_id])
+    end
+
+    def message_params
+      params.require(:message).permit(:body, :language_id)
     end
 
     def user_params

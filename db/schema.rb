@@ -11,10 +11,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151206181345) do
+ActiveRecord::Schema.define(version: 20151212170931) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "chat_users", force: :cascade do |t|
+    t.integer  "chat_id"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "chat_users", ["chat_id"], name: "index_chat_users_on_chat_id", using: :btree
+  add_index "chat_users", ["user_id"], name: "index_chat_users_on_user_id", using: :btree
+
+  create_table "chats", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "comments", force: :cascade do |t|
     t.text     "body"
@@ -71,10 +86,22 @@ ActiveRecord::Schema.define(version: 20151206181345) do
 
   create_table "languages", force: :cascade do |t|
     t.string   "lang_code"
-    t.boolean  "primary",    default: false
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
   end
+
+  create_table "messages", force: :cascade do |t|
+    t.integer  "chat_id"
+    t.integer  "author_id"
+    t.integer  "integer"
+    t.integer  "language_id"
+    t.text     "body"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "messages", ["chat_id"], name: "index_messages_on_chat_id", using: :btree
+  add_index "messages", ["language_id"], name: "index_messages_on_language_id", using: :btree
 
   create_table "skills", force: :cascade do |t|
     t.string   "name"
@@ -120,12 +147,16 @@ ActiveRecord::Schema.define(version: 20151206181345) do
 
   add_index "users", ["language_id"], name: "index_users_on_language_id", using: :btree
 
+  add_foreign_key "chat_users", "chats"
+  add_foreign_key "chat_users", "users"
   add_foreign_key "comments", "languages"
   add_foreign_key "job_skills", "jobs"
   add_foreign_key "job_skills", "skills"
   add_foreign_key "job_users", "jobs"
   add_foreign_key "job_users", "users"
   add_foreign_key "jobs", "languages"
+  add_foreign_key "messages", "chats"
+  add_foreign_key "messages", "languages"
   add_foreign_key "skills", "languages"
   add_foreign_key "user_languages", "languages"
   add_foreign_key "user_languages", "users"
