@@ -67,7 +67,7 @@ RSpec.describe Api::V1::ChatsController, type: :controller do
       it 'returns @chat errors' do
         FactoryGirl.create(:user)
         post :create, {chat: invalid_attributes}, valid_session
-        expect(assigns(:chat).errors[:users]).to eq(['must be more than one'])
+        expect(assigns(:chat).errors[:users]).to eq(["must be between 2-10"])
       end
     end
   end

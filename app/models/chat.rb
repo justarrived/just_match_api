@@ -8,13 +8,13 @@ class Chat < ActiveRecord::Base
 
   def self.find_or_create_private_chat(users)
     find_private_chat(users) || begin
-      if users.length >= MIN_USERS
+      if users.length >= MIN_USERS && users.length <= MAX_USERS
         chat = create!
         chat.users = users
         chat
       else
         chat = new
-        chat.errors.add(:users, 'must be more than one')
+        chat.errors.add(:users, "must be between #{MIN_USERS}-#{MAX_USERS}")
         chat
       end
     end
