@@ -35,6 +35,8 @@ To run the test
 $ bin/rspec
 ```
 
+_Note_: Running the tests with `bundle exec rspec` will not work, please use `bin/rspec` instead.
+
 ## Deploy
 
 The simplest way to deploy is with Heroku, you can get your own version running in a few minutes.
