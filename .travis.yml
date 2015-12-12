@@ -3,6 +3,7 @@ before_install:
   - "echo 'gem: --no-document' > ~/.gemrc"
 install:
   - bin/setup
+script: bin/rspec --tag ~no_travis spec
 branches:
   only:
     - master
