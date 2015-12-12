@@ -38,20 +38,6 @@ RSpec.configure do |config|
   # Allows RSpec to persist some state between runs in order to support
   # the `--only-failures` and `--next-failure` CLI options.
   config.example_status_persistence_file_path = 'spec/.rspec_examples.txt'
-
-  # Before the test suite is run
-  config.before(:suite) do
-    begin
-      # Since we're using Spring we must reload all factories
-      # see: https://github.com/thoughtbot/factory_girl/blob/master/GETTING_STARTED.md#rails-preloaders-and-rspec
-      FactoryGirl.reload
-      # Validate that all factories are valid
-      FactoryGirl.lint
-      DatabaseCleaner.start
-    ensure
-      DatabaseCleaner.clean
-    end
-  end
 end
 
 # Don't allow the test to make web requests unless its to localhost

@@ -7,6 +7,7 @@ RSpec.describe Language, regressor: true do
   
   it { is_expected.to have_many :user_languages }
   it { is_expected.to have_many :users }
+  it { is_expected.to have_many :jobs }
 
   # === Nested Attributes ===
   
