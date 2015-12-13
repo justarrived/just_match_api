@@ -74,4 +74,107 @@ RSpec.describe Api::V1::JobsController, type: :controller do
       end
     end
   end
+
+  describe 'PUT #update' do
+    context 'with valid params' do
+      let(:new_attributes) {
+        { max_rate: 150 }
+      }
+      context 'owner user' do
+        it 'updates the requested job' do
+          job = FactoryGirl.create(:job)
+          put :update, {job_id: job.to_param, job: new_attributes}, valid_session
+          job.reload
+          expect(job.max_rate).to eq(150)
+        end
+
+        it 'assigns the requested user as @job' do
+          job = FactoryGirl.create(:job)
+          put :update, {job_id: job.to_param, job: new_attributes}, valid_session
+          expect(assigns(:job)).to eq(job)
+        end
+
+        it 'returns success status' do
+          job = FactoryGirl.create(:job)
+          put :update, {job_id: job.to_param, job: new_attributes}, valid_session
+          expect(response.status).to eq(200)
+        end
+      end
+
+      context 'non associated user' do
+        let(:new_attributes) do
+          {performed: true}
+        end
+
+        it 'updates the requested job' do
+          user = FactoryGirl.create(:user)
+          user1 = FactoryGirl.create(:user)
+          user2 = FactoryGirl.create(:user)
+          job = FactoryGirl.create(:job, owner: user1)
+          job_user = FactoryGirl.create(:job_user, user: user2, job: job, accepted: true)
+          put :update, {job_id: job.to_param, job: new_attributes}, valid_session
+          job.reload
+          expect(job.performed).to eq(false)
+        end
+
+        it 'returns forbidden status' do
+          user = FactoryGirl.create(:user)
+          user1 = FactoryGirl.create(:user)
+          user2 = FactoryGirl.create(:user)
+          job = FactoryGirl.create(:job, owner: user1)
+          job_user = FactoryGirl.create(:job_user, user: user2, job: job, accepted: true)
+          put :update, {job_id: job.to_param, job: new_attributes}, valid_session
+          expect(response.status).to eq(401)
+        end
+      end
+
+      context 'job user' do
+        let(:new_attributes) do
+          {performed: true}
+        end
+
+        it 'updates the requested job' do
+          user = FactoryGirl.create(:user)
+          user1 = FactoryGirl.create(:user)
+          job = FactoryGirl.create(:job, owner: user1)
+          job_user = FactoryGirl.create(:job_user, user: user, job: job, accepted: true)
+          put :update, {job_id: job.to_param, job: new_attributes}, valid_session
+          job.reload
+          expect(job.performed).to eq(true)
+        end
+
+        it 'assigns the requested user as @job' do
+          user = FactoryGirl.create(:user)
+          user1 = FactoryGirl.create(:user)
+          job = FactoryGirl.create(:job, owner: user1)
+          job_user = FactoryGirl.create(:job_user, user: user, job: job, accepted: true)
+          put :update, {job_id: job.to_param, job: new_attributes}, valid_session
+          expect(assigns(:job)).to eq(job)
+        end
+
+        it 'returns success status' do
+          user = FactoryGirl.create(:user)
+          user1 = FactoryGirl.create(:user)
+          job = FactoryGirl.create(:job, owner: user1)
+          job_user = FactoryGirl.create(:job_user, user: user, job: job, accepted: true)
+          put :update, {job_id: job.to_param, job: new_attributes}, valid_session
+          expect(response.status).to eq(200)
+        end
+      end
+    end
+
+    context 'with invalid params' do
+      it 'assigns the user as @job' do
+        job = FactoryGirl.create(:job)
+        put :update, {job_id: job.to_param, job: invalid_attributes}, valid_session
+        expect(assigns(:job)).to eq(job)
+      end
+
+      it 'returns unprocessable entity status' do
+        job = FactoryGirl.create(:job)
+        put :update, {job_id: job.to_param, job: invalid_attributes}, valid_session
+        expect(response.status).to eq(422)
+      end
+    end
+  end
 end

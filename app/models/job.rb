@@ -37,6 +37,12 @@ class Job < ActiveRecord::Base
     performed_accept_changed? && performed_accept
   end
 
+  # NOTE: You need to call this __before__ the record is saved/updated
+  #       otherwise it will always return false
+  def send_performed_notice?
+    performed_changed? && performed
+  end
+
   def accepted_applicant
     job_users.find_by(accepted: true).try!(:user)
   end

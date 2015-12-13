@@ -5,6 +5,7 @@ class CreateJobs < ActiveRecord::Migration
       t.text :description
       t.datetime :job_date
       t.boolean :performed_accept, default: false
+      t.boolean :performed, default: false
 
       t.timestamps null: false
     end
