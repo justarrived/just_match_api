@@ -40,7 +40,7 @@ class Api::V1::LanguagesController < Api::V1::BaseController
     @language = Language.new(language_params)
 
     if @language.save
-      render json: @language, status: :created, location: @language
+      render json: @language, status: :created
     else
       render json: @language.errors, status: :unprocessable_entity
     end
@@ -48,7 +48,7 @@ class Api::V1::LanguagesController < Api::V1::BaseController
 
   api :PATCH, '/languages/:id', 'Update language'
   description 'Updates and returns the updated language.'
-  param :job, Hash, desc: 'Language attributes', required: true do
+  param :language, Hash, desc: 'Language attributes', required: true do
     param :lang_code, String, desc: 'Name'
   end
   example Doxxer.example_for(Language)
@@ -59,9 +59,8 @@ class Api::V1::LanguagesController < Api::V1::BaseController
     end
 
     @language = Language.find(params[:id])
-
     if @language.update(language_params)
-      head :no_content
+      render json: @language
     else
       render json: @language.errors, status: :unprocessable_entity
     end
