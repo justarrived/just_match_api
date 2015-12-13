@@ -15,7 +15,6 @@ RSpec.describe Language, regressor: true do
   # === Database (Columns) ===
   it { is_expected.to have_db_column :id }
   it { is_expected.to have_db_column :lang_code }
-  it { is_expected.to have_db_column :primary }
   it { is_expected.to have_db_column :created_at }
   it { is_expected.to have_db_column :updated_at }
 
