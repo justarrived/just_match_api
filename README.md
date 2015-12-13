@@ -43,6 +43,20 @@ The simplest way to deploy is with Heroku, you can get your own version running 
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/buren/just_arrived)
 
+## Generate static docs
+
+You can generate static versions of the API documentation in both `JSON` and `HTML` format.
+
+Generate API doc
+```
+$ rake apipie:static_json
+```
+
+HTML
+```
+rake apipie:static
+```
+
 ## Contributing
 
 We would love if you'd like to help us build and improve this product for the
