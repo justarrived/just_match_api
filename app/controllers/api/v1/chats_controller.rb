@@ -29,6 +29,8 @@ class Api::V1::ChatsController < Api::V1::BaseController
 
   api :GET, '/chats/:id', 'Show chat'
   description 'Return chat.'
+  # TODO: For some reason the call to Chat#new that Doxxer performs fails in
+  # production (because there is no database conncetion yet?)
   # example Doxxer.example_for(Chat)
   def show
     render json: @chat
@@ -44,6 +46,8 @@ class Api::V1::ChatsController < Api::V1::BaseController
   param :chat, Hash, desc: 'Chat attributes', required: true do
     param :user_ids, Array, of: Integer, desc: "Must be between #{Chat::MIN_USERS}-#{Chat::MAX_USERS} users per chat.", required: true
   end
+  # TODO: For some reason the call to Chat#new that Doxxer performs fails in
+  # production (because there is no database conncetion yet?)
   # example Doxxer.example_for(Chat)
   def create
     if current_user.id.nil?
