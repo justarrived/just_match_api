@@ -28,7 +28,7 @@ RSpec.describe Api::V1::JobsController, type: :controller do
 
   describe 'GET #index' do
     it 'assigns all jobs as @jobs' do
-      job = Job.create! valid_attributes
+      Job.create! valid_attributes
       get :index, {}, valid_session
       expect(assigns(:jobs).first).to be_a(Job)
     end
@@ -107,22 +107,22 @@ RSpec.describe Api::V1::JobsController, type: :controller do
         end
 
         it 'updates the requested job' do
-          user = FactoryGirl.create(:user)
+          FactoryGirl.create(:user)
           user1 = FactoryGirl.create(:user)
           user2 = FactoryGirl.create(:user)
           job = FactoryGirl.create(:job, owner: user1)
-          job_user = FactoryGirl.create(:job_user, user: user2, job: job, accepted: true)
+          FactoryGirl.create(:job_user, user: user2, job: job, accepted: true)
           put :update, {job_id: job.to_param, job: new_attributes}, valid_session
           job.reload
           expect(job.performed).to eq(false)
         end
 
         it 'returns forbidden status' do
-          user = FactoryGirl.create(:user)
+          FactoryGirl.create(:user)
           user1 = FactoryGirl.create(:user)
           user2 = FactoryGirl.create(:user)
           job = FactoryGirl.create(:job, owner: user1)
-          job_user = FactoryGirl.create(:job_user, user: user2, job: job, accepted: true)
+          FactoryGirl.create(:job_user, user: user2, job: job, accepted: true)
           put :update, {job_id: job.to_param, job: new_attributes}, valid_session
           expect(response.status).to eq(401)
         end
@@ -137,7 +137,7 @@ RSpec.describe Api::V1::JobsController, type: :controller do
           user = FactoryGirl.create(:user)
           user1 = FactoryGirl.create(:user)
           job = FactoryGirl.create(:job, owner: user1)
-          job_user = FactoryGirl.create(:job_user, user: user, job: job, accepted: true)
+          FactoryGirl.create(:job_user, user: user, job: job, accepted: true)
           put :update, {job_id: job.to_param, job: new_attributes}, valid_session
           job.reload
           expect(job.performed).to eq(true)
@@ -147,7 +147,7 @@ RSpec.describe Api::V1::JobsController, type: :controller do
           user = FactoryGirl.create(:user)
           user1 = FactoryGirl.create(:user)
           job = FactoryGirl.create(:job, owner: user1)
-          job_user = FactoryGirl.create(:job_user, user: user, job: job, accepted: true)
+          FactoryGirl.create(:job_user, user: user, job: job, accepted: true)
           put :update, {job_id: job.to_param, job: new_attributes}, valid_session
           expect(assigns(:job)).to eq(job)
         end
@@ -156,7 +156,7 @@ RSpec.describe Api::V1::JobsController, type: :controller do
           user = FactoryGirl.create(:user)
           user1 = FactoryGirl.create(:user)
           job = FactoryGirl.create(:job, owner: user1)
-          job_user = FactoryGirl.create(:job_user, user: user, job: job, accepted: true)
+          FactoryGirl.create(:job_user, user: user, job: job, accepted: true)
           put :update, {job_id: job.to_param, job: new_attributes}, valid_session
           expect(response.status).to eq(200)
         end

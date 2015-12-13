@@ -468,16 +468,6 @@ Style/OptionalArguments:
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#optional-arguments'
   Enabled: false
 
-Style/ParallelAssignment:
-  Description: >-
-                  Check for simple usages of parallel assignment.
-                  It will only warn when the number of variables
-                  matches on both sides of the assignment.
-                  This also provides performance benefits
-  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#parallel-assignment'
-  Reference: 'https://github.com/JuanitoFatas/fast-ruby#parallel-assignment-vs-sequential-assignment-code'
-  Enabled: false
-
 Style/ParenthesesAroundCondition:
   Description: >-
                  Don't use parentheses around the condition of an
