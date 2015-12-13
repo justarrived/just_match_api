@@ -6,7 +6,7 @@ module Geocodable
 
     def validate_geocoding
       unless geocoded?
-        errors.add(:address, 'must be a valid address')
+        # errors.add(:address, 'must be a valid address')
       end
     end
   end

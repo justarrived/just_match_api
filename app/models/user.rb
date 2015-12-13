@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
   has_many :chat_users
   has_many :chats, through: :chat_users
 
-  has_many :messages
+  has_many :messages, class_name: 'Message', foreign_key: 'author_id'
 
   validates_presence_of :email, :language
   validates_uniqueness_of :email

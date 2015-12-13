@@ -22,8 +22,8 @@ end
 # Seed addresses
 addresses = []
 max_addresses.times do |i|
-  addresses << "Stora Nygatan 36 #{i}, Malmö"
-  addresses << "Wollmar Yxkullsgatan #{i}, Stockholm"
+  addresses << "Stora Nygatan 36 #{i}, Malmö, Sweden"
+  addresses << "Wollmar Yxkullsgatan #{i}, Stockholm, Sweden"
 end
 
 # Seed users
@@ -94,6 +94,7 @@ max_job_users.times do
   end
 
   job = jobs.sample
+  next if job.owner == user
   JobUser.create!(
     user: user,
     job: job,

@@ -7,11 +7,15 @@ RSpec.describe User, regressor: true do
 
   it { is_expected.to have_many :user_skills }
   it { is_expected.to have_many :skills }
+  it { is_expected.to have_many :owned_jobs }
   it { is_expected.to have_many :job_users }
   it { is_expected.to have_many :jobs }
   it { is_expected.to have_many :user_languages }
   it { is_expected.to have_many :languages }
   it { is_expected.to have_many :written_comments }
+  it { is_expected.to have_many :chat_users }
+  it { is_expected.to have_many :chats }
+  it { is_expected.to have_many :messages }
 
   # === Nested Attributes ===
 
@@ -28,6 +32,7 @@ RSpec.describe User, regressor: true do
   it { is_expected.to have_db_column :longitude }
   it { is_expected.to have_db_column :address }
   it { is_expected.to have_db_column :language_id }
+  it { is_expected.to have_db_column :anonymized }
 
   # === Database (Indexes) ===
   it { is_expected.to have_db_index ["language_id"] }
@@ -45,8 +50,6 @@ RSpec.describe User, regressor: true do
   # === Validations (Presence) ===
   it { is_expected.to validate_presence_of :email }
   it { is_expected.to validate_presence_of :language }
-
-  it { is_expected.to validate_uniqueness_of :email }
 
   # === Validations (Numericality) ===
 
