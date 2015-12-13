@@ -33,8 +33,8 @@ class Job < ActiveRecord::Base
 
   # NOTE: You need to call this __before__ the record is saved/updated
   #       otherwise it will always return false
-  def send_performed_notice?
-    performed_changed? && performed
+  def send_performed_accept_notice?
+    performed_accept_changed? && performed_accept
   end
 
   def accepted_applicant
@@ -63,7 +63,7 @@ end
 #  max_rate                  :integer
 #  description               :text
 #  job_date                  :datetime
-#  performed                 :boolean          default(FALSE)
+#  performed_accept          :boolean          default(FALSE)
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
 #  owner_user_id             :integer

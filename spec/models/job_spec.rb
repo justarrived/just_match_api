@@ -5,18 +5,18 @@ RSpec.describe Job, type: :model do
     describe '#matches_user'
   end
 
-  describe '#send_performed_notice?' do
+  describe '#send_performed_accept_notice?' do
     it 'returns true if notice should be sent' do
       job = described_class.new
-      job.performed = true
-      expected = job.send_performed_notice?
+      job.performed_accept = true
+      expected = job.send_performed_accept_notice?
       expect(expected).to eq(true)
     end
 
     it 'returns false if notice should be sent' do
       job = described_class.new
-      job.performed = false
-      expected = job.send_performed_notice?
+      job.performed_accept = false
+      expected = job.send_performed_accept_notice?
       expect(expected).to eq(false)
     end
   end

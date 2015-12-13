@@ -7,12 +7,12 @@ class UserMailer < ApplicationMailer
     mail(to: user.email, subject: 'Congrats, you have a new job match!')
   end
 
-  def job_performed_email(user:, job:, owner:)
+  def job_performed_accept_email(user:, job:, owner:)
     @user_name = user.name
     @owner_name = owner.name
     @job_name = job.name
 
-    mail(to: owner.email, subject: 'Congrats, performed a job!')
+    mail(to: owner.email, subject: 'Congrats, performed_accept a job!')
   end
 
   def new_applicant_mail(user:, job:, owner:)

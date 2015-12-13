@@ -4,7 +4,7 @@ class CreateJobs < ActiveRecord::Migration
       t.integer :max_rate
       t.text :description
       t.datetime :job_date
-      t.boolean :performed, default: false
+      t.boolean :performed_accept, default: false
 
       t.timestamps null: false
     end
