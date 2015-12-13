@@ -13,7 +13,7 @@ class Api::V1::UsersController < Api::V1::BaseController
   description 'Returns a list of users.'
   def index
     page_index = params[:page].to_i
-    relations = [:skills, :jobs, :comments, :written_comments, :language, :languages]
+    relations = [:skills, :jobs, :written_comments, :language, :languages]
 
     @users = User.all.page(page_index).includes(relations)
     render json: @users
@@ -81,7 +81,7 @@ class Api::V1::UsersController < Api::V1::BaseController
       return
     end
 
-    @user.destroy
+    @user.reset!
     head :no_content
   end
 
@@ -107,7 +107,7 @@ class Api::V1::UsersController < Api::V1::BaseController
     end
   end
 
-  api :GET, '/users/:id/messages', 'Get user messages.'
+  api :GET, '/users/:user_id/messages', 'Get user messages.'
   description 'Returns the message between user and logged in user.'
   def messages
     user_ids =  @user.id + current_user.id

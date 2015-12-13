@@ -5,11 +5,21 @@ RSpec.describe Api::V1::UsersController, type: :controller do
   # User. As you add validations to User, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    lang_id = FactoryGirl.create(:language).id
+    {
+      skill_ids: [FactoryGirl.create(:skill).id],
+      email: 'someone@example.com',
+      name: 'Some user name',
+      phone: '123456789',
+      description: 'Some user description',
+      language_id: lang_id,
+      language_ids: [lang_id],
+      address: 'Stora Nygatan 36, Malmö'
+    }
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    { name: nil }
   }
 
   # This should return the minimal set of values that should be in the session
@@ -17,108 +27,166 @@ RSpec.describe Api::V1::UsersController, type: :controller do
   # UsersController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
-  describe "GET #index" do
-    it "assigns all users as @users" do
+  describe 'GET #index' do
+    it 'assigns all users as @users' do
       user = User.create! valid_attributes
       get :index, {}, valid_session
       expect(assigns(:users)).to eq([user])
     end
   end
 
-  describe "GET #show" do
-    it "assigns the requested user as @user" do
+  describe 'GET #show' do
+    it 'assigns the requested user as @user' do
       user = User.create! valid_attributes
-      get :show, {:id => user.to_param}, valid_session
+      get :show, {user_id: user.to_param}, valid_session
       expect(assigns(:user)).to eq(user)
     end
   end
 
-  describe "POST #create" do
-    context "with valid params" do
-      it "creates a new User" do
+  describe 'POST #create' do
+    context 'with valid params' do
+      it 'creates a new User' do
         expect {
-          post :create, {:user => valid_attributes}, valid_session
+          post :create, {user: valid_attributes}, valid_session
         }.to change(User, :count).by(1)
       end
 
-      it "assigns a newly created user as @user" do
-        post :create, {:user => valid_attributes}, valid_session
+      it 'assigns a newly created user as @user' do
+        post :create, {user: valid_attributes}, valid_session
         expect(assigns(:user)).to be_a(User)
         expect(assigns(:user)).to be_persisted
       end
 
-      it "redirects to the created user" do
-        post :create, {:user => valid_attributes}, valid_session
-        expect(response).to redirect_to(User.last)
+      it 'returns created status' do
+        post :create, {user: valid_attributes}, valid_session
+        expect(response.status).to eq(201)
       end
     end
 
-    context "with invalid params" do
-      it "assigns a newly created but unsaved user as @user" do
-        post :create, {:user => invalid_attributes}, valid_session
+    context 'with invalid params' do
+      it 'assigns a newly created but unsaved user as @user' do
+        post :create, {user: invalid_attributes}, valid_session
         expect(assigns(:user)).to be_a_new(User)
       end
 
-      it "re-renders the 'new' template" do
-        post :create, {:user => invalid_attributes}, valid_session
-        expect(response).to render_template("new")
+      it 'returns unprocessable entity status' do
+        post :create, {user: invalid_attributes}, valid_session
+        expect(response.status).to eq(422)
       end
     end
   end
 
-  describe "PUT #update" do
-    context "with valid params" do
+  describe 'PUT #update' do
+    context 'with valid params' do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        { phone: '987654321' }
       }
 
-      it "updates the requested user" do
+      it 'updates the requested user' do
         user = User.create! valid_attributes
-        put :update, {:id => user.to_param, :user => new_attributes}, valid_session
+        put :update, {user_id: user.to_param, user: new_attributes}, valid_session
         user.reload
-        skip("Add assertions for updated state")
+        expect(user.phone).to eq('987654321')
       end
 
-      it "assigns the requested user as @user" do
+      it 'assigns the requested user as @user' do
         user = User.create! valid_attributes
-        put :update, {:id => user.to_param, :user => valid_attributes}, valid_session
+        put :update, {user_id: user.to_param, user: valid_attributes}, valid_session
         expect(assigns(:user)).to eq(user)
       end
 
-      it "redirects to the user" do
+      it 'returns success status' do
         user = User.create! valid_attributes
-        put :update, {:id => user.to_param, :user => valid_attributes}, valid_session
-        expect(response).to redirect_to(user)
+        put :update, {user_id: user.to_param, user: valid_attributes}, valid_session
+        expect(response.status).to eq(200)
       end
     end
 
-    context "with invalid params" do
-      it "assigns the user as @user" do
+    context 'with invalid params' do
+      it 'assigns the user as @user' do
         user = User.create! valid_attributes
-        put :update, {:id => user.to_param, :user => invalid_attributes}, valid_session
+        put :update, {user_id: user.to_param, user: invalid_attributes}, valid_session
         expect(assigns(:user)).to eq(user)
       end
 
-      it "re-renders the 'edit' template" do
+      it 'returns unprocessable entity status' do
         user = User.create! valid_attributes
-        put :update, {:id => user.to_param, :user => invalid_attributes}, valid_session
-        expect(response).to render_template("edit")
+        put :update, {user_id: user.to_param, user: invalid_attributes}, valid_session
+        expect(response.status).to eq(422)
       end
     end
   end
 
-  describe "DELETE #destroy" do
-    it "destroys the requested user" do
+  describe 'DELETE #destroy' do
+    it 'does not destroy the requested user' do
       user = User.create! valid_attributes
-      expect {
-        delete :destroy, {:id => user.to_param}, valid_session
-      }.to change(User, :count).by(-1)
+      delete :destroy, {user_id: user.to_param}, valid_session
+      user.reload
+      expect(user.name).to eq('Ghost')
     end
 
-    it "redirects to the users list" do
+    it 'returns 200 status' do
       user = User.create! valid_attributes
-      delete :destroy, {:id => user.to_param}, valid_session
-      expect(response).to redirect_to(users_url)
+      delete :destroy, {user_id: user.to_param}, valid_session
+      expect(response.status).to eq(204)
+    end
+  end
+
+  describe 'GET #messages' do
+    context 'with valid params' do
+      let(:valid_attributes) do
+        user = FactoryGirl.create(:user)
+        { user_id: user.to_param }
+      end
+
+      it 'assigns all messages as @messages' do
+        get :messages, valid_attributes, valid_session
+        expect(assigns(:messages).class).to eq(Message::ActiveRecord_Associations_CollectionProxy)
+      end
+    end
+  end
+
+  describe 'POST #create_message' do
+    context 'with valid params' do
+      let(:valid_attributes) do
+        language = FactoryGirl.create(:language)
+        chat_user = FactoryGirl.create(:chat_user)
+        user = chat_user.user
+        {
+          user_id: user.to_param,
+          message: { body: 'Some test text.', language_id: language }
+        }
+      end
+
+      it 'creates a new Message' do
+        expect {
+          post :create_message, valid_attributes, valid_session
+        }.to change(Message, :count).by(1)
+      end
+
+      it 'assigns a newly created message as @message' do
+        post :create_message, valid_attributes, valid_session
+        expect(assigns(:message)).to be_a(Message)
+        expect(assigns(:message)).to be_persisted
+      end
+
+      it 'returns created status' do
+        post :create_message, valid_attributes, valid_session
+        expect(response.status).to eq(201)
+      end
+    end
+
+    context 'with invalid params' do
+      let(:invalid_attributes) do
+        chat_user = FactoryGirl.create(:chat_user)
+        user = chat_user.user
+        { user_id: user.to_param, message: { body: '' } }
+      end
+
+      it 'returns @message errors' do
+        post :create_message, invalid_attributes, valid_session
+        expect(assigns(:message).errors[:body]).to eq(["can't be blank"])
+      end
     end
   end
 end
