@@ -77,6 +77,6 @@ class Api::V1::ChatsController < Api::V1::BaseController
 
     def param_user_ids
       param_users = (params[:chat][:user_ids] || []).map(&:to_i)
-      user_ids = ([current_user.id] + param_users).uniq
+      ([current_user.id] + param_users).uniq
     end
 end
