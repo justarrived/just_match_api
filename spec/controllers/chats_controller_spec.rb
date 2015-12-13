@@ -31,7 +31,6 @@ RSpec.describe Api::V1::ChatsController, type: :controller do
     it 'assigns the requested chat as @chat' do
       chat_user = FactoryGirl.create(:chat_user)
       chat = chat_user.chat
-      user = chat_user.user
       get :show, {id: chat.to_param}, valid_session
       expect(assigns(:chat)).to eq(chat)
     end

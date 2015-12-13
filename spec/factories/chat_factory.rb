@@ -29,7 +29,7 @@ FactoryGirl.define do
       # evaluator, which stores all values from the factory, including transient
       # attributes; `create_list`'s second argument is the number of records
       # to create
-      after(:create) do |chat, evaluator|
+      after(:create) do |_chat, evaluator|
         create_list(:message, evaluator.messages_count)
       end
     end

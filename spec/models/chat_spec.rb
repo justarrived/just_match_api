@@ -79,7 +79,7 @@ RSpec.describe Chat, type: :model do
     context 'invalid message' do
       it 'returns message with errors' do
         chat = FactoryGirl.create(:chat)
-        lang = FactoryGirl.create(:language)
+        FactoryGirl.create(:language)
         messsage = chat.create_message(author: nil, body: nil, language_id: nil)
         expect(messsage.valid?).to eq(false)
         expect(messsage.errors[:author]).to eq(["can't be blank"])
