@@ -3,7 +3,8 @@ class JobSkill < ActiveRecord::Base
   belongs_to :skill
 
   validates_presence_of :skill, :job
-  # TODO: Validate uniqueness of {job|skill}
+  validates :skill, uniqueness: { scope: :job }
+  validates :job, uniqueness: { scope: :skill }
 end
 
 # == Schema Information
