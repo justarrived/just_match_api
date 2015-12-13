@@ -29,7 +29,7 @@ class Api::V1::ChatsController < Api::V1::BaseController
 
   api :GET, '/chats/:id', 'Show chat'
   description 'Return chat.'
-  example Doxxer.example_for(Chat)
+  # example Doxxer.example_for(Chat)
   def show
     render json: @chat
   end
@@ -44,7 +44,7 @@ class Api::V1::ChatsController < Api::V1::BaseController
   param :chat, Hash, desc: 'Chat attributes', required: true do
     param :user_ids, Array, of: Integer, desc: "Must be between #{Chat::MIN_USERS}-#{Chat::MAX_USERS} users per chat.", required: true
   end
-  example Doxxer.example_for(Chat)
+  # example Doxxer.example_for(Chat)
   def create
     if current_user.id.nil?
       render json: { error: 'Not authed.' }, status: 401
