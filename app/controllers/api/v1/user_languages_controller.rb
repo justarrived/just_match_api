@@ -43,7 +43,7 @@ class Api::V1::UserLanguagesController < Api::V1::BaseController
     @user_language.user = current_user
 
     if @user_language.save
-      render json: @user_language, status: :created, location: @user_language
+      render json: @user_language, status: :created
     else
       render json: @user_language.errors, status: :unprocessable_entity
     end
