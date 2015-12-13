@@ -19,8 +19,8 @@ To get started contributing to this project.
 $ git clone git@github.com:buren/just_arrived.git
 $ cd just_arrived
 $ bin/setup
-$ bin/rails server
-# Now you can open http://localhost:3000
+$ foreman start
+# Now you can open http://localhost:5000
 ```
 
 You can also see the API documentation locally by going to `http://localhost:3000/api_docs`.
