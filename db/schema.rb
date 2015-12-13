@@ -70,7 +70,7 @@ ActiveRecord::Schema.define(version: 20151213003232) do
     t.integer  "max_rate"
     t.text     "description"
     t.datetime "job_date"
-    t.boolean  "performed",                 default: false
+    t.boolean  "performed_accept",          default: false
     t.datetime "created_at",                                null: false
     t.datetime "updated_at",                                null: false
     t.integer  "owner_user_id"

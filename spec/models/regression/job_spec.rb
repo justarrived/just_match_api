@@ -20,7 +20,7 @@ RSpec.describe Job, regressor: true do
   it { is_expected.to have_db_column :max_rate }
   it { is_expected.to have_db_column :description }
   it { is_expected.to have_db_column :job_date }
-  it { is_expected.to have_db_column :performed }
+  it { is_expected.to have_db_column :performed_accept }
   it { is_expected.to have_db_column :created_at }
   it { is_expected.to have_db_column :updated_at }
   it { is_expected.to have_db_column :owner_user_id }

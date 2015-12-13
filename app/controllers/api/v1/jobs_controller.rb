@@ -33,7 +33,7 @@ class Api::V1::JobsController < Api::V1::BaseController
     param :name, String, desc: 'Name', required: true
     param :description, String, desc: 'Description', required: true
     param :job_date, String, desc: 'Job date', required: true
-    param :performed, [true, false], desc: 'Performed'
+    param :performed_accept, [true, false], desc: 'Performed'
     param :language_id, Integer, desc: 'Langauge id of the text content', required: true
     param :owner_user_id, Integer, desc: 'User id for the job owner', required: true
   end
@@ -63,7 +63,7 @@ class Api::V1::JobsController < Api::V1::BaseController
     param :name, String, desc: 'Name'
     param :description, String, desc: 'Description'
     param :job_date, String, desc: 'Job date'
-    param :performed, [true, false], desc: 'Performed'
+    param :performed_accept, [true, false], desc: 'Performed'
     param :estimated_completion_time, Float, desc: 'Estmiated completion time'
     param :language_id, Integer, desc: 'Langauge id of the text content'
     param :owner_user_id, Integer, desc: 'User id for the job owner'
@@ -77,7 +77,7 @@ class Api::V1::JobsController < Api::V1::BaseController
 
     @job.assign_attributes(job_params)
 
-    should_notify = @job.send_performed_notice?
+    should_notify = @job.send_performed_accept_notice?
 
     if @job.save
       JobPerformedNotifier.call(job: @job) if should_notify
@@ -105,6 +105,6 @@ class Api::V1::JobsController < Api::V1::BaseController
     end
 
     def job_params
-      params.require(:job).permit(:max_rate, :description, :job_date, :performed, :address, :name, :estimated_completion_time, :language_id)
+      params.require(:job).permit(:max_rate, :description, :job_date, :performed_accept, :address, :name, :estimated_completion_time, :language_id)
     end
 end
