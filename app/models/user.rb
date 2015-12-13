@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   include SkillMatchable
   belongs_to :language
 
-  has_many :user_skills, inverse_of: :user
+  has_many :user_skills
   has_many :skills, through: :user_skills
 
   has_many :owned_jobs, class_name: 'Job', foreign_key: 'owner_user_id'
