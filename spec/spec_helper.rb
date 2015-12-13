@@ -1,4 +1,7 @@
-if ENV.fetch('COVERAGE', false)
+if ENV.fetch('CODECLIMATE_REPO_TOKEN', false)
+  require 'codeclimate-test-reporter'
+  CodeClimate::TestReporter.start
+elsif ENV.fetch('COVERAGE', false)
   require 'simplecov'
   SimpleCov.start 'rails'
 end
@@ -40,5 +43,5 @@ RSpec.configure do |config|
   config.example_status_persistence_file_path = 'spec/.rspec_examples.txt'
 end
 
-# Don't allow the test to make web requests unless its to localhost
-WebMock.disable_net_connect!(allow_localhost: true)
+# Only allow the tests to connect to localhost and codeclimate (for test coverage reporting)
+WebMock.disable_net_connect!(allow_localhost: true, allow: 'codeclimate.com')

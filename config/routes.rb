@@ -9,6 +9,7 @@ Rails.application.routes.draw do
           get :matching_users
           resources :comments, module: :jobs, except: [:new, :edit]
           resources :job_skills, module: :jobs, path: 'skills', except: [:new, :edit, :update]
+          resources :job_users, module: :jobs, path: 'users', except: [:new, :edit, :update]
         end
       end
 

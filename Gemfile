@@ -27,6 +27,7 @@ group :development, :test do
 end
 
 group :development do
+
   gem 'letter_opener', '~> 1.4'
   gem 'bullet', '~> 4.14'
   gem 'binding_of_caller', '~> 0.7'
@@ -38,6 +39,7 @@ group :development do
 end
 
 group :test do
+  gem 'codeclimate-test-reporter', require: false
   gem 'simplecov', '~> 0.11', require: false
   gem 'factory_girl_rails', '~> 4.0'
   gem 'database_cleaner', '~> 1.5'

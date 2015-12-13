@@ -7,10 +7,8 @@ script: bin/rspec --tag ~no_travis spec
 branches:
   only:
     - master
-cache:
-  - bundler
-language:
-  - ruby
+language: ruby
+cache: bundler
 notifications:
   email: false
 rvm:
