@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
   has_many :user_skills, inverse_of: :user
   has_many :skills, through: :user_skills
 
+  has_many :owned_jobs, class_name: 'Job', foreign_key: 'owner_user_id'
+
   has_many :job_users
   has_many :jobs, through: :job_users
 

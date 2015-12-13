@@ -7,7 +7,7 @@ class Job < ActiveRecord::Base
   has_many :job_skills, inverse_of: :job
   has_many :skills, through: :job_skills
 
-  has_many :job_users
+  has_many :job_users, inverse_of: :user
   has_many :users, through: :job_users
 
   has_many :comments, as: :commentable
