@@ -38,6 +38,18 @@ class User < ActiveRecord::Base
   def admin?
     true
   end
+
+  def reset!
+    name = 'Ghost'
+    update!(
+      anonymized: true,
+      name: name,
+      email: "#{name}+#{SecureRandom.uuid}@example.com",
+      phone: '123456789',
+      description: 'This user has been deleted.',
+      address: 'New York, NY, USA'
+    )
+  end
 end
 
 # == Schema Information
@@ -55,6 +67,7 @@ end
 #  longitude   :float
 #  address     :string
 #  language_id :integer
+#  anonymized  :boolean          default(FALSE)
 #
 # Indexes
 #
