@@ -33,13 +33,12 @@ class Api::V1::JobsController < Api::V1::BaseController
     param :name, String, desc: 'Name', required: true
     param :description, String, desc: 'Description', required: true
     param :job_date, String, desc: 'Job date', required: true
-    param :performed_accept, [true, false], desc: 'Performed'
     param :language_id, Integer, desc: 'Langauge id of the text content', required: true
     param :owner_user_id, Integer, desc: 'User id for the job owner', required: true
   end
   example Doxxer.example_for(Job)
   def create
-    @job = Job.new(job_params)
+    @job = Job.new(job_owner_params)
     @job.owner_user_id = current_user.id
 
     if @job.save
@@ -63,24 +62,34 @@ class Api::V1::JobsController < Api::V1::BaseController
     param :name, String, desc: 'Name'
     param :description, String, desc: 'Description'
     param :job_date, String, desc: 'Job date'
-    param :performed_accept, [true, false], desc: 'Performed'
+    param :performed_accept, [true, false], desc: 'Performed accepted by owner'
+    param :performed, [true, false], desc: 'Job has been performed by user'
     param :estimated_completion_time, Float, desc: 'Estmiated completion time'
     param :language_id, Integer, desc: 'Langauge id of the text content'
     param :owner_user_id, Integer, desc: 'User id for the job owner'
   end
   example Doxxer.example_for(Job)
   def update
-    unless @job.owner == current_user
+    notify_klass = nil
+    should_notify = false
+    job_params = {}
+    if @job.owner == current_user
+      job_params = job_owner_params
+      notify_klass = JobPerformedAcceptNotifier
+      should_notify = @job.send_performed_accept_notice?
+    elsif @job.job_users.find_by(user: current_user, accepted: true)
+      job_params = job_user_params
+      notify_klass = JobPerformedNotifier
+      should_notify = @job.send_performed_notice?
+    else
       render json: { error: 'Not authed.' }, status: 401
       return
     end
 
     @job.assign_attributes(job_params)
 
-    should_notify = @job.send_performed_accept_notice?
-
     if @job.save
-      JobPerformedNotifier.call(job: @job) if should_notify
+      notify_klass.call(job: @job) if should_notify
       render json: @job, status: :ok
     else
       render json: @job.errors, status: :unprocessable_entity
@@ -104,7 +113,11 @@ class Api::V1::JobsController < Api::V1::BaseController
       @job = Job.find(params[:job_id])
     end
 
-    def job_params
-      params.require(:job).permit(:max_rate, :description, :job_date, :performed_accept, :address, :name, :estimated_completion_time, :language_id)
+    def job_owner_params
+      params.require(:job).permit(:max_rate, :performed_accept, :description, :job_date, :address, :name, :estimated_completion_time, :language_id)
+    end
+
+    def job_user_params
+      params.require(:job).permit(:performed)
     end
 end

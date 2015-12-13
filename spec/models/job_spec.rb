@@ -21,6 +21,22 @@ RSpec.describe Job, type: :model do
     end
   end
 
+  describe '#send_performed_notice?' do
+    it 'returns true if notice should be sent' do
+      job = described_class.new
+      job.performed = true
+      expected = job.send_performed_notice?
+      expect(expected).to eq(true)
+    end
+
+    it 'returns false if notice should be sent' do
+      job = described_class.new
+      job.performed = false
+      expected = job.send_performed_notice?
+      expect(expected).to eq(false)
+    end
+  end
+
   describe '#accepted_applicant' do
     it 'returns nil if no accepted applicant' do
       job = described_class.new
