@@ -6,6 +6,7 @@ max_skills          = ENV.fetch('MAX_SKILLS', 10).to_i
 max_users           = ENV.fetch('MAX_USERS', 10).to_i
 max_jobs            = ENV.fetch('MAX_JOBS', 10).to_i
 max_job_users       = ENV.fetch('MAX_JOB_USERS', 10).to_i
+max_chats           = ENV.fetch('MAX_CHATS', 10).to_i
 
 # Seed languages
 max_langs.times do
@@ -100,4 +101,14 @@ max_job_users.times do
     job: job,
     rate: rates.sample,
   )
+end
+
+# Seed chat
+max_chats.times do
+  user = users.sample
+  other_user = (users - [user]).sample
+  user_ids = User.where(id: [user.id, other_user.id])
+  chat = Chat.find_or_create_private_chat(user_ids)
+  Message.create!(body: Faker::Hipster.paragraph(2), chat: chat, author: user)
+  Message.create!(body: Faker::Hipster.paragraph(2), chat: chat, author: other_user)
 end

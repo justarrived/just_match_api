@@ -28,7 +28,6 @@ group :development, :test do
 end
 
 group :development do
-
   gem 'letter_opener', '~> 1.4'
   gem 'bullet', '~> 4.14'
   gem 'binding_of_caller', '~> 0.7'
