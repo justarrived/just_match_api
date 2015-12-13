@@ -21,9 +21,5 @@ RSpec.describe Api::V1::JobsController, type: :routing do
     it "routes to #update via PATCH" do
       expect(patch: "/api/v1/jobs/1").to route_to("api/v1/jobs#update", job_id: "1")
     end
-
-    it "routes to #destroy" do
-      expect(delete: "/api/v1/jobs/1").to route_to("api/v1/jobs#destroy", job_id: "1")
-    end
   end
 end

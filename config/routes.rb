@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :jobs, param: :job_id, except: [:new, :edit] do
+      resources :jobs, param: :job_id, except: [:new, :edit, :destroy] do
         member do
           get :matching_users
           resources :comments, module: :jobs, except: [:new, :edit]
