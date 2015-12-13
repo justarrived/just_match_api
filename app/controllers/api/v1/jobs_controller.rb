@@ -19,7 +19,7 @@ class Api::V1::JobsController < Api::V1::BaseController
 
   api :GET, '/jobs/:id', 'Show job'
   description 'Return job.'
-  # example Doxxer.example_for(Job)
+  example Doxxer.example_for(Job)
   def show
     render json: @job, include: ['language', 'owner']
   end
@@ -36,7 +36,7 @@ class Api::V1::JobsController < Api::V1::BaseController
     param :language_id, Integer, desc: 'Langauge id of the text content', required: true
     param :owner_user_id, Integer, desc: 'User id for the job owner', required: true
   end
-  # example Doxxer.example_for(Job)
+  example Doxxer.example_for(Job)
   def create
     @job = Job.new(job_owner_params)
     @job.owner_user_id = current_user.id
@@ -68,7 +68,7 @@ class Api::V1::JobsController < Api::V1::BaseController
     param :language_id, Integer, desc: 'Langauge id of the text content'
     param :owner_user_id, Integer, desc: 'User id for the job owner'
   end
-  # example Doxxer.example_for(Job)
+  example Doxxer.example_for(Job)
   def update
     notify_klass = nil
     should_notify = false

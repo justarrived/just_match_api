@@ -70,6 +70,7 @@ end
 #  description               :text
 #  job_date                  :datetime
 #  performed_accept          :boolean          default(FALSE)
+#  performed                 :boolean          default(FALSE)
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
 #  owner_user_id             :integer
