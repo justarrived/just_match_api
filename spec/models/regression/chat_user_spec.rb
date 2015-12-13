@@ -1,32 +1,33 @@
 require 'rails_helper'
 
-RSpec.describe Language, regressor: true do
+RSpec.describe ChatUser, regressor: true do
 
   # === Relations ===
+  it { is_expected.to belong_to :chat }
+  it { is_expected.to belong_to :user }
 
 
-  it { is_expected.to have_many :user_languages }
-  it { is_expected.to have_many :users }
-  it { is_expected.to have_many :jobs }
 
   # === Nested Attributes ===
 
 
   # === Database (Columns) ===
   it { is_expected.to have_db_column :id }
-  it { is_expected.to have_db_column :lang_code }
-  it { is_expected.to have_db_column :primary }
+  it { is_expected.to have_db_column :chat_id }
+  it { is_expected.to have_db_column :user_id }
   it { is_expected.to have_db_column :created_at }
   it { is_expected.to have_db_column :updated_at }
 
   # === Database (Indexes) ===
-
+  it { is_expected.to have_db_index ["chat_id"] }
+  it { is_expected.to have_db_index ["user_id"] }
 
   # === Validations (Length) ===
 
 
   # === Validations (Presence) ===
-  it { is_expected.to validate_presence_of :lang_code }
+  it { is_expected.to validate_presence_of :chat }
+  it { is_expected.to validate_presence_of :user }
 
   # === Validations (Numericality) ===
 
