@@ -1,6 +1,6 @@
 {
-  "name": "JustArrived",
-  "description": "Match jobs/taks with user skills.",
+  "name": "JustMatch API",
+  "description": "Match users that need small tasks performed with other users skills.",
   "repository": "https://github.com/buren/just_arrived",
   "keywords": [],
   "env": {

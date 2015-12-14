@@ -1,8 +1,8 @@
-# JustArrived API (alpha) [![Build Status](https://travis-ci.org/buren/just_arrived.svg?branch=master)](https://travis-ci.org/buren/just_arrived)
+# JustMatch API (alpha) [![Build Status](https://travis-ci.org/buren/just_arrived.svg?branch=master)](https://travis-ci.org/buren/just_arrived)
 
 [![Code Climate](https://codeclimate.com/github/buren/just_arrived/badges/gpa.svg)](https://codeclimate.com/github/buren/just_arrived) [![Test Coverage](https://codeclimate.com/github/buren/just_arrived/badges/coverage.svg)](https://codeclimate.com/github/buren/just_arrived/coverage)
 
-Welcome to the, very unofficial, API backend for Just Arrived.
+Welcome to the, very unofficial, API backend for Just Arriveds matching service.
 
 The API is designed to be consumed by multiple clients and the goal is that it should easy to implement a client (Web/Android/iOS etc..).
 

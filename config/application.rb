@@ -13,7 +13,7 @@ require 'action_view/railtie' # Needed for Rails mailers
 
 Bundler.require(*Rails.groups)
 
-module JustArrived
+module JustMatch
   class Application < Rails::Application
     config.time_zone = 'Stockholm'
 

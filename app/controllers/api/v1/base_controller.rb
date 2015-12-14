@@ -4,7 +4,7 @@ module Api
       resource_description do
         api_version '1.0'
         app_info "
-          # JustArrived API (alpha) - _Version 1.0_
+          # JustMatch API (alpha) - _Version 1.0_
 
           ---
 
