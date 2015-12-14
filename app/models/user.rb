@@ -21,8 +21,8 @@ class User < ActiveRecord::Base
 
   has_many :messages, class_name: 'Message', foreign_key: 'author_id'
 
-  validates_presence_of :email, :language
-  validates_uniqueness_of :email
+  validates :language, presence: true
+  validates :email, presence: true, uniqueness: true
   validates :name, length: { minimum: 3 }, allow_blank: false
   validates :phone, length: { minimum: 9 }, allow_blank: false
   validates :description, length: { minimum: 10 }, allow_blank: false

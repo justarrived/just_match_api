@@ -2,7 +2,8 @@ class UserSkill < ActiveRecord::Base
   belongs_to :user
   belongs_to :skill
 
-  validates_presence_of :user, :skill
+  validates :skill, presence: true
+  validates :user, presence: true
   validates :skill, uniqueness: { scope: :user }
   validates :user, uniqueness: { scope: :skill }
 end

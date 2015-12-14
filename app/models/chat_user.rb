@@ -2,10 +2,8 @@ class ChatUser < ActiveRecord::Base
   belongs_to :chat
   belongs_to :user
 
-  validates_presence_of :chat, :user
-
-  validates :chat, uniqueness: { scope: :user }
-  validates :user, uniqueness: { scope: :chat }
+  validates :chat, presence: true, uniqueness: { scope: :user }
+  validates :user, presence: true, uniqueness: { scope: :chat }
 end
 # == Schema Information
 #

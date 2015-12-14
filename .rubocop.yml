@@ -1,1 +1,4 @@
 inherit_from: .hound.yml
+
+AllCops:
+  RunRailsCops: true

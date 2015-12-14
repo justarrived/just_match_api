@@ -4,7 +4,7 @@ class Language < ActiveRecord::Base
 
   has_many :jobs
 
-  validates_presence_of :lang_code
+  validates :lang_code, presence: true
 end
 
 # == Schema Information

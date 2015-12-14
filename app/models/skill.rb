@@ -7,9 +7,8 @@ class Skill < ActiveRecord::Base
   has_many :user_skills
   has_many :users, through: :user_skills
 
-  validates :name, length: { minimum: 3 }, allow_blank: false
-  validates_uniqueness_of :name
-  validates_presence_of :language
+  validates :name, uniqueness: true, length: { minimum: 3 }, allow_blank: false
+  validates :language, presence: true
 end
 
 # == Schema Information
