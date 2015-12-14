@@ -43,5 +43,6 @@ RSpec.configure do |config|
   config.example_status_persistence_file_path = 'spec/.rspec_examples.txt'
 end
 
-# Only allow the tests to connect to localhost and codeclimate (for test coverage reporting)
+# Only allow the tests to connect to localhost and  allow codeclimate
+# codeclimate (for test coverage reporting)
 WebMock.disable_net_connect!(allow_localhost: true, allow: 'codeclimate.com')

@@ -1,17 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe Skill, regressor: true do
-
   # === Relations ===
   it { is_expected.to belong_to :language }
-  
+
   it { is_expected.to have_many :job_skills }
   it { is_expected.to have_many :jobs }
   it { is_expected.to have_many :user_skills }
   it { is_expected.to have_many :users }
 
   # === Nested Attributes ===
-  
 
   # === Database (Columns) ===
   it { is_expected.to have_db_column :id }
@@ -21,7 +19,7 @@ RSpec.describe Skill, regressor: true do
   it { is_expected.to have_db_column :language_id }
 
   # === Database (Indexes) ===
-  it { is_expected.to have_db_index ["language_id"] }
+  it { is_expected.to have_db_index ['language_id'] }
 
   # === Validations (Length) ===
   it { is_expected.to allow_value(Faker::Lorem.characters(3)).for :name }
@@ -31,10 +29,6 @@ RSpec.describe Skill, regressor: true do
   it { is_expected.to validate_presence_of :language }
 
   # === Validations (Numericality) ===
-  
 
-  
   # === Enums ===
-  
-  
 end

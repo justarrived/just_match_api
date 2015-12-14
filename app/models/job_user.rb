@@ -2,7 +2,8 @@ class JobUser < ActiveRecord::Base
   belongs_to :user
   belongs_to :job
 
-  validates_presence_of :user, :job
+  validates :user, presence: true
+  validates :job, presence: true
 
   validate :applicant_not_owner_of_job
   validates :user, uniqueness: { scope: :job }

@@ -3,8 +3,13 @@ class Comment < ActiveRecord::Base
   belongs_to :owner, class_name: 'User', foreign_key: 'owner_user_id'
   belongs_to :language
 
-  validates_presence_of :owner_user_id, :commentable_id, :commentable_type, :body, :language
+  validates :owner_user_id, presence: true
+  validates :commentable_id, presence: true
+  validates :commentable_type, presence: true
+  validates :body, presence: true
+  validates :language, presence: true
 end
+# rubocop:disable Metrics/LineLength
 
 # == Schema Information
 #

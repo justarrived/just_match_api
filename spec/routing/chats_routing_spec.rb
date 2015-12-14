@@ -15,11 +15,15 @@ RSpec.describe Api::V1::ChatsController, type: :routing do
     end
 
     it 'routes to #messages' do
-      expect(post: '/api/v1/chats/1/messages').to route_to('api/v1/chats/messages#create', id: '1')
+      path = '/api/v1/chats/1/messages'
+      route_path = 'api/v1/chats/messages#create'
+      expect(post: path).to route_to(route_path, id: '1')
     end
 
     it 'routes to #messages' do
-      expect(get: '/api/v1/chats/1/messages').to route_to('api/v1/chats/messages#index', id: '1')
+      path = '/api/v1/chats/1/messages'
+      route_path = 'api/v1/chats/messages#index'
+      expect(get: path).to route_to(route_path, id: '1')
     end
   end
 end

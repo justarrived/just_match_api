@@ -2,9 +2,8 @@ class UserLanguage < ActiveRecord::Base
   belongs_to :language
   belongs_to :user
 
-  validates_presence_of :language, :user
-  validates :language, uniqueness: { scope: :user }
-  validates :user, uniqueness: { scope: :language }
+  validates :language, presence: true, uniqueness: { scope: :user }
+  validates :user, presence: true, uniqueness: { scope: :language }
 end
 
 # == Schema Information

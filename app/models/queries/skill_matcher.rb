@@ -21,14 +21,14 @@ module Queries
     def base_query(skills)
       select_statement = [
         "#{@table_name}.*",
-        "count(skills.id) as skill_count"
+        'count(skills.id) as skill_count'
       ].join(',')
 
-      @scope.joins(:skills)
-        .where(skills: { id: skills })
-        .select(select_statement)
-        .group("#{@table_name}.id")
-        .order('skill_count DESC')
+      @scope.joins(:skills).
+        where(skills: { id: skills }).
+        select(select_statement).
+        group("#{@table_name}.id").
+        order('skill_count DESC')
     end
   end
 end

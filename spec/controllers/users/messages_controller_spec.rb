@@ -4,7 +4,7 @@ RSpec.describe Api::V1::Users::MessagesController, type: :controller do
   # This should return the minimal set of attributes required to create a valid
   # User. As you add validations to User, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) {
+  let(:valid_attributes) do
     lang_id = FactoryGirl.create(:language).id
     {
       skill_ids: [FactoryGirl.create(:skill).id],
@@ -16,11 +16,11 @@ RSpec.describe Api::V1::Users::MessagesController, type: :controller do
       language_ids: [lang_id],
       address: 'Stora Nygatan 36, Malmö'
     }
-  }
+  end
 
-  let(:invalid_attributes) {
+  let(:invalid_attributes) do
     { name: nil }
-  }
+  end
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
@@ -35,8 +35,9 @@ RSpec.describe Api::V1::Users::MessagesController, type: :controller do
       end
 
       it 'assigns all messages as @messages' do
+        expected_klass = Message::ActiveRecord_Associations_CollectionProxy
         get :index, valid_attributes, valid_session
-        expect(assigns(:messages).class).to eq(Message::ActiveRecord_Associations_CollectionProxy)
+        expect(assigns(:messages).class).to eq(expected_klass)
       end
     end
   end
@@ -54,9 +55,9 @@ RSpec.describe Api::V1::Users::MessagesController, type: :controller do
       end
 
       it 'creates a new Message' do
-        expect {
+        expect do
           post :create, valid_attributes, valid_session
-        }.to change(Message, :count).by(1)
+        end.to change(Message, :count).by(1)
       end
 
       it 'assigns a newly created message as @message' do

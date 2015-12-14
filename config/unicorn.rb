@@ -8,15 +8,16 @@ before_fork do |_server, _worker|
     Process.kill 'QUIT', Process.pid
   end
 
-  defined?(ActiveRecord::Base) and
+  defined?(ActiveRecord::Base) &&
     ActiveRecord::Base.connection.disconnect!
 end
 
 after_fork do |_server, _worker|
   Signal.trap 'TERM' do
-    puts 'Unicorn worker intercepting TERM and doing nothing. Wait for master to send QUIT'
+    puts 'Unicorn worker intercepting TERM and doing nothing.'
+    puts 'Wait for master to send QUIT'
   end
 
-  defined?(ActiveRecord::Base) and
+  defined?(ActiveRecord::Base) &&
     ActiveRecord::Base.establish_connection
 end

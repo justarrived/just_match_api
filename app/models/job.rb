@@ -12,14 +12,14 @@ class Job < ActiveRecord::Base
 
   has_many :comments, as: :commentable
 
-  validates_presence_of :language
+  validates :language, presence: true
   validates :name, length: { minimum: 2 }, allow_blank: false
   validates :max_rate, numericality: { only_integer: true }, allow_blank: false
   validates :description, length: { minimum: 10 }, allow_blank: false
   validates :address, length: { minimum: 2 }, allow_blank: false
   # TODO: Validate #job_date format?
 
-  validates_presence_of :owner
+  validates :owner, presence: true
 
   belongs_to :owner, class_name: 'User', foreign_key: 'owner_user_id'
 
@@ -27,8 +27,8 @@ class Job < ActiveRecord::Base
     lat = user.latitude
     long = user.longitude
 
-    within(lat: lat, long: long, distance: distance)
-      .order_by_matching_skills(user, strict_match: strict_match)
+    within(lat: lat, long: long, distance: distance).
+      order_by_matching_skills(user, strict_match: strict_match)
   end
 
   # NOTE: You need to call this __before__ the record is saved/updated

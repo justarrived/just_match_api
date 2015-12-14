@@ -16,8 +16,8 @@ RSpec.describe IncludeParams do
       end
 
       it 'can return many' do
-        expect(param.permit(['users', 'jobs'])).to eq(['users', 'jobs'])
-        expect(param.permit('users', 'jobs')).to eq(['users', 'jobs'])
+        expect(param.permit(%w(users jobs))).to eq(%w(users jobs))
+        expect(param.permit('users', 'jobs')).to eq(%w(users jobs))
       end
     end
 

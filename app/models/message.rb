@@ -3,7 +3,9 @@ class Message < ActiveRecord::Base
   belongs_to :author, class_name: 'User', foreign_key: 'author_id'
   belongs_to :language
 
-  validates_presence_of :body, :chat, :author
+  validates :body, presence: true
+  validates :chat, presence: true
+  validates :author, presence: true
 end
 
 # == Schema Information

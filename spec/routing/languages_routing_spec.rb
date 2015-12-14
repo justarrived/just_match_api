@@ -1,29 +1,35 @@
-require "rails_helper"
+require 'rails_helper'
 
 RSpec.describe Api::V1::LanguagesController, type: :routing do
-  describe "routing" do
-    it "routes to #index" do
-      expect(get: "/api/v1/languages").to route_to("api/v1/languages#index")
+  describe 'routing' do
+    it 'routes to #index' do
+      path = '/api/v1/languages'
+      expect(get: path).to route_to('api/v1/languages#index')
     end
 
-    it "routes to #show" do
-      expect(get: "/api/v1/languages/1").to route_to("api/v1/languages#show", id: "1")
+    it 'routes to #show' do
+      path = '/api/v1/languages/1'
+      expect(get: path).to route_to('api/v1/languages#show', id: '1')
     end
 
-    it "routes to #create" do
-      expect(post: "/api/v1/languages").to route_to("api/v1/languages#create")
+    it 'routes to #create' do
+      path = '/api/v1/languages'
+      expect(post: path).to route_to('api/v1/languages#create')
     end
 
-    it "routes to #update via PUT" do
-      expect(put: "/api/v1/languages/1").to route_to("api/v1/languages#update", id: "1")
+    it 'routes to #update via PUT' do
+      path = '/api/v1/languages/1'
+      expect(put: path).to route_to('api/v1/languages#update', id: '1')
     end
 
-    it "routes to #update via PATCH" do
-      expect(patch: "/api/v1/languages/1").to route_to("api/v1/languages#update", id: "1")
+    it 'routes to #update via PATCH' do
+      path = '/api/v1/languages/1'
+      expect(patch: path).to route_to('api/v1/languages#update', id: '1')
     end
 
-    it "routes to #destroy" do
-      expect(delete: "/api/v1/languages/1").to route_to("api/v1/languages#destroy", id: "1")
+    it 'routes to #destroy' do
+      path = '/api/v1/languages/1'
+      expect(delete: path).to route_to('api/v1/languages#destroy', id: '1')
     end
   end
 end

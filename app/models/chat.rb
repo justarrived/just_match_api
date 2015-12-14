@@ -21,7 +21,7 @@ class Chat < ActiveRecord::Base
   def self.find_private_chat(users)
     common_chats = common_chat_ids(users)
     unless common_chats.empty?
-      Chat.where(id: common_chats).each do |chat|
+      Chat.where(id: common_chats).find_each do |chat|
         # Make sure its a private chat and not just a chat in common
         return chat if chat.users.length == users.length
       end
@@ -30,7 +30,7 @@ class Chat < ActiveRecord::Base
   end
 
   def self.common_chat_ids(users)
-    users.map { |user| user.chats.pluck(:id) }.reduce(&:&) || []
+    users.map { |user| user.chats.pluck(:id) }.inject(&:&) || []
   end
 
   def create_message(author:, body:, language_id:)

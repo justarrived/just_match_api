@@ -58,8 +58,6 @@ max_jobs.times do
   address = addresses.sample
   estimate = if (num = (1..10).to_a.sample) > 7
                num
-             else
-              nil
              end
   job = Job.create!(
     name: Faker::Name.name,

@@ -11,6 +11,12 @@ language: ruby
 cache: bundler
 notifications:
   email: false
+  webhooks:
+    urls:
+    - https://webhooks.gitter.im/e/8d9e0b365480875c35af
+    on_success: change
+    on_failure: always
+    on_start: always
 rvm:
   - 2.2.2
 addons:

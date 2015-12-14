@@ -1,4 +1,6 @@
-# JustArrived API (alpha) [![Build Status](https://travis-ci.org/buren/just_arrived.svg?branch=master)](https://travis-ci.org/buren/just_arrived) [![Code Climate](https://codeclimate.com/github/buren/just_arrived/badges/gpa.svg)](https://codeclimate.com/github/buren/just_arrived) [![Test Coverage](https://codeclimate.com/github/buren/just_arrived/badges/coverage.svg)](https://codeclimate.com/github/buren/just_arrived/coverage) [![Stories in Ready](https://badge.waffle.io/buren/just_arrived.png?label=ready&title=Ready)](https://waffle.io/buren/just_arrived) [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/buren/just_arrived)
+# JustArrived API (alpha) [![Build Status](https://travis-ci.org/buren/just_arrived.svg?branch=master)](https://travis-ci.org/buren/just_arrived) [![Code Climate](https://codeclimate.com/github/buren/just_arrived/badges/gpa.svg)](https://codeclimate.com/github/buren/just_arrived) [![Test Coverage](https://codeclimate.com/github/buren/just_arrived/badges/coverage.svg)](https://codeclimate.com/github/buren/just_arrived/coverage) [![Join the chat at https://gitter.im/buren/just_arrived](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/buren/just_arrived?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/buren/just_arrived)
 
 Welcome to the, very unofficial, API backend for Just Arrived. Everything in this
 project is open source and licensed under the permissive [MIT](LICENSE.txt) license.
@@ -9,9 +11,12 @@ The API tries to follow the [JsonApi 1.0](http://jsonapi.org/) standard, but is 
 
 :warning: _Note_: The project it still in a very early stage and drastic changes to the API can be made at any time. If your thinking of doing a larger contribution please open an issue so it can be discussed (things can move real fast now in the beginning without much public discussion).
 
+
 * [Getting started](#getting-started)
 * [Tests](#tests)
 * [Contributing](#contributing)
+
+If you're looking for help or want to start contributing, you can join our Gitter chat:  [![Join the chat at https://gitter.im/buren/just_arrived](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/buren/just_arrived?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ## Getting started
 

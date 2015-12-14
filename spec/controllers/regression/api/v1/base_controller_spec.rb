@@ -8,5 +8,4 @@ RSpec.describe Api::V1::BaseController, regressor: true do
   # === Callbacks (After) ===
 
   # === Callbacks (Around) ===
-
 end
