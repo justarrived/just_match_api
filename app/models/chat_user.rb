@@ -7,7 +7,6 @@ class ChatUser < ActiveRecord::Base
   validates :chat, uniqueness: { scope: :user }
   validates :user, uniqueness: { scope: :chat }
 end
-
 # == Schema Information
 #
 # Table name: chat_users

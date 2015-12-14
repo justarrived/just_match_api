@@ -32,8 +32,8 @@ class User < ActiveRecord::Base
     lat = job.latitude
     long = job.longitude
 
-    within(lat: lat, long: long, distance: distance)
-      .order_by_matching_skills(job, strict_match: strict_match)
+    within(lat: lat, long: long, distance: distance).
+      order_by_matching_skills(job, strict_match: strict_match)
   end
 
   # TODO: Obvious placeholder until user roles is implemented..

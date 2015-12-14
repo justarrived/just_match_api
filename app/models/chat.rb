@@ -30,7 +30,7 @@ class Chat < ActiveRecord::Base
   end
 
   def self.common_chat_ids(users)
-    users.map { |user| user.chats.pluck(:id) }.reduce(&:&) || []
+    users.map { |user| user.chats.pluck(:id) }.inject(&:&) || []
   end
 
   def create_message(author:, body:, language_id:)

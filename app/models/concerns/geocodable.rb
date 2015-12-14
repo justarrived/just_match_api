@@ -14,7 +14,7 @@ module Geocodable
   def self.included(receiver)
     receiver.class_eval do
       geocoded_by :full_street_address
-      after_validation :geocode, if: ->(record){ record.address_changed? }
+      after_validation :geocode, if: ->(record) { record.address_changed? }
       after_validation :validate_geocoding
 
       def self.within(lat:, long:, distance:)

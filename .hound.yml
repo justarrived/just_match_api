@@ -159,6 +159,10 @@ Metrics/PerceivedComplexity:
     reader.
   Enabled: false
   Max: 7
+Metrics/LineLength:
+  Description: Maximum line length
+  Enabled: true
+  Max: 85
 Lint/AssignmentInCondition:
   Description: Don't use assignment in conditions.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#safe-assignment-in-condition

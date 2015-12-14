@@ -27,8 +27,8 @@ class Job < ActiveRecord::Base
     lat = user.latitude
     long = user.longitude
 
-    within(lat: lat, long: long, distance: distance)
-      .order_by_matching_skills(user, strict_match: strict_match)
+    within(lat: lat, long: long, distance: distance).
+      order_by_matching_skills(user, strict_match: strict_match)
   end
 
   # NOTE: You need to call this __before__ the record is saved/updated
