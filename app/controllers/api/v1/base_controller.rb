@@ -11,7 +11,8 @@ class Api::V1::BaseController < Api::BaseController
 
       ### Examples
 
-      To try the examples below simply copy-and-paste the cURL command below into your terminal and run it.
+      To try the examples below simply copy-and-paste the cURL command below
+      into your terminal and run it.
 
       __Jobs__
 
