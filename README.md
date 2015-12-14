@@ -1,8 +1,8 @@
-# JustMatch API (alpha) [![Build Status](https://travis-ci.org/buren/just_arrived.svg?branch=master)](https://travis-ci.org/buren/just_arrived)
+# JustMatch API (alpha) [![Build Status](https://travis-ci.org/justarrived/just_match_api.svg?branch=master)](https://travis-ci.org/justarrived/just_match_api)
 
-[![Code Climate](https://codeclimate.com/github/buren/just_arrived/badges/gpa.svg)](https://codeclimate.com/github/buren/just_arrived) [![Test Coverage](https://codeclimate.com/github/buren/just_arrived/badges/coverage.svg)](https://codeclimate.com/github/buren/just_arrived/coverage)
+[![Code Climate](https://codeclimate.com/github/justarrived/just_match_api/badges/gpa.svg)](https://codeclimate.com/github/justarrived/just_match_api) [![Test Coverage](https://codeclimate.com/github/justarrived/just_match_api/badges/coverage.svg)](https://codeclimate.com/github/justarrived/just_match_api/coverage)
 
-Welcome to the, very unofficial, API backend for Just Arriveds matching service.
+Welcome to the, very unofficial, API backend for the Just Arrived matching service.
 
 The API is designed to be consumed by multiple clients and the goal is that it should easy to implement a client (Web/Android/iOS etc..).
 
@@ -10,7 +10,7 @@ The API tries to follow the [JsonApi 1.0](http://jsonapi.org/) standard, but sil
 
 :warning: _Note_: The project it still in a very early stage and drastic changes to the API can be made at any time. If your thinking of doing a larger contribution please open an issue so it can be discussed.
 
-If you're looking for help or want to start contributing, want help, give feedback etc., you're more than welcome to join our Gitter chat:  [![Join the chat at https://gitter.im/buren/just_arrived](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/buren/just_arrived?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+If you're looking for help or want to start contributing, want help, give feedback etc., you're more than welcome to join our Gitter chat:  [![Join the chat at https://gitter.im/justarrived/just_match_api](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/justarrived/just_match_api?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 * [Built with](#built-with)
 * [Getting started](#getting-started)
@@ -32,7 +32,7 @@ _Prerequisites_: Ruby 2.2, PostgreSQL
 To setup your development environment
 
 ```
-$ git clone git@github.com:buren/just_arrived.git
+$ git clone git@github.com:justarrived/just_match_api.git
 $ cd just_arrived
 $ bin/setup
 $ foreman start
@@ -83,7 +83,7 @@ $ bin/rake apipie:static
 
 > __tl;dr let me deploy already__
 >
-> [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/buren/just_arrived)
+> [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/justarrived/just_match_api)
 
 
 The simplest way to deploy is with Heroku, you can get your own version running in a few minutes.

@@ -1,7 +1,7 @@
 {
   "name": "JustMatch API",
   "description": "Match users that need small tasks performed with other users skills.",
-  "repository": "https://github.com/buren/just_arrived",
+  "repository": "https://github.com/justarrived/just_match_api",
   "keywords": [],
   "env": {
     "RAILS_ENV": "production",
