@@ -31,7 +31,7 @@ class Api::V1::ChatsController < Api::V1::BaseController
   description 'Return chat.'
   # TODO: For some reason the call to Chat#new that Doxxer performs fails in
   # production (because there is no database conncetion yet?)
-  # example Doxxer.example_for(Chat)
+  example Doxxer.example_for(Chat)
   def show
     render json: @chat
   end
@@ -48,7 +48,7 @@ class Api::V1::ChatsController < Api::V1::BaseController
   end
   # TODO: For some reason the call to Chat#new that Doxxer performs fails in
   # production (because there is no database conncetion yet?)
-  # example Doxxer.example_for(Chat)
+  example Doxxer.example_for(Chat)
   def create
     if current_user.id.nil?
       render json: { error: 'Not authed.' }, status: 401
