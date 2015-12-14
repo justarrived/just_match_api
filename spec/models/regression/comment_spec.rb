@@ -1,16 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe Comment, regressor: true do
-
   # === Relations ===
   it { is_expected.to belong_to :commentable }
   it { is_expected.to belong_to :owner }
   it { is_expected.to belong_to :language }
-  
-  
 
   # === Nested Attributes ===
-  
 
   # === Database (Columns) ===
   it { is_expected.to have_db_column :id }
@@ -23,11 +19,10 @@ RSpec.describe Comment, regressor: true do
   it { is_expected.to have_db_column :language_id }
 
   # === Database (Indexes) ===
-  it { is_expected.to have_db_index ["commentable_type", "commentable_id"] }
-  it { is_expected.to have_db_index ["language_id"] }
+  it { is_expected.to have_db_index %w(commentable_type commentable_id) }
+  it { is_expected.to have_db_index ['language_id'] }
 
   # === Validations (Length) ===
-  
 
   # === Validations (Presence) ===
   it { is_expected.to validate_presence_of :owner_user_id }
@@ -37,10 +32,6 @@ RSpec.describe Comment, regressor: true do
   it { is_expected.to validate_presence_of :language }
 
   # === Validations (Numericality) ===
-  
 
-  
   # === Enums ===
-  
-  
 end

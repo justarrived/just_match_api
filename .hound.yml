@@ -29,8 +29,8 @@ Style/FileName:
 Style/GuardClause:
   Description: Check for conditionals that can be replaced with guard clauses
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#no-nested-conditionals
-  Enabled: false
-  MinBodyLength: 1
+  Enabled: true
+  MinBodyLength: 3
 Style/IfUnlessModifier:
   Description: Favor modifier if/unless usage when you have a single-line body.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#if-as-a-modifier
@@ -162,7 +162,12 @@ Metrics/PerceivedComplexity:
 Metrics/LineLength:
   Description: Maximum line length
   Enabled: true
-  Max: 85
+  Max: 90
+  Exclude:
+  - bin/spring
+  - config/routes.rb
+  - spec/controllers/regression/**/*
+  - spec/models/regression/**/*
 Lint/AssignmentInCondition:
   Description: Don't use assignment in conditions.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#safe-assignment-in-condition

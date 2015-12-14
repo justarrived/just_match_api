@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe User, regressor: true do
-
   # === Relations ===
   it { is_expected.to belong_to :language }
 
@@ -19,7 +18,6 @@ RSpec.describe User, regressor: true do
 
   # === Nested Attributes ===
 
-
   # === Database (Columns) ===
   it { is_expected.to have_db_column :id }
   it { is_expected.to have_db_column :name }
@@ -35,7 +33,7 @@ RSpec.describe User, regressor: true do
   it { is_expected.to have_db_column :anonymized }
 
   # === Database (Indexes) ===
-  it { is_expected.to have_db_index ["language_id"] }
+  it { is_expected.to have_db_index ['language_id'] }
 
   # === Validations (Length) ===
   it { is_expected.to allow_value(Faker::Lorem.characters(3)).for :name }
@@ -53,9 +51,5 @@ RSpec.describe User, regressor: true do
 
   # === Validations (Numericality) ===
 
-
-
   # === Enums ===
-
-
 end

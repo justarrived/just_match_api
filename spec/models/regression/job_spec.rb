@@ -1,11 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe Job, regressor: true do
-
   # === Relations ===
   it { is_expected.to belong_to :language }
   it { is_expected.to belong_to :owner }
-  
+
   it { is_expected.to have_many :job_skills }
   it { is_expected.to have_many :skills }
   it { is_expected.to have_many :job_users }
@@ -13,7 +12,6 @@ RSpec.describe Job, regressor: true do
   it { is_expected.to have_many :comments }
 
   # === Nested Attributes ===
-  
 
   # === Database (Columns) ===
   it { is_expected.to have_db_column :id }
@@ -32,7 +30,7 @@ RSpec.describe Job, regressor: true do
   it { is_expected.to have_db_column :language_id }
 
   # === Database (Indexes) ===
-  it { is_expected.to have_db_index ["language_id"] }
+  it { is_expected.to have_db_index ['language_id'] }
 
   # === Validations (Length) ===
   it { is_expected.to allow_value(Faker::Lorem.characters(2)).for :name }
@@ -49,8 +47,5 @@ RSpec.describe Job, regressor: true do
   # === Validations (Numericality) ===
   it { is_expected.to validate_numericality_of(:max_rate).only_integer }
 
-  
   # === Enums ===
-  
-  
 end

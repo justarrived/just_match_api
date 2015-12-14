@@ -28,7 +28,7 @@ RSpec.describe JobUser, type: :model do
     messages = job_user.errors.messages
     [:user, :job].each do |err_type|
       result = messages[err_type]
-      expect(result).to eq(["has already been taken"])
+      expect(result).to eq(['has already been taken'])
     end
   end
 
