@@ -4,6 +4,8 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      post 'token', to: 'user_sessions#token'
+
       resources :jobs, param: :job_id, except: [:new, :edit, :destroy] do
         member do
           get :matching_users

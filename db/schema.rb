@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151213003232) do
+ActiveRecord::Schema.define(version: 20151219174424) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -145,6 +145,7 @@ ActiveRecord::Schema.define(version: 20151213003232) do
     t.string   "address"
     t.integer  "language_id"
     t.boolean  "anonymized",  default: false
+    t.string   "auth_token"
   end
 
   add_index "users", ["language_id"], name: "index_users_on_language_id", using: :btree

@@ -1,6 +1,9 @@
 class User < ActiveRecord::Base
   include Geocodable
   include SkillMatchable
+
+  before_create -> { self.auth_token = SecureRandom.hex }
+
   belongs_to :language
 
   has_many :user_skills
@@ -28,6 +31,11 @@ class User < ActiveRecord::Base
   validates :description, length: { minimum: 10 }, allow_blank: false
   validates :address, length: { minimum: 2 }, allow_blank: false
 
+  # FIXME: Verify password!
+  def self.find_by_credentials(email:, password:)
+    find_by(email: email)
+  end
+
   def self.matches_job(job, distance: 20, strict_match: false)
     lat = job.latitude
     long = job.longitude
@@ -36,7 +44,7 @@ class User < ActiveRecord::Base
       order_by_matching_skills(job, strict_match: strict_match)
   end
 
-  # TODO: Obvious placeholder until user roles is implemented..
+  # FIXME: Should obviously not be this...
   def admin?
     true
   end
@@ -70,6 +78,7 @@ end
 #  address     :string
 #  language_id :integer
 #  anonymized  :boolean          default(FALSE)
+#  auth_token  :string
 #
 # Indexes
 #
