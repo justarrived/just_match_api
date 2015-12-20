@@ -67,6 +67,16 @@ RSpec.describe Api::V1::Users::UserLanguagesController, type: :controller do
         post :create, params, valid_session
         expect(response.status).to eq(201)
       end
+
+      context 'not authorized' do
+        it 'returns created status' do
+          user = FactoryGirl.create(:user)
+          language = FactoryGirl.create(:language)
+          params = { user_id: user.to_param, language: { id: language.to_param } }
+          post :create, params, valid_session
+          expect(response.status).to eq(401)
+        end
+      end
     end
 
     context 'with invalid params' do

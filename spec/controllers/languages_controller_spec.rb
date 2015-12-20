@@ -45,6 +45,14 @@ RSpec.describe Api::V1::LanguagesController, type: :controller do
         post :create, { language: valid_attributes }, valid_session
         expect(response.status).to eq(201)
       end
+
+      context 'not authorized' do
+        it 'returns not authorized status' do
+          allow_any_instance_of(User).to receive(:admin?).and_return(false)
+          post :create, { language: valid_attributes }, valid_session
+          expect(response.status).to eq(401)
+        end
+      end
     end
 
     context 'with invalid params' do
@@ -87,6 +95,16 @@ RSpec.describe Api::V1::LanguagesController, type: :controller do
         put :update, params, valid_session
         expect(response.status).to eq(200)
       end
+
+      context 'not authorized' do
+        it 'returns not authorized status' do
+          allow_any_instance_of(User).to receive(:admin?).and_return(false)
+          language = Language.create! valid_attributes
+          params = { id: language.to_param, language: valid_attributes }
+          post :update, params, valid_session
+          expect(response.status).to eq(401)
+        end
+      end
     end
 
     context 'with invalid params' do
@@ -118,6 +136,16 @@ RSpec.describe Api::V1::LanguagesController, type: :controller do
       language = Language.create! valid_attributes
       delete :destroy, { id: language.to_param }, valid_session
       expect(response.status).to eq(204)
+    end
+
+    context 'not authorized' do
+      it 'returns not authorized status' do
+        allow_any_instance_of(User).to receive(:admin?).and_return(false)
+        language = Language.create! valid_attributes
+        params = { id: language.to_param }
+        post :destroy, params, valid_session
+        expect(response.status).to eq(401)
+      end
     end
   end
 end

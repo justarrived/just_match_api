@@ -75,6 +75,7 @@ module Api
           @language.destroy
         else
           render json: { error: 'Not authed.' }, status: 401
+          return
         end
 
         head :no_content

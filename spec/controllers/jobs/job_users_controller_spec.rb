@@ -25,6 +25,14 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
       get :index, { job_id: job.to_param }, valid_session
       expect(assigns(:users)).to eq([user])
     end
+
+    context 'not authorized' do
+      it 'returns not authorized status' do
+        job = FactoryGirl.create(:job_with_users, users_count: 1)
+        get :index, { job_id: job.to_param }, valid_session
+        expect(response.status).to eq(401)
+      end
+    end
   end
 
   describe 'GET #show' do
@@ -40,6 +48,15 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
       user = job.users.first
       get :show, { job_id: job.to_param, id: user.to_param }, valid_session
       expect(assigns(:job)).to eq(job)
+    end
+
+    context 'not authorized' do
+      it 'returns unauthorized status' do
+        job = FactoryGirl.create(:job_with_users, users_count: 1)
+        user = job.users.first
+        get :show, { job_id: job.to_param, id: user.to_param }, valid_session
+        expect(response.status).to eq(401)
+      end
     end
   end
 

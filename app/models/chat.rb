@@ -11,6 +11,9 @@ class Chat < ActiveRecord::Base
       if users.length >= MIN_USERS && users.length <= MAX_USERS
         create!.tap { |chat| chat.users = users }
       else
+        # TODO: This isn't great since this error is lost when calling #valid?,
+        #       #validate, #save or #save!
+        #       This method should be extracted to its own class/service
         new.tap do |chat|
           chat.errors.add(:users, "must be between #{MIN_USERS}-#{MAX_USERS}")
         end

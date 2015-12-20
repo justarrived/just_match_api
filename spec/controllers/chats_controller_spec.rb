@@ -22,6 +22,14 @@ RSpec.describe Api::V1::ChatsController, type: :controller do
       get :index, {}, valid_session
       expect(assigns(:chats)).to eq([chat])
     end
+
+    context 'not authorized' do
+      it 'returns not authorized status' do
+        allow_any_instance_of(User).to receive(:admin?).and_return(false)
+        get :index, {}, valid_session
+        expect(response.status).to eq(401)
+      end
+    end
   end
 
   describe 'GET #show' do
@@ -36,7 +44,7 @@ RSpec.describe Api::V1::ChatsController, type: :controller do
     end
 
     context 'non authorized' do
-      it 'assigns the requested chat as @chat' do
+      it 'raises record not found error' do
         chat_user = FactoryGirl.create(:chat_user)
         chat = chat_user.chat
         expect do
@@ -77,6 +85,12 @@ RSpec.describe Api::V1::ChatsController, type: :controller do
         FactoryGirl.create(:user)
         post :create, { chat: invalid_attributes }, valid_session
         expect(assigns(:chat).errors[:users]).to eq(['must be between 2-10'])
+      end
+
+      it 'returns unprocessable entity' do
+        FactoryGirl.create(:user)
+        post :create, { chat: invalid_attributes }, valid_session
+        expect(response.status).to eq(422)
       end
     end
   end
