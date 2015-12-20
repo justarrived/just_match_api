@@ -1,9 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::UserSessionsController, type: :controller do
-  # This should return the minimal set of attributes required to create a valid
-  # Chat. As you add validations to Chat, be sure to
-  # adjust the attributes here as well.
   let(:valid_attributes) do
     { email: 'someone@example.com', password: '12345678' }
   end
@@ -12,9 +9,6 @@ RSpec.describe Api::V1::UserSessionsController, type: :controller do
     {}
   end
 
-  # This should return the minimal set of values that should be in the session
-  # in order to pass any filters (e.g. authentication) defined in
-  # ChatsController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
   describe 'POST #token' do
