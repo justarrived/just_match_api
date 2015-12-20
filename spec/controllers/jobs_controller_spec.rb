@@ -24,7 +24,10 @@ RSpec.describe Api::V1::JobsController, type: :controller do
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # JobsController. Be sure to keep this updated too.
-  let(:valid_session) { {} }
+  let(:valid_session) do
+    user = FactoryGirl.create(:user)
+    { token: user.auth_token }
+  end
 
   describe 'GET #index' do
     it 'assigns all jobs as @jobs' do
@@ -80,9 +83,14 @@ RSpec.describe Api::V1::JobsController, type: :controller do
       let(:new_attributes) do
         { max_rate: 150 }
       end
+
+      before(:each) do
+        @user = User.find_by(auth_token: valid_session[:token])
+      end
+
       context 'owner user' do
         it 'updates the requested job' do
-          job = FactoryGirl.create(:job)
+          job = FactoryGirl.create(:job, owner: @user)
           params = { job_id: job.to_param, job: new_attributes }
           put :update, params, valid_session
           job.reload
@@ -97,7 +105,7 @@ RSpec.describe Api::V1::JobsController, type: :controller do
         end
 
         it 'returns success status' do
-          job = FactoryGirl.create(:job)
+          job = FactoryGirl.create(:job, owner: @user)
           params = { job_id: job.to_param, job: new_attributes }
           put :update, params, valid_session
           expect(response.status).to eq(200)
@@ -136,30 +144,35 @@ RSpec.describe Api::V1::JobsController, type: :controller do
           { performed: true }
         end
 
-        it 'updates the requested job' do
+        let(:valid_session) do
           user = FactoryGirl.create(:user)
-          user1 = FactoryGirl.create(:user)
-          job = FactoryGirl.create(:job, owner: user1)
-          FactoryGirl.create(:job_user, user: user, job: job, accepted: true)
+          { token: user.auth_token }
+        end
+
+        before(:each) do
+          @user = User.find_by(auth_token: valid_session[:token])
+        end
+
+        it 'updates the requested job' do
+          job = FactoryGirl.create(:job)
+          FactoryGirl.create(:job_user, user: @user, job: job, accepted: true)
           put :update, { job_id: job.to_param, job: new_attributes }, valid_session
           job.reload
           expect(job.performed).to eq(true)
         end
 
-        it 'assigns the requested user as @job' do
-          user = FactoryGirl.create(:user)
+        it 'assigns the requested job as @job' do
           user1 = FactoryGirl.create(:user)
-          job = FactoryGirl.create(:job, owner: user1)
-          FactoryGirl.create(:job_user, user: user, job: job, accepted: true)
+          job = FactoryGirl.create(:job)
+          FactoryGirl.create(:job_user, user: @user, job: job, accepted: true)
           put :update, { job_id: job.to_param, job: new_attributes }, valid_session
           expect(assigns(:job)).to eq(job)
         end
 
         it 'returns success status' do
-          user = FactoryGirl.create(:user)
           user1 = FactoryGirl.create(:user)
-          job = FactoryGirl.create(:job, owner: user1)
-          FactoryGirl.create(:job_user, user: user, job: job, accepted: true)
+          job = FactoryGirl.create(:job)
+          FactoryGirl.create(:job_user, user: @user, job: job, accepted: true)
           put :update, { job_id: job.to_param, job: new_attributes }, valid_session
           expect(response.status).to eq(200)
         end
@@ -167,15 +180,18 @@ RSpec.describe Api::V1::JobsController, type: :controller do
     end
 
     context 'with invalid params' do
-      it 'assigns the user as @job' do
-        job = FactoryGirl.create(:job)
-        put :update, { job_id: job.to_param, job: invalid_attributes }, valid_session
-        expect(assigns(:job)).to eq(job)
+      before(:each) do
+        user = User.find_by(auth_token: valid_session[:token])
+        @job = FactoryGirl.create(:job, owner: user)
+      end
+
+      it 'assigns the job as @job' do
+        put :update, { job_id: @job.to_param, job: invalid_attributes }, valid_session
+        expect(assigns(:job)).to eq(@job)
       end
 
       it 'returns unprocessable entity status' do
-        job = FactoryGirl.create(:job)
-        put :update, { job_id: job.to_param, job: invalid_attributes }, valid_session
+        put :update, { job_id: @job.to_param, job: invalid_attributes }, valid_session
         expect(response.status).to eq(422)
       end
     end

@@ -1,9 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
-  # This should return the minimal set of attributes required to create a valid
-  # JobUser. As you add validations to JobUser, be sure to
-  # adjust the attributes here as well.
   let(:valid_attributes) do
     {}
   end
@@ -12,14 +9,18 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
     {}
   end
 
-  # This should return the minimal set of values that should be in the session
-  # in order to pass any filters (e.g. authentication) defined in
-  # JobUsersController. Be sure to keep this updated too.
-  let(:valid_session) { {} }
+  let(:valid_session) do
+    user = FactoryGirl.create(:user)
+    { token: user.auth_token }
+  end
+
+  before(:each) do
+    @user = User.find_by(auth_token: valid_session[:token])
+  end
 
   describe 'GET #index' do
     it 'assigns all user users as @users' do
-      job = FactoryGirl.create(:job_with_users, users_count: 1)
+      job = FactoryGirl.create(:job_with_users, users_count: 1, owner: @user)
       user = job.users.first
       get :index, { job_id: job.to_param }, valid_session
       expect(assigns(:users)).to eq([user])
@@ -28,14 +29,14 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
 
   describe 'GET #show' do
     it 'assigns the requested user user as @user' do
-      job = FactoryGirl.create(:job_with_users, users_count: 1)
+      job = FactoryGirl.create(:job_with_users, users_count: 1, owner: @user)
       user = job.users.first
       get :show, { job_id: job.to_param, id: user.to_param }, valid_session
       expect(assigns(:user)).to eq(user)
     end
 
     it 'assigns the requested user as @user' do
-      job = FactoryGirl.create(:job_with_users, users_count: 1)
+      job = FactoryGirl.create(:job_with_users, users_count: 1, owner: @user)
       user = job.users.first
       get :show, { job_id: job.to_param, id: user.to_param }, valid_session
       expect(assigns(:job)).to eq(job)
@@ -76,13 +77,13 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
 
     context 'with invalid params' do
       it 'assigns a newly created but unsaved job_user as @job_user' do
-        job = FactoryGirl.create(:job)
+        job = FactoryGirl.create(:job, owner: @user)
         post :create, { job_id: job.to_param, user: {} }, valid_session
         expect(assigns(:job_user)).to be_a_new(JobUser)
       end
 
       it 'returns unprocessable entity status' do
-        job = FactoryGirl.create(:job)
+        job = FactoryGirl.create(:job, owner: @user)
         post :create, { job_id: job.to_param, user: {} }, valid_session
         expect(response.status).to eq(422)
       end
@@ -109,22 +110,23 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
       end
     end
 
-    # TODO: Mock the user session properly, and make these tests pass
-    xcontext 'allowed' do
+    context 'allowed' do
       it 'destroys the requested job_user' do
-        job = FactoryGirl.create(:job_with_users)
+        job = FactoryGirl.create(:job_with_users, users_count: 1)
         user = job.users.first
+        session = { token: user.auth_token }
         params = { job_id: job.to_param, id: user.to_param }
         expect do
-          delete :destroy, params, valid_session
+          delete :destroy, params, session
         end.to change(JobUser, :count).by(-1)
       end
 
       it 'returns no content status' do
         job = FactoryGirl.create(:job_with_users, users_count: 1)
         user = job.users.first
+        session = { token: user.auth_token }
         params = { job_id: job.to_param, id: user.to_param }
-        delete :destroy, params, valid_session
+        delete :destroy, params, session
         expect(response.status).to eq(204)
       end
     end

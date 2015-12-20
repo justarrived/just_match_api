@@ -19,7 +19,7 @@ RSpec.describe Api::V1::UserSessionsController, type: :controller do
 
   describe 'POST #token' do
     context 'valid user' do
-      before(:all) do
+      before(:each) do
         FactoryGirl.create(:user, email: 'someone@example.com')
       end
 

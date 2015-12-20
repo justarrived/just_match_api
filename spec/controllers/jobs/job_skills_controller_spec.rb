@@ -1,9 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::Jobs::JobSkillsController, type: :controller do
-  # This should return the minimal set of attributes required to create a valid
-  # JobSkill. As you add validations to JobSkill, be sure to
-  # adjust the attributes here as well.
   let(:valid_attributes) do
     {}
   end
@@ -12,10 +9,10 @@ RSpec.describe Api::V1::Jobs::JobSkillsController, type: :controller do
     {}
   end
 
-  # This should return the minimal set of values that should be in the session
-  # in order to pass any filters (e.g. authentication) defined in
-  # JobSkillsController. Be sure to keep this updated too.
-  let(:valid_session) { {} }
+  let(:valid_session) do
+    user = FactoryGirl.create(:user)
+    { token: user.auth_token }
+  end
 
   describe 'GET #index' do
     it 'assigns all user skills as @skills' do
@@ -44,42 +41,63 @@ RSpec.describe Api::V1::Jobs::JobSkillsController, type: :controller do
 
   describe 'POST #create' do
     context 'with valid params' do
-      it 'creates a new JobSkill' do
-        job = FactoryGirl.create(:job)
-        skill = FactoryGirl.create(:skill)
-        params = { job_id: job.to_param, skill: { id: skill.to_param } }
-        expect do
+      context 'logged in' do
+        before(:each) do
+          @user = User.find_by(auth_token: valid_session[:token])
+        end
+
+        it 'creates a new JobSkill' do
+          job = FactoryGirl.create(:job, owner: @user)
+          skill = FactoryGirl.create(:skill)
+          params = { job_id: job.to_param, skill: { id: skill.to_param } }
+          expect do
+            post :create, params, valid_session
+          end.to change(JobSkill, :count).by(1)
+        end
+
+        it 'assigns a newly created user_skill as @job_skill' do
+          job = FactoryGirl.create(:job, owner: @user)
+          skill = FactoryGirl.create(:skill)
+          params = { job_id: job.to_param, skill: { id: skill.to_param } }
           post :create, params, valid_session
-        end.to change(JobSkill, :count).by(1)
+          expect(assigns(:job_skill)).to be_a(JobSkill)
+          expect(assigns(:job_skill)).to be_persisted
+        end
+
+        it 'returns created status' do
+          job = FactoryGirl.create(:job, owner: @user)
+          skill = FactoryGirl.create(:skill)
+          params = { job_id: job.to_param, skill: { id: skill.to_param } }
+          post :create, params, valid_session
+          expect(response.status).to eq(201)
+        end
       end
 
-      it 'assigns a newly created user_skill as @job_skill' do
-        job = FactoryGirl.create(:job)
-        skill = FactoryGirl.create(:skill)
-        params = { job_id: job.to_param, skill: { id: skill.to_param } }
-        post :create, params, valid_session
-        expect(assigns(:job_skill)).to be_a(JobSkill)
-        expect(assigns(:job_skill)).to be_persisted
-      end
-
-      it 'returns created status' do
-        job = FactoryGirl.create(:job)
-        skill = FactoryGirl.create(:skill)
-        params = { job_id: job.to_param, skill: { id: skill.to_param } }
-        post :create, params, valid_session
-        expect(response.status).to eq(201)
+       context 'not logged in' do
+          it 'does not create a new JobSkill' do
+          job = FactoryGirl.create(:job)
+          skill = FactoryGirl.create(:skill)
+          params = { job_id: job.to_param, skill: { id: skill.to_param } }
+          expect do
+            post :create, params, valid_session
+          end.to change(JobSkill, :count).by(0)
+        end
       end
     end
 
     context 'with invalid params' do
+      before(:each) do
+        @user = User.find_by(auth_token: valid_session[:token])
+      end
+
       it 'assigns a newly created but unsaved job_skill as @job_skill' do
-        job = FactoryGirl.create(:job)
+        job = FactoryGirl.create(:job, owner: @user)
         post :create, { job_id: job.to_param, skill: {} }, valid_session
         expect(assigns(:job_skill)).to be_a_new(JobSkill)
       end
 
       it 'returns unprocessable entity status' do
-        job = FactoryGirl.create(:job)
+        job = FactoryGirl.create(:job, owner: @user)
         post :create, { job_id: job.to_param, skill: {} }, valid_session
         expect(response.status).to eq(422)
       end
@@ -87,21 +105,46 @@ RSpec.describe Api::V1::Jobs::JobSkillsController, type: :controller do
   end
 
   describe 'DELETE #destroy' do
-    it 'destroys the requested job_skill' do
-      job = FactoryGirl.create(:job_with_skills)
-      skill = job.skills.first
-      expect do
+    context 'logged in user is owner' do
+      before(:each) do
+        @user = User.find_by(auth_token: valid_session[:token])
+      end
+
+      it 'destroys the requested job_skill' do
+        job = FactoryGirl.create(:job_with_skills, owner: @user)
+        skill = job.skills.first
+        expect do
+          params = { job_id: job.to_param, id: skill.to_param }
+          delete :destroy, params, valid_session
+        end.to change(JobSkill, :count).by(-1)
+      end
+
+      it 'returns no content status' do
+        job = FactoryGirl.create(:job_with_skills, owner: @user)
+        skill = job.skills.first
         params = { job_id: job.to_param, id: skill.to_param }
         delete :destroy, params, valid_session
-      end.to change(JobSkill, :count).by(-1)
+        expect(response.status).to eq(204)
+      end
     end
 
-    it 'returns no content status' do
-      job = FactoryGirl.create(:job_with_skills)
-      skill = job.skills.first
-      params = { job_id: job.to_param, id: skill.to_param }
-      delete :destroy, params, valid_session
-      expect(response.status).to eq(204)
+    context 'logged in user is NOT owner' do
+      it 'destroys the requested job_skill' do
+        job = FactoryGirl.create(:job_with_skills)
+        skill = job.skills.first
+        expect do
+          params = { job_id: job.to_param, id: skill.to_param }
+          delete :destroy, params, valid_session
+        end.to change(JobSkill, :count).by(0)
+      end
+
+      it 'returns no content status' do
+        job = FactoryGirl.create(:job_with_skills)
+        skill = job.skills.first
+        params = { job_id: job.to_param, id: skill.to_param }
+        delete :destroy, params, valid_session
+        expect(response.status).to eq(401)
+      end
     end
   end
 end

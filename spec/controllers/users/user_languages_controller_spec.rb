@@ -1,9 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::Users::UserLanguagesController, type: :controller do
-  # This should return the minimal set of attributes required to create a valid
-  # UserLanguage. As you add validations to UserLanguage, be sure to
-  # adjust the attributes here as well.
   let(:valid_attributes) do
     {}
   end
@@ -12,10 +9,14 @@ RSpec.describe Api::V1::Users::UserLanguagesController, type: :controller do
     {}
   end
 
-  # This should return the minimal set of values that should be in the session
-  # in order to pass any filters (e.g. authentication) defined in
-  # UserLanguagesController. Be sure to keep this updated too.
-  let(:valid_session) { {} }
+  let(:valid_session) do
+    user = FactoryGirl.create(:user)
+    { token: user.auth_token }
+  end
+
+  before(:each) do
+    @user = User.find_by(auth_token: valid_session[:token])
+  end
 
   describe 'GET #index' do
     it 'assigns all user languages as @languages' do
@@ -45,27 +46,24 @@ RSpec.describe Api::V1::Users::UserLanguagesController, type: :controller do
   describe 'POST #create' do
     context 'with valid params' do
       it 'creates a new UserLanguage' do
-        user = FactoryGirl.create(:user)
         language = FactoryGirl.create(:language)
-        params = { user_id: user.to_param, language: { id: language.to_param } }
+        params = { user_id: @user.to_param, language: { id: language.to_param } }
         expect do
           post :create, params, valid_session
         end.to change(UserLanguage, :count).by(1)
       end
 
       it 'assigns a newly created user_language as @user_language' do
-        user = FactoryGirl.create(:user)
         language = FactoryGirl.create(:language)
-        params = { user_id: user.to_param, language: { id: language.to_param } }
+        params = { user_id: @user.to_param, language: { id: language.to_param } }
         post :create, params, valid_session
         expect(assigns(:user_language)).to be_a(UserLanguage)
         expect(assigns(:user_language)).to be_persisted
       end
 
       it 'returns created status' do
-        user = FactoryGirl.create(:user)
         language = FactoryGirl.create(:language)
-        params = { user_id: user.to_param, language: { id: language.to_param } }
+        params = { user_id: @user.to_param, language: { id: language.to_param } }
         post :create, params, valid_session
         expect(response.status).to eq(201)
       end
@@ -73,15 +71,13 @@ RSpec.describe Api::V1::Users::UserLanguagesController, type: :controller do
 
     context 'with invalid params' do
       it 'assigns a newly created but unsaved user_language as @user_language' do
-        user = FactoryGirl.create(:user)
-        params = { user_id: user.to_param, language: { id: nil } }
+        params = { user_id: @user.to_param, language: { id: nil } }
         post :create, params, valid_session
         expect(assigns(:user_language)).to be_a_new(UserLanguage)
       end
 
       it 'returns unprocessable entity status' do
-        user = FactoryGirl.create(:user)
-        params = { user_id: user.to_param, language: { id: nil } }
+        params = { user_id: @user.to_param, language: { id: nil } }
         post :create, params, valid_session
         expect(response.status).to eq(422)
       end
@@ -89,21 +85,44 @@ RSpec.describe Api::V1::Users::UserLanguagesController, type: :controller do
   end
 
   describe 'DELETE #destroy' do
-    it 'destroys the requested user_language' do
-      user = FactoryGirl.create(:user_with_languages)
-      language = user.languages.first
-      params = { user_id: user.to_param, id: language.to_param }
-      expect do
+    context 'authorized' do
+      it 'destroys the requested user_language' do
+        language = FactoryGirl.create(:language)
+        @user.languages << language
+        params = { user_id: @user.to_param, id: language.to_param }
+        expect do
+          delete :destroy, params, valid_session
+        end.to change(UserLanguage, :count).by(-1)
+      end
+
+      it 'returns no content status' do
+        language = FactoryGirl.create(:language)
+        @user.languages << language
+        params = { user_id: @user.to_param, id: language.to_param }
         delete :destroy, params, valid_session
-      end.to change(UserLanguage, :count).by(-1)
+        expect(response.status).to eq(204)
+      end
     end
 
-    it 'returns no content status' do
-      user = FactoryGirl.create(:user_with_languages)
-      language = user.languages.first
-      params = { user_id: user.to_param, id: language.to_param }
-      delete :destroy, params, valid_session
-      expect(response.status).to eq(204)
+    context 'not authorized' do
+      it 'does not destroys the requested user_language' do
+        user = FactoryGirl.create(:user_with_languages)
+        language = user.languages.first
+        params = { user_id: user.to_param, id: language.to_param }
+        params = { user_id: user.to_param, id: language.to_param }
+        expect do
+          delete :destroy, params, valid_session
+        end.to change(UserLanguage, :count).by(0)
+      end
+
+      it 'returns not authorized error' do
+        user = FactoryGirl.create(:user_with_languages)
+        language = user.languages.first
+        params = { user_id: user.to_param, id: language.to_param }
+        params = { user_id: user.to_param, id: language.to_param }
+        delete :destroy, params, valid_session
+        expect(response.status).to eq(401)
+      end
     end
   end
 end

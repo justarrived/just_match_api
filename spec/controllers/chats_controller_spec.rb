@@ -1,9 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::ChatsController, type: :controller do
-  # This should return the minimal set of attributes required to create a valid
-  # Chat. As you add validations to Chat, be sure to
-  # adjust the attributes here as well.
   let(:valid_attributes) do
     first = FactoryGirl.create(:user)
     second = FactoryGirl.create(:user)
@@ -14,10 +11,10 @@ RSpec.describe Api::V1::ChatsController, type: :controller do
     { user_ids: [] }
   end
 
-  # This should return the minimal set of values that should be in the session
-  # in order to pass any filters (e.g. authentication) defined in
-  # ChatsController. Be sure to keep this updated too.
-  let(:valid_session) { {} }
+  let(:valid_session) do
+    user = FactoryGirl.create(:user)
+    { token: user.auth_token }
+  end
 
   describe 'GET #index' do
     it 'assigns all chats as @chats' do
@@ -28,11 +25,24 @@ RSpec.describe Api::V1::ChatsController, type: :controller do
   end
 
   describe 'GET #show' do
-    it 'assigns the requested chat as @chat' do
-      chat_user = FactoryGirl.create(:chat_user)
-      chat = chat_user.chat
-      get :show, { id: chat.to_param }, valid_session
-      expect(assigns(:chat)).to eq(chat)
+    context 'authorized' do
+      it 'assigns the requested chat as @chat' do
+        user = User.find_by(auth_token: valid_session[:token])
+        chat_user = FactoryGirl.create(:chat_user, user: user)
+        chat = chat_user.chat
+        get :show, { id: chat.to_param }, valid_session
+        expect(assigns(:chat)).to eq(chat)
+      end
+    end
+
+    context 'non authorized' do
+      it 'assigns the requested chat as @chat' do
+        chat_user = FactoryGirl.create(:chat_user)
+        chat = chat_user.chat
+        expect do
+          get :show, { id: chat.to_param }, valid_session
+        end.to raise_error(ActiveRecord::RecordNotFound)
+      end
     end
   end
 
