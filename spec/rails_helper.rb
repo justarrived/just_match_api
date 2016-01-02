@@ -47,8 +47,8 @@ RSpec.configure do |config|
       # see: https://github.com/thoughtbot/factory_girl/blob/master/GETTING_STARTED.md#rails-preloaders-and-rspec
       FactoryGirl.reload
       # Validate that all factories are valid, will slow down the test startup
-      # but a second or two, but can be very handy..
-      # FactoryGirl.lint
+      # with a second or two, but can be very handy..
+      FactoryGirl.lint
       DatabaseCleaner.strategy = :truncation
       DatabaseCleaner.start
     ensure
