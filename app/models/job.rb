@@ -17,7 +17,8 @@ class Job < ActiveRecord::Base
   validates :max_rate, numericality: { only_integer: true }, allow_blank: false
   validates :description, length: { minimum: 10 }, allow_blank: false
   validates :address, length: { minimum: 2 }, allow_blank: false
-  # TODO: Validate #job_date format?
+  validates :job_date, presence: true
+  # TODO: Validate #job_date format
 
   validates :owner, presence: true
 

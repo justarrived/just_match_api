@@ -43,6 +43,7 @@ RSpec.describe Job, regressor: true do
   # === Validations (Presence) ===
   it { is_expected.to validate_presence_of :language }
   it { is_expected.to validate_presence_of :owner }
+  it { is_expected.to validate_presence_of :job_date }
 
   # === Validations (Numericality) ===
   it { is_expected.to validate_numericality_of(:max_rate).only_integer }

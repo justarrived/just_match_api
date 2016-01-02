@@ -10,7 +10,8 @@ RSpec.describe Api::V1::JobsController, type: :controller do
       description: 'Some job description',
       language_id: FactoryGirl.create(:language).id,
       owner_user_id: FactoryGirl.create(:user).id,
-      address: 'Stora Nygatan 36, Malmö'
+      address: 'Stora Nygatan 36, Malmö',
+      job_date: 1.day.from_now
     }
   end
 

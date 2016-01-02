@@ -6,6 +6,7 @@ FactoryGirl.define do
     address 'Bankgatan 14C, Lund'
     association :owner, factory: :user
     association :language
+    job_date 1.week.ago
 
     factory :job_with_skills do
       transient do
