@@ -47,6 +47,7 @@ GEM
     apipie-rails (0.3.5)
       json
     arel (6.0.3)
+    bcrypt (3.1.10)
     better_errors (2.1.1)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
@@ -202,6 +203,7 @@ DEPENDENCIES
   active_model_serializers (~> 0.10.0.rc3)
   annotate (~> 2.6)
   apipie-rails (~> 0.3)
+  bcrypt (~> 3.1.7)
   better_errors (~> 2.1)
   binding_of_caller (~> 0.7)
   bullet (~> 4.14)
