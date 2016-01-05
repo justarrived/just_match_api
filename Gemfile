@@ -27,6 +27,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.4'
   gem 'regressor', '~> 0.6'
   gem 'faker', '~> 1.6'
+  gem 'foreman'
 end
 
 group :development do

@@ -11,7 +11,8 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       description: 'Some user description',
       language_id: lang_id,
       language_ids: [lang_id],
-      address: 'Stora Nygatan 36, Malmö'
+      address: 'Stora Nygatan 36, Malmö',
+      password: (1..8).to_a.join
     }
   end
 

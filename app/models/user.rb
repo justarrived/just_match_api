@@ -2,6 +2,8 @@ class User < ActiveRecord::Base
   include Geocodable
   include SkillMatchable
 
+  attr_accessor :password
+
   before_create :generate_auth_token
   before_save :encrypt_password
 
@@ -32,7 +34,7 @@ class User < ActiveRecord::Base
   validates :description, length: { minimum: 10 }, allow_blank: false
   validates :address, length: { minimum: 2 }, allow_blank: false
   validates :password, length: { minimum: 6 }, allow_blank: false, on: :create
-  validates :auth_token, presence: true, uniqueness: true
+  validates :auth_token, uniqueness: true
 
   def self.find_by_credentials(email:, password:)
     user = find_by(email: email) || return
@@ -50,14 +52,6 @@ class User < ActiveRecord::Base
 
     within(lat: lat, long: long, distance: distance).
       order_by_matching_skills(job, strict_match: strict_match)
-  end
-
-  def password
-    @password
-  end
-
-  def password=(pass)
-    @password = pass
   end
 
   # FIXME: Should obviously not be this...
@@ -88,9 +82,10 @@ class User < ActiveRecord::Base
 
   def generate_auth_token
     # Make sure no two users have the same auth_token
-    begin
+    loop do
       self.auth_token = SecureRandom.hex
-    end while self.class.exists?(auth_token: auth_token)
+      break unless self.class.exists?(auth_token: auth_token)
+    end
   end
 end
 

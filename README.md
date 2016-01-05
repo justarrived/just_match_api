@@ -35,8 +35,8 @@ To setup your development environment
 $ git clone git@github.com:justarrived/just_match_api.git
 $ cd just_arrived
 $ bin/setup
-$ foreman start
-# Now you can open http://localhost:5000
+$ bin/server
+# You can now open http://localhost:5000
 ```
 
 You can also see the API documentation locally by going to `http://localhost:3000/api_docs`.
@@ -45,10 +45,20 @@ You can also see the API documentation locally by going to `http://localhost:300
 
 This project uses `rspec` and you can find the tests `spec/`.
 
-To run the test
+You can run the test using
 
 ```
-$ bin/rspec
+$ bin/test
+```
+
+you can also run a single file or a single test:
+
+```
+# Run single file
+$ bin/test spec/models/user_spec.rb
+
+# Run single test, on line 31, in file
+$ bin/test spec/models/user_spec.rb:31
 ```
 
 _Note_: Running the tests with `bundle exec rspec` will not work, please use `bin/rspec` instead.
