@@ -93,8 +93,7 @@ max_job_users.times do
   end
 
   job = jobs.sample
-  next if job.owner == user
-  JobUser.create!(
+  JobUser.create(
     user: user,
     job: job,
     rate: rates.sample,
