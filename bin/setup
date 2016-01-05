@@ -11,6 +11,7 @@ Dir.chdir APP_ROOT do
   puts '== Installing dependencies =='
   system 'gem install bundler --conservative'
   system 'bundle check || bundle install'
+  system 'gem install foreman'
 
   # puts "\n== Copying sample files =="
   # unless File.exist?("config/database.yml")
@@ -24,6 +25,5 @@ Dir.chdir APP_ROOT do
   system 'rm -f log/*'
   system 'rm -rf tmp/cache'
 
-  puts "\n== Restarting application server =="
-  system 'touch tmp/restart.txt'
+  puts "\n== Restart your application server =="
 end

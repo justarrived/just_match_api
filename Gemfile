@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.2.2'
+ruby '2.3.0'
 
 gem 'rails', '4.2.5'
 gem 'pg', '~> 0.15' # Use postgresql as the database for Active Record
@@ -18,8 +18,8 @@ gem 'kaminari', '~> 0.16' # Easy pagination
 
 gem 'bcrypt', '~> 3.1.7', require: true
 
-# Use Unicorn as the app server
-gem 'unicorn'
+# Use Puma as the app server
+gem 'puma'
 gem 'rack-timeout'
 
 group :development, :test do
