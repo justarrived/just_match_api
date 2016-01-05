@@ -16,8 +16,8 @@ gem 'maruku', '~> 0.7' # Needed for apipie-rails markdown support
 
 gem 'kaminari', '~> 0.16'
 
-# Use Unicorn as the app server
-gem 'unicorn'
+# Use Puma as the app server
+gem 'puma'
 gem 'rack-timeout'
 
 group :development, :test do
