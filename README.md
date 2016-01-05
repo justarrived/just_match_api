@@ -16,18 +16,19 @@ If you're looking for help or want to start contributing, want help, give feedba
 * [Getting started](#getting-started)
 * [Tests](#tests)
 * [Deploy](#deploy)
+* [Commands](#commands)
 * [Contributing](#contributing)
 * [License](#license)
 
 ## Built with
 
-* Ruby 2.2
+* Ruby 2.3
 * Ruby on Rails 4.2
 * PostgreSQL 9.3
 
 ## Getting started
 
-_Prerequisites_: Ruby 2.2, PostgreSQL
+_Prerequisites_: Ruby 2.3 and PostgreSQL
 
 To setup your development environment
 
@@ -39,29 +40,29 @@ $ bin/server
 # You can now open http://localhost:5000
 ```
 
-You can also see the API documentation locally by going to `http://localhost:3000/api_docs`.
+If you navigate to `http://localhost:5000` you'll find the API documentation.
 
 ## Tests
 
-This project uses `rspec` and you can find the tests `spec/`.
+This project uses `rspec` and you can find the tests in `spec/`.
 
 You can run the test using
 
 ```
-$ bin/test
+$ script/test
 ```
 
 you can also run a single file or a single test:
 
 ```
 # Run single file
-$ bin/test spec/models/user_spec.rb
+$ script/test spec/models/user_spec.rb
 
 # Run single test, on line 31, in file
-$ bin/test spec/models/user_spec.rb:31
+$ script/test spec/models/user_spec.rb:31
 ```
 
-_Note_: Running the tests with `bundle exec rspec` will not work, please use `bin/rspec` instead.
+_Note_: Running the tests with `bundle exec rspec` will not work, please use `bin/rspec` or `script/test` instead.
 
 
 ## Docs
@@ -71,22 +72,16 @@ That way the documentation is kept up to date.
 
 __Development docs__
 
-During development you can run find the documentation at `http://localhost:5000/`.
+During development you can run find the documentation at `http://localhost:5000/`, as long as you have a started your server (you start it by running `script/server`).
 
 __Static docs__
 
 _Note_: Before generating the docs you must have migrated your database (`bin/rake db:migrate`).
 
-You can generate static versions of the API documentation in both `JSON` and `HTML` format.
+You can generate a static version of the API documentation with
 
-Generate API doc
 ```
-$ bin/rake apipie:static_json
-```
-
-HTML
-```
-$ bin/rake apipie:static
+$ script/doc
 ```
 
 ## Deploy
@@ -105,6 +100,15 @@ $ heroku create my-server-name
 $ git push heroku master
 $ heroku run rake db:migrate
 ```
+
+## Commands
+
+There are a few connivence commands
+
+* `script/setup` - sets up a project to be used for the first time
+* `script/server` - starts app
+* `script/test` - runs tests
+* `script/console` - opens a console
 
 ## Contributing
 
