@@ -2,5 +2,8 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-echo '== Running test =='
+cd "$(dirname "$0")/.."
+
+echo -e '\n== Running test =='
 bin/rspec "$@"
+echo -e '\n== Test done =='

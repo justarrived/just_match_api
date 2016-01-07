@@ -2,5 +2,18 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-echo '== Project setup =='
-bin/setup
+cd "$(dirname "$0")/.."
+
+# script/setup: Set up application for the first time after cloning, or set it
+#               back to the initial first unused state.
+
+script/bootstrap
+
+echo -e '\n== Preparing database =='
+bin/rake db:setup
+
+echo -e '\n== Removing old logs and tempfiles =='
+rm -f log/*
+rm -rf tmp/cache
+
+echo -e '\n== Setup done =='

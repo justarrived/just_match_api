@@ -1,0 +1,12 @@
+#!/bin/bash
+set -euo pipefail
+IFS=$'\n\t'
+
+cd "$(dirname "$0")/.."
+
+# script/deploy: Deploy the application.
+
+echo -e '\n== Deploying application =='
+git push heroku master
+heroku run rake db:migrate
+echo -e '\n== Deploy done =='

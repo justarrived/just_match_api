@@ -2,5 +2,13 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-echo '== Initializing console =='
+cd "$(dirname "$0")/.."
+
+# script/console: Launch a console for the application.
+
+echo -e '\n== Initializing console =='
+# ensure everything in the app is up to date.
+script/update
+
 bin/rails console
+echo -e '\n== Console done =='

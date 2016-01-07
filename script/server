@@ -2,5 +2,17 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-echo '== Starting server =='
-foreman start
+cd "$(dirname "$0")/.."
+
+# script/server: Launch the application and any extra required processes
+#                locally.
+
+# ensure everything in the app is up to date.
+script/update
+
+RACK_ENV=${RACK_ENV:-development}
+
+echo -e '\n== Starting server =='
+# boot the app and any other necessary processes.
+foreman start -p 3000
+echo -e '\n== Server done =='
