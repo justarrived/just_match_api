@@ -9,7 +9,10 @@ cd "$(dirname "$0")/.."
 echo -e '\n== Running cibuild =='
 export RAILS_ENV=test
 export RAKE_ENV=test
-script/setup
+
+script/bootstrap
+
+bin/rake db:reset
 
 LINT_FACTORY=true
 script/test --tag ~no_travis spec
