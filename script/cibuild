@@ -8,5 +8,8 @@ cd "$(dirname "$0")/.."
 
 echo -e '\n== Running cibuild =='
 
+# ensure everything in the app is up to date.
+script/update
+
 LINT_FACTORY=true
 script/test --tag ~no_travis spec
