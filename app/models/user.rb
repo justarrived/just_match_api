@@ -54,11 +54,6 @@ class User < ActiveRecord::Base
       order_by_matching_skills(job, strict_match: strict_match)
   end
 
-  # FIXME: Should obviously not be this...
-  def admin?
-    true
-  end
-
   def reset!
     name = 'Ghost'
     update!(
@@ -108,6 +103,7 @@ end
 #  auth_token    :string
 #  password_hash :string
 #  password_salt :string
+#  admin         :boolean          default(FALSE)
 #
 # Indexes
 #
