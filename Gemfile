@@ -9,7 +9,9 @@ gem 'rails-api', '~> 0.4'
 gem 'active_model_serializers', '~> 0.10.0.rc3' # Serialize models to JSON
 
 gem 'geocoder', '~> 1.2' # Geocode resources
-gem 'rails_12factor', '~> 0.0.3' # Heroku integration
+group :production do
+  gem 'rails_12factor', '~> 0.0.3' # Heroku integration
+end
 
 gem 'apipie-rails', '~> 0.3' # Easy API documentation
 gem 'maruku', '~> 0.7' # Needed for apipie-rails markdown support

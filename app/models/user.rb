@@ -54,6 +54,10 @@ class User < ActiveRecord::Base
       order_by_matching_skills(job, strict_match: strict_match)
   end
 
+  def admin?
+    self.admin
+  end
+
   def reset!
     name = 'Ghost'
     update!(

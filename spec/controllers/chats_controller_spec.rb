@@ -17,7 +17,8 @@ RSpec.describe Api::V1::ChatsController, type: :controller do
   end
 
   describe 'GET #index' do
-    it 'assigns all chats as @chats' do
+     it 'assigns all chats as @chats' do
+       allow_any_instance_of(User).to receive(:admin?).and_return(true)
       chat = Chat.create! {}
       get :index, {}, valid_session
       expect(assigns(:chats)).to eq([chat])

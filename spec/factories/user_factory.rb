@@ -10,6 +10,10 @@ FactoryGirl.define do
     address 'Bankgatan 14C, Lund'
     association :language
 
+    factory :user_admin do
+      admin true
+    end
+
     factory :user_with_skills do
       transient do
         skills_count 5
