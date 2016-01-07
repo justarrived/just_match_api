@@ -9,11 +9,7 @@ cd "$(dirname "$0")/.."
 echo -e '\n== Running cibuild =='
 export RAILS_ENV=test
 export RAKE_ENV=test
-echo -e '\n== Creating database =='
-bin/rake db:create
-
-# ensure everything in the app is up to date.
-script/update
+script/setup
 
 LINT_FACTORY=true
 script/test --tag ~no_travis spec
