@@ -55,7 +55,7 @@ class User < ActiveRecord::Base
   end
 
   def admin?
-    self.admin
+    admin
   end
 
   def reset!
