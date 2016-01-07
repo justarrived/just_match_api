@@ -1,0 +1,12 @@
+#!/bin/bash
+set -euo pipefail
+IFS=$'\n\t'
+
+cd "$(dirname "$0")/.."
+
+# script/cibuild: Run the test suite from CI.
+
+echo -e '\n== Running cibuild =='
+
+LINT_FACTORY=true
+script/test --tag ~no_travis spec

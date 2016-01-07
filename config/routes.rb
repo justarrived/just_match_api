@@ -4,7 +4,10 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      post 'token', to: 'user_sessions#token'
+      # post 'token', to: 'user_sessions#token'
+      # delete 'token/:id', to: 'user_sessions#delete_token'
+
+      resources :user_sessions, only: [:create, :destroy]
 
       resources :jobs, param: :job_id, except: [:new, :edit, :destroy] do
         member do

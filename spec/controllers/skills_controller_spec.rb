@@ -138,7 +138,7 @@ RSpec.describe Api::V1::SkillsController, type: :controller do
       it 'returns unauthorized status' do
         skill = Skill.create! valid_attributes
         allow_any_instance_of(User).to receive(:admin?).and_return(false)
-        post :destroy, { id: skill.to_param, skill: valid_attributes }, valid_session
+        delete :destroy, { id: skill.to_param, skill: valid_attributes }, valid_session
         expect(response.status).to eq(401)
       end
     end

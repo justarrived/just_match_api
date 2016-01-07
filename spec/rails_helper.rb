@@ -48,7 +48,7 @@ RSpec.configure do |config|
       FactoryGirl.reload
       # Validate that all factories are valid, will slow down the test startup
       # with a second or two, but can be very handy..
-      FactoryGirl.lint
+      FactoryGirl.lint if ENV.fetch('LINT_FACTORY', false)
       DatabaseCleaner.strategy = :truncation
       DatabaseCleaner.start
     ensure

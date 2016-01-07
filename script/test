@@ -4,6 +4,5 @@ IFS=$'\n\t'
 
 cd "$(dirname "$0")/.."
 
-echo -e '\n== Running test =='
+echo -e '\n== Running tests =='
 bin/rspec "$@"
-echo -e '\n== Test done =='

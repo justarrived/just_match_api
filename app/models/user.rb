@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
 
   attr_accessor :password
 
-  before_create :generate_auth_token
+  before_create :generate_auth_token!
   before_save :encrypt_password
 
   belongs_to :language
@@ -71,20 +71,20 @@ class User < ActiveRecord::Base
     )
   end
 
+  def generate_auth_token!
+    # Make sure no two users have the same auth_token
+    loop do
+      self.auth_token = SecureRandom.hex
+      break unless self.class.exists?(auth_token: auth_token)
+    end
+  end
+
   private
 
   def encrypt_password
     if password.present?
       self.password_salt = BCrypt::Engine.generate_salt
       self.password_hash = BCrypt::Engine.hash_secret(password, password_salt)
-    end
-  end
-
-  def generate_auth_token
-    # Make sure no two users have the same auth_token
-    loop do
-      self.auth_token = SecureRandom.hex
-      break unless self.class.exists?(auth_token: auth_token)
     end
   end
 end

@@ -3,7 +3,9 @@ before_install:
   - "echo 'gem: --no-document' > ~/.gemrc"
 install:
   - bin/setup
-script: bin/rspec --tag ~no_travis spec
+env:
+- LINT_FACTORY=not_so_secret
+script: script/cibuild
 branches:
   only:
     - master

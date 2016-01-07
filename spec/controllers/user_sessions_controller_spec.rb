@@ -18,12 +18,12 @@ RSpec.describe Api::V1::UserSessionsController, type: :controller do
       end
 
       it 'should return success status' do
-        post :token, valid_attributes, valid_session
+        post :create, valid_attributes, valid_session
         expect(response.status).to eq(200)
       end
 
       it 'should return JSON with token key' do
-        post :token, valid_attributes, valid_session
+        post :create, valid_attributes, valid_session
         json = JSON.parse(response.body)
         expect(json['token'].length).to eq(32)
       end
@@ -31,8 +31,28 @@ RSpec.describe Api::V1::UserSessionsController, type: :controller do
 
     context 'invalid user' do
       it 'should return forbidden status' do
-        post :token, valid_attributes, valid_session
+        post :create, valid_attributes, valid_session
         expect(response.status).to eq(403)
+      end
+    end
+  end
+
+  describe 'DELETE #token' do
+    context 'valid user' do
+      it 'should return success status' do
+        user = FactoryGirl.create(:user, email: 'someone@example.com')
+        token = user.auth_token
+        delete :destroy, { id: token }, {}
+        expect(response.status).to eq(204)
+      end
+    end
+
+    context 'invalid user' do
+      it 'should return unprocessable entity status' do
+        user = FactoryGirl.create(:user, email: 'someone@example.com')
+        token = user.auth_token
+        delete :destroy, { id: 'dasds' }, {}
+        expect(response.status).to eq(422)
       end
     end
   end
