@@ -2,7 +2,7 @@
 
 [![Code Climate](https://codeclimate.com/github/justarrived/just_match_api/badges/gpa.svg)](https://codeclimate.com/github/justarrived/just_match_api) [![Test Coverage](https://codeclimate.com/github/justarrived/just_match_api/badges/coverage.svg)](https://codeclimate.com/github/justarrived/just_match_api/coverage)
 
-Welcome to the, very unofficial, API backend for the Just Arrived matching service.
+Welcome to the official API backend for the Just Arrived matching service.
 
 The API is designed to be consumed by multiple clients and the goal is that it should easy to implement a client (Web/Android/iOS etc..).
 
