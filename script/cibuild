@@ -12,7 +12,7 @@ export RAKE_ENV=test
 
 script/bootstrap
 
-bin/rake db:reset
+bin/rake db:create db:migrate
 
 LINT_FACTORY=true
 script/test --tag ~no_travis spec
