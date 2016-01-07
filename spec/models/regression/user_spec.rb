@@ -23,6 +23,7 @@ RSpec.describe User, regressor: true do
   it { is_expected.to have_db_column :name }
   it { is_expected.to have_db_column :email }
   it { is_expected.to have_db_column :phone }
+  it { is_expected.to have_db_column :admin }
   it { is_expected.to have_db_column :description }
   it { is_expected.to have_db_column :created_at }
   it { is_expected.to have_db_column :updated_at }
