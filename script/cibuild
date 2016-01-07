@@ -7,6 +7,9 @@ cd "$(dirname "$0")/.."
 # script/cibuild: Run the test suite from CI.
 
 echo -e '\n== Running cibuild =='
+RAILS_ENV=test
+RAKE_ENV=test
+bin/rake db:create
 
 # ensure everything in the app is up to date.
 script/update
