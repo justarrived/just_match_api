@@ -105,7 +105,9 @@ $ heroku run rake db:migrate
 
 There are a few connivence commands
 
+* `script/bootstrap` - installs/updates all dependencies
 * `script/setup` - sets up a project to be used for the first time
+* `script/update` - updates a project to run at its current version
 * `script/server` - starts app
 * `script/test` - runs tests
 * `script/console` - opens a console
