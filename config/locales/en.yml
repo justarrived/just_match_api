@@ -20,4 +20,45 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  invalid_credentials: Invalid credentials.
+  no_such_token: No such token.
+  not_logged_in_error: Must be logged in.
+
+  errors:
+    chat:
+      number_of_users: must be between %{min}-%{max}
+    job_user:
+      not_owner_of_job: "can't be both job owner and job applicant"
+
+  mailer:
+    signoff: Have a great day!
+    job_match:
+      subject: Congrats! You have a new job match.
+      congrats_line: Congrats %{name}!
+      accepted_line: "You've got a new job match!"
+      job_line: "The job is: '%{name}' and its in your area."
+      contact_line: Contact %{email} for more details.
+    job_performed_accept:
+      subject: Congrats! A job you performed has been accepted.
+      congrats_line: Congrats %{name}!
+      performed_line: "%{name} have verified that you've performed a job."
+      job_line: "The job you performed was: '%{name}'."
+      contact_line: 'If you have any last questions, you can contact them on %{email}.'
+    job_performed:
+      subject: Congrats! A job you ordered has been performed.
+      congrats_line: Congrats %{name}!
+      performed_line: "%{name} have verified that they've performed a job for you."
+      job_line: "The job performed was '%{name}'."
+      contact_line: 'If you have any last questions, you can contact them on %{email}.'
+    new_applicant:
+      subject: Congrats! You have a new applicant.
+      congrats_line: Congrats %{name}!
+      job_line: "You've got a new applicant for your job '%{name}'."
+      applicant_line: The applicant is '%{name}' and lives in your area.
+      contact_line: 'If you have any last questions, you can contact them on %{email} and %{phone}.'
+    applicant_accepted:
+      subject: Congrats! You got a job.
+      congrats_line: Congrats %{name}!
+      accepted_line: "You've been accepted for a job!"
+      job_line: "The job is '%{name}' and its in your area."
+      contact_line: Contact %{email} for more details.

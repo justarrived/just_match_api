@@ -21,7 +21,7 @@ module Api
         description 'Returns list of job users if the user is allowed to.'
         def index
           unless @job.owner == current_user
-            render json: { error: 'Not authed.' }, status: 401
+            render json: { error: I18n.t('invalid_credentials') }, status: 401
             return
           end
 
@@ -35,7 +35,7 @@ module Api
         example Doxxer.example_for(User)
         def show
           unless @job.owner == current_user || @user == current_user
-            render json: { error: 'Not authed.' }, status: 401
+            render json: { error: I18n.t('invalid_credentials') }, status: 401
             return
           end
 
@@ -61,7 +61,7 @@ module Api
         description 'Deletes job user if the user is allowed to.'
         def destroy
           unless @user == current_user
-            render json: { error: 'Not authed.' }, status: 401
+            render json: { error: I18n.t('invalid_credentials') }, status: 401
             return
           end
 

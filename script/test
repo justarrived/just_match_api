@@ -7,4 +7,5 @@ cd "$(dirname "$0")/.."
 echo -e '\n== Running tests =='
 export RAILS_ENV=test
 export RAKE_ENV=test
+rubocop -D
 bin/rspec "$@"

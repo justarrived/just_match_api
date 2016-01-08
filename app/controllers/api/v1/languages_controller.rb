@@ -35,7 +35,7 @@ module Api
       example Doxxer.example_for(Language)
       def create
         unless current_user.admin?
-          render json: { error: 'Not authed.' }, status: 401
+          render json: { error: I18n.t('invalid_credentials') }, status: 401
           return
         end
 
@@ -56,7 +56,7 @@ module Api
       example Doxxer.example_for(Language)
       def update
         unless current_user.admin?
-          render json: { error: 'Not authed.' }, status: 401
+          render json: { error: I18n.t('invalid_credentials') }, status: 401
           return
         end
 
@@ -74,7 +74,7 @@ module Api
         if current_user.admin?
           @language.destroy
         else
-          render json: { error: 'Not authed.' }, status: 401
+          render json: { error: I18n.t('invalid_credentials') }, status: 401
           return
         end
 

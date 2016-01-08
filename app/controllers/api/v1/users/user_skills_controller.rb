@@ -39,7 +39,7 @@ module Api
         example Doxxer.example_for(Skill)
         def create
           unless @user == current_user
-            render json: { error: 'Not authed.' }, status: 401
+            render json: { error: I18n.t('invalid_credentials') }, status: 401
             return
           end
 
@@ -60,7 +60,7 @@ module Api
         description 'Deletes user skill if the user is allowed to.'
         def destroy
           unless @user == current_user
-            render json: { error: 'Not authed.' }, status: 401
+            render json: { error: I18n.t('invalid_credentials') }, status: 401
             return
           end
 

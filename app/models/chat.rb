@@ -5,6 +5,11 @@ class Chat < ActiveRecord::Base
 
   MIN_USERS = 2
   MAX_USERS = 10
+  NUMBER_OF_USERS_ERR_MSG = I18n.t(
+    'errors.chat.number_of_users',
+    min: MIN_USERS,
+    max: MAX_USERS
+  )
 
   def self.find_or_create_private_chat(users)
     find_private_chat(users) || create_private_chat(users)
@@ -16,9 +21,7 @@ class Chat < ActiveRecord::Base
     else
       # This isn't great since this error is lost when calling
       # #valid?, #validate, #save or #save! (implicit behavior)
-      new.tap do |chat|
-        chat.errors.add(:users, "must be between #{MIN_USERS}-#{MAX_USERS}")
-      end
+      new.tap { |chat| chat.errors.add(:users, NUMBER_OF_USERS_ERR_MSG) }
     end
   end
 

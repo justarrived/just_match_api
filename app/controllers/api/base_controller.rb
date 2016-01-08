@@ -7,7 +7,8 @@ module Api
 
     def require_user
       unless logged_in?
-        render json: { error: 'Must be logged in.' }, status: :unauthorized
+        error_message = I18n.t('not_logged_in_error')
+        render json: { error: error_message }, status: :unauthorized
       end
     end
 
