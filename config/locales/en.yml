@@ -1,64 +1,44 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more, please read the Rails Internationalization guide
-# available at http://guides.rubyonrails.org/i18n.html.
-
+---
 en:
-  invalid_credentials: Invalid credentials.
-  no_such_token: No such token.
-  not_logged_in_error: Must be logged in.
-
+  api_documentation:
+    title: API documentation | JustMatch API
   errors:
     chat:
       number_of_users: must be between %{min}-%{max}
     job_user:
-      not_owner_of_job: "can't be both job owner and job applicant"
-
+      not_owner_of_job: can't be both job owner and job applicant
+  invalid_credentials: Invalid credentials.
   mailer:
-    signoff: Have a great day!
-    job_match:
-      subject: Congrats! You have a new job match.
-      congrats_line: Congrats %{name}!
-      accepted_line: "You've got a new job match!"
-      job_line: "The job is: '%{name}' and its in your area."
-      contact_line: Contact %{email} for more details.
-    job_performed_accept:
-      subject: Congrats! A job you performed has been accepted.
-      congrats_line: Congrats %{name}!
-      performed_line: "%{name} have verified that you've performed a job."
-      job_line: "The job you performed was: '%{name}'."
-      contact_line: 'If you have any last questions, you can contact them on %{email}.'
-    job_performed:
-      subject: Congrats! A job you ordered has been performed.
-      congrats_line: Congrats %{name}!
-      performed_line: "%{name} have verified that they've performed a job for you."
-      job_line: "The job performed was '%{name}'."
-      contact_line: 'If you have any last questions, you can contact them on %{email}.'
-    new_applicant:
-      subject: Congrats! You have a new applicant.
-      congrats_line: Congrats %{name}!
-      job_line: "You've got a new applicant for your job '%{name}'."
-      applicant_line: The applicant is '%{name}' and lives in your area.
-      contact_line: 'If you have any last questions, you can contact them on %{email} and %{phone}.'
     applicant_accepted:
-      subject: Congrats! You got a job.
+      accepted_line: You've been accepted for a job!
       congrats_line: Congrats %{name}!
-      accepted_line: "You've been accepted for a job!"
-      job_line: "The job is '%{name}' and its in your area."
       contact_line: Contact %{email} for more details.
+      job_line: The job is '%{name}' and its in your area.
+      subject: Congrats! You got a job.
+    job_match:
+      accepted_line: You've got a new job match!
+      congrats_line: Congrats %{name}!
+      contact_line: Contact %{email} for more details.
+      job_line: 'The job is: ''%{name}'' and its in your area.'
+      subject: Congrats! You have a new job match.
+    job_performed:
+      congrats_line: Congrats %{name}!
+      contact_line: If you have any last questions, you can contact them on %{email}.
+      job_line: The job performed was '%{name}'.
+      performed_line: "%{name} have verified that they've performed a job for you."
+      subject: Congrats! A job you ordered has been performed.
+    job_performed_accept:
+      congrats_line: Congrats %{name}!
+      contact_line: If you have any last questions, you can contact them on %{email}.
+      job_line: 'The job you performed was: ''%{name}''.'
+      performed_line: "%{name} have verified that you've performed a job."
+      subject: Congrats! A job you performed has been accepted.
+    new_applicant:
+      applicant_line: The applicant is '%{name}' and lives in your area.
+      congrats_line: Congrats %{name}!
+      contact_line: If you have any last questions, you can contact them on %{email} and %{phone}.
+      job_line: You've got a new applicant for your job '%{name}'.
+      subject: Congrats! You have a new applicant.
+    signoff: Have a great day!
+  no_such_token: No such token.
+  not_logged_in_error: Must be logged in.
