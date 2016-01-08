@@ -11,9 +11,9 @@ RSpec.describe Api::V1::Jobs::JobSkillsController, type: :controller do
 
   let(:valid_session) do
     user = FactoryGirl.create(:user)
-    allow_any_instance_of(described_class)
-      .to(receive(:authenticate_user_token!)
-      .and_return(user))
+    allow_any_instance_of(described_class).
+      to(receive(:authenticate_user_token!).
+      and_return(user))
     { token: user.auth_token }
   end
 
@@ -76,8 +76,8 @@ RSpec.describe Api::V1::Jobs::JobSkillsController, type: :controller do
         end
       end
 
-       context 'not logged in' do
-          it 'does not create a new JobSkill' do
+      context 'not logged in' do
+        it 'does not create a new JobSkill' do
           job = FactoryGirl.create(:job)
           skill = FactoryGirl.create(:skill)
           params = { job_id: job.to_param, skill: { id: skill.to_param } }

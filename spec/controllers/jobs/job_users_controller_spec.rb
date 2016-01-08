@@ -11,9 +11,9 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
 
   let(:valid_session) do
     user = FactoryGirl.create(:user)
-    allow_any_instance_of(described_class)
-      .to(receive(:authenticate_user_token!)
-      .and_return(user))
+    allow_any_instance_of(described_class).
+      to(receive(:authenticate_user_token!).
+      and_return(user))
     { token: user.auth_token }
   end
 
@@ -134,9 +134,9 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
       it 'destroys the requested job_user' do
         job = FactoryGirl.create(:job_with_users, users_count: 1)
         user = job.users.first
-        allow_any_instance_of(described_class)
-          .to(receive(:authenticate_user_token!)
-          .and_return(user))
+        allow_any_instance_of(described_class).
+          to(receive(:authenticate_user_token!).
+          and_return(user))
         session = { token: user.auth_token }
         params = { job_id: job.to_param, id: user.to_param }
         expect do
@@ -147,9 +147,9 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
       it 'returns no content status' do
         job = FactoryGirl.create(:job_with_users, users_count: 1)
         user = job.users.first
-        allow_any_instance_of(described_class)
-          .to(receive(:authenticate_user_token!)
-          .and_return(user))
+        allow_any_instance_of(described_class).
+          to(receive(:authenticate_user_token!).
+          and_return(user))
         session = { token: user.auth_token }
         params = { job_id: job.to_param, id: user.to_param }
         delete :destroy, params, session

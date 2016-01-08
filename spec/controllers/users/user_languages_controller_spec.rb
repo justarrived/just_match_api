@@ -11,9 +11,9 @@ RSpec.describe Api::V1::Users::UserLanguagesController, type: :controller do
 
   let(:valid_session) do
     user = FactoryGirl.create(:user)
-    allow_any_instance_of(described_class)
-      .to(receive(:authenticate_user_token!)
-      .and_return(user))
+    allow_any_instance_of(described_class).
+      to(receive(:authenticate_user_token!).
+      and_return(user))
     { token: user.auth_token }
   end
 
@@ -122,7 +122,6 @@ RSpec.describe Api::V1::Users::UserLanguagesController, type: :controller do
         user = FactoryGirl.create(:user_with_languages)
         language = user.languages.first
         params = { user_id: user.to_param, id: language.to_param }
-        params = { user_id: user.to_param, id: language.to_param }
         expect do
           delete :destroy, params, valid_session
         end.to change(UserLanguage, :count).by(0)
@@ -131,7 +130,6 @@ RSpec.describe Api::V1::Users::UserLanguagesController, type: :controller do
       it 'returns not authorized error' do
         user = FactoryGirl.create(:user_with_languages)
         language = user.languages.first
-        params = { user_id: user.to_param, id: language.to_param }
         params = { user_id: user.to_param, id: language.to_param }
         delete :destroy, params, valid_session
         expect(response.status).to eq(401)

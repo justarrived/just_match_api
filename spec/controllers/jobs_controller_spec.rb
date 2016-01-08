@@ -21,9 +21,9 @@ RSpec.describe Api::V1::JobsController, type: :controller do
 
   let(:valid_session) do
     user = FactoryGirl.create(:user)
-    allow_any_instance_of(described_class)
-      .to(receive(:authenticate_user_token!)
-      .and_return(user))
+    allow_any_instance_of(described_class).
+      to(receive(:authenticate_user_token!).
+      and_return(user))
     { token: user.auth_token }
   end
 
@@ -144,9 +144,9 @@ RSpec.describe Api::V1::JobsController, type: :controller do
 
         let(:valid_session) do
           user = FactoryGirl.create(:user)
-          allow_any_instance_of(described_class)
-            .to(receive(:authenticate_user_token!)
-            .and_return(user))
+          allow_any_instance_of(described_class).
+            to(receive(:authenticate_user_token!).
+            and_return(user))
           { token: user.auth_token }
         end
 
@@ -163,7 +163,7 @@ RSpec.describe Api::V1::JobsController, type: :controller do
         end
 
         it 'assigns the requested job as @job' do
-          user1 = FactoryGirl.create(:user)
+          FactoryGirl.create(:user)
           job = FactoryGirl.create(:job)
           FactoryGirl.create(:job_user, user: @user, job: job, accepted: true)
           put :update, { job_id: job.to_param, job: new_attributes }, valid_session
@@ -171,7 +171,7 @@ RSpec.describe Api::V1::JobsController, type: :controller do
         end
 
         it 'returns success status' do
-          user1 = FactoryGirl.create(:user)
+          FactoryGirl.create(:user)
           job = FactoryGirl.create(:job)
           FactoryGirl.create(:job_user, user: @user, job: job, accepted: true)
           put :update, { job_id: job.to_param, job: new_attributes }, valid_session
