@@ -8,17 +8,20 @@ The API is designed to be consumed by multiple clients and the goal is that it s
 
 The API tries to follow the [JsonApi 1.0](http://jsonapi.org/) standard, but sill a long way from completely compliant. Please feel free to report any violations.
 
-:warning: _Note_: The project it still in a very early stage and drastic changes to the API can be made at any time. If your thinking of doing a larger contribution please open an issue so it can be discussed.
+:warning: _Note_: The project is still in an early stage and drastic changes to the API can and will be made at any time. If your thinking of doing a larger contribution please open an issue so it can be discussed.
 
-If you're looking for help or want to start contributing, want help, give feedback etc., you're more than welcome to join our Gitter chat:  [![Join the chat at https://gitter.im/justarrived/just_match_api](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/justarrived/just_match_api?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+If you're looking for help or want to start contributing, want help, give feedback etc., you're more than welcome to join our Gitter chat.
+
+[![Join the chat at https://gitter.im/justarrived/just_match_api](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/justarrived/just_match_api?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 * [Built with](#built-with)
 * [Getting started](#getting-started)
 * [Tests](#tests)
+* [Docs](#docs)
 * [Deploy](#deploy)
 * [Commands](#commands)
 * [Contributing](#contributing)
-* [License](#license)
+* [MIT License](#license)
 
 ## Built with
 
@@ -37,10 +40,10 @@ $ git clone git@github.com:justarrived/just_match_api.git
 $ cd just_arrived
 $ bin/setup
 $ bin/server
-# You can now open http://localhost:5000
+# You can now open http://localhost:3000
 ```
 
-If you navigate to `http://localhost:5000` you'll find the API documentation.
+If you navigate to `http://localhost:3000` you'll find the API documentation.
 
 ## Tests
 
@@ -62,8 +65,7 @@ $ script/test spec/models/user_spec.rb
 $ script/test spec/models/user_spec.rb:31
 ```
 
-_Note_: Running the tests with `bundle exec rspec` will not work, please use `bin/rspec` or `script/test` instead.
-
+_Note_: Running the tests with `bundle exec rspec` will not work, please use `script/test` instead.
 
 ## Docs
 
@@ -75,8 +77,6 @@ __Development docs__
 During development you can run find the documentation at `http://localhost:5000/`, as long as you have a started your server (you start it by running `script/server`).
 
 __Static docs__
-
-_Note_: Before generating the docs you must have migrated your database (`bin/rake db:migrate`).
 
 You can generate a static version of the API documentation with
 
@@ -127,4 +127,4 @@ If your not sure where to go you can always join our Gitter chat and ask :)
 
 ## License
 
-This project is open source and licensed under the permissive [MIT](LICENSE.txt) license
+This project is open source and licensed under the permissive [MIT](LICENSE.txt) license.
