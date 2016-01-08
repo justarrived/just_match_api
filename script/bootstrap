@@ -19,6 +19,11 @@ which bundle 2>&1 >/dev/null || {
   gem install bundler --conservative
 }
 
+which rubocop 2>&1 >/dev/null || {
+  echo -e '\n== Installing rubocop =='
+  gem install rubocop
+}
+
 echo -e '\n== Installing gem dependencies =='
 bundle check || bundle install --without production
 echo -e '\n== Bootstrap done =='
