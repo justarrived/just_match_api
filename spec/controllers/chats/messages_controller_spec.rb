@@ -17,9 +17,9 @@ RSpec.describe Api::V1::Chats::MessagesController, type: :controller do
 
   let(:valid_session) do
     user = @chat_user.user
-    allow_any_instance_of(described_class)
-      .to(receive(:authenticate_user_token!)
-      .and_return(user))
+    allow_any_instance_of(described_class).
+      to(receive(:authenticate_user_token!).
+      and_return(user))
     { token: user.auth_token }
   end
 

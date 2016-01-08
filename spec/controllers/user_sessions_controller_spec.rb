@@ -14,7 +14,8 @@ RSpec.describe Api::V1::UserSessionsController, type: :controller do
   describe 'POST #token' do
     context 'valid user' do
       before(:each) do
-        FactoryGirl.create(:user, email: 'someone@example.com')
+        attrs = { email: 'someone@example.com', password: '12345678' }
+        FactoryGirl.create(:user, attrs)
       end
 
       it 'should return success status' do
@@ -49,8 +50,7 @@ RSpec.describe Api::V1::UserSessionsController, type: :controller do
 
     context 'invalid user' do
       it 'should return unprocessable entity status' do
-        user = FactoryGirl.create(:user, email: 'someone@example.com')
-        token = user.auth_token
+        FactoryGirl.create(:user, email: 'someone@example.com')
         delete :destroy, { id: 'dasds' }, {}
         expect(response.status).to eq(422)
       end

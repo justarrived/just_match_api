@@ -11,9 +11,9 @@ RSpec.describe Api::V1::Users::UserSkillsController, type: :controller do
 
   let(:valid_session) do
     user = FactoryGirl.create(:user)
-    allow_any_instance_of(described_class)
-      .to(receive(:authenticate_user_token!)
-      .and_return(user))
+    allow_any_instance_of(described_class).
+      to(receive(:authenticate_user_token!).
+      and_return(user))
     { token: user.auth_token }
   end
 
@@ -78,9 +78,9 @@ RSpec.describe Api::V1::Users::UserSkillsController, type: :controller do
 
     context 'not authorized' do
       it 'returns not authorized status' do
-        allow_any_instance_of(described_class)
-          .to(receive(:authenticate_user_token!)
-          .and_return(nil))
+        allow_any_instance_of(described_class).
+          to(receive(:authenticate_user_token!).
+          and_return(nil))
         user = FactoryGirl.create(:user)
         post :create, { user_id: user.to_param, skill: {} }, {}
         expect(response.status).to eq(401)
@@ -110,17 +110,17 @@ RSpec.describe Api::V1::Users::UserSkillsController, type: :controller do
     context 'authorized user' do
       let(:valid_session) do
         user = FactoryGirl.create(:user_with_skills)
-        allow_any_instance_of(described_class)
-          .to(receive(:authenticate_user_token!)
-          .and_return(user))
+        allow_any_instance_of(described_class).
+          to(receive(:authenticate_user_token!).
+          and_return(user))
         { token: user.auth_token }
       end
 
-       before(:each) do
-         @user = User.find_by(auth_token: valid_session[:token])
-       end
+      before(:each) do
+        @user = User.find_by(auth_token: valid_session[:token])
+      end
 
-       it 'destroys the requested user_skill' do
+      it 'destroys the requested user_skill' do
         skill = @user.skills.first
         expect do
           params = { user_id: @user.to_param, id: skill.to_param }

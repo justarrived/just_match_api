@@ -1,4 +1,3 @@
-inherit_from: .hound.yml
-
+inherit_from: .ruby-style-guide.yml
 AllCops:
-  RunRailsCops: true
+  UseCache: true
