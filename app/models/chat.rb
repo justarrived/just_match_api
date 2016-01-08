@@ -7,13 +7,17 @@ class Chat < ActiveRecord::Base
   MAX_USERS = 10
 
   def self.find_or_create_private_chat(users)
-    find_private_chat(users) || begin
-      if users.length >= MIN_USERS && users.length <= MAX_USERS
-        create!.tap { |chat| chat.users = users }
-      else
-        new.tap do |chat|
-          chat.errors.add(:users, "must be between #{MIN_USERS}-#{MAX_USERS}")
-        end
+    find_private_chat(users) || create_private_chat(users)
+  end
+
+  def self.create_private_chat(users)
+    if users.length >= MIN_USERS && users.length <= MAX_USERS
+      create!.tap { |chat| chat.users = users }
+    else
+      # This isn't great since this error is lost when calling
+      # #valid?, #validate, #save or #save! (implicit behavior)
+      new.tap do |chat|
+        chat.errors.add(:users, "must be between #{MIN_USERS}-#{MAX_USERS}")
       end
     end
   end
@@ -22,7 +26,7 @@ class Chat < ActiveRecord::Base
     common_chats = common_chat_ids(users)
     unless common_chats.empty?
       Chat.where(id: common_chats).find_each do |chat|
-        # Make sure its a private chat and not just a chat in common
+        # Make sure its a private chat and not just a chat they have in common
         return chat if chat.users.length == users.length
       end
     end

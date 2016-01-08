@@ -37,7 +37,8 @@ max_users.times do
     phone: Faker::PhoneNumber.cell_phone,
     description: Faker::Hipster.paragraph(2),
     address: address,
-    language: languages.sample
+    language: languages.sample,
+    password: (1..8).to_a.join
   )
   user.skills << skills.sample
   user.languages << languages.sample

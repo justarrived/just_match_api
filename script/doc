@@ -2,5 +2,13 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-echo '== Generating documentation =='
+cd "$(dirname "$0")/.."
+
+# script/doc: Generate application documentation.
+
+echo -e '\n== Generating documentation =='
+# ensure everything in the app is up to date.
+script/update
+
 bin/rake apipie:static
+echo -e '\n== Doc done =='

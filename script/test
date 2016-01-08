@@ -2,5 +2,9 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-echo '== Running test =='
+cd "$(dirname "$0")/.."
+
+echo -e '\n== Running tests =='
+export RAILS_ENV=test
+export RAKE_ENV=test
 bin/rspec "$@"

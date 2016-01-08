@@ -1,0 +1,18 @@
+#!/bin/bash
+set -euo pipefail
+IFS=$'\n\t'
+
+cd "$(dirname "$0")/.."
+
+# script/cibuild: Run the test suite from CI.
+
+echo -e '\n== Running cibuild =='
+export RAILS_ENV=test
+export RAKE_ENV=test
+
+script/bootstrap
+
+bin/rake db:create db:migrate
+
+LINT_FACTORY=true
+script/test --tag ~no_travis spec

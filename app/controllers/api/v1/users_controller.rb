@@ -107,7 +107,9 @@ module Api
       end
 
       def user_params
-        whitelist = [:name, :email, :phone, :description, :address, :language_id]
+        whitelist = [
+          :name, :email, :phone, :description, :address, :language_id, :password
+        ]
         params.require(:user).permit(*whitelist)
       end
 

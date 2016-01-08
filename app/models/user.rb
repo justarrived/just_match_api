@@ -1,6 +1,12 @@
 class User < ActiveRecord::Base
   include Geocodable
   include SkillMatchable
+
+  attr_accessor :password
+
+  before_create :generate_auth_token!
+  before_save :encrypt_password
+
   belongs_to :language
 
   has_many :user_skills
@@ -27,6 +33,18 @@ class User < ActiveRecord::Base
   validates :phone, length: { minimum: 9 }, allow_blank: false
   validates :description, length: { minimum: 10 }, allow_blank: false
   validates :address, length: { minimum: 2 }, allow_blank: false
+  validates :password, length: { minimum: 6 }, allow_blank: false, on: :create
+  validates :auth_token, uniqueness: true
+
+  def self.find_by_credentials(email:, password:)
+    user = find_by(email: email) || return
+    user if correct_password?(user, password)
+  end
+
+  def self.correct_password?(user, password)
+    password_hash = BCrypt::Engine.hash_secret(password, user.password_salt)
+    user.password_hash.eql?(password_hash)
+  end
 
   def self.matches_job(job, distance: 20, strict_match: false)
     lat = job.latitude
@@ -36,9 +54,8 @@ class User < ActiveRecord::Base
       order_by_matching_skills(job, strict_match: strict_match)
   end
 
-  # TODO: Obvious placeholder until user roles is implemented..
   def admin?
-    true
+    admin
   end
 
   def reset!
@@ -52,24 +69,45 @@ class User < ActiveRecord::Base
       address: 'New York, NY, USA'
     )
   end
+
+  def generate_auth_token!
+    # Make sure no two users have the same auth_token
+    loop do
+      self.auth_token = SecureRandom.hex
+      break unless self.class.exists?(auth_token: auth_token)
+    end
+  end
+
+  private
+
+  def encrypt_password
+    if password.present?
+      self.password_salt = BCrypt::Engine.generate_salt
+      self.password_hash = BCrypt::Engine.hash_secret(password, password_salt)
+    end
+  end
 end
 
 # == Schema Information
 #
 # Table name: users
 #
-#  id          :integer          not null, primary key
-#  name        :string
-#  email       :string
-#  phone       :string
-#  description :text
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  latitude    :float
-#  longitude   :float
-#  address     :string
-#  language_id :integer
-#  anonymized  :boolean          default(FALSE)
+#  id            :integer          not null, primary key
+#  name          :string
+#  email         :string
+#  phone         :string
+#  description   :text
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  latitude      :float
+#  longitude     :float
+#  address       :string
+#  language_id   :integer
+#  anonymized    :boolean          default(FALSE)
+#  auth_token    :string
+#  password_hash :string
+#  password_salt :string
+#  admin         :boolean          default(FALSE)
 #
 # Indexes
 #

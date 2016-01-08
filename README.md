@@ -36,8 +36,8 @@ To setup your development environment
 $ git clone git@github.com:justarrived/just_match_api.git
 $ cd just_arrived
 $ bin/setup
-$ foreman start
-# Now you can open http://localhost:5000
+$ bin/server
+# You can now open http://localhost:5000
 ```
 
 If you navigate to `http://localhost:5000` you'll find the API documentation.
@@ -46,7 +46,7 @@ If you navigate to `http://localhost:5000` you'll find the API documentation.
 
 This project uses `rspec` and you can find the tests in `spec/`.
 
-To run the test
+You can run the test using
 
 ```
 $ script/test
@@ -105,7 +105,9 @@ $ heroku run rake db:migrate
 
 There are a few connivence commands
 
+* `script/bootstrap` - installs/updates all dependencies
 * `script/setup` - sets up a project to be used for the first time
+* `script/update` - updates a project to run at its current version
 * `script/server` - starts app
 * `script/test` - runs tests
 * `script/console` - opens a console

@@ -46,8 +46,9 @@ RSpec.configure do |config|
       # Since we're using Spring we must reload all factories
       # see: https://github.com/thoughtbot/factory_girl/blob/master/GETTING_STARTED.md#rails-preloaders-and-rspec
       FactoryGirl.reload
-      # Validate that all factories are valid
-      FactoryGirl.lint
+      # Validate that all factories are valid, will slow down the test startup
+      # with a second or two, but can be very handy..
+      FactoryGirl.lint if ENV.fetch('LINT_FACTORY', false)
       DatabaseCleaner.strategy = :truncation
       DatabaseCleaner.start
     ensure

@@ -4,10 +4,15 @@ FactoryGirl.define do
     sequence :email do |n|
       "person#{n}@example.com"
     end
+    password (1..8).to_a.join
     phone '1234567890'
     description 'Watman ' * 2
     address 'Bankgatan 14C, Lund'
     association :language
+
+    factory :user_admin do
+      admin true
+    end
 
     factory :user_with_skills do
       transient do

@@ -1,9 +1,11 @@
 before_install:
   - "echo '--colour' > ~/.rspec"
   - "echo 'gem: --no-document' > ~/.gemrc"
-install:
-  - bin/setup
-script: bin/rspec --tag ~no_travis spec
+# install:
+#   - script/setup
+env:
+- LINT_FACTORY=true
+script: script/cibuild
 branches:
   only:
     - master

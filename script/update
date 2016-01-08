@@ -1,0 +1,14 @@
+#!/bin/bash
+set -euo pipefail
+IFS=$'\n\t'
+
+cd "$(dirname "$0")/.."
+
+echo -e '\n== Updating to run application for its current checkout =='
+
+echo -e '\n== Bootstrapping dependencies =='
+script/bootstrap
+
+echo -e '\n== Migrating database =='
+bin/rake db:migrate
+echo -e '\n== Update done =='

@@ -42,6 +42,11 @@ RSpec.describe Chat, type: :model do
         result = described_class.find_or_create_private_chat([]).errors[:users]
         expect(result).to eq(['must be between 2-10'])
       end
+
+      it 'returns a new Chat instance' do
+        result = described_class.find_or_create_private_chat([])
+        expect(result).to be_a_new(Chat)
+      end
     end
   end
 

@@ -1,9 +1,10 @@
 require 'rails_helper'
 
-RSpec.describe Api::V1::ChatsController, type: :controller do
-  # This should return the minimal set of attributes required to create a valid
-  # Chat. As you add validations to Chat, be sure to
-  # adjust the attributes here as well.
+RSpec.describe Api::V1::Chats::MessagesController, type: :controller do
+  before(:each) do
+    @chat_user = FactoryGirl.create(:chat_user)
+  end
+
   let(:valid_attributes) do
     first = FactoryGirl.create(:user)
     second = FactoryGirl.create(:user)
@@ -14,23 +15,25 @@ RSpec.describe Api::V1::ChatsController, type: :controller do
     { user_ids: [] }
   end
 
-  # This should return the minimal set of values that should be in the session
-  # in order to pass any filters (e.g. authentication) defined in
-  # ChatsController. Be sure to keep this updated too.
-  let(:valid_session) { {} }
+  let(:valid_session) do
+    user = @chat_user.user
+    allow_any_instance_of(described_class)
+      .to(receive(:authenticate_user_token!)
+      .and_return(user))
+    { token: user.auth_token }
+  end
 
-  describe 'GET #messages' do
+  describe 'GET #index' do
     context 'with valid params' do
       let(:valid_attributes) do
-        chat_user = FactoryGirl.create(:chat_user)
-        chat = chat_user.chat
-        user = chat_user.user
+        chat = @chat_user.chat
+        user = @chat_user.user
         FactoryGirl.create(:message, chat: chat, author: user)
         { id: chat.to_param }
       end
 
       it 'assigns all messages as @messages' do
-        get :messages, valid_attributes, valid_session
+        get :index, valid_attributes, valid_session
         expect(assigns(:messages).first).to be_a(Message)
       end
     end
@@ -40,8 +43,7 @@ RSpec.describe Api::V1::ChatsController, type: :controller do
     context 'with valid params' do
       let(:valid_attributes) do
         language = FactoryGirl.create(:language)
-        chat_user = FactoryGirl.create(:chat_user)
-        chat = chat_user.chat
+        chat = @chat_user.chat
         {
           id: chat.to_param,
           message: { body: 'Some test text.', language_id: language }
@@ -74,14 +76,13 @@ RSpec.describe Api::V1::ChatsController, type: :controller do
 
     context 'with invalid params' do
       let(:invalid_attributes) do
-        chat_user = FactoryGirl.create(:chat_user)
-        chat = chat_user.chat
+        chat = @chat_user.chat
         { id: chat.to_param, message: { body: '' } }
       end
 
-      it 'assigns chat as @chat' do
+      it 'assigns message as @message' do
         post :create, invalid_attributes, valid_session
-        expect(assigns(:chat)).to be_a(Chat)
+        expect(assigns(:message)).to be_a(Message)
       end
 
       it 'returns @message errors' do

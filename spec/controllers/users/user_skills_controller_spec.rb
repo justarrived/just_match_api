@@ -1,9 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::Users::UserSkillsController, type: :controller do
-  # This should return the minimal set of attributes required to create a valid
-  # UserSkill. As you add validations to UserSkill, be sure to
-  # adjust the attributes here as well.
   let(:valid_attributes) do
     {}
   end
@@ -12,10 +9,13 @@ RSpec.describe Api::V1::Users::UserSkillsController, type: :controller do
     {}
   end
 
-  # This should return the minimal set of values that should be in the session
-  # in order to pass any filters (e.g. authentication) defined in
-  # UserSkillsController. Be sure to keep this updated too.
-  let(:valid_session) { {} }
+  let(:valid_session) do
+    user = FactoryGirl.create(:user)
+    allow_any_instance_of(described_class)
+      .to(receive(:authenticate_user_token!)
+      .and_return(user))
+    { token: user.auth_token }
+  end
 
   describe 'GET #index' do
     it 'assigns all user skills as @skills' do
@@ -46,64 +46,113 @@ RSpec.describe Api::V1::Users::UserSkillsController, type: :controller do
 
   describe 'POST #create' do
     context 'with valid params' do
-      it 'creates a new UserSkill' do
-        user = FactoryGirl.create(:user)
-        skill = FactoryGirl.create(:skill)
-        params = { user_id: user.to_param, skill: { id: skill.to_param } }
-        expect do
+      context 'authorized user' do
+        before(:each) do
+          @user = User.find_by(auth_token: valid_session[:token])
+        end
+
+        it 'creates a new UserSkill' do
+          skill = FactoryGirl.create(:skill)
+          params = { user_id: @user.to_param, skill: { id: skill.to_param } }
+          expect do
+            post :create, params, valid_session
+          end.to change(UserSkill, :count).by(1)
+        end
+
+        it 'assigns a newly created user_skill as @user_skill' do
+          skill = FactoryGirl.create(:skill)
+          params = { user_id: @user.to_param, skill: { id: skill.to_param } }
           post :create, params, valid_session
-        end.to change(UserSkill, :count).by(1)
-      end
+          expect(assigns(:user_skill)).to be_a(UserSkill)
+          expect(assigns(:user_skill)).to be_persisted
+        end
 
-      it 'assigns a newly created user_skill as @user_skill' do
-        user = FactoryGirl.create(:user)
-        skill = FactoryGirl.create(:skill)
-        params = { user_id: user.to_param, skill: { id: skill.to_param } }
-        post :create, params, valid_session
-        expect(assigns(:user_skill)).to be_a(UserSkill)
-        expect(assigns(:user_skill)).to be_persisted
+        it 'returns created status' do
+          skill = FactoryGirl.create(:skill)
+          params = { user_id: @user.to_param, skill: { id: skill.to_param } }
+          post :create, params, valid_session
+          expect(response.status).to eq(201)
+        end
       end
+    end
 
-      it 'returns created status' do
+    context 'not authorized' do
+      it 'returns not authorized status' do
+        allow_any_instance_of(described_class)
+          .to(receive(:authenticate_user_token!)
+          .and_return(nil))
         user = FactoryGirl.create(:user)
-        skill = FactoryGirl.create(:skill)
-        params = { user_id: user.to_param, skill: { id: skill.to_param } }
-        post :create, params, valid_session
-        expect(response.status).to eq(201)
+        post :create, { user_id: user.to_param, skill: {} }, {}
+        expect(response.status).to eq(401)
       end
     end
 
     context 'with invalid params' do
-      it 'assigns a newly created but unsaved user_skill as @user_skill' do
-        user = FactoryGirl.create(:user)
-        post :create, { user_id: user.to_param, skill: {} }, valid_session
-        expect(assigns(:user_skill)).to be_a_new(UserSkill)
-      end
+      context 'authorized user' do
+        before(:each) do
+          @user = User.find_by(auth_token: valid_session[:token])
+        end
 
-      it 'returns unprocessable entity status' do
-        user = FactoryGirl.create(:user)
-        post :create, { user_id: user.to_param, skill: {} }, valid_session
-        expect(response.status).to eq(422)
+        it 'assigns a newly created but unsaved user_skill as @user_skill' do
+          post :create, { user_id: @user.to_param, skill: {} }, valid_session
+          expect(assigns(:user_skill)).to be_a_new(UserSkill)
+        end
+
+        it 'returns unprocessable entity status' do
+          post :create, { user_id: @user.to_param, skill: {} }, valid_session
+          expect(response.status).to eq(422)
+        end
       end
     end
   end
 
   describe 'DELETE #destroy' do
-    it 'destroys the requested user_skill' do
-      user = FactoryGirl.create(:user_with_skills)
-      skill = user.skills.first
-      expect do
-        params = { user_id: user.to_param, id: skill.to_param }
+    context 'authorized user' do
+      let(:valid_session) do
+        user = FactoryGirl.create(:user_with_skills)
+        allow_any_instance_of(described_class)
+          .to(receive(:authenticate_user_token!)
+          .and_return(user))
+        { token: user.auth_token }
+      end
+
+       before(:each) do
+         @user = User.find_by(auth_token: valid_session[:token])
+       end
+
+       it 'destroys the requested user_skill' do
+        skill = @user.skills.first
+        expect do
+          params = { user_id: @user.to_param, id: skill.to_param }
+          delete :destroy, params, valid_session
+        end.to change(UserSkill, :count).by(-1)
+      end
+
+      it 'returns no content status' do
+        skill = @user.skills.first
+        params = { user_id: @user.to_param, id: skill.to_param }
         delete :destroy, params, valid_session
-      end.to change(UserSkill, :count).by(-1)
+        expect(response.status).to eq(204)
+      end
     end
 
-    it 'returns no content status' do
-      user = FactoryGirl.create(:user_with_skills)
-      skill = user.skills.first
-      params = { user_id: user.to_param, id: skill.to_param }
-      delete :destroy, params, valid_session
-      expect(response.status).to eq(204)
+    context 'unauthorized user' do
+      it 'does not destroy the requested user_skill' do
+        user = FactoryGirl.create(:user_with_skills)
+        skill = user.skills.first
+        expect do
+          params = { user_id: user.to_param, id: skill.to_param }
+          delete :destroy, params, valid_session
+        end.to change(UserSkill, :count).by(0)
+      end
+
+      it 'returns not authorized status' do
+        user = FactoryGirl.create(:user_with_skills)
+        skill = user.skills.first
+        params = { user_id: user.to_param, id: skill.to_param }
+        delete :destroy, params, valid_session
+        expect(response.status).to eq(401)
+      end
     end
   end
 end

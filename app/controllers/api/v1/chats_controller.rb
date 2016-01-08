@@ -1,6 +1,7 @@
 module Api
   module V1
     class ChatsController < BaseController
+      before_action :require_user
       before_action :set_chat, only: [:show, :update]
 
       resource_description do
@@ -50,15 +51,10 @@ module Api
       end
       example Doxxer.example_for(Chat)
       def create
-        if current_user.id.nil?
-          render json: { error: 'Not authed.' }, status: 401
-          return
-        end
-
         users = User.where(id: param_user_ids)
         @chat = Chat.find_or_create_private_chat(users)
 
-        if @chat.errors[:user_ids].empty?
+        if @chat.errors[:users].empty?
           render json: @chat, include: ['users'], status: :created
         else
           render json: @chat.errors, status: :unprocessable_entity
@@ -69,10 +65,6 @@ module Api
 
       def set_chat
         @chat = current_user.chats.find(params[:id])
-      end
-
-      def message_params
-        params.require(:message).permit(:body, :language_id)
       end
 
       def param_user_ids

@@ -1,0 +1,24 @@
+#!/bin/bash
+set -euo pipefail
+IFS=$'\n\t'
+
+cd "$(dirname "$0")/.."
+
+# script/bootstrap: Resolve all dependencies that the application requires to
+#                   run.
+
+echo -e '\n== Bootstrapping dependencies =='
+
+[[ $(ruby -v) == 'ruby 2.3'* ]] || {
+  echo -e '\nPlease install Ruby 2.3 and then run this script again.'
+  exit 1
+}
+
+which bundle 2>&1 >/dev/null || {
+  echo -e '\n== Installing bundler =='
+  gem install bundler --conservative
+}
+
+echo -e '\n== Installing gem dependencies =='
+bundle check || bundle install --without production
+echo -e '\n== Bootstrap done =='

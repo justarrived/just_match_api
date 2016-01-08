@@ -2,6 +2,7 @@ module Api
   module V1
     module Jobs
       class JobUsersController < BaseController
+        before_action :require_user
         before_action :set_job
         before_action :set_user, only: [:show, :destroy]
 

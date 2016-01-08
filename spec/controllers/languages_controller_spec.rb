@@ -1,9 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::LanguagesController, type: :controller do
-  # This should return the minimal set of attributes required to create a valid
-  # Language. As you add validations to Language, be sure to
-  # adjust the attributes here as well.
   let(:valid_attributes) do
     { lang_code: 'en' }
   end
@@ -12,9 +9,6 @@ RSpec.describe Api::V1::LanguagesController, type: :controller do
     { lang_code: nil }
   end
 
-  # This should return the minimal set of values that should be in the session
-  # in order to pass any filters (e.g. authentication) defined in
-  # LanguagesController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
   describe 'GET #index' do
@@ -36,30 +30,43 @@ RSpec.describe Api::V1::LanguagesController, type: :controller do
   describe 'POST #create' do
     context 'with valid params' do
       it 'creates a new Language' do
+        allow_any_instance_of(User).to receive(:admin?).and_return(true)
         expect do
           post :create, { language: valid_attributes }, valid_session
         end.to change(Language, :count).by(1)
       end
 
       it 'assigns a newly created language as @language' do
+        allow_any_instance_of(User).to receive(:admin?).and_return(true)
         post :create, { language: valid_attributes }, valid_session
         expect(assigns(:language)).to be_a(Language)
         expect(assigns(:language)).to be_persisted
       end
 
       it 'returns created status' do
+        allow_any_instance_of(User).to receive(:admin?).and_return(true)
         post :create, { language: valid_attributes }, valid_session
         expect(response.status).to eq(201)
+      end
+
+      context 'not authorized' do
+        it 'returns not authorized status' do
+          allow_any_instance_of(User).to receive(:admin?).and_return(false)
+          post :create, { language: valid_attributes }, valid_session
+          expect(response.status).to eq(401)
+        end
       end
     end
 
     context 'with invalid params' do
       it 'assigns a newly created but unsaved language as @language' do
+        allow_any_instance_of(User).to receive(:admin?).and_return(true)
         post :create, { language: invalid_attributes }, valid_session
         expect(assigns(:language)).to be_a_new(Language)
       end
 
       it 'returns unprocessable entity status' do
+        allow_any_instance_of(User).to receive(:admin?).and_return(true)
         post :create, { language: invalid_attributes }, valid_session
         expect(response.status).to eq(422)
       end
@@ -73,6 +80,7 @@ RSpec.describe Api::V1::LanguagesController, type: :controller do
       end
 
       it 'updates the requested language' do
+        allow_any_instance_of(User).to receive(:admin?).and_return(true)
         language = Language.create! valid_attributes
         params = { id: language.to_param, language: new_attributes }
         put :update, params, valid_session
@@ -88,10 +96,21 @@ RSpec.describe Api::V1::LanguagesController, type: :controller do
       end
 
       it 'returns success status' do
+        allow_any_instance_of(User).to receive(:admin?).and_return(true)
         language = Language.create! valid_attributes
         params = { id: language.to_param, language: valid_attributes }
         put :update, params, valid_session
         expect(response.status).to eq(200)
+      end
+
+      context 'not authorized' do
+        it 'returns not authorized status' do
+          allow_any_instance_of(User).to receive(:admin?).and_return(false)
+          language = Language.create! valid_attributes
+          params = { id: language.to_param, language: valid_attributes }
+          post :update, params, valid_session
+          expect(response.status).to eq(401)
+        end
       end
     end
 
@@ -104,6 +123,7 @@ RSpec.describe Api::V1::LanguagesController, type: :controller do
       end
 
       it 'render unprocessable entity status' do
+        allow_any_instance_of(User).to receive(:admin?).and_return(true)
         language = Language.create! valid_attributes
         params = { id: language.to_param, language: invalid_attributes }
         put :update, params, valid_session
@@ -114,6 +134,7 @@ RSpec.describe Api::V1::LanguagesController, type: :controller do
 
   describe 'DELETE #destroy' do
     it 'destroys the requested language' do
+      allow_any_instance_of(User).to receive(:admin?).and_return(true)
       language = Language.create! valid_attributes
       expect do
         delete :destroy, { id: language.to_param }, valid_session
@@ -121,9 +142,20 @@ RSpec.describe Api::V1::LanguagesController, type: :controller do
     end
 
     it 'returns deleted status' do
+      allow_any_instance_of(User).to receive(:admin?).and_return(true)
       language = Language.create! valid_attributes
       delete :destroy, { id: language.to_param }, valid_session
       expect(response.status).to eq(204)
+    end
+
+    context 'not authorized' do
+      it 'returns not authorized status' do
+        allow_any_instance_of(User).to receive(:admin?).and_return(false)
+        language = Language.create! valid_attributes
+        params = { id: language.to_param }
+        post :destroy, params, valid_session
+        expect(response.status).to eq(401)
+      end
     end
   end
 end

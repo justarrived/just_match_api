@@ -6,15 +6,19 @@ gem 'rails', '4.2.5'
 gem 'pg', '~> 0.15' # Use postgresql as the database for Active Record
 
 gem 'rails-api', '~> 0.4'
-gem 'active_model_serializers', '~> 0.10.0.rc3'
+gem 'active_model_serializers', '~> 0.10.0.rc3' # Serialize models to JSON
 
-gem 'geocoder', '~> 1.2'
-gem 'rails_12factor', '~> 0.0.3'
+gem 'geocoder', '~> 1.2' # Geocode resources
+group :production do
+  gem 'rails_12factor', '~> 0.0.3' # Heroku integration
+end
 
 gem 'apipie-rails', '~> 0.3' # Easy API documentation
 gem 'maruku', '~> 0.7' # Needed for apipie-rails markdown support
 
-gem 'kaminari', '~> 0.16'
+gem 'kaminari', '~> 0.16' # Easy pagination
+
+gem 'bcrypt', '~> 3.1.7', require: true
 
 # Use Puma as the app server
 gem 'puma'
@@ -25,6 +29,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.4'
   gem 'regressor', '~> 0.6'
   gem 'faker', '~> 1.6'
+  gem 'foreman'
 end
 
 group :development do
