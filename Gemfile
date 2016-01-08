@@ -30,7 +30,7 @@ group :development, :test do
   gem 'regressor', '~> 0.6'
   gem 'faker', '~> 1.6'
   gem 'foreman'
-  gem 'rubocop'
+  gem 'rubocop', require: false
 end
 
 group :development do

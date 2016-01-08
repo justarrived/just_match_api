@@ -9,6 +9,17 @@ if %w(development test).include? Rails.env
   require 'rubocop/rake_task'
   RuboCop::RakeTask.new
 
+  desc 'Run code tests'
+  task(:test_code) do
+    system('script/test')
+  end
+
+  desc 'Run all tests'
+  task(:test) do
+    Rake::Task['test_code'].invoke
+    Rake::Task['rubocop'].invoke
+  end
+
   task(:default).clear
-  task default: [:spec, :rubocop]
+  task default: [:test]
 end
