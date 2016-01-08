@@ -121,4 +121,15 @@ license your work under the terms of the [MIT License](LICENSE).
 
 If your writing new code you should also write tests and adhere to the code style guide.
 
-* Run `rubocop` to verify that you adhere to the code style guide.
+* Run `rubocop` - verify that you adhere to the code style guide.
+* Run `i18n-tasks normalize -p` - sort normalize translation key order
+
+__Translations__
+
+Every string in this app should be translated if you add any new translations please run
+
+```
+$ i18n-tasks normalize -p
+```
+
+to normalize the order of the keys.
