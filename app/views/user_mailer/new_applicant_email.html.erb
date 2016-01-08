@@ -4,11 +4,11 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h1>Congrats <%= @owner_name %>!</h1>
-    <h3>You've got a new applicant for your job '<%= @job_name %>'!</h3>
-    <p>The applicant is: '<%= @user_name %>' and lives in your area.</p>
-    <p>Contact details: <%= @user_email %>, <%= @user_phone %></p>
+    <h1><%= I18n.t('mailer.new_applicant.congrats_line', name: @owner_name) %></h1>
+    <p><%= I18n.t('mailer.new_applicant.job_line'), name: @job_name %></p>
+    <h3><%= I18n.t('mailer.new_applicant.applicant_line', name: @user_name) %></h3>
+    <p><%= I18n.t('mailer.new_applicant.contact_line'), email: @user_email, @user_phone %></p>
 
-    <p>Have a great day!</p>
+    <p><%= I18n.t('mailer.signoff') %></p>
   </body>
 </html>

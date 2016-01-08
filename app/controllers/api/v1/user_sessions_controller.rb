@@ -16,7 +16,8 @@ module Api
         if user
           render json: { token: user.auth_token }, status: :ok
         else
-          render json: { error: 'Incorrect credentials' }, status: :forbidden
+          error_message = I18n.t('invalid_credentials')
+          render json: { error: error_message }, status: :forbidden
         end
       end
 
@@ -32,7 +33,8 @@ module Api
           user.auth_token = user.generate_auth_token!
           head :no_content
         else
-          render json: { error: 'No such token' }, status: :unprocessable_entity
+          error_message = I18n.t('no_such_token')
+          render json: { error: error_message }, status: :unprocessable_entity
         end
       end
     end

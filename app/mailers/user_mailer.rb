@@ -4,7 +4,7 @@ class UserMailer < ApplicationMailer
     @owner_email = owner.email
     @job_name = job.name
 
-    mail(to: user.email, subject: 'Congrats, you have a new job match!')
+    mail(to: user.email, subject: I18n.t('mailer.job_match.subject'))
   end
 
   def job_performed_accept_email(user:, job:, owner:)
@@ -12,7 +12,8 @@ class UserMailer < ApplicationMailer
     @owner_name = owner.name
     @job_name = job.name
 
-    mail(to: user.email, subject: 'Congrats! A job you performed has been accepted.')
+    subject = I18n.t('mailer.job_performed_accept.subject')
+    mail(to: user.email, subject: subject)
   end
 
   def job_performed_email(user:, job:, owner:)
@@ -21,7 +22,8 @@ class UserMailer < ApplicationMailer
     @job_name = job.name
     @user_email = user.email
 
-    mail(to: owner.email, subject: 'Congrats! A job you ordered has been performed.')
+    subject = I18n.t('mailer.job_performed.subject')
+    mail(to: owner.email, subject: subject)
   end
 
   def new_applicant_mail(user:, job:, owner:)
@@ -32,7 +34,8 @@ class UserMailer < ApplicationMailer
     @job_name = job.name
     @owner_name = owner.name
 
-    mail(to: owner.email, subject: 'Congrats, you have got a new applicant!')
+    subject = I18n.t('mailer.new_applicant_mail.subject')
+    mail(to: owner.email, subject: subject)
   end
 
   def applicant_accepted_email(user:, job:, owner:)
@@ -40,6 +43,7 @@ class UserMailer < ApplicationMailer
     @owner_email = owner.email
     @job_name = job.name
 
-    mail(to: user.email, subject: 'Congrats, got a job!')
+    subject = I18n.t('mailer.applicant_accepted.subject')
+    mail(to: user.email, subject: subject)
   end
 end

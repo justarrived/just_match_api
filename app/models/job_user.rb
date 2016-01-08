@@ -9,9 +9,11 @@ class JobUser < ActiveRecord::Base
   validates :user, uniqueness: { scope: :job }
   validates :job, uniqueness: { scope: :user }
 
+  NOT_OWNER_OF_JOB_ERR_MSG = I18n.t('errors.job_user.not_owner_of_job')
+
   def applicant_not_owner_of_job
     if job && job.owner == user
-      errors.add(:user, "can't be both job owner and job applicant")
+      errors.add(:user, NOT_OWNER_OF_JOB_ERR_MSG)
     end
   end
 
