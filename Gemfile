@@ -42,6 +42,8 @@ group :development do
   gem 'web-console', '~> 2.0'
   gem 'spring', '~> 1.5'
   gem 'spring-commands-rspec', '~> 1.0'
+  gem 'rails-i18n', '~> 4.0.0' # For 4.0.x
+  gem 'i18n-tasks', '~> 0.9.2'
 end
 
 group :test do

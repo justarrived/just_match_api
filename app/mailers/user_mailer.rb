@@ -34,7 +34,7 @@ class UserMailer < ApplicationMailer
     @job_name = job.name
     @owner_name = owner.name
 
-    subject = I18n.t('mailer.new_applicant_mail.subject')
+    subject = I18n.t('mailer.new_applicant.subject')
     mail(to: owner.email, subject: subject)
   end
 
