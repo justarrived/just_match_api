@@ -92,7 +92,7 @@ module Api
       api :GET, '/users/:id/matching_jobs', 'Show matching jobs for user'
       description 'Returns the matching jobs for user if the user is allowed to.'
       def matching_jobs
-        if @user == current_user
+        unless @user == current_user
           render json: { error: I18n.t('invalid_credentials') }, status: 401
           return
         end

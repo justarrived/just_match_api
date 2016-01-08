@@ -11,7 +11,7 @@ module Api
           Here you can find all the documentation about the current API.
 
 
-          ### Examples
+          ## Examples
 
           To try the examples below simply copy-and-paste the cURL command below
           into your terminal and run it.
@@ -35,6 +35,12 @@ module Api
           Get a single skill
 
           `#{Doxxer.curl_for(name: 'skills', id: 1)}`
+
+          ## Authentication
+
+          Pass the authorization token as a HTTP HEADER
+
+          `#{Doxxer.curl_for(name: 'users', id: 1, with_auth: true)}`
         "
         api_base_url '/api/v1'
       end

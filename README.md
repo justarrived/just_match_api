@@ -4,8 +4,6 @@
 
 Welcome to the official API backend for the Just Arrived matching service.
 
-The API is designed to be consumed by multiple clients and the goal is that it should easy to implement a client (Web/Android/iOS etc..).
-
 The API tries to follow the [JsonApi 1.0](http://jsonapi.org/) standard, but sill a long way from completely compliant. Please feel free to report any violations.
 
 :warning: _Note_: The project is still in an early stage and drastic changes to the API can and will be made at any time. If your thinking of doing a larger contribution please open an issue so it can be discussed.
