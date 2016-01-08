@@ -16,7 +16,11 @@ RSpec.describe Api::V1::Chats::MessagesController, type: :controller do
   end
 
   let(:valid_session) do
-    { token: @chat_user.user.auth_token }
+    user = @chat_user.user
+    allow_any_instance_of(described_class)
+      .to(receive(:authenticate_user_token!)
+      .and_return(user))
+    { token: user.auth_token }
   end
 
   describe 'GET #index' do

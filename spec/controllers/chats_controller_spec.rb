@@ -13,12 +13,17 @@ RSpec.describe Api::V1::ChatsController, type: :controller do
 
   let(:valid_session) do
     user = FactoryGirl.create(:user)
+    allow_any_instance_of(described_class)
+      .to(
+        receive(:authenticate_user_token!)
+        .and_return(user)
+      )
     { token: user.auth_token }
   end
 
   describe 'GET #index' do
-     it 'assigns all chats as @chats' do
-       allow_any_instance_of(User).to receive(:admin?).and_return(true)
+    it 'assigns all chats as @chats' do
+      allow_any_instance_of(User).to receive(:admin?).and_return(true)
       chat = Chat.create! {}
       get :index, {}, valid_session
       expect(assigns(:chats)).to eq([chat])

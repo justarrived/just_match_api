@@ -11,6 +11,9 @@ RSpec.describe Api::V1::Users::UserLanguagesController, type: :controller do
 
   let(:valid_session) do
     user = FactoryGirl.create(:user)
+    allow_any_instance_of(described_class)
+      .to(receive(:authenticate_user_token!)
+      .and_return(user))
     { token: user.auth_token }
   end
 

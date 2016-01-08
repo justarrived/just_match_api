@@ -22,14 +22,8 @@ module Api
     private
 
     def authenticate_user_token!
-      # FIXME: Check how to pass HTTP header values in Rails controller tests
-      #        then remove this env check!
-      if Rails.env.test?
-        User.find_by(auth_token: session[:token])
-      else
-        authenticate_with_http_token do |token, _options|
-          return User.find_by(auth_token: token)
-        end
+      authenticate_with_http_token do |token, _options|
+        return User.find_by(auth_token: token)
       end
     end
   end
