@@ -14,10 +14,10 @@ module Api
         user = User.find_by_credentials(email: email, password: password)
 
         if user
-          render json: { token: user.auth_token }, status: :ok
+          render json: { token: user.auth_token }, status: :created
         else
           error_message = I18n.t('invalid_credentials')
-          render json: { error: error_message }, status: :forbidden
+          render json: { error: error_message }, status: :unauthorized
         end
       end
 

@@ -39,7 +39,7 @@ module Api
         example Doxxer.example_for(UserLanguage)
         def create
           unless @user == current_user
-            render json: { error: I18n.t('invalid_credentials') }, status: 401
+            render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized
             return
           end
 
@@ -58,7 +58,7 @@ module Api
         description 'Deletes user language.'
         def destroy
           unless @user_language.user == current_user
-            render json: { error: I18n.t('invalid_credentials') }, status: 401
+            render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized
             return
           end
 

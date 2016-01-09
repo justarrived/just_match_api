@@ -40,7 +40,7 @@ module Api
       example Doxxer.example_for(Skill)
       def create
         unless current_user.admin?
-          render json: { error: I18n.t('invalid_credentials') }, status: 401
+          render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized
           return
         end
 
@@ -63,7 +63,7 @@ module Api
       example Doxxer.example_for(Skill)
       def update
         unless current_user.admin?
-          render json: { error: I18n.t('invalid_credentials') }, status: 401
+          render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized
           return
         end
 
@@ -79,7 +79,7 @@ module Api
       formats ['json']
       def destroy
         unless current_user.admin?
-          render json: { error: I18n.t('invalid_credentials') }, status: 401
+          render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized
           return
         end
 

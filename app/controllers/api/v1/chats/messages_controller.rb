@@ -42,7 +42,7 @@ module Api
           @message = @chat.create_message(author: author, body: body, language_id: lang)
 
           if @message.valid?
-            render json: @message, include: %w(author language), status: 201
+            render json: @message, include: %w(author language), status: :created
           else
             render json: @message.errors, status: :unprocessable_entity
           end

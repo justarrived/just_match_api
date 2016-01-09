@@ -18,7 +18,7 @@ module Api
       description 'Returns a list of chats.'
       def index
         unless current_user.admin?
-          render json: { error: 'Not authed.' }, status: 401
+          render json: { error: 'Not authed.' }, status: :unauthorized
           return
         end
 

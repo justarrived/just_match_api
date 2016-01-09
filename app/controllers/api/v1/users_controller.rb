@@ -66,7 +66,7 @@ module Api
       example Doxxer.example_for(User)
       def update
         unless @user == current_user
-          render json: { error: I18n.t('invalid_credentials') }, status: 401
+          render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized
           return
         end
 
@@ -81,7 +81,7 @@ module Api
       description 'Deletes user user if the user is allowed to.'
       def destroy
         unless @user == current_user
-          render json: { error: I18n.t('invalid_credentials') }, status: 401
+          render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized
           return
         end
 
@@ -93,7 +93,7 @@ module Api
       description 'Returns the matching jobs for user if the user is allowed to.'
       def matching_jobs
         unless @user == current_user
-          render json: { error: I18n.t('invalid_credentials') }, status: 401
+          render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized
           return
         end
 

@@ -86,7 +86,7 @@ module Api
           notify_klass = JobPerformedNotifier
           should_notify = @job.send_performed_notice?
         else
-          render json: { error: I18n.t('invalid_credentials') }, status: 401
+          render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized
           return
         end
 
@@ -104,7 +104,7 @@ module Api
       description 'Returns matching users for job if user is allowed to.'
       def matching_users
         unless @job.owner == current_user
-          render json: { error: I18n.t('invalid_credentials') }, status: 401
+          render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized
           return
         end
 
