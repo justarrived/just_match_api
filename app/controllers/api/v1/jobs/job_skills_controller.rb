@@ -35,7 +35,7 @@ module Api
         description 'Creates and returns new job skill if the user is allowed to.'
         error code: 422, desc: 'Unprocessable entity'
         error code: 401, desc: 'Unauthorized'
-        param :skill, Hash, desc: 'Skill attributes', required: true  do
+        param :skill, Hash, desc: 'Skill attributes', required: true do
           param :id, Integer, desc: 'Skill id', required: true
         end
         example Doxxer.example_for(Skill)
