@@ -20,27 +20,28 @@ module Api
 
           Get a list of available jobs
 
-          `#{Doxxer.curl_for(name: 'jobs')}`
+              #{Doxxer.curl_for(name: 'jobs')}
 
           Get a single job
 
-          `#{Doxxer.curl_for(name: 'jobs', id: 1)}`
+              #{Doxxer.curl_for(name: 'jobs', id: 1)}
 
           __Skills__
 
           Get a list of skills
 
-          `#{Doxxer.curl_for(name: 'skills')}`
+              #{Doxxer.curl_for(name: 'skills')}
 
           Get a single skill
 
-          `#{Doxxer.curl_for(name: 'skills', id: 1)}`
+              #{Doxxer.curl_for(name: 'skills', id: 1)}
 
           ## Authentication
 
-          Pass the authorization token as a HTTP HEADER
+          Pass the authorization token as a HTTP header
 
-          `#{Doxxer.curl_for(name: 'users', id: 1, with_auth: true)}`
+              #{Doxxer.curl_for(name: 'users', id: 1, with_auth: true, join_with: " \\
+                     ")}
         "
         api_base_url '/api/v1'
       end

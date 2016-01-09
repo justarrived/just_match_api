@@ -6,7 +6,7 @@ class Doxxer
     JSON.pretty_generate(model.serializable_hash)
   end
 
-  def self.curl_for(name:, id: nil, with_auth: false)
+  def self.curl_for(name:, id: nil, with_auth: false, join_with: ' ')
     path = [name, id].compact.join('/')
     curl_opts = []
     if with_auth
@@ -14,6 +14,6 @@ class Doxxer
     end
     curl_opts << "-X GET #{BASE_URL}/api/v1/#{path}.json"
     curl_opts << '-s'
-    "curl #{curl_opts.join(' ')} | python -mjson.tool"
+    "$ curl #{curl_opts.join(join_with)} | python -mjson.tool"
   end
 end
