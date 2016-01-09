@@ -33,6 +33,8 @@ module Api
 
         api :POST, '/jobs/:job_id/skills/', 'Create new job skill'
         description 'Creates and returns new job skill if the user is allowed to.'
+        error code: 422, desc: 'Unprocessable entity'
+        error code: 401, desc: 'Unauthorized'
         param :skill, Hash, desc: 'Skill attributes', required: true  do
           param :id, Integer, desc: 'Skill id', required: true
         end
@@ -58,6 +60,7 @@ module Api
 
         api :DELETE, '/jobs/:job_id/skills/:id', 'Delete user skill'
         description 'Deletes job skill if the user is allowed to.'
+        error code: 401, desc: 'Unauthorized'
         def destroy
           unless @job.owner == current_user
             render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized

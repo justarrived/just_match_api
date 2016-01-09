@@ -1,9 +1,17 @@
 module Api
   module V1
     class UserSessionsController < BaseController
+      resource_description do
+        short 'API for managing user sessions'
+        name 'User sessions'
+        description ''
+        formats [:json]
+        api_versions '1.0'
+      end
+
       api :POST, '/user_sessions/', 'Get auth token'
       description 'Returns the Users auth token if the user is allowed to.'
-      formats ['json']
+      error code: 401, desc: 'Unauthorized'
       param :email, String, desc: 'Email', required: true
       param :password, String, desc: 'Password', required: true
       example '{ "token": "..." }'
@@ -23,7 +31,7 @@ module Api
 
       api :DELETE, '/user_sessions/', 'Reset auth token'
       description 'Resets the Users auth token if the user is allowed to.'
-      formats ['json']
+      error code: 422, desc: 'Unprocessable entity'
       param :id, String, desc: 'Auth token', required: true
       def destroy
         token = params[:id]

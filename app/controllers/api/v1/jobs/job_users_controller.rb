@@ -19,6 +19,7 @@ module Api
 
         api :GET, '/jobs/:job_id/users', 'Show job users'
         description 'Returns list of job users if the user is allowed to.'
+        error code: 401, desc: 'Unauthorized'
         def index
           unless @job.owner == current_user
             render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized
@@ -32,6 +33,7 @@ module Api
 
         api :GET, '/jobs/:job_id/users/:id', 'Show job user'
         description 'Returns user.'
+        error code: 401, desc: 'Unauthorized'
         example Doxxer.example_for(User)
         def show
           unless @job.owner == current_user || @user == current_user
@@ -45,6 +47,7 @@ module Api
         api :POST, '/jobs/:job_id/users/', 'Create new job user'
         description 'Creates and returns new job user if the user is allowed to.'
         example Doxxer.example_for(User)
+        error code: 422, desc: 'Unprocessable entity'
         def create
           @job_user = JobUser.new
           @job_user.user = current_user
@@ -59,6 +62,7 @@ module Api
 
         api :DELETE, '/jobs/:job_id/users/:id', 'Delete user user'
         description 'Deletes job user if the user is allowed to.'
+        error code: 401, desc: 'Unauthorized'
         def destroy
           unless @user == current_user
             render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized

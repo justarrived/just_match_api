@@ -33,6 +33,8 @@ module Api
 
         api :POST, '/users/:user_id/languages/', 'Create new user language'
         description 'Creates and returns new user language.'
+        error code: 422, desc: 'Unprocessable entity'
+        error code: 401, desc: 'Unauthorized'
         param :language, Hash, desc: 'User language attributes', required: true do
           param :id, Integer, desc: 'Language id', required: true
         end
@@ -56,6 +58,7 @@ module Api
 
         api :DELETE, '/users/:user_id/languages/:id', 'Delete user language'
         description 'Deletes user language.'
+        error code: 401, desc: 'Unauthorized'
         def destroy
           unless @user_language.user == current_user
             render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized

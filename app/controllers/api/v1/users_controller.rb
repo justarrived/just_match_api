@@ -30,6 +30,7 @@ module Api
 
       api :POST, '/users/', 'Create new user'
       description 'Creates and returns a new user.'
+      error code: 422, desc: 'Unprocessable entity'
       param :user, Hash, desc: 'User attributes', required: true do
         # rubocop:disable Metrics/LineLength
         param :skill_ids, Array, of: Integer, desc: 'List of skill ids', required: true
@@ -56,6 +57,8 @@ module Api
 
       api :PATCH, '/users/', 'Update new user'
       description 'Updates and returns the updated user if the user is allowed to.'
+      error code: 422, desc: 'Unprocessable entity'
+      error code: 401, desc: 'Unauthorized'
       param :user, Hash, desc: 'User attributes', required: true do
         param :name, String, desc: 'Name'
         param :description, String, desc: 'Description'
@@ -79,6 +82,7 @@ module Api
 
       api :DELETE, '/users/:id', 'Delete user'
       description 'Deletes user user if the user is allowed to.'
+      error code: 401, desc: 'Unauthorized'
       def destroy
         unless @user == current_user
           render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized
@@ -91,6 +95,7 @@ module Api
 
       api :GET, '/users/:id/matching_jobs', 'Show matching jobs for user'
       description 'Returns the matching jobs for user if the user is allowed to.'
+      error code: 401, desc: 'Unauthorized'
       def matching_jobs
         unless @user == current_user
           render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized

@@ -29,6 +29,8 @@ module Api
 
       api :POST, '/languages/', 'Create new language'
       description 'Creates and returns new language.'
+      error code: 422, desc: 'Unprocessable entity'
+      error code: 401, desc: 'Unauthorized'
       param :job, Hash, desc: 'Language attributes', required: true do
         param :lang_code, String, desc: 'Language code', required: true
       end
@@ -50,6 +52,8 @@ module Api
 
       api :PATCH, '/languages/:id', 'Update language'
       description 'Updates and returns the updated language.'
+      error code: 422, desc: 'Unprocessable entity'
+      error code: 401, desc: 'Unauthorized'
       param :language, Hash, desc: 'Language attributes', required: true do
         param :lang_code, String, desc: 'Name'
       end
@@ -70,6 +74,7 @@ module Api
 
       api :DELETE, '/languages/:id', 'Delete language'
       description 'Deletes language.'
+      error code: 401, desc: 'Unauthorized'
       def destroy
         if current_user.admin?
           @language.destroy

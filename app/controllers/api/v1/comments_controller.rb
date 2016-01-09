@@ -33,6 +33,7 @@ module Api
 
       api :POST, '/:resource_name/:resource_id/comments/', 'Create new comment'
       description 'Creates and returns the new comment if the user is allowed to.'
+      error code: 422, desc: 'Unprocessable entity'
       param :comment, Hash, desc: 'Comment attributes', required: true do
         param :body, String, desc: 'Body of the comment', required: true
         # rubocop:disable Metrics/LineLength
@@ -55,6 +56,7 @@ module Api
 
       api :PATCH, '/:resource_name/:resource_id/comments/:id', 'Update comment'
       description 'Updates and returns the comment if the user is allowed to.'
+      error code: 422, desc: 'Unprocessable entity'
       param :comment, Hash, desc: 'Comment attributes', required: true do
         param :body, String, desc: 'Body of the comment'
         param :language_id, Integer, desc: 'Language id of the body content'

@@ -20,7 +20,7 @@ RSpec.describe Api::V1::UserSessionsController, type: :controller do
 
       it 'should return success status' do
         post :create, valid_attributes, valid_session
-        expect(response.status).to eq(200)
+        expect(response.status).to eq(201)
       end
 
       it 'should return JSON with token key' do
@@ -33,7 +33,7 @@ RSpec.describe Api::V1::UserSessionsController, type: :controller do
     context 'invalid user' do
       it 'should return forbidden status' do
         post :create, valid_attributes, valid_session
-        expect(response.status).to eq(403)
+        expect(response.status).to eq(401)
       end
     end
   end

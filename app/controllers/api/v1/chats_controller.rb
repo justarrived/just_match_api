@@ -16,9 +16,10 @@ module Api
 
       api :GET, '/chats/', 'List chats'
       description 'Returns a list of chats.'
+      error code: 401, desc: 'Unauthorized'
       def index
         unless current_user.admin?
-          render json: { error: 'Not authed.' }, status: :unauthorized
+          render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized
           return
         end
 
@@ -49,6 +50,7 @@ module Api
         param :user_ids, Array, of: Integer, desc: "Must be between #{Chat::MIN_USERS}-#{Chat::MAX_USERS} users per chat.", required: true
         # rubocop:enable Metrics/LineLength
       end
+      error code: 422, desc: 'Unprocessable entity'
       example Doxxer.example_for(Chat)
       def create
         users = User.where(id: param_user_ids)

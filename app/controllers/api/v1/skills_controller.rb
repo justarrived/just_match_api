@@ -13,7 +13,6 @@ module Api
 
       api :GET, '/skills', 'List skills'
       description 'Returns a list of skills.'
-      formats ['json']
       def index
         page_index = params[:page].to_i
         @skills = Skill.all.page(page_index)
@@ -22,7 +21,6 @@ module Api
 
       api :GET, '/skills/:id', 'Show skill'
       description 'Returns skill.'
-      formats ['json']
       example Doxxer.example_for(Skill)
       def show
         render json: @skill, include: ['language']
@@ -30,7 +28,8 @@ module Api
 
       api :POST, '/skills/', 'Create new skill'
       description 'Creates and returns the new skill if the user is allowed to.'
-      formats ['json']
+      error code: 422, desc: 'Unprocessable entity'
+      error code: 401, desc: 'Unauthorized'
       param :skill, Hash, desc: 'Skill attributes', required: true do
         param :name, String, desc: 'Name', required: true
         # rubocop:disable Metrics/LineLength
@@ -55,7 +54,8 @@ module Api
 
       api :PATCH, '/skills/:id', 'Update skill'
       description 'Updates and returns the updated skill.'
-      formats ['json']
+      error code: 422, desc: 'Unprocessable entity'
+      error code: 401, desc: 'Unauthorized'
       param :skill, Hash, desc: 'Skill attributes', required: true do
         param :name, String, desc: 'Name'
         param :language_id, Integer, desc: 'Langauge id of the text content'
@@ -76,7 +76,7 @@ module Api
 
       api :DELETE, '/skills/:id', 'Delete skill'
       description 'Deletes skill.'
-      formats ['json']
+      error code: 401, desc: 'Unauthorized'
       def destroy
         unless current_user.admin?
           render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized

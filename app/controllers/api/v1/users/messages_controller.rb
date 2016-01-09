@@ -26,6 +26,7 @@ module Api
 
         api :POST, '/users/:id/messages', 'Create new user message.'
         description 'Creates and returns new message.'
+        error code: 422, desc: 'Unprocessable entity'
         param :message, Hash, desc: 'Message attributes', required: true do
           param :body, String, desc: 'Message body', required: true
           param :language_id, Integer, desc: 'Language id', required: true

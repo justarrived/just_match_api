@@ -22,19 +22,14 @@ module Api
           render json: @messages
         end
 
-        # api :POST, '/chats/:id/messages', 'Create new chat message'
-        # description 'Creates and returns new chat message.'
-        # param :message, Hash, desc: 'Message attributes', required: true do
-        #   param :body, String, desc: 'Message body', required: true
-        #   param :language_id, Integer, desc: 'Language id', required: true
-        # end
-        # example Doxxer.example_for(Message)
         api :POST, '/chats/:id/messages', 'Create new chat message.'
         description 'Creates and returns new message.'
+        error code: 422, desc: 'Unprocessable entity'
         param :message, Hash, desc: 'Message attributes', required: true do
           param :body, String, desc: 'Message body', required: true
           param :language_id, Integer, desc: 'Language id', required: true
         end
+        example Doxxer.example_for(Message)
         def create
           lang = message_params[:language_id]
           body = message_params[:body]

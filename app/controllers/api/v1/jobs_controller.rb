@@ -28,6 +28,7 @@ module Api
 
       api :POST, '/jobs/', 'Create new job'
       description 'Creates and returns new job.'
+      error code: 422, desc: 'Unprocessable entity'
       param :job, Hash, desc: 'Job attributes', required: true do
         # rubocop:disable Metrics/LineLength
         param :skill_ids, Array, of: Integer, desc: 'List of skill ids', required: true
@@ -61,6 +62,8 @@ module Api
 
       api :PATCH, '/jobs/:id', 'Update job'
       description 'Updates and returns the updated job.'
+      error code: 422, desc: 'Unprocessable entity'
+      error code: 401, desc: 'Unauthorized'
       param :job, Hash, desc: 'Job attributes', required: true do
         param :max_rate, Integer, desc: 'Max rate'
         param :name, String, desc: 'Name'
@@ -102,6 +105,7 @@ module Api
 
       api :GET, '/jobs/:job_id/matching_users', 'Show matching users for job'
       description 'Returns matching users for job if user is allowed to.'
+      error code: 401, desc: 'Unauthorized'
       def matching_users
         unless @job.owner == current_user
           render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized
