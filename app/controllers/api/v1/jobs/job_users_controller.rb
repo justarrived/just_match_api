@@ -54,6 +54,7 @@ module Api
           @job_user.job = @job
 
           if @job_user.save
+            NewApplicantNotifier.call(job_user: @job_user)
             render json: @user, status: :created
           else
             render json: @job_user.errors, status: :unprocessable_entity

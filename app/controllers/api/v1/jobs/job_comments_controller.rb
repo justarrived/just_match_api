@@ -1,7 +1,7 @@
 module Api
   module V1
     module Jobs
-      class CommentsController < CommentsController
+      class JobCommentsController < Api::V1::CommentsController
         before_action :set_commentable
         before_action :set_comment, only: [:show]
 
