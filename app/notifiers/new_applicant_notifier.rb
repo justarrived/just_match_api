@@ -4,11 +4,8 @@ class NewApplicantNotifier
     user = job_user.user
     owner = job.owner
 
-    name = owner.name
-    user_email = user.email
-
-    message = "Congrats #{name}! You've recieved a new job application. "
-    message << "You can contact #{user_email}, for more details."
-    Rails.logger.debug { "NOTIFY: #{message}" }
+    UserMailer.
+      new_applicant_email(user: user, job: job, owner: owner).
+      deliver_later
   end
 end

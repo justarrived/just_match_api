@@ -52,4 +52,5 @@ group :test do
   gem 'factory_girl_rails', '~> 4.0'
   gem 'database_cleaner', '~> 1.5'
   gem 'webmock', '~> 1.21'
+  gem 'rspec-activemodel-mocks', '~> 1.0'
 end

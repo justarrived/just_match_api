@@ -6,8 +6,8 @@
   <body>
     <h1><%= I18n.t('mailer.job_match.congrats_line', name: @user_name) %></h1>
     <h3><%= I18n.t('mailer.job_match.accepted_line') %></h3>
-    <p><%= I18n.t('mailer.job_match.job_line'), name: @job_name %></p>
-    <p><%= I18n.t('mailer.job_match.contact_line'), email: @owner_email %></p>
+    <p><%= I18n.t('mailer.job_match.job_line', name: @job_name) %></p>
+    <p><%= I18n.t('mailer.job_match.contact_line', email: @owner_email) %></p>
 
     <p><%= I18n.t('mailer.signoff') %></p>
   </body>

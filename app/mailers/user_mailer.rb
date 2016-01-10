@@ -26,7 +26,7 @@ class UserMailer < ApplicationMailer
     mail(to: owner.email, subject: subject)
   end
 
-  def new_applicant_mail(user:, job:, owner:)
+  def new_applicant_email(user:, job:, owner:)
     @user_name = user.name
     @user_email = user.email
     @user_phone = user.phone

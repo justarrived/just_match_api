@@ -41,21 +41,24 @@ RSpec.describe Api::V1::Jobs::JobCommentsController, type: :controller do
     context 'with valid params' do
       it 'creates a new Comment' do
         job = FactoryGirl.create(:job)
+        params = { job_id: job.to_param, comment: valid_attributes }
         expect do
-          post :create, { job_id: job.to_param, comment: valid_attributes }, valid_session
+          post :create, params, valid_session
         end.to change(Comment, :count).by(1)
       end
 
       it 'assigns a newly created comment as @comment' do
         job = FactoryGirl.create(:job)
-        post :create, { job_id: job.to_param, comment: valid_attributes }, valid_session
+        params = { job_id: job.to_param, comment: valid_attributes }
+        post :create, params, valid_session
         expect(assigns(:comment)).to be_a(Comment)
         expect(assigns(:comment)).to be_persisted
       end
 
       it 'returns 201 created status' do
         job = FactoryGirl.create(:job)
-        post :create, { job_id: job.to_param, comment: valid_attributes }, valid_session
+        params = { job_id: job.to_param, comment: valid_attributes }
+        post :create, params, valid_session
         expect(response.status).to eq(201)
       end
     end
@@ -63,14 +66,16 @@ RSpec.describe Api::V1::Jobs::JobCommentsController, type: :controller do
     context 'with invalid params' do
       it 'assigns a newly created but unsaved comment as @comment' do
         job = FactoryGirl.create(:job)
-        post :create, { job_id: job.to_param, comment: invalid_attributes }, valid_session
+        params = { job_id: job.to_param, comment: invalid_attributes }
+        post :create, params, valid_session
         expect(assigns(:comment)).to be_a_new(Comment)
       end
 
       it 'does not change Comment count' do
         job = FactoryGirl.create(:job)
         expect do
-          post :create, { job_id: job.to_param, comment: invalid_attributes }, valid_session
+          params = { job_id: job.to_param, comment: invalid_attributes }
+          post :create, params, valid_session
         end.to change(Comment, :count).by(0)
       end
     end
@@ -96,7 +101,8 @@ RSpec.describe Api::V1::Jobs::JobCommentsController, type: :controller do
       it 'updates the requested comment' do
         job = FactoryGirl.create(:job)
         comment = FactoryGirl.create(:comment, owner: @user, commentable: job)
-        put :update, { job_id: job.to_param, id: comment.to_param, comment: new_attributes }, valid_session
+        params = { job_id: job.to_param, id: comment.to_param, comment: new_attributes }
+        put :update, params, valid_session
         comment.reload
         expect(comment.body).to eq('Something, something else darkside..')
       end
@@ -104,14 +110,16 @@ RSpec.describe Api::V1::Jobs::JobCommentsController, type: :controller do
       it 'assigns the requested comment as @comment' do
         job = FactoryGirl.create(:job)
         comment = FactoryGirl.create(:comment, owner: @user, commentable: job)
-        put :update, { job_id: job.to_param, id: comment.to_param, comment: valid_attributes }, valid_session
+        params = { job_id: job.to_param, id: comment.to_param, comment: new_attributes }
+        put :update, params, valid_session
         expect(assigns(:comment)).to eq(comment)
       end
 
       it 'returns 200 ok status' do
         job = FactoryGirl.create(:job)
         comment = FactoryGirl.create(:comment, owner: @user, commentable: job)
-        put :update, { job_id: job.to_param, id: comment.to_param, comment: valid_attributes }, valid_session
+        params = { job_id: job.to_param, id: comment.to_param, comment: new_attributes }
+        put :update, params, valid_session
         expect(response.status).to eq(200)
       end
     end
@@ -120,14 +128,24 @@ RSpec.describe Api::V1::Jobs::JobCommentsController, type: :controller do
       it 'assigns the comment as @comment' do
         job = FactoryGirl.create(:job)
         comment = FactoryGirl.create(:comment, owner: @user, commentable: job)
-        put :update, { job_id: job.to_param, id: comment.to_param, comment: invalid_attributes }, valid_session
+        params = {
+          job_id: job.to_param,
+          id: comment.to_param,
+          comment: invalid_attributes
+        }
+        put :update, params, valid_session
         expect(assigns(:comment)).to eq(comment)
       end
 
       it 'returns 422 unprocessable entity status' do
         job = FactoryGirl.create(:job)
         comment = FactoryGirl.create(:comment, owner: @user, commentable: job)
-        put :update, { job_id: job.to_param, id: comment.to_param, comment: invalid_attributes }, valid_session
+        params = {
+          job_id: job.to_param,
+          id: comment.to_param,
+          comment: invalid_attributes
+        }
+        put :update, params, valid_session
         expect(response.status).to eq(422)
       end
     end
