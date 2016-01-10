@@ -8,6 +8,17 @@ FactoryGirl.define do
     association :language
     job_date 1.week.ago
 
+    factory :job_with_comments do
+      transient do
+        comments_count 5
+      end
+
+      after(:create) do |job, evaluator|
+        comments = create_list(:comment, evaluator.comments_count)
+        job.comments = comments
+      end
+    end
+
     factory :job_with_skills do
       transient do
         skills_count 5

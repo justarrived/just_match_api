@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'JobUsers', type: :request do
-  describe 'GET /job_users' do
+  describe 'GET /jobs/1/users' do
     context 'not authorized' do
       it 'returns not authorized status' do
         job = FactoryGirl.create(:job)
