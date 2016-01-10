@@ -8,8 +8,6 @@ require 'spec_helper'
 require 'rspec/rails'
 require 'shoulda/matchers'
 
-# Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
-
 # Checks for pending migration and applies them before tests are run.
 ActiveRecord::Migration.maintain_test_schema!
 

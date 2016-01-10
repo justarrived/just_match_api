@@ -8,7 +8,7 @@ end
 
 require 'webmock/rspec'
 
-require 'support/geocoder'
+require 'spec_support/geocoder'
 
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
