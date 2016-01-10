@@ -93,6 +93,16 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
         post :create, params, valid_session
         expect(response.status).to eq(201)
       end
+
+      it 'notifies owner when a a new JobUser is created' do
+        user = FactoryGirl.create(:user)
+        user1 = FactoryGirl.create(:user)
+        job = FactoryGirl.create(:job, owner: user1)
+        params = { job_id: job.to_param, user: { id: user.to_param } }
+        allow(NewApplicantNotifier).to receive(:call)
+        post :create, params, valid_session
+        expect(NewApplicantNotifier).to have_received(:call)
+      end
     end
 
     context 'with invalid params' do
