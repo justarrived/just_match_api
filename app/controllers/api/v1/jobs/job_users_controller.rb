@@ -61,7 +61,7 @@ module Api
           end
         end
 
-        api :POST, '/jobs/:job_id/users/', 'Update job user'
+        api :PATCH, '/jobs/:job_id/users/', 'Update job user'
         description 'Updates a job user if the user is allowed to.'
         error code: 401, desc: 'Unauthorized'
         error code: 422, desc: 'Unprocessable entity'
