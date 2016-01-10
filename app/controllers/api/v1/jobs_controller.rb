@@ -79,7 +79,6 @@ module Api
       def update
         notify_klass = nil
         should_notify = false
-        job_params = {}
         if @job.owner == current_user
           @job.assign_attributes(job_owner_params)
           notify_klass = JobPerformedAcceptNotifier

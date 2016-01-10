@@ -120,6 +120,83 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
     end
   end
 
+  describe 'PUT #update' do
+    context 'with valid params' do
+      let(:new_attributes) do
+        { accepted: true }
+      end
+
+      before(:each) do
+        @user = User.find_by(auth_token: valid_session[:token])
+      end
+
+      context 'job owner user' do
+        it 'updates the requested job' do
+          job = FactoryGirl.create(:job_with_users, users_count: 1, owner: @user)
+          user = job.users.first
+          job_user = job.job_users.first
+          params = { job_id: job.to_param, id: user.to_param, job_user: new_attributes }
+          put :update, params, valid_session
+          job_user.reload
+          expect(job_user.accepted).to eq(true)
+        end
+
+        it 'assigns the requested user as @job' do
+          job = FactoryGirl.create(:job_with_users, users_count: 1, owner: @user)
+          user = job.users.first
+          params = { job_id: job.to_param, id: user.to_param, job_user: new_attributes }
+          put :update, params, valid_session
+          expect(assigns(:job)).to eq(job)
+        end
+
+        it 'returns no content status' do
+          job = FactoryGirl.create(:job_with_users, users_count: 1, owner: @user)
+          user = job.users.first
+          params = { job_id: job.to_param, id: user.to_param, job_user: new_attributes }
+          put :update, params, valid_session
+          expect(response.status).to eq(204)
+        end
+
+        it 'notifies user when updated Job#performed_accept is set to true' do
+          job = FactoryGirl.create(:job_with_users, users_count: 1, owner: @user)
+          user = job.users.first
+          params = { job_id: job.to_param, id: user.to_param, job_user: new_attributes }
+          allow(ApplicantAcceptedNotifier).to receive(:call).with(job: job, user: user)
+          put :update, params, valid_session
+          expect(ApplicantAcceptedNotifier).to have_received(:call)
+        end
+      end
+
+      context 'non associated user' do
+        let(:new_attributes) do
+          { accepted: true }
+        end
+
+        it 'returns forbidden status' do
+          job = FactoryGirl.create(:job_with_users, users_count: 1)
+          user = job.users.first
+          params = { job_id: job.to_param, id: user.to_param, job_user: new_attributes }
+          put :update, params, valid_session
+          expect(response.status).to eq(401)
+        end
+      end
+
+      context 'job user' do
+        let(:new_attributes) do
+          { accepted: true }
+        end
+
+        it 'returns forbidden status for non-owner user' do
+          job = FactoryGirl.create(:job_with_users, users_count: 1)
+          user = job.users.first
+          params = { job_id: job.to_param, id: user.to_param, job_user: new_attributes }
+          put :update, params, valid_session
+          expect(response.status).to eq(401)
+        end
+      end
+    end
+  end
+
   describe 'DELETE #destroy' do
     context 'not allowed' do
       it 'does not destroy the requested job_user' do
