@@ -79,21 +79,18 @@ module Api
       def update
         notify_klass = nil
         should_notify = false
-        job_params = {}
         if @job.owner == current_user
-          job_params = job_owner_params
+          @job.assign_attributes(job_owner_params)
           notify_klass = JobPerformedAcceptNotifier
           should_notify = @job.send_performed_accept_notice?
         elsif @job.job_users.find_by(user: current_user, accepted: true)
-          job_params = job_user_params
+          @job.assign_attributes(job_user_params)
           notify_klass = JobPerformedNotifier
           should_notify = @job.send_performed_notice?
         else
           render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized
           return
         end
-
-        @job.assign_attributes(job_params)
 
         if @job.save
           notify_klass.call(job: @job) if should_notify

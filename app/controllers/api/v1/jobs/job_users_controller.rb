@@ -4,7 +4,7 @@ module Api
       class JobUsersController < BaseController
         before_action :require_user
         before_action :set_job
-        before_action :set_user, only: [:show, :destroy]
+        before_action :set_user, only: [:show, :update, :destroy]
 
         resource_description do
           resource_id 'job_users'
@@ -58,6 +58,25 @@ module Api
             render json: @user, status: :created
           else
             render json: @job_user.errors, status: :unprocessable_entity
+          end
+        end
+
+        api :POST, '/jobs/:job_id/users/', 'Update job user'
+        description 'Updates a job user if the user is allowed to.'
+        error code: 401, desc: 'Unauthorized'
+        error code: 422, desc: 'Unprocessable entity'
+        def update
+          unless @job.owner == current_user
+            render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized
+            return
+          end
+
+          if params.dig(:job_user, :accepted)
+            @job.accept_applicant!(@user)
+            ApplicantAcceptedNotifier.call(job: @job, user: @user)
+            head :no_content
+          else
+            render json: {}, status: :unprocessable_entity
           end
         end
 

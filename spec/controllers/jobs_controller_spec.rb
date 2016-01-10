@@ -108,6 +108,15 @@ RSpec.describe Api::V1::JobsController, type: :controller do
           put :update, params, valid_session
           expect(response.status).to eq(200)
         end
+
+        it 'notifies user when updated Job#performed_accept is set to true' do
+          FactoryGirl.create(:user)
+          job = FactoryGirl.create(:job, owner: @user)
+          params = { job_id: job.to_param, job: { performed_accept: true } }
+          allow(JobPerformedAcceptNotifier).to receive(:call).with(job: job)
+          put :update, params, valid_session
+          expect(JobPerformedAcceptNotifier).to have_received(:call)
+        end
       end
 
       context 'non associated user' do
@@ -176,6 +185,16 @@ RSpec.describe Api::V1::JobsController, type: :controller do
           FactoryGirl.create(:job_user, user: @user, job: job, accepted: true)
           put :update, { job_id: job.to_param, job: new_attributes }, valid_session
           expect(response.status).to eq(200)
+        end
+
+        it 'notifies owner when updated Job#performed is set to true' do
+          FactoryGirl.create(:user)
+          job = FactoryGirl.create(:job)
+          FactoryGirl.create(:job_user, user: @user, job: job, accepted: true)
+          params = { job_id: job.to_param, job: { performed: true } }
+          allow(JobPerformedNotifier).to receive(:call).with(job: job)
+          put :update, params, valid_session
+          expect(JobPerformedNotifier).to have_received(:call)
         end
       end
     end
