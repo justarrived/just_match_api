@@ -2,11 +2,11 @@
 
 [![Code Climate](https://codeclimate.com/github/justarrived/just_match_api/badges/gpa.svg)](https://codeclimate.com/github/justarrived/just_match_api) [![Test Coverage](https://codeclimate.com/github/justarrived/just_match_api/badges/coverage.svg)](https://codeclimate.com/github/justarrived/just_match_api/coverage)
 
-Welcome to the official API backend for the Just Arrived matching service.
+Welcome to the official API for the Just Arrived matching service.
 
 The API tries to follow the [JsonApi 1.0](http://jsonapi.org/) standard, but sill a long way from completely compliant. Please feel free to report any violations.
 
-:warning: _Note_: The project is still in an early stage and drastic changes to the API can and will be made at any time. If your thinking of doing a larger contribution please open an issue so it can be discussed.
+:warning: _Note_: The project is still in an early stage and drastic changes to the API can and will be made at any time. If you're thinking of doing a larger contribution please open an issue so it can be discussed.
 
 If you're looking for help or want to start contributing, want help, give feedback etc., you're more than welcome to join our Gitter chat.
 
@@ -53,21 +53,24 @@ You can run the test using
 $ script/test
 ```
 
-you can also run a single file or a single test:
+you can also run the test suite with some options
 
 ```
 # Run single file
 $ script/test spec/models/user_spec.rb
 
-# Run single test, on line 31, in file
+# Run a single test, on line 31, in file
 $ script/test spec/models/user_spec.rb:31
+
+# run with line coverage
+$ COVERAGE=true script/test
 ```
 
 _Note_: Running the tests with `bundle exec rspec` will not work, please use `script/test` instead.
 
 ## Docs
 
-The API documentation is generated right were the code for that particular endpoint is.
+The API documentation is generated right where the code for that particular endpoint is.
 That way the documentation is kept up to date.
 
 __Development docs__
@@ -91,7 +94,7 @@ $ script/doc
 
 The simplest way to deploy is with Heroku, you can get your own version running in a few minutes.
 
-You can also do it using the command line if you have the Heroku toobelt installed.
+You can also do it using the command line if you have the Heroku toolbelt installed.
 
 ```
 $ heroku create my-server-name
@@ -101,7 +104,7 @@ $ heroku run rake db:migrate
 
 ## Commands
 
-There are a few connivence commands
+There are a few convenience commands
 
 * `script/bootstrap` - installs/updates all dependencies
 * `script/setup` - sets up a project to be used for the first time
@@ -119,7 +122,7 @@ Any contributions, feedback and suggestions are more than welcome.
 
 If you want to contribute please take a moment to review our [contributing guide](CONTRIBUTING.md) in order to make the contribution process easy and effective for everyone involved.
 
-If your not sure where to go you can always join our Gitter chat and ask :)
+If you're not sure where to go you can always join our Gitter chat and ask :)
 
 [![Join the chat at https://gitter.im/justarrived/just_match_api](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/justarrived/just_match_api?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 

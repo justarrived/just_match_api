@@ -13,31 +13,23 @@ require 'shoulda/matchers'
 # Checks for pending migration and applies them before tests are run.
 ActiveRecord::Migration.maintain_test_schema!
 
+def run_test_suite_with_factory_linting?
+  # Only run the factory linter if running the entire test suite or if
+  # explicitly set
+  !ARGV.first || ENV.fetch('LINT_FACTORY', false)
+end
+
 RSpec.configure do |config|
-  # If you're not using ActiveRecord, or you'd prefer not to run each of your
-  # examples within a transaction, remove the following line or assign false
-  # instead of true.
+  # Run each example within a transaction
   config.use_transactional_fixtures = true
 
   # RSpec Rails can automatically mix in different behaviours to your tests
   # based on their file location, for example enabling you to call `get` and
   # `post` in specs under `spec/controllers`.
-  #
-  # You can disable this behaviour by removing the line below, and instead
-  # explicitly tag your specs with their type, e.g.:
-  #
-  #     RSpec.describe UsersController, :type => :controller do
-  #       # ...
-  #     end
-  #
-  # The different available types are documented in the features, such as in
-  # https://relishapp.com/rspec/rspec-rails/docs
   config.infer_spec_type_from_file_location!
 
   # Filter lines from Rails gems in backtraces.
   config.filter_rails_from_backtrace!
-  # arbitrary gems may also be filtered via:
-  # config.filter_gems_from_backtrace("gem name")
 
   # Before the test suite is run
   config.before(:suite) do
@@ -47,7 +39,7 @@ RSpec.configure do |config|
       FactoryGirl.reload
       # Validate that all factories are valid, will slow down the test startup
       # with a second or two, but can be very handy..
-      FactoryGirl.lint if ENV.fetch('LINT_FACTORY', false)
+      FactoryGirl.lint if run_test_suite_with_factory_linting?
       DatabaseCleaner.strategy = :truncation
       DatabaseCleaner.start
     ensure
