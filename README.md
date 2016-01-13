@@ -8,7 +8,7 @@ The API tries to follow the [JsonApi 1.0](http://jsonapi.org/) standard, but sil
 
 :warning: _Note_: The project is still in an early stage and drastic changes to the API can and will be made at any time. If you're thinking of doing a larger contribution please open an issue so it can be discussed.
 
-If you're looking for help or want to start contributing, want help, give feedback etc., you're more than welcome to join our Gitter chat. You can also checkout the tasks that are ready for development over at Waffle.io.
+If you're looking for help or want to start contributing, want help, give feedback etc., you're more than welcome to join our [Gitter](https://gitter.im/justarrived/just_match_api) chat. You can also checkout the tasks that are ready for development over at [Waffle.io](http://waffle.io/justarrived/just_match_api).
 
 [![Join the chat at https://gitter.im/justarrived/just_match_api](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/justarrived/just_match_api?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![Stories in Ready](https://badge.waffle.io/justarrived/just_match_api.png?label=ready&title=Ready)](http://waffle.io/justarrived/just_match_api)
 

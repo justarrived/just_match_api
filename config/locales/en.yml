@@ -36,7 +36,7 @@ en:
     new_applicant:
       applicant_line: The applicant is '%{name}' and lives in your area.
       congrats_line: Congrats %{name}!
-      contact_line: If you have any last questions, you can contact them on %{email} and %{phone}.
+      contact_line: If you have any questions, you can contact them on %{email} and %{phone}.
       job_line: You've got a new applicant for your job '%{name}'.
       subject: Congrats! You have a new applicant.
     signoff: Have a great day!
