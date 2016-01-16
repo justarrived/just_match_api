@@ -1,3 +1,10 @@
+class CommentSerializer < ActiveModel::Serializer
+  attributes :id, :body, :commentable_id, :commentable_type
+  has_one :owner
+  has_one :language
+end
+# rubocop:disable Metrics/LineLength
+
 # == Schema Information
 #
 # Table name: comments
@@ -20,9 +27,3 @@
 #
 #  fk_rails_f55d9b0548  (language_id => languages.id)
 #
-
-class CommentSerializer < ActiveModel::Serializer
-  attributes :id, :body, :commentable_id, :commentable_type
-  has_one :owner
-  has_one :language
-end

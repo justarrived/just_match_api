@@ -1,3 +1,12 @@
+FactoryGirl.define do
+  factory :message do
+    body 'Message content.'
+    association :author, factory: :user
+    association :language
+    association :chat
+  end
+end
+
 # == Schema Information
 #
 # Table name: messages
@@ -21,12 +30,3 @@
 #  fk_rails_0f670de7ba  (chat_id => chats.id)
 #  fk_rails_ab4144543f  (language_id => languages.id)
 #
-
-FactoryGirl.define do
-  factory :message do
-    body 'Message content.'
-    association :author, factory: :user
-    association :language
-    association :chat
-  end
-end

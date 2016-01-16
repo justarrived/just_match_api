@@ -1,3 +1,10 @@
+FactoryGirl.define do
+  factory :chat_user do
+    association :chat
+    association :user
+  end
+end
+
 # == Schema Information
 #
 # Table name: chat_users
@@ -18,10 +25,3 @@
 #  fk_rails_3953ef352e  (user_id => users.id)
 #  fk_rails_86a54ec29b  (chat_id => chats.id)
 #
-
-FactoryGirl.define do
-  factory :chat_user do
-    association :chat
-    association :user
-  end
-end

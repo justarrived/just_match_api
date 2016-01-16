@@ -1,3 +1,8 @@
+require 'rails_helper'
+
+RSpec.describe JobSkill, type: :model do
+end
+
 # == Schema Information
 #
 # Table name: job_skills
@@ -18,8 +23,3 @@
 #  fk_rails_514cd69e1b  (skill_id => skills.id)
 #  fk_rails_94b0ff3621  (job_id => jobs.id)
 #
-
-require 'rails_helper'
-
-RSpec.describe JobSkill, type: :model do
-end

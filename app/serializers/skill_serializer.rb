@@ -1,3 +1,8 @@
+class SkillSerializer < ActiveModel::Serializer
+  attributes :id, :name
+  has_one :language
+end
+
 # == Schema Information
 #
 # Table name: skills
@@ -16,8 +21,3 @@
 #
 #  fk_rails_07eab65450  (language_id => languages.id)
 #
-
-class SkillSerializer < ActiveModel::Serializer
-  attributes :id, :name
-  has_one :language
-end

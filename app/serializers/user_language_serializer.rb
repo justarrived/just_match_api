@@ -1,3 +1,9 @@
+class UserLanguageSerializer < ActiveModel::Serializer
+  attributes :id
+  has_one :language
+  has_one :user
+end
+
 # == Schema Information
 #
 # Table name: user_languages
@@ -18,9 +24,3 @@
 #  fk_rails_0be39eaff3  (language_id => languages.id)
 #  fk_rails_db4f7502c2  (user_id => users.id)
 #
-
-class UserLanguageSerializer < ActiveModel::Serializer
-  attributes :id
-  has_one :language
-  has_one :user
-end

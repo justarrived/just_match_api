@@ -1,3 +1,15 @@
+require 'rails_helper'
+
+RSpec.describe 'JobSkills', type: :request do
+  describe 'GET /jobs/1/skills' do
+    it 'works!' do
+      job = FactoryGirl.create(:job)
+      get api_v1_job_skills_path(job_id: job.to_param)
+      expect(response).to have_http_status(200)
+    end
+  end
+end
+
 # == Schema Information
 #
 # Table name: job_skills
@@ -18,15 +30,3 @@
 #  fk_rails_514cd69e1b  (skill_id => skills.id)
 #  fk_rails_94b0ff3621  (job_id => jobs.id)
 #
-
-require 'rails_helper'
-
-RSpec.describe 'JobSkills', type: :request do
-  describe 'GET /jobs/1/skills' do
-    it 'works!' do
-      job = FactoryGirl.create(:job)
-      get api_v1_job_skills_path(job_id: job.to_param)
-      expect(response).to have_http_status(200)
-    end
-  end
-end

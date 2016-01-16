@@ -1,3 +1,10 @@
+FactoryGirl.define do
+  factory :job_user do
+    association :user
+    association :job
+  end
+end
+
 # == Schema Information
 #
 # Table name: job_users
@@ -20,10 +27,3 @@
 #  fk_rails_548d2d3ba9  (job_id => jobs.id)
 #  fk_rails_815844930e  (user_id => users.id)
 #
-
-FactoryGirl.define do
-  factory :job_user do
-    association :user
-    association :job
-  end
-end

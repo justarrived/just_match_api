@@ -1,13 +1,3 @@
-# == Schema Information
-#
-# Table name: languages
-#
-#  id         :integer          not null, primary key
-#  lang_code  :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#
-
 require 'rails_helper'
 
 RSpec.describe 'Languages', type: :request do
@@ -18,3 +8,13 @@ RSpec.describe 'Languages', type: :request do
     end
   end
 end
+
+# == Schema Information
+#
+# Table name: languages
+#
+#  id         :integer          not null, primary key
+#  lang_code  :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#

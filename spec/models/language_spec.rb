@@ -1,3 +1,8 @@
+require 'rails_helper'
+
+RSpec.describe Language, type: :model do
+end
+
 # == Schema Information
 #
 # Table name: languages
@@ -7,8 +12,3 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
-
-require 'rails_helper'
-
-RSpec.describe Language, type: :model do
-end

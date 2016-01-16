@@ -1,3 +1,10 @@
+class UserSkillSerializer < ActiveModel::Serializer
+  attributes :id
+
+  belongs_to :user
+  belongs_to :skill
+end
+
 # == Schema Information
 #
 # Table name: user_skills
@@ -18,10 +25,3 @@
 #  fk_rails_59acb6e327  (skill_id => skills.id)
 #  fk_rails_fe61b6a893  (user_id => users.id)
 #
-
-class UserSkillSerializer < ActiveModel::Serializer
-  attributes :id
-
-  belongs_to :user
-  belongs_to :skill
-end

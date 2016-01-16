@@ -1,3 +1,9 @@
+class ChatUserSerializer < ActiveModel::Serializer
+  attributes :id
+  has_one :chat
+  has_one :user
+end
+
 # == Schema Information
 #
 # Table name: chat_users
@@ -18,9 +24,3 @@
 #  fk_rails_3953ef352e  (user_id => users.id)
 #  fk_rails_86a54ec29b  (chat_id => chats.id)
 #
-
-class ChatUserSerializer < ActiveModel::Serializer
-  attributes :id
-  has_one :chat
-  has_one :user
-end

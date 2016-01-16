@@ -1,3 +1,12 @@
+FactoryGirl.define do
+  factory :skill do
+    sequence :name do |n|
+      "Skill #{n} #{SecureRandom.uuid}"
+    end
+    association :language
+  end
+end
+
 # == Schema Information
 #
 # Table name: skills
@@ -16,12 +25,3 @@
 #
 #  fk_rails_07eab65450  (language_id => languages.id)
 #
-
-FactoryGirl.define do
-  factory :skill do
-    sequence :name do |n|
-      "Skill #{n} #{SecureRandom.uuid}"
-    end
-    association :language
-  end
-end

@@ -1,3 +1,10 @@
+class JobSkillSerializer < ActiveModel::Serializer
+  attributes :id
+
+  belongs_to :job
+  belongs_to :skill
+end
+
 # == Schema Information
 #
 # Table name: job_skills
@@ -18,10 +25,3 @@
 #  fk_rails_514cd69e1b  (skill_id => skills.id)
 #  fk_rails_94b0ff3621  (job_id => jobs.id)
 #
-
-class JobSkillSerializer < ActiveModel::Serializer
-  attributes :id
-
-  belongs_to :job
-  belongs_to :skill
-end

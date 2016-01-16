@@ -1,3 +1,15 @@
+class UserSerializer < ActiveModel::Serializer
+  attributes :id, :name, :email, :phone, :description, :created_at, :longitude,
+             :latitude, :address
+
+  has_one :language
+
+  has_many :languages
+  has_many :written_comments
+  has_many :skills
+  has_many :jobs
+end
+
 # == Schema Information
 #
 # Table name: users
@@ -27,15 +39,3 @@
 #
 #  fk_rails_45f4f12508  (language_id => languages.id)
 #
-
-class UserSerializer < ActiveModel::Serializer
-  attributes :id, :name, :email, :phone, :description, :created_at, :longitude,
-             :latitude, :address
-
-  has_one :language
-
-  has_many :languages
-  has_many :written_comments
-  has_many :skills
-  has_many :jobs
-end

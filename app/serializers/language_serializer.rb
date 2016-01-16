@@ -1,3 +1,7 @@
+class LanguageSerializer < ActiveModel::Serializer
+  attributes :id, :lang_code
+end
+
 # == Schema Information
 #
 # Table name: languages
@@ -7,7 +11,3 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
-
-class LanguageSerializer < ActiveModel::Serializer
-  attributes :id, :lang_code
-end

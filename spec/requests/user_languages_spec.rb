@@ -1,3 +1,15 @@
+require 'rails_helper'
+
+RSpec.describe 'UserLanguages', type: :request do
+  describe 'GET /users/1/languages' do
+    it 'works!' do
+      user = FactoryGirl.create(:user)
+      get api_v1_user_languages_path(user_id: user.to_param)
+      expect(response).to have_http_status(200)
+    end
+  end
+end
+
 # == Schema Information
 #
 # Table name: user_languages
@@ -18,15 +30,3 @@
 #  fk_rails_0be39eaff3  (language_id => languages.id)
 #  fk_rails_db4f7502c2  (user_id => users.id)
 #
-
-require 'rails_helper'
-
-RSpec.describe 'UserLanguages', type: :request do
-  describe 'GET /users/1/languages' do
-    it 'works!' do
-      user = FactoryGirl.create(:user)
-      get api_v1_user_languages_path(user_id: user.to_param)
-      expect(response).to have_http_status(200)
-    end
-  end
-end

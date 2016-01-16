@@ -1,3 +1,10 @@
+class MessageSerializer < ActiveModel::Serializer
+  attributes :id, :body
+  has_one :chat
+  has_one :author
+  has_one :language
+end
+
 # == Schema Information
 #
 # Table name: messages
@@ -21,10 +28,3 @@
 #  fk_rails_0f670de7ba  (chat_id => chats.id)
 #  fk_rails_ab4144543f  (language_id => languages.id)
 #
-
-class MessageSerializer < ActiveModel::Serializer
-  attributes :id, :body
-  has_one :chat
-  has_one :author
-  has_one :language
-end

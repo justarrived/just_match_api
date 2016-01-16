@@ -1,3 +1,8 @@
+require 'rails_helper'
+
+RSpec.describe Skill, type: :model do
+end
+
 # == Schema Information
 #
 # Table name: skills
@@ -16,8 +21,3 @@
 #
 #  fk_rails_07eab65450  (language_id => languages.id)
 #
-
-require 'rails_helper'
-
-RSpec.describe Skill, type: :model do
-end

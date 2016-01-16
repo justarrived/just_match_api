@@ -1,3 +1,9 @@
+require 'rails_helper'
+
+RSpec.describe Comment, type: :model do
+end
+# rubocop:disable Metrics/LineLength
+
 # == Schema Information
 #
 # Table name: comments
@@ -20,8 +26,3 @@
 #
 #  fk_rails_f55d9b0548  (language_id => languages.id)
 #
-
-require 'rails_helper'
-
-RSpec.describe Comment, type: :model do
-end

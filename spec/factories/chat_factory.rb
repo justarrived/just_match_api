@@ -1,12 +1,3 @@
-# == Schema Information
-#
-# Table name: chats
-#
-#  id         :integer          not null, primary key
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#
-
 FactoryGirl.define do
   factory :chat do
     # chat_with_users will create job skills after the user has been created
@@ -44,3 +35,12 @@ FactoryGirl.define do
     end
   end
 end
+
+# == Schema Information
+#
+# Table name: chats
+#
+#  id         :integer          not null, primary key
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#

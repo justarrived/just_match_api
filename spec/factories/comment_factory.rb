@@ -1,3 +1,13 @@
+FactoryGirl.define do
+  factory :comment do
+    body 'Something, something darkside..'
+    association :language
+    association :owner, factory: :user
+    association :commentable, factory: :job
+  end
+end
+# rubocop:disable Metrics/LineLength
+
 # == Schema Information
 #
 # Table name: comments
@@ -20,12 +30,3 @@
 #
 #  fk_rails_f55d9b0548  (language_id => languages.id)
 #
-
-FactoryGirl.define do
-  factory :comment do
-    body 'Something, something darkside..'
-    association :language
-    association :owner, factory: :user
-    association :commentable, factory: :job
-  end
-end
