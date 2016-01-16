@@ -20,9 +20,10 @@ gem 'kaminari', '~> 0.16' # Easy pagination
 
 gem 'bcrypt', '~> 3.1.7', require: true
 
-# Use Puma as the app server
-gem 'puma', '~> 2.15'
-gem 'rack-timeout', '~> 0.3'
+gem 'puma', '~> 2.15' # Use Puma as the app server
+gem 'rack-timeout', '~> 0.3' # Kill requests that run for too long
+
+gem 'newrelic_rpm', '~> 3.14' # Performance monitoring
 
 group :development, :test do
   gem 'byebug', '~> 8.2'
@@ -31,6 +32,7 @@ group :development, :test do
   gem 'faker', '~> 1.6'
   gem 'foreman', '~> 0.7'
   gem 'rubocop', '~> 0.35', require: false
+  gem 'dotenv-rails', '~> 2.1'
 end
 
 group :development do

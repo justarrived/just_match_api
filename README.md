@@ -3,13 +3,13 @@
 [![Code Climate](https://codeclimate.com/github/justarrived/just_match_api/badges/gpa.svg)](https://codeclimate.com/github/justarrived/just_match_api) [![Test Coverage](https://codeclimate.com/github/justarrived/just_match_api/badges/coverage.svg)](https://codeclimate.com/github/justarrived/just_match_api/coverage) [![Dependency Status](https://gemnasium.com/justarrived/just_match_api.svg)](https://gemnasium.com/justarrived/just_match_api)
 
 
-Welcome to the official API for the Just Arrived matching service.
+Welcome to the official API for the [Just Arrived](http://www.justarrived.se/) matching service.
 
-The API tries to follow the [JsonApi 1.0](http://jsonapi.org/) standard, but sill a long way from completely compliant. Please feel free to report any violations.
+The API tries to follow the [JsonApi 1.0](http://jsonapi.org/) standard, but is still a long way from completely compliant. Feel free to report any violations.
 
 :warning: _Note_: The project is still in an early stage and drastic changes to the API can and will be made at any time. If you're thinking of doing a larger contribution please open an issue so it can be discussed.
 
-If you're looking for help or want to start contributing, want help, give feedback etc., you're more than welcome to join our [Gitter](https://gitter.im/justarrived/just_match_api) chat. You can also checkout the tasks that are ready for development over at [Waffle.io](http://waffle.io/justarrived/just_match_api).
+If you're looking for help, ask questions, want to contribute or give feedback, you're more than welcome to join our [Gitter](https://gitter.im/justarrived/just_match_api) chat. You can also checkout the tasks that are ready for development over at [Waffle.io](http://waffle.io/justarrived/just_match_api).
 
 [![Join the chat at https://gitter.im/justarrived/just_match_api](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/justarrived/just_match_api?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![Stories in Ready](https://badge.waffle.io/justarrived/just_match_api.png?label=ready&title=Ready)](http://waffle.io/justarrived/just_match_api)
 
@@ -72,6 +72,8 @@ _Note_: Running the tests with `bundle exec rspec` will not work, please use `sc
 
 ## Docs
 
+[Docs for the current version of the API](http://just-match-api.herokuapp.com/).
+
 The API documentation is generated right where the code for that particular endpoint is.
 That way the documentation is kept up to date.
 
@@ -114,6 +116,7 @@ There are a few convenience commands
 * `script/server` - starts app
 * `script/test` - runs tests
 * `script/console` - opens a console
+* `script/doc` - generate doc HTML
 
 ## Contributing
 
