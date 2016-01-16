@@ -20,6 +20,7 @@ Rails.application.routes.draw do
           resources :messages, module: :users, only: [:create, :index]
 
           get :matching_jobs
+          get :jobs
           resources :comments, module: :users, except: [:new, :edit]
           resources :user_skills, module: :users, path: 'skills', except: [:new, :edit, :update]
           resources :user_languages, module: :users, path: 'languages', except: [:new, :edit, :update]

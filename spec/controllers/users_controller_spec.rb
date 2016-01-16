@@ -20,12 +20,14 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     { name: nil }
   end
 
+  let(:logged_in_user) { FactoryGirl.create(:user) }
+
   let(:valid_session) do
     user = FactoryGirl.create(:user)
     allow_any_instance_of(described_class).
       to(receive(:authenticate_user_token!).
-      and_return(user))
-    { token: user.auth_token }
+      and_return(logged_in_user))
+    { token: logged_in_user.auth_token }
   end
 
   let(:valid_admin_session) do
@@ -182,6 +184,28 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         delete :destroy, { user_id: user.to_param }, valid_session
         expect(response.status).to eq(401)
       end
+    end
+  end
+
+  describe 'GET #jobs' do
+    it 'assigns all jobs as @jobs' do
+      job = FactoryGirl.create(:job)
+      FactoryGirl.create(:job_user, job: job, user: logged_in_user)
+      get :jobs, { user_id: logged_in_user.to_param }, valid_session
+      expect(assigns(:jobs).first).to be_a(Job)
+    end
+
+    it 'assigns all jobs as @jobs' do
+      job = FactoryGirl.create(:job)
+      FactoryGirl.create(:job_user, job: job, user: logged_in_user)
+      get :jobs, { user_id: logged_in_user.to_param }, valid_session
+      expect(assigns(:jobs).first).to be_a(Job)
+    end
+
+    it 'returns unauthorized status when not allowed' do
+      user = FactoryGirl.create(:user)
+      get :jobs, { user_id: user.to_param }, valid_session
+      expect(response.status).to eq(401)
     end
   end
 end
