@@ -113,3 +113,7 @@ end
 #
 #  index_users_on_language_id  (language_id)
 #
+# Foreign Keys
+#
+#  fk_rails_45f4f12508  (language_id => languages.id)
+#

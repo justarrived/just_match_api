@@ -26,3 +26,8 @@ end
 #  index_messages_on_chat_id      (chat_id)
 #  index_messages_on_language_id  (language_id)
 #
+# Foreign Keys
+#
+#  fk_rails_0f670de7ba  (chat_id => chats.id)
+#  fk_rails_ab4144543f  (language_id => languages.id)
+#

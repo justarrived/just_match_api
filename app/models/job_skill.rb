@@ -21,3 +21,8 @@ end
 #  index_job_skills_on_job_id    (job_id)
 #  index_job_skills_on_skill_id  (skill_id)
 #
+# Foreign Keys
+#
+#  fk_rails_514cd69e1b  (skill_id => skills.id)
+#  fk_rails_94b0ff3621  (job_id => jobs.id)
+#

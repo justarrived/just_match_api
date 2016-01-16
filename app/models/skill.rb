@@ -25,3 +25,7 @@ end
 #
 #  index_skills_on_language_id  (language_id)
 #
+# Foreign Keys
+#
+#  fk_rails_07eab65450  (language_id => languages.id)
+#

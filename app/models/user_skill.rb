@@ -23,3 +23,8 @@ end
 #  index_user_skills_on_skill_id  (skill_id)
 #  index_user_skills_on_user_id   (user_id)
 #
+# Foreign Keys
+#
+#  fk_rails_59acb6e327  (skill_id => skills.id)
+#  fk_rails_fe61b6a893  (user_id => users.id)
+#

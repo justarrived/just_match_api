@@ -29,3 +29,7 @@ end
 #  index_comments_on_commentable_type_and_commentable_id  (commentable_type,commentable_id)
 #  index_comments_on_language_id                          (language_id)
 #
+# Foreign Keys
+#
+#  fk_rails_f55d9b0548  (language_id => languages.id)
+#

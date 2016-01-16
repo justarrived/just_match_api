@@ -5,6 +5,7 @@ class ChatUser < ActiveRecord::Base
   validates :chat, presence: true, uniqueness: { scope: :user }
   validates :user, presence: true, uniqueness: { scope: :chat }
 end
+
 # == Schema Information
 #
 # Table name: chat_users
@@ -19,4 +20,9 @@ end
 #
 #  index_chat_users_on_chat_id  (chat_id)
 #  index_chat_users_on_user_id  (user_id)
+#
+# Foreign Keys
+#
+#  fk_rails_3953ef352e  (user_id => users.id)
+#  fk_rails_86a54ec29b  (chat_id => chats.id)
 #

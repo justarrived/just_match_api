@@ -46,3 +46,8 @@ end
 #  index_job_users_on_job_id   (job_id)
 #  index_job_users_on_user_id  (user_id)
 #
+# Foreign Keys
+#
+#  fk_rails_548d2d3ba9  (job_id => jobs.id)
+#  fk_rails_815844930e  (user_id => users.id)
+#
