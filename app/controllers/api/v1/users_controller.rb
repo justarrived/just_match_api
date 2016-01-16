@@ -14,6 +14,11 @@ module Api
       api :GET, '/users', 'List users'
       description 'Returns a list of users.'
       def index
+        unless current_user.admin?
+          render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized
+          return
+        end
+
         page_index = params[:page].to_i
         relations = [:skills, :jobs, :written_comments, :language, :languages]
 
@@ -25,6 +30,11 @@ module Api
       description 'Returns user.'
       example Doxxer.example_for(User)
       def show
+        unless current_user == @user || current_user.admin?
+          render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized
+          return
+        end
+
         render json: @user, include: include_params
       end
 
@@ -68,7 +78,7 @@ module Api
       end
       example Doxxer.example_for(User)
       def update
-        unless @user == current_user
+        unless current_user == @user || current_user.admin?
           render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized
           return
         end
@@ -84,7 +94,7 @@ module Api
       description 'Deletes user user if the user is allowed to.'
       error code: 401, desc: 'Unauthorized'
       def destroy
-        unless @user == current_user
+        unless @user == current_user || current_user.admin?
           render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized
           return
         end
@@ -97,7 +107,7 @@ module Api
       description 'Returns the matching jobs for user if the user is allowed to.'
       error code: 401, desc: 'Unauthorized'
       def matching_jobs
-        unless @user == current_user
+        unless @user == current_user || current_user.admin?
           render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized
           return
         end

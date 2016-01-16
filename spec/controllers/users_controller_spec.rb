@@ -28,10 +28,18 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     { token: user.auth_token }
   end
 
+  let(:valid_admin_session) do
+    user = FactoryGirl.create(:user, admin: true)
+    allow_any_instance_of(described_class).
+      to(receive(:authenticate_user_token!).
+      and_return(user))
+    { token: user.auth_token }
+  end
+
   describe 'GET #index' do
     it 'assigns all users as @users' do
       user = User.create! valid_attributes
-      get :index, {}, valid_session
+      get :index, {}, valid_admin_session
       expect(assigns(:users)).to include(user)
     end
   end
