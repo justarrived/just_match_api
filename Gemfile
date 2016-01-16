@@ -8,7 +8,6 @@ gem 'pg', '~> 0.15' # Use postgresql as the database for Active Record
 gem 'rails-api', '~> 0.4'
 gem 'active_model_serializers', '~> 0.10.0.rc3' # Serialize models to JSON
 
-gem 'geocoder', '~> 1.2' # Geocode resources
 group :production do
   gem 'rails_12factor', '~> 0.0.3' # Heroku integration
 end
@@ -24,6 +23,8 @@ gem 'puma', '~> 2.15' # Use Puma as the app server
 gem 'rack-timeout', '~> 0.3' # Kill requests that run for too long
 
 gem 'newrelic_rpm', '~> 3.14' # Performance monitoring
+
+gem 'geocoder', '~> 1.2' # Geocode resources
 
 group :development, :test do
   gem 'byebug', '~> 8.2'
