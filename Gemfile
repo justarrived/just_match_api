@@ -6,7 +6,7 @@ gem 'rails', '4.2.5'
 gem 'pg', '~> 0.15' # Use postgresql as the database for Active Record
 
 gem 'rails-api', '~> 0.4'
-gem 'active_model_serializers', '~> 0.10.0.rc3' # Serialize models to JSON
+gem 'active_model_serializers', github: 'rails-api/active_model_serializers' #'~> 0.10.0.rc3' # Serialize models to JSON
 
 group :production do
   gem 'rails_12factor', '~> 0.0.3' # Heroku integration
