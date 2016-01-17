@@ -23,7 +23,6 @@ RSpec.describe Api::V1::UsersController, type: :controller do
   let(:logged_in_user) { FactoryGirl.create(:user) }
 
   let(:valid_session) do
-    user = FactoryGirl.create(:user)
     allow_any_instance_of(described_class).
       to(receive(:authenticate_user_token!).
       and_return(logged_in_user))
