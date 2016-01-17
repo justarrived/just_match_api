@@ -18,8 +18,6 @@ class Job < ActiveRecord::Base
   validates :description, length: { minimum: 10 }, allow_blank: false
   validates :address, length: { minimum: 2 }, allow_blank: false
   validates :job_date, presence: true
-  # TODO: Validate #job_date format
-
   validates :owner, presence: true
 
   belongs_to :owner, class_name: 'User', foreign_key: 'owner_user_id'

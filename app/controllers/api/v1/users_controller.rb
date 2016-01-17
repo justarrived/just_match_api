@@ -1,7 +1,8 @@
 module Api
   module V1
     class UsersController < BaseController
-      before_action :set_user, only: [:show, :edit, :update, :destroy, :matching_jobs]
+      SET_USER_ACTIONS = [:show, :edit, :update, :destroy, :matching_jobs, :jobs]
+      before_action :set_user, only: SET_USER_ACTIONS
 
       resource_description do
         short 'API for managing users'
@@ -12,7 +13,7 @@ module Api
       end
 
       api :GET, '/users', 'List users'
-      description 'Returns a list of users.'
+      description 'Returns a list of users if the user is allowed to.'
       def index
         unless current_user.admin?
           render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized
@@ -27,7 +28,7 @@ module Api
       end
 
       api :GET, '/users/:id', 'Show user'
-      description 'Returns user.'
+      description 'Returns user is alloed to.'
       example Doxxer.example_for(User)
       def show
         unless current_user == @user || current_user.admin?
@@ -113,6 +114,22 @@ module Api
         end
 
         render json: Job.matches_user(@user)
+      end
+
+      api :GET, 'users/:id/jobs', 'Shows all jobs associated with user'
+      # rubocop:disable Metrics/LineLength
+      description 'Returns the all jobs where the user is the owner or applicant user if the user is allowed to.'
+      # rubocop:enable Metrics/LineLength
+      error code: 401, desc: 'Unauthorized'
+      def jobs
+        unless @user == current_user || current_user.admin?
+          render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized
+          return
+        end
+
+        @jobs = Queries::UserJobsFinder.new(current_user).perform
+
+        render json: @jobs, status: :ok
       end
 
       private
