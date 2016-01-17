@@ -19,6 +19,7 @@ class Job < ActiveRecord::Base
   validates :address, length: { minimum: 2 }, allow_blank: false
   validates :job_date, presence: true
   validates :owner, presence: true
+  validates :hours, numericality: { greater_than_or_equal_to: 1 }, allow_blank: false
 
   belongs_to :owner, class_name: 'User', foreign_key: 'owner_user_id'
 
@@ -64,21 +65,21 @@ end
 #
 # Table name: jobs
 #
-#  id                        :integer          not null, primary key
-#  max_rate                  :integer
-#  description               :text
-#  job_date                  :datetime
-#  performed_accept          :boolean          default(FALSE)
-#  performed                 :boolean          default(FALSE)
-#  created_at                :datetime         not null
-#  updated_at                :datetime         not null
-#  owner_user_id             :integer
-#  latitude                  :float
-#  longitude                 :float
-#  address                   :string
-#  name                      :string
-#  estimated_completion_time :float
-#  language_id               :integer
+#  id               :integer          not null, primary key
+#  max_rate         :integer
+#  description      :text
+#  job_date         :datetime
+#  performed_accept :boolean          default(FALSE)
+#  performed        :boolean          default(FALSE)
+#  hours            :float
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  owner_user_id    :integer
+#  latitude         :float
+#  longitude        :float
+#  address          :string
+#  name             :string
+#  language_id      :integer
 #
 # Indexes
 #

@@ -73,7 +73,7 @@ end
 #  longitude                 :float
 #  address                   :string
 #  name                      :string
-#  estimated_completion_time :float
+#  hours :float
 #  language_id               :integer
 #
 # Indexes

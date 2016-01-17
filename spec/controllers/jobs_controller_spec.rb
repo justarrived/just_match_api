@@ -5,13 +5,14 @@ RSpec.describe Api::V1::JobsController, type: :controller do
     {
       skill_ids: [FactoryGirl.create(:skill).id],
       max_rate: 150,
-      estimated_completion_time: 2,
+      hours: 2,
       name: 'Some job name',
       description: 'Some job description',
       language_id: FactoryGirl.create(:language).id,
       owner_user_id: FactoryGirl.create(:user).id,
       address: 'Stora Nygatan 36, Malmö',
-      job_date: 1.day.from_now
+      job_date: 1.day.from_now,
+      hours: 3
     }
   end
 
@@ -235,7 +236,7 @@ end
 #  longitude                 :float
 #  address                   :string
 #  name                      :string
-#  estimated_completion_time :float
+#  hours :float
 #  language_id               :integer
 #
 # Indexes

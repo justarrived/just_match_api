@@ -26,7 +26,7 @@ RSpec.describe Job, regressor: true do
   it { is_expected.to have_db_column :longitude }
   it { is_expected.to have_db_column :address }
   it { is_expected.to have_db_column :name }
-  it { is_expected.to have_db_column :estimated_completion_time }
+  it { is_expected.to have_db_column :hours }
   it { is_expected.to have_db_column :language_id }
 
   # === Database (Indexes) ===

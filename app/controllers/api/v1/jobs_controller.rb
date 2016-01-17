@@ -33,7 +33,7 @@ module Api
         # rubocop:disable Metrics/LineLength
         param :skill_ids, Array, of: Integer, desc: 'List of skill ids', required: true
         param :max_rate, Integer, desc: 'Max rate', required: true
-        param :estimated_completion_time, Float, desc: 'Estmiated completion time'
+        param :hours, Float, desc: 'Estmiated completion time'
         param :name, String, desc: 'Name', required: true
         param :description, String, desc: 'Description', required: true
         param :job_date, String, desc: 'Job date', required: true
@@ -71,7 +71,7 @@ module Api
         param :job_date, String, desc: 'Job date'
         param :performed_accept, [true, false], desc: 'Performed accepted by owner'
         param :performed, [true, false], desc: 'Job has been performed by user'
-        param :estimated_completion_time, Float, desc: 'Estmiated completion time'
+        param :hours, Float, desc: 'Estmiated completion time'
         param :language_id, Integer, desc: 'Langauge id of the text content'
         param :owner_user_id, Integer, desc: 'User id for the job owner'
       end
@@ -121,7 +121,7 @@ module Api
       def job_owner_params
         owner_params = [
           :max_rate, :performed_accept, :description, :job_date, :address, :name,
-          :estimated_completion_time, :language_id
+          :hours, :language_id
         ]
         params.require(:job).permit(*owner_params)
       end
