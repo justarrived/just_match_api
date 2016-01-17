@@ -11,8 +11,7 @@ RSpec.describe Api::V1::JobsController, type: :controller do
       language_id: FactoryGirl.create(:language).id,
       owner_user_id: FactoryGirl.create(:user).id,
       address: 'Stora Nygatan 36, Malmö',
-      job_date: 1.day.from_now,
-      hours: 3
+      job_date: 1.day.from_now
     }
   end
 
