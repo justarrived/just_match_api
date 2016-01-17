@@ -33,6 +33,7 @@ module Api
 
         api :POST, '/users/:user_id/languages/', 'Create new user language'
         description 'Creates and returns new user language.'
+        error code: 400, desc: 'Bad request'
         error code: 422, desc: 'Unprocessable entity'
         error code: 401, desc: 'Unauthorized'
         param :language, Hash, desc: 'User language attributes', required: true do

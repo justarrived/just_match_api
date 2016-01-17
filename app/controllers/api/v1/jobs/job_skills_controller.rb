@@ -33,6 +33,7 @@ module Api
 
         api :POST, '/jobs/:job_id/skills/', 'Create new job skill'
         description 'Creates and returns new job skill if the user is allowed to.'
+        error code: 400, desc: 'Bad request'
         error code: 422, desc: 'Unprocessable entity'
         error code: 401, desc: 'Unauthorized'
         param :skill, Hash, desc: 'Skill attributes', required: true do

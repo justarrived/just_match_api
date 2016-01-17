@@ -7,6 +7,8 @@ Welcome to the official API for the [Just Arrived](http://www.justarrived.se/) m
 
 The API tries to follow the [JsonApi 1.0](http://jsonapi.org/) standard, but is still a long way from completely compliant. Feel free to report any violations.
 
+[![JSON API 1.0](https://img.shields.io/badge/JSON%20API-1.0-lightgrey.svg)](http://jsonapi.org/)
+
 :warning: _Note_: The project is still in an early stage and drastic changes to the API can and will be made at any time. If you're thinking of doing a larger contribution please open an issue so it can be discussed.
 
 If you're looking for help, ask questions, want to contribute or give feedback, you're more than welcome to join our [Gitter](https://gitter.im/justarrived/just_match_api) chat. You can also checkout the tasks that are ready for development over at [Waffle.io](http://waffle.io/justarrived/just_match_api).
@@ -134,3 +136,5 @@ If you're not sure where to go you can always join our Gitter chat and ask :)
 ## License
 
 This project is open source and licensed under the permissive [MIT](LICENSE.txt) license.
+
+[![MIT LICENSE](https://img.shields.io/dub/l/vibe-d.svg)](LICENSE.md)

@@ -1,4 +1,4 @@
-api_mime_types = %W(
+api_mime_types = %w(
   application/vnd.api+json
   text/x-json
   application/json

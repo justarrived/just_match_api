@@ -73,13 +73,13 @@ ActiveRecord::Schema.define(version: 20160107220039) do
     t.boolean  "performed_accept", default: false
     t.boolean  "performed",        default: false
     t.float    "hours"
-    t.string   "name"
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
     t.integer  "owner_user_id"
     t.float    "latitude"
     t.float    "longitude"
     t.string   "address"
+    t.string   "name"
     t.integer  "language_id"
   end
 

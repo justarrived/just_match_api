@@ -24,6 +24,7 @@ module Api
 
         api :POST, '/chats/:id/messages', 'Create new chat message.'
         description 'Creates and returns new message.'
+        error code: 400, desc: 'Bad request'
         error code: 422, desc: 'Unprocessable entity'
         param :message, Hash, desc: 'Message attributes', required: true do
           param :body, String, desc: 'Message body', required: true

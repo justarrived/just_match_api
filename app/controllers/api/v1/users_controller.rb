@@ -41,6 +41,7 @@ module Api
 
       api :POST, '/users/', 'Create new user'
       description 'Creates and returns a new user.'
+      error code: 400, desc: 'Bad request'
       error code: 422, desc: 'Unprocessable entity'
       param :user, Hash, desc: 'User attributes', required: true do
         # rubocop:disable Metrics/LineLength
@@ -68,6 +69,7 @@ module Api
 
       api :PATCH, '/users/', 'Update new user'
       description 'Updates and returns the updated user if the user is allowed to.'
+      error code: 400, desc: 'Bad request'
       error code: 422, desc: 'Unprocessable entity'
       error code: 401, desc: 'Unauthorized'
       param :user, Hash, desc: 'User attributes', required: true do

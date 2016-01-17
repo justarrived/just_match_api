@@ -28,6 +28,7 @@ module Api
 
       api :POST, '/jobs/', 'Create new job'
       description 'Creates and returns new job.'
+      error code: 400, desc: 'Bad request'
       error code: 422, desc: 'Unprocessable entity'
       param :job, Hash, desc: 'Job attributes', required: true do
         # rubocop:disable Metrics/LineLength
@@ -62,6 +63,7 @@ module Api
 
       api :PATCH, '/jobs/:id', 'Update job'
       description 'Updates and returns the updated job.'
+      error code: 400, desc: 'Bad request'
       error code: 422, desc: 'Unprocessable entity'
       error code: 401, desc: 'Unauthorized'
       param :job, Hash, desc: 'Job attributes', required: true do

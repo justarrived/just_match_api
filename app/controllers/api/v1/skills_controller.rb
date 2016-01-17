@@ -28,6 +28,7 @@ module Api
 
       api :POST, '/skills/', 'Create new skill'
       description 'Creates and returns the new skill if the user is allowed to.'
+      error code: 400, desc: 'Bad request'
       error code: 422, desc: 'Unprocessable entity'
       error code: 401, desc: 'Unauthorized'
       param :skill, Hash, desc: 'Skill attributes', required: true do
@@ -54,6 +55,7 @@ module Api
 
       api :PATCH, '/skills/:id', 'Update skill'
       description 'Updates and returns the updated skill.'
+      error code: 400, desc: 'Bad request'
       error code: 422, desc: 'Unprocessable entity'
       error code: 401, desc: 'Unauthorized'
       param :skill, Hash, desc: 'Skill attributes', required: true do
