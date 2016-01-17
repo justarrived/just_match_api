@@ -7,6 +7,7 @@ FactoryGirl.define do
     association :owner, factory: :user
     association :language
     job_date 1.week.ago
+    hours 3
 
     factory :job_with_comments do
       transient do
@@ -60,7 +61,7 @@ end
 #  longitude                 :float
 #  address                   :string
 #  name                      :string
-#  estimated_completion_time :float
+#  hours :float
 #  language_id               :integer
 #
 # Indexes
