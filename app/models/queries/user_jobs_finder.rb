@@ -5,7 +5,9 @@ module Queries
     end
 
     def perform
-      (@user.jobs + @user.owned_jobs).uniq
+      return Job.none if @user.nil?
+
+      @user.jobs + @user.owned_jobs
     end
   end
 end
