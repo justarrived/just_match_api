@@ -46,7 +46,9 @@ RSpec.describe Api::V1::Chats::MessagesController, type: :controller do
         chat = @chat_user.chat
         {
           id: chat.to_param,
-          message: { body: 'Some test text.', language_id: language }
+          data: {
+            attributes: { body: 'Some test text.', language_id: language }
+          }
         }
       end
 

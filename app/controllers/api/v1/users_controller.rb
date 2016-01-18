@@ -45,7 +45,7 @@ module Api
       error code: 422, desc: 'Unprocessable entity'
       param :user, Hash, desc: 'User attributes', required: true do
         # rubocop:disable Metrics/LineLength
-        param :skill_ids, Array, of: Integer, desc: 'List of skill ids', required: true
+        param :skill_ids, Array, of: Integer, desc: 'List of skill ids'
         param :name, String, desc: 'Name', required: true
         param :description, String, desc: 'Description', required: true
         param :email, String, desc: 'Email', required: true

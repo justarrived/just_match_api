@@ -17,13 +17,11 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
     { token: user.auth_token }
   end
 
-  before(:each) do
-    @user = User.find_by(auth_token: valid_session[:token])
-  end
+  let(:user) { User.find_by(auth_token: valid_session[:token]) }
 
   describe 'GET #index' do
     it 'assigns all user users as @users' do
-      job = FactoryGirl.create(:job_with_users, users_count: 1, owner: @user)
+      job = FactoryGirl.create(:job_with_users, users_count: 1, owner: user)
       user = job.users.first
       get :index, { job_id: job.to_param }, valid_session
       expect(assigns(:users)).to eq([user])
@@ -40,14 +38,14 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
 
   describe 'GET #show' do
     it 'assigns the requested user user as @user' do
-      job = FactoryGirl.create(:job_with_users, users_count: 1, owner: @user)
+      job = FactoryGirl.create(:job_with_users, users_count: 1, owner: user)
       user = job.users.first
       get :show, { job_id: job.to_param, id: user.to_param }, valid_session
       expect(assigns(:user)).to eq(user)
     end
 
     it 'assigns the requested user as @user' do
-      job = FactoryGirl.create(:job_with_users, users_count: 1, owner: @user)
+      job = FactoryGirl.create(:job_with_users, users_count: 1, owner: user)
       user = job.users.first
       get :show, { job_id: job.to_param, id: user.to_param }, valid_session
       expect(assigns(:job)).to eq(job)
@@ -107,13 +105,13 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
 
     context 'with invalid params' do
       it 'assigns a newly created but unsaved job_user as @job_user' do
-        job = FactoryGirl.create(:job, owner: @user)
+        job = FactoryGirl.create(:job, owner: user)
         post :create, { job_id: job.to_param, user: {} }, valid_session
         expect(assigns(:job_user)).to be_a_new(JobUser)
       end
 
       it 'returns unprocessable entity status' do
-        job = FactoryGirl.create(:job, owner: @user)
+        job = FactoryGirl.create(:job, owner: user)
         post :create, { job_id: job.to_param, user: {} }, valid_session
         expect(response.status).to eq(422)
       end
@@ -132,7 +130,7 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
 
       context 'job owner user' do
         it 'updates the requested job' do
-          job = FactoryGirl.create(:job_with_users, users_count: 1, owner: @user)
+          job = FactoryGirl.create(:job_with_users, users_count: 1, owner: user)
           user = job.users.first
           job_user = job.job_users.first
           params = { job_id: job.to_param, id: user.to_param, job_user: new_attributes }
@@ -142,7 +140,7 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
         end
 
         it 'assigns the requested user as @job' do
-          job = FactoryGirl.create(:job_with_users, users_count: 1, owner: @user)
+          job = FactoryGirl.create(:job_with_users, users_count: 1, owner: user)
           user = job.users.first
           params = { job_id: job.to_param, id: user.to_param, job_user: new_attributes }
           put :update, params, valid_session
@@ -150,7 +148,7 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
         end
 
         it 'returns no content status' do
-          job = FactoryGirl.create(:job_with_users, users_count: 1, owner: @user)
+          job = FactoryGirl.create(:job_with_users, users_count: 1, owner: user)
           user = job.users.first
           params = { job_id: job.to_param, id: user.to_param, job_user: new_attributes }
           put :update, params, valid_session
@@ -158,7 +156,7 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
         end
 
         it 'notifies user when updated Job#performed_accept is set to true' do
-          job = FactoryGirl.create(:job_with_users, users_count: 1, owner: @user)
+          job = FactoryGirl.create(:job_with_users, users_count: 1, owner: user)
           user = job.users.first
           params = { job_id: job.to_param, id: user.to_param, job_user: new_attributes }
           allow(ApplicantAcceptedNotifier).to receive(:call).with(job: job, user: user)

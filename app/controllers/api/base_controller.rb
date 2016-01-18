@@ -20,6 +20,10 @@ module Api
       current_user.persisted?
     end
 
+    def jsonapi_params
+      @_deserialized_params ||= JsonApiDeserializer.parse(params)
+    end
+
     private
 
     def authenticate_user_token!
