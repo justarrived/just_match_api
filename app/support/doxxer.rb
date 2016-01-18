@@ -5,7 +5,7 @@ class Doxxer
     model = ActiveModel::SerializableResource.new(model_klass.new)
     model_hash = model.serializable_hash
     [
-      "# Example response JSON",
+      '# Example response JSON',
       JSON.pretty_generate(model_hash)
     ].join("\n")
   end
