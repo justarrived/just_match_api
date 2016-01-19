@@ -91,7 +91,11 @@ RSpec.describe Api::V1::SkillsController, type: :controller do
   describe 'PUT #update' do
     context 'with valid params' do
       let(:new_attributes) do
-        { name: 'New skill name' }
+        {
+          data: {
+            attributes: { name: 'New skill name' }
+          }
+        }
       end
 
       it 'updates the requested skill' do
