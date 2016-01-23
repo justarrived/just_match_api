@@ -31,7 +31,6 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.4'
   gem 'regressor', '~> 0.6'
   gem 'faker', '~> 1.6'
-  gem 'foreman', '~> 0.7'
   gem 'rubocop', '~> 0.35', require: false
   gem 'dotenv-rails', '~> 2.1'
 end
