@@ -3,8 +3,6 @@ module Api
     class JobsController < BaseController
       before_action :set_job, only: [:show, :edit, :update, :matching_users]
 
-      # TODO: Make #create, #update JSON API compliant
-
       resource_description do
         short 'API for managing jobs'
         name 'Jobs'
