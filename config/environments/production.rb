@@ -18,7 +18,6 @@ Rails.application.configure do
   # Apache or NGINX already handles this.
   config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
 
-
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.action_controller.asset_host = 'http://assets.example.com'
 
@@ -26,19 +25,16 @@ Rails.application.configure do
   # config.action_dispatch.x_sendfile_header = 'X-Sendfile' # for Apache
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for NGINX
 
-  # Action Cable endpoint configuration
-  # config.action_cable.url = 'wss://example.com/cable'
-  # config.action_cable.allowed_request_origins = [ 'http://example.com', /http:\/\/example.*/ ]
-
-  # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  # config.force_ssl = true
+  # Force all access to the app over SSL, use Strict-Transport-Security,
+  # and use secure cookies.
+  config.force_ssl = true
 
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.
   config.log_level = :debug
 
   # Prepend all log lines with the following tags.
-  config.log_tags = [ :request_id ]
+  config.log_tags = [:request_id]
 
   # Use a different logger for distributed setups.
   # require 'syslog/logger'
@@ -52,7 +48,8 @@ Rails.application.configure do
   # config.active_job.queue_name_prefix = "just_match_#{Rails.env}"
 
   # Ignore bad email addresses and do not raise email delivery errors.
-  # Set this to true and configure the email server for immediate delivery to raise delivery errors.
+  # Set this to true and configure the email server for immediate delivery to raise
+  # delivery errors.
   # config.action_mailer.raise_delivery_errors = false
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
