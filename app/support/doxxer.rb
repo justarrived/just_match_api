@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Doxxer
   BASE_URL = 'https://just-match-api.herokuapp.com'.freeze
 
