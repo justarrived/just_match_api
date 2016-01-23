@@ -64,7 +64,7 @@ max_jobs.times do
     name: Faker::Name.name,
     max_rate: rates.sample,
     description: Faker::Hipster.paragraph(2),
-    job_date: (days_from_now_range.sample).days.from_now,
+    job_date: days_from_now_range.sample.days.from_now,
     owner: users.sample,
     address: address,
     hours: hours,
@@ -97,7 +97,7 @@ max_job_users.times do
   JobUser.create(
     user: user,
     job: job,
-    rate: rates.sample,
+    rate: rates.sample
   )
 end
 
