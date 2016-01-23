@@ -1,5 +1,5 @@
 class Doxxer
-  BASE_URL = 'https://just-match-api.herokuapp.com'
+  BASE_URL = 'https://just-match-api.herokuapp.com'.freeze
 
   def self.example_for(model_klass)
     model = ActiveModel::SerializableResource.new(model_klass.new)

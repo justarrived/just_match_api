@@ -1,7 +1,7 @@
 module Api
   module V1
     class UsersController < BaseController
-      SET_USER_ACTIONS = [:show, :edit, :update, :destroy, :matching_jobs, :jobs]
+      SET_USER_ACTIONS = [:show, :edit, :update, :destroy, :matching_jobs, :jobs].freeze
       before_action :set_user, only: SET_USER_ACTIONS
 
       resource_description do
