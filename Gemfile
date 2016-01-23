@@ -2,10 +2,9 @@ source 'https://rubygems.org'
 
 ruby '2.3.0'
 
-gem 'rails', '4.2.5'
+gem 'rails', github: 'rails/rails', ref: 'dbf67b3a6f549769c5f581b70bc0c0d880d5d5d1'
 gem 'pg', '~> 0.15' # Use postgresql as the database for Active Record
 
-gem 'rails-api', '~> 0.4'
 gem 'active_model_serializers', '~> 0.10.0.rc3' # Serialize models to JSON
 
 group :production do
@@ -22,14 +21,19 @@ gem 'bcrypt', '~> 3.1.7', require: true
 gem 'puma', '~> 2.15' # Use Puma as the app server
 gem 'rack-timeout', '~> 0.3' # Kill requests that run for too long
 
-gem 'newrelic_rpm', '~> 3.14' # Performance monitoring
+# gem 'newrelic_rpm', '~> 3.14' # Performance monitoring
 
 gem 'geocoder', '~> 1.2' # Geocode resources
 
 group :development, :test do
   gem 'byebug', '~> 8.2'
-  gem 'rspec-rails', '~> 3.4'
-  gem 'regressor', '~> 0.6'
+  # gem 'rspec-rails', '~> 3.4'
+  gem 'rspec-rails', git: 'https://github.com/rspec/rspec-rails.git', branch: 'master'
+  gem 'rspec-core', git: 'https://github.com/rspec/rspec-core.git', branch: 'master'
+  gem 'rspec-support', git: 'https://github.com/rspec/rspec-support.git', branch: 'master'
+  gem 'rspec-expectations', git: 'https://github.com/rspec/rspec-expectations.git', branch: 'master'
+  gem 'rspec-mocks', git: 'https://github.com/rspec/rspec-mocks.git', branch: 'master'
+  # gem 'regressor', '~> 0.6'
   gem 'faker', '~> 1.6'
   gem 'foreman', '~> 0.7'
   gem 'rubocop', '~> 0.35', require: false
@@ -45,7 +49,8 @@ group :development do
   gem 'web-console', '~> 3.0'
   gem 'spring', '~> 1.6'
   gem 'spring-commands-rspec', '~> 1.0'
-  gem 'rails-i18n', '~> 4.0.0' # For 4.0.x
+  gem 'shoulda-matchers', '~> 3.0'
+  gem 'rails-i18n', '~> 5.0.0.beta1'
   gem 'i18n-tasks', '~> 0.9.2'
 end
 
@@ -56,4 +61,5 @@ group :test do
   gem 'database_cleaner', '~> 1.5'
   gem 'webmock', '~> 1.21'
   gem 'rspec-activemodel-mocks', '~> 1.0'
+  gem 'rails-controller-testing', '~> 0.0.3'
 end
