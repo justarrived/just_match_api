@@ -94,13 +94,11 @@ RSpec.describe Api::V1::JobsController, type: :controller do
         }
       end
 
-      before(:each) do
-        @user = User.find_by(auth_token: valid_session[:token])
-      end
+      let(:user) { User.find_by(auth_token: valid_session[:token]) }
 
       context 'owner user' do
         it 'updates the requested job' do
-          job = FactoryGirl.create(:job, owner: @user)
+          job = FactoryGirl.create(:job, owner: user)
           params = { job_id: job.to_param }.merge(new_attributes)
           put :update, params, valid_session
           job.reload
@@ -115,7 +113,7 @@ RSpec.describe Api::V1::JobsController, type: :controller do
         end
 
         it 'returns success status' do
-          job = FactoryGirl.create(:job, owner: @user)
+          job = FactoryGirl.create(:job, owner: user)
           params = { job_id: job.to_param }.merge(new_attributes)
           put :update, params, valid_session
           expect(response.status).to eq(200)
@@ -128,7 +126,7 @@ RSpec.describe Api::V1::JobsController, type: :controller do
             }
           }
           FactoryGirl.create(:user)
-          job = FactoryGirl.create(:job, owner: @user)
+          job = FactoryGirl.create(:job, owner: user)
           params = { job_id: job.to_param }.merge(new_performed_attributes)
           allow(JobPerformedAcceptNotifier).to receive(:call).with(job: job)
           put :update, params, valid_session
@@ -186,13 +184,11 @@ RSpec.describe Api::V1::JobsController, type: :controller do
           { token: user.auth_token }
         end
 
-        before(:each) do
-          @user = User.find_by(auth_token: valid_session[:token])
-        end
+        let(:user) { User.find_by(auth_token: valid_session[:token]) }
 
         it 'updates the requested job' do
           job = FactoryGirl.create(:job)
-          FactoryGirl.create(:job_user, user: @user, job: job, accepted: true)
+          FactoryGirl.create(:job_user, user: user, job: job, accepted: true)
           params = { job_id: job.to_param }.merge(new_attributes)
           put :update, params, valid_session
           job.reload
@@ -202,7 +198,7 @@ RSpec.describe Api::V1::JobsController, type: :controller do
         it 'assigns the requested job as @job' do
           FactoryGirl.create(:user)
           job = FactoryGirl.create(:job)
-          FactoryGirl.create(:job_user, user: @user, job: job, accepted: true)
+          FactoryGirl.create(:job_user, user: user, job: job, accepted: true)
           params = { job_id: job.to_param }.merge(new_attributes)
           put :update, params, valid_session
           expect(assigns(:job)).to eq(job)
@@ -211,7 +207,7 @@ RSpec.describe Api::V1::JobsController, type: :controller do
         it 'returns success status' do
           FactoryGirl.create(:user)
           job = FactoryGirl.create(:job)
-          FactoryGirl.create(:job_user, user: @user, job: job, accepted: true)
+          FactoryGirl.create(:job_user, user: user, job: job, accepted: true)
           params = { job_id: job.to_param }.merge(new_attributes)
           put :update, params, valid_session
           expect(response.status).to eq(200)
@@ -225,7 +221,7 @@ RSpec.describe Api::V1::JobsController, type: :controller do
           }
           FactoryGirl.create(:user)
           job = FactoryGirl.create(:job)
-          FactoryGirl.create(:job_user, user: @user, job: job, accepted: true)
+          FactoryGirl.create(:job_user, user: user, job: job, accepted: true)
           params = { job_id: job.to_param }.merge(new_performed_attributes)
           allow(JobPerformedNotifier).to receive(:call).with(job: job)
           put :update, params, valid_session
@@ -235,19 +231,19 @@ RSpec.describe Api::V1::JobsController, type: :controller do
     end
 
     context 'with invalid params' do
-      before(:each) do
+      let(:job) do
         user = User.find_by(auth_token: valid_session[:token])
-        @job = FactoryGirl.create(:job, owner: user)
+        FactoryGirl.create(:job, owner: user)
       end
 
       it 'assigns the job as @job' do
-        params = { job_id: @job.to_param }.merge(invalid_attributes)
+        params = { job_id: job.to_param }.merge(invalid_attributes)
         put :update, params, valid_session
-        expect(assigns(:job)).to eq(@job)
+        expect(assigns(:job)).to eq(job)
       end
 
       it 'returns unprocessable entity status' do
-        params = { job_id: @job.to_param }.merge(invalid_attributes)
+        params = { job_id: job.to_param }.merge(invalid_attributes)
         put :update, params, valid_session
         expect(response.status).to eq(422)
       end

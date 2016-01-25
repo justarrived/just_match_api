@@ -124,10 +124,6 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
         { accepted: true }
       end
 
-      before(:each) do
-        @user = User.find_by(auth_token: valid_session[:token])
-      end
-
       context 'job owner user' do
         it 'updates the requested job' do
           job = FactoryGirl.create(:job_with_users, users_count: 1, owner: user)
