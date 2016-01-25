@@ -59,8 +59,8 @@ module Api
         @user = User.new(user_params)
 
         if @user.save
-          @user.skills = Skill.where(id: params[:user][:skill_ids])
-          @user.languages = Language.where(id: params[:user][:language_ids])
+          @user.skills = Skill.where(id: user_params[:skill_ids])
+          @user.languages = Language.where(id: user_params[:language_ids])
           render json: @user, status: :created
         else
           render json: @user.errors, status: :unprocessable_entity
@@ -142,9 +142,10 @@ module Api
 
       def user_params
         whitelist = [
-          :name, :email, :phone, :description, :address, :language_id, :password
+          :name, :email, :phone, :description, :address, :language_id, :password,
+          skill_ids: [], language_ids: []
         ]
-        params.require(:user).permit(*whitelist)
+        jsonapi_params.permit(*whitelist)
       end
 
       def include_params
