@@ -57,9 +57,7 @@ users = User.all
 
 max_jobs.times do
   address = addresses.sample
-  hours = if (num = (1..10).to_a.sample) > 7
-            num
-          end
+  hours = (1..10).to_a.sample
   job = Job.create!(
     name: Faker::Name.name,
     max_rate: rates.sample,
