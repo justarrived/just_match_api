@@ -83,7 +83,7 @@ module Api
         end
 
         def user_language_params
-          params.require(:language).permit(:id)
+          jsonapi_params.permit(:id)
         end
       end
     end

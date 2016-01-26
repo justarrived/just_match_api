@@ -36,7 +36,7 @@ RSpec.describe Api::V1::Users::MessagesController, type: :controller do
     end
   end
 
-  describe 'POST #create_message' do
+  describe 'POST #create' do
     context 'with valid params' do
       let(:valid_attributes) do
         language = FactoryGirl.create(:language)
@@ -44,7 +44,9 @@ RSpec.describe Api::V1::Users::MessagesController, type: :controller do
         user = chat_user.user
         {
           user_id: user.to_param,
-          message: { body: 'Some test text.', language_id: language }
+          data: {
+            attributes: { body: 'Some test text.', language_id: language }
+          }
         }
       end
 
@@ -70,7 +72,17 @@ RSpec.describe Api::V1::Users::MessagesController, type: :controller do
       let(:invalid_attributes) do
         chat_user = FactoryGirl.create(:chat_user)
         user = chat_user.user
-        { user_id: user.to_param, message: { body: '' } }
+        {
+          user_id: user.to_param, data: {
+            attributes: { body: '' }
+          }
+        }
+      end
+
+      it 'does not create a new Message' do
+        expect do
+          post :create, invalid_attributes, valid_session
+        end.to change(Message, :count).by(0)
       end
 
       it 'returns @message errors' do

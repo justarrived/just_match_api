@@ -45,32 +45,39 @@ RSpec.describe Api::V1::Jobs::JobSkillsController, type: :controller do
   describe 'POST #create' do
     context 'with valid params' do
       context 'logged in' do
-        before(:each) do
-          @user = User.find_by(auth_token: valid_session[:token])
-        end
+        let(:user) { User.find_by(auth_token: valid_session[:token]) }
 
         it 'creates a new JobSkill' do
-          job = FactoryGirl.create(:job, owner: @user)
+          job = FactoryGirl.create(:job, owner: user)
           skill = FactoryGirl.create(:skill)
-          params = { job_id: job.to_param, skill: { id: skill.to_param } }
+          params = {
+            job_id: job.to_param,
+            data: { id: skill.to_param }
+          }
           expect do
             post :create, params, valid_session
           end.to change(JobSkill, :count).by(1)
         end
 
         it 'assigns a newly created user_skill as @job_skill' do
-          job = FactoryGirl.create(:job, owner: @user)
+          job = FactoryGirl.create(:job, owner: user)
           skill = FactoryGirl.create(:skill)
-          params = { job_id: job.to_param, skill: { id: skill.to_param } }
+          params = {
+            job_id: job.to_param,
+            data: { id: skill.to_param }
+          }
           post :create, params, valid_session
           expect(assigns(:job_skill)).to be_a(JobSkill)
           expect(assigns(:job_skill)).to be_persisted
         end
 
         it 'returns created status' do
-          job = FactoryGirl.create(:job, owner: @user)
+          job = FactoryGirl.create(:job, owner: user)
           skill = FactoryGirl.create(:skill)
-          params = { job_id: job.to_param, skill: { id: skill.to_param } }
+          params = {
+            job_id: job.to_param,
+            data: { id: skill.to_param }
+          }
           post :create, params, valid_session
           expect(response.status).to eq(201)
         end
@@ -80,7 +87,10 @@ RSpec.describe Api::V1::Jobs::JobSkillsController, type: :controller do
         it 'does not create a new JobSkill' do
           job = FactoryGirl.create(:job)
           skill = FactoryGirl.create(:skill)
-          params = { job_id: job.to_param, skill: { id: skill.to_param } }
+          params = {
+            job_id: job.to_param,
+            data: { id: skill.to_param }
+          }
           expect do
             post :create, params, valid_session
           end.to change(JobSkill, :count).by(0)
@@ -89,18 +99,16 @@ RSpec.describe Api::V1::Jobs::JobSkillsController, type: :controller do
     end
 
     context 'with invalid params' do
-      before(:each) do
-        @user = User.find_by(auth_token: valid_session[:token])
-      end
+      let(:user) { User.find_by(auth_token: valid_session[:token]) }
 
       it 'assigns a newly created but unsaved job_skill as @job_skill' do
-        job = FactoryGirl.create(:job, owner: @user)
+        job = FactoryGirl.create(:job, owner: user)
         post :create, { job_id: job.to_param, skill: {} }, valid_session
         expect(assigns(:job_skill)).to be_a_new(JobSkill)
       end
 
       it 'returns unprocessable entity status' do
-        job = FactoryGirl.create(:job, owner: @user)
+        job = FactoryGirl.create(:job, owner: user)
         post :create, { job_id: job.to_param, skill: {} }, valid_session
         expect(response.status).to eq(422)
       end
@@ -109,12 +117,10 @@ RSpec.describe Api::V1::Jobs::JobSkillsController, type: :controller do
 
   describe 'DELETE #destroy' do
     context 'logged in user is owner' do
-      before(:each) do
-        @user = User.find_by(auth_token: valid_session[:token])
-      end
+      let(:user) { User.find_by(auth_token: valid_session[:token]) }
 
       it 'destroys the requested job_skill' do
-        job = FactoryGirl.create(:job_with_skills, owner: @user)
+        job = FactoryGirl.create(:job_with_skills, owner: user)
         skill = job.skills.first
         expect do
           params = { job_id: job.to_param, id: skill.to_param }
@@ -123,7 +129,7 @@ RSpec.describe Api::V1::Jobs::JobSkillsController, type: :controller do
       end
 
       it 'returns no content status' do
-        job = FactoryGirl.create(:job_with_skills, owner: @user)
+        job = FactoryGirl.create(:job_with_skills, owner: user)
         skill = job.skills.first
         params = { job_id: job.to_param, id: skill.to_param }
         delete :destroy, params, valid_session
