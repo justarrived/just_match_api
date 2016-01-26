@@ -14,15 +14,25 @@ module Api
       error code: 401, desc: 'Unauthorized'
       param :email, String, desc: 'Email', required: true
       param :password, String, desc: 'Password', required: true
-      example '{ "token": "..." }'
+      example '# Example response JSON
+{
+  "data": {
+    "id": "XYZ",
+    "type": "token",
+    "attributes": {
+      "auth_token": "XYZ"
+    }
+  }
+}'
       def create
-        email = params[:email]
-        password = params[:password]
+        email = jsonapi_params[:email]
+        password = jsonapi_params[:password]
 
         user = User.find_by_credentials(email: email, password: password)
 
         if user
-          render json: { token: user.auth_token }, status: :created
+          response = wrap_token_response(token: user.auth_token)
+          render json: response, status: :created
         else
           error_message = I18n.t('invalid_credentials')
           render json: { error: error_message }, status: :unauthorized
@@ -44,6 +54,20 @@ module Api
           error_message = I18n.t('no_such_token')
           render json: { error: error_message }, status: :unprocessable_entity
         end
+      end
+
+      private
+
+      def wrap_token_response(token:)
+        {
+          data: {
+            id: token,
+            type: :token,
+            attributes: {
+              auth_token: token
+            }
+          }
+        }
       end
     end
   end

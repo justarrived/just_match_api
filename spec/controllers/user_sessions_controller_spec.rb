@@ -2,7 +2,14 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::UserSessionsController, type: :controller do
   let(:valid_attributes) do
-    { email: 'someone@example.com', password: '12345678' }
+    {
+      data: {
+        attributes: {
+          email: 'someone@example.com',
+          password: '12345678'
+        }
+      }
+    }
   end
 
   let(:invalid_attributes) do
@@ -26,7 +33,8 @@ RSpec.describe Api::V1::UserSessionsController, type: :controller do
       it 'should return JSON with token key' do
         post :create, valid_attributes, valid_session
         json = JSON.parse(response.body)
-        expect(json['token'].length).to eq(32)
+        jsonapi_params = JsonApiDeserializer.parse(json)
+        expect(jsonapi_params['auth_token'].length).to eq(32)
       end
     end
 
