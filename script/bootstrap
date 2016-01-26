@@ -24,6 +24,11 @@ which rubocop 2>&1 >/dev/null || {
   gem install rubocop
 }
 
+which foreman 2>&1 >/dev/null || {
+  echo -e '\n== Installing foreman =='
+  gem install foreman
+}
+
 echo -e '\n== Installing gem dependencies =='
 bundle check || bundle install --without production
 echo -e '\n== Bootstrap done =='

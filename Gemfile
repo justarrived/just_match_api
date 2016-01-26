@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.3.0'
 
-gem 'rails', '4.2.5'
+gem 'rails', '4.2.5.1'
 gem 'pg', '~> 0.15' # Use postgresql as the database for Active Record
 
 gem 'rails-api', '~> 0.4'
@@ -32,7 +32,6 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.4'
   gem 'regressor', '~> 0.6'
   gem 'faker', '~> 1.6'
-  gem 'foreman', '~> 0.7'
   gem 'rubocop', '~> 0.35', require: false
   gem 'dotenv-rails', '~> 2.1'
 end
