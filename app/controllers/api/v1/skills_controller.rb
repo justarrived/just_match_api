@@ -96,7 +96,7 @@ module Api
       end
 
       def skill_params
-        params.require(:skill).permit(:name, :language_id)
+        jsonapi_params.permit(:name, :language_id)
       end
     end
   end

@@ -6,7 +6,6 @@ cd "$(dirname "$0")/.."
 
 echo -e '\n== Updating to run application for its current checkout =='
 
-echo -e '\n== Bootstrapping dependencies =='
 script/bootstrap
 
 echo -e '\n== Migrating database =='

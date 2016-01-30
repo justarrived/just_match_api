@@ -86,7 +86,7 @@ module Api
       private
 
       def comment_params
-        params.require(:comment).permit(:body, :language_id)
+        jsonapi_params.permit(:body, :language_id)
       end
     end
   end

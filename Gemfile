@@ -5,7 +5,8 @@ ruby '2.3.0'
 gem 'rails', github: 'rails/rails'
 gem 'pg', '~> 0.15' # Use postgresql as the database for Active Record
 
-gem 'active_model_serializers', '~> 0.10.0.rc3' # Serialize models to JSON
+# Serialize models to JSON
+gem 'active_model_serializers', github: 'rails-api/active_model_serializers'
 
 group :production do
   gem 'rails_12factor', '~> 0.0.3' # Heroku integration
@@ -35,7 +36,6 @@ group :development, :test do
   gem 'rspec-mocks', git: 'https://github.com/rspec/rspec-mocks.git', branch: 'master'
   # gem 'regressor', '~> 0.6'
   gem 'faker', '~> 1.6'
-  gem 'foreman', '~> 0.7'
   gem 'rubocop', '~> 0.35', require: false
   gem 'dotenv-rails', '~> 2.1'
 end

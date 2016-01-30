@@ -48,7 +48,7 @@ module Api
         @job.owner_user_id = current_user.id
 
         if @job.save
-          @job.skills = Skill.where(id: params[:job][:skill_ids])
+          @job.skills = Skill.where(id: jsonapi_params[:skill_ids])
 
           owner = @job.owner
           User.matches_job(@job, strict_match: true).each do |user|
@@ -123,13 +123,13 @@ module Api
       def job_owner_params
         owner_params = [
           :max_rate, :performed_accept, :description, :job_date, :address, :name,
-          :hours, :language_id
+          :hours, :language_id, skill_ids: []
         ]
-        params.require(:job).permit(*owner_params)
+        jsonapi_params.permit(*owner_params)
       end
 
       def job_user_params
-        params.require(:job).permit(:performed)
+        jsonapi_params.permit(:performed)
       end
     end
   end

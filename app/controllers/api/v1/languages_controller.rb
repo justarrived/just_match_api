@@ -95,7 +95,7 @@ module Api
       end
 
       def language_params
-        params.require(:language).permit(:lang_code)
+        jsonapi_params.permit(:lang_code)
       end
     end
   end

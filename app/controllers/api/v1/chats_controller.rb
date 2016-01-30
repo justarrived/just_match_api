@@ -71,8 +71,8 @@ module Api
       end
 
       def param_user_ids
-        param_users = (params[:chat][:user_ids] || []).map(&:to_i)
-        ([current_user.id] + param_users).uniq
+        user_ids = jsonapi_params[:user_ids] || []
+        user_ids + [current_user.id]
       end
     end
   end

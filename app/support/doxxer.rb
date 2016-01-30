@@ -1,9 +1,14 @@
+# frozen_string_literal: true
 class Doxxer
-  BASE_URL = 'https://just-match-api.herokuapp.com'
+  BASE_URL = 'https://just-match-api.herokuapp.com'.freeze
 
   def self.example_for(model_klass)
     model = ActiveModel::SerializableResource.new(model_klass.new)
-    JSON.pretty_generate(model.serializable_hash)
+    model_hash = model.serializable_hash
+    [
+      '# Example response JSON',
+      JSON.pretty_generate(model_hash)
+    ].join("\n")
   end
 
   def self.curl_for(name:, id: nil, with_auth: false, join_with: ' ')

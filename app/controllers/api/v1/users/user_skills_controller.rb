@@ -46,10 +46,8 @@ module Api
             return
           end
 
-          skill_id = params[:skill][:id]
-
           @user_skill = UserSkill.new
-          @user_skill.skill = Skill.find_by(id: skill_id)
+          @user_skill.skill = Skill.find_by(id: skill_params[:id])
           @user_skill.user = @user
 
           if @user_skill.save
@@ -82,6 +80,10 @@ module Api
 
         def set_skill
           @skill = @user.skills.find(params[:id])
+        end
+
+        def skill_params
+          jsonapi_params.permit(:id)
         end
       end
     end

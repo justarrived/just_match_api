@@ -2,13 +2,20 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::ChatsController, type: :controller do
   let(:valid_attributes) do
-    first = FactoryGirl.create(:user)
-    second = FactoryGirl.create(:user)
-    { user_ids: [first, second] }
+    user = FactoryGirl.create(:user)
+    {
+      data: {
+        attributes: { user_ids: [user] }
+      }
+    }
   end
 
   let(:invalid_attributes) do
-    { user_ids: [] }
+    {
+      data: {
+        attributes: { user_ids: [] }
+      }
+    }
   end
 
   let(:valid_session) do
@@ -64,18 +71,18 @@ RSpec.describe Api::V1::ChatsController, type: :controller do
     context 'with valid params' do
       it 'creates a new Chat' do
         expect do
-          post :create, { chat: valid_attributes }, valid_session
+          post :create, valid_attributes, valid_session
         end.to change(Chat, :count).by(1)
       end
 
       it 'assigns a newly created chat as @chat' do
-        post :create, { chat: valid_attributes }, valid_session
+        post :create, valid_attributes, valid_session
         expect(assigns(:chat)).to be_a(Chat)
         expect(assigns(:chat)).to be_persisted
       end
 
       it 'returns created status' do
-        post :create, { chat: valid_attributes }, valid_session
+        post :create, valid_attributes, valid_session
         expect(response.status).to eq(201)
       end
     end
@@ -83,19 +90,19 @@ RSpec.describe Api::V1::ChatsController, type: :controller do
     context 'with invalid params' do
       it 'assigns a newly created but unsaved chat as @chat' do
         FactoryGirl.create(:user)
-        post :create, { chat: invalid_attributes }, valid_session
+        post :create, invalid_attributes, valid_session
         expect(assigns(:chat)).to be_a_new(Chat)
       end
 
       it 'returns @chat errors' do
         FactoryGirl.create(:user)
-        post :create, { chat: invalid_attributes }, valid_session
-        expect(assigns(:chat).errors[:users]).to eq(['must be between 2-10'])
+        post :create, invalid_attributes, valid_session
+        expect(assigns(:chat).errors[:users]).to eq(['must be between 2-2'])
       end
 
       it 'returns unprocessable entity' do
         FactoryGirl.create(:user)
-        post :create, { chat: invalid_attributes }, valid_session
+        post :create, invalid_attributes, valid_session
         expect(response.status).to eq(422)
       end
     end
