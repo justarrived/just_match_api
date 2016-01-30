@@ -2,11 +2,10 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::ChatsController, type: :controller do
   let(:valid_attributes) do
-    first = FactoryGirl.create(:user)
-    second = FactoryGirl.create(:user)
+    user = FactoryGirl.create(:user)
     {
       data: {
-        attributes: { user_ids: [first, second] }
+        attributes: { user_ids: [user] }
       }
     }
   end
@@ -98,7 +97,7 @@ RSpec.describe Api::V1::ChatsController, type: :controller do
       it 'returns @chat errors' do
         FactoryGirl.create(:user)
         post :create, invalid_attributes, valid_session
-        expect(assigns(:chat).errors[:users]).to eq(['must be between 2-10'])
+        expect(assigns(:chat).errors[:users]).to eq(['must be between 2-2'])
       end
 
       it 'returns unprocessable entity' do
