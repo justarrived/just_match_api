@@ -60,7 +60,6 @@ module Api
         end
 
         def message_params
-          # params.require(:message).permit(:body, :language_id)
           jsonapi_params.permit(:body, :language_id)
         end
       end

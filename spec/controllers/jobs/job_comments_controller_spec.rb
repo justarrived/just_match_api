@@ -12,7 +12,11 @@ RSpec.describe Api::V1::Jobs::JobCommentsController, type: :controller do
   end
 
   let(:invalid_attributes) do
-    { body: nil }
+    {
+      data: {
+        attributes: { body: nil }
+      }
+    }
   end
 
   let(:valid_session) do

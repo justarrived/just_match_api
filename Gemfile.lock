@@ -9,7 +9,7 @@ GIT
 
 GIT
   remote: git://github.com/rails/rails.git
-  revision: c4d85dfbc71043e2a746acd310e32f4f04db801a
+  revision: a398cd0bcbd39998f1b0313e6fe3f04bf491b3db
   specs:
     actioncable (5.0.0.beta1.1)
       actionpack (= 5.0.0.beta1.1)
@@ -313,7 +313,7 @@ DEPENDENCIES
   letter_opener (~> 1.4)
   maruku (~> 0.7)
   pg (~> 0.15)
-  puma (~> 2.15)
+  puma (~> 2.16)
   rack-timeout (~> 0.3)
   rails!
   rails-controller-testing (~> 0.0.3)
