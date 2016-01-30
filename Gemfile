@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.3.0'
 
-gem 'rails', github: 'rails/rails', ref: 'dbf67b3a6f549769c5f581b70bc0c0d880d5d5d1'
+gem 'rails', github: 'rails/rails'
 gem 'pg', '~> 0.15' # Use postgresql as the database for Active Record
 
 gem 'active_model_serializers', '~> 0.10.0.rc3' # Serialize models to JSON
