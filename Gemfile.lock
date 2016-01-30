@@ -231,7 +231,7 @@ GEM
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uniform_notifier (1.9.0)
-    web-console (3.0.0)
+    web-console (3.1.1)
       activemodel (>= 4.2)
       debug_inspector
       railties (>= 4.2)
