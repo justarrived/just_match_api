@@ -122,8 +122,8 @@ module Api
 
       def job_owner_params
         owner_params = [
-          :max_rate, :performed_accept, :description, :job_date, :address, :name,
-          :hours, :language_id, skill_ids: []
+          :max_rate, :performed_accept, :description, :job_date, :street, :zip,
+          :name, :hours, :language_id, skill_ids: []
         ]
         jsonapi_params.permit(*owner_params)
       end

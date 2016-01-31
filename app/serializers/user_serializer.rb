@@ -1,6 +1,6 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :name, :email, :phone, :description, :created_at, :longitude,
-             :latitude, :address
+  attributes :id, :name, :email, :phone, :description, :created_at, :street,
+             :zip, :zip_latitude, :zip_longitude
 
   has_one :language
 
@@ -23,13 +23,14 @@ end
 #  updated_at    :datetime         not null
 #  latitude      :float
 #  longitude     :float
-#  address       :string
 #  language_id   :integer
 #  anonymized    :boolean          default(FALSE)
 #  auth_token    :string
 #  password_hash :string
 #  password_salt :string
 #  admin         :boolean          default(FALSE)
+#  street        :string
+#  zip           :string
 #
 # Indexes
 #

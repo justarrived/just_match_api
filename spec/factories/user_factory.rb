@@ -7,7 +7,8 @@ FactoryGirl.define do
     password '1234567890'
     phone '1234567890'
     description 'Watman ' * 2
-    address 'Bankgatan 14C, Lund'
+    street 'Bankgatan 14C'
+    zip '223 52'
     association :language
 
     factory :admin_user do

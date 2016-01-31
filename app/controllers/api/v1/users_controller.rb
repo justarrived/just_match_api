@@ -50,6 +50,8 @@ module Api
         param :description, String, desc: 'Description', required: true
         param :email, String, desc: 'Email', required: true
         param :phone, String, desc: 'Phone', required: true
+        param :street, String, desc: 'Street', required: true
+        param :zip, String, desc: 'Zip code', required: true
         param :language_id, Integer, desc: 'Primary language id for user', required: true
         param :language_ids, Array, of: Integer, desc: 'Language ids of languages that the user knows', required: true
         # rubocop:enable Metrics/LineLength
@@ -77,6 +79,8 @@ module Api
         param :description, String, desc: 'Description'
         param :email, String, desc: 'Email'
         param :phone, String, desc: 'Phone'
+        param :street, String, desc: 'Street'
+        param :zip, String, desc: 'Zip code'
         param :language_id, Integer, desc: 'Primary language id for user'
       end
       example Doxxer.example_for(User)
@@ -142,8 +146,8 @@ module Api
 
       def user_params
         whitelist = [
-          :name, :email, :phone, :description, :address, :language_id, :password,
-          skill_ids: [], language_ids: []
+          :name, :email, :phone, :description, :street, :zip, :language_id,
+          :password, skill_ids: [], language_ids: []
         ]
         jsonapi_params.permit(*whitelist)
       end

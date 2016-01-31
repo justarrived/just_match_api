@@ -29,7 +29,8 @@ RSpec.describe User, regressor: true do
   it { is_expected.to have_db_column :updated_at }
   it { is_expected.to have_db_column :latitude }
   it { is_expected.to have_db_column :longitude }
-  it { is_expected.to have_db_column :address }
+  it { is_expected.to have_db_column :street }
+  it { is_expected.to have_db_column :zip }
   it { is_expected.to have_db_column :language_id }
   it { is_expected.to have_db_column :anonymized }
 
@@ -43,8 +44,10 @@ RSpec.describe User, regressor: true do
   it { is_expected.not_to allow_value(Faker::Lorem.characters(8)).for :phone }
   it { is_expected.to allow_value(Faker::Lorem.characters(10)).for :description }
   it { is_expected.not_to allow_value(Faker::Lorem.characters(9)).for :description }
-  it { is_expected.to allow_value(Faker::Lorem.characters(2)).for :address }
-  it { is_expected.not_to allow_value(Faker::Lorem.characters(1)).for :address }
+  it { is_expected.to allow_value(Faker::Lorem.characters(5)).for :street }
+  it { is_expected.not_to allow_value(Faker::Lorem.characters(4)).for :street }
+  it { is_expected.to allow_value(Faker::Lorem.characters(5)).for :zip }
+  it { is_expected.not_to allow_value(Faker::Lorem.characters(4)).for :zip }
 
   # === Validations (Presence) ===
   it { is_expected.to validate_presence_of :email }
