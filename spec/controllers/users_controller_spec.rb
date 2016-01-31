@@ -55,13 +55,13 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
     context 'not authorized' do
       it 'does not assigns all users as @users' do
-        user = FactoryGirl.create(:user)
+        FactoryGirl.create(:user)
         get :index, {}, {}
         expect(assigns(:users)).to eq(nil)
       end
 
       it 'returns 401 status' do
-        user = FactoryGirl.create(:user)
+        FactoryGirl.create(:user)
         get :index, {}, {}
         expect(response.status).to eq(401)
       end
