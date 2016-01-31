@@ -23,6 +23,8 @@ class UserPolicy < ApplicationPolicy
     admin_or_self?
   end
 
+  private
+
   def admin_or_self?
     user.admin? || user == record
   end

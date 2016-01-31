@@ -243,6 +243,14 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       expect(response.status).to eq(401)
     end
   end
+
+  describe 'GET #matching_jobs' do
+    it 'returns 200 status for admin user' do
+      user = FactoryGirl.create(:user)
+      get :show, { user_id: user.to_param }, valid_admin_session
+      expect(response.status).to eq(200)
+    end
+  end
 end
 
 # == Schema Information

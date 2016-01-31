@@ -14,6 +14,8 @@ module Api
       api :GET, '/jobs', 'List jobs'
       description 'Returns a list of jobs.'
       def index
+        authorize(Job)
+
         page_index = params[:page].to_i
         @jobs = Job.all.page(page_index)
         render json: @jobs
@@ -23,6 +25,8 @@ module Api
       description 'Return job.'
       example Doxxer.example_for(Job)
       def show
+        authorize(@job)
+
         render json: @job, include: %w(language owner)
       end
 
@@ -44,6 +48,8 @@ module Api
       end
       example Doxxer.example_for(Job)
       def create
+        authorize(Job)
+
         @job = Job.new(job_owner_params)
         @job.owner_user_id = current_user.id
 
@@ -79,6 +85,8 @@ module Api
       end
       example Doxxer.example_for(Job)
       def update
+        authorize(@job)
+
         notify_klass = nil
         should_notify = false
         if @job.owner == current_user
@@ -106,10 +114,7 @@ module Api
       description 'Returns matching users for job if user is allowed to.'
       error code: 401, desc: 'Unauthorized'
       def matching_users
-        unless @job.owner == current_user
-          render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized
-          return
-        end
+        authorize(@job)
 
         render json: User.matches_job(@job)
       end
