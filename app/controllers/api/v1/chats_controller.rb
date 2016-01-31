@@ -67,7 +67,7 @@ module Api
       private
 
       def set_chat
-        @chat = current_user.chats.find(params[:id])
+        @chat = current_user.scoped_chats.find(params[:id])
       end
 
       def param_user_ids
