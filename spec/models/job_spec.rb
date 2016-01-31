@@ -5,6 +5,25 @@ RSpec.describe Job, type: :model do
     describe '#matches_user'
   end
 
+  describe 'geocodable' do
+    let(:job) { FactoryGirl.create(:job, street: 'Bankgatan 14C', zip: '223 52') }
+
+    it 'geocodes by exact address' do
+      expect(job.latitude).to eq(55.6997802)
+      expect(job.longitude).to eq(13.1953695)
+    end
+
+    it 'geocodes by zip' do
+      expect(job.zip_latitude).to eq(55.6987817)
+      expect(job.zip_longitude).to eq(13.1975525)
+    end
+
+    it 'zip lat/long is different from lat/long' do
+      expect(job.zip_latitude).not_to eq(job.latitude)
+      expect(job.zip_longitude).not_to eq(job.longitude)
+    end
+  end
+
   describe '#send_performed_accept_notice?' do
     it 'returns true if notice should be sent' do
       job = described_class.new

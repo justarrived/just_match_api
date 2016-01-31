@@ -11,10 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160107220039) do
+ActiveRecord::Schema.define(version: 20160131150605) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "active_record_internal_metadatas", id: false, force: :cascade do |t|
+    t.string   "key",        limit: 191, null: false
+    t.string   "value"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "active_record_internal_metadatas", ["key"], name: "unique_active_record_internal_metadatas", unique: true, using: :btree
 
   create_table "chat_users", force: :cascade do |t|
     t.integer  "chat_id"
@@ -78,9 +87,12 @@ ActiveRecord::Schema.define(version: 20160107220039) do
     t.integer  "owner_user_id"
     t.float    "latitude"
     t.float    "longitude"
-    t.string   "address"
     t.string   "name"
     t.integer  "language_id"
+    t.string   "street"
+    t.string   "zip"
+    t.float    "zip_latitude"
+    t.float    "zip_longitude"
   end
 
   add_index "jobs", ["language_id"], name: "index_jobs_on_language_id", using: :btree
@@ -142,13 +154,16 @@ ActiveRecord::Schema.define(version: 20160107220039) do
     t.datetime "updated_at",                    null: false
     t.float    "latitude"
     t.float    "longitude"
-    t.string   "address"
     t.integer  "language_id"
     t.boolean  "anonymized",    default: false
     t.string   "auth_token"
     t.string   "password_hash"
     t.string   "password_salt"
     t.boolean  "admin",         default: false
+    t.string   "street"
+    t.string   "zip"
+    t.float    "zip_latitude"
+    t.float    "zip_longitude"
   end
 
   add_index "users", ["language_id"], name: "index_users_on_language_id", using: :btree

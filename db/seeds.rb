@@ -23,8 +23,8 @@ end
 # Seed addresses
 addresses = []
 max_addresses.times do |i|
-  addresses << "Stora Nygatan 36 #{i}, Malmö, Sweden"
-  addresses << "Wollmar Yxkullsgatan #{i}, Stockholm, Sweden"
+  addresses << { street: "Stora Nygatan 36 #{i}", zip: '21137' }
+  addresses << { street: "Wollmar Yxkullsgatan #{i}", zip: '11850' }
 end
 
 # Seed users
@@ -36,7 +36,8 @@ max_users.times do
     email: Faker::Internet.email,
     phone: Faker::PhoneNumber.cell_phone,
     description: Faker::Hipster.paragraph(2),
-    address: address,
+    street: address[:street],
+    zip: address[:zip],
     language: languages.sample,
     password: (1..8).to_a.join
   )
@@ -64,7 +65,8 @@ max_jobs.times do
     description: Faker::Hipster.paragraph(2),
     job_date: days_from_now_range.sample.days.from_now,
     owner: users.sample,
-    address: address,
+    street: address[:street],
+    zip: address[:zip],
     hours: hours,
     language: languages.sample
   )
