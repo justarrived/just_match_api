@@ -15,10 +15,7 @@ module Api
       api :GET, '/users', 'List users'
       description 'Returns a list of users if the user is allowed to.'
       def index
-        unless current_user.admin?
-          render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized
-          return
-        end
+        authorize(User)
 
         page_index = params[:page].to_i
         relations = [:skills, :jobs, :written_comments, :language, :languages]
@@ -31,10 +28,7 @@ module Api
       description 'Returns user is alloed to.'
       example Doxxer.example_for(User)
       def show
-        unless current_user == @user || current_user.admin?
-          render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized
-          return
-        end
+        authorize(@user)
 
         render json: @user, include: include_params
       end
@@ -85,10 +79,7 @@ module Api
       end
       example Doxxer.example_for(User)
       def update
-        unless current_user == @user || current_user.admin?
-          render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized
-          return
-        end
+        authorize(@user)
 
         if @user.update(user_params)
           render json: @user, status: :ok
@@ -101,10 +92,7 @@ module Api
       description 'Deletes user user if the user is allowed to.'
       error code: 401, desc: 'Unauthorized'
       def destroy
-        unless @user == current_user || current_user.admin?
-          render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized
-          return
-        end
+        authorize(@user)
 
         @user.reset!
         head :no_content
@@ -114,10 +102,7 @@ module Api
       description 'Returns the matching jobs for user if the user is allowed to.'
       error code: 401, desc: 'Unauthorized'
       def matching_jobs
-        unless @user == current_user || current_user.admin?
-          render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized
-          return
-        end
+        authorize(@user)
 
         render json: Job.matches_user(@user)
       end
@@ -128,10 +113,7 @@ module Api
       # rubocop:enable Metrics/LineLength
       error code: 401, desc: 'Unauthorized'
       def jobs
-        unless @user == current_user || current_user.admin?
-          render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized
-          return
-        end
+        authorize(@user)
 
         @jobs = Queries::UserJobsFinder.new(current_user).perform
 
