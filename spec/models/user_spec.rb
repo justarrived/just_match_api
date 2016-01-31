@@ -9,6 +9,27 @@ RSpec.describe User, type: :model do
       expect(user.auth_token.length).to eq(32)
     end
   end
+
+  describe '#scoped_chats' do
+    it 'returns all chats when admin' do
+      chat = FactoryGirl.create(:chat)
+      admin = FactoryGirl.build(:admin_user)
+      expect(admin.scoped_chats).to eq([chat])
+    end
+
+    it 'does not return unassociated chats for user' do
+      FactoryGirl.create(:chat)
+      user = FactoryGirl.build(:user)
+      expect(user.scoped_chats).to eq([])
+    end
+
+    it 'does return associated chats for user' do
+      a_user = FactoryGirl.build(:user)
+      user = FactoryGirl.build(:user)
+      chat = FactoryGirl.create(:chat, users: [user, a_user])
+      expect(user.scoped_chats).to eq([chat])
+    end
+  end
 end
 
 # == Schema Information
