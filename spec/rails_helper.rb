@@ -38,7 +38,7 @@ RSpec.configure do |config|
       # Validate that all factories are valid, will slow down the test startup
       # with a second or two, but can be very handy..
       if run_test_suite_with_factory_linting?
-        print 'Checking factories..'
+        print 'Validating factories..'
         FactoryGirl.lint
         print " done \n"
       end

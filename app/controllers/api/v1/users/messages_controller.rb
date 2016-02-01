@@ -2,6 +2,7 @@ module Api
   module V1
     module Users
       class MessagesController < BaseController
+        before_action :require_user
         before_action :set_user
 
         resource_description do

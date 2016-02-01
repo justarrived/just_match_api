@@ -18,6 +18,7 @@ module Api
         error_message = I18n.t('not_logged_in_error')
         render json: { error: error_message }, status: :unauthorized
       end
+      false
     end
 
     def current_user
