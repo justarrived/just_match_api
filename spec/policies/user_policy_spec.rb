@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe UserPolicy do
-  context 'anyone' do
+  context 'a user' do
     subject { UserPolicy.new(nil, user) }
 
     let(:user) { FactoryGirl.create(:user) }
@@ -22,6 +22,10 @@ RSpec.describe UserPolicy do
       expect(subject.update?).to eq(false)
     end
 
+    it 'returns false for destroy' do
+      expect(subject.destroy?).to eq(false)
+    end
+
     it 'returns false for matching_jobs' do
       expect(subject.matching_jobs?).to eq(false)
     end
@@ -31,7 +35,7 @@ RSpec.describe UserPolicy do
     end
   end
 
-  context 'user is logged in user' do
+  context 'logged in user is user' do
     subject { UserPolicy.new(user, user) }
 
     let(:user) { FactoryGirl.build(:user) }
@@ -48,8 +52,12 @@ RSpec.describe UserPolicy do
       expect(subject.show?).to eq(true)
     end
 
-    it 'returns update for update' do
+    it 'returns true for update' do
       expect(subject.update?).to eq(true)
+    end
+
+    it 'returns true for destroy' do
+      expect(subject.destroy?).to eq(true)
     end
 
     it 'returns true for matching_jobs' do
@@ -65,7 +73,7 @@ RSpec.describe UserPolicy do
     subject { UserPolicy.new(admin, user) }
 
     let(:admin) { FactoryGirl.build(:admin_user) }
-    let(:user) { FactoryGirl.create(:user) }
+    let(:user) { FactoryGirl.build(:user) }
 
     it 'returns true for index' do
       expect(subject.index?).to eq(true)
@@ -83,8 +91,8 @@ RSpec.describe UserPolicy do
       expect(subject.update?).to eq(true)
     end
 
-    it 'returns true for matching_jobs' do
-      expect(subject.matching_jobs?).to eq(true)
+    it 'returns true for destroy' do
+      expect(subject.destroy?).to eq(true)
     end
 
     it 'returns true for matching_jobs' do

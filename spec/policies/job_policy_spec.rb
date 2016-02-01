@@ -4,7 +4,7 @@ RSpec.describe JobPolicy do
   context 'anyone' do
     subject { JobPolicy.new(nil, job) }
 
-    let(:job) { FactoryGirl.create(:job) }
+    let(:job) { FactoryGirl.build(:job) }
 
     it 'returns true for index' do
       expect(subject.index?).to eq(true)
@@ -31,7 +31,7 @@ RSpec.describe JobPolicy do
     subject { JobPolicy.new(user, job) }
 
     let(:user) { FactoryGirl.build(:user) }
-    let(:job) { FactoryGirl.create(:job) }
+    let(:job) { FactoryGirl.build(:job) }
 
     it 'returns true for create' do
       expect(subject.create?).to eq(true)
@@ -50,7 +50,7 @@ RSpec.describe JobPolicy do
     subject { JobPolicy.new(user, job) }
 
     let(:user) { FactoryGirl.build(:user) }
-    let(:job) { FactoryGirl.create(:job, owner: user) }
+    let(:job) { FactoryGirl.build(:job, owner: user) }
 
     it 'returns true for matching_users' do
       expect(subject.matching_users?).to eq(true)
@@ -61,7 +61,7 @@ RSpec.describe JobPolicy do
     subject { JobPolicy.new(admin, job) }
 
     let(:admin) { FactoryGirl.build(:admin_user) }
-    let(:job) { FactoryGirl.create(:job) }
+    let(:job) { FactoryGirl.build(:job) }
 
     it 'returns true for matching_users' do
       expect(subject.matching_users?).to eq(true)

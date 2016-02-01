@@ -8,7 +8,7 @@ class SkillPolicy < ApplicationPolicy
   end
 
   def create?
-    user.admin?
+    admin?
   end
 
   def update?
@@ -22,6 +22,10 @@ class SkillPolicy < ApplicationPolicy
   private
 
   def admin?
-    user.admin?
+    user? && user.admin?
+  end
+
+  def user?
+    !user.nil?
   end
 end

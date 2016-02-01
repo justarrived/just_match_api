@@ -10,6 +10,16 @@ class ChatPolicy < ApplicationPolicy
   end
 
   def index?
-    user.admin?
+    admin?
+  end
+
+  private
+
+  def admin?
+    user? && user.admin?
+  end
+
+  def user?
+    !user.nil?
   end
 end

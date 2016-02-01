@@ -8,7 +8,7 @@ class LanguagePolicy < ApplicationPolicy
   end
 
   def create?
-    user.admin?
+    admin?
   end
 
   def update?
@@ -22,6 +22,6 @@ class LanguagePolicy < ApplicationPolicy
   private
 
   def admin?
-    user.admin?
+    !user.nil? && user.admin?
   end
 end
