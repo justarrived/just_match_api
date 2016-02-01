@@ -19,7 +19,9 @@ module Api
         description 'Returns the message between user and logged in user.'
         def index
           users = User.where(id: chat_user_ids)
-          @messages = Chat.find_or_create_private_chat(users).messages
+
+          chat = Chat.find_private_chat(users)
+          @messages = chat.nil? ? Message.none : chat.messages
 
           render json: @messages, include: %w(author language chat)
         end

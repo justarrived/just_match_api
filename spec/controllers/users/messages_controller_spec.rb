@@ -29,7 +29,7 @@ RSpec.describe Api::V1::Users::MessagesController, type: :controller do
       end
 
       it 'assigns all messages as @messages' do
-        expected_klass = Message::ActiveRecord_Associations_CollectionProxy
+        expected_klass = Message::ActiveRecord_Relation
         get :index, valid_attributes, valid_session
         expect(assigns(:messages).class).to eq(expected_klass)
       end
