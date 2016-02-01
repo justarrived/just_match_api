@@ -73,6 +73,25 @@ RSpec.describe Job, type: :model do
       expect(job.accepted_applicant).to eq(applicant)
     end
   end
+
+  describe '#accept_applicant?' do
+    it 'returns false if user is *not* the accepted user' do
+      job = described_class.new
+      user = FactoryGirl.build(:user)
+      expect(job.accepted_applicant?(user)).to eq(false)
+    end
+
+    it 'returns true if user is the accepted user' do
+      applicant = FactoryGirl.create(:user)
+      owner = FactoryGirl.create(:user)
+      job = FactoryGirl.create(:job, owner: owner)
+
+      job.create_applicant!(applicant)
+      job.accept_applicant!(applicant)
+
+      expect(job.accepted_applicant?(applicant)).to eq(true)
+    end
+  end
 end
 
 # == Schema Information

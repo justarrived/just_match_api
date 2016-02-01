@@ -49,6 +49,10 @@ class Job < ActiveRecord::Base
     performed_changed? && performed
   end
 
+  def accepted_applicant?(user)
+    accepted_applicant == user
+  end
+
   def accepted_applicant
     job_users.find_by(accepted: true).try!(:user)
   end

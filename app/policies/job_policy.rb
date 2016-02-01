@@ -8,14 +8,20 @@ class JobPolicy < ApplicationPolicy
   end
 
   def create?
-    true
+    user?
   end
 
   def update?
-    true
+    user?
   end
 
   def matching_users?
-    user == record.owner
+    user? && user.admin? || user == record.owner
+  end
+
+  private
+
+  def user?
+    !user.nil?
   end
 end

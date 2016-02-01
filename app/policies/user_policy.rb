@@ -1,6 +1,10 @@
 class UserPolicy < ApplicationPolicy
   def index?
-    user.admin?
+    admin?
+  end
+
+  def create?
+    no_user? || admin?
   end
 
   def show?
@@ -25,7 +29,19 @@ class UserPolicy < ApplicationPolicy
 
   private
 
+  def no_user?
+    !user?
+  end
+
+  def user?
+    !user.nil?
+  end
+
   def admin_or_self?
-    user.admin? || user == record
+    admin? || user == record
+  end
+
+  def admin?
+    user? && user.admin?
   end
 end

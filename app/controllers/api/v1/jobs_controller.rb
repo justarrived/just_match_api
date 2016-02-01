@@ -93,7 +93,7 @@ module Api
           @job.assign_attributes(job_owner_params)
           notify_klass = JobPerformedAcceptNotifier
           should_notify = @job.send_performed_accept_notice?
-        elsif @job.job_users.find_by(user: current_user, accepted: true)
+        elsif @job.accepted_applicant?(current_user)
           @job.assign_attributes(job_user_params)
           notify_klass = JobPerformedNotifier
           should_notify = @job.send_performed_notice?

@@ -18,10 +18,7 @@ module Api
       description 'Returns a list of chats.'
       error code: 401, desc: 'Unauthorized'
       def index
-        unless current_user.admin?
-          render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized
-          return
-        end
+        authorize(Chat)
 
         page_index = params[:page].to_i
         relations = [:users, :messages]
@@ -35,6 +32,8 @@ module Api
       description 'Return chat.'
       example Doxxer.example_for(Chat)
       def show
+        authorize(@chat)
+
         render json: @chat
       end
 
@@ -67,7 +66,7 @@ module Api
       private
 
       def set_chat
-        @chat = current_user.scoped_chats.find(params[:id])
+        @chat = policy_scope(Chat).find(params[:id])
       end
 
       def param_user_ids
