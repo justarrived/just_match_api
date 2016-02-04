@@ -7,6 +7,7 @@ end
 require 'spec_helper'
 require 'rspec/rails'
 require 'shoulda/matchers'
+require 'pundit/rspec'
 
 # Checks for pending migration and applies them before tests are run.
 ActiveRecord::Migration.maintain_test_schema!

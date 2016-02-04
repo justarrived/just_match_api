@@ -20,9 +20,22 @@ RSpec.describe Api::V1::Users::UserSkillsController, type: :controller do
   describe 'GET #index' do
     it 'assigns all user skills as @skills' do
       user = FactoryGirl.create(:user_with_skills, skills_count: 1)
+      allow_any_instance_of(described_class).
+        to(receive(:authenticate_user_token!).
+        and_return(user))
       skill = user.skills.first
-      get :index, { user_id: user.to_param }, valid_session
+      get :index, { user_id: user.to_param }, {}
       expect(assigns(:skills)).to eq([skill])
+    end
+
+    it 'returns 200 ok status' do
+      user = FactoryGirl.create(:user_with_skills, skills_count: 1)
+      allow_any_instance_of(described_class).
+        to(receive(:authenticate_user_token!).
+        and_return(user))
+      skill = user.skills.first
+      get :index, { user_id: user.to_param }, {}
+      expect(response.status).to eq(200)
     end
   end
 

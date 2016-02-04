@@ -11,21 +11,10 @@ class UserPolicy < ApplicationPolicy
     admin_or_self?
   end
 
-  def update?
-    admin_or_self?
-  end
-
-  def destroy?
-    admin_or_self?
-  end
-
-  def matching_jobs?
-    admin_or_self?
-  end
-
-  def jobs?
-    admin_or_self?
-  end
+  alias_method :update?, :show?
+  alias_method :destroy?, :show?
+  alias_method :matching_jobs?, :show?
+  alias_method :jobs?, :show?
 
   private
 

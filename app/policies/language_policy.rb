@@ -3,21 +3,14 @@ class LanguagePolicy < ApplicationPolicy
     true
   end
 
-  def show?
-    true
-  end
+  alias_method :show?, :index?
 
   def create?
     admin?
   end
 
-  def update?
-    admin?
-  end
-
-  def destroy?
-    admin?
-  end
+  alias_method :update?, :create?
+  alias_method :destroy?, :create?
 
   private
 
