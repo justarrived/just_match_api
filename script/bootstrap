@@ -20,13 +20,17 @@ which bundle 2>&1 >/dev/null || {
 }
 
 which rubocop 2>&1 >/dev/null || {
-  echo -e '\n== Installing rubocop =='
-  gem install rubocop
+  if [[ $CI_BUILD != true ]]; then
+    echo -e '\n== Installing rubocop =='
+    gem install rubocop
+  fi
 }
 
 which foreman 2>&1 >/dev/null || {
-  echo -e '\n== Installing foreman =='
-  gem install foreman
+  if [[ $CI_BUILD != true ]]; then
+    echo -e '\n== Installing foreman =='
+    gem install foreman
+  fi
 }
 
 echo -e '\n== Installing gem dependencies =='
