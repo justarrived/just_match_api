@@ -121,7 +121,11 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
   describe 'PUT #update' do
     context 'with valid params' do
       let(:new_attributes) do
-        { accepted: true }
+        {
+          data: {
+            attributes: { accepted: true }
+          }
+        }
       end
 
       context 'job owner user' do
@@ -129,7 +133,7 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
           job = FactoryGirl.create(:job_with_users, users_count: 1, owner: user)
           user = job.users.first
           job_user = job.job_users.first
-          params = { job_id: job.to_param, id: user.to_param, job_user: new_attributes }
+          params = { job_id: job.to_param, id: user.to_param }.merge(new_attributes)
           put :update, params, valid_session
           job_user.reload
           expect(job_user.accepted).to eq(true)
@@ -138,7 +142,7 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
         it 'assigns the requested user as @job' do
           job = FactoryGirl.create(:job_with_users, users_count: 1, owner: user)
           user = job.users.first
-          params = { job_id: job.to_param, id: user.to_param, job_user: new_attributes }
+          params = { job_id: job.to_param, id: user.to_param }.merge(new_attributes)
           put :update, params, valid_session
           expect(assigns(:job)).to eq(job)
         end
@@ -146,7 +150,7 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
         it 'returns no content status' do
           job = FactoryGirl.create(:job_with_users, users_count: 1, owner: user)
           user = job.users.first
-          params = { job_id: job.to_param, id: user.to_param, job_user: new_attributes }
+          params = { job_id: job.to_param, id: user.to_param }.merge(new_attributes)
           put :update, params, valid_session
           expect(response.status).to eq(204)
         end
@@ -154,7 +158,7 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
         it 'notifies user when updated Job#performed_accept is set to true' do
           job = FactoryGirl.create(:job_with_users, users_count: 1, owner: user)
           user = job.users.first
-          params = { job_id: job.to_param, id: user.to_param, job_user: new_attributes }
+          params = { job_id: job.to_param, id: user.to_param }.merge(new_attributes)
           allow(ApplicantAcceptedNotifier).to receive(:call).with(job: job, user: user)
           put :update, params, valid_session
           expect(ApplicantAcceptedNotifier).to have_received(:call)
@@ -169,7 +173,7 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
         it 'returns forbidden status' do
           job = FactoryGirl.create(:job_with_users, users_count: 1)
           user = job.users.first
-          params = { job_id: job.to_param, id: user.to_param, job_user: new_attributes }
+          params = { job_id: job.to_param, id: user.to_param }.merge(new_attributes)
           put :update, params, valid_session
           expect(response.status).to eq(401)
         end
@@ -183,7 +187,7 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
         it 'returns forbidden status for non-owner user' do
           job = FactoryGirl.create(:job_with_users, users_count: 1)
           user = job.users.first
-          params = { job_id: job.to_param, id: user.to_param, job_user: new_attributes }
+          params = { job_id: job.to_param, id: user.to_param }.merge(new_attributes)
           put :update, params, valid_session
           expect(response.status).to eq(401)
         end

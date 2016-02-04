@@ -3,7 +3,8 @@ FactoryGirl.define do
     name 'A job'
     max_rate 500
     description 'Watman' * 2
-    address 'Bankgatan 14C, Lund'
+    street 'Bankgatan 14C'
+    zip '223 52'
     association :owner, factory: :user
     association :language
     job_date 1.week.ago

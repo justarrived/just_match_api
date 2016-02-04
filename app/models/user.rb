@@ -2,6 +2,10 @@ class User < ActiveRecord::Base
   include Geocodable
   include SkillMatchable
 
+  LOCATE_BY = {
+    address: { lat: :latitude, long: :longitude }
+  }.freeze
+
   attr_accessor :password
 
   before_create :generate_auth_token!
@@ -32,7 +36,8 @@ class User < ActiveRecord::Base
   validates :name, length: { minimum: 3 }, allow_blank: false
   validates :phone, length: { minimum: 9 }, allow_blank: false
   validates :description, length: { minimum: 10 }, allow_blank: false
-  validates :address, length: { minimum: 2 }, allow_blank: false
+  validates :street, length: { minimum: 5 }, allow_blank: false
+  validates :zip, length: { minimum: 5 }, allow_blank: false
   validates :password, length: { minimum: 6 }, allow_blank: false, on: :create
   validates :auth_token, uniqueness: true
 
@@ -54,6 +59,10 @@ class User < ActiveRecord::Base
       order_by_matching_skills(job, strict_match: strict_match)
   end
 
+  def scoped_chats
+    admin? ? Chat.all : chats
+  end
+
   def admin?
     admin
   end
@@ -66,7 +75,8 @@ class User < ActiveRecord::Base
       email: "#{name}+#{SecureRandom.uuid}@example.com",
       phone: '123456789',
       description: 'This user has been deleted.',
-      address: 'New York, NY, USA'
+      street: 'Stockholm',
+      zip: '11120'
     )
   end
 
@@ -101,13 +111,14 @@ end
 #  updated_at    :datetime         not null
 #  latitude      :float
 #  longitude     :float
-#  address       :string
 #  language_id   :integer
 #  anonymized    :boolean          default(FALSE)
 #  auth_token    :string
 #  password_hash :string
 #  password_salt :string
 #  admin         :boolean          default(FALSE)
+#  street        :string
+#  zip           :string
 #
 # Indexes
 #

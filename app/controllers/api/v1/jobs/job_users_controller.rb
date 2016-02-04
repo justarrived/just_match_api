@@ -73,7 +73,7 @@ module Api
             return
           end
 
-          if params.dig(:job_user, :accepted)
+          if jsonapi_params[:accepted]
             @job.accept_applicant!(@user)
             ApplicantAcceptedNotifier.call(job: @job, user: @user)
             head :no_content
