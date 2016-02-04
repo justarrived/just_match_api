@@ -7,6 +7,8 @@ cd "$(dirname "$0")/.."
 # script/bootstrap: Resolve all dependencies that the application requires to
 #                   run.
 
+CI_BUILD=${CI_BUILD-false}
+
 echo -e '\n== Bootstrapping dependencies =='
 
 [[ $(ruby -v) == 'ruby 2.3'* ]] || {
