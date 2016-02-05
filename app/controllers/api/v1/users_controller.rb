@@ -54,6 +54,8 @@ module Api
       def create
         @user = User.new(user_params)
 
+        authorize(@user)
+
         if @user.save
           @user.skills = Skill.where(id: user_params[:skill_ids])
           @user.languages = Language.where(id: user_params[:language_ids])

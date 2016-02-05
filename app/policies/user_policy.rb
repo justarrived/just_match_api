@@ -4,7 +4,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def create?
-    no_user? || admin?
+    true
   end
 
   def show?

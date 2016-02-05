@@ -5,6 +5,8 @@ module Api
         before_action :set_commentable
         before_action :set_comment, only: [:show]
 
+        after_action :verify_authorized, only: []
+
         private
 
         def set_commentable

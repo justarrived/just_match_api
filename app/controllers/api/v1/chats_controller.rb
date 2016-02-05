@@ -4,6 +4,8 @@ module Api
       before_action :require_user
       before_action :set_chat, only: [:show, :update]
 
+      after_action :verify_authorized, only: []
+
       resource_description do
         api_versions '1.0'
         name 'Chats'

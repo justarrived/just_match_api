@@ -45,7 +45,7 @@ RSpec.describe UserPolicy do
     end
 
     it 'returns false for create' do
-      expect(subject.create?).to eq(false)
+      expect(subject.create?).to eq(true)
     end
 
     it 'returns true for show' do

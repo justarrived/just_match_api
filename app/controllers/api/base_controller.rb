@@ -4,6 +4,8 @@ module Api
     # Needed for #authenticate_with_http_token
     include ActionController::HttpAuthentication::Token::ControllerMethods
 
+    after_action :verify_authorized
+
     rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
     protected
