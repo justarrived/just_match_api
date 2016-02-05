@@ -85,11 +85,8 @@ module Api
           jsonapi_params.permit(:id)
         end
 
-        # User is the current user and user_context is the current user resource
-        UserContext = Struct.new(:user, :user_context)
-
         def pundit_user
-          UserContext.new(current_user, @user)
+          UserSkillPolicy::UserContext.new(current_user, @user)
         end
       end
     end

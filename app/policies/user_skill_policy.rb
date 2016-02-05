@@ -1,4 +1,7 @@
 class UserSkillPolicy < ApplicationPolicy
+  # User is the current user and user_context is the current user resource
+  UserContext = Struct.new(:user, :user_context)
+
   attr_reader :user_context
 
   def initialize(user, record)
