@@ -17,7 +17,7 @@ RSpec.describe UserMailer, type: :mailer do
     end
 
     it 'renders the sender email' do
-      expect(mail.from).to eql(['from@example.com'])
+      expect(mail.from).to eql(['hello@justarrived.se'])
     end
 
     it 'assigns @user_name' do
@@ -39,7 +39,7 @@ RSpec.describe UserMailer, type: :mailer do
     end
 
     it 'renders the sender email' do
-      expect(mail.from).to eql(['from@example.com'])
+      expect(mail.from).to eql(['hello@justarrived.se'])
     end
 
     it 'assigns @user_name' do
@@ -70,7 +70,7 @@ RSpec.describe UserMailer, type: :mailer do
     end
 
     it 'renders the sender email' do
-      expect(mail.from).to eql(['from@example.com'])
+      expect(mail.from).to eql(['hello@justarrived.se'])
     end
 
     it 'assigns @user_name' do
@@ -101,7 +101,7 @@ RSpec.describe UserMailer, type: :mailer do
     end
 
     it 'renders the sender email' do
-      expect(mail.from).to eql(['from@example.com'])
+      expect(mail.from).to eql(['hello@justarrived.se'])
     end
 
     it 'assigns @user_name' do
@@ -132,7 +132,7 @@ RSpec.describe UserMailer, type: :mailer do
     end
 
     it 'renders the sender email' do
-      expect(mail.from).to eql(['from@example.com'])
+      expect(mail.from).to eql(['hello@justarrived.se'])
     end
 
     it 'assigns @user_name' do
@@ -163,7 +163,7 @@ RSpec.describe UserMailer, type: :mailer do
     end
 
     it 'renders the sender email' do
-      expect(mail.from).to eql(['from@example.com'])
+      expect(mail.from).to eql(['hello@justarrived.se'])
     end
 
     it 'assigns @user_name' do
