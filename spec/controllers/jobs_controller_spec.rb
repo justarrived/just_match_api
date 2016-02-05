@@ -12,7 +12,8 @@ RSpec.describe Api::V1::JobsController, type: :controller do
           description: 'Some job description',
           language_id: FactoryGirl.create(:language).id,
           owner_user_id: FactoryGirl.create(:user).id,
-          address: 'Stora Nygatan 36, Malmö',
+          street: 'Stora Nygatan 36',
+          zip: '211 37',
           job_date: 1.day.from_now
         }
       }
@@ -32,6 +33,22 @@ RSpec.describe Api::V1::JobsController, type: :controller do
     allow_any_instance_of(described_class).
       to(receive(:authenticate_user_token!).
       and_return(user))
+    { token: user.auth_token }
+  end
+
+  let(:valid_admin_session) do
+    admin = FactoryGirl.create(:admin_user)
+    allow_any_instance_of(described_class).
+      to(receive(:authenticate_user_token!).
+      and_return(admin))
+    { token: admin.auth_token }
+  end
+
+  let(:invalid_session) do
+    user = FactoryGirl.create(:user)
+    allow_any_instance_of(described_class).
+      to(receive(:authenticate_user_token!).
+      and_return(nil))
     { token: user.auth_token }
   end
 
@@ -247,6 +264,26 @@ RSpec.describe Api::V1::JobsController, type: :controller do
         put :update, params, valid_session
         expect(response.status).to eq(422)
       end
+    end
+  end
+
+  describe 'GET #matching_users' do
+    it 'returns 200 status if job owner' do
+      job = FactoryGirl.create(:job)
+      get :show, { job_id: job.to_param }, valid_session
+      expect(response.status).to eq(200)
+    end
+
+    it 'returns 200 status if admin is user' do
+      job = FactoryGirl.create(:job)
+      get :matching_users, { job_id: job.to_param }, valid_admin_session
+      expect(response.status).to eq(200)
+    end
+
+    it 'returns 401 unauthorized status when user not authorized' do
+      job = FactoryGirl.create(:job)
+      get :matching_users, { job_id: job.to_param }, invalid_session
+      expect(response.status).to eq(401)
     end
   end
 end

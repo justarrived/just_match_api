@@ -1,6 +1,8 @@
 module Api
   module V1
     class UserSessionsController < BaseController
+      after_action :verify_authorized, only: []
+
       resource_description do
         short 'API for managing user sessions'
         name 'User sessions'

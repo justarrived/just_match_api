@@ -2,7 +2,10 @@ module Api
   module V1
     module Chats
       class MessagesController < BaseController
+        before_action :require_user
         before_action :set_chat
+
+        after_action :verify_authorized, only: []
 
         resource_description do
           resource_id 'chat_messages'

@@ -6,6 +6,9 @@ cd "$(dirname "$0")/.."
 
 # script/cibuild: Run the test suite from CI.
 
+# Allow called scripts to detect that its being run by CI
+export CI_BUILD=true
+
 echo -e '\n== Running cibuild =='
 export RAILS_ENV=test
 export RAKE_ENV=test

@@ -18,6 +18,8 @@ module Api
         api :GET, '/users/:user_id/languages', 'List user languages'
         description 'Returns a list of user languages.'
         def index
+          authorize(UserLanguage)
+
           page_index = params[:page].to_i
           @languages = @user.languages.all.page(page_index)
 
@@ -28,6 +30,8 @@ module Api
         description 'Return language.'
         example Doxxer.example_for(Language)
         def show
+          authorize(UserLanguage)
+
           render json: @language
         end
 
@@ -41,13 +45,11 @@ module Api
         end
         example Doxxer.example_for(UserLanguage)
         def create
-          unless @user == current_user
-            render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized
-            return
-          end
-
           @user_language = UserLanguage.new
           @user_language.user = @user
+
+          authorize(@user_language)
+
           @user_language.language = Language.find_by(id: user_language_params[:id])
 
           if @user_language.save
@@ -61,10 +63,7 @@ module Api
         description 'Deletes user language.'
         error code: 401, desc: 'Unauthorized'
         def destroy
-          unless @user_language.user == current_user
-            render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized
-            return
-          end
+          authorize(@user_language)
 
           @user_language.destroy
 
@@ -84,6 +83,10 @@ module Api
 
         def user_language_params
           jsonapi_params.permit(:id)
+        end
+
+        def pundit_user
+          UserLanguagePolicy::Context.new(current_user, @user)
         end
       end
     end

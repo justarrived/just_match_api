@@ -15,10 +15,7 @@ module Api
       api :GET, '/users', 'List users'
       description 'Returns a list of users if the user is allowed to.'
       def index
-        unless current_user.admin?
-          render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized
-          return
-        end
+        authorize(User)
 
         page_index = params[:page].to_i
         relations = [:skills, :jobs, :written_comments, :language, :languages]
@@ -31,10 +28,7 @@ module Api
       description 'Returns user is alloed to.'
       example Doxxer.example_for(User)
       def show
-        unless current_user == @user || current_user.admin?
-          render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized
-          return
-        end
+        authorize(@user)
 
         render json: @user, include: include_params
       end
@@ -50,6 +44,8 @@ module Api
         param :description, String, desc: 'Description', required: true
         param :email, String, desc: 'Email', required: true
         param :phone, String, desc: 'Phone', required: true
+        param :street, String, desc: 'Street', required: true
+        param :zip, String, desc: 'Zip code', required: true
         param :language_id, Integer, desc: 'Primary language id for user', required: true
         param :language_ids, Array, of: Integer, desc: 'Language ids of languages that the user knows', required: true
         # rubocop:enable Metrics/LineLength
@@ -57,6 +53,8 @@ module Api
       example Doxxer.example_for(User)
       def create
         @user = User.new(user_params)
+
+        authorize(@user)
 
         if @user.save
           @user.skills = Skill.where(id: user_params[:skill_ids])
@@ -77,14 +75,13 @@ module Api
         param :description, String, desc: 'Description'
         param :email, String, desc: 'Email'
         param :phone, String, desc: 'Phone'
+        param :street, String, desc: 'Street'
+        param :zip, String, desc: 'Zip code'
         param :language_id, Integer, desc: 'Primary language id for user'
       end
       example Doxxer.example_for(User)
       def update
-        unless current_user == @user || current_user.admin?
-          render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized
-          return
-        end
+        authorize(@user)
 
         if @user.update(user_params)
           render json: @user, status: :ok
@@ -97,10 +94,7 @@ module Api
       description 'Deletes user user if the user is allowed to.'
       error code: 401, desc: 'Unauthorized'
       def destroy
-        unless @user == current_user || current_user.admin?
-          render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized
-          return
-        end
+        authorize(@user)
 
         @user.reset!
         head :no_content
@@ -110,10 +104,7 @@ module Api
       description 'Returns the matching jobs for user if the user is allowed to.'
       error code: 401, desc: 'Unauthorized'
       def matching_jobs
-        unless @user == current_user || current_user.admin?
-          render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized
-          return
-        end
+        authorize(@user)
 
         render json: Job.matches_user(@user)
       end
@@ -124,10 +115,7 @@ module Api
       # rubocop:enable Metrics/LineLength
       error code: 401, desc: 'Unauthorized'
       def jobs
-        unless @user == current_user || current_user.admin?
-          render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized
-          return
-        end
+        authorize(@user)
 
         @jobs = Queries::UserJobsFinder.new(current_user).perform
 
@@ -142,8 +130,8 @@ module Api
 
       def user_params
         whitelist = [
-          :name, :email, :phone, :description, :address, :language_id, :password,
-          skill_ids: [], language_ids: []
+          :name, :email, :phone, :description, :street, :zip, :language_id,
+          :password, skill_ids: [], language_ids: []
         ]
         jsonapi_params.permit(*whitelist)
       end

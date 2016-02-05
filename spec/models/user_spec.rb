@@ -9,6 +9,41 @@ RSpec.describe User, type: :model do
       expect(user.auth_token.length).to eq(32)
     end
   end
+
+  describe 'geocodable' do
+    let(:user) { FactoryGirl.create(:user) }
+
+    it 'geocodes by exact address' do
+      expect(user.latitude).to eq(55.6997802)
+      expect(user.longitude).to eq(13.1953695)
+    end
+
+    it 'geocodes by zip' do
+      expect(user.zip_latitude).to eq(55.6987817)
+      expect(user.zip_longitude).to eq(13.1975525)
+    end
+
+    it 'zip lat/long is different from lat/long' do
+      expect(user.zip_latitude).not_to eq(user.latitude)
+      expect(user.zip_longitude).not_to eq(user.longitude)
+    end
+  end
+
+  describe '#reset!' do
+    it 'resets all personal user attributes' do
+      user = FactoryGirl.create(:user)
+      old_email = user.email
+
+      user.reset!
+
+      expect(user.name).to eq('Ghost')
+      expect(user.email).not_to eq(old_email)
+      expect(user.phone).to eq('123456789')
+      expect(user.description).to eq('This user has been deleted.')
+      expect(user.street).to eq('Stockholm')
+      expect(user.zip).to eq('11120')
+    end
+  end
 end
 
 # == Schema Information

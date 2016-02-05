@@ -5,7 +5,7 @@ RSpec.describe 'UserSkills', type: :request do
     it 'works!' do
       user = FactoryGirl.create(:user)
       get api_v1_user_skills_path(user_id: user.to_param)
-      expect(response).to have_http_status(200)
+      expect(response).to have_http_status(401)
     end
   end
 end

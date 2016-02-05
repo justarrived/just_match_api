@@ -19,6 +19,8 @@ module Api
         api :GET, '/jobs/:job_id/skills', 'Show user skills'
         description 'Returns list of job skills.'
         def index
+          authorize(JobSkill)
+
           page_index = params[:page].to_i
           @skills = @job.skills.page(page_index)
           render json: @skills
@@ -28,6 +30,8 @@ module Api
         description 'Returns skill.'
         example Doxxer.example_for(Skill)
         def show
+          authorize(JobSkill)
+
           render json: @skill
         end
 
@@ -41,10 +45,7 @@ module Api
         end
         example Doxxer.example_for(Skill)
         def create
-          unless @job.owner == current_user
-            render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized
-            return
-          end
+          authorize(JobSkill)
 
           @job_skill = JobSkill.new
           @job_skill.skill = Skill.find_by(id: skill_params[:id])
@@ -61,10 +62,7 @@ module Api
         description 'Deletes job skill if the user is allowed to.'
         error code: 401, desc: 'Unauthorized'
         def destroy
-          unless @job.owner == current_user
-            render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized
-            return
-          end
+          authorize(JobSkill)
 
           @job_skill = @job.job_skills.find_by!(skill: @skill)
 
@@ -84,6 +82,10 @@ module Api
 
         def skill_params
           jsonapi_params.permit(:id)
+        end
+
+        def pundit_user
+          JobSkillPolicy::Context.new(current_user, @job)
         end
       end
     end

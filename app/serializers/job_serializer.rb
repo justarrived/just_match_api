@@ -1,7 +1,7 @@
 class JobSerializer < ActiveModel::Serializer
   attributes :id, :max_rate, :description, :job_date, :created_at, :updated_at,
              :performed_accept, :performed, :longitude, :latitude, :name,
-             :address, :hours
+             :hours, :zip, :zip_latitude, :zip_longitude
 
   has_many :users, key: :applicants
   has_many :comments
@@ -25,10 +25,11 @@ end
 #  owner_user_id             :integer
 #  latitude                  :float
 #  longitude                 :float
-#  address                   :string
 #  name                      :string
 #  hours :float
 #  language_id               :integer
+#  street                    :string
+#  zip                       :string
 #
 # Indexes
 #
