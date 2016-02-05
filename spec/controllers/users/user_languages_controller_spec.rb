@@ -22,8 +22,13 @@ RSpec.describe Api::V1::Users::UserLanguagesController, type: :controller do
   describe 'GET #index' do
     it 'assigns all user languages as @languages' do
       user = FactoryGirl.create(:user_with_languages, languages_count: 1)
+
+      allow_any_instance_of(described_class).
+        to(receive(:authenticate_user_token!).
+        and_return(user))
+
       language = user.languages.first
-      get :index, { user_id: user.to_param }, valid_session
+      get :index, { user_id: user.to_param }, {}
       expect(assigns(:languages)).to eq([language])
     end
   end
