@@ -16,14 +16,14 @@ ActiveRecord::Schema.define(version: 20160131150605) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "active_record_internal_metadatas", id: false, force: :cascade do |t|
+  create_table "ar_internal_metadata", id: false, force: :cascade do |t|
     t.string   "key",        limit: 191, null: false
     t.string   "value"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
 
-  add_index "active_record_internal_metadatas", ["key"], name: "unique_active_record_internal_metadatas", unique: true, using: :btree
+  add_index "ar_internal_metadata", ["key"], name: "unique_active_record_internal_metadatas", unique: true, using: :btree
 
   create_table "chat_users", force: :cascade do |t|
     t.integer  "chat_id"
