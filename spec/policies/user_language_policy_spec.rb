@@ -80,7 +80,9 @@ RSpec.describe UserLanguagePolicy do
     context '*not* "self" user' do
       let(:context) { described_class::Context.new(user, nil) }
       let(:policy) { described_class.new(context, user_language) }
-      let(:user_language) { mock_model(UserLanguage, user: other_user, language: language) }
+      let(:user_language) do
+        mock_model(UserLanguage, user: other_user, language: language)
+      end
 
       it 'denies access' do
         expect(policy.create?).to eq(false)
