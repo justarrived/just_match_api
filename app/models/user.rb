@@ -115,6 +115,8 @@ end
 #  admin         :boolean          default(FALSE)
 #  street        :string
 #  zip           :string
+#  zip_latitude  :float
+#  zip_longitude :float
 #
 # Indexes
 #
