@@ -7,6 +7,7 @@ end
 require 'spec_helper'
 require 'rspec/rails'
 require 'shoulda/matchers'
+require 'pundit/rspec'
 
 # Checks for pending migration and applies them before tests are run.
 ActiveRecord::Migration.maintain_test_schema!
@@ -38,7 +39,7 @@ RSpec.configure do |config|
       # Validate that all factories are valid, will slow down the test startup
       # with a second or two, but can be very handy..
       if run_test_suite_with_factory_linting?
-        print 'Checking factories..'
+        print 'Validating factories..'
         FactoryGirl.lint
         print " done \n"
       end

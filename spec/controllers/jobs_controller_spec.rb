@@ -36,6 +36,22 @@ RSpec.describe Api::V1::JobsController, type: :controller do
     { token: user.auth_token }
   end
 
+  let(:valid_admin_session) do
+    admin = FactoryGirl.create(:admin_user)
+    allow_any_instance_of(described_class).
+      to(receive(:authenticate_user_token!).
+      and_return(admin))
+    { token: admin.auth_token }
+  end
+
+  let(:invalid_session) do
+    user = FactoryGirl.create(:user)
+    allow_any_instance_of(described_class).
+      to(receive(:authenticate_user_token!).
+      and_return(nil))
+    { token: user.auth_token }
+  end
+
   describe 'GET #index' do
     it 'assigns all jobs as @jobs' do
       FactoryGirl.create(:job)
@@ -248,6 +264,26 @@ RSpec.describe Api::V1::JobsController, type: :controller do
         put :update, params, valid_session
         expect(response.status).to eq(422)
       end
+    end
+  end
+
+  describe 'GET #matching_users' do
+    it 'returns 200 status if job owner' do
+      job = FactoryGirl.create(:job)
+      get :show, { job_id: job.to_param }, valid_session
+      expect(response.status).to eq(200)
+    end
+
+    it 'returns 200 status if admin is user' do
+      job = FactoryGirl.create(:job)
+      get :matching_users, { job_id: job.to_param }, valid_admin_session
+      expect(response.status).to eq(200)
+    end
+
+    it 'returns 401 unauthorized status when user not authorized' do
+      job = FactoryGirl.create(:job)
+      get :matching_users, { job_id: job.to_param }, invalid_session
+      expect(response.status).to eq(401)
     end
   end
 end

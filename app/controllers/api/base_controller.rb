@@ -1,15 +1,26 @@
 module Api
   class BaseController < ::ApplicationController
+    include Pundit
     # Needed for #authenticate_with_http_token
     include ActionController::HttpAuthentication::Token::ControllerMethods
 
+    after_action :verify_authorized
+
+    rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+
     protected
+
+    def user_not_authorized
+      render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized
+      false
+    end
 
     def require_user
       unless logged_in?
         error_message = I18n.t('not_logged_in_error')
         render json: { error: error_message }, status: :unauthorized
       end
+      false
     end
 
     def current_user

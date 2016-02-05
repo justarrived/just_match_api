@@ -52,6 +52,20 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       get :index, {}, valid_admin_session
       expect(assigns(:users)).to include(user)
     end
+
+    context 'not authorized' do
+      it 'does not assigns all users as @users' do
+        FactoryGirl.create(:user)
+        get :index, {}, {}
+        expect(assigns(:users)).to eq(nil)
+      end
+
+      it 'returns 401 status' do
+        FactoryGirl.create(:user)
+        get :index, {}, {}
+        expect(response.status).to eq(401)
+      end
+    end
   end
 
   describe 'GET #show' do
@@ -59,6 +73,12 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       user = FactoryGirl.create(:user)
       get :show, { user_id: user.to_param }, valid_session
       expect(assigns(:user)).to eq(user)
+    end
+
+    it 'returns 401 status' do
+      user = FactoryGirl.create(:user)
+      get :show, { user_id: user.to_param }, {}
+      expect(response.status).to eq(401)
     end
   end
 
@@ -221,6 +241,14 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       user = FactoryGirl.create(:user)
       get :jobs, { user_id: user.to_param }, valid_session
       expect(response.status).to eq(401)
+    end
+  end
+
+  describe 'GET #matching_jobs' do
+    it 'returns 200 status for admin user' do
+      user = FactoryGirl.create(:user)
+      get :show, { user_id: user.to_param }, valid_admin_session
+      expect(response.status).to eq(200)
     end
   end
 end

@@ -1,27 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::Users::MessagesController, type: :controller do
-  let(:valid_attributes) do
-    lang_id = FactoryGirl.create(:language).id
-    {
-      skill_ids: [FactoryGirl.create(:skill).id],
-      email: 'someone@example.com',
-      name: 'Some user name',
-      phone: '123456789',
-      description: 'Some user description',
-      language_id: lang_id,
-      language_ids: [lang_id],
-      address: 'Stora Nygatan 36, Malmö'
-    }
+  let(:valid_session) do
+    user = FactoryGirl.create(:user)
+    allow_any_instance_of(described_class).
+      to(receive(:authenticate_user_token!).
+      and_return(user))
+    {}
   end
 
-  let(:invalid_attributes) do
-    { name: nil }
-  end
-
-  let(:valid_session) { {} }
-
-  describe 'GET #messages' do
+  describe 'GET #index' do
     context 'with valid params' do
       let(:valid_attributes) do
         user = FactoryGirl.create(:user)
@@ -29,7 +17,7 @@ RSpec.describe Api::V1::Users::MessagesController, type: :controller do
       end
 
       it 'assigns all messages as @messages' do
-        expected_klass = Message::ActiveRecord_Associations_CollectionProxy
+        expected_klass = Message::ActiveRecord_Relation
         get :index, valid_attributes, valid_session
         expect(assigns(:messages).class).to eq(expected_klass)
       end

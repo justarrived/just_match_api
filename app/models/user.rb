@@ -59,10 +59,6 @@ class User < ActiveRecord::Base
       order_by_matching_skills(job, strict_match: strict_match)
   end
 
-  def scoped_chats
-    admin? ? Chat.all : chats
-  end
-
   def admin?
     admin
   end

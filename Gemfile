@@ -27,6 +27,8 @@ gem 'newrelic_rpm', '~> 3.14' # Performance monitoring
 
 gem 'geocoder', '~> 1.2' # Geocode resources
 
+gem 'pundit' # Authorization policies
+
 group :development, :test do
   gem 'byebug', '~> 8.2'
   gem 'rspec-rails', '~> 3.4'
