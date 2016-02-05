@@ -1,11 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe ChatPolicy do
+  let(:chat) { FactoryGirl.create(:chat) }
+
   context 'admin user' do
     subject { ChatPolicy.new(admin, chat) }
 
     let(:admin) { FactoryGirl.build(:admin_user) }
-    let(:chat) { FactoryGirl.create(:chat) }
 
     it 'returns true for index' do
       expect(subject.index?).to eq(true)
@@ -20,7 +21,6 @@ RSpec.describe ChatPolicy do
     subject { ChatPolicy.new(user, chat) }
 
     let(:user) { FactoryGirl.build(:user) }
-    let(:chat) { FactoryGirl.create(:chat) }
 
     it 'returns true for index' do
       expect(subject.index?).to eq(false)
@@ -36,14 +36,14 @@ RSpec.describe ChatPolicy do
 
     let(:user) { FactoryGirl.build(:user) }
     let(:a_user) { FactoryGirl.build(:user) }
-    let(:chat) { FactoryGirl.create(:chat, users: [user, a_user]) }
+    let(:chat_with_users) { FactoryGirl.create(:chat, users: [user, a_user]) }
 
     it 'returns true for index' do
       expect(subject.index?).to eq(false)
     end
 
     it 'does return associated chats in scope' do
-      expect(subject.scope).to eq([chat])
+      expect(subject.scope).to eq([chat_with_users])
     end
   end
 end

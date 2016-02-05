@@ -21,10 +21,7 @@ module Api
         description 'Returns list of job users if the user is allowed to.'
         error code: 401, desc: 'Unauthorized'
         def index
-          unless @job.owner == current_user
-            render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized
-            return
-          end
+          authorize(JobUser)
 
           page_index = params[:page].to_i
           @users = @job.users.page(page_index)
@@ -36,10 +33,7 @@ module Api
         error code: 401, desc: 'Unauthorized'
         example Doxxer.example_for(User)
         def show
-          unless @job.owner == current_user || @user == current_user
-            render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized
-            return
-          end
+          authorize(JobUser)
 
           render json: @user
         end
@@ -50,6 +44,8 @@ module Api
         error code: 400, desc: 'Bad request'
         error code: 422, desc: 'Unprocessable entity'
         def create
+          authorize(JobUser)
+
           @job_user = JobUser.new
           @job_user.user = current_user
           @job_user.job = @job
@@ -68,10 +64,7 @@ module Api
         error code: 401, desc: 'Unauthorized'
         error code: 422, desc: 'Unprocessable entity'
         def update
-          unless @job.owner == current_user
-            render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized
-            return
-          end
+          authorize(JobUser)
 
           if jsonapi_params[:accepted]
             @job.accept_applicant!(@user)
@@ -86,10 +79,7 @@ module Api
         description 'Deletes job user if the user is allowed to.'
         error code: 401, desc: 'Unauthorized'
         def destroy
-          unless @user == current_user
-            render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized
-            return
-          end
+          authorize(JobUser)
 
           @job_user = @job.job_users.find_by!(user: @user)
 
@@ -105,6 +95,10 @@ module Api
 
         def set_user
           @user = @job.users.find(params[:id])
+        end
+
+        def pundit_user
+          JobUserPolicy::Context.new(current_user, @job, @user)
         end
       end
     end

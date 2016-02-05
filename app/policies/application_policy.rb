@@ -42,4 +42,14 @@ class ApplicationPolicy
       scope
     end
   end
+
+  protected
+
+  def admin?
+    user? && user.admin?
+  end
+
+  def user?
+    !user.nil?
+  end
 end

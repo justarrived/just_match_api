@@ -86,7 +86,7 @@ module Api
         end
 
         def pundit_user
-          UserSkillPolicy::UserContext.new(current_user, @user)
+          UserSkillPolicy::Context.new(current_user, @user)
         end
       end
     end
