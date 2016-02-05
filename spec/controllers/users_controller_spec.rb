@@ -100,6 +100,12 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         post :create, valid_attributes, {}
         expect(response.status).to eq(201)
       end
+
+      it 'sends welcome notification' do
+        allow(UserWelcomeNotifier).to receive(:call)
+        post :create, valid_attributes, {}
+        expect(UserWelcomeNotifier).to have_received(:call)
+      end
     end
 
     context 'with invalid params' do

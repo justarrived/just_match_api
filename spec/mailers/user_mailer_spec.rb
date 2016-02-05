@@ -5,6 +5,26 @@ RSpec.describe UserMailer, type: :mailer do
   let(:owner) { mock_model User, name: 'Owner', email: 'owner@example.com' }
   let(:job) { mock_model Job, name: 'Job name' }
 
+  describe '#welcome_email' do
+    let(:mail) { UserMailer.welcome_email(user: user) }
+
+    it 'renders the subject' do
+      expect(mail.subject).to eql('Welcome to Just Arrived!')
+    end
+
+    it 'renders the receiver email' do
+      expect(mail.to).to eql([user.email])
+    end
+
+    it 'renders the sender email' do
+      expect(mail.from).to eql(['from@example.com'])
+    end
+
+    it 'assigns @user_name' do
+      expect(mail.body.encoded).to match(user.name)
+    end
+  end
+
   describe '#job_match_email' do
     let(:mail) do
       UserMailer.job_match_email(job: job, user: user, owner: owner)

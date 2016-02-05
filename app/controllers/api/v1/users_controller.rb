@@ -59,6 +59,9 @@ module Api
         if @user.save
           @user.skills = Skill.where(id: user_params[:skill_ids])
           @user.languages = Language.where(id: user_params[:language_ids])
+
+          UserWelcomeNotifier.call(user: @user)
+
           render json: @user, status: :created
         else
           render json: @user.errors, status: :unprocessable_entity
