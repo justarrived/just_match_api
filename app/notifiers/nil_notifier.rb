@@ -1,4 +1,4 @@
 class NilNotifier
-  def self.call(**args)
+  def self.call(**_args)
   end
 end

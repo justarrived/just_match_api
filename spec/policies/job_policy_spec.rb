@@ -4,7 +4,7 @@ RSpec.describe JobPolicy do
   let(:owner_params) do
     [
       :max_rate, :performed_accept, :description, :job_date, :street, :zip, :name,
-      :hours, :language_id, {skill_ids: []}
+      :hours, :language_id, { skill_ids: [] }
     ]
   end
   let(:accepted_applicant_params) { [:performed] }

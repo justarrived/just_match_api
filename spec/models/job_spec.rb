@@ -38,13 +38,11 @@ RSpec.describe Job, type: :model do
     end
 
     it 'returns false if owner is nil and user is not nil' do
-      nil_job = Job.new
       a_user = FactoryGirl.build(:user)
       expect(job.owner?(a_user)).to eq(false)
     end
 
     it 'returns false if owner is nil and user is nil' do
-      nil_job = Job.new
       expect(job.owner?(nil)).to eq(false)
     end
   end
