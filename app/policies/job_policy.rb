@@ -12,12 +12,6 @@ class JobPolicy < ApplicationPolicy
   alias_method :update?, :create?
 
   def matching_users?
-    user? && user.admin? || user == record.owner
-  end
-
-  private
-
-  def user?
-    !user.nil?
+    admin? || user == record.owner
   end
 end

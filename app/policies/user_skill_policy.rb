@@ -24,14 +24,6 @@ class UserSkillPolicy < ApplicationPolicy
 
   private
 
-  def admin?
-    user? && user.admin?
-  end
-
-  def user?
-    !user.nil?
-  end
-
   def admin_or_self?
     admin? || user == record.user
   end
