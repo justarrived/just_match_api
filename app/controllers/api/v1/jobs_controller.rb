@@ -50,7 +50,7 @@ module Api
       def create
         authorize(Job)
 
-        @job = Job.new(job_owner_params)
+        @job = Job.new(permitted_attributes)
         @job.owner_user_id = current_user.id
 
         if @job.save
@@ -87,23 +87,17 @@ module Api
       def update
         authorize(@job)
 
-        notify_klass = nil
-        should_notify = false
-        if @job.owner == current_user
-          @job.assign_attributes(job_owner_params)
+        @job.assign_attributes(permitted_attributes)
+
+        notify_klass = NilNotifier
+        if job_policy.owner? && @job.send_performed_accept_notice?
           notify_klass = JobPerformedAcceptNotifier
-          should_notify = @job.send_performed_accept_notice?
-        elsif @job.accepted_applicant?(current_user)
-          @job.assign_attributes(job_user_params)
+        elsif job_policy.accepted_applicant? && @job.send_performed_notice?
           notify_klass = JobPerformedNotifier
-          should_notify = @job.send_performed_notice?
-        else
-          render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized
-          return
         end
 
         if @job.save
-          notify_klass.call(job: @job) if should_notify
+          notify_klass.call(job: @job)
           render json: @job, status: :ok
         else
           render json: @job.errors, status: :unprocessable_entity
@@ -125,16 +119,12 @@ module Api
         @job = Job.find(params[:job_id])
       end
 
-      def job_owner_params
-        owner_params = [
-          :max_rate, :performed_accept, :description, :job_date, :street, :zip,
-          :name, :hours, :language_id, skill_ids: []
-        ]
-        jsonapi_params.permit(*owner_params)
+      def job_policy
+        policy(@job || Job.new)
       end
 
-      def job_user_params
-        jsonapi_params.permit(:performed)
+      def permitted_attributes
+        jsonapi_params.permit(job_policy.permitted_attributes)
       end
     end
   end
