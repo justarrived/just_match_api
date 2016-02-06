@@ -35,6 +35,14 @@ module Api
       @_deserialized_params ||= JsonApiDeserializer.parse(params)
     end
 
+    def include_params
+      @_include_params ||= IncludeParams.new(params[:include])
+    end
+
+    def fields_params
+      @_fields_params ||= FieldsParams.new(params[:fields])
+    end
+
     private
 
     def authenticate_user_token!

@@ -30,7 +30,7 @@ module Api
       def show
         authorize(@user)
 
-        render json: @user, include: include_params
+        render json: @user, include: allowed_includes
       end
 
       api :POST, '/users/', 'Create new user'
@@ -139,9 +139,9 @@ module Api
         jsonapi_params.permit(*whitelist)
       end
 
-      def include_params
+      def allowed_includes
         whitelist = %w(languages skills jobs)
-        IncludeParams.new(params[:include]).permit(whitelist)
+        include_params.permit(whitelist)
       end
     end
   end
