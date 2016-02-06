@@ -24,6 +24,29 @@ RSpec.describe Job, type: :model do
     end
   end
 
+  describe '#owner?' do
+    let(:user) { FactoryGirl.build(:user) }
+    let(:job) { FactoryGirl.build(:job, owner: user) }
+
+    it 'returns true if user is owner' do
+      expect(job.owner?(user)).to eq(true)
+    end
+
+    it 'returns true if user is owner' do
+      a_user = FactoryGirl.build(:user)
+      expect(job.owner?(a_user)).to eq(false)
+    end
+
+    it 'returns false if owner is nil and user is not nil' do
+      a_user = FactoryGirl.build(:user)
+      expect(job.owner?(a_user)).to eq(false)
+    end
+
+    it 'returns false if owner is nil and user is nil' do
+      expect(job.owner?(nil)).to eq(false)
+    end
+  end
+
   describe '#send_performed_accept_notice?' do
     it 'returns true if notice should be sent' do
       job = described_class.new
@@ -90,6 +113,17 @@ RSpec.describe Job, type: :model do
       job.accept_applicant!(applicant)
 
       expect(job.accepted_applicant?(applicant)).to eq(true)
+    end
+
+    it 'returns false if owner is nil and user is not' do
+      nil_job = Job.new
+      a_user = FactoryGirl.build(:user)
+      expect(nil_job.accepted_applicant?(a_user)).to eq(false)
+    end
+
+    it 'returns false if owner is nil and user is nil' do
+      nil_job = Job.new
+      expect(nil_job.accepted_applicant?(nil)).to eq(false)
     end
   end
 end

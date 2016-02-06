@@ -18,19 +18,7 @@ class UserPolicy < ApplicationPolicy
 
   private
 
-  def no_user?
-    !user?
-  end
-
-  def user?
-    !user.nil?
-  end
-
   def admin_or_self?
     admin? || user == record
-  end
-
-  def admin?
-    user? && user.admin?
   end
 end

@@ -11,10 +11,4 @@ class LanguagePolicy < ApplicationPolicy
 
   alias_method :update?, :create?
   alias_method :destroy?, :create?
-
-  private
-
-  def admin?
-    !user.nil? && user.admin?
-  end
 end

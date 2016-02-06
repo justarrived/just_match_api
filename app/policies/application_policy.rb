@@ -52,4 +52,8 @@ class ApplicationPolicy
   def user?
     !user.nil?
   end
+
+  def no_user?
+    !user?
+  end
 end
