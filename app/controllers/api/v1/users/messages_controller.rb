@@ -2,7 +2,10 @@ module Api
   module V1
     module Users
       class MessagesController < BaseController
+        before_action :require_user
         before_action :set_user
+
+        after_action :verify_authorized, only: []
 
         resource_description do
           resource_id 'user_messages'
@@ -19,7 +22,9 @@ module Api
         description 'Returns the message between user and logged in user.'
         def index
           users = User.where(id: chat_user_ids)
-          @messages = Chat.find_or_create_private_chat(users).messages
+
+          chat = Chat.find_private_chat(users)
+          @messages = chat.nil? ? Message.none : chat.messages
 
           render json: @messages, include: %w(author language chat)
         end
@@ -60,7 +65,7 @@ module Api
         end
 
         def message_params
-          params.require(:message).permit(:body, :language_id)
+          jsonapi_params.permit(:body, :language_id)
         end
       end
     end

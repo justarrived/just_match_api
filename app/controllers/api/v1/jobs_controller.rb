@@ -14,6 +14,8 @@ module Api
       api :GET, '/jobs', 'List jobs'
       description 'Returns a list of jobs.'
       def index
+        authorize(Job)
+
         page_index = params[:page].to_i
         @jobs = Job.all.page(page_index)
         render json: @jobs
@@ -23,6 +25,8 @@ module Api
       description 'Return job.'
       example Doxxer.example_for(Job)
       def show
+        authorize(@job)
+
         render json: @job, include: %w(language owner)
       end
 
@@ -44,11 +48,13 @@ module Api
       end
       example Doxxer.example_for(Job)
       def create
-        @job = Job.new(job_owner_params)
+        authorize(Job)
+
+        @job = Job.new(permitted_attributes)
         @job.owner_user_id = current_user.id
 
         if @job.save
-          @job.skills = Skill.where(id: params[:job][:skill_ids])
+          @job.skills = Skill.where(id: jsonapi_params[:skill_ids])
 
           owner = @job.owner
           User.matches_job(@job, strict_match: true).each do |user|
@@ -79,23 +85,19 @@ module Api
       end
       example Doxxer.example_for(Job)
       def update
-        notify_klass = nil
-        should_notify = false
-        if @job.owner == current_user
-          @job.assign_attributes(job_owner_params)
+        authorize(@job)
+
+        @job.assign_attributes(permitted_attributes)
+
+        notify_klass = NilNotifier
+        if job_policy.owner? && @job.send_performed_accept_notice?
           notify_klass = JobPerformedAcceptNotifier
-          should_notify = @job.send_performed_accept_notice?
-        elsif @job.job_users.find_by(user: current_user, accepted: true)
-          @job.assign_attributes(job_user_params)
+        elsif job_policy.accepted_applicant? && @job.send_performed_notice?
           notify_klass = JobPerformedNotifier
-          should_notify = @job.send_performed_notice?
-        else
-          render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized
-          return
         end
 
         if @job.save
-          notify_klass.call(job: @job) if should_notify
+          notify_klass.call(job: @job)
           render json: @job, status: :ok
         else
           render json: @job.errors, status: :unprocessable_entity
@@ -106,10 +108,7 @@ module Api
       description 'Returns matching users for job if user is allowed to.'
       error code: 401, desc: 'Unauthorized'
       def matching_users
-        unless @job.owner == current_user
-          render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized
-          return
-        end
+        authorize(@job)
 
         render json: User.matches_job(@job)
       end
@@ -120,16 +119,12 @@ module Api
         @job = Job.find(params[:job_id])
       end
 
-      def job_owner_params
-        owner_params = [
-          :max_rate, :performed_accept, :description, :job_date, :address, :name,
-          :hours, :language_id
-        ]
-        params.require(:job).permit(*owner_params)
+      def job_policy
+        policy(@job || Job.new)
       end
 
-      def job_user_params
-        params.require(:job).permit(:performed)
+      def permitted_attributes
+        jsonapi_params.permit(job_policy.permitted_attributes)
       end
     end
   end

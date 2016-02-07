@@ -14,6 +14,8 @@ module Api
       api :GET, '/languages', 'List languages'
       description 'Returns a list of languages.'
       def index
+        authorize(Language)
+
         page_index = params[:page].to_i
         @languages = Language.all.page(page_index)
 
@@ -24,6 +26,8 @@ module Api
       description 'Return language.'
       example Doxxer.example_for(Language)
       def show
+        authorize(@language)
+
         render json: @language
       end
 
@@ -37,10 +41,7 @@ module Api
       end
       example Doxxer.example_for(Language)
       def create
-        unless current_user.admin?
-          render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized
-          return
-        end
+        authorize(Language)
 
         @language = Language.new(language_params)
 
@@ -61,10 +62,7 @@ module Api
       end
       example Doxxer.example_for(Language)
       def update
-        unless current_user.admin?
-          render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized
-          return
-        end
+        authorize(@language)
 
         @language = Language.find(params[:id])
         if @language.update(language_params)
@@ -78,12 +76,9 @@ module Api
       description 'Deletes language.'
       error code: 401, desc: 'Unauthorized'
       def destroy
-        if current_user.admin?
-          @language.destroy
-        else
-          render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized
-          return
-        end
+        authorize(@language)
+
+        @language.destroy
 
         head :no_content
       end
@@ -95,7 +90,7 @@ module Api
       end
 
       def language_params
-        params.require(:language).permit(:lang_code)
+        jsonapi_params.permit(:lang_code)
       end
     end
   end

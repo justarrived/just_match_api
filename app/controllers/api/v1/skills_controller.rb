@@ -14,6 +14,7 @@ module Api
       api :GET, '/skills', 'List skills'
       description 'Returns a list of skills.'
       def index
+        authorize(Skill)
         page_index = params[:page].to_i
         @skills = Skill.all.page(page_index)
         render json: @skills
@@ -23,6 +24,7 @@ module Api
       description 'Returns skill.'
       example Doxxer.example_for(Skill)
       def show
+        authorize(@skill)
         render json: @skill, include: ['language']
       end
 
@@ -39,10 +41,7 @@ module Api
       end
       example Doxxer.example_for(Skill)
       def create
-        unless current_user.admin?
-          render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized
-          return
-        end
+        authorize(Skill)
 
         @skill = Skill.new(skill_params)
 
@@ -64,10 +63,7 @@ module Api
       end
       example Doxxer.example_for(Skill)
       def update
-        unless current_user.admin?
-          render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized
-          return
-        end
+        authorize(@skill)
 
         if @skill.update(skill_params)
           render json: @skill, status: :ok
@@ -80,10 +76,7 @@ module Api
       description 'Deletes skill.'
       error code: 401, desc: 'Unauthorized'
       def destroy
-        unless current_user.admin?
-          render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized
-          return
-        end
+        authorize(@skill)
 
         @skill.destroy
         head :no_content
@@ -96,7 +89,7 @@ module Api
       end
 
       def skill_params
-        params.require(:skill).permit(:name, :language_id)
+        jsonapi_params.permit(:name, :language_id)
       end
     end
   end

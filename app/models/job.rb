@@ -2,6 +2,11 @@ class Job < ActiveRecord::Base
   include Geocodable
   include SkillMatchable
 
+  LOCATE_BY = {
+    address: { lat: :latitude, long: :longitude },
+    zip: { lat: :zip_latitude, long: :zip_longitude }
+  }.freeze
+
   belongs_to :language
 
   has_many :job_skills
@@ -16,7 +21,8 @@ class Job < ActiveRecord::Base
   validates :name, length: { minimum: 2 }, allow_blank: false
   validates :max_rate, numericality: { only_integer: true }, allow_blank: false
   validates :description, length: { minimum: 10 }, allow_blank: false
-  validates :address, length: { minimum: 2 }, allow_blank: false
+  validates :street, length: { minimum: 5 }, allow_blank: false
+  validates :zip, length: { minimum: 5 }, allow_blank: false
   validates :job_date, presence: true
   validates :owner, presence: true
   validates :hours, numericality: { greater_than_or_equal_to: 1 }, allow_blank: false
@@ -31,6 +37,10 @@ class Job < ActiveRecord::Base
       order_by_matching_skills(user, strict_match: strict_match)
   end
 
+  def owner?(user)
+    !owner.nil? && owner == user
+  end
+
   # NOTE: You need to call this __before__ the record is saved/updated
   #       otherwise it will always return false
   def send_performed_accept_notice?
@@ -41,6 +51,10 @@ class Job < ActiveRecord::Base
   #       otherwise it will always return false
   def send_performed_notice?
     performed_changed? && performed
+  end
+
+  def accepted_applicant?(user)
+    !accepted_applicant.nil? && accepted_applicant == user
   end
 
   def accepted_applicant
@@ -77,9 +91,12 @@ end
 #  owner_user_id    :integer
 #  latitude         :float
 #  longitude        :float
-#  address          :string
 #  name             :string
 #  language_id      :integer
+#  street           :string
+#  zip              :string
+#  zip_latitude     :float
+#  zip_longitude    :float
 #
 # Indexes
 #

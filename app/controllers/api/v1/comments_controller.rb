@@ -64,7 +64,7 @@ module Api
       end
       example Doxxer.example_for(Comment)
       def update
-        @comment = current_user.written_comments.find(params[:id])
+        @comment = user_comment_scope.find(params[:id])
         @comment.body = comment_params[:body]
 
         if @comment.save
@@ -77,7 +77,7 @@ module Api
       api :DELETE, '/:resource_name/:resource_id/comments/:id', 'Delete comment'
       description 'Deletes comment if allowed.'
       def destroy
-        @comment = current_user.written_comments.find(params[:id])
+        @comment = user_comment_scope.find(params[:id])
         @comment.destroy
 
         head :no_content
@@ -85,8 +85,16 @@ module Api
 
       private
 
+      def user_comment_scope
+        if current_user.admin?
+          Comment.all
+        else
+          current_user.written_comments
+        end
+      end
+
       def comment_params
-        params.require(:comment).permit(:body, :language_id)
+        jsonapi_params.permit(:body, :language_id)
       end
     end
   end

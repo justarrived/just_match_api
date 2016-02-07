@@ -7,6 +7,8 @@ cd "$(dirname "$0")/.."
 # script/bootstrap: Resolve all dependencies that the application requires to
 #                   run.
 
+CI_BUILD=${CI_BUILD-false}
+
 echo -e '\n== Bootstrapping dependencies =='
 
 [[ $(ruby -v) == 'ruby 2.3'* ]] || {
@@ -20,8 +22,17 @@ which bundle 2>&1 >/dev/null || {
 }
 
 which rubocop 2>&1 >/dev/null || {
-  echo -e '\n== Installing rubocop =='
-  gem install rubocop
+  if [[ $CI_BUILD != true ]]; then
+    echo -e '\n== Installing rubocop =='
+    gem install rubocop
+  fi
+}
+
+which foreman 2>&1 >/dev/null || {
+  if [[ $CI_BUILD != true ]]; then
+    echo -e '\n== Installing foreman =='
+    gem install foreman
+  fi
 }
 
 echo -e '\n== Installing gem dependencies =='

@@ -4,7 +4,7 @@ class Chat < ActiveRecord::Base
   has_many :messages
 
   MIN_USERS = 2
-  MAX_USERS = 10
+  MAX_USERS = 2
   NUMBER_OF_USERS_ERR_MSG = I18n.t(
     'errors.chat.number_of_users',
     min: MIN_USERS,

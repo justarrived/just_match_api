@@ -2,7 +2,10 @@ module Api
   module V1
     module Chats
       class MessagesController < BaseController
+        before_action :require_user
         before_action :set_chat
+
+        after_action :verify_authorized, only: []
 
         resource_description do
           resource_id 'chat_messages'
@@ -51,7 +54,7 @@ module Api
         end
 
         def message_params
-          params.require(:message).permit(:body, :language_id)
+          jsonapi_params.permit(:body, :language_id)
         end
       end
     end
