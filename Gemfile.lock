@@ -269,7 +269,7 @@ DEPENDENCIES
   newrelic_rpm (~> 3.14)
   pg (~> 0.15)
   puma (~> 2.16)
-  pundit
+  pundit (~> 1.1)
   rack-timeout (~> 0.3)
   rails (= 4.2.5.1)
   rails-api (~> 0.4)
