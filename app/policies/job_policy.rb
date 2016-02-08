@@ -29,6 +29,19 @@ class JobPolicy < ApplicationPolicy
     end
   end
 
+  def present_applicants?
+    admin? || owner?
+  end
+
+  def present_attributes
+    attributes = record.attribute_names.map(&:to_sym)
+    if admin? || owner? || accepted_applicant?
+      attributes
+    else
+      attributes - [:latitude, :longitude, :performed, :performed_accept]
+    end
+  end
+
   # Methods that don't match any controller action
 
   def owner?

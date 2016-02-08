@@ -25,6 +25,7 @@ module Api
       example Doxxer.example_for(Skill)
       def show
         authorize(@skill)
+
         render json: @skill, include: ['language']
       end
 
