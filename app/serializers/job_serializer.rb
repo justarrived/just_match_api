@@ -33,12 +33,10 @@ class JobSerializer < ActiveModel::Serializer
   def applicant_records
     if policy.present_applicants?
       object.users
+    elsif present_self_applicant?
+      [current_user]
     else
-      if object.accepted_applicant?(current_user)
-        [current_user]
-      else
-        User.none
-      end
+      User.none
     end
   end
 

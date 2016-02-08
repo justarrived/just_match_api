@@ -33,6 +33,10 @@ class JobPolicy < ApplicationPolicy
     admin? || owner?
   end
 
+  def present_self_applicant?
+    accepted_applicant?
+  end
+
   def present_attributes
     attributes = record.attribute_names.map(&:to_sym)
     if admin? || owner? || accepted_applicant?
