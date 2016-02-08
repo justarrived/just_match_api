@@ -40,6 +40,14 @@ RSpec.describe JobPolicy do
       policy = JobPolicy.new(nil, persisted_job)
       expect(policy.permitted_attributes).to eq([])
     end
+
+    it 'returns false for #present_applicants?' do
+      expect(subject.present_applicants?).to eq(false)
+    end
+
+    it 'returns false for #present_self_applicant?' do
+      expect(subject.present_self_applicant?).to eq(false)
+    end
   end
 
   context 'with user' do
@@ -69,6 +77,14 @@ RSpec.describe JobPolicy do
       policy = JobPolicy.new(user, persisted_job)
       expect(policy.permitted_attributes).to eq([])
     end
+
+    it 'returns false for #present_applicants?' do
+      expect(subject.present_applicants?).to eq(false)
+    end
+
+    it 'returns false for #present_self_applicant?' do
+      expect(subject.present_self_applicant?).to eq(false)
+    end
   end
 
   context 'with accepted applicant user' do
@@ -88,6 +104,18 @@ RSpec.describe JobPolicy do
       job.accept_applicant!(user)
       expect(subject.permitted_attributes).to eq(accepted_applicant_params)
     end
+
+    it 'returns false for #present_applicants?' do
+      job.users = [user]
+      job.accept_applicant!(user)
+      expect(subject.present_applicants?).to eq(false)
+    end
+
+    it 'returns true for #present_self_applicant?' do
+      job.users = [user]
+      job.accept_applicant!(user)
+      expect(subject.present_self_applicant?).to eq(true)
+    end
   end
 
   context 'with owner user' do
@@ -105,6 +133,14 @@ RSpec.describe JobPolicy do
       policy = JobPolicy.new(nil, persisted_job)
       expect(policy.permitted_attributes).to eq([])
     end
+
+    it 'returns true for #present_applicants?' do
+      expect(subject.present_applicants?).to eq(true)
+    end
+
+    it 'returns false for #present_self_applicant?' do
+      expect(subject.present_self_applicant?).to eq(false)
+    end
   end
 
   context 'with admin user' do
@@ -119,6 +155,14 @@ RSpec.describe JobPolicy do
 
     it '#permitted_attributes is correct for non-persisted job' do
       expect(subject.permitted_attributes).to eq(admin_params)
+    end
+
+    it 'returns true for #present_applicants?' do
+      expect(subject.present_applicants?).to eq(true)
+    end
+
+    it 'returns false for #present_self_applicant?' do
+      expect(subject.present_self_applicant?).to eq(false)
     end
   end
 end
