@@ -13,7 +13,7 @@ group :production do
   gem 'rails_12factor', '~> 0.0.3' # Heroku integration
 end
 
-gem 'apipie-rails', '~> 0.3' # Easy API documentation
+gem 'apipie-rails', github: 'apipie/apipie-rails' # Easy API documentation
 gem 'maruku', '~> 0.7' # Needed for apipie-rails markdown support
 
 gem 'kaminari', '~> 0.16' # Easy pagination
