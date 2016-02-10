@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class ChatUser < ActiveRecord::Base
   belongs_to :chat
   belongs_to :user

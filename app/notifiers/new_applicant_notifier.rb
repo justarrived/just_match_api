@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class NewApplicantNotifier
   def self.call(job_user:)
     job = job_user.job

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class JobPolicy < ApplicationPolicy
   PRIVILEGE_ATTRIBUTES = [:latitude, :longitude, :performed, :performed_accept].freeze
 

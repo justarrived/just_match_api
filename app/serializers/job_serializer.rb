@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class JobSerializer < ActiveModel::Serializer
   attributes :id, :description, :job_date, :created_at, :updated_at,
              :performed_accept, :performed, :longitude, :latitude, :name,

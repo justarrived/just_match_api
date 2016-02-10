@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 if ENV.fetch('CODECLIMATE_REPO_TOKEN', false)
   require 'codeclimate-test-reporter'
   CodeClimate::TestReporter.start

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class UserLanguagePolicy < ApplicationPolicy
   # User is the current user and user_context is the current user resource
   Context = Struct.new(:user, :user_context)

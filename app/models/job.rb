@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Job < ActiveRecord::Base
   include Geocodable
   include SkillMatchable

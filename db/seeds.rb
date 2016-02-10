@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # Development seed
 
 max_langs           = ENV.fetch('MAX_LANGS', 5).to_i
