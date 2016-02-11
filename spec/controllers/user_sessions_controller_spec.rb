@@ -55,6 +55,14 @@ RSpec.describe Api::V1::UserSessionsController, type: :controller do
         delete :destroy, { id: token }, {}
         expect(response.status).to eq(204)
       end
+
+      it 'should re-generate user auth token' do
+        user = FactoryGirl.create(:user, email: 'someone@example.com')
+        token = user.auth_token
+        delete :destroy, { id: token }, {}
+        user.reload
+        expect(user.auth_token).not_to eq(token)
+      end
     end
 
     context 'invalid user' do
