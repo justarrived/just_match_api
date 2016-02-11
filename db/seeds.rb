@@ -43,7 +43,7 @@ log '[db:seed] Admin'
 admin_address = addresses.sample
 User.create!(
   name: Faker::Name.name,
-  email: Faker::Internet.email,
+  email: 'admin@example.com',
   phone: Faker::PhoneNumber.cell_phone,
   description: Faker::Hipster.paragraph(2),
   street: admin_address[:street],
