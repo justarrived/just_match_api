@@ -1,34 +1,59 @@
 # frozen_string_literal: true
 # Development seed
 
-max_langs           = ENV.fetch('MAX_LANGS', 5).to_i
-max_addresses       = ENV.fetch('MAX_ADDRESSES', 5).to_i
-max_skills          = ENV.fetch('MAX_SKILLS', 10).to_i
-max_users           = ENV.fetch('MAX_USERS', 10).to_i
-max_jobs            = ENV.fetch('MAX_JOBS', 10).to_i
-max_job_users       = ENV.fetch('MAX_JOB_USERS', 10).to_i
-max_chats           = ENV.fetch('MAX_CHATS', 10).to_i
+def max_count_opt(env_name, default)
+  ENV.fetch(env_name, default).to_i
+end
 
-# Seed languages
+def log(string)
+  puts string
+  Rails.logger.info string
+end
+
+# Allow caller to define how many resources are created
+max_langs           = max_count_opt('MAX_LANGS', 5)
+max_skills          = max_count_opt('MAX_SKILLS', 10)
+max_users           = max_count_opt('MAX_USERS', 10)
+max_jobs            = max_count_opt('MAX_JOBS', 10)
+max_job_users       = max_count_opt('MAX_JOB_USERS', 10)
+max_chats           = max_count_opt('MAX_CHATS', 10)
+max_job_comments    = max_count_opt('MAX_JOB_COMMENTS', 10)
+max_chat_messages   = max_count_opt('MAX_CHAT_MESSAGES', 10)
+
+log '[db:seed] Language'
+lang_codes = %w(en sv de dk no fi pl es fr hu)
 max_langs.times do
-  Language.create!(lang_code: Faker::Company.bs[0..1])
+  Language.create!(lang_code: lang_codes.sample)
 end
 
 languages = Language.all
 
-# Seed skills
+log '[db:seed] Skill'
 max_skills.times do
   Skill.create!(name: Faker::Name.title, language: languages.sample)
 end
 
-# Seed addresses
-addresses = []
-max_addresses.times do |i|
-  addresses << { street: "Stora Nygatan 36 #{i}", zip: '21137' }
-  addresses << { street: "Wollmar Yxkullsgatan #{i}", zip: '11850' }
-end
+log '[db:seed] Address'
+addresses = [
+  { street: "Stora Nygatan #{Random.rand(1..40)}", zip: '21137' },
+  { street: "Wollmar Yxkullsgatan #{Random.rand(1..40)}", zip: '11850' }
+]
 
-# Seed users
+log '[db:seed] Admin'
+admin_address = addresses.sample
+User.create!(
+  name: Faker::Name.name,
+  email: Faker::Internet.email,
+  phone: Faker::PhoneNumber.cell_phone,
+  description: Faker::Hipster.paragraph(2),
+  street: admin_address[:street],
+  zip: admin_address[:zip],
+  language: languages.sample,
+  password: (1..8).to_a.join,
+  admin: true
+)
+
+log '[db:seed] User'
 skills = Skill.all
 max_users.times do
   address = addresses.sample
@@ -44,15 +69,9 @@ max_users.times do
   )
   user.skills << skills.sample
   user.languages << languages.sample
-  Comment.create!(
-    body: Faker::Company.bs,
-    owner_user_id: user.id,
-    commentable: User.all.sample,
-    language: languages.sample
-  )
 end
 
-# Seed jobs
+log '[db:seed] Job'
 days_from_now_range = (1..10).to_a
 rates = (100..1000).to_a
 users = User.all
@@ -72,17 +91,19 @@ max_jobs.times do
     language: languages.sample
   )
   job.skills << skills.sample
-  Comment.create!(
-    body: Faker::Company.bs,
-    owner_user_id: users.sample.id,
-    commentable: users.sample,
-    language: languages.sample
-  )
+  Random.rand(1..max_job_comments).times do
+    Comment.create!(
+      body: Faker::Company.bs,
+      owner_user_id: users.sample.id,
+      commentable: users.sample,
+      language: languages.sample
+    )
+  end
 end
 
-# Seed job users
+log '[db:seed] Job user'
 jobs = Job.all
-max_job_users.times do
+max_job_users.times do |current_iteration|
   job = jobs.sample
   owner = job.owner
 
@@ -100,14 +121,20 @@ max_job_users.times do
     job: job,
     rate: rates.sample
   )
+  # Accept one user as accepted applicant
+  if current_iteration == max_job_users - 1
+    job.accept_applicant!(user)
+  end
 end
 
-# Seed chat
+log '[db:seed] Chat'
 max_chats.times do
   user = users.sample
   other_user = (users - [user]).sample
   user_ids = User.where(id: [user.id, other_user.id])
   chat = Chat.find_or_create_private_chat(user_ids)
-  Message.create!(body: Faker::Hipster.paragraph(2), chat: chat, author: user)
-  Message.create!(body: Faker::Hipster.paragraph(2), chat: chat, author: other_user)
+  Random.rand(1..max_chat_messages).times do
+    author = [user, other_user].sample
+    Message.create!(body: Faker::Hipster.paragraph(2), chat: chat, author: author)
+  end
 end
