@@ -4,6 +4,11 @@ def max_count_opt(env_name, default)
   ENV.fetch(env_name, default).to_i
 end
 
+def log(string)
+  puts string
+  Rails.logger.info string
+end
+
 # Allow caller to define how many resources are created
 max_langs           = max_count_opt('MAX_LANGS', 5)
 max_skills          = max_count_opt('MAX_SKILLS', 10)
@@ -14,7 +19,7 @@ max_chats           = max_count_opt('MAX_CHATS', 10)
 max_job_comments    = max_count_opt('MAX_JOB_COMMENTS', 10)
 max_chat_messages   = max_count_opt('MAX_CHAT_MESSAGES', 10)
 
-puts '[db:seed] Language'
+log '[db:seed] Language'
 lang_codes = %w(en sv de dk no fi pl es fr hu)
 max_langs.times do
   Language.create!(lang_code: lang_codes.sample)
@@ -22,18 +27,18 @@ end
 
 languages = Language.all
 
-puts '[db:seed] Skill'
+log '[db:seed] Skill'
 max_skills.times do
   Skill.create!(name: Faker::Name.title, language: languages.sample)
 end
 
-puts '[db:seed] Address'
+log '[db:seed] Address'
 addresses = [
   { street: "Stora Nygatan #{Random.rand(1..40)}", zip: '21137' },
   { street: "Wollmar Yxkullsgatan #{Random.rand(1..40)}", zip: '11850' }
 ]
 
-puts '[db:seed] Admin'
+log '[db:seed] Admin'
 admin_address = addresses.sample
 User.create!(
   name: Faker::Name.name,
@@ -47,7 +52,7 @@ User.create!(
   admin: true
 )
 
-puts '[db:seed] User'
+log '[db:seed] User'
 skills = Skill.all
 max_users.times do
   address = addresses.sample
@@ -65,7 +70,7 @@ max_users.times do
   user.languages << languages.sample
 end
 
-puts '[db:seed] Job'
+log '[db:seed] Job'
 days_from_now_range = (1..10).to_a
 rates = (100..1000).to_a
 users = User.all
@@ -95,7 +100,7 @@ max_jobs.times do
   end
 end
 
-puts '[db:seed] Job user'
+log '[db:seed] Job user'
 jobs = Job.all
 max_job_users.times do |current_iteration|
   job = jobs.sample
@@ -121,7 +126,7 @@ max_job_users.times do |current_iteration|
   end
 end
 
-puts '[db:seed] Chat'
+log '[db:seed] Chat'
 max_chats.times do
   user = users.sample
   other_user = (users - [user]).sample
