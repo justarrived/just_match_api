@@ -41,8 +41,10 @@ module Api
         error code: 400, desc: 'Bad request'
         error code: 422, desc: 'Unprocessable entity'
         error code: 401, desc: 'Unauthorized'
-        param :language, Hash, desc: 'User language attributes', required: true do
-          param :id, Integer, desc: 'Language id', required: true
+        param :data, Hash, desc: 'Top level key', required: true do
+          param :attributes, Hash, desc: 'User language attributes', required: true do
+            param :id, Integer, desc: 'Language id', required: true
+          end
         end
         example Doxxer.example_for(UserLanguage)
         def create

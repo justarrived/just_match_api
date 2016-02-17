@@ -31,15 +31,17 @@ module Api
       end
 
       api :POST, '/skills/', 'Create new skill'
-      description 'Creates and returns the new skill if the user is allowed to.'
+      description 'Creates and returns the new skill if the user is allowed.'
       error code: 400, desc: 'Bad request'
       error code: 422, desc: 'Unprocessable entity'
       error code: 401, desc: 'Unauthorized'
-      param :skill, Hash, desc: 'Skill attributes', required: true do
-        param :name, String, desc: 'Name', required: true
-        # rubocop:disable Metrics/LineLength
-        param :language_id, Integer, desc: 'Langauge id of the text content', required: true
-        # rubocop:enable Metrics/LineLength
+      param :data, Hash, desc: 'Top level key', required: true do
+        param :attributes, Hash, desc: 'Skill attributes', required: true do
+          param :name, String, desc: 'Name', required: true
+          # rubocop:disable Metrics/LineLength
+          param :language_id, Integer, desc: 'Langauge id of the text content', required: true
+          # rubocop:enable Metrics/LineLength
+        end
       end
       example Doxxer.example_for(Skill)
       def create
@@ -59,9 +61,11 @@ module Api
       error code: 400, desc: 'Bad request'
       error code: 422, desc: 'Unprocessable entity'
       error code: 401, desc: 'Unauthorized'
-      param :skill, Hash, desc: 'Skill attributes', required: true do
-        param :name, String, desc: 'Name'
-        param :language_id, Integer, desc: 'Langauge id of the text content'
+      param :data, Hash, desc: 'Top level key', required: true do
+        param :attributes, Hash, desc: 'Skill attributes', required: true do
+          param :name, String, desc: 'Name'
+          param :language_id, Integer, desc: 'Langauge id of the text content'
+        end
       end
       example Doxxer.example_for(Skill)
       def update

@@ -37,12 +37,14 @@ module Api
         end
 
         api :POST, '/jobs/:job_id/skills/', 'Create new job skill'
-        description 'Creates and returns new job skill if the user is allowed to.'
+        description 'Creates and returns new job skill if the user is allowed.'
         error code: 400, desc: 'Bad request'
         error code: 422, desc: 'Unprocessable entity'
         error code: 401, desc: 'Unauthorized'
-        param :skill, Hash, desc: 'Skill attributes', required: true do
-          param :id, Integer, desc: 'Skill id', required: true
+        param :data, Hash, desc: 'Top level key', required: true do
+          param :attributes, Hash, desc: 'Skill attributes', required: true do
+            param :id, Integer, desc: 'Skill id', required: true
+          end
         end
         example Doxxer.example_for(Skill)
         def create
@@ -60,7 +62,7 @@ module Api
         end
 
         api :DELETE, '/jobs/:job_id/skills/:id', 'Delete user skill'
-        description 'Deletes job skill if the user is allowed to.'
+        description 'Deletes job skill if the user is allowed.'
         error code: 401, desc: 'Unauthorized'
         def destroy
           authorize(JobSkill)

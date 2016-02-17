@@ -30,9 +30,11 @@ module Api
         description 'Creates and returns new message.'
         error code: 400, desc: 'Bad request'
         error code: 422, desc: 'Unprocessable entity'
-        param :message, Hash, desc: 'Message attributes', required: true do
-          param :body, String, desc: 'Message body', required: true
-          param :language_id, Integer, desc: 'Language id', required: true
+        param :data, Hash, desc: 'Top level key', required: true do
+          param :attributes, Hash, desc: 'Message attributes', required: true do
+            param :body, String, desc: 'Message body', required: true
+            param :language_id, Integer, desc: 'Language id', required: true
+          end
         end
         example Doxxer.example_for(Message)
         def create

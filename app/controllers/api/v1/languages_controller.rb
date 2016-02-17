@@ -37,8 +37,10 @@ module Api
       error code: 400, desc: 'Bad request'
       error code: 422, desc: 'Unprocessable entity'
       error code: 401, desc: 'Unauthorized'
-      param :job, Hash, desc: 'Language attributes', required: true do
-        param :lang_code, String, desc: 'Language code', required: true
+      param :data, Hash, desc: 'Top level key', required: true do
+        param :attributes, Hash, desc: 'Language attributes', required: true do
+          param :lang_code, String, desc: 'Language code', required: true
+        end
       end
       example Doxxer.example_for(Language)
       def create
@@ -58,8 +60,10 @@ module Api
       error code: 400, desc: 'Bad request'
       error code: 422, desc: 'Unprocessable entity'
       error code: 401, desc: 'Unauthorized'
-      param :language, Hash, desc: 'Language attributes', required: true do
-        param :lang_code, String, desc: 'Name'
+      param :data, Hash, desc: 'Top level key', required: true do
+        param :attributes, Hash, desc: 'Language attributes', required: true do
+          param :lang_code, String, desc: 'Name'
+        end
       end
       example Doxxer.example_for(Language)
       def update

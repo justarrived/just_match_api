@@ -13,10 +13,14 @@ module Api
       end
 
       api :POST, '/user_sessions/', 'Get auth token'
-      description 'Returns the Users auth token if the user is allowed to.'
+      description 'Returns the Users auth token if the user is allowed.'
       error code: 401, desc: 'Unauthorized'
-      param :email, String, desc: 'Email', required: true
-      param :password, String, desc: 'Password', required: true
+      param :data, Hash, desc: 'Top level key', required: true do
+        param :attributes, Hash, desc: 'User session attributes', required: true do
+          param :email, String, desc: 'Email', required: true
+          param :password, String, desc: 'Password', required: true
+        end
+      end
       example '# Example response JSON
 {
   "data": {
@@ -42,10 +46,9 @@ module Api
         end
       end
 
-      api :DELETE, '/user_sessions/', 'Reset auth token'
-      description 'Resets the Users auth token if the user is allowed to.'
+      api :DELETE, '/user_sessions/:auth_token', 'Reset auth token'
+      description 'Resets the Users auth token if the user is allowed.'
       error code: 422, desc: 'Unprocessable entity'
-      param :id, String, desc: 'Auth token', required: true
       def destroy
         token = params[:id]
 

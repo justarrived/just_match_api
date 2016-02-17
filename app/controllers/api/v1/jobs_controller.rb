@@ -35,17 +35,19 @@ module Api
       description 'Creates and returns new job.'
       error code: 400, desc: 'Bad request'
       error code: 422, desc: 'Unprocessable entity'
-      param :job, Hash, desc: 'Job attributes', required: true do
-        # rubocop:disable Metrics/LineLength
-        param :skill_ids, Array, of: Integer, desc: 'List of skill ids', required: true
-        param :max_rate, Integer, desc: 'Max rate', required: true
-        param :hours, Float, desc: 'Estmiated completion time'
-        param :name, String, desc: 'Name', required: true
-        param :description, String, desc: 'Description', required: true
-        param :job_date, String, desc: 'Job date', required: true
-        param :language_id, Integer, desc: 'Langauge id of the text content', required: true
-        param :owner_user_id, Integer, desc: 'User id for the job owner', required: true
-        # rubocop:enable Metrics/LineLength
+      param :data, Hash, desc: 'Top level key', required: true do
+        param :attributes, Hash, desc: 'Job attributes', required: true do
+          # rubocop:disable Metrics/LineLength
+          param :skill_ids, Array, of: Integer, desc: 'List of skill ids', required: true
+          param :max_rate, Integer, desc: 'Max rate', required: true
+          param :hours, Float, desc: 'Estmiated completion time'
+          param :name, String, desc: 'Name', required: true
+          param :description, String, desc: 'Description', required: true
+          param :job_date, String, desc: 'Job date', required: true
+          param :language_id, Integer, desc: 'Langauge id of the text content', required: true
+          param :owner_user_id, Integer, desc: 'User id for the job owner', required: true
+          # rubocop:enable Metrics/LineLength
+        end
       end
       example Doxxer.example_for(Job)
       def create
@@ -73,16 +75,18 @@ module Api
       error code: 400, desc: 'Bad request'
       error code: 422, desc: 'Unprocessable entity'
       error code: 401, desc: 'Unauthorized'
-      param :job, Hash, desc: 'Job attributes', required: true do
-        param :max_rate, Integer, desc: 'Max rate'
-        param :name, String, desc: 'Name'
-        param :description, String, desc: 'Description'
-        param :job_date, String, desc: 'Job date'
-        param :performed_accept, [true, false], desc: 'Performed accepted by owner'
-        param :performed, [true, false], desc: 'Job has been performed by user'
-        param :hours, Float, desc: 'Estmiated completion time'
-        param :language_id, Integer, desc: 'Langauge id of the text content'
-        param :owner_user_id, Integer, desc: 'User id for the job owner'
+      param :data, Hash, desc: 'Top level key', required: true do
+        param :attributes, Hash, desc: 'Job attributes', required: true do
+          param :max_rate, Integer, desc: 'Max rate'
+          param :name, String, desc: 'Name'
+          param :description, String, desc: 'Description'
+          param :job_date, String, desc: 'Job date'
+          param :performed_accept, [true, false], desc: 'Performed accepted by owner'
+          param :performed, [true, false], desc: 'Job has been performed by user'
+          param :hours, Float, desc: 'Estmiated completion time'
+          param :language_id, Integer, desc: 'Langauge id of the text content'
+          param :owner_user_id, Integer, desc: 'User id for the job owner'
+        end
       end
       example Doxxer.example_for(Job)
       def update
@@ -106,7 +110,7 @@ module Api
       end
 
       api :GET, '/jobs/:job_id/matching_users', 'Show matching users for job'
-      description 'Returns matching users for job if user is allowed to.'
+      description 'Returns matching users for job if user is allowed.'
       error code: 401, desc: 'Unauthorized'
       def matching_users
         authorize(@job)
