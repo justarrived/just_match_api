@@ -6,7 +6,9 @@ def max_count_opt(env_name, default)
 end
 
 def log(string)
+  # rubocop:disable Rails/Output
   puts string
+  # rubocop:enable Rails/Output
   Rails.logger.info string
 end
 
