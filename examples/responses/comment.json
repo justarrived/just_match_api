@@ -1,0 +1,19 @@
+{
+  "data": {
+    "id": "",
+    "type": "comments",
+    "attributes": {
+      "body": null,
+      "commentable_id": null,
+      "commentable_type": null
+    },
+    "relationships": {
+      "owner": {
+        "data": null
+      },
+      "language": {
+        "data": null
+      }
+    }
+  }
+}

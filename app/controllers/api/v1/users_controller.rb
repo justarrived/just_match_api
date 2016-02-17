@@ -27,7 +27,7 @@ module Api
 
       api :GET, '/users/:id', 'Show user'
       description 'Returns user is alloed to.'
-      example Doxxer.example_for(User)
+      example Doxxer.read_example(User)
       def show
         authorize(@user)
 
@@ -53,7 +53,7 @@ module Api
           # rubocop:enable Metrics/LineLength
         end
       end
-      example Doxxer.example_for(User)
+      example Doxxer.read_example(User)
       def create
         @user = User.new(user_params)
 
@@ -87,7 +87,7 @@ module Api
           param :language_id, Integer, desc: 'Primary language id for user'
         end
       end
-      example Doxxer.example_for(User)
+      example Doxxer.read_example(User)
       def update
         authorize(@user)
 
