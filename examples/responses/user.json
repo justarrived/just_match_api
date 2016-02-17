@@ -1,0 +1,42 @@
+{
+  "data": {
+    "id": "",
+    "type": "users",
+    "attributes": {
+      "name": null,
+      "email": null,
+      "phone": null,
+      "description": null,
+      "created_at": null,
+      "street": null,
+      "zip": null,
+      "zip_latitude": null,
+      "zip_longitude": null
+    },
+    "relationships": {
+      "language": {
+        "data": null
+      },
+      "languages": {
+        "data": [
+
+        ]
+      },
+      "written_comments": {
+        "data": [
+
+        ]
+      },
+      "skills": {
+        "data": [
+
+        ]
+      },
+      "jobs": {
+        "data": [
+
+        ]
+      }
+    }
+  }
+}

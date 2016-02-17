@@ -1,0 +1,18 @@
+{
+  "data": {
+    "id": "",
+    "type": "chats",
+    "relationships": {
+      "messages": {
+        "data": [
+
+        ]
+      },
+      "users": {
+        "data": [
+
+        ]
+      }
+    }
+  }
+}

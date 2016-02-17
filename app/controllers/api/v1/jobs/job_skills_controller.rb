@@ -29,7 +29,7 @@ module Api
 
         api :GET, '/jobs/:job_id/skills/:id', 'Show user skill'
         description 'Returns skill.'
-        example Doxxer.example_for(Skill)
+        example Doxxer.read_example(Skill)
         def show
           authorize(JobSkill)
 
@@ -46,7 +46,7 @@ module Api
             param :id, Integer, desc: 'Skill id', required: true
           end
         end
-        example Doxxer.example_for(Skill)
+        example Doxxer.read_example(Skill)
         def create
           authorize(JobSkill)
 

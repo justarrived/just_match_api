@@ -40,7 +40,7 @@ module Api
             param :language_id, Integer, desc: 'Language id', required: true
           end
         end
-        example Doxxer.example_for(Message)
+        example Doxxer.read_example(Message)
         def create
           users = User.where(id: chat_user_ids)
           chat = Chat.find_or_create_private_chat(users)

@@ -27,7 +27,7 @@ module Api
 
       api :GET, '/:resource_name/:resource_id/comments/:id', 'Show comment'
       description 'Returns comment.'
-      example Doxxer.example_for(Comment)
+      example Doxxer.read_example(Comment)
       def show
         render json: @comment
       end
@@ -46,7 +46,7 @@ module Api
           # rubocop:enable Metrics/LineLength
         end
       end
-      example Doxxer.example_for(Comment)
+      example Doxxer.read_example(Comment)
       def create
         @comment = @commentable.comments.new(comment_params)
         @comment.owner_user_id = current_user.id
@@ -67,7 +67,7 @@ module Api
           param :language_id, Integer, desc: 'Language id of the body content'
         end
       end
-      example Doxxer.example_for(Comment)
+      example Doxxer.read_example(Comment)
       def update
         @comment = user_comment_scope.find(params[:id])
         @comment.body = comment_params[:body]

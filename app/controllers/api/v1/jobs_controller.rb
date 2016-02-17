@@ -24,7 +24,7 @@ module Api
 
       api :GET, '/jobs/:id', 'Show job'
       description 'Return job.'
-      example Doxxer.example_for(Job)
+      example Doxxer.read_example(Job)
       def show
         authorize(@job)
 
@@ -49,7 +49,7 @@ module Api
           # rubocop:enable Metrics/LineLength
         end
       end
-      example Doxxer.example_for(Job)
+      example Doxxer.read_example(Job)
       def create
         authorize(Job)
 
@@ -88,7 +88,7 @@ module Api
           param :owner_user_id, Integer, desc: 'User id for the job owner'
         end
       end
-      example Doxxer.example_for(Job)
+      example Doxxer.read_example(Job)
       def update
         authorize(@job)
 

@@ -32,7 +32,7 @@ module Api
         api :GET, '/jobs/:job_id/users/:id', 'Show job user'
         description 'Returns user.'
         error code: 401, desc: 'Unauthorized'
-        example Doxxer.example_for(User)
+        example Doxxer.read_example(User)
         def show
           authorize(JobUser)
 
@@ -41,7 +41,7 @@ module Api
 
         api :POST, '/jobs/:job_id/users/', 'Create new job user'
         description 'Creates and returns new job user if the user is allowed.'
-        example Doxxer.example_for(User)
+        example Doxxer.read_example(User)
         error code: 400, desc: 'Bad request'
         error code: 422, desc: 'Unprocessable entity'
         def create

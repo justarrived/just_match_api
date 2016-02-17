@@ -25,7 +25,7 @@ module Api
 
       api :GET, '/languages/:id', 'Show language'
       description 'Return language.'
-      example Doxxer.example_for(Language)
+      example Doxxer.read_example(Language)
       def show
         authorize(@language)
 
@@ -42,7 +42,7 @@ module Api
           param :lang_code, String, desc: 'Language code', required: true
         end
       end
-      example Doxxer.example_for(Language)
+      example Doxxer.read_example(Language)
       def create
         authorize(Language)
 
@@ -65,7 +65,7 @@ module Api
           param :lang_code, String, desc: 'Name'
         end
       end
-      example Doxxer.example_for(Language)
+      example Doxxer.read_example(Language)
       def update
         authorize(@language)
 

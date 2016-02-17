@@ -33,7 +33,7 @@ module Api
 
       api :GET, '/chats/:id', 'Show chat'
       description 'Return chat.'
-      example Doxxer.example_for(Chat)
+      example Doxxer.read_example(Chat)
       def show
         authorize(@chat)
 
@@ -56,7 +56,7 @@ module Api
       end
       error code: 400, desc: 'Bad request'
       error code: 422, desc: 'Unprocessable entity'
-      example Doxxer.example_for(Chat)
+      example Doxxer.read_example(Chat)
       def create
         users = User.where(id: param_user_ids)
         @chat = Chat.find_or_create_private_chat(users)

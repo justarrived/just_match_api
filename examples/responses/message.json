@@ -1,0 +1,20 @@
+{
+  "data": {
+    "id": "",
+    "type": "messages",
+    "attributes": {
+      "body": null
+    },
+    "relationships": {
+      "chat": {
+        "data": null
+      },
+      "author": {
+        "data": null
+      },
+      "language": {
+        "data": null
+      }
+    }
+  }
+}

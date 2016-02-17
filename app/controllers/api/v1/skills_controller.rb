@@ -23,7 +23,7 @@ module Api
 
       api :GET, '/skills/:id', 'Show skill'
       description 'Returns skill.'
-      example Doxxer.example_for(Skill)
+      example Doxxer.read_example(Skill)
       def show
         authorize(@skill)
 
@@ -43,7 +43,7 @@ module Api
           # rubocop:enable Metrics/LineLength
         end
       end
-      example Doxxer.example_for(Skill)
+      example Doxxer.read_example(Skill)
       def create
         authorize(Skill)
 
@@ -67,7 +67,7 @@ module Api
           param :language_id, Integer, desc: 'Langauge id of the text content'
         end
       end
-      example Doxxer.example_for(Skill)
+      example Doxxer.read_example(Skill)
       def update
         authorize(@skill)
 
