@@ -1,11 +1,4 @@
 GIT
-  remote: git://github.com/apipie/apipie-rails.git
-  revision: 6294c014906825a00c7a01d8891041e55f0ff370
-  specs:
-    apipie-rails (0.3.5)
-      json
-
-GIT
   remote: git://github.com/rails-api/active_model_serializers.git
   revision: f32c0d97d5a3a609979b57655e107f678470fdaa
   specs:
@@ -56,6 +49,8 @@ GEM
     annotate (2.7.0)
       activerecord (>= 3.2, < 6.0)
       rake (~> 10.4)
+    apipie-rails (0.3.6)
+      json
     arel (6.0.3)
     ast (2.2.0)
     bcrypt (3.1.10)
@@ -255,7 +250,7 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers!
   annotate (~> 2.7)
-  apipie-rails!
+  apipie-rails (~> 0.3)
   bcrypt (~> 3.1.7)
   better_errors (~> 2.1)
   binding_of_caller (~> 0.7)
