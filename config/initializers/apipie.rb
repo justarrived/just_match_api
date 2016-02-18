@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 Apipie.configure do |config|
   config.app_name                = 'JustMatch API'
   config.copyright               = '&copy; Just Arrived 2015'

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class MessageSerializer < ActiveModel::Serializer
   attributes :id, :body
   has_one :chat

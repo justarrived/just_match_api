@@ -7,9 +7,9 @@ GIT
 
 GIT
   remote: git://github.com/rails-api/active_model_serializers.git
-  revision: f2d59b20caa52244f907aa607bf7d8827c46cb7f
+  revision: f32c0d97d5a3a609979b57655e107f678470fdaa
   specs:
-    active_model_serializers (0.10.0.rc3)
+    active_model_serializers (0.10.0.rc4)
       actionpack (>= 4.0)
       activemodel (>= 4.0)
       railties (>= 4.0)
@@ -128,10 +128,10 @@ GEM
     mime-types (2.99)
     mini_portile2 (2.0.0)
     minitest (5.8.4)
-    newrelic_rpm (3.14.2.312)
+    newrelic_rpm (3.14.3.313)
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
-    parser (2.3.0.2)
+    parser (2.3.0.4)
       ast (~> 2.2)
     pg (0.18.4)
     powerpack (0.1.1)
@@ -204,8 +204,8 @@ GEM
       rspec-mocks (~> 3.4.0)
       rspec-support (~> 3.4.0)
     rspec-support (3.4.1)
-    rubocop (0.37.0)
-      parser (>= 2.3.0.2, < 3.0)
+    rubocop (0.37.1)
+      parser (>= 2.3.0.4, < 3.0)
       powerpack (~> 0.1)
       rainbow (>= 1.99.1, < 3.0)
       ruby-progressbar (~> 1.7)

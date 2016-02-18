@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Api
   module V1
     class ChatsController < BaseController
@@ -32,7 +33,7 @@ module Api
 
       api :GET, '/chats/:id', 'Show chat'
       description 'Return chat.'
-      example Doxxer.example_for(Chat)
+      example Doxxer.read_example(Chat)
       def show
         authorize(@chat)
 
@@ -46,14 +47,16 @@ module Api
         * Min #{Chat::MIN_USERS} users per chat.
         * Max #{Chat::MAX_USERS} users per chat.
       "
-      param :chat, Hash, desc: 'Chat attributes', required: true do
-        # rubocop:disable Metrics/LineLength
-        param :user_ids, Array, of: Integer, desc: "Must be between #{Chat::MIN_USERS}-#{Chat::MAX_USERS} users per chat.", required: true
-        # rubocop:enable Metrics/LineLength
+      param :data, Hash, desc: 'Top level key', required: true do
+        param :attributes, Hash, desc: 'Chat attributes', required: true do
+          # rubocop:disable Metrics/LineLength
+          param :user_ids, Array, of: Integer, desc: "Must be between #{Chat::MIN_USERS}-#{Chat::MAX_USERS} users per chat.", required: true
+          # rubocop:enable Metrics/LineLength
+        end
       end
       error code: 400, desc: 'Bad request'
       error code: 422, desc: 'Unprocessable entity'
-      example Doxxer.example_for(Chat)
+      example Doxxer.read_example(Chat)
       def create
         users = User.where(id: param_user_ids)
         @chat = Chat.find_or_create_private_chat(users)

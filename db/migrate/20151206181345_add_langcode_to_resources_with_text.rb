@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class AddLangcodeToResourcesWithText < ActiveRecord::Migration
   def change
     # Add language reference to models with text content
