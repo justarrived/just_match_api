@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Api
   module V1
     class CommentsController < BaseController
@@ -26,24 +27,26 @@ module Api
 
       api :GET, '/:resource_name/:resource_id/comments/:id', 'Show comment'
       description 'Returns comment.'
-      example Doxxer.example_for(Comment)
+      example Doxxer.read_example(Comment)
       def show
         render json: @comment
       end
 
       api :POST, '/:resource_name/:resource_id/comments/', 'Create new comment'
-      description 'Creates and returns the new comment if the user is allowed to.'
+      description 'Creates and returns the new comment if the user is allowed.'
       error code: 400, desc: 'Bad request'
       error code: 422, desc: 'Unprocessable entity'
-      param :comment, Hash, desc: 'Comment attributes', required: true do
-        param :body, String, desc: 'Body of the comment', required: true
-        # rubocop:disable Metrics/LineLength
-        param :language_id, Integer, desc: 'Language id of the body content', required: true
-        param :commentable_id, String, desc: 'Id of the owner resource', required: true
-        param :commentable_type, String, desc: 'Owner resource type, i.e "jobs"', required: true
-        # rubocop:enable Metrics/LineLength
+      param :data, Hash, desc: 'Top level key', required: true do
+        param :attributes, Hash, desc: 'Comment attributes', required: true do
+          param :body, String, desc: 'Body of the comment', required: true
+          # rubocop:disable Metrics/LineLength
+          param :language_id, Integer, desc: 'Language id of the body content', required: true
+          param :commentable_id, String, desc: 'Id of the owner resource', required: true
+          param :commentable_type, String, desc: 'Owner resource type, i.e "jobs"', required: true
+          # rubocop:enable Metrics/LineLength
+        end
       end
-      example Doxxer.example_for(Comment)
+      example Doxxer.read_example(Comment)
       def create
         @comment = @commentable.comments.new(comment_params)
         @comment.owner_user_id = current_user.id
@@ -56,13 +59,15 @@ module Api
       end
 
       api :PATCH, '/:resource_name/:resource_id/comments/:id', 'Update comment'
-      description 'Updates and returns the comment if the user is allowed to.'
+      description 'Updates and returns the comment if the user is allowed.'
       error code: 422, desc: 'Unprocessable entity'
-      param :comment, Hash, desc: 'Comment attributes', required: true do
-        param :body, String, desc: 'Body of the comment'
-        param :language_id, Integer, desc: 'Language id of the body content'
+      param :data, Hash, desc: 'Top level key', required: true do
+        param :attributes, Hash, desc: 'Comment attributes', required: true do
+          param :body, String, desc: 'Body of the comment'
+          param :language_id, Integer, desc: 'Language id of the body content'
+        end
       end
-      example Doxxer.example_for(Comment)
+      example Doxxer.read_example(Comment)
       def update
         @comment = user_comment_scope.find(params[:id])
         @comment.body = comment_params[:body]

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class AddAddressFieldsToJobs < ActiveRecord::Migration
   def change
     # Remove old address column

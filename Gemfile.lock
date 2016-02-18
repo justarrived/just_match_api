@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/rails-api/active_model_serializers.git
-  revision: f32c0d97d5a3a609979b57655e107f678470fdaa
+  revision: a6c6979e081fe5c40c471a5fe7cd9d305a471d15
   specs:
     active_model_serializers (0.10.0.rc4)
       actionpack (>= 4.0)
@@ -9,7 +9,7 @@ GIT
 
 GIT
   remote: git://github.com/rails/rails.git
-  revision: 7fe32d28a8e73bfa826773c5a8777a316126cd38
+  revision: f57092ad728fa1de06c4f5fd9d09dcc2c4738fd9
   specs:
     actioncable (5.0.0.beta2)
       actionpack (= 5.0.0.beta2)
@@ -69,7 +69,7 @@ GIT
 
 GIT
   remote: https://github.com/rspec/rspec-core.git
-  revision: e9b99468cbfa45d2c0f38e69a0c9c9184814e327
+  revision: 44afa9bd83e655b4d1fa60c0d73373a754aa479b
   branch: master
   specs:
     rspec-core (3.5.0.pre)
@@ -77,7 +77,7 @@ GIT
 
 GIT
   remote: https://github.com/rspec/rspec-expectations.git
-  revision: f7b5f1d52484a858eba27c2d6c40794df325d0d0
+  revision: ba6fe09ef90ef8ca84ba5044e9668c09acdc3d60
   branch: master
   specs:
     rspec-expectations (3.5.0.pre)
@@ -86,7 +86,7 @@ GIT
 
 GIT
   remote: https://github.com/rspec/rspec-mocks.git
-  revision: 993fcf286ac0e5b23f209c8183fa8f2209347d12
+  revision: 86e69908f3ed61c0c2c7a8ff934882310f2d9785
   branch: master
   specs:
     rspec-mocks (3.5.0.pre)
@@ -95,7 +95,7 @@ GIT
 
 GIT
   remote: https://github.com/rspec/rspec-rails.git
-  revision: 74131b25e9d0a68e39ee5bf5b0ad08c2fd8a444b
+  revision: 41628f82e70a7d66c70b554e42544a65790da19c
   branch: master
   specs:
     rspec-rails (3.5.0.pre)
@@ -109,7 +109,7 @@ GIT
 
 GIT
   remote: https://github.com/rspec/rspec-support.git
-  revision: 4b938ec512d2fbee945913afbb957b510244ecb3
+  revision: 3c86358e132970c96d31e9f6c3aea508b9b4e094
   branch: master
   specs:
     rspec-support (3.5.0.pre)
@@ -166,10 +166,10 @@ GEM
     geocoder (1.3.0)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
-    hashdiff (0.2.3)
+    hashdiff (0.3.0)
     highline (1.7.8)
     i18n (0.7.0)
-    i18n-tasks (0.9.3)
+    i18n-tasks (0.9.4)
       activesupport (>= 4.0.2)
       ast (>= 2.1.0)
       easy_translate (>= 0.5.0)
@@ -199,7 +199,7 @@ GEM
     nio4r (1.2.1)
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
-    parser (2.3.0.2)
+    parser (2.3.0.6)
       ast (~> 2.2)
     pg (0.18.4)
     powerpack (0.1.1)
@@ -235,8 +235,8 @@ GEM
       activemodel (>= 3.0)
       activesupport (>= 3.0)
       rspec-mocks (>= 2.99, < 4.0)
-    rubocop (0.37.0)
-      parser (>= 2.3.0.2, < 3.0)
+    rubocop (0.37.2)
+      parser (>= 2.3.0.4, < 3.0)
       powerpack (~> 0.1)
       rainbow (>= 1.99.1, < 3.0)
       ruby-progressbar (~> 1.7)
@@ -307,7 +307,7 @@ DEPENDENCIES
   maruku (~> 0.7)
   pg (~> 0.15)
   puma (~> 2.16)
-  pundit
+  pundit (~> 1.1)
   rack-timeout (~> 0.3)
   rails!
   rails-controller-testing (~> 0.0.3)

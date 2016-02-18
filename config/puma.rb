@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 #
 # Increasing the number of workers will increase the amount of resting memory
 # your dynos use. Increasing the number of threads will increase the amount of

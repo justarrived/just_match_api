@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'spec_helper'
 
 RSpec.describe IncludeParams do
@@ -34,6 +35,14 @@ RSpec.describe IncludeParams do
         expect(param.permit(['users'])).to eq(['users'])
         expect(param.permit('users')).to eq(['users'])
         expect(param.permit('users', 'jobs')).to eq(['users'])
+      end
+    end
+
+    describe 'nil param' do
+      let(:nil_param) { described_class.new(nil) }
+
+      it 'returns empty list' do
+        expect(nil_param.permit('')).to eq([])
       end
     end
   end

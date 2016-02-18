@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 Rails.application.routes.draw do
   apipie
   get '/', to: redirect('/api_docs')

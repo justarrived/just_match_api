@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Api
   module V1
     module Jobs
@@ -18,7 +19,7 @@ module Api
         end
 
         api :GET, '/jobs/:job_id/users', 'Show job users'
-        description 'Returns list of job users if the user is allowed to.'
+        description 'Returns list of job users if the user is allowed.'
         error code: 401, desc: 'Unauthorized'
         def index
           authorize(JobUser)
@@ -31,7 +32,7 @@ module Api
         api :GET, '/jobs/:job_id/users/:id', 'Show job user'
         description 'Returns user.'
         error code: 401, desc: 'Unauthorized'
-        example Doxxer.example_for(User)
+        example Doxxer.read_example(User)
         def show
           authorize(JobUser)
 
@@ -39,8 +40,8 @@ module Api
         end
 
         api :POST, '/jobs/:job_id/users/', 'Create new job user'
-        description 'Creates and returns new job user if the user is allowed to.'
-        example Doxxer.example_for(User)
+        description 'Creates and returns new job user if the user is allowed.'
+        example Doxxer.read_example(User)
         error code: 400, desc: 'Bad request'
         error code: 422, desc: 'Unprocessable entity'
         def create
@@ -59,7 +60,7 @@ module Api
         end
 
         api :PATCH, '/jobs/:job_id/users/', 'Update job user'
-        description 'Updates a job user if the user is allowed to.'
+        description 'Updates a job user if the user is allowed.'
         error code: 400, desc: 'Bad request'
         error code: 401, desc: 'Unauthorized'
         error code: 422, desc: 'Unprocessable entity'
@@ -76,7 +77,7 @@ module Api
         end
 
         api :DELETE, '/jobs/:job_id/users/:id', 'Delete user user'
-        description 'Deletes job user if the user is allowed to.'
+        description 'Deletes job user if the user is allowed.'
         error code: 401, desc: 'Unauthorized'
         def destroy
           authorize(JobUser)

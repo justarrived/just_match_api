@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Api
   module V1
     module Chats
@@ -29,11 +30,13 @@ module Api
         description 'Creates and returns new message.'
         error code: 400, desc: 'Bad request'
         error code: 422, desc: 'Unprocessable entity'
-        param :message, Hash, desc: 'Message attributes', required: true do
-          param :body, String, desc: 'Message body', required: true
-          param :language_id, Integer, desc: 'Language id', required: true
+        param :data, Hash, desc: 'Top level key', required: true do
+          param :attributes, Hash, desc: 'Message attributes', required: true do
+            param :body, String, desc: 'Message body', required: true
+            param :language_id, Integer, desc: 'Language id', required: true
+          end
         end
-        example Doxxer.example_for(Message)
+        example Doxxer.read_example(Message)
         def create
           lang = message_params[:language_id]
           body = message_params[:body]

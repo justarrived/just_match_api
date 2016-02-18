@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class ChatPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
@@ -11,15 +12,5 @@ class ChatPolicy < ApplicationPolicy
 
   def index?
     admin?
-  end
-
-  private
-
-  def admin?
-    user? && user.admin?
-  end
-
-  def user?
-    !user.nil?
   end
 end

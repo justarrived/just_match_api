@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class JobUserSerializer < ActiveModel::Serializer
   attributes :id, :accepted, :rate
 

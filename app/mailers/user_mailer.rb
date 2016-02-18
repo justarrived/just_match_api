@@ -1,4 +1,11 @@
+# frozen_string_literal: true
 class UserMailer < ApplicationMailer
+  def welcome_email(user:)
+    @user_name = user.name
+
+    mail(to: user.email, subject: I18n.t('mailer.welcome.subject'))
+  end
+
   def job_match_email(job:, user:, owner:)
     @user_name = user.name
     @owner_email = owner.email

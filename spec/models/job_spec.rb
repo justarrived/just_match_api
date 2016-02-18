@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 RSpec.describe Job, type: :model do
@@ -21,6 +22,29 @@ RSpec.describe Job, type: :model do
     it 'zip lat/long is different from lat/long' do
       expect(job.zip_latitude).not_to eq(job.latitude)
       expect(job.zip_longitude).not_to eq(job.longitude)
+    end
+  end
+
+  describe '#owner?' do
+    let(:user) { FactoryGirl.build(:user) }
+    let(:job) { FactoryGirl.build(:job, owner: user) }
+
+    it 'returns true if user is owner' do
+      expect(job.owner?(user)).to eq(true)
+    end
+
+    it 'returns true if user is owner' do
+      a_user = FactoryGirl.build(:user)
+      expect(job.owner?(a_user)).to eq(false)
+    end
+
+    it 'returns false if owner is nil and user is not nil' do
+      a_user = FactoryGirl.build(:user)
+      expect(job.owner?(a_user)).to eq(false)
+    end
+
+    it 'returns false if owner is nil and user is nil' do
+      expect(job.owner?(nil)).to eq(false)
     end
   end
 
@@ -90,6 +114,17 @@ RSpec.describe Job, type: :model do
       job.accept_applicant!(applicant)
 
       expect(job.accepted_applicant?(applicant)).to eq(true)
+    end
+
+    it 'returns false if owner is nil and user is not' do
+      nil_job = Job.new
+      a_user = FactoryGirl.build(:user)
+      expect(nil_job.accepted_applicant?(a_user)).to eq(false)
+    end
+
+    it 'returns false if owner is nil and user is nil' do
+      nil_job = Job.new
+      expect(nil_job.accepted_applicant?(nil)).to eq(false)
     end
   end
 end

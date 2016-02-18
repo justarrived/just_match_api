@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module SkillMatchable
   def self.included(receiver)
     receiver.class_eval do

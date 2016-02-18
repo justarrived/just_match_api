@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 source 'https://rubygems.org'
 
 ruby '2.3.0'
@@ -26,7 +27,9 @@ gem 'rack-timeout', '~> 0.3' # Kill requests that run for too long
 
 gem 'geocoder', '~> 1.2' # Geocode resources
 
-gem 'pundit' # Authorization policies
+gem 'pundit', '~> 1.1' # Authorization policies
+
+gem 'faker', '~> 1.6' # Easily generate fake data (used for seeding dev/test/staging)
 
 group :development, :test do
   gem 'byebug', '~> 8.2'
@@ -37,7 +40,6 @@ group :development, :test do
   gem 'rspec-expectations', git: 'https://github.com/rspec/rspec-expectations.git', branch: 'master'
   gem 'rspec-mocks', git: 'https://github.com/rspec/rspec-mocks.git', branch: 'master'
   # gem 'regressor', '~> 0.6'
-  gem 'faker', '~> 1.6'
   gem 'rubocop', '~> 0.35', require: false
   gem 'dotenv-rails', '~> 2.1'
 end

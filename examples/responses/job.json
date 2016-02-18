@@ -1,0 +1,39 @@
+{
+  "data": {
+    "id": "",
+    "type": "jobs",
+    "attributes": {
+      "description": null,
+      "job_date": null,
+      "created_at": null,
+      "updated_at": null,
+      "performed_accept": false,
+      "performed": false,
+      "longitude": null,
+      "latitude": null,
+      "name": null,
+      "hours": null,
+      "zip": null,
+      "zip_latitude": null,
+      "zip_longitude": null
+    },
+    "relationships": {
+      "applicants": {
+        "data": [
+
+        ]
+      },
+      "comments": {
+        "data": [
+
+        ]
+      },
+      "owner": {
+        "data": null
+      },
+      "language": {
+        "data": null
+      }
+    }
+  }
+}

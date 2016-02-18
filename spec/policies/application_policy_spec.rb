@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 RSpec.describe ApplicationPolicy do
@@ -22,24 +23,36 @@ RSpec.describe ApplicationPolicy do
 
   subject { ApplicationPolicy.new(nil, MockRecord.new(1)) }
 
-  it 'returns false for index' do
+  it 'returns false for #index?' do
     expect(subject.index?).to eq(false)
   end
 
-  it 'returns false for show' do
+  it 'returns false for #show?' do
     expect(subject.show?).to eq(false)
   end
 
-  it 'returns false for create' do
+  it 'returns false for #create?' do
     expect(subject.create?).to eq(false)
   end
 
-  it 'returns false for update' do
+  it 'returns false for #update?' do
     expect(subject.update?).to eq(false)
   end
 
-  it 'returns false for destroy' do
+  it 'returns false for #destroy?' do
     expect(subject.destroy?).to eq(false)
+  end
+
+  it 'returns false for #user?' do
+    expect(subject.send(:user?)).to eq(false)
+  end
+
+  it 'returns true for #no_user?' do
+    expect(subject.send(:no_user?)).to eq(true)
+  end
+
+  it 'returns false for #admin?' do
+    expect(subject.send(:admin?)).to eq(false)
   end
 
   describe ApplicationPolicy::Scope do

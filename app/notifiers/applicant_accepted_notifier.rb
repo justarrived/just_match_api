@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class ApplicantAcceptedNotifier
   def self.call(job:, user:)
     owner = job.owner

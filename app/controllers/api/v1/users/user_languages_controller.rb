@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Api
   module V1
     module Users
@@ -28,7 +29,7 @@ module Api
 
         api :GET, '/users/:user_id/languages/:id', 'Show language'
         description 'Return language.'
-        example Doxxer.example_for(Language)
+        example Doxxer.read_example(Language)
         def show
           authorize(UserLanguage)
 
@@ -40,10 +41,12 @@ module Api
         error code: 400, desc: 'Bad request'
         error code: 422, desc: 'Unprocessable entity'
         error code: 401, desc: 'Unauthorized'
-        param :language, Hash, desc: 'User language attributes', required: true do
-          param :id, Integer, desc: 'Language id', required: true
+        param :data, Hash, desc: 'Top level key', required: true do
+          param :attributes, Hash, desc: 'User language attributes', required: true do
+            param :id, Integer, desc: 'Language id', required: true
+          end
         end
-        example Doxxer.example_for(UserLanguage)
+        example Doxxer.read_example(UserLanguage)
         def create
           @user_language = UserLanguage.new
           @user_language.user = @user

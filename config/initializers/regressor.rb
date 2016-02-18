@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # If the regressor gem is inside a group wrap your initializer in
 if defined?(Regressor)
   Regressor.configure do |config|

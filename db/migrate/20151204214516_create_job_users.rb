@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class CreateJobUsers < ActiveRecord::Migration
   def change
     create_table :job_users do |t|

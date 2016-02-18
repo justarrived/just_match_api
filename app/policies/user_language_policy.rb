@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class UserLanguagePolicy < ApplicationPolicy
   # User is the current user and user_context is the current user resource
   Context = Struct.new(:user, :user_context)
@@ -23,14 +24,6 @@ class UserLanguagePolicy < ApplicationPolicy
   alias_method :destroy?, :create?
 
   private
-
-  def admin?
-    user? && user.admin?
-  end
-
-  def user?
-    !user.nil?
-  end
 
   def admin_or_self?
     admin? || user == record.user

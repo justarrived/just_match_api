@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 RSpec.describe Api::V1::UsersController, type: :controller do
@@ -99,6 +100,12 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       it 'returns created status' do
         post :create, valid_attributes, {}
         expect(response.status).to eq(201)
+      end
+
+      it 'sends welcome notification' do
+        allow(UserWelcomeNotifier).to receive(:call)
+        post :create, valid_attributes, {}
+        expect(UserWelcomeNotifier).to have_received(:call)
       end
     end
 

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Job < ActiveRecord::Base
   include Geocodable
   include SkillMatchable
@@ -37,6 +38,10 @@ class Job < ActiveRecord::Base
       order_by_matching_skills(user, strict_match: strict_match)
   end
 
+  def owner?(user)
+    !owner.nil? && owner == user
+  end
+
   # NOTE: You need to call this __before__ the record is saved/updated
   #       otherwise it will always return false
   def send_performed_accept_notice?
@@ -50,7 +55,7 @@ class Job < ActiveRecord::Base
   end
 
   def accepted_applicant?(user)
-    accepted_applicant == user
+    !accepted_applicant.nil? && accepted_applicant == user
   end
 
   def accepted_applicant
