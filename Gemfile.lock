@@ -49,7 +49,7 @@ GEM
     annotate (2.7.0)
       activerecord (>= 3.2, < 6.0)
       rake (~> 10.4)
-    apipie-rails (0.3.5)
+    apipie-rails (0.3.6)
       json
     arel (6.0.3)
     ast (2.2.0)
