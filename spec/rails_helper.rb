@@ -9,6 +9,9 @@ require 'spec_helper'
 require 'rspec/rails'
 require 'shoulda/matchers'
 require 'pundit/rspec'
+require 'webmock/rspec'
+
+require 'spec_support/geocoder_support'
 
 # Checks for pending migration and applies them before tests are run.
 ActiveRecord::Migration.maintain_test_schema!
@@ -61,3 +64,7 @@ RSpec.configure do |config|
     end
   end
 end
+
+# Only allow the tests to connect to localhost and  allow codeclimate
+# codeclimate (for test coverage reporting)
+WebMock.disable_net_connect!(allow_localhost: true, allow: 'codeclimate.com')
