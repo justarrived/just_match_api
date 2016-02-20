@@ -1,21 +1,21 @@
 {
   "data": {
-    "id": "",
+    "id": "1",
     "type": "jobs",
     "attributes": {
-      "description": null,
-      "job_date": null,
-      "created_at": null,
-      "updated_at": null,
+      "description": "Typewriter hashtag ennui brunch post-ironic food truck vinegar.",
+      "job_date": "2016-02-13 09:06:24 +0100",
+      "created_at": "2016-02-10 00:00:00 +0100",
+      "updated_at": "2016-02-12 00:00:00 +0100",
       "performed_accept": false,
       "performed": false,
-      "longitude": null,
-      "latitude": null,
-      "name": null,
-      "hours": null,
-      "zip": null,
-      "zip_latitude": null,
-      "zip_longitude": null
+      "longitude": 18.0552976,
+      "latitude": 59.3158558,
+      "name": "A job",
+      "hours": 3.0,
+      "zip": "223 52",
+      "zip_latitude": 59.7117339,
+      "zip_longitude": 18.4256286
     },
     "relationships": {
       "applicants": {

@@ -38,6 +38,7 @@ group :development, :test do
   gem 'regressor', '~> 0.6'
   gem 'rubocop', '~> 0.35', require: false
   gem 'dotenv-rails', '~> 2.1'
+  gem 'factory_girl_rails', '~> 4.0'
 end
 
 group :development do
@@ -56,7 +57,6 @@ end
 group :test do
   gem 'codeclimate-test-reporter', '~> 0.4', require: false
   gem 'simplecov', '~> 0.11', require: false
-  gem 'factory_girl_rails', '~> 4.0'
   gem 'database_cleaner', '~> 1.5'
   gem 'webmock', '~> 1.21'
   gem 'rspec-activemodel-mocks', '~> 1.0'

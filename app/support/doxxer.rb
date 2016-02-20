@@ -40,17 +40,33 @@ class Doxxer
   def self._write_response_example!(model_klass)
     FileUtils.mkdir_p(RESPONSE_PATH)
 
-    example = Doxxer._example_for(model_klass)
+    example = _example_for(model_klass)
     File.write(_response_filename(model_klass), example)
   end
 
   def self._example_for(model_klass)
-    model = ActiveModel::SerializableResource.new(model_klass.new)
-    model_hash = model.serializable_hash
+    model_attributes = _factory_attributes(model_klass)
+    model = model_klass.new(model_attributes)
+
+    serialized_model = ActiveModel::SerializableResource.new(model)
+    model_hash = serialized_model.serializable_hash
     JSON.pretty_generate(model_hash)
   end
 
-  def self._format_model_name(name_or_klass)
-    name_or_klass.name.underscore.downcase
+  def self._format_model_name(model_klass)
+    model_klass.name.underscore.downcase
+  end
+
+  def self._factory_attributes(model_klass)
+    model_name = _format_model_name(model_klass)
+    begin
+      FactoryGirl.attributes_for("#{model_name}_for_docs")
+    rescue ArgumentError => e
+      if e.message.start_with?('Factory not registered:')
+        return FactoryGirl.attributes_for(model_name)
+      end
+
+      raise e
+    end
   end
 end
