@@ -22,19 +22,17 @@ end
 # Validate that all factories are valid, will slow down the test startup
 # with a second or two, but can be very handy..
 def run_factory_linting
-  begin
-    factories_to_lint = FactoryGirl.factories.reject do |factory|
-      # Don't lint factories used for documentation generation
-      factory.name.to_s.ends_with?('for_docs')
-    end
-    print 'Validating factories..'
-    DatabaseCleaner.start
-    FactoryGirl.lint(factories_to_lint)
-    print "done \n"
-  rescue => e
-    DatabaseCleaner.clean
-    raise e
+  factories_to_lint = FactoryGirl.factories.reject do |factory|
+    # Don't lint factories used for documentation generation
+    factory.name.to_s.ends_with?('for_docs')
   end
+  print 'Validating factories..'
+  DatabaseCleaner.start
+  FactoryGirl.lint(factories_to_lint)
+  print "done \n"
+rescue => e
+  DatabaseCleaner.clean
+  raise e
 end
 
 # Generate documentation examples, will slow down test startup
