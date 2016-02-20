@@ -40,9 +40,19 @@ RSpec.configure do |config|
       # Validate that all factories are valid, will slow down the test startup
       # with a second or two, but can be very handy..
       if run_test_suite_with_factory_linting?
-        print 'Validating factories..'
-        FactoryGirl.lint
-        print " done \n"
+        begin
+          factories_to_lint = FactoryGirl.factories.reject do |factory|
+            # Don't lint factories used for documentation generation
+            factory.name.to_s.ends_with?('for_docs')
+          end
+          print 'Validating factories..'
+          DatabaseCleaner.start
+          FactoryGirl.lint(factories_to_lint)
+          print " done \n"
+        rescue => e
+          DatabaseCleaner.clean
+          raise e
+        end
       end
       DatabaseCleaner.strategy = :truncation
       DatabaseCleaner.start
