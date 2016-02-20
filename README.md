@@ -70,8 +70,6 @@ $ script/test spec/models/user_spec.rb:31
 $ COVERAGE=true script/test
 ```
 
-_Note_: Running the tests with `bundle exec rspec` will not work, please use `script/test` instead.
-
 ## Docs
 
 [Docs for the current version of the API](http://just-match-api.herokuapp.com/).
