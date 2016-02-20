@@ -23,9 +23,9 @@ gem 'bcrypt', '~> 3.1.7', require: true
 gem 'puma', '~> 2.16' # Use Puma as the app server
 gem 'rack-timeout', '~> 0.3' # Kill requests that run for too long
 
-# gem 'newrelic_rpm', '~> 3.14' # Performance monitoring
+gem 'newrelic_rpm', '~> 3.15' # Performance monitoring
 
-gem 'geocoder', '~> 1.2' # Geocode resources
+gem 'geocoder', '~> 1.3' # Geocode resources
 
 gem 'pundit', '~> 1.1' # Authorization policies
 
