@@ -40,8 +40,8 @@ FactoryGirl.define do
 
     factory :user_for_docs do
       id 1
-      created_at Date.new(2016, 02, 10)
-      updated_at Date.new(2016, 02, 12)
+      created_at Time.new(2016, 02, 10, 1, 1, 1)
+      updated_at Time.new(2016, 02, 12, 1, 1, 1)
     end
   end
 end

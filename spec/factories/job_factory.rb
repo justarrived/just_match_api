@@ -50,8 +50,8 @@ FactoryGirl.define do
       longitude 18.0552976
       zip_latitude 59.7117339
       zip_longitude 18.4256286
-      created_at Date.new(2016, 02, 10)
-      updated_at Date.new(2016, 02, 12)
+      created_at Time.new(2016, 02, 10, 1, 1, 1)
+      updated_at Time.new(2016, 02, 12, 1, 1, 1)
       description 'Typewriter hashtag ennui brunch post-ironic food truck vinegar.'
     end
   end
