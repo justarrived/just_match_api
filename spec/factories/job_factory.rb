@@ -52,6 +52,7 @@ FactoryGirl.define do
       zip_longitude 18.4256286
       created_at Time.new(2016, 02, 10, 1, 1, 1)
       updated_at Time.new(2016, 02, 12, 1, 1, 1)
+      job_date Time.new(2016, 02, 18, 1, 1, 1)
       description 'Typewriter hashtag ennui brunch post-ironic food truck vinegar.'
     end
   end
