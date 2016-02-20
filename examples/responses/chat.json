@@ -5,26 +5,7 @@
     "relationships": {
       "messages": {
         "data": [
-          {
-            "id": "1",
-            "type": "messages"
-          },
-          {
-            "id": "2",
-            "type": "messages"
-          },
-          {
-            "id": "3",
-            "type": "messages"
-          },
-          {
-            "id": "4",
-            "type": "messages"
-          },
-          {
-            "id": "5",
-            "type": "messages"
-          }
+
         ]
       },
       "users": {
