@@ -6,6 +6,12 @@ FactoryGirl.define do
     trait :eng do
       lang_code 'en'
     end
+
+    factory :language_for_docs do
+      id 1
+      created_at Date.new(2016, 02, 10)
+      updated_at Date.new(2016, 02, 12)
+    end
   end
 end
 

@@ -1,11 +1,11 @@
 {
   "data": {
-    "id": "",
+    "id": "1",
     "type": "comments",
     "attributes": {
-      "body": null,
-      "commentable_id": null,
-      "commentable_type": null
+      "body": "Typewriter hashtag ennui brunch post-ironic food truck vinegar.",
+      "commentable_id": 1,
+      "commentable_type": "Job"
     },
     "relationships": {
       "owner": {
