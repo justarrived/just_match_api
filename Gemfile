@@ -6,7 +6,7 @@ ruby '2.3.0'
 gem 'rails', '4.2.5.1'
 gem 'pg', '~> 0.15' # Use postgresql as the database for Active Record
 
-gem 'rails-api', '~> 0.4'
+gem 'rails-api', '~> 0.4', require: false
 # Serialize models to JSON
 # rubocop:disable Metrics/LineLength
 # gem 'active_model_serializers', git: 'https://github.com/rails-api/active_model_serializers.git', ref: 'f32c0d97d5a3a609979b57655e107f678470fdaa'
