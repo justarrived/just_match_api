@@ -41,6 +41,7 @@ class Job < ActiveRecord::Base
   # Needed for administrate
   # see https://github.com/thoughtbot/administrate/issues/354
   def owner_id
+    owner.try!(:id)
   end
 
   # Needed for administrate
