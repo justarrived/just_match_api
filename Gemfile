@@ -6,7 +6,7 @@ ruby '2.3.0'
 gem 'rails', '4.2.5.1'
 gem 'pg', '~> 0.15' # Use postgresql as the database for Active Record
 
-gem 'rails-api', '~> 0.4'
+gem 'rails-api', '~> 0.4', require: false
 # Serialize models to JSON
 # rubocop:disable Metrics/LineLength
 # gem 'active_model_serializers', git: 'https://github.com/rails-api/active_model_serializers.git', ref: 'f32c0d97d5a3a609979b57655e107f678470fdaa'
@@ -30,6 +30,9 @@ gem 'rack-timeout', '~> 0.3' # Kill requests that run for too long
 gem 'newrelic_rpm', '~> 3.15' # Performance monitoring
 
 gem 'geocoder', '~> 1.3' # Geocode resources
+
+gem 'administrate', '~> 0.1.3' # Admin dashboard
+gem 'uglifier', '~> 2.7' # Needed administrate assets compilation
 
 gem 'pundit', '~> 1.1' # Authorization policies
 

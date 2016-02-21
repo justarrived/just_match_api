@@ -42,6 +42,8 @@ class User < ActiveRecord::Base
   validates :password, length: { minimum: 6 }, allow_blank: false, on: :create
   validates :auth_token, uniqueness: true
 
+  scope :admins, -> { where(admin: true) }
+
   def self.find_by_credentials(email:, password:)
     user = find_by(email: email) || return
     user if correct_password?(user, password)
