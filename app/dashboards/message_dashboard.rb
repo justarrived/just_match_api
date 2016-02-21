@@ -14,7 +14,6 @@ class MessageDashboard < Administrate::BaseDashboard
     language: Field::BelongsTo,
     id: Field::Number,
     author_id: Field::Number,
-    integer: Field::Number,
     body: Field::Text,
     created_at: Field::DateTime,
     updated_at: Field::DateTime
@@ -40,7 +39,6 @@ class MessageDashboard < Administrate::BaseDashboard
     :language,
     :id,
     :author_id,
-    :integer,
     :body,
     :created_at,
     :updated_at
@@ -54,7 +52,6 @@ class MessageDashboard < Administrate::BaseDashboard
     :author,
     :language,
     :author_id,
-    :integer,
     :body
   ].freeze
 
