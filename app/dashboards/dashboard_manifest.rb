@@ -31,5 +31,5 @@ class DashboardManifest
   #
   # This dashboard will likely be the first page that admins see
   # when they log into the dashboard.
-  ROOT_DASHBOARD = DASHBOARDS.first
+  ROOT_DASHBOARD = :jobs
 end
