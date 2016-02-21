@@ -16,7 +16,6 @@ class DashboardManifest
     :languages,
     :chat_users,
     :users,
-    :comments,
     :skills,
     :user_languages,
     :user_skills,

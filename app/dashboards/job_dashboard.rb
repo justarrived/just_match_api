@@ -25,10 +25,10 @@ class JobDashboard < Administrate::BaseDashboard
     hours: Field::Number.with_options(decimals: 2),
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
-    owner_user_id: Field::Number,
+    zip: Field::String,
+    street: Field::String,
     latitude: Field::Number.with_options(decimals: 2),
     longitude: Field::Number.with_options(decimals: 2),
-    address: Field::String,
     name: Field::String
   }.freeze
 
@@ -63,10 +63,10 @@ class JobDashboard < Administrate::BaseDashboard
     :hours,
     :created_at,
     :updated_at,
-    :owner_user_id,
+    :zip,
+    :street,
     :latitude,
     :longitude,
-    :address,
     :name
   ].freeze
 
@@ -87,10 +87,10 @@ class JobDashboard < Administrate::BaseDashboard
     :performed_accept,
     :performed,
     :hours,
-    :owner_user_id,
+    :street,
+    :zip,
     :latitude,
     :longitude,
-    :address,
     :name
   ].freeze
 
