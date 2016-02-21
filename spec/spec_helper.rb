@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 if ENV.fetch('CODECLIMATE_REPO_TOKEN', false)
   require 'codeclimate-test-reporter'
   CodeClimate::TestReporter.start
@@ -5,10 +6,6 @@ elsif ENV.fetch('COVERAGE', false)
   require 'simplecov'
   SimpleCov.start 'rails'
 end
-
-require 'webmock/rspec'
-
-require 'spec_support/geocoder_support'
 
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
@@ -42,7 +39,3 @@ RSpec.configure do |config|
   # the `--only-failures` and `--next-failure` CLI options.
   config.example_status_persistence_file_path = 'spec/.rspec_examples.txt'
 end
-
-# Only allow the tests to connect to localhost and  allow codeclimate
-# codeclimate (for test coverage reporting)
-WebMock.disable_net_connect!(allow_localhost: true, allow: 'codeclimate.com')

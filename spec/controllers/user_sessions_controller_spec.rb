@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 RSpec.describe Api::V1::UserSessionsController, type: :controller do
@@ -53,6 +54,14 @@ RSpec.describe Api::V1::UserSessionsController, type: :controller do
         token = user.auth_token
         delete :destroy, { id: token }, {}
         expect(response.status).to eq(204)
+      end
+
+      it 'should re-generate user auth token' do
+        user = FactoryGirl.create(:user, email: 'someone@example.com')
+        token = user.auth_token
+        delete :destroy, { id: token }, {}
+        user.reload
+        expect(user.auth_token).not_to eq(token)
       end
     end
 

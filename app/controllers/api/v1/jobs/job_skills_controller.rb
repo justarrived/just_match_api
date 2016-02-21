@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Api
   module V1
     module Jobs
@@ -28,7 +29,7 @@ module Api
 
         api :GET, '/jobs/:job_id/skills/:id', 'Show user skill'
         description 'Returns skill.'
-        example Doxxer.example_for(Skill)
+        example Doxxer.read_example(Skill)
         def show
           authorize(JobSkill)
 
@@ -36,14 +37,16 @@ module Api
         end
 
         api :POST, '/jobs/:job_id/skills/', 'Create new job skill'
-        description 'Creates and returns new job skill if the user is allowed to.'
+        description 'Creates and returns new job skill if the user is allowed.'
         error code: 400, desc: 'Bad request'
         error code: 422, desc: 'Unprocessable entity'
         error code: 401, desc: 'Unauthorized'
-        param :skill, Hash, desc: 'Skill attributes', required: true do
-          param :id, Integer, desc: 'Skill id', required: true
+        param :data, Hash, desc: 'Top level key', required: true do
+          param :attributes, Hash, desc: 'Skill attributes', required: true do
+            param :id, Integer, desc: 'Skill id', required: true
+          end
         end
-        example Doxxer.example_for(Skill)
+        example Doxxer.read_example(Skill)
         def create
           authorize(JobSkill)
 
@@ -59,7 +62,7 @@ module Api
         end
 
         api :DELETE, '/jobs/:job_id/skills/:id', 'Delete user skill'
-        description 'Deletes job skill if the user is allowed to.'
+        description 'Deletes job skill if the user is allowed.'
         error code: 401, desc: 'Unauthorized'
         def destroy
           authorize(JobSkill)

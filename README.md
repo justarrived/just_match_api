@@ -5,7 +5,7 @@
 
 Welcome to the official API for the [Just Arrived](http://www.justarrived.se/) matching service.
 
-The API tries to follow the [JsonApi 1.0](http://jsonapi.org/) standard, but is still a long way from completely compliant. Feel free to report any violations.
+The API tries to follow the [JSON API 1.0](http://jsonapi.org/) standard, but is still a long way from completely compliant. Feel free to report any violations.
 
 [![JSON API 1.0](https://img.shields.io/badge/JSON%20API-1.0-lightgrey.svg)](http://jsonapi.org/)
 
@@ -70,8 +70,6 @@ $ script/test spec/models/user_spec.rb:31
 $ COVERAGE=true script/test
 ```
 
-_Note_: Running the tests with `bundle exec rspec` will not work, please use `script/test` instead.
-
 ## Docs
 
 [Docs for the current version of the API](http://just-match-api.herokuapp.com/).
@@ -88,7 +86,7 @@ __Static docs__
 You can generate a static version of the API documentation with
 
 ```
-$ script/doc
+$ script/docs
 ```
 
 ## Deploy
@@ -118,7 +116,7 @@ There are a few convenience commands
 * `script/server` - starts app
 * `script/test` - runs tests
 * `script/console` - opens a console
-* `script/doc` - generate doc HTML
+* `script/docs` - generate docs
 
 ## Contributing
 

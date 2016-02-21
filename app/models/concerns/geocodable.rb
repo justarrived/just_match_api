@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Geocodable
   module InstanceMethods
     def country

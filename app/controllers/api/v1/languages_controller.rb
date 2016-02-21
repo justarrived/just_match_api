@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Api
   module V1
     class LanguagesController < BaseController
@@ -24,7 +25,7 @@ module Api
 
       api :GET, '/languages/:id', 'Show language'
       description 'Return language.'
-      example Doxxer.example_for(Language)
+      example Doxxer.read_example(Language)
       def show
         authorize(@language)
 
@@ -36,10 +37,12 @@ module Api
       error code: 400, desc: 'Bad request'
       error code: 422, desc: 'Unprocessable entity'
       error code: 401, desc: 'Unauthorized'
-      param :job, Hash, desc: 'Language attributes', required: true do
-        param :lang_code, String, desc: 'Language code', required: true
+      param :data, Hash, desc: 'Top level key', required: true do
+        param :attributes, Hash, desc: 'Language attributes', required: true do
+          param :lang_code, String, desc: 'Language code', required: true
+        end
       end
-      example Doxxer.example_for(Language)
+      example Doxxer.read_example(Language)
       def create
         authorize(Language)
 
@@ -57,10 +60,12 @@ module Api
       error code: 400, desc: 'Bad request'
       error code: 422, desc: 'Unprocessable entity'
       error code: 401, desc: 'Unauthorized'
-      param :language, Hash, desc: 'Language attributes', required: true do
-        param :lang_code, String, desc: 'Name'
+      param :data, Hash, desc: 'Top level key', required: true do
+        param :attributes, Hash, desc: 'Language attributes', required: true do
+          param :lang_code, String, desc: 'Name'
+        end
       end
-      example Doxxer.example_for(Language)
+      example Doxxer.read_example(Language)
       def update
         authorize(@language)
 

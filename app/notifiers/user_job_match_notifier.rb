@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class UserJobMatchNotifier
   def self.call(user:, job:, owner:)
     UserMailer.

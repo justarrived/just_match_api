@@ -1,4 +1,14 @@
+# frozen_string_literal: true
 class JobPolicy < ApplicationPolicy
+  PRIVILEGE_ATTRIBUTES = [:latitude, :longitude, :performed, :performed_accept].freeze
+
+  OWNER_PARAMS = [
+    :max_rate, :performed_accept, :description, :job_date, :street, :zip,
+    :name, :hours, :language_id, skill_ids: []
+  ].freeze
+  ACCEPTED_APPLICANT_PARAMS = [:performed].freeze
+  ADMIN_PARAMS = (OWNER_PARAMS + ACCEPTED_APPLICANT_PARAMS).freeze
+
   def index?
     true
   end
@@ -19,13 +29,30 @@ class JobPolicy < ApplicationPolicy
 
   def permitted_attributes
     if admin?
-      admin_params
+      ADMIN_PARAMS
     elsif !record.persisted? || owner?
-      owner_params
+      OWNER_PARAMS
     elsif accepted_applicant?
-      accepted_applicant_params
+      ACCEPTED_APPLICANT_PARAMS
     else
       []
+    end
+  end
+
+  def present_applicants?
+    admin? || owner?
+  end
+
+  def present_self_applicant?
+    accepted_applicant?
+  end
+
+  def present_attributes
+    attributes = record.attribute_names.map(&:to_sym)
+    if admin? || owner? || accepted_applicant?
+      attributes
+    else
+      attributes - PRIVILEGE_ATTRIBUTES
     end
   end
 
@@ -37,22 +64,5 @@ class JobPolicy < ApplicationPolicy
 
   def accepted_applicant?
     record.accepted_applicant?(user)
-  end
-
-  private
-
-  def admin_params
-    owner_params + accepted_applicant_params
-  end
-
-  def owner_params
-    [
-      :max_rate, :performed_accept, :description, :job_date, :street, :zip,
-      :name, :hours, :language_id, skill_ids: []
-    ]
-  end
-
-  def accepted_applicant_params
-    [:performed]
   end
 end

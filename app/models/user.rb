@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class User < ActiveRecord::Base
   include Geocodable
   include SkillMatchable
@@ -82,6 +83,7 @@ class User < ActiveRecord::Base
       self.auth_token = SecureRandom.hex
       break unless self.class.exists?(auth_token: auth_token)
     end
+    save! if persisted?
   end
 
   private

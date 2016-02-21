@@ -1,20 +1,22 @@
+# frozen_string_literal: true
 module Api
   module V1
     class BaseController < ::Api::BaseController
       resource_description do
         api_version '1.0'
+        # rubocop:disable Metrics/LineLength
         app_info "
-          # JustMatch API (alpha)
+          # JustMatch API - v1.0 (alpha) [![JSON API 1.0](https://img.shields.io/badge/JSON%20API-1.0-lightgrey.svg)](http://jsonapi.org/)
 
           ---
 
-          Here you can find all the documentation about the current API.
+          __Documentation about the current API.__
 
+          The API follows the [JSON API 1.0](http://jsonapi.org) specification.
 
-          ## Examples
+          ---
 
-          To try the examples below simply copy-and-paste the cURL command below
-          into your terminal and run it.
+          ### Examples
 
           __Jobs__
 
@@ -36,13 +38,14 @@ module Api
 
               #{Doxxer.curl_for(name: 'skills', id: 1)}
 
-          ## Authentication
+          ### Authentication
 
           Pass the authorization token as a HTTP header
 
               #{Doxxer.curl_for(name: 'users', id: 1, with_auth: true, join_with: " \\
                      ")}
         "
+        # rubocop:enable Metrics/LineLength
         api_base_url '/api/v1'
       end
     end
