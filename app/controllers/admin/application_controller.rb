@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # All Administrate controllers inherit from this `Admin::ApplicationController`,
 # making it the ideal place to put authentication logic or other
 # before_filters.
@@ -6,10 +7,12 @@
 # you're free to overwrite the RESTful controller actions.
 module Admin
   class ApplicationController < Administrate::ApplicationController
-    before_filter :authenticate_admin
+    before_action :authenticate_admin
 
     def authenticate_admin
-      # TODO Add authentication logic here.
+      authenticate_or_request_with_http_basic do |email, password|
+        User.admins.find_by_credentials(email: email, password: password)
+      end
     end
 
     # Override this value to specify the number of elements to display at a time
