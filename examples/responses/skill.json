@@ -1,9 +1,9 @@
 {
   "data": {
-    "id": "",
+    "id": "1",
     "type": "skills",
     "attributes": {
-      "name": null
+      "name": "Carpenter"
     },
     "relationships": {
       "language": {

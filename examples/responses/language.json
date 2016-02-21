@@ -1,9 +1,9 @@
 {
   "data": {
-    "id": "",
+    "id": "1",
     "type": "languages",
     "attributes": {
-      "lang_code": null
+      "lang_code": "sv"
     }
   }
 }

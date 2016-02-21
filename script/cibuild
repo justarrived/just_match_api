@@ -17,5 +17,6 @@ script/bootstrap
 
 bin/rake db:create db:migrate
 
-LINT_FACTORY=true
+export DOC_EXAMPLES=false
+export LINT_FACTORY=true
 script/test --tag ~no_travis --tag ~regressor spec

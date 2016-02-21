@@ -4,7 +4,7 @@ IFS=$'\n\t'
 
 cd "$(dirname "$0")/.."
 
-# script/doc: Generate application documentation.
+# script/docs: Generate application documentation.
 
 echo -e '\n== Generating documentation =='
 # ensure everything in the app is up to date.

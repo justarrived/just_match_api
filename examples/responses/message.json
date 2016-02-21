@@ -1,9 +1,9 @@
 {
   "data": {
-    "id": "",
+    "id": "1",
     "type": "messages",
     "attributes": {
-      "body": null
+      "body": "Message content."
     },
     "relationships": {
       "chat": {

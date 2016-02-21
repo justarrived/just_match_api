@@ -43,6 +43,18 @@ FactoryGirl.define do
         job.users = users
       end
     end
+
+    factory :job_for_docs do
+      id 1
+      latitude 59.3158558
+      longitude 18.0552976
+      zip_latitude 59.7117339
+      zip_longitude 18.4256286
+      created_at Time.new(2016, 02, 10, 1, 1, 1).utc
+      updated_at Time.new(2016, 02, 12, 1, 1, 1).utc
+      job_date Time.new(2016, 02, 18, 1, 1, 1).utc
+      description 'Typewriter hashtag ennui brunch post-ironic food truck vinegar.'
+    end
   end
 end
 

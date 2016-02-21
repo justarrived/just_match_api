@@ -5,6 +5,13 @@ FactoryGirl.define do
       "Skill #{n} #{SecureRandom.uuid}"
     end
     association :language
+
+    factory :skill_for_docs do
+      id 1
+      name 'Carpenter'
+      created_at Time.new(2016, 02, 10, 1, 1, 1).utc
+      updated_at Time.new(2016, 02, 12, 1, 1, 1).utc
+    end
   end
 end
 

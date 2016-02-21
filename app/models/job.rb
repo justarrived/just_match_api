@@ -38,6 +38,18 @@ class Job < ActiveRecord::Base
       order_by_matching_skills(user, strict_match: strict_match)
   end
 
+  # Needed for administrate
+  # see https://github.com/thoughtbot/administrate/issues/354
+  def owner_id
+    owner.try!(:id)
+  end
+
+  # Needed for administrate
+  # see https://github.com/thoughtbot/administrate/issues/354
+  def owner_id=(id)
+    self.owner = User.find(id)
+  end
+
   def owner?(user)
     !owner.nil? && owner == user
   end
