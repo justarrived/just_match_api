@@ -32,9 +32,12 @@ gem 'newrelic_rpm', '~> 3.15' # Performance monitoring
 gem 'geocoder', '~> 1.3' # Geocode resources
 
 gem 'administrate', '~> 0.1.3' # Admin dashboard
+gem 'uglifier', '~> 2.7' # Needed administrate assets compilation
+
 gem 'pundit', '~> 1.1' # Authorization policies
 
 gem 'faker', '~> 1.6' # Easily generate fake data (used for seeding dev/test/staging)
+
 
 group :development, :test do
   gem 'byebug', '~> 8.2'
