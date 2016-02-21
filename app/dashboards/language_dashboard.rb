@@ -1,4 +1,5 @@
-require "administrate/base_dashboard"
+# frozen_string_literal: true
+require 'administrate/base_dashboard'
 
 class LanguageDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
@@ -14,8 +15,8 @@ class LanguageDashboard < Administrate::BaseDashboard
     id: Field::Number,
     lang_code: Field::String,
     created_at: Field::DateTime,
-    updated_at: Field::DateTime,
-  }
+    updated_at: Field::DateTime
+  }.freeze
 
   # COLLECTION_ATTRIBUTES
   # an array of attributes that will be displayed on the model's index page.
@@ -26,8 +27,8 @@ class LanguageDashboard < Administrate::BaseDashboard
     :user_languages,
     :users,
     :jobs,
-    :id,
-  ]
+    :id
+  ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
@@ -38,8 +39,8 @@ class LanguageDashboard < Administrate::BaseDashboard
     :id,
     :lang_code,
     :created_at,
-    :updated_at,
-  ]
+    :updated_at
+  ].freeze
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
@@ -48,13 +49,13 @@ class LanguageDashboard < Administrate::BaseDashboard
     :user_languages,
     :users,
     :jobs,
-    :lang_code,
-  ]
+    :lang_code
+  ].freeze
 
   # Overwrite this method to customize how languages are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(language)
-  #   "Language ##{language.id}"
-  # end
+  def display_resource(language)
+    "##{language.id} #{language.lang_code}"
+  end
 end

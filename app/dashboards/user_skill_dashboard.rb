@@ -1,4 +1,5 @@
-require "administrate/base_dashboard"
+# frozen_string_literal: true
+require 'administrate/base_dashboard'
 
 class UserSkillDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
@@ -12,8 +13,8 @@ class UserSkillDashboard < Administrate::BaseDashboard
     skill: Field::BelongsTo,
     id: Field::Number,
     created_at: Field::DateTime,
-    updated_at: Field::DateTime,
-  }
+    updated_at: Field::DateTime
+  }.freeze
 
   # COLLECTION_ATTRIBUTES
   # an array of attributes that will be displayed on the model's index page.
@@ -24,8 +25,8 @@ class UserSkillDashboard < Administrate::BaseDashboard
     :user,
     :skill,
     :id,
-    :created_at,
-  ]
+    :created_at
+  ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
@@ -34,16 +35,16 @@ class UserSkillDashboard < Administrate::BaseDashboard
     :skill,
     :id,
     :created_at,
-    :updated_at,
-  ]
+    :updated_at
+  ].freeze
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
     :user,
-    :skill,
-  ]
+    :skill
+  ].freeze
 
   # Overwrite this method to customize how user skills are displayed
   # across all pages of the admin dashboard.

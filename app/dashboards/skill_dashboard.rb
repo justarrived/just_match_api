@@ -1,4 +1,5 @@
-require "administrate/base_dashboard"
+# frozen_string_literal: true
+require 'administrate/base_dashboard'
 
 class SkillDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
@@ -16,8 +17,8 @@ class SkillDashboard < Administrate::BaseDashboard
     id: Field::Number,
     name: Field::String,
     created_at: Field::DateTime,
-    updated_at: Field::DateTime,
-  }
+    updated_at: Field::DateTime
+  }.freeze
 
   # COLLECTION_ATTRIBUTES
   # an array of attributes that will be displayed on the model's index page.
@@ -28,8 +29,8 @@ class SkillDashboard < Administrate::BaseDashboard
     :language,
     :job_skills,
     :jobs,
-    :user_skills,
-  ]
+    :user_skills
+  ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
@@ -42,8 +43,8 @@ class SkillDashboard < Administrate::BaseDashboard
     :id,
     :name,
     :created_at,
-    :updated_at,
-  ]
+    :updated_at
+  ].freeze
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
@@ -54,13 +55,13 @@ class SkillDashboard < Administrate::BaseDashboard
     :jobs,
     :user_skills,
     :users,
-    :name,
-  ]
+    :name
+  ].freeze
 
   # Overwrite this method to customize how skills are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(skill)
-  #   "Skill ##{skill.id}"
-  # end
+  def display_resource(skill)
+    "##{skill.id} #{skill.name}"
+  end
 end

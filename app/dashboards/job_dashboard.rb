@@ -1,4 +1,5 @@
-require "administrate/base_dashboard"
+# frozen_string_literal: true
+require 'administrate/base_dashboard'
 
 class JobDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
@@ -14,7 +15,7 @@ class JobDashboard < Administrate::BaseDashboard
     job_users: Field::HasMany,
     users: Field::HasMany,
     comments: Field::HasMany,
-    owner: Field::BelongsTo.with_options(class_name: "User"),
+    owner: Field::BelongsTo.with_options(class_name: 'User'),
     id: Field::Number,
     max_rate: Field::Number,
     description: Field::Text,
@@ -28,8 +29,8 @@ class JobDashboard < Administrate::BaseDashboard
     latitude: Field::Number.with_options(decimals: 2),
     longitude: Field::Number.with_options(decimals: 2),
     address: Field::String,
-    name: Field::String,
-  }
+    name: Field::String
+  }.freeze
 
   # COLLECTION_ATTRIBUTES
   # an array of attributes that will be displayed on the model's index page.
@@ -40,8 +41,8 @@ class JobDashboard < Administrate::BaseDashboard
     :language,
     :job_skills,
     :skills,
-    :job_users,
-  ]
+    :job_users
+  ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
@@ -66,8 +67,8 @@ class JobDashboard < Administrate::BaseDashboard
     :latitude,
     :longitude,
     :address,
-    :name,
-  ]
+    :name
+  ].freeze
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
@@ -90,13 +91,13 @@ class JobDashboard < Administrate::BaseDashboard
     :latitude,
     :longitude,
     :address,
-    :name,
-  ]
+    :name
+  ].freeze
 
   # Overwrite this method to customize how jobs are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(job)
-  #   "Job ##{job.id}"
-  # end
+  def display_resource(job)
+    "##{job.id} #{job.name}"
+  end
 end

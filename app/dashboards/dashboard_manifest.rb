@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # DashboardManifest tells Administrate which dashboards to display
 class DashboardManifest
   # `DASHBOARDS`
@@ -21,8 +22,8 @@ class DashboardManifest
     :user_skills,
     :job_users,
     :jobs,
-    :job_skills,
-  ]
+    :job_skills
+  ].freeze
 
   # `ROOT_DASHBOARD`
   # the name of the dashboard that will be displayed

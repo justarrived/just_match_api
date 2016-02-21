@@ -1,4 +1,5 @@
-require "administrate/base_dashboard"
+# frozen_string_literal: true
+require 'administrate/base_dashboard'
 
 class CommentDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
@@ -9,14 +10,14 @@ class CommentDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     commentable: Field::Polymorphic,
-    owner: Field::BelongsTo.with_options(class_name: "User"),
+    owner: Field::BelongsTo.with_options(class_name: 'User'),
     language: Field::BelongsTo,
     id: Field::Number,
     body: Field::Text,
     owner_user_id: Field::Number,
     created_at: Field::DateTime,
-    updated_at: Field::DateTime,
-  }
+    updated_at: Field::DateTime
+  }.freeze
 
   # COLLECTION_ATTRIBUTES
   # an array of attributes that will be displayed on the model's index page.
@@ -27,8 +28,8 @@ class CommentDashboard < Administrate::BaseDashboard
     :commentable,
     :owner,
     :language,
-    :id,
-  ]
+    :id
+  ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
@@ -40,8 +41,8 @@ class CommentDashboard < Administrate::BaseDashboard
     :body,
     :owner_user_id,
     :created_at,
-    :updated_at,
-  ]
+    :updated_at
+  ].freeze
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
@@ -51,8 +52,8 @@ class CommentDashboard < Administrate::BaseDashboard
     :owner,
     :language,
     :body,
-    :owner_user_id,
-  ]
+    :owner_user_id
+  ].freeze
 
   # Overwrite this method to customize how comments are displayed
   # across all pages of the admin dashboard.

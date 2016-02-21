@@ -1,4 +1,5 @@
-require "administrate/base_dashboard"
+# frozen_string_literal: true
+require 'administrate/base_dashboard'
 
 class UserDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
@@ -11,12 +12,12 @@ class UserDashboard < Administrate::BaseDashboard
     language: Field::BelongsTo,
     user_skills: Field::HasMany,
     skills: Field::HasMany,
-    owned_jobs: Field::HasMany.with_options(class_name: "Job"),
+    owned_jobs: Field::HasMany.with_options(class_name: 'Job'),
     job_users: Field::HasMany,
     jobs: Field::HasMany,
     user_languages: Field::HasMany,
     languages: Field::HasMany,
-    written_comments: Field::HasMany.with_options(class_name: "Comment"),
+    written_comments: Field::HasMany.with_options(class_name: 'Comment'),
     chat_users: Field::HasMany,
     chats: Field::HasMany,
     messages: Field::HasMany,
@@ -34,8 +35,8 @@ class UserDashboard < Administrate::BaseDashboard
     auth_token: Field::String,
     password_hash: Field::String,
     password_salt: Field::String,
-    admin: Field::Boolean,
-  }
+    admin: Field::Boolean
+  }.freeze
 
   # COLLECTION_ATTRIBUTES
   # an array of attributes that will be displayed on the model's index page.
@@ -46,8 +47,8 @@ class UserDashboard < Administrate::BaseDashboard
     :language,
     :user_skills,
     :skills,
-    :owned_jobs,
-  ]
+    :owned_jobs
+  ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
@@ -75,11 +76,11 @@ class UserDashboard < Administrate::BaseDashboard
     :longitude,
     # : address,
     :anonymized,
-    :auth_token,
-    :password_hash,
-    :password_salt,
-    :admin,
-  ]
+    # :auth_token,
+    # :password_hash,
+    # :password_salt,
+    :admin
+  ].freeze
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
@@ -105,16 +106,16 @@ class UserDashboard < Administrate::BaseDashboard
     :longitude,
     # : address,
     :anonymized,
-    :auth_token,
-    :password_hash,
-    :password_salt,
-    :admin,
-  ]
+    # :auth_token,
+    # :password_hash,
+    # :password_salt,
+    :admin
+  ].freeze
 
   # Overwrite this method to customize how users are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(user)
-  #   "User ##{user.id}"
-  # end
+  def display_resource(user)
+    "##{user.id} #{user.name}"
+  end
 end

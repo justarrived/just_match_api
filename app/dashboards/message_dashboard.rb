@@ -1,4 +1,5 @@
-require "administrate/base_dashboard"
+# frozen_string_literal: true
+require 'administrate/base_dashboard'
 
 class MessageDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
@@ -9,15 +10,15 @@ class MessageDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     chat: Field::BelongsTo,
-    author: Field::BelongsTo.with_options(class_name: "User"),
+    author: Field::BelongsTo.with_options(class_name: 'User'),
     language: Field::BelongsTo,
     id: Field::Number,
     author_id: Field::Number,
     integer: Field::Number,
     body: Field::Text,
     created_at: Field::DateTime,
-    updated_at: Field::DateTime,
-  }
+    updated_at: Field::DateTime
+  }.freeze
 
   # COLLECTION_ATTRIBUTES
   # an array of attributes that will be displayed on the model's index page.
@@ -28,8 +29,8 @@ class MessageDashboard < Administrate::BaseDashboard
     :chat,
     :author,
     :language,
-    :id,
-  ]
+    :id
+  ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
@@ -42,8 +43,8 @@ class MessageDashboard < Administrate::BaseDashboard
     :integer,
     :body,
     :created_at,
-    :updated_at,
-  ]
+    :updated_at
+  ].freeze
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
@@ -54,8 +55,8 @@ class MessageDashboard < Administrate::BaseDashboard
     :language,
     :author_id,
     :integer,
-    :body,
-  ]
+    :body
+  ].freeze
 
   # Overwrite this method to customize how messages are displayed
   # across all pages of the admin dashboard.

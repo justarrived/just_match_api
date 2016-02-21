@@ -1,4 +1,5 @@
-require "administrate/base_dashboard"
+# frozen_string_literal: true
+require 'administrate/base_dashboard'
 
 class ChatDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
@@ -13,8 +14,8 @@ class ChatDashboard < Administrate::BaseDashboard
     messages: Field::HasMany,
     id: Field::Number,
     created_at: Field::DateTime,
-    updated_at: Field::DateTime,
-  }
+    updated_at: Field::DateTime
+  }.freeze
 
   # COLLECTION_ATTRIBUTES
   # an array of attributes that will be displayed on the model's index page.
@@ -25,8 +26,8 @@ class ChatDashboard < Administrate::BaseDashboard
     :chat_users,
     :users,
     :messages,
-    :id,
-  ]
+    :id
+  ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
@@ -36,8 +37,8 @@ class ChatDashboard < Administrate::BaseDashboard
     :messages,
     :id,
     :created_at,
-    :updated_at,
-  ]
+    :updated_at
+  ].freeze
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
@@ -45,8 +46,8 @@ class ChatDashboard < Administrate::BaseDashboard
   FORM_ATTRIBUTES = [
     :chat_users,
     :users,
-    :messages,
-  ]
+    :messages
+  ].freeze
 
   # Overwrite this method to customize how chats are displayed
   # across all pages of the admin dashboard.
