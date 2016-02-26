@@ -26,7 +26,7 @@ module Api
       end
 
       api :GET, '/users/:id', 'Show user'
-      description 'Returns user is alloed to.'
+      description 'Returns user is allowed to.'
       example Doxxer.read_example(User)
       def show
         authorize(@user)
