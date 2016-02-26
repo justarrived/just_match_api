@@ -21,9 +21,10 @@ ActiveRecord::Schema.define(version: 20160131150605) do
     t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["chat_id"], name: "index_chat_users_on_chat_id", using: :btree
-    t.index ["user_id"], name: "index_chat_users_on_user_id", using: :btree
   end
+
+  add_index "chat_users", ["chat_id"], name: "index_chat_users_on_chat_id", using: :btree
+  add_index "chat_users", ["user_id"], name: "index_chat_users_on_user_id", using: :btree
 
   create_table "chats", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -38,18 +39,20 @@ ActiveRecord::Schema.define(version: 20160131150605) do
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
     t.integer  "language_id"
-    t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id", using: :btree
-    t.index ["language_id"], name: "index_comments_on_language_id", using: :btree
   end
+
+  add_index "comments", ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id", using: :btree
+  add_index "comments", ["language_id"], name: "index_comments_on_language_id", using: :btree
 
   create_table "job_skills", force: :cascade do |t|
     t.integer  "job_id"
     t.integer  "skill_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["job_id"], name: "index_job_skills_on_job_id", using: :btree
-    t.index ["skill_id"], name: "index_job_skills_on_skill_id", using: :btree
   end
+
+  add_index "job_skills", ["job_id"], name: "index_job_skills_on_job_id", using: :btree
+  add_index "job_skills", ["skill_id"], name: "index_job_skills_on_skill_id", using: :btree
 
   create_table "job_users", force: :cascade do |t|
     t.integer  "user_id"
@@ -58,9 +61,10 @@ ActiveRecord::Schema.define(version: 20160131150605) do
     t.integer  "rate"
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
-    t.index ["job_id"], name: "index_job_users_on_job_id", using: :btree
-    t.index ["user_id"], name: "index_job_users_on_user_id", using: :btree
   end
+
+  add_index "job_users", ["job_id"], name: "index_job_users_on_job_id", using: :btree
+  add_index "job_users", ["user_id"], name: "index_job_users_on_user_id", using: :btree
 
   create_table "jobs", force: :cascade do |t|
     t.integer  "max_rate"
@@ -80,8 +84,9 @@ ActiveRecord::Schema.define(version: 20160131150605) do
     t.string   "zip"
     t.float    "zip_latitude"
     t.float    "zip_longitude"
-    t.index ["language_id"], name: "index_jobs_on_language_id", using: :btree
   end
+
+  add_index "jobs", ["language_id"], name: "index_jobs_on_language_id", using: :btree
 
   create_table "languages", force: :cascade do |t|
     t.string   "lang_code"
@@ -97,35 +102,39 @@ ActiveRecord::Schema.define(version: 20160131150605) do
     t.text     "body"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.index ["chat_id"], name: "index_messages_on_chat_id", using: :btree
-    t.index ["language_id"], name: "index_messages_on_language_id", using: :btree
   end
+
+  add_index "messages", ["chat_id"], name: "index_messages_on_chat_id", using: :btree
+  add_index "messages", ["language_id"], name: "index_messages_on_language_id", using: :btree
 
   create_table "skills", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.integer  "language_id"
-    t.index ["language_id"], name: "index_skills_on_language_id", using: :btree
   end
+
+  add_index "skills", ["language_id"], name: "index_skills_on_language_id", using: :btree
 
   create_table "user_languages", force: :cascade do |t|
     t.integer  "language_id"
     t.integer  "user_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.index ["language_id"], name: "index_user_languages_on_language_id", using: :btree
-    t.index ["user_id"], name: "index_user_languages_on_user_id", using: :btree
   end
+
+  add_index "user_languages", ["language_id"], name: "index_user_languages_on_language_id", using: :btree
+  add_index "user_languages", ["user_id"], name: "index_user_languages_on_user_id", using: :btree
 
   create_table "user_skills", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "skill_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["skill_id"], name: "index_user_skills_on_skill_id", using: :btree
-    t.index ["user_id"], name: "index_user_skills_on_user_id", using: :btree
   end
+
+  add_index "user_skills", ["skill_id"], name: "index_user_skills_on_skill_id", using: :btree
+  add_index "user_skills", ["user_id"], name: "index_user_skills_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
@@ -146,8 +155,9 @@ ActiveRecord::Schema.define(version: 20160131150605) do
     t.string   "zip"
     t.float    "zip_latitude"
     t.float    "zip_longitude"
-    t.index ["language_id"], name: "index_users_on_language_id", using: :btree
   end
+
+  add_index "users", ["language_id"], name: "index_users_on_language_id", using: :btree
 
   add_foreign_key "chat_users", "chats"
   add_foreign_key "chat_users", "users"
