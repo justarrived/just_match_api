@@ -24,7 +24,7 @@ gem 'kaminari', '~> 0.16' # Easy pagination
 
 gem 'bcrypt', '~> 3.1.7', require: true
 
-gem 'puma', '~> 2.16' # Use Puma as the app server
+gem 'puma', '~> 3.0' # Use Puma as the app server
 gem 'rack-timeout', '~> 0.3' # Kill requests that run for too long
 
 gem 'newrelic_rpm', '~> 3.15' # Performance monitoring
