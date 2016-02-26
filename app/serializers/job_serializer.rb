@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 class JobSerializer < ActiveModel::Serializer
-  attributes :id, :description, :job_date, :created_at, :updated_at,
-             :performed_accept, :performed, :longitude, :latitude, :name,
-             :hours, :zip, :zip_latitude, :zip_longitude
+  # Since the #attributes method is overriden and provides a whitelist of attribute_names
+  # that can be returned to the user we can return all Job column names here
+  attributes Job.column_names.map(&:to_sym)
 
   has_many :users, key: :applicants do
     # Doxxer invokes the serializer on non-persisted objects,
