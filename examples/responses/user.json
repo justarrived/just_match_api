@@ -11,7 +11,8 @@
       "street": "Bankgatan 14C",
       "zip": "223 52",
       "zip_latitude": null,
-      "zip_longitude": null
+      "zip_longitude": null,
+      "admin": false
     },
     "relationships": {
       "language": {
