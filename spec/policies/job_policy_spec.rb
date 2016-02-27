@@ -2,6 +2,10 @@
 require 'rails_helper'
 
 RSpec.describe JobPolicy do
+  before(:each) do
+    allow_any_instance_of(User).to receive(:persisted?).and_return(true)
+  end
+
   let(:owner_params) do
     [
       :max_rate, :performed_accept, :description, :job_date, :street, :zip, :name,

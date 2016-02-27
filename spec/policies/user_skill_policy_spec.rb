@@ -2,6 +2,10 @@
 require 'rails_helper'
 
 RSpec.describe UserSkillPolicy do
+  before(:each) do
+    allow_any_instance_of(User).to receive(:persisted?).and_return(true)
+  end
+
   let(:user) { FactoryGirl.build(:user) }
   let(:other_user) { FactoryGirl.build(:user) }
   let(:admin_user) { FactoryGirl.build(:admin_user) }

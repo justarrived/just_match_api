@@ -51,7 +51,7 @@ class ApplicationPolicy
   end
 
   def user?
-    !user.nil?
+    !!user.try!(:persisted?)
   end
 
   def no_user?

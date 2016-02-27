@@ -2,6 +2,10 @@
 require 'rails_helper'
 
 RSpec.describe UserPolicy do
+  before(:each) do
+    allow_any_instance_of(User).to receive(:persisted?).and_return(true)
+  end
+
   context 'a user' do
     subject { UserPolicy.new(nil, user) }
 

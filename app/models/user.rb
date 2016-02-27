@@ -34,7 +34,8 @@ class User < ActiveRecord::Base
 
   validates :language, presence: true
   validates :email, presence: true, uniqueness: true
-  validates :name, length: { minimum: 3 }, allow_blank: false
+  validates :first_name, length: { minimum: 2 }, allow_blank: false
+  validates :last_name, length: { minimum: 2 }, allow_blank: false
   validates :phone, length: { minimum: 9 }, allow_blank: false
   validates :description, length: { minimum: 10 }, allow_blank: false
   validates :street, length: { minimum: 5 }, allow_blank: false
@@ -67,15 +68,19 @@ class User < ActiveRecord::Base
     jobs.any?
   end
 
+  def name
+    [first_name, last_name].join(' ')
+  end
+
   def admin?
     admin
   end
 
   def reset!
-    name = 'Ghost'
     update!(
       anonymized: true,
-      name: name,
+      first_name: 'Ghost',
+      last_name: 'user',
       email: "#{name}+#{SecureRandom.uuid}@example.com",
       phone: '123456789',
       description: 'This user has been deleted.',
@@ -86,11 +91,10 @@ class User < ActiveRecord::Base
 
   def generate_auth_token!
     # Make sure no two users have the same auth_token
-    loop do
-      self.auth_token = SecureRandom.hex
-      break unless self.class.exists?(auth_token: auth_token)
+    self.auth_token = loop do
+      token = SecureRandom.hex
+      break token unless self.class.exists?(auth_token: token)
     end
-    save! if persisted?
   end
 
   private
@@ -108,7 +112,6 @@ end
 # Table name: users
 #
 #  id            :integer          not null, primary key
-#  name          :string
 #  email         :string
 #  phone         :string
 #  description   :text
@@ -126,6 +129,8 @@ end
 #  zip           :string
 #  zip_latitude  :float
 #  zip_longitude :float
+#  first_name    :string
+#  last_name     :string
 #
 # Indexes
 #

@@ -11,47 +11,10 @@ require 'shoulda/matchers'
 require 'pundit/rspec'
 require 'webmock/rspec'
 
-require 'spec_support/geocoder_support'
+Dir[Rails.root.join('spec/spec_support/**/*.rb')].each { |f| require f }
 
 # Checks for pending migration and applies them before tests are run.
 ActiveRecord::Migration.maintain_test_schema!
-
-def run_test_suite_with_factory_linting?
-  # Only run the factory linter if running the entire test suite or if
-  # explicitly set
-  !ARGV.first || ENV.fetch('LINT_FACTORY', false)
-end
-
-# Validate that all factories are valid, will slow down the test startup
-# with a second or two, but can be very handy..
-def run_factory_linting
-  factories_to_lint = FactoryGirl.factories.reject do |factory|
-    # Don't lint factories used for documentation generation
-    factory.name.to_s.ends_with?('for_docs')
-  end
-  print 'Validating factories..'
-  DatabaseCleaner.start
-  FactoryGirl.lint(factories_to_lint)
-  print "done \n"
-rescue => e
-  DatabaseCleaner.clean
-  raise e
-end
-
-# Generate documentation examples, will slow down test startup
-# with a second or two, but its quite handy to have docs up to date
-# in a semi-automated fashion..
-def generate_doc_examples?
-  # Only run doc example generation if running the entire test suite or if
-  # explicitly set
-  !ARGV.first || ENV.fetch('DOC_EXAMPLES', false)
-end
-
-def run_generate_doc_examples
-  print 'Generating doc examples..'
-  Doxxer.generate_response_examples
-  print "done \n"
-end
 
 RSpec.configure do |config|
   # Run each example within a transaction
@@ -67,14 +30,15 @@ RSpec.configure do |config|
 
   # Before the test suite is run
   config.before(:suite) do
-    run_generate_doc_examples if generate_doc_examples?
+    DocExamplesRunner.run
+    RubocopRunner.run
 
     begin
       # Since we're using Spring we must reload all factories
       # see: https://github.com/thoughtbot/factory_girl/blob/master/GETTING_STARTED.md#rails-preloaders-and-rspec
       FactoryGirl.reload
 
-      run_factory_linting if run_test_suite_with_factory_linting?
+      FactoryLintRunner.run
 
       DatabaseCleaner.strategy = :truncation
       DatabaseCleaner.start
