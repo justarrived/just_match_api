@@ -247,7 +247,7 @@ GEM
       json (~> 1.8)
       simplecov-html (~> 0.10.0)
     simplecov-html (0.10.0)
-    spring (1.6.3)
+    spring (1.6.4)
     spring-commands-rspec (1.0.4)
       spring (>= 0.9.1)
     sprockets (3.5.2)
@@ -276,7 +276,7 @@ GEM
       activemodel (>= 4.2)
       debug_inspector
       railties (>= 4.2)
-    webmock (1.22.6)
+    webmock (1.24.1)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
       hashdiff
@@ -322,7 +322,7 @@ DEPENDENCIES
   spring-commands-rspec (~> 1.0)
   uglifier (~> 2.7)
   web-console (~> 3.0)
-  webmock (~> 1.21)
+  webmock (~> 1.24)
 
 BUNDLED WITH
    1.11.2

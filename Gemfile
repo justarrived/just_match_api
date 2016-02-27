@@ -64,6 +64,6 @@ group :test do
   gem 'codeclimate-test-reporter', '~> 0.4', require: false
   gem 'simplecov', '~> 0.11', require: false
   gem 'database_cleaner', '~> 1.5'
-  gem 'webmock', '~> 1.21'
+  gem 'webmock', '~> 1.24'
   gem 'rspec-activemodel-mocks', '~> 1.0'
 end
