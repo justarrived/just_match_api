@@ -2,6 +2,10 @@
 require 'rails_helper'
 
 RSpec.describe ChatPolicy do
+  before(:each) do
+    allow_any_instance_of(User).to receive(:persisted?).and_return(true)
+  end
+
   let(:chat) { FactoryGirl.create(:chat) }
 
   context 'admin user' do

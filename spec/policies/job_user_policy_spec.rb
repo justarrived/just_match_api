@@ -2,6 +2,10 @@
 require 'rails_helper'
 
 RSpec.describe JobUserPolicy do
+  before(:each) do
+    allow_any_instance_of(User).to receive(:persisted?).and_return(true)
+  end
+
   let(:owner) { FactoryGirl.build(:user) }
   let(:user) { FactoryGirl.build(:user) }
   let(:a_job_user) { FactoryGirl.build(:user) }

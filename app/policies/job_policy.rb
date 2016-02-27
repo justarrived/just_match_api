@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class JobPolicy < ApplicationPolicy
-  PRIVILEGE_ATTRIBUTES = [:latitude, :longitude, :performed, :performed_accept].freeze
+  PRIVILEGED_ATTRIBUTES = [:latitude, :longitude, :performed, :performed_accept].freeze
 
   OWNER_ATTRIBUTES = [
     :max_rate, :performed_accept, :description, :job_date, :street, :zip,
@@ -52,7 +52,7 @@ class JobPolicy < ApplicationPolicy
     if admin? || owner? || accepted_applicant?
       attributes
     else
-      attributes - PRIVILEGE_ATTRIBUTES
+      attributes - PRIVILEGED_ATTRIBUTES
     end
   end
 

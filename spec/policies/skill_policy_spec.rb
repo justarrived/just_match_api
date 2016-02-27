@@ -2,6 +2,10 @@
 require 'rails_helper'
 
 RSpec.describe SkillPolicy do
+  before(:each) do
+    allow_any_instance_of(User).to receive(:persisted?).and_return(true)
+  end
+
   context 'anyone' do
     subject { SkillPolicy.new(nil, skill) }
 
