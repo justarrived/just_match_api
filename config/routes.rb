@@ -1,11 +1,20 @@
 # frozen_string_literal: true
 Rails.application.routes.draw do
   namespace :admin do
-    DashboardManifest::DASHBOARDS.each do |dashboard_resource|
-      resources dashboard_resource
-    end
+    resources :chats
+    resources :comments
+    resources :jobs
+    resources :users
+    resources :messages
+    resources :languages
+    resources :user_languages
+    resources :skills
+    resources :chat_users
+    resources :job_skills
+    resources :job_users
+    resources :user_skills
 
-    root controller: DashboardManifest::ROOT_DASHBOARD, action: :index
+    root to: 'jobs#index'
   end
 
   apipie
