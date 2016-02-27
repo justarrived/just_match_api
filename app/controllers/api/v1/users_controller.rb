@@ -60,6 +60,8 @@ module Api
         authorize(@user)
 
         if @user.save
+          login_user(@user)
+
           @user.skills = Skill.where(id: user_params[:skill_ids])
           @user.languages = Language.where(id: user_params[:language_ids])
 
