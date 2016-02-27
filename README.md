@@ -23,6 +23,7 @@ If you're looking for help, ask questions, want to contribute or give feedback, 
 * [Deploy](#deploy)
 * [Commands](#commands)
 * [Contributing](#contributing)
+* [Translations](#translations)
 * [MIT License](#license)
 
 ## Built with
@@ -130,6 +131,26 @@ If you want to contribute please take a moment to review our [contributing guide
 If you're not sure where to go you can always join our Gitter chat and ask :)
 
 [![Join the chat at https://gitter.im/justarrived/just_match_api](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/justarrived/just_match_api?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
+## Translations
+
+Translations are managed at [Transifex](https://www.transifex.com/justarrived/justmatch-api).
+
+To push or pull new translations, you need to install the [Transifex client](http://docs.transifex.com/client/setup/).
+
+__Fetch translations from transifex__
+
+```
+$ tx pull -a
+```
+
+__Push source language file to transifex__
+
+```
+$ tx push -s
+```
+
+The configuration is in [.tx/config](.tx/config).
 
 ## License
 
