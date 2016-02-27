@@ -13,7 +13,41 @@ RSpec.describe UserSerializer, type: :serializer do
     end
 
     it 'has a name' do
-      expect(subject['attributes']['name']).to eql(resource.name)
+      expect(subject['attributes']['first_name']).to eql(resource.first_name)
     end
   end
 end
+
+# == Schema Information
+#
+# Table name: users
+#
+#  id            :integer          not null, primary key
+#  email         :string
+#  phone         :string
+#  description   :text
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  latitude      :float
+#  longitude     :float
+#  language_id   :integer
+#  anonymized    :boolean          default(FALSE)
+#  auth_token    :string
+#  password_hash :string
+#  password_salt :string
+#  admin         :boolean          default(FALSE)
+#  street        :string
+#  zip           :string
+#  zip_latitude  :float
+#  zip_longitude :float
+#  first_name    :string
+#  last_name     :string
+#
+# Indexes
+#
+#  index_users_on_language_id  (language_id)
+#
+# Foreign Keys
+#
+#  fk_rails_45f4f12508  (language_id => languages.id)
+#

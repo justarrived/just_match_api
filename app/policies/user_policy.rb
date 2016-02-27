@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 class UserPolicy < ApplicationPolicy
   ATTRIBUTES = [
-    :id, :name, :description, :language_id, :zip, :zip_latitude, :zip_longitude
+    :id, :first_name, :description, :language_id, :zip, :zip_latitude, :zip_longitude
   ].freeze
 
   ACCEPTED_APPLICANT_ATTRIBUTES = ATTRIBUTES + [
-    :phone, :street, :latitude, :longitude, :email
+    :phone, :street, :latitude, :longitude, :email, :last_name
   ].freeze
 
   SELF_ATTRIBUTES = (ATTRIBUTES + ACCEPTED_APPLICANT_ATTRIBUTES + [

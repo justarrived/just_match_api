@@ -34,7 +34,6 @@ end
 # Table name: users
 #
 #  id            :integer          not null, primary key
-#  name          :string
 #  email         :string
 #  phone         :string
 #  description   :text
@@ -50,6 +49,10 @@ end
 #  admin         :boolean          default(FALSE)
 #  street        :string
 #  zip           :string
+#  zip_latitude  :float
+#  zip_longitude :float
+#  first_name    :string
+#  last_name     :string
 #
 # Indexes
 #

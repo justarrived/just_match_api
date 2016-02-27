@@ -9,7 +9,8 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         attributes: {
           skill_ids: [FactoryGirl.create(:skill).id],
           email: 'someone@example.com',
-          name: 'Some user name',
+          first_name: 'Some user',
+          last_name: 'name',
           phone: '123456789',
           description: 'Some user description',
           language_id: lang_id,
@@ -25,7 +26,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
   let(:invalid_attributes) do
     {
       data: {
-        attributes: { name: nil }
+        attributes: { first_name: nil }
       }
     }
   end
@@ -203,7 +204,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       it 'destroys the requested user' do
         delete :destroy, { user_id: user.to_param }, valid_session
         user.reload
-        expect(user.name).to eq('Ghost')
+        expect(user.name).to eq('Ghost user')
       end
 
       it 'returns no content status' do
@@ -214,11 +215,12 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
     context 'unauthorized' do
       it 'does not destroy the requested user' do
-        name = 'Some user name'
-        user = FactoryGirl.create(:user, name: name)
+        first_name = 'Some user'
+
+        user = FactoryGirl.create(:user, first_name: first_name)
         delete :destroy, { user_id: user.to_param }, valid_session
         user.reload
-        expect(user.name).to eq(name)
+        expect(user.first_name).to eq(first_name)
       end
 
       it 'returns not authorized status' do
@@ -265,7 +267,6 @@ end
 # Table name: users
 #
 #  id            :integer          not null, primary key
-#  name          :string
 #  email         :string
 #  phone         :string
 #  description   :text
@@ -273,13 +274,18 @@ end
 #  updated_at    :datetime         not null
 #  latitude      :float
 #  longitude     :float
-#  address       :string
 #  language_id   :integer
 #  anonymized    :boolean          default(FALSE)
 #  auth_token    :string
 #  password_hash :string
 #  password_salt :string
 #  admin         :boolean          default(FALSE)
+#  street        :string
+#  zip           :string
+#  zip_latitude  :float
+#  zip_longitude :float
+#  first_name    :string
+#  last_name     :string
 #
 # Indexes
 #
