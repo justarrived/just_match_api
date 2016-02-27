@@ -2,6 +2,21 @@
 require 'rails_helper'
 
 RSpec.describe JobUser, type: :model do
+  describe '#accepted_jobs_for' do
+    let(:job_user) { FactoryGirl.create(:job_user) }
+
+    it 'returns all jobs where user is accepted' do
+      job_user.accept!
+      accepted_jobs = described_class.accepted_jobs_for(job_user.user)
+      expect(accepted_jobs).to include(job_user.job)
+    end
+
+    it 'does not return jobs where is *not* accepted' do
+      accepted_jobs = described_class.accepted_jobs_for(job_user.user)
+      expect(accepted_jobs).to_not include(job_user.job)
+    end
+  end
+
   describe '#send_accepted_notice?' do
     let(:job_user) { described_class.new }
 

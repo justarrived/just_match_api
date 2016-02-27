@@ -6,13 +6,19 @@ class JobUser < ActiveRecord::Base
   validates :user, presence: true
   validates :job, presence: true
 
-  validate :applicant_not_owner_of_job
+  validate :validate_applicant_not_owner_of_job
   validates :user, uniqueness: { scope: :job }
   validates :job, uniqueness: { scope: :user }
 
   NOT_OWNER_OF_JOB_ERR_MSG = I18n.t('errors.job_user.not_owner_of_job')
 
-  def applicant_not_owner_of_job
+  def self.accepted_jobs_for(user)
+    where(user: user, accepted: true).
+      includes(:job).
+      map(&:job)
+  end
+
+  def validate_applicant_not_owner_of_job
     if job && job.owner == user
       errors.add(:user, NOT_OWNER_OF_JOB_ERR_MSG)
     end

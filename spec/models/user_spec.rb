@@ -45,6 +45,24 @@ RSpec.describe User, type: :model do
       expect(user.zip).to eq('11120')
     end
   end
+
+  describe '#accepted_applicant_for_owner?' do
+    let(:owner) { FactoryGirl.create(:user) }
+    let(:user) { FactoryGirl.create(:user) }
+
+    let(:job) { FactoryGirl.create(:job, owner: owner) }
+
+    it 'returns true when user is an accepted applicant for a job owner' do
+      allow(JobUser).to receive(:accepted_jobs_for).and_return([job])
+      result = User.accepted_applicant_for_owner?(owner: owner, user: user)
+      expect(result).to eq(true)
+    end
+
+    it 'returns false when user is *not* an accepted applicant for a job owner' do
+      result = User.accepted_applicant_for_owner?(owner: owner, user: user)
+      expect(result).to eq(false)
+    end
+  end
 end
 
 # == Schema Information

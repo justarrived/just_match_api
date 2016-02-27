@@ -62,6 +62,11 @@ class User < ActiveRecord::Base
       order_by_matching_skills(job, strict_match: strict_match)
   end
 
+  def self.accepted_applicant_for_owner?(owner:, user:)
+    jobs = owner.owned_jobs & JobUser.accepted_jobs_for(user)
+    jobs.any?
+  end
+
   def admin?
     admin
   end
