@@ -19,4 +19,5 @@ bin/rake db:create db:migrate
 
 export DOC_EXAMPLES=false
 export LINT_FACTORY=true
+export RUBOCOP=false
 script/test --tag ~no_travis spec
