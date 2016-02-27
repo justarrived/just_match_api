@@ -36,6 +36,52 @@ RSpec.describe UserPolicy do
     end
   end
 
+  describe '#present_attributes' do
+    subject { UserPolicy.new(user, owner) }
+
+    let(:owner) { FactoryGirl.create(:user) }
+    let(:user) { FactoryGirl.create(:user) }
+    let(:admin) { FactoryGirl.create(:admin_user) }
+
+    let(:job) { FactoryGirl.create(:job, owner: owner) }
+
+    context 'accepted applicant for owner' do
+      let!(:job_user) do
+        FactoryGirl.create(:job_user, job: job, user: user, accepted: true)
+      end
+
+      it 'returns correct attributes' do
+        expected = described_class::ACCEPTED_APPLICANT_ATTRIBUTES
+        expect(subject.present_attributes).to eq(expected)
+      end
+    end
+
+    context 'user' do
+      it 'returns correct attributes' do
+        expected = described_class::ATTRIBUTES
+        expect(subject.present_attributes).to eq(expected)
+      end
+    end
+
+    context 'admin' do
+      subject { UserPolicy.new(admin, owner) }
+
+      it 'returns correct attributes' do
+        expected = described_class::SELF_ATTRIBUTES
+        expect(subject.present_attributes).to eq(expected)
+      end
+    end
+
+    context 'self user' do
+      subject { UserPolicy.new(owner, owner) }
+
+      it 'returns correct attributes' do
+        expected = described_class::SELF_ATTRIBUTES
+        expect(subject.present_attributes).to eq(expected)
+      end
+    end
+  end
+
   context 'logged in user is user' do
     subject { UserPolicy.new(user, user) }
 
