@@ -91,11 +91,10 @@ class User < ActiveRecord::Base
 
   def generate_auth_token!
     # Make sure no two users have the same auth_token
-    loop do
-      self.auth_token = SecureRandom.hex
-      break unless self.class.exists?(auth_token: auth_token)
+    self.auth_token = loop do
+      token = SecureRandom.hex
+      break token unless self.class.exists?(auth_token: token)
     end
-    save! if persisted?
   end
 
   private
