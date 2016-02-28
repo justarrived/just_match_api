@@ -70,7 +70,7 @@ RSpec.describe JobUser, type: :model do
     job_user.validate
 
     message = job_user.errors.messages[:multiple_applicants]
-    expect(message).to eq(["can't accept multiple applicants"])
+    expect(message).to eq(["can't accept multiple applicants for job"])
   end
 end
 
