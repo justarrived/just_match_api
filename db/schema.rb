@@ -11,19 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160228112712) do
+ActiveRecord::Schema.define(version: 20160228224700) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "ar_internal_metadata", id: false, force: :cascade do |t|
-    t.string   "key",        limit: 191, null: false
-    t.string   "value"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-  end
-
-  add_index "ar_internal_metadata", ["key"], name: "unique_active_record_internal_metadatas", unique: true, using: :btree
 
   create_table "chat_users", force: :cascade do |t|
     t.integer  "chat_id"
@@ -88,12 +79,12 @@ ActiveRecord::Schema.define(version: 20160228112712) do
     t.boolean  "performed_accept", default: false
     t.boolean  "performed",        default: false
     t.float    "hours"
+    t.string   "name"
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
     t.integer  "owner_user_id"
     t.float    "latitude"
     t.float    "longitude"
-    t.string   "name"
     t.integer  "language_id"
     t.string   "street"
     t.string   "zip"
@@ -123,6 +114,18 @@ ActiveRecord::Schema.define(version: 20160228112712) do
 
   add_index "messages", ["chat_id"], name: "index_messages_on_chat_id", using: :btree
   add_index "messages", ["language_id"], name: "index_messages_on_language_id", using: :btree
+
+  create_table "ratings", force: :cascade do |t|
+    t.integer  "from_user_id"
+    t.integer  "to_user_id"
+    t.integer  "job_id"
+    t.integer  "score",        null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "ratings", ["job_id", "from_user_id"], name: "index_ratings_on_job_id_and_from_user_id", unique: true, using: :btree
+  add_index "ratings", ["job_id", "to_user_id"], name: "index_ratings_on_job_id_and_to_user_id", unique: true, using: :btree
 
   create_table "skills", force: :cascade do |t|
     t.string   "name"
@@ -197,6 +200,9 @@ ActiveRecord::Schema.define(version: 20160228112712) do
   add_foreign_key "messages", "chats"
   add_foreign_key "messages", "languages"
   add_foreign_key "messages", "users", column: "author_id", name: "messages_author_id_fk"
+  add_foreign_key "ratings", "jobs", name: "ratings_job_id_fk"
+  add_foreign_key "ratings", "users", column: "from_user_id", name: "ratings_from_user_id_fk"
+  add_foreign_key "ratings", "users", column: "to_user_id", name: "ratings_to_user_id_fk"
   add_foreign_key "skills", "languages"
   add_foreign_key "user_languages", "languages"
   add_foreign_key "user_languages", "users"

@@ -7,7 +7,7 @@ module CheckDBUniqIndexesRunner
   def self.run
     return unless execute_runner?('CHECK_DB_UNIQ_INDEXES')
 
-    puts 'Will check for missing DB uniqueness indexes during test suite..'
+    puts 'Will watch for missing DB uniqueness indexes during test suite..'
 
     require 'consistency_fail/enforcer'
     ConsistencyFail::Enforcer.enforce!

@@ -8,6 +8,9 @@ en:
     job_user:
       not_owner_of_job: can't be both job owner and job applicant
       multiple_applicants: can't accept multiple applicants for job
+    rating:
+      from_user_rated: can't rate twice
+      to_user_rated: can't be rated twice
   invalid_credentials: Invalid credentials.
   mailer:
     applicant_accepted:
