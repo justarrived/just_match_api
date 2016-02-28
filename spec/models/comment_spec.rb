@@ -25,5 +25,6 @@ end
 #
 # Foreign Keys
 #
-#  fk_rails_f55d9b0548  (language_id => languages.id)
+#  comments_owner_user_id_fk  (owner_user_id => users.id)
+#  fk_rails_f55d9b0548        (language_id => languages.id)
 #

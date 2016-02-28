@@ -23,8 +23,10 @@ end
 #
 # Indexes
 #
-#  index_job_skills_on_job_id    (job_id)
-#  index_job_skills_on_skill_id  (skill_id)
+#  index_job_skills_on_job_id               (job_id)
+#  index_job_skills_on_job_id_and_skill_id  (job_id,skill_id) UNIQUE
+#  index_job_skills_on_skill_id             (skill_id)
+#  index_job_skills_on_skill_id_and_job_id  (skill_id,job_id) UNIQUE
 #
 # Foreign Keys
 #

@@ -5,7 +5,7 @@ class Language < ActiveRecord::Base
 
   has_many :jobs
 
-  validates :lang_code, presence: true
+  validates :lang_code, uniqueness: true, presence: true
 end
 
 # == Schema Information
@@ -16,4 +16,8 @@ end
 #  lang_code  :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#
+# Indexes
+#
+#  index_languages_on_lang_code  (lang_code) UNIQUE
 #

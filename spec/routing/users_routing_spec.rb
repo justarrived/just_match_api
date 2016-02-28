@@ -62,6 +62,8 @@ end
 #
 # Indexes
 #
+#  index_users_on_auth_token   (auth_token) UNIQUE
+#  index_users_on_email        (email) UNIQUE
 #  index_users_on_language_id  (language_id)
 #
 # Foreign Keys
