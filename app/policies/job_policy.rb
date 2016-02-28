@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 class JobPolicy < ApplicationPolicy
-  PRIVILEGE_ATTRIBUTES = [:latitude, :longitude, :performed, :performed_accept].freeze
+  PRIVILEGED_ATTRIBUTES = [:latitude, :longitude, :performed, :performed_accept].freeze
 
-  OWNER_PARAMS = [
+  OWNER_ATTRIBUTES = [
     :max_rate, :performed_accept, :description, :job_date, :street, :zip,
     :name, :hours, :language_id, skill_ids: []
   ].freeze
-  ACCEPTED_APPLICANT_PARAMS = [:performed].freeze
-  ADMIN_PARAMS = (OWNER_PARAMS + ACCEPTED_APPLICANT_PARAMS).freeze
+  ACCEPTED_APPLICANT_ATTRIBUTES = [:performed].freeze
+  ADMIN_ATTRIBUTES = (OWNER_ATTRIBUTES + ACCEPTED_APPLICANT_ATTRIBUTES).freeze
 
   def index?
     true
@@ -29,11 +29,11 @@ class JobPolicy < ApplicationPolicy
 
   def permitted_attributes
     if admin?
-      ADMIN_PARAMS
+      ADMIN_ATTRIBUTES
     elsif !record.persisted? || owner?
-      OWNER_PARAMS
+      OWNER_ATTRIBUTES
     elsif accepted_applicant?
-      ACCEPTED_APPLICANT_PARAMS
+      ACCEPTED_APPLICANT_ATTRIBUTES
     else
       []
     end
@@ -52,7 +52,7 @@ class JobPolicy < ApplicationPolicy
     if admin? || owner? || accepted_applicant?
       attributes
     else
-      attributes - PRIVILEGE_ATTRIBUTES
+      attributes - PRIVILEGED_ATTRIBUTES
     end
   end
 

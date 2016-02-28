@@ -7,6 +7,7 @@ en:
       number_of_users: must be between %{min}-%{max}
     job_user:
       not_owner_of_job: can't be both job owner and job applicant
+      multiple_applicants: can't accept multiple applicants for job
   invalid_credentials: Invalid credentials.
   mailer:
     applicant_accepted:

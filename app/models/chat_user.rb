@@ -19,8 +19,10 @@ end
 #
 # Indexes
 #
-#  index_chat_users_on_chat_id  (chat_id)
-#  index_chat_users_on_user_id  (user_id)
+#  index_chat_users_on_chat_id              (chat_id)
+#  index_chat_users_on_chat_id_and_user_id  (chat_id,user_id) UNIQUE
+#  index_chat_users_on_user_id              (user_id)
+#  index_chat_users_on_user_id_and_chat_id  (user_id,chat_id) UNIQUE
 #
 # Foreign Keys
 #

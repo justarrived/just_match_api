@@ -23,6 +23,7 @@ If you're looking for help, ask questions, want to contribute or give feedback, 
 * [Deploy](#deploy)
 * [Commands](#commands)
 * [Contributing](#contributing)
+* [Translations](#translations)
 * [MIT License](#license)
 
 ## Built with
@@ -33,7 +34,7 @@ If you're looking for help, ask questions, want to contribute or give feedback, 
 
 ## Getting started
 
-_Prerequisites_: Ruby 2.3 and PostgreSQL
+_Prerequisites_: Ruby 2.3 and PostgreSQL 9.3 or above.
 
 To setup your development environment
 
@@ -72,22 +73,24 @@ $ COVERAGE=true script/test
 
 ## Docs
 
+__Public JSON API documentation__
+
 [Docs for the current version of the API](http://just-match-api.herokuapp.com/).
 
 The API documentation is generated right where the code for that particular endpoint is.
 That way the documentation is kept up to date.
 
-__Development docs__
-
 During development you can run find the documentation at `http://localhost:5000/`, as long as you have a started your server (you start it by running `script/server`).
-
-__Static docs__
 
 You can generate a static version of the API documentation with
 
 ```
 $ script/docs
 ```
+
+__Internal documentation and configuration__
+
+In [docs/README.md](docs/README.md) you'll find how the app is put together.
 
 ## Deploy
 
@@ -120,6 +123,8 @@ There are a few convenience commands
 
 ## Contributing
 
+[Developer docs](docs/README.md).
+
 We would love if you'd like to help us build and improve this product for the
 benefit of everyone. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org/) code of conduct.
 
@@ -130,6 +135,26 @@ If you want to contribute please take a moment to review our [contributing guide
 If you're not sure where to go you can always join our Gitter chat and ask :)
 
 [![Join the chat at https://gitter.im/justarrived/just_match_api](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/justarrived/just_match_api?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
+## Translations
+
+Translations are managed at [Transifex](https://www.transifex.com/justarrived/justmatch-api).
+
+To push or pull new translations, you need to install the [Transifex client](http://docs.transifex.com/client/setup/).
+
+__Fetch translations from transifex__
+
+```
+$ tx pull -a
+```
+
+__Push source language file to transifex__
+
+```
+$ tx push -s
+```
+
+The configuration is in [.tx/config](.tx/config).
 
 ## License
 

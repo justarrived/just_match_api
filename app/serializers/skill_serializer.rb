@@ -17,6 +17,7 @@ end
 # Indexes
 #
 #  index_skills_on_language_id  (language_id)
+#  index_skills_on_name         (name) UNIQUE
 #
 # Foreign Keys
 #

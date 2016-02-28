@@ -2,6 +2,10 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::SkillsController, type: :controller do
+  before(:each) do
+    allow_any_instance_of(User).to receive(:persisted?).and_return(true)
+  end
+
   let(:valid_attributes) do
     FactoryGirl.create(:admin_user)
     lang_id = FactoryGirl.create(:language).id
@@ -188,6 +192,7 @@ end
 # Indexes
 #
 #  index_skills_on_language_id  (language_id)
+#  index_skills_on_name         (name) UNIQUE
 #
 # Foreign Keys
 #

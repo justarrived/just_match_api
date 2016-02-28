@@ -2,6 +2,10 @@
 require 'rails_helper'
 
 RSpec.describe JobSkillPolicy do
+  before(:each) do
+    allow_any_instance_of(User).to receive(:persisted?).and_return(true)
+  end
+
   let(:admin) { FactoryGirl.build(:admin_user) }
   let(:user) { FactoryGirl.build(:user) }
   let(:owner) { FactoryGirl.build(:user) }

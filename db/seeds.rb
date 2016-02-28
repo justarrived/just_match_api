@@ -13,7 +13,6 @@ def log(string)
 end
 
 # Allow caller to define how many resources are created
-max_langs           = max_count_opt('MAX_LANGS', 5)
 max_skills          = max_count_opt('MAX_SKILLS', 10)
 max_users           = max_count_opt('MAX_USERS', 10)
 max_jobs            = max_count_opt('MAX_JOBS', 10)
@@ -23,9 +22,8 @@ max_job_comments    = max_count_opt('MAX_JOB_COMMENTS', 10)
 max_chat_messages   = max_count_opt('MAX_CHAT_MESSAGES', 10)
 
 log '[db:seed] Language'
-lang_codes = %w(en sv de dk no fi pl es fr hu)
-max_langs.times do
-  Language.create!(lang_code: lang_codes.sample)
+%w(en sv de dk no fi pl es fr hu).each do |lang_code|
+  Language.create!(lang_code: lang_code)
 end
 
 languages = Language.all
@@ -44,7 +42,8 @@ addresses = [
 log '[db:seed] Admin'
 admin_address = addresses.sample
 User.create!(
-  name: Faker::Name.name,
+  first_name: Faker::Name.first_name,
+  last_name: Faker::Name.last_name,
   email: 'admin@example.com',
   phone: Faker::PhoneNumber.cell_phone,
   description: Faker::Hipster.paragraph(2),
@@ -60,7 +59,8 @@ skills = Skill.all
 max_users.times do
   address = addresses.sample
   user = User.create!(
-    name: Faker::Name.name,
+    first_name: Faker::Name.first_name,
+    last_name: Faker::Name.last_name,
     email: Faker::Internet.email,
     phone: Faker::PhoneNumber.cell_phone,
     description: Faker::Hipster.paragraph(2),

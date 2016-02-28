@@ -19,4 +19,7 @@ bin/rake db:create db:migrate
 
 export DOC_EXAMPLES=false
 export LINT_FACTORY=true
+export RUBOCOP=false
+export CHECK_DB_INDEXES=true
+export CHECK_DB_UNIQ_INDEXES=true
 script/test --tag ~no_travis --tag ~regressor spec

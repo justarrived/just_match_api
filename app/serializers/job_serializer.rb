@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 class JobSerializer < ActiveModel::Serializer
-  attributes :id, :description, :job_date, :created_at, :updated_at,
-             :performed_accept, :performed, :longitude, :latitude, :name,
-             :hours, :zip, :zip_latitude, :zip_longitude
+  # Since the #attributes method is overriden and provides a whitelist of attribute_names
+  # that can be returned to the user we can return all Job column names here
+  attributes Job.column_names.map(&:to_sym)
 
   has_many :users, key: :applicants do
     # Doxxer invokes the serializer on non-persisted objects,
@@ -50,22 +50,24 @@ end
 #
 # Table name: jobs
 #
-#  id                        :integer          not null, primary key
-#  max_rate                  :integer
-#  description               :text
-#  job_date                  :datetime
-#  performed_accept          :boolean          default(FALSE)
-#  performed                 :boolean          default(FALSE)
-#  created_at                :datetime         not null
-#  updated_at                :datetime         not null
-#  owner_user_id             :integer
-#  latitude                  :float
-#  longitude                 :float
-#  name                      :string
-#  hours :float
-#  language_id               :integer
-#  street                    :string
-#  zip                       :string
+#  id               :integer          not null, primary key
+#  max_rate         :integer
+#  description      :text
+#  job_date         :datetime
+#  performed_accept :boolean          default(FALSE)
+#  performed        :boolean          default(FALSE)
+#  hours            :float
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  owner_user_id    :integer
+#  latitude         :float
+#  longitude        :float
+#  name             :string
+#  language_id      :integer
+#  street           :string
+#  zip              :string
+#  zip_latitude     :float
+#  zip_longitude    :float
 #
 # Indexes
 #
@@ -73,5 +75,6 @@ end
 #
 # Foreign Keys
 #
-#  fk_rails_70cb33aa57  (language_id => languages.id)
+#  fk_rails_70cb33aa57    (language_id => languages.id)
+#  jobs_owner_user_id_fk  (owner_user_id => users.id)
 #

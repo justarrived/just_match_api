@@ -2,6 +2,22 @@
 require 'rails_helper'
 
 RSpec.describe JobUser, type: :model do
+  describe '#accepted_jobs_for' do
+    let(:job_user) { FactoryGirl.create(:job_user) }
+
+    it 'returns all jobs where user is accepted' do
+      job_user.accept
+      job_user.save
+      accepted_jobs = described_class.accepted_jobs_for(job_user.user)
+      expect(accepted_jobs).to include(job_user.job)
+    end
+
+    it 'does not return jobs where is *not* accepted' do
+      accepted_jobs = described_class.accepted_jobs_for(job_user.user)
+      expect(accepted_jobs).to_not include(job_user.job)
+    end
+  end
+
   describe '#send_accepted_notice?' do
     let(:job_user) { described_class.new }
 
@@ -43,6 +59,19 @@ RSpec.describe JobUser, type: :model do
     message = job_user.errors.messages[:user]
     expect(message).to eq(["can't be both job owner and job applicant"])
   end
+
+  it 'validates only one applicant' do
+    job = FactoryGirl.create(:job)
+    user = FactoryGirl.create(:user)
+
+    FactoryGirl.create(:job_user, job: job, accepted: true)
+
+    job_user = FactoryGirl.create(:job_user, user: user, job: job)
+    job_user.validate
+
+    message = job_user.errors.messages[:multiple_applicants]
+    expect(message).to eq(["can't accept multiple applicants for job"])
+  end
 end
 
 # == Schema Information
@@ -59,8 +88,10 @@ end
 #
 # Indexes
 #
-#  index_job_users_on_job_id   (job_id)
-#  index_job_users_on_user_id  (user_id)
+#  index_job_users_on_job_id              (job_id)
+#  index_job_users_on_job_id_and_user_id  (job_id,user_id) UNIQUE
+#  index_job_users_on_user_id             (user_id)
+#  index_job_users_on_user_id_and_job_id  (user_id,job_id) UNIQUE
 #
 # Foreign Keys
 #

@@ -37,12 +37,30 @@ RSpec.describe User, type: :model do
 
       user.reset!
 
-      expect(user.name).to eq('Ghost')
+      expect(user.name).to eq('Ghost user')
       expect(user.email).not_to eq(old_email)
       expect(user.phone).to eq('123456789')
       expect(user.description).to eq('This user has been deleted.')
       expect(user.street).to eq('Stockholm')
       expect(user.zip).to eq('11120')
+    end
+  end
+
+  describe '#accepted_applicant_for_owner?' do
+    let(:owner) { FactoryGirl.create(:user) }
+    let(:user) { FactoryGirl.create(:user) }
+
+    let(:job) { FactoryGirl.create(:job, owner: owner) }
+
+    it 'returns true when user is an accepted applicant for a job owner' do
+      allow(JobUser).to receive(:accepted_jobs_for).and_return([job])
+      result = User.accepted_applicant_for_owner?(owner: owner, user: user)
+      expect(result).to eq(true)
+    end
+
+    it 'returns false when user is *not* an accepted applicant for a job owner' do
+      result = User.accepted_applicant_for_owner?(owner: owner, user: user)
+      expect(result).to eq(false)
     end
   end
 end
@@ -52,7 +70,6 @@ end
 # Table name: users
 #
 #  id            :integer          not null, primary key
-#  name          :string
 #  email         :string
 #  phone         :string
 #  description   :text
@@ -60,16 +77,23 @@ end
 #  updated_at    :datetime         not null
 #  latitude      :float
 #  longitude     :float
-#  address       :string
 #  language_id   :integer
 #  anonymized    :boolean          default(FALSE)
 #  auth_token    :string
 #  password_hash :string
 #  password_salt :string
 #  admin         :boolean          default(FALSE)
+#  street        :string
+#  zip           :string
+#  zip_latitude  :float
+#  zip_longitude :float
+#  first_name    :string
+#  last_name     :string
 #
 # Indexes
 #
+#  index_users_on_auth_token   (auth_token) UNIQUE
+#  index_users_on_email        (email) UNIQUE
 #  index_users_on_language_id  (language_id)
 #
 # Foreign Keys

@@ -21,7 +21,8 @@ RSpec.describe User, regressor: true do
 
   # === Database (Columns) ===
   it { is_expected.to have_db_column :id }
-  it { is_expected.to have_db_column :name }
+  it { is_expected.to have_db_column :first_name }
+  it { is_expected.to have_db_column :last_name }
   it { is_expected.to have_db_column :email }
   it { is_expected.to have_db_column :phone }
   it { is_expected.to have_db_column :admin }
@@ -39,8 +40,10 @@ RSpec.describe User, regressor: true do
   it { is_expected.to have_db_index ['language_id'] }
 
   # === Validations (Length) ===
-  it { is_expected.to allow_value(Faker::Lorem.characters(3)).for :name }
-  it { is_expected.not_to allow_value(Faker::Lorem.characters(2)).for :name }
+  it { is_expected.to allow_value(Faker::Lorem.characters(2)).for :first_name }
+  it { is_expected.not_to allow_value(Faker::Lorem.characters(1)).for :first_name }
+  it { is_expected.to allow_value(Faker::Lorem.characters(2)).for :last_name }
+  it { is_expected.not_to allow_value(Faker::Lorem.characters(1)).for :last_name }
   it { is_expected.to allow_value(Faker::Lorem.characters(9)).for :phone }
   it { is_expected.not_to allow_value(Faker::Lorem.characters(8)).for :phone }
   it { is_expected.to allow_value(Faker::Lorem.characters(10)).for :description }

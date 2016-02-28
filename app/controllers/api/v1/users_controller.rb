@@ -26,7 +26,7 @@ module Api
       end
 
       api :GET, '/users/:id', 'Show user'
-      description 'Returns user is alloed to.'
+      description 'Returns user is allowed to.'
       example Doxxer.read_example(User)
       def show
         authorize(@user)
@@ -42,7 +42,8 @@ module Api
         param :attributes, Hash, desc: 'User attributes', required: true do
           # rubocop:disable Metrics/LineLength
           param :skill_ids, Array, of: Integer, desc: 'List of skill ids'
-          param :name, String, desc: 'Name', required: true
+          param :first_name, String, desc: 'First name', required: true
+          param :last_name, String, desc: 'Last name', required: true
           param :description, String, desc: 'Description', required: true
           param :email, String, desc: 'Email', required: true
           param :phone, String, desc: 'Phone', required: true
@@ -60,6 +61,8 @@ module Api
         authorize(@user)
 
         if @user.save
+          login_user(@user)
+
           @user.skills = Skill.where(id: user_params[:skill_ids])
           @user.languages = Language.where(id: user_params[:language_ids])
 
@@ -78,7 +81,8 @@ module Api
       error code: 401, desc: 'Unauthorized'
       param :data, Hash, desc: 'Top level key', required: true do
         param :attributes, Hash, desc: 'User attributes', required: true do
-          param :name, String, desc: 'Name'
+          param :first_name, String, desc: 'First name'
+          param :last_name, String, desc: 'Last name'
           param :description, String, desc: 'Description'
           param :email, String, desc: 'Email'
           param :phone, String, desc: 'Phone'
@@ -138,8 +142,8 @@ module Api
 
       def user_params
         whitelist = [
-          :name, :email, :phone, :description, :street, :zip, :language_id,
-          :password, skill_ids: [], language_ids: []
+          :first_name, :last_name, :email, :phone, :description, :street, :zip,
+          :language_id, :password, skill_ids: [], language_ids: []
         ]
         jsonapi_params.permit(*whitelist)
       end

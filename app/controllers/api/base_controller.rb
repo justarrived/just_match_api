@@ -28,6 +28,10 @@ module Api
       @_current_user ||= authenticate_user_token! || User.new
     end
 
+    def login_user(user)
+      @_current_user = user
+    end
+
     def logged_in?
       current_user.persisted?
     end

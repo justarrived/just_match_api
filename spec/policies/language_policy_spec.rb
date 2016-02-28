@@ -2,6 +2,10 @@
 require 'rails_helper'
 
 RSpec.describe LanguagePolicy do
+  before(:each) do
+    allow_any_instance_of(User).to receive(:persisted?).and_return(true)
+  end
+
   context 'anyone' do
     subject { LanguagePolicy.new(nil, language) }
 

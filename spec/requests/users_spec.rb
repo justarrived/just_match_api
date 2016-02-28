@@ -15,7 +15,6 @@ end
 # Table name: users
 #
 #  id            :integer          not null, primary key
-#  name          :string
 #  email         :string
 #  phone         :string
 #  description   :text
@@ -23,16 +22,23 @@ end
 #  updated_at    :datetime         not null
 #  latitude      :float
 #  longitude     :float
-#  address       :string
 #  language_id   :integer
 #  anonymized    :boolean          default(FALSE)
 #  auth_token    :string
 #  password_hash :string
 #  password_salt :string
 #  admin         :boolean          default(FALSE)
+#  street        :string
+#  zip           :string
+#  zip_latitude  :float
+#  zip_longitude :float
+#  first_name    :string
+#  last_name     :string
 #
 # Indexes
 #
+#  index_users_on_auth_token   (auth_token) UNIQUE
+#  index_users_on_email        (email) UNIQUE
 #  index_users_on_language_id  (language_id)
 #
 # Foreign Keys

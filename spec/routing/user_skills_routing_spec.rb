@@ -41,8 +41,10 @@ end
 #
 # Indexes
 #
-#  index_user_skills_on_skill_id  (skill_id)
-#  index_user_skills_on_user_id   (user_id)
+#  index_user_skills_on_skill_id              (skill_id)
+#  index_user_skills_on_skill_id_and_user_id  (skill_id,user_id) UNIQUE
+#  index_user_skills_on_user_id               (user_id)
+#  index_user_skills_on_user_id_and_skill_id  (user_id,skill_id) UNIQUE
 #
 # Foreign Keys
 #

@@ -2,6 +2,10 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::LanguagesController, type: :controller do
+  before(:each) do
+    allow_any_instance_of(User).to receive(:persisted?).and_return(true)
+  end
+
   let(:valid_attributes) do
     {
       data: {
@@ -181,4 +185,8 @@ end
 #  lang_code  :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#
+# Indexes
+#
+#  index_languages_on_lang_code  (lang_code) UNIQUE
 #
