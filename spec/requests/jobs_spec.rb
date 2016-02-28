@@ -39,5 +39,6 @@ end
 #
 # Foreign Keys
 #
-#  fk_rails_70cb33aa57  (language_id => languages.id)
+#  fk_rails_70cb33aa57    (language_id => languages.id)
+#  jobs_owner_user_id_fk  (owner_user_id => users.id)
 #

@@ -26,3 +26,7 @@ end
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
+# Indexes
+#
+#  index_languages_on_lang_code  (lang_code) UNIQUE
+#
