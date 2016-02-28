@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 FactoryGirl.define do
   factory :language do
-    lang_code 'sv'
+    sequence :lang_code do |index|
+      "sv_#{index}"
+    end
 
     trait :eng do
       lang_code 'en'

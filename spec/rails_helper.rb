@@ -33,7 +33,7 @@ RSpec.configure do |config|
     DocExamplesRunner.run
     RubocopRunner.run
     CheckDBIndexesRunner.run
-    CheckDBUniqColumnsRunner.run
+    CheckDBUniqIndexesRunner.run
 
     begin
       # Since we're using Spring we must reload all factories
