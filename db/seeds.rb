@@ -41,12 +41,9 @@ addresses = [
 
 log '[db:seed] Admin'
 admin_address = addresses.sample
-names = Faker::Name.name.split(' ')
-first_name = names.first
-last_name = names.last
 User.create!(
-  first_name: first_name,
-  last_name: last_name,
+  first_name: Faker::Name.first_name,
+  last_name: Faker::Name.last_name,
   email: 'admin@example.com',
   phone: Faker::PhoneNumber.cell_phone,
   description: Faker::Hipster.paragraph(2),
@@ -61,12 +58,9 @@ log '[db:seed] User'
 skills = Skill.all
 max_users.times do
   address = addresses.sample
-  names = Faker::Name.name.split(' ')
-  first_name = names.first
-  last_name = names.last
   user = User.create!(
-    first_name: first_name,
-    last_name: last_name,
+    first_name: Faker::Name.first_name,
+    last_name: Faker::Name.last_name,
     email: Faker::Internet.email,
     phone: Faker::PhoneNumber.cell_phone,
     description: Faker::Hipster.paragraph(2),
