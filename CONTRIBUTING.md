@@ -53,6 +53,8 @@ Before opening a feature request, please take a moment to find out whether your 
 
 ## Pull requests
 
+In [docs/README.md](docs/README.md) you'll find how the app is put together.
+
 Good pull requests—patches, improvements, new features—are a fantastic
 help. They should remain focused in scope and avoid containing unrelated
 commits.
