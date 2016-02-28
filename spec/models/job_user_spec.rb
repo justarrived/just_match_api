@@ -6,7 +6,8 @@ RSpec.describe JobUser, type: :model do
     let(:job_user) { FactoryGirl.create(:job_user) }
 
     it 'returns all jobs where user is accepted' do
-      job_user.accept!
+      job_user.accept
+      job_user.save
       accepted_jobs = described_class.accepted_jobs_for(job_user.user)
       expect(accepted_jobs).to include(job_user.job)
     end
@@ -57,6 +58,19 @@ RSpec.describe JobUser, type: :model do
 
     message = job_user.errors.messages[:user]
     expect(message).to eq(["can't be both job owner and job applicant"])
+  end
+
+  it 'validates only one applicant' do
+    job = FactoryGirl.create(:job)
+    user = FactoryGirl.create(:user)
+
+    FactoryGirl.create(:job_user, job: job, accepted: true)
+
+    job_user = FactoryGirl.create(:job_user, user: user, job: job)
+    job_user.validate
+
+    message = job_user.errors.messages[:multiple_applicants]
+    expect(message).to eq(["can't accept multiple applicants"])
   end
 end
 

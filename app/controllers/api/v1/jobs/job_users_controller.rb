@@ -64,15 +64,22 @@ module Api
         error code: 400, desc: 'Bad request'
         error code: 401, desc: 'Unauthorized'
         error code: 422, desc: 'Unprocessable entity'
+        param :data, Hash, desc: 'Top level key', required: true do
+          param :attributes, Hash, desc: 'Job user attributes', required: true do
+            param :accepted, [true], desc: 'User accepted', required: true
+          end
+        end
         def update
           authorize(JobUser)
 
-          if jsonapi_params[:accepted]
-            @job.accept_applicant!(@user)
+          job_user = @job.find_applicant(@user)
+          job_user.accept if jsonapi_params[:accepted]
+
+          if job_user.save
             ApplicantAcceptedNotifier.call(job: @job, user: @user)
             head :no_content
           else
-            render json: {}, status: :unprocessable_entity
+            render json: job_user.errors, status: :unprocessable_entity
           end
         end
 
