@@ -32,6 +32,7 @@ RSpec.configure do |config|
   config.before(:suite) do
     DocExamplesRunner.run
     RubocopRunner.run
+    CheckDBIndexesRunner.run
 
     begin
       # Since we're using Spring we must reload all factories

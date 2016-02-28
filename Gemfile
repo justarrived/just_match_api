@@ -42,6 +42,7 @@ group :development, :test do
   gem 'rubocop', '~> 0.35', require: false
   gem 'dotenv-rails', '~> 2.1'
   gem 'factory_girl_rails', '~> 4.0'
+  gem 'immigrant', '~> 0.3'
 end
 
 group :development do

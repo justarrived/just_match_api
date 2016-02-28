@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160227174131) do
+ActiveRecord::Schema.define(version: 20160228104251) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -172,13 +172,16 @@ ActiveRecord::Schema.define(version: 20160227174131) do
   add_foreign_key "chat_users", "chats"
   add_foreign_key "chat_users", "users"
   add_foreign_key "comments", "languages"
+  add_foreign_key "comments", "users", column: "owner_user_id", name: "comments_owner_user_id_fk"
   add_foreign_key "job_skills", "jobs"
   add_foreign_key "job_skills", "skills"
   add_foreign_key "job_users", "jobs"
   add_foreign_key "job_users", "users"
   add_foreign_key "jobs", "languages"
+  add_foreign_key "jobs", "users", column: "owner_user_id", name: "jobs_owner_user_id_fk"
   add_foreign_key "messages", "chats"
   add_foreign_key "messages", "languages"
+  add_foreign_key "messages", "users", column: "author_id", name: "messages_author_id_fk"
   add_foreign_key "skills", "languages"
   add_foreign_key "user_languages", "languages"
   add_foreign_key "user_languages", "users"
