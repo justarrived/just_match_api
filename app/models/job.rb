@@ -66,6 +66,10 @@ class Job < ActiveRecord::Base
     performed_changed? && performed
   end
 
+  def find_applicant(user)
+    job_users.find_by(user: user)
+  end
+
   def accepted_applicant?(user)
     !accepted_applicant.nil? && accepted_applicant == user
   end
@@ -75,7 +79,10 @@ class Job < ActiveRecord::Base
   end
 
   def accept_applicant!(user)
-    applicants.find_by(user: user).accept!
+    applicants.find_by(user: user).tap do |applicant|
+      applicant.accept
+      applicant.save!
+    end
   end
 
   def create_applicant!(user)

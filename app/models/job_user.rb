@@ -7,10 +7,15 @@ class JobUser < ActiveRecord::Base
   validates :job, presence: true
 
   validate :validate_applicant_not_owner_of_job
+  validate :validate_single_applicant, on: :update
+
   validates :user, uniqueness: { scope: :job }
   validates :job, uniqueness: { scope: :user }
 
+  scope :accepted, -> { where(accepted: true) }
+
   NOT_OWNER_OF_JOB_ERR_MSG = I18n.t('errors.job_user.not_owner_of_job')
+  MULTPLE_APPLICANT_ERR_MSG = I18n.t('errors.job_user.multiple_applicants')
 
   def self.accepted_jobs_for(user)
     where(user: user, accepted: true).
@@ -24,15 +29,20 @@ class JobUser < ActiveRecord::Base
     end
   end
 
+  def validate_single_applicant
+    if self.class.accepted.find_by(job: job)
+      errors.add(:multiple_applicants, MULTPLE_APPLICANT_ERR_MSG)
+    end
+  end
+
   # NOTE: You need to call this __before__ the record is saved/updated
   #       otherwise it will always return false
   def send_accepted_notice?
     accepted_changed? && accepted
   end
 
-  def accept!
+  def accept
     self.accepted = true
-    save!
   end
 end
 

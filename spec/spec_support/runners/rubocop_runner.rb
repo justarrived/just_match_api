@@ -7,11 +7,9 @@ module RubocopRunner
   def self.run
     return unless execute_runner?('RUBOCOP')
 
-    print 'Running rubocop..'
     require 'rubocop/rake_task'
 
     RuboCop::RakeTask.new
     Rake::Task['rubocop'].invoke
-    print "done \n"
   end
 end
