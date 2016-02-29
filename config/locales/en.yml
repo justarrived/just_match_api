@@ -11,6 +11,7 @@ en:
     rating:
       from_user_rated: can't rate twice
       to_user_rated: can't be rated twice
+      comment_user: must be owned by the user making the rating
   invalid_credentials: Invalid credentials.
   mailer:
     applicant_accepted:

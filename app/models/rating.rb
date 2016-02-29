@@ -4,6 +4,8 @@ class Rating < ActiveRecord::Base
   belongs_to :to_user, class_name: 'User', foreign_key: 'to_user_id'
   belongs_to :job
 
+  has_one :comment, as: :commentable
+
   validates :score, presence: true, numericality: { only_integer: true }, inclusion: 1..5
   validates :job, presence: true
 
@@ -11,6 +13,16 @@ class Rating < ActiveRecord::Base
   validates :from_user, presence: true, uniqueness: { scope: :job_id, message: I18n.t('errors.rating.from_user_rated') }
   validates :to_user, presence: true, uniqueness: { scope: :job_id, message: I18n.t('errors.rating.to_user_rated') }
   # rubocop:enable Metrics/LineLength
+
+  validate :comment_owned_by
+
+  def comment_owned_by
+    return if comment.nil?
+
+    unless comment.owner == from_user
+      errors.add(:comment, I18n.t('errors.rating.comment_user'))
+    end
+  end
 end
 
 # == Schema Information

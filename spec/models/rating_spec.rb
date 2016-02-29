@@ -2,7 +2,38 @@
 require 'rails_helper'
 
 RSpec.describe Rating, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe '#comment_owned_by' do
+    let(:from_user) { FactoryGirl.create(:user) }
+    let(:to_user) { FactoryGirl.create(:user) }
+
+    subject do
+      FactoryGirl.build(
+        :rating,
+        from_user: from_user,
+        to_user: to_user,
+        comment: comment
+      )
+    end
+
+    context 'invalid' do
+      let(:comment) { FactoryGirl.build(:comment, owner: to_user) }
+
+      it 'adds error' do
+        subject.validate
+
+        err_msg = 'must be owned by the user making the rating'
+        expect(subject.errors.messages[:comment]).to include(err_msg)
+      end
+    end
+
+    context 'valid' do
+      let(:comment) { FactoryGirl.build(:comment, owner: from_user) }
+
+      it 'adds nothing to errors' do
+        expect(subject.errors.messages[:comment]).to eq(nil)
+      end
+    end
+  end
 end
 # rubocop:disable Metrics/LineLength
 #
