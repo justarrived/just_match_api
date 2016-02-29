@@ -16,7 +16,8 @@ RSpec.describe Api::V1::Jobs::RatingsController do
       data: {
         attributes: {
           score: 3,
-          language_id: language.to_param
+          language_id: language.to_param,
+          body: 'Rating comment body'
         }
       }
     }
@@ -44,6 +45,12 @@ RSpec.describe Api::V1::Jobs::RatingsController do
         expect do
           post :create, valid_params, valid_session
         end.to change(Rating, :count).by(1)
+      end
+
+      it 'creates a new Rating with comment' do
+        expect do
+          post :create, valid_params, valid_session
+        end.to change(Comment, :count).by(1)
       end
 
       it 'assigns a newly created rating as @rating' do

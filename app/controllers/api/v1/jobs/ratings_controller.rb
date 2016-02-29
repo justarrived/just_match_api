@@ -38,8 +38,15 @@ module Api
           @rating.from_user = current_user
           @rating.to_user = User.find_by(jsonapi_params[:user_id])
 
+          comment_params = {
+            language_id: jsonapi_params[:language_id],
+            body: jsonapi_params[:body],
+            owner: current_user
+          }
+          @rating.comment = Comment.new(comment_params)
+
           if @rating.save
-            render json: @rating, status: :created
+            render json: @rating, include: %w(comment), status: :created
           else
             render json: @rating.errors, status: :unprocessable_entity
           end

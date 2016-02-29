@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     resources :job_skills
     resources :job_users
     resources :user_skills
+    resources :ratings
 
     root to: 'jobs#index'
   end
