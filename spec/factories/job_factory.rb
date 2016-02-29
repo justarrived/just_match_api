@@ -11,6 +11,11 @@ FactoryGirl.define do
     job_date 1.week.ago
     hours 3
 
+    factory :job_concluded do
+      performed true
+      performed_accept true
+    end
+
     factory :job_with_comments do
       transient do
         comments_count 5

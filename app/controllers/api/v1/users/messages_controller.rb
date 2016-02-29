@@ -30,7 +30,7 @@ module Api
           render json: @messages, include: %w(author language chat)
         end
 
-        api :POST, '/users/:id/messages', 'Create new user message.'
+        api :POST, '/users/:user_id/messages', 'Create new user message.'
         description 'Creates and returns new message.'
         error code: 400, desc: 'Bad request'
         error code: 422, desc: 'Unprocessable entity'

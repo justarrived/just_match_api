@@ -5,7 +5,7 @@ module CheckDBUniqIndexesRunner
   extend SpecRunnerHelper
 
   def self.run
-    return unless execute_runner?('CHECK_DB_UNIQ_INDEXES')
+    return unless execute_runner?('CHECK_DB_UNIQ_INDEXES', default: false)
 
     puts 'Will watch for missing DB uniqueness indexes during test suite..'
 

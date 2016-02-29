@@ -6,7 +6,7 @@ class Doxxer
   RESPONSE_PATH = "#{DOC_PATH}/responses"
 
   RELEVANT_DOC_MODELS = [
-    Chat, Comment, Job, User, Message, Language, UserLanguage, Skill
+    Chat, Comment, Job, User, Message, Language, UserLanguage, Skill, Rating
   ].freeze
 
   def self.read_example(model_klass)

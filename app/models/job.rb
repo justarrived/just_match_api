@@ -75,7 +75,7 @@ class Job < ActiveRecord::Base
   end
 
   def accepted_applicant
-    job_users.find_by(accepted: true).try!(:user)
+    applicants.find_by(accepted: true).try!(:user)
   end
 
   def accept_applicant!(user)
@@ -92,6 +92,10 @@ class Job < ActiveRecord::Base
 
   def applicants
     job_users
+  end
+
+  def concluded?
+    performed && performed_accept
   end
 end
 
