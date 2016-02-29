@@ -8,6 +8,12 @@ en:
     job_user:
       not_owner_of_job: can't be both job owner and job applicant
       multiple_applicants: can't accept multiple applicants for job
+    rating:
+      from_user_rated: can't rate twice
+      to_user_rated: can't be rated twice
+      comment_user: must be owned by the user making the rating
+      job_concluded: must be concluded
+      user_allowed_to_rate: must be job owner or the accepted applicant
   invalid_credentials: Invalid credentials.
   mailer:
     applicant_accepted:

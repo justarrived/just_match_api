@@ -127,6 +127,24 @@ RSpec.describe Job, type: :model do
       expect(nil_job.accepted_applicant?(nil)).to eq(false)
     end
   end
+
+  describe '#concluded?' do
+    context 'when concluded' do
+      subject { FactoryGirl.build(:job_concluded) }
+
+      it 'returns true' do
+        expect(subject.concluded?).to eq(true)
+      end
+    end
+
+    context 'when *not* concluded' do
+      subject { FactoryGirl.build(:job) }
+
+      it 'returns false' do
+        expect(subject.concluded?).to eq(false)
+      end
+    end
+  end
 end
 
 # == Schema Information

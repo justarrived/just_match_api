@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     resources :job_skills
     resources :job_users
     resources :user_skills
+    resources :ratings
 
     root to: 'jobs#index'
   end
@@ -30,6 +31,7 @@ Rails.application.routes.draw do
           resources :job_comments, module: :jobs, path: 'comments', except: [:new, :edit]
           resources :job_skills, module: :jobs, path: 'skills', except: [:new, :edit, :update]
           resources :job_users, module: :jobs, path: 'users', except: [:new, :edit]
+          resources :ratings, module: :jobs, path: 'ratings', only: [:create]
         end
       end
 
