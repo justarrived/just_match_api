@@ -1,18 +1,17 @@
 # frozen_string_literal: true
 class UserSkillPolicy < ApplicationPolicy
-  # User is the current user and user_context is the current user resource
-  Context = Struct.new(:user, :user_context)
+  Context = Struct.new(:user, :user_record)
 
-  attr_reader :user_context
+  attr_reader :user_record
 
   def initialize(user, record)
     @user = user.user
     @record = record
-    @user_context = user.user_context
+    @user_record = user.user_record
   end
 
   def index?
-    admin? || user_context == user
+    admin? || user_record == user
   end
 
   alias_method :show?, :index?

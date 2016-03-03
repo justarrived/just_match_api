@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 class JobUserPolicy < ApplicationPolicy
-  Context = Struct.new(:user, :job_context, :user_context)
+  Context = Struct.new(:user, :job_context, :user_record)
 
-  attr_reader :job_context, :user_context
+  attr_reader :job_context, :user_record
 
   def initialize(user, record)
     @user = user.user
     @record = record
     @job_context = user.job_context
-    @user_context = user.user_context
+    @user_record = user.user_record
   end
 
   def index?
@@ -20,12 +20,12 @@ class JobUserPolicy < ApplicationPolicy
   end
 
   def show?
-    admin? || job_context.owner == user || user_context == user
+    admin? || job_context.owner == user || user_record == user
   end
 
   alias_method :update?, :index?
 
   def destroy?
-    admin? || user_context == user
+    admin? || user_record == user
   end
 end

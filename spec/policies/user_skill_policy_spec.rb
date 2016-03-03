@@ -12,8 +12,8 @@ RSpec.describe UserSkillPolicy do
 
   permissions :index?, :show? do
     context '"self" user' do
-      let(:context) { described_class::Context.new(user, user) }
-      let(:policy) { described_class.new(context, nil) }
+      let(:policy_context) { described_class::Context.new(user, user) }
+      let(:policy) { described_class.new(policy_context, nil) }
 
       it 'allows access' do
         expect(policy.index?).to eq(true)
@@ -25,8 +25,8 @@ RSpec.describe UserSkillPolicy do
     end
 
     context 'admin user' do
-      let(:context) { described_class::Context.new(admin_user, user) }
-      let(:policy) { described_class.new(context, nil) }
+      let(:policy_context) { described_class::Context.new(admin_user, user) }
+      let(:policy) { described_class.new(policy_context, nil) }
 
       it 'allows access' do
         expect(policy.index?).to eq(true)
@@ -38,8 +38,8 @@ RSpec.describe UserSkillPolicy do
     end
 
     context '*not* "self" user' do
-      let(:context) { described_class::Context.new(user, other_user) }
-      let(:policy) { described_class.new(context, nil) }
+      let(:policy_context) { described_class::Context.new(user, other_user) }
+      let(:policy) { described_class.new(policy_context, nil) }
 
       it 'denies access' do
         expect(policy.index?).to eq(false)
@@ -55,8 +55,8 @@ RSpec.describe UserSkillPolicy do
     let(:skill) { mock_model(Skill, name: 'Skill') }
 
     context '"self" user' do
-      let(:context) { described_class::Context.new(user, nil) }
-      let(:policy) { described_class.new(context, user_skill) }
+      let(:policy_context) { described_class::Context.new(user, nil) }
+      let(:policy) { described_class.new(policy_context, user_skill) }
       let(:user_skill) { mock_model(UserSkill, user: user, skill: skill) }
 
       it 'allows access' do
@@ -69,8 +69,8 @@ RSpec.describe UserSkillPolicy do
     end
 
     context 'admin user' do
-      let(:context) { described_class::Context.new(admin_user, nil) }
-      let(:policy) { described_class.new(context, user_skill) }
+      let(:policy_context) { described_class::Context.new(admin_user, nil) }
+      let(:policy) { described_class.new(policy_context, user_skill) }
       let(:user_skill) { mock_model(UserSkill, user: user, skill: skill) }
 
       it 'allows access' do
@@ -83,8 +83,8 @@ RSpec.describe UserSkillPolicy do
     end
 
     context '*not* "self" user' do
-      let(:context) { described_class::Context.new(user, nil) }
-      let(:policy) { described_class.new(context, user_skill) }
+      let(:policy_context) { described_class::Context.new(user, nil) }
+      let(:policy) { described_class.new(policy_context, user_skill) }
       let(:user_skill) { mock_model(UserSkill, user: other_user, skill: skill) }
 
       it 'denies access' do
