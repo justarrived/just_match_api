@@ -1,3 +1,12 @@
+GIT
+  remote: https://github.com/buren/blazer
+  revision: db03ea91a4b97841295562302c531e35ef53a747
+  branch: before_action
+  specs:
+    blazer (1.1.0)
+      chartkick
+      rails
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -77,6 +86,7 @@ GEM
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.9.0)
     byebug (8.2.2)
+    chartkick (1.4.2)
     codeclimate-test-reporter (0.4.8)
       simplecov (>= 0.7.1, < 1.0.0)
     coderay (1.1.0)
@@ -295,6 +305,7 @@ DEPENDENCIES
   bcrypt (~> 3.1.7)
   better_errors (~> 2.1)
   binding_of_caller (~> 0.7)
+  blazer!
   bullet (~> 5.0)
   byebug (~> 8.2)
   codeclimate-test-reporter (~> 0.4)

@@ -11,10 +11,50 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160228203856) do
+ActiveRecord::Schema.define(version: 20160305143315) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "blazer_audits", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "query_id"
+    t.text     "statement"
+    t.string   "data_source"
+    t.datetime "created_at"
+  end
+
+  create_table "blazer_checks", force: :cascade do |t|
+    t.integer  "query_id"
+    t.string   "state"
+    t.text     "emails"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "blazer_dashboard_queries", force: :cascade do |t|
+    t.integer  "dashboard_id"
+    t.integer  "query_id"
+    t.integer  "position"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "blazer_dashboards", force: :cascade do |t|
+    t.text     "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "blazer_queries", force: :cascade do |t|
+    t.integer  "creator_id"
+    t.string   "name"
+    t.text     "description"
+    t.text     "statement"
+    t.string   "data_source"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "chat_users", force: :cascade do |t|
     t.integer  "chat_id"
