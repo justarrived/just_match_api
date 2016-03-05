@@ -1,6 +1,4 @@
 # frozen_string_literal: true
-require 'rails-api'
-
-class ApplicationController < ActionController::API
-  include ActionController::Serialization
+class ApplicationController < ActionController::Base
+  include HttpBasicAdminAuthenticator
 end

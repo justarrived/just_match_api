@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 module Api
-  class BaseController < ::ApplicationController
+  class BaseController < ::ApiController
     include Pundit
     # Needed for #authenticate_with_http_token
     include ActionController::HttpAuthentication::Token::ControllerMethods

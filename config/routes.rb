@@ -21,6 +21,8 @@ Rails.application.routes.draw do
   apipie
   get '/', to: redirect('/api_docs')
 
+  mount Blazer::Engine, at: 'insights'
+
   namespace :api do
     namespace :v1 do
       resources :user_sessions, only: [:create, :destroy]

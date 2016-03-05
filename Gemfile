@@ -10,6 +10,10 @@ gem 'rails-api', '~> 0.4', require: false
 # Serialize models to JSON
 gem 'active_model_serializers', '~> 0.10.0.rc4'
 
+# rubocop:disable Metrics/LineLength
+gem 'blazer', git: 'https://github.com/buren/blazer', branch: 'before_action' # '~> 1.1' # Explore data with SQL
+# rubocop:enable Metrics/LineLength
+
 group :production do
   gem 'rails_12factor', '~> 0.0.3' # Heroku integration
 end
