@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160305143315) do
+ActiveRecord::Schema.define(version: 20160305194707) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -227,6 +227,10 @@ ActiveRecord::Schema.define(version: 20160305143315) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["language_id"], name: "index_users_on_language_id", using: :btree
 
+  add_foreign_key "blazer_audits", "blazer_queries", column: "query_id", name: "blazer_audits_query_id_fk"
+  add_foreign_key "blazer_checks", "blazer_queries", column: "query_id", name: "blazer_checks_query_id_fk"
+  add_foreign_key "blazer_dashboard_queries", "blazer_queries", column: "query_id", name: "blazer_dashboard_queries_query_id_fk"
+  add_foreign_key "blazer_queries", "users", column: "creator_id", name: "blazer_queries_creator_id_fk"
   add_foreign_key "chat_users", "chats"
   add_foreign_key "chat_users", "users"
   add_foreign_key "comments", "languages"
