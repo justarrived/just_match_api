@@ -8,8 +8,24 @@
     "SECRET_KEY_BASE": {
       "description": "Rails secret token",
       "generator": "secret"
+    },
+    "SENDGRID_USERNAME": {
+      "description": "SendGrid username",
+      "value": "",
+      "required": true
+    },
+    "SENDGRID_PASSWORD": {
+      "description": "SendGrid password",
+      "value": "",
+      "required": true
+    },
+    "MAPBOX_ACCESS_TOKEN": {
+      "description": "Access token for Mapbox used in the admins tools",
+      "value": "",
+      "required": false
     }
   },
+  "addons": ["sendgrid:starter"],
   "scripts": {
     "postdeploy": "bundle exec rake db:migrate"
   }
