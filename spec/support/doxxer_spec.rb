@@ -2,6 +2,12 @@
 require 'rails_helper'
 
 RSpec.describe Doxxer do
+  class FakeModelWithoutFactory
+    def name
+      'FakeModelWithoutFactory'
+    end
+  end
+
   class FakeModel
     def name
       'FakeModel'
@@ -81,9 +87,10 @@ RSpec.describe Doxxer do
       end
 
       it 'raises error for non-existing factory' do
+        err_msg = 'Factory not registered: fake_model_without_factory'
         expect do
-          described_class._factory_attributes(FakeModel)
-        end.to raise_error(ArgumentError, 'Factory not registered: fake_model')
+          described_class._factory_attributes(FakeModelWithoutFactory)
+        end.to raise_error(ArgumentError, err_msg)
       end
 
       it 're-raises unknown ArgumentError' do
