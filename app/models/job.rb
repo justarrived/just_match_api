@@ -47,7 +47,7 @@ class Job < ActiveRecord::Base
   # Needed for administrate
   # see https://github.com/thoughtbot/administrate/issues/354
   def owner_id=(id)
-    self.owner = User.find(id)
+    self.owner = User.find_by(id: id)
   end
 
   def owner?(user)
