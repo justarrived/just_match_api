@@ -1,7 +1,6 @@
 GIT
-  remote: https://github.com/buren/blazer
-  revision: db03ea91a4b97841295562302c531e35ef53a747
-  branch: before_action
+  remote: https://github.com/ankane/blazer
+  revision: 6d4846b30af1701b947cfc15a9119fbb754b226e
   specs:
     blazer (1.1.0)
       chartkick
@@ -71,7 +70,7 @@ GEM
     autoprefixer-rails (6.3.3)
       execjs
       json
-    bcrypt (3.1.10)
+    bcrypt (3.1.11)
     better_errors (2.1.1)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
@@ -168,7 +167,7 @@ GEM
       ast (~> 2.2)
     pg (0.18.4)
     powerpack (0.1.1)
-    puma (3.0.2)
+    puma (3.1.0)
     pundit (1.1.0)
       activesupport (>= 3.0.0)
     rack (1.6.4)

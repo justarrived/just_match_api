@@ -7,12 +7,10 @@ gem 'rails', '4.2.5.2'
 gem 'pg', '~> 0.15' # Use postgresql as the database for Active Record
 
 gem 'rails-api', '~> 0.4', require: false
-# Serialize models to JSON
-gem 'active_model_serializers', '~> 0.10.0.rc4'
 
-# rubocop:disable Metrics/LineLength
-gem 'blazer', git: 'https://github.com/buren/blazer', branch: 'before_action' # '~> 1.1' # Explore data with SQL
-# rubocop:enable Metrics/LineLength
+gem 'active_model_serializers', '~> 0.10.0.rc4' # Serialize models to JSON
+
+gem 'blazer', git: 'https://github.com/ankane/blazer' # '~> 1.1' # Explore data with SQL
 
 group :production do
   gem 'rails_12factor', '~> 0.0.3' # Heroku integration
@@ -23,7 +21,7 @@ gem 'maruku', '~> 0.7' # Needed for apipie-rails markdown support
 
 gem 'kaminari', '~> 0.16' # Easy pagination
 
-gem 'bcrypt', '~> 3.1.7', require: true
+gem 'bcrypt', '~> 3.1.7', require: true # Encrypt passwords
 
 gem 'puma', '~> 3.0' # Use Puma as the app server
 gem 'rack-timeout', '~> 0.3' # Kill requests that run for too long
@@ -59,7 +57,7 @@ group :development do
   gem 'web-console', '~> 3.0'
   gem 'spring', '~> 1.6'
   gem 'spring-commands-rspec', '~> 1.0'
-  gem 'rails-i18n', '~> 4.0.0' # For 4.0.x
+  gem 'rails-i18n', '~> 4.0.0'
   gem 'i18n-tasks', '~> 0.9.2'
 end
 
