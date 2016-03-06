@@ -148,12 +148,12 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
           expect(assigns(:job)).to eq(job)
         end
 
-        it 'returns no content status' do
+        it 'returns 200 ok status' do
           job = FactoryGirl.create(:job_with_users, users_count: 1, owner: user)
           user = job.users.first
           params = { job_id: job.to_param, id: user.to_param }.merge(new_attributes)
           put :update, params, valid_session
-          expect(response.status).to eq(204)
+          expect(response.status).to eq(200)
         end
 
         it 'notifies user when updated Job#performed_accept is set to true' do
@@ -168,7 +168,7 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
 
       context 'non associated user' do
         let(:new_attributes) do
-          { accepted: true }
+          {}
         end
 
         it 'returns forbidden status' do
@@ -182,15 +182,45 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
 
       context 'job user' do
         let(:new_attributes) do
-          { accepted: true }
+          {
+            data: {
+              attributes: { will_perform: true }
+            }
+          }
         end
 
-        it 'returns forbidden status for non-owner user' do
+        it 'notifies user when updated Job#performed_accept is set to true' do
+          job = FactoryGirl.create(:job_with_users, users_count: 1, owner: user)
+          user = job.users.first
+          job_user = job.job_users.first
+          job_user.accepted = true
+          job_user.save!
+
+          allow_any_instance_of(described_class).
+            to(receive(:authenticate_user_token!).
+            and_return(user))
+
+          params = { job_id: job.to_param, id: user.to_param }.merge(new_attributes)
+          allow(ApplicantWillPerformNotifier).to receive(:call).with(job: job, user: user)
+          put :update, params, valid_session
+          expect(ApplicantWillPerformNotifier).to have_received(:call)
+        end
+
+        it 'can set #will_perform attribute' do
           job = FactoryGirl.create(:job_with_users, users_count: 1)
           user = job.users.first
+          job_user = job.job_users.first
+          job_user.accepted = true
+          job_user.save!
+
+          allow_any_instance_of(described_class).
+            to(receive(:authenticate_user_token!).
+            and_return(user))
+
           params = { job_id: job.to_param, id: user.to_param }.merge(new_attributes)
-          put :update, params, valid_session
-          expect(response.status).to eq(401)
+          put :update, params, {}
+          job_user.reload
+          expect(job_user.will_perform).to eq(true)
         end
       end
     end

@@ -41,9 +41,9 @@ module Api
 
         api :POST, '/jobs/:job_id/users/', 'Create new job user'
         description 'Creates and returns new job user if the user is allowed.'
-        example Doxxer.read_example(User)
         error code: 400, desc: 'Bad request'
         error code: 422, desc: 'Unprocessable entity'
+        example Doxxer.read_example(JobUser)
         def create
           authorize(JobUser)
 
@@ -53,31 +53,40 @@ module Api
 
           if @job_user.save
             NewApplicantNotifier.call(job_user: @job_user)
-            render json: @user, status: :created
+            render json: @job_user, status: :created
           else
             render json: @job_user.errors, status: :unprocessable_entity
           end
         end
 
-        api :PATCH, '/jobs/:job_id/users/', 'Update job user'
+        api :PATCH, '/jobs/:job_id/users/:id', 'Update job user'
         description 'Updates a job user if the user is allowed.'
         error code: 400, desc: 'Bad request'
         error code: 401, desc: 'Unauthorized'
         error code: 422, desc: 'Unprocessable entity'
         param :data, Hash, desc: 'Top level key', required: true do
           param :attributes, Hash, desc: 'Job user attributes', required: true do
-            param :accepted, [true], desc: 'User accepted', required: true
+            param :accepted, [true], desc: 'User accepted for job', required: true
+            param :will_perform, [true], desc: 'User will perform job', required: true
           end
         end
+        example Doxxer.read_example(JobUser)
         def update
           authorize(JobUser)
 
           job_user = @job.find_applicant(@user)
-          job_user.accept if jsonapi_params[:accepted]
+          job_user.assign_attributes(permitted_attributes)
+
+          notifier_klass = NilNotifier
+          if job_user.send_accepted_notice?
+            notifier_klass = ApplicantAcceptedNotifier
+          elsif job_user.send_will_perform_notice?
+            notifier_klass = ApplicantWillPerformNotifier
+          end
 
           if job_user.save
-            ApplicantAcceptedNotifier.call(job: @job, user: @user)
-            head :no_content
+            notifier_klass.call(job: @job, user: @user)
+            render json: job_user
           else
             render json: job_user.errors, status: :unprocessable_entity
           end
@@ -103,6 +112,11 @@ module Api
 
         def set_user
           @user = @job.users.find(params[:id])
+        end
+
+        def permitted_attributes
+          attributes = policy(JobUser.new).permitted_attributes
+          jsonapi_params.permit(attributes)
         end
 
         def pundit_user

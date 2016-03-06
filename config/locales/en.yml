@@ -8,6 +8,9 @@ en:
     job_user:
       not_owner_of_job: can't be both job owner and job applicant
       multiple_applicants: can't accept multiple applicants for job
+      accepted_changed_to_false: can't change to false if already true
+      will_perform_changed_to_false: can't change to false if already true
+      will_perform_accepted: must be accepted to confirm will perform
     rating:
       from_user_rated: can't rate twice
       to_user_rated: can't be rated twice
@@ -16,6 +19,10 @@ en:
       user_allowed_to_rate: must be job owner or the accepted applicant
   invalid_credentials: Invalid credentials.
   mailer:
+    applicant_will_perform:
+      subject: Congrats! The applicant will perform your job.
+      congrats_line: Congrats!
+      details_line: "%{name} has confirmed they'll perform your job %{job_name}."
     applicant_accepted:
       accepted_line: You've been accepted for a job!
       congrats_line: Congrats %{name}!

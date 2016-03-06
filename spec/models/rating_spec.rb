@@ -130,8 +130,6 @@ RSpec.describe Rating, type: :model do
     end
   end
 end
-# rubocop:disable Metrics/LineLength
-#
 # == Schema Information
 #
 # Table name: ratings
@@ -146,6 +144,12 @@ end
 #
 # Indexes
 #
-#  index_ratings_on_from_user_id_and_to_user_id_and_job_id  (from_user_id,to_user_id,job_id) UNIQUE
-#  index_ratings_on_to_user_id_and_from_user_id_and_job_id  (to_user_id,from_user_id,job_id) UNIQUE
+#  index_ratings_on_job_id_and_from_user_id  (job_id,from_user_id) UNIQUE
+#  index_ratings_on_job_id_and_to_user_id    (job_id,to_user_id) UNIQUE
+#
+# Foreign Keys
+#
+#  ratings_from_user_id_fk  (from_user_id => users.id)
+#  ratings_job_id_fk        (job_id => jobs.id)
+#  ratings_to_user_id_fk    (to_user_id => users.id)
 #

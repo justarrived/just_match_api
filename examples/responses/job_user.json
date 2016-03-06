@@ -1,0 +1,18 @@
+{
+  "data": {
+    "id": "1",
+    "type": "job_users",
+    "attributes": {
+      "accepted": false,
+      "will_perform": false
+    },
+    "relationships": {
+      "user": {
+        "data": null
+      },
+      "job": {
+        "data": null
+      }
+    }
+  }
+}

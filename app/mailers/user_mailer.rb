@@ -53,4 +53,12 @@ class UserMailer < ApplicationMailer
     subject = I18n.t('mailer.applicant_accepted.subject')
     mail(to: user.email, subject: subject)
   end
+
+  def applicant_will_perform_email(user:, job:, owner:)
+    @user_name = user.name
+    @job_name = job.name
+
+    subject = I18n.t('mailer.applicant_will_perform.subject')
+    mail(to: owner.email, subject: subject)
+  end
 end
