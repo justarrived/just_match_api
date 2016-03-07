@@ -61,4 +61,12 @@ class UserMailer < ApplicationMailer
     subject = I18n.t('mailer.applicant_will_perform.subject')
     mail(to: owner.email, subject: subject)
   end
+
+  def accepted_applicant_withdrawn_email(user:, job:, owner:)
+    @user_name = user.name
+    @job_name = job.name
+
+    subject = I18n.t('mailer.accepted_applicant_withdrawn.subject')
+    mail(to: owner.email, subject: subject)
+  end
 end

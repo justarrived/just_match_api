@@ -7,6 +7,7 @@ RSpec.describe UserJobMatchNotifier, type: :mailer do
   it 'must work' do
     allow(UserMailer).to receive(:job_match_email).and_return(mailer)
     UserJobMatchNotifier.call(user: nil, job: nil, owner: nil)
-    expect(UserMailer).to have_received(:job_match_email)
+    mailer_args = { job: nil, user: nil, owner: nil }
+    expect(UserMailer).to have_received(:job_match_email).with(mailer_args)
   end
 end

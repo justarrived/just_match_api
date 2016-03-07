@@ -9,6 +9,7 @@ RSpec.describe NewApplicantNotifier, type: :mailer do
   it 'must work' do
     allow(UserMailer).to receive(:new_applicant_email).and_return(mailer)
     NewApplicantNotifier.call(job_user: job_user)
-    expect(UserMailer).to have_received(:new_applicant_email)
+    mailer_args = { job: job, user: nil, owner: job.owner }
+    expect(UserMailer).to have_received(:new_applicant_email).with(mailer_args)
   end
 end

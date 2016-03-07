@@ -12,16 +12,16 @@ class JobUser < ActiveRecord::Base
   validates :user, uniqueness: { scope: :job }
   validates :job, uniqueness: { scope: :user }
 
-  validate :validate_accepted_attribute_not_changed_to_false
-  validate :validate_will_perform_attribute_not_changed_to_false
+  validate :validate_accepted_not_reverted
+  validate :validate_will_perform_not_reverted
   validate :validate_accepted_before_will_perform
 
   scope :accepted, -> { where(accepted: true) }
 
   NOT_OWNER_OF_JOB_ERR_MSG = I18n.t('errors.job_user.not_owner_of_job')
   MULTPLE_APPLICANT_ERR_MSG = I18n.t('errors.job_user.multiple_applicants')
-  ACCEPTED_CHANGED_ERR_MSG = I18n.t('errors.job_user.accepted_changed_to_false')
-  WILL_PERFORM_CHANGED_ERR_MSG = I18n.t('errors.job_user.will_perform_changed_to_false')
+  ACCEPTED_REVERTED_ERR_MSG = I18n.t('errors.job_user.accepted_changed_to_false')
+  WILL_PERFORM_REVERTED_ERR_MSG = I18n.t('errors.job_user.will_perform_changed_to_false')
   WILL_PERFORM_ACCEPTED_ERR_MSG = I18n.t('errors.job_user.will_perform_accepted')
 
   def self.accepted_jobs_for(user)
@@ -59,16 +59,16 @@ class JobUser < ActiveRecord::Base
     will_perform_changed? && will_perform
   end
 
-  def validate_accepted_attribute_not_changed_to_false
+  def validate_accepted_not_reverted
     return unless accepted_changed? && accepted == false
 
-    errors.add(:accepted, ACCEPTED_CHANGED_ERR_MSG)
+    errors.add(:accepted, ACCEPTED_REVERTED_ERR_MSG)
   end
 
-  def validate_will_perform_attribute_not_changed_to_false
+  def validate_will_perform_not_reverted
     return unless will_perform_changed? && will_perform == false
 
-    errors.add(:will_perform, WILL_PERFORM_CHANGED_ERR_MSG)
+    errors.add(:will_perform, WILL_PERFORM_REVERTED_ERR_MSG)
   end
 
   def validate_accepted_before_will_perform

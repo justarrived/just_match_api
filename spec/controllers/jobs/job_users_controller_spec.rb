@@ -260,6 +260,35 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
         end.to change(JobUser, :count).by(-1)
       end
 
+      it 'can *not* be destroyed if JobUser#will_perform is true' do
+        job = FactoryGirl.create(:job_with_users, users_count: 1)
+        user = job.users.first
+        job.job_users.first.update_attributes(accepted: true, will_perform: true)
+        allow_any_instance_of(described_class).
+          to(receive(:authenticate_user_token!).
+          and_return(user))
+        session = { token: user.auth_token }
+        params = { job_id: job.to_param, id: user.to_param }
+        delete :destroy, params, session
+        err_msg = "can't delete when will perform is true"
+        expect(response.status).to eq(422)
+        expect(JSON.parse(response.body)['will_perform'].first).to eq(err_msg)
+      end
+
+      it 'sends a notificatiom to Job#owner if accepted applicant withdraws' do
+        job = FactoryGirl.create(:job_with_users, users_count: 1)
+        user = job.users.first
+        job.job_users.first.update_attributes(accepted: true)
+        allow_any_instance_of(described_class).
+          to(receive(:authenticate_user_token!).
+          and_return(user))
+        session = { token: user.auth_token }
+        params = { job_id: job.to_param, id: user.to_param }
+        allow(AcceptedApplicantWithdrawnNotifier).to receive(:call)
+        delete :destroy, params, session
+        expect(AcceptedApplicantWithdrawnNotifier).to have_received(:call)
+      end
+
       it 'returns no content status' do
         job = FactoryGirl.create(:job_with_users, users_count: 1)
         user = job.users.first

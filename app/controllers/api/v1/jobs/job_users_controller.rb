@@ -95,13 +95,24 @@ module Api
         api :DELETE, '/jobs/:job_id/users/:id', 'Delete user user'
         description 'Deletes job user if the user is allowed.'
         error code: 401, desc: 'Unauthorized'
+        error code: 422, desc: 'Unprocessable entity'
         def destroy
           authorize(JobUser)
 
           @job_user = @job.job_users.find_by!(user: @user)
 
-          @job_user.destroy
-          head :no_content
+          if @job_user.will_perform
+            errors = {
+              will_perform: [I18n.t('errors.job_user.will_perform_true_on_delete')] }
+            render json: errors, status: :unprocessable_entity
+          else
+            if @job_user.accepted
+              AcceptedApplicantWithdrawnNotifier.call(job: @job, user: @user)
+            end
+
+            @job_user.destroy
+            head :no_content
+          end
         end
 
         private
