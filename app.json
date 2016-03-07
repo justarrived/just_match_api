@@ -12,12 +12,12 @@
     "SENDGRID_USERNAME": {
       "description": "SendGrid username",
       "value": "",
-      "required": true
+      "required": false
     },
     "SENDGRID_PASSWORD": {
       "description": "SendGrid password",
       "value": "",
-      "required": true
+      "required": false
     },
     "MAPBOX_ACCESS_TOKEN": {
       "description": "Access token for Mapbox used in the admins tools",
