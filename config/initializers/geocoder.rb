@@ -1,6 +1,9 @@
 # frozen_string_literal: true
-# Configur Geocoder defaults
+
+# Configure Geocoder defaults
 Geocoder.configure(
   timeout: 3, # seconds
-  units: :km
+  units: :km,
+  api_key: ENV['GOOGLE_MAPS_API_TOKEN'],
+  use_https: true
 )
