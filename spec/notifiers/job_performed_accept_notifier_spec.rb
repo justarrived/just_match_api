@@ -8,6 +8,7 @@ RSpec.describe JobPerformedAcceptNotifier, type: :mailer do
   it 'must work' do
     allow(UserMailer).to receive(:job_performed_accept_email).and_return(mailer)
     JobPerformedAcceptNotifier.call(job: job)
-    expect(UserMailer).to have_received(:job_performed_accept_email)
+    mailer_args = { job: job, user: nil, owner: job.owner }
+    expect(UserMailer).to have_received(:job_performed_accept_email).with(mailer_args)
   end
 end

@@ -17,13 +17,14 @@ end
 #
 # Table name: job_users
 #
-#  id         :integer          not null, primary key
-#  user_id    :integer
-#  job_id     :integer
-#  accepted   :boolean          default(FALSE)
-#  rate       :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id           :integer          not null, primary key
+#  user_id      :integer
+#  job_id       :integer
+#  accepted     :boolean          default(FALSE)
+#  rate         :integer
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  will_perform :boolean          default(FALSE)
 #
 # Indexes
 #

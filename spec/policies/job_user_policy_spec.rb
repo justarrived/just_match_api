@@ -120,7 +120,7 @@ RSpec.describe JobUserPolicy do
       let(:policy_context) { described_class::Context.new(a_job_user, job, a_job_user) }
 
       it 'denies access' do
-        expect(policy.update?).to eq(false)
+        expect(policy.update?).to eq(true)
       end
     end
 
@@ -163,6 +163,40 @@ RSpec.describe JobUserPolicy do
 
       it 'denies access' do
         expect(policy.destroy?).to eq(false)
+      end
+    end
+  end
+
+  describe '#permitted_attributes' do
+    context 'job owner' do
+      let(:policy_context) { described_class::Context.new(owner, job, a_job_user) }
+
+      it 'returns correct attributes' do
+        expect(policy.permitted_attributes).to eq([:accepted])
+      end
+    end
+
+    context 'admin' do
+      let(:policy_context) { described_class::Context.new(admin_user, job, a_job_user) }
+
+      it 'returns correct attributes' do
+        expect(policy.permitted_attributes).to eq([:accepted, :will_perform])
+      end
+    end
+
+    context 'job user' do
+      let(:policy_context) { described_class::Context.new(a_job_user, job, a_job_user) }
+
+      it 'returns correct attributes' do
+        expect(policy.permitted_attributes).to eq([:will_perform])
+      end
+    end
+
+    context 'a user' do
+      let(:policy_context) { described_class::Context.new(user, job, a_job_user) }
+
+      it 'returns correct attributes' do
+        expect(policy.permitted_attributes).to eq([])
       end
     end
   end

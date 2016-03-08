@@ -4,6 +4,9 @@ FactoryGirl.define do
     association :user
     association :job
 
+    accepted false
+    will_perform false
+
     factory :job_user_for_docs do
       id 1
       created_at Time.new(2016, 02, 10, 1, 1, 1).utc
@@ -16,13 +19,14 @@ end
 #
 # Table name: job_users
 #
-#  id         :integer          not null, primary key
-#  user_id    :integer
-#  job_id     :integer
-#  accepted   :boolean          default(FALSE)
-#  rate       :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id           :integer          not null, primary key
+#  user_id      :integer
+#  job_id       :integer
+#  accepted     :boolean          default(FALSE)
+#  rate         :integer
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  will_perform :boolean          default(FALSE)
 #
 # Indexes
 #

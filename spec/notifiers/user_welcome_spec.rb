@@ -7,6 +7,6 @@ RSpec.describe UserWelcomeNotifier, type: :mailer do
   it 'must work' do
     allow(UserMailer).to receive(:welcome_email).and_return(mailer)
     UserWelcomeNotifier.call(user: nil)
-    expect(UserMailer).to have_received(:welcome_email)
+    expect(UserMailer).to have_received(:welcome_email).with(user: nil)
   end
 end

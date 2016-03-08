@@ -54,13 +54,13 @@ class Job < ActiveRecord::Base
     !owner.nil? && owner == user
   end
 
-  # NOTE: You need to call this __before__ the record is saved/updated
+  # NOTE: You need to call this __before__ the record is validated
   #       otherwise it will always return false
   def send_performed_accept_notice?
     performed_accept_changed? && performed_accept
   end
 
-  # NOTE: You need to call this __before__ the record is saved/updated
+  # NOTE: You need to call this __before__ the record is validated
   #       otherwise it will always return false
   def send_performed_notice?
     performed_changed? && performed

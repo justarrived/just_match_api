@@ -72,19 +72,75 @@ RSpec.describe JobUser, type: :model do
     message = job_user.errors.messages[:multiple_applicants]
     expect(message).to eq(["can't accept multiple applicants for job"])
   end
+
+  %w(accepted will_perform).each do |column|
+    notice_method_name = "send_#{column}_notice?"
+    describe "##{notice_method_name}" do
+      let(:job_user) { FactoryGirl.build(:job_user) }
+
+      it 'returns false when it should *not* send notice' do
+        expect(job_user.public_send(notice_method_name)).to eq(false)
+      end
+
+      it 'returns true when it should send notice' do
+        job_user.public_send("#{column}=", true)
+        expect(job_user.public_send(notice_method_name)).to eq(true)
+      end
+    end
+
+    describe "#validate_#{column}_attribute" do
+      let(:job_user) { FactoryGirl.build(:job_user) }
+
+      it 'adds *no* error when value is already false' do
+        job_user.validate
+        expect(job_user.errors.messages[column.to_sym]).to eq(nil)
+      end
+
+      it 'adds error when value is true and set to false' do
+        # Must explicitly be set accepted to true here otherwise #save! will raises an
+        #  error, since #will_perform requires accepted to be true in order to be set
+        job_user.accepted = true
+        job_user.public_send("#{column}=", true)
+        job_user.save!
+        job_user.public_send("#{column}=", false)
+        job_user.validate
+        err_msg = "can't change to false if already true"
+        expect(job_user.errors.messages[column.to_sym]).to include(err_msg)
+      end
+    end
+  end
+
+  describe '#validate_accepted_before_will_perform' do
+    let(:job_user) { FactoryGirl.build(:job_user) }
+
+    it 'adds error if already accepted is false' do
+      job_user.will_perform = true
+      job_user.validate
+      err_msg = 'must be accepted to confirm will perform'
+      expect(job_user.errors.messages[:will_perform]).to include(err_msg)
+    end
+
+    it 'adds *no* error if already accepted' do
+      job_user.will_perform = true
+      job_user.accepted = true
+      job_user.validate
+      expect(job_user.errors.messages[:will_perform]).to eq(nil)
+    end
+  end
 end
 
 # == Schema Information
 #
 # Table name: job_users
 #
-#  id         :integer          not null, primary key
-#  user_id    :integer
-#  job_id     :integer
-#  accepted   :boolean          default(FALSE)
-#  rate       :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id           :integer          not null, primary key
+#  user_id      :integer
+#  job_id       :integer
+#  accepted     :boolean          default(FALSE)
+#  rate         :integer
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  will_perform :boolean          default(FALSE)
 #
 # Indexes
 #

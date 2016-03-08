@@ -12,10 +12,17 @@ class JobUser < ActiveRecord::Base
   validates :user, uniqueness: { scope: :job }
   validates :job, uniqueness: { scope: :user }
 
+  validate :validate_accepted_not_reverted
+  validate :validate_will_perform_not_reverted
+  validate :validate_accepted_before_will_perform
+
   scope :accepted, -> { where(accepted: true) }
 
   NOT_OWNER_OF_JOB_ERR_MSG = I18n.t('errors.job_user.not_owner_of_job')
   MULTPLE_APPLICANT_ERR_MSG = I18n.t('errors.job_user.multiple_applicants')
+  ACCEPTED_REVERTED_ERR_MSG = I18n.t('errors.job_user.accepted_changed_to_false')
+  WILL_PERFORM_REVERTED_ERR_MSG = I18n.t('errors.job_user.will_perform_changed_to_false')
+  WILL_PERFORM_ACCEPTED_ERR_MSG = I18n.t('errors.job_user.will_perform_accepted')
 
   def self.accepted_jobs_for(user)
     where(user: user, accepted: true).
@@ -30,19 +37,46 @@ class JobUser < ActiveRecord::Base
   end
 
   def validate_single_applicant
-    if self.class.accepted.find_by(job: job)
+    accepted_user = self.class.accepted.find_by(job: job).try!(:user)
+    if accepted_user && user != accepted_user
       errors.add(:multiple_applicants, MULTPLE_APPLICANT_ERR_MSG)
     end
   end
 
-  # NOTE: You need to call this __before__ the record is saved/updated
+  def accept
+    self.accepted = true
+  end
+
+  # NOTE: You need to call this __before__ the record is validated
   #       otherwise it will always return false
   def send_accepted_notice?
     accepted_changed? && accepted
   end
 
-  def accept
-    self.accepted = true
+  # NOTE: You need to call this __before__ the record is validated
+  #       otherwise it will always return false
+  def send_will_perform_notice?
+    will_perform_changed? && will_perform
+  end
+
+  def validate_accepted_not_reverted
+    return unless accepted_changed? && accepted == false
+
+    errors.add(:accepted, ACCEPTED_REVERTED_ERR_MSG)
+  end
+
+  def validate_will_perform_not_reverted
+    return unless will_perform_changed? && will_perform == false
+
+    errors.add(:will_perform, WILL_PERFORM_REVERTED_ERR_MSG)
+  end
+
+  def validate_accepted_before_will_perform
+    return unless will_perform
+
+    unless accepted
+      errors.add(:will_perform, WILL_PERFORM_ACCEPTED_ERR_MSG)
+    end
   end
 end
 
@@ -50,13 +84,14 @@ end
 #
 # Table name: job_users
 #
-#  id         :integer          not null, primary key
-#  user_id    :integer
-#  job_id     :integer
-#  accepted   :boolean          default(FALSE)
-#  rate       :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id           :integer          not null, primary key
+#  user_id      :integer
+#  job_id       :integer
+#  accepted     :boolean          default(FALSE)
+#  rate         :integer
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  will_perform :boolean          default(FALSE)
 #
 # Indexes
 #

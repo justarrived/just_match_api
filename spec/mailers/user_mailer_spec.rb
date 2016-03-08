@@ -179,4 +179,58 @@ RSpec.describe UserMailer, type: :mailer do
       expect(mail.body.encoded).to match(job.name)
     end
   end
+
+  describe '#applicant_will_perform_email' do
+    let(:mail) do
+      UserMailer.applicant_will_perform_email(job: job, user: user, owner: owner)
+    end
+
+    it 'renders the subject' do
+      subject = 'Congrats! The applicant will perform your job.'
+      expect(mail.subject).to eql(subject)
+    end
+
+    it 'renders the receiver email' do
+      expect(mail.to).to eql([owner.email])
+    end
+
+    it 'renders the sender email' do
+      expect(mail.from).to eql(['hello@justarrived.se'])
+    end
+
+    it 'assigns @user_name' do
+      expect(mail.body.encoded).to match(user.name)
+    end
+
+    it 'assigns @job_name' do
+      expect(mail.body.encoded).to match(job.name)
+    end
+  end
+
+  describe '#accepted_applicant_withdrawn_email' do
+    let(:mail) do
+      UserMailer.accepted_applicant_withdrawn_email(job: job, user: user, owner: owner)
+    end
+
+    it 'renders the subject' do
+      subject = 'An accepted user for your job has withdrawn their application.'
+      expect(mail.subject).to eql(subject)
+    end
+
+    it 'renders the receiver email' do
+      expect(mail.to).to eql([owner.email])
+    end
+
+    it 'renders the sender email' do
+      expect(mail.from).to eql(['hello@justarrived.se'])
+    end
+
+    it 'assigns @user_name' do
+      expect(mail.body.encoded).to match(user.name)
+    end
+
+    it 'assigns @job_name' do
+      expect(mail.body.encoded).to match(job.name)
+    end
+  end
 end
