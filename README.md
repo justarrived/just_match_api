@@ -46,6 +46,8 @@ $ bin/server
 # You can now open http://localhost:3000
 ```
 
+You can generate some development seed data by running `rake dev:seed`.
+
 If you navigate to `http://localhost:3000` you'll find the API documentation.
 
 ## Tests

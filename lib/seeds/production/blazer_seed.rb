@@ -1,8 +1,12 @@
 # frozen_string_literal: true
-class DefaultBlazerQueries < ActiveRecord::Migration
+class BlazerSeed
   BLAZER_MODELS = [User, Rating, Chat, Message, Job, Comment, JobUser].freeze
 
-  def up
+  def self.call
+    new.call
+  end
+
+  def call
     BLAZER_MODELS.each do |model_klass|
       dashboard = create_dashboard(model_klass)
       dashboard.queries = [
@@ -12,11 +16,6 @@ class DefaultBlazerQueries < ActiveRecord::Migration
       ]
       create_time_range_sql(model_klass, column: :updated_at)
     end
-  end
-
-  def down
-    Blazer::Dashboard.destroy_all
-    Blazer::Query.destroy_all
   end
 
   def create_dashboard(model_klass)

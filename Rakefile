@@ -18,7 +18,6 @@ if %w(development test).include? Rails.env
   desc 'Run all tests'
   task(:test) do
     Rake::Task['test_code'].invoke
-    Rake::Task['rubocop'].invoke
   end
 
   task(:default).clear
