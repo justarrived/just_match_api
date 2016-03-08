@@ -19,7 +19,7 @@ namespace :dev do
     SkillSeed.call(languages: languages)
     skills = Skill.all
 
-    UserSeed.call(languages:languages, skills: skills, addresses: addresses)
+    UserSeed.call(languages: languages, skills: skills, addresses: addresses)
     users = User.all
 
     JobSeed.call(languages: languages, users: users, addresses: addresses, skills: skills)

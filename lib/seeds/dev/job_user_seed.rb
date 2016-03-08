@@ -28,6 +28,5 @@ class JobUserSeed < BaseSeed
         job.accept_applicant!(user)
       end
     end
-
   end
 end
