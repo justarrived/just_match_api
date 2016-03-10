@@ -1,4 +1,5 @@
 # frozen_string_literal: true
 class ApplicationMailer < ActionMailer::Base
-  default from: 'hello@justarrived.se'
+  DEFAULT_EMAIL = 'hello@justarrived.se'
+  default from: DEFAULT_EMAIL
 end
