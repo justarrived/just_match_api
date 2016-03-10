@@ -3,6 +3,8 @@ en:
   api_documentation:
     title: API documentation | JustMatch API
   errors:
+    contact:
+      email: can't be blank
     chat:
       number_of_users: must be between %{min}-%{max}
     job_user:
