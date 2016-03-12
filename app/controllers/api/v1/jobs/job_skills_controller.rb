@@ -19,6 +19,7 @@ module Api
 
         api :GET, '/jobs/:job_id/skills', 'Show user skills'
         description 'Returns list of job skills.'
+        example Doxxer.read_example(Skill, plural: true)
         def index
           authorize(JobSkill)
 

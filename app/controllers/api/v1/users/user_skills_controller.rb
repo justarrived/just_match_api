@@ -19,6 +19,7 @@ module Api
 
         api :GET, '/users/:user_id/skills', 'Show user skills'
         description 'Returns list of user skills if the user is allowed.'
+        example Doxxer.read_example(Skill, plural: true)
         def index
           authorize(UserSkill)
 

@@ -1,0 +1,25 @@
+{
+  "data": [
+    {
+      "id": "",
+      "type": "ratings",
+      "attributes": {
+        "score": 3
+      },
+      "relationships": {
+        "job": {
+          "data": null
+        },
+        "from_user": {
+          "data": null
+        },
+        "to_user": {
+          "data": null
+        },
+        "comment": {
+          "data": null
+        }
+      }
+    }
+  ]
+}

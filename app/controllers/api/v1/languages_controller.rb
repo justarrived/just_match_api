@@ -14,6 +14,7 @@ module Api
 
       api :GET, '/languages', 'List languages'
       description 'Returns a list of languages.'
+      example Doxxer.read_example(Language, plural: true)
       def index
         authorize(Language)
 

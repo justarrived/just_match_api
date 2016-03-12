@@ -21,6 +21,7 @@ module Api
 
         api :GET, '/chats/:id/messages', 'Get chat messages.'
         description 'Returns messages in chat.'
+        example Doxxer.read_example(Message, plural: true)
         def index
           @messages = @chat.messages.includes(:language).includes(:author)
           render json: @messages
