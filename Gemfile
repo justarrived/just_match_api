@@ -67,4 +67,5 @@ group :test do
   gem 'database_cleaner', '~> 1.5'
   gem 'webmock', '~> 1.24'
   gem 'rspec-activemodel-mocks', '~> 1.0'
+  gem 'timecop', '~> 0.8.0'
 end

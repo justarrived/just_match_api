@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class JobUserSerializer < ActiveModel::Serializer
-  attributes :id, :accepted, :will_perform
+  attributes :id, :accepted, :accepted_at, :will_perform
 
   belongs_to :user
   belongs_to :job
@@ -18,6 +18,7 @@ end
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  will_perform :boolean          default(FALSE)
+#  accepted_at  :datetime
 #
 # Indexes
 #

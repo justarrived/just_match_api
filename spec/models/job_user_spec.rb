@@ -18,6 +18,26 @@ RSpec.describe JobUser, type: :model do
     end
   end
 
+  describe '#accepted_at_setter' do
+    let(:job_user) { described_class.new }
+
+    it 'adds accepted_date if accepted is changed to true' do
+      time = Time.zone.now
+      Timecop.freeze(time) do
+        job_user.accepted = true
+        job_user.validate
+        expect(job_user.accepted_at).to eq(time)
+      end
+    end
+
+    it 'does *not* add accepted_date if accepted is not changed to true' do
+      job_user.accepted = false
+      job_user.validate
+      result = job_user.accepted_at
+      expect(result).to be_nil
+    end
+  end
+
   describe '#send_accepted_notice?' do
     let(:job_user) { described_class.new }
 
@@ -141,6 +161,7 @@ end
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  will_perform :boolean          default(FALSE)
+#  accepted_at  :datetime
 #
 # Indexes
 #
