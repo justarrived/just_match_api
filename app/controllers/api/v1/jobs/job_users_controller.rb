@@ -22,7 +22,7 @@ module Api
         api :GET, '/jobs/:job_id/users', 'Show job users'
         description 'Returns list of job users if the user is allowed.'
         error code: 401, desc: 'Unauthorized'
-        example Doxxer.read_example(User, plural: true)
+        example Doxxer.read_example(JobUser, plural: true)
         def index
           authorize(JobUser)
 
@@ -34,7 +34,7 @@ module Api
         api :GET, '/jobs/:job_id/users/:id', 'Show job user'
         description 'Returns user.'
         error code: 401, desc: 'Unauthorized'
-        example Doxxer.read_example(User)
+        example Doxxer.read_example(JobUser)
         def show
           authorize(JobUser)
 

@@ -20,7 +20,7 @@ module Api
 
         api :GET, '/users/:user_id/skills', 'Show user skills'
         description 'Returns list of user skills if the user is allowed.'
-        example Doxxer.read_example(Skill, plural: true)
+        example Doxxer.read_example(UserSkill, plural: true)
         def index
           authorize(UserSkill)
 
@@ -31,7 +31,7 @@ module Api
 
         api :GET, '/users/:user_id/skills/:id', 'Show user skill'
         description 'Returns user skill if the user is allowed.'
-        example Doxxer.read_example(Skill)
+        example Doxxer.read_example(UserSkill)
         def show
           authorize(UserSkill)
 
@@ -48,7 +48,7 @@ module Api
             param :id, Integer, desc: 'Skill id', required: true
           end
         end
-        example Doxxer.read_example(Skill)
+        example Doxxer.read_example(UserSkill)
         def create
           @user_skill = UserSkill.new
           @user_skill.user = @user
