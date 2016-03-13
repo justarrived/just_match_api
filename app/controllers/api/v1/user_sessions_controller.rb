@@ -21,13 +21,14 @@ module Api
           param :password, String, desc: 'Password', required: true
         end
       end
-      example '# Example response JSON
+      example '# Response example
 {
   "data": {
     "id": "XYZ",
     "type": "token",
     "attributes": {
-      "auth_token": "XYZ"
+      "auth_token": "XYZ",
+      "user_id": "1"
     }
   }
 }'
@@ -38,7 +39,7 @@ module Api
         user = User.find_by_credentials(email: email, password: password)
 
         if user
-          response = wrap_token_response(token: user.auth_token)
+          response = wrap_token_response(user_id: user.id, token: user.auth_token)
           render json: response, status: :created
         else
           error_message = I18n.t('invalid_credentials')
@@ -66,13 +67,14 @@ module Api
 
       private
 
-      def wrap_token_response(token:)
+      def wrap_token_response(user_id:, token:)
         {
           data: {
             id: token,
             type: :token,
             attributes: {
-              auth_token: token
+              auth_token: token,
+              user_id: user_id.to_s
             }
           }
         }
