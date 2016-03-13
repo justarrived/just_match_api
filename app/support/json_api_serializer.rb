@@ -6,7 +6,7 @@ class JsonApiSerializer
     new(*args).serialize
   end
 
-  def initialize(model_or_model_array, included:)
+  def initialize(model_or_model_array, included: [])
     @model_or_model_array = model_or_model_array
     @included = included
     @serializer = ActiveModel::Serializer.serializer_for(model_or_model_array)

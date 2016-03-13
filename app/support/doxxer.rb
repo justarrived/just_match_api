@@ -51,8 +51,9 @@ class Doxxer
     model = model_klass.new(model_attributes)
     model = [model] if plural
 
-    serialized_model = ActiveModel::SerializableResource.new(model)
+    serialized_model = JsonApiSerializer.serialize(model)
     model_hash = serialized_model.serializable_hash
+
     JSON.pretty_generate(model_hash)
   end
 

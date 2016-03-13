@@ -28,4 +28,8 @@ namespace :dev do
     JobUserSeed.call(jobs: jobs, users: users)
     ChatSeed.call(users: users)
   end
+
+  task doc_examples: :environment do
+    Doxxer.generate_response_examples
+  end
 end

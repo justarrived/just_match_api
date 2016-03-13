@@ -20,7 +20,7 @@ module Api
         authorize(User)
 
         page_index = params[:page].to_i
-        relations = [:skills, :jobs, :written_comments, :language, :languages]
+        relations = [:skills, :jobs, :language, :languages, :owned_jobs]
 
         @users = User.all.page(page_index).includes(relations)
         api_render(@users)
