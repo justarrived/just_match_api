@@ -3,8 +3,8 @@ require 'seeds/dev/base_seed'
 
 class ChatSeed < BaseSeed
   def self.call(users:)
-    max_chats = max_count_opt('MAX_CHATS', 10)
-    max_chat_messages = max_count_opt('MAX_CHAT_MESSAGES', 10)
+    max_chats = max_count_opt('MAX_CHATS', 100)
+    max_chat_messages = max_count_opt('MAX_CHAT_MESSAGES', 30)
 
     log '[db:seed] Chat'
     max_chats.times do

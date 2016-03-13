@@ -24,9 +24,9 @@ RSpec.describe Api::V1::Users::UserSkillsController, type: :controller do
       allow_any_instance_of(described_class).
         to(receive(:authenticate_user_token!).
         and_return(user))
-      skill = user.skills.first
+      user_skill = user.user_skills.first
       get :index, { user_id: user.to_param }, {}
-      expect(assigns(:skills)).to eq([skill])
+      expect(assigns(:user_skills)).to eq([user_skill])
     end
 
     it 'returns 200 ok status' do

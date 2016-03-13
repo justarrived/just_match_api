@@ -4,7 +4,8 @@ module Api
     module Users
       class UserSkillsController < BaseController
         before_action :set_user
-        before_action :set_skill, only: [:show, :edit, :update, :destroy]
+        before_action :set_skill, only: [:show, :destroy]
+        before_action :set_user_skill, only: [:show, :destroy]
 
         resource_description do
           resource_id 'user_skills'
@@ -19,21 +20,22 @@ module Api
 
         api :GET, '/users/:user_id/skills', 'Show user skills'
         description 'Returns list of user skills if the user is allowed.'
+        example Doxxer.read_example(UserSkill, plural: true)
         def index
           authorize(UserSkill)
 
           page_index = params[:page].to_i
-          @skills = @user.skills.page(page_index)
-          render json: @skills
+          @user_skills = @user.user_skills.page(page_index)
+          api_render(@user_skills, included: 'skill')
         end
 
         api :GET, '/users/:user_id/skills/:id', 'Show user skill'
         description 'Returns user skill if the user is allowed.'
-        example Doxxer.read_example(Skill)
+        example Doxxer.read_example(UserSkill)
         def show
           authorize(UserSkill)
 
-          render json: @skill
+          api_render(@user_skill, included: 'skill')
         end
 
         api :POST, '/users/:user_id/skills/', 'Create new user skill'
@@ -46,7 +48,7 @@ module Api
             param :id, Integer, desc: 'Skill id', required: true
           end
         end
-        example Doxxer.read_example(Skill)
+        example Doxxer.read_example(UserSkill)
         def create
           @user_skill = UserSkill.new
           @user_skill.user = @user
@@ -56,7 +58,7 @@ module Api
           @user_skill.skill = Skill.find_by(id: skill_params[:id])
 
           if @user_skill.save
-            render json: @skill, status: :created
+            api_render(@user_skill, included: 'skill', status: :created)
           else
             render json: @user_skill.errors, status: :unprocessable_entity
           end
@@ -82,6 +84,10 @@ module Api
 
         def set_skill
           @skill = @user.skills.find(params[:id])
+        end
+
+        def set_user_skill
+          @user_skill = @user.user_skills.find_by!(skill: @skill)
         end
 
         def skill_params

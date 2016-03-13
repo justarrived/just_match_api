@@ -14,11 +14,12 @@ module Api
 
       api :GET, '/skills', 'List skills'
       description 'Returns a list of skills.'
+      example Doxxer.read_example(Skill, plural: true)
       def index
         authorize(Skill)
         page_index = params[:page].to_i
         @skills = Skill.all.page(page_index)
-        render json: @skills
+        api_render(@skills)
       end
 
       api :GET, '/skills/:id', 'Show skill'
@@ -27,7 +28,7 @@ module Api
       def show
         authorize(@skill)
 
-        render json: @skill, include: ['language']
+        api_render(@skill, included: %w(language))
       end
 
       api :POST, '/skills/', 'Create new skill'
@@ -50,7 +51,7 @@ module Api
         @skill = Skill.new(skill_params)
 
         if @skill.save
-          render json: @skill, status: :created
+          api_render(@skill, status: :created)
         else
           render json: @skill.errors, status: :unprocessable_entity
         end
@@ -72,7 +73,7 @@ module Api
         authorize(@skill)
 
         if @skill.update(skill_params)
-          render json: @skill, status: :ok
+          api_render(@skill)
         else
           render json: @skill.errors, status: :unprocessable_entity
         end

@@ -3,7 +3,7 @@ require 'seeds/dev/base_seed'
 
 class SkillSeed < BaseSeed
   def self.call(languages:)
-    max_skills = max_count_opt('MAX_SKILLS', 10)
+    max_skills = max_count_opt('MAX_SKILLS', 30)
 
     log '[db:seed] Skill'
     max_skills.times do

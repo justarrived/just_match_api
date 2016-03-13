@@ -5,6 +5,7 @@ module Api
       class UserLanguagesController < BaseController
         before_action :set_user
         before_action :set_language, only: [:show, :destroy]
+        before_action :set_user_language, only: [:show, :destroy]
 
         resource_description do
           short 'API for managing user languages'
@@ -18,22 +19,23 @@ module Api
 
         api :GET, '/users/:user_id/languages', 'List user languages'
         description 'Returns a list of user languages.'
+        example Doxxer.read_example(UserLanguage, plural: true)
         def index
           authorize(UserLanguage)
 
           page_index = params[:page].to_i
-          @languages = @user.languages.all.page(page_index)
+          @user_languages = @user.user_languages.page(page_index)
 
-          render json: @languages
+          api_render(@user_languages, included: 'language')
         end
 
         api :GET, '/users/:user_id/languages/:id', 'Show language'
         description 'Return language.'
-        example Doxxer.read_example(Language)
+        example Doxxer.read_example(UserLanguage)
         def show
           authorize(UserLanguage)
 
-          render json: @language
+          api_render(@user_language, included: 'language')
         end
 
         api :POST, '/users/:user_id/languages/', 'Create new user language'
@@ -56,7 +58,7 @@ module Api
           @user_language.language = Language.find_by(id: user_language_params[:id])
 
           if @user_language.save
-            render json: @user_language, status: :created
+            api_render(@user_language, included: 'language', status: :created)
           else
             render json: @user_language.errors, status: :unprocessable_entity
           end
@@ -81,6 +83,9 @@ module Api
 
         def set_language
           @language = @user.languages.find(params[:id])
+        end
+
+        def set_user_language
           @user_language = @user.user_languages.find_by!(language: @language)
         end
 

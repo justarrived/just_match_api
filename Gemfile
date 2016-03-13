@@ -46,11 +46,11 @@ group :development, :test do
   gem 'factory_girl_rails', '~> 4.0'
   gem 'immigrant', '~> 0.3'
   gem 'consistency_fail', '~> 0.3'
+  gem 'bullet', '~> 5.0'
 end
 
 group :development do
   gem 'letter_opener', '~> 1.4'
-  gem 'bullet', '~> 5.0'
   gem 'binding_of_caller', '~> 0.7'
   gem 'better_errors', '~> 2.1'
   gem 'annotate', '~> 2.7'

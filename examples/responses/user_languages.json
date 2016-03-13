@@ -1,0 +1,16 @@
+{
+  "data": [
+    {
+      "id": "1",
+      "type": "user_languages",
+      "relationships": {
+        "language": {
+          "data": null
+        },
+        "user": {
+          "data": null
+        }
+      }
+    }
+  ]
+}

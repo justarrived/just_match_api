@@ -14,13 +14,14 @@ module Api
 
       api :GET, '/languages', 'List languages'
       description 'Returns a list of languages.'
+      example Doxxer.read_example(Language, plural: true)
       def index
         authorize(Language)
 
         page_index = params[:page].to_i
         @languages = Language.all.page(page_index)
 
-        render json: @languages
+        api_render(@languages)
       end
 
       api :GET, '/languages/:id', 'Show language'
@@ -29,7 +30,7 @@ module Api
       def show
         authorize(@language)
 
-        render json: @language
+        api_render(@language)
       end
 
       api :POST, '/languages/', 'Create new language'
@@ -49,7 +50,7 @@ module Api
         @language = Language.new(language_params)
 
         if @language.save
-          render json: @language, status: :created
+          api_render(@language, status: :created)
         else
           render json: @language.errors, status: :unprocessable_entity
         end
@@ -71,7 +72,7 @@ module Api
 
         @language = Language.find(params[:id])
         if @language.update(language_params)
-          render json: @language
+          api_render(@language)
         else
           render json: @language.errors, status: :unprocessable_entity
         end

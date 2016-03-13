@@ -18,18 +18,19 @@ module Api
 
       api :GET, '/:resource_name/:resource_id/comments', 'List comments'
       description 'Returns a list of comments.'
+      example Doxxer.read_example(Comment, plural: true)
       def index
         page_index = params[:page].to_i
         @comments = @commentable.comments.page(page_index)
 
-        render json: @comments
+        api_render(@comments)
       end
 
       api :GET, '/:resource_name/:resource_id/comments/:id', 'Show comment'
       description 'Returns comment.'
       example Doxxer.read_example(Comment)
       def show
-        render json: @comment
+        api_render(@comment)
       end
 
       api :POST, '/:resource_name/:resource_id/comments/', 'Create new comment'
@@ -52,7 +53,7 @@ module Api
         @comment.owner_user_id = current_user.id
 
         if @comment.save
-          render json: @comment, status: :created
+          api_render(@comment, status: :created)
         else
           render json: @comment.errors, status: :unprocessable_entity
         end
@@ -73,7 +74,7 @@ module Api
         @comment.body = comment_params[:body]
 
         if @comment.save
-          render json: @comment, status: :ok
+          api_render(@comment)
         else
           render json: @comment.errors, status: :unprocessable_entity
         end

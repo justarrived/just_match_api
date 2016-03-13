@@ -14,12 +14,13 @@ module Api
 
       api :GET, '/jobs', 'List jobs'
       description 'Returns a list of jobs.'
+      example Doxxer.read_example(Job, plural: true)
       def index
         authorize(Job)
 
         page_index = params[:page].to_i
         @jobs = Job.all.page(page_index)
-        render json: @jobs
+        api_render(@jobs)
       end
 
       api :GET, '/jobs/:id', 'Show job'
@@ -28,7 +29,7 @@ module Api
       def show
         authorize(@job)
 
-        render json: @job, include: %w(language owner)
+        api_render(@job, included: %w(language owner))
       end
 
       api :POST, '/jobs/', 'Create new job'
@@ -64,7 +65,7 @@ module Api
             UserJobMatchNotifier.call(user: user, job: @job, owner: owner)
           end
 
-          render json: @job, include: ['skills'], status: :created
+          api_render(@job, included: %w(skills), status: :created)
         else
           render json: @job.errors, status: :unprocessable_entity
         end
@@ -103,7 +104,7 @@ module Api
 
         if @job.save
           notify_klass.call(job: @job)
-          render json: @job, status: :ok
+          api_render(@job)
         else
           render json: @job.errors, status: :unprocessable_entity
         end

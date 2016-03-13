@@ -24,7 +24,7 @@ class JobUserSeed < BaseSeed
         job: job
       )
       # Accept one user as accepted applicant
-      if current_iteration == max_job_users - 1
+      if current_iteration == max_job_users - 1 && !job.accepted_applicant
         job.accept_applicant!(user)
       end
     end

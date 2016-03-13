@@ -21,7 +21,7 @@ module Api
           param :password, String, desc: 'Password', required: true
         end
       end
-      example '# Example response
+      example '# Response example
 {
   "data": {
     "id": "XYZ",

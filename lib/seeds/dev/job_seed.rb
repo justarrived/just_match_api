@@ -3,8 +3,8 @@ require 'seeds/dev/base_seed'
 
 class JobSeed < BaseSeed
   def self.call(languages:, users:, addresses:, skills:)
-    max_jobs = max_count_opt('MAX_JOBS', 10)
-    max_job_comments = max_count_opt('MAX_JOB_COMMENTS', 10)
+    max_jobs = max_count_opt('MAX_JOBS', 30)
+    max_job_comments = max_count_opt('MAX_JOB_COMMENTS', 20)
 
     log '[db:seed] Job'
     days_from_now_range = (1..10).to_a

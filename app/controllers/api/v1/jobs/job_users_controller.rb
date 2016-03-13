@@ -6,6 +6,7 @@ module Api
         before_action :require_user
         before_action :set_job
         before_action :set_user, only: [:show, :update, :destroy]
+        before_action :set_job_user, only: [:show, :update, :destroy]
 
         resource_description do
           resource_id 'job_users'
@@ -21,22 +22,23 @@ module Api
         api :GET, '/jobs/:job_id/users', 'Show job users'
         description 'Returns list of job users if the user is allowed.'
         error code: 401, desc: 'Unauthorized'
+        example Doxxer.read_example(JobUser, plural: true)
         def index
           authorize(JobUser)
 
           page_index = params[:page].to_i
-          @users = @job.users.page(page_index)
-          render json: @users
+          @job_users = @job.job_users.page(page_index)
+          api_render(@job_users, included: 'user')
         end
 
         api :GET, '/jobs/:job_id/users/:id', 'Show job user'
         description 'Returns user.'
         error code: 401, desc: 'Unauthorized'
-        example Doxxer.read_example(User)
+        example Doxxer.read_example(JobUser)
         def show
           authorize(JobUser)
 
-          render json: @user
+          api_render(@job_user, included: 'user')
         end
 
         api :POST, '/jobs/:job_id/users/', 'Create new job user'
@@ -53,7 +55,7 @@ module Api
 
           if @job_user.save
             NewApplicantNotifier.call(job_user: @job_user)
-            render json: @job_user, status: :created
+            api_render(@job_user, included: 'user', status: :created)
           else
             render json: @job_user.errors, status: :unprocessable_entity
           end
@@ -74,21 +76,20 @@ module Api
         def update
           authorize(JobUser)
 
-          job_user = @job.find_applicant(@user)
-          job_user.assign_attributes(permitted_attributes)
+          @job_user.assign_attributes(permitted_attributes)
 
           notifier_klass = NilNotifier
-          if job_user.send_accepted_notice?
+          if @job_user.send_accepted_notice?
             notifier_klass = ApplicantAcceptedNotifier
-          elsif job_user.send_will_perform_notice?
+          elsif @job_user.send_will_perform_notice?
             notifier_klass = ApplicantWillPerformNotifier
           end
 
-          if job_user.save
+          if @job_user.save
             notifier_klass.call(job: @job, user: @user)
-            render json: job_user
+            api_render(@job_user, included: 'user')
           else
-            render json: job_user.errors, status: :unprocessable_entity
+            render json: @job_user.errors, status: :unprocessable_entity
           end
         end
 
@@ -98,8 +99,6 @@ module Api
         error code: 422, desc: 'Unprocessable entity'
         def destroy
           authorize(JobUser)
-
-          @job_user = @job.job_users.find_by!(user: @user)
 
           if @job_user.will_perform
             errors = {
@@ -123,6 +122,10 @@ module Api
 
         def set_user
           @user = @job.users.find(params[:id])
+        end
+
+        def set_job_user
+          @job_user = @job.job_users.find_by!(user: @user)
         end
 
         def permitted_attributes

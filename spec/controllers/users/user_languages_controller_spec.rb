@@ -28,9 +28,9 @@ RSpec.describe Api::V1::Users::UserLanguagesController, type: :controller do
         to(receive(:authenticate_user_token!).
         and_return(user))
 
-      language = user.languages.first
+      user_language = user.user_languages.first
       get :index, { user_id: user.to_param }, {}
-      expect(assigns(:languages)).to eq([language])
+      expect(assigns(:user_languages)).to eq([user_language])
     end
   end
 

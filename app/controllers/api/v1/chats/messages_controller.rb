@@ -21,9 +21,10 @@ module Api
 
         api :GET, '/chats/:id/messages', 'Get chat messages.'
         description 'Returns messages in chat.'
+        example Doxxer.read_example(Message, plural: true)
         def index
           @messages = @chat.messages.includes(:language).includes(:author)
-          render json: @messages
+          api_render(@messages)
         end
 
         api :POST, '/chats/:id/messages', 'Create new chat message.'
@@ -44,7 +45,7 @@ module Api
           @message = @chat.create_message(author: author, body: body, language_id: lang)
 
           if @message.valid?
-            render json: @message, include: %w(author language), status: :created
+            api_render(@message, included: %w(author language), status: :created)
           else
             render json: @message.errors, status: :unprocessable_entity
           end

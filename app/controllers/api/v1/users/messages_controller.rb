@@ -21,6 +21,7 @@ module Api
 
         api :GET, '/users/:user_id/messages', 'Get user messages.'
         description 'Returns the message between user and logged in user.'
+        example Doxxer.read_example(Message, plural: true)
         def index
           users = User.where(id: chat_user_ids)
 
@@ -51,7 +52,7 @@ module Api
           @message = chat.create_message(author: author, body: body, language_id: lang)
 
           if @message.valid?
-            render json: @message, include: %w(author language chat), status: :created
+            api_render(@message, included: %w(author language chat), status: :created)
           else
             render json: @message.errors, status: :unprocessable_entity
           end

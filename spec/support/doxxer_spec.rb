@@ -45,10 +45,9 @@ RSpec.describe Doxxer do
     end
 
     describe '#read_example' do
-      let(:start_string) { '# Example response' }
+      let(:start_string) { '# Response example' }
 
       it 'starts with correct string' do
-        start_string = '# Example response'
         result = described_class.read_example(Skill).start_with?(start_string)
         expect(result).to eq(true)
       end
@@ -105,23 +104,39 @@ RSpec.describe Doxxer do
     end
 
     describe '#_format_model_name' do
-      it 'returns correctly formatted model name' do
+      it 'returns correctly formatted model name for single example' do
         result = described_class._format_model_name(FakeModel)
         expect(result).to eq('fake_model')
+      end
+
+      it 'returns correctly formatted model name for plural example' do
+        result = described_class._format_model_name(FakeModel, plural: true)
+        expect(result).to eq('fake_models')
       end
     end
 
     describe '#_example_for' do
-      it 'returns correctly formatted model name' do
-        result = described_class._example_for(Skill)
+      it 'returns correct data for single example' do
+        result = described_class._example_for(Skill, plural: false)
         expect(JSON.parse(result)['data']['id']).to eq('1')
+      end
+
+      it 'returns correct data for plural example' do
+        result = described_class._example_for(Skill, plural: true)
+        expect(JSON.parse(result)['data'][0]['id']).to eq('1')
       end
     end
 
     describe '#_response_filename' do
-      it 'returns correct filename' do
-        result = described_class._response_filename(FakeModel)
+      it 'returns correct filename single' do
+        result = described_class._response_filename(FakeModel, plural: false)
         expected = result.ends_with?('examples/responses/fake_model.json')
+        expect(expected).to eq(true)
+      end
+
+      it 'returns correct filename plural' do
+        result = described_class._response_filename(FakeModel, plural: true)
+        expected = result.ends_with?('examples/responses/fake_models.json')
         expect(expected).to eq(true)
       end
     end

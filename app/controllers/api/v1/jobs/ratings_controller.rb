@@ -46,7 +46,7 @@ module Api
           @rating.comment = Comment.new(comment_params)
 
           if @rating.save
-            render json: @rating, include: %w(comment), status: :created
+            api_render(@rating, included: %w(comment), status: :created)
           else
             render json: @rating.errors, status: :unprocessable_entity
           end
