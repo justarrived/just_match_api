@@ -11,7 +11,7 @@ class Doxxer
 
   def self.read_example(model_klass)
     [
-      '# Example response JSON',
+      '# Example response',
       File.read(_response_filename(model_klass))
     ].join("\n")
   end

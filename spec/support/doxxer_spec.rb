@@ -45,10 +45,10 @@ RSpec.describe Doxxer do
     end
 
     describe '#read_example' do
-      let(:start_string) { '# Example response JSON' }
+      let(:start_string) { '# Example response' }
 
       it 'starts with correct string' do
-        start_string = '# Example response JSON'
+        start_string = '# Example response'
         result = described_class.read_example(Skill).start_with?(start_string)
         expect(result).to eq(true)
       end
