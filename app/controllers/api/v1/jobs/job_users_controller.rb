@@ -21,6 +21,7 @@ module Api
         api :GET, '/jobs/:job_id/users', 'Show job users'
         description 'Returns list of job users if the user is allowed.'
         error code: 401, desc: 'Unauthorized'
+        example Doxxer.read_example(User, plural: true)
         def index
           authorize(JobUser)
 

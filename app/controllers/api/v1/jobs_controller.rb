@@ -14,6 +14,7 @@ module Api
 
       api :GET, '/jobs', 'List jobs'
       description 'Returns a list of jobs.'
+      example Doxxer.read_example(Job, plural: true)
       def index
         authorize(Job)
 

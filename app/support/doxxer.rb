@@ -6,13 +6,14 @@ class Doxxer
   RESPONSE_PATH = "#{DOC_PATH}/responses"
 
   RELEVANT_DOC_MODELS = [
-    Chat, Comment, Job, User, Message, Language, UserLanguage, Skill, Rating, JobUser
+    Chat, Comment, Job, User, Message, Language, UserLanguage, Skill, Rating, JobUser,
+    JobSkill
   ].freeze
 
-  def self.read_example(model_klass)
+  def self.read_example(model_klass, plural: false)
     [
-      '# Example response JSON',
-      File.read(_response_filename(model_klass))
+      '# Response example',
+      File.read(_response_filename(model_klass, plural: plural))
     ].join("\n")
   end
 
@@ -33,28 +34,35 @@ class Doxxer
 
   # private
 
-  def self._response_filename(model_klass)
-    "#{RESPONSE_PATH}/#{_format_model_name(model_klass)}.json"
+  def self._response_filename(model_klass, plural:)
+    "#{RESPONSE_PATH}/#{_format_model_name(model_klass, plural: plural)}.json"
   end
 
   def self._write_response_example!(model_klass)
-    FileUtils.mkdir_p(RESPONSE_PATH)
+    example = _example_for(model_klass, plural: false)
+    File.write(_response_filename(model_klass, plural: false), example)
 
-    example = _example_for(model_klass)
-    File.write(_response_filename(model_klass), example)
+    plural_example = _example_for(model_klass, plural: true)
+    File.write(_response_filename(model_klass, plural: true), plural_example)
   end
 
-  def self._example_for(model_klass)
+  def self._example_for(model_klass, plural:)
     model_attributes = _factory_attributes(model_klass)
     model = model_klass.new(model_attributes)
+    model = [model] if plural
 
     serialized_model = ActiveModel::SerializableResource.new(model)
     model_hash = serialized_model.serializable_hash
     JSON.pretty_generate(model_hash)
   end
 
-  def self._format_model_name(model_klass)
-    model_klass.name.underscore.downcase
+  def self._format_model_name(model_klass, plural: false)
+    name = model_klass.name.underscore.downcase
+    if plural
+      name.pluralize
+    else
+      name
+    end
   end
 
   def self._factory_attributes(model_klass)

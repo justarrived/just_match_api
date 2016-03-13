@@ -21,18 +21,18 @@ RSpec.describe Api::V1::Jobs::JobSkillsController, type: :controller do
   describe 'GET #index' do
     it 'assigns all user skills as @skills' do
       job = FactoryGirl.create(:job_with_skills, skills_count: 1)
-      skill = job.skills.first
+      job_skill = job.job_skills.first
       get :index, { job_id: job.to_param }, valid_session
-      expect(assigns(:skills)).to eq([skill])
+      expect(assigns(:job_skills)).to eq([job_skill])
     end
   end
 
   describe 'GET #show' do
     it 'assigns the requested user skill as @skill' do
       job = FactoryGirl.create(:job_with_skills, skills_count: 1)
-      skill = job.skills.first
-      get :show, { job_id: job.to_param, id: skill.to_param }, valid_session
-      expect(assigns(:skill)).to eq(skill)
+      job_skill = job.job_skills.first
+      get :show, { job_id: job.to_param, id: job_skill.to_param }, valid_session
+      expect(assigns(:job_skill)).to eq(job_skill)
     end
 
     it 'assigns the requested user as @user' do

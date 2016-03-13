@@ -14,6 +14,7 @@ module Api
 
       api :GET, '/skills', 'List skills'
       description 'Returns a list of skills.'
+      example Doxxer.read_example(Skill, plural: true)
       def index
         authorize(Skill)
         page_index = params[:page].to_i

@@ -15,6 +15,7 @@ module Api
 
       api :GET, '/users', 'List users'
       description 'Returns a list of users if the user is allowed.'
+      example Doxxer.read_example(User, plural: true)
       def index
         authorize(User)
 

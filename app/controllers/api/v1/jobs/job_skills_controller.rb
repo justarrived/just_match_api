@@ -4,7 +4,7 @@ module Api
     module Jobs
       class JobSkillsController < BaseController
         before_action :set_job
-        before_action :set_skill, only: [:show, :edit, :update, :destroy]
+        before_action :set_job_skill, only: [:show, :destroy]
 
         resource_description do
           resource_id 'job_skills'
@@ -19,21 +19,22 @@ module Api
 
         api :GET, '/jobs/:job_id/skills', 'Show user skills'
         description 'Returns list of job skills.'
+        example Doxxer.read_example(JobSkill, plural: true)
         def index
           authorize(JobSkill)
 
           page_index = params[:page].to_i
-          @skills = @job.skills.page(page_index)
-          render json: @skills
+          @job_skills = @job.job_skills.page(page_index)
+          api_render(@job_skills, included: 'skill')
         end
 
         api :GET, '/jobs/:job_id/skills/:id', 'Show user skill'
         description 'Returns skill.'
-        example Doxxer.read_example(Skill)
+        example Doxxer.read_example(JobSkill)
         def show
           authorize(JobSkill)
 
-          render json: @skill
+          api_render(@job_skill, included: 'skill')
         end
 
         api :POST, '/jobs/:job_id/skills/', 'Create new job skill'
@@ -46,7 +47,7 @@ module Api
             param :id, Integer, desc: 'Skill id', required: true
           end
         end
-        example Doxxer.read_example(Skill)
+        example Doxxer.read_example(JobSkill)
         def create
           authorize(JobSkill)
 
@@ -55,7 +56,7 @@ module Api
           @job_skill.job = @job
 
           if @job_skill.save
-            render json: @skill, status: :created
+            api_render(@job_skill, included: 'skill', status: :created)
           else
             render json: @job_skill.errors, status: :unprocessable_entity
           end
@@ -67,8 +68,6 @@ module Api
         def destroy
           authorize(JobSkill)
 
-          @job_skill = @job.job_skills.find_by!(skill: @skill)
-
           @job_skill.destroy
           head :no_content
         end
@@ -79,8 +78,8 @@ module Api
           @job = Job.find(params[:job_id])
         end
 
-        def set_skill
-          @skill = @job.skills.find(params[:id])
+        def set_job_skill
+          @job_skill = @job.job_skills.find(params[:id])
         end
 
         def skill_params
