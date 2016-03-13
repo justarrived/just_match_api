@@ -23,7 +23,7 @@ module Api
         relations = [:skills, :jobs, :written_comments, :language, :languages]
 
         @users = User.all.page(page_index).includes(relations)
-        render json: @users
+        api_render(@users)
       end
 
       api :GET, '/users/:id', 'Show user'
@@ -32,7 +32,7 @@ module Api
       def show
         authorize(@user)
 
-        render json: @user, include: allowed_includes
+        api_render(@user, included: allowed_includes)
       end
 
       api :POST, '/users/', 'Create new user'
@@ -69,7 +69,7 @@ module Api
 
           UserWelcomeNotifier.call(user: @user)
 
-          render json: @user, status: :created
+          api_render(@user, status: :created)
         else
           render json: @user.errors, status: :unprocessable_entity
         end
@@ -97,7 +97,7 @@ module Api
         authorize(@user)
 
         if @user.update(user_params)
-          render json: @user, status: :ok
+          api_render(@user)
         else
           render json: @user.errors, status: :unprocessable_entity
         end
@@ -127,12 +127,13 @@ module Api
       description 'Returns the all jobs where the user is the owner or applicant user if the user is allowed.'
       # rubocop:enable Metrics/LineLength
       error code: 401, desc: 'Unauthorized'
+      example Doxxer.read_example(Job, plural: true)
       def jobs
         authorize(@user)
 
         @jobs = Queries::UserJobsFinder.new(current_user).perform
 
-        render json: @jobs, status: :ok
+        api_render(@jobs)
       end
 
       private

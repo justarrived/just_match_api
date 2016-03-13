@@ -29,7 +29,7 @@ module Api
 
         @chats = Chat.all.page(page_index).includes(relations)
 
-        render json: @chats
+        api_render(@chats)
       end
 
       api :GET, '/chats/:id', 'Show chat'
@@ -38,7 +38,7 @@ module Api
       def show
         authorize(@chat)
 
-        render json: @chat
+        api_render(@chat, included: 'users')
       end
 
       api :POST, '/chats/', 'Create new chat'
@@ -63,7 +63,7 @@ module Api
         @chat = Chat.find_or_create_private_chat(users)
 
         if @chat.errors[:users].empty?
-          render json: @chat, include: ['users'], status: :created
+          api_render(@chat, included: 'users', status: :created)
         else
           render json: @chat.errors, status: :unprocessable_entity
         end

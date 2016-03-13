@@ -42,7 +42,15 @@ class JobSerializer < ActiveModel::Serializer
   end
 
   def policy
-    @_job_policy ||= JobPolicy.new(current_user, object)
+    @_job_policy ||= begin
+      # This resource is included from other serializers causing #current_user to be
+      # undefined, it that case consider the current user as nil
+      if scope.nil?
+        JobPolicy.new(nil, object)
+      else
+        JobPolicy.new(current_user, object)
+      end
+    end
   end
 end
 
