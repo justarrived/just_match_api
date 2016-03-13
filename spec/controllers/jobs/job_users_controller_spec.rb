@@ -23,9 +23,9 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
   describe 'GET #index' do
     it 'assigns all user users as @users' do
       job = FactoryGirl.create(:job_with_users, users_count: 1, owner: user)
-      user = job.users.first
+      job_user = job.job_users.first
       get :index, { job_id: job.to_param }, valid_session
-      expect(assigns(:users)).to eq([user])
+      expect(assigns(:job_users)).to eq([job_user])
     end
 
     context 'not authorized' do

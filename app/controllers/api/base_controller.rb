@@ -11,6 +11,15 @@ module Api
 
     protected
 
+    def api_render(model_or_model_array, included: [], status: :ok)
+      serialized_model = JsonApiSerializer.serialize(
+        model_or_model_array,
+        included: included
+      )
+
+      render json: serialized_model, status: status
+    end
+
     def user_not_authorized
       render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized
       false

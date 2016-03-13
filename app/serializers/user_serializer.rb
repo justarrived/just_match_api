@@ -25,7 +25,15 @@ class UserSerializer < ActiveModel::Serializer
   private
 
   def policy
-    @_user_policy ||= UserPolicy.new(current_user, object)
+    @_user_policy ||= begin
+      # This resource is included from other serializers causing #current_user to be
+      # undefined, it that case consider the current user as nil
+      if scope.nil?
+        UserPolicy.new(nil, object)
+      else
+        UserPolicy.new(current_user, object)
+      end
+    end
   end
 end
 
