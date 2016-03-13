@@ -3,7 +3,7 @@ require 'seeds/dev/base_seed'
 
 class UserSeed < BaseSeed
   def self.call(languages:, skills:, addresses:)
-    max_users = max_count_opt('MAX_USERS', 10)
+    max_users = max_count_opt('MAX_USERS', 50)
 
     log '[db:seed] Admin user'
     admin_address = addresses.sample
