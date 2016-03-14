@@ -233,4 +233,33 @@ RSpec.describe UserMailer, type: :mailer do
       expect(mail.body.encoded).to match(job.name)
     end
   end
+
+  describe '#accepted_applicant_confirmation_overdue_email' do
+    let(:mail) do
+      UserMailer.accepted_applicant_confirmation_overdue_email(
+        job: job, user: user, owner: owner
+      )
+    end
+
+    it 'renders the subject' do
+      subject = 'An accepted user for your job has not confirmed in time.'
+      expect(mail.subject).to eql(subject)
+    end
+
+    it 'renders the receiver email' do
+      expect(mail.to).to eql([owner.email])
+    end
+
+    it 'renders the sender email' do
+      expect(mail.from).to eql(['hello@justarrived.se'])
+    end
+
+    it 'assigns @user_name' do
+      expect(mail.body.encoded).to match(user.name)
+    end
+
+    it 'assigns @job_name' do
+      expect(mail.body.encoded).to match(job.name)
+    end
+  end
 end
