@@ -25,7 +25,7 @@
       "required": false
     }
   },
-  "addons": ["sendgrid:starter"],
+  "addons": ["sendgrid:starter", "scheduler:standard"],
   "scripts": {
     "postdeploy": "bundle exec rake db:migrate"
   }
