@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 class JobUser < ActiveRecord::Base
+  MAX_CONFIRMATION_TIME_HOURS = 18
+
   belongs_to :user
   belongs_to :job
 
@@ -12,11 +14,18 @@ class JobUser < ActiveRecord::Base
   validates :user, uniqueness: { scope: :job }
   validates :job, uniqueness: { scope: :user }
 
-  validate :validate_accepted_not_reverted
+  validate :validate_accepted_not_reverted, unless: :applicant_confirmation_overdue?
   validate :validate_will_perform_not_reverted
   validate :validate_accepted_before_will_perform
 
+  before_validation :accepted_at_setter
+
   scope :accepted, -> { where(accepted: true) }
+  scope :will_perform, -> { where(will_perform: true) }
+  scope :unconfirmed, -> { accepted.where(will_perform: false) }
+  scope :applicant_confirmation_overdue, lambda {
+    where('accepted_at < ?', MAX_CONFIRMATION_TIME_HOURS.hours.ago)
+  }
 
   NOT_OWNER_OF_JOB_ERR_MSG = I18n.t('errors.job_user.not_owner_of_job')
   MULTPLE_APPLICANT_ERR_MSG = I18n.t('errors.job_user.multiple_applicants')
@@ -28,6 +37,12 @@ class JobUser < ActiveRecord::Base
     where(user: user, accepted: true).
       includes(:job).
       map(&:job)
+  end
+
+  def applicant_confirmation_overdue?
+    return false if accepted_at.nil?
+
+    accepted_at < MAX_CONFIRMATION_TIME_HOURS.hours.ago
   end
 
   def validate_applicant_not_owner_of_job
@@ -45,6 +60,12 @@ class JobUser < ActiveRecord::Base
 
   def accept
     self.accepted = true
+  end
+
+  def accepted_at_setter
+    if accepted_changed? && accepted
+      self.accepted_at = Time.zone.now
+    end
   end
 
   # NOTE: You need to call this __before__ the record is validated
@@ -92,6 +113,7 @@ end
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  will_perform :boolean          default(FALSE)
+#  accepted_at  :datetime
 #
 # Indexes
 #

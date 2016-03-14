@@ -47,6 +47,7 @@ end
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  will_perform :boolean          default(FALSE)
+#  accepted_at  :datetime
 #
 # Indexes
 #
