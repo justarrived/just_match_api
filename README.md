@@ -41,7 +41,7 @@ To setup your development environment
 ```
 $ git clone git@github.com:justarrived/just_match_api.git
 $ cd just_arrived
-$ bin/setup
+$ script/setup
 $ bin/server
 # You can now open http://localhost:3000
 ```
