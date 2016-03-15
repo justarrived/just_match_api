@@ -37,6 +37,8 @@ gem 'pundit', '~> 1.1' # Authorization policies
 
 gem 'faker', '~> 1.6' # Easily generate fake data (used for seeding dev/test/staging)
 
+gem 'rack-cors', require: 'rack/cors'
+
 group :development, :test do
   gem 'byebug', '~> 8.2'
   gem 'rspec-rails', '~> 3.4'
