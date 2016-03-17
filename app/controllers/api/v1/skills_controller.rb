@@ -53,7 +53,7 @@ module Api
         if @skill.save
           api_render(@skill, status: :created)
         else
-          render json: @skill.errors, status: :unprocessable_entity
+          respond_with_errors(@skill)
         end
       end
 
@@ -75,7 +75,7 @@ module Api
         if @skill.update(skill_params)
           api_render(@skill)
         else
-          render json: @skill.errors, status: :unprocessable_entity
+          respond_with_errors(@skill)
         end
       end
 

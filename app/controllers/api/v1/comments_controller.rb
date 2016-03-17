@@ -55,7 +55,7 @@ module Api
         if @comment.save
           api_render(@comment, status: :created)
         else
-          render json: @comment.errors, status: :unprocessable_entity
+          respond_with_errors(@comment)
         end
       end
 

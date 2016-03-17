@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :chats
     resources :comments
+    resources :contacts
     resources :jobs
     resources :users
     resources :messages

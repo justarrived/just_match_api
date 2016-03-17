@@ -3,8 +3,6 @@ en:
   api_documentation:
     title: API documentation | JustMatch API
   errors:
-    contact:
-      email: can't be blank
     chat:
       number_of_users: must be between %{min}-%{max}
     job_user:
@@ -20,6 +18,8 @@ en:
       comment_user: must be owned by the user making the rating
       job_concluded: must be concluded
       user_allowed_to_rate: must be job owner or the accepted applicant
+    user_session:
+      wrong_email_or_password: wrong email or password
   invalid_credentials: Invalid credentials.
   mailer:
     accepted_applicant_withdrawn:
@@ -69,5 +69,4 @@ en:
       body_header: Welcome to Just Arrived %{name}!
       body_line: Thank you for signing up. We sincerely hope that you enjoy our service!
     signoff: Have a great day!
-  no_such_token: No such token.
   not_logged_in_error: Must be logged in.

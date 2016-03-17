@@ -23,20 +23,18 @@ module Api
         end
       end
       def create
-        if jsonapi_params[:email].blank?
-          render json: {
-            errors: {
-              email: [I18n.t('errors.contact.email')]
-            }
-          }, status: :unprocessable_entity
-        else
-          name = jsonapi_params[:name]
-          email = jsonapi_params[:email]
-          body = jsonapi_params[:body]
+        contact = Contact.new(contact_params)
 
-          ContactNotifier.call(name: name, email: email, body: body)
+        if contact.save
+          ContactNotifier.call(contact: contact)
           head :no_content
+        else
+          respond_with_errors(contact)
         end
+      end
+
+      def contact_params
+        jsonapi_params.permit(:name, :email, :body)
       end
     end
   end

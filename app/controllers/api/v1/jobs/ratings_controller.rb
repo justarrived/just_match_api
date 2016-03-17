@@ -48,7 +48,7 @@ module Api
           if @rating.save
             api_render(@rating, included: %w(comment), status: :created)
           else
-            render json: @rating.errors, status: :unprocessable_entity
+            respond_with_errors(@rating)
           end
         end
 

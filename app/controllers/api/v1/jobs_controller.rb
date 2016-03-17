@@ -67,7 +67,7 @@ module Api
 
           api_render(@job, included: %w(skills), status: :created)
         else
-          render json: @job.errors, status: :unprocessable_entity
+          respond_with_errors(@job)
         end
       end
 

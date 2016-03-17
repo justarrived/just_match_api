@@ -49,7 +49,7 @@ RSpec.describe Api::V1::UserSessionsController, type: :controller do
     context 'invalid user' do
       it 'should return forbidden status' do
         post :create, valid_attributes, valid_session
-        expect(response.status).to eq(401)
+        expect(response.status).to eq(422)
       end
     end
   end
@@ -72,11 +72,11 @@ RSpec.describe Api::V1::UserSessionsController, type: :controller do
       end
     end
 
-    context 'invalid user' do
-      it 'should return unprocessable entity status' do
+    context 'no such user auth_token' do
+      it 'should return 404 not found' do
         FactoryGirl.create(:user, email: 'someone@example.com')
         delete :destroy, { id: 'dasds' }, {}
-        expect(response.status).to eq(422)
+        expect(response.status).to eq(404)
       end
     end
   end

@@ -60,7 +60,7 @@ module Api
           if @user_language.save
             api_render(@user_language, included: 'language', status: :created)
           else
-            render json: @user_language.errors, status: :unprocessable_entity
+            respond_with_errors(@user_language)
           end
         end
 

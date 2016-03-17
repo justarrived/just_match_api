@@ -42,8 +42,13 @@ module Api
           response = wrap_token_response(user_id: user.id, token: user.auth_token)
           render json: response, status: :created
         else
-          error_message = I18n.t('invalid_credentials')
-          render json: { error: error_message }, status: :unauthorized
+          message = I18n.t('errors.user_session.wrong_email_or_password')
+          errors = [
+            { field: 'email', message: message },
+            { field: 'password', message: message }
+          ]
+          response_json = wrap_error_response(errors)
+          render json: response_json, status: :unprocessable_entity
         end
       end
 
@@ -60,8 +65,7 @@ module Api
 
           head :no_content
         else
-          error_message = I18n.t('no_such_token')
-          render json: { error: error_message }, status: :unprocessable_entity
+          render json: {}, status: :not_found
         end
       end
 
@@ -78,6 +82,17 @@ module Api
             }
           }
         }
+      end
+
+      def wrap_error_response(errors)
+        errors = errors.map do |error|
+          {
+            status: 422,
+            source: { pointer: "/data/attributes/#{error[:field]}" },
+            detail: error[:message]
+          }
+        end
+        { errors: errors }
       end
     end
   end

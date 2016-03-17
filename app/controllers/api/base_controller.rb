@@ -11,6 +11,11 @@ module Api
 
     protected
 
+    def respond_with_errors(model)
+      serialized_error = { errors: ErrorSerializer.serialize(model) }
+      render json: serialized_error, status: :unprocessable_entity
+    end
+
     def api_render(model_or_model_array, included: [], status: :ok)
       serialized_model = JsonApiSerializer.serialize(
         model_or_model_array,
