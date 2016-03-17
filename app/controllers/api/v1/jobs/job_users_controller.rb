@@ -57,7 +57,7 @@ module Api
             NewApplicantNotifier.call(job_user: @job_user)
             api_render(@job_user, included: 'user', status: :created)
           else
-            render json: @job_user.errors, status: :unprocessable_entity
+            respond_with_errors(@job_user)
           end
         end
 

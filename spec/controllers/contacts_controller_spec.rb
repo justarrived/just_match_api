@@ -2,11 +2,17 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::ContactsController, type: :controller do
+  let(:name) { 'Watman' }
   let(:email) { 'watman@example.com' }
+  let(:body) { 'I am watman!' }
   let(:valid_attributes) do
     {
       data: {
-        attributes: { email: email }
+        attributes: {
+          name: name,
+          email: email,
+          body: body
+        }
       }
     }
   end
@@ -23,8 +29,7 @@ RSpec.describe Api::V1::ContactsController, type: :controller do
       end
 
       it 'sends email' do
-        notifier_params = { email: email, name: nil, body: nil }
-        allow(ContactNotifier).to receive(:call).with(notifier_params)
+        allow(ContactNotifier).to receive(:call)
         post :create, valid_attributes, {}
         expect(ContactNotifier).to have_received(:call)
       end

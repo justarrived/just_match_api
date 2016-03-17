@@ -59,7 +59,7 @@ module Api
           if @job_skill.save
             api_render(@job_skill, included: 'skill', status: :created)
           else
-            render json: @job_skill.errors, status: :unprocessable_entity
+            respond_with_errors(@job_skill)
           end
         end
 

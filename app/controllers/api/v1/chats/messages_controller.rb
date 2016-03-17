@@ -47,7 +47,7 @@ module Api
           if @message.valid?
             api_render(@message, included: %w(author language), status: :created)
           else
-            render json: @message.errors, status: :unprocessable_entity
+            respond_with_errors(@message)
           end
         end
 

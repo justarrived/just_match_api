@@ -65,7 +65,7 @@ module Api
         if @chat.errors[:users].empty?
           api_render(@chat, included: 'users', status: :created)
         else
-          render json: @chat.errors, status: :unprocessable_entity
+          respond_with_errors(@chat)
         end
       end
 

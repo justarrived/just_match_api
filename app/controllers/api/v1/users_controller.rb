@@ -71,7 +71,7 @@ module Api
 
           api_render(@user, status: :created)
         else
-          render json: @user.errors, status: :unprocessable_entity
+          respond_with_errors(@user)
         end
       end
 
@@ -99,7 +99,7 @@ module Api
         if @user.update(user_params)
           api_render(@user)
         else
-          render json: @user.errors, status: :unprocessable_entity
+          respond_with_errors(@user)
         end
       end
 
