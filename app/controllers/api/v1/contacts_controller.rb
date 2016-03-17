@@ -25,7 +25,7 @@ module Api
       def create
         contact = Contact.new(contact_params)
 
-        if contact.validate
+        if contact.save
           ContactNotifier.call(contact: contact)
           head :no_content
         else
