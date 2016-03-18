@@ -37,7 +37,9 @@ gem 'pundit', '~> 1.1' # Authorization policies
 
 gem 'faker', '~> 1.6' # Easily generate fake data (used for seeding dev/test/staging)
 
-gem 'rack-cors', require: 'rack/cors'
+gem 'rack-cors', require: 'rack/cors' # Configure CORS
+
+gem 'rack-attack' # Throttle API usage
 
 group :development, :test do
   gem 'byebug', '~> 8.2'
