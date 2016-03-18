@@ -19,7 +19,9 @@ module Api
         authorize(Job)
 
         page_index = params[:page].to_i
-        @jobs = Job.all.page(page_index)
+        @jobs = Job.all.page(page_index).
+                includes(:owner, :comments, :language)
+
         api_render(@jobs)
       end
 
