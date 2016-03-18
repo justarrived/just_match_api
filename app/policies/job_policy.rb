@@ -28,6 +28,8 @@ class JobPolicy < ApplicationPolicy
   end
 
   def permitted_attributes
+    return [] if no_user?
+
     if admin?
       ADMIN_ATTRIBUTES
     elsif !record.persisted? || owner?
@@ -40,15 +42,21 @@ class JobPolicy < ApplicationPolicy
   end
 
   def present_applicants?
+    return false if user.nil?
+
     admin? || owner?
   end
 
   def present_self_applicant?
+    return false if user.nil?
+
     accepted_applicant?
   end
 
   def present_attributes
     attributes = record.attribute_names.map(&:to_sym)
+    return attributes - PRIVILEGED_ATTRIBUTES if user.nil?
+
     if admin? || owner? || accepted_applicant?
       attributes
     else
