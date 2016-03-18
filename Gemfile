@@ -23,8 +23,7 @@ gem 'kaminari', '~> 0.16' # Easy pagination
 
 gem 'bcrypt', '~> 3.1.7', require: true # Encrypt passwords
 
-gem 'puma', '~> 3.0' # Use Puma as the app server
-gem 'rack-timeout', '~> 0.3' # Kill requests that run for too long
+gem 'puma', '~> 3.1' # App server
 
 gem 'newrelic_rpm', '~> 3.15' # Performance monitoring
 
@@ -37,9 +36,11 @@ gem 'pundit', '~> 1.1' # Authorization policies
 
 gem 'faker', '~> 1.6' # Easily generate fake data (used for seeding dev/test/staging)
 
+gem 'rack-timeout', '~> 0.3' # Kill requests that run for too long
 gem 'rack-cors', require: 'rack/cors' # Configure CORS
-
 gem 'rack-attack' # Throttle API usage
+
+gem 'yagni_json_encoder', '~> 0.0.2' # Make Rails use the OJ gem for JSON
 
 group :development, :test do
   gem 'byebug', '~> 8.2'
@@ -66,7 +67,7 @@ group :development do
 end
 
 group :test do
-  gem 'codeclimate-test-reporter', '~> 0.4', require: false
+  gem 'codeclimate-test-reporter', '~> 0.5', require: false
   gem 'simplecov', '~> 0.11', require: false
   gem 'database_cleaner', '~> 1.5'
   gem 'webmock', '~> 1.24'
