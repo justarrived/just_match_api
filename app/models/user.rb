@@ -72,7 +72,7 @@ class User < ActiveRecord::Base
   end
 
   def name
-    [first_name, last_name].join(' ')
+    "#{first_name} #{last_name}"
   end
 
   def admin?

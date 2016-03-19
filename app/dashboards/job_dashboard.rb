@@ -10,6 +10,7 @@ class JobDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     language: Field::BelongsTo,
+    company: Field::BelongsTo,
     job_skills: Field::HasMany,
     skills: Field::HasMany,
     job_users: Field::HasMany,
@@ -38,10 +39,12 @@ class JobDashboard < Administrate::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
+    :name,
+    :company,
     :language,
-    :job_skills,
     :skills,
-    :job_users
+    :users,
+    :id
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
