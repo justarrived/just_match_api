@@ -42,6 +42,7 @@ class User < ActiveRecord::Base
   validates :zip, length: { minimum: 5 }, allow_blank: false
   validates :password, length: { minimum: 6 }, allow_blank: false, on: :create
   validates :auth_token, uniqueness: true
+  validates :ssn, length: { is: 10 }, allow_blank: false
 
   scope :admins, -> { where(admin: true) }
 
@@ -81,11 +82,12 @@ class User < ActiveRecord::Base
       anonymized: true,
       first_name: 'Ghost',
       last_name: 'user',
-      email: "#{name}+#{SecureRandom.uuid}@example.com",
+      email: "ghost+#{SecureRandom.uuid}@example.com",
       phone: '123456789',
       description: 'This user has been deleted.',
       street: 'Stockholm',
-      zip: '11120'
+      zip: '11120',
+      ssn: '0000000000'
     )
   end
 
@@ -127,6 +129,7 @@ end
 #  zip_longitude :float
 #  first_name    :string
 #  last_name     :string
+#  ssn           :string
 #
 # Indexes
 #

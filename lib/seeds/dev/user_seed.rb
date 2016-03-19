@@ -17,6 +17,7 @@ class UserSeed < BaseSeed
       zip: admin_address[:zip],
       language: languages.sample,
       password: (1..8).to_a.join,
+      ssn: Faker::Number.number(10),
       admin: true
     )
 
@@ -32,7 +33,8 @@ class UserSeed < BaseSeed
         street: address[:street],
         zip: address[:zip],
         language: languages.sample,
-        password: (1..8).to_a.join
+        password: (1..8).to_a.join,
+        ssn: Faker::Number.number(10)
       )
       user.skills << skills.sample
       user.languages << languages.sample

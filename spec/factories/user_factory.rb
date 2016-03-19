@@ -11,6 +11,7 @@ FactoryGirl.define do
     description 'Watman ' * 2
     street 'Bankgatan 14C'
     zip '223 52'
+    ssn '8901010000'
     association :language
 
     factory :admin_user do
@@ -71,6 +72,7 @@ end
 #  zip_longitude :float
 #  first_name    :string
 #  last_name     :string
+#  ssn           :string
 #
 # Indexes
 #

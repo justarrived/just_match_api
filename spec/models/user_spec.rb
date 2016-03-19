@@ -43,6 +43,7 @@ RSpec.describe User, type: :model do
       expect(user.description).to eq('This user has been deleted.')
       expect(user.street).to eq('Stockholm')
       expect(user.zip).to eq('11120')
+      expect(user.ssn).to eq('0000000000')
     end
   end
 
@@ -89,6 +90,7 @@ end
 #  zip_longitude :float
 #  first_name    :string
 #  last_name     :string
+#  ssn           :string
 #
 # Indexes
 #
