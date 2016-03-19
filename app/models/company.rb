@@ -17,3 +17,7 @@ end
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
+# Indexes
+#
+#  index_companies_on_cin  (cin) UNIQUE
+#

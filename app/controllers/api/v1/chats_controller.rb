@@ -27,7 +27,7 @@ module Api
         page_index = params[:page].to_i
         relations = [:users, :messages]
 
-        @chats = Chat.all.page(page_index).includes(relations)
+        @chats = policy_scope(Chat).page(page_index).includes(relations)
 
         api_render(@chats)
       end

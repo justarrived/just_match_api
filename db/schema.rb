@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160319165506) do
+ActiveRecord::Schema.define(version: 20160319232618) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,9 +78,10 @@ ActiveRecord::Schema.define(version: 20160319165506) do
     t.integer  "commentable_id"
     t.string   "commentable_type"
     t.integer  "owner_user_id"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.integer  "language_id"
+    t.boolean  "hidden",           default: false
   end
 
   add_index "comments", ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id", using: :btree
@@ -149,6 +150,7 @@ ActiveRecord::Schema.define(version: 20160319165506) do
     t.string   "zip"
     t.float    "zip_latitude"
     t.float    "zip_longitude"
+    t.boolean  "hidden",           default: false
   end
 
   add_index "jobs", ["language_id"], name: "index_jobs_on_language_id", using: :btree

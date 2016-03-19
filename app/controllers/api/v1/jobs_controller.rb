@@ -19,7 +19,7 @@ module Api
         authorize(Job)
 
         page_index = params[:page].to_i
-        @jobs = Job.all.page(page_index).
+        @jobs = policy_scope(Job).page(page_index).
                 includes(:owner, :comments, :language, :company)
 
         api_render(@jobs)
@@ -124,7 +124,7 @@ module Api
       private
 
       def set_job
-        @job = Job.find(params[:job_id])
+        @job = policy_scope(Job).find(params[:job_id])
       end
 
       def job_policy

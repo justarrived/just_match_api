@@ -43,14 +43,18 @@ end
 #  first_name    :string
 #  last_name     :string
 #  ssn           :string
+#  company_id    :integer
 #
 # Indexes
 #
 #  index_users_on_auth_token   (auth_token) UNIQUE
+#  index_users_on_company_id   (company_id)
 #  index_users_on_email        (email) UNIQUE
 #  index_users_on_language_id  (language_id)
+#  index_users_on_ssn          (ssn) UNIQUE
 #
 # Foreign Keys
 #
 #  fk_rails_45f4f12508  (language_id => languages.id)
+#  fk_rails_7682a3bdfe  (company_id => companies.id)
 #

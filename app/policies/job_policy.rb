@@ -1,5 +1,15 @@
 # frozen_string_literal: true
 class JobPolicy < ApplicationPolicy
+  class Scope < Scope
+    def resolve
+      if user.admin?
+        scope.all
+      else
+        scope.visible
+      end
+    end
+  end
+
   PRIVILEGED_ATTRIBUTES = [:latitude, :longitude, :performed, :performed_accept].freeze
 
   OWNER_ATTRIBUTES = [
