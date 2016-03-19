@@ -82,11 +82,12 @@ class User < ActiveRecord::Base
       anonymized: true,
       first_name: 'Ghost',
       last_name: 'user',
-      email: "#{name}+#{SecureRandom.uuid}@example.com",
+      email: "ghost+#{SecureRandom.uuid}@example.com",
       phone: '123456789',
       description: 'This user has been deleted.',
       street: 'Stockholm',
-      zip: '11120'
+      zip: '11120',
+      ssn: '0000000000'
     )
   end
 
