@@ -10,6 +10,8 @@ class Job < ActiveRecord::Base
 
   belongs_to :language
 
+  has_one :company, through: :owner
+
   has_many :job_skills
   has_many :skills, through: :job_skills
 

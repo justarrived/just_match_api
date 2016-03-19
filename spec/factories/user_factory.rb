@@ -11,7 +11,14 @@ FactoryGirl.define do
     description 'Watman ' * 2
     street 'Bankgatan 14C'
     zip '223 52'
-    ssn '8901010000'
+    sequence :ssn do |n|
+      num_length = case n
+                   when 0...10 then 9
+                   when 10...100 then 8
+                   else 7
+                   end
+      "#{Faker::Number.number(num_length)}#{n}"
+    end
     association :language
 
     factory :admin_user do
@@ -42,6 +49,7 @@ FactoryGirl.define do
 
     factory :user_for_docs do
       id 1
+      ssn '8901010000'
       created_at Time.new(2016, 02, 10, 1, 1, 1).utc
       updated_at Time.new(2016, 02, 12, 1, 1, 1).utc
     end

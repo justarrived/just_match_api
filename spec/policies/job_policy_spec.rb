@@ -55,6 +55,18 @@ RSpec.describe JobPolicy do
     end
   end
 
+  context 'with company user' do
+    subject { JobPolicy.new(user, job) }
+
+    let(:company) { FactoryGirl.build(:company) }
+    let(:user) { FactoryGirl.build(:user, company: company) }
+    let(:job) { FactoryGirl.build(:job) }
+
+    it '#create? returns true' do
+      expect(subject.create?).to eq(true)
+    end
+  end
+
   context 'with user' do
     subject { JobPolicy.new(user, job) }
 
@@ -62,7 +74,7 @@ RSpec.describe JobPolicy do
     let(:job) { FactoryGirl.build(:job) }
 
     it '#create? returns true' do
-      expect(subject.create?).to eq(true)
+      expect(subject.create?).to eq(false)
     end
 
     it '#update? returns true' do

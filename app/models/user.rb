@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
   before_save :encrypt_password
 
   belongs_to :language
+  belongs_to :company
 
   has_many :user_skills
   has_many :skills, through: :user_skills
@@ -42,9 +43,10 @@ class User < ActiveRecord::Base
   validates :zip, length: { minimum: 5 }, allow_blank: false
   validates :password, length: { minimum: 6 }, allow_blank: false, on: :create
   validates :auth_token, uniqueness: true
-  validates :ssn, length: { is: 10 }, allow_blank: false
+  validates :ssn, uniqueness: true, length: { is: 10 }, allow_blank: false
 
   scope :admins, -> { where(admin: true) }
+  scope :company_users, -> { where.not(company: nil) }
 
   def self.find_by_credentials(email:, password:)
     user = find_by(email: email) || return
@@ -130,14 +132,17 @@ end
 #  first_name    :string
 #  last_name     :string
 #  ssn           :string
+#  company_id    :integer
 #
 # Indexes
 #
 #  index_users_on_auth_token   (auth_token) UNIQUE
+#  index_users_on_company_id   (company_id)
 #  index_users_on_email        (email) UNIQUE
 #  index_users_on_language_id  (language_id)
 #
 # Foreign Keys
 #
 #  fk_rails_45f4f12508  (language_id => languages.id)
+#  fk_rails_7682a3bdfe  (company_id => companies.id)
 #

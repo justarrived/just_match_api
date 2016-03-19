@@ -16,7 +16,7 @@ class JobPolicy < ApplicationPolicy
   alias_method :show?, :index?
 
   def create?
-    user?
+    company_user?
   end
 
   def update?

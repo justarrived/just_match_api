@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160319125517) do
+ActiveRecord::Schema.define(version: 20160319165506) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,6 +85,15 @@ ActiveRecord::Schema.define(version: 20160319125517) do
 
   add_index "comments", ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id", using: :btree
   add_index "comments", ["language_id"], name: "index_comments_on_language_id", using: :btree
+
+  create_table "companies", force: :cascade do |t|
+    t.string   "name"
+    t.string   "cin"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "companies", ["cin"], name: "index_companies_on_cin", unique: true, using: :btree
 
   create_table "contacts", force: :cascade do |t|
     t.string   "name"
@@ -232,11 +241,14 @@ ActiveRecord::Schema.define(version: 20160319125517) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "ssn"
+    t.integer  "company_id"
   end
 
   add_index "users", ["auth_token"], name: "index_users_on_auth_token", unique: true, using: :btree
+  add_index "users", ["company_id"], name: "index_users_on_company_id", using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["language_id"], name: "index_users_on_language_id", using: :btree
+  add_index "users", ["ssn"], name: "index_users_on_ssn", unique: true, using: :btree
 
   add_foreign_key "blazer_audits", "blazer_queries", column: "query_id", name: "blazer_audits_query_id_fk"
   add_foreign_key "blazer_checks", "blazer_queries", column: "query_id", name: "blazer_checks_query_id_fk"
@@ -263,5 +275,6 @@ ActiveRecord::Schema.define(version: 20160319125517) do
   add_foreign_key "user_languages", "users"
   add_foreign_key "user_skills", "skills"
   add_foreign_key "user_skills", "users"
+  add_foreign_key "users", "companies"
   add_foreign_key "users", "languages"
 end

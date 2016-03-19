@@ -16,6 +16,7 @@ class JobSerializer < ActiveModel::Serializer
   has_many :comments
 
   has_one :owner
+  has_one :company
   has_one :language
 
   def attributes(_)

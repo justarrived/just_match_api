@@ -4,6 +4,7 @@ class UserSerializer < ActiveModel::Serializer
   # that can be returned to the user we can return all User column names here
   attributes User.column_names.map(&:to_sym)
 
+  has_one :company
   has_one :language
 
   has_many :languages

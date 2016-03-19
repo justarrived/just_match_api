@@ -70,6 +70,15 @@ RSpec.describe Api::V1::JobsController, type: :controller do
   end
 
   describe 'POST #create' do
+    let(:valid_session) do
+      company = FactoryGirl.create(:company)
+      user = FactoryGirl.create(:user, company: company)
+      allow_any_instance_of(described_class).
+        to(receive(:authenticate_user_token!).
+        and_return(user))
+      { token: user.auth_token }
+    end
+
     context 'with valid params' do
       it 'creates a new Job' do
         expect do

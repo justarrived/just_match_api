@@ -20,7 +20,7 @@ module Api
 
         page_index = params[:page].to_i
         @jobs = Job.all.page(page_index).
-                includes(:owner, :comments, :language)
+                includes(:owner, :comments, :language, :company)
 
         api_render(@jobs)
       end
@@ -31,7 +31,7 @@ module Api
       def show
         authorize(@job)
 
-        api_render(@job, included: %w(language owner))
+        api_render(@job, included: %w(language owner company))
       end
 
       api :POST, '/jobs/', 'Create new job'
