@@ -50,6 +50,7 @@ module Api
           param :phone, String, desc: 'Phone', required: true
           param :street, String, desc: 'Street', required: true
           param :zip, String, desc: 'Zip code', required: true
+          param :ssn, String, desc: 'Social Security Number (10 characters)', required: true
           param :language_id, Integer, desc: 'Primary language id for user', required: true
           param :language_ids, Array, of: Integer, desc: 'Language ids of languages that the user knows', required: true
           # rubocop:enable Metrics/LineLength
@@ -89,6 +90,7 @@ module Api
           param :phone, String, desc: 'Phone'
           param :street, String, desc: 'Street'
           param :zip, String, desc: 'Zip code'
+          param :ssn, String, desc: 'Social Security Number (10 characters)'
           param :language_id, Integer, desc: 'Primary language id for user'
         end
       end
@@ -144,7 +146,7 @@ module Api
 
       def user_params
         whitelist = [
-          :first_name, :last_name, :email, :phone, :description, :street, :zip,
+          :first_name, :last_name, :email, :phone, :description, :street, :zip, :ssn,
           :language_id, :password, skill_ids: [], language_ids: []
         ]
         jsonapi_params.permit(*whitelist)

@@ -17,7 +17,8 @@ RSpec.describe Api::V1::UsersController, type: :controller do
           language_ids: [lang_id],
           street: 'Stora Nygatan 36',
           zip: '211 37',
-          password: (1..8).to_a.join
+          password: (1..8).to_a.join,
+          ssn: '8901010000'
         }
       }
     }
@@ -286,6 +287,7 @@ end
 #  zip_longitude :float
 #  first_name    :string
 #  last_name     :string
+#  ssn           :string
 #
 # Indexes
 #

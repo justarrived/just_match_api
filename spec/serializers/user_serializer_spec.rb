@@ -42,6 +42,7 @@ end
 #  zip_longitude :float
 #  first_name    :string
 #  last_name     :string
+#  ssn           :string
 #
 # Indexes
 #

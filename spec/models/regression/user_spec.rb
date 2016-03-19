@@ -52,6 +52,9 @@ RSpec.describe User, regressor: true do
   it { is_expected.not_to allow_value(Faker::Lorem.characters(4)).for :street }
   it { is_expected.to allow_value(Faker::Lorem.characters(5)).for :zip }
   it { is_expected.not_to allow_value(Faker::Lorem.characters(4)).for :zip }
+  it { is_expected.not_to allow_value(Faker::Lorem.characters(9)).for :ssn }
+  it { is_expected.to allow_value(Faker::Lorem.characters(10)).for :ssn }
+  it { is_expected.not_to allow_value(Faker::Lorem.characters(11)).for :ssn }
 
   # === Validations (Presence) ===
   it { is_expected.to validate_presence_of :email }
