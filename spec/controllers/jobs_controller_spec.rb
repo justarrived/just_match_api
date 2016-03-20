@@ -59,6 +59,21 @@ RSpec.describe Api::V1::JobsController, type: :controller do
       get :index, {}, valid_session
       expect(assigns(:jobs).first).to be_a(Job)
     end
+
+    it 'returns sorted results' do
+      FactoryGirl.create(:job, hours: 4)
+      FactoryGirl.create(:job, hours: 5)
+      FactoryGirl.create(:job, hours: 3)
+
+      get :index, { sort: '-hours' }, {}
+      expect(response.status).to eq(200)
+      parsed_body = JSON.parse(response.body)
+
+      job_hours_count = parsed_body['data'].map do |job|
+        job['attributes']['hours'].to_i
+      end
+      expect(job_hours_count).to eq([5,4,3])
+    end
   end
 
   describe 'GET #show' do

@@ -18,9 +18,8 @@ module Api
       def index
         authorize(Job)
 
-        page_index = params[:page].to_i
-        @jobs = policy_scope(Job).page(page_index).
-                includes(:owner, :comments, :language, :company)
+        jobs_index = Index::JobsIndex.new(self)
+        @jobs = jobs_index.jobs
 
         api_render(@jobs)
       end
