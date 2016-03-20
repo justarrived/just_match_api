@@ -19,10 +19,9 @@ module Api
       def index
         authorize(User)
 
-        page_index = params[:page].to_i
-        relations = [:skills, :jobs, :language, :languages, :owned_jobs]
+        users_index = Index::UsersIndex.new(self)
+        @users = users_index.users
 
-        @users = User.all.page(page_index).includes(relations)
         api_render(@users)
       end
 

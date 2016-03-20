@@ -17,8 +17,10 @@ module Api
       example Doxxer.read_example(Skill, plural: true)
       def index
         authorize(Skill)
-        page_index = params[:page].to_i
-        @skills = Skill.all.page(page_index)
+
+        skills_index = Index::SkillsIndex.new(self)
+        @skills = skills_index.skills
+
         api_render(@skills)
       end
 

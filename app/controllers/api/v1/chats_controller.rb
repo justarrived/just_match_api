@@ -24,10 +24,8 @@ module Api
       def index
         authorize(Chat)
 
-        page_index = params[:page].to_i
-        relations = [:users, :messages]
-
-        @chats = policy_scope(Chat).page(page_index).includes(relations)
+        chats_index = Index::ChatsIndex.new(self)
+        @chats = chats_index.chats
 
         api_render(@chats)
       end

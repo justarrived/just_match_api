@@ -47,6 +47,7 @@ class User < ActiveRecord::Base
 
   scope :admins, -> { where(admin: true) }
   scope :company_users, -> { where.not(company: nil) }
+  scope :visible, -> { where.not(banned: true) }
 
   def self.find_by_credentials(email:, password:)
     user = find_by(email: email) || return

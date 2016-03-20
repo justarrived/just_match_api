@@ -18,8 +18,8 @@ module Api
       def index
         authorize(Language)
 
-        page_index = params[:page].to_i
-        @languages = Language.all.page(page_index)
+        languages_index = Index::LanguagesIndex.new(self)
+        @languages = languages_index.languages
 
         api_render(@languages)
       end

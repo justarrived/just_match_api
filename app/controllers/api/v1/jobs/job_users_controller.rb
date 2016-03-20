@@ -26,8 +26,9 @@ module Api
         def index
           authorize(JobUser)
 
-          page_index = params[:page].to_i
-          @job_users = @job.job_users.page(page_index)
+          job_users_index = Index::JobUsersIndex.new(self)
+          @job_users = job_users_index.job_users
+
           api_render(@job_users, included: 'user')
         end
 

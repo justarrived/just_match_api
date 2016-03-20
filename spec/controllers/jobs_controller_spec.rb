@@ -72,7 +72,7 @@ RSpec.describe Api::V1::JobsController, type: :controller do
       job_hours_count = parsed_body['data'].map do |job|
         job['attributes']['hours'].to_i
       end
-      expect(job_hours_count).to eq([5,4,3])
+      expect(job_hours_count).to eq([5, 4, 3])
     end
   end
 

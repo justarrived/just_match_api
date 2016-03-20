@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 module Index
   class JobsIndex < BaseIndex
-    SORTABLE_FIELDS = %i(created_at hours job_date)
+    SORTABLE_FIELDS = %i(created_at hours job_date name).freeze
 
     def jobs
-      @jobs ||= policy_scope(Job).
-                  includes(:owner, :comments, :language, :company).
-                  order(sort_params).
-                  page(current_page).per(current_size)
+      @jobs ||= begin
+        records = Job.includes(:owner, :comments, :language, :company)
+        prepare_records(records)
+      end
     end
   end
 end

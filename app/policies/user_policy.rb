@@ -1,5 +1,15 @@
 # frozen_string_literal: true
 class UserPolicy < ApplicationPolicy
+  class Scope < Scope
+    def resolve
+      if user.admin?
+        scope.all
+      else
+        scope.visible
+      end
+    end
+  end
+
   ATTRIBUTES = [
     :id, :first_name, :description, :language_id, :zip, :zip_latitude, :zip_longitude
   ].freeze
