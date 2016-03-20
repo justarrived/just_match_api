@@ -52,6 +52,26 @@ RSpec.describe Api::V1::UserSessionsController, type: :controller do
         expect(response.status).to eq(422)
       end
     end
+
+    context 'banned user' do
+      before(:each) do
+        attrs = { email: 'someone@example.com', password: '12345678', banned: true }
+        FactoryGirl.create(:user, attrs)
+      end
+
+      it 'returns forbidden status' do
+        post :create, valid_attributes, valid_session
+        expect(response.status).to eq(403)
+      end
+
+      it 'returns explaination' do
+        post :create, valid_attributes, valid_session
+        json = JSON.parse(response.body)
+        message = 'an admin has banned'
+        detail = json['errors'].first['detail']
+        expect(detail.starts_with?(message)).to eq(true)
+      end
+    end
   end
 
   describe 'DELETE #token' do

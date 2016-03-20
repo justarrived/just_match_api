@@ -79,6 +79,11 @@ class User < ActiveRecord::Base
     admin
   end
 
+  def banned=(value)
+    generate_auth_token! if value
+    self[:banned] = value
+  end
+
   def reset!
     update!(
       anonymized: true,
@@ -133,6 +138,7 @@ end
 #  last_name     :string
 #  ssn           :string
 #  company_id    :integer
+#  banned        :boolean          default(FALSE)
 #
 # Indexes
 #

@@ -24,7 +24,8 @@
         "first_name": "Jane",
         "last_name": "Doe",
         "ssn": "8901010000",
-        "company_id": null
+        "company_id": null,
+        "banned": false
       },
       "relationships": {
         "company": {

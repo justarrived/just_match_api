@@ -19,6 +19,7 @@ en:
       job_concluded: must be concluded
       user_allowed_to_rate: must be job owner or the accepted applicant
     user_session:
+      banned: an admin has banned you for not following the Terms of agreement or code of conduct. Please contact help@justarrived.se, to resolve this issue.
       wrong_email_or_password: wrong email or password
   invalid_credentials: Invalid credentials.
   mailer:

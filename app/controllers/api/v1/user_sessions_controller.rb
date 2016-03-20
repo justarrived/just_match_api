@@ -39,16 +39,12 @@ module Api
         user = User.find_by_credentials(email: email, password: password)
 
         if user
+          return respond_with_banned if user.banned
+
           response = wrap_token_response(user_id: user.id, token: user.auth_token)
           render json: response, status: :created
         else
-          message = I18n.t('errors.user_session.wrong_email_or_password')
-          errors = [
-            { field: 'email', message: message },
-            { field: 'password', message: message }
-          ]
-          response_json = wrap_error_response(errors)
-          render json: response_json, status: :unprocessable_entity
+          respond_with_login_failure
         end
       end
 
@@ -70,6 +66,24 @@ module Api
       end
 
       private
+
+      def respond_with_banned
+        message = I18n.t('errors.user_session.banned')
+        response_json = {
+          errors: [{ status: 403, detail: message }]
+        }
+        render json: response_json, status: :forbidden
+      end
+
+      def respond_with_login_failure
+        message = I18n.t('errors.user_session.wrong_email_or_password')
+        errors = [
+          { field: 'email', message: message },
+          { field: 'password', message: message }
+        ]
+        response_json = wrap_error_response(errors)
+        render json: response_json, status: :unprocessable_entity
+      end
 
       def wrap_token_response(user_id:, token:)
         {

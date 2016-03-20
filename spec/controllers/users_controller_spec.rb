@@ -289,6 +289,7 @@ end
 #  last_name     :string
 #  ssn           :string
 #  company_id    :integer
+#  banned        :boolean          default(FALSE)
 #
 # Indexes
 #

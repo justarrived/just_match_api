@@ -64,6 +64,18 @@ RSpec.describe User, type: :model do
       expect(result).to eq(false)
     end
   end
+
+  describe 'banned' do
+    let(:user) { FactoryGirl.create(:user) }
+
+    it 'generates a new auth_token when user is banned' do
+      token = user.auth_token
+      user.banned = true
+      user.save
+      expect(user.auth_token).not_to eq(token)
+      expect(user.banned).to eq(true)
+    end
+  end
 end
 
 # == Schema Information
@@ -92,6 +104,7 @@ end
 #  last_name     :string
 #  ssn           :string
 #  company_id    :integer
+#  banned        :boolean          default(FALSE)
 #
 # Indexes
 #
