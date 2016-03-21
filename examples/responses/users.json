@@ -25,7 +25,9 @@
         "last_name": "Doe",
         "ssn": "8901010000",
         "company_id": null,
-        "banned": false
+        "banned": false,
+        "experience": null,
+        "education": null
       },
       "relationships": {
         "company": {

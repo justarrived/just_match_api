@@ -22,29 +22,31 @@ end
 #
 # Table name: users
 #
-#  id            :integer          not null, primary key
-#  email         :string
-#  phone         :string
-#  description   :text
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  latitude      :float
-#  longitude     :float
-#  language_id   :integer
-#  anonymized    :boolean          default(FALSE)
-#  auth_token    :string
-#  password_hash :string
-#  password_salt :string
-#  admin         :boolean          default(FALSE)
-#  street        :string
-#  zip           :string
-#  zip_latitude  :float
-#  zip_longitude :float
-#  first_name    :string
-#  last_name     :string
-#  ssn           :string
-#  company_id    :integer
-#  banned        :boolean          default(FALSE)
+#  id             :integer          not null, primary key
+#  email          :string
+#  phone          :string
+#  description    :text
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  latitude       :float
+#  longitude      :float
+#  language_id    :integer
+#  anonymized     :boolean          default(FALSE)
+#  auth_token     :string
+#  password_hash  :string
+#  password_salt  :string
+#  admin          :boolean          default(FALSE)
+#  street         :string
+#  zip            :string
+#  zip_latitude   :float
+#  zip_longitude  :float
+#  first_name     :string
+#  last_name      :string
+#  ssn            :string
+#  company_id     :integer
+#  banned         :boolean          default(FALSE)
+#  job_experience :text
+#  education      :text
 #
 # Indexes
 #

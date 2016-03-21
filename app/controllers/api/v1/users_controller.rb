@@ -46,6 +46,8 @@ module Api
           param :first_name, String, desc: 'First name', required: true
           param :last_name, String, desc: 'Last name', required: true
           param :description, String, desc: 'Description', required: true
+          param :job_experience, String, desc: 'Job experience'
+          param :education, String, desc: 'Education'
           param :email, String, desc: 'Email', required: true
           param :phone, String, desc: 'Phone', required: true
           param :street, String, desc: 'Street', required: true
@@ -86,6 +88,8 @@ module Api
           param :first_name, String, desc: 'First name'
           param :last_name, String, desc: 'Last name'
           param :description, String, desc: 'Description'
+          param :job_experience, String, desc: 'Job experience'
+          param :education, String, desc: 'Education'
           param :email, String, desc: 'Email'
           param :phone, String, desc: 'Phone'
           param :street, String, desc: 'Street'
@@ -146,8 +150,9 @@ module Api
 
       def user_params
         whitelist = [
-          :first_name, :last_name, :email, :phone, :description, :street, :zip, :ssn,
-          :language_id, :password, skill_ids: [], language_ids: []
+          :first_name, :last_name, :email, :phone, :description, :job_experience,
+          :education, :ssn, :street, :zip, :language_id, :password,
+          skill_ids: [], language_ids: []
         ]
         jsonapi_params.permit(*whitelist)
       end
