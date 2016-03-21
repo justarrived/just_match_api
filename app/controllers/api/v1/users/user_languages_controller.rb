@@ -23,10 +23,10 @@ module Api
         def index
           authorize(UserLanguage)
 
-          page_index = params[:page].to_i
-          @user_languages = @user.user_languages.page(page_index)
+          user_languages_index = Index::UserLanguagesIndex.new(self)
+          @user_languages = user_languages_index.user_languages(@user.user_languages)
 
-          api_render(@user_languages, included: 'language')
+          api_render(@user_languages, included: user_languages_index.included)
         end
 
         api :GET, '/users/:user_id/languages/:id', 'Show language'

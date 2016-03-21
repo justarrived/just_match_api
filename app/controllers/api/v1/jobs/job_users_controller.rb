@@ -22,14 +22,15 @@ module Api
         api :GET, '/jobs/:job_id/users', 'Show job users'
         description 'Returns list of job users if the user is allowed.'
         error code: 401, desc: 'Unauthorized'
+        ApipieDocHelper.params(self, Index::JobUsersIndex)
         example Doxxer.read_example(JobUser, plural: true)
         def index
           authorize(JobUser)
 
           job_users_index = Index::JobUsersIndex.new(self)
-          @job_users = job_users_index.job_users
+          @job_users = job_users_index.job_users(@job.job_users)
 
-          api_render(@job_users, included: 'user')
+          api_render(@job_users, included: job_users_index.included)
         end
 
         api :GET, '/jobs/:job_id/users/:id', 'Show job user'

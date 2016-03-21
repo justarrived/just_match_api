@@ -29,7 +29,7 @@ class JobSeed < BaseSeed
         Comment.create!(
           body: Faker::Company.bs,
           owner_user_id: users.sample.id,
-          commentable: users.sample,
+          commentable: job,
           language: languages.sample
         )
       end

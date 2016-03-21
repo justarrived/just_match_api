@@ -42,6 +42,8 @@ class UserPolicy < ApplicationPolicy
   alias_method :jobs?, :show?
 
   def present_attributes
+    return ATTRIBUTES if no_user?
+
     if admin_or_self?
       SELF_ATTRIBUTES
     elsif accepted_applicant_for_owner?

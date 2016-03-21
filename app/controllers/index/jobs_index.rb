@@ -1,12 +1,15 @@
 # frozen_string_literal: true
 module Index
   class JobsIndex < BaseIndex
-    SORTABLE_FIELDS = %i(created_at hours job_date name).freeze
+    ALLOWED_INCLUDES = %w(owner company language).freeze
+    SORTABLE_FIELDS = %i(hours job_date name created_at updated_at).freeze
 
-    def jobs
+    def jobs(scope = Job)
       @jobs ||= begin
-        records = Job.includes(:owner, :comments, :language, :company)
-        prepare_records(records)
+        include_scopes = [:language, :company]
+        include_scopes << user_include_scopes(:owner)
+
+        prepare_records(scope.includes(*include_scopes))
       end
     end
   end

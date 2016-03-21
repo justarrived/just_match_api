@@ -20,6 +20,7 @@ module Api
       api :GET, '/chats/', 'List chats'
       description 'Returns a list of chats.'
       error code: 401, desc: 'Unauthorized'
+      ApipieDocHelper.params(self, Index::ChatsIndex)
       example Doxxer.read_example(Chat, plural: true)
       def index
         authorize(Chat)

@@ -56,6 +56,18 @@ module Api
 
       rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
+      def jsonapi_params
+        @_deserialized_params ||= JsonApiDeserializer.parse(params)
+      end
+
+      def include_params
+        @_include_params ||= IncludeParams.new(params[:include])
+      end
+
+      def fields_params
+        @_fields_params ||= FieldsParams.new(params[:fields])
+      end
+
       protected
 
       def respond_with_errors(model)
@@ -95,18 +107,6 @@ module Api
 
       def logged_in?
         current_user.persisted?
-      end
-
-      def jsonapi_params
-        @_deserialized_params ||= JsonApiDeserializer.parse(params)
-      end
-
-      def include_params
-        @_include_params ||= IncludeParams.new(params[:include])
-      end
-
-      def fields_params
-        @_fields_params ||= FieldsParams.new(params[:fields])
       end
 
       private

@@ -3,7 +3,9 @@
 ## Application config
 
 ```
+APP_BASE_URL
 DEFAULT_RECORDS_PER_PAGE
+MAX_RECORDS_PER_PAGE
 ```
 
 ## Application Server

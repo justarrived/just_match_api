@@ -21,10 +21,13 @@ module Api
 
         api :GET, '/chats/:id/messages', 'Get chat messages.'
         description 'Returns messages in chat.'
+        ApipieDocHelper.params(self, Index::MessagesIndex)
         example Doxxer.read_example(Message, plural: true)
         def index
-          @messages = @chat.messages.includes(:language).includes(:author)
-          api_render(@messages)
+          messages_index = Index::MessagesIndex.new(self)
+          @messages = messages_index.messages(@chat.messages)
+
+          api_render(@messages, included: messages_index.included)
         end
 
         api :POST, '/chats/:id/messages', 'Create new chat message.'

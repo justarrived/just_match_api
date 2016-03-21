@@ -14,6 +14,7 @@ module Api
 
       api :GET, '/jobs', 'List jobs'
       description 'Returns a list of jobs.'
+      ApipieDocHelper.params(self, Index::JobsIndex)
       example Doxxer.read_example(Job, plural: true)
       def index
         authorize(Job)
@@ -21,7 +22,7 @@ module Api
         jobs_index = Index::JobsIndex.new(self)
         @jobs = jobs_index.jobs
 
-        api_render(@jobs)
+        api_render(@jobs, included: jobs_index.included)
       end
 
       api :GET, '/jobs/:id', 'Show job'

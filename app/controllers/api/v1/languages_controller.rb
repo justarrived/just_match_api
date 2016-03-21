@@ -14,6 +14,7 @@ module Api
 
       api :GET, '/languages', 'List languages'
       description 'Returns a list of languages.'
+      ApipieDocHelper.params(self, Index::LanguagesIndex)
       example Doxxer.read_example(Language, plural: true)
       def index
         authorize(Language)

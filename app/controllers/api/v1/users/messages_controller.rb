@@ -21,14 +21,18 @@ module Api
 
         api :GET, '/users/:user_id/messages', 'Get user messages.'
         description 'Returns the message between user and logged in user.'
+        ApipieDocHelper.params(self, Index::MessagesIndex)
         example Doxxer.read_example(Message, plural: true)
         def index
           users = User.where(id: chat_user_ids)
 
           chat = Chat.find_private_chat(users)
-          @messages = chat.nil? ? Message.none : chat.messages
+          base_messages = chat.nil? ? Message.none : chat.messages
 
-          render json: @messages, include: %w(author language chat)
+          messages_index = Index::MessagesIndex.new(self)
+          @messages = messages_index.messages(base_messages)
+
+          api_render(@messages, included: messages_index.included)
         end
 
         api :POST, '/users/:user_id/messages', 'Create new user message.'

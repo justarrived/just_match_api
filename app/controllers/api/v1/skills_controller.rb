@@ -14,6 +14,7 @@ module Api
 
       api :GET, '/skills', 'List skills'
       description 'Returns a list of skills.'
+      ApipieDocHelper.params(self, Index::SkillsIndex)
       example Doxxer.read_example(Skill, plural: true)
       def index
         authorize(Skill)

@@ -3,8 +3,8 @@ module Index
   class LanguagesIndex < BaseIndex
     SORTABLE_FIELDS = %i(created_at lang_code).freeze
 
-    def languages
-      @languages ||= prepare_records(Language)
+    def languages(scope = Language)
+      @languages ||= prepare_records(scope)
     end
   end
 end

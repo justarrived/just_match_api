@@ -15,6 +15,7 @@ module Api
 
       api :GET, '/users', 'List users'
       description 'Returns a list of users if the user is allowed.'
+      ApipieDocHelper.params(self, Index::UsersIndex)
       example Doxxer.read_example(User, plural: true)
       def index
         authorize(User)
@@ -22,7 +23,7 @@ module Api
         users_index = Index::UsersIndex.new(self)
         @users = users_index.users
 
-        api_render(@users)
+        api_render(@users, included: users_index.included)
       end
 
       api :GET, '/users/:id', 'Show user'

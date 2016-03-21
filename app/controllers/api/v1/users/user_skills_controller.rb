@@ -24,9 +24,10 @@ module Api
         def index
           authorize(UserSkill)
 
-          page_index = params[:page].to_i
-          @user_skills = @user.user_skills.page(page_index)
-          api_render(@user_skills, included: 'skill')
+          user_skills_index = Index::UserSkillsIndex.new(self)
+          @user_skills = user_skills_index.user_skills(@user.user_skills)
+
+          api_render(@user_skills, included: user_skills_index.included)
         end
 
         api :GET, '/users/:user_id/skills/:id', 'Show user skill'

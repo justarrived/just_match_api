@@ -20,10 +20,10 @@ module Api
       description 'Returns a list of comments.'
       example Doxxer.read_example(Comment, plural: true)
       def index
-        page_index = params[:page].to_i
-        @comments = @commentable.comments.page(page_index)
+        comments_index = Index::CommentsIndex.new(self)
+        @comments = comments_index.comments(@commentable.comments)
 
-        api_render(@comments)
+        api_render(@comments, included: comments_index.included)
       end
 
       api :GET, '/:resource_name/:resource_id/comments/:id', 'Show comment'
