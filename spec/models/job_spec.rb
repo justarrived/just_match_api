@@ -145,6 +145,24 @@ RSpec.describe Job, type: :model do
       end
     end
   end
+
+  describe '#locked_for_changes?' do
+    let(:job) { FactoryGirl.create(:job) }
+
+    it 'returns false when there is no accepted applicant' do
+      expect(job.locked_for_changes?).to eq(false)
+    end
+
+    it 'returns false when there is an accepted applicant, but has *not* confirmed' do
+      FactoryGirl.create(:job_user, job: job, accepted: true)
+      expect(job.locked_for_changes?).to eq(false)
+    end
+
+    it 'returns true when there is an accepted applicant, that has confirmed' do
+      FactoryGirl.create(:job_user, job: job, accepted: true, will_perform: true)
+      expect(job.locked_for_changes?).to eq(true)
+    end
+  end
 end
 
 # == Schema Information

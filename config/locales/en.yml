@@ -5,6 +5,8 @@ en:
   errors:
     chat:
       number_of_users: must be between %{min}-%{max}
+    job:
+      locked_for_changes_error: can't update job when already confirmed by user
     job_user:
       not_owner_of_job: can't be both job owner and job applicant
       multiple_applicants: can't accept multiple applicants for job

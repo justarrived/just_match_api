@@ -161,6 +161,18 @@ RSpec.describe Api::V1::JobsController, type: :controller do
           expect(response.status).to eq(200)
         end
 
+        context 'locked job' do
+          it 'returns for status' do
+            job = FactoryGirl.create(:job, owner: user)
+            FactoryGirl.create(:job_user, job: job, accepted: true, will_perform: true)
+            params = { job_id: job.to_param }.merge(new_attributes)
+            put :update, params, valid_session
+            expect(response.status).to eq(403)
+            parsed_json = JSON.parse(response.body)
+            expect(parsed_json['errors'].first['status']).to eq(403)
+          end
+        end
+
         it 'notifies user when updated Job#performed_accept is set to true' do
           new_performed_attributes = {
             data: {

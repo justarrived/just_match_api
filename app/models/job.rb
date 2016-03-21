@@ -42,6 +42,13 @@ class Job < ActiveRecord::Base
       order_by_matching_skills(user, strict_match: strict_match)
   end
 
+  def locked_for_changes?
+    applicant = applicants.find_by(accepted: true)
+    return false unless applicant
+
+    applicant.will_perform
+  end
+
   # Needed for administrate
   # see https://github.com/thoughtbot/administrate/issues/354
   def owner_id
