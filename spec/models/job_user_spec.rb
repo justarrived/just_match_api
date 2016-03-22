@@ -226,7 +226,7 @@ RSpec.describe JobUser, type: :model do
     it 'adds error if already accepted is false' do
       job_user.will_perform = true
       job_user.validate
-      err_msg = 'must be accepted to confirm will perform'
+      err_msg = I18n.t('errors.validators.after_true', field: 'accepted')
       expect(job_user.errors.messages[:will_perform]).to include(err_msg)
     end
 
@@ -244,7 +244,7 @@ RSpec.describe JobUser, type: :model do
     it 'adds error if will_perform is false' do
       job_user.performed = true
       job_user.validate
-      err_msg = 'will perform must be confirmed to confirm performed'
+      err_msg = I18n.t('errors.validators.after_true', field: 'will perform')
       expect(job_user.errors.messages[:performed]).to include(err_msg)
     end
 
@@ -262,7 +262,7 @@ RSpec.describe JobUser, type: :model do
     it 'adds error if will_perform is false' do
       job_user.performed_accepted = true
       job_user.validate
-      err_msg = 'will perform must be confirmed to confirm the performance'
+      err_msg = I18n.t('errors.validators.after_true', field: 'will perform')
       expect(job_user.errors.messages[:performed_accepted]).to include(err_msg)
     end
 
@@ -286,7 +286,7 @@ RSpec.describe JobUser, type: :model do
       job_user.performed = true
       job_user.will_perform = true
       job_user.validate
-      message = "can't confirm performed before job is over"
+      message = I18n.t('errors.job_user.performed_before_job_over')
       expect(job_user.errors.messages[:performed]).to include(message)
     end
 
@@ -309,7 +309,7 @@ RSpec.describe JobUser, type: :model do
       job_user.performed_accepted = true
       job_user.will_perform = true
       job_user.validate
-      message = "can't accept performed before job is over"
+      message = I18n.t('errors.job_user.performed_accepted_before_job_over')
       expect(job_user.errors.messages[:performed_accepted]).to include(message)
     end
 
@@ -318,7 +318,7 @@ RSpec.describe JobUser, type: :model do
       job_user.performed_accepted = true
       job_user.will_perform = true
       job_user.validate
-      message = "can't accept performed before job is over"
+      message = I18n.t('errors.job_user.performed_accepted_before_job_over')
       expect(job_user.errors.messages[:performed_accepted]).to include(message)
     end
 

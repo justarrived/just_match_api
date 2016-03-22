@@ -8,17 +8,17 @@ class JobUser < ActiveRecord::Base
   validates :user, presence: true
   validates :job, presence: true
 
-  validate :validate_applicant_not_owner_of_job
-  validate :validate_single_applicant, on: :update
-
   validates :user, uniqueness: { scope: :job }
   validates :job, uniqueness: { scope: :user }
 
+  validates :will_perform, after_true: { field: :accepted }, if: :will_perform
+  validates :performed, after_true: { field: :will_perform }, if: :performed
+  validates :performed_accepted, after_true: { field: :will_perform }, if: :performed_accepted # rubocop:disable Metrics/LineLength
+
+  validate :validate_single_applicant, on: :update
+  validate :validate_applicant_not_owner_of_job
   validate :validate_accepted_not_reverted, unless: :applicant_confirmation_overdue?
   validate :validate_will_perform_not_reverted
-  validate :validate_accepted_before_will_perform
-  validate :validate_will_perform_before_performed
-  validate :validate_will_perform_before_performed_accepted
   validate :validate_passed_job_date_before_performed
   validate :validate_passed_job_date_before_performed_accepted
 
@@ -108,33 +108,6 @@ class JobUser < ActiveRecord::Base
 
     message = I18n.t('errors.job_user.will_perform_changed_to_false')
     errors.add(:will_perform, message)
-  end
-
-  def validate_accepted_before_will_perform
-    return unless will_perform
-
-    unless accepted
-      message = I18n.t('errors.job_user.will_perform_accepted')
-      errors.add(:will_perform, message)
-    end
-  end
-
-  def validate_will_perform_before_performed
-    return unless performed
-
-    unless will_perform
-      message = I18n.t('errors.job_user.performed_before_will_perform_err_msg')
-      errors.add(:performed, message)
-    end
-  end
-
-  def validate_will_perform_before_performed_accepted
-    return unless performed_accepted
-
-    unless will_perform
-      message = I18n.t('errors.job_user.performed_accepted_before_will_perform_err_msg')
-      errors.add(:performed_accepted, message)
-    end
   end
 
   def validate_passed_job_date_before_performed

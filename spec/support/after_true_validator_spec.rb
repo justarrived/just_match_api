@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
-RSpec.describe TrueAfterValidator do
+RSpec.describe AfterTrueValidator do
   def true_after_validator_class(options)
     Class.new(ValidationTester) do
       attr_accessor :first_field, :second_field
 
-      validates :second_field, true_after: options
+      validates :second_field, after_true: options
     end
   end
 
@@ -24,10 +24,8 @@ RSpec.describe TrueAfterValidator do
       test_model.first_field = false
       test_model.valid?
 
-      error_msg = I18n.t('errors.validators.true_after', field: 'first field')
-      expect(
-        test_model.errors[:second_field]
-      ).to eq([error_msg])
+      error_msg = I18n.t('errors.validators.after_true', field: 'first field')
+      expect(test_model.errors[:second_field]).to eq([error_msg])
     end
 
     context 'with a custom error message' do
@@ -38,9 +36,7 @@ RSpec.describe TrueAfterValidator do
         test_model.first_field = false
         test_model.valid?
 
-        expect(
-          test_model.errors[:second_field]
-        ).to eq([custom_message])
+        expect(test_model.errors[:second_field]).to eq([custom_message])
       end
     end
   end
