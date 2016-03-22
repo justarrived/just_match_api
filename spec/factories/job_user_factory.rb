@@ -7,6 +7,21 @@ FactoryGirl.define do
     accepted false
     will_perform false
 
+    factory :job_user_concluded do
+      accepted true
+      will_perform true
+      performed_accepted true
+    end
+
+    factory :job_user_accepted do
+      accepted true
+    end
+
+    factory :job_user_will_perform do
+      accepted true
+      will_perform true
+    end
+
     factory :job_user_for_docs do
       id 1
       created_at Time.new(2016, 02, 10, 1, 1, 1).utc
@@ -19,15 +34,17 @@ end
 #
 # Table name: job_users
 #
-#  id           :integer          not null, primary key
-#  user_id      :integer
-#  job_id       :integer
-#  accepted     :boolean          default(FALSE)
-#  rate         :integer
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  will_perform :boolean          default(FALSE)
-#  accepted_at  :datetime
+#  id                 :integer          not null, primary key
+#  user_id            :integer
+#  job_id             :integer
+#  accepted           :boolean          default(FALSE)
+#  rate               :integer
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  will_perform       :boolean          default(FALSE)
+#  accepted_at        :datetime
+#  performed          :boolean          default(FALSE)
+#  performed_accepted :boolean          default(FALSE)
 #
 # Indexes
 #

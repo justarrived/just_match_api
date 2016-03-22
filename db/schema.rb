@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160321134639) do
+ActiveRecord::Schema.define(version: 20160321152631) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -119,12 +119,14 @@ ActiveRecord::Schema.define(version: 20160321134639) do
   create_table "job_users", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "job_id"
-    t.boolean  "accepted",     default: false
+    t.boolean  "accepted",           default: false
     t.integer  "rate"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
-    t.boolean  "will_perform", default: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.boolean  "will_perform",       default: false
     t.datetime "accepted_at"
+    t.boolean  "performed",          default: false
+    t.boolean  "performed_accepted", default: false
   end
 
   add_index "job_users", ["job_id", "user_id"], name: "index_job_users_on_job_id_and_user_id", unique: true, using: :btree
@@ -136,12 +138,10 @@ ActiveRecord::Schema.define(version: 20160321134639) do
     t.integer  "max_rate"
     t.text     "description"
     t.datetime "job_date"
-    t.boolean  "performed_accept", default: false
-    t.boolean  "performed",        default: false
     t.float    "hours"
     t.string   "name"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
     t.integer  "owner_user_id"
     t.float    "latitude"
     t.float    "longitude"
@@ -150,7 +150,7 @@ ActiveRecord::Schema.define(version: 20160321134639) do
     t.string   "zip"
     t.float    "zip_latitude"
     t.float    "zip_longitude"
-    t.boolean  "hidden",           default: false
+    t.boolean  "hidden",        default: false
   end
 
   add_index "jobs", ["language_id"], name: "index_jobs_on_language_id", using: :btree

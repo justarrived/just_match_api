@@ -11,9 +11,13 @@ FactoryGirl.define do
     job_date 1.week.ago
     hours 3
 
-    factory :job_concluded do
-      performed true
-      performed_accept true
+    factory :inprogress_job do
+      job_date Time.zone.now - 1.hour
+      hours 4
+    end
+
+    factory :future_job do
+      job_date 1.week.from_now
     end
 
     factory :job_with_comments do
@@ -67,25 +71,23 @@ end
 #
 # Table name: jobs
 #
-#  id               :integer          not null, primary key
-#  max_rate         :integer
-#  description      :text
-#  job_date         :datetime
-#  performed_accept :boolean          default(FALSE)
-#  performed        :boolean          default(FALSE)
-#  hours            :float
-#  name             :string
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  owner_user_id    :integer
-#  latitude         :float
-#  longitude        :float
-#  language_id      :integer
-#  street           :string
-#  zip              :string
-#  zip_latitude     :float
-#  zip_longitude    :float
-#  hidden           :boolean          default(FALSE)
+#  id            :integer          not null, primary key
+#  max_rate      :integer
+#  description   :text
+#  job_date      :datetime
+#  hours         :float
+#  name          :string
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  owner_user_id :integer
+#  latitude      :float
+#  longitude     :float
+#  language_id   :integer
+#  street        :string
+#  zip           :string
+#  zip_latitude  :float
+#  zip_longitude :float
+#  hidden        :boolean          default(FALSE)
 #
 # Indexes
 #

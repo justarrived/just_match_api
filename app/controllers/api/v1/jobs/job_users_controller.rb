@@ -70,8 +70,10 @@ module Api
         error code: 422, desc: 'Unprocessable entity'
         param :data, Hash, desc: 'Top level key', required: true do
           param :attributes, Hash, desc: 'Job user attributes', required: true do
-            param :accepted, [true], desc: 'User accepted for job', required: true
-            param :will_perform, [true], desc: 'User will perform job', required: true
+            param :accepted, [true], desc: 'User accepted for job'
+            param :will_perform, [true], desc: 'User will perform job'
+            param :performed_accepted, [true], desc: 'Performed accepted by owner'
+            param :performed, [true], desc: 'Job has been performed by user'
           end
         end
         example Doxxer.read_example(JobUser)
@@ -80,15 +82,13 @@ module Api
 
           @job_user.assign_attributes(permitted_attributes)
 
-          notifier_klass = NilNotifier
-          if @job_user.send_accepted_notice?
-            notifier_klass = ApplicantAcceptedNotifier
-          elsif @job_user.send_will_perform_notice?
-            notifier_klass = ApplicantWillPerformNotifier
-          end
+          # The notifier klass needs to be fetched before save, otherwise it can't
+          # determine whats changed and therefore what notifications to send
+          notifier_klass = update_notifier_klass(@job_user)
 
           if @job_user.save
             notifier_klass.call(job: @job, user: @user)
+
             api_render(@job_user, included: 'user')
           else
             render json: @job_user.errors, status: :unprocessable_entity
@@ -137,6 +137,20 @@ module Api
 
         def pundit_user
           JobUserPolicy::Context.new(current_user, @job, @user)
+        end
+
+        def update_notifier_klass(job_user)
+          if job_user.send_accepted_notice?
+            ApplicantAcceptedNotifier
+          elsif job_user.send_will_perform_notice?
+            ApplicantWillPerformNotifier
+          elsif job_user.send_performed_accepted_notice?
+            JobUserPerformedAcceptedNotifier
+          elsif job_user.send_performed_notice?
+            JobUserPerformedNotifier
+          else
+            NilNotifier
+          end
         end
       end
     end

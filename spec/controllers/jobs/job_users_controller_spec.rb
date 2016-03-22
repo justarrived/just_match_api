@@ -164,6 +164,24 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
           put :update, params, valid_session
           expect(ApplicantAcceptedNotifier).to have_received(:call)
         end
+
+        it 'notifies user when updated #performed_accepted to true' do
+          new_performed_attributes = {
+            data: {
+              attributes: { performed_accepted: true }
+            }
+          }
+          job = FactoryGirl.create(:job, owner: user)
+          job_user = FactoryGirl.create(:job_user_will_perform, job: job)
+          user = job_user.user
+          params = {
+            job_id: job.to_param, id: user.to_param
+          }.merge(new_performed_attributes)
+          allow(JobUserPerformedAcceptedNotifier).to receive(:call).
+            with(job: job, user: user)
+          put :update, params, valid_session
+          expect(JobUserPerformedAcceptedNotifier).to have_received(:call)
+        end
       end
 
       context 'non associated user' do
@@ -221,6 +239,28 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
           put :update, params, {}
           job_user.reload
           expect(job_user.will_perform).to eq(true)
+        end
+
+        it 'notifies owner when updated #performed is set to true' do
+          new_performed_attributes = {
+            data: {
+              attributes: { performed: true }
+            }
+          }
+          job = FactoryGirl.create(:job, owner: user)
+          job_user = FactoryGirl.create(:job_user_will_perform, job: job)
+          user = job_user.user
+          params = {
+            job_id: job.to_param, id: user.to_param
+          }.merge(new_performed_attributes)
+
+          allow_any_instance_of(described_class).
+            to(receive(:authenticate_user_token!).
+            and_return(user))
+
+          allow(JobUserPerformedNotifier).to receive(:call).with(job: job, user: user)
+          put :update, params, valid_session
+          expect(JobUserPerformedNotifier).to have_received(:call)
         end
       end
     end

@@ -56,9 +56,9 @@ RSpec.describe UserMailer, type: :mailer do
     end
   end
 
-  describe '#job_performed_accept_email' do
+  describe '#job_user_performed_accepted_email' do
     let(:mail) do
-      UserMailer.job_performed_accept_email(job: job, user: user, owner: owner)
+      UserMailer.job_user_performed_accepted_email(job: job, user: user, owner: owner)
     end
 
     it 'renders the subject' do
@@ -87,9 +87,9 @@ RSpec.describe UserMailer, type: :mailer do
     end
   end
 
-  describe '#job_performed_email' do
+  describe '#job_user_performed_email' do
     let(:mail) do
-      UserMailer.job_performed_email(job: job, user: user, owner: owner)
+      UserMailer.job_user_performed_email(job: job, user: user, owner: owner)
     end
 
     it 'renders the subject' do

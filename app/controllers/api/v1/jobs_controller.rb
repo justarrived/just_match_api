@@ -85,8 +85,6 @@ module Api
           param :name, String, desc: 'Name'
           param :description, String, desc: 'Description'
           param :job_date, String, desc: 'Job date'
-          param :performed_accept, [true, false], desc: 'Performed accepted by owner'
-          param :performed, [true, false], desc: 'Job has been performed by user'
           param :hours, Float, desc: 'Estmiated completion time'
           param :language_id, Integer, desc: 'Langauge id of the text content'
           param :owner_user_id, Integer, desc: 'User id for the job owner'
@@ -107,15 +105,7 @@ module Api
 
         @job.assign_attributes(permitted_attributes)
 
-        notify_klass = NilNotifier
-        if job_policy.owner? && @job.send_performed_accept_notice?
-          notify_klass = JobPerformedAcceptNotifier
-        elsif job_policy.accepted_applicant? && @job.send_performed_notice?
-          notify_klass = JobPerformedNotifier
-        end
-
         if @job.save
-          notify_klass.call(job: @job)
           api_render(@job)
         else
           render json: @job.errors, status: :unprocessable_entity

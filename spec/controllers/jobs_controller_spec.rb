@@ -172,41 +172,28 @@ RSpec.describe Api::V1::JobsController, type: :controller do
             expect(parsed_json['errors'].first['status']).to eq(403)
           end
         end
-
-        it 'notifies user when updated Job#performed_accept is set to true' do
-          new_performed_attributes = {
-            data: {
-              attributes: { performed_accept: true }
-            }
-          }
-          FactoryGirl.create(:user)
-          job = FactoryGirl.create(:job, owner: user)
-          params = { job_id: job.to_param }.merge(new_performed_attributes)
-          allow(JobPerformedAcceptNotifier).to receive(:call).with(job: job)
-          put :update, params, valid_session
-          expect(JobPerformedAcceptNotifier).to have_received(:call)
-        end
       end
 
       context 'non associated user' do
         let(:new_attributes) do
           {
             data: {
-              attributes: { performed: true }
+              attributes: { max_rate: 201 }
             }
           }
         end
 
         it 'updates the requested job' do
+          max_rate = 500
           FactoryGirl.create(:user)
           user1 = FactoryGirl.create(:user)
           user2 = FactoryGirl.create(:user)
-          job = FactoryGirl.create(:job, owner: user1)
-          FactoryGirl.create(:job_user, user: user2, job: job, accepted: true)
+          job = FactoryGirl.create(:job, owner: user1, max_rate: max_rate)
+          FactoryGirl.create(:job_user, user: user2, job: job)
           params = { job_id: job.to_param }.merge(new_attributes)
           put :update, params, valid_session
           job.reload
-          expect(job.performed).to eq(false)
+          expect(job.max_rate).to eq(max_rate)
         end
 
         it 'returns forbidden status' do
@@ -214,7 +201,7 @@ RSpec.describe Api::V1::JobsController, type: :controller do
           user1 = FactoryGirl.create(:user)
           user2 = FactoryGirl.create(:user)
           job = FactoryGirl.create(:job, owner: user1)
-          FactoryGirl.create(:job_user, user: user2, job: job, accepted: true)
+          FactoryGirl.create(:job_user, user: user2, job: job)
           params = { job_id: job.to_param }.merge(new_attributes)
           put :update, params, valid_session
           expect(response.status).to eq(401)
@@ -225,7 +212,7 @@ RSpec.describe Api::V1::JobsController, type: :controller do
         let(:new_attributes) do
           {
             data: {
-              attributes: { performed: true }
+              attributes: { max_rate: 201 }
             }
           }
         end
@@ -240,46 +227,13 @@ RSpec.describe Api::V1::JobsController, type: :controller do
 
         let(:user) { User.find_by(auth_token: valid_session[:token]) }
 
-        it 'updates the requested job' do
-          job = FactoryGirl.create(:job)
-          FactoryGirl.create(:job_user, user: user, job: job, accepted: true)
-          params = { job_id: job.to_param }.merge(new_attributes)
-          put :update, params, valid_session
-          job.reload
-          expect(job.performed).to eq(true)
-        end
-
-        it 'assigns the requested job as @job' do
+        it 'returns forbidden status' do
           FactoryGirl.create(:user)
           job = FactoryGirl.create(:job)
-          FactoryGirl.create(:job_user, user: user, job: job, accepted: true)
+          FactoryGirl.create(:job_user, user: user, job: job)
           params = { job_id: job.to_param }.merge(new_attributes)
           put :update, params, valid_session
-          expect(assigns(:job)).to eq(job)
-        end
-
-        it 'returns success status' do
-          FactoryGirl.create(:user)
-          job = FactoryGirl.create(:job)
-          FactoryGirl.create(:job_user, user: user, job: job, accepted: true)
-          params = { job_id: job.to_param }.merge(new_attributes)
-          put :update, params, valid_session
-          expect(response.status).to eq(200)
-        end
-
-        it 'notifies owner when updated Job#performed is set to true' do
-          new_performed_attributes = {
-            data: {
-              attributes: { performed: true }
-            }
-          }
-          FactoryGirl.create(:user)
-          job = FactoryGirl.create(:job)
-          FactoryGirl.create(:job_user, user: user, job: job, accepted: true)
-          params = { job_id: job.to_param }.merge(new_performed_attributes)
-          allow(JobPerformedNotifier).to receive(:call).with(job: job)
-          put :update, params, valid_session
-          expect(JobPerformedNotifier).to have_received(:call)
+          expect(response.status).to eq(401)
         end
       end
     end
@@ -329,25 +283,23 @@ end
 #
 # Table name: jobs
 #
-#  id               :integer          not null, primary key
-#  max_rate         :integer
-#  description      :text
-#  job_date         :datetime
-#  performed_accept :boolean          default(FALSE)
-#  performed        :boolean          default(FALSE)
-#  hours            :float
-#  name             :string
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  owner_user_id    :integer
-#  latitude         :float
-#  longitude        :float
-#  language_id      :integer
-#  street           :string
-#  zip              :string
-#  zip_latitude     :float
-#  zip_longitude    :float
-#  hidden           :boolean          default(FALSE)
+#  id            :integer          not null, primary key
+#  max_rate      :integer
+#  description   :text
+#  job_date      :datetime
+#  hours         :float
+#  name          :string
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  owner_user_id :integer
+#  latitude      :float
+#  longitude     :float
+#  language_id   :integer
+#  street        :string
+#  zip           :string
+#  zip_latitude  :float
+#  zip_longitude :float
+#  hidden        :boolean          default(FALSE)
 #
 # Indexes
 #

@@ -110,10 +110,10 @@ RSpec.describe JobPolicy do
     let(:user) { FactoryGirl.create(:user) }
     let(:job) { FactoryGirl.create(:job) }
 
-    it '#update? returns true' do
+    it '#update? returns false' do
       job.users = [user]
       job.accept_applicant!(user)
-      expect(subject.update?).to eq(true)
+      expect(subject.update?).to eq(false)
     end
 
     it '#permitted_attributes is correct' do

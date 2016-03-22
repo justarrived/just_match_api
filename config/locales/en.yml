@@ -14,15 +14,21 @@ en:
       will_perform_changed_to_false: can't change to false if already true
       will_perform_accepted: must be accepted to confirm will perform
       will_perform_true_on_delete: can't delete when will perform is true
+      performed_before_will_perform_err_msg: will perform must be confirmed to confirm performed
+      performed_accepted_before_will_perform_err_msg: will perform must be confirmed to confirm the performance
+      performed_before_job_over: can't confirm performed before job is over
+      performed_accepted_before_job_over: can't accept performed before job is over
     rating:
       from_user_rated: can't rate twice
       to_user_rated: can't be rated twice
       comment_user: must be owned by the user making the rating
-      job_concluded: must be concluded
+      job_user_concluded: must be concluded
       user_allowed_to_rate: must be job owner or the accepted applicant
     user_session:
       banned: an admin has banned you for not following the Terms of agreement or code of conduct. Please contact help@justarrived.se, to resolve this issue.
       wrong_email_or_password: wrong email or password
+    validators:
+      true_after: '%{field} must be true before this value is set'
   invalid_credentials: Invalid credentials.
   mailer:
     accepted_applicant_withdrawn:

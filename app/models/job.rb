@@ -65,18 +65,6 @@ class Job < ActiveRecord::Base
     !owner.nil? && owner == user
   end
 
-  # NOTE: You need to call this __before__ the record is validated
-  #       otherwise it will always return false
-  def send_performed_accept_notice?
-    performed_accept_changed? && performed_accept
-  end
-
-  # NOTE: You need to call this __before__ the record is validated
-  #       otherwise it will always return false
-  def send_performed_notice?
-    performed_changed? && performed
-  end
-
   def find_applicant(user)
     job_users.find_by(user: user)
   end
@@ -85,15 +73,19 @@ class Job < ActiveRecord::Base
     !accepted_applicant.nil? && accepted_applicant == user
   end
 
+  def accepted_job_user
+    applicants.find_by(accepted: true)
+  end
+
   def accepted_applicant
-    applicants.find_by(accepted: true).try!(:user)
+    accepted_job_user.try!(:user)
   end
 
   def accept_applicant!(user)
     applicants.find_by(user: user).tap do |applicant|
       applicant.accept
       applicant.save!
-    end
+    end.reload
   end
 
   def create_applicant!(user)
@@ -105,8 +97,15 @@ class Job < ActiveRecord::Base
     job_users
   end
 
-  def concluded?
-    performed && performed_accept
+  # def concluded?
+  #   job_user = accepted_applicant
+  #   return false job_user.nil?
+  #
+  #   job_user.
+  # end
+
+  def passed?
+    job_date + hours.hours < Time.zone.now
   end
 end
 
@@ -114,25 +113,23 @@ end
 #
 # Table name: jobs
 #
-#  id               :integer          not null, primary key
-#  max_rate         :integer
-#  description      :text
-#  job_date         :datetime
-#  performed_accept :boolean          default(FALSE)
-#  performed        :boolean          default(FALSE)
-#  hours            :float
-#  name             :string
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  owner_user_id    :integer
-#  latitude         :float
-#  longitude        :float
-#  language_id      :integer
-#  street           :string
-#  zip              :string
-#  zip_latitude     :float
-#  zip_longitude    :float
-#  hidden           :boolean          default(FALSE)
+#  id            :integer          not null, primary key
+#  max_rate      :integer
+#  description   :text
+#  job_date      :datetime
+#  hours         :float
+#  name          :string
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  owner_user_id :integer
+#  latitude      :float
+#  longitude     :float
+#  language_id   :integer
+#  street        :string
+#  zip           :string
+#  zip_latitude  :float
+#  zip_longitude :float
+#  hidden        :boolean          default(FALSE)
 #
 # Indexes
 #

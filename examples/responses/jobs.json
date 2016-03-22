@@ -7,8 +7,6 @@
         "max_rate": 500,
         "description": "Typewriter hashtag ennui brunch post-ironic food truck vinegar.",
         "job_date": "2016-02-18 01:01:01 +0100",
-        "performed_accept": false,
-        "performed": false,
         "hours": 3.0,
         "name": "A job",
         "created_at": "2016-02-10 01:01:01 +0100",

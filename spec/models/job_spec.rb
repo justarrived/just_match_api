@@ -48,38 +48,6 @@ RSpec.describe Job, type: :model do
     end
   end
 
-  describe '#send_performed_accept_notice?' do
-    it 'returns true if notice should be sent' do
-      job = described_class.new
-      job.performed_accept = true
-      expected = job.send_performed_accept_notice?
-      expect(expected).to eq(true)
-    end
-
-    it 'returns false if notice should be sent' do
-      job = described_class.new
-      job.performed_accept = false
-      expected = job.send_performed_accept_notice?
-      expect(expected).to eq(false)
-    end
-  end
-
-  describe '#send_performed_notice?' do
-    it 'returns true if notice should be sent' do
-      job = described_class.new
-      job.performed = true
-      expected = job.send_performed_notice?
-      expect(expected).to eq(true)
-    end
-
-    it 'returns false if notice should be sent' do
-      job = described_class.new
-      job.performed = false
-      expected = job.send_performed_notice?
-      expect(expected).to eq(false)
-    end
-  end
-
   describe '#accepted_applicant' do
     it 'returns nil if no accepted applicant' do
       job = described_class.new
@@ -128,24 +96,6 @@ RSpec.describe Job, type: :model do
     end
   end
 
-  describe '#concluded?' do
-    context 'when concluded' do
-      subject { FactoryGirl.build(:job_concluded) }
-
-      it 'returns true' do
-        expect(subject.concluded?).to eq(true)
-      end
-    end
-
-    context 'when *not* concluded' do
-      subject { FactoryGirl.build(:job) }
-
-      it 'returns false' do
-        expect(subject.concluded?).to eq(false)
-      end
-    end
-  end
-
   describe '#locked_for_changes?' do
     let(:job) { FactoryGirl.create(:job) }
 
@@ -163,31 +113,46 @@ RSpec.describe Job, type: :model do
       expect(job.locked_for_changes?).to eq(true)
     end
   end
+
+  describe '#passed?' do
+    it 'returns false for an inprogress job' do
+      job = FactoryGirl.build(:inprogress_job)
+      expect(job.passed?).to eq(false)
+    end
+
+    it 'returns false for a future job' do
+      job = FactoryGirl.build(:future_job)
+      expect(job.passed?).to eq(false)
+    end
+
+    it 'returns true for a passed job' do
+      job = FactoryGirl.build(:job)
+      expect(job.passed?).to eq(true)
+    end
+  end
 end
 
 # == Schema Information
 #
 # Table name: jobs
 #
-#  id               :integer          not null, primary key
-#  max_rate         :integer
-#  description      :text
-#  job_date         :datetime
-#  performed_accept :boolean          default(FALSE)
-#  performed        :boolean          default(FALSE)
-#  hours            :float
-#  name             :string
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  owner_user_id    :integer
-#  latitude         :float
-#  longitude        :float
-#  language_id      :integer
-#  street           :string
-#  zip              :string
-#  zip_latitude     :float
-#  zip_longitude    :float
-#  hidden           :boolean          default(FALSE)
+#  id            :integer          not null, primary key
+#  max_rate      :integer
+#  description   :text
+#  job_date      :datetime
+#  hours         :float
+#  name          :string
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  owner_user_id :integer
+#  latitude      :float
+#  longitude     :float
+#  language_id   :integer
+#  street        :string
+#  zip           :string
+#  zip_latitude  :float
+#  zip_longitude :float
+#  hidden        :boolean          default(FALSE)
 #
 # Indexes
 #

@@ -10,7 +10,7 @@ class JobPolicy < ApplicationPolicy
     end
   end
 
-  PRIVILEGED_ATTRIBUTES = [:latitude, :longitude, :performed, :performed_accept].freeze
+  PRIVILEGED_ATTRIBUTES = [:latitude, :longitude].freeze
 
   OWNER_ATTRIBUTES = [
     :max_rate, :performed_accept, :description, :job_date, :street, :zip,
@@ -30,7 +30,7 @@ class JobPolicy < ApplicationPolicy
   end
 
   def update?
-    admin? || owner? || accepted_applicant?
+    admin? || owner?
   end
 
   def matching_users?
