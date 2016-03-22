@@ -3,7 +3,7 @@
     "id": "1",
     "type": "jobs",
     "attributes": {
-      "max_rate": 500,
+      "max_rate": 100,
       "description": "Typewriter hashtag ennui brunch post-ironic food truck vinegar.",
       "job_date": "2016-02-18 01:01:01 +0100",
       "hours": 3.0,

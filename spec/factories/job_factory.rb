@@ -2,7 +2,7 @@
 FactoryGirl.define do
   factory :job do
     name 'A job'
-    max_rate 500
+    max_rate Job::ALLOWED_RATES.last
     description 'Watman' * 2
     street 'Bankgatan 14C'
     zip '223 52'

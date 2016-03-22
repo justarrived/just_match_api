@@ -8,6 +8,8 @@ class Job < ActiveRecord::Base
     zip: { lat: :zip_latitude, long: :zip_longitude }
   }.freeze
 
+  ALLOWED_RATES = [70, 80, 100].freeze
+
   belongs_to :language
 
   has_one :company, through: :owner
@@ -22,7 +24,7 @@ class Job < ActiveRecord::Base
 
   validates :language, presence: true
   validates :name, length: { minimum: 2 }, allow_blank: false
-  validates :max_rate, numericality: { only_integer: true }, allow_blank: false
+  validates :max_rate, inclusion: { in: ALLOWED_RATES }, allow_blank: false
   validates :description, length: { minimum: 10 }, allow_blank: false
   validates :street, length: { minimum: 5 }, allow_blank: false
   validates :zip, length: { minimum: 5 }, allow_blank: false

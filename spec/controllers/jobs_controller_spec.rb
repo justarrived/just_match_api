@@ -2,12 +2,13 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::JobsController, type: :controller do
+  let(:standard_max_rate) { Job::ALLOWED_RATES.first }
   let(:valid_attributes) do
     {
       data: {
         attributes: {
           skill_ids: [FactoryGirl.create(:skill).id],
-          max_rate: 150,
+          max_rate: standard_max_rate,
           hours: 2,
           name: 'Some job name',
           description: 'Some job description',
@@ -128,10 +129,11 @@ RSpec.describe Api::V1::JobsController, type: :controller do
 
   describe 'PUT #update' do
     context 'with valid params' do
+      let(:new_hours) { 8 }
       let(:new_attributes) do
         {
           data: {
-            attributes: { max_rate: 150 }
+            attributes: { hours: new_hours }
           }
         }
       end
@@ -144,7 +146,7 @@ RSpec.describe Api::V1::JobsController, type: :controller do
           params = { job_id: job.to_param }.merge(new_attributes)
           put :update, params, valid_session
           job.reload
-          expect(job.max_rate).to eq(150)
+          expect(job.hours).to eq(new_hours)
         end
 
         it 'assigns the requested user as @job' do
@@ -178,22 +180,9 @@ RSpec.describe Api::V1::JobsController, type: :controller do
         let(:new_attributes) do
           {
             data: {
-              attributes: { max_rate: 201 }
+              attributes: { hours: 6 }
             }
           }
-        end
-
-        it 'updates the requested job' do
-          max_rate = 500
-          FactoryGirl.create(:user)
-          user1 = FactoryGirl.create(:user)
-          user2 = FactoryGirl.create(:user)
-          job = FactoryGirl.create(:job, owner: user1, max_rate: max_rate)
-          FactoryGirl.create(:job_user, user: user2, job: job)
-          params = { job_id: job.to_param }.merge(new_attributes)
-          put :update, params, valid_session
-          job.reload
-          expect(job.max_rate).to eq(max_rate)
         end
 
         it 'returns forbidden status' do
@@ -212,7 +201,7 @@ RSpec.describe Api::V1::JobsController, type: :controller do
         let(:new_attributes) do
           {
             data: {
-              attributes: { max_rate: 201 }
+              attributes: { hours: 6 }
             }
           }
         end

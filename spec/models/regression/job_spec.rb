@@ -49,7 +49,6 @@ RSpec.describe Job, regressor: true do
   it { is_expected.to validate_presence_of :job_date }
 
   # === Validations (Numericality) ===
-  it { is_expected.to validate_numericality_of(:max_rate).only_integer }
 
   # === Enums ===
 end
