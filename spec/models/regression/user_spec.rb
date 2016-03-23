@@ -36,6 +36,8 @@ RSpec.describe User, regressor: true do
   it { is_expected.to have_db_column :zip }
   it { is_expected.to have_db_column :language_id }
   it { is_expected.to have_db_column :anonymized }
+  it { is_expected.to have_db_column :one_time_token }
+  it { is_expected.to have_db_column :one_time_token_expires_at }
 
   # === Database (Indexes) ===
   it { is_expected.to have_db_index ['language_id'] }
