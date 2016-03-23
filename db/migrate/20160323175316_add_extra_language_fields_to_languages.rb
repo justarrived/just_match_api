@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class AddExtraLanguageFieldsToLanguages < ActiveRecord::Migration
   def change
     add_column :languages, :en_name, :string

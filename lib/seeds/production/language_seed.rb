@@ -7,7 +7,7 @@ class LanguageSeed
   def call
     available_locales = I18n.available_locales.map(&:to_s)
 
-    csv_string = File.read("#{Rails.root.to_s}/data/languages.csv")
+    csv_string = File.read("#{Rails.root}/data/languages.csv")
     csv = HoneyFormat::CSV.new(csv_string)
 
     csv.rows.each do |language|
