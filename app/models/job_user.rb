@@ -22,8 +22,8 @@ class JobUser < ActiveRecord::Base
 
   validate :validate_single_applicant, on: :update
   validate :validate_applicant_not_owner_of_job
-  validate :validate_passed_job_date_before_performed
-  validate :validate_passed_job_date_before_performed_accepted
+  validate :validate_job_started_before_performed
+  validate :validate_job_started_before_performed_accepted
 
   before_validation :accepted_at_setter
 
@@ -113,15 +113,15 @@ class JobUser < ActiveRecord::Base
     errors.add(:will_perform, message)
   end
 
-  def validate_passed_job_date_before_performed
-    return if job && job.passed?
+  def validate_job_started_before_performed
+    return if job && job.started?
 
     message = I18n.t('errors.job_user.performed_before_job_over')
     errors.add(:performed, message)
   end
 
-  def validate_passed_job_date_before_performed_accepted
-    return if job && job.passed?
+  def validate_job_started_before_performed_accepted
+    return if job && job.started?
 
     message = I18n.t('errors.job_user.performed_accepted_before_job_over')
     errors.add(:performed_accepted, message)

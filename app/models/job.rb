@@ -99,15 +99,8 @@ class Job < ActiveRecord::Base
     job_users
   end
 
-  # def concluded?
-  #   job_user = accepted_applicant
-  #   return false job_user.nil?
-  #
-  #   job_user.
-  # end
-
-  def passed?
-    job_date + hours.hours < Time.zone.now
+  def started?
+    job_date < Time.zone.now
   end
 end
 

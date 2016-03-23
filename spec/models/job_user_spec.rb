@@ -316,13 +316,12 @@ RSpec.describe JobUser, type: :model do
       FactoryGirl.build(:job, job_date: time, hours: 2)
     end
 
-    it 'adds error if the job is *not* yet over' do
+    it 'adds *no* error if the job is ongoing' do
       job_user = FactoryGirl.build(:job_user, job: inprogress_job)
       job_user.performed = true
       job_user.will_perform = true
       job_user.validate
-      message = I18n.t('errors.job_user.performed_before_job_over')
-      expect(job_user.errors.messages[:performed]).to include(message)
+      expect(job_user.errors.messages[:performed]).to be_nil
     end
 
     it 'adds *no* error if the job is over' do
@@ -348,13 +347,12 @@ RSpec.describe JobUser, type: :model do
       expect(job_user.errors.messages[:performed_accepted]).to include(message)
     end
 
-    it 'adds error if the job is in progress' do
+    it 'adds *no* error if the job is in progress' do
       job_user = FactoryGirl.build(:job_user, job: inprogress_job)
       job_user.performed_accepted = true
       job_user.will_perform = true
       job_user.validate
-      message = I18n.t('errors.job_user.performed_accepted_before_job_over')
-      expect(job_user.errors.messages[:performed_accepted]).to include(message)
+      expect(job_user.errors.messages[:performed_accepted]).to be_nil
     end
 
     it 'adds *no* error if the job is over' do

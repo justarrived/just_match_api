@@ -114,20 +114,20 @@ RSpec.describe Job, type: :model do
     end
   end
 
-  describe '#passed?' do
-    it 'returns false for an inprogress job' do
+  describe '#started?' do
+    it 'returns true for an inprogress job' do
       job = FactoryGirl.build(:inprogress_job)
-      expect(job.passed?).to eq(false)
+      expect(job.started?).to eq(true)
     end
 
     it 'returns false for a future job' do
       job = FactoryGirl.build(:future_job)
-      expect(job.passed?).to eq(false)
+      expect(job.started?).to eq(false)
     end
 
     it 'returns true for a passed job' do
       job = FactoryGirl.build(:job)
-      expect(job.passed?).to eq(true)
+      expect(job.started?).to eq(true)
     end
   end
 end
