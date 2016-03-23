@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
-RSpec.describe Api::V1::UserSessionsController, type: :controller do
+RSpec.describe Api::V1::Users::UserSessionsController, type: :controller do
   let(:valid_attributes) do
     {
       data: {

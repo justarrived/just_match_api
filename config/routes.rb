@@ -27,8 +27,6 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :user_sessions, only: [:create, :destroy]
-
       resources :jobs, param: :job_id, only: [:index, :show, :create, :update] do
         member do
           get :matching_users
@@ -48,6 +46,10 @@ Rails.application.routes.draw do
           resources :comments, module: :users, only: [:index, :show, :create, :update, :destroy]
           resources :user_skills, module: :users, path: 'skills', only: [:index, :show, :create, :destroy]
           resources :user_languages, module: :users, path: 'languages', only: [:index, :show, :create, :destroy]
+        end
+
+        collection do
+          resources :user_sessions, module: :users, path: :sessions, only: [:create, :destroy]
         end
       end
 
