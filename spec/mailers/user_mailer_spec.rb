@@ -9,6 +9,10 @@ RSpec.describe UserMailer, type: :mailer do
   describe '#welcome_email' do
     let(:mail) { UserMailer.welcome_email(user: user) }
 
+    it 'has both text and html part' do
+      expect(mail).to be_multipart_email(true)
+    end
+
     it 'renders the subject' do
       expect(mail.subject).to eql('Welcome to Just Arrived!')
     end
@@ -21,14 +25,18 @@ RSpec.describe UserMailer, type: :mailer do
       expect(mail.from).to eql(['hello@justarrived.se'])
     end
 
-    it 'assigns @user_name' do
-      expect(mail.body.encoded).to match(user.name)
+    it 'invludes @user_name in email body' do
+      expect(mail).to match_email_body(user.name)
     end
   end
 
   describe '#job_match_email' do
     let(:mail) do
       UserMailer.job_match_email(job: job, user: user, owner: owner)
+    end
+
+    it 'has both text and html part' do
+      expect(mail).to be_multipart_email(true)
     end
 
     it 'renders the subject' do
@@ -43,22 +51,26 @@ RSpec.describe UserMailer, type: :mailer do
       expect(mail.from).to eql(['hello@justarrived.se'])
     end
 
-    it 'assigns @user_name' do
-      expect(mail.body.encoded).to match(user.name)
+    it 'invludes @user_name in email body' do
+      expect(mail).to match_email_body(user.name)
     end
 
-    it 'assigns @owner_email' do
-      expect(mail.body.encoded).to match(owner.email)
+    it 'invludes @owner_email in email body' do
+      expect(mail).to match_email_body(owner.email)
     end
 
-    it 'assigns @job_name' do
-      expect(mail.body.encoded).to match(job.name)
+    it 'invludes @job_name in email body' do
+      expect(mail).to match_email_body(job.name)
     end
   end
 
   describe '#job_user_performed_accepted_email' do
     let(:mail) do
       UserMailer.job_user_performed_accepted_email(job: job, user: user, owner: owner)
+    end
+
+    it 'has both text and html part' do
+      expect(mail).to be_multipart_email(true)
     end
 
     it 'renders the subject' do
@@ -74,22 +86,26 @@ RSpec.describe UserMailer, type: :mailer do
       expect(mail.from).to eql(['hello@justarrived.se'])
     end
 
-    it 'assigns @user_name' do
-      expect(mail.body.encoded).to match(user.name)
+    it 'invludes @user_name in email body' do
+      expect(mail).to match_email_body(user.name)
     end
 
-    it 'assigns @owner_name' do
-      expect(mail.body.encoded).to match(owner.name)
+    it 'invludes @owner_name in email body' do
+      expect(mail).to match_email_body(owner.name)
     end
 
-    it 'assigns @job_name' do
-      expect(mail.body.encoded).to match(job.name)
+    it 'invludes @job_name in email body' do
+      expect(mail).to match_email_body(job.name)
     end
   end
 
   describe '#job_user_performed_email' do
     let(:mail) do
       UserMailer.job_user_performed_email(job: job, user: user, owner: owner)
+    end
+
+    it 'has both text and html part' do
+      expect(mail).to be_multipart_email(true)
     end
 
     it 'renders the subject' do
@@ -105,22 +121,26 @@ RSpec.describe UserMailer, type: :mailer do
       expect(mail.from).to eql(['hello@justarrived.se'])
     end
 
-    it 'assigns @user_name' do
-      expect(mail.body.encoded).to match(user.name)
+    it 'invludes @user_name in email body' do
+      expect(mail).to match_email_body(user.name)
     end
 
-    it 'assigns @owner_name' do
-      expect(mail.body.encoded).to match(owner.name)
+    it 'invludes @owner_name in email body' do
+      expect(mail).to match_email_body(owner.name)
     end
 
-    it 'assigns @job_name' do
-      expect(mail.body.encoded).to match(job.name)
+    it 'invludes @job_name in email body' do
+      expect(mail).to match_email_body(job.name)
     end
   end
 
   describe '#new_applicant_email' do
     let(:mail) do
       UserMailer.new_applicant_email(job: job, user: user, owner: owner)
+    end
+
+    it 'has both text and html part' do
+      expect(mail).to be_multipart_email(true)
     end
 
     it 'renders the subject' do
@@ -136,22 +156,26 @@ RSpec.describe UserMailer, type: :mailer do
       expect(mail.from).to eql(['hello@justarrived.se'])
     end
 
-    it 'assigns @user_name' do
-      expect(mail.body.encoded).to match(user.name)
+    it 'invludes @user_name in email body' do
+      expect(mail).to match_email_body(user.name)
     end
 
-    it 'assigns @owner_name' do
-      expect(mail.body.encoded).to match(owner.name)
+    it 'invludes @owner_name in email body' do
+      expect(mail).to match_email_body(owner.name)
     end
 
-    it 'assigns @job_name' do
-      expect(mail.body.encoded).to match(job.name)
+    it 'invludes @job_name in email body' do
+      expect(mail).to match_email_body(job.name)
     end
   end
 
   describe '#applicant_accepted_email' do
     let(:mail) do
       UserMailer.applicant_accepted_email(job: job, user: user, owner: owner)
+    end
+
+    it 'has both text and html part' do
+      expect(mail).to be_multipart_email(true)
     end
 
     it 'renders the subject' do
@@ -167,22 +191,26 @@ RSpec.describe UserMailer, type: :mailer do
       expect(mail.from).to eql(['hello@justarrived.se'])
     end
 
-    it 'assigns @user_name' do
-      expect(mail.body.encoded).to match(user.name)
+    it 'invludes @user_name in email body' do
+      expect(mail).to match_email_body(user.name)
     end
 
-    it 'assigns @owner_email' do
-      expect(mail.body.encoded).to match(owner.email)
+    it 'invludes @owner_email in email body' do
+      expect(mail).to match_email_body(owner.email)
     end
 
-    it 'assigns @job_name' do
-      expect(mail.body.encoded).to match(job.name)
+    it 'invludes @job_name in email body' do
+      expect(mail).to match_email_body(job.name)
     end
   end
 
   describe '#applicant_will_perform_email' do
     let(:mail) do
       UserMailer.applicant_will_perform_email(job: job, user: user, owner: owner)
+    end
+
+    it 'has both text and html part' do
+      expect(mail).to be_multipart_email(true)
     end
 
     it 'renders the subject' do
@@ -198,18 +226,22 @@ RSpec.describe UserMailer, type: :mailer do
       expect(mail.from).to eql(['hello@justarrived.se'])
     end
 
-    it 'assigns @user_name' do
-      expect(mail.body.encoded).to match(user.name)
+    it 'invludes @user_name in email body' do
+      expect(mail).to match_email_body(user.name)
     end
 
-    it 'assigns @job_name' do
-      expect(mail.body.encoded).to match(job.name)
+    it 'invludes @job_name in email body' do
+      expect(mail).to match_email_body(job.name)
     end
   end
 
   describe '#accepted_applicant_withdrawn_email' do
     let(:mail) do
       UserMailer.accepted_applicant_withdrawn_email(job: job, user: user, owner: owner)
+    end
+
+    it 'has both text and html part' do
+      expect(mail).to be_multipart_email(true)
     end
 
     it 'renders the subject' do
@@ -225,12 +257,12 @@ RSpec.describe UserMailer, type: :mailer do
       expect(mail.from).to eql(['hello@justarrived.se'])
     end
 
-    it 'assigns @user_name' do
-      expect(mail.body.encoded).to match(user.name)
+    it 'invludes @user_name in email body' do
+      expect(mail).to match_email_body(user.name)
     end
 
-    it 'assigns @job_name' do
-      expect(mail.body.encoded).to match(job.name)
+    it 'invludes @job_name in email body' do
+      expect(mail).to match_email_body(job.name)
     end
   end
 
@@ -239,6 +271,10 @@ RSpec.describe UserMailer, type: :mailer do
       UserMailer.accepted_applicant_confirmation_overdue_email(
         job: job, user: user, owner: owner
       )
+    end
+
+    it 'has both text and html part' do
+      expect(mail).to be_multipart_email(true)
     end
 
     it 'renders the subject' do
@@ -254,18 +290,22 @@ RSpec.describe UserMailer, type: :mailer do
       expect(mail.from).to eql(['hello@justarrived.se'])
     end
 
-    it 'assigns @user_name' do
-      expect(mail.body.encoded).to match(user.name)
+    it 'invludes @user_name in email body' do
+      expect(mail).to match_email_body(user.name)
     end
 
-    it 'assigns @job_name' do
-      expect(mail.body.encoded).to match(job.name)
+    it 'invludes @job_name in email body' do
+      expect(mail).to match_email_body(job.name)
     end
   end
 
   describe '#reset_password_email' do
     let(:user) { FactoryGirl.build(:user_with_one_time_token) }
     let(:mail) { UserMailer.reset_password_email(user: user) }
+
+    it 'has both text and html part' do
+      expect(mail).to be_multipart_email(true)
+    end
 
     it 'renders the subject' do
       subject = I18n.t('mailer.reset_password.subject')
@@ -280,18 +320,22 @@ RSpec.describe UserMailer, type: :mailer do
       expect(mail.from).to eql(['hello@justarrived.se'])
     end
 
-    it 'assigns @user_name' do
-      expect(mail.body.encoded).to match(user.first_name)
+    it 'invludes @user_name in email body' do
+      expect(mail).to match_email_body(user.first_name)
     end
 
     it 'includes users one time token' do
-      expect(mail.body.encoded).to match(user.one_time_token)
+      expect(mail).to match_email_body(user.one_time_token)
     end
   end
 
-  describe '#reset_password_email' do
+  describe '#changed_password_email' do
     let(:user) { FactoryGirl.build(:user) }
     let(:mail) { UserMailer.changed_password_email(user: user) }
+
+    it 'has both text and html part' do
+      expect(mail).to be_multipart_email(true)
+    end
 
     it 'renders the subject' do
       subject = I18n.t('mailer.changed_password.subject')
@@ -306,8 +350,8 @@ RSpec.describe UserMailer, type: :mailer do
       expect(mail.from).to eql(['hello@justarrived.se'])
     end
 
-    it 'assigns @user_name' do
-      expect(mail.body.encoded).to match(user.first_name)
+    it 'invludes @user_name in email body' do
+      expect(mail).to match_email_body(user.first_name)
     end
   end
 end
