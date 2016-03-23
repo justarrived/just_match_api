@@ -77,4 +77,19 @@ class UserMailer < ApplicationMailer
     subject = I18n.t('mailer.accepted_applicant_confirmation_overdue.subject')
     mail(to: owner.email, subject: subject)
   end
+
+  def reset_password_email(user:)
+    @user_name = user.first_name
+    @one_time_token = user.one_time_token
+
+    subject = I18n.t('mailer.reset_password.subject')
+    mail(to: user.email, subject: subject)
+  end
+
+  def changed_password_email(user:)
+    @user_name = user.first_name
+
+    subject = I18n.t('mailer.changed_password.subject')
+    mail(to: user.email, subject: subject)
+  end
 end

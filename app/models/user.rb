@@ -3,13 +3,16 @@ class User < ActiveRecord::Base
   include Geocodable
   include SkillMatchable
 
+  MIN_PASSWORD_LENGTH = 6
+  ONE_TIME_TOKEN_VALID_FOR_HOURS = 18
+
   LOCATE_BY = {
     address: { lat: :latitude, long: :longitude }
   }.freeze
 
   attr_accessor :password
 
-  before_create :generate_auth_token!
+  before_create :generate_auth_token
   before_save :encrypt_password
 
   belongs_to :language
@@ -41,13 +44,18 @@ class User < ActiveRecord::Base
   validates :description, length: { minimum: 10 }, allow_blank: false
   validates :street, length: { minimum: 5 }, allow_blank: false
   validates :zip, length: { minimum: 5 }, allow_blank: false
-  validates :password, length: { minimum: 6 }, allow_blank: false, on: :create
+  validates :password, length: { minimum: MIN_PASSWORD_LENGTH }, allow_blank: false, on: :create # rubocop:disable Metrics/LineLength
   validates :auth_token, uniqueness: true
   validates :ssn, uniqueness: true, length: { is: 10 }, allow_blank: false
 
   scope :admins, -> { where(admin: true) }
   scope :company_users, -> { where.not(company: nil) }
   scope :visible, -> { where.not(banned: true) }
+
+  def self.find_by_one_time_token(token)
+    where('one_time_token_expires_at > ?', Time.zone.now).
+      find_by(one_time_token: token)
+  end
 
   def self.find_by_credentials(email:, password:)
     user = find_by(email: email) || return
@@ -81,7 +89,7 @@ class User < ActiveRecord::Base
   end
 
   def banned=(value)
-    generate_auth_token! if value
+    generate_auth_token if value
     self[:banned] = value
   end
 
@@ -99,8 +107,20 @@ class User < ActiveRecord::Base
     )
   end
 
-  def generate_auth_token!
+  def generate_auth_token
     self.auth_token = SecureRandom.uuid
+  end
+
+  def generate_one_time_token
+    self.one_time_token_expires_at = Time.zone.now + ONE_TIME_TOKEN_VALID_FOR_HOURS.hours
+    self.one_time_token = SecureRandom.uuid
+  end
+
+  def self.valid_password?(password)
+    return false if password.blank?
+    return false unless password.is_a?(String)
+
+    password.length >= 6
   end
 
   private
@@ -147,11 +167,12 @@ end
 #
 # Indexes
 #
-#  index_users_on_auth_token   (auth_token) UNIQUE
-#  index_users_on_company_id   (company_id)
-#  index_users_on_email        (email) UNIQUE
-#  index_users_on_language_id  (language_id)
-#  index_users_on_ssn          (ssn) UNIQUE
+#  index_users_on_auth_token      (auth_token) UNIQUE
+#  index_users_on_company_id      (company_id)
+#  index_users_on_email           (email) UNIQUE
+#  index_users_on_language_id     (language_id)
+#  index_users_on_one_time_token  (one_time_token) UNIQUE
+#  index_users_on_ssn             (ssn) UNIQUE
 #
 # Foreign Keys
 #

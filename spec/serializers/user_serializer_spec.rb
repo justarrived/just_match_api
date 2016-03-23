@@ -52,11 +52,12 @@ end
 #
 # Indexes
 #
-#  index_users_on_auth_token   (auth_token) UNIQUE
-#  index_users_on_company_id   (company_id)
-#  index_users_on_email        (email) UNIQUE
-#  index_users_on_language_id  (language_id)
-#  index_users_on_ssn          (ssn) UNIQUE
+#  index_users_on_auth_token      (auth_token) UNIQUE
+#  index_users_on_company_id      (company_id)
+#  index_users_on_email           (email) UNIQUE
+#  index_users_on_language_id     (language_id)
+#  index_users_on_one_time_token  (one_time_token) UNIQUE
+#  index_users_on_ssn             (ssn) UNIQUE
 #
 # Foreign Keys
 #

@@ -262,4 +262,52 @@ RSpec.describe UserMailer, type: :mailer do
       expect(mail.body.encoded).to match(job.name)
     end
   end
+
+  describe '#reset_password_email' do
+    let(:user) { FactoryGirl.build(:user_with_one_time_token) }
+    let(:mail) { UserMailer.reset_password_email(user: user) }
+
+    it 'renders the subject' do
+      subject = I18n.t('mailer.reset_password.subject')
+      expect(mail.subject).to eql(subject)
+    end
+
+    it 'renders the receiver email' do
+      expect(mail.to).to eql([user.email])
+    end
+
+    it 'renders the sender email' do
+      expect(mail.from).to eql(['hello@justarrived.se'])
+    end
+
+    it 'assigns @user_name' do
+      expect(mail.body.encoded).to match(user.first_name)
+    end
+
+    it 'includes users one time token' do
+      expect(mail.body.encoded).to match(user.one_time_token)
+    end
+  end
+
+  describe '#reset_password_email' do
+    let(:user) { FactoryGirl.build(:user) }
+    let(:mail) { UserMailer.changed_password_email(user: user) }
+
+    it 'renders the subject' do
+      subject = I18n.t('mailer.changed_password.subject')
+      expect(mail.subject).to eql(subject)
+    end
+
+    it 'renders the receiver email' do
+      expect(mail.to).to eql([user.email])
+    end
+
+    it 'renders the sender email' do
+      expect(mail.from).to eql(['hello@justarrived.se'])
+    end
+
+    it 'assigns @user_name' do
+      expect(mail.body.encoded).to match(user.first_name)
+    end
+  end
 end

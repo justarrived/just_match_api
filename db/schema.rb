@@ -255,6 +255,7 @@ ActiveRecord::Schema.define(version: 20160323111532) do
   add_index "users", ["company_id"], name: "index_users_on_company_id", using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["language_id"], name: "index_users_on_language_id", using: :btree
+  add_index "users", ["one_time_token"], name: "index_users_on_one_time_token", unique: true, using: :btree
   add_index "users", ["ssn"], name: "index_users_on_ssn", unique: true, using: :btree
 
   add_foreign_key "blazer_audits", "blazer_queries", column: "query_id", name: "blazer_audits_query_id_fk"

@@ -57,7 +57,7 @@ module Api
 
           user = User.find_by(auth_token: token)
           if user
-            user.auth_token = user.generate_auth_token!
+            user.auth_token = user.generate_auth_token
             user.save!
 
             head :no_content

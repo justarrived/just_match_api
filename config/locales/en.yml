@@ -24,6 +24,8 @@ en:
     user_session:
       banned: an admin has banned you for not following the Terms of agreement or code of conduct. Please contact help@justarrived.se, to resolve this issue.
       wrong_email_or_password: wrong email or password
+    user:
+      password_length: must have at least %{count} characters
     validators:
       after_true: '%{field} must be true'
       unrevertable: can't revert
@@ -47,6 +49,9 @@ en:
       contact_line: Contact %{email} for more details.
       job_line: The job is '%{name}' and its in your area.
       subject: Congrats! You got a job.
+    changed_password:
+      subject: Your Just Arrived password has been changed
+      body_header: Hi %{name}, your Just Arrived password has been changed. If this wasn't you, please contact Just Arrived at help@justarrived.se
     job_match:
       accepted_line: You've got a new job match!
       congrats_line: Congrats %{name}!
@@ -71,6 +76,9 @@ en:
       contact_line: If you have any questions, you can contact them on %{email} and %{phone}.
       job_line: You've got a new applicant for your job '%{name}'.
       subject: Congrats! You have a new applicant.
+    reset_password:
+      subject: 'Just Arrived passsword reset link'
+      body_header: 'Hi %{name}, you requested a password reset. Please visit this link to enter your new password:'
     welcome:
       subject: Welcome to Just Arrived!
       body_header: Welcome to Just Arrived %{name}!
