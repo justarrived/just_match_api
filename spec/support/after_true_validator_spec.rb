@@ -20,7 +20,7 @@ RSpec.describe AfterTrueValidator do
       expect(test_model).to be_valid
     end
 
-    it 'returns false and the default error message' do
+    it 'fails when the other field is false and adds the default error message' do
       test_model.first_field = false
       test_model.valid?
 

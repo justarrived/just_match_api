@@ -26,6 +26,7 @@ en:
       wrong_email_or_password: wrong email or password
     validators:
       after_true: '%{field} must be true'
+      unrevertable: can't revert
   invalid_credentials: Invalid credentials.
   mailer:
     accepted_applicant_withdrawn:

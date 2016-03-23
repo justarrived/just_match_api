@@ -15,10 +15,13 @@ class JobUser < ActiveRecord::Base
   validates :performed, after_true: { field: :will_perform }, if: :performed
   validates :performed_accepted, after_true: { field: :will_perform }, if: :performed_accepted # rubocop:disable Metrics/LineLength
 
+  validates :accepted, unrevertable: true, unless: :applicant_confirmation_overdue?
+  validates :will_perform, unrevertable: true
+  validates :performed, unrevertable: true
+  validates :performed_accepted, unrevertable: true
+
   validate :validate_single_applicant, on: :update
   validate :validate_applicant_not_owner_of_job
-  validate :validate_accepted_not_reverted, unless: :applicant_confirmation_overdue?
-  validate :validate_will_perform_not_reverted
   validate :validate_passed_job_date_before_performed
   validate :validate_passed_job_date_before_performed_accepted
 
