@@ -44,6 +44,8 @@ gem 'yagni_json_encoder', '~> 0.0.2' # Make Rails use the OJ gem for JSON
 
 gem 'rails-i18n', '~> 4.0.0' # Rails translations
 
+gem 'honey_format', '~> 0.2' # Simple CSV reading
+
 group :development, :test do
   gem 'byebug', '~> 8.2'
   gem 'rspec-rails', '~> 3.4'

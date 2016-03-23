@@ -1,0 +1,190 @@
+lang_code,en_name,direction,local_name
+aa,Afar,ltr,Afar
+ab,Abkhazian,ltr,Аҧсуа
+af,Afrikaans,ltr,Afrikaans
+ak,Akan,ltr,Akana
+am,Amharic,ltr,አማርኛ
+an,Aragonese,ltr,Aragonés
+ar,Arabic,rtl,العربية
+as,Assamese,ltr,অসমীয়া
+av,Avar,ltr,Авар
+ay,Aymara,ltr,Aymar
+az,Azerbaijani,ltr,آذربايجان
+ba,Bashkir,ltr,Башҡорт
+be,Belarusian,ltr,Беларуская
+bg,Bulgarian,ltr,Български
+bh,Bihari,ltr,भोजपुरी
+bi,Bislama,ltr,Bislama
+bm,Bambara,ltr,Bamanankan
+bn,Bengali,ltr,বাংলা
+bo,Tibetan,ltr,བོད་ཡིག
+br,Breton,ltr,Brezhoneg
+bs,Bosnian,ltr,Bosanski
+ca,Catalan,ltr,Català
+cdo,Min Dong Chinese,ltr,閩東語
+ce,Chechen,ltr,Нохчийн
+ch,Chamorro,ltr,Chamoru
+co,Corsican,ltr,Corsu
+cr,Cree,ltr,Nehiyaw
+cs,Czech,ltr,Česky
+cv,Chuvash,ltr,Чăваш
+cy,Welsh,ltr,Cymraeg
+da,Danish,ltr,Dansk
+de,German,ltr,Deutsch
+dz,Dzongkha,ltr,ཇོང་ཁ
+ee,Ewe,ltr,Ɛʋɛ
+fa,Farsi,ltr,فارسی
+el,Greek,ltr,Ελληνικά
+en,English,ltr,English
+eo,Esperanto,ltr,Esperanto
+es,Spanish,ltr,Español
+et,Estonian,ltr,Eesti
+eu,Basque,ltr,Euskara
+ff,Peul,ltr,Fulfulde
+fi,Finnish,ltr,Suomi
+fj,Fijian,ltr,Na Vosa Vakaviti
+fo,Faroese,ltr,Føroyskt
+fr,French,ltr,Français
+fy,West Frisian,ltr,Frysk
+ga,Irish,ltr,Gaeilge
+gan,Gan Chinese,ltr,贛語
+gd,Scottish Gaelic,ltr,Gàidhlig
+gl,Galician,ltr,Galego
+gn,Guarani,ltr,Avañe'ẽ
+gu,Gujarati,ltr,ગુજરાતી
+gv,Manx,ltr,Gaelg
+ha,Hausa,rtl,هَوُسَ
+he,Hebrew,rtl,עברית
+hi,Hindi,ltr,हिन्दी
+ho,Hiri Motu,ltr,Hiri Motu
+hr,Croatian,ltr,Hrvatski
+ht,Haitian,ltr,Krèyol ayisyen
+hu,Hungarian,ltr,Magyar
+hy,Armenian,ltr,Հայերեն
+hz,Herero,ltr,Otsiherero
+ia,Interlingua,ltr,Interlingua
+id,Indonesian,ltr,Bahasa Indonesia
+ie,Interlingue,ltr,Interlingue
+ig,Igbo,ltr,Igbo
+ii,Sichuan Yi,ltr,四川彝语
+ik,Inupiak,ltr,Iñupiak
+io,Ido,ltr,Ido
+is,Icelandic,ltr,Íslenska
+it,Italian,ltr,Italiano
+iu,Inuktitut,ltr,ᐃᓄᒃᑎᑐᑦ
+ja,Japanese,ltr,日本語
+jv,Javanese,ltr,Basa Jawa
+ka,Georgian,ltr,ქართული
+kg,Kongo,ltr,KiKongo
+ki,Kikuyu,ltr,Gĩkũyũ
+kj,Kuanyama,ltr,Kuanyama
+kk,Kazakh,ltr,Қазақша
+kl,Greenlandic,ltr,Kalaallisut
+km,Cambodian,ltr,ភាសាខ្មែរ
+kn,Kannada,ltr,ಕನ್ನಡ
+ko,Korean,ltr,한국어
+kr,Kanuri,ltr,Kanuri
+ks,Kashmiri,rtl,كشميري
+ku,Kurdish,rtl,كوردی
+kv,Komi,ltr,Коми
+kw,Cornish,ltr,Kernewek
+ky,Kirghiz,ltr,Кыргызча
+la,Latin,ltr,Latina
+lb,Luxembourgish,ltr,Lëtzebuergesch
+lg,Ganda,ltr,Luganda
+li,Limburgian,ltr,Limburgs
+ln,Lingala,ltr,Lingála
+lo,Laotian,ltr,ລາວ
+lt,Lithuanian,ltr,Lietuvių
+lv,Latvian,ltr,Latviešu
+mg,Malagasy,ltr,Malagasy
+mh,Marshallese,ltr,Kajin Majel
+mi,Maori,ltr,Māori
+mk,Macedonian,ltr,Македонски
+ml,Malayalam,ltr,മലയാളം
+mn,Mongolian,ltr,Монгол
+mo,Moldovan,ltr,Moldovenească
+mr,Marathi,ltr,मराठी
+ms,Malay,ltr,Bahasa Melayu
+mt,Maltese,ltr,bil-Malti
+my,Burmese,ltr,Myanmasa
+na,Nauruan,ltr,Dorerin Naoero
+nap,Neapolitan,ltr,Nnapulitano
+nd,North Ndebele,ltr,Sindebele
+ne,Nepali,ltr,नेपाली
+ng,Ndonga,ltr,Oshiwambo
+nl,Dutch,ltr,Nederlands
+nn,Norwegian Nynorsk,ltr,Norsk (nynorsk)
+no,Norwegian,ltr,Norsk (bokmål)
+nr,South Ndebele,ltr,isiNdebele
+nv,Navajo,ltr,Diné bizaad
+ny,Chichewa,ltr,Chi-Chewa
+oc,Occitan,ltr,Occitan
+oj,Ojibwa,ltr,ᐊᓂᔑᓈᐯᒧᐎᓐ
+om,Oromo,ltr,Oromoo
+or,Oriya,ltr,ଓଡ଼ିଆ
+os,Ossetian,ltr,Иронау
+pa,Punjabi,ltr,ਪੰਜਾਬ
+pi,Pali,ltr,पाऴि
+pih,Norfolk,ltr,Norfuk
+pl,Polish,ltr,Polski
+ps,Pashto,rtl,پښتو
+pt,Portuguese,ltr,Português
+qu,Quechua,ltr,Runa Simi
+rm,Raeto Romance,ltr,Rumantsch
+rn,Kirundi,ltr,Kirundi
+ro,Romanian,ltr,Română
+ru,Russian,ltr,Русский
+rw,Rwandi,ltr,Kinyarwandi
+sa,Sanskrit,ltr,संस्कृतम्
+sc,Sardinian,ltr,Sardu
+sd,Sindhi,ltr,सिनधि
+se,Northern Sami,ltr,Davvisámegiella
+sg,Sango,ltr,Sängö
+sh,Serbo-Croatian,ltr,Српскохрватски
+si,Sinhalese,ltr,සිංහල
+sk,Slovak,ltr,Slovenčina
+sl,Slovenian,ltr,Slovenščina
+sm,Samoan,ltr,Gagana Samoa
+sn,Shona,ltr,chiShona
+so,Somalia,ltr,Soomaaliga
+sq,Albanian,ltr,Shqip
+sr,Serbian,ltr,Српски
+ss,Swati,ltr,SiSwati
+st,Southern Sotho,ltr,Sesotho
+su,Sundanese,ltr,Basa Sunda
+sv,Swedish,ltr,Svenska
+sw,Swahili,ltr,Kiswahili
+ta,Tamil,ltr,தமிழ்
+te,Telugu,ltr,తెలుగు
+tet,Tetum,ltr,Tetun
+tg,Tajik,ltr,Тоҷикӣ
+th,Thai,ltr,ไทย
+ti,Tigrinya,ltr,ትግርኛ
+tk,Turkmen,ltr,Туркмен
+tl,Tagalog,ltr,Tagalog
+tn,Tswana,ltr,Setswana
+to,Tonga,ltr,Lea Faka-Tonga
+tpi,Tok Pisin,ltr,Tok Pisin
+tr,Turkish,ltr,Türkçe
+ts,Tsonga,ltr,Xitsonga
+tt,Tatar,ltr,Tatarça
+tw,Twi,ltr,Twi
+ty,Tahitian,ltr,Reo Mā`ohi
+ug,Uyghur,ltr,Uyƣurqə
+uk,Ukrainian,ltr,Українська
+ur,Urdu,rtl,اردو
+uz,Uzbek,ltr,Ўзбек
+ve,Venda,ltr,Tshivenḓa
+vi,Vietnamese,ltr,Việtnam
+vo,Volapük,ltr,Volapük
+wa,Walloon,ltr,Walon
+wo,Wolof,ltr,Wollof
+xal,Kalmyk,ltr,Хальмг
+xh,Xhosa,ltr,isiXhosa
+yi,Yiddish,rtl,ייִדיש
+yo,Yoruba,ltr,Yorùbá
+za,Zhuang,ltr,壮语
+zh,Chinese,ltr,中文
+zu,Zulu,ltr,isiZulu
+nb,Norwegian Bokmål,ltr,Norsk (bokmål)
