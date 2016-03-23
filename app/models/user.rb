@@ -88,6 +88,12 @@ class User < ActiveRecord::Base
     admin
   end
 
+  def locale
+    return 'en' if language.nil?
+
+    language.lang_code
+  end
+
   def banned=(value)
     generate_auth_token if value
     self[:banned] = value

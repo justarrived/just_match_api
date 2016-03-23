@@ -115,6 +115,7 @@ class JobUser < ActiveRecord::Base
 
   def validate_job_started_before_performed
     return if job && job.started?
+    return unless performed
 
     message = I18n.t('errors.job_user.performed_before_job_over')
     errors.add(:performed, message)
@@ -122,6 +123,7 @@ class JobUser < ActiveRecord::Base
 
   def validate_job_started_before_performed_accepted
     return if job && job.started?
+    return unless performed_accepted
 
     message = I18n.t('errors.job_user.performed_accepted_before_job_over')
     errors.add(:performed_accepted, message)

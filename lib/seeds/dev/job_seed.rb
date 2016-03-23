@@ -7,8 +7,7 @@ class JobSeed < BaseSeed
     max_job_comments = max_count_opt('MAX_JOB_COMMENTS', 20)
 
     log '[db:seed] Job'
-    days_from_now_range = (1..10).to_a
-    rates = (100..1000).to_a
+    rates = Job::ALLOWED_RATES
 
     max_jobs.times do
       address = addresses.sample
@@ -17,7 +16,7 @@ class JobSeed < BaseSeed
         name: Faker::Name.name,
         max_rate: rates.sample,
         description: Faker::Hipster.paragraph(2),
-        job_date: days_from_now_range.sample.days.from_now,
+        job_date: job_date,
         owner: users.sample,
         street: address[:street],
         zip: address[:zip],
@@ -33,6 +32,15 @@ class JobSeed < BaseSeed
           language: languages.sample
         )
       end
+    end
+  end
+
+  def self.job_date
+    days = (1..10).to_a.sample.days
+    if [0, 1].sample.even?
+      days.ago
+    else
+      days.from_now
     end
   end
 end

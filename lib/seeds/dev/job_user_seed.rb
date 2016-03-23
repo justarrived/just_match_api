@@ -19,7 +19,7 @@ class JobUserSeed < BaseSeed
       end
 
       job = jobs.sample
-      JobUser.create(
+      JobUser.create!(
         user: user,
         job: job
       )

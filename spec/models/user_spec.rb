@@ -65,6 +65,19 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe '#locale' do
+    it 'returns en for a non-persisted user that has no language' do
+      expect(User.new.locale).to eq('en')
+    end
+
+    it 'returns correct locale for user that has a language' do
+      lang_code = 'wa'
+      language = FactoryGirl.build(:language, lang_code: lang_code)
+      user = FactoryGirl.build(:user, language: language)
+      expect(user.locale).to eq(lang_code)
+    end
+  end
+
   describe 'banned' do
     let(:user) { FactoryGirl.create(:user) }
 

@@ -309,12 +309,13 @@ RSpec.describe JobUser, type: :model do
     end
   end
 
-  describe '#validate_passed_job_date_before_performed' do
+  describe '#validate_job_started_before_performed' do
     let(:passed_job) { FactoryGirl.build(:job, job_date: 2.weeks.ago) }
     let(:inprogress_job) do
       time = Time.zone.now - 1.hour
       FactoryGirl.build(:job, job_date: time, hours: 2)
     end
+    let(:future_job) { FactoryGirl.build(:future_job) }
 
     it 'adds *no* error if the job is ongoing' do
       job_user = FactoryGirl.build(:job_user, job: inprogress_job)
@@ -331,9 +332,17 @@ RSpec.describe JobUser, type: :model do
       job_user.validate
       expect(job_user.errors.messages[:performed]).to eq(nil)
     end
+
+    it 'adds *no* error if the job is in the future and performed is false' do
+      job_user = FactoryGirl.build(:job_user, job: future_job)
+      job_user.performed = false
+      job_user.will_perform = true
+      job_user.validate
+      expect(job_user.errors.messages[:performed]).to eq(nil)
+    end
   end
 
-  describe '#validate_passed_job_date_before_performed_accepted' do
+  describe '#validate_job_started_before_performed_accepted' do
     let(:passed_job) { FactoryGirl.build(:job) }
     let(:inprogress_job) { FactoryGirl.build(:inprogress_job) }
     let(:future_job) { FactoryGirl.build(:future_job) }
@@ -353,6 +362,14 @@ RSpec.describe JobUser, type: :model do
       job_user.will_perform = true
       job_user.validate
       expect(job_user.errors.messages[:performed_accepted]).to be_nil
+    end
+
+    it 'adds *no* error if the job is in the future and performed_accepted is false' do
+      job_user = FactoryGirl.build(:job_user, job: future_job)
+      job_user.performed_accepted = false
+      job_user.will_perform = true
+      job_user.validate
+      expect(job_user.errors.messages[:performed_accepted]).to eq(nil)
     end
 
     it 'adds *no* error if the job is over' do

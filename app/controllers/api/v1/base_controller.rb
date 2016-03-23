@@ -52,6 +52,8 @@ module Api
       # Needed for #authenticate_with_http_token
       include ActionController::HttpAuthentication::Token::ControllerMethods
 
+      before_action :set_locale
+
       after_action :verify_authorized
 
       rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
@@ -109,11 +111,20 @@ module Api
         current_user.persisted?
       end
 
+      def set_locale
+        # NOTE: There is probably a way to avoid this, but currently in tests we must
+        # allow invalid locales and therefore we can't set the locale here, since it will
+        # cause translations missing errors & no such locale errors
+        return if Rails.env.test?
+
+        I18n.locale = current_user.locale
+      end
+
       private
 
       def authenticate_user_token!
         authenticate_with_http_token do |token, _options|
-          return User.find_by(auth_token: token)
+          return User.includes(:language).find_by(auth_token: token)
         end
       end
     end

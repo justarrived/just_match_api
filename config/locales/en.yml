@@ -13,8 +13,8 @@ en:
       accepted_changed_to_false: can't change to false if already true
       will_perform_changed_to_false: can't change to false if already true
       will_perform_true_on_delete: can't delete when will perform is true
-      performed_before_job_over: can't confirm performed before job is over
-      performed_accepted_before_job_over: can't accept performed before job is over
+      performed_before_job_over: can't confirm performed before job is started
+      performed_accepted_before_job_over: can't accept performed before job is started
     rating:
       from_user_rated: can't rate twice
       to_user_rated: can't be rated twice
