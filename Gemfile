@@ -8,6 +8,9 @@ gem 'pg', '~> 0.15' # Use postgresql as the database for Active Record
 
 gem 'rails-api', '~> 0.4', require: false
 
+gem 'sidekiq', '~> 4.1.1' # Background worker (Redis-backed)
+gem 'sinatra', require: false # Required for sidekiq web
+
 gem 'active_model_serializers', '~> 0.10.0.rc4' # Serialize models to JSON
 
 gem 'blazer', '~> 1.1' # Explore data with SQL

@@ -16,6 +16,12 @@ echo -e '\n== Bootstrapping dependencies =='
   exit 1
 }
 
+which redis-server 2>&1 >/dev/null || {
+  if [[ $CI_BUILD != true ]]; then
+    echo -e '\nPlease install Redis (redis-server) and then run this script again'
+  fi
+}
+
 which bundle 2>&1 >/dev/null || {
   echo -e '\n== Installing bundler =='
   gem install bundler --conservative

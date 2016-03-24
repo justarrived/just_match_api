@@ -1,4 +1,9 @@
 # frozen_string_literal: true
+require 'sidekiq/web'
+Sidekiq::Web.use Rack::Auth::Basic do |username, password|
+  username == ENV['SIDEKIQ_USERNAME'] && password == ENV['SIDEKIQ_PASSWORD']
+end if Rails.env.production?
+
 Rails.application.routes.draw do
   namespace :admin do
     resources :chats
@@ -24,6 +29,7 @@ Rails.application.routes.draw do
   get '/', to: redirect('/api_docs')
 
   mount Blazer::Engine, at: 'insights'
+  mount Sidekiq::Web, at: '/sidekiq'
 
   namespace :api do
     namespace :v1 do

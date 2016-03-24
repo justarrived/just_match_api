@@ -28,6 +28,8 @@ module JustMatch
 
     config.middleware.use Rack::Attack
 
+    config.active_job.queue_adapter = :sidekiq
+
     config.middleware.insert_before 0, 'Rack::Cors' do
       allow do
         origins '*'

@@ -31,10 +31,11 @@ If you're looking for help, ask questions, want to contribute or give feedback, 
 * Ruby 2.3
 * Ruby on Rails 4.2
 * PostgreSQL 9.3
+* Redis 3
 
 ## Getting started
 
-_Prerequisites_: Ruby 2.3 and PostgreSQL 9.3 or above.
+_Prerequisites_: Ruby 2.3, PostgreSQL 9.3 or above and Redis 3.
 
 To setup your development environment
 
