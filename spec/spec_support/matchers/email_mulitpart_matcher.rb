@@ -1,10 +1,12 @@
+# frozen_string_literal: true
 require 'rspec/expectations'
 
 RSpec::Matchers.define :match_email_body do |expected|
   match do |mail|
-    %w(text html).map do |part|
+    has_contents = %w(text html).map do |part|
       mail.public_send("#{part}_part").body.to_s.include?(expected)
-    end.all? { |e| e == true }
+    end
+    has_contents.all? { |e| e == true }
   end
 
   failure_message do |mail|
@@ -24,7 +26,7 @@ RSpec::Matchers.define :be_multipart_email do |expected|
     mail.multipart? == expected
   end
 
-  failure_message do |mail|
+  failure_message do |_mail|
     negate = ''
     negate = 'not ' if expected == false
     "expected mail #{negate}to be multipart"
