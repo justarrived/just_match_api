@@ -42,6 +42,7 @@ gem 'faker', '~> 1.6' # Easily generate fake data (used for seeding dev/test/sta
 gem 'rack-timeout', '~> 0.3' # Kill requests that run for too long
 gem 'rack-cors', require: 'rack/cors' # Configure CORS
 gem 'rack-attack' # Throttle API usage
+gem 'redis-activesupport' # To use Redis as the cache store for rack-attack
 
 gem 'yagni_json_encoder', '~> 0.0.2' # Make Rails use the OJ gem for JSON
 

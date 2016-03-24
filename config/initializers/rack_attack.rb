@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 module Rack
   class Attack
-    Rack::Attack.cache.store = ActiveSupport::Cache::MemoryStore.new
+    redis = ENV.fetch('REDISTOGO_URL', 'localhost')
+    Rack::Attack.cache.store = ActiveSupport::Cache::RedisStore.new(redis)
 
     whitelist('allow-localhost') do |req|
       '127.0.0.1' == req.ip || '::1' == req.ip
