@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 if Rails.env.production?
-  redis_url = ENV['REDISTOGO_URL']
+  redis_url = ENV['REDIS_URL']
   redis_timeout = ENV.fetch('REDIS_TIMEOUT', 5)
 
   Sidekiq.configure_server do |config|
