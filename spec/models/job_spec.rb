@@ -130,6 +130,21 @@ RSpec.describe Job, type: :model do
       expect(job.started?).to eq(true)
     end
   end
+
+  describe '#validate_job_date_in_future' do
+    it 'adds error if the job_date is in the passed' do
+      job = FactoryGirl.build(:job, job_date: 1.day.ago)
+      job.validate
+      message = I18n.t('errors.job.job_date_in_the_past')
+      expect(job.errors.messages[:job_date]).to include(message)
+    end
+
+    it 'adds *no* error if the job_date is in the future' do
+      job = FactoryGirl.build(:job, job_date: 1.week.from_now)
+      job.validate
+      expect(job.errors.messages[:job_date]).to be_nil
+    end
+  end
 end
 
 # == Schema Information

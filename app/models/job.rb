@@ -32,6 +32,8 @@ class Job < ActiveRecord::Base
   validates :owner, presence: true
   validates :hours, numericality: { greater_than_or_equal_to: 1 }, allow_blank: false
 
+  validate :validate_job_date_in_future
+
   belongs_to :owner, class_name: 'User', foreign_key: 'owner_user_id'
 
   scope :visible, -> { where(hidden: false) }
@@ -101,6 +103,12 @@ class Job < ActiveRecord::Base
 
   def started?
     job_date < Time.zone.now
+  end
+
+  def validate_job_date_in_future
+    return if job_date > Time.zone.now
+
+    errors.add(:job_date, I18n.t('errors.job.job_date_in_the_past'))
   end
 end
 
