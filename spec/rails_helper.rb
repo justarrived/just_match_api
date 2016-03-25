@@ -10,6 +10,8 @@ require 'rspec/rails'
 require 'shoulda/matchers'
 require 'pundit/rspec'
 require 'webmock/rspec'
+require 'sidekiq/testing'
+Sidekiq::Testing.fake!
 
 Dir[Rails.root.join('spec/spec_support/**/*.rb')].each { |f| require f }
 
