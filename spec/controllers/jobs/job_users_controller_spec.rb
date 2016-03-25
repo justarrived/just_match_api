@@ -23,9 +23,9 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
   describe 'GET #index' do
     it 'assigns all user users as @users' do
       job = FactoryGirl.create(:job_with_users, users_count: 1, owner: user)
-      user = job.users.first
+      job_user = job.job_users.first
       get :index, { job_id: job.to_param }, valid_session
-      expect(assigns(:users)).to eq([user])
+      expect(assigns(:job_users)).to eq([job_user])
     end
 
     context 'not authorized' do
@@ -148,12 +148,12 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
           expect(assigns(:job)).to eq(job)
         end
 
-        it 'returns no content status' do
+        it 'returns 200 ok status' do
           job = FactoryGirl.create(:job_with_users, users_count: 1, owner: user)
           user = job.users.first
           params = { job_id: job.to_param, id: user.to_param }.merge(new_attributes)
           put :update, params, valid_session
-          expect(response.status).to eq(204)
+          expect(response.status).to eq(200)
         end
 
         it 'notifies user when updated Job#performed_accept is set to true' do
@@ -164,11 +164,29 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
           put :update, params, valid_session
           expect(ApplicantAcceptedNotifier).to have_received(:call)
         end
+
+        it 'notifies user when updated #performed_accepted to true' do
+          new_performed_attributes = {
+            data: {
+              attributes: { performed_accepted: true }
+            }
+          }
+          job = FactoryGirl.create(:passed_job, owner: user)
+          job_user = FactoryGirl.create(:job_user_will_perform, job: job)
+          user = job_user.user
+          params = {
+            job_id: job.to_param, id: user.to_param
+          }.merge(new_performed_attributes)
+          allow(JobUserPerformedAcceptedNotifier).to receive(:call).
+            with(job: job, user: user)
+          put :update, params, valid_session
+          expect(JobUserPerformedAcceptedNotifier).to have_received(:call)
+        end
       end
 
       context 'non associated user' do
         let(:new_attributes) do
-          { accepted: true }
+          {}
         end
 
         it 'returns forbidden status' do
@@ -182,15 +200,67 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
 
       context 'job user' do
         let(:new_attributes) do
-          { accepted: true }
+          {
+            data: {
+              attributes: { will_perform: true }
+            }
+          }
         end
 
-        it 'returns forbidden status for non-owner user' do
+        it 'notifies user when updated Job#performed_accept is set to true' do
+          job = FactoryGirl.create(:job_with_users, users_count: 1, owner: user)
+          user = job.users.first
+          job_user = job.job_users.first
+          job_user.accepted = true
+          job_user.save!
+
+          allow_any_instance_of(described_class).
+            to(receive(:authenticate_user_token!).
+            and_return(user))
+
+          params = { job_id: job.to_param, id: user.to_param }.merge(new_attributes)
+          allow(ApplicantWillPerformNotifier).to receive(:call).with(job: job, user: user)
+          put :update, params, valid_session
+          expect(ApplicantWillPerformNotifier).to have_received(:call)
+        end
+
+        it 'can set #will_perform attribute' do
           job = FactoryGirl.create(:job_with_users, users_count: 1)
           user = job.users.first
+          job_user = job.job_users.first
+          job_user.accepted = true
+          job_user.save!
+
+          allow_any_instance_of(described_class).
+            to(receive(:authenticate_user_token!).
+            and_return(user))
+
           params = { job_id: job.to_param, id: user.to_param }.merge(new_attributes)
+          put :update, params, {}
+          job_user.reload
+          expect(job_user.will_perform).to eq(true)
+        end
+
+        it 'notifies owner when updated #performed is set to true' do
+          new_performed_attributes = {
+            data: {
+              attributes: { performed: true }
+            }
+          }
+          job = FactoryGirl.create(:passed_job, owner: user)
+          job_user = FactoryGirl.create(:job_user_will_perform, job: job)
+          user = job_user.user
+          params = {
+            job_id: job.to_param, id: user.to_param
+          }.merge(new_performed_attributes)
+
+          allow_any_instance_of(described_class).
+            to(receive(:authenticate_user_token!).
+            and_return(user))
+
+          allow(JobUserPerformedNotifier).to receive(:call).with(job: job, user: user)
           put :update, params, valid_session
-          expect(response.status).to eq(401)
+          expect(JobUserPerformedNotifier).to have_received(:call)
         end
       end
     end
@@ -228,6 +298,35 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
         expect do
           delete :destroy, params, session
         end.to change(JobUser, :count).by(-1)
+      end
+
+      it 'can *not* be destroyed if JobUser#will_perform is true' do
+        job = FactoryGirl.create(:job_with_users, users_count: 1)
+        user = job.users.first
+        job.job_users.first.update_attributes(accepted: true, will_perform: true)
+        allow_any_instance_of(described_class).
+          to(receive(:authenticate_user_token!).
+          and_return(user))
+        session = { token: user.auth_token }
+        params = { job_id: job.to_param, id: user.to_param }
+        delete :destroy, params, session
+        err_msg = "can't delete when will perform is true"
+        expect(response.status).to eq(422)
+        expect(JSON.parse(response.body)['will_perform'].first).to eq(err_msg)
+      end
+
+      it 'sends a notificatiom to Job#owner if accepted applicant withdraws' do
+        job = FactoryGirl.create(:job_with_users, users_count: 1)
+        user = job.users.first
+        job.job_users.first.update_attributes(accepted: true)
+        allow_any_instance_of(described_class).
+          to(receive(:authenticate_user_token!).
+          and_return(user))
+        session = { token: user.auth_token }
+        params = { job_id: job.to_param, id: user.to_param }
+        allow(AcceptedApplicantWithdrawnNotifier).to receive(:call)
+        delete :destroy, params, session
+        expect(AcceptedApplicantWithdrawnNotifier).to have_received(:call)
       end
 
       it 'returns no content status' do

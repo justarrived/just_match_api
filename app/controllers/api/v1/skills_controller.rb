@@ -14,27 +14,32 @@ module Api
 
       api :GET, '/skills', 'List skills'
       description 'Returns a list of skills.'
+      ApipieDocHelper.params(self, Index::SkillsIndex)
+      example Doxxer.read_example(Skill, plural: true)
       def index
         authorize(Skill)
-        page_index = params[:page].to_i
-        @skills = Skill.all.page(page_index)
-        render json: @skills
+
+        skills_index = Index::SkillsIndex.new(self)
+        @skills = skills_index.skills
+
+        api_render(@skills)
       end
 
       api :GET, '/skills/:id', 'Show skill'
       description 'Returns skill.'
+      error code: 404, desc: 'Not found'
       example Doxxer.read_example(Skill)
       def show
         authorize(@skill)
 
-        render json: @skill, include: ['language']
+        api_render(@skill, included: %w(language))
       end
 
       api :POST, '/skills/', 'Create new skill'
       description 'Creates and returns the new skill if the user is allowed.'
       error code: 400, desc: 'Bad request'
-      error code: 422, desc: 'Unprocessable entity'
       error code: 401, desc: 'Unauthorized'
+      error code: 422, desc: 'Unprocessable entity'
       param :data, Hash, desc: 'Top level key', required: true do
         param :attributes, Hash, desc: 'Skill attributes', required: true do
           param :name, String, desc: 'Name', required: true
@@ -50,17 +55,18 @@ module Api
         @skill = Skill.new(skill_params)
 
         if @skill.save
-          render json: @skill, status: :created
+          api_render(@skill, status: :created)
         else
-          render json: @skill.errors, status: :unprocessable_entity
+          respond_with_errors(@skill)
         end
       end
 
       api :PATCH, '/skills/:id', 'Update skill'
       description 'Updates and returns the updated skill.'
       error code: 400, desc: 'Bad request'
-      error code: 422, desc: 'Unprocessable entity'
       error code: 401, desc: 'Unauthorized'
+      error code: 404, desc: 'Not found'
+      error code: 422, desc: 'Unprocessable entity'
       param :data, Hash, desc: 'Top level key', required: true do
         param :attributes, Hash, desc: 'Skill attributes', required: true do
           param :name, String, desc: 'Name'
@@ -72,15 +78,16 @@ module Api
         authorize(@skill)
 
         if @skill.update(skill_params)
-          render json: @skill, status: :ok
+          api_render(@skill)
         else
-          render json: @skill.errors, status: :unprocessable_entity
+          respond_with_errors(@skill)
         end
       end
 
       api :DELETE, '/skills/:id', 'Delete skill'
       description 'Deletes skill.'
       error code: 401, desc: 'Unauthorized'
+      error code: 404, desc: 'Not found'
       def destroy
         authorize(@skill)
 

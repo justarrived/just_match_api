@@ -17,3 +17,4 @@ spec/.rspec_examples.txt
 doc/
 NOTES.md
 .env
+dump.rdb

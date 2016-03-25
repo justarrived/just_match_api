@@ -31,20 +31,23 @@ If you're looking for help, ask questions, want to contribute or give feedback, 
 * Ruby 2.3
 * Ruby on Rails 4.2
 * PostgreSQL 9.3
+* Redis 3
 
 ## Getting started
 
-_Prerequisites_: Ruby 2.3 and PostgreSQL 9.3 or above.
+_Prerequisites_: Ruby 2.3, PostgreSQL 9.3 or above and Redis 3.
 
 To setup your development environment
 
 ```
 $ git clone git@github.com:justarrived/just_match_api.git
 $ cd just_arrived
-$ bin/setup
-$ bin/server
+$ script/setup
+$ script/server
 # You can now open http://localhost:3000
 ```
+
+You can generate some development seed data by running `rake dev:seed`.
 
 If you navigate to `http://localhost:3000` you'll find the API documentation.
 

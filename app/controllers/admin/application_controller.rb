@@ -7,13 +7,9 @@
 # you're free to overwrite the RESTful controller actions.
 module Admin
   class ApplicationController < Administrate::ApplicationController
-    before_action :authenticate_admin
+    include HttpBasicAdminAuthenticator
 
-    def authenticate_admin
-      authenticate_or_request_with_http_basic do |email, password|
-        User.admins.find_by_credentials(email: email, password: password)
-      end
-    end
+    before_action :authenticate_admin
 
     def records_per_page
       params[:per_page] || 20

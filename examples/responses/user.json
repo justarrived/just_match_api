@@ -21,28 +21,23 @@
       "zip_latitude": null,
       "zip_longitude": null,
       "first_name": "Jane",
-      "last_name": "Doe"
+      "last_name": "Doe",
+      "ssn": "8901010000",
+      "company_id": null,
+      "banned": false,
+      "job_experience": null,
+      "education": null,
+      "one_time_token": null,
+      "one_time_token_expires_at": null
     },
     "relationships": {
+      "company": {
+        "data": null
+      },
       "language": {
         "data": null
       },
       "languages": {
-        "data": [
-
-        ]
-      },
-      "written_comments": {
-        "data": [
-
-        ]
-      },
-      "skills": {
-        "data": [
-
-        ]
-      },
-      "jobs": {
         "data": [
 
         ]

@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1><%= I18n.t('mailer.applicant_will_perform.congrats_line') %></h1>
+    <p><%= I18n.t('mailer.applicant_will_perform.details_line', name: @user_name, job_name: @job_name) %></p>
+
+    <p><%= I18n.t('mailer.signoff') %></p>
+  </body>
+</html>

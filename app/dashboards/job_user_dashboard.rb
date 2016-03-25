@@ -13,6 +13,7 @@ class JobUserDashboard < Administrate::BaseDashboard
     job: Field::BelongsTo,
     id: Field::Number,
     accepted: Field::Boolean,
+    will_perform: Field::Boolean,
     rate: Field::Number,
     created_at: Field::DateTime,
     updated_at: Field::DateTime
@@ -27,7 +28,8 @@ class JobUserDashboard < Administrate::BaseDashboard
     :user,
     :job,
     :id,
-    :accepted
+    :accepted,
+    :will_perform
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -37,6 +39,7 @@ class JobUserDashboard < Administrate::BaseDashboard
     :job,
     :id,
     :accepted,
+    :will_perform,
     :rate,
     :created_at,
     :updated_at
@@ -49,6 +52,7 @@ class JobUserDashboard < Administrate::BaseDashboard
     :user,
     :job,
     :accepted,
+    :will_perform,
     :rate
   ].freeze
 

@@ -4,6 +4,7 @@ require 'rails_helper'
 RSpec.describe User, regressor: true do
   # === Relations ===
   it { is_expected.to belong_to :language }
+  it { is_expected.to belong_to :company }
 
   it { is_expected.to have_many :user_skills }
   it { is_expected.to have_many :skills }
@@ -35,6 +36,8 @@ RSpec.describe User, regressor: true do
   it { is_expected.to have_db_column :zip }
   it { is_expected.to have_db_column :language_id }
   it { is_expected.to have_db_column :anonymized }
+  it { is_expected.to have_db_column :one_time_token }
+  it { is_expected.to have_db_column :one_time_token_expires_at }
 
   # === Database (Indexes) ===
   it { is_expected.to have_db_index ['language_id'] }
@@ -52,6 +55,9 @@ RSpec.describe User, regressor: true do
   it { is_expected.not_to allow_value(Faker::Lorem.characters(4)).for :street }
   it { is_expected.to allow_value(Faker::Lorem.characters(5)).for :zip }
   it { is_expected.not_to allow_value(Faker::Lorem.characters(4)).for :zip }
+  it { is_expected.not_to allow_value(Faker::Lorem.characters(9)).for :ssn }
+  it { is_expected.to allow_value(Faker::Lorem.characters(10)).for :ssn }
+  it { is_expected.not_to allow_value(Faker::Lorem.characters(11)).for :ssn }
 
   # === Validations (Presence) ===
   it { is_expected.to validate_presence_of :email }

@@ -2,14 +2,31 @@
 FactoryGirl.define do
   factory :job do
     name 'A job'
-    max_rate 500
+    max_rate Job::ALLOWED_RATES.last
     description 'Watman' * 2
     street 'Bankgatan 14C'
     zip '223 52'
     association :owner, factory: :user
     association :language
-    job_date 1.week.ago
+    job_date 1.week.from_now
     hours 3
+
+    factory :passed_job do
+      job_date 1.week.ago
+      # Since a job can't be created thats in the passed we need to skip validations
+      to_create { |instance| instance.save(validate: false) }
+    end
+
+    factory :inprogress_job do
+      job_date Time.zone.now - 1.hour
+      hours 4
+      # Since a job can't be created thats in the passed we need to skip validations
+      to_create { |instance| instance.save(validate: false) }
+    end
+
+    factory :future_job do
+      job_date 1.week.from_now
+    end
 
     factory :job_with_comments do
       transient do
@@ -62,24 +79,23 @@ end
 #
 # Table name: jobs
 #
-#  id               :integer          not null, primary key
-#  max_rate         :integer
-#  description      :text
-#  job_date         :datetime
-#  performed_accept :boolean          default(FALSE)
-#  performed        :boolean          default(FALSE)
-#  hours            :float
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  owner_user_id    :integer
-#  latitude         :float
-#  longitude        :float
-#  name             :string
-#  language_id      :integer
-#  street           :string
-#  zip              :string
-#  zip_latitude     :float
-#  zip_longitude    :float
+#  id            :integer          not null, primary key
+#  max_rate      :integer
+#  description   :text
+#  job_date      :datetime
+#  hours         :float
+#  name          :string
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  owner_user_id :integer
+#  latitude      :float
+#  longitude     :float
+#  language_id   :integer
+#  street        :string
+#  zip           :string
+#  zip_latitude  :float
+#  zip_longitude :float
+#  hidden        :boolean          default(FALSE)
 #
 # Indexes
 #

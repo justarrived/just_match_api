@@ -20,24 +20,25 @@ module Api
       api :GET, '/chats/', 'List chats'
       description 'Returns a list of chats.'
       error code: 401, desc: 'Unauthorized'
+      ApipieDocHelper.params(self, Index::ChatsIndex)
+      example Doxxer.read_example(Chat, plural: true)
       def index
         authorize(Chat)
 
-        page_index = params[:page].to_i
-        relations = [:users, :messages]
+        chats_index = Index::ChatsIndex.new(self)
+        @chats = chats_index.chats
 
-        @chats = Chat.all.page(page_index).includes(relations)
-
-        render json: @chats
+        api_render(@chats)
       end
 
       api :GET, '/chats/:id', 'Show chat'
       description 'Return chat.'
+      error code: 404, desc: 'Not found'
       example Doxxer.read_example(Chat)
       def show
         authorize(@chat)
 
-        render json: @chat
+        api_render(@chat, included: 'users')
       end
 
       api :POST, '/chats/', 'Create new chat'
@@ -62,9 +63,9 @@ module Api
         @chat = Chat.find_or_create_private_chat(users)
 
         if @chat.errors[:users].empty?
-          render json: @chat, include: ['users'], status: :created
+          api_render(@chat, included: 'users', status: :created)
         else
-          render json: @chat.errors, status: :unprocessable_entity
+          respond_with_errors(@chat)
         end
       end
 

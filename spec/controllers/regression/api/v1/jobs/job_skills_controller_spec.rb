@@ -9,7 +9,7 @@ RSpec.describe Api::V1::Jobs::JobSkillsController, regressor: true do
   it { should route(:delete, '/api/v1/jobs/1/skills/1').to('api/v1/jobs/job_skills#destroy', job_id: '1', id: '1') }
   # === Callbacks (Before) ===
   it { should use_before_filter(:set_job) }
-  it { should use_before_filter(:set_skill) }
+  it { should use_before_filter(:set_job_skill) }
   # === Callbacks (After) ===
 
   # === Callbacks (Around) ===

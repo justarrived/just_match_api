@@ -55,6 +55,18 @@ RSpec.describe JobPolicy do
     end
   end
 
+  context 'with company user' do
+    subject { JobPolicy.new(user, job) }
+
+    let(:company) { FactoryGirl.build(:company) }
+    let(:user) { FactoryGirl.build(:user, company: company) }
+    let(:job) { FactoryGirl.build(:job) }
+
+    it '#create? returns true' do
+      expect(subject.create?).to eq(true)
+    end
+  end
+
   context 'with user' do
     subject { JobPolicy.new(user, job) }
 
@@ -62,7 +74,7 @@ RSpec.describe JobPolicy do
     let(:job) { FactoryGirl.build(:job) }
 
     it '#create? returns true' do
-      expect(subject.create?).to eq(true)
+      expect(subject.create?).to eq(false)
     end
 
     it '#update? returns true' do
@@ -98,10 +110,10 @@ RSpec.describe JobPolicy do
     let(:user) { FactoryGirl.create(:user) }
     let(:job) { FactoryGirl.create(:job) }
 
-    it '#update? returns true' do
+    it '#update? returns false' do
       job.users = [user]
       job.accept_applicant!(user)
-      expect(subject.update?).to eq(true)
+      expect(subject.update?).to eq(false)
     end
 
     it '#permitted_attributes is correct' do
@@ -168,6 +180,32 @@ RSpec.describe JobPolicy do
 
     it 'returns false for #present_self_applicant?' do
       expect(subject.present_self_applicant?).to eq(false)
+    end
+  end
+
+  describe 'scope' do
+    let(:admin) { FactoryGirl.build(:admin_user) }
+    let(:user) { FactoryGirl.build(:user) }
+    let(:job) { FactoryGirl.build(:job) }
+
+    context 'admin' do
+      subject { JobPolicy.new(admin, job) }
+
+      it 'returns all jobs' do
+        FactoryGirl.create(:job, hidden: true)
+        FactoryGirl.create(:job)
+        expect(subject.scope.length).to eq(2)
+      end
+    end
+
+    context 'user' do
+      subject { JobPolicy.new(user, job) }
+
+      it 'returns all visible jobs' do
+        FactoryGirl.create(:job, hidden: true)
+        FactoryGirl.create(:job)
+        expect(subject.scope.length).to eq(1)
+      end
     end
   end
 end

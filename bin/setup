@@ -7,6 +7,4 @@ include FileUtils
 # path to your application root.
 APP_ROOT = Pathname.new(File.expand_path('../../', __FILE__))
 
-chdir APP_ROOT do
-  system('script/setup')
-end
+Dir.chdir(APP_ROOT) { system 'script/setup' }

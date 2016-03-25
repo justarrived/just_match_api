@@ -16,6 +16,8 @@ RSpec.describe JobUser, regressor: true do
   it { is_expected.to have_db_column :rate }
   it { is_expected.to have_db_column :created_at }
   it { is_expected.to have_db_column :updated_at }
+  it { is_expected.to have_db_column :performed }
+  it { is_expected.to have_db_column :performed_accepted }
 
   # === Database (Indexes) ===
   it { is_expected.to have_db_index ['job_id'] }

@@ -8,8 +8,10 @@ module FactoryLintRunner
     return unless execute_runner?('LINT_FACTORY')
 
     factories_to_lint = FactoryGirl.factories.reject do |factory|
-      # Don't lint factories used for documentation generation
-      factory.name.to_s.ends_with?('for_docs')
+      name = factory.name.to_s
+      # Don't lint factories used for documentation generation or
+      # the rating factories, since they have advanced validation rules
+      name.ends_with?('for_docs') || name.start_with?('rating')
     end
     print 'Validating factories..'
     DatabaseCleaner.start

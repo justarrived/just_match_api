@@ -21,14 +21,19 @@ module Api
 
         api :GET, '/chats/:id/messages', 'Get chat messages.'
         description 'Returns messages in chat.'
+        ApipieDocHelper.params(self, Index::MessagesIndex)
+        example Doxxer.read_example(Message, plural: true)
         def index
-          @messages = @chat.messages.includes(:language).includes(:author)
-          render json: @messages
+          messages_index = Index::MessagesIndex.new(self)
+          @messages = messages_index.messages(@chat.messages)
+
+          api_render(@messages, included: messages_index.included)
         end
 
         api :POST, '/chats/:id/messages', 'Create new chat message.'
         description 'Creates and returns new message.'
         error code: 400, desc: 'Bad request'
+        error code: 404, desc: 'Not found'
         error code: 422, desc: 'Unprocessable entity'
         param :data, Hash, desc: 'Top level key', required: true do
           param :attributes, Hash, desc: 'Message attributes', required: true do
@@ -44,9 +49,9 @@ module Api
           @message = @chat.create_message(author: author, body: body, language_id: lang)
 
           if @message.valid?
-            render json: @message, include: %w(author language), status: :created
+            api_render(@message, included: %w(author language), status: :created)
           else
-            render json: @message.errors, status: :unprocessable_entity
+            respond_with_errors(@message)
           end
         end
 

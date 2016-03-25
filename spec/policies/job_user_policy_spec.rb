@@ -11,11 +11,11 @@ RSpec.describe JobUserPolicy do
   let(:a_job_user) { FactoryGirl.build(:user) }
   let(:admin_user) { FactoryGirl.build(:admin_user) }
   let(:job) { mock_model(Job, owner: owner, users: [a_job_user]) }
-  let(:policy) { described_class.new(context, nil) }
+  let(:policy) { described_class.new(policy_context, nil) }
 
   permissions :index? do
     context 'job owner' do
-      let(:context) { described_class::Context.new(owner, job, a_job_user) }
+      let(:policy_context) { described_class::Context.new(owner, job, a_job_user) }
 
       it 'allows access' do
         expect(policy.index?).to eq(true)
@@ -23,7 +23,7 @@ RSpec.describe JobUserPolicy do
     end
 
     context 'admin' do
-      let(:context) { described_class::Context.new(admin_user, job, a_job_user) }
+      let(:policy_context) { described_class::Context.new(admin_user, job, a_job_user) }
 
       it 'allows access' do
         expect(policy.index?).to eq(true)
@@ -31,7 +31,7 @@ RSpec.describe JobUserPolicy do
     end
 
     context 'job user' do
-      let(:context) { described_class::Context.new(a_job_user, job, a_job_user) }
+      let(:policy_context) { described_class::Context.new(a_job_user, job, a_job_user) }
 
       it 'denies access' do
         expect(policy.index?).to eq(false)
@@ -39,7 +39,7 @@ RSpec.describe JobUserPolicy do
     end
 
     context 'a user' do
-      let(:context) { described_class::Context.new(user, job, a_job_user) }
+      let(:policy_context) { described_class::Context.new(user, job, a_job_user) }
 
       it 'denies access' do
         expect(policy.index?).to eq(false)
@@ -49,7 +49,7 @@ RSpec.describe JobUserPolicy do
 
   permissions :show? do
     context 'job owner' do
-      let(:context) { described_class::Context.new(owner, job, a_job_user) }
+      let(:policy_context) { described_class::Context.new(owner, job, a_job_user) }
 
       it 'allows access' do
         expect(policy.show?).to eq(true)
@@ -57,7 +57,7 @@ RSpec.describe JobUserPolicy do
     end
 
     context 'admin' do
-      let(:context) { described_class::Context.new(admin_user, job, a_job_user) }
+      let(:policy_context) { described_class::Context.new(admin_user, job, a_job_user) }
 
       it 'allows access' do
         expect(policy.show?).to eq(true)
@@ -65,7 +65,7 @@ RSpec.describe JobUserPolicy do
     end
 
     context 'job user' do
-      let(:context) { described_class::Context.new(a_job_user, job, a_job_user) }
+      let(:policy_context) { described_class::Context.new(a_job_user, job, a_job_user) }
 
       it 'allows access' do
         expect(policy.show?).to eq(true)
@@ -73,7 +73,7 @@ RSpec.describe JobUserPolicy do
     end
 
     context 'a user' do
-      let(:context) { described_class::Context.new(user, job, a_job_user) }
+      let(:policy_context) { described_class::Context.new(user, job, a_job_user) }
 
       it 'denies access' do
         expect(policy.show?).to eq(false)
@@ -83,7 +83,7 @@ RSpec.describe JobUserPolicy do
 
   permissions :create? do
     context 'a user' do
-      let(:context) { described_class::Context.new(user, job, a_job_user) }
+      let(:policy_context) { described_class::Context.new(user, job, a_job_user) }
 
       it 'allows access' do
         expect(policy.create?).to eq(true)
@@ -91,7 +91,7 @@ RSpec.describe JobUserPolicy do
     end
 
     context 'no user' do
-      let(:context) { described_class::Context.new(nil, job, a_job_user) }
+      let(:policy_context) { described_class::Context.new(nil, job, a_job_user) }
 
       it 'denies access' do
         expect(policy.create?).to eq(false)
@@ -101,7 +101,7 @@ RSpec.describe JobUserPolicy do
 
   permissions :update? do
     context 'job owner' do
-      let(:context) { described_class::Context.new(owner, job, a_job_user) }
+      let(:policy_context) { described_class::Context.new(owner, job, a_job_user) }
 
       it 'allows access' do
         expect(policy.update?).to eq(true)
@@ -109,7 +109,7 @@ RSpec.describe JobUserPolicy do
     end
 
     context 'admin' do
-      let(:context) { described_class::Context.new(admin_user, job, a_job_user) }
+      let(:policy_context) { described_class::Context.new(admin_user, job, a_job_user) }
 
       it 'allows access' do
         expect(policy.update?).to eq(true)
@@ -117,15 +117,15 @@ RSpec.describe JobUserPolicy do
     end
 
     context 'job user' do
-      let(:context) { described_class::Context.new(a_job_user, job, a_job_user) }
+      let(:policy_context) { described_class::Context.new(a_job_user, job, a_job_user) }
 
       it 'denies access' do
-        expect(policy.update?).to eq(false)
+        expect(policy.update?).to eq(true)
       end
     end
 
     context 'a user' do
-      let(:context) { described_class::Context.new(user, job, a_job_user) }
+      let(:policy_context) { described_class::Context.new(user, job, a_job_user) }
 
       it 'denies access' do
         expect(policy.update?).to eq(false)
@@ -135,7 +135,7 @@ RSpec.describe JobUserPolicy do
 
   permissions :destroy? do
     context 'job owner' do
-      let(:context) { described_class::Context.new(owner, job, a_job_user) }
+      let(:policy_context) { described_class::Context.new(owner, job, a_job_user) }
 
       it 'denies access' do
         expect(policy.destroy?).to eq(false)
@@ -143,7 +143,7 @@ RSpec.describe JobUserPolicy do
     end
 
     context 'admin' do
-      let(:context) { described_class::Context.new(admin_user, job, a_job_user) }
+      let(:policy_context) { described_class::Context.new(admin_user, job, a_job_user) }
 
       it 'allows access' do
         expect(policy.destroy?).to eq(true)
@@ -151,7 +151,7 @@ RSpec.describe JobUserPolicy do
     end
 
     context 'job user' do
-      let(:context) { described_class::Context.new(a_job_user, job, a_job_user) }
+      let(:policy_context) { described_class::Context.new(a_job_user, job, a_job_user) }
 
       it 'allows access' do
         expect(policy.destroy?).to eq(true)
@@ -159,10 +159,45 @@ RSpec.describe JobUserPolicy do
     end
 
     context 'a user' do
-      let(:context) { described_class::Context.new(user, job, a_job_user) }
+      let(:policy_context) { described_class::Context.new(user, job, a_job_user) }
 
       it 'denies access' do
         expect(policy.destroy?).to eq(false)
+      end
+    end
+  end
+
+  describe '#permitted_attributes' do
+    context 'job owner' do
+      let(:policy_context) { described_class::Context.new(owner, job, a_job_user) }
+
+      it 'returns correct attributes' do
+        expect(policy.permitted_attributes).to eq([:accepted, :performed_accepted])
+      end
+    end
+
+    context 'admin' do
+      let(:policy_context) { described_class::Context.new(admin_user, job, a_job_user) }
+
+      it 'returns correct attributes' do
+        expected = %i(accepted performed_accepted will_perform performed)
+        expect(policy.permitted_attributes).to eq(expected)
+      end
+    end
+
+    context 'job user' do
+      let(:policy_context) { described_class::Context.new(a_job_user, job, a_job_user) }
+
+      it 'returns correct attributes' do
+        expect(policy.permitted_attributes).to eq([:will_perform, :performed])
+      end
+    end
+
+    context 'a user' do
+      let(:policy_context) { described_class::Context.new(user, job, a_job_user) }
+
+      it 'returns correct attributes' do
+        expect(policy.permitted_attributes).to eq([])
       end
     end
   end

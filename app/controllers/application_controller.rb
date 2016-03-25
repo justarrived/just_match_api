@@ -1,4 +1,6 @@
 # frozen_string_literal: true
-class ApplicationController < ActionController::API
-  include ActionController::Serialization
+class ApplicationController < ActionController::Base
+  include HttpBasicAdminAuthenticator
+
+  protect_from_forgery with: :exception
 end

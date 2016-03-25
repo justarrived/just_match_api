@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1><%= I18n.t('mailer.accepted_applicant_confirmation_overdue.title') %></h1>
+    <p><%= I18n.t('mailer.accepted_applicant_confirmation_overdue.explaination', name: @user_name, job_name: @job_name) %></p>
+
+    <p><%= I18n.t('mailer.signoff') %></p>
+  </body>
+</html>

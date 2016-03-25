@@ -39,10 +39,14 @@ end
 #
 # Table name: languages
 #
-#  id         :integer          not null, primary key
-#  lang_code  :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id              :integer          not null, primary key
+#  lang_code       :string
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  en_name         :string
+#  direction       :string
+#  local_name      :string
+#  system_language :boolean          default(FALSE)
 #
 # Indexes
 #

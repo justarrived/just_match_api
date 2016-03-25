@@ -9,6 +9,14 @@ class Comment < ActiveRecord::Base
   validates :commentable_type, presence: true
   validates :body, presence: true
   validates :language, presence: true
+
+  scope :visible, -> { where(hidden: false) }
+
+  # Needed for administrate
+  # see https://github.com/thoughtbot/administrate/issues/354
+  def owner_id
+    owner.try!(:id)
+  end
 end
 # rubocop:disable Metrics/LineLength
 
@@ -24,6 +32,7 @@ end
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  language_id      :integer
+#  hidden           :boolean          default(FALSE)
 #
 # Indexes
 #

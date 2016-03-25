@@ -11,10 +11,10 @@ RSpec.describe JobSkillPolicy do
   let(:owner) { FactoryGirl.build(:user) }
   let(:skill) { FactoryGirl.build(:skill) }
   let(:job) { mock_model(Job, owner: owner) }
-  let(:policy) { described_class.new(context, nil) }
+  let(:policy) { described_class.new(policy_context, nil) }
 
   permissions :index?, :show? do
-    let(:context) { described_class::Context.new(nil, nil) }
+    let(:policy_context) { described_class::Context.new(nil, nil) }
 
     it 'allows access for everyone' do
       expect(policy.index?).to eq(true)
@@ -27,7 +27,7 @@ RSpec.describe JobSkillPolicy do
 
   permissions :create?, :destroy? do
     context 'admin' do
-      let(:context) { described_class::Context.new(admin, nil) }
+      let(:policy_context) { described_class::Context.new(admin, nil) }
 
       it 'allows access' do
         expect(policy.create?).to eq(true)
@@ -39,7 +39,7 @@ RSpec.describe JobSkillPolicy do
     end
 
     context 'job owner' do
-      let(:context) { described_class::Context.new(owner, job) }
+      let(:policy_context) { described_class::Context.new(owner, job) }
 
       it 'allows access' do
         expect(policy.create?).to eq(true)
@@ -51,7 +51,7 @@ RSpec.describe JobSkillPolicy do
     end
 
     context 'user' do
-      let(:context) { described_class::Context.new(user, job) }
+      let(:policy_context) { described_class::Context.new(user, job) }
 
       it 'denies access' do
         expect(policy.create?).to eq(false)

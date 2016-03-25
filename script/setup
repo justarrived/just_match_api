@@ -16,4 +16,10 @@ echo -e '\n== Removing old logs and tempfiles =='
 rm -f log/*
 rm -rf tmp/cache
 
+if [[ ! -f .env ]]; then
+  echo -e '\n== Setting up .env file =='
+  cp .sample.env .env
+  echo -e '[NOTICE] Make sure you configure your .env file to your liking.'
+fi
+
 echo -e '\n== Setup done =='

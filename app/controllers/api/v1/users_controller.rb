@@ -15,23 +15,25 @@ module Api
 
       api :GET, '/users', 'List users'
       description 'Returns a list of users if the user is allowed.'
+      ApipieDocHelper.params(self, Index::UsersIndex)
+      example Doxxer.read_example(User, plural: true)
       def index
         authorize(User)
 
-        page_index = params[:page].to_i
-        relations = [:skills, :jobs, :written_comments, :language, :languages]
+        users_index = Index::UsersIndex.new(self)
+        @users = users_index.users
 
-        @users = User.all.page(page_index).includes(relations)
-        render json: @users
+        api_render(@users, included: users_index.included)
       end
 
       api :GET, '/users/:id', 'Show user'
       description 'Returns user is allowed to.'
+      error code: 404, desc: 'Not found'
       example Doxxer.read_example(User)
       def show
         authorize(@user)
 
-        render json: @user, include: allowed_includes
+        api_render(@user, included: allowed_includes)
       end
 
       api :POST, '/users/', 'Create new user'
@@ -45,10 +47,13 @@ module Api
           param :first_name, String, desc: 'First name', required: true
           param :last_name, String, desc: 'Last name', required: true
           param :description, String, desc: 'Description', required: true
+          param :job_experience, String, desc: 'Job experience'
+          param :education, String, desc: 'Education'
           param :email, String, desc: 'Email', required: true
           param :phone, String, desc: 'Phone', required: true
           param :street, String, desc: 'Street', required: true
           param :zip, String, desc: 'Zip code', required: true
+          param :ssn, String, desc: 'Social Security Number (10 characters)', required: true
           param :language_id, Integer, desc: 'Primary language id for user', required: true
           param :language_ids, Array, of: Integer, desc: 'Language ids of languages that the user knows', required: true
           # rubocop:enable Metrics/LineLength
@@ -68,9 +73,9 @@ module Api
 
           UserWelcomeNotifier.call(user: @user)
 
-          render json: @user, status: :created
+          api_render(@user, status: :created)
         else
-          render json: @user.errors, status: :unprocessable_entity
+          respond_with_errors(@user)
         end
       end
 
@@ -84,10 +89,13 @@ module Api
           param :first_name, String, desc: 'First name'
           param :last_name, String, desc: 'Last name'
           param :description, String, desc: 'Description'
+          param :job_experience, String, desc: 'Job experience'
+          param :education, String, desc: 'Education'
           param :email, String, desc: 'Email'
           param :phone, String, desc: 'Phone'
           param :street, String, desc: 'Street'
           param :zip, String, desc: 'Zip code'
+          param :ssn, String, desc: 'Social Security Number (10 characters)'
           param :language_id, Integer, desc: 'Primary language id for user'
         end
       end
@@ -96,15 +104,16 @@ module Api
         authorize(@user)
 
         if @user.update(user_params)
-          render json: @user, status: :ok
+          api_render(@user)
         else
-          render json: @user.errors, status: :unprocessable_entity
+          respond_with_errors(@user)
         end
       end
 
       api :DELETE, '/users/:id', 'Delete user'
       description 'Deletes user user if the user is allowed.'
       error code: 401, desc: 'Unauthorized'
+      error code: 404, desc: 'Not found'
       def destroy
         authorize(@user)
 
@@ -115,6 +124,7 @@ module Api
       api :GET, '/users/:id/matching_jobs', 'Show matching jobs for user'
       description 'Returns the matching jobs for user if the user is allowed.'
       error code: 401, desc: 'Unauthorized'
+      error code: 404, desc: 'Not found'
       def matching_jobs
         authorize(@user)
 
@@ -126,12 +136,14 @@ module Api
       description 'Returns the all jobs where the user is the owner or applicant user if the user is allowed.'
       # rubocop:enable Metrics/LineLength
       error code: 401, desc: 'Unauthorized'
+      error code: 404, desc: 'Not found'
+      example Doxxer.read_example(Job, plural: true)
       def jobs
         authorize(@user)
 
         @jobs = Queries::UserJobsFinder.new(current_user).perform
 
-        render json: @jobs, status: :ok
+        api_render(@jobs)
       end
 
       private
@@ -142,8 +154,9 @@ module Api
 
       def user_params
         whitelist = [
-          :first_name, :last_name, :email, :phone, :description, :street, :zip,
-          :language_id, :password, skill_ids: [], language_ids: []
+          :first_name, :last_name, :email, :phone, :description, :job_experience,
+          :education, :ssn, :street, :zip, :language_id, :password,
+          skill_ids: [], language_ids: []
         ]
         jsonapi_params.permit(*whitelist)
       end

@@ -47,6 +47,10 @@ RSpec.describe ApplicationPolicy do
     expect(subject.send(:user?)).to eq(false)
   end
 
+  it 'returns false for #company_user?' do
+    expect(subject.send(:company_user?)).to eq(false)
+  end
+
   it 'returns true for #no_user?' do
     expect(subject.send(:no_user?)).to eq(true)
   end
