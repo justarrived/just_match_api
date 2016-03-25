@@ -26,7 +26,7 @@ gem 'kaminari', '~> 0.16' # Easy pagination
 
 gem 'bcrypt', '~> 3.1.7', require: true # Encrypt passwords
 
-gem 'puma', '~> 3.1' # App server
+gem 'puma', '~> 3.2' # App server
 
 gem 'newrelic_rpm', '~> 3.15' # Performance monitoring
 
