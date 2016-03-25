@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 require 'sidekiq/web'
+
 Sidekiq::Web.use Rack::Auth::Basic do |username, password|
-  username == ENV['SIDEKIQ_USERNAME'] && password == ENV['SIDEKIQ_PASSWORD']
-end if Rails.env.production?
+  User.find_by_credentials(email: username, password: password)
+end
 
 Rails.application.routes.draw do
   namespace :admin do
