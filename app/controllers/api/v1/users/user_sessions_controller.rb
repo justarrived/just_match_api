@@ -15,6 +15,7 @@ module Api
 
         api :POST, '/user_sessions/', 'Get auth token'
         description 'Returns the Users auth token if the user is allowed.'
+        error code: 403, desc: 'Forbidden'
         error code: 401, desc: 'Unauthorized'
         param :data, Hash, desc: 'Top level key', required: true do
           param :attributes, Hash, desc: 'User session attributes', required: true do
