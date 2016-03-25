@@ -22,5 +22,4 @@ export LINT_FACTORY=true
 export RUBOCOP=false
 export CHECK_DB_INDEXES=true
 export CHECK_DB_UNIQ_INDEXES=false
-script/test --tag ~no_travis spec
 script/test --tag ~no_travis --tag ~regressor spec
