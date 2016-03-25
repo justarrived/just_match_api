@@ -179,7 +179,8 @@ RSpec.describe JobUser, type: :model do
 
     it 'adds *no* error when value is already false' do
       job_user.validate
-      expect(job_user.errors.messages[:will_perform]).to eq(nil)
+      err_msg = I18n.t('errors.validators.unrevertable')
+      expect(job_user.errors.messages[:will_perform] || []).not_to include(err_msg)
     end
 
     it 'adds error when value is true and set to false' do
@@ -197,7 +198,8 @@ RSpec.describe JobUser, type: :model do
 
     it 'adds *no* error when value is already false' do
       job_user.validate
-      expect(job_user.errors.messages[:accepted]).to eq(nil)
+      err_msg = I18n.t('errors.validators.unrevertable')
+      expect(job_user.errors.messages[:accepted] || []).not_to include(err_msg)
     end
 
     it 'adds error when value is true and set to false' do
