@@ -43,7 +43,7 @@ module Index
 
     def current_size
       per_page = (params.to_unsafe_h.dig('page', 'size') || PER_PAGE).to_i
-      [per_page, MAX_PER_PAGE].max
+      [per_page, MAX_PER_PAGE].min
     end
 
     def current_page
