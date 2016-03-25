@@ -74,7 +74,7 @@ RSpec.describe Chat, type: :model do
         author = FactoryGirl.create(:user)
         lang = FactoryGirl.create(:language)
         body = 'My text chat message.'
-        messsage = chat.create_message(author: author, body: body, language_id: lang)
+        messsage = chat.create_message(author: author, body: body, language_id: lang.id)
         expect(messsage.valid?).to eq(true)
         expect(messsage.chat).to eq(chat)
         expect(messsage.language).to eq(lang)
