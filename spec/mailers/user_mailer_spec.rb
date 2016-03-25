@@ -324,8 +324,9 @@ RSpec.describe UserMailer, type: :mailer do
       expect(mail).to match_email_body(user.first_name)
     end
 
-    it 'includes users one time token' do
-      expect(mail).to match_email_body(user.one_time_token)
+    it 'includes users reset password url' do
+      url = FrontendRouter.fetch(:reset_password, token: user.one_time_token)
+      expect(mail).to match_email_body(url)
     end
   end
 

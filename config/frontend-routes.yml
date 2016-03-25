@@ -1,0 +1,4 @@
+routes:
+  base_url: 'https://justarrived.se/'
+  reset_password: 'reset_password/%{token}'
+  login: 'login'

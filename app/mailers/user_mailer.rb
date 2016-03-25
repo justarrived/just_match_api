@@ -80,7 +80,8 @@ class UserMailer < ApplicationMailer
 
   def reset_password_email(user:)
     @user_name = user.first_name
-    @one_time_token = user.one_time_token
+    token = user.one_time_token
+    @reset_password_url = FrontendRouter.fetch(:reset_password, token: token)
 
     subject = I18n.t('mailer.reset_password.subject')
     mail(to: user.email, subject: subject)
