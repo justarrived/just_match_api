@@ -8,6 +8,7 @@ FactoryGirl.define do
     will_perform false
 
     factory :job_user_concluded do
+      association :job, factory: :passed_job
       accepted true
       will_perform true
       performed_accepted true

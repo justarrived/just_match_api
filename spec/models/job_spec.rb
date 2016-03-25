@@ -126,7 +126,7 @@ RSpec.describe Job, type: :model do
     end
 
     it 'returns true for a passed job' do
-      job = FactoryGirl.build(:job)
+      job = FactoryGirl.build(:passed_job)
       expect(job.started?).to eq(true)
     end
   end
@@ -139,10 +139,18 @@ RSpec.describe Job, type: :model do
       expect(job.errors.messages[:job_date]).to include(message)
     end
 
+    it 'adds *no* error if the job_date is nil' do
+      job = FactoryGirl.build(:job, job_date: nil)
+      job.validate
+      message = I18n.t('errors.job.job_date_in_the_past')
+      expect(job.errors.messages[:job_date]).not_to include(message)
+    end
+
     it 'adds *no* error if the job_date is in the future' do
       job = FactoryGirl.build(:job, job_date: 1.week.from_now)
       job.validate
-      expect(job.errors.messages[:job_date]).to be_nil
+      message = I18n.t('errors.job.job_date_in_the_past')
+      expect(job.errors.messages[:job_date] || []).not_to include(message)
     end
   end
 end

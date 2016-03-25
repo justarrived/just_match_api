@@ -40,7 +40,7 @@ RSpec.describe Rating, type: :model do
   end
 
   describe '#validate_job_concluded' do
-    let(:job) { FactoryGirl.create(:job) }
+    let(:job) { FactoryGirl.create(:passed_job) }
     let(:rating) { FactoryGirl.build(:rating, job: job) }
 
     context 'valid' do

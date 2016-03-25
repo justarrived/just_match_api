@@ -106,7 +106,7 @@ class Job < ActiveRecord::Base
   end
 
   def validate_job_date_in_future
-    return if job_date > Time.zone.now
+    return if job_date.nil? || job_date > Time.zone.now
 
     errors.add(:job_date, I18n.t('errors.job.job_date_in_the_past'))
   end

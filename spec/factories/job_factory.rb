@@ -8,12 +8,20 @@ FactoryGirl.define do
     zip '223 52'
     association :owner, factory: :user
     association :language
-    job_date 1.week.ago
+    job_date 1.week.from_now
     hours 3
+
+    factory :passed_job do
+      job_date 1.week.ago
+      # Since a job can't be created thats in the passed we need to skip validations
+      to_create { |instance| instance.save(validate: false) }
+    end
 
     factory :inprogress_job do
       job_date Time.zone.now - 1.hour
       hours 4
+      # Since a job can't be created thats in the passed we need to skip validations
+      to_create { |instance| instance.save(validate: false) }
     end
 
     factory :future_job do

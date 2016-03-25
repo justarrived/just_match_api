@@ -17,13 +17,18 @@ module Dev
           name: Faker::Name.name,
           max_rate: rates.sample,
           description: Faker::Hipster.paragraph(2),
-          job_date: job_date,
+          job_date: (1..10).to_a.sample.days.ago,
           owner: users.sample,
           street: address[:street],
           zip: address[:zip],
           hours: hours,
           language: languages.sample
         )
+        if [0, 1].sample.even?
+          job.job_date = (1..10).to_a.sample.days.from_now
+          job.save(validate: false)
+        end
+
         job.skills << skills.sample
         Random.rand(1..max_job_comments).times do
           Comment.create!(
@@ -33,15 +38,6 @@ module Dev
             language: languages.sample
           )
         end
-      end
-    end
-
-    def self.job_date
-      days = (1..10).to_a.sample.days
-      if [0, 1].sample.even?
-        days.ago
-      else
-        days.from_now
       end
     end
   end

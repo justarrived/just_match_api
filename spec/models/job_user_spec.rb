@@ -220,7 +220,8 @@ RSpec.describe JobUser, type: :model do
   end
 
   describe 'validate performed not reverted' do
-    let(:job_user) { FactoryGirl.build(:job_user_will_perform) }
+    let(:job) { FactoryGirl.build(:passed_job) }
+    let(:job_user) { FactoryGirl.build(:job_user_will_perform, job: job) }
 
     it 'adds *no* error when value is already false' do
       job_user.validate
@@ -238,7 +239,8 @@ RSpec.describe JobUser, type: :model do
   end
 
   describe 'validate performed accepted not reverted' do
-    let(:job_user) { FactoryGirl.build(:job_user_will_perform) }
+    let(:job) { FactoryGirl.build(:passed_job) }
+    let(:job_user) { FactoryGirl.build(:job_user_will_perform, job: job) }
 
     it 'adds *no* error when value is already false' do
       job_user.validate
@@ -269,7 +271,8 @@ RSpec.describe JobUser, type: :model do
       job_user.will_perform = true
       job_user.accepted = true
       job_user.validate
-      expect(job_user.errors.messages[:will_perform]).to eq(nil)
+      err_msg = I18n.t('errors.validators.after_true', field: 'accepted')
+      expect(job_user.errors.messages[:will_perform] || []).not_to include(err_msg)
     end
   end
 
@@ -287,7 +290,8 @@ RSpec.describe JobUser, type: :model do
       job_user.performed = true
       job_user.will_perform = true
       job_user.validate
-      expect(job_user.errors.messages[:performed]).to eq(nil)
+      err_msg = I18n.t('errors.validators.after_true', field: 'will perform')
+      expect(job_user.errors.messages[:performed] || []).not_to include(err_msg)
     end
   end
 
@@ -305,12 +309,13 @@ RSpec.describe JobUser, type: :model do
       job_user.performed_accepted = true
       job_user.will_perform = true
       job_user.validate
-      expect(job_user.errors.messages[:performed_accepted]).to eq(nil)
+      err_msg = I18n.t('errors.validators.after_true', field: 'will perform')
+      expect(job_user.errors.messages[:performed_accepted] || []).not_to include(err_msg)
     end
   end
 
   describe '#validate_job_started_before_performed' do
-    let(:passed_job) { FactoryGirl.build(:job, job_date: 2.weeks.ago) }
+    let(:passed_job) { FactoryGirl.build(:passed_job) }
     let(:inprogress_job) do
       time = Time.zone.now - 1.hour
       FactoryGirl.build(:job, job_date: time, hours: 2)
@@ -322,7 +327,8 @@ RSpec.describe JobUser, type: :model do
       job_user.performed = true
       job_user.will_perform = true
       job_user.validate
-      expect(job_user.errors.messages[:performed]).to be_nil
+      message = I18n.t('errors.job_user.performed_accepted_before_job_over')
+      expect(job_user.errors.messages[:performed_accepted] || []).not_to include(message)
     end
 
     it 'adds *no* error if the job is over' do
@@ -330,7 +336,8 @@ RSpec.describe JobUser, type: :model do
       job_user.performed = true
       job_user.will_perform = true
       job_user.validate
-      expect(job_user.errors.messages[:performed]).to eq(nil)
+      message = I18n.t('errors.job_user.performed_accepted_before_job_over')
+      expect(job_user.errors.messages[:performed_accepted] || []).not_to include(message)
     end
 
     it 'adds *no* error if the job is in the future and performed is false' do
@@ -338,12 +345,13 @@ RSpec.describe JobUser, type: :model do
       job_user.performed = false
       job_user.will_perform = true
       job_user.validate
-      expect(job_user.errors.messages[:performed]).to eq(nil)
+      message = I18n.t('errors.job_user.performed_accepted_before_job_over')
+      expect(job_user.errors.messages[:performed_accepted] || []).not_to include(message)
     end
   end
 
   describe '#validate_job_started_before_performed_accepted' do
-    let(:passed_job) { FactoryGirl.build(:job) }
+    let(:passed_job) { FactoryGirl.build(:passed_job) }
     let(:inprogress_job) { FactoryGirl.build(:inprogress_job) }
     let(:future_job) { FactoryGirl.build(:future_job) }
 
@@ -361,7 +369,8 @@ RSpec.describe JobUser, type: :model do
       job_user.performed_accepted = true
       job_user.will_perform = true
       job_user.validate
-      expect(job_user.errors.messages[:performed_accepted]).to be_nil
+      message = I18n.t('errors.job_user.performed_accepted_before_job_over')
+      expect(job_user.errors.messages[:performed_accepted] || []).not_to include(message)
     end
 
     it 'adds *no* error if the job is in the future and performed_accepted is false' do
@@ -369,7 +378,8 @@ RSpec.describe JobUser, type: :model do
       job_user.performed_accepted = false
       job_user.will_perform = true
       job_user.validate
-      expect(job_user.errors.messages[:performed_accepted]).to eq(nil)
+      message = I18n.t('errors.job_user.performed_accepted_before_job_over')
+      expect(job_user.errors.messages[:performed_accepted] || []).not_to include(message)
     end
 
     it 'adds *no* error if the job is over' do
@@ -377,7 +387,8 @@ RSpec.describe JobUser, type: :model do
       job_user.performed_accepted = true
       job_user.will_perform = true
       job_user.validate
-      expect(job_user.errors.messages[:performed_accepted]).to eq(nil)
+      message = I18n.t('errors.job_user.performed_accepted_before_job_over')
+      expect(job_user.errors.messages[:performed_accepted] || []).not_to include(message)
     end
   end
 end

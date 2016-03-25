@@ -171,7 +171,7 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
               attributes: { performed_accepted: true }
             }
           }
-          job = FactoryGirl.create(:job, owner: user)
+          job = FactoryGirl.create(:passed_job, owner: user)
           job_user = FactoryGirl.create(:job_user_will_perform, job: job)
           user = job_user.user
           params = {
@@ -247,7 +247,7 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
               attributes: { performed: true }
             }
           }
-          job = FactoryGirl.create(:job, owner: user)
+          job = FactoryGirl.create(:passed_job, owner: user)
           job_user = FactoryGirl.create(:job_user_will_perform, job: job)
           user = job_user.user
           params = {
