@@ -34,7 +34,8 @@ RSpec.describe Rating, type: :model do
       let(:comment) { FactoryGirl.build(:comment, owner: from_user) }
 
       it 'adds no error' do
-        expect(subject.errors.messages[:comment]).to eq(nil)
+        err_msg = 'must be owned by the user making the rating'
+        expect(subject.errors.messages[:comment] || []).not_to include(err_msg)
       end
     end
   end
@@ -46,13 +47,15 @@ RSpec.describe Rating, type: :model do
     context 'valid' do
       it 'adds no error if there is *no* accepted job user' do
         rating.validate
-        expect(rating.errors.messages[:job_user]).to eq(nil)
+        message = 'must be concluded'
+        expect(rating.errors.messages[:job_user] || []).not_to include(message)
       end
 
       it 'adds no error if the job is concluded' do
         FactoryGirl.create(:job_user_concluded, job: job)
         rating.validate
-        expect(rating.errors.messages[:job_user]).to eq(nil)
+        message = 'must be concluded'
+        expect(rating.errors.messages[:job_user] || []).not_to include(message)
       end
     end
 
@@ -121,7 +124,8 @@ RSpec.describe Rating, type: :model do
         it 'adds no error' do
           subject.validate
 
-          expect(subject.errors.messages[user_type_sym]).to be_nil
+          err_msg = 'must be job owner or the accepted applicant'
+          expect(subject.errors.messages[user_type_sym] || []).not_to include(err_msg)
         end
       end
 
@@ -132,7 +136,8 @@ RSpec.describe Rating, type: :model do
 
           subject.validate
 
-          expect(subject.errors.messages[user_type_sym]).to be_nil
+          err_msg = 'must be job owner or the accepted applicant'
+          expect(subject.errors.messages[user_type_sym] || []).not_to include(err_msg)
         end
       end
     end
