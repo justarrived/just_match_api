@@ -33,6 +33,7 @@ module Api
 
       api :GET, '/chats/:id', 'Show chat'
       description 'Return chat.'
+      error code: 404, desc: 'Not found'
       example Doxxer.read_example(Chat)
       def show
         authorize(@chat)

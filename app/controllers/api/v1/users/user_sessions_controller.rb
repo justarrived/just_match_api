@@ -15,8 +15,8 @@ module Api
 
         api :POST, '/user_sessions/', 'Get auth token'
         description 'Returns the Users auth token if the user is allowed.'
-        error code: 403, desc: 'Forbidden'
         error code: 401, desc: 'Unauthorized'
+        error code: 403, desc: 'Forbidden'
         param :data, Hash, desc: 'Top level key', required: true do
           param :attributes, Hash, desc: 'User session attributes', required: true do
             param :email, String, desc: 'Email', required: true
@@ -52,6 +52,7 @@ module Api
 
         api :DELETE, '/user_sessions/:auth_token', 'Reset auth token'
         description 'Resets the Users auth token if the user is allowed.'
+        error code: 404, desc: 'Not found'
         error code: 422, desc: 'Unprocessable entity'
         def destroy
           token = params[:id]

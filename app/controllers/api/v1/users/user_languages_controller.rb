@@ -31,6 +31,7 @@ module Api
 
         api :GET, '/users/:user_id/languages/:id', 'Show language'
         description 'Return language.'
+        error code: 404, desc: 'Not found'
         example Doxxer.read_example(UserLanguage)
         def show
           authorize(UserLanguage)
@@ -41,6 +42,7 @@ module Api
         api :POST, '/users/:user_id/languages/', 'Create new user language'
         description 'Creates and returns new user language.'
         error code: 400, desc: 'Bad request'
+        error code: 404, desc: 'Not found'
         error code: 422, desc: 'Unprocessable entity'
         error code: 401, desc: 'Unauthorized'
         param :data, Hash, desc: 'Top level key', required: true do
@@ -67,6 +69,7 @@ module Api
         api :DELETE, '/users/:user_id/languages/:id', 'Delete user language'
         description 'Deletes user language.'
         error code: 401, desc: 'Unauthorized'
+        error code: 404, desc: 'Not found'
         def destroy
           authorize(@user_language)
 

@@ -19,6 +19,7 @@ module Api
         api :POST, '/jobs/:job_id/ratings', 'Create new job rating.'
         description 'Creates and returns new rating.'
         error code: 400, desc: 'Bad request'
+        error code: 404, desc: 'Not found'
         error code: 422, desc: 'Unprocessable entity'
         param :data, Hash, desc: 'Top level key', required: true do
           param :attributes, Hash, desc: 'Rating attributes', required: true do

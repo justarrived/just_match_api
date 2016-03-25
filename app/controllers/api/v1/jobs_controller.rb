@@ -27,6 +27,7 @@ module Api
 
       api :GET, '/jobs/:id', 'Show job'
       description 'Return job.'
+      error code: 404, desc: 'Not found'
       example Doxxer.read_example(Job)
       def show
         authorize(@job)
@@ -76,9 +77,10 @@ module Api
       api :PATCH, '/jobs/:id', 'Update job'
       description 'Updates and returns the updated job.'
       error code: 400, desc: 'Bad request'
-      error code: 422, desc: 'Unprocessable entity'
       error code: 401, desc: 'Unauthorized'
       error code: 403, desc: 'Forbidden'
+      error code: 404, desc: 'Not found'
+      error code: 422, desc: 'Unprocessable entity'
       param :data, Hash, desc: 'Top level key', required: true do
         param :attributes, Hash, desc: 'Job attributes', required: true do
           param :max_rate, Integer, desc: 'Max rate'
@@ -115,6 +117,7 @@ module Api
       api :GET, '/jobs/:job_id/matching_users', 'Show matching users for job'
       description 'Returns matching users for job if user is allowed.'
       error code: 401, desc: 'Unauthorized'
+      error code: 404, desc: 'Not found'
       def matching_users
         authorize(@job)
 

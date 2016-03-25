@@ -9,6 +9,7 @@ module Api
 
         api :POST, '/users/change_password/', 'Change password'
         description 'Change password for user, use one time token if the user is not logged in' # rubocop:disable Metrics/LineLength
+        error code: 404, desc: 'Not found'
         error code: 422, desc: 'Unprocessable entity'
         param :data, Hash, desc: 'Top level key', required: true do
           param :attributes, Hash, desc: 'Reset password attributes', required: true do
@@ -16,12 +17,15 @@ module Api
             param :one_time_token, String, desc: 'One time token'
           end
         end
+        example '# Response example
+{}
+'
         def create
           if User.valid_password?(user_params[:password])
             @user.update!(user_params)
             ChangedPasswordNotifier.call(user: @user)
 
-            api_render(@user)
+            render json: {}
           else
             respond_with_password_error
           end

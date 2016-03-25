@@ -21,6 +21,7 @@ module Api
 
         api :GET, '/users/:user_id/messages', 'Get user messages.'
         description 'Returns the message between user and logged in user.'
+        error code: 404, desc: 'Not found'
         ApipieDocHelper.params(self, Index::MessagesIndex)
         example Doxxer.read_example(Message, plural: true)
         def index
@@ -38,6 +39,7 @@ module Api
         api :POST, '/users/:user_id/messages', 'Create new user message.'
         description 'Creates and returns new message.'
         error code: 400, desc: 'Bad request'
+        error code: 404, desc: 'Not found'
         error code: 422, desc: 'Unprocessable entity'
         param :data, Hash, desc: 'Top level key', required: true do
           param :attributes, Hash, desc: 'Message attributes', required: true do

@@ -22,6 +22,7 @@ module Api
         api :GET, '/jobs/:job_id/users', 'Show job users'
         description 'Returns list of job users if the user is allowed.'
         error code: 401, desc: 'Unauthorized'
+        error code: 404, desc: 'Not found'
         ApipieDocHelper.params(self, Index::JobUsersIndex)
         example Doxxer.read_example(JobUser, plural: true)
         def index
@@ -36,6 +37,7 @@ module Api
         api :GET, '/jobs/:job_id/users/:id', 'Show job user'
         description 'Returns user.'
         error code: 401, desc: 'Unauthorized'
+        error code: 404, desc: 'Not found'
         example Doxxer.read_example(JobUser)
         def show
           authorize(JobUser)
@@ -46,6 +48,7 @@ module Api
         api :POST, '/jobs/:job_id/users/', 'Create new job user'
         description 'Creates and returns new job user if the user is allowed.'
         error code: 400, desc: 'Bad request'
+        error code: 404, desc: 'Not found'
         error code: 422, desc: 'Unprocessable entity'
         example Doxxer.read_example(JobUser)
         def create
@@ -67,6 +70,7 @@ module Api
         description 'Updates a job user if the user is allowed.'
         error code: 400, desc: 'Bad request'
         error code: 401, desc: 'Unauthorized'
+        error code: 404, desc: 'Not found'
         error code: 422, desc: 'Unprocessable entity'
         param :data, Hash, desc: 'Top level key', required: true do
           param :attributes, Hash, desc: 'Job user attributes', required: true do
@@ -98,6 +102,7 @@ module Api
         api :DELETE, '/jobs/:job_id/users/:id', 'Delete user user'
         description 'Deletes job user if the user is allowed.'
         error code: 401, desc: 'Unauthorized'
+        error code: 404, desc: 'Not found'
         error code: 422, desc: 'Unprocessable entity'
         def destroy
           authorize(JobUser)

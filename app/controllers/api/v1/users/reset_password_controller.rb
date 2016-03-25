@@ -13,6 +13,9 @@ module Api
             param :email, String, desc: 'Email', required: true
           end
         end
+        example '# Response example
+{}
+'
         def create
           user = User.find_by(email: jsonapi_params[:email])
 

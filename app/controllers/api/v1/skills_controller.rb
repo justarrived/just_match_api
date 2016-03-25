@@ -27,6 +27,7 @@ module Api
 
       api :GET, '/skills/:id', 'Show skill'
       description 'Returns skill.'
+      error code: 404, desc: 'Not found'
       example Doxxer.read_example(Skill)
       def show
         authorize(@skill)
@@ -37,8 +38,8 @@ module Api
       api :POST, '/skills/', 'Create new skill'
       description 'Creates and returns the new skill if the user is allowed.'
       error code: 400, desc: 'Bad request'
-      error code: 422, desc: 'Unprocessable entity'
       error code: 401, desc: 'Unauthorized'
+      error code: 422, desc: 'Unprocessable entity'
       param :data, Hash, desc: 'Top level key', required: true do
         param :attributes, Hash, desc: 'Skill attributes', required: true do
           param :name, String, desc: 'Name', required: true
@@ -63,8 +64,9 @@ module Api
       api :PATCH, '/skills/:id', 'Update skill'
       description 'Updates and returns the updated skill.'
       error code: 400, desc: 'Bad request'
-      error code: 422, desc: 'Unprocessable entity'
       error code: 401, desc: 'Unauthorized'
+      error code: 404, desc: 'Not found'
+      error code: 422, desc: 'Unprocessable entity'
       param :data, Hash, desc: 'Top level key', required: true do
         param :attributes, Hash, desc: 'Skill attributes', required: true do
           param :name, String, desc: 'Name'
@@ -85,6 +87,7 @@ module Api
       api :DELETE, '/skills/:id', 'Delete skill'
       description 'Deletes skill.'
       error code: 401, desc: 'Unauthorized'
+      error code: 404, desc: 'Not found'
       def destroy
         authorize(@skill)
 

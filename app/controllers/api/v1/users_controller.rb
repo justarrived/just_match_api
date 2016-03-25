@@ -28,6 +28,7 @@ module Api
 
       api :GET, '/users/:id', 'Show user'
       description 'Returns user is allowed to.'
+      error code: 404, desc: 'Not found'
       example Doxxer.read_example(User)
       def show
         authorize(@user)
@@ -112,6 +113,7 @@ module Api
       api :DELETE, '/users/:id', 'Delete user'
       description 'Deletes user user if the user is allowed.'
       error code: 401, desc: 'Unauthorized'
+      error code: 404, desc: 'Not found'
       def destroy
         authorize(@user)
 
@@ -122,6 +124,7 @@ module Api
       api :GET, '/users/:id/matching_jobs', 'Show matching jobs for user'
       description 'Returns the matching jobs for user if the user is allowed.'
       error code: 401, desc: 'Unauthorized'
+      error code: 404, desc: 'Not found'
       def matching_jobs
         authorize(@user)
 
@@ -133,6 +136,7 @@ module Api
       description 'Returns the all jobs where the user is the owner or applicant user if the user is allowed.'
       # rubocop:enable Metrics/LineLength
       error code: 401, desc: 'Unauthorized'
+      error code: 404, desc: 'Not found'
       example Doxxer.read_example(Job, plural: true)
       def jobs
         authorize(@user)
