@@ -15,19 +15,20 @@ module Api
 
       api :GET, '/users', 'List users'
       description 'Returns a list of users if the user is allowed.'
+      ApipieDocHelper.params(self, Index::UsersIndex)
       example Doxxer.read_example(User, plural: true)
       def index
         authorize(User)
 
-        page_index = params[:page].to_i
-        relations = [:skills, :jobs, :language, :languages, :owned_jobs]
+        users_index = Index::UsersIndex.new(self)
+        @users = users_index.users
 
-        @users = User.all.page(page_index).includes(relations)
-        api_render(@users)
+        api_render(@users, included: users_index.included)
       end
 
       api :GET, '/users/:id', 'Show user'
       description 'Returns user is allowed to.'
+      error code: 404, desc: 'Not found'
       example Doxxer.read_example(User)
       def show
         authorize(@user)
@@ -46,6 +47,8 @@ module Api
           param :first_name, String, desc: 'First name', required: true
           param :last_name, String, desc: 'Last name', required: true
           param :description, String, desc: 'Description', required: true
+          param :job_experience, String, desc: 'Job experience'
+          param :education, String, desc: 'Education'
           param :email, String, desc: 'Email', required: true
           param :phone, String, desc: 'Phone', required: true
           param :street, String, desc: 'Street', required: true
@@ -86,6 +89,8 @@ module Api
           param :first_name, String, desc: 'First name'
           param :last_name, String, desc: 'Last name'
           param :description, String, desc: 'Description'
+          param :job_experience, String, desc: 'Job experience'
+          param :education, String, desc: 'Education'
           param :email, String, desc: 'Email'
           param :phone, String, desc: 'Phone'
           param :street, String, desc: 'Street'
@@ -108,6 +113,7 @@ module Api
       api :DELETE, '/users/:id', 'Delete user'
       description 'Deletes user user if the user is allowed.'
       error code: 401, desc: 'Unauthorized'
+      error code: 404, desc: 'Not found'
       def destroy
         authorize(@user)
 
@@ -118,6 +124,7 @@ module Api
       api :GET, '/users/:id/matching_jobs', 'Show matching jobs for user'
       description 'Returns the matching jobs for user if the user is allowed.'
       error code: 401, desc: 'Unauthorized'
+      error code: 404, desc: 'Not found'
       def matching_jobs
         authorize(@user)
 
@@ -129,6 +136,7 @@ module Api
       description 'Returns the all jobs where the user is the owner or applicant user if the user is allowed.'
       # rubocop:enable Metrics/LineLength
       error code: 401, desc: 'Unauthorized'
+      error code: 404, desc: 'Not found'
       example Doxxer.read_example(Job, plural: true)
       def jobs
         authorize(@user)
@@ -146,8 +154,9 @@ module Api
 
       def user_params
         whitelist = [
-          :first_name, :last_name, :email, :phone, :description, :street, :zip, :ssn,
-          :language_id, :password, skill_ids: [], language_ids: []
+          :first_name, :last_name, :email, :phone, :description, :job_experience,
+          :education, :ssn, :street, :zip, :language_id, :password,
+          skill_ids: [], language_ids: []
         ]
         jsonapi_params.permit(*whitelist)
       end

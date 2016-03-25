@@ -8,6 +8,9 @@ gem 'pg', '~> 0.15' # Use postgresql as the database for Active Record
 
 gem 'rails-api', '~> 0.4', require: false
 
+gem 'sidekiq', '~> 4.1.1' # Background worker (Redis-backed)
+gem 'sinatra', require: false # Required for sidekiq web
+
 gem 'active_model_serializers', '~> 0.10.0.rc4' # Serialize models to JSON
 
 gem 'blazer', '~> 1.1' # Explore data with SQL
@@ -39,8 +42,13 @@ gem 'faker', '~> 1.6' # Easily generate fake data (used for seeding dev/test/sta
 gem 'rack-timeout', '~> 0.3' # Kill requests that run for too long
 gem 'rack-cors', require: 'rack/cors' # Configure CORS
 gem 'rack-attack' # Throttle API usage
+gem 'redis-activesupport' # To use Redis as the cache store for rack-attack
 
 gem 'yagni_json_encoder', '~> 0.0.2' # Make Rails use the OJ gem for JSON
+
+gem 'rails-i18n', '~> 4.0.0' # Rails translations
+
+gem 'honey_format', '~> 0.2' # Simple CSV reading
 
 group :development, :test do
   gem 'byebug', '~> 8.2'
@@ -62,7 +70,6 @@ group :development do
   gem 'web-console', '~> 3.0'
   gem 'spring', '~> 1.6'
   gem 'spring-commands-rspec', '~> 1.0'
-  gem 'rails-i18n', '~> 4.0.0'
   gem 'i18n-tasks', '~> 0.9.2'
 end
 

@@ -77,6 +77,38 @@ RSpec.describe JobUser, type: :model do
     end
   end
 
+  describe '#send_performed_accepted_notice?' do
+    it 'returns true if notice should be sent' do
+      job = described_class.new
+      job.performed_accepted = true
+      expected = job.send_performed_accepted_notice?
+      expect(expected).to eq(true)
+    end
+
+    it 'returns false if notice should be sent' do
+      job = described_class.new
+      job.performed_accepted = false
+      expected = job.send_performed_accepted_notice?
+      expect(expected).to eq(false)
+    end
+  end
+
+  describe '#send_performed_notice?' do
+    it 'returns true if notice should be sent' do
+      job = described_class.new
+      job.performed = true
+      expected = job.send_performed_notice?
+      expect(expected).to eq(true)
+    end
+
+    it 'returns false if notice should be sent' do
+      job = described_class.new
+      job.performed = false
+      expected = job.send_performed_notice?
+      expect(expected).to eq(false)
+    end
+  end
+
   it 'validates uniqueness of {job|user} scope' do
     user = FactoryGirl.build(:user)
     job = FactoryGirl.build(:job)
@@ -129,25 +161,6 @@ RSpec.describe JobUser, type: :model do
     end
   end
 
-  describe '#validate_will_perform_not_reverted' do
-    let(:job_user) { FactoryGirl.build(:job_user) }
-
-    it 'adds *no* error when value is already false' do
-      job_user.validate
-      expect(job_user.errors.messages[:will_perform]).to eq(nil)
-    end
-
-    it 'adds error when value is true and set to false' do
-      job_user.accepted = true
-      job_user.will_perform = true
-      job_user.save!
-      job_user.will_perform = false
-      job_user.validate
-      err_msg = "can't change to false if already true"
-      expect(job_user.errors.messages[:will_perform]).to include(err_msg)
-    end
-  end
-
   describe '#send_accepted_notice?' do
     let(:job_user) { FactoryGirl.build(:job_user) }
 
@@ -161,7 +174,25 @@ RSpec.describe JobUser, type: :model do
     end
   end
 
-  describe '#validate_accepted_not_reverted' do
+  describe 'validate will perform not reverted' do
+    let(:job_user) { FactoryGirl.build(:job_user_accepted) }
+
+    it 'adds *no* error when value is already false' do
+      job_user.validate
+      expect(job_user.errors.messages[:will_perform]).to eq(nil)
+    end
+
+    it 'adds error when value is true and set to false' do
+      job_user.will_perform = true
+      job_user.save!
+      job_user.will_perform = false
+      job_user.validate
+      err_msg = I18n.t('errors.validators.unrevertable')
+      expect(job_user.errors.messages[:will_perform]).to include(err_msg)
+    end
+  end
+
+  describe 'validate accepted not reverted' do
     let(:job_user) { FactoryGirl.build(:job_user) }
 
     it 'adds *no* error when value is already false' do
@@ -174,11 +205,11 @@ RSpec.describe JobUser, type: :model do
       job_user.save!
       job_user.accepted = false
       job_user.validate
-      err_msg = "can't change to false if already true"
+      err_msg = I18n.t('errors.validators.unrevertable')
       expect(job_user.errors.messages[:accepted]).to include(err_msg)
     end
 
-    it 'adds *no*s error when value is true and set to false if confirmation overdue' do
+    it 'adds *no* error when value is true and set to false if confirmation overdue' do
       job_user.accepted = true
       job_user.save!
       job_user.accepted_at = (JobUser::MAX_CONFIRMATION_TIME_HOURS + 1).hours.ago
@@ -188,13 +219,51 @@ RSpec.describe JobUser, type: :model do
     end
   end
 
-  describe '#validate_accepted_before_will_perform' do
+  describe 'validate performed not reverted' do
+    let(:job) { FactoryGirl.build(:passed_job) }
+    let(:job_user) { FactoryGirl.build(:job_user_will_perform, job: job) }
+
+    it 'adds *no* error when value is already false' do
+      job_user.validate
+      expect(job_user.errors.messages[:performed]).to eq(nil)
+    end
+
+    it 'adds error when value is true and set to false' do
+      job_user.performed = true
+      job_user.save!
+      job_user.performed = false
+      job_user.validate
+      err_msg = I18n.t('errors.validators.unrevertable')
+      expect(job_user.errors.messages[:performed]).to include(err_msg)
+    end
+  end
+
+  describe 'validate performed accepted not reverted' do
+    let(:job) { FactoryGirl.build(:passed_job) }
+    let(:job_user) { FactoryGirl.build(:job_user_will_perform, job: job) }
+
+    it 'adds *no* error when value is already false' do
+      job_user.validate
+      expect(job_user.errors.messages[:performed_accepted]).to eq(nil)
+    end
+
+    it 'adds error when value is true and set to false' do
+      job_user.performed_accepted = true
+      job_user.save!
+      job_user.performed_accepted = false
+      job_user.validate
+      err_msg = I18n.t('errors.validators.unrevertable')
+      expect(job_user.errors.messages[:performed_accepted]).to include(err_msg)
+    end
+  end
+
+  describe 'validate accepted before will perform' do
     let(:job_user) { FactoryGirl.build(:job_user) }
 
     it 'adds error if already accepted is false' do
       job_user.will_perform = true
       job_user.validate
-      err_msg = 'must be accepted to confirm will perform'
+      err_msg = I18n.t('errors.validators.after_true', field: 'accepted')
       expect(job_user.errors.messages[:will_perform]).to include(err_msg)
     end
 
@@ -202,7 +271,124 @@ RSpec.describe JobUser, type: :model do
       job_user.will_perform = true
       job_user.accepted = true
       job_user.validate
-      expect(job_user.errors.messages[:will_perform]).to eq(nil)
+      err_msg = I18n.t('errors.validators.after_true', field: 'accepted')
+      expect(job_user.errors.messages[:will_perform] || []).not_to include(err_msg)
+    end
+  end
+
+  describe 'validate will perform before performed' do
+    let(:job_user) { FactoryGirl.build(:job_user) }
+
+    it 'adds error if will_perform is false' do
+      job_user.performed = true
+      job_user.validate
+      err_msg = I18n.t('errors.validators.after_true', field: 'will perform')
+      expect(job_user.errors.messages[:performed]).to include(err_msg)
+    end
+
+    it 'adds *no* error if will perform is true' do
+      job_user.performed = true
+      job_user.will_perform = true
+      job_user.validate
+      err_msg = I18n.t('errors.validators.after_true', field: 'will perform')
+      expect(job_user.errors.messages[:performed] || []).not_to include(err_msg)
+    end
+  end
+
+  describe 'validate will perform before performed accepted' do
+    let(:job_user) { FactoryGirl.build(:job_user) }
+
+    it 'adds error if will_perform is false' do
+      job_user.performed_accepted = true
+      job_user.validate
+      err_msg = I18n.t('errors.validators.after_true', field: 'will perform')
+      expect(job_user.errors.messages[:performed_accepted]).to include(err_msg)
+    end
+
+    it 'adds *no* error if will perform is true' do
+      job_user.performed_accepted = true
+      job_user.will_perform = true
+      job_user.validate
+      err_msg = I18n.t('errors.validators.after_true', field: 'will perform')
+      expect(job_user.errors.messages[:performed_accepted] || []).not_to include(err_msg)
+    end
+  end
+
+  describe '#validate_job_started_before_performed' do
+    let(:passed_job) { FactoryGirl.build(:passed_job) }
+    let(:inprogress_job) do
+      time = Time.zone.now - 1.hour
+      FactoryGirl.build(:job, job_date: time, hours: 2)
+    end
+    let(:future_job) { FactoryGirl.build(:future_job) }
+
+    it 'adds *no* error if the job is ongoing' do
+      job_user = FactoryGirl.build(:job_user, job: inprogress_job)
+      job_user.performed = true
+      job_user.will_perform = true
+      job_user.validate
+      message = I18n.t('errors.job_user.performed_accepted_before_job_over')
+      expect(job_user.errors.messages[:performed_accepted] || []).not_to include(message)
+    end
+
+    it 'adds *no* error if the job is over' do
+      job_user = FactoryGirl.build(:job_user, job: passed_job)
+      job_user.performed = true
+      job_user.will_perform = true
+      job_user.validate
+      message = I18n.t('errors.job_user.performed_accepted_before_job_over')
+      expect(job_user.errors.messages[:performed_accepted] || []).not_to include(message)
+    end
+
+    it 'adds *no* error if the job is in the future and performed is false' do
+      job_user = FactoryGirl.build(:job_user, job: future_job)
+      job_user.performed = false
+      job_user.will_perform = true
+      job_user.validate
+      message = I18n.t('errors.job_user.performed_accepted_before_job_over')
+      expect(job_user.errors.messages[:performed_accepted] || []).not_to include(message)
+    end
+  end
+
+  describe '#validate_job_started_before_performed_accepted' do
+    let(:passed_job) { FactoryGirl.build(:passed_job) }
+    let(:inprogress_job) { FactoryGirl.build(:inprogress_job) }
+    let(:future_job) { FactoryGirl.build(:future_job) }
+
+    it 'adds error if the job is in the future' do
+      job_user = FactoryGirl.build(:job_user, job: future_job)
+      job_user.performed_accepted = true
+      job_user.will_perform = true
+      job_user.validate
+      message = I18n.t('errors.job_user.performed_accepted_before_job_over')
+      expect(job_user.errors.messages[:performed_accepted]).to include(message)
+    end
+
+    it 'adds *no* error if the job is in progress' do
+      job_user = FactoryGirl.build(:job_user, job: inprogress_job)
+      job_user.performed_accepted = true
+      job_user.will_perform = true
+      job_user.validate
+      message = I18n.t('errors.job_user.performed_accepted_before_job_over')
+      expect(job_user.errors.messages[:performed_accepted] || []).not_to include(message)
+    end
+
+    it 'adds *no* error if the job is in the future and performed_accepted is false' do
+      job_user = FactoryGirl.build(:job_user, job: future_job)
+      job_user.performed_accepted = false
+      job_user.will_perform = true
+      job_user.validate
+      message = I18n.t('errors.job_user.performed_accepted_before_job_over')
+      expect(job_user.errors.messages[:performed_accepted] || []).not_to include(message)
+    end
+
+    it 'adds *no* error if the job is over' do
+      job_user = FactoryGirl.build(:job_user, job: passed_job)
+      job_user.performed_accepted = true
+      job_user.will_perform = true
+      job_user.validate
+      message = I18n.t('errors.job_user.performed_accepted_before_job_over')
+      expect(job_user.errors.messages[:performed_accepted] || []).not_to include(message)
     end
   end
 end
@@ -211,15 +397,17 @@ end
 #
 # Table name: job_users
 #
-#  id           :integer          not null, primary key
-#  user_id      :integer
-#  job_id       :integer
-#  accepted     :boolean          default(FALSE)
-#  rate         :integer
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  will_perform :boolean          default(FALSE)
-#  accepted_at  :datetime
+#  id                 :integer          not null, primary key
+#  user_id            :integer
+#  job_id             :integer
+#  accepted           :boolean          default(FALSE)
+#  rate               :integer
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  will_perform       :boolean          default(FALSE)
+#  accepted_at        :datetime
+#  performed          :boolean          default(FALSE)
+#  performed_accepted :boolean          default(FALSE)
 #
 # Indexes
 #

@@ -1,7 +1,18 @@
 # frozen_string_literal: true
 class UserPolicy < ApplicationPolicy
+  class Scope < Scope
+    def resolve
+      if user.admin?
+        scope.all
+      else
+        scope.visible
+      end
+    end
+  end
+
   ATTRIBUTES = [
-    :id, :first_name, :description, :language_id, :zip, :zip_latitude, :zip_longitude
+    :id, :first_name, :description, :job_experience, :education, :language_id, :zip,
+    :zip_latitude, :zip_longitude
   ].freeze
 
   ACCEPTED_APPLICANT_ATTRIBUTES = ATTRIBUTES + [
@@ -32,6 +43,8 @@ class UserPolicy < ApplicationPolicy
   alias_method :jobs?, :show?
 
   def present_attributes
+    return ATTRIBUTES if no_user?
+
     if admin_or_self?
       SELF_ATTRIBUTES
     elsif accepted_applicant_for_owner?

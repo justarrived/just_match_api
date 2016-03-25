@@ -40,19 +40,27 @@ RSpec.describe Rating, type: :model do
   end
 
   describe '#validate_job_concluded' do
-    context 'valid' do
-      let(:job) { FactoryGirl.build(:job_concluded) }
+    let(:job) { FactoryGirl.create(:passed_job) }
+    let(:rating) { FactoryGirl.build(:rating, job: job) }
 
-      it 'adds no error' do
-        subject.validate
-        expect(subject.errors.messages[:job]).to eq(nil)
+    context 'valid' do
+      it 'adds no error if there is *no* accepted job user' do
+        rating.validate
+        expect(rating.errors.messages[:job_user]).to eq(nil)
+      end
+
+      it 'adds no error if the job is concluded' do
+        FactoryGirl.create(:job_user_concluded, job: job)
+        rating.validate
+        expect(rating.errors.messages[:job_user]).to eq(nil)
       end
     end
 
     context 'invalid' do
       it 'adds error' do
-        subject.validate
-        expect(subject.errors.messages[:job]).to include('must be concluded')
+        FactoryGirl.create(:job_user_accepted, job: job)
+        rating.validate
+        expect(rating.errors.messages[:job_user]).to include('must be concluded')
       end
     end
   end

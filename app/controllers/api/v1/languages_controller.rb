@@ -14,18 +14,20 @@ module Api
 
       api :GET, '/languages', 'List languages'
       description 'Returns a list of languages.'
+      ApipieDocHelper.params(self, Index::LanguagesIndex)
       example Doxxer.read_example(Language, plural: true)
       def index
         authorize(Language)
 
-        page_index = params[:page].to_i
-        @languages = Language.all.page(page_index)
+        languages_index = Index::LanguagesIndex.new(self)
+        @languages = languages_index.languages
 
         api_render(@languages)
       end
 
       api :GET, '/languages/:id', 'Show language'
       description 'Return language.'
+      error code: 404, desc: 'Not found'
       example Doxxer.read_example(Language)
       def show
         authorize(@language)
@@ -36,8 +38,8 @@ module Api
       api :POST, '/languages/', 'Create new language'
       description 'Creates and returns new language.'
       error code: 400, desc: 'Bad request'
-      error code: 422, desc: 'Unprocessable entity'
       error code: 401, desc: 'Unauthorized'
+      error code: 422, desc: 'Unprocessable entity'
       param :data, Hash, desc: 'Top level key', required: true do
         param :attributes, Hash, desc: 'Language attributes', required: true do
           param :lang_code, String, desc: 'Language code', required: true
@@ -59,8 +61,8 @@ module Api
       api :PATCH, '/languages/:id', 'Update language'
       description 'Updates and returns the updated language.'
       error code: 400, desc: 'Bad request'
-      error code: 422, desc: 'Unprocessable entity'
       error code: 401, desc: 'Unauthorized'
+      error code: 422, desc: 'Unprocessable entity'
       param :data, Hash, desc: 'Top level key', required: true do
         param :attributes, Hash, desc: 'Language attributes', required: true do
           param :lang_code, String, desc: 'Name'

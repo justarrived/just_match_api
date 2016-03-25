@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class Doxxer
-  BASE_URL = 'https://just-match-api.herokuapp.com'
+  BASE_URL = ENV.fetch('APP_BASE_URL', 'http://localhost:3000')
   EXAMPLE_OUTPUT_PATH = 'examples'
   DOC_PATH = "#{Rails.root}/#{EXAMPLE_OUTPUT_PATH}"
   RESPONSE_PATH = "#{DOC_PATH}/responses"

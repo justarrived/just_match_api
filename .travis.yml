@@ -1,8 +1,6 @@
 before_install:
   - "echo '--colour' > ~/.rspec"
   - "echo 'gem: --no-document' > ~/.gemrc"
-# install:
-#   - script/setup
 env:
 - LINT_FACTORY=true
 script: script/cibuild

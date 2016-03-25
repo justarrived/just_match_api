@@ -20,16 +20,19 @@ module Api
 
         api :GET, '/jobs/:job_id/skills', 'Show user skills'
         description 'Returns list of job skills.'
+        error code: 404, desc: 'Not found'
         example Doxxer.read_example(JobSkill, plural: true)
         def index
           authorize(JobSkill)
 
-          page_index = params[:page].to_i
-          @job_skills = @job.job_skills.page(page_index)
-          api_render(@job_skills, included: 'skill')
+          job_skills_index = Index::JobSkillsIndex.new(self)
+          @job_skills = job_skills_index.job_skills(@job.job_skills)
+
+          api_render(@job_skills, included: job_skills_index.included)
         end
 
         api :GET, '/jobs/:job_id/skills/:id', 'Show user skill'
+        error code: 404, desc: 'Not found'
         description 'Returns skill.'
         example Doxxer.read_example(JobSkill)
         def show
@@ -41,6 +44,7 @@ module Api
         api :POST, '/jobs/:job_id/skills/', 'Create new job skill'
         description 'Creates and returns new job skill if the user is allowed.'
         error code: 400, desc: 'Bad request'
+        error code: 404, desc: 'Not found'
         error code: 422, desc: 'Unprocessable entity'
         error code: 401, desc: 'Unauthorized'
         param :data, Hash, desc: 'Top level key', required: true do
@@ -66,6 +70,7 @@ module Api
         api :DELETE, '/jobs/:job_id/skills/:id', 'Delete user skill'
         description 'Deletes job skill if the user is allowed.'
         error code: 401, desc: 'Unauthorized'
+        error code: 404, desc: 'Not found'
         def destroy
           authorize(JobSkill)
 

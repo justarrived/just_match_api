@@ -4,11 +4,10 @@ class UserSerializer < ActiveModel::Serializer
   # that can be returned to the user we can return all User column names here
   attributes User.column_names.map(&:to_sym)
 
+  has_one :company
   has_one :language
 
   has_many :languages
-  has_many :skills
-  has_many :jobs
 
   def attributes(_)
     data = super
@@ -40,35 +39,45 @@ end
 #
 # Table name: users
 #
-#  id            :integer          not null, primary key
-#  email         :string
-#  phone         :string
-#  description   :text
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  latitude      :float
-#  longitude     :float
-#  language_id   :integer
-#  anonymized    :boolean          default(FALSE)
-#  auth_token    :string
-#  password_hash :string
-#  password_salt :string
-#  admin         :boolean          default(FALSE)
-#  street        :string
-#  zip           :string
-#  zip_latitude  :float
-#  zip_longitude :float
-#  first_name    :string
-#  last_name     :string
-#  ssn           :string
+#  id                        :integer          not null, primary key
+#  email                     :string
+#  phone                     :string
+#  description               :text
+#  created_at                :datetime         not null
+#  updated_at                :datetime         not null
+#  latitude                  :float
+#  longitude                 :float
+#  language_id               :integer
+#  anonymized                :boolean          default(FALSE)
+#  auth_token                :string
+#  password_hash             :string
+#  password_salt             :string
+#  admin                     :boolean          default(FALSE)
+#  street                    :string
+#  zip                       :string
+#  zip_latitude              :float
+#  zip_longitude             :float
+#  first_name                :string
+#  last_name                 :string
+#  ssn                       :string
+#  company_id                :integer
+#  banned                    :boolean          default(FALSE)
+#  job_experience            :text
+#  education                 :text
+#  one_time_token            :string
+#  one_time_token_expires_at :datetime
 #
 # Indexes
 #
-#  index_users_on_auth_token   (auth_token) UNIQUE
-#  index_users_on_email        (email) UNIQUE
-#  index_users_on_language_id  (language_id)
+#  index_users_on_auth_token      (auth_token) UNIQUE
+#  index_users_on_company_id      (company_id)
+#  index_users_on_email           (email) UNIQUE
+#  index_users_on_language_id     (language_id)
+#  index_users_on_one_time_token  (one_time_token) UNIQUE
+#  index_users_on_ssn             (ssn) UNIQUE
 #
 # Foreign Keys
 #
 #  fk_rails_45f4f12508  (language_id => languages.id)
+#  fk_rails_7682a3bdfe  (company_id => companies.id)
 #

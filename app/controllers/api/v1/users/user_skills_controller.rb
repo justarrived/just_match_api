@@ -20,17 +20,20 @@ module Api
 
         api :GET, '/users/:user_id/skills', 'Show user skills'
         description 'Returns list of user skills if the user is allowed.'
+        error code: 404, desc: 'Not found'
         example Doxxer.read_example(UserSkill, plural: true)
         def index
           authorize(UserSkill)
 
-          page_index = params[:page].to_i
-          @user_skills = @user.user_skills.page(page_index)
-          api_render(@user_skills, included: 'skill')
+          user_skills_index = Index::UserSkillsIndex.new(self)
+          @user_skills = user_skills_index.user_skills(@user.user_skills)
+
+          api_render(@user_skills, included: user_skills_index.included)
         end
 
         api :GET, '/users/:user_id/skills/:id', 'Show user skill'
         description 'Returns user skill if the user is allowed.'
+        error code: 404, desc: 'Not found'
         example Doxxer.read_example(UserSkill)
         def show
           authorize(UserSkill)
@@ -41,8 +44,9 @@ module Api
         api :POST, '/users/:user_id/skills/', 'Create new user skill'
         description 'Creates and returns new user skill if the user is allowed.'
         error code: 400, desc: 'Bad request'
-        error code: 422, desc: 'Unprocessable entity'
         error code: 401, desc: 'Unauthorized'
+        error code: 404, desc: 'Not found'
+        error code: 422, desc: 'Unprocessable entity'
         param :data, Hash, desc: 'Top level key', required: true do
           param :attributes, Hash, desc: 'Skill attributes', required: true do
             param :id, Integer, desc: 'Skill id', required: true
@@ -67,6 +71,7 @@ module Api
         api :DELETE, '/users/:user_id/skills/:id', 'Delete user skill'
         description 'Deletes user skill if the user is allowed.'
         error code: 401, desc: 'Unauthorized'
+        error code: 404, desc: 'Not found'
         def destroy
           @user_skill = @user.user_skills.find_by!(skill: @skill)
 

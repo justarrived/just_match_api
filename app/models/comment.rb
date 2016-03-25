@@ -10,6 +10,8 @@ class Comment < ActiveRecord::Base
   validates :body, presence: true
   validates :language, presence: true
 
+  scope :visible, -> { where(hidden: false) }
+
   # Needed for administrate
   # see https://github.com/thoughtbot/administrate/issues/354
   def owner_id
@@ -30,6 +32,7 @@ end
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  language_id      :integer
+#  hidden           :boolean          default(FALSE)
 #
 # Indexes
 #

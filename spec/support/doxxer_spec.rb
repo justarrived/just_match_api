@@ -22,7 +22,7 @@ RSpec.describe Doxxer do
 
   describe 'class method' do
     describe '#curl_for' do
-      let(:base_url) { 'https://just-match-api.herokuapp.com/api/v1/jobs' }
+      let(:base_url) { 'http://localhost:3000/api/v1/jobs' }
 
       it 'returns correct cURL for index path' do
         result = described_class.curl_for(name: 'jobs')

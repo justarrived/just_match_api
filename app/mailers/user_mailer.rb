@@ -14,7 +14,7 @@ class UserMailer < ApplicationMailer
     mail(to: user.email, subject: I18n.t('mailer.job_match.subject'))
   end
 
-  def job_performed_accept_email(user:, job:, owner:)
+  def job_user_performed_accepted_email(user:, job:, owner:)
     @user_name = user.name
     @owner_name = owner.name
     @job_name = job.name
@@ -23,7 +23,7 @@ class UserMailer < ApplicationMailer
     mail(to: user.email, subject: subject)
   end
 
-  def job_performed_email(user:, job:, owner:)
+  def job_user_performed_email(user:, job:, owner:)
     @user_name = user.name
     @owner_name = owner.name
     @job_name = job.name
@@ -76,5 +76,21 @@ class UserMailer < ApplicationMailer
 
     subject = I18n.t('mailer.accepted_applicant_confirmation_overdue.subject')
     mail(to: owner.email, subject: subject)
+  end
+
+  def reset_password_email(user:)
+    @user_name = user.first_name
+    token = user.one_time_token
+    @reset_password_url = FrontendRouter.fetch(:reset_password, token: token)
+
+    subject = I18n.t('mailer.reset_password.subject')
+    mail(to: user.email, subject: subject)
+  end
+
+  def changed_password_email(user:)
+    @user_name = user.first_name
+
+    subject = I18n.t('mailer.changed_password.subject')
+    mail(to: user.email, subject: subject)
   end
 end

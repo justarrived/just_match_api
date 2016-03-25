@@ -18,16 +18,18 @@ module Api
 
       api :GET, '/:resource_name/:resource_id/comments', 'List comments'
       description 'Returns a list of comments.'
+      error code: 404, desc: 'Not found'
       example Doxxer.read_example(Comment, plural: true)
       def index
-        page_index = params[:page].to_i
-        @comments = @commentable.comments.page(page_index)
+        comments_index = Index::CommentsIndex.new(self)
+        @comments = comments_index.comments(@commentable.comments)
 
-        api_render(@comments)
+        api_render(@comments, included: comments_index.included)
       end
 
       api :GET, '/:resource_name/:resource_id/comments/:id', 'Show comment'
       description 'Returns comment.'
+      error code: 404, desc: 'Not found'
       example Doxxer.read_example(Comment)
       def show
         api_render(@comment)
@@ -36,6 +38,7 @@ module Api
       api :POST, '/:resource_name/:resource_id/comments/', 'Create new comment'
       description 'Creates and returns the new comment if the user is allowed.'
       error code: 400, desc: 'Bad request'
+      error code: 404, desc: 'Not found'
       error code: 422, desc: 'Unprocessable entity'
       param :data, Hash, desc: 'Top level key', required: true do
         param :attributes, Hash, desc: 'Comment attributes', required: true do
@@ -61,6 +64,7 @@ module Api
 
       api :PATCH, '/:resource_name/:resource_id/comments/:id', 'Update comment'
       description 'Updates and returns the comment if the user is allowed.'
+      error code: 404, desc: 'Not found'
       error code: 422, desc: 'Unprocessable entity'
       param :data, Hash, desc: 'Top level key', required: true do
         param :attributes, Hash, desc: 'Comment attributes', required: true do
@@ -82,6 +86,7 @@ module Api
 
       api :DELETE, '/:resource_name/:resource_id/comments/:id', 'Delete comment'
       description 'Deletes comment if allowed.'
+      error code: 404, desc: 'Not found'
       def destroy
         @comment = user_comment_scope.find(params[:id])
         @comment.destroy

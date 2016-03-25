@@ -4,7 +4,11 @@
       "id": "1",
       "type": "languages",
       "attributes": {
-        "lang_code": "sv_2"
+        "lang_code": "sv_2",
+        "en_name": null,
+        "direction": null,
+        "local_name": null,
+        "system_language": false
       }
     }
   ]

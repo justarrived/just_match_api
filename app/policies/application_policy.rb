@@ -50,6 +50,10 @@ class ApplicationPolicy
     user? && user.admin?
   end
 
+  def company_user?
+    user? && !user.company.nil?
+  end
+
   def user?
     !!user.try!(:persisted?)
   end

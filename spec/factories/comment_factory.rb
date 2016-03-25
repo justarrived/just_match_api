@@ -30,6 +30,7 @@ end
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  language_id      :integer
+#  hidden           :boolean          default(FALSE)
 #
 # Indexes
 #

@@ -8,15 +8,22 @@ class JobUser < ActiveRecord::Base
   validates :user, presence: true
   validates :job, presence: true
 
-  validate :validate_applicant_not_owner_of_job
-  validate :validate_single_applicant, on: :update
-
   validates :user, uniqueness: { scope: :job }
   validates :job, uniqueness: { scope: :user }
 
-  validate :validate_accepted_not_reverted, unless: :applicant_confirmation_overdue?
-  validate :validate_will_perform_not_reverted
-  validate :validate_accepted_before_will_perform
+  validates :will_perform, after_true: { field: :accepted }, if: :will_perform
+  validates :performed, after_true: { field: :will_perform }, if: :performed
+  validates :performed_accepted, after_true: { field: :will_perform }, if: :performed_accepted # rubocop:disable Metrics/LineLength
+
+  validates :accepted, unrevertable: true, unless: :applicant_confirmation_overdue?
+  validates :will_perform, unrevertable: true
+  validates :performed, unrevertable: true
+  validates :performed_accepted, unrevertable: true
+
+  validate :validate_single_applicant, on: :update
+  validate :validate_applicant_not_owner_of_job
+  validate :validate_job_started_before_performed
+  validate :validate_job_started_before_performed_accepted
 
   before_validation :accepted_at_setter
 
@@ -26,12 +33,6 @@ class JobUser < ActiveRecord::Base
   scope :applicant_confirmation_overdue, lambda {
     where('accepted_at < ?', MAX_CONFIRMATION_TIME_HOURS.hours.ago)
   }
-
-  NOT_OWNER_OF_JOB_ERR_MSG = I18n.t('errors.job_user.not_owner_of_job')
-  MULTPLE_APPLICANT_ERR_MSG = I18n.t('errors.job_user.multiple_applicants')
-  ACCEPTED_REVERTED_ERR_MSG = I18n.t('errors.job_user.accepted_changed_to_false')
-  WILL_PERFORM_REVERTED_ERR_MSG = I18n.t('errors.job_user.will_perform_changed_to_false')
-  WILL_PERFORM_ACCEPTED_ERR_MSG = I18n.t('errors.job_user.will_perform_accepted')
 
   def self.accepted_jobs_for(user)
     where(user: user, accepted: true).
@@ -47,14 +48,16 @@ class JobUser < ActiveRecord::Base
 
   def validate_applicant_not_owner_of_job
     if job && job.owner == user
-      errors.add(:user, NOT_OWNER_OF_JOB_ERR_MSG)
+      message = I18n.t('errors.job_user.not_owner_of_job')
+      errors.add(:user, message)
     end
   end
 
   def validate_single_applicant
     accepted_user = self.class.accepted.find_by(job: job).try!(:user)
     if accepted_user && user != accepted_user
-      errors.add(:multiple_applicants, MULTPLE_APPLICANT_ERR_MSG)
+      message = I18n.t('errors.job_user.multiple_applicants')
+      errors.add(:multiple_applicants, message)
     end
   end
 
@@ -66,6 +69,10 @@ class JobUser < ActiveRecord::Base
     if accepted_changed? && accepted
       self.accepted_at = Time.zone.now
     end
+  end
+
+  def concluded?
+    performed_accepted
   end
 
   # NOTE: You need to call this __before__ the record is validated
@@ -80,24 +87,46 @@ class JobUser < ActiveRecord::Base
     will_perform_changed? && will_perform
   end
 
+  # NOTE: You need to call this __before__ the record is validated
+  #       otherwise it will always return false
+  def send_performed_accepted_notice?
+    performed_accepted_changed? && performed_accepted
+  end
+
+  # NOTE: You need to call this __before__ the record is validated
+  #       otherwise it will always return false
+  def send_performed_notice?
+    performed_changed? && performed
+  end
+
   def validate_accepted_not_reverted
     return unless accepted_changed? && accepted == false
 
-    errors.add(:accepted, ACCEPTED_REVERTED_ERR_MSG)
+    message = I18n.t('errors.job_user.accepted_changed_to_false')
+    errors.add(:accepted, message)
   end
 
   def validate_will_perform_not_reverted
     return unless will_perform_changed? && will_perform == false
 
-    errors.add(:will_perform, WILL_PERFORM_REVERTED_ERR_MSG)
+    message = I18n.t('errors.job_user.will_perform_changed_to_false')
+    errors.add(:will_perform, message)
   end
 
-  def validate_accepted_before_will_perform
-    return unless will_perform
+  def validate_job_started_before_performed
+    return if job && job.started?
+    return unless performed
 
-    unless accepted
-      errors.add(:will_perform, WILL_PERFORM_ACCEPTED_ERR_MSG)
-    end
+    message = I18n.t('errors.job_user.performed_before_job_over')
+    errors.add(:performed, message)
+  end
+
+  def validate_job_started_before_performed_accepted
+    return if job && job.started?
+    return unless performed_accepted
+
+    message = I18n.t('errors.job_user.performed_accepted_before_job_over')
+    errors.add(:performed_accepted, message)
   end
 end
 
@@ -105,15 +134,17 @@ end
 #
 # Table name: job_users
 #
-#  id           :integer          not null, primary key
-#  user_id      :integer
-#  job_id       :integer
-#  accepted     :boolean          default(FALSE)
-#  rate         :integer
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  will_perform :boolean          default(FALSE)
-#  accepted_at  :datetime
+#  id                 :integer          not null, primary key
+#  user_id            :integer
+#  job_id             :integer
+#  accepted           :boolean          default(FALSE)
+#  rate               :integer
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  will_perform       :boolean          default(FALSE)
+#  accepted_at        :datetime
+#  performed          :boolean          default(FALSE)
+#  performed_accepted :boolean          default(FALSE)
 #
 # Indexes
 #

@@ -10,11 +10,15 @@ The code follows most Rails conventions. If you've worked with Rails before the 
   - Ruby 2.3
   - Ruby on Rails 4.2
   - PostgreSQL 9.3
+  - Redis 3
 
 
 * __Environment variables__
   + Used to configure app
   + [List of variables](environment-variables.md)
+
+
+* __Uses `sidekiq` for background jobs (including emails)__
 
 
 * __All role based access is contained in `app/policies`__
@@ -31,6 +35,7 @@ The code follows most Rails conventions. If you've worked with Rails before the 
 * __Notifications and emails__
   - Every single notification/email has their on class in `app/notifiers`
     + Notifiers invokes the appropriate Rails mailers
+
 
 * __API versions__
   - All routes namespaced under `api/v1/`

@@ -13,9 +13,13 @@ class JobSerializer < ActiveModel::Serializer
       User.none
     end
   end
-  has_many :comments
+
+  has_many :comments do
+    object.comments.visible
+  end
 
   has_one :owner
+  has_one :company
   has_one :language
 
   def attributes(_)
@@ -58,24 +62,23 @@ end
 #
 # Table name: jobs
 #
-#  id               :integer          not null, primary key
-#  max_rate         :integer
-#  description      :text
-#  job_date         :datetime
-#  performed_accept :boolean          default(FALSE)
-#  performed        :boolean          default(FALSE)
-#  hours            :float
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  owner_user_id    :integer
-#  latitude         :float
-#  longitude        :float
-#  name             :string
-#  language_id      :integer
-#  street           :string
-#  zip              :string
-#  zip_latitude     :float
-#  zip_longitude    :float
+#  id            :integer          not null, primary key
+#  max_rate      :integer
+#  description   :text
+#  job_date      :datetime
+#  hours         :float
+#  name          :string
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  owner_user_id :integer
+#  latitude      :float
+#  longitude     :float
+#  language_id   :integer
+#  street        :string
+#  zip           :string
+#  zip_latitude  :float
+#  zip_longitude :float
+#  hidden        :boolean          default(FALSE)
 #
 # Indexes
 #

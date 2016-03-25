@@ -16,6 +16,16 @@ echo -e '\n== Bootstrapping dependencies =='
   exit 1
 }
 
+which redis-server 2>&1 >/dev/null || {
+  if [[ $CI_BUILD != true ]]; then
+    echo -e '\nPlease install Redis (redis-server) and then run this script again.'
+    echo -e 'If your running OSX the you can install it by running:'
+    echo -e '  $ brew install redis'
+    echo -e 'or if you use apt-get:'
+    echo -e '  $ sudo apt-get -y install redis-server'
+  fi
+}
+
 which bundle 2>&1 >/dev/null || {
   echo -e '\n== Installing bundler =='
   gem install bundler --conservative

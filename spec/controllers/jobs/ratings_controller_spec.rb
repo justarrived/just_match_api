@@ -7,7 +7,11 @@ RSpec.describe Api::V1::Jobs::RatingsController do
   end
 
   let(:job_owner) { FactoryGirl.create(:user) }
-  let(:job) { FactoryGirl.create(:job_concluded, owner: job_owner) }
+  let(:job) do
+    job = FactoryGirl.create(:passed_job, owner: job_owner)
+    FactoryGirl.create(:job_user_concluded, job: job)
+    job
+  end
 
   let(:valid_params) do
     language = FactoryGirl.create(:language)

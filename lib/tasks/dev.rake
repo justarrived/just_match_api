@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 require 'seeds/dev/chat_seed'
+require 'seeds/dev/company_seed'
 require 'seeds/dev/job_seed'
 require 'seeds/dev/job_user_seed'
-require 'seeds/dev/language_seed'
 require 'seeds/dev/skill_seed'
 require 'seeds/dev/user_seed'
 
@@ -29,32 +29,37 @@ namespace :dev do
   ].freeze
 
   task seed: :environment do
-    %w(languages skills users jobs chats job_users).each do |task|
+    %w(companies skills users jobs chats job_users).each do |task|
       Rake::Task["dev:seed:#{task}"].execute
     end
   end
 
   namespace :seed do
-    task languages: :environment do
-      LanguageSeed.call
+    task companies: :environment do
+      Dev::CompanySeed.call
     end
 
     task skills: :environment do
-      languages = Language.all
-      SkillSeed.call(languages: languages)
+      Dev::SkillSeed.call
     end
 
     task users: :environment do
       languages = Language.all
       skills = Skill.all
-      UserSeed.call(languages: languages, skills: skills, addresses: SEED_ADDRESSES)
+      companies = Company.all
+      Dev::UserSeed.call(
+        languages: languages,
+        skills: skills,
+        addresses: SEED_ADDRESSES,
+        companies: companies
+      )
     end
 
     task jobs: :environment do
       languages = Language.all
       skills = Skill.all
-      users = User.all
-      JobSeed.call(
+      users = User.company_users
+      Dev::JobSeed.call(
         languages: languages,
         users: users,
         addresses: SEED_ADDRESSES,
@@ -64,13 +69,13 @@ namespace :dev do
 
     task chats: :environment do
       users = User.all
-      ChatSeed.call(users: users)
+      Dev::ChatSeed.call(users: users)
     end
 
     task job_users: :environment do
       jobs = Job.all
       users = User.all
-      JobUserSeed.call(jobs: jobs, users: users)
+      Dev::JobUserSeed.call(jobs: jobs, users: users)
     end
   end
 

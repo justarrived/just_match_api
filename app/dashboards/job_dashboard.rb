@@ -10,6 +10,7 @@ class JobDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     language: Field::BelongsTo,
+    company: Field::BelongsTo,
     job_skills: Field::HasMany,
     skills: Field::HasMany,
     job_users: Field::HasMany,
@@ -22,6 +23,7 @@ class JobDashboard < Administrate::BaseDashboard
     job_date: Field::DateTime,
     performed_accept: Field::Boolean,
     performed: Field::Boolean,
+    hidden: Field::Boolean,
     hours: Field::Number.with_options(decimals: 2),
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
@@ -38,10 +40,12 @@ class JobDashboard < Administrate::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
+    :name,
+    :company,
     :language,
-    :job_skills,
     :skills,
-    :job_users
+    :users,
+    :id
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -60,6 +64,7 @@ class JobDashboard < Administrate::BaseDashboard
     :job_date,
     :performed_accept,
     :performed,
+    :hidden,
     :hours,
     :created_at,
     :updated_at,
@@ -86,6 +91,7 @@ class JobDashboard < Administrate::BaseDashboard
     :job_date,
     :performed_accept,
     :performed,
+    :hidden,
     :hours,
     :street,
     :zip,

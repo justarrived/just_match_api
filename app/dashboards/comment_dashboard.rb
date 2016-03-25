@@ -14,6 +14,7 @@ class CommentDashboard < Administrate::BaseDashboard
     language: Field::BelongsTo,
     id: Field::Number,
     body: Field::Text,
+    hidden: Field::Boolean,
     owner_user_id: Field::Number,
     created_at: Field::DateTime,
     updated_at: Field::DateTime
@@ -39,6 +40,7 @@ class CommentDashboard < Administrate::BaseDashboard
     :language,
     :id,
     :body,
+    :hidden,
     :owner_user_id,
     :created_at,
     :updated_at
@@ -51,6 +53,7 @@ class CommentDashboard < Administrate::BaseDashboard
     :commentable,
     :language,
     :body,
+    :hidden,
     :owner_user_id
   ].freeze
 

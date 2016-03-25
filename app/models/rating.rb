@@ -36,9 +36,11 @@ class Rating < ActiveRecord::Base
 
   def validate_job_concluded
     return if job.nil?
+    job_user = job.accepted_job_user
+    return if job_user.nil?
 
-    unless job.concluded?
-      errors.add(:job, I18n.t('errors.rating.job_concluded'))
+    unless job_user.concluded?
+      errors.add(:job_user, I18n.t('errors.rating.job_user_concluded'))
     end
   end
 

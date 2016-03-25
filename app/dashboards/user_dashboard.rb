@@ -36,6 +36,7 @@ class UserDashboard < Administrate::BaseDashboard
     longitude: Field::Number.with_options(decimals: 5),
     street: Field::String,
     anonymized: Field::Boolean,
+    banned: Field::Boolean,
     auth_token: Field::String,
     password_hash: Field::String,
     password_salt: Field::String,
@@ -48,6 +49,7 @@ class UserDashboard < Administrate::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
+    :name,
     :language,
     :user_skills,
     :skills,
@@ -84,6 +86,7 @@ class UserDashboard < Administrate::BaseDashboard
     :zip,
     :ssn,
     :anonymized,
+    :banned,
     # :auth_token,
     # :password_hash,
     # :password_salt,
@@ -118,6 +121,7 @@ class UserDashboard < Administrate::BaseDashboard
     :zip,
     :ssn,
     :anonymized,
+    :banned,
     # :auth_token,
     # :password_hash,
     # :password_salt,
