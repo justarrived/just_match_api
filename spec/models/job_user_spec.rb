@@ -218,7 +218,7 @@ RSpec.describe JobUser, type: :model do
       job_user.accepted = false
       job_user.validate
       err_msg = I18n.t('errors.validators.unrevertable')
-      expect(job_user.errors.messages[:accepted]|| []).not_to include(err_msg)
+      expect(job_user.errors.messages[:accepted] || []).not_to include(err_msg)
     end
   end
 
