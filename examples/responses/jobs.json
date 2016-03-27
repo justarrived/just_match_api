@@ -19,7 +19,8 @@
         "zip": "223 52",
         "zip_latitude": 59.7117339,
         "zip_longitude": 18.4256286,
-        "hidden": false
+        "hidden": false,
+        "category_id": null
       },
       "relationships": {
         "applicants": {

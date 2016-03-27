@@ -14,10 +14,8 @@ class JobPolicy < ApplicationPolicy
 
   OWNER_ATTRIBUTES = [
     :max_rate, :performed_accept, :description, :job_date, :street, :zip,
-    :name, :hours, :language_id, skill_ids: []
+    :name, :hours, :language_id, :category_id, skill_ids: []
   ].freeze
-  ACCEPTED_APPLICANT_ATTRIBUTES = [:performed].freeze
-  ADMIN_ATTRIBUTES = (OWNER_ATTRIBUTES + ACCEPTED_APPLICANT_ATTRIBUTES).freeze
 
   def index?
     true
@@ -40,12 +38,8 @@ class JobPolicy < ApplicationPolicy
   def permitted_attributes
     return [] if no_user?
 
-    if admin?
-      ADMIN_ATTRIBUTES
-    elsif !record.persisted? || owner?
+    if admin? || !record.persisted? || owner?
       OWNER_ATTRIBUTES
-    elsif accepted_applicant?
-      ACCEPTED_APPLICANT_ATTRIBUTES
     else
       []
     end

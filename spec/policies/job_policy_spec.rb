@@ -9,11 +9,10 @@ RSpec.describe JobPolicy do
   let(:owner_params) do
     [
       :max_rate, :performed_accept, :description, :job_date, :street, :zip, :name,
-      :hours, :language_id, { skill_ids: [] }
+      :hours, :language_id, :category_id, { skill_ids: [] }
     ]
   end
-  let(:accepted_applicant_params) { [:performed] }
-  let(:admin_params) { owner_params + accepted_applicant_params }
+  let(:admin_params) { owner_params }
 
   context 'with anyone' do
     subject { JobPolicy.new(nil, job) }
@@ -119,7 +118,7 @@ RSpec.describe JobPolicy do
     it '#permitted_attributes is correct' do
       job.users = [user]
       job.accept_applicant!(user)
-      expect(subject.permitted_attributes).to eq(accepted_applicant_params)
+      expect(subject.permitted_attributes).to eq([])
     end
 
     it 'returns false for #present_applicants?' do

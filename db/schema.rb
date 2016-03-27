@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160323175316) do
+ActiveRecord::Schema.define(version: 20160327213323) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,6 +55,14 @@ ActiveRecord::Schema.define(version: 20160323175316) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "categories", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "categories", ["name"], name: "index_categories_on_name", unique: true, using: :btree
 
   create_table "chat_users", force: :cascade do |t|
     t.integer  "chat_id"
@@ -151,8 +159,10 @@ ActiveRecord::Schema.define(version: 20160323175316) do
     t.float    "zip_latitude"
     t.float    "zip_longitude"
     t.boolean  "hidden",        default: false
+    t.integer  "category_id"
   end
 
+  add_index "jobs", ["category_id"], name: "index_jobs_on_category_id", using: :btree
   add_index "jobs", ["language_id"], name: "index_jobs_on_language_id", using: :btree
 
   create_table "languages", force: :cascade do |t|
@@ -274,6 +284,7 @@ ActiveRecord::Schema.define(version: 20160323175316) do
   add_foreign_key "job_skills", "skills"
   add_foreign_key "job_users", "jobs"
   add_foreign_key "job_users", "users"
+  add_foreign_key "jobs", "categories"
   add_foreign_key "jobs", "languages"
   add_foreign_key "jobs", "users", column: "owner_user_id", name: "jobs_owner_user_id_fk"
   add_foreign_key "messages", "chats"

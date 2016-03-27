@@ -13,6 +13,7 @@ RSpec.describe Api::V1::JobsController, type: :controller do
           name: 'Some job name',
           description: 'Some job description',
           language_id: FactoryGirl.create(:language).id,
+          category_id: FactoryGirl.create(:category).id,
           owner_user_id: FactoryGirl.create(:user).id,
           street: 'Stora Nygatan 36',
           zip: '211 37',

@@ -8,6 +8,7 @@ FactoryGirl.define do
     zip '223 52'
     association :owner, factory: :user
     association :language
+    association :category
     job_date 1.week.from_now
     hours 3
 
