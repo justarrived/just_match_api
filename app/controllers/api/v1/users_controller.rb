@@ -131,21 +131,6 @@ module Api
         render json: Job.matches_user(@user)
       end
 
-      api :GET, 'users/:id/jobs', 'Shows all jobs associated with user'
-      # rubocop:disable Metrics/LineLength
-      description 'Returns the all jobs where the user is the owner or applicant user if the user is allowed.'
-      # rubocop:enable Metrics/LineLength
-      error code: 401, desc: 'Unauthorized'
-      error code: 404, desc: 'Not found'
-      example Doxxer.read_example(Job, plural: true)
-      def jobs
-        authorize(@user)
-
-        @jobs = Queries::UserJobsFinder.new(current_user).perform
-
-        api_render(@jobs)
-      end
-
       private
 
       def set_user

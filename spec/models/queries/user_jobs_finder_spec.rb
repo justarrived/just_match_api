@@ -5,8 +5,8 @@ RSpec.describe Queries::UserJobsFinder do
   let(:user) { FactoryGirl.create(:user) }
 
   describe '#perform' do
-    it 'returns empty job scope if no related jobs are found for user' do
-      expect(described_class.new(user).perform).to eq(Job.none)
+    it 'returns empty scope if no related jobs are found for user' do
+      expect(described_class.new(user).perform.empty?).to eq(true)
     end
 
     it 'returns empty list if user is nil' do
@@ -21,6 +21,20 @@ RSpec.describe Queries::UserJobsFinder do
     it 'returns applicant jobs' do
       job = FactoryGirl.create(:job, users: [user])
       expect(described_class.new(user).perform).to eq([job])
+    end
+
+    it 'can return accepted applicant jobs if filtered' do
+      job = FactoryGirl.create(:job)
+      FactoryGirl.create(:job_user, job: job, user: user, accepted: true)
+      filters = { accepted: true }
+      expect(described_class.new(user, job_user_filters: filters).perform).to eq([job])
+    end
+
+    it 'can return no applicant jobs if filtered' do
+      job = FactoryGirl.create(:job)
+      FactoryGirl.create(:job_user, job: job, user: user, accepted: false)
+      filters = { accepted: true }
+      expect(described_class.new(user, job_user_filters: filters).perform).to eq([])
     end
 
     it 'returns both owned jobs and applicant jobs' do

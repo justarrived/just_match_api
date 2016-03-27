@@ -9,7 +9,7 @@ RSpec.describe UserPolicy do
   context 'a user' do
     subject { UserPolicy.new(nil, user) }
 
-    let(:user) { FactoryGirl.create(:user) }
+    let(:user) { FactoryGirl.build(:user) }
 
     it 'returns false for index' do
       expect(subject.index?).to eq(false)
@@ -40,12 +40,23 @@ RSpec.describe UserPolicy do
     end
   end
 
+  context 'company user' do
+    subject { UserPolicy.new(company_user, user) }
+
+    let(:company_user) { FactoryGirl.build(:company_user) }
+    let(:user) { FactoryGirl.build(:user) }
+
+    it 'returns true for jobs' do
+      expect(subject.jobs?).to eq(true)
+    end
+  end
+
   describe '#present_attributes' do
     subject { UserPolicy.new(user, owner) }
 
-    let(:owner) { FactoryGirl.create(:user) }
-    let(:user) { FactoryGirl.create(:user) }
-    let(:admin) { FactoryGirl.create(:admin_user) }
+    let(:owner) { FactoryGirl.build(:user) }
+    let(:user) { FactoryGirl.build(:user) }
+    let(:admin) { FactoryGirl.build(:admin_user) }
 
     let(:job) { FactoryGirl.create(:job, owner: owner) }
 

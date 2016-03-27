@@ -46,6 +46,11 @@ class Job < ActiveRecord::Base
       order_by_matching_skills(user, strict_match: strict_match)
   end
 
+  def self.associated_jobs(user)
+    joins('LEFT JOIN job_users ON job_users.job_id = jobs.id').
+      where('jobs.owner_user_id = :user OR job_users.user_id = :user', user: user)
+  end
+
   def locked_for_changes?
     applicant = applicants.find_by(accepted: true)
     return false unless applicant

@@ -232,28 +232,6 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     end
   end
 
-  describe 'GET #jobs' do
-    it 'assigns all jobs as @jobs' do
-      job = FactoryGirl.create(:job)
-      FactoryGirl.create(:job_user, job: job, user: logged_in_user)
-      get :jobs, { user_id: logged_in_user.to_param }, valid_session
-      expect(assigns(:jobs).first).to be_a(Job)
-    end
-
-    it 'assigns all jobs as @jobs' do
-      job = FactoryGirl.create(:job)
-      FactoryGirl.create(:job_user, job: job, user: logged_in_user)
-      get :jobs, { user_id: logged_in_user.to_param }, valid_session
-      expect(assigns(:jobs).first).to be_a(Job)
-    end
-
-    it 'returns unauthorized status when not allowed' do
-      user = FactoryGirl.create(:user)
-      get :jobs, { user_id: user.to_param }, valid_session
-      expect(response.status).to eq(401)
-    end
-  end
-
   describe 'GET #matching_jobs' do
     it 'returns 200 status for admin user' do
       user = FactoryGirl.create(:user)

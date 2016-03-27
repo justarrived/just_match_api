@@ -1,14 +1,22 @@
 # frozen_string_literal: true
 module Queries
   class UserJobsFinder
-    def initialize(user)
+    attr_reader :user, :job_user_filters
+
+    def initialize(user, job_user_filters: {})
       @user = user
+      @job_user_filters = job_user_filters
     end
 
     def perform
-      return Job.none if @user.nil?
+      return Job.none if user.nil?
 
-      @user.jobs + @user.owned_jobs
+      jobs = Job.associated_jobs(user)
+
+      job_user_filters.each do |field_name, value|
+        jobs = jobs.where("job_users.#{field_name}" => value) unless value.blank?
+      end
+      jobs
     end
   end
 end
