@@ -13,7 +13,7 @@ gem 'sinatra', require: false # Required for sidekiq web
 
 gem 'active_model_serializers', '~> 0.10.0.rc4' # Serialize models to JSON
 
-gem 'blazer', '~> 1.1' # Explore data with SQL
+gem 'blazer', '~> 1.2' # Explore data with SQL
 
 group :production do
   gem 'rails_12factor', '~> 0.0.3' # Heroku integration
