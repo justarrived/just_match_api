@@ -25,6 +25,10 @@ FactoryGirl.define do
       admin true
     end
 
+    factory :company_user do
+      association :company
+    end
+
     factory :user_with_one_time_token do
       one_time_token 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
       one_time_token_expires_at 1.day.from_now

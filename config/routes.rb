@@ -30,17 +30,17 @@ Rails.application.routes.draw do
   get '/', to: redirect('/api_docs')
 
   mount Blazer::Engine, at: 'insights'
-  mount Sidekiq::Web, at: '/sidekiq'
+  mount Sidekiq::Web, at: 'sidekiq'
 
   namespace :api do
     namespace :v1 do
       resources :jobs, param: :job_id, only: [:index, :show, :create, :update] do
         member do
           get :matching_users
-          resources :job_comments, module: :jobs, path: 'comments', only: [:index, :show, :create, :update, :destroy]
-          resources :job_skills, module: :jobs, path: 'skills', only: [:index, :show, :create, :destroy]
-          resources :job_users, module: :jobs, path: 'users', only: [:index, :show, :create, :update, :destroy]
-          resources :ratings, module: :jobs, path: 'ratings', only: [:create]
+          resources :job_comments, module: :jobs, path: :comments, only: [:index, :show, :create, :update, :destroy]
+          resources :job_skills, module: :jobs, path: :skills, only: [:index, :show, :create, :destroy]
+          resources :job_users, module: :jobs, path: :users, only: [:index, :show, :create, :update, :destroy]
+          resources :ratings, module: :jobs, path: :ratings, only: [:create]
         end
       end
 
@@ -49,10 +49,10 @@ Rails.application.routes.draw do
           resources :messages, module: :users, only: [:create, :index]
 
           get :matching_jobs
-          get :jobs
+          resources :user_jobs, path: :jobs, param: :user_id, module: :users, only: [:index]
           resources :comments, module: :users, only: [:index, :show, :create, :update, :destroy]
-          resources :user_skills, module: :users, path: 'skills', only: [:index, :show, :create, :destroy]
-          resources :user_languages, module: :users, path: 'languages', only: [:index, :show, :create, :destroy]
+          resources :user_skills, module: :users, path: :skills, only: [:index, :show, :create, :destroy]
+          resources :user_languages, module: :users, path: :languages, only: [:index, :show, :create, :destroy]
         end
 
         collection do

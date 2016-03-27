@@ -5,7 +5,9 @@
     "attributes": {
       "accepted": false,
       "accepted_at": null,
-      "will_perform": false
+      "will_perform": false,
+      "performed": false,
+      "performed_accepted": false
     },
     "relationships": {
       "user": {
