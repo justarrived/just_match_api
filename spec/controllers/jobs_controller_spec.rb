@@ -13,6 +13,7 @@ RSpec.describe Api::V1::JobsController, type: :controller do
           name: 'Some job name',
           description: 'Some job description',
           language_id: FactoryGirl.create(:language).id,
+          category_id: FactoryGirl.create(:category).id,
           owner_user_id: FactoryGirl.create(:user).id,
           street: 'Stora Nygatan 36',
           zip: '211 37',
@@ -289,13 +290,16 @@ end
 #  zip_latitude  :float
 #  zip_longitude :float
 #  hidden        :boolean          default(FALSE)
+#  category_id   :integer
 #
 # Indexes
 #
+#  index_jobs_on_category_id  (category_id)
 #  index_jobs_on_language_id  (language_id)
 #
 # Foreign Keys
 #
+#  fk_rails_1cf0b3b406    (category_id => categories.id)
 #  fk_rails_70cb33aa57    (language_id => languages.id)
 #  jobs_owner_user_id_fk  (owner_user_id => users.id)
 #

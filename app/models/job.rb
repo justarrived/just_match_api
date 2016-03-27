@@ -11,6 +11,7 @@ class Job < ActiveRecord::Base
   ALLOWED_RATES = [70, 80, 100].freeze
 
   belongs_to :language
+  belongs_to :category
 
   has_one :company, through: :owner
 
@@ -23,6 +24,7 @@ class Job < ActiveRecord::Base
   has_many :comments, as: :commentable
 
   validates :language, presence: true
+  validates :category, presence: true
   validates :name, length: { minimum: 2 }, allow_blank: false
   validates :max_rate, inclusion: { in: ALLOWED_RATES }, allow_blank: false
   validates :description, length: { minimum: 10 }, allow_blank: false
@@ -138,13 +140,16 @@ end
 #  zip_latitude  :float
 #  zip_longitude :float
 #  hidden        :boolean          default(FALSE)
+#  category_id   :integer
 #
 # Indexes
 #
+#  index_jobs_on_category_id  (category_id)
 #  index_jobs_on_language_id  (language_id)
 #
 # Foreign Keys
 #
+#  fk_rails_1cf0b3b406    (category_id => categories.id)
 #  fk_rails_70cb33aa57    (language_id => languages.id)
 #  jobs_owner_user_id_fk  (owner_user_id => users.id)
 #

@@ -9,8 +9,8 @@ module Dev
       language = Language.find_by!(lang_code: 'en')
 
       log '[db:seed] Skill'
-      max_skills.times do
-        Skill.create!(name: Faker::Name.title, language: language)
+      max_skills.times do |n|
+        Skill.create!(name: "#{Faker::Name.title} #{n}", language: language)
       end
     end
   end
