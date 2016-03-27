@@ -1,7 +1,6 @@
 # frozen_string_literal: true
-require 'rails_helper'
-
-RSpec.describe Category, type: :model do
+class CategorySerializer < ActiveModel::Serializer
+  attributes :id, :name
 end
 
 # == Schema Information
