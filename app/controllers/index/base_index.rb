@@ -10,6 +10,7 @@ module Index
     PER_PAGE = Kaminari.config.default_per_page
     MAX_PER_PAGE = Kaminari.config.max_per_page
     ALLOWED_INCLUDES = [].freeze
+    FILTER_MATCH_TYPES = {}.freeze
     TRANSFORMABLE_FILTERS = { created_at: :date_range }.freeze
     ALLOWED_FILTERS = %i(created_at).freeze
 
@@ -57,10 +58,7 @@ module Index
     end
 
     def filter_records(records)
-      filter_params.each do |field_name, value|
-        records = records.where(field_name => value)
-      end
-      records
+      Queries::Filter.filter(records, filter_params, self.class::FILTER_MATCH_TYPES)
     end
 
     def sort_params
