@@ -23,8 +23,7 @@ RSpec.describe HttpBasicAdminAuthenticator do
       expect(subject).to eq(admin)
     end
 
-    it 'returns nil when incorrect email or password' do
-      admin = FactoryGirl.create(:admin_user, email: email, password: 'wrongpassword')
+    it 'returns nil if no admin found' do
       expect(subject).to be_nil
     end
   end
