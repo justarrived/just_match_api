@@ -41,6 +41,9 @@
         },
         "language": {
           "data": null
+        },
+        "category": {
+          "data": null
         }
       }
     }

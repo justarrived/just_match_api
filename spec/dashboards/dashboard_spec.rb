@@ -2,8 +2,9 @@
 require 'rails_helper'
 
 [
-  ChatDashboard, ChatUserDashboard, CommentDashboard, JobDashboard, JobSkillDashboard,
-  JobUserDashboard, LanguageDashboard, MessageDashboard, SkillDashboard, UserDashboard,
+  CategoryDashboard, ChatDashboard, ChatUserDashboard, CommentDashboard,
+  CompanyDashboard, ContactDashboard, JobDashboard, JobSkillDashboard, JobUserDashboard,
+  LanguageDashboard, MessageDashboard, RatingDashboard, SkillDashboard, UserDashboard,
   UserLanguageDashboard, UserSkillDashboard
 ].each do |dashboard_klass|
   RSpec.describe dashboard_klass do

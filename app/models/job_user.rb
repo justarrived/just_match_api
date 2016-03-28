@@ -99,20 +99,6 @@ class JobUser < ActiveRecord::Base
     performed_changed? && performed
   end
 
-  def validate_accepted_not_reverted
-    return unless accepted_changed? && accepted == false
-
-    message = I18n.t('errors.job_user.accepted_changed_to_false')
-    errors.add(:accepted, message)
-  end
-
-  def validate_will_perform_not_reverted
-    return unless will_perform_changed? && will_perform == false
-
-    message = I18n.t('errors.job_user.will_perform_changed_to_false')
-    errors.add(:will_perform, message)
-  end
-
   def validate_job_started_before_performed
     return if job && job.started?
     return unless performed

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'administrate/base_dashboard'
 
-class ContactDashboard < Administrate::BaseDashboard
+class CategoryDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -9,10 +9,9 @@ class ContactDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
+    jobs: Field::HasMany,
     id: Field::Number,
     name: Field::String,
-    email: Field::String,
-    body: Field::Text,
     created_at: Field::DateTime,
     updated_at: Field::DateTime
   }.freeze
@@ -24,17 +23,16 @@ class ContactDashboard < Administrate::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
     :name,
-    :email,
+    :jobs,
     :id
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = [
+    :jobs,
     :id,
     :name,
-    :email,
-    :body,
     :created_at,
     :updated_at
   ].freeze
@@ -43,15 +41,14 @@ class ContactDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
-    :name,
-    :email,
-    :body
+    :jobs,
+    :name
   ].freeze
 
-  # Overwrite this method to customize how messages are displayed
+  # Overwrite this method to customize how skills are displayed
   # across all pages of the admin dashboard.
   #
-  def display_resource(contact)
-    "##{contact.id} #{contact.name}"
+  def display_resource(category)
+    "##{category.id} #{category.name}"
   end
 end
