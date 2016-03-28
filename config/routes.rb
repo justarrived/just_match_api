@@ -7,6 +7,7 @@ end
 
 Rails.application.routes.draw do
   namespace :admin do
+    resources :categories
     resources :chats
     resources :comments
     resources :companies

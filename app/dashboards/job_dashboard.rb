@@ -10,6 +10,7 @@ class JobDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     language: Field::BelongsTo,
+    category: Field::BelongsTo,
     company: Field::BelongsTo,
     job_skills: Field::HasMany,
     skills: Field::HasMany,
@@ -21,8 +22,6 @@ class JobDashboard < Administrate::BaseDashboard
     max_rate: Field::Number,
     description: Field::Text,
     job_date: Field::DateTime,
-    performed_accept: Field::Boolean,
-    performed: Field::Boolean,
     hidden: Field::Boolean,
     hours: Field::Number.with_options(decimals: 2),
     created_at: Field::DateTime,
@@ -43,6 +42,7 @@ class JobDashboard < Administrate::BaseDashboard
     :name,
     :company,
     :language,
+    :category,
     :skills,
     :users,
     :id
@@ -52,6 +52,7 @@ class JobDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = [
     :language,
+    :category,
     :job_skills,
     :skills,
     :job_users,
@@ -62,8 +63,6 @@ class JobDashboard < Administrate::BaseDashboard
     :max_rate,
     :description,
     :job_date,
-    :performed_accept,
-    :performed,
     :hidden,
     :hours,
     :created_at,
@@ -80,6 +79,7 @@ class JobDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
     :language,
+    :category,
     :job_skills,
     :skills,
     :job_users,
@@ -89,8 +89,6 @@ class JobDashboard < Administrate::BaseDashboard
     :max_rate,
     :description,
     :job_date,
-    :performed_accept,
-    :performed,
     :hidden,
     :hours,
     :street,

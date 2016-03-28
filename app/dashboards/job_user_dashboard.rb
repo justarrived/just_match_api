@@ -14,6 +14,8 @@ class JobUserDashboard < Administrate::BaseDashboard
     id: Field::Number,
     accepted: Field::Boolean,
     will_perform: Field::Boolean,
+    performed_accepted: Field::Boolean,
+    performed: Field::Boolean,
     rate: Field::Number,
     created_at: Field::DateTime,
     updated_at: Field::DateTime
@@ -29,7 +31,9 @@ class JobUserDashboard < Administrate::BaseDashboard
     :job,
     :id,
     :accepted,
-    :will_perform
+    :will_perform,
+    :performed,
+    :performed_accepted
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -40,6 +44,8 @@ class JobUserDashboard < Administrate::BaseDashboard
     :id,
     :accepted,
     :will_perform,
+    :performed,
+    :performed_accepted,
     :rate,
     :created_at,
     :updated_at
@@ -53,7 +59,8 @@ class JobUserDashboard < Administrate::BaseDashboard
     :job,
     :accepted,
     :will_perform,
-    :rate
+    :performed,
+    :performed_accepted
   ].freeze
 
   # Overwrite this method to customize how job users are displayed
