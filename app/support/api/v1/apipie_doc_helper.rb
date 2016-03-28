@@ -12,10 +12,14 @@ module Api
             param 'include', String, "Inline resources *#{klass::ALLOWED_INCLUDES.join(', ')}*"
           end
           klass::ALLOWED_FILTERS.each do |filter|
-            if klass::TRANSFORMABLE_FILTERS[filter] == :date_range
-              date_range_explain = ', by range with *YYYY-MM-DD..YYYY-MM-DD*'
-            end
-            param "filter[#{filter}]", String, "Filter resource by *#{filter}*#{date_range_explain}"
+            extra_explain = if klass::TRANSFORMABLE_FILTERS[filter] == :date_range
+                              ', by range with *YYYY-MM-DD..YYYY-MM-DD*'
+                            elsif klass::FILTER_MATCH_TYPES[filter]
+                              ", matches if #{klass::FILTER_MATCH_TYPES[filter].to_s.humanize.downcase}"
+                            else
+                              ''
+                            end
+            param "filter[#{filter}]", String, "Filter resource by *#{filter}*#{extra_explain}"
           end
           # rubocop:enable Metrics/LineLength
         end
