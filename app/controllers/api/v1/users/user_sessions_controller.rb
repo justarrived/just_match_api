@@ -13,7 +13,7 @@ module Api
           api_versions '1.0'
         end
 
-        api :POST, '/user_sessions/', 'Get auth token'
+        api :POST, '/users/sessions/', 'Get auth token'
         description 'Returns the Users auth token if the user is allowed.'
         error code: 401, desc: 'Unauthorized'
         error code: 403, desc: 'Forbidden'
@@ -50,7 +50,7 @@ module Api
           end
         end
 
-        api :DELETE, '/user_sessions/:auth_token', 'Reset auth token'
+        api :DELETE, '/users/sessions/:auth_token', 'Reset auth token'
         description 'Resets the Users auth token if the user is allowed.'
         error code: 404, desc: 'Not found'
         error code: 422, desc: 'Unprocessable entity'
