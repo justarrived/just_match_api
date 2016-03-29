@@ -2,17 +2,16 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::JobsController, type: :controller do
-  let(:standard_max_rate) { Job::ALLOWED_RATES.first }
   let(:valid_attributes) do
     {
       data: {
         attributes: {
           skill_ids: [FactoryGirl.create(:skill).id],
-          max_rate: standard_max_rate,
           hours: 2,
           name: 'Some job name',
           description: 'Some job description',
           language_id: FactoryGirl.create(:language).id,
+          hourly_pay_id: FactoryGirl.create(:hourly_pay).id,
           category_id: FactoryGirl.create(:category).id,
           owner_user_id: FactoryGirl.create(:user).id,
           street: 'Stora Nygatan 36',
@@ -26,7 +25,7 @@ RSpec.describe Api::V1::JobsController, type: :controller do
   let(:invalid_attributes) do
     {
       data: {
-        attributes: { max_rate: nil }
+        attributes: { hours: nil }
       }
     }
   end
@@ -274,7 +273,6 @@ end
 # Table name: jobs
 #
 #  id            :integer          not null, primary key
-#  max_rate      :integer
 #  description   :text
 #  job_date      :datetime
 #  hours         :float
@@ -291,15 +289,18 @@ end
 #  zip_longitude :float
 #  hidden        :boolean          default(FALSE)
 #  category_id   :integer
+#  hourly_pay_id :integer
 #
 # Indexes
 #
-#  index_jobs_on_category_id  (category_id)
-#  index_jobs_on_language_id  (language_id)
+#  index_jobs_on_category_id    (category_id)
+#  index_jobs_on_hourly_pay_id  (hourly_pay_id)
+#  index_jobs_on_language_id    (language_id)
 #
 # Foreign Keys
 #
 #  fk_rails_1cf0b3b406    (category_id => categories.id)
 #  fk_rails_70cb33aa57    (language_id => languages.id)
+#  fk_rails_b144fc917d    (hourly_pay_id => hourly_pays.id)
 #  jobs_owner_user_id_fk  (owner_user_id => users.id)
 #

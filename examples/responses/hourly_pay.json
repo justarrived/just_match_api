@@ -1,0 +1,11 @@
+{
+  "data": {
+    "id": "1",
+    "type": "hourly_pays",
+    "attributes": {
+      "rate": 100,
+      "active": true,
+      "currency": "SEK"
+    }
+  }
+}

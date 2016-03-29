@@ -16,7 +16,7 @@ RSpec.describe Job, regressor: true do
 
   # === Database (Columns) ===
   it { is_expected.to have_db_column :id }
-  it { is_expected.to have_db_column :max_rate }
+  it { is_expected.to have_db_column :hourly_pay_id }
   it { is_expected.to have_db_column :description }
   it { is_expected.to have_db_column :job_date }
   it { is_expected.to have_db_column :created_at }
@@ -32,6 +32,7 @@ RSpec.describe Job, regressor: true do
 
   # === Database (Indexes) ===
   it { is_expected.to have_db_index ['language_id'] }
+  it { is_expected.to have_db_index ['hourly_pay_id'] }
 
   # === Validations (Length) ===
   it { is_expected.to allow_value(Faker::Lorem.characters(2)).for :name }
@@ -45,6 +46,7 @@ RSpec.describe Job, regressor: true do
 
   # === Validations (Presence) ===
   it { is_expected.to validate_presence_of :language }
+  it { is_expected.to validate_presence_of :hourly_pay }
   it { is_expected.to validate_presence_of :owner }
   it { is_expected.to validate_presence_of :job_date }
 

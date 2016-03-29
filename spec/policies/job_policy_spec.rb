@@ -8,8 +8,8 @@ RSpec.describe JobPolicy do
 
   let(:owner_params) do
     [
-      :max_rate, :performed_accept, :description, :job_date, :street, :zip, :name,
-      :hours, :language_id, :category_id, { skill_ids: [] }
+      :description, :job_date, :street, :zip, :name,
+      :hours, :language_id, :category_id, :hourly_pay_id, { skill_ids: [] }
     ]
   end
   let(:admin_params) { owner_params }

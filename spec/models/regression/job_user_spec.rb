@@ -13,7 +13,6 @@ RSpec.describe JobUser, regressor: true do
   it { is_expected.to have_db_column :user_id }
   it { is_expected.to have_db_column :job_id }
   it { is_expected.to have_db_column :accepted }
-  it { is_expected.to have_db_column :rate }
   it { is_expected.to have_db_column :created_at }
   it { is_expected.to have_db_column :updated_at }
   it { is_expected.to have_db_column :performed }

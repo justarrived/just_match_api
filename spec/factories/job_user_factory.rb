@@ -39,7 +39,6 @@ end
 #  user_id            :integer
 #  job_id             :integer
 #  accepted           :boolean          default(FALSE)
-#  rate               :integer
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  will_perform       :boolean          default(FALSE)

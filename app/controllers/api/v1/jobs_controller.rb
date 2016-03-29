@@ -12,7 +12,7 @@ module Api
         api_versions '1.0'
       end
 
-      ALLOWED_INCLUDES = %w(owner company language category).freeze
+      ALLOWED_INCLUDES = %w(owner company language category hourly_pay).freeze
 
       api :GET, '/jobs', 'List jobs'
       description 'Returns a list of jobs.'
@@ -45,12 +45,12 @@ module Api
         param :attributes, Hash, desc: 'Job attributes', required: true do
           # rubocop:disable Metrics/LineLength
           param :skill_ids, Array, of: Integer, desc: 'List of skill ids', required: true
-          param :max_rate, Integer, desc: 'Max rate', required: true
           param :hours, Float, desc: 'Estmiated completion time'
           param :name, String, desc: 'Name', required: true
           param :description, String, desc: 'Description', required: true
           param :job_date, String, desc: 'Job date', required: true
           param :language_id, Integer, desc: 'Langauge id of the text content', required: true
+          param :hourly_pay_id, Integer, desc: 'Hourly pay id', required: true
           param :owner_user_id, Integer, desc: 'User id for the job owner', required: true
           # rubocop:enable Metrics/LineLength
         end
@@ -85,12 +85,12 @@ module Api
       error code: 422, desc: 'Unprocessable entity'
       param :data, Hash, desc: 'Top level key', required: true do
         param :attributes, Hash, desc: 'Job attributes', required: true do
-          param :max_rate, Integer, desc: 'Max rate'
           param :name, String, desc: 'Name'
           param :description, String, desc: 'Description'
           param :job_date, String, desc: 'Job date'
           param :hours, Float, desc: 'Estmiated completion time'
           param :language_id, Integer, desc: 'Langauge id of the text content'
+          param :hourly_pay_id, Integer, desc: 'Hourly pay id', required: true
           param :owner_user_id, Integer, desc: 'User id for the job owner'
         end
       end

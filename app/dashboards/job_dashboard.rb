@@ -10,6 +10,7 @@ class JobDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     language: Field::BelongsTo,
+    hourly_pay: Field::BelongsTo,
     category: Field::BelongsTo,
     company: Field::BelongsTo,
     job_skills: Field::HasMany,
@@ -19,7 +20,6 @@ class JobDashboard < Administrate::BaseDashboard
     comments: Field::HasMany,
     owner: Field::BelongsTo.with_options(class_name: 'User'),
     id: Field::Number,
-    max_rate: Field::Number,
     description: Field::Text,
     job_date: Field::DateTime,
     hidden: Field::Boolean,
@@ -42,6 +42,7 @@ class JobDashboard < Administrate::BaseDashboard
     :name,
     :company,
     :language,
+    :hourly_pay,
     :category,
     :skills,
     :users,
@@ -52,6 +53,7 @@ class JobDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = [
     :language,
+    :hourly_pay,
     :category,
     :job_skills,
     :skills,
@@ -60,7 +62,6 @@ class JobDashboard < Administrate::BaseDashboard
     :comments,
     :owner,
     :id,
-    :max_rate,
     :description,
     :job_date,
     :hidden,
@@ -79,6 +80,7 @@ class JobDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
     :language,
+    :hourly_pay,
     :category,
     :job_skills,
     :skills,
@@ -86,7 +88,6 @@ class JobDashboard < Administrate::BaseDashboard
     :users,
     :comments,
     :owner,
-    :max_rate,
     :description,
     :job_date,
     :hidden,

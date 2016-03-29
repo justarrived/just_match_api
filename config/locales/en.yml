@@ -8,6 +8,8 @@ en:
     job:
       locked_for_changes_error: can't update job when already confirmed by user
       job_date_in_the_past: can't be in the past
+      hourly_pay_active: hourly pay must be active
+      update_not_allowed_when_accepted: can't update job when user has confirmed
     job_user:
       not_owner_of_job: can't be both job owner and job applicant
       multiple_applicants: can't accept multiple applicants for job
