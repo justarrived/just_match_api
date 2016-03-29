@@ -18,6 +18,8 @@ module Api
           api_versions '1.0'
         end
 
+        ALLOWED_INCLUDES = %w(skill).freeze
+
         api :GET, '/jobs/:job_id/skills', 'Show user skills'
         description 'Returns list of job skills.'
         error code: 404, desc: 'Not found'
@@ -28,7 +30,7 @@ module Api
           job_skills_index = Index::JobSkillsIndex.new(self)
           @job_skills = job_skills_index.job_skills(@job.job_skills)
 
-          api_render(@job_skills, included: job_skills_index.included)
+          api_render(@job_skills)
         end
 
         api :GET, '/jobs/:job_id/skills/:id', 'Show user skill'
@@ -38,7 +40,7 @@ module Api
         def show
           authorize(JobSkill)
 
-          api_render(@job_skill, included: 'skill')
+          api_render(@job_skill)
         end
 
         api :POST, '/jobs/:job_id/skills/', 'Create new job skill'
@@ -61,7 +63,7 @@ module Api
           @job_skill.job = @job
 
           if @job_skill.save
-            api_render(@job_skill, included: 'skill', status: :created)
+            api_render(@job_skill, status: :created)
           else
             respond_with_errors(@job_skill)
           end

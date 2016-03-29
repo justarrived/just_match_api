@@ -18,6 +18,8 @@ module Api
           api_versions '1.0'
         end
 
+        ALLOWED_INCLUDES = %w(user skill).freeze
+
         api :GET, '/users/:user_id/skills', 'Show user skills'
         description 'Returns list of user skills if the user is allowed.'
         error code: 404, desc: 'Not found'
@@ -28,7 +30,7 @@ module Api
           user_skills_index = Index::UserSkillsIndex.new(self)
           @user_skills = user_skills_index.user_skills(@user.user_skills)
 
-          api_render(@user_skills, included: user_skills_index.included)
+          api_render(@user_skills)
         end
 
         api :GET, '/users/:user_id/skills/:id', 'Show user skill'
@@ -38,7 +40,7 @@ module Api
         def show
           authorize(UserSkill)
 
-          api_render(@user_skill, included: 'skill')
+          api_render(@user_skill)
         end
 
         api :POST, '/users/:user_id/skills/', 'Create new user skill'
@@ -62,7 +64,7 @@ module Api
           @user_skill.skill = Skill.find_by(id: skill_params[:id])
 
           if @user_skill.save
-            api_render(@user_skill, included: 'skill', status: :created)
+            api_render(@user_skill, status: :created)
           else
             respond_with_errors(@user_skill)
           end

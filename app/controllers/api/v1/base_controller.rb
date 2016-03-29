@@ -49,6 +49,8 @@ module Api
         api_base_url '/api/v1'
       end
 
+      ALLOWED_INCLUDES = [].freeze
+
       # Needed for #authenticate_with_http_token
       include ActionController::HttpAuthentication::Token::ControllerMethods
 
@@ -70,6 +72,10 @@ module Api
         @_fields_params ||= FieldsParams.new(params[:fields])
       end
 
+      def included_resources
+        @_included_resources ||= include_params.permit(self.class::ALLOWED_INCLUDES)
+      end
+
       protected
 
       def respond_with_errors(model)
@@ -77,10 +83,10 @@ module Api
         render json: serialized_error, status: :unprocessable_entity
       end
 
-      def api_render(model_or_model_array, included: [], status: :ok)
+      def api_render(model_or_model_array, status: :ok)
         serialized_model = JsonApiSerializer.serialize(
           model_or_model_array,
-          included: included
+          included: included_resources
         )
 
         render json: serialized_model, status: status

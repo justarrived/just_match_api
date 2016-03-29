@@ -9,6 +9,8 @@ module Api
 
         FILTERABLE = %i(accepted will_perform performed performed_accepted).freeze
 
+        ALLOWED_INCLUDES = %w(owner company language category).freeze
+
         api :GET, '/users/:user_id/jobs', 'Shows all jobs associated with user'
         # rubocop:disable Metrics/LineLength
         description 'Returns the all jobs where the user is the owner or applicant user if the user is allowed.'

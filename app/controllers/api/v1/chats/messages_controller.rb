@@ -19,6 +19,8 @@ module Api
           formats [:json]
         end
 
+        ALLOWED_INCLUDES = %w(author language).freeze
+
         api :GET, '/chats/:id/messages', 'Get chat messages.'
         description 'Returns messages in chat.'
         ApipieDocHelper.params(self, Index::MessagesIndex)
@@ -27,7 +29,7 @@ module Api
           messages_index = Index::MessagesIndex.new(self)
           @messages = messages_index.messages(@chat.messages)
 
-          api_render(@messages, included: messages_index.included)
+          api_render(@messages)
         end
 
         api :POST, '/chats/:id/messages', 'Create new chat message.'
@@ -49,7 +51,7 @@ module Api
           @message = @chat.create_message(author: author, body: body, language_id: lang)
 
           if @message.valid?
-            api_render(@message, included: %w(author language), status: :created)
+            api_render(@message, status: :created)
           else
             respond_with_errors(@message)
           end

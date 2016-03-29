@@ -12,6 +12,8 @@ module Api
         api_versions '1.0'
       end
 
+      ALLOWED_FILTERS = %i(lang_code en_name direction system_language).freeze
+
       api :GET, '/languages', 'List languages'
       description 'Returns a list of languages.'
       ApipieDocHelper.params(self, Index::LanguagesIndex)

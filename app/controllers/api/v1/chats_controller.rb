@@ -38,7 +38,7 @@ module Api
       def show
         authorize(@chat)
 
-        api_render(@chat, included: 'users')
+        api_render(@chat)
       end
 
       api :POST, '/chats/', 'Create new chat'
@@ -63,7 +63,7 @@ module Api
         @chat = Chat.find_or_create_private_chat(users)
 
         if @chat.errors[:users].empty?
-          api_render(@chat, included: 'users', status: :created)
+          api_render(@chat, status: :created)
         else
           respond_with_errors(@chat)
         end

@@ -13,6 +13,8 @@ module Api
         api_versions '1.0'
       end
 
+      ALLOWED_INCLUDES = %w(language languages company).freeze
+
       api :GET, '/users', 'List users'
       description 'Returns a list of users if the user is allowed.'
       ApipieDocHelper.params(self, Index::UsersIndex)
@@ -23,7 +25,7 @@ module Api
         users_index = Index::UsersIndex.new(self)
         @users = users_index.users
 
-        api_render(@users, included: users_index.included)
+        api_render(@users)
       end
 
       api :GET, '/users/:id', 'Show user'
@@ -33,7 +35,7 @@ module Api
       def show
         authorize(@user)
 
-        api_render(@user, included: allowed_includes)
+        api_render(@user)
       end
 
       api :POST, '/users/', 'Create new user'
@@ -144,11 +146,6 @@ module Api
           skill_ids: [], language_ids: []
         ]
         jsonapi_params.permit(*whitelist)
-      end
-
-      def allowed_includes
-        whitelist = %w(languages skills jobs)
-        include_params.permit(whitelist)
       end
     end
   end
