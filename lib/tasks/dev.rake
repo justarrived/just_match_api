@@ -65,13 +65,15 @@ namespace :dev do
       skills = Skill.all
       users = User.company_users
       categories = Category.all
+      hourly_pays = HourlyPay.active
 
       Dev::JobSeed.call(
         languages: languages,
         users: users,
         addresses: SEED_ADDRESSES,
         skills: skills,
-        categories: categories
+        categories: categories,
+        hourly_pays: hourly_pays
       )
     end
 

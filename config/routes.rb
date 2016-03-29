@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     resources :comments
     resources :companies
     resources :contacts
+    resources :hourly_pays
     resources :jobs
     resources :users
     resources :messages

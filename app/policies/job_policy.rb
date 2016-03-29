@@ -13,8 +13,8 @@ class JobPolicy < ApplicationPolicy
   PRIVILEGED_ATTRIBUTES = [:latitude, :longitude].freeze
 
   OWNER_ATTRIBUTES = [
-    :max_rate, :performed_accept, :description, :job_date, :street, :zip,
-    :name, :hours, :language_id, :category_id, skill_ids: []
+    :description, :job_date, :street, :zip, :name, :hours,
+    :language_id, :category_id, :hourly_pay_id, skill_ids: []
   ].freeze
 
   def index?

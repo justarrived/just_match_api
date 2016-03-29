@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160327213323) do
+ActiveRecord::Schema.define(version: 20160329205118) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -112,6 +112,14 @@ ActiveRecord::Schema.define(version: 20160327213323) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "hourly_pays", force: :cascade do |t|
+    t.boolean  "active",     default: false
+    t.integer  "rate"
+    t.string   "currency",   default: "SEK"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
   create_table "job_skills", force: :cascade do |t|
     t.integer  "job_id"
     t.integer  "skill_id"
@@ -128,7 +136,6 @@ ActiveRecord::Schema.define(version: 20160327213323) do
     t.integer  "user_id"
     t.integer  "job_id"
     t.boolean  "accepted",           default: false
-    t.integer  "rate"
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
     t.boolean  "will_perform",       default: false
@@ -143,7 +150,6 @@ ActiveRecord::Schema.define(version: 20160327213323) do
   add_index "job_users", ["user_id"], name: "index_job_users_on_user_id", using: :btree
 
   create_table "jobs", force: :cascade do |t|
-    t.integer  "max_rate"
     t.text     "description"
     t.datetime "job_date"
     t.float    "hours"
@@ -160,9 +166,11 @@ ActiveRecord::Schema.define(version: 20160327213323) do
     t.float    "zip_longitude"
     t.boolean  "hidden",        default: false
     t.integer  "category_id"
+    t.integer  "hourly_pay_id"
   end
 
   add_index "jobs", ["category_id"], name: "index_jobs_on_category_id", using: :btree
+  add_index "jobs", ["hourly_pay_id"], name: "index_jobs_on_hourly_pay_id", using: :btree
   add_index "jobs", ["language_id"], name: "index_jobs_on_language_id", using: :btree
 
   create_table "languages", force: :cascade do |t|
@@ -285,6 +293,7 @@ ActiveRecord::Schema.define(version: 20160327213323) do
   add_foreign_key "job_users", "jobs"
   add_foreign_key "job_users", "users"
   add_foreign_key "jobs", "categories"
+  add_foreign_key "jobs", "hourly_pays"
   add_foreign_key "jobs", "languages"
   add_foreign_key "jobs", "users", column: "owner_user_id", name: "jobs_owner_user_id_fk"
   add_foreign_key "messages", "chats"

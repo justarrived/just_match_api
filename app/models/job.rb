@@ -8,10 +8,9 @@ class Job < ActiveRecord::Base
     zip: { lat: :zip_latitude, long: :zip_longitude }
   }.freeze
 
-  ALLOWED_RATES = [70, 80, 100].freeze
-
   belongs_to :language
   belongs_to :category
+  belongs_to :hourly_pay
 
   has_one :company, through: :owner
 
@@ -24,9 +23,9 @@ class Job < ActiveRecord::Base
   has_many :comments, as: :commentable
 
   validates :language, presence: true
+  validates :hourly_pay, presence: true
   validates :category, presence: true
   validates :name, length: { minimum: 2 }, allow_blank: false
-  validates :max_rate, inclusion: { in: ALLOWED_RATES }, allow_blank: false
   validates :description, length: { minimum: 10 }, allow_blank: false
   validates :street, length: { minimum: 5 }, allow_blank: false
   validates :zip, length: { minimum: 5 }, allow_blank: false
@@ -35,6 +34,8 @@ class Job < ActiveRecord::Base
   validates :hours, numericality: { greater_than_or_equal_to: 1 }, allow_blank: false
 
   validate :validate_job_date_in_future
+  validate :validate_hourly_pay_active
+  validate :validate_job_without_confirmed_user
 
   belongs_to :owner, class_name: 'User', foreign_key: 'owner_user_id'
 
@@ -117,6 +118,21 @@ class Job < ActiveRecord::Base
 
     errors.add(:job_date, I18n.t('errors.job.job_date_in_the_past'))
   end
+
+  def validate_hourly_pay_active
+    return if hourly_pay.nil? || hourly_pay.active
+
+    errors.add(:hourly_pay, I18n.t('errors.job.hourly_pay_active'))
+  end
+
+  def validate_job_without_confirmed_user
+    return if accepted_job_user.nil?
+
+    if accepted_job_user.will_perform
+      message = I18n.t('errors.job.update_not_allowed_when_accepted')
+      errors.add(:update_not_allowed, message)
+    end
+  end
 end
 
 # == Schema Information
@@ -124,7 +140,6 @@ end
 # Table name: jobs
 #
 #  id            :integer          not null, primary key
-#  max_rate      :integer
 #  description   :text
 #  job_date      :datetime
 #  hours         :float
@@ -141,15 +156,18 @@ end
 #  zip_longitude :float
 #  hidden        :boolean          default(FALSE)
 #  category_id   :integer
+#  hourly_pay_id :integer
 #
 # Indexes
 #
-#  index_jobs_on_category_id  (category_id)
-#  index_jobs_on_language_id  (language_id)
+#  index_jobs_on_category_id    (category_id)
+#  index_jobs_on_hourly_pay_id  (hourly_pay_id)
+#  index_jobs_on_language_id    (language_id)
 #
 # Foreign Keys
 #
 #  fk_rails_1cf0b3b406    (category_id => categories.id)
 #  fk_rails_70cb33aa57    (language_id => languages.id)
+#  fk_rails_b144fc917d    (hourly_pay_id => hourly_pays.id)
 #  jobs_owner_user_id_fk  (owner_user_id => users.id)
 #

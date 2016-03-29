@@ -153,6 +153,49 @@ RSpec.describe Job, type: :model do
       expect(job.errors.messages[:job_date] || []).not_to include(message)
     end
   end
+
+  describe '#validate_hourly_rate_active' do
+    it 'adds error if the hourly pay is *not* active' do
+      hourly_pay = FactoryGirl.build(:inactive_hourly_pay)
+      job = FactoryGirl.build(:job, hourly_pay: hourly_pay)
+      job.validate
+      message = I18n.t('errors.job.hourly_pay_active')
+      expect(job.errors.messages[:hourly_pay]).to include(message)
+    end
+
+    it 'adds error if the hourly pay is *not* active' do
+      hourly_pay = FactoryGirl.build(:hourly_pay, active: true)
+      job = FactoryGirl.build(:job, hourly_pay: hourly_pay)
+      job.validate
+      message = I18n.t('errors.job.hourly_pay_active')
+      expect(job.errors.messages[:hourly_pay] || []).not_to include(message)
+    end
+
+    describe '#validate_job_without_confirmed_user' do
+      it 'adds no error if there is *no* job user' do
+        job = FactoryGirl.build(:job)
+        job.validate
+        message = I18n.t('errors.job.update_not_allowed_when_accepted')
+        expect(job.errors.messages[:update_not_allowed] || []).not_to include(message)
+      end
+
+      it 'adds no error if job user has not confirmed' do
+        job = FactoryGirl.create(:job)
+        FactoryGirl.create(:job_user, job: job)
+        job.validate
+        message = I18n.t('errors.job.update_not_allowed_when_accepted')
+        expect(job.errors.messages[:update_not_allowed] || []).not_to include(message)
+      end
+
+      it 'adds no error if job user has not confirmed' do
+        job = FactoryGirl.create(:job)
+        FactoryGirl.create(:job_user_will_perform, job: job)
+        job.validate
+        message = I18n.t('errors.job.update_not_allowed_when_accepted')
+        expect(job.errors.messages[:update_not_allowed]).to include(message)
+      end
+    end
+  end
 end
 
 # == Schema Information
@@ -160,7 +203,6 @@ end
 # Table name: jobs
 #
 #  id            :integer          not null, primary key
-#  max_rate      :integer
 #  description   :text
 #  job_date      :datetime
 #  hours         :float
@@ -177,15 +219,18 @@ end
 #  zip_longitude :float
 #  hidden        :boolean          default(FALSE)
 #  category_id   :integer
+#  hourly_pay_id :integer
 #
 # Indexes
 #
-#  index_jobs_on_category_id  (category_id)
-#  index_jobs_on_language_id  (language_id)
+#  index_jobs_on_category_id    (category_id)
+#  index_jobs_on_hourly_pay_id  (hourly_pay_id)
+#  index_jobs_on_language_id    (language_id)
 #
 # Foreign Keys
 #
 #  fk_rails_1cf0b3b406    (category_id => categories.id)
 #  fk_rails_70cb33aa57    (language_id => languages.id)
+#  fk_rails_b144fc917d    (hourly_pay_id => hourly_pays.id)
 #  jobs_owner_user_id_fk  (owner_user_id => users.id)
 #

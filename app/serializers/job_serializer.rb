@@ -22,6 +22,7 @@ class JobSerializer < ActiveModel::Serializer
   has_one :company
   has_one :language
   has_one :category
+  has_one :hourly_pay
 
   def attributes(_)
     data = super
@@ -64,7 +65,6 @@ end
 # Table name: jobs
 #
 #  id            :integer          not null, primary key
-#  max_rate      :integer
 #  description   :text
 #  job_date      :datetime
 #  hours         :float
@@ -81,15 +81,18 @@ end
 #  zip_longitude :float
 #  hidden        :boolean          default(FALSE)
 #  category_id   :integer
+#  hourly_pay_id :integer
 #
 # Indexes
 #
-#  index_jobs_on_category_id  (category_id)
-#  index_jobs_on_language_id  (language_id)
+#  index_jobs_on_category_id    (category_id)
+#  index_jobs_on_hourly_pay_id  (hourly_pay_id)
+#  index_jobs_on_language_id    (language_id)
 #
 # Foreign Keys
 #
 #  fk_rails_1cf0b3b406    (category_id => categories.id)
 #  fk_rails_70cb33aa57    (language_id => languages.id)
+#  fk_rails_b144fc917d    (hourly_pay_id => hourly_pays.id)
 #  jobs_owner_user_id_fk  (owner_user_id => users.id)
 #

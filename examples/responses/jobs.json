@@ -4,7 +4,6 @@
       "id": "1",
       "type": "jobs",
       "attributes": {
-        "max_rate": 100,
         "description": "Typewriter hashtag ennui brunch post-ironic food truck vinegar.",
         "job_date": "2016-02-18 01:01:01 +0100",
         "hours": 3.0,
@@ -20,7 +19,8 @@
         "zip_latitude": 59.7117339,
         "zip_longitude": 18.4256286,
         "hidden": false,
-        "category_id": null
+        "category_id": null,
+        "hourly_pay_id": null
       },
       "relationships": {
         "applicants": {
@@ -43,6 +43,9 @@
           "data": null
         },
         "category": {
+          "data": null
+        },
+        "hourly_pay": {
           "data": null
         }
       }

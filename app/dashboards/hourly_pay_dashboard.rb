@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'administrate/base_dashboard'
 
-class JobUserDashboard < Administrate::BaseDashboard
+class HourlyPayDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -9,13 +9,11 @@ class JobUserDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
-    user: Field::BelongsTo,
-    job: Field::BelongsTo,
+    jobs: Field::HasMany,
     id: Field::Number,
-    accepted: Field::Boolean,
-    will_perform: Field::Boolean,
-    performed_accepted: Field::Boolean,
-    performed: Field::Boolean,
+    rate: Field::Number,
+    active: Field::Boolean,
+    currency: Field::String,
     created_at: Field::DateTime,
     updated_at: Field::DateTime
   }.freeze
@@ -26,26 +24,20 @@ class JobUserDashboard < Administrate::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
-    :user,
-    :job,
-    :id,
-    :accepted,
-    :will_perform,
-    :performed,
-    :performed_accepted
+    :jobs,
+    :rate,
+    :active,
+    :id
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = [
-    :user,
-    :job,
+    :jobs,
     :id,
-    :accepted,
-    :will_perform,
-    :performed,
-    :performed_accepted,
     :rate,
+    :active,
+    :currency,
     :created_at,
     :updated_at
   ].freeze
@@ -54,18 +46,15 @@ class JobUserDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
-    :user,
-    :job,
-    :accepted,
-    :will_perform,
-    :performed,
-    :performed_accepted
+    :jobs,
+    :rate,
+    :active
   ].freeze
 
-  # Overwrite this method to customize how job users are displayed
+  # Overwrite this method to customize how languages are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(job_user)
-  #   "JobUser ##{job_user.id}"
-  # end
+  def display_resource(hourly_pay)
+    "##{hourly_pay.id} #{hourly_pay.rate}"
+  end
 end
