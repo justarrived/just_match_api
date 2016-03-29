@@ -12,6 +12,8 @@ module Api
         api_versions '1.0'
       end
 
+      ALLOWED_INCLUDES = %w(owner company language category).freeze
+
       api :GET, '/jobs', 'List jobs'
       description 'Returns a list of jobs.'
       ApipieDocHelper.params(self, Index::JobsIndex)
@@ -22,7 +24,7 @@ module Api
         jobs_index = Index::JobsIndex.new(self)
         @jobs = jobs_index.jobs
 
-        api_render(@jobs, included: jobs_index.included)
+        api_render(@jobs)
       end
 
       api :GET, '/jobs/:id', 'Show job'
@@ -32,7 +34,7 @@ module Api
       def show
         authorize(@job)
 
-        api_render(@job, included: %w(language owner company))
+        api_render(@job)
       end
 
       api :POST, '/jobs/', 'Create new job'
@@ -68,7 +70,7 @@ module Api
             UserJobMatchNotifier.call(user: user, job: @job, owner: owner)
           end
 
-          api_render(@job, included: %w(skills), status: :created)
+          api_render(@job, status: :created)
         else
           respond_with_errors(@job)
         end

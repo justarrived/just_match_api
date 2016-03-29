@@ -3,7 +3,7 @@ module Index
   class BaseIndex
     delegate :params, to: :controller
     delegate :policy_scope, to: :controller
-    delegate :include_params, to: :controller
+    delegate :included_resources, to: :controller
 
     DEFAULT_SORTING = { created_at: :desc }.freeze
     SORTABLE_FIELDS = %i(created_at).freeze
@@ -28,14 +28,10 @@ module Index
       filter_records(records)
     end
 
-    def included
-      @included ||= include_params.permit(self.class::ALLOWED_INCLUDES)
-    end
-
     protected
 
     def included?(resource_name)
-      included.include?(resource_name)
+      included_resources.include?(resource_name)
     end
 
     def user_include_scopes(user_key = :user)

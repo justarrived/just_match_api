@@ -17,6 +17,8 @@ module Api
           api_versions '1.0'
         end
 
+        ALLOWED_INCLUDES = %w(user language).freeze
+
         api :GET, '/users/:user_id/languages', 'List user languages'
         description 'Returns a list of user languages.'
         example Doxxer.read_example(UserLanguage, plural: true)
@@ -26,7 +28,7 @@ module Api
           user_languages_index = Index::UserLanguagesIndex.new(self)
           @user_languages = user_languages_index.user_languages(@user.user_languages)
 
-          api_render(@user_languages, included: user_languages_index.included)
+          api_render(@user_languages)
         end
 
         api :GET, '/users/:user_id/languages/:id', 'Show language'
@@ -36,7 +38,7 @@ module Api
         def show
           authorize(UserLanguage)
 
-          api_render(@user_language, included: 'language')
+          api_render(@user_language)
         end
 
         api :POST, '/users/:user_id/languages/', 'Create new user language'
@@ -60,7 +62,7 @@ module Api
           @user_language.language = Language.find_by(id: user_language_params[:id])
 
           if @user_language.save
-            api_render(@user_language, included: 'language', status: :created)
+            api_render(@user_language, status: :created)
           else
             respond_with_errors(@user_language)
           end

@@ -19,6 +19,8 @@ module Api
           api_versions '1.0'
         end
 
+        ALLOWED_INCLUDES = %w(job user).freeze
+
         api :GET, '/jobs/:job_id/users', 'Show job users'
         description 'Returns list of job users if the user is allowed.'
         error code: 401, desc: 'Unauthorized'
@@ -31,7 +33,7 @@ module Api
           job_users_index = Index::JobUsersIndex.new(self)
           @job_users = job_users_index.job_users(@job.job_users)
 
-          api_render(@job_users, included: job_users_index.included)
+          api_render(@job_users)
         end
 
         api :GET, '/jobs/:job_id/users/:id', 'Show job user'
@@ -42,7 +44,7 @@ module Api
         def show
           authorize(JobUser)
 
-          api_render(@job_user, included: 'user')
+          api_render(@job_user)
         end
 
         api :POST, '/jobs/:job_id/users/', 'Create new job user'
@@ -60,7 +62,7 @@ module Api
 
           if @job_user.save
             NewApplicantNotifier.call(job_user: @job_user)
-            api_render(@job_user, included: 'user', status: :created)
+            api_render(@job_user, status: :created)
           else
             respond_with_errors(@job_user)
           end
@@ -93,7 +95,7 @@ module Api
           if @job_user.save
             notifier_klass.call(job: @job, user: @user)
 
-            api_render(@job_user, included: 'user')
+            api_render(@job_user)
           else
             render json: @job_user.errors, status: :unprocessable_entity
           end

@@ -16,6 +16,8 @@ module Api
         formats [:json]
       end
 
+      ALLOWED_INCLUDES = %w(language owner).freeze
+
       api :GET, '/:resource_name/:resource_id/comments', 'List comments'
       description 'Returns a list of comments.'
       error code: 404, desc: 'Not found'
@@ -24,7 +26,7 @@ module Api
         comments_index = Index::CommentsIndex.new(self)
         @comments = comments_index.comments(@commentable.comments)
 
-        api_render(@comments, included: comments_index.included)
+        api_render(@comments)
       end
 
       api :GET, '/:resource_name/:resource_id/comments/:id', 'Show comment'

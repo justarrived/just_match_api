@@ -32,7 +32,7 @@ module Api
       def show
         authorize(@skill)
 
-        api_render(@skill, included: %w(language))
+        api_render(@skill)
       end
 
       api :POST, '/skills/', 'Create new skill'

@@ -19,6 +19,8 @@ module Api
           formats [:json]
         end
 
+        ALLOWED_INCLUDES = %w(author language).freeze
+
         api :GET, '/users/:user_id/messages', 'Get user messages.'
         description 'Returns the message between user and logged in user.'
         error code: 404, desc: 'Not found'
@@ -33,7 +35,7 @@ module Api
           messages_index = Index::MessagesIndex.new(self)
           @messages = messages_index.messages(base_messages)
 
-          api_render(@messages, included: messages_index.included)
+          api_render(@messages)
         end
 
         api :POST, '/users/:user_id/messages', 'Create new user message.'
@@ -58,7 +60,7 @@ module Api
           @message = chat.create_message(author: author, body: body, language_id: lang)
 
           if @message.valid?
-            api_render(@message, included: %w(author language chat), status: :created)
+            api_render(@message, status: :created)
           else
             respond_with_errors(@message)
           end

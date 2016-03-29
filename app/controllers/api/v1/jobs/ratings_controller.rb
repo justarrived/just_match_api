@@ -47,7 +47,7 @@ module Api
           @rating.comment = Comment.new(comment_params)
 
           if @rating.save
-            api_render(@rating, included: %w(comment), status: :created)
+            api_render(@rating, status: :created)
           else
             respond_with_errors(@rating)
           end
