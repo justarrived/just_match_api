@@ -90,7 +90,7 @@ module Api
           param :job_date, String, desc: 'Job date'
           param :hours, Float, desc: 'Estmiated completion time'
           param :language_id, Integer, desc: 'Langauge id of the text content'
-          param :hourly_pay_id, Integer, desc: 'Hourly pay id', required: true
+          param :hourly_pay_id, Integer, desc: 'Hourly pay id'
           param :owner_user_id, Integer, desc: 'User id for the job owner'
         end
       end
