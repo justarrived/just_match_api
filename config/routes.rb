@@ -73,6 +73,7 @@ Rails.application.routes.draw do
       resources :languages, only: [:index, :show, :create, :update, :destroy]
       resources :skills, only: [:index, :show, :create, :update, :destroy]
       resources :categories, only: [:index]
+      resources :hourly_pays, only: [:index]
 
       post :contacts, to: 'contacts#create'
     end
