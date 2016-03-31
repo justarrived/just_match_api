@@ -23,6 +23,7 @@ module Api
         api :GET, '/jobs/:job_id/skills', 'Show user skills'
         description 'Returns list of job skills.'
         error code: 404, desc: 'Not found'
+        ApipieDocHelper.params(self, Index::JobSkillsIndex)
         example Doxxer.read_example(JobSkill, plural: true)
         def index
           authorize(JobSkill)
@@ -36,6 +37,7 @@ module Api
         api :GET, '/jobs/:job_id/skills/:id', 'Show user skill'
         error code: 404, desc: 'Not found'
         description 'Returns skill.'
+        ApipieDocHelper.params(self)
         example Doxxer.read_example(JobSkill)
         def show
           authorize(JobSkill)

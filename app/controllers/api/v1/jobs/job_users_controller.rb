@@ -40,6 +40,7 @@ module Api
         description 'Returns user.'
         error code: 401, desc: 'Unauthorized'
         error code: 404, desc: 'Not found'
+        ApipieDocHelper.params(self)
         example Doxxer.read_example(JobUser)
         def show
           authorize(JobUser)

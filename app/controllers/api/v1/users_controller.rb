@@ -31,6 +31,7 @@ module Api
       api :GET, '/users/:id', 'Show user'
       description 'Returns user is allowed to.'
       error code: 404, desc: 'Not found'
+      ApipieDocHelper.params(self)
       example Doxxer.read_example(User)
       def show
         authorize(@user)

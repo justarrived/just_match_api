@@ -49,6 +49,7 @@ module Api
             param :language_id, Integer, desc: 'Language id', required: true
           end
         end
+        ApipieDocHelper.params(self)
         example Doxxer.read_example(Message)
         def create
           users = User.where(id: chat_user_ids)

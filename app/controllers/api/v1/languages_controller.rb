@@ -30,6 +30,7 @@ module Api
       api :GET, '/languages/:id', 'Show language'
       description 'Return language.'
       error code: 404, desc: 'Not found'
+      ApipieDocHelper.params(self)
       example Doxxer.read_example(Language)
       def show
         authorize(@language)

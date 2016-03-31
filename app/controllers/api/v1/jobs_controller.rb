@@ -30,6 +30,7 @@ module Api
       api :GET, '/jobs/:id', 'Show job'
       description 'Return job.'
       error code: 404, desc: 'Not found'
+      ApipieDocHelper.params(self)
       example Doxxer.read_example(Job)
       def show
         authorize(@job)
@@ -55,6 +56,7 @@ module Api
           # rubocop:enable Metrics/LineLength
         end
       end
+      ApipieDocHelper.params(self)
       example Doxxer.read_example(Job)
       def create
         authorize(Job)

@@ -28,6 +28,7 @@ module Api
       api :GET, '/skills/:id', 'Show skill'
       description 'Returns skill.'
       error code: 404, desc: 'Not found'
+      ApipieDocHelper.params(self)
       example Doxxer.read_example(Skill)
       def show
         authorize(@skill)

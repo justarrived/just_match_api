@@ -21,6 +21,7 @@ module Api
       api :GET, '/:resource_name/:resource_id/comments', 'List comments'
       description 'Returns a list of comments.'
       error code: 404, desc: 'Not found'
+      ApipieDocHelper.params(self, Index::CommentsIndex)
       example Doxxer.read_example(Comment, plural: true)
       def index
         comments_index = Index::CommentsIndex.new(self)
@@ -32,6 +33,7 @@ module Api
       api :GET, '/:resource_name/:resource_id/comments/:id', 'Show comment'
       description 'Returns comment.'
       error code: 404, desc: 'Not found'
+      ApipieDocHelper.params(self)
       example Doxxer.read_example(Comment)
       def show
         api_render(@comment)

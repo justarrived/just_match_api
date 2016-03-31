@@ -21,6 +21,7 @@ module Api
 
         api :GET, '/users/:user_id/languages', 'List user languages'
         description 'Returns a list of user languages.'
+        ApipieDocHelper.params(self, Index::UserLanguagesIndex)
         example Doxxer.read_example(UserLanguage, plural: true)
         def index
           authorize(UserLanguage)
@@ -34,6 +35,7 @@ module Api
         api :GET, '/users/:user_id/languages/:id', 'Show language'
         description 'Return language.'
         error code: 404, desc: 'Not found'
+        ApipieDocHelper.params(self)
         example Doxxer.read_example(UserLanguage)
         def show
           authorize(UserLanguage)
