@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class UserSkill < ActiveRecord::Base
+class UserSkill < ApplicationRecord
   belongs_to :user
   belongs_to :skill
 

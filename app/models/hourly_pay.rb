@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class HourlyPay < ActiveRecord::Base
+class HourlyPay < ApplicationRecord
   has_many :jobs
 
   validates :rate, presence: true, numericality: { only_integer: true }

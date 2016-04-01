@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class Rating < ActiveRecord::Base
+class Rating < ApplicationRecord
   SCORE_RANGE = 1..5
 
   belongs_to :from_user, class_name: 'User', foreign_key: 'from_user_id'

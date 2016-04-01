@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class Skill < ActiveRecord::Base
+class Skill < ApplicationRecord
   belongs_to :language
 
   has_many :job_skills
