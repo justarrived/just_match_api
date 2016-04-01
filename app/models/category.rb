@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class Category < ActiveRecord::Base
+class Category < ApplicationRecord
   has_many :jobs
 
   validates :name, uniqueness: true, length: { minimum: 3 }, allow_blank: false

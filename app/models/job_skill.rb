@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class JobSkill < ActiveRecord::Base
+class JobSkill < ApplicationRecord
   belongs_to :job
   belongs_to :skill
 

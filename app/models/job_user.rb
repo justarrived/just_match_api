@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class JobUser < ActiveRecord::Base
+class JobUser < ApplicationRecord
   MAX_CONFIRMATION_TIME_HOURS = 18
 
   belongs_to :user

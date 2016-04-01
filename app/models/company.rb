@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class Company < ActiveRecord::Base
+class Company < ApplicationRecord
   has_many :users
   has_many :jobs, through: :users
 
