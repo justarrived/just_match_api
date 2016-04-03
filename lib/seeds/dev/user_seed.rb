@@ -47,10 +47,12 @@ module Dev
     end
 
     def self.create_user(address:, language:, email: nil, admin: false, company: nil)
-      User.create!(
+      email_address = email || "#{SecureRandom.uuid}@example.com"
+      user = User.find_or_initialize_by(email: email_address)
+
+      user.assign_attributes(
         first_name: Faker::Name.first_name,
         last_name: Faker::Name.last_name,
-        email: email || Faker::Internet.email,
         phone: Faker::PhoneNumber.cell_phone,
         description: Faker::Hipster.paragraph(2),
         street: address[:street],
@@ -61,6 +63,8 @@ module Dev
         admin: admin,
         company: company
       )
+      user.save!
+      user
     end
   end
 end
