@@ -51,7 +51,8 @@ class Doxxer
     model = model_klass.new(model_attributes)
     model = [model] if plural
 
-    serialized_model = JsonApiSerializer.serialize(model)
+    fake_admin = OpenStruct.new(admin?: true, persisted?: true)
+    serialized_model = JsonApiSerializer.serialize(model, current_user: fake_admin)
     model_hash = serialized_model.serializable_hash
 
     JSON.pretty_generate(model_hash)

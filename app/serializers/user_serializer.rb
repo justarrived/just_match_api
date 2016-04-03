@@ -11,27 +11,14 @@ class UserSerializer < ActiveModel::Serializer
 
   def attributes(_)
     data = super
-    # Doxxer invokes the serializer on non-persisted objects,
-    # so we need to check if the record is persisted
-    if object.persisted?
-      data.slice(*policy.present_attributes)
-    else
-      data
-    end
+
+    data.slice(*policy.present_attributes)
   end
 
   private
 
   def policy
-    @_user_policy ||= begin
-      # This resource is included from other serializers causing #current_user to be
-      # undefined, it that case consider the current user as nil
-      if scope.nil?
-        UserPolicy.new(nil, object)
-      else
-        UserPolicy.new(current_user, object)
-      end
-    end
+    @_user_policy ||= UserPolicy.new(scope[:current_user], object)
   end
 end
 

@@ -38,25 +38,21 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
   end
 
   describe 'GET #show' do
-    it 'assigns the requested user user as @user' do
+    it 'assigns @user, @job and @job_user' do
       job = FactoryGirl.create(:job_with_users, users_count: 1, owner: user)
       user = job.users.first
-      get :show, { job_id: job.to_param, id: user.to_param }, valid_session
+      job_user = job.job_users.first
+      get :show, { job_id: job.to_param, id: job_user.to_param }, valid_session
       expect(assigns(:user)).to eq(user)
-    end
-
-    it 'assigns the requested user as @user' do
-      job = FactoryGirl.create(:job_with_users, users_count: 1, owner: user)
-      user = job.users.first
-      get :show, { job_id: job.to_param, id: user.to_param }, valid_session
       expect(assigns(:job)).to eq(job)
+      expect(assigns(:job_user)).to eq(job_user)
     end
 
     context 'not authorized' do
       it 'returns unauthorized status' do
         job = FactoryGirl.create(:job_with_users, users_count: 1)
-        user = job.users.first
-        get :show, { job_id: job.to_param, id: user.to_param }, valid_session
+        job_user = job.job_users.first
+        get :show, { job_id: job.to_param, id: job_user.to_param }, valid_session
         expect(response.status).to eq(401)
       end
     end
@@ -132,9 +128,8 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
       context 'job owner user' do
         it 'updates the requested job' do
           job = FactoryGirl.create(:job_with_users, users_count: 1, owner: user)
-          user = job.users.first
           job_user = job.job_users.first
-          params = { job_id: job.to_param, id: user.to_param }.merge(new_attributes)
+          params = { job_id: job.to_param, id: job_user.to_param }.merge(new_attributes)
           put :update, params, valid_session
           job_user.reload
           expect(job_user.accepted).to eq(true)
@@ -142,16 +137,16 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
 
         it 'assigns the requested user as @job' do
           job = FactoryGirl.create(:job_with_users, users_count: 1, owner: user)
-          user = job.users.first
-          params = { job_id: job.to_param, id: user.to_param }.merge(new_attributes)
+          job_user = job.job_users.first
+          params = { job_id: job.to_param, id: job_user.to_param }.merge(new_attributes)
           put :update, params, valid_session
           expect(assigns(:job)).to eq(job)
         end
 
         it 'returns 200 ok status' do
           job = FactoryGirl.create(:job_with_users, users_count: 1, owner: user)
-          user = job.users.first
-          params = { job_id: job.to_param, id: user.to_param }.merge(new_attributes)
+          job_user = job.job_users.first
+          params = { job_id: job.to_param, id: job_user.to_param }.merge(new_attributes)
           put :update, params, valid_session
           expect(response.status).to eq(200)
         end
@@ -159,7 +154,8 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
         it 'notifies user when updated Job#performed_accept is set to true' do
           job = FactoryGirl.create(:job_with_users, users_count: 1, owner: user)
           user = job.users.first
-          params = { job_id: job.to_param, id: user.to_param }.merge(new_attributes)
+          job_user = job.job_users.first
+          params = { job_id: job.to_param, id: job_user.to_param }.merge(new_attributes)
           allow(ApplicantAcceptedNotifier).to receive(:call).with(job: job, user: user)
           put :update, params, valid_session
           expect(ApplicantAcceptedNotifier).to have_received(:call)
@@ -173,9 +169,9 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
           }
           job = FactoryGirl.create(:passed_job, owner: user)
           job_user = FactoryGirl.create(:job_user_will_perform, job: job)
-          user = job_user.user
+          user = job.users.first
           params = {
-            job_id: job.to_param, id: user.to_param
+            job_id: job.to_param, id: job_user.to_param
           }.merge(new_performed_attributes)
           allow(JobUserPerformedAcceptedNotifier).to receive(:call).
             with(job: job, user: user)
@@ -191,8 +187,8 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
 
         it 'returns forbidden status' do
           job = FactoryGirl.create(:job_with_users, users_count: 1)
-          user = job.users.first
-          params = { job_id: job.to_param, id: user.to_param }.merge(new_attributes)
+          job_user = job.job_users.first
+          params = { job_id: job.to_param, id: job_user.to_param }.merge(new_attributes)
           put :update, params, valid_session
           expect(response.status).to eq(401)
         end
@@ -218,7 +214,7 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
             to(receive(:authenticate_user_token!).
             and_return(user))
 
-          params = { job_id: job.to_param, id: user.to_param }.merge(new_attributes)
+          params = { job_id: job.to_param, id: job_user.to_param }.merge(new_attributes)
           allow(ApplicantWillPerformNotifier).to receive(:call).with(job: job, user: user)
           put :update, params, valid_session
           expect(ApplicantWillPerformNotifier).to have_received(:call)
@@ -235,7 +231,7 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
             to(receive(:authenticate_user_token!).
             and_return(user))
 
-          params = { job_id: job.to_param, id: user.to_param }.merge(new_attributes)
+          params = { job_id: job.to_param, id: job_user.to_param }.merge(new_attributes)
           put :update, params, {}
           job_user.reload
           expect(job_user.will_perform).to eq(true)
@@ -251,7 +247,7 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
           job_user = FactoryGirl.create(:job_user_will_perform, job: job)
           user = job_user.user
           params = {
-            job_id: job.to_param, id: user.to_param
+            job_id: job.to_param, id: job_user.to_param
           }.merge(new_performed_attributes)
 
           allow_any_instance_of(described_class).
@@ -270,8 +266,8 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
     context 'not allowed' do
       it 'does not destroy the requested job_user' do
         job = FactoryGirl.create(:job_with_users)
-        user = job.users.first
-        params = { job_id: job.to_param, id: user.to_param }
+        job_user = job.job_users.first
+        params = { job_id: job.to_param, id: job_user.to_param }
         expect do
           delete :destroy, params, valid_session
         end.to change(JobUser, :count).by(0)
@@ -279,8 +275,8 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
 
       it 'returns not allowed status' do
         job = FactoryGirl.create(:job_with_users)
-        user = job.users.first
-        params = { job_id: job.to_param, id: user.to_param }
+        job_user = job.job_users.first
+        params = { job_id: job.to_param, id: job_user.to_param }
         delete :destroy, params, valid_session
         expect(response.status).to eq(401)
       end
@@ -290,11 +286,12 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
       it 'destroys the requested job_user' do
         job = FactoryGirl.create(:job_with_users, users_count: 1)
         user = job.users.first
+        job_user = job.job_users.first
         allow_any_instance_of(described_class).
           to(receive(:authenticate_user_token!).
           and_return(user))
         session = { token: user.auth_token }
-        params = { job_id: job.to_param, id: user.to_param }
+        params = { job_id: job.to_param, id: job_user.to_param }
         expect do
           delete :destroy, params, session
         end.to change(JobUser, :count).by(-1)
@@ -303,12 +300,13 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
       it 'can *not* be destroyed if JobUser#will_perform is true' do
         job = FactoryGirl.create(:job_with_users, users_count: 1)
         user = job.users.first
+        job_user = job.job_users.first
         job.job_users.first.update_attributes(accepted: true, will_perform: true)
         allow_any_instance_of(described_class).
           to(receive(:authenticate_user_token!).
           and_return(user))
         session = { token: user.auth_token }
-        params = { job_id: job.to_param, id: user.to_param }
+        params = { job_id: job.to_param, id: job_user.to_param }
         delete :destroy, params, session
         err_msg = "can't delete when will perform is true"
         expect(response.status).to eq(422)
@@ -318,12 +316,13 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
       it 'sends a notificatiom to Job#owner if accepted applicant withdraws' do
         job = FactoryGirl.create(:job_with_users, users_count: 1)
         user = job.users.first
+        job_user = job.job_users.first
         job.job_users.first.update_attributes(accepted: true)
         allow_any_instance_of(described_class).
           to(receive(:authenticate_user_token!).
           and_return(user))
         session = { token: user.auth_token }
-        params = { job_id: job.to_param, id: user.to_param }
+        params = { job_id: job.to_param, id: job_user.to_param }
         allow(AcceptedApplicantWithdrawnNotifier).to receive(:call)
         delete :destroy, params, session
         expect(AcceptedApplicantWithdrawnNotifier).to have_received(:call)
@@ -332,11 +331,12 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
       it 'returns no content status' do
         job = FactoryGirl.create(:job_with_users, users_count: 1)
         user = job.users.first
+        job_user = job.job_users.first
         allow_any_instance_of(described_class).
           to(receive(:authenticate_user_token!).
           and_return(user))
         session = { token: user.auth_token }
-        params = { job_id: job.to_param, id: user.to_param }
+        params = { job_id: job.to_param, id: job_user.to_param }
         delete :destroy, params, session
         expect(response.status).to eq(204)
       end

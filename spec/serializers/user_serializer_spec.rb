@@ -5,8 +5,7 @@ RSpec.describe UserSerializer, type: :serializer do
   context 'Individual Resource Representation' do
     let(:resource) { FactoryGirl.build(:user) }
 
-    let(:serializer) { UserSerializer.new(resource) }
-    let(:serialization) { ActiveModel::Serializer::Adapter.create(serializer) }
+    let(:serialization) { JsonApiSerializer.serialize(resource) }
 
     subject do
       JSON.parse(serialization.to_json)['data']

@@ -5,10 +5,20 @@ RSpec.describe JsonApiSerializer do
   let(:skill_model) { Skill.new }
   let(:skills_relation) { Skill.none }
   let(:skill_error_model) { Skill.new.tap { |s| s.errors.add(:watman, 'Watman') } }
+  let(:current_user) { nil }
 
-  let(:serializer) { described_class.new(skill_model, included: []) }
-  let(:each_serializer) { described_class.new(skills_relation, included: []) }
-  let(:error_serializer) { described_class.new(skill_error_model.errors, included: []) }
+  let(:serializer) do
+    described_class.new(skill_model, included: [], current_user: current_user)
+  end
+
+  let(:each_serializer) do
+    described_class.new(skills_relation, included: [], current_user: current_user)
+  end
+
+  let(:error_serializer) do
+    errors = skill_error_model.errors
+    described_class.new(errors, included: [], current_user: current_user)
+  end
 
   describe '#serializer' do
     it 'returns the serializer for single model' do

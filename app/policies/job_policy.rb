@@ -10,7 +10,15 @@ class JobPolicy < ApplicationPolicy
     end
   end
 
-  PRIVILEGED_ATTRIBUTES = [:latitude, :longitude].freeze
+  FULL_ATTRIBUTES = [
+    :id, :description, :job_date, :hours, :name, :created_at, :updated_at, :latitude,
+    :longitude, :street, :zip, :zip_latitude, :zip_longitude
+  ].freeze
+
+  RESTICTED_ATTRIBUTES = [
+    :id, :description, :job_date, :hours, :name, :created_at, :updated_at, :zip,
+    :zip_latitude, :zip_longitude
+  ].freeze
 
   OWNER_ATTRIBUTES = [
     :description, :job_date, :street, :zip, :name, :hours,
@@ -58,13 +66,12 @@ class JobPolicy < ApplicationPolicy
   end
 
   def present_attributes
-    attributes = record.attribute_names.map(&:to_sym)
-    return attributes - PRIVILEGED_ATTRIBUTES if user.nil?
+    return RESTICTED_ATTRIBUTES if user.nil?
 
     if admin? || owner? || accepted_applicant?
-      attributes
+      FULL_ATTRIBUTES
     else
-      attributes - PRIVILEGED_ATTRIBUTES
+      RESTICTED_ATTRIBUTES
     end
   end
 
