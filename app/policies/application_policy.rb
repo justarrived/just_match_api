@@ -44,8 +44,6 @@ class ApplicationPolicy
     end
   end
 
-  protected
-
   def admin?
     user? && user.admin?
   end

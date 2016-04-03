@@ -5,8 +5,8 @@ module Api
       class JobUsersController < BaseController
         before_action :require_user
         before_action :set_job
-        before_action :set_user, only: [:show, :update, :destroy]
         before_action :set_job_user, only: [:show, :update, :destroy]
+        before_action :set_user, only: [:show, :update, :destroy]
 
         resource_description do
           resource_id 'job_users'
@@ -131,11 +131,11 @@ module Api
         end
 
         def set_user
-          @user = @job.users.find(params[:id])
+          @user = @job_user.user
         end
 
         def set_job_user
-          @job_user = @job.job_users.find_by!(user: @user)
+          @job_user = @job.job_users.find(params[:id])
         end
 
         def permitted_attributes

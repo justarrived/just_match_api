@@ -4,8 +4,8 @@ module Api
     module Jobs
       class JobSkillsController < BaseController
         before_action :set_job
-        before_action :set_skill, only: [:show, :destroy]
         before_action :set_job_skill, only: [:show, :destroy]
+        before_action :set_skill, only: [:show, :destroy]
 
         resource_description do
           resource_id 'job_skills'
@@ -89,11 +89,11 @@ module Api
         end
 
         def set_skill
-          @skill = @job.skills.find(params[:id])
+          @skill = @job_skill.skill
         end
 
         def set_job_skill
-          @job_skill = @job.job_skills.find_by!(skill: @skill)
+          @job_skill = @job.job_skills.find(params[:id])
         end
 
         def skill_params

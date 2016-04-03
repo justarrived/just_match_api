@@ -5,13 +5,7 @@ class JobSerializer < ActiveModel::Serializer
   attributes Job.column_names.map(&:to_sym)
 
   has_many :users, key: :applicants do
-    # Doxxer invokes the serializer on non-persisted objects,
-    # so we need to check if the record is persisted
-    if object.persisted?
-      applicant_records
-    else
-      User.none
-    end
+    applicant_records
   end
 
   has_many :comments do
@@ -26,37 +20,26 @@ class JobSerializer < ActiveModel::Serializer
 
   def attributes(_)
     data = super
-    # Doxxer invokes the serializer on non-persisted objects,
-    # so we need to check if the record is persisted
-    if object.persisted?
-      data.slice(*policy.present_attributes)
-    else
-      data
-    end
+
+    data.slice(*policy.present_attributes)
   end
 
   private
 
   def applicant_records
+    return User.none if policy.no_user?
+
     if policy.present_applicants?
       object.users
     elsif policy.present_self_applicant?
-      [current_user]
+      [scope]
     else
       User.none
     end
   end
 
   def policy
-    @_job_policy ||= begin
-      # This resource is included from other serializers causing #current_user to be
-      # undefined, it that case consider the current user as nil
-      if scope.nil?
-        JobPolicy.new(nil, object)
-      else
-        JobPolicy.new(current_user, object)
-      end
-    end
+    @_job_policy ||= JobPolicy.new(scope[:current_user], object)
   end
 end
 

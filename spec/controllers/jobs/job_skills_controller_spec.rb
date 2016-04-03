@@ -30,16 +30,15 @@ RSpec.describe Api::V1::Jobs::JobSkillsController, type: :controller do
   describe 'GET #show' do
     it 'assigns the requested user skill as @skill' do
       job = FactoryGirl.create(:job_with_skills, skills_count: 1)
-      skill = job.skills.first
       job_skill = job.job_skills.first
-      get :show, { job_id: job.to_param, id: skill.to_param }, valid_session
+      get :show, { job_id: job.to_param, id: job_skill.to_param }, valid_session
       expect(assigns(:job_skill)).to eq(job_skill)
     end
 
     it 'assigns the requested user as @user' do
       job = FactoryGirl.create(:job_with_skills, skills_count: 1)
-      skill = job.skills.first
-      get :show, { job_id: job.to_param, id: skill.to_param }, valid_session
+      job_skill = job.job_skills.first
+      get :show, { job_id: job.to_param, id: job_skill.to_param }, valid_session
       expect(assigns(:job)).to eq(job)
     end
   end
@@ -123,17 +122,17 @@ RSpec.describe Api::V1::Jobs::JobSkillsController, type: :controller do
 
       it 'destroys the requested job_skill' do
         job = FactoryGirl.create(:job_with_skills, owner: user)
-        skill = job.skills.first
+        job_skill = job.job_skills.first
         expect do
-          params = { job_id: job.to_param, id: skill.to_param }
+          params = { job_id: job.to_param, id: job_skill.to_param }
           delete :destroy, params, valid_session
         end.to change(JobSkill, :count).by(-1)
       end
 
       it 'returns no content status' do
         job = FactoryGirl.create(:job_with_skills, owner: user)
-        skill = job.skills.first
-        params = { job_id: job.to_param, id: skill.to_param }
+        job_skill = job.job_skills.first
+        params = { job_id: job.to_param, id: job_skill.to_param }
         delete :destroy, params, valid_session
         expect(response.status).to eq(204)
       end
@@ -142,17 +141,17 @@ RSpec.describe Api::V1::Jobs::JobSkillsController, type: :controller do
     context 'logged in user is NOT owner' do
       it 'destroys the requested job_skill' do
         job = FactoryGirl.create(:job_with_skills)
-        skill = job.skills.first
+        job_skill = job.job_skills.first
         expect do
-          params = { job_id: job.to_param, id: skill.to_param }
+          params = { job_id: job.to_param, id: job_skill.to_param }
           delete :destroy, params, valid_session
         end.to change(JobSkill, :count).by(0)
       end
 
       it 'returns no content status' do
         job = FactoryGirl.create(:job_with_skills)
-        skill = job.skills.first
-        params = { job_id: job.to_param, id: skill.to_param }
+        job_skill = job.job_skills.first
+        params = { job_id: job.to_param, id: job_skill.to_param }
         delete :destroy, params, valid_session
         expect(response.status).to eq(401)
       end

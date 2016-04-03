@@ -4,8 +4,8 @@ module Api
     module Users
       class UserLanguagesController < BaseController
         before_action :set_user
-        before_action :set_language, only: [:show, :destroy]
         before_action :set_user_language, only: [:show, :destroy]
+        before_action :set_language, only: [:show, :destroy]
 
         resource_description do
           short 'API for managing user languages'
@@ -89,11 +89,11 @@ module Api
         end
 
         def set_language
-          @language = @user.languages.find(params[:id])
+          @language = @user_language.language
         end
 
         def set_user_language
-          @user_language = @user.user_languages.find_by!(language: @language)
+          @user_language = @user.user_languages.find(params[:id])
         end
 
         def user_language_params

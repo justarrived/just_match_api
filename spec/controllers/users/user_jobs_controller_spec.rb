@@ -14,15 +14,10 @@ RSpec.describe Api::V1::Users::UserJobsController, type: :controller do
     {}
   end
 
-  it 'has correct FILTERABLE constant' do
-    expected = %i(accepted will_perform performed performed_accepted)
-    expect(described_class::FILTERABLE).to eq(expected)
-  end
-
   it 'assigns all jobs as @jobs' do
     FactoryGirl.create(:job_user, job: job, user: user)
     get :index, { user_id: user.to_param }, valid_session
-    expect(assigns(:jobs).first).to be_a(Job)
+    expect(assigns(:job_users).first).to be_a(JobUser)
   end
 
   it 'returns 401 for unauthorized user' do

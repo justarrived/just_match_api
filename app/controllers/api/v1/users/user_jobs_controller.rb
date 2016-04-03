@@ -7,35 +7,25 @@ module Api
 
         after_action :verify_authorized, except: %i(index)
 
-        FILTERABLE = %i(accepted will_perform performed performed_accepted).freeze
+        ALLOWED_INCLUDES = %w(job user).freeze
 
-        ALLOWED_INCLUDES = %w(owner company language category).freeze
-
-        api :GET, '/users/:user_id/jobs', 'Shows all jobs associated with user'
+        api :GET, '/users/:user_id/jobs', 'Shows all job users associated with user'
         # rubocop:disable Metrics/LineLength
-        description 'Returns the all jobs where the user is the owner or applicant user if the user is allowed.'
+        description 'Returns the all job users where the user is the owner or applicant if the user is allowed.'
         # rubocop:enable Metrics/LineLength
         error code: 401, desc: 'Unauthorized'
         error code: 404, desc: 'Not found'
-        ApipieDocHelper.params(self, Index::JobsIndex)
-        FILTERABLE.each do |filter|
-          param "filter[#{filter}]", String, "Filter resource by *#{filter}*"
-        end
-        example Doxxer.read_example(Job, plural: true)
+        ApipieDocHelper.params(self, Index::JobUsersIndex)
+        example Doxxer.read_example(JobUser, plural: true)
         def index
           authorize_index(@user)
 
-          filter_params = FilterParams.filtered_fields(params[:filter], FILTERABLE, {})
+          job_user_scope = JobUser.where(user: @user)
 
-          job_scope = Queries::UserJobsFinder.new(
-            @user,
-            job_user_filters: filter_params
-          ).perform
+          job_users_index = Index::JobUsersIndex.new(self)
+          @job_users = job_users_index.job_users(job_user_scope)
 
-          jobs_index = Index::JobsIndex.new(self)
-          @jobs = jobs_index.jobs(job_scope)
-
-          api_render(@jobs)
+          api_render(@job_users)
         end
 
         private

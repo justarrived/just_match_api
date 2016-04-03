@@ -86,7 +86,8 @@ module Api
       def api_render(model_or_model_array, status: :ok)
         serialized_model = JsonApiSerializer.serialize(
           model_or_model_array,
-          included: included_resources
+          included: included_resources,
+          current_user: current_user
         )
 
         render json: serialized_model, status: status
