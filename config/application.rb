@@ -19,7 +19,7 @@ module JustMatch
     config.time_zone = 'Stockholm'
 
     config.i18n.default_locale = :en
-    config.i18n.available_locales = [:en]
+    config.i18n.available_locales = [:en, :sv]
 
     config.api_only = true
 
