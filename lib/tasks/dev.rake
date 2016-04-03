@@ -90,6 +90,7 @@ namespace :dev do
   end
 
   task doc_examples: :environment do
+    fail 'Can only generate docs when Rails is in test mode.' unless Rails.env.test?
     Doxxer.generate_response_examples
   end
 end
