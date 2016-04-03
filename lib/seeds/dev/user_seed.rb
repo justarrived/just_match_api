@@ -9,7 +9,11 @@ module Dev
 
       system_languages = languages.system_languages
 
-      log '[db:seed] Admin user'
+      user_before_count = User.count
+      user_skill_before_count = UserSkill.count
+      user_language_before_count = UserLanguage.count
+
+      log 'Creating Admin user'
       create_user(
         email: 'admin@example.com',
         admin: true,
@@ -17,7 +21,7 @@ module Dev
         language: system_languages.sample
       )
 
-      log '[db:seed] User'
+      log 'Creating Users'
       max_users.times do
         user = create_user(
           address: addresses.sample,
@@ -27,7 +31,7 @@ module Dev
         user.languages << languages.sample
       end
 
-      log '[db:seed] Company User'
+      log 'Creating Company Users'
       max_company_users.times do
         company = companies.sample
         create_user(
@@ -36,6 +40,10 @@ module Dev
           company: company
         )
       end
+
+      log "Created #{User.count - user_before_count} Users"
+      log "Created #{UserSkill.count - user_skill_before_count} User skills"
+      log "Created #{UserLanguage.count - user_language_before_count} User languages"
     end
 
     def self.create_user(address:, language:, email: nil, admin: false, company: nil)

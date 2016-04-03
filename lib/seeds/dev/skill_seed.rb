@@ -8,10 +8,14 @@ module Dev
 
       language = Language.find_by!(lang_code: 'en')
 
-      log '[db:seed] Skill'
+      before_count = Skill.count
+
+      log 'Creating Skills'
       max_skills.times do |n|
         Skill.create!(name: "#{Faker::Name.title} #{n}", language: language)
       end
+
+      log "Created #{Skill.count - before_count} Skills"
     end
   end
 end

@@ -7,7 +7,7 @@ module Dev
 
     def self.log(string)
       # rubocop:disable Rails/Output
-      puts string
+      puts "[db:seed] #{string}"
       # rubocop:enable Rails/Output
       Rails.logger.info string
     end

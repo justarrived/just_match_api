@@ -4,9 +4,10 @@ require 'seeds/dev/base_seed'
 module Dev
   class JobUserSeed < BaseSeed
     def self.call(jobs:, users:)
-      max_job_users = max_count_opt('MAX_JOB_USERS', 10)
+      max_job_users = max_count_opt('MAX_JOB_USERS', 60)
+      before_count = JobUser.count
 
-      log '[db:seed] Job user'
+      log 'Creating Job users'
       max_job_users.times do |current_iteration|
         job = jobs.sample
         owner = job.owner
@@ -16,11 +17,10 @@ module Dev
         until owner != user
           user = users.sample
           max_retries += 1
-          break if max_retries < 1
+          next if max_retries < 1
         end
 
-        job = jobs.sample
-        JobUser.create!(
+        JobUser.find_or_create_by!(
           user: user,
           job: job
         )
@@ -29,6 +29,7 @@ module Dev
           job.accept_applicant!(user)
         end
       end
+      log "Created #{JobUser.count - before_count} Job users"
     end
   end
 end

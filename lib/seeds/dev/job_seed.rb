@@ -7,7 +7,10 @@ module Dev
       max_jobs = max_count_opt('MAX_JOBS', 30)
       max_job_comments = max_count_opt('MAX_JOB_COMMENTS', 20)
 
-      log '[db:seed] Job'
+      job_before_count = Job.count
+      comment_before_count = Comment.count
+
+      log 'Creating Jobs'
 
       max_jobs.times do
         address = addresses.sample
@@ -39,6 +42,8 @@ module Dev
           )
         end
       end
+      log "Created #{Job.count - job_before_count} Jobs"
+      log "Created #{Comment.count - comment_before_count} Comments"
     end
   end
 end
