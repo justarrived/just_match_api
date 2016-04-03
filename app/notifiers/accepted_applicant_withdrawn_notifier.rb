@@ -1,7 +1,8 @@
 # frozen_string_literal: true
-class AcceptedApplicantWithdrawnNotifier
+class AcceptedApplicantWithdrawnNotifier < BaseNotifier
   def self.call(job:, user:)
     owner = job.owner
+    return if ignored?(owner)
 
     UserMailer.
       accepted_applicant_withdrawn_email(user: user, job: job, owner: owner).

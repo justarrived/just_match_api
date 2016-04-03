@@ -161,18 +161,39 @@ RSpec.describe User, type: :model do
   end
 
   describe 'notifications' do
-    it 'has NOTIFICATIONS array constant' do
-      expected = %w(
-        accepted_applicant_confirmation
-        accepted_applicant_withdrawn
-        applicant_accepted
-        applicant_will_perform
-        job_user_performed_accepted
-        job_user_performed
-        new_applicant
-        user_job_match
-      )
-      expect(User::NOTIFICATIONS).to eq(expected)
+    context 'constant' do
+      it 'has the correct elements' do
+        expected = %w(
+          accepted_applicant_confirmation_overdue
+          accepted_applicant_withdrawn
+          applicant_accepted
+          applicant_will_perform
+          job_user_performed_accepted
+          job_user_performed
+          new_applicant
+          user_job_match
+        )
+        expect(User::NOTIFICATIONS).to eq(expected)
+      end
+
+      it 'has corresponding notifier klass for each item' do
+        User::NOTIFICATIONS.each do |notifications|
+          expect { "#{notifications.camelize}Notifier".constantize }.to_not raise_error
+        end
+      end
+    end
+
+    describe '#ignored_notification?' do
+      it 'returns true when is ignored' do
+        ignored = 'new_applicant'
+        user = FactoryGirl.build(:user, ignored_notifications: [ignored])
+        expect(user.ignored_notification?(ignored)).to eq(true)
+      end
+
+      it 'returns false when *not* ignored' do
+        user = FactoryGirl.build(:user)
+        expect(user.ignored_notification?('new_applicant')).to eq(false)
+      end
     end
 
     it 'can set mask' do

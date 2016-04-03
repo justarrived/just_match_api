@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class ContactNotifier
+class ContactNotifier < BaseNotifier
   def self.call(contact:)
     name = contact.name
     email = contact.email

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
-class UserJobMatchNotifier
+class UserJobMatchNotifier < BaseNotifier
   def self.call(user:, job:, owner:)
+    return if ignored?(user)
+
     UserMailer.
       job_match_email(owner: owner, job: job, user: user).
       deliver_later

@@ -57,7 +57,7 @@ class User < ApplicationRecord
   # Don't change the order or remove any items in the array,
   # only additions are allowed
   NOTIFICATIONS = %w(
-    accepted_applicant_confirmation
+    accepted_applicant_confirmation_overdue
     accepted_applicant_withdrawn
     applicant_accepted
     applicant_will_perform
@@ -112,6 +112,10 @@ class User < ApplicationRecord
   def banned=(value)
     generate_auth_token if value
     self[:banned] = value
+  end
+
+  def ignored_notification?(notification)
+    ignored_notifications.include?(notification.to_s)
   end
 
   def ignored_notifications=(notifications)
