@@ -3,7 +3,7 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::UsersController, type: :controller do
   let(:valid_attributes) do
-    lang_id = FactoryGirl.create(:language).id
+    lang_id = Language.find_or_create_by!(lang_code: 'en').id
     {
       data: {
         attributes: {

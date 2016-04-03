@@ -26,6 +26,7 @@ sv:
       wrong_email_or_password: fel epost eller lösenord
     user:
       password_length: måste vara minst %{count} karaktärer
+      must_be_available_locale: måste vara ett system språk
     validators:
       after_true: '%{field} måste vara sant'
       unrevertable: kan inte återgå till föregående status

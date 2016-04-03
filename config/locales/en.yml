@@ -26,6 +26,7 @@ en:
       wrong_email_or_password: wrong email or password
     user:
       password_length: must have at least %{count} characters
+      must_be_available_locale: must be in available locales
     validators:
       after_true: '%{field} must be true'
       unrevertable: can't revert
