@@ -32,6 +32,15 @@ module Dev
       end
 
       log 'Creating Company Users'
+      # Create one known company user for easier testing
+      company = companies.sample
+      create_user(
+        address: addresses.sample,
+        language: system_languages.sample,
+        company: company,
+        email: 'company@exameple.com'
+      )
+
       max_company_users.times do
         company = companies.sample
         create_user(
