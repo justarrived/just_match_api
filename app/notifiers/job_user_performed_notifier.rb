@@ -1,7 +1,8 @@
 # frozen_string_literal: true
-class JobUserPerformedNotifier
+class JobUserPerformedNotifier < BaseNotifier
   def self.call(job:, user:)
     owner = job.owner
+    return if ignored?(owner)
 
     UserMailer.
       job_user_performed_email(user: user, job: job, owner: owner).

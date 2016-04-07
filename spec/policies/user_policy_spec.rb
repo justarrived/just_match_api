@@ -54,18 +54,17 @@ RSpec.describe UserPolicy do
   describe '#present_attributes' do
     subject { UserPolicy.new(user, owner) }
 
-    let(:owner) { FactoryGirl.build(:user) }
-    let(:user) { FactoryGirl.build(:user) }
+    let(:language) { Language.find_or_create_by!(lang_code: 'en') }
+
+    let(:owner) { FactoryGirl.build(:user, language: language) }
+    let(:user) { FactoryGirl.build(:user, language: language) }
     let(:admin) { FactoryGirl.build(:admin_user) }
 
     let(:job) { FactoryGirl.create(:job, owner: owner) }
 
     context 'accepted applicant for owner' do
-      let!(:job_user) do
-        FactoryGirl.create(:job_user, job: job, user: user, accepted: true)
-      end
-
       it 'returns correct attributes' do
+        FactoryGirl.create(:job_user, job: job, user: user, accepted: true)
         expected = described_class::ACCEPTED_APPLICANT_ATTRIBUTES
         expect(subject.present_attributes).to eq(expected)
       end
@@ -163,6 +162,14 @@ RSpec.describe UserPolicy do
 
     it 'returns true for jobs' do
       expect(subject.jobs?).to eq(true)
+    end
+  end
+
+  permissions :notifications? do
+    subject { UserPolicy.new(nil, nil) }
+
+    it 'allows access for everyone' do
+      expect(subject.notifications?).to eq(true)
     end
   end
 end

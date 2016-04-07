@@ -39,8 +39,10 @@ RSpec.describe ChatPolicy do
   context 'user in chat' do
     subject { ChatPolicy.new(user, chat) }
 
-    let(:user) { FactoryGirl.build(:user) }
-    let(:a_user) { FactoryGirl.build(:user) }
+    let(:language) { Language.find_or_create_by!(lang_code: 'en') }
+
+    let(:user) { FactoryGirl.build(:user, language: language) }
+    let(:a_user) { FactoryGirl.build(:user, language: language) }
     let(:chat_with_users) { FactoryGirl.create(:chat, users: [user, a_user]) }
 
     it 'returns true for index' do

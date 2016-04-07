@@ -28,9 +28,9 @@ RSpec.describe Sweepers::JobUserSweeper do
     end
 
     it 'updates accepted_at attribute to false' do
-      allow(AcceptedApplicantConfirmationOverdue).to receive(:call)
+      allow(AcceptedApplicantConfirmationOverdueNotifier).to receive(:call)
       record_count = subject.length
-      expect(AcceptedApplicantConfirmationOverdue).to have_received(:call).
+      expect(AcceptedApplicantConfirmationOverdueNotifier).to have_received(:call).
         exactly(record_count).times
     end
   end

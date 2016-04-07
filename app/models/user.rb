@@ -48,9 +48,24 @@ class User < ApplicationRecord
   validates :auth_token, uniqueness: true
   validates :ssn, uniqueness: true, length: { is: 10 }, allow_blank: false
 
+  validate :validate_language_id_in_available_locale
+
   scope :admins, -> { where(admin: true) }
   scope :company_users, -> { where.not(company: nil) }
   scope :visible, -> { where.not(banned: true) }
+
+  # Don't change the order or remove any items in the array,
+  # only additions are allowed
+  NOTIFICATIONS = %w(
+    accepted_applicant_confirmation_overdue
+    accepted_applicant_withdrawn
+    applicant_accepted
+    applicant_will_perform
+    job_user_performed_accepted
+    job_user_performed
+    new_applicant
+    user_job_match
+  ).freeze
 
   def self.find_by_one_time_token(token)
     where('one_time_token_expires_at > ?', Time.zone.now).
@@ -99,6 +114,18 @@ class User < ApplicationRecord
     self[:banned] = value
   end
 
+  def ignored_notification?(notification)
+    ignored_notifications.include?(notification.to_s)
+  end
+
+  def ignored_notifications=(notifications)
+    self.ignored_notifications_mask = BitmaskField.to_mask(notifications, NOTIFICATIONS)
+  end
+
+  def ignored_notifications
+    BitmaskField.from_mask(ignored_notifications_mask, NOTIFICATIONS)
+  end
+
   def reset!
     update!(
       anonymized: true,
@@ -129,6 +156,15 @@ class User < ApplicationRecord
     password.length >= 6
   end
 
+  def validate_language_id_in_available_locale
+    language = Language.find_by(id: language_id)
+    return if language.nil?
+
+    unless I18n.available_locales.map(&:to_s).include?(language.lang_code)
+      errors.add(:language_id, I18n.t('errors.user.must_be_available_locale'))
+    end
+  end
+
   private
 
   def encrypt_password
@@ -143,33 +179,34 @@ end
 #
 # Table name: users
 #
-#  id                        :integer          not null, primary key
-#  email                     :string
-#  phone                     :string
-#  description               :text
-#  created_at                :datetime         not null
-#  updated_at                :datetime         not null
-#  latitude                  :float
-#  longitude                 :float
-#  language_id               :integer
-#  anonymized                :boolean          default(FALSE)
-#  auth_token                :string
-#  password_hash             :string
-#  password_salt             :string
-#  admin                     :boolean          default(FALSE)
-#  street                    :string
-#  zip                       :string
-#  zip_latitude              :float
-#  zip_longitude             :float
-#  first_name                :string
-#  last_name                 :string
-#  ssn                       :string
-#  company_id                :integer
-#  banned                    :boolean          default(FALSE)
-#  job_experience            :text
-#  education                 :text
-#  one_time_token            :string
-#  one_time_token_expires_at :datetime
+#  id                         :integer          not null, primary key
+#  email                      :string
+#  phone                      :string
+#  description                :text
+#  created_at                 :datetime         not null
+#  updated_at                 :datetime         not null
+#  latitude                   :float
+#  longitude                  :float
+#  language_id                :integer
+#  anonymized                 :boolean          default(FALSE)
+#  auth_token                 :string
+#  password_hash              :string
+#  password_salt              :string
+#  admin                      :boolean          default(FALSE)
+#  street                     :string
+#  zip                        :string
+#  zip_latitude               :float
+#  zip_longitude              :float
+#  first_name                 :string
+#  last_name                  :string
+#  ssn                        :string
+#  company_id                 :integer
+#  banned                     :boolean          default(FALSE)
+#  job_experience             :text
+#  education                  :text
+#  one_time_token             :string
+#  one_time_token_expires_at  :datetime
+#  ignored_notifications_mask :integer
 #
 # Indexes
 #

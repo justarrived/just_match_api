@@ -57,6 +57,7 @@ module Api
           param :street, String, desc: 'Street', required: true
           param :zip, String, desc: 'Zip code', required: true
           param :ssn, String, desc: 'Social Security Number (10 characters)', required: true
+          param :ignored_notifications, Array, desc: 'List of ignored notifications'
           param :language_id, Integer, desc: 'Primary language id for user', required: true
           param :language_ids, Array, of: Integer, desc: 'Language ids of languages that the user knows', required: true
           # rubocop:enable Metrics/LineLength
@@ -99,6 +100,7 @@ module Api
           param :street, String, desc: 'Street'
           param :zip, String, desc: 'Zip code'
           param :ssn, String, desc: 'Social Security Number (10 characters)'
+          param :ignored_notifications, Array, desc: 'List of ignored notifications'
           param :language_id, Integer, desc: 'Primary language id for user'
         end
       end
@@ -134,6 +136,19 @@ module Api
         render json: Job.matches_user(@user)
       end
 
+      api :GET, '/users/notifications', 'Show all possible user notifications'
+      description 'Returns a list of all possible user notifications.'
+      def notifications
+        authorize(User)
+
+        notifications_data = User::NOTIFICATIONS.each_with_index.map do |name, index|
+          # Start with id=1
+          user_notification(id: index + 1, name: name)
+        end
+
+        render json: { data: notifications_data }
+      end
+
       private
 
       def set_user
@@ -144,9 +159,19 @@ module Api
         whitelist = [
           :first_name, :last_name, :email, :phone, :description, :job_experience,
           :education, :ssn, :street, :zip, :language_id, :password,
-          skill_ids: [], language_ids: []
+          ignored_notifications: [], skill_ids: [], language_ids: []
         ]
         jsonapi_params.permit(*whitelist)
+      end
+
+      def user_notification(id:, name:)
+        {
+          id: id.to_s,
+          type: 'user_notifications',
+          attributes: {
+            name => I18n.t("notifications.#{name}")
+          }
+        }
       end
     end
   end

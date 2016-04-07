@@ -21,7 +21,10 @@
       "updated_at": "2016-02-12 01:01:01 +0100",
       "admin": false,
       "auth_token": null,
-      "anonymized": false
+      "anonymized": false,
+      "ignored_notifications": [
+
+      ]
     },
     "relationships": {
       "company": {

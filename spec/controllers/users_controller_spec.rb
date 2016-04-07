@@ -3,7 +3,7 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::UsersController, type: :controller do
   let(:valid_attributes) do
-    lang_id = FactoryGirl.create(:language).id
+    lang_id = Language.find_or_create_by!(lang_code: 'en').id
     {
       data: {
         attributes: {
@@ -237,6 +237,28 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       user = FactoryGirl.create(:user)
       get :show, { user_id: user.to_param }, valid_admin_session
       expect(response.status).to eq(200)
+    end
+  end
+
+  describe 'GET #notifications' do
+    it 'returns 200 status' do
+      user = FactoryGirl.create(:user)
+      get :notifications, { user_id: user.to_param }, {}
+      expect(response.status).to eq(200)
+    end
+
+    it 'correct response body' do
+      user = FactoryGirl.create(:user)
+      get :notifications, { user_id: user.to_param }, {}
+
+      result = JSON.parse(response.body)['data']
+      result.each do |json_object|
+        attributes = json_object['attributes']
+        type = json_object['type']
+
+        expect(type).to eq('user_notifications')
+        expect(User::NOTIFICATIONS).to include(attributes.keys.first)
+      end
     end
   end
 end

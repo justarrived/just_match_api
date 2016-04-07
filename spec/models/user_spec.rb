@@ -4,9 +4,7 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   describe '#auth_token' do
     it 'creates a new user with an auth_token of length 36' do
-      user = FactoryGirl.build(:user)
-      expect(user.auth_token).to be_nil
-      user.save!
+      user = FactoryGirl.create(:user)
       expect(user.auth_token.length).to eq(36)
     end
   end
@@ -159,6 +157,74 @@ RSpec.describe User, type: :model do
           expect(User.find_by_one_time_token(token)).to be_nil
         end
       end
+    end
+  end
+
+  describe 'notifications' do
+    context 'constant' do
+      it 'has the correct elements' do
+        expected = %w(
+          accepted_applicant_confirmation_overdue
+          accepted_applicant_withdrawn
+          applicant_accepted
+          applicant_will_perform
+          job_user_performed_accepted
+          job_user_performed
+          new_applicant
+          user_job_match
+        )
+        expect(User::NOTIFICATIONS).to eq(expected)
+      end
+
+      it 'has corresponding notifier klass for each item' do
+        User::NOTIFICATIONS.each do |notifications|
+          expect { "#{notifications.camelize}Notifier".constantize }.to_not raise_error
+        end
+      end
+    end
+
+    describe '#ignored_notification?' do
+      it 'returns true when is ignored' do
+        ignored = 'new_applicant'
+        user = FactoryGirl.build(:user, ignored_notifications: [ignored])
+        expect(user.ignored_notification?(ignored)).to eq(true)
+      end
+
+      it 'returns false when *not* ignored' do
+        user = FactoryGirl.build(:user)
+        expect(user.ignored_notification?('new_applicant')).to eq(false)
+      end
+    end
+
+    it 'can set mask' do
+      ignored = %w(new_applicant)
+      user = FactoryGirl.build(:user, ignored_notifications: ignored)
+      expect(user.ignored_notifications).to eq(ignored)
+    end
+
+    it 'can set default mask' do
+      user = FactoryGirl.build(:user)
+      expect(user.ignored_notifications).to eq([])
+    end
+  end
+
+  describe '#validate_language_id_in_available_locale' do
+    it 'adds error if language is not in available locale' do
+      language = FactoryGirl.create(:language, lang_code: 'aa')
+      user = FactoryGirl.build(:user, language: language)
+      user.validate
+
+      message = user.errors.messages[:language_id]
+      expect(message).to include(I18n.t('errors.user.must_be_available_locale'))
+    end
+
+    it 'adds *no* error if language is not in available locale' do
+      language = FactoryGirl.create(:language, lang_code: 'en')
+      user = FactoryGirl.build(:user, language: language)
+      user.validate
+
+      message = user.errors.messages[:language_id]
+      expect(message || []).not_to include(I18n.t('errors.user.must_be_available_locale'))
     end
   end
 end

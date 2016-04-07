@@ -20,7 +20,7 @@ class UserPolicy < ApplicationPolicy
   ].freeze
 
   SELF_ATTRIBUTES = (ATTRIBUTES + ACCEPTED_APPLICANT_ATTRIBUTES + [
-    :created_at, :updated_at, :admin, :auth_token, :anonymized
+    :created_at, :updated_at, :admin, :auth_token, :anonymized, :ignored_notifications
   ]).freeze
 
   attr_reader :accepted_applicant
@@ -43,6 +43,10 @@ class UserPolicy < ApplicationPolicy
 
   def jobs?
     admin_or_self? || company_user?
+  end
+
+  def notifications?
+    true
   end
 
   def present_attributes
