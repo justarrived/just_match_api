@@ -46,13 +46,12 @@ module Api
         param :attributes, Hash, desc: 'Job attributes', required: true do
           # rubocop:disable Metrics/LineLength
           param :skill_ids, Array, of: Integer, desc: 'List of skill ids', required: true
-          param :hours, Float, desc: 'Estmiated completion time'
+          param :hours, Float, desc: 'Estmiated completion time', required: true
           param :name, String, desc: 'Name', required: true
           param :description, String, desc: 'Description', required: true
           param :job_date, String, desc: 'Job date', required: true
           param :language_id, Integer, desc: 'Langauge id of the text content', required: true
           param :hourly_pay_id, Integer, desc: 'Hourly pay id', required: true
-          param :owner_user_id, Integer, desc: 'User id for the job owner', required: true
           # rubocop:enable Metrics/LineLength
         end
       end
