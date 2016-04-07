@@ -164,4 +164,12 @@ RSpec.describe UserPolicy do
       expect(subject.jobs?).to eq(true)
     end
   end
+
+  permissions :notifications? do
+    subject { UserPolicy.new(nil, nil) }
+
+    it 'allows access for everyone' do
+      expect(subject.notifications?).to eq(true)
+    end
+  end
 end

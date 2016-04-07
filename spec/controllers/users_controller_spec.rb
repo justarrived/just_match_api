@@ -239,6 +239,28 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       expect(response.status).to eq(200)
     end
   end
+
+  describe 'GET #notifications' do
+    it 'returns 200 status' do
+      user = FactoryGirl.create(:user)
+      get :notifications, { user_id: user.to_param }, {}
+      expect(response.status).to eq(200)
+    end
+
+    it 'correct response body' do
+      user = FactoryGirl.create(:user)
+      get :notifications, { user_id: user.to_param }, {}
+
+      result = JSON.parse(response.body)['data']
+      result.each do |json_object|
+        attributes = json_object['attributes']
+        type = json_object['type']
+
+        expect(type).to eq('user_notifications')
+        expect(User::NOTIFICATIONS).to include(attributes.keys.first)
+      end
+    end
+  end
 end
 
 # == Schema Information

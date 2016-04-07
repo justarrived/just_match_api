@@ -45,6 +45,10 @@ class UserPolicy < ApplicationPolicy
     admin_or_self? || company_user?
   end
 
+  def notifications?
+    true
+  end
+
   def present_attributes
     return ATTRIBUTES if no_user?
 

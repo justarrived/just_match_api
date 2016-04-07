@@ -136,6 +136,19 @@ module Api
         render json: Job.matches_user(@user)
       end
 
+      api :GET, '/users/notifications', 'Show all possible user notifications'
+      description 'Returns a list of all possible user notifications.'
+      def notifications
+        authorize(User)
+
+        notifications_data = User::NOTIFICATIONS.each_with_index.map do |name, index|
+          # Start with id=1
+          user_notification(id: index + 1, name: name)
+        end
+
+        render json: { data: notifications_data }
+      end
+
       private
 
       def set_user
@@ -149,6 +162,16 @@ module Api
           ignored_notifications: [], skill_ids: [], language_ids: []
         ]
         jsonapi_params.permit(*whitelist)
+      end
+
+      def user_notification(id:, name:)
+        {
+          id: id.to_s,
+          type: 'user_notifications',
+          attributes: {
+            name => I18n.t("notifications.#{name}")
+          }
+        }
       end
     end
   end
