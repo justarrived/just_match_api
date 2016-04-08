@@ -26,7 +26,7 @@ gem 'kaminari', '~> 0.16' # Easy pagination
 
 gem 'bcrypt', '~> 3.1.7', require: true # Encrypt passwords
 
-gem 'puma', '~> 3.2' # App server
+gem 'puma', '~> 3.4' # App server
 
 gem 'newrelic_rpm', '~> 3.15' # Performance monitoring
 
@@ -39,7 +39,7 @@ gem 'pundit', '~> 1.1' # Authorization policies
 
 gem 'faker', '~> 1.6' # Easily generate fake data (used for seeding dev/test/staging)
 
-gem 'rack-timeout', '~> 0.3' # Kill requests that run for too long
+gem 'rack-timeout', '~> 0.4' # Kill requests that run for too long
 gem 'rack-cors', require: 'rack/cors' # Configure CORS
 gem 'rack-attack' # Throttle API usage
 gem 'redis-activesupport' # To use Redis as the cache store for rack-attack
