@@ -161,6 +161,4 @@ The configuration is in [.tx/config](.tx/config).
 
 ## License
 
-This project is open source and licensed under the permissive [MIT](LICENSE.txt) license.
-
-[![MIT LICENSE](https://img.shields.io/dub/l/vibe-d.svg)](LICENSE.md)
+This project is open source and licensed under [AGPL](LICENSE.txt).
