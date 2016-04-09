@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class JsonApiDeserializer
+module JsonApiDeserializer
   AmsDeserializer = ActiveModelSerializers::Deserialization
   Parameters = ActionController::Parameters
 

@@ -7,6 +7,8 @@ require 'seeds/dev/job_user_seed'
 require 'seeds/dev/skill_seed'
 require 'seeds/dev/user_seed'
 
+require 'frilans_finans_importer'
+
 namespace :dev do
   task count_models: :environment do
     ignore_tables = %w(
@@ -92,5 +94,9 @@ namespace :dev do
   task doc_examples: :environment do
     fail 'Can only generate docs when Rails is in test mode.' unless Rails.env.test?
     Doxxer.generate_response_examples
+  end
+
+  task frilans_finans_importer: :environment do
+    FrilansFinansImporter.perform
   end
 end

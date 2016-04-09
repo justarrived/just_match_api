@@ -12,8 +12,12 @@ gem 'sidekiq', '~> 4.1.1' # Background worker (Redis-backed)
 gem 'sinatra', require: false # Required for sidekiq web
 
 gem 'active_model_serializers', '~> 0.10.0.rc5' # Serialize models to JSON
+# gem 'jsonapi_parser', '~>0.4' # Parse JSONAPI compliant payload
+gem 'jsonapi_parser', path: '../jsonapi_parser'
 
 gem 'blazer', '~> 1.2' # Explore data with SQL
+
+gem 'httparty', '~> 0.13' # Easy HTTP requests
 
 group :production do
   gem 'rails_12factor', '~> 0.0.3' # Heroku integration
