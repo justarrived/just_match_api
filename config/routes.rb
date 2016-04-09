@@ -38,7 +38,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :jobs, param: :job_id, only: [:index, :show, :create, :update] do
         member do
-          get :matching_users
+          get :matching_users, path: 'matching-users'
           resources :job_comments, module: :jobs, path: :comments, only: [:index, :show, :create, :update, :destroy]
           resources :job_skills, module: :jobs, path: :skills, only: [:index, :show, :create, :destroy]
           resources :job_users, module: :jobs, path: :users, only: [:index, :show, :create, :update, :destroy]
@@ -50,7 +50,7 @@ Rails.application.routes.draw do
         member do
           resources :messages, module: :users, only: [:create, :index]
 
-          get :matching_jobs
+          get :matching_jobs, path: 'matching-jobs'
           resources :user_jobs, path: :jobs, param: :user_id, module: :users, only: [:index]
           resources :comments, module: :users, only: [:index, :show, :create, :update, :destroy]
           resources :user_skills, module: :users, path: :skills, only: [:index, :show, :create, :destroy]
@@ -59,8 +59,8 @@ Rails.application.routes.draw do
 
         collection do
           resources :user_sessions, module: :users, path: :sessions, only: [:create, :destroy]
-          resources :reset_password, module: :users, only: [:create]
-          resources :change_password, module: :users, only: [:create]
+          resources :reset_password, path: 'reset-password', module: :users, only: [:create]
+          resources :change_password, path: 'change-password', module: :users, only: [:create]
           get :notifications
         end
       end
@@ -74,7 +74,7 @@ Rails.application.routes.draw do
       resources :languages, only: [:index, :show, :create, :update, :destroy]
       resources :skills, only: [:index, :show, :create, :update, :destroy]
       resources :categories, only: [:index]
-      resources :hourly_pays, only: [:index]
+      resources :hourly_pays, path: 'hourly-pays', only: [:index]
 
       post :contacts, to: 'contacts#create'
     end
