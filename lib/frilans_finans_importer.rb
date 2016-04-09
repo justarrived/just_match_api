@@ -2,10 +2,6 @@
 require 'frilans_finans_api/frilans_finans_api'
 
 class FrilansFinansImporter
-  def self.perform
-    professions
-  end
-
   def self.professions
     current_page = 1
     total_pages = 2
