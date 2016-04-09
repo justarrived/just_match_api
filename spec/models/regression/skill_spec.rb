@@ -21,6 +21,7 @@ RSpec.describe Skill, regressor: true do
 
   # === Database (Indexes) ===
   it { is_expected.to have_db_index ['language_id'] }
+  it { is_expected.to have_db_index ['name'] }
 
   # === Validations (Length) ===
   it { is_expected.to allow_value(Faker::Lorem.characters(3)).for :name }

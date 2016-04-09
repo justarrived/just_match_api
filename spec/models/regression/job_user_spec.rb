@@ -15,12 +15,16 @@ RSpec.describe JobUser, regressor: true do
   it { is_expected.to have_db_column :accepted }
   it { is_expected.to have_db_column :created_at }
   it { is_expected.to have_db_column :updated_at }
+  it { is_expected.to have_db_column :will_perform }
+  it { is_expected.to have_db_column :accepted_at }
   it { is_expected.to have_db_column :performed }
   it { is_expected.to have_db_column :performed_accepted }
 
   # === Database (Indexes) ===
   it { is_expected.to have_db_index ['job_id'] }
+  it { is_expected.to have_db_index %w(job_id user_id) }
   it { is_expected.to have_db_index ['user_id'] }
+  it { is_expected.to have_db_index %w(user_id job_id) }
 
   # === Validations (Length) ===
 

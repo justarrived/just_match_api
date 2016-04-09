@@ -15,8 +15,13 @@ RSpec.describe Language, regressor: true do
   it { is_expected.to have_db_column :lang_code }
   it { is_expected.to have_db_column :created_at }
   it { is_expected.to have_db_column :updated_at }
+  it { is_expected.to have_db_column :en_name }
+  it { is_expected.to have_db_column :direction }
+  it { is_expected.to have_db_column :local_name }
+  it { is_expected.to have_db_column :system_language }
 
   # === Database (Indexes) ===
+  it { is_expected.to have_db_index ['lang_code'] }
 
   # === Validations (Length) ===
 
