@@ -7,7 +7,7 @@ module Api
 
         before_action :set_user
 
-        api :POST, '/users/change_password/', 'Change password'
+        api :POST, '/users/change-password/', 'Change password'
         description 'Change password for user, use one time token if the user is not logged in' # rubocop:disable Metrics/LineLength
         error code: 404, desc: 'Not found'
         error code: 422, desc: 'Unprocessable entity'
