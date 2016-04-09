@@ -4,15 +4,28 @@ require 'rails_helper'
 RSpec.describe UserSerializer, type: :serializer do
   context 'Individual Resource Representation' do
     let(:resource) { FactoryGirl.build(:user) }
-
     let(:serialization) { JsonApiSerializer.serialize(resource) }
 
     subject do
-      JSON.parse(serialization.to_json)['data']
+      JSON.parse(serialization.to_json)
     end
 
-    it 'has a name' do
-      expect(subject['attributes']['first_name']).to eql(resource.first_name)
+    UserPolicy::ATTRIBUTES.each do |attribute|
+      it "has #{attribute.to_s.humanize.downcase}" do
+        dashed_attribute = attribute.to_s.dasherize
+        value = resource.public_send(attribute)
+        expect(subject).to have_jsonapi_attribute(dashed_attribute, value)
+      end
+    end
+
+    %w(language languages company).each do |relationship|
+      it "has #{relationship} relationship" do
+        expect(subject).to have_jsonapi_relationship(relationship)
+      end
+    end
+
+    it 'is valid jsonapi format' do
+      expect(subject).to be_jsonapi_formatted('users')
     end
   end
 end
@@ -21,33 +34,34 @@ end
 #
 # Table name: users
 #
-#  id                        :integer          not null, primary key
-#  email                     :string
-#  phone                     :string
-#  description               :text
-#  created_at                :datetime         not null
-#  updated_at                :datetime         not null
-#  latitude                  :float
-#  longitude                 :float
-#  language_id               :integer
-#  anonymized                :boolean          default(FALSE)
-#  auth_token                :string
-#  password_hash             :string
-#  password_salt             :string
-#  admin                     :boolean          default(FALSE)
-#  street                    :string
-#  zip                       :string
-#  zip_latitude              :float
-#  zip_longitude             :float
-#  first_name                :string
-#  last_name                 :string
-#  ssn                       :string
-#  company_id                :integer
-#  banned                    :boolean          default(FALSE)
-#  job_experience            :text
-#  education                 :text
-#  one_time_token            :string
-#  one_time_token_expires_at :datetime
+#  id                         :integer          not null, primary key
+#  email                      :string
+#  phone                      :string
+#  description                :text
+#  created_at                 :datetime         not null
+#  updated_at                 :datetime         not null
+#  latitude                   :float
+#  longitude                  :float
+#  language_id                :integer
+#  anonymized                 :boolean          default(FALSE)
+#  auth_token                 :string
+#  password_hash              :string
+#  password_salt              :string
+#  admin                      :boolean          default(FALSE)
+#  street                     :string
+#  zip                        :string
+#  zip_latitude               :float
+#  zip_longitude              :float
+#  first_name                 :string
+#  last_name                  :string
+#  ssn                        :string
+#  company_id                 :integer
+#  banned                     :boolean          default(FALSE)
+#  job_experience             :text
+#  education                  :text
+#  one_time_token             :string
+#  one_time_token_expires_at  :datetime
+#  ignored_notifications_mask :integer
 #
 # Indexes
 #

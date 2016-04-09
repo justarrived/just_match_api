@@ -1,7 +1,7 @@
 {
   "data": {
     "id": "1",
-    "type": "job_skills",
+    "type": "job-skills",
     "relationships": {
       "job": {
         "data": null

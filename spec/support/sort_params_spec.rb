@@ -35,6 +35,11 @@ RSpec.describe SortParams do
         result = described_class.sorted_fields('-updated_at', ['updated_at'], default)
         expect(result).to eq('updated_at' => :desc)
       end
+
+      it 'handles dashed params' do
+        result = described_class.sorted_fields('-updated-at', ['updated_at'], default)
+        expect(result).to eq('updated_at' => :desc)
+      end
     end
 
     context 'mutiple field' do

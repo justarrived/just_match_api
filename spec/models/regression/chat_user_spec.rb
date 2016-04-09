@@ -17,7 +17,9 @@ RSpec.describe ChatUser, regressor: true do
 
   # === Database (Indexes) ===
   it { is_expected.to have_db_index ['chat_id'] }
+  it { is_expected.to have_db_index %w(chat_id user_id) }
   it { is_expected.to have_db_index ['user_id'] }
+  it { is_expected.to have_db_index %w(user_id chat_id) }
 
   # === Validations (Length) ===
 

@@ -6,7 +6,7 @@ RSpec.describe FilterParams do
   let(:filter_hash) do
     {
       'name' => 'watman',
-      'created_at' => '2016-03-03..2016-03-04',
+      'created-at' => '2016-03-03..2016-03-04',
       'published' => 'true'
     }
   end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class JobUserPolicy < ApplicationPolicy
-  Context = Struct.new(:user, :job_context, :user_record)
+  Context = Struct.new(:current_user, :job_context, :user_record)
 
   JOB_OWNER_ATTRIBUTES = [:accepted, :performed_accepted].freeze
   JOB_USER_ATTRIBUTES = [:will_perform, :performed].freeze
@@ -9,7 +9,7 @@ class JobUserPolicy < ApplicationPolicy
   attr_reader :job_context, :user_record
 
   def initialize(user, record)
-    @user = user.user
+    @user = user.current_user
     @record = record
     @job_context = user.job_context
     @user_record = user.user_record

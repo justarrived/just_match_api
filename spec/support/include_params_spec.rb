@@ -4,7 +4,7 @@ require 'spec_helper'
 RSpec.describe IncludeParams do
   describe '#permit' do
     describe 'many includes in param' do
-      let(:param) { described_class.new('users,jobs') }
+      let(:param) { described_class.new('job-users,jobs') }
 
       it 'can return none' do
         expect(param.permit([])).to eq([])
@@ -12,13 +12,13 @@ RSpec.describe IncludeParams do
       end
 
       it 'can return one' do
-        expect(param.permit(['users'])).to eq(['users'])
-        expect(param.permit('users')).to eq(['users'])
+        expect(param.permit(['job_users'])).to eq(['job_users'])
+        expect(param.permit('job_users')).to eq(['job_users'])
       end
 
       it 'can return many' do
-        expect(param.permit(%w(users jobs))).to eq(%w(users jobs))
-        expect(param.permit('users', 'jobs')).to eq(%w(users jobs))
+        expect(param.permit(%w(job_users jobs))).to eq(%w(job_users jobs))
+        expect(param.permit('job_users', 'jobs')).to eq(%w(job_users jobs))
       end
     end
 

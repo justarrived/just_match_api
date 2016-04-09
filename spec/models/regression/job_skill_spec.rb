@@ -17,7 +17,9 @@ RSpec.describe JobSkill, regressor: true do
 
   # === Database (Indexes) ===
   it { is_expected.to have_db_index ['job_id'] }
+  it { is_expected.to have_db_index %w(job_id skill_id) }
   it { is_expected.to have_db_index ['skill_id'] }
+  it { is_expected.to have_db_index %w(skill_id job_id) }
 
   # === Validations (Length) ===
 

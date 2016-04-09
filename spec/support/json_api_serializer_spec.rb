@@ -51,7 +51,7 @@ RSpec.describe JsonApiSerializer do
 
   describe '#serializer' do
     it 'returns JsonApi serializer' do
-      expected_klass = ActiveModel::Serializer::Adapter::JsonApi
+      expected_klass = ActiveModelSerializers::Adapter::JsonApi
       expect(serializer.serialize.class).to eq(expected_klass)
     end
 

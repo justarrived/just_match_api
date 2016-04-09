@@ -5,7 +5,7 @@ module Api
       class ResetPasswordController < BaseController
         after_action :verify_authorized, only: []
 
-        api :POST, '/users/reset_password/', 'Reset password'
+        api :POST, '/users/reset-password/', 'Reset password'
         description 'Sends a reset password email to user.'
         error code: 422, desc: 'Unprocessable entity'
         param :data, Hash, desc: 'Top level key', required: true do

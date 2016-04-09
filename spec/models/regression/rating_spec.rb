@@ -26,8 +26,8 @@ RSpec.describe Rating, regressor: true do
   # === Validations (Length) ===
 
   # === Validations (Presence) ===
-  it { is_expected.to validate_presence_of :score }
   it { is_expected.to validate_presence_of :job }
+  it { is_expected.to validate_presence_of :score }
   it { is_expected.to validate_presence_of :from_user }
   it { is_expected.to validate_presence_of :to_user }
 

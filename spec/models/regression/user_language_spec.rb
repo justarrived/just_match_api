@@ -17,7 +17,9 @@ RSpec.describe UserLanguage, regressor: true do
 
   # === Database (Indexes) ===
   it { is_expected.to have_db_index ['language_id'] }
+  it { is_expected.to have_db_index %w(language_id user_id) }
   it { is_expected.to have_db_index ['user_id'] }
+  it { is_expected.to have_db_index %w(user_id language_id) }
 
   # === Validations (Length) ===
 

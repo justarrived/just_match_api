@@ -10,7 +10,7 @@ module Api
         api_versions '1.0'
       end
 
-      api :GET, '/hourly_pays', 'List hourly pays'
+      api :GET, '/hourly-pays', 'List hourly pays'
       description 'Returns a list of hourly pays.'
       ApipieDocHelper.params(self, Index::HourlyPaysIndex)
       example Doxxer.read_example(HourlyPay, plural: true)

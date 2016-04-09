@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 class MessageSerializer < ActiveModel::Serializer
-  attributes :id, :body
+  ATTRIBUTES = [:body].freeze
+
+  attributes ATTRIBUTES
+
   has_one :chat
   has_one :author
   has_one :language

@@ -13,10 +13,12 @@ module SortParams
   def self.convert_to_ordered_hash(fields)
     fields.each_with_object({}) do |field, hash|
       if field.start_with?('-')
-        field = field[1..-1]
+        # Underscore the field (JSONAPI attributes are dasherized)
+        field = field[1..-1].underscore
         hash[field] = :desc
       else
-        hash[field] = :asc
+        # Underscore the field (JSONAPI attributes are dasherized)
+        hash[field.underscore] = :asc
       end
     end
   end
