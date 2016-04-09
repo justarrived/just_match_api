@@ -2,7 +2,7 @@
 
 module FrilansFinansApi
   class Profession
-    ATTRIBUTES = [:title, :ssyk, :insurance_status_id]
+    ATTRIBUTES = [:title, :ssyk, :insurance_status_id].freeze
 
     Professions = Struct.new(:resources, :total_pages)
 

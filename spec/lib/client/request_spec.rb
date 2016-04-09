@@ -12,8 +12,8 @@ RSpec.describe FrilansFinansApi::Request do
 
     it 'returns professions array' do
       stub_request(:get, "#{base_url}/profession?page=1").
-         with(default_headers).
-         to_return(status: 200, body: FFApiFixture.read(:professions), headers: {})
+        with(default_headers).
+        to_return(status: 200, body: FFApiFixture.read(:professions), headers: {})
 
       parsed_body = JSON.parse(subject.professions.body)
       expect(parsed_body['data']).to be_a(Array)

@@ -10,16 +10,16 @@ RSpec.describe FrilansFinansApi::Profession do
   describe '#professions' do
     subject do
       stub_request(:get, "#{base_url}/profession?page=1").
-         with(default_headers).
-         to_return(status: 200, body: FFApiFixture.read(:professions), headers: {})
+        with(default_headers).
+        to_return(status: 200, body: FFApiFixture.read(:professions), headers: {})
 
       described_class.index
     end
 
     it 'returns professions' do
       resources = subject.resources
-      expect(subject.resources).to be_a(Array)
-      expect(subject.resources.first[:title]).to eq('Test profession')
+      expect(resources).to be_a(Array)
+      expect(resources.first[:title]).to eq('Test profession')
     end
   end
 end
