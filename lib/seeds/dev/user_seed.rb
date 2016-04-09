@@ -38,7 +38,7 @@ module Dev
         address: addresses.sample,
         language: system_languages.sample,
         company: company,
-        email: 'company@exameple.com'
+        email: 'company@example.com'
       )
 
       max_company_users.times do

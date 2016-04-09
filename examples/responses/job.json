@@ -4,24 +4,19 @@
     "type": "jobs",
     "attributes": {
       "description": "Typewriter hashtag ennui brunch post-ironic food truck vinegar.",
-      "job_date": "2016-02-18 01:01:01 +0100",
+      "job-date": "2016-02-18 01:01:01 +0100",
       "hours": 3.0,
       "name": "A job",
-      "created_at": "2016-02-10 01:01:01 +0100",
-      "updated_at": "2016-02-12 01:01:01 +0100",
+      "created-at": "2016-02-10 01:01:01 +0100",
+      "updated-at": "2016-02-12 01:01:01 +0100",
       "latitude": 59.3158558,
       "longitude": 18.0552976,
       "street": "Bankgatan 14C",
       "zip": "223 52",
-      "zip_latitude": 59.7117339,
-      "zip_longitude": 18.4256286
+      "zip-latitude": 59.7117339,
+      "zip-longitude": 18.4256286
     },
     "relationships": {
-      "applicants": {
-        "data": [
-
-        ]
-      },
       "comments": {
         "data": [
 
@@ -39,7 +34,7 @@
       "category": {
         "data": null
       },
-      "hourly_pay": {
+      "hourly-pay": {
         "data": null
       }
     }

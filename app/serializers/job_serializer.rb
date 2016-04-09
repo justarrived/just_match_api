@@ -4,10 +4,6 @@ class JobSerializer < ActiveModel::Serializer
   # that can be returned to the user we can return all Job column names here
   attributes Job.column_names.map(&:to_sym)
 
-  has_many :users, key: :applicants do
-    applicant_records
-  end
-
   has_many :comments do
     object.comments.visible
   end
@@ -25,18 +21,6 @@ class JobSerializer < ActiveModel::Serializer
   end
 
   private
-
-  def applicant_records
-    return User.none if policy.no_user?
-
-    if policy.present_applicants?
-      object.users
-    elsif policy.present_self_applicant?
-      [scope]
-    else
-      User.none
-    end
-  end
 
   def policy
     @_job_policy ||= JobPolicy.new(scope[:current_user], object)

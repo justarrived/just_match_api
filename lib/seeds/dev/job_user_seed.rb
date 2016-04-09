@@ -4,7 +4,7 @@ require 'seeds/dev/base_seed'
 module Dev
   class JobUserSeed < BaseSeed
     def self.call(jobs:, users:)
-      max_job_users = max_count_opt('MAX_JOB_USERS', 60)
+      max_job_users = max_count_opt('MAX_JOB_USERS', 100)
       before_count = JobUser.count
 
       log 'Creating Job users'

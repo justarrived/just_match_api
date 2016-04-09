@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 class RatingSerializer < ActiveModel::Serializer
-  attributes :id, :score
+  ATTRIBUTES = [:score].freeze
+
+  attributes ATTRIBUTES
 
   has_one :job
   has_one :from_user

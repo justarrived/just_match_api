@@ -2,7 +2,7 @@
   "data": [
     {
       "id": "1",
-      "type": "user_languages",
+      "type": "user-languages",
       "relationships": {
         "language": {
           "data": null

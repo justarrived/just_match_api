@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 class CompanySerializer < ActiveModel::Serializer
-  attributes :id, :name
+  ATTRIBUTES = [:name].freeze
+
+  attributes ATTRIBUTES
 end
 
 # == Schema Information

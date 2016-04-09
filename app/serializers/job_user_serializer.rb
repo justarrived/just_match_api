@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 class JobUserSerializer < ActiveModel::Serializer
-  attributes :id, :accepted, :accepted_at, :will_perform, :performed, :performed_accepted
+  ATTRIBUTES = [
+    :accepted, :accepted_at, :will_perform, :performed, :performed_accepted
+  ].freeze
+
+  attributes ATTRIBUTES
 
   belongs_to :user
   belongs_to :job

@@ -2,7 +2,7 @@
   "data": [
     {
       "id": "1",
-      "type": "hourly_pays",
+      "type": "hourly-pays",
       "attributes": {
         "rate": 100,
         "active": true,

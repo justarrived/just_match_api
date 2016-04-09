@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 class LanguageSerializer < ActiveModel::Serializer
-  attributes :id, :lang_code, :en_name, :direction, :local_name, :system_language
+  ATTRIBUTES = [:lang_code, :en_name, :direction, :local_name, :system_language].freeze
+
+  attributes ATTRIBUTES
 end
 
 # == Schema Information

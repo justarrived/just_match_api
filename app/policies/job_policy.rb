@@ -15,7 +15,7 @@ class JobPolicy < ApplicationPolicy
     :longitude, :street, :zip, :zip_latitude, :zip_longitude
   ].freeze
 
-  RESTICTED_ATTRIBUTES = [
+  ATTRIBUTES = [
     :id, :description, :job_date, :hours, :name, :created_at, :updated_at, :zip,
     :zip_latitude, :zip_longitude
   ].freeze
@@ -66,12 +66,12 @@ class JobPolicy < ApplicationPolicy
   end
 
   def present_attributes
-    return RESTICTED_ATTRIBUTES if user.nil?
+    return ATTRIBUTES if user.nil?
 
     if admin? || owner? || accepted_applicant?
       FULL_ATTRIBUTES
     else
-      RESTICTED_ATTRIBUTES
+      ATTRIBUTES
     end
   end
 

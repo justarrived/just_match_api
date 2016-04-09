@@ -5,7 +5,8 @@ module FilterParams
 
     filtered = {}
     filters.each do |key, value|
-      key_sym = key.to_sym
+      # Underscore the field (JSONAPI attributes are dasherized)
+      key_sym = key.underscore.to_sym
       if allowed.include?(key_sym)
         filtered[key_sym] = format_value(value, transform[key_sym])
       end

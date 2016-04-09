@@ -10,10 +10,10 @@
         "job": {
           "data": null
         },
-        "from_user": {
+        "from-user": {
           "data": null
         },
-        "to_user": {
+        "to-user": {
           "data": null
         },
         "comment": {

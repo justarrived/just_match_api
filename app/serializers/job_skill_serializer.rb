@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 class JobSkillSerializer < ActiveModel::Serializer
-  attributes :id
-
-  belongs_to :job
-  belongs_to :skill
+  has_one :job
+  has_one :skill
 end
 
 # == Schema Information
