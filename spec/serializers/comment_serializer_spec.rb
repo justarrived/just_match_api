@@ -29,6 +29,7 @@ RSpec.describe CommentSerializer, type: :serializer do
     end
   end
 end
+# rubocop:disable Metrics/LineLength
 
 # == Schema Information
 #
