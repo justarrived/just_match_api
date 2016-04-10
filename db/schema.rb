@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160410201516) do
+ActiveRecord::Schema.define(version: 20160410225854) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -124,6 +124,16 @@ ActiveRecord::Schema.define(version: 20160410201516) do
     t.datetime "updated_at",                 null: false
   end
 
+  create_table "invoices", force: :cascade do |t|
+    t.integer  "frilans_finans_id"
+    t.integer  "job_user_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
+  add_index "invoices", ["frilans_finans_id"], name: "index_invoices_on_frilans_finans_id", unique: true, using: :btree
+  add_index "invoices", ["job_user_id"], name: "index_invoices_on_job_user_id", using: :btree
+
   create_table "job_skills", force: :cascade do |t|
     t.integer  "job_id"
     t.integer  "skill_id"
@@ -139,13 +149,12 @@ ActiveRecord::Schema.define(version: 20160410201516) do
   create_table "job_users", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "job_id"
-    t.boolean  "accepted",           default: false
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
-    t.boolean  "will_perform",       default: false
+    t.boolean  "accepted",     default: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.boolean  "will_perform", default: false
     t.datetime "accepted_at"
-    t.boolean  "performed",          default: false
-    t.boolean  "performed_accepted", default: false
+    t.boolean  "performed",    default: false
   end
 
   add_index "job_users", ["job_id", "user_id"], name: "index_job_users_on_job_id_and_user_id", unique: true, using: :btree
@@ -295,6 +304,7 @@ ActiveRecord::Schema.define(version: 20160410201516) do
   add_foreign_key "chat_users", "users"
   add_foreign_key "comments", "languages"
   add_foreign_key "comments", "users", column: "owner_user_id", name: "comments_owner_user_id_fk"
+  add_foreign_key "invoices", "job_users"
   add_foreign_key "job_skills", "jobs"
   add_foreign_key "job_skills", "skills"
   add_foreign_key "job_users", "jobs"

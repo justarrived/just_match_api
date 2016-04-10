@@ -7,11 +7,22 @@ FactoryGirl.define do
     accepted false
     will_perform false
 
+    factory :job_user_passed_job do
+      association :job, factory: :passed_job
+      accepted true
+      will_perform true
+    end
+
     factory :job_user_concluded do
       association :job, factory: :passed_job
       accepted true
       will_perform true
-      performed_accepted true
+      after(:create) do |job_user, _evaluator|
+        # Unless explicitly given a invoice add a default, valid, one
+        if job_user.invoice.nil?
+          job_user.invoice = Invoice.find_or_create_by!(job_user_id: job_user.id)
+        end
+      end
     end
 
     factory :job_user_accepted do
@@ -35,16 +46,15 @@ end
 #
 # Table name: job_users
 #
-#  id                 :integer          not null, primary key
-#  user_id            :integer
-#  job_id             :integer
-#  accepted           :boolean          default(FALSE)
-#  created_at         :datetime         not null
-#  updated_at         :datetime         not null
-#  will_perform       :boolean          default(FALSE)
-#  accepted_at        :datetime
-#  performed          :boolean          default(FALSE)
-#  performed_accepted :boolean          default(FALSE)
+#  id           :integer          not null, primary key
+#  user_id      :integer
+#  job_id       :integer
+#  accepted     :boolean          default(FALSE)
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  will_perform :boolean          default(FALSE)
+#  accepted_at  :datetime
+#  performed    :boolean          default(FALSE)
 #
 # Indexes
 #

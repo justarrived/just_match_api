@@ -35,8 +35,7 @@ class Rating < ApplicationRecord
   end
 
   def validate_job_concluded
-    return if job.nil?
-    job_user = job.accepted_job_user
+    job_user = job.try!(:accepted_job_user)
     return if job_user.nil?
 
     unless job_user.concluded?

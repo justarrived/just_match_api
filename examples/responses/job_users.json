@@ -7,14 +7,16 @@
         "accepted": false,
         "accepted-at": null,
         "will-perform": false,
-        "performed": false,
-        "performed-accepted": false
+        "performed": false
       },
       "relationships": {
         "user": {
           "data": null
         },
         "job": {
+          "data": null
+        },
+        "invoice": {
           "data": null
         }
       }

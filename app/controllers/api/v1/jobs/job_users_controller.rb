@@ -79,7 +79,6 @@ module Api
           param :attributes, Hash, desc: 'Job user attributes', required: true do
             param :accepted, [true], desc: 'User accepted for job'
             param :will_perform, [true], desc: 'User will perform job'
-            param :performed_accepted, [true], desc: 'Performed accepted by owner'
             param :performed, [true], desc: 'Job has been performed by user'
           end
         end
@@ -151,7 +150,6 @@ module Api
           case event_name(job_user)
           when :accepted then ApplicantAcceptedNotifier
           when :will_perform then ApplicantWillPerformNotifier
-          when :performed_accepted then JobUserPerformedAcceptedNotifier
           when :performed then JobUserPerformedNotifier
           else
             NilNotifier
@@ -164,8 +162,6 @@ module Api
               :accepted
             elsif job_user.send_will_perform_notice?
               :will_perform
-            elsif job_user.send_performed_accepted_notice?
-              :performed_accepted
             elsif job_user.send_performed_notice?
               :performed
             else

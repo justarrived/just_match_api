@@ -5,6 +5,8 @@ class JobUser < ApplicationRecord
   belongs_to :user
   belongs_to :job
 
+  has_one :invoice
+
   validates :user, presence: true
   validates :job, presence: true
 
@@ -13,17 +15,14 @@ class JobUser < ApplicationRecord
 
   validates :will_perform, after_true: { field: :accepted }, if: :will_perform
   validates :performed, after_true: { field: :will_perform }, if: :performed
-  validates :performed_accepted, after_true: { field: :will_perform }, if: :performed_accepted # rubocop:disable Metrics/LineLength
 
   validates :accepted, unrevertable: true, unless: :applicant_confirmation_overdue?
   validates :will_perform, unrevertable: true
   validates :performed, unrevertable: true
-  validates :performed_accepted, unrevertable: true
 
   validate :validate_single_applicant, on: :update
   validate :validate_applicant_not_owner_of_job
   validate :validate_job_started_before_performed
-  validate :validate_job_started_before_performed_accepted
 
   before_validation :accepted_at_setter
 
@@ -72,7 +71,7 @@ class JobUser < ApplicationRecord
   end
 
   def concluded?
-    performed_accepted
+    !invoice.nil?
   end
 
   # NOTE: You need to call this __before__ the record is validated
@@ -89,12 +88,6 @@ class JobUser < ApplicationRecord
 
   # NOTE: You need to call this __before__ the record is validated
   #       otherwise it will always return false
-  def send_performed_accepted_notice?
-    performed_accepted_changed? && performed_accepted
-  end
-
-  # NOTE: You need to call this __before__ the record is validated
-  #       otherwise it will always return false
   def send_performed_notice?
     performed_changed? && performed
   end
@@ -106,30 +99,21 @@ class JobUser < ApplicationRecord
     message = I18n.t('errors.job_user.performed_before_job_over')
     errors.add(:performed, message)
   end
-
-  def validate_job_started_before_performed_accepted
-    return if job && job.started?
-    return unless performed_accepted
-
-    message = I18n.t('errors.job_user.performed_accepted_before_job_over')
-    errors.add(:performed_accepted, message)
-  end
 end
 
 # == Schema Information
 #
 # Table name: job_users
 #
-#  id                 :integer          not null, primary key
-#  user_id            :integer
-#  job_id             :integer
-#  accepted           :boolean          default(FALSE)
-#  created_at         :datetime         not null
-#  updated_at         :datetime         not null
-#  will_perform       :boolean          default(FALSE)
-#  accepted_at        :datetime
-#  performed          :boolean          default(FALSE)
-#  performed_accepted :boolean          default(FALSE)
+#  id           :integer          not null, primary key
+#  user_id      :integer
+#  job_id       :integer
+#  accepted     :boolean          default(FALSE)
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  will_perform :boolean          default(FALSE)
+#  accepted_at  :datetime
+#  performed    :boolean          default(FALSE)
 #
 # Indexes
 #

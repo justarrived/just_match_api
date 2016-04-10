@@ -1,29 +1,30 @@
 # frozen_string_literal: true
 class JobUserSerializer < ActiveModel::Serializer
   ATTRIBUTES = [
-    :accepted, :accepted_at, :will_perform, :performed, :performed_accepted
+    :accepted, :accepted_at, :will_perform, :performed
   ].freeze
 
   attributes ATTRIBUTES
 
   belongs_to :user
   belongs_to :job
+
+  has_one :invoice
 end
 
 # == Schema Information
 #
 # Table name: job_users
 #
-#  id                 :integer          not null, primary key
-#  user_id            :integer
-#  job_id             :integer
-#  accepted           :boolean          default(FALSE)
-#  created_at         :datetime         not null
-#  updated_at         :datetime         not null
-#  will_perform       :boolean          default(FALSE)
-#  accepted_at        :datetime
-#  performed          :boolean          default(FALSE)
-#  performed_accepted :boolean          default(FALSE)
+#  id           :integer          not null, primary key
+#  user_id      :integer
+#  job_id       :integer
+#  accepted     :boolean          default(FALSE)
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  will_perform :boolean          default(FALSE)
+#  accepted_at  :datetime
+#  performed    :boolean          default(FALSE)
 #
 # Indexes
 #
