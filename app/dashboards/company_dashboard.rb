@@ -11,6 +11,7 @@ class CompanyDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
     users: Field::HasMany,
     id: Field::Number,
+    frilans_finans_id: Field::Number,
     name: Field::String,
     cin: Field::String,
     created_at: Field::DateTime,
@@ -32,6 +33,7 @@ class CompanyDashboard < Administrate::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = [
     :users,
     :id,
+    :frilans_finans_id,
     :name,
     :cin,
     :created_at,
@@ -44,6 +46,7 @@ class CompanyDashboard < Administrate::BaseDashboard
   FORM_ATTRIBUTES = [
     :users,
     :name,
+    :frilans_finans_id,
     :cin
   ].freeze
 

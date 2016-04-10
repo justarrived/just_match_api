@@ -1,6 +1,4 @@
 # frozen_string_literal: true
-require 'frilans_finans_importer'
-
 namespace :frilans_finans do
   task import: :environment do
     %w(professions).each do |task|

@@ -9,6 +9,7 @@ class UserDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
+    frilans_finans_id: Field::Number,
     language: Field::BelongsTo,
     user_skills: Field::HasMany,
     skills: Field::HasMany,
@@ -72,6 +73,7 @@ class UserDashboard < Administrate::BaseDashboard
     :chats,
     :messages,
     :id,
+    :frilans_finans_id,
     :name,
     :email,
     :phone,
@@ -87,9 +89,7 @@ class UserDashboard < Administrate::BaseDashboard
     :ssn,
     :anonymized,
     :banned,
-    # :auth_token,
-    # :password_hash,
-    # :password_salt,
+    :auth_token,
     :admin
   ].freeze
 
@@ -122,9 +122,7 @@ class UserDashboard < Administrate::BaseDashboard
     :ssn,
     :anonymized,
     :banned,
-    # :auth_token,
-    # :password_hash,
-    # :password_salt,
+    :frilans_finans_id,
     :admin
   ].freeze
 

@@ -8,13 +8,15 @@ end
 #
 # Table name: companies
 #
-#  id         :integer          not null, primary key
-#  name       :string
-#  cin        :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id                :integer          not null, primary key
+#  name              :string
+#  cin               :string
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  frilans_finans_id :integer
 #
 # Indexes
 #
-#  index_companies_on_cin  (cin) UNIQUE
+#  index_companies_on_cin                (cin) UNIQUE
+#  index_companies_on_frilans_finans_id  (frilans_finans_id) UNIQUE
 #
