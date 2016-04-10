@@ -4,6 +4,10 @@ FactoryGirl.define do
     sequence :name do |n|
       "Category #{n}"
     end
+
+    sequence :frilans_finans_id do |n|
+      n
+    end
   end
 end
 

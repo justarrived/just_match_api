@@ -27,6 +27,7 @@ sv:
     user:
       password_length: måste vara minst %{count} karaktärer
       must_be_available_locale: måste vara ett system språk
+      frilans_finans_id: existerar redan
     validators:
       after_true: '%{field} måste vara sant'
       unrevertable: kan inte återgå till föregående status

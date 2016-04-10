@@ -38,5 +38,7 @@ module JustMatch
                  methods: [:get, :post, :delete, :put, :patch, :options, :head]
       end
     end
+
+    config.x.frilans_finans = false
   end
 end

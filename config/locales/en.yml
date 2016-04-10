@@ -27,6 +27,7 @@ en:
     user:
       password_length: must have at least %{count} characters
       must_be_available_locale: must be in available locales
+      frilans_finans_id: already exists
     validators:
       after_true: '%{field} must be true'
       unrevertable: can't revert

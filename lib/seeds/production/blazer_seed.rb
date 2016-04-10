@@ -1,5 +1,7 @@
 # frozen_string_literal: true
-class BlazerSeed
+require 'seeds/base_seed'
+
+class BlazerSeed < BaseSeed
   BLAZER_MODELS = [User, Rating, Chat, Message, Job, Comment, JobUser].freeze
 
   def self.call
@@ -7,6 +9,7 @@ class BlazerSeed
   end
 
   def call
+    log 'Creating Blazer dashboards'
     create_generic_model_dashboard_and_queries
     create_job_users_status_dashboard
   end

@@ -1,0 +1,11 @@
+{
+  "data": {
+    "type": "invoice",
+    "id": "1",
+    "attributes": {
+    },
+    "links": {
+      "self": "http://frilansfinans.se/api/invoice/1"
+    }
+  }
+}

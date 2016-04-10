@@ -1,5 +1,7 @@
 # frozen_string_literal: true
-class HourlyPaySeed
+require 'seeds/base_seed'
+
+class HourlyPaySeed < BaseSeed
   DEFAULT_ALLOWED_RATES = [70, 80, 100].freeze
 
   def self.call
@@ -7,8 +9,10 @@ class HourlyPaySeed
   end
 
   def call
-    DEFAULT_ALLOWED_RATES.each do |rate|
-      HourlyPay.create!(rate: rate, active: true)
+    log_seed(HourlyPay) do
+      DEFAULT_ALLOWED_RATES.each do |rate|
+        HourlyPay.create!(rate: rate, active: true)
+      end
     end
   end
 end

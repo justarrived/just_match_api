@@ -1,0 +1,14 @@
+{
+  "data":  {
+    "type": "profession",
+    "id": "1",
+    "attributes": {
+      "title": "Test profession",
+      "ssyk": 1,
+      "insurance_status_id": 1
+    },
+    "links": {
+      "self": "https://frilansfinans.se/api/profession/1"
+    }
+  }
+}

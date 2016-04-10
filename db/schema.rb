@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160403205031) do
+ActiveRecord::Schema.define(version: 20160410150325) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,10 +58,12 @@ ActiveRecord::Schema.define(version: 20160403205031) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.integer  "frilans_finans_id"
   end
 
+  add_index "categories", ["frilans_finans_id"], name: "index_categories_on_frilans_finans_id", unique: true, using: :btree
   add_index "categories", ["name"], name: "index_categories_on_name", unique: true, using: :btree
 
   create_table "chat_users", force: :cascade do |t|
@@ -272,11 +274,13 @@ ActiveRecord::Schema.define(version: 20160403205031) do
     t.string   "one_time_token"
     t.datetime "one_time_token_expires_at"
     t.integer  "ignored_notifications_mask"
+    t.integer  "frilans_finans_id"
   end
 
   add_index "users", ["auth_token"], name: "index_users_on_auth_token", unique: true, using: :btree
   add_index "users", ["company_id"], name: "index_users_on_company_id", using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["frilans_finans_id"], name: "index_users_on_frilans_finans_id", unique: true, using: :btree
   add_index "users", ["language_id"], name: "index_users_on_language_id", using: :btree
   add_index "users", ["one_time_token"], name: "index_users_on_one_time_token", unique: true, using: :btree
   add_index "users", ["ssn"], name: "index_users_on_ssn", unique: true, using: :btree
