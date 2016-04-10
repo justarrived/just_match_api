@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-require 'seeds/dev/category_seed'
 require 'seeds/dev/chat_seed'
 require 'seeds/dev/company_seed'
 require 'seeds/dev/job_seed'
@@ -30,16 +29,12 @@ namespace :dev do
   ].freeze
 
   task seed: :environment do
-    %w(categories companies skills users jobs chats job_users).each do |task|
+    %w(companies skills users jobs chats job_users).each do |task|
       Rake::Task["dev:seed:#{task}"].execute
     end
   end
 
   namespace :seed do
-    task categories: :environment do
-      Dev::CategorySeed.call
-    end
-
     task companies: :environment do
       Dev::CompanySeed.call
     end

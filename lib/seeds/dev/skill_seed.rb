@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require 'seeds/dev/base_seed'
+require 'seeds/base_seed'
 
 module Dev
   class SkillSeed < BaseSeed
@@ -8,14 +8,11 @@ module Dev
 
       language = Language.find_by!(lang_code: 'en')
 
-      before_count = Skill.count
-
-      log 'Creating Skills'
-      max_skills.times do |n|
-        Skill.create!(name: "#{Faker::Name.title} #{n}", language: language)
+      log_seed(Skill) do
+        max_skills.times do |n|
+          Skill.create!(name: "#{Faker::Name.title} #{n}", language: language)
+        end
       end
-
-      log "Created #{Skill.count - before_count} Skills"
     end
   end
 end

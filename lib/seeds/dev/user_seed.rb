@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require 'seeds/dev/base_seed'
+require 'seeds/base_seed'
 
 module Dev
   class UserSeed < BaseSeed
@@ -9,50 +9,44 @@ module Dev
 
       system_languages = languages.system_languages
 
-      user_before_count = User.count
-      user_skill_before_count = UserSkill.count
-      user_language_before_count = UserLanguage.count
-
-      log 'Creating Admin user'
-      create_user(
-        email: 'admin@example.com',
-        admin: true,
-        address: addresses.sample,
-        language: system_languages.sample
-      )
-
-      log 'Creating Users'
-      max_users.times do
-        user = create_user(
+      log_seed(User, UserSkill, UserLanguage) do
+        log 'Creating Admin user'
+        create_user(
+          email: 'admin@example.com',
+          admin: true,
           address: addresses.sample,
           language: system_languages.sample
         )
-        user.skills << skills.sample
-        user.languages << languages.sample
-      end
 
-      log 'Creating Company Users'
-      # Create one known company user for easier testing
-      company = companies.sample
-      create_user(
-        address: addresses.sample,
-        language: system_languages.sample,
-        company: company,
-        email: 'company@example.com'
-      )
+        log 'Creating Users'
+        max_users.times do
+          user = create_user(
+            address: addresses.sample,
+            language: system_languages.sample
+          )
+          user.skills << skills.sample
+          user.languages << languages.sample
+        end
 
-      max_company_users.times do
+        log 'Creating Company Users'
+        # Create one known company user for easier testing
         company = companies.sample
         create_user(
           address: addresses.sample,
           language: system_languages.sample,
-          company: company
+          company: company,
+          email: 'company@example.com'
         )
-      end
 
-      log "Created #{User.count - user_before_count} Users"
-      log "Created #{UserSkill.count - user_skill_before_count} User skills"
-      log "Created #{UserLanguage.count - user_language_before_count} User languages"
+        max_company_users.times do
+          company = companies.sample
+          create_user(
+            address: addresses.sample,
+            language: system_languages.sample,
+            company: company
+          )
+        end
+      end
     end
 
     def self.create_user(address:, language:, email: nil, admin: false, company: nil)

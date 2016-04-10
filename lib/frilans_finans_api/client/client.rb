@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module FrilansFinansApi
-  class Request
+  class Client
     include HTTParty
     base_uri 'https://frilansfinans.se/api'
 
@@ -13,12 +13,17 @@ module FrilansFinansApi
 
     attr_reader :options
 
-    def initialize(page: 1)
-      @options = { query: { page: page } }.merge(HEADERS)
+    def initialize
+      @options = {}.merge(HEADERS)
     end
 
-    def professions
-      self.class.get('/profession', options)
+    def get(uri:, page: 1)
+      opts = { query: { page: page } }.merge(options)
+      self.class.get(uri, opts)
+    end
+
+    def professions(page: 1)
+      get(uri: '/profession', page: page)
     end
   end
 end
