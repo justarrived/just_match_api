@@ -15,7 +15,8 @@ gem 'active_model_serializers', '~> 0.10.0.rc5' # Serialize models to JSON
 
 gem 'blazer', '~> 1.2' # Explore data with SQL
 
-gem 'httparty', '~> 0.13' # Easy HTTP requests
+# Interact with Frilans Finans API
+gem 'frilans_finans_api', path: 'lib/frilans_finans_api'
 
 group :production do
   gem 'rails_12factor', '~> 0.0.3' # Heroku integration

@@ -1,0 +1,12 @@
+{
+  "data": {
+    "type": "company",
+    "id": "1",
+    "attributes": {
+      "name": "Acme"
+    },
+    "links": {
+      "self": "http://frilansfinans.se/api/company/1"
+    }
+  }
+}

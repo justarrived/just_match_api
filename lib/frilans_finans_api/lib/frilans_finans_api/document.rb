@@ -18,6 +18,13 @@ module FrilansFinansApi
       end
     end
 
+    def resource
+      @resource ||= begin
+        resource_data = collection? ? data.first : data
+        Resource.new(resource_data)
+      end
+    end
+
     def collection?
       data = @parsed_json['data']
       return false if data.nil? || data.is_a?(Hash)

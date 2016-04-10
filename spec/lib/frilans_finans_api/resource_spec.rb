@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
-require 'frilans_finans_api/frilans_finans_api'
-
 RSpec.describe FrilansFinansApi::Resource do
   let(:data) do
     json = FrilansFinansApi::FixtureClient.new.read(:profession)

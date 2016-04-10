@@ -1,0 +1,27 @@
+{
+  "data": {
+    "type": "user",
+    "id": "1",
+    "attributes": {
+      "email": "frilansfinans+user@example.com",
+      "co": "",
+      "street": "Dag Hammarskjölds väg 13",
+      "zip": "75237",
+      "city": "UPPSALA",
+      "country": "SWEDEN",
+      "telephone": "",
+      "cellphone": "0001122000",
+      "bankgiro": null,
+      "postgiro": null,
+      "first_name": "Anna",
+      "last_name": "Svensson",
+      "social_security_nr": 198804170000,
+      "account_clearing_nr": "4569-80",
+      "account_nr": "000.000.000-0",
+      "profession_title": "Grafisk formgivare"
+    },
+    "links": {
+      "self": "http://frilansfinans.se/api/user/1"
+    }
+  }
+}

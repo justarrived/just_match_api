@@ -1,6 +1,4 @@
 # frozen_string_literal: true
-require 'frilans_finans_api/frilans_finans_api'
-
 class FrilansFinansImporter
   def self.professions(client: FrilansFinansApi::Client.new)
     FrilansFinansApi::Profession.walk(client: client) do |document|
