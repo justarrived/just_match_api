@@ -148,16 +148,29 @@ module Api
         end
 
         def update_notifier_klass(job_user)
-          if job_user.send_accepted_notice?
-            ApplicantAcceptedNotifier
-          elsif job_user.send_will_perform_notice?
-            ApplicantWillPerformNotifier
-          elsif job_user.send_performed_accepted_notice?
-            JobUserPerformedAcceptedNotifier
-          elsif job_user.send_performed_notice?
-            JobUserPerformedNotifier
+          case event_name(job_user)
+          when :accepted then ApplicantAcceptedNotifier
+          when :will_perform then ApplicantWillPerformNotifier
+          when :performed_accepted then JobUserPerformedAcceptedNotifier
+          when :performed then JobUserPerformedNotifier
           else
             NilNotifier
+          end
+        end
+
+        def event_name(job_user)
+          @_event_name ||= begin
+            if job_user.send_accepted_notice?
+              :accepted
+            elsif job_user.send_will_perform_notice?
+              :will_perform
+            elsif job_user.send_performed_accepted_notice?
+              :performed_accepted
+            elsif job_user.send_performed_notice?
+              :performed
+            else
+              :nothing
+            end
           end
         end
       end
