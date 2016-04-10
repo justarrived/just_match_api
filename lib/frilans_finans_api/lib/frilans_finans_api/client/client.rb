@@ -42,6 +42,10 @@ module FrilansFinansApi
       get(uri: '/professions', query: { page: page })
     end
 
+    def invoice(id:)
+      get(uri: "/invoices/#{id}")
+    end
+
     def create_user(attributes: {})
       data = { data: { attributes: attributes } }
       post(uri: '/users', body: data)
@@ -50,6 +54,11 @@ module FrilansFinansApi
     def create_company(attributes: {})
       data = { data: { attributes: attributes } }
       post(uri: '/companies', body: data)
+    end
+
+    def create_invoice(attributes: {})
+      data = { data: { attributes: attributes } }
+      post(uri: '/invoices', body: data)
     end
 
     private

@@ -73,4 +73,47 @@ RSpec.describe FrilansFinansApi::Client do
       expect(id).to eq('1')
     end
   end
+
+  describe '#create_invoice' do
+    subject do
+      json = fixture_client .read(:invoice)
+      url = "#{base_url}/invoices"
+
+      body = 'grant_type=&client_id=&client_secret='
+
+      stub_request(:post, url).
+        with(default_headers.merge(body: body)).
+        to_return(status: 200, body: json, headers: {})
+
+      described_class.new
+    end
+
+    it 'returns invoice' do
+      attributes = {}
+      response = subject.create_invoice(attributes: attributes)
+      parsed_body = JSON.parse(response.body)
+      id = parsed_body.dig('data', 'id')
+      expect(id).to eq('1')
+    end
+  end
+
+  describe '#invoice' do
+    subject do
+      json = fixture_client .read(:invoice)
+      url = "#{base_url}/invoices/1?client_id=&client_secret=&grant_type="
+
+      stub_request(:get, url).
+        with(default_headers).
+        to_return(status: 200, body: json, headers: {})
+
+      described_class.new
+    end
+
+    it 'returns invoice' do
+      response = subject.invoice(id: 1)
+      parsed_body = JSON.parse(response.body)
+      id = parsed_body.dig('data', 'id')
+      expect(id).to eq('1')
+    end
+  end
 end
