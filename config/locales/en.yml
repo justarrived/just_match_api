@@ -6,6 +6,7 @@ en:
       number_of_users: must be between %{min}-%{max}
     invoice:
       job_started: must be started before creating invoice
+      job_user_accepted: must be accepted applicant
     job:
       locked_for_changes_error: can't update job when already confirmed by user
       job_date_in_the_past: can't be in the past

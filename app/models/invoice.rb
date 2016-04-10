@@ -6,6 +6,7 @@ class Invoice < ActiveRecord::Base
   validates :frilans_finans_id, uniqueness: true
 
   validate :validate_job_started
+  validate :validate_job_user_accepted
 
   def validate_job_started
     job = job_user.try!(:job)
@@ -13,6 +14,13 @@ class Invoice < ActiveRecord::Base
 
     message = I18n.t('errors.invoice.job_started')
     errors.add(:job, message)
+  end
+
+  def validate_job_user_accepted
+    return if job_user.accepted
+
+    message = I18n.t('errors.invoice.job_user_accepted')
+    errors.add(:job_user, message)
   end
 end
 
