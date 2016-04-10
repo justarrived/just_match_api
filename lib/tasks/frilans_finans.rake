@@ -10,9 +10,7 @@ namespace :frilans_finans do
 
   namespace :import do
     task professions: :environment do
-      # The API isn't live yet, so use a fixture client
-      client = FrilansFinansApi::FixtureClient.new
-      FrilansFinansImporter.professions(client: client)
+      FrilansFinansImporter.professions
     end
   end
 end

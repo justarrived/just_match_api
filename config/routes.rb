@@ -55,6 +55,7 @@ Rails.application.routes.draw do
           resources :comments, module: :users, only: [:index, :show, :create, :update, :destroy]
           resources :user_skills, module: :users, path: :skills, only: [:index, :show, :create, :destroy]
           resources :user_languages, module: :users, path: :languages, only: [:index, :show, :create, :destroy]
+          resources :frilans_finans, path: 'frilans-finans', module: :users, only: [:create]
         end
 
         collection do

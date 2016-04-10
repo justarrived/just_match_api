@@ -8,7 +8,7 @@ class CategorySeed < BaseSeed
 
   def call
     log_seed(Category) do
-      FrilansFinansImporter.professions(client: client)
+      FrilansFinansImporter.professions
     end
   end
 

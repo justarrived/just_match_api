@@ -11,4 +11,5 @@ require 'frilans_finans_api/document'
 require 'frilans_finans_api/resource'
 
 module FrilansFinansApi
+  DEFAULT_CLIENT_KLASS = FixtureClient
 end
