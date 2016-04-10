@@ -5,7 +5,7 @@ class Company < ApplicationRecord
 
   validates :name, length: { minimum: 2 }, allow_blank: false
   validates :cin, uniqueness: true, length: { is: 10 }, allow_blank: false
-  validates :frilans_finans_id, uniqueness: true
+  validates :frilans_finans_id, uniqueness: true, allow_nil: true
 end
 
 # == Schema Information
