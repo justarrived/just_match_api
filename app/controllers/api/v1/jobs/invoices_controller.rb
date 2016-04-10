@@ -28,7 +28,7 @@ module Api
 
           @invoice = FrilansFinansInvoiceService.create(job_user: job_user)
           if @invoice.valid?
-            JobUserPerformedAcceptedNotifier.call(
+            InvoiceCreatedNotifier.call(
               job: job_user.job,
               user: job_user.user
             )

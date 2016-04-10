@@ -35,10 +35,10 @@ RSpec.describe Api::V1::Jobs::InvoicesController, type: :controller do
       end
 
       it 'notifies user' do
-        allow(JobUserPerformedAcceptedNotifier).to receive(:call).
+        allow(InvoiceCreatedNotifier).to receive(:call).
           with(job: job, user: user)
         post :create, valid_params, valid_session
-        expect(JobUserPerformedAcceptedNotifier).to have_received(:call)
+        expect(InvoiceCreatedNotifier).to have_received(:call)
       end
 
       context 'already created' do

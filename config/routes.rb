@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     resources :companies
     resources :contacts
     resources :hourly_pays
+    resources :invoices
     resources :jobs
     resources :users
     resources :messages

@@ -67,7 +67,7 @@ en:
       job_line: The job performed was '%{name}'.
       performed_line: "%{name} have verified that they've performed a job for you."
       subject: Congrats! A job you ordered has been performed.
-    job_performed_accept:
+    invoice_created:
       congrats_line: Congrats %{name}!
       contact_line: If you have any last questions, you can contact them on %{email}.
       job_line: 'The job you performed was: ''%{name}''.'

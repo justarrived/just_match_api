@@ -67,7 +67,7 @@ sv:
       job_line: Jobbet som utförts var '%{name}'.
       performed_line: "%{name} har verifierat att de har utfört ett jobb åt dig."
       subject: Grattis! En jobb du har lagt upp har blivit utfört.
-    job_performed_accept:
+    invoice_created:
       congrats_line: Grattis %{name}!
       contact_line: Om du har har några sista frågor, kan du kontakta dem på %{email}.
       job_line: 'Jobbet du utförde var: ''%{name}''.'

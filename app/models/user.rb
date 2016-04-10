@@ -62,7 +62,7 @@ class User < ApplicationRecord
     accepted_applicant_withdrawn
     applicant_accepted
     applicant_will_perform
-    job_user_performed_accepted
+    invoice_created
     job_user_performed
     new_applicant
     user_job_match
