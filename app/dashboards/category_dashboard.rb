@@ -11,6 +11,7 @@ class CategoryDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
     jobs: Field::HasMany,
     id: Field::Number,
+    frilans_finans_id: Field::Number,
     name: Field::String,
     created_at: Field::DateTime,
     updated_at: Field::DateTime
@@ -32,6 +33,7 @@ class CategoryDashboard < Administrate::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = [
     :jobs,
     :id,
+    :frilans_finans_id,
     :name,
     :created_at,
     :updated_at
@@ -42,6 +44,7 @@ class CategoryDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
     :jobs,
+    :frilans_finans_id,
     :name
   ].freeze
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160410150325) do
+ActiveRecord::Schema.define(version: 20160410201516) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -100,11 +100,13 @@ ActiveRecord::Schema.define(version: 20160410150325) do
   create_table "companies", force: :cascade do |t|
     t.string   "name"
     t.string   "cin"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.integer  "frilans_finans_id"
   end
 
   add_index "companies", ["cin"], name: "index_companies_on_cin", unique: true, using: :btree
+  add_index "companies", ["frilans_finans_id"], name: "index_companies_on_frilans_finans_id", unique: true, using: :btree
 
   create_table "contacts", force: :cascade do |t|
     t.string   "name"
