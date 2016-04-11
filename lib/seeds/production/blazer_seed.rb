@@ -2,7 +2,7 @@
 require 'seeds/base_seed'
 
 class BlazerSeed < BaseSeed
-  BLAZER_MODELS = [User, Rating, Chat, Message, Job, Comment, JobUser].freeze
+  BLAZER_MODELS = [User, Rating, Chat, Message, Job, Comment, JobUser, Invoice].freeze
 
   def self.call
     new.call
@@ -23,7 +23,6 @@ SELECT "job_users".* FROM "job_users" INNER JOIN "jobs" ON "jobs"."id" = "job_us
   AND accepted = {accepted}  -- true if user has been accepted by the employeer false otherwise
   AND will_perform = {will_perform} -- true if the user was confirmed they will perform the job
   AND performed = {performed} -- true if the user has indicated they've performed the job
-  AND performed_accepted = {performed_accepted} -- true if the employeer has accepted that the user have performed the job
     SQL
     dashboard.queries << Blazer::Query.create!(
       name: 'Job User by Status',
