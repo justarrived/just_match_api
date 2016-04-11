@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'administrate/base_dashboard'
 
-class JobUserDashboard < Administrate::BaseDashboard
+class InvoiceDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -9,12 +9,9 @@ class JobUserDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
-    user: Field::BelongsTo,
-    job: Field::BelongsTo,
     id: Field::Number,
-    accepted: Field::Boolean,
-    will_perform: Field::Boolean,
-    performed: Field::Boolean,
+    frilans_finans_id: Field::Number,
+    job_user: Field::BelongsTo,
     created_at: Field::DateTime,
     updated_at: Field::DateTime
   }.freeze
@@ -25,23 +22,17 @@ class JobUserDashboard < Administrate::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
-    :user,
-    :job,
-    :id,
-    :accepted,
-    :will_perform,
-    :performed
+    :job_user,
+    :frilans_finans_id,
+    :id
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = [
-    :user,
-    :job,
     :id,
-    :accepted,
-    :will_perform,
-    :performed,
+    :job_user,
+    :frilans_finans_id,
     :created_at,
     :updated_at
   ].freeze
@@ -50,17 +41,11 @@ class JobUserDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
-    :user,
-    :job,
-    :accepted,
-    :will_perform,
-    :performed
+    :job_user,
+    :frilans_finans_id
   ].freeze
 
-  # Overwrite this method to customize how job users are displayed
-  # across all pages of the admin dashboard.
-  #
-  # def display_resource(job_user)
-  #   "JobUser ##{job_user.id}"
-  # end
+  def display_resource(invoice)
+    "##{invoice.id} Invoice"
+  end
 end

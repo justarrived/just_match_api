@@ -14,7 +14,7 @@ FactoryGirl.define do
 
     factory :passed_job do
       job_date 1.week.ago
-      # Since a job can't be created thats in the passed we need to skip validations
+      # Since a job can't be screated thats in the passed we need to skip validations
       to_create { |instance| instance.save(validate: false) }
     end
 

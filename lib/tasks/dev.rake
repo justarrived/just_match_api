@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 require 'seeds/dev/chat_seed'
 require 'seeds/dev/company_seed'
+require 'seeds/dev/invoice_seed'
 require 'seeds/dev/job_seed'
 require 'seeds/dev/job_user_seed'
 require 'seeds/dev/skill_seed'
@@ -29,7 +30,7 @@ namespace :dev do
   ].freeze
 
   task seed: :environment do
-    %w(companies skills users jobs chats job_users).each do |task|
+    %w(companies skills users jobs chats job_users invoices).each do |task|
       Rake::Task["dev:seed:#{task}"].execute
     end
   end
@@ -81,6 +82,11 @@ namespace :dev do
       jobs = Job.all
       users = User.all
       Dev::JobUserSeed.call(jobs: jobs, users: users)
+    end
+
+    task invoices: :environment do
+      job_users = JobUser.accepted
+      Dev::InvoiceSeed.call(job_users: job_users)
     end
   end
 

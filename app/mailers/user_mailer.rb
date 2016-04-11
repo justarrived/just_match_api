@@ -14,15 +14,6 @@ class UserMailer < ApplicationMailer
     mail(to: user.email, subject: I18n.t('mailer.job_match.subject'))
   end
 
-  def job_user_performed_accepted_email(user:, job:, owner:)
-    @user_name = user.name
-    @owner_name = owner.name
-    @job_name = job.name
-
-    subject = I18n.t('mailer.job_performed_accept.subject')
-    mail(to: user.email, subject: subject)
-  end
-
   def job_user_performed_email(user:, job:, owner:)
     @user_name = user.name
     @owner_name = owner.name

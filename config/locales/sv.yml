@@ -4,6 +4,9 @@ sv:
   errors:
     chat:
       number_of_users: måste vara mellan %{min}-%{max}
+    invoice:
+      job_started: måste påbörjats innan en faktura kan skapas
+      job_user_accepted: måste vara den accepterade användaren
     job:
       locked_for_changes_error: kan inte uppdatera jobb när användaren har konfirmerat
       job_date_in_the_past: kan inte vara i det förflutna
@@ -14,7 +17,6 @@ sv:
       multiple_applicants: kan inte acceptera flera användare till ett jobb
       will_perform_true_on_delete: kan inte tas bort ifall användaren har konfirmerat att de ska utföra jobbet
       performed_before_job_over: kan inte konfirmera att jobbet är utfört före jobbet är påbörjat
-      performed_accepted_before_job_over: kan inte acceptera jobbet före jobbet är påbörjat
     rating:
       from_user_rated: kan inte rösta flera gånger
       to_user_rated: kan rösta flera gånger
@@ -66,7 +68,7 @@ sv:
       job_line: Jobbet som utförts var '%{name}'.
       performed_line: "%{name} har verifierat att de har utfört ett jobb åt dig."
       subject: Grattis! En jobb du har lagt upp har blivit utfört.
-    job_performed_accept:
+    invoice_created:
       congrats_line: Grattis %{name}!
       contact_line: Om du har har några sista frågor, kan du kontakta dem på %{email}.
       job_line: 'Jobbet du utförde var: ''%{name}''.'

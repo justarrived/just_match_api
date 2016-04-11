@@ -8,7 +8,7 @@ RSpec.describe ContactMailer, type: :mailer do
     let(:body) { 'body' }
 
     let(:mail) do
-      ContactMailer.contact_email(name: name, email: email, body: body)
+      described_class.contact_email(name: name, email: email, body: body)
     end
 
     it 'renders the subject' do

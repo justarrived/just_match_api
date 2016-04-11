@@ -172,7 +172,7 @@ RSpec.describe JobUserPolicy do
       let(:policy_context) { described_class::Context.new(owner, job, a_job_user) }
 
       it 'returns correct attributes' do
-        expect(policy.permitted_attributes).to eq([:accepted, :performed_accepted])
+        expect(policy.permitted_attributes).to eq([:accepted])
       end
     end
 
@@ -180,7 +180,7 @@ RSpec.describe JobUserPolicy do
       let(:policy_context) { described_class::Context.new(admin_user, job, a_job_user) }
 
       it 'returns correct attributes' do
-        expected = %i(accepted performed_accepted will_perform performed)
+        expected = %i(accepted will_perform performed)
         expect(policy.permitted_attributes).to eq(expected)
       end
     end

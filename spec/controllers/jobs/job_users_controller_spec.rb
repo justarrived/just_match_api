@@ -160,24 +160,6 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
           put :update, params, valid_session
           expect(ApplicantAcceptedNotifier).to have_received(:call)
         end
-
-        it 'notifies user when updated #performed_accepted to true' do
-          new_performed_attributes = {
-            data: {
-              attributes: { performed_accepted: true }
-            }
-          }
-          job = FactoryGirl.create(:passed_job, owner: user)
-          job_user = FactoryGirl.create(:job_user_will_perform, job: job)
-          user = job.users.first
-          params = {
-            job_id: job.to_param, id: job_user.to_param
-          }.merge(new_performed_attributes)
-          allow(JobUserPerformedAcceptedNotifier).to receive(:call).
-            with(job: job, user: user)
-          put :update, params, valid_session
-          expect(JobUserPerformedAcceptedNotifier).to have_received(:call)
-        end
       end
 
       context 'non associated user' do
@@ -203,7 +185,7 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
           }
         end
 
-        it 'notifies user when updated Job#performed_accept is set to true' do
+        it 'notifies user when updated Job#will_perform is set to true' do
           job = FactoryGirl.create(:job_with_users, users_count: 1, owner: user)
           user = job.users.first
           job_user = job.job_users.first

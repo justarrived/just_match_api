@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     resources :companies
     resources :contacts
     resources :hourly_pays
+    resources :invoices
     resources :jobs
     resources :users
     resources :messages
@@ -41,7 +42,11 @@ Rails.application.routes.draw do
           get :matching_users, path: 'matching-users'
           resources :job_comments, module: :jobs, path: :comments, only: [:index, :show, :create, :update, :destroy]
           resources :job_skills, module: :jobs, path: :skills, only: [:index, :show, :create, :destroy]
-          resources :job_users, module: :jobs, path: :users, only: [:index, :show, :create, :update, :destroy]
+          resources :job_users, module: :jobs, path: :users, only: [:index, :show, :create, :update, :destroy] do
+            member do
+              resources :invoices, only: [:create]
+            end
+          end
           resources :ratings, module: :jobs, path: :ratings, only: [:create]
         end
       end

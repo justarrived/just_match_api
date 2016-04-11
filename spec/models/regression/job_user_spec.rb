@@ -18,7 +18,6 @@ RSpec.describe JobUser, regressor: true do
   it { is_expected.to have_db_column :will_perform }
   it { is_expected.to have_db_column :accepted_at }
   it { is_expected.to have_db_column :performed }
-  it { is_expected.to have_db_column :performed_accepted }
 
   # === Database (Indexes) ===
   it { is_expected.to have_db_index ['job_id'] }

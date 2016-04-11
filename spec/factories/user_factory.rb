@@ -19,11 +19,11 @@ FactoryGirl.define do
                    end
       "#{Faker::Number.number(num_length)}#{n}"
     end
-    association :language
+    # association :language
 
     before(:create) do |user, _evaluator|
       # Unless explicitly given a language add a default, valid, one
-      unless user.language.nil?
+      if user.language.nil?
         user.language = Language.find_or_create_by!(lang_code: 'en')
       end
     end
