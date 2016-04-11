@@ -13,4 +13,8 @@ require 'frilans_finans_api/resource'
 
 module FrilansFinansApi
   DEFAULT_CLIENT_KLASS = FixtureClient
+
+  def self.client_klass
+    DEFAULT_CLIENT_KLASS
+  end
 end

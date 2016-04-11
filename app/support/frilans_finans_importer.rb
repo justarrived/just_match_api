@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class FrilansFinansImporter
-  def self.professions(client: FrilansFinansApi::Client.new)
+  def self.professions(client: FrilansFinansApi.client_klass.new)
     FrilansFinansApi::Profession.walk(client: client) do |document|
       document.resources.each do |profession|
         id = profession.id

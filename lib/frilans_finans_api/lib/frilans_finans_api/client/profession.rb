@@ -4,7 +4,7 @@ module FrilansFinansApi
   class Profession
     include Walker
 
-    def self.index(page: 1, client: DEFAULT_CLIENT_KLASS.new)
+    def self.index(page: 1, client: FrilansFinansApi.client_klass.new)
       response = client.professions(page: page)
       Document.new(response.body)
     end

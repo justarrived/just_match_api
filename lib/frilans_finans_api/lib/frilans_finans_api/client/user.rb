@@ -2,7 +2,7 @@
 
 module FrilansFinansApi
   class User
-    def self.create(attributes:, client: DEFAULT_CLIENT_KLASS.new)
+    def self.create(attributes:, client: FrilansFinansApi.client_klass.new)
       response = client.create_user(attributes: attributes)
       Document.new(response.body)
     end

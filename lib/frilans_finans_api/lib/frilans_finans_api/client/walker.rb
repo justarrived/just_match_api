@@ -7,7 +7,7 @@ module FrilansFinansApi
     end
 
     module ClassMethods
-      def walk(client: Client.new)
+      def walk(client: FrilansFinansApi.client_klass.new)
         current_page = 1
         total_pages = 2
 
