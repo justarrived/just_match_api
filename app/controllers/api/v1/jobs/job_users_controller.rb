@@ -97,7 +97,7 @@ module Api
 
             api_render(@job_user)
           else
-            render json: @job_user.errors, status: :unprocessable_entity
+            respond_with_errors(@job_user)
           end
         end
 
@@ -110,9 +110,9 @@ module Api
           authorize(JobUser)
 
           if @job_user.will_perform
-            errors = {
-              will_perform: [I18n.t('errors.job_user.will_perform_true_on_delete')] }
-            render json: errors, status: :unprocessable_entity
+            message = I18n.t('errors.job_user.will_perform_true_on_delete')
+            @job_user.errors.add(:will_perform, message)
+            respond_with_errors(@job_user)
           else
             if @job_user.accepted
               AcceptedApplicantWithdrawnNotifier.call(job: @job, user: @user)

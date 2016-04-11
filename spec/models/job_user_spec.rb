@@ -128,8 +128,9 @@ RSpec.describe JobUser, type: :model do
     job_user = FactoryGirl.create(:job_user, user: user, job: job)
     job_user.validate
 
-    message = job_user.errors.messages[:multiple_applicants]
-    expect(message).to eq(["can't accept multiple applicants for job"])
+    err_msg = I18n.t('errors.job_user.multiple_applicants')
+    expected = job_user.errors.messages[:multiple_applicants]
+    expect(expected).to eq([err_msg])
   end
 
   describe '#send_will_perform_notice?' do

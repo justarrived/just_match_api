@@ -41,7 +41,10 @@ RSpec.describe Chat, type: :model do
     context 'invalid chat' do
       it 'adds error' do
         result = described_class.find_or_create_private_chat([]).errors[:users]
-        expect(result).to eq(['must be between 2-2'])
+        min = Chat::MIN_USERS
+        max = Chat::MAX_USERS
+        message = I18n.t('errors.chat.number_of_users', min: min, max: max)
+        expect(result).to eq([message])
       end
 
       it 'returns a new Chat instance' do

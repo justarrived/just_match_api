@@ -98,7 +98,10 @@ RSpec.describe Api::V1::ChatsController, type: :controller do
       it 'returns @chat errors' do
         FactoryGirl.create(:user)
         post :create, invalid_attributes, valid_session
-        expect(assigns(:chat).errors[:users]).to eq(['must be between 2-2'])
+        min = Chat::MIN_USERS
+        max = Chat::MAX_USERS
+        message = I18n.t('errors.chat.number_of_users', min: min, max: max)
+        expect(assigns(:chat).errors[:users]).to eq([message])
       end
 
       it 'returns unprocessable entity' do

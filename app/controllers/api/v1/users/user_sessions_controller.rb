@@ -94,8 +94,8 @@ module Api
               id: token,
               type: :token,
               attributes: {
-                auth_token: token,
-                user_id: user_id.to_s
+                'auth-token' => token,
+                'user-id' => user_id.to_s
               }
             }
           }

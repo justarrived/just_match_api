@@ -21,7 +21,7 @@ module Api
         error code: 400, desc: 'Bad request'
         error code: 404, desc: 'Not found'
         error code: 422, desc: 'Unprocessable entity'
-        example '{}'
+        example Doxxer.read_example(Invoice)
         def create
           job_user = JobUser.find(params[:id])
           authorize_create(job_user)
@@ -32,7 +32,7 @@ module Api
               job: job_user.job,
               user: job_user.user
             )
-            render json: {}, status: :created
+            api_render(@invoice, status: :created)
           else
             respond_with_errors(@invoice)
           end

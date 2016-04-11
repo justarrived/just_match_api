@@ -113,7 +113,7 @@ module Api
         if @job.save
           api_render(@job)
         else
-          render json: @job.errors, status: :unprocessable_entity
+          respond_with_errors(@job)
         end
       end
 

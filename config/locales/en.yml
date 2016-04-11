@@ -3,10 +3,10 @@ en:
     title: API documentation | JustMatch API
   errors:
     chat:
-      number_of_users: must be between %{min}-%{max}
+      number_of_users: must be between %{min}-%{max} number of users
     invoice:
       job_started: must have started before creating invoice
-      job_user_accepted: must be accepted applicant
+      job_user_accepted: must be the accepted applicant
     job:
       locked_for_changes_error: can't update job when already confirmed by user
       job_date_in_the_past: can't be in the past
@@ -14,8 +14,8 @@ en:
       update_not_allowed_when_accepted: can't update job when user has confirmed
     job_user:
       not_owner_of_job: can't be both job owner and job applicant
-      multiple_applicants: can't accept multiple applicants for job
-      will_perform_true_on_delete: can't delete when will perform is true
+      multiple_applicants: can't accept multiple applicants
+      will_perform_true_on_delete: can't delete when applicant has accepted
       performed_before_job_over: can't confirm performed before job is started
     rating:
       from_user_rated: can't rate twice

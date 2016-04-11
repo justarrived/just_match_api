@@ -290,9 +290,14 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
         session = { token: user.auth_token }
         params = { job_id: job.to_param, id: job_user.to_param }
         delete :destroy, params, session
-        err_msg = "can't delete when will perform is true"
+        err_msg = I18n.t('errors.job_user.will_perform_true_on_delete')
         expect(response.status).to eq(422)
-        expect(JSON.parse(response.body)['will_perform'].first).to eq(err_msg)
+        parsed_body = JSON.parse(response.body)
+        error = parsed_body['errors'].first
+        will_perform = error['detail']
+        status = error['status']
+        expect(status).to eq(422)
+        expect(will_perform).to eq(err_msg)
       end
 
       it 'sends a notificatiom to Job#owner if accepted applicant withdraws' do

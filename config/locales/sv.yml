@@ -3,7 +3,7 @@ sv:
     title: API dokumentation | JustMatch API
   errors:
     chat:
-      number_of_users: måste vara mellan %{min}-%{max}
+      number_of_users: måste vara mellan %{min}-%{max} användare
     invoice:
       job_started: måste påbörjats innan en faktura kan skapas
       job_user_accepted: måste vara den accepterade användaren
