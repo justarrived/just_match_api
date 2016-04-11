@@ -15,7 +15,7 @@ class LanguageSeed < BaseSeed
 
       csv.rows.each do |language|
         lang_code = language.lang_code
-        Language.create!(
+        Language.find_or_create_by!(
           lang_code: lang_code,
           en_name: language.en_name,
           direction: language.direction,
