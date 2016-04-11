@@ -9,7 +9,7 @@ RSpec.describe Api::V1::Jobs::InvoicesController, type: :controller do
   let(:valid_params) do
     {
       job_id: job.to_param,
-      id: job_user.to_param
+      job_user_id: job_user.to_param
     }
   end
 

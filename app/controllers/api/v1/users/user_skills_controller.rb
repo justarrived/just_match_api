@@ -4,8 +4,8 @@ module Api
     module Users
       class UserSkillsController < BaseController
         before_action :set_user
-        before_action :set_skill, only: [:show, :destroy]
         before_action :set_user_skill, only: [:show, :destroy]
+        before_action :set_skill, only: [:show, :destroy]
 
         resource_description do
           resource_id 'user_skills'
@@ -34,7 +34,7 @@ module Api
           api_render(@user_skills)
         end
 
-        api :GET, '/users/:user_id/skills/:id', 'Show user skill'
+        api :GET, '/users/:user_id/skills/:user_skill_id', 'Show user skill'
         description 'Returns user skill if the user is allowed.'
         error code: 404, desc: 'Not found'
         ApipieDocHelper.params(self)
@@ -72,13 +72,11 @@ module Api
           end
         end
 
-        api :DELETE, '/users/:user_id/skills/:id', 'Delete user skill'
+        api :DELETE, '/users/:user_id/skills/:user_skill_id', 'Delete user skill'
         description 'Deletes user skill if the user is allowed.'
         error code: 401, desc: 'Unauthorized'
         error code: 404, desc: 'Not found'
         def destroy
-          @user_skill = @user.user_skills.find_by!(skill: @skill)
-
           authorize(@user_skill)
 
           @user_skill.destroy
@@ -92,11 +90,11 @@ module Api
         end
 
         def set_skill
-          @skill = @user.skills.find(params[:id])
+          @skill = @user_skill.skill
         end
 
         def set_user_skill
-          @user_skill = @user.user_skills.find_by!(skill: @skill)
+          @user_skill = @user.user_skills.find(params[:user_skill_id])
         end
 
         def skill_params

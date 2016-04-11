@@ -36,7 +36,7 @@ module Api
           api_render(@job_users)
         end
 
-        api :GET, '/jobs/:job_id/users/:id', 'Show job user'
+        api :GET, '/jobs/:job_id/users/:job_user_id', 'Show job user'
         description 'Returns user.'
         error code: 401, desc: 'Unauthorized'
         error code: 404, desc: 'Not found'
@@ -69,7 +69,7 @@ module Api
           end
         end
 
-        api :PATCH, '/jobs/:job_id/users/:id', 'Update job user'
+        api :PATCH, '/jobs/:job_id/users/:job_user_id', 'Update job user'
         description 'Updates a job user if the user is allowed.'
         error code: 400, desc: 'Bad request'
         error code: 401, desc: 'Unauthorized'
@@ -101,7 +101,7 @@ module Api
           end
         end
 
-        api :DELETE, '/jobs/:job_id/users/:id', 'Delete user user'
+        api :DELETE, '/jobs/:job_id/users/:job_user_id', 'Delete user user'
         description 'Deletes job user if the user is allowed.'
         error code: 401, desc: 'Unauthorized'
         error code: 404, desc: 'Not found'
@@ -134,7 +134,7 @@ module Api
         end
 
         def set_job_user
-          @job_user = @job.job_users.find(params[:id])
+          @job_user = @job.job_users.find(params[:job_user_id])
         end
 
         def permitted_attributes

@@ -21,7 +21,7 @@ module Api
 
         ALLOWED_INCLUDES = %w(author language).freeze
 
-        api :GET, '/chats/:id/messages', 'Get chat messages.'
+        api :GET, '/chats/:chat_id/messages', 'Get chat messages.'
         description 'Returns messages in chat.'
         ApipieDocHelper.params(self, Index::MessagesIndex)
         example Doxxer.read_example(Message, plural: true)
@@ -32,7 +32,7 @@ module Api
           api_render(@messages)
         end
 
-        api :POST, '/chats/:id/messages', 'Create new chat message.'
+        api :POST, '/chats/:chat_id/messages', 'Create new chat message.'
         description 'Creates and returns new message.'
         error code: 400, desc: 'Bad request'
         error code: 404, desc: 'Not found'

@@ -34,7 +34,7 @@ module Api
           api_render(@job_skills)
         end
 
-        api :GET, '/jobs/:job_id/skills/:id', 'Show user skill'
+        api :GET, '/jobs/:job_id/skills/:job_skill_id', 'Show user skill'
         error code: 404, desc: 'Not found'
         description 'Returns skill.'
         ApipieDocHelper.params(self)
@@ -71,7 +71,7 @@ module Api
           end
         end
 
-        api :DELETE, '/jobs/:job_id/skills/:id', 'Delete user skill'
+        api :DELETE, '/jobs/:job_id/skills/:job_skill_id', 'Delete job skill'
         description 'Deletes job skill if the user is allowed.'
         error code: 401, desc: 'Unauthorized'
         error code: 404, desc: 'Not found'
@@ -93,7 +93,7 @@ module Api
         end
 
         def set_job_skill
-          @job_skill = @job.job_skills.find(params[:id])
+          @job_skill = @job.job_skills.find(params[:job_skill_id])
         end
 
         def skill_params

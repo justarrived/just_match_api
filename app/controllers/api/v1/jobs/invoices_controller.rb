@@ -23,7 +23,7 @@ module Api
         error code: 422, desc: 'Unprocessable entity'
         example Doxxer.read_example(Invoice)
         def create
-          job_user = JobUser.find(params[:id])
+          job_user = JobUser.find(params[:job_user_id])
           authorize_create(job_user)
 
           @invoice = FrilansFinansInvoiceService.create(job_user: job_user)

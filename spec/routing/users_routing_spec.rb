@@ -32,6 +32,16 @@ RSpec.describe Api::V1::UsersController, type: :routing do
       path = '/api/v1/users/1'
       expect(delete: path).to route_to('api/v1/users#destroy', user_id: '1')
     end
+
+    it 'routes to #matching_jobs' do
+      path = '/api/v1/users/1/matching-jobs'
+      expect(get: path).to route_to('api/v1/users#matching_jobs', user_id: '1')
+    end
+
+    it 'routes to #matching_jobs' do
+      path = '/api/v1/users/notifications'
+      expect(get: path).to route_to('api/v1/users#notifications')
+    end
   end
 end
 

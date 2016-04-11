@@ -41,8 +41,8 @@ Rails.application.routes.draw do
         member do
           get :matching_users, path: 'matching-users'
           resources :job_comments, module: :jobs, path: :comments, only: [:index, :show, :create, :update, :destroy]
-          resources :job_skills, module: :jobs, path: :skills, only: [:index, :show, :create, :destroy]
-          resources :job_users, module: :jobs, path: :users, only: [:index, :show, :create, :update, :destroy] do
+          resources :job_skills, param: :job_skill_id, module: :jobs, path: :skills, only: [:index, :show, :create, :destroy]
+          resources :job_users, param: :job_user_id, module: :jobs, path: :users, only: [:index, :show, :create, :update, :destroy] do
             member do
               resources :invoices, only: [:create]
             end
@@ -56,10 +56,9 @@ Rails.application.routes.draw do
           resources :messages, module: :users, only: [:create, :index]
 
           get :matching_jobs, path: 'matching-jobs'
-          resources :user_jobs, path: :jobs, param: :user_id, module: :users, only: [:index]
-          resources :comments, module: :users, only: [:index, :show, :create, :update, :destroy]
-          resources :user_skills, module: :users, path: :skills, only: [:index, :show, :create, :destroy]
-          resources :user_languages, module: :users, path: :languages, only: [:index, :show, :create, :destroy]
+          resources :user_jobs, path: :jobs, module: :users, only: [:index]
+          resources :user_skills, param: :user_skill_id, module: :users, path: :skills, only: [:index, :show, :create, :destroy]
+          resources :user_languages, param: :user_language_id, module: :users, path: :languages, only: [:index, :show, :create, :destroy]
           resources :frilans_finans, path: 'frilans-finans', module: :users, only: [:create]
         end
 

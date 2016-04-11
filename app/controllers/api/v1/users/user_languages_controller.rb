@@ -32,7 +32,7 @@ module Api
           api_render(@user_languages)
         end
 
-        api :GET, '/users/:user_id/languages/:id', 'Show language'
+        api :GET, '/users/:user_id/languages/:user_language_id', 'Show language'
         description 'Return language.'
         error code: 404, desc: 'Not found'
         ApipieDocHelper.params(self)
@@ -70,7 +70,7 @@ module Api
           end
         end
 
-        api :DELETE, '/users/:user_id/languages/:id', 'Delete user language'
+        api :DELETE, '/users/:user_id/languages/:user_language_id', 'Delete user language' # rubocop:disable Metrics/LineLength
         description 'Deletes user language.'
         error code: 401, desc: 'Unauthorized'
         error code: 404, desc: 'Not found'
@@ -93,7 +93,7 @@ module Api
         end
 
         def set_user_language
-          @user_language = @user.user_languages.find(params[:id])
+          @user_language = @user.user_languages.find(params[:user_language_id])
         end
 
         def user_language_params

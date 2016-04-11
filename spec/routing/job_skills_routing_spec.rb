@@ -12,7 +12,7 @@ RSpec.describe Api::V1::Jobs::JobSkillsController, type: :routing do
     it 'routes to #show' do
       path = '/api/v1/jobs/1/skills/1'
       route_path = 'api/v1/jobs/job_skills#show'
-      expect(get: path).to route_to(route_path, job_id: '1', id: '1')
+      expect(get: path).to route_to(route_path, job_id: '1', job_skill_id: '1')
     end
 
     it 'routes to #create' do
@@ -24,7 +24,7 @@ RSpec.describe Api::V1::Jobs::JobSkillsController, type: :routing do
     it 'routes to #destroy' do
       path = '/api/v1/jobs/1/skills/1'
       route_path = 'api/v1/jobs/job_skills#destroy'
-      expect(delete: path).to route_to(route_path, job_id: '1', id: '1')
+      expect(delete: path).to route_to(route_path, job_id: '1', job_skill_id: '1')
     end
   end
 end

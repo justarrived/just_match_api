@@ -24,6 +24,11 @@ RSpec.describe Api::V1::JobsController, type: :routing do
       path = '/api/v1/jobs/1'
       expect(patch: path).to route_to('api/v1/jobs#update', job_id: '1')
     end
+
+    it 'routes to #matching_users via GET' do
+      path = '/api/v1/jobs/1/matching-users'
+      expect(get: path).to route_to('api/v1/jobs#matching_users', job_id: '1')
+    end
   end
 end
 

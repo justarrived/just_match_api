@@ -39,7 +39,8 @@ RSpec.describe Api::V1::Users::UserLanguagesController, type: :controller do
       user = FactoryGirl.create(:user_with_languages, languages_count: 1)
       language = user.languages.first
       user_language = user.user_languages.first
-      get :show, { user_id: user.to_param, id: user_language.to_param }, valid_session
+      params = { user_id: user.to_param, user_language_id: user_language.to_param }
+      get :show, params, valid_session
       expect(assigns(:language)).to eq(language)
       expect(assigns(:user_language)).to eq(user_language)
       expect(assigns(:user)).to eq(user)
@@ -121,7 +122,7 @@ RSpec.describe Api::V1::Users::UserLanguagesController, type: :controller do
     context 'authorized' do
       it 'destroys the requested user_language' do
         user_language = FactoryGirl.create(:user_language, user: user)
-        params = { user_id: user.to_param, id: user_language.to_param }
+        params = { user_id: user.to_param, user_language_id: user_language.to_param }
         expect do
           delete :destroy, params, valid_session
         end.to change(UserLanguage, :count).by(-1)
@@ -129,7 +130,7 @@ RSpec.describe Api::V1::Users::UserLanguagesController, type: :controller do
 
       it 'returns no content status' do
         user_language = FactoryGirl.create(:user_language, user: user)
-        params = { user_id: user.to_param, id: user_language.to_param }
+        params = { user_id: user.to_param, user_language_id: user_language.to_param }
         delete :destroy, params, valid_session
         expect(response.status).to eq(204)
       end
@@ -139,7 +140,7 @@ RSpec.describe Api::V1::Users::UserLanguagesController, type: :controller do
       it 'does not destroys the requested user_language' do
         user = FactoryGirl.create(:user_with_languages)
         user_language = user.user_languages.first
-        params = { user_id: user.to_param, id: user_language.to_param }
+        params = { user_id: user.to_param, user_language_id: user_language.to_param }
         expect do
           delete :destroy, params, valid_session
         end.to change(UserLanguage, :count).by(0)
@@ -148,7 +149,7 @@ RSpec.describe Api::V1::Users::UserLanguagesController, type: :controller do
       it 'returns not authorized error' do
         user = FactoryGirl.create(:user_with_languages)
         user_language = user.user_languages.first
-        params = { user_id: user.to_param, id: user_language.to_param }
+        params = { user_id: user.to_param, user_language_id: user_language.to_param }
         delete :destroy, params, valid_session
         expect(response.status).to eq(401)
       end

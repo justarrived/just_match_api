@@ -29,8 +29,8 @@ module Api
       "id": "XYZ",
       "type": "token",
       "attributes": {
-        "auth_token": "XYZ",
-        "user_id": "1"
+        "auth-token": "XYZ",
+        "user-id": "1"
       }
     }
   }'
