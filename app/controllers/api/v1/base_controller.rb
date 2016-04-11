@@ -119,12 +119,25 @@ module Api
       end
 
       def set_locale
+        locale_header = api_locale_header
+        if locale_header
+          # Only allow available locales
+          I18n.available_locales.map(&:to_s).each do |locale|
+            I18n.locale = locale if locale == locale_header
+          end
+          return
+        end
+
         # NOTE: There is probably a way to avoid this, but currently in tests we must
         # allow invalid locales and therefore we can't set the locale here, since it will
         # cause translations missing errors & no such locale errors
         return if Rails.env.test?
 
         I18n.locale = current_user.locale
+      end
+
+      def api_locale_header
+        request.headers['X-API-LOCALE']
       end
 
       private
