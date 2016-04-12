@@ -105,7 +105,7 @@ class User < ApplicationRecord
   end
 
   def locale
-    return 'en' if language.nil?
+    return I18n.default_locale.to_s if language.nil?
 
     language.lang_code
   end
