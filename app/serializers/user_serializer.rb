@@ -8,6 +8,7 @@ class UserSerializer < ActiveModel::Serializer
   has_one :language
 
   has_many :languages
+  # has_many :chats
 
   def attributes(_)
     data = super

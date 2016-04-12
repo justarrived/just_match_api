@@ -99,15 +99,6 @@ module Api
       def update
         authorize(@job)
 
-        if @job.locked_for_changes?
-          message = I18n.t('errors.job.locked_for_changes_error')
-          response_json = {
-            errors: [{ status: 403, detail: message }]
-          }
-          render json: response_json, status: :forbidden
-          return
-        end
-
         @job.assign_attributes(permitted_attributes)
 
         if @job.save

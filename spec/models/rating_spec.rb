@@ -26,7 +26,7 @@ RSpec.describe Rating, type: :model do
       it 'adds error' do
         subject.validate
 
-        err_msg = 'must be owned by the user making the rating'
+        err_msg = I18n.t('errors.rating.comment_user')
         expect(subject.errors.messages[:comment]).to include(err_msg)
       end
     end
@@ -35,7 +35,7 @@ RSpec.describe Rating, type: :model do
       let(:comment) { FactoryGirl.build(:comment, owner: from_user) }
 
       it 'adds no error' do
-        err_msg = 'must be owned by the user making the rating'
+        err_msg = I18n.t('errors.rating.comment_user')
         expect(subject.errors.messages[:comment] || []).not_to include(err_msg)
       end
     end
@@ -64,7 +64,8 @@ RSpec.describe Rating, type: :model do
       it 'adds error' do
         FactoryGirl.create(:job_user_accepted, job: job)
         rating.validate
-        expect(rating.errors.messages[:job_user]).to include('must be concluded')
+        message = I18n.t('errors.rating.job_user_concluded')
+        expect(rating.errors.messages[:job_user]).to include(message)
       end
     end
   end
@@ -114,7 +115,7 @@ RSpec.describe Rating, type: :model do
         it 'adds error' do
           subject.validate
 
-          err_msg = 'must be job owner or the accepted applicant'
+          err_msg = I18n.t('errors.rating.user_allowed_to_rate')
           expect(subject.errors.messages[user_type_sym]).to include(err_msg)
         end
       end
@@ -125,7 +126,7 @@ RSpec.describe Rating, type: :model do
         it 'adds no error' do
           subject.validate
 
-          err_msg = 'must be job owner or the accepted applicant'
+          err_msg = I18n.t('errors.rating.user_allowed_to_rate')
           expect(subject.errors.messages[user_type_sym] || []).not_to include(err_msg)
         end
       end

@@ -3,36 +3,35 @@ en:
     title: API documentation | JustMatch API
   errors:
     chat:
-      number_of_users: must be between %{min}-%{max} number of users
+      number_of_users: a chat must consist of between %{min}-%{max} number of users
     invoice:
-      job_started: must have started before creating invoice
-      job_user_accepted: must be the accepted applicant
+      job_started: job must have been started before an invoice can be created
+      job_user_accepted: user must be the accepted applicant before an invoice can be created
     job:
-      locked_for_changes_error: can't update job when already confirmed by user
-      job_date_in_the_past: can't be in the past
+      job_date_in_the_past: job date must be in the future
       hourly_pay_active: hourly pay must be active
-      update_not_allowed_when_accepted: can't update job when user has confirmed
+      update_not_allowed_when_accepted: job can't be updated as it has been accepted by the user
     job_user:
       not_owner_of_job: can't be both job owner and job applicant
       multiple_applicants: can't accept multiple applicants
-      will_perform_true_on_delete: can't delete when applicant has accepted
-      performed_before_job_over: can't confirm performed before job is started
+      will_perform_true_on_delete: can't withdraw application when confirmed
+      performed_before_job_started: can't confirm performed before job is started
     rating:
       from_user_rated: can't rate twice
       to_user_rated: can't be rated twice
-      comment_user: must be owned by the user making the rating
-      job_user_concluded: must be concluded
-      user_allowed_to_rate: must be job owner or the accepted applicant
+      comment_user: must be made by the user making the rating
+      job_user_concluded: job must be performed
+      user_allowed_to_rate: must be the job owner or the accepted applicant
     user_session:
-      banned: an admin has banned you for not following the Terms of agreement or code of conduct. Please contact help@justarrived.se, to resolve this issue.
+      banned: an admin has banned you for not following the Terms of Agreement or the Code of Conduct. Please contact help@justarrived.se, to resolve this issue.
       wrong_email_or_password: wrong email or password
     user:
-      password_length: must have at least %{count} characters
-      must_be_available_locale: must be in available locales
-      frilans_finans_id: already exists
+      password_length: password must have at least %{count} characters
+      must_be_available_locale: must be a supported langauge
+      frilans_finans_id: you already have a Frilans Finans account. Please contect help@justarrived.se, to resolve this issue.
     validators:
       after_true: '%{field} must be true'
-      unrevertable: can't revert
+      unrevertable: can't revert %{field}
   invalid_credentials: Invalid credentials.
   mailer:
     accepted_applicant_withdrawn:
@@ -90,11 +89,11 @@ en:
     signoff: Have a great day!
   not_logged_in_error: Must be logged in.
   notifications:
-    accepted_applicant_confirmation_overdue: Accepted applicant confirmation overdue
-    accepted_applicant_withdrawn: Accepted applicant withdrawn
-    applicant_accepted: Applicant has accepted
-    applicant_will_perform: Applicant will perform
-    job_user_performed_accepted: Job performance accepted
-    job_user_performed: Applicant confirmed performance
+    accepted_applicant_confirmation_overdue: Accepted applicants confirmation is overdue
+    accepted_applicant_withdrawn: Accepted applicant has withdrawn
+    applicant_accepted: You have been accepted for a job
+    applicant_will_perform: Applicant has confirmed the accept
+    invoice_created: Invoice created
+    job_user_performed: Applicant confirmed task completion
     new_applicant: New applicant
     user_job_match: New job match

@@ -96,7 +96,7 @@ class JobUser < ApplicationRecord
     return if job && job.started?
     return unless performed
 
-    message = I18n.t('errors.job_user.performed_before_job_over')
+    message = I18n.t('errors.job_user.performed_before_job_started')
     errors.add(:performed, message)
   end
 end

@@ -8,7 +8,6 @@ sv:
       job_started: måste påbörjats innan en faktura kan skapas
       job_user_accepted: måste vara den accepterade användaren
     job:
-      locked_for_changes_error: kan inte uppdatera jobb när användaren har konfirmerat
       job_date_in_the_past: kan inte vara i det förflutna
       hourly_pay_active: timbetalning måste vara aktiv
       update_not_allowed_when_accepted: kan inte uppdatera jobb när användaren har konfirmerat utförandet
@@ -16,7 +15,7 @@ sv:
       not_owner_of_job: kan inte både vara jobb ägare och jobb sökare
       multiple_applicants: kan inte acceptera flera användare till ett jobb
       will_perform_true_on_delete: kan inte tas bort ifall användaren har konfirmerat att de ska utföra jobbet
-      performed_before_job_over: kan inte konfirmera att jobbet är utfört före jobbet är påbörjat
+      performed_before_job_started: kan inte konfirmera att jobbet är utfört före jobbet är påbörjat
     rating:
       from_user_rated: kan inte rösta flera gånger
       to_user_rated: kan rösta flera gånger
@@ -94,7 +93,7 @@ sv:
     accepted_applicant_withdrawn: Accepterad ansökande har dragit sig tillbaka
     applicant_accepted: Ansökande har accepterat
     applicant_will_perform: Ansökande konfirmerat att de kommer utföra jobbet
-    job_user_performed_accepted: Utfört jobb accepterat
+    invoice_created: Utfört jobb accepterat
     job_user_performed: Ansökande har konfirmerat jobb utförande
     new_applicant: Ny ansökande
     user_job_match: Ny jobb matchning
