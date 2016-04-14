@@ -14,6 +14,7 @@ class CompanyDashboard < Administrate::BaseDashboard
     frilans_finans_id: Field::Number,
     name: Field::String,
     cin: Field::String,
+    email: Field::String,
     created_at: Field::DateTime,
     updated_at: Field::DateTime
   }.freeze
@@ -47,7 +48,8 @@ class CompanyDashboard < Administrate::BaseDashboard
     :users,
     :name,
     :frilans_finans_id,
-    :cin
+    :cin,
+    :email
   ].freeze
 
   # Overwrite this method to customize how skills are displayed
