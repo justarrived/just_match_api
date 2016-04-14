@@ -55,6 +55,7 @@ Rails.application.routes.draw do
       resources :users, param: :user_id, only: [:index, :show, :create, :update, :destroy] do
         member do
           resources :messages, module: :users, only: [:create, :index]
+          resources :chats, module: :users, only: [:index, :show]
 
           get :matching_jobs, path: 'matching-jobs'
           resources :user_jobs, path: :jobs, module: :users, only: [:index]

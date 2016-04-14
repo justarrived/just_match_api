@@ -41,6 +41,7 @@ class UserPolicy < ApplicationPolicy
   alias_method :destroy?, :show?
   alias_method :matching_jobs?, :show?
   alias_method :frilans_finans?, :show?
+  alias_method :chats?, :show?
 
   def jobs?
     admin_or_self? || company_user?
