@@ -1,14 +1,22 @@
 # frozen_string_literal: true
 # == Schema Information
 #
-# Table name: hourly_pays
+# Table name: faqs
 #
-#  id         :integer          not null, primary key
-#  active     :boolean          default(FALSE)
-#  rate       :integer
-#  currency   :string           default("SEK")
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id          :integer          not null, primary key
+#  answer      :text
+#  question    :text
+#  language_id :integer
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#
+# Indexes
+#
+#  index_faqs_on_language_id  (language_id)
+#
+# Foreign Keys
+#
+#  fk_rails_24be635445  (language_id => languages.id)
 #
 
 require 'rails_helper'
