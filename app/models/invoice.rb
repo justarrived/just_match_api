@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class Invoice < ActiveRecord::Base
+class Invoice < ApplicationRecord
   belongs_to :job_user
 
   validates :job_user, uniqueness: true, presence: true
