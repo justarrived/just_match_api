@@ -12,7 +12,9 @@ module Api
 
           if index_klass
             sortable_fields = index_klass::SORTABLE_FIELDS.map { |field| field.to_s.dasherize }
-            param :sort, String, "Sort on *#{sortable_fields.join(', ')}*"
+            if sortable_fields.any?
+              param :sort, String, "Sort on *#{sortable_fields.join(', ')}*"
+            end
             param 'page[number]', String, 'Page to fetch'
             param 'page[size]', String, "Page size (Default: #{index_klass::PER_PAGE}, Max: #{index_klass::MAX_PER_PAGE})"
 

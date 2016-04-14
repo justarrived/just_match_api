@@ -1,0 +1,17 @@
+{
+  "data": [
+    {
+      "id": "1",
+      "type": "faqs",
+      "attributes": {
+        "question": "A question",
+        "answer": "An answer"
+      },
+      "relationships": {
+        "language": {
+          "data": null
+        }
+      }
+    }
+  ]
+}

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160410225854) do
+ActiveRecord::Schema.define(version: 20160414165043) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -115,6 +115,16 @@ ActiveRecord::Schema.define(version: 20160410225854) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "faqs", force: :cascade do |t|
+    t.text     "answer"
+    t.text     "question"
+    t.integer  "language_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "faqs", ["language_id"], name: "index_faqs_on_language_id", using: :btree
 
   create_table "hourly_pays", force: :cascade do |t|
     t.boolean  "active",     default: false
@@ -304,6 +314,7 @@ ActiveRecord::Schema.define(version: 20160410225854) do
   add_foreign_key "chat_users", "users"
   add_foreign_key "comments", "languages"
   add_foreign_key "comments", "users", column: "owner_user_id", name: "comments_owner_user_id_fk"
+  add_foreign_key "faqs", "languages"
   add_foreign_key "invoices", "job_users"
   add_foreign_key "job_skills", "jobs"
   add_foreign_key "job_skills", "skills"
