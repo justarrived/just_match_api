@@ -21,8 +21,8 @@ module Api
         error code: 422, desc: 'Unprocessable entity'
         param :data, Hash, desc: 'Top level key', required: true do
           param :attributes, Hash, desc: 'Frilans Finans User attributes', required: true do # rubocop:disable Metrics/LineLength
-            param :account_clearing_nr, String, desc: 'User account clearing number'
-            param :account_nr, String, desc: 'User account number'
+            param :'account-clearing-nr', String, desc: 'User account clearing number'
+            param :'account-nr', String, desc: 'User account number'
           end
         end
         example '{}'

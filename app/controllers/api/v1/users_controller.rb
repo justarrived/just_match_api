@@ -46,20 +46,20 @@ module Api
       param :data, Hash, desc: 'Top level key', required: true do
         param :attributes, Hash, desc: 'User attributes', required: true do
           # rubocop:disable Metrics/LineLength
-          param :skill_ids, Array, of: Integer, desc: 'List of skill ids'
-          param :first_name, String, desc: 'First name', required: true
-          param :last_name, String, desc: 'Last name', required: true
+          param :'skill-ids', Array, of: Integer, desc: 'List of skill ids'
+          param :'first-name', String, desc: 'First name', required: true
+          param :'last-name', String, desc: 'Last name', required: true
           param :description, String, desc: 'Description', required: true
-          param :job_experience, String, desc: 'Job experience'
+          param :'job-experience', String, desc: 'Job experience'
           param :education, String, desc: 'Education'
           param :email, String, desc: 'Email', required: true
           param :phone, String, desc: 'Phone', required: true
           param :street, String, desc: 'Street', required: true
           param :zip, String, desc: 'Zip code', required: true
           param :ssn, String, desc: 'Social Security Number (10 characters)', required: true
-          param :ignored_notifications, Array, desc: 'List of ignored notifications'
-          param :language_id, Integer, desc: 'Primary language id for user', required: true
-          param :language_ids, Array, of: Integer, desc: 'Language ids of languages that the user knows', required: true
+          param :'ignored-notifications', Array, desc: 'List of ignored notifications'
+          param :'language-id', Integer, desc: 'Primary language id for user', required: true
+          param :'language-ids', Array, of: Integer, desc: 'Language ids of languages that the user knows', required: true
           # rubocop:enable Metrics/LineLength
         end
       end
@@ -90,18 +90,18 @@ module Api
       error code: 401, desc: 'Unauthorized'
       param :data, Hash, desc: 'Top level key', required: true do
         param :attributes, Hash, desc: 'User attributes', required: true do
-          param :first_name, String, desc: 'First name'
-          param :last_name, String, desc: 'Last name'
+          param :'first-name', String, desc: 'First name'
+          param :'last-name', String, desc: 'Last name'
           param :description, String, desc: 'Description'
-          param :job_experience, String, desc: 'Job experience'
+          param :'job-experience', String, desc: 'Job experience'
           param :education, String, desc: 'Education'
           param :email, String, desc: 'Email'
           param :phone, String, desc: 'Phone'
           param :street, String, desc: 'Street'
           param :zip, String, desc: 'Zip code'
           param :ssn, String, desc: 'Social Security Number (10 characters)'
-          param :ignored_notifications, Array, desc: 'List of ignored notifications'
-          param :language_id, Integer, desc: 'Primary language id for user'
+          param :'ignored-notifications', Array, desc: 'List of ignored notifications'
+          param :'language-id', Integer, desc: 'Primary language id for user'
         end
       end
       example Doxxer.read_example(User)

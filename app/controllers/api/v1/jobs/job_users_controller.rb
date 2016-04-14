@@ -78,7 +78,7 @@ module Api
         param :data, Hash, desc: 'Top level key', required: true do
           param :attributes, Hash, desc: 'Job user attributes', required: true do
             param :accepted, [true], desc: 'User accepted for job'
-            param :will_perform, [true], desc: 'User will perform job'
+            param :'will-perform', [true], desc: 'User will perform job'
             param :performed, [true], desc: 'Job has been performed by user'
           end
         end
@@ -102,7 +102,7 @@ module Api
         end
 
         api :DELETE, '/jobs/:job_id/users/:job_user_id', 'Delete user user'
-        description 'Deletes job user if the user is allowed.'
+        description 'Deletes job user if the user is allowed. It can __not__ be removed if `#will_perform` is true.' # rubocop:disable Metrics/LineLength
         error code: 401, desc: 'Unauthorized'
         error code: 404, desc: 'Not found'
         error code: 422, desc: 'Unprocessable entity'

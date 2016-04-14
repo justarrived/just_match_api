@@ -52,7 +52,7 @@ module Api
       param :data, Hash, desc: 'Top level key', required: true do
         param :attributes, Hash, desc: 'Chat attributes', required: true do
           # rubocop:disable Metrics/LineLength
-          param :user_ids, Array, of: Integer, desc: "Must be between #{Chat::MIN_USERS}-#{Chat::MAX_USERS} users per chat.", required: true
+          param :'user-ids', Array, of: Integer, desc: "Must be between #{Chat::MIN_USERS}-#{Chat::MAX_USERS} users per chat.", required: true
           # rubocop:enable Metrics/LineLength
         end
       end
