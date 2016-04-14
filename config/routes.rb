@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     resources :comments
     resources :companies
     resources :contacts
+    resources :faqs
     resources :hourly_pays
     resources :invoices
     resources :jobs
@@ -80,6 +81,7 @@ Rails.application.routes.draw do
       resources :skills, only: [:index, :show, :create, :update, :destroy]
       resources :categories, only: [:index]
       resources :hourly_pays, path: 'hourly-pays', only: [:index]
+      resources :faqs, only: [:index]
 
       post :contacts, to: 'contacts#create'
     end
