@@ -23,6 +23,7 @@ module Api
 
         api :GET, '/chats/:chat_id/messages', 'Get chat messages.'
         description 'Returns messages in chat.'
+        error code: 404, desc: 'Not found'
         ApipieDocHelper.params(self, Index::MessagesIndex)
         example Doxxer.read_example(Message, plural: true)
         def index
