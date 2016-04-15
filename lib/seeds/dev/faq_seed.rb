@@ -9,7 +9,7 @@ module Dev
       log_seed(Faq) do
         max_faqs.times do
           Faq.create!(
-            answer: Faker::Company.catch_phrase,
+            answer: "#{Faker::Company.catch_phrase}?",
             question: Faker::Company.bs,
             language: languages.sample
           )
