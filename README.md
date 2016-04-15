@@ -24,7 +24,7 @@ If you're looking for help, ask questions, want to contribute or give feedback, 
 * [Commands](#commands)
 * [Contributing](#contributing)
 * [Translations](#translations)
-* [MIT License](#license)
+* [License](#license)
 
 ## Built with
 
