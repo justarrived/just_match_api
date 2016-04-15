@@ -4,14 +4,19 @@ class UnrevertableValidator < ActiveModel::EachValidator
     value_changed = record.public_send("#{attribute}_changed?")
     return unless value_changed && value == false
 
-    record.errors.add(attribute, error_message(attribute))
+    record.errors.add(attribute, error_message(record, attribute))
   end
 
   private
 
-  def error_message(attribute)
+  def error_message(record, attribute)
     options.fetch(:message) do
-      I18n.t('errors.validators.unrevertable', field: attribute)
+      singular_model_name = record.class.model_name.singular
+      field_name = I18n.t(
+        "activerecord.attributes.#{singular_model_name}.#{attribute}",
+        default: attribute.to_s.split('_').join(' ')
+      ).downcase
+      I18n.t('errors.validators.unrevertable', field: field_name)
     end
   end
 end
