@@ -39,7 +39,7 @@ RSpec.describe UnrevertableValidator do
         test_model.boolean_field = false
         test_model.validate
 
-        error_msg = I18n.t('errors.validators.unrevertable', field: :boolean_field)
+        error_msg = I18n.t('errors.validators.unrevertable', field: 'boolean field')
         expect(test_model.errors[:boolean_field]).to eq([error_msg])
       end
 
