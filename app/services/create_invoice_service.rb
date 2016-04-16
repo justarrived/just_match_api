@@ -15,15 +15,18 @@ class CreateInvoiceService
       attributes: frilans_finans_attributes
     )
 
-    ff_invoice = FrilansFinansApi::Invoice.create(attributes: attributes)
-    frilans_finans_id = ff_invoice.resource.id
-    if frilans_finans_id.nil?
-      error_message = I18n.t('errors.invoice.frilans_finans_id')
-      invoice.errors.add(:frilans_finans_id, error_message)
-      return invoice
+    unless job.company.frilans_finans_id.nil?
+      ff_invoice = FrilansFinansApi::Invoice.create(attributes: attributes)
+      frilans_finans_id = ff_invoice.resource.id
+      if frilans_finans_id.nil?
+        error_message = I18n.t('errors.invoice.frilans_finans_id')
+        invoice.errors.add(:frilans_finans_id, error_message)
+        return invoice
+      end
+
+      invoice.frilans_finans_id = frilans_finans_id
     end
 
-    invoice.frilans_finans_id = frilans_finans_id
     invoice.save!
 
     InvoiceCreatedNotifier.call(

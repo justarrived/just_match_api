@@ -2,7 +2,11 @@
 require 'rails_helper'
 
 RSpec.describe CreateInvoiceService, type: :serializer do
-  let(:job) { FactoryGirl.create(:passed_job) }
+  let(:job) do
+    company = FactoryGirl.create(:company, frilans_finans_id: 1)
+    owner = FactoryGirl.create(:user, company: company)
+    FactoryGirl.create(:passed_job, owner: owner)
+  end
   let(:job_user) { FactoryGirl.create(:job_user_passed_job, job: job) }
   let(:user) { job_user.user }
   let(:frilans_finans_attributes) { {} }
@@ -61,8 +65,14 @@ RSpec.describe CreateInvoiceService, type: :serializer do
   end
 
   context 'invalid Frilans Finans API response' do
+    let(:job) do
+      company = FactoryGirl.create(:company, frilans_finans_id: 1)
+      owner = FactoryGirl.create(:user, company: company)
+      FactoryGirl.create(:passed_job, owner: owner)
+    end
+
     subject do
-      job_user = FactoryGirl.build(:job_user_passed_job)
+      job_user = FactoryGirl.build(:job_user_passed_job, job: job)
       described_class.create(job_user: job_user, frilans_finans_attributes: {})
     end
 
