@@ -34,11 +34,11 @@ RSpec.describe Api::V1::Jobs::InvoicesController, type: :controller do
         end.to change(Invoice, :count).by(1)
       end
 
-      it 'notifies user' do
-        allow(InvoiceCreatedNotifier).to receive(:call).
-          with(job: job, user: user)
+      it 'calls CreateInvoiceService' do
+        invoice = Invoice.new(job_user: FactoryGirl.build(:job_user))
+        allow(CreateInvoiceService).to receive(:create).and_return(invoice)
         post :create, valid_params, valid_session
-        expect(InvoiceCreatedNotifier).to have_received(:call)
+        expect(CreateInvoiceService).to have_received(:create)
       end
 
       context 'already created' do

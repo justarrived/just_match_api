@@ -2,7 +2,9 @@
 require 'rails_helper'
 
 RSpec.describe CreateInvoiceService, type: :serializer do
-  let(:job_user) { FactoryGirl.build(:job_user_passed_job) }
+  let(:job_user) { FactoryGirl.create(:job_user_passed_job) }
+  let(:user) { job_user.user }
+  let(:job) { job_user.job }
   let(:frilans_finans_attributes) { {} }
   let(:frilans_api_klass) { FrilansFinansApi::Invoice }
   let(:ff_document_mock) { OpenStruct.new(resource: OpenStruct.new(id: 1)) }
@@ -25,6 +27,13 @@ RSpec.describe CreateInvoiceService, type: :serializer do
 
   it 'creates an invoice' do
     expect { subject }.to change(Invoice, :count).by(1)
+  end
+
+  it 'notifies user' do
+    allow(InvoiceCreatedNotifier).to receive(:call).
+      with(job: job, user: user)
+    subject
+    expect(InvoiceCreatedNotifier).to have_received(:call)
   end
 
   context 'Frilans Finans' do

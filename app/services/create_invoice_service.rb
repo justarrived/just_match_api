@@ -8,6 +8,11 @@ class CreateInvoiceService
       ff_invoice = FrilansFinansApi::Invoice.create(attributes: frilans_finans_attributes)
       invoice.frilans_finans_id = ff_invoice.resource.id
       invoice.save!
+
+      InvoiceCreatedNotifier.call(
+        job: job_user.job,
+        user: job_user.user
+      )
     end
 
     invoice

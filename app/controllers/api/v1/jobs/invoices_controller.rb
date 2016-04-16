@@ -31,10 +31,6 @@ module Api
             frilans_finans_attributes: frilans_finans_attributes
           )
           if @invoice.valid?
-            InvoiceCreatedNotifier.call(
-              job: job_user.job,
-              user: job_user.user
-            )
             api_render(@invoice, status: :created)
           else
             respond_with_errors(@invoice)
