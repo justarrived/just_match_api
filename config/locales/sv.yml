@@ -7,6 +7,7 @@ sv:
     invoice:
       job_started: måste påbörjats innan en faktura kan skapas
       job_user_accepted: måste vara den accepterade användaren
+      frilans_finans_id: kan inte vara blank
     job:
       job_date_in_the_past: kan inte vara i det förflutna
       hourly_pay_active: timbetalning måste vara aktiv
