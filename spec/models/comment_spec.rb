@@ -8,8 +8,9 @@ RSpec.describe Comment, type: :model do
     end
 
     it 'returns owner id' do
-      comment = FactoryGirl.build(:comment, owner: FactoryGirl.create(:user))
-      expect(comment.owner_id).to eq(1)
+      user = FactoryGirl.create(:user)
+      comment = FactoryGirl.build(:comment, owner: user)
+      expect(comment.owner_id).to eq(user.id)
     end
   end
 end

@@ -24,6 +24,29 @@ RSpec.describe FrilansFinansApi::Client do
     end
   end
 
+  describe '#currencies' do
+    subject do
+      json = fixture_client.read(:currencies)
+      url = "#{base_url}/currencies?client_id=&client_secret=&grant_type=&page=1"
+
+      stub_request(:get, url).
+        with(default_headers).
+        to_return(status: 200, body: json, headers: {})
+
+      described_class.new
+    end
+
+    it 'returns currencies array' do
+      parsed_body = JSON.parse(subject.currencies.body)
+      expect(parsed_body['data']).to be_a(Array)
+    end
+
+    it 'returns currencies array' do
+      parsed_body = JSON.parse(subject.currencies.body)
+      expect(parsed_body['data'].first.dig('attributes', 'currency_code')).to eq('SEK')
+    end
+  end
+
   describe '#create_user' do
     subject do
       json = fixture_client.read(:user)

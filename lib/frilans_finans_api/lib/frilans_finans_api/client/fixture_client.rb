@@ -6,6 +6,10 @@ module FrilansFinansApi
 
     Response = Struct.new(:body)
 
+    def currencies(**_args)
+      Response.new(read(:currencies))
+    end
+
     def professions(**_args)
       Response.new(read(:professions))
     end

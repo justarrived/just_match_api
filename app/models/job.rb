@@ -61,6 +61,10 @@ class Job < ApplicationRecord
     applicant.will_perform
   end
 
+  def amount
+    hourly_pay.rate * hours
+  end
+
   # Needed for administrate
   # see https://github.com/thoughtbot/administrate/issues/354
   def owner_id

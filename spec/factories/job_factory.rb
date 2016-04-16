@@ -5,7 +5,7 @@ FactoryGirl.define do
     description 'Watman' * 2
     street 'Bankgatan 14C'
     zip '223 52'
-    association :owner, factory: :user
+    association :owner, factory: :company_user
     association :language
     association :category
     association :hourly_pay

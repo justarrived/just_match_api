@@ -38,6 +38,10 @@ module FrilansFinansApi
       self.class.post(uri, opts)
     end
 
+    def currencies(page: 1)
+      get(uri: '/currencies', query: { page: page })
+    end
+
     def professions(page: 1)
       get(uri: '/professions', query: { page: page })
     end
@@ -57,7 +61,7 @@ module FrilansFinansApi
     end
 
     def create_invoice(attributes: {})
-      data = { data: { attributes: attributes } }
+      data = attributes
       post(uri: '/invoices', body: data)
     end
 

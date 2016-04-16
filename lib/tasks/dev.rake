@@ -76,7 +76,8 @@ namespace :dev do
 
     task chats: :environment do
       users = User.all
-      Dev::ChatSeed.call(users: users)
+      languages = Language.all
+      Dev::ChatSeed.call(users: users, languages: languages)
     end
 
     task job_users: :environment do
