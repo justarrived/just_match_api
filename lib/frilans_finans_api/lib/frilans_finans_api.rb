@@ -15,6 +15,14 @@ module FrilansFinansApi
   DEFAULT_CLIENT_KLASS = FixtureClient
 
   def self.client_klass
-    DEFAULT_CLIENT_KLASS
+    @client_klass ||= DEFAULT_CLIENT_KLASS
+  end
+
+  def self.client_klass=(klass)
+    @client_klass = klass
+  end
+
+  def self.reset_config
+    @client_klass = DEFAULT_CLIENT_KLASS
   end
 end

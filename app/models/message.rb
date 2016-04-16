@@ -7,7 +7,7 @@ class Message < ApplicationRecord
   validates :body, presence: true
   validates :chat, presence: true
   validates :author, presence: true
-  # validates :language, presence: true
+  validates :language, presence: true
 end
 
 # == Schema Information

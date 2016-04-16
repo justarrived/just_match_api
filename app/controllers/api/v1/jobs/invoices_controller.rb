@@ -26,7 +26,10 @@ module Api
           job_user = JobUser.find(params[:job_user_id])
           authorize_create(job_user)
 
-          @invoice = FrilansFinansInvoiceService.create(job_user: job_user)
+          @invoice = CreateInvoiceService.create(
+            job_user: job_user,
+            frilans_finans_attributes: frilans_finans_attributes
+          )
           if @invoice.valid?
             InvoiceCreatedNotifier.call(
               job: job_user.job,
@@ -39,6 +42,10 @@ module Api
         end
 
         private
+
+        def frilans_finans_attributes
+          {}
+        end
 
         def authorize_create(job_user)
           raise Pundit::NotAuthorizedError unless current_user == job_user.job.owner
