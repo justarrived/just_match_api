@@ -5,3 +5,14 @@ FactoryGirl.define do
     currency_code 'SEK'
   end
 end
+
+# == Schema Information
+#
+# Table name: currencies
+#
+#  id                :integer          not null, primary key
+#  currency_code     :string
+#  frilans_finans_id :integer
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#
