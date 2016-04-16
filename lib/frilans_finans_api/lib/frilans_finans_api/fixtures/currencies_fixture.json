@@ -1,0 +1,50 @@
+{
+  "data": [{
+    "type": "currency",
+    "id": "1",
+    "attributes": {
+      "currency_name": "Krona",
+      "currency_code": "SEK",
+      "currency_value": "1"
+    },
+    "links": {
+      "self": "http://frilansfinans.se/api/currency/1"
+    }
+  },
+  {
+    "type": "currency",
+    "id": "2",
+    "attributes": {
+      "currency_name": "Dollar",
+      "currency_code": "USD",
+      "currency_value": "1"
+    },
+    "links": {
+      "self": "http://frilansfinans.se/api/currency/2"
+    }
+  },
+  {
+    "type": "currency",
+    "id": "3",
+    "attributes": {
+      "currency_name": "Euro",
+      "currency_code": "EUR",
+      "currency_value": "1"
+    },
+    "links": {
+      "self": "http://frilansfinans.se/api/currency/3"
+    }
+  }],
+  "meta": {
+    "pagination": {
+      "total": 100,
+      "count": 100,
+      "per_page": 100,
+      "current_page": 1,
+      "total_pages": 1,
+      "links": {
+        "next": "https://frilansfinans.se/api/currencies?page=2"
+      }
+    }
+  }
+}

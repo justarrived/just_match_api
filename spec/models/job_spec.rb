@@ -17,6 +17,14 @@ RSpec.describe Job, type: :model do
     end
   end
 
+  describe '#amount' do
+    it 'can return the total amount that a user is to be payed' do
+      hourly_pay = FactoryGirl.build(:hourly_pay, rate: 100)
+      job = FactoryGirl.build(:job, hours: 2, hourly_pay: hourly_pay)
+      expect(job.amount).to eq(200)
+    end
+  end
+
   describe '#owner_id=' do
     it 'can set owner' do
       user = FactoryGirl.create(:user)
