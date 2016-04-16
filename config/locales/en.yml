@@ -7,6 +7,7 @@ en:
     invoice:
       job_started: job must have been started before an invoice can be created
       job_user_accepted: user must be the accepted applicant before an invoice can be created
+      frilans_finans_id: can't be blank
     job:
       job_date_in_the_past: job date must be in the future
       hourly_pay_active: hourly pay must be active

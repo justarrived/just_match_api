@@ -57,10 +57,22 @@ RSpec.describe CreateInvoiceService, type: :serializer do
       expect(subject.persisted?).to eq(false)
     end
 
+    it 'adds error message' do
+      message = I18n.t('errors.invoice.frilans_finans_id')
+      expect(subject.errors.messages[:frilans_finans_id]).to include(message)
+    end
+
     it 'does *not* call Frilans Finans API' do
       allow(frilans_api_klass).to receive(:create)
       subject
       expect(frilans_api_klass).not_to have_received(:create)
+    end
+
+    it 'does *not* notify user' do
+      allow(InvoiceCreatedNotifier).to receive(:call).
+        with(job: job, user: user)
+      subject
+      expect(InvoiceCreatedNotifier).not_to have_received(:call)
     end
   end
 end
