@@ -11,8 +11,10 @@ module Admin
 
     before_action :authenticate_admin
 
+    DEFAULT_RECORDS_PER_PAGE = 20
+
     def records_per_page
-      params[:per_page] || 20
+      params[:per_page] || DEFAULT_RECORDS_PER_PAGE
     end
   end
 end
