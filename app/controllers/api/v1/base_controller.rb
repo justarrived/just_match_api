@@ -10,9 +10,19 @@ module Api
 
           ---
 
-          __Documentation about the current API.__
-
           The API follows the [JSON API 1.0](http://jsonapi.org) specification.
+
+          ---
+
+          ### Example job scenario
+
+          Step | Request |
+          ----------------------------------------------------------------------------------|:---------------------------------------------|
+          1. User [owner] creates job                                                       | `POST /jobs/`                             |
+          2. Another user [user] can apply to a job by creating a job user                  | `POST /jobs/:job_id/users/`               |
+          3. Owner can accept a user by updating job user `accepted`                        | `PATCH /jobs/:job_id/users/:job_user_id/` |
+          4. User confirms that they will perform a job by updating job user `will-perform` | `PATCH /jobs/:job_id/users/:job_user_id/` |
+          5. Owner creates invoice                                                          | `POST /jobs/:job_id/invoices`             |
 
           ---
 

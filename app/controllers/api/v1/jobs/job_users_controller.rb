@@ -12,9 +12,19 @@ module Api
           resource_id 'job_users'
           short 'API for managing job users'
           name 'Job users'
-          description '
-            Job users is the relationship between a job and a users.
-          '
+          # rubocop:disable Metrics/LineLength
+          description "
+            Job users is the relationship between a job and a user.
+
+            A typical flow would be something like this:
+
+            1. To apply for a job a user creates a job user
+            2. The owner accepts the user by setting `accepted` to true
+            3. The user then confirms that they will perform the job by setting `will-perform` to true. It has to be done within #{JobUser::MAX_CONFIRMATION_TIME_HOURS}, if not `accepted` will be set to false.
+            4. The user verifies the that the job has been performed by setting `performed` to true
+            5. The owner then creates an invoice to pay the user
+          "
+          # rubocop:enable Metrics/LineLength
           formats [:json]
           api_versions '1.0'
         end

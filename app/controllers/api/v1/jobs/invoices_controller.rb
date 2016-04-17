@@ -8,7 +8,7 @@ module Api
         resource_description do
           resource_id 'invoices'
           short 'API for managing invoices'
-          name 'Invoice'
+          name 'Invoices'
           description '
             Here you can find the documentation for inteteracting with invoices.
           '
