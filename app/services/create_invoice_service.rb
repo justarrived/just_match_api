@@ -40,7 +40,7 @@ class CreateInvoiceService
   def self.frilans_finans_body(job:, user:, attributes:)
     attributes.merge(
       invoice: {
-        currency_id: Currency.find_by(currency_code: 'SEK').try!(:frilans_finans_id),
+        currency_id: Currency.default_currency.try!(:frilans_finans_id),
         specification: "#{job.category.name} - #{job.name}",
         amount: job.amount,
         company_id: job.company.frilans_finans_id,

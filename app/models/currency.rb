@@ -2,6 +2,10 @@
 class Currency < ActiveRecord::Base
   validates :frilans_finans_id, uniqueness: true
   validates :currency_code, presence: true
+
+  def self.default_currency
+    find_by(currency_code: 'SEK')
+  end
 end
 
 # == Schema Information

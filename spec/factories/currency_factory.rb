@@ -3,6 +3,10 @@ FactoryGirl.define do
   factory :currency do
     frilans_finans_id 1
     currency_code 'SEK'
+
+    factory :swe_currency do
+      currency_code 'SEK'
+    end
   end
 end
 
