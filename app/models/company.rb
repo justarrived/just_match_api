@@ -8,7 +8,7 @@ class Company < ApplicationRecord
   validates :frilans_finans_id, uniqueness: true, allow_nil: true
 
   # Virtual attributes for Frilans Finans
-  attr_accessor :email
+  attr_accessor :email, :street, :zip, :city, :country, :contact, :phone
 end
 
 # == Schema Information

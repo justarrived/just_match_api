@@ -8,7 +8,8 @@ module Admin
       company = Company.new(company_attributes)
 
       if company.valid?
-        ff_company = FrilansFinansApi::Company.create(attributes: frilans_attributes)
+        attributes = frilans_attributes(company)
+        ff_company = FrilansFinansApi::Company.create(attributes: attributes)
         company.frilans_finans_id = ff_company.resource.id
         company.save!
 
@@ -24,8 +25,10 @@ module Admin
       params.require(:company).permit(:name, :cin)
     end
 
-    def frilans_attributes
-      params.require(:company).permit(:email)
+    def frilans_attributes(company)
+      params.require(:company).permit(
+        :email, :street, :zip, :city, :country, :contact, :phone
+      ).merge(name: company.name)
     end
 
     def locals_for(template, company)
