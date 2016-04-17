@@ -2,6 +2,14 @@
 require 'rails_helper'
 
 RSpec.describe Invoice, type: :model do
+  describe '#name' do
+    let(:invoice) { Invoice.new }
+
+    it 'returns name' do
+      expect(invoice.name).to eq('Invoice #')
+    end
+  end
+
   describe '#validate_job_started' do
     let(:passed_job) { FactoryGirl.build(:passed_job) }
     let(:inprogress_job) { FactoryGirl.build(:inprogress_job) }
