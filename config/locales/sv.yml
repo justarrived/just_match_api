@@ -1,6 +1,11 @@
 sv:
   api_documentation:
     title: API dokumentation | JustMatch API
+  admin:
+    mailer:
+      invoice_missing_company_frilans_finans_id:
+        subject: Admin notis
+        notice: An invoice has been created with a company that lacks Frilans Finans id. See %{company_link} and %{invoice_link}.
   errors:
     chat:
       number_of_users: måste vara mellan %{min}-%{max} användare

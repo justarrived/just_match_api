@@ -3,7 +3,7 @@ require 'rails_helper'
 
 RSpec.describe Currency, type: :model do
   it 'can return default currency' do
-    currency = FactoryGirl.create(:swe_currency)
+    currency = Currency.find_or_create_by!(currency_code: 'SEK')
     expect(described_class.default_currency).to eq(currency)
   end
 end

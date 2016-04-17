@@ -28,15 +28,15 @@ RSpec.describe InvoiceMailer, type: :mailer do
       expect(mail.from).to eql(['hello@justarrived.se'])
     end
 
-    it 'invludes @user_name in email body' do
+    it 'includes @user_name in email body' do
       expect(mail).to match_email_body(user.name)
     end
 
-    it 'invludes @owner_name in email body' do
+    it 'includes @owner_name in email body' do
       expect(mail).to match_email_body(owner.name)
     end
 
-    it 'invludes @job_name in email body' do
+    it 'includes @job_name in email body' do
       expect(mail).to match_email_body(job.name)
     end
   end

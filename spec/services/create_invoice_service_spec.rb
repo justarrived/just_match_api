@@ -2,8 +2,8 @@
 require 'rails_helper'
 
 RSpec.describe CreateInvoiceService, type: :serializer do
+  let(:company) { FactoryGirl.create(:company, frilans_finans_id: 1) }
   let(:job) do
-    company = FactoryGirl.create(:company, frilans_finans_id: 1)
     owner = FactoryGirl.create(:user, company: company)
     FactoryGirl.create(:passed_job, owner: owner)
   end
@@ -40,6 +40,22 @@ RSpec.describe CreateInvoiceService, type: :serializer do
       with(job: job, user: user)
     subject
     expect(InvoiceCreatedNotifier).to have_received(:call)
+  end
+
+  it 'calls nil notifier' do
+    allow(NilNotifier).to receive(:call)
+    subject
+    expect(NilNotifier).to have_received(:call)
+  end
+
+  context 'no company frilans finans id' do
+    let(:company) { FactoryGirl.create(:company, frilans_finans_id: nil) }
+
+    it 'calls missing company frilans finans id notifier' do
+      allow(InvoiceMissingCompanyFrilansFinansIdNotifier).to receive(:call)
+      subject
+      expect(InvoiceMissingCompanyFrilansFinansIdNotifier).to have_received(:call)
+    end
   end
 
   context 'Frilans Finans' do

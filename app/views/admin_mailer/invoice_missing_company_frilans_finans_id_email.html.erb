@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+      <%= I18n.t(
+        'admin.mailer.invoice_missing_company_frilans_finans_id.notice',
+        company_link: link_to(@company_name, admin_company_url(@company)),
+        invoice_link: link_to(@invoice.name, admin_invoice_url(@invoice))
+      ) %>
+  </body>
+</html>

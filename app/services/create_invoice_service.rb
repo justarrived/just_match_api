@@ -8,14 +8,17 @@ class CreateInvoiceService
 
     return invoice unless invoice.valid?
 
-    # Build frilans finans invoice attributes
-    attributes = frilans_finans_body(
-      job: job,
-      user: user,
-      attributes: frilans_finans_attributes
-    )
+    admin_notify_klass = NilNotifier
+    if job.company.frilans_finans_id.nil?
+      admin_notify_klass = InvoiceMissingCompanyFrilansFinansIdNotifier
+    else
+      # Build frilans finans invoice attributes
+      attributes = frilans_finans_body(
+        job: job,
+        user: user,
+        attributes: frilans_finans_attributes
+      )
 
-    unless job.company.frilans_finans_id.nil?
       ff_invoice = FrilansFinansApi::Invoice.create(attributes: attributes)
       frilans_finans_id = ff_invoice.resource.id
       if frilans_finans_id.nil?
@@ -28,6 +31,8 @@ class CreateInvoiceService
     end
 
     invoice.save!
+
+    admin_notify_klass.call(invoice: invoice)
 
     InvoiceCreatedNotifier.call(
       job: job_user.job,
