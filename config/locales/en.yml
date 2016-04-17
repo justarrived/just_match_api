@@ -1,13 +1,18 @@
 en:
   api_documentation:
     title: API documentation | JustMatch API
+  admin:
+    mailer:
+      invoice_missing_company_frilans_finans_id:
+        subject: Admin notice
+        notice: An invoice has been created with a company that lacks Frilans Finans id. See %{company_link} and %{invoice_link}.
   errors:
     chat:
       number_of_users: a chat must consist of between %{min}-%{max} number of users
     invoice:
       job_started: job must have been started before an invoice can be created
       job_user_accepted: user must be the accepted applicant before an invoice can be created
-      frilans_finans_id: can't be blank
+      frilans_finans_id: failed to connect to Frilans Finans, please try again later
     job:
       job_date_in_the_past: job date must be in the future
       hourly_pay_active: hourly pay must be active

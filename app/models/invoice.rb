@@ -8,6 +8,10 @@ class Invoice < ApplicationRecord
   validate :validate_job_started
   validate :validate_job_user_accepted
 
+  def name
+    "Invoice ##{id}"
+  end
+
   def validate_job_started
     job = job_user.try!(:job)
     return if job.nil? || job.started?
