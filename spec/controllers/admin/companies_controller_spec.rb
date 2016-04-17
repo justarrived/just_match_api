@@ -12,7 +12,7 @@ RSpec.describe Admin::CompaniesController, type: :controller do
           name: 'A company name',
           cin: '0000000000',
           email: 'company@example.com',
-          zip: '11850'
+          zip: '11850',
           street: 'Hornsgatan 54',
           city: 'Stockholm',
           country: 'Sweden',
