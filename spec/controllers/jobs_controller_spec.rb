@@ -169,9 +169,9 @@ RSpec.describe Api::V1::JobsController, type: :controller do
             FactoryGirl.create(:job_user, job: job, accepted: true, will_perform: true)
             params = { job_id: job.to_param }.merge(new_attributes)
             put :update, params, valid_session
-            expect(response.status).to eq(422)
+            expect(response.status).to eq(403)
             parsed_json = JSON.parse(response.body)
-            expect(parsed_json['errors'].first['status']).to eq(422)
+            expect(parsed_json['errors'].first['status']).to eq(403)
           end
         end
       end
