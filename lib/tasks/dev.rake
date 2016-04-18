@@ -10,19 +10,29 @@ require 'seeds/dev/user_seed'
 
 namespace :dev do
   task count_models: :environment do
+    total = 0
     ignore_tables = %w(
       schema_migrations blazer_dashboards blazer_audits blazer_checks
-      blazer_dashboard_queries blazer_queries
+      blazer_dashboard_queries blazer_queries ar_internal_metadata
     )
-    (ActiveRecord::Base.connection.tables - ignore_tables).map do |table|
+    padding = 15
+    counts = (ActiveRecord::Base.connection.tables - ignore_tables).map do |table|
       model_name = table.capitalize.singularize.camelize
       model_klass = model_name.constantize
 
-      fill_count = 15 - model_name.length
+      fill_count = padding - model_name.length
       first_part = "#{model_name}#{' ' * fill_count}"
 
-      puts "#{first_part}#{model_klass.count}"
+      count = model_klass.count
+      puts "#{first_part}#{count}"
+
+      model_klass.count
     end
+    total = 'Total'
+    fill_count = padding - total.length
+    total_first_part = "#{total}#{' '  * fill_count}"
+    puts '-' * (padding + 4)
+    puts "#{total_first_part}#{counts.sum}"
   end
 
   SEED_ADDRESSES = [
