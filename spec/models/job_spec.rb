@@ -200,31 +200,6 @@ RSpec.describe Job, type: :model do
       message = I18n.t('errors.job.hourly_pay_active')
       expect(job.errors.messages[:hourly_pay] || []).not_to include(message)
     end
-
-    describe '#validate_job_without_confirmed_user' do
-      it 'adds no error if there is *no* job user' do
-        job = FactoryGirl.build(:job)
-        job.validate
-        message = I18n.t('errors.job.update_not_allowed_when_accepted')
-        expect(job.errors.messages[:update_not_allowed] || []).not_to include(message)
-      end
-
-      it 'adds no error if job user has not confirmed' do
-        job = FactoryGirl.create(:job)
-        FactoryGirl.create(:job_user, job: job)
-        job.validate
-        message = I18n.t('errors.job.update_not_allowed_when_accepted')
-        expect(job.errors.messages[:update_not_allowed] || []).not_to include(message)
-      end
-
-      it 'adds no error if job user has not confirmed' do
-        job = FactoryGirl.create(:job)
-        FactoryGirl.create(:job_user_will_perform, job: job)
-        job.validate
-        message = I18n.t('errors.job.update_not_allowed_when_accepted')
-        expect(job.errors.messages[:update_not_allowed]).to include(message)
-      end
-    end
   end
 end
 

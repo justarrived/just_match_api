@@ -35,7 +35,6 @@ class Job < ApplicationRecord
 
   validate :validate_job_date_in_future
   validate :validate_hourly_pay_active
-  validate :validate_job_without_confirmed_user
 
   belongs_to :owner, class_name: 'User', foreign_key: 'owner_user_id'
 
@@ -127,15 +126,6 @@ class Job < ApplicationRecord
     return if hourly_pay.nil? || hourly_pay.active
 
     errors.add(:hourly_pay, I18n.t('errors.job.hourly_pay_active'))
-  end
-
-  def validate_job_without_confirmed_user
-    return if accepted_job_user.nil?
-
-    if accepted_job_user.will_perform
-      message = I18n.t('errors.job.update_not_allowed_when_accepted')
-      errors.add(:update_not_allowed, message)
-    end
   end
 end
 
