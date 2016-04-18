@@ -63,7 +63,7 @@ module Api
           # rubocop:enable Metrics/LineLength
         end
       end
-      example Doxxer.read_example(User)
+      example Doxxer.read_example(User, method: :create)
       def create
         @user = User.new(user_params)
 
@@ -104,7 +104,7 @@ module Api
           param :'language-id', Integer, desc: 'Primary language id for user'
         end
       end
-      example Doxxer.read_example(User)
+      example Doxxer.read_example(User, method: :update)
       def update
         authorize(@user)
 

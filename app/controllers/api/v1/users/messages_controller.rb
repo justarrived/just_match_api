@@ -50,7 +50,7 @@ module Api
           end
         end
         ApipieDocHelper.params(self)
-        example Doxxer.read_example(Message)
+        example Doxxer.read_example(Message, method: :create)
         def create
           users = User.where(id: chat_user_ids)
           chat = Chat.find_or_create_private_chat(users)

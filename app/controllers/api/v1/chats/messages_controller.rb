@@ -45,7 +45,7 @@ module Api
           end
         end
         ApipieDocHelper.params(self)
-        example Doxxer.read_example(Message)
+        example Doxxer.read_example(Message, method: :create)
         def create
           lang = message_params[:language_id]
           body = message_params[:body]

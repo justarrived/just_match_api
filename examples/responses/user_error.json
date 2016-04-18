@@ -1,0 +1,72 @@
+[
+  {
+    "status": 422,
+    "source": {
+      "pointer": "/data/attributes/language"
+    },
+    "detail": "can't be blank"
+  },
+  {
+    "status": 422,
+    "source": {
+      "pointer": "/data/attributes/email"
+    },
+    "detail": "can't be blank"
+  },
+  {
+    "status": 422,
+    "source": {
+      "pointer": "/data/attributes/first-name"
+    },
+    "detail": "is too short (minimum is 2 characters)"
+  },
+  {
+    "status": 422,
+    "source": {
+      "pointer": "/data/attributes/last-name"
+    },
+    "detail": "is too short (minimum is 2 characters)"
+  },
+  {
+    "status": 422,
+    "source": {
+      "pointer": "/data/attributes/phone"
+    },
+    "detail": "is too short (minimum is 9 characters)"
+  },
+  {
+    "status": 422,
+    "source": {
+      "pointer": "/data/attributes/description"
+    },
+    "detail": "is too short (minimum is 10 characters)"
+  },
+  {
+    "status": 422,
+    "source": {
+      "pointer": "/data/attributes/street"
+    },
+    "detail": "is too short (minimum is 5 characters)"
+  },
+  {
+    "status": 422,
+    "source": {
+      "pointer": "/data/attributes/zip"
+    },
+    "detail": "is too short (minimum is 5 characters)"
+  },
+  {
+    "status": 422,
+    "source": {
+      "pointer": "/data/attributes/password"
+    },
+    "detail": "is too short (minimum is 6 characters)"
+  },
+  {
+    "status": 422,
+    "source": {
+      "pointer": "/data/attributes/ssn"
+    },
+    "detail": "is the wrong length (should be 10 characters)"
+  }
+]

@@ -54,7 +54,7 @@ module Api
           # rubocop:enable Metrics/LineLength
         end
       end
-      example Doxxer.read_example(Comment)
+      example Doxxer.read_example(Comment, method: :create)
       def create
         @comment = @commentable.comments.new(comment_params)
         @comment.owner_user_id = current_user.id
