@@ -21,7 +21,7 @@ class Invoice < ApplicationRecord
   end
 
   def validate_job_user_accepted
-    return if job_user.accepted
+    return if job_user.nil? || job_user.accepted
 
     message = I18n.t('errors.invoice.job_user_accepted')
     errors.add(:job_user, message)

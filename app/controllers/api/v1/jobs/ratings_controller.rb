@@ -29,7 +29,7 @@ module Api
             param :'user-id', Integer, desc: 'User id (receiver of rating)', required: true # rubocop:disable Metrics/LineLength
           end
         end
-        example Doxxer.read_example(Rating)
+        example Doxxer.read_example(Rating, method: :create)
         def create
           authorize(Rating)
 

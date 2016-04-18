@@ -10,11 +10,25 @@ class Doxxer
     JobSkill, UserSkill, Category, HourlyPay, Invoice, Faq
   ].freeze
 
-  def self.read_example(model_klass, plural: false)
-    [
+  def self.read_example(model_klass, plural: false, method: nil)
+    response = [
       '# Response example',
       File.read(_response_filename(model_klass, plural: plural))
-    ].join("\n")
+    ]
+
+    with_error = [:create, :update].include?(method)
+
+    error = []
+    if with_error
+      error_example = File.read(_response_filename(model_klass, error: with_error))
+      error = if JSON.parse(error_example).empty?
+                []
+              else
+                ['# Error response example', error_example]
+              end
+    end
+
+    [response, error].flatten(1).compact.join("\n")
   end
 
   def self.curl_for(name:, id: nil, with_auth: false, join_with: ' ')
@@ -29,24 +43,39 @@ class Doxxer
   end
 
   def self.generate_response_examples
-    RELEVANT_DOC_MODELS.each { |klass| _write_response_example!(klass) }
+    RELEVANT_DOC_MODELS.each do |klass|
+      _write_response_example!(klass)
+      _write_response_error_example!(klass)
+    end
   end
 
   # private
 
-  def self._response_filename(model_klass, plural:)
-    "#{RESPONSE_PATH}/#{_format_model_name(model_klass, plural: plural)}.json"
+  def self._response_filename(model_klass, plural: false, error: false)
+    model_name = _format_model_name(model_klass, plural: plural)
+    file_name = if error
+                  "#{model_name}_error"
+                else
+                  model_name
+                end
+
+    "#{RESPONSE_PATH}/#{file_name}.json"
   end
 
   def self._write_response_example!(model_klass)
-    example = _example_for(model_klass, plural: false)
-    File.write(_response_filename(model_klass, plural: false), example)
+    example = _example_for(model_klass)
+    File.write(_response_filename(model_klass), example)
 
     plural_example = _example_for(model_klass, plural: true)
     File.write(_response_filename(model_klass, plural: true), plural_example)
   end
 
-  def self._example_for(model_klass, plural:)
+  def self._write_response_error_example!(model_klass)
+    example = _error_example_for(model_klass)
+    File.write(_response_filename(model_klass, error: true), example)
+  end
+
+  def self._example_for(model_klass, plural: false)
     model_attributes = _factory_attributes(model_klass)
     model = model_klass.new(model_attributes)
     model = [model] if plural
@@ -55,6 +84,12 @@ class Doxxer
     serialized_model = JsonApiSerializer.serialize(model, current_user: fake_admin)
     model_hash = serialized_model.serializable_hash
 
+    JSON.pretty_generate(model_hash)
+  end
+
+  def self._error_example_for(model_klass)
+    model = model_klass.new.tap(&:validate)
+    model_hash = model.valid? ? {} : ErrorSerializer.serialize(model)
     JSON.pretty_generate(model_hash)
   end
 

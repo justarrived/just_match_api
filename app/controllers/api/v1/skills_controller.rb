@@ -49,7 +49,7 @@ module Api
           # rubocop:enable Metrics/LineLength
         end
       end
-      example Doxxer.read_example(Skill)
+      example Doxxer.read_example(Skill, method: :create)
       def create
         authorize(Skill)
 

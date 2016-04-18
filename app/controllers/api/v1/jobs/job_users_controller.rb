@@ -63,7 +63,7 @@ module Api
         error code: 400, desc: 'Bad request'
         error code: 404, desc: 'Not found'
         error code: 422, desc: 'Unprocessable entity'
-        example Doxxer.read_example(JobUser)
+        example Doxxer.read_example(JobUser, method: :create)
         def create
           authorize(JobUser)
 
@@ -92,7 +92,7 @@ module Api
             param :performed, [true], desc: 'Job has been performed by user'
           end
         end
-        example Doxxer.read_example(JobUser)
+        example Doxxer.read_example(JobUser, method: :update)
         def update
           authorize(JobUser)
 
