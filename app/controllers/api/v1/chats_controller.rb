@@ -28,7 +28,7 @@ module Api
         chats_index = Index::ChatsIndex.new(self)
         @chats = chats_index.chats
 
-        api_render(@chats)
+        api_render(@chats, total: chats_index.count)
       end
 
       api :GET, '/chats/:id', 'Show chat'

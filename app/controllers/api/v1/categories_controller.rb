@@ -20,7 +20,7 @@ module Api
         categories_index = Index::CategoriesIndex.new(self)
         @categories = categories_index.categories
 
-        api_render(@categories)
+        api_render(@categories, total: categories_index.count)
       end
     end
   end

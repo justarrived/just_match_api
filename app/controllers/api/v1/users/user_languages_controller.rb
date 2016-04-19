@@ -29,7 +29,7 @@ module Api
           user_languages_index = Index::UserLanguagesIndex.new(self)
           @user_languages = user_languages_index.user_languages(@user.user_languages)
 
-          api_render(@user_languages)
+          api_render(@user_languages, total: user_languages_index.count)
         end
 
         api :GET, '/users/:user_id/languages/:user_language_id', 'Show language'

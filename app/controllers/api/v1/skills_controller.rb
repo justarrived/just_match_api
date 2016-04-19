@@ -22,7 +22,7 @@ module Api
         skills_index = Index::SkillsIndex.new(self)
         @skills = skills_index.skills
 
-        api_render(@skills)
+        api_render(@skills, total: skills_index.count)
       end
 
       api :GET, '/skills/:id', 'Show skill'

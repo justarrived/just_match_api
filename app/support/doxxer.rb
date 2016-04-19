@@ -84,6 +84,9 @@ class Doxxer
     serialized_model = JsonApiSerializer.serialize(model, current_user: fake_admin)
     model_hash = serialized_model.serializable_hash
 
+    # Merge meta attributes for plural examples
+    model_hash[:meta] = { total: 1 } if plural
+
     JSON.pretty_generate(model_hash)
   end
 
