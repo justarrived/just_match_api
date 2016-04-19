@@ -1,0 +1,9 @@
+[
+  {
+    "status": 422,
+    "source": {
+      "pointer": "/data/attributes/lang-code"
+    },
+    "detail": "can't be blank"
+  }
+]

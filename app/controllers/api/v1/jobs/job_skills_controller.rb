@@ -56,7 +56,7 @@ module Api
             param :id, Integer, desc: 'Skill id', required: true
           end
         end
-        example Doxxer.read_example(JobSkill)
+        example Doxxer.read_example(JobSkill, method: :create)
         def create
           authorize(JobSkill)
 

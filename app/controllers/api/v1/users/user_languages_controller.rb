@@ -54,7 +54,7 @@ module Api
             param :id, Integer, desc: 'Language id', required: true
           end
         end
-        example Doxxer.read_example(UserLanguage)
+        example Doxxer.read_example(UserLanguage, method: :create)
         def create
           @user_language = UserLanguage.new
           @user_language.user = @user

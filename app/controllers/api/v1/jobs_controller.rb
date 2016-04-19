@@ -56,7 +56,7 @@ module Api
         end
       end
       ApipieDocHelper.params(self)
-      example Doxxer.read_example(Job)
+      example Doxxer.read_example(Job, method: :create)
       def create
         authorize(Job)
 
@@ -95,7 +95,7 @@ module Api
           param :'owner-user-id', Integer, desc: 'User id for the job owner'
         end
       end
-      example Doxxer.read_example(Job)
+      example Doxxer.read_example(Job, method: :update)
       def update
         authorize(@job)
 

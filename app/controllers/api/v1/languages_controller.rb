@@ -48,7 +48,7 @@ module Api
           param :'lang-code', String, desc: 'Language code', required: true
         end
       end
-      example Doxxer.read_example(Language)
+      example Doxxer.read_example(Language, method: :create)
       def create
         authorize(Language)
 

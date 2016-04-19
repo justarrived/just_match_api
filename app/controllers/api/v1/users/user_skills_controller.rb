@@ -56,7 +56,7 @@ module Api
             param :id, Integer, desc: 'Skill id', required: true
           end
         end
-        example Doxxer.read_example(UserSkill)
+        example Doxxer.read_example(UserSkill, method: :create)
         def create
           @user_skill = UserSkill.new
           @user_skill.user = @user
