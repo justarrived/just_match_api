@@ -27,7 +27,7 @@ module Api
         comments_index = Index::CommentsIndex.new(self)
         @comments = comments_index.comments(@commentable.comments)
 
-        api_render(@comments)
+        api_render(@comments, total: comments_index.count)
       end
 
       api :GET, '/:resource_name/:resource_id/comments/:id', 'Show comment'

@@ -31,7 +31,7 @@ module Api
           job_skills_index = Index::JobSkillsIndex.new(self)
           @job_skills = job_skills_index.job_skills(@job.job_skills)
 
-          api_render(@job_skills)
+          api_render(@job_skills, total: job_skills_index.count)
         end
 
         api :GET, '/jobs/:job_id/skills/:job_skill_id', 'Show user skill'

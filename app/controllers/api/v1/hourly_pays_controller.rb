@@ -20,7 +20,7 @@ module Api
         hourly_pays_index = Index::HourlyPaysIndex.new(self)
         @hourly_pays = hourly_pays_index.hourly_pays
 
-        api_render(@hourly_pays)
+        api_render(@hourly_pays, total: hourly_pays_index.count)
       end
     end
   end

@@ -31,7 +31,7 @@ module Api
           user_skills_index = Index::UserSkillsIndex.new(self)
           @user_skills = user_skills_index.user_skills(@user.user_skills)
 
-          api_render(@user_skills)
+          api_render(@user_skills, total: user_skills_index.count)
         end
 
         api :GET, '/users/:user_id/skills/:user_skill_id', 'Show user skill'

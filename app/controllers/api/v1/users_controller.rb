@@ -25,7 +25,7 @@ module Api
         users_index = Index::UsersIndex.new(self)
         @users = users_index.users
 
-        api_render(@users)
+        api_render(@users, total: users_index.count)
       end
 
       api :GET, '/users/:id', 'Show user'
