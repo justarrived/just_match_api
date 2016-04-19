@@ -8,13 +8,8 @@ module Rack
       '127.0.0.1' == req.ip || '::1' == req.ip
     end
 
-    # Allow 5 requests per second
-    throttle('req/ip', limit: 5, period: 1.second, &:ip)
-
-    # Only allow 6 login attempts in a minute
-    Rack::Attack.throttle('logins/email', limit: 6, period: 60.seconds) do |req|
-      true if req.path == '/api/v1/user_sessions' && req.post?
-    end
+    # Allow 50 requests per 10 seconds
+    throttle('req/ip', limit: 50, period: 10.second, &:ip)
 
     self.throttled_response = lambda { |env|
       retry_after = (env['rack.attack.match_data'] || {})[:period]
