@@ -1,4 +1,6 @@
 # frozen_string_literal: true
+require 'airbrake/sidekiq/error_handler'
+
 if Rails.env.production?
   redis_url = ENV['REDIS_URL']
   redis_timeout = ENV.fetch('REDIS_TIMEOUT', 5)
