@@ -8,7 +8,7 @@ module Api
         api :POST, '/users/images/', 'User images'
         description 'Creates a user image'
         error code: 422, desc: 'Unprocessable entity'
-        param :image, String, desc: 'Image (multipart/form-data)', required: true
+        param :image, File, desc: 'Image (multipart/form-data)', required: true
         example Doxxer.read_example(UserImage, method: :create)
         def create
           @user_image = UserImage.new(image: params[:image])

@@ -10,7 +10,6 @@ require 'seeds/dev/user_seed'
 
 namespace :dev do
   task count_models: :environment do
-    total = 0
     ignore_tables = %w(
       schema_migrations blazer_dashboards blazer_audits blazer_checks
       blazer_dashboard_queries blazer_queries ar_internal_metadata

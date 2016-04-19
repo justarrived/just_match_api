@@ -9,6 +9,6 @@ Paperclip::Attachment.default_options[:path] = aws_paperclip_path
 
 if Rails.env.test?
   paper_part = ':class/:id_partition/:style.:extension'
-  paperclip_path = "spec/spec_support/data/test_files/#{paper_part}"
+  paperclip_path = "spec/test_files/#{paper_part}"
   Paperclip::Attachment.default_options[:path] = paperclip_path
 end
