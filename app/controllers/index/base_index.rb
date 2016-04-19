@@ -14,18 +14,15 @@ module Index
     TRANSFORMABLE_FILTERS = { created_at: :date_range }.freeze
     ALLOWED_FILTERS = %i(created_at).freeze
 
-    attr_reader :controller
+    attr_reader :controller, :count
 
     def initialize(controller)
       @controller = controller
+      @count = nil
     end
 
     def prepare_records(records)
-      records = policy_scope(records).
-                order(sort_params).
-                page(current_page).per(current_size)
-
-      filter_records(records)
+      base_records(records).page(current_page).per(current_size)
     end
 
     protected
@@ -40,6 +37,13 @@ module Index
       else
         user_key
       end
+    end
+
+    def base_records(records)
+      filtered_records = policy_scope(records)
+      filtered_records = filter_records(filtered_records).order(sort_params)
+      @count = filtered_records.count
+      filtered_records
     end
 
     def current_size

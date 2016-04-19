@@ -24,7 +24,7 @@ module Api
         jobs_index = Index::JobsIndex.new(self)
         @jobs = jobs_index.jobs
 
-        api_render(@jobs)
+        api_render(@jobs, total: jobs_index.count)
       end
 
       api :GET, '/jobs/:id', 'Show job'
