@@ -14,6 +14,15 @@ module Api
 
           ---
 
+          ### Headers
+
+
+          `X-API-LOCALE: en` is used to specify current locale
+
+          `Authorization: Token token=XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX`
+
+          ---
+
           ### Example job scenario
 
           Step | Request |
