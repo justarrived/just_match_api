@@ -9,13 +9,28 @@
       "description": "Rails secret token",
       "generator": "secret"
     },
+    "S3_BUCKET_NAME": {
+      "description": "AWS S3 bucket name (required for image upload)",
+      "value": "",
+      "required": false
+    },
+    "AWS_ACCESS_KEY_ID": {
+      "description": "AWS access key id (required for image upload)",
+      "value": "",
+      "required": false
+    },
+    "AWS_SECRET_ACCESS_KEY": {
+      "description": "AWS secret access key (required for image upload)",
+      "value": "",
+      "required": false
+    },
     "SENDGRID_USERNAME": {
-      "description": "SendGrid username",
+      "description": "SendGrid username (required for email)",
       "value": "",
       "required": false
     },
     "SENDGRID_PASSWORD": {
-      "description": "SendGrid password",
+      "description": "SendGrid password (required for email)",
       "value": "",
       "required": false
     },
