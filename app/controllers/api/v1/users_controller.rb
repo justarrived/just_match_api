@@ -13,7 +13,7 @@ module Api
         api_versions '1.0'
       end
 
-      ALLOWED_INCLUDES = %w(language languages company user-images).freeze
+      ALLOWED_INCLUDES = %w(language languages company user_images).freeze
 
       api :GET, '/users', 'List users'
       description 'Returns a list of users if the user is allowed.'
