@@ -58,6 +58,9 @@ GEM
       rails (~> 4.2)
       sass-rails (~> 5.0)
       selectize-rails (~> 0.6)
+    airbrake (5.2.3)
+      airbrake-ruby (~> 1.2)
+    airbrake-ruby (1.2.2)
     annotate (2.7.0)
       activerecord (>= 3.2, < 6.0)
       rake (~> 10.4)
@@ -330,6 +333,7 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers (~> 0.10.0.rc5)
   administrate (~> 0.1.5)
+  airbrake
   annotate (~> 2.7)
   apipie-rails (~> 0.3)
   bcrypt (~> 3.1.7)
