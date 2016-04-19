@@ -49,13 +49,13 @@ module Api
           param :'skill-ids', Array, of: Integer, desc: 'List of skill ids'
           param :'first-name', String, desc: 'First name', required: true
           param :'last-name', String, desc: 'Last name', required: true
-          param :description, String, desc: 'Description', required: true
+          param :description, String, desc: 'Description'
           param :'job-experience', String, desc: 'Job experience'
           param :education, String, desc: 'Education'
           param :email, String, desc: 'Email', required: true
           param :phone, String, desc: 'Phone', required: true
-          param :street, String, desc: 'Street', required: true
-          param :zip, String, desc: 'Zip code', required: true
+          param :street, String, desc: 'Street'
+          param :zip, String, desc: 'Zip code'
           param :ssn, String, desc: 'Social Security Number (10 characters)', required: true
           param :'ignored-notifications', Array, desc: 'List of ignored notifications'
           param :'language-id', Integer, desc: 'Primary language id for user', required: true
