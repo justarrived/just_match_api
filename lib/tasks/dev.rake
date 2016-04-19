@@ -30,7 +30,7 @@ namespace :dev do
     end
     total = 'Total'
     fill_count = padding - total.length
-    total_first_part = "#{total}#{' '  * fill_count}"
+    total_first_part = "#{total}#{' ' * fill_count}"
     puts '-' * (padding + 4)
     puts "#{total_first_part}#{counts.sum}"
   end

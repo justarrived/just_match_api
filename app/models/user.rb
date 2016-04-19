@@ -36,6 +36,8 @@ class User < ApplicationRecord
 
   has_many :messages, class_name: 'Message', foreign_key: 'author_id'
 
+  has_many :user_images
+
   validates :language, presence: true
   validates :email, presence: true, uniqueness: true
   validates :first_name, length: { minimum: 2 }, allow_blank: false
@@ -54,6 +56,9 @@ class User < ApplicationRecord
   scope :admins, -> { where(admin: true) }
   scope :company_users, -> { where.not(company: nil) }
   scope :visible, -> { where.not(banned: true) }
+  scope :valid_one_time_tokens, lambda {
+    where('one_time_token_expires_at > ?', Time.zone.now)
+  }
 
   # Don't change the order or remove any items in the array,
   # only additions are allowed
@@ -69,8 +74,7 @@ class User < ApplicationRecord
   ).freeze
 
   def self.find_by_one_time_token(token)
-    where('one_time_token_expires_at > ?', Time.zone.now).
-      find_by(one_time_token: token)
+    valid_one_time_tokens.find_by(one_time_token: token)
   end
 
   def self.find_by_credentials(email:, password:)

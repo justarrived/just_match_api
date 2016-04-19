@@ -68,6 +68,8 @@ Rails.application.routes.draw do
           resources :user_sessions, module: :users, path: :sessions, only: [:create, :destroy]
           resources :reset_password, path: 'reset-password', module: :users, only: [:create]
           resources :change_password, path: 'change-password', module: :users, only: [:create]
+          resources :user_images, module: :users, path: :images, only: [:create]
+
           get :notifications
         end
       end

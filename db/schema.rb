@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160416082858) do
+ActiveRecord::Schema.define(version: 20160418184053) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -250,6 +250,20 @@ ActiveRecord::Schema.define(version: 20160416082858) do
   add_index "skills", ["language_id"], name: "index_skills_on_language_id", using: :btree
   add_index "skills", ["name"], name: "index_skills_on_name", unique: true, using: :btree
 
+  create_table "user_images", force: :cascade do |t|
+    t.datetime "one_time_token_expires_at"
+    t.string   "one_time_token"
+    t.integer  "user_id"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+  end
+
+  add_index "user_images", ["user_id"], name: "index_user_images_on_user_id", using: :btree
+
   create_table "user_languages", force: :cascade do |t|
     t.integer  "language_id"
     t.integer  "user_id"
@@ -338,6 +352,7 @@ ActiveRecord::Schema.define(version: 20160416082858) do
   add_foreign_key "ratings", "users", column: "from_user_id", name: "ratings_from_user_id_fk"
   add_foreign_key "ratings", "users", column: "to_user_id", name: "ratings_to_user_id_fk"
   add_foreign_key "skills", "languages"
+  add_foreign_key "user_images", "users"
   add_foreign_key "user_languages", "languages"
   add_foreign_key "user_languages", "users"
   add_foreign_key "user_skills", "skills"

@@ -18,7 +18,7 @@ RSpec.describe UserSerializer, type: :serializer do
       end
     end
 
-    %w(language languages company).each do |relationship|
+    %w(language languages company user-images).each do |relationship|
       it "has #{relationship} relationship" do
         expect(subject).to have_jsonapi_relationship(relationship)
       end
