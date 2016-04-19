@@ -29,7 +29,7 @@ module Api
           api_versions '1.0'
         end
 
-        ALLOWED_INCLUDES = %w(job user).freeze
+        ALLOWED_INCLUDES = %w(job user user.user_images).freeze
 
         api :GET, '/jobs/:job_id/users', 'Show job users'
         description 'Returns list of job users if the user is allowed.'

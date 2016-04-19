@@ -7,7 +7,7 @@
     <h1><%= I18n.t('mailer.invoice_created.congrats_line', name: @user_name) %></h1>
     <h3><%= I18n.t('mailer.invoice_created.performed_line', name: @owner_name) %></h3>
     <p><%= I18n.t('mailer.invoice_created.job_line', name: @job_name) %></p>
-    <p><%= I18n.t('mailer.invoice_created.contact_line', email: @owner_email) %></p>
+    <p><%= I18n.t('mailer.invoice_created.contact_line', email: mail_to(@owner_email)).html_safe %></p>
 
     <p><%= I18n.t('mailer.signoff') %></p>
   </body>

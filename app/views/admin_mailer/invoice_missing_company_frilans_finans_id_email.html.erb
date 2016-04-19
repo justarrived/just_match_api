@@ -8,6 +8,6 @@
         'admin.mailer.invoice_missing_company_frilans_finans_id.notice',
         company_link: link_to(@company_name, admin_company_url(@company)),
         invoice_link: link_to(@invoice.name, admin_invoice_url(@invoice))
-      ) %>
+      ).html_safe %>
   </body>
 </html>

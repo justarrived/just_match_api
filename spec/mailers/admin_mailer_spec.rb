@@ -5,13 +5,14 @@ RSpec.describe AdminMailer, type: :mailer do
   let(:company) { mock_model(Company, name: 'ACME') }
   let(:user) { mock_model User, email: 'admin@example.com' }
   let(:job) { mock_model Job, company: company }
-  let(:invoice) { mock_model Invoice, job: job, name: 'invoice #1' }
+  let(:invoice) { mock_model Invoice, user: user, name: 'invoice #1' }
 
   describe '#invoice_missing_company_frilans_finans_id_email' do
     let(:mail) do
       described_class.invoice_missing_company_frilans_finans_id_email(
         invoice: invoice,
-        user: user
+        user: user,
+        job: job
       )
     end
 
