@@ -49,15 +49,14 @@ class Doxxer
   def self._example_for(model_klass, plural:)
     model_attributes = _factory_attributes(model_klass)
     model = model_klass.new(model_attributes)
-    meta = {}
     model = [model] if plural
 
     fake_admin = OpenStruct.new(admin?: true, persisted?: true)
     serialized_model = JsonApiSerializer.serialize(model, current_user: fake_admin)
     model_hash = serialized_model.serializable_hash
 
-    # Merge meta attrbutes for plural examples
-    model_hash.merge!(meta: { total: 1 }) if plural
+    # Merge meta attributes for plural examples
+    model_hash[:meta] = { total: 1 } if plural
 
     JSON.pretty_generate(model_hash)
   end
