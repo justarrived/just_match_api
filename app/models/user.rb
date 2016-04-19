@@ -119,6 +119,13 @@ class User < ApplicationRecord
     self[:banned] = value
   end
 
+  def profile_image_token=(token)
+    return if token.blank?
+
+    user_image = UserImage.find_by_one_time_token(token)
+    self.user_images = [user_image] unless user_image.nil?
+  end
+
   def ignored_notification?(notification)
     ignored_notifications.include?(notification.to_s)
   end
