@@ -20,7 +20,7 @@ module Api
         faqs_index = Index::FaqsIndex.new(self)
         @faqs = faqs_index.faqs
 
-        api_render(@faqs)
+        api_render(@faqs, total: faqs_index.count)
       end
     end
   end

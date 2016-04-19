@@ -43,7 +43,7 @@ module Api
           job_users_index = Index::JobUsersIndex.new(self)
           @job_users = job_users_index.job_users(@job.job_users)
 
-          api_render(@job_users)
+          api_render(@job_users, total: job_users_index.count)
         end
 
         api :GET, '/jobs/:job_id/users/:job_user_id', 'Show job user'

@@ -24,7 +24,7 @@ module Api
         languages_index = Index::LanguagesIndex.new(self)
         @languages = languages_index.languages
 
-        api_render(@languages)
+        api_render(@languages, total: languages_index.count)
       end
 
       api :GET, '/languages/:id', 'Show language'

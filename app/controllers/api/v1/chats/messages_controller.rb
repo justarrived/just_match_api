@@ -30,7 +30,7 @@ module Api
           messages_index = Index::MessagesIndex.new(self)
           @messages = messages_index.messages(@chat.messages)
 
-          api_render(@messages)
+          api_render(@messages, total: messages_index.count)
         end
 
         api :POST, '/chats/:chat_id/messages', 'Create new chat message.'

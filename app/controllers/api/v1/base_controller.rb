@@ -93,11 +93,15 @@ module Api
         render json: serialized_error, status: :unprocessable_entity
       end
 
-      def api_render(model_or_model_array, status: :ok)
+      def api_render(model_or_model_array, status: :ok, total: nil)
+        meta = {}
+        meta[:total] = total if total
+
         serialized_model = JsonApiSerializer.serialize(
           model_or_model_array,
           included: included_resources,
-          current_user: current_user
+          current_user: current_user,
+          meta: meta
         )
 
         render json: serialized_model, status: status

@@ -9,5 +9,8 @@
         "currency": "SEK"
       }
     }
-  ]
+  ],
+  "meta": {
+    "total": 1
+  }
 }
