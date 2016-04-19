@@ -7,7 +7,7 @@
     <h1><%= I18n.t('mailer.new_applicant.congrats_line', name: @owner_name) %></h1>
     <p><%= I18n.t('mailer.new_applicant.job_line', name: @job_name) %></p>
     <h3><%= I18n.t('mailer.new_applicant.applicant_line', name: @user_name) %></h3>
-    <p><%= I18n.t('mailer.new_applicant.contact_line', email: @user_email, phone: @user_phone) %></p>
+    <p><%= I18n.t('mailer.new_applicant.contact_line', email: mail_to(@user_email), phone: @user_phone).html_safe %></p>
 
     <p><%= I18n.t('mailer.signoff') %></p>
   </body>

@@ -32,12 +32,9 @@ class CreateInvoiceService
 
     invoice.save!
 
-    admin_notify_klass.call(invoice: invoice)
+    admin_notify_klass.call(invoice: invoice, job: job)
 
-    InvoiceCreatedNotifier.call(
-      job: job_user.job,
-      user: job_user.user
-    )
+    InvoiceCreatedNotifier.call(job: job, user: user)
 
     invoice
   end

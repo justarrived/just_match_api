@@ -38,6 +38,21 @@ RSpec.describe IncludeParams do
       end
     end
 
+    describe 'nested include in param' do
+      let(:param) { described_class.new('users,users.images') }
+
+      it 'can return none' do
+        expect(param.permit([])).to eq([])
+        expect(param.permit('')).to eq([])
+        expect(param.permit('jobs')).to eq([])
+      end
+
+      it 'can return many' do
+        expect(param.permit(['users'])).to eq(['users'])
+        expect(param.permit('users', 'users.images')).to eq(['users', 'users.images'])
+      end
+    end
+
     describe 'nil param' do
       let(:nil_param) { described_class.new(nil) }
 
