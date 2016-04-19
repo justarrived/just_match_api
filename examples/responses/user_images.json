@@ -1,0 +1,24 @@
+{
+  "data": [
+    {
+      "id": "1",
+      "type": "user-images",
+      "attributes": {
+        "one-time-token": "ea91a434-3381-480d-95fc-4e3efccc08b7",
+        "one-time-token-expires-at": "2016-02-11 01:01:01 +0100",
+        "image-url": "localhost/spec/test_files/user_images/000/000/001/original.png",
+        "image-url-large": "localhost/spec/test_files/user_images/000/000/001/large.png",
+        "image-url-medium": "localhost/spec/test_files/user_images/000/000/001/medium.png",
+        "image-url-small": "localhost/spec/test_files/user_images/000/000/001/small.png"
+      },
+      "relationships": {
+        "user": {
+          "data": null
+        }
+      }
+    }
+  ],
+  "meta": {
+    "total": 1
+  }
+}

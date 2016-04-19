@@ -62,12 +62,15 @@ Rails.application.routes.draw do
           resources :user_skills, param: :user_skill_id, module: :users, path: :skills, only: [:index, :show, :create, :destroy]
           resources :user_languages, param: :user_language_id, module: :users, path: :languages, only: [:index, :show, :create, :destroy]
           resources :frilans_finans, path: 'frilans-finans', module: :users, only: [:create]
+          resources :user_images, module: :users, path: :images, only: [:show]
         end
 
         collection do
           resources :user_sessions, module: :users, path: :sessions, only: [:create, :destroy]
           resources :reset_password, path: 'reset-password', module: :users, only: [:create]
           resources :change_password, path: 'change-password', module: :users, only: [:create]
+          resources :user_images, module: :users, path: :images, only: [:create]
+
           get :notifications
         end
       end

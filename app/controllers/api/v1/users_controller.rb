@@ -13,7 +13,7 @@ module Api
         api_versions '1.0'
       end
 
-      ALLOWED_INCLUDES = %w(language languages company).freeze
+      ALLOWED_INCLUDES = %w(language languages company user_images).freeze
 
       api :GET, '/users', 'List users'
       description 'Returns a list of users if the user is allowed.'
@@ -60,6 +60,7 @@ module Api
           param :'ignored-notifications', Array, desc: 'List of ignored notifications'
           param :'language-id', Integer, desc: 'Primary language id for user', required: true
           param :'language-ids', Array, of: Integer, desc: 'Language ids of languages that the user knows', required: true
+          param :'user-image-one-time-token', String, desc: 'User image one time token'
           # rubocop:enable Metrics/LineLength
         end
       end
@@ -74,6 +75,7 @@ module Api
 
           @user.skills = Skill.where(id: user_params[:skill_ids])
           @user.languages = Language.where(id: user_params[:language_ids])
+          @user.profile_image_token = jsonapi_params[:user_image_one_time_token]
 
           UserWelcomeNotifier.call(user: @user)
 
@@ -102,6 +104,7 @@ module Api
           param :ssn, String, desc: 'Social Security Number (10 characters)'
           param :'ignored-notifications', Array, desc: 'List of ignored notifications'
           param :'language-id', Integer, desc: 'Primary language id for user'
+          param :'user-image-one-time-token', String, desc: 'User image one time token'
         end
       end
       example Doxxer.read_example(User, method: :update)
@@ -109,6 +112,8 @@ module Api
         authorize(@user)
 
         if @user.update(user_params)
+          @user.profile_image_token = jsonapi_params[:user_image_one_time_token]
+
           api_render(@user)
         else
           respond_with_errors(@user)

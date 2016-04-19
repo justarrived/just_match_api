@@ -109,6 +109,26 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         post :create, valid_attributes, {}
         expect(UserWelcomeNotifier).to have_received(:call)
       end
+
+      context 'user image' do
+        let(:user_image) { FactoryGirl.create(:user_image) }
+
+        it 'can add user image' do
+          token = user_image.one_time_token
+
+          valid_attributes[:data][:attributes][:user_image_one_time_token] = token
+
+          post :create, valid_attributes, {}
+          expect(assigns(:user).user_images.first).to eq(user_image)
+        end
+
+        it 'does not created user image if invalid one time token' do
+          valid_attributes[:data][:attributes][:user_image_one_time_token] = 'token'
+
+          post :create, valid_attributes, {}
+          expect(assigns(:user).user_images.first).to be_nil
+        end
+      end
     end
 
     context 'with invalid params' do
@@ -154,6 +174,36 @@ RSpec.describe Api::V1::UsersController, type: :controller do
           params = { user_id: user.to_param }.merge(new_attributes)
           put :update, params, valid_session
           expect(response.status).to eq(200)
+        end
+
+        context 'user image' do
+          let(:user_image) { FactoryGirl.create(:user_image) }
+          let(:new_attributes) do
+            {
+              data: {
+                attributes: { user_image_one_time_token: user_image.one_time_token }
+              }
+            }
+          end
+
+          it 'can replace user image' do
+            user.user_images = [FactoryGirl.create(:user_image)]
+
+            params = { user_id: user.to_param }.merge(new_attributes)
+            user_image.one_time_token
+            post :update, params, {}
+            expect(assigns(:user).user_images.first).to eq(user_image)
+          end
+
+          it 'does not replace user image if invalid one time token' do
+            first_user_image = FactoryGirl.create(:user_image)
+            user.user_images = [first_user_image]
+
+            params = { user_id: user.to_param }
+
+            post :update, params, {}
+            expect(assigns(:user).user_images.first).to eq(first_user_image)
+          end
         end
       end
 

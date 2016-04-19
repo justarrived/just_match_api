@@ -7,6 +7,7 @@ class UserSerializer < ActiveModel::Serializer
   has_one :company
   has_one :language
 
+  has_many :user_images
   has_many :languages
   has_many :chats
 

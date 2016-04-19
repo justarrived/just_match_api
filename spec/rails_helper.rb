@@ -8,6 +8,7 @@ end
 require 'spec_helper'
 require 'rspec/rails'
 require 'shoulda/matchers'
+require 'paperclip/matchers'
 require 'pundit/rspec'
 require 'webmock/rspec'
 require 'sidekiq/testing'
@@ -19,6 +20,8 @@ Dir[Rails.root.join('spec/spec_support/**/*.rb')].each { |f| require f }
 ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
+  config.include Paperclip::Shoulda::Matchers
+
   # Run each example within a transaction
   config.use_transactional_fixtures = true
 
@@ -49,6 +52,10 @@ RSpec.configure do |config|
     ensure
       DatabaseCleaner.clean
     end
+  end
+
+  config.after(:suite) do
+    FileUtils.rm_rf(Dir["#{Rails.root}/spec/test_files/"])
   end
 end
 

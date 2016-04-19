@@ -18,6 +18,9 @@ gem 'blazer', '~> 1.2' # Explore data with SQL
 # Interact with Frilans Finans API
 gem 'frilans_finans_api', path: 'lib/frilans_finans_api'
 
+gem 'paperclip', '~> 5.0.0.beta1' # Image handler
+gem 'aws-sdk', '~> 2.2' # Upload images to AWS S3
+
 gem 'airbrake' # Error catcher and reporter
 
 group :production do
@@ -65,6 +68,7 @@ group :development, :test do
   gem 'immigrant', '~> 0.3'
   gem 'consistency_fail', '~> 0.3'
   gem 'bullet', '~> 5.0'
+  gem 'fog', '~> 1.38' # Cloud services gem, in production the aws-sdk gem is used
 end
 
 group :development do
