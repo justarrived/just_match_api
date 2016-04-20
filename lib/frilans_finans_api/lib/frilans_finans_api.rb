@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'frilans_finans_api/client/fixture_client'
+require 'frilans_finans_api/client/nil_client'
 require 'frilans_finans_api/client/walker'
 require 'frilans_finans_api/client/client'
 require 'frilans_finans_api/client/company'

@@ -3,7 +3,7 @@
 module FrilansFinansApi
   class Resource
     def initialize(document)
-      @data = document
+      @data = document || {}
     end
 
     def type

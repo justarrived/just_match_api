@@ -122,7 +122,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
           expect(assigns(:user).user_images.first).to eq(user_image)
         end
 
-        it 'does not created user image if invalid one time token' do
+        it 'does not create user image if invalid one time token' do
           valid_attributes[:data][:attributes][:user_image_one_time_token] = 'token'
 
           post :create, valid_attributes, {}

@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 class CompanySerializer < ActiveModel::Serializer
-  ATTRIBUTES = [:name].freeze
+  ATTRIBUTES = [:name, :website].freeze
 
   attributes ATTRIBUTES
+
+  has_many :company_images
 end
 
 # == Schema Information
@@ -15,6 +17,7 @@ end
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  frilans_finans_id :integer
+#  website           :string
 #
 # Indexes
 #

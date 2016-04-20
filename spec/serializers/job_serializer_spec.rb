@@ -52,6 +52,7 @@ end
 #  hidden        :boolean          default(FALSE)
 #  category_id   :integer
 #  hourly_pay_id :integer
+#  verified      :boolean          default(FALSE)
 #
 # Indexes
 #

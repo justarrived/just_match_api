@@ -11,6 +11,7 @@ class UserDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
     frilans_finans_id: Field::Number,
     language: Field::BelongsTo,
+    company: Field::BelongsTo,
     user_skills: Field::HasMany,
     skills: Field::HasMany,
     owned_jobs: Field::HasMany.with_options(class_name: 'Job'),

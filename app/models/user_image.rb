@@ -24,6 +24,10 @@ class UserImage < ActiveRecord::Base
     valid_one_time_tokens.find_by(one_time_token: token)
   end
 
+  def category_name
+    'profile'
+  end
+
   def generate_one_time_token
     self.one_time_token_expires_at = Time.zone.now + ONE_TIME_TOKEN_VALID_FOR_HOURS.hours
     self.one_time_token = SecureRandom.uuid

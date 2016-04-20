@@ -58,6 +58,7 @@ module Api
           param :zip, String, desc: 'Zip code'
           param :ssn, String, desc: 'Social Security Number (10 characters)', required: true
           param :'ignored-notifications', Array, desc: 'List of ignored notifications'
+          param :'company-id', Integer, desc: 'Company id for user'
           param :'language-id', Integer, desc: 'Primary language id for user', required: true
           param :'language-ids', Array, of: Integer, desc: 'Language ids of languages that the user knows', required: true
           param :'user-image-one-time-token', String, desc: 'User image one time token'
@@ -104,6 +105,7 @@ module Api
           param :ssn, String, desc: 'Social Security Number (10 characters)'
           param :'ignored-notifications', Array, desc: 'List of ignored notifications'
           param :'language-id', Integer, desc: 'Primary language id for user'
+          param :'company-id', Integer, desc: 'Company id for user'
           param :'user-image-one-time-token', String, desc: 'User image one time token'
         end
       end
@@ -163,7 +165,7 @@ module Api
       def user_params
         whitelist = [
           :first_name, :last_name, :email, :phone, :description, :job_experience,
-          :education, :ssn, :street, :zip, :language_id, :password,
+          :education, :ssn, :street, :zip, :language_id, :password, :company_id,
           ignored_notifications: [], skill_ids: [], language_ids: []
         ]
         jsonapi_params.permit(*whitelist)

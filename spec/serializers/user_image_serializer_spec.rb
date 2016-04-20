@@ -10,6 +10,10 @@ RSpec.describe UserImageSerializer, type: :serializer do
       JSON.parse(serialization.to_json)
     end
 
+    it 'has category-name' do
+      expect(subject).to have_jsonapi_attribute('category-name', 'profile')
+    end
+
     it 'has image-url' do
       value = resource.image.url
       expect(subject).to have_jsonapi_attribute('image-url', value)
@@ -49,3 +53,27 @@ RSpec.describe UserImageSerializer, type: :serializer do
     end
   end
 end
+
+# == Schema Information
+#
+# Table name: user_images
+#
+#  id                        :integer          not null, primary key
+#  one_time_token_expires_at :datetime
+#  one_time_token            :string
+#  user_id                   :integer
+#  created_at                :datetime         not null
+#  updated_at                :datetime         not null
+#  image_file_name           :string
+#  image_content_type        :string
+#  image_file_size           :integer
+#  image_updated_at          :datetime
+#
+# Indexes
+#
+#  index_user_images_on_user_id  (user_id)
+#
+# Foreign Keys
+#
+#  fk_rails_435d77ec18  (user_id => users.id)
+#

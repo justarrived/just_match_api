@@ -11,6 +11,7 @@ class JobUserDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
     user: Field::BelongsTo,
     job: Field::BelongsTo,
+    invoice: Field::HasOne,
     id: Field::Number,
     accepted: Field::Boolean,
     will_perform: Field::Boolean,
@@ -28,6 +29,7 @@ class JobUserDashboard < Administrate::BaseDashboard
     :user,
     :job,
     :id,
+    :invoice,
     :accepted,
     :will_perform,
     :performed
@@ -42,6 +44,7 @@ class JobUserDashboard < Administrate::BaseDashboard
     :accepted,
     :will_perform,
     :performed,
+    :invoice,
     :created_at,
     :updated_at
   ].freeze
@@ -54,7 +57,8 @@ class JobUserDashboard < Administrate::BaseDashboard
     :job,
     :accepted,
     :will_perform,
-    :performed
+    :performed,
+    :invoice
   ].freeze
 
   # Overwrite this method to customize how job users are displayed

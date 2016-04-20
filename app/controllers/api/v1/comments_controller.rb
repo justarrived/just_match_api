@@ -49,7 +49,7 @@ module Api
           param :body, String, desc: 'Body of the comment', required: true
           # rubocop:disable Metrics/LineLength
           param :'language-id', Integer, desc: 'Language id of the body content', required: true
-          param :'commentable-id', String, desc: 'Id of the owner resource', required: true
+          param :'commentable-id', Integer, desc: 'Id of the owner resource', required: true
           param :'commentable-type', String, desc: 'Owner resource type, i.e "jobs"', required: true
           # rubocop:enable Metrics/LineLength
         end
