@@ -48,7 +48,6 @@ RSpec.describe Api::V1::CompaniesController, type: :controller do
     end
 
     it 'returns 201 created status' do
-      company = FactoryGirl.create(:company)
       get :create, valid_params, valid_session
       expect(response.status).to eq(201)
     end
