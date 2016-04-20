@@ -21,6 +21,7 @@ end
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  frilans_finans_id :integer
+#  website           :string
 #
 # Indexes
 #

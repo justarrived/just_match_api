@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class CompanySerializer < ActiveModel::Serializer
-  ATTRIBUTES = [:name].freeze
+  ATTRIBUTES = [:name, :website].freeze
 
   attributes ATTRIBUTES
 end
@@ -15,6 +15,7 @@ end
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  frilans_finans_id :integer
+#  website           :string
 #
 # Indexes
 #
