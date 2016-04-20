@@ -34,8 +34,11 @@ RSpec.describe Api::V1::Users::FrilansFinansController, type: :controller do
     end
 
     it 'sets User#frilans_finans_id' do
+      before_client_klass = FrilansFinansApi.client_klass
+      FrilansFinansApi.client_klass = FrilansFinansApi::FixtureClient
       post :create, valid_params, valid_session
       expect(assigns(:user).frilans_finans_id).to eq(1)
+      FrilansFinansApi.client_klass = before_client_klass
     end
 
     context 'frilans_finans_id already set' do
