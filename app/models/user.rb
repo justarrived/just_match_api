@@ -43,9 +43,9 @@ class User < ApplicationRecord
   validates :first_name, length: { minimum: 2 }, allow_blank: false
   validates :last_name, length: { minimum: 2 }, allow_blank: false
   validates :phone, length: { minimum: 9 }, allow_blank: false
-  validates :description, length: { minimum: 10 }, allow_blank: false
-  validates :street, length: { minimum: 5 }, allow_blank: false
-  validates :zip, length: { minimum: 5 }, allow_blank: false
+  validates :description, length: { minimum: 10 }, allow_blank: true
+  validates :street, length: { minimum: 5 }, allow_blank: true
+  validates :zip, length: { minimum: 5 }, allow_blank: true
   validates :password, length: { minimum: MIN_PASSWORD_LENGTH }, allow_blank: false, on: :create # rubocop:disable Metrics/LineLength
   validates :auth_token, uniqueness: true
   validates :ssn, uniqueness: true, length: { is: 10 }, allow_blank: false
