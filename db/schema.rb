@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160420193613) do
+ActiveRecord::Schema.define(version: 20160420201638) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -108,6 +108,20 @@ ActiveRecord::Schema.define(version: 20160420193613) do
 
   add_index "companies", ["cin"], name: "index_companies_on_cin", unique: true, using: :btree
   add_index "companies", ["frilans_finans_id"], name: "index_companies_on_frilans_finans_id", unique: true, using: :btree
+
+  create_table "company_images", force: :cascade do |t|
+    t.datetime "one_time_token_expires_at"
+    t.string   "one_time_token"
+    t.integer  "company_id"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+  end
+
+  add_index "company_images", ["company_id"], name: "index_company_images_on_company_id", using: :btree
 
   create_table "contacts", force: :cascade do |t|
     t.string   "name"
@@ -337,6 +351,7 @@ ActiveRecord::Schema.define(version: 20160420193613) do
   add_foreign_key "chat_users", "users"
   add_foreign_key "comments", "languages"
   add_foreign_key "comments", "users", column: "owner_user_id", name: "comments_owner_user_id_fk"
+  add_foreign_key "company_images", "companies"
   add_foreign_key "faqs", "languages"
   add_foreign_key "invoices", "job_users"
   add_foreign_key "job_skills", "jobs"

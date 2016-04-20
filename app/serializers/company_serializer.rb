@@ -3,6 +3,8 @@ class CompanySerializer < ActiveModel::Serializer
   ATTRIBUTES = [:name, :website].freeze
 
   attributes ATTRIBUTES
+
+  has_many :company_images
 end
 
 # == Schema Information

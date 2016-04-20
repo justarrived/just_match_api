@@ -81,12 +81,21 @@ Rails.application.routes.draw do
         end
       end
 
+      resources :companies, param: :company_id, only: [:index, :create, :show] do
+        member do
+          resources :company_images, module: :companies, path: :images, only: [:show]
+        end
+
+        collection do
+          resources :company_images, module: :companies, path: :images, only: [:create]
+        end
+      end
+
       resources :languages, only: [:index, :show, :create, :update, :destroy]
       resources :skills, only: [:index, :show, :create, :update, :destroy]
       resources :categories, only: [:index]
       resources :hourly_pays, path: 'hourly-pays', only: [:index]
       resources :faqs, only: [:index]
-      resources :companies, only: [:index, :create, :show]
 
       post :contacts, to: 'contacts#create'
     end

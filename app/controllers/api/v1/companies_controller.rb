@@ -12,6 +12,8 @@ module Api
         api_versions '1.0'
       end
 
+      ALLOWED_INCLUDES = %w(company_images).freeze
+
       api :GET, '/companies', 'List companies'
       description 'Returns a list of companies.'
       ApipieDocHelper.params(self, Index::CompaniesIndex)
@@ -44,6 +46,7 @@ module Api
           param :name, String, desc: 'Name of the company', required: true
           param :cin, String, desc: 'Swedish organisation number', required: true
           param :website, String, desc: 'Website URL'
+          param :'company-image-one-time-token', String, desc: 'Company image one time token' # rubocop:disable Metrics/LineLength
         end
       end
       example Doxxer.read_example(Company)
@@ -55,6 +58,8 @@ module Api
         if @company.valid?
           ff_company = FrilansFinansApi::Company.create(attributes: frilans_params)
           @company.frilans_finans_id = ff_company.resource.id
+
+          @company.logo_image_token = jsonapi_params[:company_image_one_time_token]
           @company.save!
 
           api_render(@company, status: :created)
@@ -74,7 +79,7 @@ module Api
       end
 
       def set_company
-        @company = Company.find(params[:id])
+        @company = Company.find(params[:company_id])
       end
     end
   end

@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class UserImageSerializer < ActiveModel::Serializer
+class CompanyImageSerializer < ActiveModel::Serializer
   ATTRIBUTES = [:one_time_token, :one_time_token_expires_at].freeze
   attributes ATTRIBUTES
 
@@ -9,10 +9,10 @@ class UserImageSerializer < ActiveModel::Serializer
   attribute :image_url_medium
   attribute :image_url_small
 
-  has_one :user
+  has_one :company
 
   def category_name
-    'profile'
+    'logo'
   end
 
   def image_url
@@ -34,12 +34,12 @@ end
 
 # == Schema Information
 #
-# Table name: user_images
+# Table name: company_images
 #
 #  id                        :integer          not null, primary key
 #  one_time_token_expires_at :datetime
 #  one_time_token            :string
-#  user_id                   :integer
+#  company_id                :integer
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
 #  image_file_name           :string
@@ -49,9 +49,9 @@ end
 #
 # Indexes
 #
-#  index_user_images_on_user_id  (user_id)
+#  index_company_images_on_company_id  (company_id)
 #
 # Foreign Keys
 #
-#  fk_rails_435d77ec18  (user_id => users.id)
+#  fk_rails_6dcf524eba  (company_id => companies.id)
 #

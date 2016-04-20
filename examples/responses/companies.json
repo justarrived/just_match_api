@@ -6,6 +6,13 @@
       "attributes": {
         "name": "A company",
         "website": "https://example.com"
+      },
+      "relationships": {
+        "company-images": {
+          "data": [
+
+          ]
+        }
       }
     }
   ],

@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
-RSpec.describe UserImageSerializer, type: :serializer do
+RSpec.describe CompanyImageSerializer, type: :serializer do
   context 'Individual Resource Representation' do
-    let(:resource) { FactoryGirl.build(:user_image) }
+    let(:resource) { FactoryGirl.build(:company_image) }
     let(:serialization) { JsonApiSerializer.serialize(resource) }
 
     subject do
@@ -11,7 +11,7 @@ RSpec.describe UserImageSerializer, type: :serializer do
     end
 
     it 'has category-name' do
-      expect(subject).to have_jsonapi_attribute('category-name', 'profile')
+      expect(subject).to have_jsonapi_attribute('category-name', 'logo')
     end
 
     it 'has image-url' do
@@ -42,26 +42,26 @@ RSpec.describe UserImageSerializer, type: :serializer do
       end
     end
 
-    %w(user).each do |relationship|
+    %w(company).each do |relationship|
       it "has #{relationship} relationship" do
         expect(subject).to have_jsonapi_relationship(relationship)
       end
     end
 
     it 'is valid jsonapi format' do
-      expect(subject).to be_jsonapi_formatted('user-images')
+      expect(subject).to be_jsonapi_formatted('company-images')
     end
   end
 end
 
 # == Schema Information
 #
-# Table name: user_images
+# Table name: company_images
 #
 #  id                        :integer          not null, primary key
 #  one_time_token_expires_at :datetime
 #  one_time_token            :string
-#  user_id                   :integer
+#  company_id                :integer
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
 #  image_file_name           :string
@@ -71,9 +71,9 @@ end
 #
 # Indexes
 #
-#  index_user_images_on_user_id  (user_id)
+#  index_company_images_on_company_id  (company_id)
 #
 # Foreign Keys
 #
-#  fk_rails_435d77ec18  (user_id => users.id)
+#  fk_rails_6dcf524eba  (company_id => companies.id)
 #
