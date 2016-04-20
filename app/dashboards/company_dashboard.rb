@@ -14,6 +14,7 @@ class CompanyDashboard < Administrate::BaseDashboard
     frilans_finans_id: Field::Number,
     name: Field::String,
     cin: Field::String,
+    website: Field::String,
     email: Field::String,
     street: Field::String,
     zip: Field::String,
@@ -40,6 +41,7 @@ class CompanyDashboard < Administrate::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = [
     :users,
     :id,
+    :website,
     :frilans_finans_id,
     :name,
     :cin,
@@ -53,6 +55,7 @@ class CompanyDashboard < Administrate::BaseDashboard
   FORM_ATTRIBUTES = [
     :users,
     :name,
+    :website,
     :frilans_finans_id,
     :cin,
     :email,
