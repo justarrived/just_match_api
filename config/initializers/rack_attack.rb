@@ -9,7 +9,7 @@ module Rack
     end
 
     # Allow 50 requests per 10 seconds
-    throttle('req/ip', limit: 50, period: 10.second, &:ip)
+    throttle('req/ip', limit: 50, period: 10.seconds, &:ip)
 
     self.throttled_response = lambda { |env|
       retry_after = (env['rack.attack.match_data'] || {})[:period]
