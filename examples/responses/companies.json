@@ -1,0 +1,15 @@
+{
+  "data": [
+    {
+      "id": "1",
+      "type": "companies",
+      "attributes": {
+        "name": "A company",
+        "website": "https://example.com"
+      }
+    }
+  ],
+  "meta": {
+    "total": 1
+  }
+}

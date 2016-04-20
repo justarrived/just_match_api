@@ -2,6 +2,7 @@
 FactoryGirl.define do
   factory :company do
     name 'A company'
+    website 'https://example.com'
     sequence :cin do |n|
       num_length = case n
                    when 0...10 then 9

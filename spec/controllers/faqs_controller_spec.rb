@@ -1,4 +1,15 @@
 # frozen_string_literal: true
+require 'rails_helper'
+
+RSpec.describe Api::V1::FaqsController, type: :controller do
+  describe 'GET #index' do
+    it 'assigns all faqs as @faqs' do
+      hourly_pay = FactoryGirl.create(:faq)
+      get :index, {}, {}
+      expect(assigns(:faqs)).to eq([hourly_pay])
+    end
+  end
+end
 # == Schema Information
 #
 # Table name: faqs
@@ -18,15 +29,3 @@
 #
 #  fk_rails_24be635445  (language_id => languages.id)
 #
-
-require 'rails_helper'
-
-RSpec.describe Api::V1::FaqsController, type: :controller do
-  describe 'GET #index' do
-    it 'assigns all faqs as @faqs' do
-      hourly_pay = FactoryGirl.create(:faq)
-      get :index, {}, {}
-      expect(assigns(:faqs)).to eq([hourly_pay])
-    end
-  end
-end
