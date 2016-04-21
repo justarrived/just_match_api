@@ -75,6 +75,7 @@ FactoryGirl.define do
       created_at Time.new(2016, 02, 10, 1, 1, 1).utc
       updated_at Time.new(2016, 02, 12, 1, 1, 1).utc
       job_date Time.new(2016, 02, 18, 1, 1, 1).utc
+      job_end_date Time.new(2016, 02, 20, 1, 1, 1).utc
       description 'Typewriter hashtag ennui brunch post-ironic food truck vinegar.'
     end
   end

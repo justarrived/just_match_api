@@ -1,0 +1,205 @@
+ar:
+  activerecord:
+    models:
+      category: فئة
+      chat: دردشة
+      chat_user: المستخدم الدردشة
+      comment: التعليق
+      company: شركة
+      company_image: صورة الشركة
+      contact: اتصال
+      currency: عملة
+      faq: التعليمات
+      hourly_pay: الأجر بالساعة
+      invoice: فاتورة
+      job: وظيفة
+      job_skill: مهارة العمل
+      job_user: المستخدم العمل
+      language: لغة
+      message: الرسالة
+      rating: تصنيف
+      skill: مهارة
+      user: مستخدم
+      user_image: صورة العضو
+      user_language: لغة المستخدم
+      user_skill: مهارة المستخدم
+
+    attributes:
+      category:
+        jobs: وظائف
+        name: اسم
+
+      chat:
+        chat_users: للمستخدمين الدردشة
+        messages: رسائل
+        users: المستخدمين
+
+      chat_user:
+        chat: دردشة
+        user: مستخدم
+
+      comment:
+        body: الجسم
+        hidden: مخفي
+        language: لغة
+
+      company:
+        cin: سين
+        company_images: صور الشركة
+        jobs: وظائف
+        name: اسم
+        users: المستخدمين
+        website: موقع الكتروني
+
+      company_image:
+        company: شركة
+        image_content_type: صورة نوع المحتوى
+        image_file_name: اسم ملف الصورة
+        image_file_size: حجم ملف الصورة
+        image_updated_at: صورة محدثة في
+        one_time_token: رمز مرة واحدة
+        one_time_token_expires_at: تنتهي واحدة رمز الوقت في
+
+      contact:
+        body: الجسم
+        email: البريد الإلكتروني
+        name: اسم
+
+      currency:
+        currency_code: رمز العملة
+
+      faq:
+        answer: إجابة
+        language: لغة
+        question: سؤال
+
+      hourly_pay:
+        active: نشط
+        currency: عملة
+        jobs: وظائف
+        rate: معدل
+
+      invoice:
+        job_user: المستخدم العمل
+
+      job:
+        category: فئة
+        comments: تعليقات
+        company: شركة
+        description: وصف
+        hidden: مخفي
+        hourly_pay: الأجر بالساعة
+        hours: ساعات
+        job_date: تاريخ العمل
+        job_end_date: وظيفة تاريخ انتهاء
+        job_skills: مهارات العمل
+        job_users: للمستخدمين العمل
+        language: لغة
+        latitude: خط العرض
+        longitude: خط الطول
+        name: اسم
+        skills: مهارات
+        street: شارع
+        users: المستخدمين
+        verified: التحقق
+        zip: الرمز البريدي
+        zip_latitude: خط العرض البريدي
+        zip_longitude: الرمز البريدي الطول
+
+      job_skill:
+        job: وظيفة
+        skill: مهارة
+
+      job_user:
+        accepted: قبلت
+        accepted_at: قبلت في
+        invoice: فاتورة
+        job: وظيفة
+        performed: تنفيذ
+        user: مستخدم
+        will_perform: سوف تؤدي
+
+      language:
+        direction: اتجاه
+        en_name: الاسم والشهرة
+        jobs: وظائف
+        lang_code: كود لانج
+        local_name: الاسم المحلي
+        system_language: لغة النظام
+        user_languages: اللغات العضو
+        users: المستخدمين
+
+      message:
+        body: الجسم
+        chat: دردشة
+        integer: عدد صحيح
+        language: لغة
+
+      rating:
+        comment: التعليق
+        job: وظيفة
+        score: أحرز هدفاً
+
+      skill:
+        job_skills: مهارات العمل
+        jobs: وظائف
+        language: لغة
+        name: اسم
+        user_skills: مهارات المستخدمين
+        users: المستخدمين
+
+      user:
+        admin: مشرف
+        anonymized: مجهولة المصدر
+        auth_token: رمز أصيل
+        banned: حظر
+        chat_users: للمستخدمين الدردشة
+        chats: دردشات
+        company: شركة
+        description: وصف
+        education: التعليم
+        email: البريد الإلكتروني
+        first_name: الاسم الاول
+        ignored_notifications_mask: تخفي الإخطارات تجاهل
+        job_experience: خبرة العمل
+        job_users: للمستخدمين العمل
+        jobs: وظائف
+        language: لغة
+        languages: اللغات
+        last_name: الكنية
+        latitude: خط العرض
+        longitude: خط الطول
+        messages: رسائل
+        one_time_token: رمز مرة واحدة
+        one_time_token_expires_at: تنتهي واحدة رمز الوقت في
+        owned_jobs: وظائف المملوكة
+        password_hash: تجزئة كلمة مرور
+        password_salt: كلمة الملح
+        phone: هاتف
+        skills: مهارات
+        ssn: Social Security Number
+        street: شارع
+        user_images: صور المستخدم
+        user_languages: اللغات العضو
+        user_skills: مهارات المستخدمين
+        written_comments: تعليقات مكتوبة
+        zip: الرمز البريدي
+        zip_latitude: خط العرض البريدي
+        zip_longitude: الرمز البريدي الطول
+
+      user_image:
+        image_content_type: صورة نوع المحتوى
+        image_file_name: اسم ملف الصورة
+        image_file_size: حجم ملف الصورة
+        image_updated_at: صورة محدثة في
+        one_time_token: رمز مرة واحدة
+        one_time_token_expires_at: تنتهي واحدة رمز الوقت في
+        user: مستخدم
+
+      user_language:
+        language: لغة
+        user: مستخدم
+
+      user_skill:
+        skill: مهارة
+        user: مستخدم

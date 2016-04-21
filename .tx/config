@@ -1,9 +1,20 @@
 [main]
 host = https://www.transifex.com
-lang_map = sv_SE: sv
 
 [justmatch-api.enyml]
 file_filter = config/locales/<lang>.yml
 source_file = config/locales/en.yml
+source_lang = en
+type = YML
+
+[justmatch-api.railsenyml]
+file_filter = config/locales/rails/rails.<lang>.yml
+source_file = config/locales/rails/rails.en.yml
+source_lang = en
+type = YML
+
+[justmatch-api.modelsenyml]
+file_filter = config/locales/models/models.<lang>.yml
+source_file = config/locales/models/models.en.yml
 source_lang = en
 type = YML

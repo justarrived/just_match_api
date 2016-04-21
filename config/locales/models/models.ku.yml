@@ -1,0 +1,205 @@
+ku:
+  activerecord:
+    models:
+      category: Liq
+      chat: Galgalî
+      chat_user: user Chat
+      comment: Agahkişî
+      company: Şîrket
+      company_image: image Company
+      contact: Têkelî
+      currency: Diravcins
+      faq: faq
+      hourly_pay: 'pay Saetan:'
+      invoice: Biha
+      job: Kar
+      job_skill: skill Job
+      job_user: user Job
+      language: Ziman
+      message: Agah
+      rating: Rating
+      skill: Jîrî
+      user: Bikaranîvan
+      user_image: image Bikarhêner
+      user_language: Bikarhêner ziman
+      user_skill: skill Bikarhêner
+
+    attributes:
+      category:
+        jobs: Jobs
+        name: Nav
+
+      chat:
+        chat_users: bikarhênerên Chat
+        messages: Messages
+        users: Bikarhêner li
+
+      chat_user:
+        chat: Galgalî
+        user: Bikaranîvan
+
+      comment:
+        body: Beden
+        hidden: veşartî
+        language: Ziman
+
+      company:
+        cin: cin
+        company_images: images Company
+        jobs: Jobs
+        name: Nav
+        users: Bikarhêner li
+        website: Website
+
+      company_image:
+        company: Şîrket
+        image_content_type: Wêne type naveroka
+        image_file_name: Navê pelê Wêne
+        image_file_size: mezinbûnê data Wêne
+        image_updated_at: Wêne ve li
+        one_time_token: token One time
+        one_time_token_expires_at: One time token heta li
+
+      contact:
+        body: Beden
+        email: Email
+        name: Nav
+
+      currency:
+        currency_code: code Exchange
+
+      faq:
+        answer: Bersiv
+        language: Ziman
+        question: Pirs
+
+      hourly_pay:
+        active: Jîr
+        currency: Diravcins
+        jobs: Jobs
+        rate: Qûrs
+
+      invoice:
+        job_user: Kar_user
+
+      job:
+        category: Liq
+        comments: Comments
+        company: Şîrket
+        description: Terîf
+        hidden: veşartî
+        hourly_pay: 'pay Saetan:'
+        hours: saetan
+        job_date: date Job
+        job_end_date: Job roja dawî
+        job_skills: zanîna Job
+        job_users: bikarhênerên Job
+        language: Ziman
+        latitude: Firehî
+        longitude: Dirêjî
+        name: Nav
+        skills: Management
+        street: Rêgah
+        users: Bikarhêner li
+        verified: Sîîrtê
+        zip: zip
+        zip_latitude: latitude zip
+        zip_longitude: Zip longitude
+
+      job_skill:
+        job: Kar
+        skill: Jîrî
+
+      job_user:
+        accepted: qebûlkirin
+        accepted_at: pejirandî li
+        invoice: Biha
+        job: Kar
+        performed: performed
+        user: Bikaranîvan
+        will_perform: dê pêkanîna
+
+      language:
+        direction: Ber
+        en_name: navê en
+        jobs: Jobs
+        lang_code: code lang
+        local_name: navê herêmî
+        system_language: zimanê System
+        user_languages: Bikarhêner ziman
+        users: Bikarhêner li
+
+      message:
+        body: Beden
+        chat: Galgalî
+        integer: integer
+        language: Ziman
+
+      rating:
+        comment: Agahkişî
+        job: Kar
+        score: Rewşa nixtan
+
+      skill:
+        job_skills: zanîna Job
+        jobs: Jobs
+        language: Ziman
+        name: Nav
+        user_skills: zanîna Bikarhêner
+        users: Bikarhêner li
+
+      user:
+        admin: admin
+        anonymized: veşartî
+        auth_token: token Auth
+        banned: qedexekirin,
+        chat_users: bikarhênerên Chat
+        chats: Chats
+        company: Şîrket
+        description: Terîf
+        education: Zanyarî
+        email: Email
+        first_name: Nav
+        ignored_notifications_mask: notifications hesibandin mask
+        job_experience: praktîkê de
+        job_users: bikarhênerên Job
+        jobs: Jobs
+        language: Ziman
+        languages: languages
+        last_name: Paşnav
+        latitude: Firehî
+        longitude: Dirêjî
+        messages: Messages
+        one_time_token: token One time
+        one_time_token_expires_at: One time token heta li
+        owned_jobs: karên firot
+        password_hash: hash Password
+        password_salt: xwê Password
+        phone: Phone
+        skills: Management
+        ssn: Ssn
+        street: Rêgah
+        user_images: images Bikarhêner
+        user_languages: Bikarhêner ziman
+        user_skills: zanîna Bikarhêner
+        written_comments: şîroveyên nivîskî
+        zip: zip
+        zip_latitude: latitude zip
+        zip_longitude: Zip longitude
+
+      user_image:
+        image_content_type: Wêne type naveroka
+        image_file_name: Navê pelê Wêne
+        image_file_size: mezinbûnê data Wêne
+        image_updated_at: Wêne ve li
+        one_time_token: token One time
+        one_time_token_expires_at: One time token heta li
+        user: Bikaranîvan
+
+      user_language:
+        language: Ziman
+        user: Bikaranîvan
+
+      user_skill:
+        skill: Jîrî
+        user: Bikaranîvan
