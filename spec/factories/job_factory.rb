@@ -10,16 +10,19 @@ FactoryGirl.define do
     association :category
     association :hourly_pay
     job_date 1.week.from_now
+    job_end_date 2.weeks.from_now
     hours 3
 
     factory :passed_job do
-      job_date 1.week.ago
+      job_date 7.days.ago
+      job_end_date 6.days.ago
       # Since a job can't be screated thats in the passed we need to skip validations
       to_create { |instance| instance.save(validate: false) }
     end
 
     factory :inprogress_job do
       job_date Time.zone.now - 1.hour
+      job_end_date 1.day.from_now
       hours 4
       # Since a job can't be created thats in the passed we need to skip validations
       to_create { |instance| instance.save(validate: false) }
@@ -27,6 +30,7 @@ FactoryGirl.define do
 
     factory :future_job do
       job_date 1.week.from_now
+      job_end_date 2.weeks.from_now
     end
 
     factory :job_with_comments do

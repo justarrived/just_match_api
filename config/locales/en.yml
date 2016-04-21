@@ -14,9 +14,10 @@ en:
       job_user_accepted: user must be the accepted applicant before an invoice can be created
       frilans_finans_id: failed to connect to Frilans Finans, please try again later
     job:
-      job_date_in_the_past: job date must be in the future
-      hourly_pay_active: hourly pay must be active
+      job_date_in_the_past: must be in the future
+      hourly_pay_active: must be active
       update_not_allowed_when_accepted: job can't be updated as it has been accepted by the user
+      job_end_date_after_job_date: must be after job date
     job_user:
       not_owner_of_job: can't be both job owner and job applicant
       multiple_applicants: can't accept multiple applicants
