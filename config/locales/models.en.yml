@@ -1,0 +1,224 @@
+en:
+  activerecord:
+    models:
+      blazer/query: Blazer/query
+      category: Category
+      chat: Chat
+      chat_user: Chat user
+      comment: Comment
+      company: Company
+      company_image: Company image
+      contact: Contact
+      currency: Currency
+      faq: Faq
+      hourly_pay: Hourly pay
+      invoice: Invoice
+      job: Job
+      job_skill: Job skill
+      job_user: Job user
+      language: Language
+      message: Message
+      rating: Rating
+      skill: Skill
+      user: User
+      user_image: User image
+      user_language: User language
+      user_skill: User skill
+
+    attributes:
+      blazer/query:
+        audits: Audits
+        checks: Checks
+        creator: Creator
+        dashboard_queries: Dashboard queries
+        dashboards: Dashboards
+        data_source: Data source
+        description: Description
+        name: Name
+        statement: Statement
+
+      category:
+        jobs: Jobs
+        name: Name
+
+      chat:
+        chat_users: Chat users
+        messages: Messages
+        users: Users
+
+      chat_user:
+        chat: Chat
+        user: User
+
+      comment:
+        body: Body
+        commentable: Commentable
+        commentable_type: Commentable type
+        hidden: Hidden
+        language: Language
+        owner: Owner
+
+      company:
+        cin: Swedish organisation number
+        company_images: Company images
+        jobs: Jobs
+        name: Name
+        users: Users
+        website: Website
+
+      company_image:
+        company: Company
+        image_content_type: Image content type
+        image_file_name: Image file name
+        image_file_size: Image file size
+        image_updated_at: Image updated at
+        one_time_token: One time token
+        one_time_token_expires_at: One time token expires at
+
+      contact:
+        body: Body
+        email: Email
+        name: Name
+
+      currency:
+        currency_code: Currency code
+
+      faq:
+        answer: Answer
+        language: Language
+        question: Question
+
+      hourly_pay:
+        active: Active
+        currency: Currency
+        jobs: Jobs
+        rate: Rate
+
+      invoice:
+        job_user: Applicant
+
+      job:
+        category: Category
+        comments: Comments
+        company: Company
+        description: Description
+        hidden: Hidden
+        hourly_pay: Hourly Pay
+        hours: Hours
+        job_date: Job date
+        job_end_date: Job end date
+        job_skills: Job skills
+        job_users: Job users
+        language: Language
+        latitude: Latitude
+        longitude: Longitude
+        name: Name
+        owner: Owner
+        skills: Skills
+        street: Street
+        users: Users
+        verified: Verified
+        zip: Zip
+        zip_latitude: Zip latitude
+        zip_longitude: Zip longitude
+
+      job_skill:
+        job: Job
+        skill: Skill
+
+      job_user:
+        accepted: Accepted
+        accepted_at: Accepted at
+        invoice: Invoice
+        job: Job
+        performed: Performed
+        user: User
+        will_perform: Will perform
+
+      language:
+        direction: Direction
+        en_name: En name
+        jobs: Jobs
+        lang_code: Lang code
+        local_name: Local name
+        system_language: System language
+        user_languages: User languages
+        users: Users
+
+      message:
+        author: Author
+        body: Body
+        chat: Chat
+        integer: Integer
+        language: Language
+
+      rating:
+        comment: Comment
+        from_user: From_user
+        job: Job
+        score: Score
+        to_user: To_user
+
+      skill:
+        job_skills: Job skills
+        jobs: Jobs
+        language: Language
+        name: Name
+        user_skills: User skills
+        users: Users
+
+      user:
+        admin: Admin
+        anonymized: Anonymized
+        auth_token: Auth token
+        banned: Banned
+        chat_users: Chat users
+        chats: Chats
+        company: Company
+        description: Description
+        education: Education
+        email: Email
+        first_name: First name
+        ignored_notifications_mask: Ignored notifications mask
+        job_experience: Job experience
+        job_users: Job users
+        jobs: Jobs
+        language: Language
+        languages: Languages
+        last_name: Last name
+        latitude: Latitude
+        longitude: Longitude
+        messages: Messages
+        one_time_token: One time token
+        one_time_token_expires_at: One time token expires at
+        owned_jobs: Owned jobs
+        password_hash: Password hash
+        password_salt: Password salt
+        phone: Phone
+        skills: Skills
+        ssn: Ssn
+        street: Street
+        user_images: User images
+        user_languages: User languages
+        user_skills: User skills
+        written_comments: Written comments
+        zip: Zip
+        zip_latitude: Zip latitude
+        zip_longitude: Zip longitude
+
+      user_image:
+        image_content_type: Image content type
+        image_file_name: Image file name
+        image_file_size: Image file size
+        image_updated_at: Image updated at
+        one_time_token: One time token
+        one_time_token_expires_at: One time token expires at
+        user: User
+
+      user_language:
+        language: Language
+        user: User
+
+      user_skill:
+        skill: Skill
+        user: User
