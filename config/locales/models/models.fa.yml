@@ -1,0 +1,205 @@
+fa:
+  activerecord:
+    models:
+      category: دسته بندی
+      chat: گپ
+      chat_user: کاربران چت
+      comment: اظهار نظر
+      company: شرکت
+      company_image: تصویر شرکت
+      contact: تماس
+      currency: واحد پول
+      faq: پرسش و پاسخ
+      hourly_pay: پرداخت ساعتی
+      invoice: صورتحساب
+      job: کار
+      job_skill: مهارت های شغلی
+      job_user: کاربران شغلی
+      language: زبان
+      message: پیام
+      rating: رتبه
+      skill: مهارت
+      user: کاربر
+      user_image: تصویر کاربر
+      user_language: زبان کاربر
+      user_skill: مهارت کاربران
+
+    attributes:
+      category:
+        jobs: شغل ها
+        name: نام
+
+      chat:
+        chat_users: کاربران چت
+        messages: پیام
+        users: کاربران
+
+      chat_user:
+        chat: گپ
+        user: کاربر
+
+      comment:
+        body: بدن
+        hidden: پنهان
+        language: زبان
+
+      company:
+        cin: CIN
+        company_images: تصاویر شرکت
+        jobs: شغل ها
+        name: نام
+        users: کاربران
+        website: سایت اینترنتی
+
+      company_image:
+        company: شرکت
+        image_content_type: تصویر نوع محتوا
+        image_file_name: نام فایل تصویر
+        image_file_size: اندازه فایل تصویر
+        image_updated_at: تصویر به روز شده در
+        one_time_token: رمز یک بار
+        one_time_token_expires_at: یک بار رمز منقضی می شود در
+
+      contact:
+        body: بدن
+        email: پست الکترونیک
+        name: نام
+
+      currency:
+        currency_code: کد ارز
+
+      faq:
+        answer: پاسخ
+        language: زبان
+        question: سوال
+
+      hourly_pay:
+        active: فعال
+        currency: واحد پول
+        jobs: شغل ها
+        rate: نرخ
+
+      invoice:
+        job_user: کاربران شغلی
+
+      job:
+        category: دسته بندی
+        comments: نظرات
+        company: شرکت
+        description: شرح
+        hidden: پنهان
+        hourly_pay: پرداخت ساعتی
+        hours: ساعت ها
+        job_date: تاریخ های شغلی
+        job_end_date: شغلی تاریخ پایان
+        job_skills: مهارت های شغلی
+        job_users: کاربران شغلی
+        language: زبان
+        latitude: عرض جغرافیایی
+        longitude: عرض جغرافیایی
+        name: نام
+        skills: مهارت ها
+        street: خیابان
+        users: کاربران
+        verified: تایید شده
+        zip: زیپ
+        zip_latitude: عرض جغرافیایی پستی
+        zip_longitude: پستی طول جغرافیایی
+
+      job_skill:
+        job: کار
+        skill: مهارت
+
+      job_user:
+        accepted: پذیرفته شده
+        accepted_at: پذیرفته شده در
+        invoice: صورتحساب
+        job: کار
+        performed: انجام
+        user: کاربر
+        will_perform: انجام خواهد شد
+
+      language:
+        direction: جهت
+        en_name: نام EN
+        jobs: شغل ها
+        lang_code: کد لنگ
+        local_name: نام محلی
+        system_language: زبان سیستم
+        user_languages: زبان کاربر
+        users: کاربران
+
+      message:
+        body: بدن
+        chat: گپ
+        integer: عدد صحیح
+        language: زبان
+
+      rating:
+        comment: اظهار نظر
+        job: کار
+        score: نمره
+
+      skill:
+        job_skills: مهارت های شغلی
+        jobs: شغل ها
+        language: زبان
+        name: نام
+        user_skills: مهارت های کاربر
+        users: کاربران
+
+      user:
+        admin: مدیر سایت
+        anonymized: بینام
+        auth_token: کد تأیید اعتبار
+        banned: ممنوع
+        chat_users: کاربران چت
+        chats: چت
+        company: شرکت
+        description: شرح
+        education: تحصیلات
+        email: پست الکترونیک
+        first_name: نام
+        ignored_notifications_mask: اطلاعیه نادیده گرفته ماسک
+        job_experience: تجربه کاری
+        job_users: کاربران شغلی
+        jobs: شغل ها
+        language: زبان
+        languages: زبان ها
+        last_name: نام خانوادگی
+        latitude: عرض جغرافیایی
+        longitude: عرض جغرافیایی
+        messages: پیام
+        one_time_token: رمز یک بار
+        one_time_token_expires_at: یک بار رمز منقضی می شود در
+        owned_jobs: شغل متعلق به
+        password_hash: هش رمز عبور
+        password_salt: نمک رمز عبور
+        phone: تلفن
+        skills: مهارت ها
+        ssn: SSN
+        street: خیابان
+        user_images: تصاویر کاربر
+        user_languages: زبان کاربر
+        user_skills: مهارت های کاربر
+        written_comments: نظرات نوشته شده
+        zip: زیپ
+        zip_latitude: عرض جغرافیایی پستی
+        zip_longitude: پستی طول جغرافیایی
+
+      user_image:
+        image_content_type: تصویر نوع محتوا
+        image_file_name: نام فایل تصویر
+        image_file_size: اندازه فایل تصویر
+        image_updated_at: تصویر به روز شده در
+        one_time_token: رمز یک بار
+        one_time_token_expires_at: یک بار رمز منقضی می شود در
+        user: کاربر
+
+      user_language:
+        language: زبان
+        user: کاربر
+
+      user_skill:
+        skill: مهارت
+        user: کاربر
