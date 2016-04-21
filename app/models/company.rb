@@ -9,6 +9,8 @@ class Company < ApplicationRecord
   validates :cin, uniqueness: true, length: { is: 10 }, allow_blank: false
   validates :frilans_finans_id, uniqueness: true, allow_nil: true
 
+  validate :validate_website_with_protocol
+
   # Virtual attributes for Frilans Finans
   attr_accessor :email, :street, :zip, :city, :country, :contact, :phone
 
@@ -17,6 +19,18 @@ class Company < ApplicationRecord
 
     company_image = CompanyImage.find_by_one_time_token(token)
     self.company_images = [company_image] unless company_image.nil?
+  end
+
+  def validate_website_with_protocol
+    return if website.nil? || url_starts_with_protocol?(website)
+
+    errors.add(:website, I18n.t('errors.company.website_protocol_missing'))
+  end
+
+  private
+
+  def url_starts_with_protocol?(url)
+    url.starts_with?('http://') || url.starts_with?('https://')
   end
 end
 
