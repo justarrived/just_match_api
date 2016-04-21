@@ -5,40 +5,40 @@ sv:
     mailer:
       invoice_missing_company_frilans_finans_id:
         subject: Admin notis
-        notice: An invoice has been created with a company that lacks Frilans Finans id. See %{company_link} and %{invoice_link}.
+        notice: En faktura har blivit skapad med ett företag som saknar Frilans Finans id. Se %{company_link} och %{invoice_link}.
   errors:
     chat:
-      number_of_users: måste vara mellan %{min}-%{max} användare
+      number_of_users: en chat måste bestå av minst %{min} och %{max} antal användare
     invoice:
-      job_started: måste påbörjats innan en faktura kan skapas
-      job_user_accepted: måste vara den accepterade användaren
-      frilans_finans_id: kan inte vara blank
+      job_started: job måste påbörjats innan en faktura kan skapas
+      job_user_accepted: användaren måste vara accepterat innan en faktura kan bli skapad
+      frilans_finans_id: misslyckad uppkoppling till Frilans Finans, var god försök senare
     job:
-      job_date_in_the_past: kan inte vara i det förflutna
-      hourly_pay_active: timbetalning måste vara aktiv
-      update_not_allowed_when_accepted: kan inte uppdatera jobb när användaren har konfirmerat utförandet
-      job_end_date_after_job_date: måste vara efter jobbets startdatum
+      job_date_in_the_past: måste vara i framtiden
+      hourly_pay_active: måste vara aktiv
+      update_not_allowed_when_accepted: job kan inte uppdateras när jobbet har redan accepterats av användaren
+      job_end_date_after_job_date: måste vara efter jobb datum
     job_user:
       not_owner_of_job: kan inte både vara jobb ägare och jobb sökare
-      multiple_applicants: kan inte acceptera flera användare till ett jobb
-      will_perform_true_on_delete: kan inte tas bort ifall användaren har konfirmerat att de ska utföra jobbet
-      performed_before_job_started: kan inte konfirmera att jobbet är utfört före jobbet är påbörjat
+      multiple_applicants: kan inte acceptera flera användare
+      will_perform_true_on_delete: kan inte dra tillbaka ansökan efter konfirmering
+      performed_before_job_started: kan inte konfirmera jobbet innan det påbörjats
     rating:
       from_user_rated: kan inte rösta flera gånger
       to_user_rated: kan rösta flera gånger
-      comment_user: måste vara ägd av användaren som gör röstningen
-      job_user_concluded: måste vara avslutat
-      user_allowed_to_rate: måste vara job ägaren eller den accepterade användaren
+      comment_user: måste vara användaren själv som gör röstningen
+      job_user_concluded: jobb måste vara utfört
+      user_allowed_to_rate: måste vara jobb ägaren eller den accepterade användaren
     user_session:
-      banned: en administratör har stängt av dig för att du inte har följt våra Terms of agreement eller uppförandekod. Var god kontakta help@justarrived.se, för att åtgärda detta.
+      banned: en administratör har blockerat dig eftersom du inte följt Användarvillkoren. Vad god kontakta help@justarrived.
       wrong_email_or_password: fel epost eller lösenord
     user:
-      password_length: måste vara minst %{count} karaktärer
-      must_be_available_locale: måste vara ett system språk
-      frilans_finans_id: existerar redan
+      password_length: lösenordet måste vara minst %{count} tecken
+      must_be_available_locale: ditt språk stöds tyvärr inte
+      frilans_finans_id: du har redan ett Frilans Finans konto. Var god kontakta help@justarrived.se.
     validators:
       after_true: '%{field} måste vara sant'
-      unrevertable: kan inte återgå till föregående status
+      unrevertable: kan inte återställa %{field}
   invalid_credentials: Fel referenser.
   mailer:
     accepted_applicant_withdrawn:
@@ -76,10 +76,10 @@ sv:
       subject: Grattis! En jobb du har lagt upp har blivit utfört.
     invoice_created:
       congrats_line: Grattis %{name}!
-      contact_line: Om du har har några sista frågor, kan du kontakta dem på %{email}.
-      job_line: 'Jobbet du utförde var: ''%{name}''.'
-      performed_line: "%{name} har verifierat att du har utfört ett jobb."
-      subject: Grattis! Ett jobb du har utfört har blivit accepterat.
+      contact_line: Om du har några avslutande frågor kan du kontakta %{email}.
+      job_line: 'Jobbet du har utfört: ''%{name}''.'
+      performed_line: "%{name} har verifierat att du har har utfört jobbet."
+      subject: Grattis! ett jobb du har utfört har blivit accepterat.
     new_applicant:
       applicant_line: Användaren är '%{name}' och bor i ditt område.
       congrats_line: Grattis %{name}!
@@ -96,11 +96,11 @@ sv:
     signoff: Ha en bra dag!
   not_logged_in_error: Måste vara inloggad.
   notifications:
-    accepted_applicant_confirmation_overdue: Accepterad ansökandes bekräftelse förfallet
-    accepted_applicant_withdrawn: Accepterad ansökande har dragit sig tillbaka
-    applicant_accepted: Ansökande har accepterat
-    applicant_will_perform: Ansökande konfirmerat att de kommer utföra jobbet
-    invoice_created: Utfört jobb accepterat
-    job_user_performed: Ansökande har konfirmerat jobb utförande
+    accepted_applicant_confirmation_overdue: Den accepterade användarens konfirmationsperiod har gått ut
+    accepted_applicant_withdrawn: Den accepterade användaren har dragit tillbaka sin ansökan
+    applicant_accepted: Du har blivit accepterade för ett jobb
+    applicant_will_perform: Användaren har konfirmerat acceptansen
+    invoice_created: Faktura skapad
+    job_user_performed: Användaren har konfirmerat att de utfört jobbet
     new_applicant: Ny ansökande
     user_job_match: Ny jobb matchning

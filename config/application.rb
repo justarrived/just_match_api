@@ -24,7 +24,8 @@ module JustMatch
     # en  - English
     # sv  - Swedish
     # ar  - Arabic
-    # ku  - Kurdish (partial Rails translation)
+    # fa  - Persian (Farsi)
+    # ku  - Kurdish [partial Rails translation locally]
     config.i18n.available_locales = [:en, :sv, :ar, :fa, :ku]
     config.i18n.load_path += Dir[
       Rails.root.join('config', 'locales', '**', '*.{rb,yml}')

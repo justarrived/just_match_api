@@ -1,0 +1,28 @@
+fa:
+  errors:
+    format: "%{attribute} %{message}"
+    messages:
+      accepted: باید پذیرفته شود
+      blank: نباید خالی باشد
+      confirmation: با تایید نمی‌خواند
+      empty: نمی‌تواند خالی باشد
+      equal_to: باید برابر %{count} باشد
+      even: باید زوج باشد
+      exclusion: رزرو است
+      greater_than: باید بزرگتر از %{count} باشد
+      greater_than_or_equal_to: باید بزرگتر یا برابر %{count} باشد
+      inclusion: در لیست موجود نیست
+      invalid: نامعتبر است
+      less_than: باید کمتر از %{count} باشد
+      less_than_or_equal_to: باید کمتر یا برابر %{count} باشد
+      not_a_number: عدد نیست
+      not_an_integer: عدد صحیح نیست
+      odd: باید فرد باشد
+      record_invalid: 'رکورد نامعتبر است %{errors}'
+      taken: پیشتر گرفته شده
+      too_long:
+        other: بلند است (حداکثر %{count} کاراکتر)
+      too_short:
+        other: کوتاه است (حداقل %{count} کاراکتر)
+      wrong_length:
+        other: نااندازه است (باید %{count} کاراکتر باشد)

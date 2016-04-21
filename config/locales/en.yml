@@ -35,7 +35,7 @@ en:
     user:
       password_length: password must have at least %{count} characters
       must_be_available_locale: must be a supported langauge
-      frilans_finans_id: you already have a Frilans Finans account. Please contect help@justarrived.se, to resolve this issue.
+      frilans_finans_id: you already have a Frilans Finans account. Please contact help@justarrived.se, to resolve this issue.
     validators:
       after_true: '%{field} must be true'
       unrevertable: can't revert %{field}

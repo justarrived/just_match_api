@@ -148,7 +148,7 @@ To push or pull new translations, you need to install the [Transifex client](htt
 __Fetch translations from transifex__
 
 ```
-$ tx pull -a
+$ tx pull -a -f
 ```
 
 __Push source language file to transifex__
