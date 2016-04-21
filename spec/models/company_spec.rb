@@ -21,6 +21,32 @@ RSpec.describe Company, type: :model do
       expect(company.company_images.first).to be_nil
     end
   end
+
+  describe '#validate_website_with_protocol' do
+    it 'adds error unless website start with protocol' do
+      company = FactoryGirl.build(:company, website: 'example.com')
+      company.validate
+
+      message = I18n.t('errors.company.website_protocol_missing')
+      expect(company.errors.messages[:website]).to include(message)
+    end
+
+    it 'adds *no* error if website start with http:// protocol' do
+      company = FactoryGirl.build(:company, website: 'http://example.com')
+      company.validate
+
+      message = I18n.t('errors.company.website_protocol_missing')
+      expect(company.errors.messages[:website] || []).not_to include(message)
+    end
+
+    it 'adds *no* error if website start with https:// protocol' do
+      company = FactoryGirl.build(:company, website: 'https://example.com')
+      company.validate
+
+      message = I18n.t('errors.company.website_protocol_missing')
+      expect(company.errors.messages[:website] || []).not_to include(message)
+    end
+  end
 end
 
 # == Schema Information
