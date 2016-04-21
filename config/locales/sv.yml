@@ -17,6 +17,7 @@ sv:
       job_date_in_the_past: kan inte vara i det förflutna
       hourly_pay_active: timbetalning måste vara aktiv
       update_not_allowed_when_accepted: kan inte uppdatera jobb när användaren har konfirmerat utförandet
+      job_end_date_after_job_date: måste vara efter jobbets startdatum
     job_user:
       not_owner_of_job: kan inte både vara jobb ägare och jobb sökare
       multiple_applicants: kan inte acceptera flera användare till ett jobb

@@ -4,6 +4,8 @@
   "repository": "https://github.com/justarrived/just_match_api",
   "keywords": [],
   "env": {
+    AIRBRAKE_PROJECT_ID=''
+    AIRBRAKE_API_KEY=''
     "RAILS_ENV": "production",
     "SECRET_KEY_BASE": {
       "description": "Rails secret token",
@@ -40,7 +42,7 @@
       "required": false
     }
   },
-  "addons": ["sendgrid:starter", "scheduler:standard", "heroku-redis:hobby-dev"],
+  "addons": ["sendgrid:starter", "scheduler:standard", "heroku-redis:hobby-dev", "airbrake:free_heroku"],
   "scripts": {
     "postdeploy": "bundle exec rake db:migrate db:seed"
   }

@@ -30,10 +30,12 @@ class Job < ApplicationRecord
   validates :street, length: { minimum: 5 }, allow_blank: false
   validates :zip, length: { minimum: 5 }, allow_blank: false
   validates :job_date, presence: true
+  validates :job_end_date, presence: true
   validates :owner, presence: true
   validates :hours, numericality: { greater_than_or_equal_to: 1 }, allow_blank: false
 
   validate :validate_job_date_in_future
+  validate :validate_job_end_date_after_job_date
   validate :validate_hourly_pay_active
 
   belongs_to :owner, class_name: 'User', foreign_key: 'owner_user_id'
@@ -122,6 +124,12 @@ class Job < ApplicationRecord
     errors.add(:job_date, I18n.t('errors.job.job_date_in_the_past'))
   end
 
+  def validate_job_end_date_after_job_date
+    return if job_date.nil? || job_end_date.nil? || job_end_date > job_date
+
+    errors.add(:job_end_date, I18n.t('errors.job.job_end_date_after_job_date'))
+  end
+
   def validate_hourly_pay_active
     return if hourly_pay.nil? || hourly_pay.active
 
@@ -152,6 +160,7 @@ end
 #  category_id   :integer
 #  hourly_pay_id :integer
 #  verified      :boolean          default(FALSE)
+#  job_end_date  :datetime
 #
 # Indexes
 #

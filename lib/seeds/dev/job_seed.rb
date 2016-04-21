@@ -10,11 +10,14 @@ module Dev
       log_seed(Job, Comment) do
         max_jobs.times do
           address = addresses.sample
-          hours = (3..10).to_a.sample
+          hours = (7..40).to_a.sample
+          job_date_days = (2..10).to_a.sample.days
+
           job = Job.create!(
             name: Faker::Name.name,
             description: Faker::Hipster.paragraph(2),
-            job_date: (1..10).to_a.sample.days.from_now,
+            job_date: job_date_days.from_now,
+            job_end_date: (job_date_days + 5).from_now,
             owner: users.sample,
             street: address[:street],
             zip: address[:zip],
@@ -23,8 +26,11 @@ module Dev
             category: categories.sample,
             hourly_pay: hourly_pays.sample
           )
+
           if [0, 1].sample.even?
-            job.job_date = (1..10).to_a.sample.days.ago
+            job_date_days = (2..10).to_a.sample.days
+            job.job_date = job_date_days.ago
+            job.job_end_date = (job_date_days - 5).ago
             job.save(validate: false)
           end
 

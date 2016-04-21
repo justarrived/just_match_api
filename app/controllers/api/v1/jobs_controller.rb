@@ -48,7 +48,8 @@ module Api
           param :hours, Float, desc: 'Estmiated completion time', required: true
           param :name, String, desc: 'Name', required: true
           param :description, String, desc: 'Description', required: true
-          param :'job-date', String, desc: 'Job date', required: true
+          param :'job-date', String, desc: 'Job start date', required: true
+          param :'job-end-date', String, desc: 'Job end date', required: true
           param :'language-id', Integer, desc: 'Langauge id of the text content', required: true
           param :'hourly-pay-id', Integer, desc: 'Hourly pay id', required: true
           param :'skill-ids', Array, of: Integer, desc: 'List of skill ids', required: true
@@ -88,7 +89,8 @@ module Api
         param :attributes, Hash, desc: 'Job attributes', required: true do
           param :name, String, desc: 'Name'
           param :description, String, desc: 'Description'
-          param :'job-date', String, desc: 'Job date'
+          param :'job-date', String, desc: 'Job start date'
+          param :'job-end-date', String, desc: 'Job end date'
           param :hours, Float, desc: 'Estmiated completion time'
           param :'language-id', Integer, desc: 'Langauge id of the text content'
           param :'hourly-pay-id', Integer, desc: 'Hourly pay id'

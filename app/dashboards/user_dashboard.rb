@@ -24,7 +24,8 @@ class UserDashboard < Administrate::BaseDashboard
     chats: Field::HasMany,
     messages: Field::HasMany,
     id: Field::Number,
-    name: Field::String,
+    first_name: Field::String,
+    last_name: Field::String,
     email: Field::String,
     phone: Field::String,
     zip: Field::String,
@@ -51,7 +52,8 @@ class UserDashboard < Administrate::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
-    :name,
+    :first_name,
+    :last_name,
     :language,
     :user_skills,
     :skills,
@@ -61,6 +63,10 @@ class UserDashboard < Administrate::BaseDashboard
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = [
+    :first_name,
+    :last_name,
+    :email,
+    :phone,
     :language,
     :user_skills,
     :skills,
@@ -75,9 +81,6 @@ class UserDashboard < Administrate::BaseDashboard
     :messages,
     :id,
     :frilans_finans_id,
-    :name,
-    :email,
-    :phone,
     :description,
     :created_at,
     :updated_at,
@@ -98,6 +101,9 @@ class UserDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
+    :first_name,
+    :last_name,
+    :email,
     :language,
     :user_skills,
     :skills,
@@ -110,8 +116,6 @@ class UserDashboard < Administrate::BaseDashboard
     :chat_users,
     :chats,
     :messages,
-    :name,
-    :email,
     :phone,
     :description,
     :latitude,

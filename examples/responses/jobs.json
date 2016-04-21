@@ -16,7 +16,8 @@
         "zip": "223 52",
         "zip-latitude": 59.7117339,
         "zip-longitude": 18.4256286,
-        "verified": false
+        "verified": false,
+        "job-end-date": "2016-05-05 08:31:07 +0200"
       },
       "relationships": {
         "comments": {

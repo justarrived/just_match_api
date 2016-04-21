@@ -184,6 +184,30 @@ RSpec.describe Job, type: :model do
     end
   end
 
+  describe '#validate_job_end_date_after_job_date' do
+    it 'adds error if job end date is before job date' do
+      attributes = { job_date: 2.days.from_now, job_end_date: 1.day.from_now }
+      job = FactoryGirl.build(:job, attributes)
+      job.validate
+      message = I18n.t('errors.job.job_end_date_after_job_date')
+      expect(job.errors.messages[:job_end_date]).to include(message)
+    end
+
+    it 'adds *no* error if the job_end_date is nil' do
+      job = FactoryGirl.build(:job, job_end_date: nil)
+      job.validate
+      message = I18n.t('errors.job.job_end_date_after_job_date')
+      expect(job.errors.messages[:job_end_date]).not_to include(message)
+    end
+
+    it 'adds *no* error if the job_date is in the future' do
+      job = FactoryGirl.build(:job, job_end_date: 1.week.from_now)
+      job.validate
+      message = I18n.t('errors.job.job_end_date_after_job_date')
+      expect(job.errors.messages[:job_end_date] || []).not_to include(message)
+    end
+  end
+
   describe '#validate_hourly_rate_active' do
     it 'adds error if the hourly pay is *not* active' do
       hourly_pay = FactoryGirl.build(:inactive_hourly_pay)
