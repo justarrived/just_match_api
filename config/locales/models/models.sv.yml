@@ -1,0 +1,201 @@
+sv:
+  activerecord:
+    models:
+      blazer/query: Blazer / query
+      category: Kategori
+      chat: Chatt
+      chat_user: Chat användaren
+      comment: Kommentar
+      company: Företag
+      company_image: Företagets image
+      contact: Kontakta
+      currency: Valuta
+      faq: Faq
+      hourly_pay: Timlön
+      invoice: Faktura
+      job: Jobb
+      job_skill: Jobb skill
+      job_user: Jobb användaren
+      language: Språk
+      message: Meddelande
+      rating: Betyg
+      skill: Skicklighet
+      user: Användare
+      user_image: Användarbild
+      user_language: Användarspråk
+      user_skill: Användarskicklighet
+    attributes:
+      blazer/query:
+        audits: Revisioner
+        checks: Checkar
+        creator: Skapare
+        dashboard_queries: Instrumentbrädan sökfrågor
+        dashboards: Instrumentpaneler
+        data_source: Datakälla
+        description: Beskrivning
+        name: Namn
+        statement: Påstående
+      category:
+        jobs: Jobb
+        name: Namn
+      chat:
+        chat_users: Chattanvändare
+        messages: Meddelanden
+        users: Användare
+      chat_user:
+        chat: Chatt
+        user: Användare
+      comment:
+        body: Kropp
+        commentable: Kommentarsbar
+        commentable_type: Commentable typ
+        hidden: Dold
+        language: Språk
+        owner: Ägare
+      company:
+        cin: Cin
+        company_images: Företaget bilder
+        jobs: Jobb
+        name: Namn
+        users: Användare
+        website: Webbplats
+      company_image:
+        company: Företag
+        image_content_type: Bildinnehåll typ
+        image_file_name: Bild filnamn
+        image_file_size: Filstorleken
+        image_updated_at: Bild uppdateras
+        one_time_token: En gång token
+        one_time_token_expires_at: En gång token går ut på
+      contact:
+        body: Kropp
+        email: E-post
+        name: Namn
+      currency:
+        currency_code: Valutakod
+      faq:
+        answer: Svar
+        language: Språk
+        question: Fråga
+      hourly_pay:
+        active: Aktiva
+        currency: Valuta
+        jobs: Jobb
+        rate: Betygsätta
+      invoice:
+        job_user: Jobb_user
+      job:
+        category: :activerecord.models.category
+        comments: Kommentarer
+        company: Företag
+        description: Beskrivning
+        hidden: Dold
+        hourly_pay: :activerecord.models.hourly_pay
+        hours: Timmar
+        job_date: Jobbdatum
+        job_end_date: Jobb slutdatum
+        job_skills: Arbetserfarenheter
+        job_users: Jobb användare
+        language: Språk
+        latitude: Latitud
+        longitude: Longitud
+        name: Namn
+        owner: Ägare
+        skills: Färdigheter
+        street: Gata
+        users: Användare
+        verified: Verifierade
+        zip: Blixtlås
+        zip_latitude: Zip latitud
+        zip_longitude: Zip longitud
+      job_skill:
+        job: Jobb
+        skill: :activerecord.models.skill
+      job_user:
+        accepted: Accepterad
+        accepted_at: Accepteras på
+        invoice: :activerecord.models.invoice
+        job: Jobb
+        performed: Genomförde
+        user: Användare
+        will_perform: Kommer att utföra
+      language:
+        direction: Riktning
+        en_name: Sv namn
+        jobs: Jobb
+        lang_code: Lang-kod
+        local_name: Lokalt namn
+        system_language: Systemspråk
+        user_languages: Användarspråk
+        users: Användare
+      message:
+        author: :activerecord.models.author
+        body: Kropp
+        chat: Chatt
+        integer: Heltal
+        language: Språk
+      rating:
+        comment: Kommentar
+        from_user: Från användare
+        job: Jobb
+        score: Göra
+        to_user: Till användare
+      skill:
+        job_skills: Arbetserfarenheter
+        jobs: Jobb
+        language: Språk
+        name: Namn
+        user_skills: Användar färdigheter
+        users: Användare
+      user:
+        admin: Administration
+        anonymized: Anonym
+        auth_token: Auth token
+        banned: Förbjudits
+        chat_users: Chattanvändare
+        chats: Chattar
+        company: Företag
+        description: Beskrivning
+        education: Utbildning
+        email: E-post
+        first_name: Förnamn
+        ignored_notifications_mask: Ignoreras aviseringar maskera
+        job_experience: Arbetserfarenhet
+        job_users: Jobb användare
+        jobs: Jobb
+        language: Språk
+        languages: Språk
+        last_name: Efternamn
+        latitude: Latitud
+        longitude: Longitud
+        messages: Meddelanden
+        one_time_token: En gång token
+        one_time_token_expires_at: En gång token går ut på
+        owned_jobs: Ägda jobb
+        password_hash: Lösenord hash
+        password_salt: Lösenord salt
+        phone: Telefon
+        skills: Färdigheter
+        ssn: Ssn
+        street: Gata
+        user_images: Användarbilder
+        user_languages: Användarspråk
+        user_skills: Användar färdigheter
+        written_comments: Skriftliga kommentarer
+        zip: Blixtlås
+        zip_latitude: Zip latitud
+        zip_longitude: Zip longitud
+      user_image:
+        image_content_type: Bildinnehåll typ
+        image_file_name: Bild filnamn
+        image_file_size: Filstorleken
+        image_updated_at: Bild uppdateras
+        one_time_token: En gång token
+        one_time_token_expires_at: En gång token går ut på
+        user: Användare
+      user_language:
+        language: Språk
+        user: Användare
+      user_skill:
+        skill: Erfarenheter
+        user: Användare
