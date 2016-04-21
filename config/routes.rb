@@ -7,25 +7,27 @@ end
 
 Rails.application.routes.draw do
   namespace :admin do
-    resources :categories
-    resources :chats
-    resources :comments
+    resources :jobs
+    resources :invoices
+    resources :job_users
+    resources :ratings
+    resources :users
     resources :companies
     resources :contacts
+    resources :comments
     resources :faqs
-    resources :hourly_pays
-    resources :invoices
-    resources :jobs
-    resources :users
     resources :messages
     resources :languages
+    resources :user_images
+    resources :company_images
+    resources :hourly_pays
     resources :user_languages
-    resources :skills
+    resources :categories
     resources :chat_users
+    resources :skills
     resources :job_skills
-    resources :job_users
+    resources :chats
     resources :user_skills
-    resources :ratings
 
     root to: 'jobs#index'
   end
