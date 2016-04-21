@@ -19,7 +19,13 @@ module JustMatch
     config.time_zone = 'Stockholm'
 
     config.i18n.default_locale = :en
-    config.i18n.available_locales = [:en, :sv]
+    # To be added: Dari (prs) & Pashto (ps)
+
+    # en  - English
+    # sv  - Swedish
+    # ar  - Arabic
+    # ku  - Kurdish (partial Rails translation)
+    config.i18n.available_locales = [:en, :sv, :ar, :fa, :ku]
     config.i18n.load_path += Dir[
       Rails.root.join('config', 'locales', '**', '*.{rb,yml}')
     ]
