@@ -18,7 +18,7 @@ gem 'blazer', '~> 1.2' # Explore data with SQL
 # Interact with Frilans Finans API
 gem 'frilans_finans_api', path: 'lib/frilans_finans_api'
 
-gem 'paperclip', '~> 5.0.0.beta1' # Image handler
+gem 'paperclip', '~> 5.0.0.beta2' # Image handler
 gem 'aws-sdk', '~> 2.2' # Upload images to AWS S3
 
 gem 'airbrake' # Error catcher and reporter
@@ -40,7 +40,8 @@ gem 'newrelic_rpm', '~> 3.15' # Performance monitoring
 
 gem 'geocoder', '~> 1.3' # Geocode resources
 
-gem 'administrate', '~> 0.1.5' # Admin dashboard
+gem 'administrate', '~> 0.2' # Admin dashboard
+gem 'administrate-field-image' # Administrate image support
 gem 'uglifier', '~> 3.0' # Needed administrate assets compilation
 
 gem 'pundit', '~> 1.1' # Authorization policies
