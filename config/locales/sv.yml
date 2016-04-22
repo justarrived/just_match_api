@@ -8,7 +8,7 @@ sv:
         notice: En faktura har blivit skapad med ett företag som saknar Frilans Finans id. Se %{company_link} och %{invoice_link}.
   errors:
     company:
-      website_protocol_missing: protokollprefix http:// or https:// saknas
+      website_protocol_missing: protokoll prefix http:// eller https:// saknas
     chat:
       number_of_users: en chat måste bestå av minst %{min} och %{max} antal användare
     invoice:

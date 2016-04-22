@@ -23,26 +23,21 @@ ku:
       user_image: image Bikarhêner
       user_language: Bikarhêner ziman
       user_skill: skill Bikarhêner
-
     attributes:
       category:
         jobs: Jobs
         name: Nav
-
       chat:
         chat_users: bikarhênerên Chat
         messages: Messages
         users: Bikarhêner li
-
       chat_user:
         chat: Galgalî
         user: Bikaranîvan
-
       comment:
         body: Beden
         hidden: veşartî
         language: Ziman
-
       company:
         cin: cin
         company_images: images Company
@@ -50,7 +45,6 @@ ku:
         name: Nav
         users: Bikarhêner li
         website: Website
-
       company_image:
         company: Şîrket
         image_content_type: Wêne type naveroka
@@ -59,29 +53,23 @@ ku:
         image_updated_at: Wêne ve li
         one_time_token: token One time
         one_time_token_expires_at: One time token heta li
-
       contact:
         body: Beden
         email: Email
         name: Nav
-
       currency:
         currency_code: code Exchange
-
       faq:
         answer: Bersiv
         language: Ziman
         question: Pirs
-
       hourly_pay:
         active: Jîr
         currency: Diravcins
         jobs: Jobs
         rate: Qûrs
-
       invoice:
         job_user: Kar_user
-
       job:
         category: Liq
         comments: Comments
@@ -105,11 +93,9 @@ ku:
         zip: zip
         zip_latitude: latitude zip
         zip_longitude: Zip longitude
-
       job_skill:
         job: Kar
         skill: Jîrî
-
       job_user:
         accepted: qebûlkirin
         accepted_at: pejirandî li
@@ -118,7 +104,6 @@ ku:
         performed: performed
         user: Bikaranîvan
         will_perform: dê pêkanîna
-
       language:
         direction: Ber
         en_name: navê en
@@ -128,18 +113,15 @@ ku:
         system_language: zimanê System
         user_languages: Bikarhêner ziman
         users: Bikarhêner li
-
       message:
         body: Beden
         chat: Galgalî
         integer: integer
         language: Ziman
-
       rating:
         comment: Agahkişî
         job: Kar
         score: Rewşa nixtan
-
       skill:
         job_skills: zanîna Job
         jobs: Jobs
@@ -147,7 +129,6 @@ ku:
         name: Nav
         user_skills: zanîna Bikarhêner
         users: Bikarhêner li
-
       user:
         admin: admin
         anonymized: veşartî
@@ -186,7 +167,6 @@ ku:
         zip: zip
         zip_latitude: latitude zip
         zip_longitude: Zip longitude
-
       user_image:
         image_content_type: Wêne type naveroka
         image_file_name: Navê pelê Wêne
@@ -195,11 +175,9 @@ ku:
         one_time_token: token One time
         one_time_token_expires_at: One time token heta li
         user: Bikaranîvan
-
       user_language:
         language: Ziman
         user: Bikaranîvan
-
       user_skill:
         skill: Jîrî
         user: Bikaranîvan

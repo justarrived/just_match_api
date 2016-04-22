@@ -23,26 +23,21 @@ ar:
       user_image: صورة العضو
       user_language: لغة المستخدم
       user_skill: مهارة المستخدم
-
     attributes:
       category:
         jobs: وظائف
         name: اسم
-
       chat:
         chat_users: للمستخدمين الدردشة
         messages: رسائل
         users: المستخدمين
-
       chat_user:
         chat: دردشة
         user: مستخدم
-
       comment:
         body: الجسم
         hidden: مخفي
         language: لغة
-
       company:
         cin: سين
         company_images: صور الشركة
@@ -50,7 +45,6 @@ ar:
         name: اسم
         users: المستخدمين
         website: موقع الكتروني
-
       company_image:
         company: شركة
         image_content_type: صورة نوع المحتوى
@@ -59,29 +53,23 @@ ar:
         image_updated_at: صورة محدثة في
         one_time_token: رمز مرة واحدة
         one_time_token_expires_at: تنتهي واحدة رمز الوقت في
-
       contact:
         body: الجسم
         email: البريد الإلكتروني
         name: اسم
-
       currency:
         currency_code: رمز العملة
-
       faq:
         answer: إجابة
         language: لغة
         question: سؤال
-
       hourly_pay:
         active: نشط
         currency: عملة
         jobs: وظائف
         rate: معدل
-
       invoice:
         job_user: المستخدم العمل
-
       job:
         category: فئة
         comments: تعليقات
@@ -105,11 +93,9 @@ ar:
         zip: الرمز البريدي
         zip_latitude: خط العرض البريدي
         zip_longitude: الرمز البريدي الطول
-
       job_skill:
         job: وظيفة
         skill: مهارة
-
       job_user:
         accepted: قبلت
         accepted_at: قبلت في
@@ -118,7 +104,6 @@ ar:
         performed: تنفيذ
         user: مستخدم
         will_perform: سوف تؤدي
-
       language:
         direction: اتجاه
         en_name: الاسم والشهرة
@@ -128,18 +113,15 @@ ar:
         system_language: لغة النظام
         user_languages: اللغات العضو
         users: المستخدمين
-
       message:
         body: الجسم
         chat: دردشة
         integer: عدد صحيح
         language: لغة
-
       rating:
         comment: التعليق
         job: وظيفة
         score: أحرز هدفاً
-
       skill:
         job_skills: مهارات العمل
         jobs: وظائف
@@ -147,7 +129,6 @@ ar:
         name: اسم
         user_skills: مهارات المستخدمين
         users: المستخدمين
-
       user:
         admin: مشرف
         anonymized: مجهولة المصدر
@@ -186,7 +167,6 @@ ar:
         zip: الرمز البريدي
         zip_latitude: خط العرض البريدي
         zip_longitude: الرمز البريدي الطول
-
       user_image:
         image_content_type: صورة نوع المحتوى
         image_file_name: اسم ملف الصورة
@@ -195,11 +175,9 @@ ar:
         one_time_token: رمز مرة واحدة
         one_time_token_expires_at: تنتهي واحدة رمز الوقت في
         user: مستخدم
-
       user_language:
         language: لغة
         user: مستخدم
-
       user_skill:
         skill: مهارة
         user: مستخدم
