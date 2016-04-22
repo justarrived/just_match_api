@@ -16,8 +16,11 @@ module Api
 
           ### Headers
 
+          __Locale__
 
-          `X-API-LOCALE: en` is used to specify current locale
+          `X-API-LOCALE: en` is used to specify current locale, valid locales are #{I18n.available_locales.map { |locale| "`#{locale}`" }.join(', ')}
+
+          __Authorization__
 
           `Authorization: Token token=XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX`
 
@@ -27,8 +30,8 @@ module Api
 
           Step | Request |
           ----------------------------------------------------------------------------------|:---------------------------------------------|
-          1. User [owner] creates job                                                       | `POST /jobs/`                             |
-          2. Another user [user] can apply to a job by creating a job user                  | `POST /jobs/:job_id/users/`               |
+          1. User (owner) creates job                                                       | `POST /jobs/`                             |
+          2. Another user can apply to a job by creating a job user                         | `POST /jobs/:job_id/users/`               |
           3. Owner can accept a user by updating job user `accepted`                        | `PATCH /jobs/:job_id/users/:job_user_id/` |
           4. User confirms that they will perform a job by updating job user `will-perform` | `PATCH /jobs/:job_id/users/:job_user_id/` |
           5. Owner creates invoice                                                          | `POST /jobs/:job_id/invoices`             |
