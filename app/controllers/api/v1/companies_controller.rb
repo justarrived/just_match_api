@@ -33,7 +33,7 @@ module Api
       ApipieDocHelper.params(self)
       example Doxxer.read_example(Company)
       def show
-        authorize(Company)
+        authorize(@company)
 
         api_render(@company)
       end
