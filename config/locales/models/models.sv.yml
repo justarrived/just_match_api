@@ -1,7 +1,7 @@
 sv:
   activerecord:
     models:
-      blazer/query: Blazer / query
+      blazer/query: Blazer/query
       category: Kategori
       chat: Chatt
       chat_user: Chat användaren

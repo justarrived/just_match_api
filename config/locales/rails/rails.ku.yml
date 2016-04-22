@@ -1,1 +1,4 @@
-ku: {}
+ku:
+  errors:
+    messages:
+      present: divê blanc be

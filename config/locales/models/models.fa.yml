@@ -23,26 +23,21 @@ fa:
       user_image: تصویر کاربر
       user_language: زبان کاربر
       user_skill: مهارت کاربران
-
     attributes:
       category:
         jobs: شغل ها
         name: نام
-
       chat:
         chat_users: کاربران چت
         messages: پیام
         users: کاربران
-
       chat_user:
         chat: گپ
         user: کاربر
-
       comment:
         body: بدن
         hidden: پنهان
         language: زبان
-
       company:
         cin: CIN
         company_images: تصاویر شرکت
@@ -50,7 +45,6 @@ fa:
         name: نام
         users: کاربران
         website: سایت اینترنتی
-
       company_image:
         company: شرکت
         image_content_type: تصویر نوع محتوا
@@ -59,29 +53,23 @@ fa:
         image_updated_at: تصویر به روز شده در
         one_time_token: رمز یک بار
         one_time_token_expires_at: یک بار رمز منقضی می شود در
-
       contact:
         body: بدن
         email: پست الکترونیک
         name: نام
-
       currency:
         currency_code: کد ارز
-
       faq:
         answer: پاسخ
         language: زبان
         question: سوال
-
       hourly_pay:
         active: فعال
         currency: واحد پول
         jobs: شغل ها
         rate: نرخ
-
       invoice:
         job_user: کاربران شغلی
-
       job:
         category: دسته بندی
         comments: نظرات
@@ -105,11 +93,9 @@ fa:
         zip: زیپ
         zip_latitude: عرض جغرافیایی پستی
         zip_longitude: پستی طول جغرافیایی
-
       job_skill:
         job: کار
         skill: مهارت
-
       job_user:
         accepted: پذیرفته شده
         accepted_at: پذیرفته شده در
@@ -118,7 +104,6 @@ fa:
         performed: انجام
         user: کاربر
         will_perform: انجام خواهد شد
-
       language:
         direction: جهت
         en_name: نام EN
@@ -128,18 +113,15 @@ fa:
         system_language: زبان سیستم
         user_languages: زبان کاربر
         users: کاربران
-
       message:
         body: بدن
         chat: گپ
         integer: عدد صحیح
         language: زبان
-
       rating:
         comment: اظهار نظر
         job: کار
         score: نمره
-
       skill:
         job_skills: مهارت های شغلی
         jobs: شغل ها
@@ -147,7 +129,6 @@ fa:
         name: نام
         user_skills: مهارت های کاربر
         users: کاربران
-
       user:
         admin: مدیر سایت
         anonymized: بینام
@@ -186,7 +167,6 @@ fa:
         zip: زیپ
         zip_latitude: عرض جغرافیایی پستی
         zip_longitude: پستی طول جغرافیایی
-
       user_image:
         image_content_type: تصویر نوع محتوا
         image_file_name: نام فایل تصویر
@@ -195,11 +175,9 @@ fa:
         one_time_token: رمز یک بار
         one_time_token_expires_at: یک بار رمز منقضی می شود در
         user: کاربر
-
       user_language:
         language: زبان
         user: کاربر
-
       user_skill:
         skill: مهارت
         user: کاربر
