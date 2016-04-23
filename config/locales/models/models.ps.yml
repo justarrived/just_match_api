@@ -1,1 +1,200 @@
-ps: {}
+ps:
+  activerecord:
+    models:
+      category: کټه ګورۍ
+      chat: Chat
+      chat_user: چت د کارونکي عکس
+      comment: تبصره
+      company: شرکت
+      company_image: د شرکت انځور
+      contact: تماس
+      currency: د اسعارو
+      faq: پرله پسې پوښتنې
+      invoice: صورتحساب
+      job: دنده
+      job_skill: دنده مهارت
+      job_user: دنده د کارونکي عکس
+      language: ژبه
+      message: پيغام
+      rating: درجه
+      skill: مهارت
+      user: کارن
+      user_image: کارن انځور
+      user_language: د کارن ژبې
+      user_skill: کارن مهارت
+
+    attributes:
+      category:
+        jobs: دندې
+        name: نوم
+
+      chat:
+        chat_users: چت کاروونکو
+        messages: پیغامونه
+        users: کارنان
+
+      chat_user:
+        chat: Chat
+        user: کارن
+
+      comment:
+        body: د بدن
+        hidden: پټ
+        language: ژبه
+
+      company:
+        cin: cin
+        company_images: شرکت انځورونه
+        jobs: دندې
+        name: نوم
+        users: کارنان
+        website: وېب پاڼه
+
+      company_image:
+        company: شرکت
+        image_content_type: د انځور ډول منځپانګې
+        image_file_name: انځور دوتنې نوم
+        image_file_size: د انځور د دوتنې کچه
+        image_updated_at: د انځور تازه په
+        one_time_token: يو وخت نښه
+        one_time_token_expires_at: په يو وخت کې د نښې په رسیږي
+
+      contact:
+        body: د بدن
+        email: Email
+        name: نوم
+
+      currency:
+        currency_code: د اسعارو کوډ
+
+      faq:
+        answer: ځواب
+        language: ژبه
+        question: پوښتنه
+
+      hourly_pay:
+        active: د فعالو
+        currency: د اسعارو
+        jobs: دندې
+        rate: Rate
+
+      invoice:
+        job_user: دنده_user
+
+      job:
+        category: کټه ګورۍ
+        comments: تبصرې
+        company: شرکت
+        hidden: پټ
+        hours: ساعتونه
+        job_date: Job نيټه
+        job_end_date: دنده پای نیټه
+        job_skills: دنده مهارتونه
+        job_users: دنده کاروونکو
+        language: ژبه
+        latitude: البلد
+        longitude: البلد
+        name: نوم
+        skills: د مهارتونو د
+        street: سړک
+        users: کارنان
+        verified: تایید شوي
+        zip: زيب
+        zip_latitude: زيب البلد
+
+      job_skill:
+        job: دنده
+        skill: مهارت
+
+      job_user:
+        accepted: منل
+        accepted_at: منل په
+        invoice: صورتحساب
+        job: دنده
+        performed: ترسره
+        user: کارن
+        will_perform: به ترسره کړي
+
+      language:
+        direction: جهت
+        en_name: en نوم
+        jobs: دندې
+        lang_code: lang کوډ
+        local_name: سیمه ییز نوم
+        system_language: سيستم ژبه
+        user_languages: د کارن ژبې
+        users: کارنان
+
+      message:
+        body: د بدن
+        chat: Chat
+        language: ژبه
+
+      rating:
+        comment: تبصره
+        job: دنده
+        score: نمره
+
+      skill:
+        job_skills: دنده مهارتونه
+        jobs: دندې
+        language: ژبه
+        name: نوم
+        user_skills: کارن مهارتونه
+        users: کارنان
+
+      user:
+        admin: اداري
+        anonymized: په محرمانه ډول
+        auth_token: Auth نښه
+        banned: منع
+        chat_users: چت کاروونکو
+        chats: چټ
+        company: شرکت
+        description: Description
+        education: ښوونه
+        email: Email
+        first_name: اول نوم
+        ignored_notifications_mask: له پامه خبرتیاوې ماسک
+        job_experience: د کار تجربه
+        job_users: دنده کاروونکو
+        jobs: دندې
+        language: ژبه
+        languages: ژبې
+        last_name: کورنۍ نوم
+        latitude: البلد
+        longitude: البلد
+        messages: پیغامونه
+        one_time_token: يو وخت نښه
+        one_time_token_expires_at: په يو وخت کې د نښې په رسیږي
+        owned_jobs: دولتي دندې
+        password_hash: د تېرنويې د مخلوط
+        password_salt: د تېرنويې د مالګې
+        phone: تيليفون
+        skills: د مهارتونو د
+        ssn: SSN
+        street: سړک
+        user_images: کارن انځورونه
+        user_languages: د کارن ژبې
+        user_skills: کارن مهارتونه
+        written_comments: نوشته شده تبصرې
+        zip: زيب
+        zip_latitude: زيب البلد
+        zip_longitude: Zip البلد
+
+      user_image:
+        image_content_type: د انځور ډول منځپانګې
+        image_file_name: انځور دوتنې نوم
+        image_file_size: د انځور د دوتنې کچه
+        image_updated_at: د انځور تازه په
+        one_time_token: يو وخت نښه
+        one_time_token_expires_at: په يو وخت کې د نښې په رسیږي
+        user: کارن
+
+      user_language:
+        language: ژبه
+        user: کارن
+
+      user_skill:
+        skill: مهارت
+        user: کارن
