@@ -2,11 +2,7 @@
 class JobPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      if user.admin?
-        scope.all
-      else
-        scope.visible
-      end
+      scope.visible
     end
   end
 

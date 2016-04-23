@@ -11,7 +11,7 @@ module Api
         private
 
         def set_commentable
-          @commentable = Job.find(params[:job_id])
+          @commentable = policy_scope(Job).find(params[:job_id])
         end
 
         def set_comment

@@ -136,7 +136,7 @@ module Api
         private
 
         def set_job
-          @job = Job.find(params[:job_id])
+          @job = policy_scope(Job).find(params[:job_id])
         end
 
         def set_user
