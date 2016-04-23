@@ -60,11 +60,18 @@ module Api
 
               #{Doxxer.curl_for(name: 'skills', id: 1)}
 
+          ### Locale
+
+          Set the locale
+
+              #{Doxxer.curl_for(name: 'users', id: 1, locale: true, join_with: " \\
+                     ")}
+
           ### Authentication
 
           Pass the authorization token as a HTTP header
 
-              #{Doxxer.curl_for(name: 'users', id: 1, with_auth: true, join_with: " \\
+              #{Doxxer.curl_for(name: 'users', id: 1, auth: true, join_with: " \\
                      ")}
         "
         # rubocop:enable Metrics/LineLength

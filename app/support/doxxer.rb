@@ -32,12 +32,12 @@ class Doxxer
     [response, error].flatten(1).compact.join("\n")
   end
 
-  def self.curl_for(name:, id: nil, with_auth: false, join_with: ' ')
+  def self.curl_for(name:, id: nil, auth: false, locale: false, join_with: ' ')
     path = [name, id].compact.join('/')
     curl_opts = []
-    if with_auth
-      curl_opts << "-H 'Authorization: Token token=YOUR_TOKEN'"
-    end
+    curl_opts << "-H 'Authorization: Token token=YOUR_TOKEN'" if auth
+    curl_opts << "-H 'X-API-LOCALE: en'" if locale
+
     curl_opts << "-X GET #{BASE_URL}/api/v1/#{path}.json"
     curl_opts << '-s'
     "$ curl #{curl_opts.join(join_with)} | python -mjson.tool"

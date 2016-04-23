@@ -37,7 +37,7 @@ RSpec.describe Doxxer do
       end
 
       it 'returns correct cURL with auth' do
-        result = described_class.curl_for(name: 'jobs', with_auth: true)
+        result = described_class.curl_for(name: 'jobs', auth: true)
         auth = "-H 'Authorization: Token token=YOUR_TOKEN'"
         expected = "$ curl #{auth} -X GET #{base_url}.json -s | python -mjson.tool"
         expect(result).to eq(expected)
