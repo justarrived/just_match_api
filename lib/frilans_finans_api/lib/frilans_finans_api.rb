@@ -8,6 +8,7 @@ require 'frilans_finans_api/client/company'
 require 'frilans_finans_api/client/currency'
 require 'frilans_finans_api/client/invoice'
 require 'frilans_finans_api/client/profession'
+require 'frilans_finans_api/client/tax'
 require 'frilans_finans_api/client/user'
 
 require 'frilans_finans_api/document'

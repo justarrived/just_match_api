@@ -46,6 +46,10 @@ module FrilansFinansApi
       get(uri: '/professions', query: { page: page })
     end
 
+    def taxes(page: 1)
+      get(uri: '/taxes', query: { page: page })
+    end
+
     def invoice(id:)
       get(uri: "/invoices/#{id}")
     end
