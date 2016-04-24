@@ -126,23 +126,23 @@ RSpec.describe Job, type: :model do
     end
   end
 
-  describe '#days_appart' do
+  describe '#weekdays_appart' do
     it 'returns the number of days between start and end date' do
-      start_date = 2.days.from_now
-      end_date = 4.days.from_now
+      start_date = Date.new(2016, 4, 22)
+      end_date = Date.new(2016, 4, 26)
       job_attributes = { job_date: start_date, job_end_date: end_date }
       job = FactoryGirl.build(:job, job_attributes)
-      expect(job.days_appart).to eq(2)
+      expect(job.weekdays_appart).to eq(3)
     end
 
     it 'returns nil if job date is nil' do
       job = FactoryGirl.build(:job, job_date: nil)
-      expect(job.days_appart).to be_nil
+      expect(job.weekdays_appart).to be_nil
     end
 
     it 'returns nil if job end date is nil' do
       job = FactoryGirl.build(:job, job_end_date: nil)
-      expect(job.days_appart).to be_nil
+      expect(job.weekdays_appart).to be_nil
     end
   end
 
@@ -270,9 +270,9 @@ RSpec.describe Job, type: :model do
     end
 
     it 'adds error if over allowed hours' do
-      start_date = 2.days.from_now
-      end_date = 4.days.from_now
-      job_attributes = { job_date: start_date, job_end_date: end_date, hours: 40 }
+      start_date = Date.new(2016, 4, 22)
+      end_date = Date.new(2016, 4, 26)
+      job_attributes = { job_date: start_date, job_end_date: end_date, hours: 100 }
       job = FactoryGirl.build(:job, job_attributes)
 
       job.validate

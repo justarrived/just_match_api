@@ -15,9 +15,9 @@ module Dev
           job_date = job_date_days.days.from_now
           job_end_date = (job_date_days + 5).days.from_now
 
-          days_appart = (job_end_date.to_date - job_date.to_date).to_i
+          weekdays_appart = DateSupport.weekdays_in(job_date, job_end_date).length
           # Calculdate valid hours per day spread
-          hours = ((days_appart * 1)..(days_appart * 12)).to_a.sample
+          hours = ((weekdays_appart * 1)..(weekdays_appart * 12)).to_a.sample
 
           job = Job.create!(
             name: Faker::Name.name,

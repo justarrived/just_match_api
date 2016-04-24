@@ -43,10 +43,17 @@ class CreateFrilansFinansInvoiceService
         itp: 0,
         express_payment: 0
       }],
-      dates: [{
-        date: job.job_date,
-        hours: job.hours
-      }]
+      dates: calculate_dates(job)
     }
+  end
+
+  def self.calculate_dates(job)
+    weekdays = DateSupport.weekdays_in(job.job_date, job.job_end_date)
+    weekdays.map! do |date|
+      {
+        date: date,
+        hours: job.hours / weekdays.length
+      }
+    end
   end
 end

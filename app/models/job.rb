@@ -123,10 +123,10 @@ class Job < ApplicationRecord
     job_date < Time.zone.now
   end
 
-  def days_appart
+  def weekdays_appart
     return if job_date.nil? || job_end_date.nil?
 
-    DateSupport.days_appart(job_date, job_end_date)
+    DateSupport.weekdays_in(job_date, job_end_date).length
   end
 
   def validate_job_date_in_future
@@ -150,7 +150,7 @@ class Job < ApplicationRecord
   def validate_within_allowed_hours
     return if job_date.nil? || job_end_date.nil? || hours.nil?
 
-    hours_per_day = hours.to_f / days_appart
+    hours_per_day = hours.to_f / weekdays_appart
 
     if hours_per_day < MIN_HOURS_PER_DAY
       message = I18n.t('errors.job.hours_lower_bound', min_hours: MIN_HOURS_PER_DAY)

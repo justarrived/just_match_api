@@ -9,9 +9,18 @@ RSpec.describe DateSupport do
     end
   end
 
-  describe '#work_date_between' do
-    it 'works' do
-      
+  describe '#weekdays_in' do
+    it 'only returns weekdays' do
+      start = Date.new(2016, 4, 22)
+      finish = Date.new(2016, 4, 26)
+
+      expected = [
+        Date.new(2016, 4, 22),
+        Date.new(2016, 4, 25),
+        Date.new(2016, 4, 26)
+      ]
+      result = described_class.weekdays_in(start, finish)
+      expect(result).to eq(expected)
     end
   end
 end
