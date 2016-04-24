@@ -40,12 +40,6 @@ RSpec.describe CreateInvoiceService, type: :serializer do
     expect(InvoiceCreatedNotifier).to have_received(:call)
   end
 
-  it 'calls nil notifier' do
-    allow(NilNotifier).to receive(:call)
-    subject
-    expect(NilNotifier).to have_received(:call)
-  end
-
   context 'no company frilans finans id' do
     let(:company) { FactoryGirl.create(:company, frilans_finans_id: nil) }
 

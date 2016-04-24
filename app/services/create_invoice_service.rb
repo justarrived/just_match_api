@@ -8,11 +8,8 @@ class CreateInvoiceService
 
     return invoice unless invoice.valid?
 
-    admin_notify_klass = NilNotifier
-    admin_notify_args = {}
     if job.company.frilans_finans_id.nil?
-      admin_notify_klass = InvoiceMissingCompanyFrilansFinansIdNotifier
-      admin_notify_args = { invoice: invoice, job: job }
+      InvoiceMissingCompanyFrilansFinansIdNotifier.call(invoice: invoice, job: job)
     else
       # Build frilans finans invoice attributes
       attributes = frilans_finans_body(
@@ -26,14 +23,12 @@ class CreateInvoiceService
       invoice.frilans_finans_id = frilans_finans_id
 
       if frilans_finans_id.nil?
-        admin_notify_klass = InvoiceFailedToConnectToFrilansFinansNotifier
-        admin_notify_args = { invoice: invoice }
+        InvoiceFailedToConnectToFrilansFinansNotifier.call(invoice: invoice)
       end
     end
 
     invoice.save!
 
-    admin_notify_klass.call(**admin_notify_args)
     InvoiceCreatedNotifier.call(job: job, user: user)
 
     invoice
