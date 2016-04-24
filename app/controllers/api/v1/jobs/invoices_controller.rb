@@ -36,10 +36,6 @@ module Api
 
         private
 
-        def frilans_finans_attributes
-          {}
-        end
-
         def authorize_create(job_user)
           raise Pundit::NotAuthorizedError unless current_user == job_user.job.owner
         end
