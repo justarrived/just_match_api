@@ -33,7 +33,8 @@ da,Danish,ltr,Dansk
 de,German,ltr,Deutsch
 dz,Dzongkha,ltr,ཇོང་ཁ
 ee,Ewe,ltr,Ɛʋɛ
-fa,Farsi,ltr,فارسی
+fa,Farsi,rtl,فارسی
+fa_AF,Dari,rtl,دری
 el,Greek,ltr,Ελληνικά
 en,English,ltr,English
 eo,Esperanto,ltr,Esperanto
