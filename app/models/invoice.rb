@@ -3,10 +3,12 @@ class Invoice < ApplicationRecord
   belongs_to :job_user
 
   validates :job_user, uniqueness: true, presence: true
-  validates :frilans_finans_id, uniqueness: true
+  validates :frilans_finans_id, uniqueness: true, allow_nil: true
 
   validate :validate_job_started
   validate :validate_job_user_accepted
+
+  scope :needs_frilans_finans_id, -> { where(frilans_finans_id: nil) }
 
   def name
     "Invoice ##{id}"

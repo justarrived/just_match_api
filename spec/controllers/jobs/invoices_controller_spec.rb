@@ -34,13 +34,6 @@ RSpec.describe Api::V1::Jobs::InvoicesController, type: :controller do
         end.to change(Invoice, :count).by(1)
       end
 
-      it 'calls CreateInvoiceService' do
-        invoice = Invoice.new(job_user: FactoryGirl.build(:job_user))
-        allow(CreateInvoiceService).to receive(:create).and_return(invoice)
-        post :create, valid_params, valid_session
-        expect(CreateInvoiceService).to have_received(:create)
-      end
-
       context 'already created' do
         it 'returns 422 unprocessable entity' do
           FactoryGirl.create(:invoice, job_user: job_user)
