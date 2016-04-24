@@ -7,12 +7,16 @@ class Company < ApplicationRecord
 
   validates :name, length: { minimum: 2 }, allow_blank: false
   validates :cin, uniqueness: true, length: { is: 10 }, allow_blank: false
+  validates :email, presence: true
+  validates :street, presence: true
+  validates :zip, presence: true
+  validates :city, presence: true
   validates :frilans_finans_id, uniqueness: true, allow_nil: true
 
   validate :validate_website_with_protocol
 
   # Virtual attributes for Frilans Finans
-  attr_accessor :email, :street, :zip, :city, :country, :contact, :phone
+  attr_accessor :user_frilans_finans_id, :country_name
 
   scope :needs_frilans_finans_id, lambda {
     where(frilans_finans_id: nil).
@@ -23,8 +27,8 @@ class Company < ApplicationRecord
     users.frilans_finans_users.first
   end
 
-  def country
-    Struct.new(:name).new('Sweden')
+  def country_name
+    'Sweden'
   end
 
   def logo_image_token=(token)
@@ -58,6 +62,11 @@ end
 #  updated_at        :datetime         not null
 #  frilans_finans_id :integer
 #  website           :string
+#  email             :string
+#  street            :string
+#  zip               :string
+#  city              :string
+#  phone             :string
 #
 # Indexes
 #

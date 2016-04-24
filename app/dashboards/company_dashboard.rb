@@ -12,6 +12,7 @@ class CompanyDashboard < Administrate::BaseDashboard
     users: Field::HasMany,
     id: Field::Number,
     frilans_finans_id: Field::Number,
+    user_frilans_finans_id: Field::Number,
     name: Field::String,
     cin: Field::String,
     website: Field::String,
@@ -19,8 +20,7 @@ class CompanyDashboard < Administrate::BaseDashboard
     street: Field::String,
     zip: Field::String,
     city: Field::String,
-    country: Field::String,
-    contact: Field::String,
+    country_name: Field::String,
     phone: Field::String,
     created_at: Field::DateTime,
     updated_at: Field::DateTime
@@ -33,6 +33,7 @@ class CompanyDashboard < Administrate::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
     :name,
+    :cin,
     :users
   ].freeze
 
@@ -45,6 +46,11 @@ class CompanyDashboard < Administrate::BaseDashboard
     :frilans_finans_id,
     :name,
     :cin,
+    :email,
+    :street,
+    :zip,
+    :city,
+    :country_name,
     :created_at,
     :updated_at
   ].freeze
@@ -55,16 +61,15 @@ class CompanyDashboard < Administrate::BaseDashboard
   FORM_ATTRIBUTES = [
     :users,
     :name,
-    :website,
-    :frilans_finans_id,
     :cin,
     :email,
+    :phone,
     :street,
     :zip,
     :city,
-    :country,
-    :contact,
-    :phone
+    :user_frilans_finans_id,
+    :website,
+    :frilans_finans_id
   ].freeze
 
   # Overwrite this method to customize how skills are displayed

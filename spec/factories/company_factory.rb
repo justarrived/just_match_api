@@ -3,6 +3,10 @@ FactoryGirl.define do
   factory :company do
     name 'A company'
     website 'https://example.com'
+    email 'test@example.com'
+    street 'A street'
+    zip '11851'
+    city 'Stockholm'
     sequence :cin do |n|
       num_length = case n
                    when 0...10 then 9
@@ -32,6 +36,11 @@ end
 #  updated_at        :datetime         not null
 #  frilans_finans_id :integer
 #  website           :string
+#  email             :string
+#  street            :string
+#  zip               :string
+#  city              :string
+#  phone             :string
 #
 # Indexes
 #

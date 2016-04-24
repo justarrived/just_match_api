@@ -6,12 +6,12 @@ module Sweepers
         user = company.find_frilans_finans_user
         attributes = {
           name: company.name,
-          country: company.country.name,
-          street: user.street,
-          city: nil,
-          zip: user.zip,
-          user_id: user.frilans_finans_id,
-          send_to_email: user.email
+          country: company.country_name,
+          street: company.street,
+          city: company.city,
+          zip: company.zip,
+          send_to_email: company.email,
+          user_id: user.frilans_finans_id
         }
         ff_company = FrilansFinansApi::Company.create(attributes: attributes)
         ff_id = ff_company.resource.id

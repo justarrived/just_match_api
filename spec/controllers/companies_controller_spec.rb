@@ -30,7 +30,11 @@ RSpec.describe Api::V1::CompaniesController, type: :controller do
           attributes: {
             name: 'Company name',
             cin: '0000000000',
-            website: 'http://www.example.com'
+            website: 'http://www.example.com',
+            email: 'test@example.com',
+            street: 'A street',
+            zip: '11851',
+            city: 'Stockholm'
           }
         }
       }
@@ -79,6 +83,7 @@ RSpec.describe Api::V1::CompaniesController, type: :controller do
     end
   end
 end
+
 # == Schema Information
 #
 # Table name: companies
@@ -90,6 +95,11 @@ end
 #  updated_at        :datetime         not null
 #  frilans_finans_id :integer
 #  website           :string
+#  email             :string
+#  street            :string
+#  zip               :string
+#  city              :string
+#  phone             :string
 #
 # Indexes
 #

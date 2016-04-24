@@ -22,6 +22,7 @@ RSpec.describe Api::V1::CompaniesController, type: :routing do
     end
   end
 end
+
 # == Schema Information
 #
 # Table name: companies
@@ -33,6 +34,11 @@ end
 #  updated_at        :datetime         not null
 #  frilans_finans_id :integer
 #  website           :string
+#  email             :string
+#  street            :string
+#  zip               :string
+#  city              :string
+#  phone             :string
 #
 # Indexes
 #
