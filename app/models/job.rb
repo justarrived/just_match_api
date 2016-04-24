@@ -126,7 +126,7 @@ class Job < ApplicationRecord
   def days_appart
     return if job_date.nil? || job_end_date.nil?
 
-    (job_end_date.to_date - job_date.to_date).to_i
+    DateSupport.days_appart(job_date, job_end_date)
   end
 
   def validate_job_date_in_future
