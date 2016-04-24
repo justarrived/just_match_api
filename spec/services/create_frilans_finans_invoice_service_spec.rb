@@ -62,16 +62,6 @@ RSpec.describe CreateFrilansFinansInvoiceService, type: :serializer do
     end
   end
 
-  xcontext 'invalid invoice' do
-    subject do
-      described_class.create(job_user: JobUser.new, frilans_finans_attributes: {})
-    end
-
-    it 'does *not* persist invoice' do
-      expect(subject.persisted?).to eq(false)
-    end
-  end
-
   context 'invalid Frilans Finans API response' do
     let(:job) do
       company = FactoryGirl.create(:company, frilans_finans_id: 1)

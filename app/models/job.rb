@@ -8,6 +8,10 @@ class Job < ApplicationRecord
     zip: { lat: :zip_latitude, long: :zip_longitude }
   }.freeze
 
+  MIN_TOTAL_HOURS = 2
+  MIN_HOURS_PER_DAY = 0.5
+  MAX_HOURS_PER_DAY = 16
+
   belongs_to :language
   belongs_to :category
   belongs_to :hourly_pay
@@ -32,11 +36,12 @@ class Job < ApplicationRecord
   validates :job_date, presence: true
   validates :job_end_date, presence: true
   validates :owner, presence: true
-  validates :hours, numericality: { greater_than_or_equal_to: 1 }, allow_blank: false
+  validates :hours, numericality: { greater_than_or_equal_to: MIN_TOTAL_HOURS }, allow_blank: false # rubocop:disable Metrics/LineLength
 
   validate :validate_job_date_in_future
   validate :validate_job_end_date_after_job_date
   validate :validate_hourly_pay_active
+  validate :validate_within_allowed_hours
 
   belongs_to :owner, class_name: 'User', foreign_key: 'owner_user_id'
 
@@ -118,6 +123,12 @@ class Job < ApplicationRecord
     job_date < Time.zone.now
   end
 
+  def days_appart
+    return if job_date.nil? || job_end_date.nil?
+
+    (job_end_date.to_date - job_date.to_date).to_i
+  end
+
   def validate_job_date_in_future
     return if job_date.nil? || job_date > Time.zone.now
 
@@ -134,6 +145,22 @@ class Job < ApplicationRecord
     return if hourly_pay.nil? || hourly_pay.active
 
     errors.add(:hourly_pay, I18n.t('errors.job.hourly_pay_active'))
+  end
+
+  def validate_within_allowed_hours
+    return if job_date.nil? || job_end_date.nil? || hours.nil?
+
+    hours_per_day = hours.to_f / days_appart
+
+    if hours_per_day < MIN_HOURS_PER_DAY
+      message = I18n.t('errors.job.hours_lower_bound', min_hours: MIN_HOURS_PER_DAY)
+      errors.add(:hours, message)
+    end
+
+    if hours_per_day > MAX_HOURS_PER_DAY
+      message = I18n.t('errors.job.hours_upper_bound', max_hours: MAX_HOURS_PER_DAY)
+      errors.add(:hours, message)
+    end
   end
 end
 

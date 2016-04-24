@@ -22,26 +22,21 @@ ps:
       user_image: کارن انځور
       user_language: د کارن ژبې
       user_skill: کارن مهارت
-
     attributes:
       category:
         jobs: دندې
         name: نوم
-
       chat:
         chat_users: چت کاروونکو
         messages: پیغامونه
         users: کارنان
-
       chat_user:
         chat: Chat
         user: کارن
-
       comment:
         body: د بدن
         hidden: پټ
         language: ژبه
-
       company:
         cin: cin
         company_images: شرکت انځورونه
@@ -49,7 +44,6 @@ ps:
         name: نوم
         users: کارنان
         website: وېب پاڼه
-
       company_image:
         company: شرکت
         image_content_type: د انځور ډول منځپانګې
@@ -58,29 +52,23 @@ ps:
         image_updated_at: د انځور تازه په
         one_time_token: يو وخت نښه
         one_time_token_expires_at: په يو وخت کې د نښې په رسیږي
-
       contact:
         body: د بدن
         email: Email
         name: نوم
-
       currency:
         currency_code: د اسعارو کوډ
-
       faq:
         answer: ځواب
         language: ژبه
         question: پوښتنه
-
       hourly_pay:
         active: د فعالو
         currency: د اسعارو
         jobs: دندې
         rate: Rate
-
       invoice:
         job_user: دنده_user
-
       job:
         category: کټه ګورۍ
         comments: تبصرې
@@ -101,11 +89,9 @@ ps:
         verified: تایید شوي
         zip: زيب
         zip_latitude: زيب البلد
-
       job_skill:
         job: دنده
         skill: مهارت
-
       job_user:
         accepted: منل
         accepted_at: منل په
@@ -114,7 +100,6 @@ ps:
         performed: ترسره
         user: کارن
         will_perform: به ترسره کړي
-
       language:
         direction: جهت
         en_name: en نوم
@@ -124,17 +109,14 @@ ps:
         system_language: سيستم ژبه
         user_languages: د کارن ژبې
         users: کارنان
-
       message:
         body: د بدن
         chat: Chat
         language: ژبه
-
       rating:
         comment: تبصره
         job: دنده
         score: نمره
-
       skill:
         job_skills: دنده مهارتونه
         jobs: دندې
@@ -142,7 +124,6 @@ ps:
         name: نوم
         user_skills: کارن مهارتونه
         users: کارنان
-
       user:
         admin: اداري
         anonymized: په محرمانه ډول
@@ -181,7 +162,6 @@ ps:
         zip: زيب
         zip_latitude: زيب البلد
         zip_longitude: Zip البلد
-
       user_image:
         image_content_type: د انځور ډول منځپانګې
         image_file_name: انځور دوتنې نوم
@@ -190,11 +170,9 @@ ps:
         one_time_token: يو وخت نښه
         one_time_token_expires_at: په يو وخت کې د نښې په رسیږي
         user: کارن
-
       user_language:
         language: ژبه
         user: کارن
-
       user_skill:
         skill: مهارت
         user: کارن

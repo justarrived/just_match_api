@@ -4,14 +4,14 @@ sv:
   admin:
     mailer:
       invoice_missing_company_frilans_finans_id:
-        subject: Admin notis
+        subject: 'Admin notis: Företag saknar Frilans Finans id'
         notice: En faktura har blivit skapad med ett företag som saknar Frilans Finans id. Se %{company_link} och %{invoice_link}.
       invoice_failed_to_connect_to_frilans_finans:
-        subject: Admin notis
-        notice: Misslyckades att skapa en Frilans Finans faktura för fakturan %{invoice_id}.
+        subject: 'Admin notis: Misslyckades med att skapa Frilans Finans faktura'
+        notice: Misslyckades skapa en Frilans Finans faktura %{invoice_id}.
   errors:
     company:
-      website_protocol_missing: protokoll prefix http:// eller https:// saknas
+      website_protocol_missing: protokollprefix http:// or https:// saknas
     chat:
       number_of_users: en chat måste bestå av minst %{min} och %{max} antal användare
     invoice:
@@ -22,6 +22,8 @@ sv:
       hourly_pay_active: måste vara aktiv
       update_not_allowed_when_accepted: job kan inte uppdateras när jobbet har redan accepterats av användaren
       job_end_date_after_job_date: måste vara efter jobb datum
+      hours_lower_bound: måste minst vara %{min_hours} timmar per dag
+      hours_upper_bound: kan inte vara fler än %{min_hours} timmar per dag
     job_user:
       not_owner_of_job: kan inte både vara jobb ägare och jobb sökare
       multiple_applicants: kan inte acceptera flera användare

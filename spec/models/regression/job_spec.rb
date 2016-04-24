@@ -59,8 +59,8 @@ RSpec.describe Job, regressor: true do
   it { is_expected.to validate_presence_of :owner }
 
   # === Validations (Numericality) ===
-  it { is_expected.to validate_numericality_of(:hours).is_greater_than_or_equal_to(1) }
-  it { is_expected.not_to validate_numericality_of(:hours).is_greater_than_or_equal_to(0) }
+  it { is_expected.to validate_numericality_of(:hours).is_greater_than_or_equal_to(2) }
+  it { is_expected.not_to validate_numericality_of(:hours).is_greater_than_or_equal_to(1) }
 
   # === Enums ===
 end
