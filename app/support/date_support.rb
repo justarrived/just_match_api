@@ -5,6 +5,6 @@ module DateSupport
   end
 
   def self.weekdays_in(start, finish)
-    (start.to_date..finish.to_date).select { |date| (1..5).include?(date.wday) }
+    (start.to_date..finish.to_date).select { |date| (1..5).cover?(date.wday) }
   end
 end
