@@ -63,9 +63,9 @@ RSpec.describe Api::V1::JobsController, type: :controller do
     end
 
     it 'returns sorted results' do
-      FactoryGirl.create(:job, hours: 4)
+      FactoryGirl.create(:job, hours: 7)
+      FactoryGirl.create(:job, hours: 10)
       FactoryGirl.create(:job, hours: 5)
-      FactoryGirl.create(:job, hours: 3)
 
       get :index, { sort: '-hours' }, {}
       expect(response.status).to eq(200)
@@ -74,7 +74,7 @@ RSpec.describe Api::V1::JobsController, type: :controller do
       job_hours_count = parsed_body['data'].map do |job|
         job['attributes']['hours'].to_i
       end
-      expect(job_hours_count).to eq([5, 4, 3])
+      expect(job_hours_count).to eq([10, 7, 5])
     end
   end
 

@@ -85,12 +85,12 @@ sv:
       invoice:
         job_user: Jobb_user
       job:
-        category: :activerecord.models.category
+        category: Kategori
         comments: Kommentarer
         company: Företag
         description: Beskrivning
         hidden: Dold
-        hourly_pay: :activerecord.models.hourly_pay
+        hourly_pay: Timbetalning
         hours: Timmar
         job_date: Jobbdatum
         job_end_date: Jobb slutdatum
@@ -110,7 +110,7 @@ sv:
         zip_longitude: Zip longitud
       job_skill:
         job: Jobb
-        skill: :activerecord.models.skill
+        skill: Skill
       job_user:
         accepted: Accepterad
         accepted_at: Accepteras på
@@ -129,7 +129,7 @@ sv:
         user_languages: Användarspråk
         users: Användare
       message:
-        author: :activerecord.models.author
+        author: Författare
         body: Kropp
         chat: Chatt
         integer: Heltal
