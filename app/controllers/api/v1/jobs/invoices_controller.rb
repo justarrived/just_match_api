@@ -26,11 +26,8 @@ module Api
           job_user = JobUser.find(params[:job_user_id])
           authorize_create(job_user)
 
-          @invoice = CreateInvoiceService.create(
-            job_user: job_user,
-            frilans_finans_attributes: frilans_finans_attributes
-          )
-          if @invoice.valid?
+          @invoice = Invoice.new(job_user: job_user)
+          if @invoice.save
             api_render(@invoice, status: :created)
           else
             respond_with_errors(@invoice)

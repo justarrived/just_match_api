@@ -2,7 +2,7 @@
 module Sweepers
   class UserSweeper
     def self.create_frilans_finans(scope = User)
-      scope.where(frilans_finans_id: nil).find_each(batch_size: 1000) do |user|
+      scope.needs_frilans_finans_id.find_each(batch_size: 1000) do |user|
         attributes = {
           email: user.email,
           street: user.street,

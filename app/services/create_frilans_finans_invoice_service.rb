@@ -1,22 +1,15 @@
 # frozen_string_literal: true
-class CreateInvoiceService
-  def self.create(job_user:, frilans_finans_attributes:)
+class CreateFrilansFinansInvoiceService
+  def self.create(invoice:)
+    job_user = invoice.job_user
     job = job_user.job
     user = job_user.user
-    invoice = Invoice.new(job_user: job_user)
-    invoice.validate
-
-    return invoice unless invoice.valid?
 
     if job.company.frilans_finans_id.nil?
       InvoiceMissingCompanyFrilansFinansIdNotifier.call(invoice: invoice, job: job)
     else
       # Build frilans finans invoice attributes
-      attributes = frilans_finans_body(
-        job: job,
-        user: user,
-        attributes: frilans_finans_attributes
-      )
+      attributes = frilans_finans_body(job: job, user: user)
 
       ff_invoice = FrilansFinansApi::Invoice.create(attributes: attributes)
       frilans_finans_id = ff_invoice.resource.id
@@ -34,8 +27,8 @@ class CreateInvoiceService
     invoice
   end
 
-  def self.frilans_finans_body(job:, user:, attributes:)
-    attributes.merge(
+  def self.frilans_finans_body(job:, user:)
+    {
       invoice: {
         currency_id: Currency.default_currency.try!(:frilans_finans_id),
         specification: "#{job.category.name} - #{job.name}",
@@ -54,6 +47,6 @@ class CreateInvoiceService
         date: job.job_date,
         hours: job.hours
       }]
-    )
+    }
   end
 end
