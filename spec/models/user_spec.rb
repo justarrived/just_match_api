@@ -2,6 +2,19 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
+  describe '#frilans_finans_users' do
+    it 'returns users with frilans finans id set' do
+      FactoryGirl.create(:user)
+      first = FactoryGirl.create(:user, frilans_finans_id: 10)
+      last = FactoryGirl.create(:user, frilans_finans_id: 11)
+      frilans_users = described_class.frilans_finans_users
+
+      expect(frilans_users.count).to eq(2)
+      expect(frilans_users.first).to eq(first)
+      expect(frilans_users.last).to eq(last)
+    end
+  end
+
   describe '#auth_token' do
     it 'creates a new user with an auth_token of length 36' do
       user = FactoryGirl.create(:user)

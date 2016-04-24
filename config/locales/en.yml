@@ -4,8 +4,11 @@ en:
   admin:
     mailer:
       invoice_missing_company_frilans_finans_id:
-        subject: Admin notice
+        subject: 'Admin notice: Missing company Frilans Finans id'
         notice: An invoice has been created with a company that lacks Frilans Finans id. See %{company_link} and %{invoice_link}.
+      invoice_failed_to_connect_to_frilans_finans:
+        subject: 'Admin notice: Failed to create Frilans Finans invoice'
+        notice: Failed to create a Frilans Finans for invoice %{invoice_id}.
   errors:
     company:
       website_protocol_missing: missing protocol prefix http:// or https://
@@ -14,7 +17,6 @@ en:
     invoice:
       job_started: job must have been started before an invoice can be created
       job_user_accepted: user must be the accepted applicant before an invoice can be created
-      frilans_finans_id: failed to connect to Frilans Finans, please try again later
     job:
       job_date_in_the_past: must be in the future
       hourly_pay_active: must be active

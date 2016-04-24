@@ -6,6 +6,9 @@ sv:
       invoice_missing_company_frilans_finans_id:
         subject: Admin notis
         notice: En faktura har blivit skapad med ett företag som saknar Frilans Finans id. Se %{company_link} och %{invoice_link}.
+      invoice_failed_to_connect_to_frilans_finans:
+        subject: Admin notis
+        notice: Misslyckades att skapa en Frilans Finans faktura för fakturan %{invoice_id}.
   errors:
     company:
       website_protocol_missing: protokoll prefix http:// eller https:// saknas
@@ -14,7 +17,6 @@ sv:
     invoice:
       job_started: job måste påbörjats innan en faktura kan skapas
       job_user_accepted: användaren måste vara accepterat innan en faktura kan bli skapad
-      frilans_finans_id: misslyckad uppkoppling till Frilans Finans, var god försök senare
     job:
       job_date_in_the_past: måste vara i framtiden
       hourly_pay_active: måste vara aktiv

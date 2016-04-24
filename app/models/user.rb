@@ -59,6 +59,7 @@ class User < ApplicationRecord
   scope :valid_one_time_tokens, lambda {
     where('one_time_token_expires_at > ?', Time.zone.now)
   }
+  scope :frilans_finans_users, -> { where.not(frilans_finans_id: nil) }
 
   # Don't change the order or remove any items in the array,
   # only additions are allowed

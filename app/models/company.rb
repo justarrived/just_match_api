@@ -14,6 +14,19 @@ class Company < ApplicationRecord
   # Virtual attributes for Frilans Finans
   attr_accessor :email, :street, :zip, :city, :country, :contact, :phone
 
+  scope :needs_frilans_finans_id, lambda {
+    where(frilans_finans_id: nil).
+      joins(:users).where('users.frilans_finans_id IS NOT NULL')
+  }
+
+  def find_frilans_finans_user
+    users.frilans_finans_users.first
+  end
+
+  def country
+    Struct.new(:name).new('Sweden')
+  end
+
   def logo_image_token=(token)
     return if token.blank?
 

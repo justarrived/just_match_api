@@ -16,19 +16,17 @@ RSpec.describe CreateInvoiceService, type: :serializer do
   let(:invoice_request_body) { /^invoice*/ }
 
   subject do
-    FrilansFinansApi.client_klass = FrilansFinansApi::Client
+    isolate_frilans_finans_client(FrilansFinansApi::Client) do
+      stub_request(:post, 'https://frilansfinans.se/api/invoices').
+        with(body: invoice_request_body,
+             headers: { 'User-Agent' => 'FrilansFinansAPI - Ruby client' }).
+        to_return(status: 200, body: '{ "data": { "id": "1" } }', headers: {})
 
-    stub_request(:post, 'https://frilansfinans.se/api/invoices').
-      with(body: invoice_request_body,
-           headers: { 'User-Agent' => 'FrilansFinansAPI - Ruby client' }).
-      to_return(status: 200, body: '{ "data": { "id": "1" } }', headers: {})
-
-    the_subject = described_class.create(
-      job_user: job_user,
-      frilans_finans_attributes: frilans_finans_attributes
-    )
-    FrilansFinansApi.reset_config
-    the_subject
+      described_class.create(
+        job_user: job_user,
+        frilans_finans_attributes: frilans_finans_attributes
+      )
+    end
   end
 
   it 'creates an invoice' do
@@ -88,31 +86,42 @@ RSpec.describe CreateInvoiceService, type: :serializer do
     end
 
     subject do
-      job_user = FactoryGirl.build(:job_user_passed_job, job: job)
-      described_class.create(job_user: job_user, frilans_finans_attributes: {})
+      isolate_frilans_finans_client(FrilansFinansApi::NilClient) do
+        job_user = FactoryGirl.build(:job_user_passed_job, job: job)
+        described_class.create(job_user: job_user, frilans_finans_attributes: {})
+      end
     end
 
     it 'does persist invoice' do
-      expect(subject.persisted?).to eq(true)
-    end
-
-    it 'adds error message' do
-      allow(frilans_api_klass).to receive(:create).and_return(ff_nil_document_mock)
-      message = I18n.t('errors.invoice.frilans_finans_id')
-      expect(subject.errors.messages[:frilans_finans_id]).to include(message)
+      isolate_frilans_finans_client(FrilansFinansApi::NilClient) do
+        expect(subject.persisted?).to eq(true)
+      end
     end
 
     it 'does call Frilans Finans API' do
-      allow(frilans_api_klass).to receive(:create).and_return(ff_nil_document_mock)
-      subject
-      expect(frilans_api_klass).to have_received(:create)
+      isolate_frilans_finans_client(FrilansFinansApi::NilClient) do
+        allow(frilans_api_klass).to receive(:create).and_return(ff_nil_document_mock)
+        subject
+        expect(frilans_api_klass).to have_received(:create)
+      end
     end
 
-    it 'does *not* notify user' do
-      allow(frilans_api_klass).to receive(:create).and_return(ff_nil_document_mock)
-      allow(InvoiceCreatedNotifier).to receive(:call)
-      subject
-      expect(InvoiceCreatedNotifier).not_to have_received(:call)
+    it 'notifies admin user' do
+      isolate_frilans_finans_client(FrilansFinansApi::NilClient) do
+        allow(frilans_api_klass).to receive(:create).and_return(ff_nil_document_mock)
+        allow(InvoiceFailedToConnectToFrilansFinansNotifier).to receive(:call)
+        subject
+        expect(InvoiceFailedToConnectToFrilansFinansNotifier).to have_received(:call)
+      end
+    end
+
+    it 'notifies user' do
+      isolate_frilans_finans_client(FrilansFinansApi::NilClient) do
+        allow(frilans_api_klass).to receive(:create).and_return(ff_nil_document_mock)
+        allow(InvoiceCreatedNotifier).to receive(:call)
+        subject
+        expect(InvoiceCreatedNotifier).to have_received(:call)
+      end
     end
   end
 end
