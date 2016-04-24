@@ -4,8 +4,6 @@
   "repository": "https://github.com/justarrived/just_match_api",
   "keywords": [],
   "env": {
-    AIRBRAKE_PROJECT_ID=''
-    AIRBRAKE_API_KEY=''
     "RAILS_ENV": "production",
     "SECRET_KEY_BASE": {
       "description": "Rails secret token",
