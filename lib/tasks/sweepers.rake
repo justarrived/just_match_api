@@ -6,9 +6,23 @@ namespace :sweepers do
     end
   end
 
-  task frilans_finans: :environment do |task_name|
-    wrap_sweeper_task(task_name) do
-      Sweepers::CompanySweeper.create_frilans_finans
+  task frilans_finans: :environment do
+    %w(create_users create_companies).each do |task|
+      Rake::Task["sweepers:frilans_finans:#{task}"].execute
+    end
+  end
+
+  namespace :frilans_finans do
+    task create_companies: :environment do |task_name|
+      wrap_sweeper_task(task_name) do
+        Sweepers::CompanySweeper.create_frilans_finans
+      end
+    end
+
+    task create_users: :environment do |task_name|
+      wrap_sweeper_task(task_name) do
+        Sweepers::UserSweeper.create_frilans_finans
+      end
     end
   end
 

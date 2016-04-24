@@ -169,6 +169,10 @@ class User < ApplicationRecord
     password.length >= 6
   end
 
+  def country_name
+    'Sweden'
+  end
+
   def validate_language_id_in_available_locale
     language = Language.find_by(id: language_id)
     return if language.nil?
