@@ -5,6 +5,7 @@ RSpec.describe FrilansFinansApi::NilClient do
   %i(
     currencies
     professions
+    taxes
     invoice
     create_user
     create_company

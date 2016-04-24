@@ -14,6 +14,10 @@ module FrilansFinansApi
       Response.new(read(:professions))
     end
 
+    def taxes(**_args)
+      Response.new(read(:taxes))
+    end
+
     def invoice(**_args)
       Response.new(read(:invoice))
     end

@@ -12,5 +12,33 @@
       "pointer": "/data/attributes/cin"
     },
     "detail": "is the wrong length (should be 10 characters)"
+  },
+  {
+    "status": 422,
+    "source": {
+      "pointer": "/data/attributes/email"
+    },
+    "detail": "can't be blank"
+  },
+  {
+    "status": 422,
+    "source": {
+      "pointer": "/data/attributes/street"
+    },
+    "detail": "can't be blank"
+  },
+  {
+    "status": 422,
+    "source": {
+      "pointer": "/data/attributes/zip"
+    },
+    "detail": "can't be blank"
+  },
+  {
+    "status": 422,
+    "source": {
+      "pointer": "/data/attributes/city"
+    },
+    "detail": "can't be blank"
   }
 ]

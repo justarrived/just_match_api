@@ -33,6 +33,7 @@ end
 #  category_id   :integer
 #  hourly_pay_id :integer
 #  verified      :boolean          default(FALSE)
+#  job_end_date  :datetime
 #
 # Indexes
 #

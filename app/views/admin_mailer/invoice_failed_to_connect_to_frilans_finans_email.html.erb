@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <%= I18n.t('admin.mailer.invoice_failed_to_connect_to_frilans_finans.notice', invoice_id: "##{@invoice_id}") %>
+    <%= link_to(@invoice_link_name, admin_invoice_url(@invoice)) %>
+  </body>
+</html>

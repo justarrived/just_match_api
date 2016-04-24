@@ -21,7 +21,7 @@ RSpec.describe AdminMailer, type: :mailer do
     end
 
     it 'renders the subject' do
-      subject = I18n.t('admin..mailer.invoice_missing_company_frilans_finans_id.subject')
+      subject = I18n.t('admin.mailer.invoice_missing_company_frilans_finans_id.subject')
       expect(mail.subject).to eq(subject)
     end
 
@@ -39,6 +39,40 @@ RSpec.describe AdminMailer, type: :mailer do
 
     it 'includes company link in email body' do
       expect(mail).to match_email_body(admin_company_url(company))
+    end
+
+    it 'includes invoice name in email body' do
+      expect(mail).to match_email_body('invoice #1')
+    end
+
+    it 'includes invoice link in email body' do
+      expect(mail).to match_email_body(admin_invoice_url(invoice))
+    end
+  end
+
+  describe '#invoice_failed_to_connect_to_frilans_finans_email' do
+    let(:mail) do
+      described_class.invoice_failed_to_connect_to_frilans_finans_email(
+        invoice: invoice,
+        user: user
+      )
+    end
+
+    it 'has both text and html part' do
+      expect(mail).to be_multipart_email(true)
+    end
+
+    it 'renders the subject' do
+      subject = I18n.t('admin.mailer.invoice_failed_to_connect_to_frilans_finans.subject')
+      expect(mail.subject).to eq(subject)
+    end
+
+    it 'renders the receiver email' do
+      expect(mail.to).to eql([user.email])
+    end
+
+    it 'renders the sender email' do
+      expect(mail.from).to eql(['hello@justarrived.se'])
     end
 
     it 'includes invoice name in email body' do

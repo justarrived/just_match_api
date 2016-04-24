@@ -1,0 +1,11 @@
+{
+  "data": {
+    "type": "tax",
+    "id": "1",
+    "attributes": {
+    },
+    "links": {
+      "self": "https://frilansfinans.se/api/tax/1"
+    }
+  }
+}

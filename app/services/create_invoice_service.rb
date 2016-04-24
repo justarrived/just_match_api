@@ -9,8 +9,10 @@ class CreateInvoiceService
     return invoice unless invoice.valid?
 
     admin_notify_klass = NilNotifier
+    admin_notify_args = {}
     if job.company.frilans_finans_id.nil?
       admin_notify_klass = InvoiceMissingCompanyFrilansFinansIdNotifier
+      admin_notify_args = { invoice: invoice, job: job }
     else
       # Build frilans finans invoice attributes
       attributes = frilans_finans_body(
@@ -21,19 +23,17 @@ class CreateInvoiceService
 
       ff_invoice = FrilansFinansApi::Invoice.create(attributes: attributes)
       frilans_finans_id = ff_invoice.resource.id
-      if frilans_finans_id.nil?
-        error_message = I18n.t('errors.invoice.frilans_finans_id')
-        invoice.errors.add(:frilans_finans_id, error_message)
-        return invoice
-      end
-
       invoice.frilans_finans_id = frilans_finans_id
+
+      if frilans_finans_id.nil?
+        admin_notify_klass = InvoiceFailedToConnectToFrilansFinansNotifier
+        admin_notify_args = { invoice: invoice }
+      end
     end
 
     invoice.save!
 
-    admin_notify_klass.call(invoice: invoice, job: job)
-
+    admin_notify_klass.call(**admin_notify_args)
     InvoiceCreatedNotifier.call(job: job, user: user)
 
     invoice

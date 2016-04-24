@@ -47,6 +47,24 @@ RSpec.describe FrilansFinansApi::Client do
     end
   end
 
+  describe '#taxes' do
+    subject do
+      json = fixture_client.read(:taxes)
+      url = "#{base_url}/taxes?client_id=&client_secret=&grant_type=&page=1"
+
+      stub_request(:get, url).
+        with(default_headers).
+        to_return(status: 200, body: json, headers: {})
+
+      described_class.new
+    end
+
+    it 'returns taxes array' do
+      parsed_body = JSON.parse(subject.taxes.body)
+      expect(parsed_body['data']).to be_a(Array)
+    end
+  end
+
   describe '#create_user' do
     subject do
       json = fixture_client.read(:user)

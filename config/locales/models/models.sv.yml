@@ -114,7 +114,7 @@ sv:
       job_user:
         accepted: Accepterad
         accepted_at: Accepteras på
-        invoice: :activerecord.models.invoice
+        invoice: Faktura
         job: Jobb
         performed: Genomförde
         user: Användare

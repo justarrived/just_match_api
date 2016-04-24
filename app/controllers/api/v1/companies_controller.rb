@@ -45,6 +45,11 @@ module Api
         param :attributes, Hash, desc: 'Company attributes', required: true do
           param :name, String, desc: 'Name of the company', required: true
           param :cin, String, desc: 'Swedish organisation number', required: true
+          param :email, String, desc: 'Email', required: true
+          param :phone, String, desc: 'Phone', required: true
+          param :street, String, desc: 'Street address', required: true
+          param :zip, String, desc: 'Zip code', required: true
+          param :city, String, desc: 'City', required: true
           param :website, String, desc: 'Website URL'
           param :'company-image-one-time-token', String, desc: 'Company image one time token' # rubocop:disable Metrics/LineLength
         end
@@ -71,7 +76,7 @@ module Api
       private
 
       def company_params
-        jsonapi_params.permit(:name, :cin, :website)
+        jsonapi_params.permit(:name, :cin, :website, :email, :phone, :street, :zip, :city)
       end
 
       def frilans_params

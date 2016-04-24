@@ -2,6 +2,17 @@
 require 'rails_helper'
 
 RSpec.describe Company, type: :model do
+  describe '#find_frilans_finans_user' do
+    let(:company) { FactoryGirl.build(:company) }
+
+    it 'returns first user that has frilans finans id' do
+      FactoryGirl.create(:user, company: company)
+      FactoryGirl.create(:user, company: company, frilans_finans_id: 10)
+      FactoryGirl.create(:user, company: company, frilans_finans_id: 11)
+      expect(company.find_frilans_finans_user.frilans_finans_id).to eq(10)
+    end
+  end
+
   describe '#logo_image_token=' do
     let(:company) { FactoryGirl.create(:company) }
     let(:company_image) { FactoryGirl.create(:company_image) }
@@ -60,6 +71,11 @@ end
 #  updated_at        :datetime         not null
 #  frilans_finans_id :integer
 #  website           :string
+#  email             :string
+#  street            :string
+#  zip               :string
+#  city              :string
+#  phone             :string
 #
 # Indexes
 #
