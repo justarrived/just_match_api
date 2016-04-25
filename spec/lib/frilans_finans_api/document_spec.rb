@@ -22,17 +22,25 @@ RSpec.describe FrilansFinansApi::Document do
     end
 
     it 'can return #per_page' do
-      expect(subject.per_page).to eq(100)
+      expect(subject.per_page).to eq(10)
     end
 
     it 'can return #total_pages' do
-      expect(subject.total_pages).to eq(1)
+      expect(subject.total_pages).to eq(331)
+    end
+
+    it 'can return #total' do
+      expect(subject.total).to eq(1066)
+    end
+
+    it 'can return #count' do
+      expect(subject.count).to eq(10)
     end
 
     it 'can return #resources' do
       expect(subject.resources.first).to be_a(FrilansFinansApi::Resource)
-      # Assumes that professions fixture has 100 resources..
-      expect(subject.resources.length).to eq(100)
+      # Assumes that professions fixture has 10 resources..
+      expect(subject.resources.length).to eq(10)
     end
   end
 

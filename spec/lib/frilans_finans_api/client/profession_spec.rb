@@ -12,14 +12,14 @@ RSpec.describe FrilansFinansApi::Profession do
     it 'returns professions' do
       resources = subject.index(client: client).resources
       expect(resources).to be_a(Array)
-      expect(resources.first.attributes['title']).to eq('designer 1')
+      expect(resources.first.attributes['title']).to eq('3D-designer')
     end
 
     it 'can walk' do
       subject.walk(client: client) do |document|
         resources = document.resources
         expect(resources).to be_a(Array)
-        expect(resources.first.attributes['title']).to eq('designer 1')
+        expect(resources.first.attributes['title']).to eq('3D-designer')
       end
     end
   end

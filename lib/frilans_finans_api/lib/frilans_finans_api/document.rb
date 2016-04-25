@@ -51,5 +51,13 @@ module FrilansFinansApi
     def total_pages
       @parsed_json.dig('meta', 'pagination', 'total_pages')
     end
+
+    def total
+      @parsed_json.dig('meta', 'pagination', 'total')
+    end
+
+    def count
+      @parsed_json.dig('meta', 'pagination', 'count')
+    end
   end
 end

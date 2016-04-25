@@ -2,24 +2,57 @@
   "data": [
     {
       "type": "tax",
+      "id": "0",
+      "attributes": {
+        "standard": 0,
+        "percent": 0
+      },
+      "links": {
+        "self": "https://frilansfinans.se/api/tax/0"
+      }
+    },
+    {
+      "type": "tax",
       "id": "1",
       "attributes": {
+        "standard": 0,
+        "percent": 6
       },
       "links": {
         "self": "https://frilansfinans.se/api/tax/1"
+      }
+    },
+    {
+      "type": "tax",
+      "id": "2",
+      "attributes": {
+        "standard": 0,
+        "percent": 12
+      },
+      "links": {
+        "self": "https://frilansfinans.se/api/tax/2"
+      }
+    },
+    {
+      "type": "tax",
+      "id": "3",
+      "attributes": {
+        "standard": 1,
+        "percent": 25
+      },
+      "links": {
+        "self": "https://frilansfinans.se/api/tax/3"
       }
     }
   ],
   "meta": {
     "pagination": {
-      "total": 1,
-      "count": 1,
-      "per_page": 100,
+      "total": 4,
+      "count": 4,
+      "per_page": 25,
       "current_page": 1,
       "total_pages": 1,
-      "links": {
-        "next": "https://frilansfinans.se/api/taxes?page=2"
-      }
+      "links": []
     }
   }
 }

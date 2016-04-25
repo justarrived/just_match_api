@@ -18,7 +18,7 @@ RSpec.describe FrilansFinansApi::User do
 
     it 'returns user' do
       user = subject.create(attributes: valid_attributes, client: client)
-      expect(user.resource.attributes['first_name']).to eq('Anna')
+      expect(user.resource.attributes['first_name']).to eq('Jacob')
     end
   end
 end

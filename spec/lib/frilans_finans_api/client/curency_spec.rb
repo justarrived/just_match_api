@@ -12,14 +12,14 @@ RSpec.describe FrilansFinansApi::Currency do
     it 'returns professions' do
       resources = subject.index(client: client).resources
       expect(resources).to be_a(Array)
-      expect(resources.first.attributes['currency_code']).to eq('SEK')
+      expect(resources.first.attributes['name']).to eq('SEK')
     end
 
     it 'can walk' do
       subject.walk(client: client) do |document|
         resources = document.resources
         expect(resources).to be_a(Array)
-        expect(resources.first.attributes['currency_code']).to eq('SEK')
+        expect(resources.last.attributes['name']).to eq('NOK')
       end
     end
   end

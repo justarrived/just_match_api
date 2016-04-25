@@ -1,0 +1,110 @@
+{
+  "data": [
+    {
+      "type": "invoice",
+      "id": "1",
+      "attributes": {
+        "specification": "One invoice to rule them all",
+        "pre_report": 0,
+        "ownership": 0,
+        "lastChangedBy": 0,
+        "invoice_number": null,
+        "user_id": 1,
+        "tax_id": 1,
+        "amount": 2000,
+        "gross": 1000,
+        "net": 1000,
+        "allowance": 0,
+        "travel": 0,
+        "expense": 0,
+        "company_id": 1,
+        "company_name": "Acme AB",
+        "company_co": "",
+        "company_street": "Smetvägen",
+        "company_zip": "12345",
+        "company_city": "Uppsala",
+        "company_country": "SWEDEN",
+        "company_vat": "",
+        "company_contact": "Jane Doe",
+        "company_email": "jane.doe@example.com",
+        "currency_id": 1,
+        "currency_exchange_rate": 1,
+        "currency_amount": 2000,
+        "payment_status": 1,
+        "approval_status": 1,
+        "status": 1,
+        "full_payment_date_time": "0000-00-00 00:00:00",
+        "sent": "0000-00-00 00:00:00",
+        "created_at": "2016-04-05 16:24:00",
+        "note": null,
+        "supplier_ledger_date_time": "0000-00-00 00:00:00",
+        "extra_security": 0,
+        "send_to_email": "john.doe@example.com",
+        "saved_invoice_created_at": "0000-00-00 00:00:00",
+        "api_consumer_id": 0,
+        "special_tax_id": 0
+      },
+      "links": {
+        "self": "https://frilansfinans.se/api/invoice/1"
+      }
+    },
+    {
+      "type": "invoice",
+      "id": "2",
+      "attributes": {
+        "specification": "A pre-reported invoice to rule them all",
+        "pre_report": 1,
+        "ownership": 0,
+        "lastChangedBy": 0,
+        "invoice_number": null,
+        "user_id": 1,
+        "tax_id": 1,
+        "amount": 2000,
+        "gross": 1000,
+        "net": 1000,
+        "allowance": 0,
+        "travel": 0,
+        "expense": 0,
+        "company_id": 1,
+        "company_name": "Acme AB",
+        "company_co": "",
+        "company_street": "Smetvägen",
+        "company_zip": "12345",
+        "company_city": "Uppsala",
+        "company_country": "SWEDEN",
+        "company_vat": "",
+        "company_contact": "Jane Doe",
+        "company_email": "jane.doe@example.com",
+        "currency_id": 1,
+        "currency_exchange_rate": 1,
+        "currency_amount": 2000,
+        "payment_status": 1,
+        "approval_status": 2,
+        "status": 1,
+        "full_payment_date_time": "0000-00-00 00:00:00",
+        "sent": "0000-00-00 00:00:00",
+        "created_at": "2016-04-06 11:45:00",
+        "note": null,
+        "supplier_ledger_date_time": "0000-00-00 00:00:00",
+        "extra_security": 0,
+        "send_to_email": "jane.doe@example.com",
+        "saved_invoice_created_at": "0000-00-00 00:00:00",
+        "api_consumer_id": 0,
+        "special_tax_id": 0
+      },
+      "links": {
+        "self": "https://frilansfinans.se/api/invoice/2"
+      }
+    }
+  ],
+  "meta": {
+    "pagination": {
+      "total": 2,
+      "count": 2,
+      "per_page": 25,
+      "current_page": 1,
+      "total_pages": 1,
+      "links": []
+    }
+  }
+}
