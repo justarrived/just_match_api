@@ -17,7 +17,7 @@ class FrilansFinansImporter
     FrilansFinansApi::Currency.walk(client: client) do |document|
       document.resources.each do |currency|
         record = Currency.find_or_initialize_by(frilans_finans_id: currency.id)
-        record.currency_code = currency.attributes['currency_code']
+        record.currency_code = currency.attributes['name']
         record.save!
       end
     end

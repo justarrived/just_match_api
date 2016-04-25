@@ -1,0 +1,54 @@
+{
+  "data": [
+    {
+      "type": "company",
+      "id": "1",
+      "attributes": {
+        "name": "ACME AB",
+        "co": "123",
+        "street": "Plommonvägen 139",
+        "zip": "1345",
+        "city": "Uppsla",
+        "country": "SWEDEN",
+        "contact": "John Doe",
+        "phone": "13247",
+        "email": "john.doe@example.com",
+        "user_id": 1,
+        "send_to_email": "jane.doe@example.com"
+      },
+      "links": {
+        "self": "https://frilansfinans.se/api/company/1"
+      }
+    },
+    {
+      "type": "company",
+      "id": "2",
+      "attributes": {
+        "name": "Acme 1 AB",
+        "co": "",
+        "street": "Kungsängsgatan 12",
+        "zip": "74330",
+        "city": "Uppsala",
+        "country": "Sverige",
+        "contact": "Jane Doe",
+        "phone": "018790900",
+        "email": "jane.doe@example.com",
+        "user_id": 1,
+        "send_to_email": "john.doe@example.com"
+      },
+      "links": {
+        "self": "https://frilansfinans.se/api/company/2"
+      }
+    }
+  ],
+  "meta": {
+    "pagination": {
+      "total": 2,
+      "count": 2,
+      "per_page": 25,
+      "current_page": 1,
+      "total_pages": 1,
+      "links": []
+    }
+  }
+}

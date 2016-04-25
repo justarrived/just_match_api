@@ -3,6 +3,8 @@
     "type": "tax",
     "id": "1",
     "attributes": {
+      "standard": 0,
+      "percent": 0
     },
     "links": {
       "self": "https://frilansfinans.se/api/tax/1"

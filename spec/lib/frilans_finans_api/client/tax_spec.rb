@@ -12,14 +12,14 @@ RSpec.describe FrilansFinansApi::Tax do
     it 'returns taxes' do
       resources = subject.index(client: client).resources
       expect(resources).to be_a(Array)
-      expect(resources.first.id).to eq('1')
+      expect(resources.first.id).to eq('0')
     end
 
     it 'can walk' do
       subject.walk(client: client) do |document|
         resources = document.resources
         expect(resources).to be_a(Array)
-        expect(resources.first.id).to eq('1')
+        expect(resources.first.id).to eq('0')
       end
     end
   end

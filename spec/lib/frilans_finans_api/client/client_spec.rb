@@ -43,7 +43,7 @@ RSpec.describe FrilansFinansApi::Client do
 
     it 'returns currencies array' do
       parsed_body = JSON.parse(subject.currencies.body)
-      expect(parsed_body['data'].first.dig('attributes', 'currency_code')).to eq('SEK')
+      expect(parsed_body['data'].first.dig('attributes', 'name')).to eq('SEK')
     end
   end
 
@@ -70,7 +70,7 @@ RSpec.describe FrilansFinansApi::Client do
       json = fixture_client.read(:user)
       url = "#{base_url}/users"
 
-      body = 'data[attributes][first_name]=Anna&grant_type=&client_id=&client_secret='
+      body = 'data[attributes][first_name]=Jacob&grant_type=&client_id=&client_secret='
 
       stub_request(:post, url).
         with(default_headers.merge(body: body)).
@@ -80,12 +80,12 @@ RSpec.describe FrilansFinansApi::Client do
     end
 
     it 'returns user' do
-      attributes = { first_name: 'Anna' }
+      attributes = { first_name: 'Jacob' }
       response = subject.create_user(attributes: attributes)
       parsed_body = JSON.parse(response.body)
       id = parsed_body.dig('data', 'id')
       first_name = parsed_body.dig('data', 'attributes', 'first_name')
-      expect(first_name).to eq('Anna')
+      expect(first_name).to eq('Jacob')
       expect(id).to eq('1')
     end
   end

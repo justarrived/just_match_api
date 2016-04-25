@@ -2,7 +2,12 @@
   "data": {
     "type": "company",
     "attributes": {
-      "name": "Acme"
+      "name": "Acme",
+      "street": "Dag Hammarskjölds väg 13",
+      "zip": "75237",
+      "city": "UPPSALA",
+      "country": "SWEDEN",
+      "user_id": 1
     }
   }
 }

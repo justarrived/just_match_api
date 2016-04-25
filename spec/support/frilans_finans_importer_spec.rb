@@ -21,7 +21,7 @@ RSpec.describe FrilansFinansImporter do
 
   describe '#currencies' do
     let(:currencies_mock) do
-      resource = OpenStruct.new(attributes: { 'currency_code' => 'SEK' }, id: 1)
+      resource = OpenStruct.new(attributes: { 'name' => 'SEK' }, id: 1)
       Struct.new(:resources).new([resource])
     end
 
