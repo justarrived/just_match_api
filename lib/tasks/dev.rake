@@ -91,7 +91,7 @@ namespace :dev do
 
     task job_users: :environment do
       jobs = Job.all
-      users = User.all
+      users = User.regular_users
       Dev::JobUserSeed.call(jobs: jobs, users: users)
     end
 

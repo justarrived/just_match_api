@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
-RSpec.describe Api::V1::Users::UserJobsController, type: :controller do
-  let(:job) { FactoryGirl.create(:job) }
+RSpec.describe Api::V1::Users::OwnedJobsController, type: :controller do
   let(:user) { FactoryGirl.create(:user) }
 
   let(:valid_session) do
@@ -14,10 +13,10 @@ RSpec.describe Api::V1::Users::UserJobsController, type: :controller do
     {}
   end
 
-  it 'assigns all job_users as @job_users' do
-    job_user = FactoryGirl.create(:job_user, job: job, user: user)
+  it 'assigns all jobs as @jobs' do
+    job = FactoryGirl.create(:job, owner: user)
     get :index, { user_id: user.to_param }, valid_session
-    expect(assigns(:job_users)).to eq([job_user])
+    expect(assigns(:jobs)).to eq([job])
   end
 
   it 'returns 401 for unauthorized user' do
