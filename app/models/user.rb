@@ -55,6 +55,7 @@ class User < ApplicationRecord
 
   scope :admins, -> { where(admin: true) }
   scope :company_users, -> { where.not(company: nil) }
+  scope :regular_users, -> { where(company: nil) }
   scope :visible, -> { where.not(banned: true) }
   scope :valid_one_time_tokens, lambda {
     where('one_time_token_expires_at > ?', Time.zone.now)

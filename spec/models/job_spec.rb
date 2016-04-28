@@ -260,7 +260,7 @@ RSpec.describe Job, type: :model do
 
     it 'adds error if under allowed hours' do
       start_date = 2.days.from_now
-      end_date = 10.days.from_now
+      end_date = 20.days.from_now
       job_attributes = { job_date: start_date, job_end_date: end_date, hours: 3 }
       job = FactoryGirl.build(:job, job_attributes)
 

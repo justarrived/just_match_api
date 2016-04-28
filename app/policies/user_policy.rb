@@ -47,6 +47,10 @@ class UserPolicy < ApplicationPolicy
     admin_or_self? || company_user?
   end
 
+  def owned_jobs?
+    admin_or_self?
+  end
+
   def notifications?
     true
   end
