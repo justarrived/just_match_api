@@ -7,7 +7,7 @@ module Api
 
         after_action :verify_authorized, except: %i(index)
 
-        api :GET, '/users/:user_id/jobs', 'Shows all jobs that the user owns'
+        api :GET, '/users/:user_id/owned-jobs', 'Shows all jobs that the user owns'
         description 'Returns the all the jobs a user owns if the user is allowed.'
         error code: 401, desc: 'Unauthorized'
         error code: 404, desc: 'Not found'
