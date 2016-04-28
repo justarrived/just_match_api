@@ -2,6 +2,9 @@
 require 'rails_helper'
 
 RSpec.describe CreateFrilansFinansInvoiceService, type: :serializer do
+  before(:each) { stub_frilans_finans_auth_request }
+
+  let(:base_uri) { ENV.fetch('FRILANS_FINANS_BASE_URI') }
   let(:company) { FactoryGirl.create(:company, frilans_finans_id: 1) }
   let(:job) do
     owner = FactoryGirl.create(:user, company: company)
@@ -20,7 +23,7 @@ RSpec.describe CreateFrilansFinansInvoiceService, type: :serializer do
 
   subject do
     isolate_frilans_finans_client(FrilansFinansApi::Client) do
-      stub_request(:post, 'https://frilansfinans.se/api/invoices').
+      stub_request(:post, "#{base_uri}/invoices").
         with(body: invoice_request_body,
              headers: { 'User-Agent' => 'FrilansFinansAPI - Ruby client' }).
         to_return(status: 200, body: '{ "data": { "id": "1" } }', headers: {})

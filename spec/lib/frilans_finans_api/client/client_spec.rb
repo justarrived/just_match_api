@@ -2,14 +2,21 @@
 require 'rails_helper'
 
 RSpec.describe FrilansFinansApi::Client do
-  let(:default_headers) { described_class::HEADERS }
-  let(:base_url) { 'https://frilansfinans.se/api' }
+  before(:each) { stub_frilans_finans_auth_request }
+  let(:access_token) { 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' }
+
+  let(:default_headers) do
+    headers = FrilansFinansApi::Request::HEADERS.dup
+    headers['Authorization'] = "Bearer #{access_token}"
+    { headers: headers }
+  end
+  let(:base_uri) { ENV.fetch('FRILANS_FINANS_BASE_URI') }
   let(:fixture_client) { FrilansFinansApi::FixtureClient.new }
 
   describe '#professions' do
     subject do
       json = fixture_client.read(:professions)
-      url = "#{base_url}/professions?client_id=&client_secret=&grant_type=&page=1"
+      url = "#{base_uri}/professions?page=1"
 
       stub_request(:get, url).
         with(default_headers).
@@ -27,7 +34,7 @@ RSpec.describe FrilansFinansApi::Client do
   describe '#currencies' do
     subject do
       json = fixture_client.read(:currencies)
-      url = "#{base_url}/currencies?client_id=&client_secret=&grant_type=&page=1"
+      url = "#{base_uri}/currencies?page=1"
 
       stub_request(:get, url).
         with(default_headers).
@@ -50,7 +57,7 @@ RSpec.describe FrilansFinansApi::Client do
   describe '#taxes' do
     subject do
       json = fixture_client.read(:taxes)
-      url = "#{base_url}/taxes?client_id=&client_secret=&grant_type=&page=1"
+      url = "#{base_uri}/taxes?page=1"
 
       stub_request(:get, url).
         with(default_headers).
@@ -68,9 +75,9 @@ RSpec.describe FrilansFinansApi::Client do
   describe '#create_user' do
     subject do
       json = fixture_client.read(:user)
-      url = "#{base_url}/users"
+      url = "#{base_uri}/users"
 
-      body = 'data[attributes][first_name]=Jacob&grant_type=&client_id=&client_secret='
+      body = 'data[attributes][first_name]=Jacob'
 
       stub_request(:post, url).
         with(default_headers.merge(body: body)).
@@ -93,9 +100,9 @@ RSpec.describe FrilansFinansApi::Client do
   describe '#create_company' do
     subject do
       json = fixture_client.read(:company)
-      url = "#{base_url}/companies"
+      url = "#{base_uri}/companies"
 
-      body = 'data[attributes][name]=Acme&grant_type=&client_id=&client_secret='
+      body = 'data[attributes][name]=Acme'
 
       stub_request(:post, url).
         with(default_headers.merge(body: body)).
@@ -118,9 +125,9 @@ RSpec.describe FrilansFinansApi::Client do
   describe '#create_invoice' do
     subject do
       json = fixture_client .read(:invoice)
-      url = "#{base_url}/invoices"
+      url = "#{base_uri}/invoices"
 
-      body = 'grant_type=&client_id=&client_secret='
+      body = ''
 
       stub_request(:post, url).
         with(default_headers.merge(body: body)).
@@ -141,7 +148,7 @@ RSpec.describe FrilansFinansApi::Client do
   describe '#invoice' do
     subject do
       json = fixture_client .read(:invoice)
-      url = "#{base_url}/invoices/1?client_id=&client_secret=&grant_type="
+      url = "#{base_uri}/invoices/1"
 
       stub_request(:get, url).
         with(default_headers).

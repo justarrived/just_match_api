@@ -13,4 +13,8 @@ RSpec.describe FrilansFinansApi do
   it 'has a default client returned by #client_klass' do
     expect(FrilansFinansApi.client_klass).to eq(FrilansFinansApi::FixtureClient)
   end
+
+  it 'has a default uri' do
+    expect(FrilansFinansApi.base_uri).to eq(FrilansFinansApi::DEFAULT_BASE_URI)
+  end
 end
