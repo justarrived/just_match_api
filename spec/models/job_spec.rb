@@ -126,23 +126,50 @@ RSpec.describe Job, type: :model do
     end
   end
 
-  describe '#weekdays_appart' do
-    it 'returns the number of days between start and end date' do
-      start_date = Date.new(2016, 4, 22)
-      end_date = Date.new(2016, 4, 26)
-      job_attributes = { job_date: start_date, job_end_date: end_date }
-      job = FactoryGirl.build(:job, job_attributes)
-      expect(job.weekdays_appart).to eq(3)
+  describe '#workdays' do
+    context 'less than a week' do
+      it 'returns all days' do
+        start_date = Date.new(2016, 4, 22)
+        end_date = Date.new(2016, 4, 26)
+        job_attributes = { job_date: start_date, job_end_date: end_date }
+        job = FactoryGirl.build(:job, job_attributes)
+        expected = [
+          Date.new(2016, 4, 22),
+          Date.new(2016, 4, 23),
+          Date.new(2016, 4, 24),
+          Date.new(2016, 4, 25),
+          Date.new(2016, 4, 26)
+        ]
+        expect(job.workdays).to eq(expected)
+      end
+    end
+
+    context 'more than a week' do
+      it 'returns all weekdays' do
+        start_date = Date.new(2016, 4, 22)
+        end_date = Date.new(2016, 4, 30)
+        job_attributes = { job_date: start_date, job_end_date: end_date }
+        job = FactoryGirl.build(:job, job_attributes)
+        expected = [
+          Date.new(2016, 4, 22),
+          Date.new(2016, 4, 25),
+          Date.new(2016, 4, 26),
+          Date.new(2016, 4, 27),
+          Date.new(2016, 4, 28),
+          Date.new(2016, 4, 29)
+        ]
+        expect(job.workdays).to eq(expected)
+      end
     end
 
     it 'returns nil if job date is nil' do
       job = FactoryGirl.build(:job, job_date: nil)
-      expect(job.weekdays_appart).to be_nil
+      expect(job.workdays).to be_nil
     end
 
     it 'returns nil if job end date is nil' do
       job = FactoryGirl.build(:job, job_end_date: nil)
-      expect(job.weekdays_appart).to be_nil
+      expect(job.workdays).to be_nil
     end
   end
 
@@ -247,37 +274,66 @@ RSpec.describe Job, type: :model do
   end
 
   describe '#validate_within_allowed_hours' do
+    let(:min_hours_error_message) do
+      I18n.t('errors.job.hours_lower_bound', min_hours: Job::MIN_HOURS_PER_DAY)
+    end
+
+    let(:max_hours_error_message) do
+      I18n.t('errors.job.hours_upper_bound', max_hours: Job::MAX_HOURS_PER_DAY)
+    end
+
     it 'adds *no* error if within allowed hours' do
-      start_date = 2.days.from_now
-      end_date = 3.days.from_now
+      start_date = Date.new(2016, 4, 27)
+      end_date = Date.new(2016, 4, 28)
       job_attributes = { job_date: start_date, job_end_date: end_date, hours: 3 }
       job = FactoryGirl.build(:job, job_attributes)
 
       job.validate
-      message = 'asd'
-      expect(job.errors.messages[:hours] || []).not_to include(message)
+      expect(job.errors.messages[:hours] || []).not_to include(max_hours_error_message)
     end
 
-    it 'adds error if under allowed hours' do
-      start_date = 2.days.from_now
-      end_date = 20.days.from_now
-      job_attributes = { job_date: start_date, job_end_date: end_date, hours: 3 }
-      job = FactoryGirl.build(:job, job_attributes)
+    context 'more than one week' do
+      it 'adds error if under allowed hours' do
+        start_date = Date.new(2016, 4, 4)
+        end_date = Date.new(2016, 4, 18)
+        job_attributes = { job_date: start_date, job_end_date: end_date, hours: 3 }
+        job = FactoryGirl.build(:job, job_attributes)
 
-      job.validate
-      message = I18n.t('errors.job.hours_lower_bound', min_hours: Job::MIN_HOURS_PER_DAY)
-      expect(job.errors.messages[:hours]).to include(message)
+        job.validate
+        expect(job.errors.messages[:hours]).to include(min_hours_error_message)
+      end
+
+      it 'adds error if over allowed hours' do
+        start_date = Date.new(2016, 4, 4)
+        end_date = Date.new(2016, 4, 18)
+        job_attributes = { job_date: start_date, job_end_date: end_date, hours: 300 }
+        job = FactoryGirl.build(:job, job_attributes)
+
+        job.validate
+        expect(job.errors.messages[:hours]).to include(max_hours_error_message)
+      end
     end
 
-    it 'adds error if over allowed hours' do
-      start_date = Date.new(2016, 4, 22)
-      end_date = Date.new(2016, 4, 26)
-      job_attributes = { job_date: start_date, job_end_date: end_date, hours: 100 }
-      job = FactoryGirl.build(:job, job_attributes)
+    context 'less than one week' do
+      it 'adds error if under allowed hours' do
+        start_date = Date.new(2016, 4, 8)
+        end_date = Date.new(2016, 4, 10)
+        job_attributes = { job_date: start_date, job_end_date: end_date, hours: 1 }
+        job = FactoryGirl.build(:job, job_attributes)
 
-      job.validate
-      message = I18n.t('errors.job.hours_upper_bound', max_hours: Job::MAX_HOURS_PER_DAY)
-      expect(job.errors.messages[:hours]).to include(message)
+        job.validate
+        expect(job.errors.messages[:hours]).to include(min_hours_error_message)
+      end
+
+      it 'adds error if over allowed hours' do
+        start_date = Date.new(2016, 4, 8)
+        end_date = Date.new(2016, 4, 10)
+        job_attributes = { job_date: start_date, job_end_date: end_date, hours: 100 }
+        job = FactoryGirl.build(:job, job_attributes)
+
+        job.validate
+        expect(job.errors.messages[:hours]).to include(max_hours_error_message)
+      end
     end
   end
 end

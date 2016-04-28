@@ -34,25 +34,33 @@ class CreateFrilansFinansInvoiceService
         specification: "#{job.category.name} - #{job.name}",
         amount: job.amount,
         company_id: job.company.frilans_finans_id,
-        tax_id: nil
+        tax_id: nil, # TODO: Add the real tax id
+        user_id: job.owner.frilans_finans_id
       },
-      workers: [{
-        user_id: user.frilans_finans_id,
-        travel: 0,
-        vacation_pay: 0,
-        itp: 0,
-        express_payment: 0
-      }],
-      dates: calculate_dates(job)
+      invoiceuser: invoice_user(job: job, user: user),
+      invoicedate: invoice_dates(job)
     }
   end
 
-  def self.calculate_dates(job)
-    weekdays = DateSupport.weekdays_in(job.job_date, job.job_end_date)
-    weekdays.map! do |date|
+  def self.invoice_user(job:, user:)
+    [{
+      user_id: user.frilans_finans_id,
+      total: job.amount,
+      taxkey_id: nil,
+      allowance: 0,
+      travel: 0,
+      vacation_pay: 0,
+      itp: 0,
+      express_payment: 0
+    }]
+  end
+
+  def self.invoice_dates(job)
+    workdays = job.workdays
+    workdays.map do |date|
       {
         date: date,
-        hours: job.hours / weekdays.length
+        hours: job.hours / workdays.length
       }
     end
   end

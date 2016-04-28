@@ -113,18 +113,20 @@ RSpec.describe CreateFrilansFinansInvoiceService, type: :serializer do
     end
   end
 
-  describe '#calculate_dates' do
+  describe '#invoice_dates' do
     it 'returns the calculated dates' do
       start = Date.new(2016, 4, 22)
       finish = Date.new(2016, 4, 26)
-      job = FactoryGirl.build(:job, job_date: start, job_end_date: finish, hours: 30)
+      job = FactoryGirl.build(:job, job_date: start, job_end_date: finish, hours: 50)
 
       expected = [
         { date: Date.new(2016, 4, 22), hours: 10.0 },
+        { date: Date.new(2016, 4, 23), hours: 10.0 },
+        { date: Date.new(2016, 4, 24), hours: 10.0 },
         { date: Date.new(2016, 4, 25), hours: 10.0 },
         { date: Date.new(2016, 4, 26), hours: 10.0 }
       ]
-      result = described_class.calculate_dates(job)
+      result = described_class.invoice_dates(job)
 
       expect(result).to eq(expected)
     end
