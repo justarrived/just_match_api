@@ -113,8 +113,51 @@ RSpec.describe CreateFrilansFinansInvoiceService, type: :serializer do
     end
   end
 
+  describe '#invoice' do
+    it 'returns the main invoide data' do
+      company = FactoryGirl.create(:company, frilans_finans_id: 11)
+      owner = FactoryGirl.create(:user, frilans_finans_id: 10, company: company)
+      job = FactoryGirl.create(:job, owner: owner, hours: 50)
+
+      result = described_class.invoice(job: job)
+
+      expected = {
+        currency_id: Currency.default_currency.try!(:frilans_finans_id),
+        specification: "#{job.category.name} - #{job.name}",
+        amount: job.amount,
+        company_id: 11,
+        tax_id: nil,
+        user_id: 10
+      }
+
+      expect(result).to eq(expected)
+    end
+  end
+
+  describe '#invoice_users' do
+    it 'returns invoice users data' do
+      job = FactoryGirl.build(:job, hours: 50)
+      user = FactoryGirl.build(:user)
+
+      result = described_class.invoice_users(job: job, user: user)
+
+      expected = [{
+        user_id: nil,
+        total: 5000.0,
+        taxkey_id: nil,
+        allowance: 0,
+        travel: 0,
+        vacation_pay: 0,
+        itp: 0,
+        express_payment: 0
+      }]
+
+      expect(result).to eq(expected)
+    end
+  end
+
   describe '#invoice_dates' do
-    it 'returns the calculated dates' do
+    it 'returns invoice dates data' do
       start = Date.new(2016, 4, 22)
       finish = Date.new(2016, 4, 26)
       job = FactoryGirl.build(:job, job_date: start, job_end_date: finish, hours: 50)
@@ -126,7 +169,7 @@ RSpec.describe CreateFrilansFinansInvoiceService, type: :serializer do
         { date: Date.new(2016, 4, 25), hours: 10.0 },
         { date: Date.new(2016, 4, 26), hours: 10.0 }
       ]
-      result = described_class.invoice_dates(job)
+      result = described_class.invoice_dates(job: job)
 
       expect(result).to eq(expected)
     end

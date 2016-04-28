@@ -29,20 +29,24 @@ class CreateFrilansFinansInvoiceService
 
   def self.frilans_finans_body(job:, user:)
     {
-      invoice: {
-        currency_id: Currency.default_currency.try!(:frilans_finans_id),
-        specification: "#{job.category.name} - #{job.name}",
-        amount: job.amount,
-        company_id: job.company.frilans_finans_id,
-        tax_id: nil, # TODO: Add the real tax id
-        user_id: job.owner.frilans_finans_id
-      },
-      invoiceuser: invoice_user(job: job, user: user),
-      invoicedate: invoice_dates(job)
+      invoice: invoice(job: job),
+      invoiceuser: invoice_users(job: job, user: user),
+      invoicedate: invoice_dates(job: job)
     }
   end
 
-  def self.invoice_user(job:, user:)
+  def self.invoice(job:)
+    {
+      currency_id: Currency.default_currency.try!(:frilans_finans_id),
+      specification: "#{job.category.name} - #{job.name}",
+      amount: job.amount,
+      company_id: job.company.frilans_finans_id,
+      tax_id: nil, # TODO: Add the real tax id
+      user_id: job.owner.frilans_finans_id
+    }
+  end
+
+  def self.invoice_users(job:, user:)
     [{
       user_id: user.frilans_finans_id,
       total: job.amount,
@@ -55,7 +59,7 @@ class CreateFrilansFinansInvoiceService
     }]
   end
 
-  def self.invoice_dates(job)
+  def self.invoice_dates(job:)
     workdays = job.workdays
     workdays.map do |date|
       {
