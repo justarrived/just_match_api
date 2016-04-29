@@ -62,4 +62,29 @@ RSpec.describe FrilansFinansApi::Request do
       expect(response.code).to eq(201)
     end
   end
+
+  describe '#patch' do
+    before(:each) { stub_frilans_finans_auth_request }
+
+    it 'has access_token after request' do
+      stub_request(:patch, "#{base_uri}/").
+        with(headers: auth_headers).
+        to_return(status: 200, body: '', headers: {})
+
+      request = described_class.new
+      request.patch(uri: '/')
+      expect(request.access_token).to eq('x' * 40)
+    end
+  end
+
+  describe '#_patch' do
+    it 'can make patch request' do
+      stub_request(:patch, "#{base_uri}/").
+        with(headers: headers).
+        to_return(status: 201, body: '', headers: {})
+
+      response = described_class.new._patch(uri: '/')
+      expect(response.code).to eq(201)
+    end
+  end
 end

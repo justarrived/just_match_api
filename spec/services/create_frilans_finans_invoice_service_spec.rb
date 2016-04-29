@@ -10,8 +10,8 @@ RSpec.describe CreateFrilansFinansInvoiceService, type: :serializer do
     owner = FactoryGirl.create(:user, company: company)
     FactoryGirl.create(:passed_job, owner: owner)
   end
-  let(:job_user) { FactoryGirl.create(:job_user_passed_job, job: job) }
-  let(:user) { job_user.user }
+  let(:job_user) { FactoryGirl.create(:job_user_passed_job, job: job, user: user) }
+  let(:user) { FactoryGirl.create(:user, frilans_finans_id: 1) }
   let(:invoice) do
     FactoryGirl.create(:invoice, frilans_finans_id: nil, job_user: job_user)
   end
@@ -23,7 +23,10 @@ RSpec.describe CreateFrilansFinansInvoiceService, type: :serializer do
 
   subject do
     isolate_frilans_finans_client(FrilansFinansApi::Client) do
-      headers = { 'User-Agent' => 'FrilansFinansAPI - Ruby client' }
+      headers = {
+        'Authorization' => 'Bearer xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+        'User-Agent' => 'FrilansFinansAPI - Ruby client'
+      }
 
       stub_request(:post, "#{base_uri}/invoices").
         with(body: invoice_request_body,
@@ -33,6 +36,17 @@ RSpec.describe CreateFrilansFinansInvoiceService, type: :serializer do
       stub_request(:get, "#{base_uri}/taxes?filter%5Bstandard%5D=1&page=1").
         with(headers: headers).
         to_return(status: 200, body: '{ "data": { "id": "3" } }', headers: {})
+
+      ff_user_body = {
+        data: {
+          id: '5',
+          attributes: {}
+        }
+      }
+
+      stub_request(:get, "#{base_uri}/users/1").
+        with(headers: headers).
+        to_return(status: 200, body: JSON.dump(ff_user_body), headers: {})
 
       described_class.create(invoice: invoice)
     end
@@ -78,7 +92,8 @@ RSpec.describe CreateFrilansFinansInvoiceService, type: :serializer do
       FactoryGirl.create(:passed_job, owner: owner)
     end
 
-    let(:job_user) { FactoryGirl.build(:job_user_passed_job, job: job) }
+    let(:job_user) { FactoryGirl.build(:job_user_passed_job, job: job, user: user) }
+    let(:user) { FactoryGirl.create(:user, frilans_finans_id: 2) }
 
     subject do
       isolate_frilans_finans_client(FrilansFinansApi::NilClient) do
@@ -121,20 +136,25 @@ RSpec.describe CreateFrilansFinansInvoiceService, type: :serializer do
 
   describe '#invoice' do
     it 'returns the main invoide data' do
-      company = FactoryGirl.create(:company, frilans_finans_id: 11)
-      owner = FactoryGirl.create(:user, frilans_finans_id: 10, company: company)
+      ff_company_id = 11
+      company = FactoryGirl.create(:company, frilans_finans_id: ff_company_id)
+      owner = FactoryGirl.create(:user, company: company)
       job = FactoryGirl.create(:job, owner: owner, hours: 50)
-      tax = Struct.new(:id).new('3')
+      ff_tax_id = '3'
+      tax = Struct.new(:id).new(ff_tax_id)
 
-      result = described_class.invoice(job: job, tax: tax)
+      ff_user_id = 10
+      user = FactoryGirl.build(:user, frilans_finans_id: ff_user_id)
+
+      result = described_class.invoice(job: job, user: user, tax: tax)
 
       expected = {
         currency_id: Currency.default_currency.try!(:frilans_finans_id),
         specification: "#{job.category.name} - #{job.name}",
         amount: job.amount,
-        company_id: 11,
-        tax_id: '3',
-        user_id: 10
+        company_id: ff_company_id,
+        tax_id: ff_tax_id,
+        user_id: ff_user_id
       }
 
       expect(result).to eq(expected)
@@ -146,12 +166,16 @@ RSpec.describe CreateFrilansFinansInvoiceService, type: :serializer do
       job = FactoryGirl.build(:job, hours: 50)
       user = FactoryGirl.build(:user)
 
-      result = described_class.invoice_users(job: job, user: user)
+      taxkey_id = 13
+      attributes_mock = Struct.new(:attributes).new('default_taxkey_id' => taxkey_id)
+      ff_user_mock = Struct.new(:resource).new(attributes_mock)
+
+      result = described_class.invoice_users(job: job, user: user, ff_user: ff_user_mock)
 
       expected = [{
         user_id: nil,
         total: 5000.0,
-        taxkey_id: nil,
+        taxkey_id: taxkey_id,
         allowance: 0,
         travel: 0,
         vacation_pay: 0,

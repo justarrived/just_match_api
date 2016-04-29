@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160424100345) do
+ActiveRecord::Schema.define(version: 20160429083407) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -314,16 +314,16 @@ ActiveRecord::Schema.define(version: 20160424100345) do
     t.string   "email"
     t.string   "phone"
     t.text     "description"
-    t.datetime "created_at",                                 null: false
-    t.datetime "updated_at",                                 null: false
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
     t.float    "latitude"
     t.float    "longitude"
     t.integer  "language_id"
-    t.boolean  "anonymized",                 default: false
+    t.boolean  "anonymized",                     default: false
     t.string   "auth_token"
     t.string   "password_hash"
     t.string   "password_salt"
-    t.boolean  "admin",                      default: false
+    t.boolean  "admin",                          default: false
     t.string   "street"
     t.string   "zip"
     t.float    "zip_latitude"
@@ -332,13 +332,14 @@ ActiveRecord::Schema.define(version: 20160424100345) do
     t.string   "last_name"
     t.string   "ssn"
     t.integer  "company_id"
-    t.boolean  "banned",                     default: false
+    t.boolean  "banned",                         default: false
     t.text     "job_experience"
     t.text     "education"
     t.string   "one_time_token"
     t.datetime "one_time_token_expires_at"
     t.integer  "ignored_notifications_mask"
     t.integer  "frilans_finans_id"
+    t.boolean  "frilans_finans_payment_details", default: false
   end
 
   add_index "users", ["auth_token"], name: "index_users_on_auth_token", unique: true, using: :btree

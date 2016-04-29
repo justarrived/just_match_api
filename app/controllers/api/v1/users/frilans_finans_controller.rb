@@ -29,19 +29,26 @@ module Api
         def create
           authorize_create(@user)
 
-          if @user.frilans_finans_id.nil?
-            document = FrilansFinansApi::User.create(attributes: user_params)
-            @user.frilans_finans_id = document.resource.id if frilans_finans_active?
-            @user.save!
-
-            render json: {}, status: :ok
-          else
-            message = I18n.t('errors.user.frilans_finans_id')
-            response_json = {
-              errors: [{ status: 422, detail: message }]
-            }
-            render json: response_json, status: :unprocessable_entity
+          errors = ff_param_errors
+          if errors.any?
+            render json: { errors: errors }, status: :unprocessable_entity
+            return
           end
+
+          render json: {}, status: :ok unless frilans_finans_active?
+
+          if @user.frilans_finans_id.nil?
+            complete_params = user_params.merge(ff_user_params)
+            document = FrilansFinansApi::User.create(attributes: complete_params)
+            @user.frilans_finans_id = document.resource.id
+          else
+            id = @user.frilans_finans_id!
+            FrilansFinansApi::User.update(id: id, attributes: ff_user_params)
+          end
+
+          @user.frilans_finans_payment_details = true
+          @user.save!
+          render json: {}, status: :ok
         end
 
         private
@@ -51,18 +58,44 @@ module Api
         end
 
         def user_params
-          attributes = FrilansFinans::UserWrapper.attributes(@user)
+          FrilansFinans::UserWrapper.attributes(@user)
+        end
 
-          whitelist = [:account_clearing_nr, :account_nr]
-          jsonapi_params.permit(*whitelist).merge(attributes)
+        def ff_user_params
+          jsonapi_params.permit(:account_clearing_nr, :account_nr)
         end
 
         def authorize_create(user)
           raise Pundit::NotAuthorizedError unless policy(user).frilans_finans?
         end
 
+        def ff_param_errors
+          errors = []
+          message = I18n.t('errors.messages.blank')
+
+          if ff_user_params[:account_clearing_nr].blank?
+            errors << format_error(:account_clearing_nr, message)
+          end
+
+          if ff_user_params[:account_nr].blank?
+            errors << format_error(:account_nr, message)
+          end
+
+          errors
+        end
+
         def frilans_finans_active?
           Rails.configuration.x.frilans_finans
+        end
+
+        def format_error(field, message)
+          {
+            status: 422,
+            detail: message,
+            source: {
+              pointer: "/data/attributes/#{field.to_s.dasherize}"
+            }
+          }
         end
       end
     end

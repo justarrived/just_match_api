@@ -9,6 +9,7 @@ RSpec.describe FrilansFinans::UserWrapper do
       expected = {
         email: user.email,
         street: user.street,
+        city: nil,
         zip: user.zip,
         country: 'Sweden',
         cellphone: user.phone,

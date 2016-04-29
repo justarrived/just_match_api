@@ -31,6 +31,10 @@ module FrilansFinansApi
       request.get(uri: "/invoices/#{id}")
     end
 
+    def user(id:)
+      request.get(uri: "/users/#{id}")
+    end
+
     def create_user(attributes: {})
       data = { data: { attributes: attributes } }
       request.post(uri: '/users', body: data)
@@ -44,6 +48,11 @@ module FrilansFinansApi
     def create_invoice(attributes: {})
       data = attributes
       request.post(uri: '/invoices', body: data)
+    end
+
+    def update_user(id:, attributes: {})
+      data = { data: { attributes: attributes } }
+      request.patch(uri: "/users/#{id}", body: data)
     end
   end
 end

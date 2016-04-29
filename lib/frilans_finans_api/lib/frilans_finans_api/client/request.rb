@@ -33,6 +33,12 @@ module FrilansFinansApi
       end
     end
 
+    def patch(uri:, query: {}, body: {})
+      authorized_request do
+        _patch(uri: uri, query: query, body: body)
+      end
+    end
+
     def _get(uri:, query: {})
       opts = build_get_opts(query: query)
       HTTParty.get("#{base_uri}#{uri}", opts)
@@ -41,6 +47,11 @@ module FrilansFinansApi
     def _post(uri:, query: {}, body: {})
       opts = build_post_opts(query: query, body: body)
       HTTParty.post("#{base_uri}#{uri}", opts)
+    end
+
+    def _patch(uri:, query: {}, body: {})
+      opts = build_post_opts(query: query, body: body)
+      HTTParty.patch("#{base_uri}#{uri}", opts)
     end
 
     private

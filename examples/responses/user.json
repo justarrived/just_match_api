@@ -24,7 +24,8 @@
       "anonymized": false,
       "ignored-notifications": [
 
-      ]
+      ],
+      "frilans-finans-payment-details": false
     },
     "relationships": {
       "company": {
