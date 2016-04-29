@@ -4,12 +4,13 @@ require 'frilans_finans_api/client/fixture_client'
 require 'frilans_finans_api/client/nil_client'
 require 'frilans_finans_api/client/walker'
 require 'frilans_finans_api/client/client'
-require 'frilans_finans_api/client/company'
-require 'frilans_finans_api/client/currency'
-require 'frilans_finans_api/client/invoice'
-require 'frilans_finans_api/client/profession'
-require 'frilans_finans_api/client/tax'
-require 'frilans_finans_api/client/user'
+
+require 'frilans_finans_api/models/company'
+require 'frilans_finans_api/models/currency'
+require 'frilans_finans_api/models/invoice'
+require 'frilans_finans_api/models/profession'
+require 'frilans_finans_api/models/tax'
+require 'frilans_finans_api/models/user'
 
 require 'frilans_finans_api/document'
 require 'frilans_finans_api/resource'
@@ -27,7 +28,7 @@ module FrilansFinansApi
   end
 
   def self.client_id
-    @client_id || fail('client_id must be set')
+    @client_id || fail("#{name}.client_id must be set")
   end
 
   def self.client_id=(client_id)
@@ -35,7 +36,7 @@ module FrilansFinansApi
   end
 
   def self.client_secret
-    @client_secret || fail('client_secret must be set')
+    @client_secret || fail("#{name}.client_secret must be set")
   end
 
   def self.client_secret=(client_secret)
