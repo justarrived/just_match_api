@@ -21,8 +21,10 @@ module FrilansFinansApi
       request.get(uri: '/professions', query: { page: page })
     end
 
-    def taxes(page: 1)
-      request.get(uri: '/taxes', query: { page: page })
+    def taxes(page: 1, only_standard: false)
+      filter = {}
+      filter = { filter: { standard: 1 } } if only_standard
+      request.get(uri: '/taxes', query: { page: page }.merge(filter))
     end
 
     def invoice(id:)

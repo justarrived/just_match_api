@@ -4,8 +4,8 @@ module FrilansFinansApi
   class Tax
     include Walker
 
-    def self.index(page: 1, client: FrilansFinansApi.client_klass.new)
-      response = client.taxes(page: page)
+    def self.index(page: 1, only_standard: false, client: FrilansFinansApi.client_klass.new) # rubocop:disable Metrics/LineLength
+      response = client.taxes(page: page, only_standard: only_standard)
       Document.new(response.body)
     end
   end

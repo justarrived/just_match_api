@@ -23,10 +23,16 @@ RSpec.describe CreateFrilansFinansInvoiceService, type: :serializer do
 
   subject do
     isolate_frilans_finans_client(FrilansFinansApi::Client) do
+      headers = { 'User-Agent' => 'FrilansFinansAPI - Ruby client' }
+
       stub_request(:post, "#{base_uri}/invoices").
         with(body: invoice_request_body,
-             headers: { 'User-Agent' => 'FrilansFinansAPI - Ruby client' }).
+             headers: headers).
         to_return(status: 200, body: '{ "data": { "id": "1" } }', headers: {})
+
+      stub_request(:get, "#{base_uri}/taxes?filter%5Bstandard%5D=1&page=1").
+        with(headers: headers).
+        to_return(status: 200, body: '{ "data": { "id": "3" } }', headers: {})
 
       described_class.create(invoice: invoice)
     end
@@ -118,15 +124,16 @@ RSpec.describe CreateFrilansFinansInvoiceService, type: :serializer do
       company = FactoryGirl.create(:company, frilans_finans_id: 11)
       owner = FactoryGirl.create(:user, frilans_finans_id: 10, company: company)
       job = FactoryGirl.create(:job, owner: owner, hours: 50)
+      tax = Struct.new(:id).new('3')
 
-      result = described_class.invoice(job: job)
+      result = described_class.invoice(job: job, tax: tax)
 
       expected = {
         currency_id: Currency.default_currency.try!(:frilans_finans_id),
         specification: "#{job.category.name} - #{job.name}",
         amount: job.amount,
         company_id: 11,
-        tax_id: nil,
+        tax_id: '3',
         user_id: 10
       }
 

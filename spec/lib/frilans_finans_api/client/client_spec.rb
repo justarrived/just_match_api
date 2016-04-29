@@ -55,7 +55,9 @@ RSpec.describe FrilansFinansApi::Client do
   end
 
   describe '#taxes' do
-    subject do
+    subject { described_class.new }
+
+    it 'returns taxes array' do
       json = fixture_client.read(:taxes)
       url = "#{base_uri}/taxes?page=1"
 
@@ -63,11 +65,20 @@ RSpec.describe FrilansFinansApi::Client do
         with(default_headers).
         to_return(status: 200, body: json, headers: {})
 
-      described_class.new
+      parsed_body = JSON.parse(subject.taxes.body)
+      expect(parsed_body['data']).to be_a(Array)
     end
 
-    it 'returns taxes array' do
-      parsed_body = JSON.parse(subject.taxes.body)
+    # The real test here is actually the request stub rather than the assertion
+    it 'can add filter param' do
+      json = fixture_client.read(:taxes)
+      url = "#{base_uri}/taxes?filter[standard]=1&page=1"
+
+      stub_request(:get, url).
+        with(default_headers).
+        to_return(status: 200, body: json, headers: {})
+
+      parsed_body = JSON.parse(subject.taxes(only_standard: true).body)
       expect(parsed_body['data']).to be_a(Array)
     end
   end

@@ -8,10 +8,16 @@ class CreateFrilansFinansInvoiceService
     if job.company.frilans_finans_id.nil?
       InvoiceMissingCompanyFrilansFinansIdNotifier.call(invoice: invoice, job: job)
     else
-      # Build frilans finans invoice attributes
-      attributes = frilans_finans_body(job: job, user: user)
+      client = FrilansFinansApi.client_klass.new
+      tax = FrilansFinansApi::Tax.index(only_standard: true, client: client).resource
 
-      ff_invoice = FrilansFinansApi::Invoice.create(attributes: attributes)
+      # Build frilans finans invoice attributes
+      attributes = frilans_finans_body(job: job, user: user, tax: tax)
+
+      ff_invoice = FrilansFinansApi::Invoice.create(
+        attributes: attributes,
+        client: client
+      )
       frilans_finans_id = ff_invoice.resource.id
       invoice.frilans_finans_id = frilans_finans_id
 
@@ -27,21 +33,21 @@ class CreateFrilansFinansInvoiceService
     invoice
   end
 
-  def self.frilans_finans_body(job:, user:)
+  def self.frilans_finans_body(job:, user:, tax:)
     {
-      invoice: invoice(job: job),
+      invoice: invoice(job: job, tax: tax),
       invoiceuser: invoice_users(job: job, user: user),
       invoicedate: invoice_dates(job: job)
     }
   end
 
-  def self.invoice(job:)
+  def self.invoice(job:, tax:)
     {
       currency_id: Currency.default_currency.try!(:frilans_finans_id),
       specification: "#{job.category.name} - #{job.name}",
       amount: job.amount,
       company_id: job.company.frilans_finans_id,
-      tax_id: nil, # TODO: Add the real tax id
+      tax_id: tax.id,
       user_id: job.owner.frilans_finans_id
     }
   end
