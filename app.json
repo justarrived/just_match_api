@@ -38,6 +38,21 @@
       "description": "Access token for Mapbox used in the admins tools",
       "value": "",
       "required": false
+    },
+    "FRILANS_FINANS_BASE_URI": {
+      "description": "Frilans Finans API base URI (required for invoices)",
+      "value": "",
+      "required": false
+    },
+    "FRILANS_FINANS_CLIENT_ID": {
+      "description": "Frilans Finans API OAuth client id (required for invoices)",
+      "value": "",
+      "required": false
+    },
+    "FRILANS_FINANS_CLIENT_SECRET": {
+      "description": "Frilans Finans API OAuth client secret (required for invoices)",
+      "value": "",
+      "required": false
     }
   },
   "addons": ["sendgrid:starter", "scheduler:standard", "heroku-redis:hobby-dev", "airbrake:free_heroku"],

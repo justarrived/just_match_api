@@ -2,7 +2,7 @@ before_install:
   - "echo '--colour' > ~/.rspec"
   - "echo 'gem: --no-document' > ~/.gemrc"
 env:
-- LINT_FACTORY=true AIRBRAKE_PROJECT_ID=123456 AIRBRAKE_API_KEY=notsosecret
+- LINT_FACTORY=true AIRBRAKE_PROJECT_ID=123456 AIRBRAKE_API_KEY=notsosecret FRILANS_FINANS_BASE_URI=https://example.com FRILANS_FINANS_CLIENT_ID=notsosecret FRILANS_FINANS_CLIENT_SECRET=notsosecret
 script: script/cibuild
 branches:
   only:

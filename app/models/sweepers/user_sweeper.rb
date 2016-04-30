@@ -3,16 +3,7 @@ module Sweepers
   class UserSweeper
     def self.create_frilans_finans(scope = User)
       scope.needs_frilans_finans_id.find_each(batch_size: 1000) do |user|
-        attributes = {
-          email: user.email,
-          street: user.street,
-          city: nil,
-          country: user.country_name,
-          cellphone: user.phone,
-          first_name: user.first_name,
-          last_name: user.last_name,
-          social_security_nr: user.ssn
-        }
+        attributes = FrilansFinans::UserWrapper.attributes(user)
         ff_user = FrilansFinansApi::User.create(attributes: attributes)
         ff_id = ff_user.resource.id
 

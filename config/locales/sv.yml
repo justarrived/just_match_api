@@ -41,7 +41,6 @@ sv:
     user:
       password_length: lösenordet måste vara minst %{count} tecken
       must_be_available_locale: ditt språk stöds tyvärr inte
-      frilans_finans_id: du har redan ett Frilans Finans konto. Var god kontakta help@justarrived.se.
     validators:
       after_true: '%{field} måste vara sant'
       unrevertable: kan inte återställa %{field}

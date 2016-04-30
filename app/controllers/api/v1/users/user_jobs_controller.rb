@@ -9,9 +9,9 @@ module Api
 
         ALLOWED_INCLUDES = %w(job user).freeze
 
-        api :GET, '/users/:user_id/jobs', 'Shows all job users associated with user'
+        api :GET, '/users/:user_id/jobs', 'Shows all job the user has applied to.'
         # rubocop:disable Metrics/LineLength
-        description 'Returns the all job users where the user is the owner or applicant if the user is allowed.'
+        description 'Returns the all job users where the user is the applicant if the user is allowed.'
         # rubocop:enable Metrics/LineLength
         error code: 401, desc: 'Unauthorized'
         error code: 404, desc: 'Not found'

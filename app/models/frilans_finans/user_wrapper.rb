@@ -5,8 +5,9 @@ module FrilansFinans
       {
         email: user.email,
         street: user.street,
+        city: nil,
         zip: user.zip,
-        country: 'Sweden',
+        country: user.country_name,
         cellphone: user.phone,
         first_name: user.first_name,
         last_name: user.last_name,

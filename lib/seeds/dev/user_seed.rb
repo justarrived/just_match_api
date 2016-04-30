@@ -24,7 +24,7 @@ module Dev
             address: addresses.sample,
             language: system_languages.sample
           )
-          user.skills << skills.sample
+          user.skills << skills.sample if skills.any?
           user.languages << languages.sample
         end
 

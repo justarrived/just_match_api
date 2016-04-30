@@ -18,6 +18,10 @@ module FrilansFinansApi
       Response.new(read(:taxes))
     end
 
+    def user(**_args)
+      Response.new(read(:user))
+    end
+
     def invoice(**_args)
       Response.new(read(:invoice))
     end
@@ -32,6 +36,10 @@ module FrilansFinansApi
 
     def create_invoice(**_args)
       Response.new(read(:invoice))
+    end
+
+    def update_user(**_args)
+      Response.new(read(:user))
     end
 
     def read(type)

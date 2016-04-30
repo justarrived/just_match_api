@@ -2,13 +2,16 @@
 require 'rails_helper'
 
 RSpec.describe CreateFrilansFinansInvoiceService, type: :serializer do
+  before(:each) { stub_frilans_finans_auth_request }
+
+  let(:base_uri) { ENV.fetch('FRILANS_FINANS_BASE_URI') }
   let(:company) { FactoryGirl.create(:company, frilans_finans_id: 1) }
   let(:job) do
     owner = FactoryGirl.create(:user, company: company)
     FactoryGirl.create(:passed_job, owner: owner)
   end
-  let(:job_user) { FactoryGirl.create(:job_user_passed_job, job: job) }
-  let(:user) { job_user.user }
+  let(:job_user) { FactoryGirl.create(:job_user_passed_job, job: job, user: user) }
+  let(:user) { FactoryGirl.create(:user, frilans_finans_id: 1) }
   let(:invoice) do
     FactoryGirl.create(:invoice, frilans_finans_id: nil, job_user: job_user)
   end
@@ -20,10 +23,30 @@ RSpec.describe CreateFrilansFinansInvoiceService, type: :serializer do
 
   subject do
     isolate_frilans_finans_client(FrilansFinansApi::Client) do
-      stub_request(:post, 'https://frilansfinans.se/api/invoices').
+      headers = {
+        'Authorization' => 'Bearer xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+        'User-Agent' => 'FrilansFinansAPI - Ruby client'
+      }
+
+      stub_request(:post, "#{base_uri}/invoices").
         with(body: invoice_request_body,
-             headers: { 'User-Agent' => 'FrilansFinansAPI - Ruby client' }).
+             headers: headers).
         to_return(status: 200, body: '{ "data": { "id": "1" } }', headers: {})
+
+      stub_request(:get, "#{base_uri}/taxes?filter%5Bstandard%5D=1&page=1").
+        with(headers: headers).
+        to_return(status: 200, body: '{ "data": { "id": "3" } }', headers: {})
+
+      ff_user_body = {
+        data: {
+          id: '5',
+          attributes: {}
+        }
+      }
+
+      stub_request(:get, "#{base_uri}/users/1").
+        with(headers: headers).
+        to_return(status: 200, body: JSON.dump(ff_user_body), headers: {})
 
       described_class.create(invoice: invoice)
     end
@@ -69,7 +92,8 @@ RSpec.describe CreateFrilansFinansInvoiceService, type: :serializer do
       FactoryGirl.create(:passed_job, owner: owner)
     end
 
-    let(:job_user) { FactoryGirl.build(:job_user_passed_job, job: job) }
+    let(:job_user) { FactoryGirl.build(:job_user_passed_job, job: job, user: user) }
+    let(:user) { FactoryGirl.create(:user, frilans_finans_id: 2) }
 
     subject do
       isolate_frilans_finans_client(FrilansFinansApi::NilClient) do
@@ -110,18 +134,73 @@ RSpec.describe CreateFrilansFinansInvoiceService, type: :serializer do
     end
   end
 
-  describe '#calculate_dates' do
-    it 'returns the calculated dates' do
+  describe '#invoice' do
+    it 'returns the main invoide data' do
+      ff_company_id = 11
+      company = FactoryGirl.create(:company, frilans_finans_id: ff_company_id)
+      owner = FactoryGirl.create(:user, company: company)
+      job = FactoryGirl.create(:job, owner: owner, hours: 50)
+      ff_tax_id = '3'
+      tax = Struct.new(:id).new(ff_tax_id)
+
+      ff_user_id = 10
+      user = FactoryGirl.build(:user, frilans_finans_id: ff_user_id)
+
+      result = described_class.invoice(job: job, user: user, tax: tax)
+
+      expected = {
+        currency_id: Currency.default_currency.try!(:frilans_finans_id),
+        specification: "#{job.category.name} - #{job.name}",
+        amount: job.amount,
+        company_id: ff_company_id,
+        tax_id: ff_tax_id,
+        user_id: ff_user_id
+      }
+
+      expect(result).to eq(expected)
+    end
+  end
+
+  describe '#invoice_users' do
+    it 'returns invoice users data' do
+      job = FactoryGirl.build(:job, hours: 50)
+      user = FactoryGirl.build(:user)
+
+      taxkey_id = 13
+      attributes_mock = Struct.new(:attributes).new('default_taxkey_id' => taxkey_id)
+      ff_user_mock = Struct.new(:resource).new(attributes_mock)
+
+      result = described_class.invoice_users(job: job, user: user, ff_user: ff_user_mock)
+
+      expected = [{
+        user_id: nil,
+        total: 5000.0,
+        taxkey_id: taxkey_id,
+        allowance: 0,
+        travel: 0,
+        vacation_pay: 0,
+        itp: 0,
+        express_payment: 0
+      }]
+
+      expect(result).to eq(expected)
+    end
+  end
+
+  describe '#invoice_dates' do
+    it 'returns invoice dates data' do
       start = Date.new(2016, 4, 22)
       finish = Date.new(2016, 4, 26)
-      job = FactoryGirl.build(:job, job_date: start, job_end_date: finish, hours: 30)
+      job = FactoryGirl.build(:job, job_date: start, job_end_date: finish, hours: 50)
 
       expected = [
         { date: Date.new(2016, 4, 22), hours: 10.0 },
+        { date: Date.new(2016, 4, 23), hours: 10.0 },
+        { date: Date.new(2016, 4, 24), hours: 10.0 },
         { date: Date.new(2016, 4, 25), hours: 10.0 },
         { date: Date.new(2016, 4, 26), hours: 10.0 }
       ]
-      result = described_class.calculate_dates(job)
+      result = described_class.invoice_dates(job: job)
 
       expect(result).to eq(expected)
     end

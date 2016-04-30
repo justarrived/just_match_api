@@ -40,6 +40,11 @@ RSpec.describe Api::V1::Users::FrilansFinansController, type: :controller do
       end
     end
 
+    it 'sets User#frilans_finans_payment_details' do
+      post :create, valid_params, valid_session
+      expect(assigns(:user).frilans_finans_payment_details).to eq(true)
+    end
+
     context 'frilans_finans_id already set' do
       let(:ff_id) { 10 }
       let(:user) { FactoryGirl.create(:user, frilans_finans_id: ff_id) }
@@ -49,16 +54,37 @@ RSpec.describe Api::V1::Users::FrilansFinansController, type: :controller do
         expect(assigns(:user).frilans_finans_id).to eq(ff_id)
       end
 
-      it 'returns 422 unprocessable entity' do
+      it 'sets User#frilans_finans_payment_details' do
         post :create, valid_params, valid_session
-        expect(response.status).to eq(422)
+        expect(assigns(:user).frilans_finans_payment_details).to eq(true)
+      end
+
+      it 'returns 200 ok status' do
+        post :create, valid_params, valid_session
+        expect(response.status).to eq(200)
+      end
+    end
+
+    context 'invalid params' do
+      let(:invalid_params) do
+        {
+          user_id: user.to_param,
+          data: {
+            attributes: {}
+          }
+        }
       end
 
       it 'returns valid jsonapi errors' do
-        post :create, valid_params, valid_session
+        post :create, invalid_params, valid_session
         result = JSON.parse(response.body)['errors'].first
-        message = I18n.t('errors.user.frilans_finans_id')
-        expected = { 'status' => 422, 'detail' => message }
+        expected = {
+          'status' => 422,
+          'detail' => I18n.t('errors.messages.blank'),
+          'source' => {
+            'pointer' => '/data/attributes/account-clearing-nr'
+          }
+        }
         expect(result).to eq(expected)
       end
     end

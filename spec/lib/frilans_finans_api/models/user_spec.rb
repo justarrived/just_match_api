@@ -21,4 +21,20 @@ RSpec.describe FrilansFinansApi::User do
       expect(user.resource.attributes['first_name']).to eq('Jacob')
     end
   end
+
+  describe '#update' do
+    subject { described_class }
+
+    let(:valid_attributes) do
+      json = client.read(:user_post)
+      data = JSON.parse(json)['data']
+      resource = FrilansFinansApi::Resource.new(data)
+      resource.attributes
+    end
+
+    it 'returns user' do
+      user = subject.update(id: '1', attributes: valid_attributes, client: client)
+      expect(user.resource.attributes['first_name']).to eq('Jacob')
+    end
+  end
 end

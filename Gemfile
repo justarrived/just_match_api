@@ -70,6 +70,7 @@ group :development, :test do
   gem 'consistency_fail', '~> 0.3'
   gem 'bullet', '~> 5.0'
   gem 'fog', '~> 1.38' # Cloud services gem, in production the aws-sdk gem is used
+  gem 'rspec_junit_formatter', '0.2.2'
 end
 
 group :development do

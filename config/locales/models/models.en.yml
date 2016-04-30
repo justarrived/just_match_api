@@ -205,6 +205,8 @@ en:
         zip: Zip
         zip_latitude: Zip latitude
         zip_longitude: Zip longitude
+        frilans_finans_id: Frilans Finans id
+        frilans_finans_payment_details: Frilans Finans payment details
 
       user_image:
         image_content_type: Image content type

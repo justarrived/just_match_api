@@ -76,35 +76,36 @@ end
 #
 # Table name: users
 #
-#  id                         :integer          not null, primary key
-#  email                      :string
-#  phone                      :string
-#  description                :text
-#  created_at                 :datetime         not null
-#  updated_at                 :datetime         not null
-#  latitude                   :float
-#  longitude                  :float
-#  language_id                :integer
-#  anonymized                 :boolean          default(FALSE)
-#  auth_token                 :string
-#  password_hash              :string
-#  password_salt              :string
-#  admin                      :boolean          default(FALSE)
-#  street                     :string
-#  zip                        :string
-#  zip_latitude               :float
-#  zip_longitude              :float
-#  first_name                 :string
-#  last_name                  :string
-#  ssn                        :string
-#  company_id                 :integer
-#  banned                     :boolean          default(FALSE)
-#  job_experience             :text
-#  education                  :text
-#  one_time_token             :string
-#  one_time_token_expires_at  :datetime
-#  ignored_notifications_mask :integer
-#  frilans_finans_id          :integer
+#  id                             :integer          not null, primary key
+#  email                          :string
+#  phone                          :string
+#  description                    :text
+#  created_at                     :datetime         not null
+#  updated_at                     :datetime         not null
+#  latitude                       :float
+#  longitude                      :float
+#  language_id                    :integer
+#  anonymized                     :boolean          default(FALSE)
+#  auth_token                     :string
+#  password_hash                  :string
+#  password_salt                  :string
+#  admin                          :boolean          default(FALSE)
+#  street                         :string
+#  zip                            :string
+#  zip_latitude                   :float
+#  zip_longitude                  :float
+#  first_name                     :string
+#  last_name                      :string
+#  ssn                            :string
+#  company_id                     :integer
+#  banned                         :boolean          default(FALSE)
+#  job_experience                 :text
+#  education                      :text
+#  one_time_token                 :string
+#  one_time_token_expires_at      :datetime
+#  ignored_notifications_mask     :integer
+#  frilans_finans_id              :integer
+#  frilans_finans_payment_details :boolean          default(FALSE)
 #
 # Indexes
 #
