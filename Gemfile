@@ -70,7 +70,7 @@ group :development, :test do
   gem 'consistency_fail', '~> 0.3'
   gem 'bullet', '~> 5.0'
   gem 'fog', '~> 1.38' # Cloud services gem, in production the aws-sdk gem is used
-  gem 'rspec_junit_formatter', '0.2.2'
+  gem 'rspec_junit_formatter', '~> 0.2'
 end
 
 group :development do
@@ -89,7 +89,7 @@ group :test do
   gem 'codeclimate-test-reporter', '~> 0.5', require: false
   gem 'simplecov', '~> 0.11', require: false
   gem 'database_cleaner', '~> 1.5'
-  gem 'webmock', '~> 1.24'
+  gem 'webmock', '~> 2.0'
   gem 'rspec-activemodel-mocks', '~> 1.0'
   gem 'timecop', '~> 0.8.0'
 end
