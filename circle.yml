@@ -1,0 +1,11 @@
+ruby:
+    version: 2.3.0
+
+  override:
+    - script/cibuild
+
+environment:
+    CIRCLE_CI: true
+    LINT_FACTORY: true
+    AIRBRAKE_PROJECT_ID: 123456
+    AIRBRAKE_API_KEY: notsosecret

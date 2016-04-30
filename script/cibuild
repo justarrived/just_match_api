@@ -6,6 +6,8 @@ cd "$(dirname "$0")/.."
 
 # script/cibuild: Run the test suite from CI.
 
+CIRCLE_CI=${CIRCLE_CI:-false}
+
 # Allow called scripts to detect that its being run by CI
 export CI_BUILD=true
 
@@ -13,13 +15,17 @@ echo -e '\n== Running cibuild =='
 export RAILS_ENV=test
 export RAKE_ENV=test
 
-script/bootstrap
-
-bin/rake db:create db:migrate
+# script/bootstrap
+#
+# bin/rake db:create db:schema:load
 
 export DOC_EXAMPLES=false
 export LINT_FACTORY=true
 export RUBOCOP=false
 export CHECK_DB_INDEXES=true
 export CHECK_DB_UNIQ_INDEXES=false
-script/test --tag ~no_travis spec
+if [[ $CIRCLE_CI == 'true' ]]; then
+  script/test -r rspec_junit_formatter --format RspecJunitFormatter -o $CIRCLE_TEST_REPORTS/rspec/junit.xml spec
+else
+  script/test spec
+fi
