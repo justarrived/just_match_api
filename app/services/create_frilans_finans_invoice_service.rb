@@ -7,25 +7,26 @@ class CreateFrilansFinansInvoiceService
 
     if job.company.frilans_finans_id.nil?
       InvoiceMissingCompanyFrilansFinansIdNotifier.call(invoice: invoice, job: job)
-    else
-      client = FrilansFinansApi.client_klass.new
-      tax = FrilansFinansApi::Tax.index(only_standard: true, client: client).resource
+      return invoice
+    end
 
-      ff_user = FrilansFinansApi::User.show(id: user.frilans_finans_id!)
+    client = FrilansFinansApi.client_klass.new
+    tax = FrilansFinansApi::Tax.index(only_standard: true, client: client).resource
 
-      # Build frilans finans invoice attributes
-      attributes = frilans_finans_body(job: job, user: user, tax: tax, ff_user: ff_user)
+    ff_user = FrilansFinansApi::User.show(id: user.frilans_finans_id!)
 
-      ff_invoice = FrilansFinansApi::Invoice.create(
-        attributes: attributes,
-        client: client
-      )
-      frilans_finans_id = ff_invoice.resource.id
-      invoice.frilans_finans_id = frilans_finans_id
+    # Build frilans finans invoice attributes
+    attributes = frilans_finans_body(job: job, user: user, tax: tax, ff_user: ff_user)
 
-      if frilans_finans_id.nil?
-        InvoiceFailedToConnectToFrilansFinansNotifier.call(invoice: invoice)
-      end
+    ff_invoice = FrilansFinansApi::Invoice.create(
+      attributes: attributes,
+      client: client
+    )
+    frilans_finans_id = ff_invoice.resource.id
+    invoice.frilans_finans_id = frilans_finans_id
+
+    if frilans_finans_id.nil?
+      InvoiceFailedToConnectToFrilansFinansNotifier.call(invoice: invoice)
     end
 
     invoice.save!
@@ -37,26 +38,24 @@ class CreateFrilansFinansInvoiceService
 
   def self.frilans_finans_body(job:, user:, tax:, ff_user:)
     {
-      invoice: invoice(job: job, user: user, tax: tax),
-      invoiceuser: invoice_users(job: job, user: user, ff_user: ff_user),
-      invoicedate: invoice_dates(job: job)
-    }
-  end
-
-  def self.invoice(job:, user:, tax:)
-    {
-      currency_id: Currency.default_currency.try!(:frilans_finans_id),
-      specification: "#{job.category.name} - #{job.name}",
-      amount: job.amount,
-      company_id: job.company.frilans_finans_id,
-      tax_id: tax.id,
-      user_id: user.frilans_finans_id
+      invoice: {
+        currency_id: Currency.default_currency.try!(:frilans_finans_id),
+        specification: "#{job.category.name} - #{job.name}",
+        amount: job.amount,
+        company_id: job.company.frilans_finans_id,
+        tax_id: tax.id,
+        user_id: user.frilans_finans_id,
+        invoiceuser: invoice_users(job: job, user: user, ff_user: ff_user),
+        invoicedate: invoice_dates(job: job)
+      }
     }
   end
 
   def self.invoice_users(job:, user:, ff_user:)
     ff_user_attributes = ff_user.resource.attributes
-    taxkey_id = ff_user_attributes['default_taxkey_id'] if ff_user.resource.attributes
+    # TODO: Uncomment the below line!
+    # taxkey_id = ff_user_attributes['default_taxkey_id'] if ff_user.resource.attributes
+    taxkey_id = 1337 if ff_user.resource.attributes
     [{
       user_id: user.frilans_finans_id,
       total: job.amount,
@@ -71,10 +70,14 @@ class CreateFrilansFinansInvoiceService
 
   def self.invoice_dates(job:)
     workdays = job.workdays
+    return [] if workdays.length.zero? # TODO: Remove this line, its to battle bad data..
+    hours_per_date = job.hours / workdays.length
+    # Frilans Finans wants hours rounded to the closets half
+    hours_per_date_rounded = (hours_per_date * 2).round.to_f / 2
     workdays.map do |date|
       {
         date: date,
-        hours: job.hours / workdays.length
+        hours: hours_per_date_rounded
       }
     end
   end

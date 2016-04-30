@@ -2,6 +2,9 @@
 class Invoice < ApplicationRecord
   belongs_to :job_user
 
+  has_one :job, through: :job_user
+  has_one :user, through: :job_user
+
   validates :job_user, uniqueness: true, presence: true
   validates :frilans_finans_id, uniqueness: true, allow_nil: true
 

@@ -4,7 +4,8 @@ require 'httparty'
 module FrilansFinansApi
   class Request
     HEADERS = {
-      'User-Agent' => 'FrilansFinansAPI - Ruby client'
+      'User-Agent' => 'FrilansFinansAPI - Ruby client',
+      'Content-Type' => 'application/json'
     }.freeze
 
     GRANT_TYPE = 'client_credentials'
@@ -29,7 +30,7 @@ module FrilansFinansApi
 
     def post(uri:, query: {}, body: {})
       authorized_request do
-        _post(uri: uri, query: query, body: body)
+        _post(uri: uri, query: query, body: body.to_json)
       end
     end
 
@@ -72,12 +73,12 @@ module FrilansFinansApi
     end
 
     def authorized_request
-      fetch_authentication if access_token.nil?
+      fetch_access_token if access_token.nil?
 
       response = yield
       return response unless reauthorize?(response)
 
-      fetch_authentication
+      fetch_access_token
       yield
     end
 
@@ -89,8 +90,8 @@ module FrilansFinansApi
       { 'Authorization' => "Bearer #{access_token}" }
     end
 
-    def fetch_authentication
-      response = _post(uri: '/auth/accesstoken', body: credentials)
+    def fetch_access_token
+      response = HTTParty.post("#{base_uri}/auth/accesstoken", body: credentials)
       @access_token = extract_access_token(response)
       response
     end

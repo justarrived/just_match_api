@@ -10,7 +10,7 @@ module Dev
       log_seed(Job, Comment) do
         max_jobs.times do
           address = addresses.sample
-          job_date_days = (3..10).to_a.sample
+          job_date_days = (6..13).to_a.sample
 
           job_date = job_date_days.days.from_now
           job_end_date = (job_date_days + 5).days.from_now
@@ -34,7 +34,7 @@ module Dev
           )
 
           if [0, 1].sample.even?
-            job_date_days = (3..10).to_a.sample
+            job_date_days = (6..13).to_a.sample
             job.job_date = job_date_days.days.ago
             job.job_end_date = (job_date_days.days - 5).ago
             job.save(validate: false)

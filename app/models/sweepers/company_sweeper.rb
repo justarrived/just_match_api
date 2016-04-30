@@ -6,7 +6,7 @@ module Sweepers
         user = company.find_frilans_finans_user
         attributes = {
           name: company.name,
-          country: company.country_name,
+          country: company.country_name.upcase,
           street: company.street,
           city: company.city,
           zip: company.zip,
