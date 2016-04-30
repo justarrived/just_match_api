@@ -15,9 +15,9 @@ echo -e '\n== Running cibuild =='
 export RAILS_ENV=test
 export RAKE_ENV=test
 
-# script/bootstrap
-#
-# bin/rake db:create db:schema:load
+script/bootstrap
+
+bin/rake db:create db:schema:load
 
 export DOC_EXAMPLES=false
 export LINT_FACTORY=true

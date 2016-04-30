@@ -9,3 +9,6 @@ environment:
     LINT_FACTORY: true
     AIRBRAKE_PROJECT_ID: 123456
     AIRBRAKE_API_KEY: notsosecret
+    FRILANS_FINANS_BASE_URI: https://example.com
+    FRILANS_FINANS_CLIENT_ID: 123456
+    FRILANS_FINANS_CLIENT_SECRET: notsosecret
