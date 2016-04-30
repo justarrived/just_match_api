@@ -79,7 +79,6 @@ class CreateFrilansFinansInvoiceService
 
   def self.invoice_dates(job:)
     workdays = job.workdays
-    return [] if workdays.length.zero? # TODO: Remove this line, its to battle bad data..
     hours_per_date = job.hours / workdays.length
     # Frilans Finans wants hours rounded to the closets half
     hours_per_date_rounded = (hours_per_date * 2).round.to_f / 2
