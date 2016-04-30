@@ -38,10 +38,11 @@ class Job < ApplicationRecord
   validates :owner, presence: true
   validates :hours, numericality: { greater_than_or_equal_to: MIN_TOTAL_HOURS }, allow_blank: false # rubocop:disable Metrics/LineLength
 
-  validate :validate_job_date_in_future
   validate :validate_job_end_date_after_job_date
   validate :validate_hourly_pay_active
   validate :validate_within_allowed_hours
+
+  validate :validate_job_date_in_future, unless: -> { Rails.configuration.x.validate_job_date_in_future_inactive } # rubocop:disable Metrics/LineLength
 
   belongs_to :owner, class_name: 'User', foreign_key: 'owner_user_id'
 
