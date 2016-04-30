@@ -11,10 +11,7 @@ module FrilansFinansApiTest
   def stub_frilans_finans_auth_request
     # Stub auth request
     base_uri = ENV.fetch('FRILANS_FINANS_BASE_URI')
-    headers = {
-      'Authorization' => 'Bearer',
-      'User-Agent' => 'FrilansFinansAPI - Ruby client'
-    }
+    headers = { 'User-Agent' => 'FrilansFinansAPI - Ruby client' }
     body = [
       'grant_type=client_credentials',
       "client_id=#{FrilansFinansApi.client_id}",
@@ -30,5 +27,13 @@ module FrilansFinansApiTest
     stub_request(:post, "#{base_uri}/auth/accesstoken").
       with(body: body, headers: headers).
       to_return(status: 200, body: response_body, headers: {})
+  end
+
+  def frilans_finans_authed_request_headers
+    {
+      'Authorization' => 'Bearer xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+      'Content-Type' => 'application/json',
+      'User-Agent' => 'FrilansFinansAPI - Ruby client'
+    }
   end
 end

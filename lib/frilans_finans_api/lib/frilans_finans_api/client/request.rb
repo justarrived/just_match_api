@@ -91,7 +91,11 @@ module FrilansFinansApi
     end
 
     def fetch_access_token
-      response = HTTParty.post("#{base_uri}/auth/accesstoken", body: credentials)
+      response = HTTParty.post(
+        "#{base_uri}/auth/accesstoken",
+        body: credentials,
+        headers: HEADERS
+      )
       @access_token = extract_access_token(response)
       response
     end

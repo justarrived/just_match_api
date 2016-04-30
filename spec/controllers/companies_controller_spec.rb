@@ -4,6 +4,14 @@ require 'rails_helper'
 RSpec.describe Api::V1::CompaniesController, type: :controller do
   let(:valid_session) { {} }
 
+  before(:each) do
+    stub_frilans_finans_auth_request
+
+    stub_request(:post, "#{FrilansFinansApi.base_uri}/companies").
+      with(body: /^*/, headers: frilans_finans_authed_request_headers).
+      to_return(status: 200, body: '{}', headers: {})
+  end
+
   describe 'GET #index' do
     it 'assigns all companies as @companies' do
       company = FactoryGirl.create(:company)

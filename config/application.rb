@@ -56,6 +56,7 @@ module JustMatch
     end
 
     config.x.frilans_finans = false
+    config.x.frilans_finans_default_taxkey_id = ENV['FRILANS_FINANS_DEFAULT_TAXKEY_ID']
 
     config.paperclip_defaults = {
       storage: :fog,

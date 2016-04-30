@@ -19,13 +19,14 @@ RSpec.describe CreateFrilansFinansInvoiceService, type: :serializer do
   let(:frilans_api_klass) { FrilansFinansApi::Invoice }
   let(:ff_document_mock) { OpenStruct.new(resource: OpenStruct.new(id: 1)) }
   let(:ff_nil_document_mock) { OpenStruct.new(resource: OpenStruct.new(id: nil)) }
-  let(:invoice_request_body) { /^invoice*/ }
+  let(:invoice_request_body) { /^\{"invoice":*/ }
 
   subject do
     isolate_frilans_finans_client(FrilansFinansApi::Client) do
       headers = {
         'Authorization' => 'Bearer xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
-        'User-Agent' => 'FrilansFinansAPI - Ruby client'
+        'User-Agent' => 'FrilansFinansAPI - Ruby client',
+        'Content-Type' => 'application/json'
       }
 
       stub_request(:post, "#{base_uri}/invoices").
@@ -134,8 +135,32 @@ RSpec.describe CreateFrilansFinansInvoiceService, type: :serializer do
     end
   end
 
-  describe '#invoice' do
-    it 'returns the main invoide data' do
+  describe '#frilans_finans_body' do
+    it 'returns the invoice data schema' do
+      allow(described_class).to receive(:invoice_users).and_return({})
+      allow(described_class).to receive(:invoice_dates).and_return({})
+      allow(described_class).to receive(:invoice_data).and_return(a: 1)
+
+      result = described_class.frilans_finans_body(
+        job: nil,
+        user: nil,
+        tax: nil,
+        ff_user: nil
+      )
+
+      expected = {
+        invoice: {
+          a: 1,
+          invoicedate: {},
+          invoiceuser: {}
+        }
+      }
+      expect(result).to eq(expected)
+    end
+  end
+
+  describe '#invoice_data' do
+    it 'returns the main invoice data' do
       ff_company_id = 11
       company = FactoryGirl.create(:company, frilans_finans_id: ff_company_id)
       owner = FactoryGirl.create(:user, company: company)
@@ -146,7 +171,7 @@ RSpec.describe CreateFrilansFinansInvoiceService, type: :serializer do
       ff_user_id = 10
       user = FactoryGirl.build(:user, frilans_finans_id: ff_user_id)
 
-      result = described_class.invoice(job: job, user: user, tax: tax)
+      result = described_class.invoice_data(job: job, user: user, tax: tax)
 
       expected = {
         currency_id: Currency.default_currency.try!(:frilans_finans_id),

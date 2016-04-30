@@ -39,23 +39,32 @@ class CreateFrilansFinansInvoiceService
   def self.frilans_finans_body(job:, user:, tax:, ff_user:)
     {
       invoice: {
-        currency_id: Currency.default_currency.try!(:frilans_finans_id),
-        specification: "#{job.category.name} - #{job.name}",
-        amount: job.amount,
-        company_id: job.company.frilans_finans_id,
-        tax_id: tax.id,
-        user_id: user.frilans_finans_id,
         invoiceuser: invoice_users(job: job, user: user, ff_user: ff_user),
         invoicedate: invoice_dates(job: job)
-      }
+      }.merge!(invoice_data(job: job, user: user, tax: tax))
+    }
+  end
+
+  def self.invoice_data(job:, user:, tax:)
+    {
+      currency_id: Currency.default_currency.try!(:frilans_finans_id),
+      specification: "#{job.category.name} - #{job.name}",
+      amount: job.amount,
+      company_id: job.company.frilans_finans_id,
+      tax_id: tax.id,
+      user_id: user.frilans_finans_id
     }
   end
 
   def self.invoice_users(job:, user:, ff_user:)
     ff_user_attributes = ff_user.resource.attributes
-    # TODO: Uncomment the below line!
-    # taxkey_id = ff_user_attributes['default_taxkey_id'] if ff_user.resource.attributes
-    taxkey_id = 1337 if ff_user.resource.attributes
+
+    taxkey_id = ff_user_attributes['default_taxkey_id'] if ff_user.resource.attributes
+
+    unless Rails.configuration.x.frilans_finans_default_taxkey_id.blank?
+      taxkey_id = Rails.configuration.x.frilans_finans_default_taxkey_id
+    end
+
     [{
       user_id: user.frilans_finans_id,
       total: job.amount,

@@ -2,12 +2,7 @@
 require 'rails_helper'
 
 RSpec.describe FrilansFinansApi::Request do
-  let(:auth_headers) do
-    {
-      'Authorization' => 'Bearer xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
-      'User-Agent' => 'FrilansFinansAPI - Ruby client'
-    }
-  end
+  let(:auth_headers) { frilans_finans_authed_request_headers }
   let(:headers) do
     { 'User-Agent' => 'FrilansFinansAPI - Ruby client' }
   end
