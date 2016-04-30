@@ -43,6 +43,8 @@ Rails.application.configure do
 
   config.action_mailer.default_url_options = { host: 'localhost:3000' }
 
+  config.x.frilans_finans_default_taxkey_id = nil
+
   config.after_initialize do
     Bullet.enable = true
     Bullet.bullet_logger = true

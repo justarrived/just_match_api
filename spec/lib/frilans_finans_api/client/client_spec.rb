@@ -88,7 +88,7 @@ RSpec.describe FrilansFinansApi::Client do
       json = fixture_client.read(:user)
       url = "#{base_uri}/users"
 
-      body = 'data[attributes][first_name]=Jacob'
+      body = { first_name: 'Jacob' }.to_json
 
       stub_request(:post, url).
         with(default_headers.merge(body: body)).
@@ -113,7 +113,7 @@ RSpec.describe FrilansFinansApi::Client do
       json = fixture_client.read(:company)
       url = "#{base_uri}/companies"
 
-      body = 'data[attributes][name]=Acme'
+      body = { name: 'Acme' }.to_json
 
       stub_request(:post, url).
         with(default_headers.merge(body: body)).
@@ -138,7 +138,7 @@ RSpec.describe FrilansFinansApi::Client do
       json = fixture_client .read(:invoice)
       url = "#{base_uri}/invoices"
 
-      body = ''
+      body = {}.to_json
 
       stub_request(:post, url).
         with(default_headers.merge(body: body)).

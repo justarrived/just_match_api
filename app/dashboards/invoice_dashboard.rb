@@ -12,6 +12,8 @@ class InvoiceDashboard < Administrate::BaseDashboard
     id: Field::Number,
     frilans_finans_id: Field::Number,
     job_user: Field::BelongsTo,
+    job: Field::HasOne,
+    user: Field::HasOne,
     created_at: Field::DateTime,
     updated_at: Field::DateTime
   }.freeze
@@ -23,6 +25,8 @@ class InvoiceDashboard < Administrate::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
     :job_user,
+    :job,
+    :user,
     :frilans_finans_id,
     :id
   ].freeze
@@ -32,6 +36,8 @@ class InvoiceDashboard < Administrate::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = [
     :id,
     :job_user,
+    :job,
+    :user,
     :frilans_finans_id,
     :created_at,
     :updated_at
@@ -42,6 +48,8 @@ class InvoiceDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
     :job_user,
+    :job,
+    :user,
     :frilans_finans_id
   ].freeze
 
