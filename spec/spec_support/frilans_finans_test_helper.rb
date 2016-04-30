@@ -17,8 +17,8 @@ module FrilansFinansApiTest
     }
     body = [
       'grant_type=client_credentials',
-      'client_id=test_client_id',
-      'client_secret=test_client_secret'
+      "client_id=#{FrilansFinansApi.client_id}",
+      "client_secret=#{FrilansFinansApi.client_secret}"
     ].join('&')
 
     response_body =  JSON.dump(
