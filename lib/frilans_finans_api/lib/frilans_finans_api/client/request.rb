@@ -3,10 +3,13 @@ require 'httparty'
 
 module FrilansFinansApi
   class Request
-    HEADERS = {
-      'User-Agent' => 'FrilansFinansAPI - Ruby client',
-      'Content-Type' => 'application/json'
+    USER_AGENT = {
+      'User-Agent' => 'FrilansFinansAPI - Ruby client'
     }.freeze
+
+    HEADERS = {
+      'Content-Type' => 'application/json'
+    }.merge!(USER_AGENT).freeze
 
     GRANT_TYPE = 'client_credentials'
 
@@ -94,7 +97,7 @@ module FrilansFinansApi
       response = HTTParty.post(
         "#{base_uri}/auth/accesstoken",
         body: credentials,
-        headers: HEADERS
+        headers: USER_AGENT
       )
       @access_token = extract_access_token(response)
       response
