@@ -154,10 +154,10 @@ en:
 
       rating:
         comment: Comment
-        from_user: From_user
+        from_user: From user
         job: Job
         score: Score
-        to_user: To_user
+        to_user: To user
 
       skill:
         job_skills: Job skills
