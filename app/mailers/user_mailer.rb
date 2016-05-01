@@ -84,4 +84,11 @@ class UserMailer < ApplicationMailer
     subject = I18n.t('mailer.changed_password.subject')
     mail(to: user.email, subject: subject)
   end
+
+  def job_cancelled_email(job:, user:)
+    @job_name = job.name
+
+    subject = I18n.t('mailer.job_cancelled.subject')
+    mail(to: user.email, subject: subject)
+  end
 end

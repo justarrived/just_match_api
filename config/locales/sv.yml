@@ -67,6 +67,9 @@ sv:
     changed_password:
       subject: Ditt Just Arrived lösenord har blivit ändrat
       body_header: Hej %{name}, ditt Just Arrived lösenord har blivit ändrat. Om det här inte var du, var god kontakta Just Arrived på help@justarrived.se
+    job_cancelled:
+      subject: Ett jobb du har sökt har dragits tillbaka
+      body: Jobbet %{job_name} har dragits tillbaka.
     job_match:
       accepted_line: Du har fått en ny jobbmatchning!
       congrats_line: Grattis %{name}!

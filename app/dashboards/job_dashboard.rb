@@ -25,6 +25,7 @@ class JobDashboard < Administrate::BaseDashboard
     job_end_date: Field::DateTime,
     hidden: Field::Boolean,
     verified: Field::Boolean,
+    cancelled: Field::Boolean,
     hours: Field::Number.with_options(decimals: 2),
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
@@ -43,6 +44,7 @@ class JobDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = [
     :name,
     :verified,
+    :cancelled,
     :company,
     :language,
     :hourly_pay,
@@ -56,6 +58,7 @@ class JobDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = [
     :verified,
+    :cancelled,
     :language,
     :hourly_pay,
     :category,
@@ -85,6 +88,7 @@ class JobDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
     :verified,
+    :cancelled,
     :language,
     :hourly_pay,
     :category,

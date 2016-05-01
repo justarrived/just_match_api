@@ -17,7 +17,7 @@ class JobPolicy < ApplicationPolicy
   ].freeze
 
   OWNER_ATTRIBUTES = [
-    :description, :job_date, :street, :zip, :name, :hours, :job_end_date,
+    :description, :job_date, :street, :zip, :name, :hours, :job_end_date, :cancelled,
     :language_id, :category_id, :hourly_pay_id, skill_ids: []
   ].freeze
 

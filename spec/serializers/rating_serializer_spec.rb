@@ -18,7 +18,7 @@ RSpec.describe RatingSerializer, type: :serializer do
       end
     end
 
-    %w(job from-user to-user comment).each do |relationship|
+    %w(job to-user comment).each do |relationship|
       it "has #{relationship} relationship" do
         expect(subject).to have_jsonapi_relationship(relationship)
       end

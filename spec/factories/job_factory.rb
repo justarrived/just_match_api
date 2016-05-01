@@ -35,7 +35,7 @@ FactoryGirl.define do
 
     factory :job_with_comments do
       transient do
-        comments_count 5
+        comments_count 1
       end
 
       after(:create) do |job, evaluator|
@@ -46,7 +46,7 @@ FactoryGirl.define do
 
     factory :job_with_skills do
       transient do
-        skills_count 5
+        skills_count 1
       end
 
       after(:create) do |job, evaluator|
@@ -57,7 +57,7 @@ FactoryGirl.define do
 
     factory :job_with_users do
       transient do
-        users_count 5
+        users_count 1
       end
 
       after(:create) do |job, evaluator|

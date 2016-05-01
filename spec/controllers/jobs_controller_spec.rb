@@ -164,6 +164,27 @@ RSpec.describe Api::V1::JobsController, type: :controller do
           expect(response.status).to eq(200)
         end
 
+        context 'cancelled job' do
+          let(:new_attributes) do
+            {
+              data: {
+                attributes: { cancelled: true }
+              }
+            }
+          end
+
+          it 'sends cancelled notifications' do
+            job = FactoryGirl.create(:job, owner: user)
+
+            allow(JobCancelledNotifier).to receive(:call).and_return(nil)
+
+            params = { job_id: job.to_param }.merge(new_attributes)
+            put :update, params, valid_session
+
+            expect(JobCancelledNotifier).to have_received(:call).with(job: job)
+          end
+        end
+
         context 'locked job' do
           it 'returns for status' do
             job = FactoryGirl.create(:job, owner: user)

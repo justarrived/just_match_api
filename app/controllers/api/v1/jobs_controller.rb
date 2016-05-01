@@ -22,7 +22,7 @@ module Api
         authorize(Job)
 
         jobs_index = Index::JobsIndex.new(self)
-        @jobs = jobs_index.jobs
+        @jobs = jobs_index.jobs(Job.uncancelled)
 
         api_render(@jobs, total: jobs_index.count)
       end
@@ -92,6 +92,7 @@ module Api
           param :'job-date', String, desc: 'Job start date'
           param :'job-end-date', String, desc: 'Job end date'
           param :hours, Float, desc: 'Estmiated completion time'
+          param :cancelled, [true], desc: 'Cancel the job'
           param :'language-id', Integer, desc: 'Langauge id of the text content'
           param :'hourly-pay-id', Integer, desc: 'Hourly pay id'
           param :'owner-user-id', Integer, desc: 'User id for the job owner'
@@ -111,7 +112,14 @@ module Api
           return
         end
 
+        notifier_klass = NilNotifier
+        if @job.send_cancelled_notice?
+          notifier_klass = JobCancelledNotifier
+        end
+
         if @job.save
+          notifier_klass.call(job: @job)
+
           api_render(@job)
         else
           respond_with_errors(@job)
