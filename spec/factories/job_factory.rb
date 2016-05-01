@@ -105,6 +105,7 @@ end
 #  hourly_pay_id :integer
 #  verified      :boolean          default(FALSE)
 #  job_end_date  :datetime
+#  cancelled     :boolean          default(FALSE)
 #
 # Indexes
 #
