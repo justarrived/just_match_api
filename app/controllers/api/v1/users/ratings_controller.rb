@@ -7,6 +7,17 @@ module Api
 
         before_action :set_user
 
+        resource_description do
+          resource_id 'user_ratings'
+          short 'API for user ratings'
+          name 'User ratings'
+          description '
+            Here you can find the documentation for inteteracting with user ratings.
+          '
+          formats [:json]
+          api_versions '1.0'
+        end
+
         ALLOWED_INCLUDES = %w().freeze
 
         api :GET, '/users/:user_id/ratings', 'Shows all ratings for user'
