@@ -147,6 +147,10 @@ module Api
         @_current_user = user
       end
 
+      def not_logged_in?
+        !logged_in?
+      end
+
       def logged_in?
         current_user.persisted?
       end

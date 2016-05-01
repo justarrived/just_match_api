@@ -41,7 +41,7 @@ class Company < ApplicationRecord
   def validate_website_with_protocol
     return if website.nil? || url_starts_with_protocol?(website)
 
-    errors.add(:website, I18n.t('errors.company.website_protocol_missing'))
+    errors.add(:website, I18n.t('errors.general.protocol_missing'))
   end
 
   private

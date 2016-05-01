@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160429083407) do
+ActiveRecord::Schema.define(version: 20160501141712) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -272,6 +272,25 @@ ActiveRecord::Schema.define(version: 20160429083407) do
   add_index "skills", ["language_id"], name: "index_skills_on_language_id", using: :btree
   add_index "skills", ["name"], name: "index_skills_on_name", unique: true, using: :btree
 
+  create_table "terms_agreement_consents", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "job_id"
+    t.integer  "terms_agreement_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
+  add_index "terms_agreement_consents", ["job_id"], name: "index_terms_agreement_consents_on_job_id", using: :btree
+  add_index "terms_agreement_consents", ["terms_agreement_id"], name: "index_terms_agreement_consents_on_terms_agreement_id", using: :btree
+  add_index "terms_agreement_consents", ["user_id"], name: "index_terms_agreement_consents_on_user_id", using: :btree
+
+  create_table "terms_agreements", force: :cascade do |t|
+    t.string   "version"
+    t.string   "url",        limit: 2000
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
   create_table "user_images", force: :cascade do |t|
     t.datetime "one_time_token_expires_at"
     t.string   "one_time_token"
@@ -376,6 +395,9 @@ ActiveRecord::Schema.define(version: 20160429083407) do
   add_foreign_key "ratings", "users", column: "from_user_id", name: "ratings_from_user_id_fk"
   add_foreign_key "ratings", "users", column: "to_user_id", name: "ratings_to_user_id_fk"
   add_foreign_key "skills", "languages"
+  add_foreign_key "terms_agreement_consents", "jobs"
+  add_foreign_key "terms_agreement_consents", "terms_agreements"
+  add_foreign_key "terms_agreement_consents", "users"
   add_foreign_key "user_images", "users"
   add_foreign_key "user_languages", "languages"
   add_foreign_key "user_languages", "users"

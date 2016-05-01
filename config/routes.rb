@@ -25,6 +25,8 @@ Rails.application.routes.draw do
     resources :categories
     resources :chat_users
     resources :skills
+    resources :terms_agreements
+    resources :terms_agreement_consents
     resources :job_skills
     resources :chats
     resources :user_skills
@@ -51,6 +53,7 @@ Rails.application.routes.draw do
             end
           end
           resources :ratings, module: :jobs, path: :ratings, only: [:create]
+          resources :terms_agreement_consents, module: :jobs, path: 'terms-consents', only: [:create]
         end
       end
 
@@ -91,6 +94,12 @@ Rails.application.routes.draw do
 
         collection do
           resources :company_images, module: :companies, path: :images, only: [:create]
+        end
+      end
+
+      resources :terms_agreements, path: 'terms-agreements', only: [] do
+        collection do
+          get :current
         end
       end
 
