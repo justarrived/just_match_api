@@ -2,7 +2,7 @@
 module Index
   class JobsIndex < BaseIndex
     TRANSFORMABLE_FILTERS = TRANSFORMABLE_FILTERS.merge(job_date: :date_range).freeze
-    ALLOWED_FILTERS = %i(hours created_at job_date verified).freeze
+    ALLOWED_FILTERS = %i(id hours created_at job_date verified).freeze
     SORTABLE_FIELDS = %i(hours job_date name verified created_at updated_at).freeze
 
     def jobs(scope = Job)

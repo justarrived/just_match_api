@@ -7,6 +7,8 @@ module Api
 
         after_action :verify_authorized, except: %i(index)
 
+        ALLOWED_INCLUDES = %w(owner company language category hourly_pay job_users).freeze
+
         api :GET, '/users/:user_id/owned-jobs', 'Shows all jobs that the user owns'
         description 'Returns the all the jobs a user owns if the user is allowed.'
         error code: 401, desc: 'Unauthorized'
