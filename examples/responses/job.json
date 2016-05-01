@@ -19,6 +19,11 @@
       "job-end-date": "2016-02-20 01:01:01 +0100"
     },
     "relationships": {
+      "job-users": {
+        "data": [
+
+        ]
+      },
       "comments": {
         "data": [
 

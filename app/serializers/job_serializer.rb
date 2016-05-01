@@ -4,6 +4,16 @@ class JobSerializer < ActiveModel::Serializer
   # that can be returned to the user we can return all Job column names here
   attributes Job.column_names.map(&:to_sym)
 
+  has_many :job_users do
+    # Only disclose job users to the job owned
+    user = scope[:current_user]
+    if user && (user.id == object.owner_id || user.admin)
+      object.job_users
+    else
+      []
+    end
+  end
+
   has_many :comments do
     object.comments.visible
   end
