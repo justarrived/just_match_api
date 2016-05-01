@@ -8,8 +8,8 @@ RSpec.describe JobPolicy do
 
   let(:owner_params) do
     [
-      :description, :job_date, :street, :zip, :name, :hours,
-      :job_end_date, :language_id, :category_id, :hourly_pay_id, { skill_ids: [] }
+      :description, :job_date, :street, :zip, :name, :hours, :job_end_date,
+      :cancelled, :language_id, :category_id, :hourly_pay_id, { skill_ids: [] }
     ]
   end
   let(:admin_params) { owner_params }
@@ -85,7 +85,7 @@ RSpec.describe JobPolicy do
     end
 
     it '#permitted_attributes is correct for non-persisted job' do
-      expect(subject.permitted_attributes).to eq(owner_params)
+      expect(subject.permitted_attributes).to match(owner_params)
     end
 
     it '#permitted_attributes is correct for persisted job' do
@@ -170,7 +170,7 @@ RSpec.describe JobPolicy do
     end
 
     it '#permitted_attributes is correct for non-persisted job' do
-      expect(subject.permitted_attributes).to eq(admin_params)
+      expect(subject.permitted_attributes).to match(admin_params)
     end
 
     it 'returns true for #present_applicants?' do

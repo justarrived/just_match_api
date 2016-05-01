@@ -25,6 +25,22 @@ RSpec.describe Job, type: :model do
     end
   end
 
+  describe '#send_cancelled_notice?' do
+    let(:job) { described_class.new }
+
+    it 'returns true if notice should be sent' do
+      job.cancelled = true
+      result = job.send_cancelled_notice?
+      expect(result).to eq(true)
+    end
+
+    it 'returns false if notice should be sent' do
+      job.cancelled = false
+      result = job.send_cancelled_notice?
+      expect(result).to eq(false)
+    end
+  end
+
   describe '#owner_id=' do
     it 'can set owner' do
       user = FactoryGirl.create(:user)
@@ -362,6 +378,7 @@ end
 #  hourly_pay_id :integer
 #  verified      :boolean          default(FALSE)
 #  job_end_date  :datetime
+#  cancelled     :boolean          default(FALSE)
 #
 # Indexes
 #

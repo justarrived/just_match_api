@@ -140,7 +140,7 @@ module Api
       def matching_jobs
         authorize(@user)
 
-        render json: Job.matches_user(@user)
+        render json: Job.uncancelled.matches_user(@user)
       end
 
       api :GET, '/users/notifications', 'Show all possible user notifications'

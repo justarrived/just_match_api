@@ -47,6 +47,7 @@ class Job < ApplicationRecord
   belongs_to :owner, class_name: 'User', foreign_key: 'owner_user_id'
 
   scope :visible, -> { where(hidden: false) }
+  scope :uncancelled, -> { where(cancelled: false) }
 
   def self.matches_user(user, distance: 20, strict_match: false)
     lat = user.latitude
@@ -70,6 +71,12 @@ class Job < ApplicationRecord
 
   def amount
     hourly_pay.rate * hours
+  end
+
+  # NOTE: You need to call this __before__ the record is validated
+  #       otherwise it will always return false
+  def send_cancelled_notice?
+    cancelled_changed? && cancelled
   end
 
   # Needed for administrate
@@ -194,6 +201,7 @@ end
 #  hourly_pay_id :integer
 #  verified      :boolean          default(FALSE)
 #  job_end_date  :datetime
+#  cancelled     :boolean          default(FALSE)
 #
 # Indexes
 #

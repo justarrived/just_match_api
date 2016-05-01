@@ -1,4 +1,15 @@
 # frozen_string_literal: true
+# == Schema Information
+#
+# Table name: terms_agreements
+#
+#  id         :integer          not null, primary key
+#  version    :string
+#  url        :string(2000)
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 require 'rails_helper'
 
 RSpec.describe Api::V1::TermsAgreementsController, type: :controller do

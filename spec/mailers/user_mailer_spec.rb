@@ -320,4 +320,31 @@ RSpec.describe UserMailer, type: :mailer do
       expect(mail).to match_email_body(user.first_name)
     end
   end
+
+  describe '#job_cancelled_email' do
+    let(:user) { FactoryGirl.build(:user) }
+    let(:job) { FactoryGirl.build(:job) }
+    let(:mail) { UserMailer.job_cancelled_email(user: user, job: job) }
+
+    it 'has both text and html part' do
+      expect(mail).to be_multipart_email(true)
+    end
+
+    it 'renders the subject' do
+      subject = I18n.t('mailer.job_cancelled.subject')
+      expect(mail.subject).to eql(subject)
+    end
+
+    it 'renders the receiver email' do
+      expect(mail.to).to eql([user.email])
+    end
+
+    it 'renders the sender email' do
+      expect(mail.from).to eql(['hello@justarrived.se'])
+    end
+
+    it 'includes @job_name in email body' do
+      expect(mail).to match_email_body(job.name)
+    end
+  end
 end
