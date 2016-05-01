@@ -2,7 +2,7 @@
 class JobCancelledNotifier < BaseNotifier
   def self.call(job:)
     job.users.each do |user|
-      return if ignored?(user)
+      next if ignored?(user)
 
       UserMailer.
         job_cancelled_email(user: user, job: job).

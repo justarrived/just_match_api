@@ -72,6 +72,7 @@ class User < ApplicationRecord
     applicant_will_perform
     invoice_created
     job_user_performed
+    job_cancelled
     new_applicant
     user_job_match
   ).freeze
