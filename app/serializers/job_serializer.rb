@@ -5,7 +5,7 @@ class JobSerializer < ActiveModel::Serializer
   attributes Job.column_names.map(&:to_sym)
 
   has_many :job_users do
-    # Only disclose job users to the job owned
+    # Only disclose job users to the job owner
     user = scope[:current_user]
     if user && (user.id == object.owner_id || user.admin)
       object.job_users
