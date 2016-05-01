@@ -39,6 +39,10 @@ RSpec.describe UserPolicy do
       expect(subject.jobs?).to eq(false)
     end
 
+    it 'returns false for ratings' do
+      expect(subject.ratings?).to eq(false)
+    end
+
     it 'returns false for owned jobs' do
       expect(subject.owned_jobs?).to eq(false)
     end
@@ -52,6 +56,10 @@ RSpec.describe UserPolicy do
 
     it 'returns true for jobs' do
       expect(subject.jobs?).to eq(true)
+    end
+
+    it 'returns true for ratings' do
+      expect(subject.ratings?).to eq(true)
     end
 
     it 'returns false for owned jobs' do
@@ -137,6 +145,10 @@ RSpec.describe UserPolicy do
       expect(subject.jobs?).to eq(true)
     end
 
+    it 'returns true for ratings' do
+      expect(subject.ratings?).to eq(true)
+    end
+
     it 'returns true for owned jobs' do
       expect(subject.owned_jobs?).to eq(true)
     end
@@ -174,6 +186,10 @@ RSpec.describe UserPolicy do
 
     it 'returns true for jobs' do
       expect(subject.jobs?).to eq(true)
+    end
+
+    it 'returns true for ratings' do
+      expect(subject.ratings?).to eq(true)
     end
 
     it 'returns true for owned jobs' do

@@ -48,6 +48,8 @@ class UserPolicy < ApplicationPolicy
     admin_or_self? || company_user?
   end
 
+  alias_method :ratings?, :jobs?
+
   def owned_jobs?
     admin_or_self?
   end
