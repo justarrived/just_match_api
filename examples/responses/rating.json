@@ -1,15 +1,12 @@
 {
   "data": {
-    "id": "",
+    "id": "1",
     "type": "ratings",
     "attributes": {
       "score": 3
     },
     "relationships": {
       "job": {
-        "data": null
-      },
-      "from-user": {
         "data": null
       },
       "to-user": {

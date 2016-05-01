@@ -69,6 +69,7 @@ Rails.application.routes.draw do
           resources :user_languages, param: :user_language_id, module: :users, path: :languages, only: [:index, :show, :create, :destroy]
           resources :frilans_finans, path: 'frilans-finans', module: :users, only: [:create]
           resources :user_images, module: :users, path: :images, only: [:show]
+          resources :ratings, module: :users, path: :ratings, only: [:index]
         end
 
         collection do
