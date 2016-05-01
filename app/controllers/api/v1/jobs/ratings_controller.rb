@@ -37,7 +37,7 @@ module Api
           @rating.job = @job
 
           @rating.from_user = current_user
-          @rating.to_user = User.find_by(jsonapi_params[:user_id])
+          @rating.to_user = User.find_by(id: jsonapi_params[:user_id])
 
           comment_params = {
             language_id: jsonapi_params[:language_id],

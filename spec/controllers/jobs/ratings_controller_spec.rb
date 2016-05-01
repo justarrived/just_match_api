@@ -6,10 +6,10 @@ RSpec.describe Api::V1::Jobs::RatingsController do
     allow_any_instance_of(User).to receive(:persisted?).and_return(true)
   end
 
+  let(:job_user) { FactoryGirl.create(:job_user_concluded, job: job) }
   let(:job_owner) { FactoryGirl.create(:user) }
   let(:job) do
     job = FactoryGirl.create(:passed_job, owner: job_owner)
-    FactoryGirl.create(:job_user_concluded, job: job)
     job
   end
 
@@ -21,7 +21,8 @@ RSpec.describe Api::V1::Jobs::RatingsController do
         attributes: {
           score: 3,
           language_id: language.to_param,
-          body: 'Rating comment body'
+          body: 'Rating comment body',
+          user_id: job_user.user.to_param
         }
       }
     }
