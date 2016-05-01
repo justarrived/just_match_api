@@ -10,8 +10,8 @@ en:
         subject: 'Admin notice: Failed to create Frilans Finans invoice'
         notice: Failed to create a Frilans Finans for invoice %{invoice_id}.
   errors:
-    company:
-      website_protocol_missing: missing protocol prefix http:// or https://
+    general:
+      protocol_missing: missing protocol prefix http:// or https://
     chat:
       number_of_users: a chat must consist of between %{min}-%{max} number of users
     invoice:

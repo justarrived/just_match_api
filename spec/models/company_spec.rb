@@ -34,11 +34,12 @@ RSpec.describe Company, type: :model do
   end
 
   describe '#validate_website_with_protocol' do
+    let(:message) { I18n.t('errors.general.protocol_missing') }
+
     it 'adds error unless website start with protocol' do
       company = FactoryGirl.build(:company, website: 'example.com')
       company.validate
 
-      message = I18n.t('errors.company.website_protocol_missing')
       expect(company.errors.messages[:website]).to include(message)
     end
 
@@ -46,7 +47,6 @@ RSpec.describe Company, type: :model do
       company = FactoryGirl.build(:company, website: 'http://example.com')
       company.validate
 
-      message = I18n.t('errors.company.website_protocol_missing')
       expect(company.errors.messages[:website] || []).not_to include(message)
     end
 
@@ -54,7 +54,6 @@ RSpec.describe Company, type: :model do
       company = FactoryGirl.build(:company, website: 'https://example.com')
       company.validate
 
-      message = I18n.t('errors.company.website_protocol_missing')
       expect(company.errors.messages[:website] || []).not_to include(message)
     end
   end

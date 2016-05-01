@@ -1,0 +1,23 @@
+[
+  {
+    "status": 422,
+    "source": {
+      "pointer": "/data/attributes/terms-agreement"
+    },
+    "detail": "can't be blank"
+  },
+  {
+    "status": 422,
+    "source": {
+      "pointer": "/data/attributes/user"
+    },
+    "detail": "can't be blank"
+  },
+  {
+    "status": 422,
+    "source": {
+      "pointer": "/data/attributes/job"
+    },
+    "detail": "can't be blank"
+  }
+]

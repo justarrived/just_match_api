@@ -10,8 +10,8 @@ sv:
         subject: 'Admin notis: Misslyckades med att skapa Frilans Finans faktura'
         notice: Misslyckades skapa en Frilans Finans faktura %{invoice_id}.
   errors:
-    company:
-      website_protocol_missing: protokollprefix http:// or https:// saknas
+    general:
+      protocol_missing: protokollprefix http:// or https:// saknas
     chat:
       number_of_users: en chat måste bestå av minst %{min} och %{max} antal användare
     invoice:

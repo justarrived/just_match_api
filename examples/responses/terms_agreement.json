@@ -1,0 +1,10 @@
+{
+  "data": {
+    "id": "1",
+    "type": "terms-agreements",
+    "attributes": {
+      "version": "v1",
+      "url": "https://example.com"
+    }
+  }
+}
