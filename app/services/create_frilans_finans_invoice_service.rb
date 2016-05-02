@@ -48,7 +48,7 @@ class CreateFrilansFinansInvoiceService
   def self.invoice_data(job:, user:, tax:)
     {
       currency_id: Currency.default_currency.try!(:frilans_finans_id),
-      specification: "#{job.category.name} - #{job.name}",
+      specification: "#{job.category.name} - #{job.name} (##{job.id})",
       amount: job.amount,
       company_id: job.company.frilans_finans_id,
       tax_id: tax.id,

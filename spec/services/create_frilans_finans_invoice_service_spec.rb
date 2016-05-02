@@ -175,7 +175,7 @@ RSpec.describe CreateFrilansFinansInvoiceService, type: :serializer do
 
       expected = {
         currency_id: Currency.default_currency.try!(:frilans_finans_id),
-        specification: "#{job.category.name} - #{job.name}",
+        specification: "#{job.category.name} - #{job.name} (##{job.id})",
         amount: job.amount,
         company_id: ff_company_id,
         tax_id: ff_tax_id,
