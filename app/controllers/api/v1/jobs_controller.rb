@@ -12,7 +12,7 @@ module Api
         api_versions '1.0'
       end
 
-      ALLOWED_INCLUDES = %w(owner company language category hourly_pay).freeze
+      ALLOWED_INCLUDES = %w(owner company language category hourly_pay comments).freeze
 
       api :GET, '/jobs', 'List jobs'
       description 'Returns a list of jobs.'
