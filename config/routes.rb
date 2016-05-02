@@ -109,6 +109,11 @@ Rails.application.routes.draw do
       resources :categories, only: [:index]
       resources :hourly_pays, path: 'hourly-pays', only: [:index]
       resources :faqs, only: [:index]
+      resources :promo_codes, path: 'promo-codes', only: [] do
+        collection do
+          post :validate
+        end
+      end
 
       post :contacts, to: 'contacts#create'
     end

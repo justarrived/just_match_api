@@ -57,6 +57,7 @@ module JustMatch
 
     config.x.frilans_finans = false
     config.x.validate_job_date_in_future_inactive = ENV['VALIDATE_JOB_DATE_IN_FUTURE_INACTIVE'] == 'true' # rubocop:disable Metrics/LineLength
+    config.x.promo_code = ENV['PROMO_CODE']
 
     config.paperclip_defaults = {
       storage: :fog,

@@ -78,6 +78,14 @@ module Api
         api_base_url '/api/v1'
       end
 
+      # NOTE:
+      # Set the current user directly upon request, otherwise require_promo_code can't
+      # check if the user is logged in and allow those users to continue without the
+      # promo code, if the promo code is ever to be removed from the code base
+      # the #current_user before action can safely be removed
+      before_action :current_user
+      before_action :require_promo_code
+
       ALLOWED_INCLUDES = [].freeze
 
       # Needed for #authenticate_with_http_token
@@ -103,6 +111,16 @@ module Api
 
       def included_resources
         @_included_resources ||= include_params.permit(self.class::ALLOWED_INCLUDES)
+      end
+
+      def require_promo_code
+        return if logged_in?
+
+        promo_code = Rails.configuration.x.promo_code
+        return if promo_code.nil? || promo_code == api_promo_code_header
+
+        render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized
+        false
       end
 
       protected
@@ -169,6 +187,10 @@ module Api
 
       def api_locale_header
         request.headers['X-API-LOCALE']
+      end
+
+      def api_promo_code_header
+        request.headers['X-API-PROMO-CODE']
       end
 
       private
