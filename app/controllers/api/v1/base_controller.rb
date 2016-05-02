@@ -24,6 +24,10 @@ module Api
 
           `Authorization: Token token=XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX`
 
+          __Promo code (not always active)__
+
+          `X-API-PROMO-CODE: promocode` is used to specify the promo code, logged in users and logged in attemps are exempt.
+
           ---
 
           ### Example job scenario
