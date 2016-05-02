@@ -61,10 +61,6 @@ class CreateFrilansFinansInvoiceService
 
     taxkey_id = ff_user_attributes['default_taxkey_id'] if ff_user.resource.attributes
 
-    unless Rails.configuration.x.frilans_finans_default_taxkey_id.blank?
-      taxkey_id = Rails.configuration.x.frilans_finans_default_taxkey_id
-    end
-
     [{
       user_id: user.frilans_finans_id,
       total: job.amount,
