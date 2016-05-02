@@ -14,21 +14,21 @@ Rails.application.routes.draw do
     resources :users
     resources :companies
     resources :contacts
-    resources :comments
     resources :faqs
-    resources :messages
-    resources :languages
-    resources :user_images
-    resources :company_images
     resources :hourly_pays
-    resources :user_languages
-    resources :categories
-    resources :chat_users
-    resources :skills
+    resources :languages
     resources :terms_agreements
     resources :terms_agreement_consents
-    resources :job_skills
+    resources :comments
     resources :chats
+    resources :messages
+    resources :user_images
+    resources :company_images
+    resources :categories
+    resources :user_languages
+    resources :chat_users
+    resources :skills
+    resources :job_skills
     resources :user_skills
 
     root to: 'jobs#index'
