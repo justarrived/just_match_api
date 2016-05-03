@@ -4,15 +4,10 @@ module Sweepers
     def self.create_frilans_finans(scope = Company)
       scope.needs_frilans_finans_id.find_each(batch_size: 1000) do |company|
         user = company.find_frilans_finans_user
-        attributes = {
-          name: company.name,
-          country: company.country_name.upcase,
-          street: company.street,
-          city: company.city,
-          zip: company.zip,
-          send_to_email: company.email,
-          user_id: user.frilans_finans_id
-        }
+        attributes = FrilansFinans::CompanyWrapper.attributes(
+          company: company,
+          user: user
+        )
         ff_company = FrilansFinansApi::Company.create(attributes: attributes)
         ff_id = ff_company.resource.id
 
