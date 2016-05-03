@@ -14,7 +14,7 @@ namespace :dev do
       schema_migrations blazer_dashboards blazer_audits blazer_checks
       blazer_dashboard_queries blazer_queries ar_internal_metadata
     )
-    padding = 15
+    padding = 35
     counts = (ActiveRecord::Base.connection.tables - ignore_tables).map do |table|
       model_name = table.capitalize.singularize.camelize
       model_klass = model_name.constantize
