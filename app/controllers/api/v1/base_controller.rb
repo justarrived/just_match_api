@@ -121,8 +121,9 @@ module Api
         return if logged_in?
 
         promo_code = Rails.configuration.x.promo_code
-        return if promo_code.nil? || promo_code == api_promo_code_header
+        return if promo_code.nil? || promo_code == {} # Rails config can return nil & {}
 
+        return if promo_code == api_promo_code_header
         render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized
         false
       end
