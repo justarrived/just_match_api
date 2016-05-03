@@ -21,8 +21,8 @@ module Api
         error code: 422, desc: 'Unprocessable entity'
         param :data, Hash, desc: 'Top level key', required: true do
           param :attributes, Hash, desc: 'Frilans Finans User attributes', required: true do # rubocop:disable Metrics/LineLength
-            param :'account-clearing-nr', String, desc: 'User account clearing number'
-            param :'account-nr', String, desc: 'User account number'
+            param :'account-clearing-number', String, desc: 'User account clearing number'
+            param :'account-number', String, desc: 'User account number'
           end
         end
         example '{}'
@@ -62,7 +62,7 @@ module Api
         end
 
         def ff_user_params
-          jsonapi_params.permit(:account_clearing_nr, :account_nr)
+          jsonapi_params.permit(:account_clearing_number, :account_number)
         end
 
         def authorize_create(user)
@@ -73,12 +73,12 @@ module Api
           errors = []
           message = I18n.t('errors.messages.blank')
 
-          if ff_user_params[:account_clearing_nr].blank?
-            errors << format_error(:account_clearing_nr, message)
+          if ff_user_params[:account_clearing_number].blank?
+            errors << format_error(:account_clearing_number, message)
           end
 
-          if ff_user_params[:account_nr].blank?
-            errors << format_error(:account_nr, message)
+          if ff_user_params[:account_number].blank?
+            errors << format_error(:account_number, message)
           end
 
           errors
