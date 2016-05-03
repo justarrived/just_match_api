@@ -4,14 +4,6 @@ require 'rails_helper'
 RSpec.describe Api::V1::CompaniesController, type: :controller do
   let(:valid_session) { {} }
 
-  before(:each) do
-    stub_frilans_finans_auth_request
-
-    stub_request(:post, "#{FrilansFinansApi.base_uri}/companies").
-      with(body: /^*/, headers: frilans_finans_authed_request_headers).
-      to_return(status: 200, body: '{}', headers: {})
-  end
-
   describe 'GET #index' do
     it 'assigns all companies as @companies' do
       company = FactoryGirl.create(:company)
@@ -29,9 +21,6 @@ RSpec.describe Api::V1::CompaniesController, type: :controller do
   end
 
   describe 'POST #create' do
-    let(:frilans_api_klass) { FrilansFinansApi::Company }
-    let(:ff_document_mock) { OpenStruct.new(resource: OpenStruct.new(id: 1)) }
-
     let(:valid_params) do
       {
         data: {
@@ -62,12 +51,6 @@ RSpec.describe Api::V1::CompaniesController, type: :controller do
     it 'returns 201 created status' do
       get :create, valid_params, valid_session
       expect(response.status).to eq(201)
-    end
-
-    it 'calls company create on frilans finans api' do
-      allow(frilans_api_klass).to receive(:create).and_return(ff_document_mock)
-      post :create, valid_params, valid_session
-      expect(frilans_api_klass).to have_received(:create)
     end
 
     context 'company image' do

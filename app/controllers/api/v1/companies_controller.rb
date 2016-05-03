@@ -61,9 +61,6 @@ module Api
         @company = Company.new(company_params)
 
         if @company.valid?
-          ff_company = FrilansFinansApi::Company.create(attributes: frilans_params)
-          @company.frilans_finans_id = ff_company.resource.id
-
           @company.logo_image_token = jsonapi_params[:company_image_one_time_token]
           @company.save!
 
