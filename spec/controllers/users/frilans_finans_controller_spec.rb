@@ -9,8 +9,8 @@ RSpec.describe Api::V1::Users::FrilansFinansController, type: :controller do
         user_id: user.to_param,
         data: {
           attributes: {
-            account_clearing_nr: 'account_clearing_nr',
-            account_nr: 'account_nr'
+            account_clearing_number: 'account_clearing_number',
+            account_number: 'account_number'
           }
         }
       }
@@ -98,7 +98,7 @@ RSpec.describe Api::V1::Users::FrilansFinansController, type: :controller do
           'status' => 422,
           'detail' => I18n.t('errors.messages.blank'),
           'source' => {
-            'pointer' => '/data/attributes/account-clearing-nr'
+            'pointer' => '/data/attributes/account-clearing-number'
           }
         }
         expect(result).to eq(expected)

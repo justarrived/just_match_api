@@ -5,9 +5,9 @@
     "attributes": {
       "first_name": "Jacob",
       "last_name": "Burenstam",
-      "social_security_nr": null,
-      "account_clearing_nr": null,
-      "account_nr": null,
+      "social_security_number": null,
+      "account_clearing_number": null,
+      "account_number": null,
       "user_status_id": null,
       "profession_title": null,
       "user_id_owner": null,
