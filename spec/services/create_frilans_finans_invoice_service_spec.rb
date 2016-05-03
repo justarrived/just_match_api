@@ -203,8 +203,8 @@ RSpec.describe CreateFrilansFinansInvoiceService, type: :serializer do
         taxkey_id: taxkey_id,
         allowance: 0,
         travel: 0,
-        vacation_pay: 0,
-        itp: 0,
+        save_vacation_pay: 0,
+        save_itp: 0,
         express_payment: 0
       }]
 
