@@ -2,7 +2,7 @@
 module Index
   class JobUsersIndex < BaseIndex
     SORTABLE_FIELDS = %i(created_at updated_at).freeze
-    ALLOWED_FILTERS = %i(accepted will_perform performed).freeze
+    ALLOWED_FILTERS = %i(accepted will_perform performed job_id).freeze
 
     def job_users(scope = JobUser)
       @job_users ||= begin
