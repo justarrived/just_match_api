@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class CompanySerializer < ActiveModel::Serializer
-  ATTRIBUTES = [:name, :website].freeze
+  ATTRIBUTES = [:name, :website, :cin].freeze
 
   attributes ATTRIBUTES
 
