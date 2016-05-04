@@ -6,7 +6,10 @@ module Queries
         filter_type = filter_types[field_name]
         if filter_type
           like_query = extract_like_query(filter_type)
-          records = records.where("#{field_name} LIKE concat(#{like_query})", value)
+          records = records.where(
+            "lower(#{field_name}) LIKE lower(concat(#{like_query}))",
+            value
+          )
         else
           records = records.where(field_name => value)
         end
