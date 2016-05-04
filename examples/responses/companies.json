@@ -5,7 +5,8 @@
       "type": "companies",
       "attributes": {
         "name": "A company",
-        "website": "https://example.com"
+        "website": "https://example.com",
+        "cin": "5560360793"
       },
       "relationships": {
         "company-images": {
