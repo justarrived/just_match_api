@@ -16,6 +16,8 @@ module Api
           formats [:json]
         end
 
+        ALLOWED_INCLUDES = %w(comment).freeze
+
         api :POST, '/jobs/:job_id/ratings', 'Create new job rating.'
         description 'Creates and returns new rating.'
         error code: 400, desc: 'Bad request'
