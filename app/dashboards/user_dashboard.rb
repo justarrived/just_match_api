@@ -68,9 +68,8 @@ class UserDashboard < Administrate::BaseDashboard
     :last_name,
     :email,
     :phone,
+    :company,
     :language,
-    :user_skills,
-    :skills,
     :owned_jobs,
     :job_users,
     :jobs,
@@ -95,7 +94,9 @@ class UserDashboard < Administrate::BaseDashboard
     :anonymized,
     :banned,
     :auth_token,
-    :admin
+    :admin,
+    :user_skills,
+    :skills
   ].freeze
 
   # FORM_ATTRIBUTES
@@ -106,8 +107,7 @@ class UserDashboard < Administrate::BaseDashboard
     :last_name,
     :email,
     :language,
-    :user_skills,
-    :skills,
+    :company,
     :owned_jobs,
     :job_users,
     :jobs,
@@ -129,7 +129,9 @@ class UserDashboard < Administrate::BaseDashboard
     :anonymized,
     :banned,
     :frilans_finans_id,
-    :admin
+    :admin,
+    :user_skills,
+    :skills
   ].freeze
 
   # Overwrite this method to customize how users are displayed
