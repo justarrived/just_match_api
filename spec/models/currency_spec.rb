@@ -18,3 +18,7 @@ end
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #
+# Indexes
+#
+#  index_currencies_on_frilans_finans_id  (frilans_finans_id) UNIQUE
+#

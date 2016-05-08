@@ -23,8 +23,10 @@ end
 # Indexes
 #
 #  index_terms_agreement_consents_on_job_id              (job_id)
+#  index_terms_agreement_consents_on_job_id_and_user_id  (job_id,user_id) UNIQUE
 #  index_terms_agreement_consents_on_terms_agreement_id  (terms_agreement_id)
 #  index_terms_agreement_consents_on_user_id             (user_id)
+#  index_terms_agreement_consents_on_user_id_and_job_id  (user_id,job_id) UNIQUE
 #
 # Foreign Keys
 #

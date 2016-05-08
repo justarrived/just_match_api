@@ -8,20 +8,20 @@ gem 'pg', '~> 0.15' # Use postgresql as the database for Active Record
 
 gem 'rails-api', '~> 0.4', require: false
 
-gem 'sidekiq', '~> 4.1.1' # Background worker (Redis-backed)
-gem 'sinatra', require: false # Required for sidekiq web
+gem 'sidekiq', '~> 4.1' # Background worker (Redis-backed)
+gem 'sinatra', '~> 1.4', require: false # Required for sidekiqs web interface
 
 gem 'active_model_serializers', '~> 0.10.0.rc5' # Serialize models to JSON
 
-gem 'blazer', '~> 1.2' # Explore data with SQL
+gem 'blazer', '~> 1.3' # Explore data with SQL
 
 # Interact with Frilans Finans API
 gem 'frilans_finans_api', path: 'lib/frilans_finans_api'
 
 gem 'paperclip', '~> 5.0.0.beta2' # Image handler
-gem 'aws-sdk', '~> 2.2' # Upload images to AWS S3
+gem 'aws-sdk', '~> 2.3' # Upload images to AWS S3
 
-gem 'airbrake' # Error catcher and reporter
+gem 'airbrake', '~> 5.2' # Error catcher and reporter
 
 group :production do
   gem 'rails_12factor', '~> 0.0.3' # Heroku integration
@@ -41,7 +41,7 @@ gem 'newrelic_rpm', '~> 3.15' # Performance monitoring
 gem 'geocoder', '~> 1.3' # Geocode resources
 
 gem 'administrate', '~> 0.2' # Admin dashboard
-gem 'administrate-field-image' # Administrate image support
+gem 'administrate-field-image', '~> 0.0.2' # Administrate image support
 gem 'uglifier', '~> 3.0' # Needed administrate assets compilation
 
 gem 'pundit', '~> 1.1' # Authorization policies
@@ -49,9 +49,9 @@ gem 'pundit', '~> 1.1' # Authorization policies
 gem 'faker', '~> 1.6' # Easily generate fake data (used for seeding dev/test/staging)
 
 gem 'rack-timeout', '~> 0.4' # Kill requests that run for too long
-gem 'rack-cors', require: 'rack/cors' # Configure CORS
-gem 'rack-attack' # Throttle API usage
-gem 'redis-activesupport' # To use Redis as the cache store for rack-attack
+gem 'rack-cors', '~> 0.4', require: 'rack/cors' # Configure CORS
+gem 'rack-attack', '~> 4.4' # Throttle API usage
+gem 'redis-activesupport', '~> 4.1' # To use Redis as the cache store for rack-attack
 
 gem 'yagni_json_encoder', '~> 0.0.2' # Make Rails use the OJ gem for JSON
 

@@ -9,6 +9,10 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
+# Indexes
+#
+#  index_terms_agreements_on_version  (version) UNIQUE
+#
 
 require 'rails_helper'
 
