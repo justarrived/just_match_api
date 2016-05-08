@@ -7,7 +7,7 @@ module FrilansFinans
           email: user.email,
           street: user.street || '',
           city: '',
-          zip: user.zip,
+          zip: user.zip || '',
           country: user.country_name.upcase,
           cellphone: user.phone,
           first_name: user.first_name,

@@ -27,5 +27,11 @@ RSpec.describe FrilansFinans::UserWrapper do
       result = described_class.attributes(user)
       expect(result.dig(:user, :street)).to eq('')
     end
+
+    it 'returns the empty zip string if no zip present' do
+      user = FactoryGirl.build(:user, zip: nil)
+      result = described_class.attributes(user)
+      expect(result.dig(:user, :zip)).to eq('')
+    end
   end
 end
