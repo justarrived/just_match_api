@@ -21,5 +21,11 @@ RSpec.describe FrilansFinans::UserWrapper do
       }
       expect(result).to eq(expected)
     end
+
+    it 'returns the empty street string if no street present' do
+      user = FactoryGirl.build(:user, street: nil)
+      result = described_class.attributes(user)
+      expect(result.dig(:user, :street)).to eq('')
+    end
   end
 end
