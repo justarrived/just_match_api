@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class AddMissingUniqIndexesV2 < ActiveRecord::Migration
   def change
     add_index :currencies, :frilans_finans_id, unique: true
