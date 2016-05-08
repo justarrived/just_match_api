@@ -29,6 +29,7 @@ end
 #
 #  index_invoices_on_frilans_finans_id  (frilans_finans_id) UNIQUE
 #  index_invoices_on_job_user_id        (job_user_id)
+#  index_invoices_on_job_user_id_uniq   (job_user_id) UNIQUE
 #
 # Foreign Keys
 #
