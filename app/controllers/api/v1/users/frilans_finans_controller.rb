@@ -16,13 +16,21 @@ module Api
         end
 
         api :POST, '/users/:user_id/frilans-finans', 'Create new Frilans Finans user'
-        description 'Creates and returns a new Frilans Finans user.'
+        # rubocop:disable Metrics/LineLength
+        description '
+          Creates and returns a new Frilans Finans user.
+
+          __Note__: Account clearning number and account number needs to be present __or__ IBAN and BIC
+        '
+        # rubocop:enable Metrics/LineLength
         error code: 400, desc: 'Bad request'
         error code: 422, desc: 'Unprocessable entity'
         param :data, Hash, desc: 'Top level key', required: true do
-          param :attributes, Hash, desc: 'Frilans Finans User attributes', required: true do # rubocop:disable Metrics/LineLength
+          param :attributes, Hash, desc: 'Frilans Finans payment details', required: true do # rubocop:disable Metrics/LineLength
             param :'account-clearing-number', String, desc: 'User account clearing number'
             param :'account-number', String, desc: 'User account number'
+            param :iban, String, desc: 'IBAN number'
+            param :bic, String, desc: 'BIC number'
           end
         end
         example '{}'
@@ -62,7 +70,7 @@ module Api
         end
 
         def ff_user_params
-          jsonapi_params.permit(:account_clearing_number, :account_number)
+          jsonapi_params.permit(:account_clearing_number, :account_number, :iban, :bic)
         end
 
         def authorize_create(user)
@@ -70,22 +78,27 @@ module Api
         end
 
         def ff_param_errors
-          errors = []
-          message = I18n.t('errors.messages.blank')
+          errors = validate_non_blank(ff_user_params, :iban, :bic)
 
-          if ff_user_params[:account_clearing_number].blank?
-            errors << format_error(:account_clearing_number, message)
-          end
+          # If one of the two foreign bank fields are filled out return, otherwise we'll
+          # assume that the user is gonna add local bank details.
+          #
+          # The drawback is if no fields at all are submitted only the local
+          # bank fields will be returned as blank validation errors
+          return errors unless errors.length == 2
 
-          if ff_user_params[:account_number].blank?
-            errors << format_error(:account_number, message)
-          end
-
-          errors
+          validate_non_blank(ff_user_params, :account_clearing_number, :account_number)
         end
 
         def frilans_finans_active?
           Rails.configuration.x.frilans_finans
+        end
+
+        def validate_non_blank(params_hash, *fields)
+          message = I18n.t('errors.messages.blank')
+          fields.map do |field|
+            format_error(field, message) if params_hash[field].blank?
+          end.compact
         end
 
         def format_error(field, message)

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
-RSpec.describe CreateFrilansFinansInvoiceService, type: :serializer do
+RSpec.describe CreateFrilansFinansInvoiceService do
   before(:each) { stub_frilans_finans_auth_request }
 
   let(:base_uri) { ENV.fetch('FRILANS_FINANS_BASE_URI') }
