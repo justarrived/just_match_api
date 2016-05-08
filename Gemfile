@@ -8,20 +8,20 @@ gem 'pg', '~> 0.15' # Use postgresql as the database for Active Record
 
 gem 'rails-api', '~> 0.4', require: false
 
-gem 'sidekiq', '~> 4.1.1' # Background worker (Redis-backed)
+gem 'sidekiq', '~> 4.1' # Background worker (Redis-backed)
 gem 'sinatra', require: false # Required for sidekiq web
 
 gem 'active_model_serializers', '~> 0.10.0.rc5' # Serialize models to JSON
 
-gem 'blazer', '~> 1.2' # Explore data with SQL
+gem 'blazer', '~> 1.3' # Explore data with SQL
 
 # Interact with Frilans Finans API
 gem 'frilans_finans_api', path: 'lib/frilans_finans_api'
 
 gem 'paperclip', '~> 5.0.0.beta2' # Image handler
-gem 'aws-sdk', '~> 2.2' # Upload images to AWS S3
+gem 'aws-sdk', '~> 2.3' # Upload images to AWS S3
 
-gem 'airbrake' # Error catcher and reporter
+gem 'airbrake', '~> 5.2' # Error catcher and reporter
 
 group :production do
   gem 'rails_12factor', '~> 0.0.3' # Heroku integration
