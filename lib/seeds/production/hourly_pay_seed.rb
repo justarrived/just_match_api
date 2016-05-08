@@ -11,7 +11,7 @@ class HourlyPaySeed < BaseSeed
   def call
     log_seed(HourlyPay) do
       DEFAULT_ALLOWED_RATES.each do |rate|
-        HourlyPay.create!(rate: rate, active: true)
+        HourlyPay.find_or_create_by!(rate: rate, active: true)
       end
     end
   end
