@@ -10,7 +10,7 @@ RSpec.describe FrilansFinans::UserWrapper do
         user: {
           email: user.email,
           street: user.street,
-          city: nil,
+          city: '',
           zip: user.zip,
           country: 'SWEDEN',
           cellphone: user.phone,
