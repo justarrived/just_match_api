@@ -10,7 +10,9 @@ RSpec.describe Api::V1::Users::FrilansFinansController, type: :controller do
         data: {
           attributes: {
             account_clearing_number: 'account_clearing_number',
-            account_number: 'account_number'
+            account_number: 'account_number',
+            iban: 'iban',
+            bic: 'bic'
           }
         }
       }
@@ -81,7 +83,7 @@ RSpec.describe Api::V1::Users::FrilansFinansController, type: :controller do
       end
     end
 
-    context 'invalid params' do
+    context 'empty params' do
       let(:invalid_params) do
         {
           user_id: user.to_param,
@@ -93,15 +95,73 @@ RSpec.describe Api::V1::Users::FrilansFinansController, type: :controller do
 
       it 'returns valid jsonapi errors' do
         post :create, invalid_params, valid_session
-        result = JSON.parse(response.body)['errors'].first
-        expected = {
+        errors = JSON.parse(response.body)['errors']
+        expected = [{
           'status' => 422,
           'detail' => I18n.t('errors.messages.blank'),
           'source' => {
             'pointer' => '/data/attributes/account-clearing-number'
           }
+        }, {
+          'status' => 422,
+          'detail' => I18n.t('errors.messages.blank'),
+          'source' => {
+            'pointer' => '/data/attributes/account-number'
+          }
+        }]
+        expect(errors).to eq(expected)
+      end
+    end
+
+    context 'incomplete local bank params' do
+      let(:invalid_params) do
+        {
+          user_id: user.to_param,
+          data: {
+            attributes: {
+              account_clearing_number: 'Watman'
+            }
+          }
         }
-        expect(result).to eq(expected)
+      end
+
+      it 'returns valid jsonapi errors' do
+        post :create, invalid_params, valid_session
+        errors = JSON.parse(response.body)['errors']
+        expected = [{
+          'status' => 422,
+          'detail' => I18n.t('errors.messages.blank'),
+          'source' => {
+            'pointer' => '/data/attributes/account-number'
+          }
+        }]
+        expect(errors).to eq(expected)
+      end
+    end
+
+    context 'incomplete foreign bank params' do
+      let(:invalid_params) do
+        {
+          user_id: user.to_param,
+          data: {
+            attributes: {
+              iban: 'Watman'
+            }
+          }
+        }
+      end
+
+      it 'returns valid jsonapi errors' do
+        post :create, invalid_params, valid_session
+        errors = JSON.parse(response.body)['errors']
+        expected = [{
+          'status' => 422,
+          'detail' => I18n.t('errors.messages.blank'),
+          'source' => {
+            'pointer' => '/data/attributes/bic'
+          }
+        }]
+        expect(errors).to eq(expected)
       end
     end
   end
