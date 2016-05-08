@@ -502,7 +502,7 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers (~> 0.10.0.rc5)
   administrate (~> 0.2)
-  administrate-field-image
+  administrate-field-image (~> 0.0.2)
   airbrake (~> 5.2)
   annotate (~> 2.7)
   apipie-rails (~> 0.3)
@@ -534,14 +534,14 @@ DEPENDENCIES
   pg (~> 0.15)
   puma (~> 3.4)
   pundit (~> 1.1)
-  rack-attack
-  rack-cors
+  rack-attack (~> 4.4)
+  rack-cors (~> 0.4)
   rack-timeout (~> 0.4)
   rails (= 4.2.6)
   rails-api (~> 0.4)
   rails-i18n (~> 4.0.0)
   rails_12factor (~> 0.0.3)
-  redis-activesupport
+  redis-activesupport (~> 4.1)
   regressor (~> 0.6)
   rspec-activemodel-mocks (~> 1.0)
   rspec-rails (~> 3.4)
@@ -549,7 +549,7 @@ DEPENDENCIES
   rubocop (~> 0.35)
   sidekiq (~> 4.1)
   simplecov (~> 0.11)
-  sinatra
+  sinatra (~> 1.4)
   spring (~> 1.6)
   spring-commands-rspec (~> 1.0)
   timecop (~> 0.8.0)
