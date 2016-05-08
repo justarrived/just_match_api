@@ -55,7 +55,7 @@ module JustMatch
       end
     end
 
-    config.x.frilans_finans = false
+    config.x.frilans_finans = ENV['FRILANS_FINANS_ACTIVE'] == 'true'
     config.x.validate_job_date_in_future_inactive = ENV['VALIDATE_JOB_DATE_IN_FUTURE_INACTIVE'] == 'true' # rubocop:disable Metrics/LineLength
     config.x.promo_code = ENV['PROMO_CODE']
 
