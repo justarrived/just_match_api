@@ -43,7 +43,10 @@ module Api
             return
           end
 
-          render json: {}, status: :ok unless frilans_finans_active?
+          unless frilans_finans_active?
+            render json: {}, status: :ok
+            return
+          end
 
           if @user.frilans_finans_id.nil?
             complete_params = user_params.merge(ff_user_params)
