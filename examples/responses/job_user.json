@@ -6,7 +6,8 @@
       "accepted": false,
       "accepted-at": null,
       "will-perform": false,
-      "performed": false
+      "performed": false,
+      "will-perform-confirmation-by": null
     },
     "relationships": {
       "user": {

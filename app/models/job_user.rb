@@ -45,6 +45,12 @@ class JobUser < ApplicationRecord
     accepted_at < MAX_CONFIRMATION_TIME_HOURS.hours.ago
   end
 
+  def will_perform_confirmation_by
+    return if accepted_at.nil?
+
+    accepted_at + MAX_CONFIRMATION_TIME_HOURS.hours
+  end
+
   def validate_applicant_not_owner_of_job
     if job && job.owner == user
       message = I18n.t('errors.job_user.not_owner_of_job')

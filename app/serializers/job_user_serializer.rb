@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 class JobUserSerializer < ActiveModel::Serializer
   ATTRIBUTES = [
-    :accepted, :accepted_at, :will_perform, :performed
+    :accepted, :accepted_at, :will_perform, :performed, :will_perform_confirmation_by
   ].freeze
 
   attributes ATTRIBUTES
