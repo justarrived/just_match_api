@@ -25,6 +25,23 @@ RSpec.describe JobUser, type: :model do
     end
   end
 
+  describe '#will_perform_confirmation_by' do
+    it 'returns the time that the applicant has to confirm will_perform before' do
+      time = Time.zone.now
+      Timecop.freeze(time) do
+        job_user = FactoryGirl.build(:job_user, accepted: true, accepted_at: time)
+
+        expected_time = time + JobUser::MAX_CONFIRMATION_TIME_HOURS.hours
+        expect(job_user.will_perform_confirmation_by).to eq(expected_time)
+      end
+    end
+
+    it 'returns nil if there is no accepted_at attribute' do
+      job_user = FactoryGirl.build(:job_user)
+      expect(job_user.will_perform_confirmation_by).to be_nil
+    end
+  end
+
   describe '#accepted_jobs_for' do
     let(:job_user) { FactoryGirl.create(:job_user) }
 
