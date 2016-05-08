@@ -13,6 +13,17 @@ RSpec.describe JobUser, type: :model do
       expect(job_user.applicant_confirmation_overdue?).to eq(true)
     end
 
+    it 'returns false if time is overdue but will_perform has been set to true' do
+      hours_ago = (JobUser::MAX_CONFIRMATION_TIME_HOURS + 1).hours.ago
+      job_user = FactoryGirl.build(
+        :job_user,
+        accepted: true,
+        accepted_at: hours_ago,
+        will_perform: true
+      )
+      expect(job_user.applicant_confirmation_overdue?).to eq(false)
+    end
+
     it 'returns false if *not* overdue' do
       hours_ago = (JobUser::MAX_CONFIRMATION_TIME_HOURS - 1).hours.ago
       job_user = FactoryGirl.build(:job_user, accepted: true, accepted_at: hours_ago)

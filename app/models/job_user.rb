@@ -30,7 +30,7 @@ class JobUser < ApplicationRecord
   scope :will_perform, -> { where(will_perform: true) }
   scope :unconfirmed, -> { accepted.where(will_perform: false) }
   scope :applicant_confirmation_overdue, lambda {
-    where('accepted_at < ?', MAX_CONFIRMATION_TIME_HOURS.hours.ago)
+    unconfirmed.where('accepted_at < ?', MAX_CONFIRMATION_TIME_HOURS.hours.ago)
   }
 
   def self.accepted_jobs_for(user)
@@ -40,7 +40,7 @@ class JobUser < ApplicationRecord
   end
 
   def applicant_confirmation_overdue?
-    return false if accepted_at.nil?
+    return false if accepted_at.nil? || will_perform
 
     accepted_at < MAX_CONFIRMATION_TIME_HOURS.hours.ago
   end
