@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160501164217) do
+ActiveRecord::Schema.define(version: 20160508092045) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -143,6 +143,8 @@ ActiveRecord::Schema.define(version: 20160501164217) do
     t.datetime "updated_at",        null: false
   end
 
+  add_index "currencies", ["frilans_finans_id"], name: "index_currencies_on_frilans_finans_id", unique: true, using: :btree
+
   create_table "faqs", force: :cascade do |t|
     t.text     "answer"
     t.text     "question"
@@ -170,6 +172,7 @@ ActiveRecord::Schema.define(version: 20160501164217) do
 
   add_index "invoices", ["frilans_finans_id"], name: "index_invoices_on_frilans_finans_id", unique: true, using: :btree
   add_index "invoices", ["job_user_id"], name: "index_invoices_on_job_user_id", using: :btree
+  add_index "invoices", ["job_user_id"], name: "index_invoices_on_job_user_id_uniq", unique: true, using: :btree
 
   create_table "job_skills", force: :cascade do |t|
     t.integer  "job_id"
@@ -281,8 +284,10 @@ ActiveRecord::Schema.define(version: 20160501164217) do
     t.datetime "updated_at",         null: false
   end
 
+  add_index "terms_agreement_consents", ["job_id", "user_id"], name: "index_terms_agreement_consents_on_job_id_and_user_id", unique: true, using: :btree
   add_index "terms_agreement_consents", ["job_id"], name: "index_terms_agreement_consents_on_job_id", using: :btree
   add_index "terms_agreement_consents", ["terms_agreement_id"], name: "index_terms_agreement_consents_on_terms_agreement_id", using: :btree
+  add_index "terms_agreement_consents", ["user_id", "job_id"], name: "index_terms_agreement_consents_on_user_id_and_job_id", unique: true, using: :btree
   add_index "terms_agreement_consents", ["user_id"], name: "index_terms_agreement_consents_on_user_id", using: :btree
 
   create_table "terms_agreements", force: :cascade do |t|
@@ -291,6 +296,8 @@ ActiveRecord::Schema.define(version: 20160501164217) do
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
   end
+
+  add_index "terms_agreements", ["version"], name: "index_terms_agreements_on_version", unique: true, using: :btree
 
   create_table "user_images", force: :cascade do |t|
     t.datetime "one_time_token_expires_at"
@@ -372,6 +379,7 @@ ActiveRecord::Schema.define(version: 20160501164217) do
 
   add_foreign_key "blazer_audits", "blazer_queries", column: "query_id", name: "blazer_audits_query_id_fk"
   add_foreign_key "blazer_checks", "blazer_queries", column: "query_id", name: "blazer_checks_query_id_fk"
+  add_foreign_key "blazer_dashboard_queries", "blazer_dashboards", column: "dashboard_id", name: "blazer_dashboard_queries_dashboard_id_fk"
   add_foreign_key "blazer_dashboard_queries", "blazer_queries", column: "query_id", name: "blazer_dashboard_queries_query_id_fk"
   add_foreign_key "blazer_queries", "users", column: "creator_id", name: "blazer_queries_creator_id_fk"
   add_foreign_key "chat_users", "chats"
