@@ -9,7 +9,6 @@ class JobDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
-    frilans_finans_id: Field::Number,
     language: Field::BelongsTo,
     hourly_pay: Field::BelongsTo,
     category: Field::BelongsTo,
@@ -44,7 +43,6 @@ class JobDashboard < Administrate::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
     :id,
-    :frilans_finans_id,
     :name,
     :verified,
     :cancelled,
@@ -68,7 +66,6 @@ class JobDashboard < Administrate::BaseDashboard
     :comments,
     :owner,
     :id,
-    :frilans_finans_id,
     :description,
     :job_date,
     :job_end_date,
