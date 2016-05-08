@@ -10,11 +10,16 @@ module Admin
     include HttpBasicAdminAuthenticator
 
     before_action :authenticate_admin
+    before_action :set_en_locale
 
     DEFAULT_RECORDS_PER_PAGE = 20
 
     def records_per_page
       params[:per_page] || DEFAULT_RECORDS_PER_PAGE
+    end
+
+    def set_en_locale
+      I18n.locale = :en
     end
   end
 end

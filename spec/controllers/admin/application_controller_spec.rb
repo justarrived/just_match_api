@@ -14,4 +14,10 @@ RSpec.describe Admin::ApplicationController, type: :controller do
       and_return(per_page: expected)
     expect(described_class.new.records_per_page).to eq(expected)
   end
+
+  it 'sets en locale in ' do
+    allow(I18n).to receive(:locale=).and_return(:en)
+    described_class.new.set_en_locale
+    expect(I18n).to have_received(:locale=)
+  end
 end
