@@ -11,7 +11,7 @@ sv:
         notice: Misslyckades skapa en Frilans Finans faktura %{invoice_id}.
   errors:
     general:
-      protocol_missing: protokollprefix http:// or https:// saknas
+      protocol_missing: Protocol prefix saknas http:// eller https://
     chat:
       number_of_users: en chat måste bestå av minst %{min} och %{max} antal användare
     invoice:
@@ -23,7 +23,7 @@ sv:
       update_not_allowed_when_accepted: job kan inte uppdateras när jobbet har redan accepterats av användaren
       job_end_date_after_job_date: måste vara efter jobb datum
       hours_lower_bound: måste minst vara %{min_hours} timmar per dag
-      hours_upper_bound: kan inte vara fler än %{min_hours} timmar per dag
+      hours_upper_bound: kan inte vara fler än %{max_hours} timmar per dag
     job_user:
       not_owner_of_job: kan inte både vara jobb ägare och jobb sökare
       multiple_applicants: kan inte acceptera flera användare
@@ -33,7 +33,7 @@ sv:
       from_user_rated: kan inte rösta flera gånger
       to_user_rated: kan rösta flera gånger
       comment_user: måste vara användaren själv som gör röstningen
-      job_user_concluded: jobb måste vara utfört
+      job_user_concluded: Uppdrag måste vara avslutat
       user_allowed_to_rate: måste vara jobb ägaren eller den accepterade användaren
     user_session:
       banned: en administratör har blockerat dig eftersom du inte följt Användarvillkoren. Vad god kontakta help@justarrived.
@@ -68,8 +68,8 @@ sv:
       subject: Ditt Just Arrived lösenord har blivit ändrat
       body_header: Hej %{name}, ditt Just Arrived lösenord har blivit ändrat. Om det här inte var du, var god kontakta Just Arrived på help@justarrived.se
     job_cancelled:
-      subject: Ett jobb du har sökt har dragits tillbaka
-      body: Jobbet %{job_name} har dragits tillbaka.
+      subject: 'Ett uppdrag du har sökt har avbrutits  '
+      body: Jobbet %{job_name}  har avbrutits
     job_match:
       accepted_line: Du har fått en ny jobbmatchning!
       congrats_line: Grattis %{name}!

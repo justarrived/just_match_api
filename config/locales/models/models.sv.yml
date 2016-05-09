@@ -186,7 +186,7 @@ sv:
         zip_latitude: Zip latitud
         zip_longitude: Zip longitud
         frilans_finans_id: Frilans Finans id
-        frilans_finans_payment_details: Frilans Finans betalningsuppgifter
+        frilans_finans_payment_details: Frilans Finans betaluppgifter
       user_image:
         image_content_type: Bildinnehåll typ
         image_file_name: Bild filnamn

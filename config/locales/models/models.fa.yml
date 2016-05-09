@@ -48,7 +48,6 @@ fa:
       company_image:
         company: شرکت
         image_content_type: تصویر نوع محتوا
-        image_file_name: نام فایل تصویر
         image_file_size: اندازه فایل تصویر
         image_updated_at: تصویر به روز شده در
         one_time_token: رمز یک بار
