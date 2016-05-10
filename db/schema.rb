@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160508092045) do
+ActiveRecord::Schema.define(version: 20160509170742) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -367,6 +367,7 @@ ActiveRecord::Schema.define(version: 20160508092045) do
     t.integer  "ignored_notifications_mask"
     t.integer  "frilans_finans_id"
     t.boolean  "frilans_finans_payment_details", default: false
+    t.text     "competence_text"
   end
 
   add_index "users", ["auth_token"], name: "index_users_on_auth_token", unique: true, using: :btree
