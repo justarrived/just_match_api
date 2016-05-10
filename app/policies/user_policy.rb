@@ -12,7 +12,7 @@ class UserPolicy < ApplicationPolicy
 
   ATTRIBUTES = [
     :id, :first_name, :description, :job_experience, :education, :language_id, :zip,
-    :zip_latitude, :zip_longitude
+    :zip_latitude, :zip_longitude, :competence_text
   ].freeze
 
   ACCEPTED_APPLICANT_ATTRIBUTES = ATTRIBUTES + [

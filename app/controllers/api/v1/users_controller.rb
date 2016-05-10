@@ -52,6 +52,7 @@ module Api
           param :description, String, desc: 'Description'
           param :'job-experience', String, desc: 'Job experience'
           param :education, String, desc: 'Education'
+          param :'competence-text', String, desc: 'Competences'
           param :email, String, desc: 'Email', required: true
           param :phone, String, desc: 'Phone', required: true
           param :street, String, desc: 'Street'
@@ -98,6 +99,7 @@ module Api
           param :description, String, desc: 'Description'
           param :'job-experience', String, desc: 'Job experience'
           param :education, String, desc: 'Education'
+          param :'competence-text', String, desc: 'Competences'
           param :email, String, desc: 'Email'
           param :phone, String, desc: 'Phone'
           param :street, String, desc: 'Street'
@@ -166,7 +168,7 @@ module Api
         whitelist = [
           :first_name, :last_name, :email, :phone, :description, :job_experience,
           :education, :ssn, :street, :zip, :language_id, :password, :company_id,
-          ignored_notifications: [], skill_ids: [], language_ids: []
+          :competence_text, ignored_notifications: [], skill_ids: [], language_ids: []
         ]
         jsonapi_params.permit(*whitelist)
       end
