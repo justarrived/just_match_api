@@ -1,4 +1,36 @@
 ku:
   errors:
+    format: "%{attribute} %{message}"
     messages:
-      present: divê blanc be
+      accepted: divê qebûlkirî be
+      blank: divê bê dan
+      present: divê neyê dan
+      confirmation: li hev nakin
+      empty: divê vala nebe
+      equal_to: divê eynî wek %{count}
+      even: divê tam be
+      exclusion: reservekirî ye
+      greater_than: divê ji %{count} mezintir be
+      greater_than_or_equal_to: divê ji %{count} mezintir be yan bi qasî wê be
+      inclusion: di lîsteyê de nîne
+      invalid: formata wê şaş e
+      less_than: divê ji %{count} biçûktir be
+      less_than_or_equal_to: divê ji %{count} biçûktir be yan bi qasî wê be
+      not_a_number: ne hejmar e
+      not_an_integer: divê hejmara temam be
+      odd: divê kit be
+      record_invalid: 'Şaşîyek peyda bû: %{errors}'
+      restrict_dependent_destroy:
+        one: Nikarî postê bavêjî dema ku %{record} ya eleqedar hebe
+        many: Nikarî postan bavêjî dema ku %{record} hebe
+      taken: aniha jî tê bi kar anîn
+      too_long:
+        one: zêde dirêj e (hedê herî zêde 1 nîşan e)
+        other: zêde dirêj e (hedê herî zêde %{count} nîşan e/in)
+      too_short:
+        one: zêde kort e (hedê herî kêm 1 nîşan e)
+        other: zêde kort e (hedê herî kêm %{count} nîşan e/in)
+      wrong_length:
+        one: dirêjîya wê şaş e (divê 1 nîşan be)
+        other: dirêjîya wê şaş e (divê %{count} nîşan be)
+      other_than: divê ne %{count} be

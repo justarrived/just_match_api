@@ -1,1 +1,36 @@
-ti: {}
+ti:
+  errors:
+    format: "%{attribute} %{message}"
+    messages:
+      accepted: ናይ ግድን ቅቡል ክኸውን ኣለዎ
+      blank: ክወሃብ ወይ ክቐርብ ይግባእ
+      present: ዘይክቐርብ ወይ ዘይክወሃብ ይኽእል
+      confirmation: ኣይሰማማዕን
+      empty: ጥርሑ ክግደፍ የብሉን
+      equal_to: ናይ ግድን ምስ %{count} ሓደ ክኸውን ኣለዎ
+      even: ናይ ግድን ምዕሩይ ክኸውን ኣለዎ
+      exclusion: ሕዙእ ኢዩ
+      greater_than: ናይ ግድን ካብ %{count} ዝዓቢ ክኸውን ኣለዎ
+      greater_than_or_equal_to: ናይ ግድን ካብ %{count} ዝዓቢ ወይ ማዕረ ክኸውን ኣለዎ
+      inclusion: ኣብቲ ዝርዝር የለን
+      invalid: ግጉይ ፎርማት
+      less_than: ናይ ግድን ካብ %{count} ዝንእስ ክኸውን ኣለዎ
+      less_than_or_equal_to: ናይ ግድን ካብ %{count} ዝንእስ ወይ ማዕረ ክኸውን ኣለዎ
+      not_a_number: ቁጽሪ ኣይኮነን
+      not_an_integer: ናይ ግድን ምሉእ-ቁጽሪ ክኸውን ኣለዎ
+      odd: ናይ ግድን ናብ ክልተ ዘይምቀል (ኦድ ቁጽር) ክኸውን ኣለዎ
+      record_invalid: 'ግጉይ ኣጀማምራ: %{errors}'
+      restrict_dependent_destroy:
+        one: ክድምሰስ ዘይከኣል ኮይኑ ኣብ ህላወ %{record} ይምርኮስ
+        many: ክድምሰስ ዘይከኣል ኮይኑ ኣብ ህላወ %{record} ይምርኮስ
+      taken: ድሮ ኣብ ጠቕሚ ኣሎ
+      too_long:
+        one: ኣዝዩ ነዊሑ (እንተነወሐደ 1 ኣሃዝ)
+        other: ኣዝዩ ነዊሑ (እንተነወሐደ %{count} ኣሃዝ)
+      too_short:
+        one: ኣዝዩ ሓጺሩ (እንተወሓደ 1 ኣሃዝ)
+        other: ኣዝዩ ሓጺሩ (እንተወሓደ %{count} ኣሃዝ)
+      wrong_length:
+        one: ግጉይ ንውሓት (1 ኣሃዝ ክትከውን ኣለዋ)
+        other: ግጉይ ንውሓት ( %{count} ኣሃዝ ክኸውን ኣለዎ)
+      other_than: ናይ ግድን ካብ %{count} ፍልይ ዝበለ ክኸውን ኣለዎ

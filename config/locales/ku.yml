@@ -1,1 +1,109 @@
-ku: {}
+ku:
+  api_documentation:
+    title: Dokumentkirina API | JustMatch API
+  admin:
+    mailer:
+      invoice_missing_company_frilans_finans_id:
+        subject: 'Têbînîya birêveberî ID-ya Frilans Finans ya şîrketê tune ye'
+        notice: Fatûreyeka bi rêya şîrketekê hatiye afirandin ku ID-ya Frilans Finans ya wê tune ye. Binêre %{company_link} û %{invoice_link}.
+      invoice_failed_to_connect_to_frilans_finans:
+        subject: 'Têbînîya birêveberî Afirandina fatûreya Frilans Finansê bi ser neket.'
+        notice: Afirandina fatûreya Frilans Finansê bi ser neket %{invoice_id}.
+  errors:
+    chat:
+      number_of_users: divê hejmara bikarînerên çatê herî kêm %{min} û %{max} be
+    invoice:
+      job_started: divê dest bi karî hatibe kirin berî ku fatûreyek bê afirandin
+      job_user_accepted: divê bikarhîner qebûlkirî be berî ku fatûreyek bê afirandin
+    job:
+      job_date_in_the_past: divê di dema bê de be
+      hourly_pay_active: divê aktîv be
+      update_not_allowed_when_accepted: kar nikare bê nû kirin gava bikarînerî berî niha ev kar qebûl kiribe
+      job_end_date_after_job_date: divê piştî tarîxa karî be
+      hours_lower_bound: divê herî kêm %{min_hours} saetan di rojê de be
+      hours_upper_bound: nikare zêdetir ji %{min_hours} saetan di rojê de be
+    job_user:
+      not_owner_of_job: nikarî hem xwedîyê karî û hem daxwzkerê karî be
+      multiple_applicants: nikarî gelek bikarîneran qebûl bikî
+      will_perform_true_on_delete: nikarî daxwaznameyê piştî teyîdkirinê paşde vegerînî
+      performed_before_job_started: nikarî karî teyîd bikî berî ku ew dest pê bike
+    rating:
+      from_user_rated: nikarî gelek caran dengî bidî
+      to_user_rated: dikarî gelek caran dengî bidî
+      comment_user: yê ku dengdanê dike divê bikarîner bi xwe be
+      job_user_concluded: divê kar temam bûbe
+      user_allowed_to_rate: divê xwedîyê karî be yan bikarînerê qebûlkirî be
+    user_session:
+      banned: birêveberekî rê li te girtiye çunkî te li gor Şertên bikaranînê nekiriye. Ji kerema xwe pêwendîyê bi help@justarrived.se bike.
+      wrong_email_or_password: e-poste yan şîfre şaş e
+    user:
+      password_length: divê şîfre herî kêm %{count} nîşan be
+      must_be_available_locale: mixabin, ev bi zimanê te tune ye
+    validators:
+      after_true: 'divê %{field} rast be'
+      unrevertable: kan inte återställa %{field}
+  invalid_credentials: nikare bê rast kirin
+  mailer:
+    accepted_applicant_withdrawn:
+      subject: Bikarînerekê qebûlkirî ji bo karê te daxwaznameya xwe paşde vegerandiye.
+      title: Bikarînerekê qebûlkirî ji bo karê te daxwaznameya xwe paşde vegerandiye.
+      explaination: Bikarînerekê qebûlkirî %{name} ji bo karê %{job_name} daxwaznameya xwe paşde vegerandiye. Ji kerema xwe bikarînerekê din hilbijêre.
+    accepted_applicant_confirmation_overdue:
+      subject: Bikarînerekê qebûlkirî ji bo karê te tevkarî di dema diyarkirî de teyîd nekiriye.
+      title: Bikarînerekê qebûlkirî ji bo karê te tevkarî di dema diyarkirî de teyîd nekiriye.
+      explaination: Bikarînerekê qebûlkirî %{name} ji bo karê te %{job_name} tevkarîya xwe di dema îzindayî de teyîd nekiriye. Ji kerema xwe bikarînerekê din hilbijêre.
+    applicant_will_perform:
+      subject: Pîroz be! Bikarînerekê dê karê te bike.
+      congrats_line: Pîroz be!
+      details_line: "%{name} teyîd kiriye ku ew dê karê te %{job_name} bikin."
+    applicant_accepted:
+      accepted_line: Tu ji bo karekî hatî qebûl kirin!
+      congrats_line: Pîroz be %{name}!
+      contact_line: Ji bo agahdarîyên zêdetir pêwendîyê bi %{email} bike.
+      job_line: Kar '%{name}' e û li devera te ye.
+      subject: Pîroz be! Kar ji te re derket!
+    changed_password:
+      subject: Şîfreya te ya Just Arrivedê hatiye guhertin
+      body_header: Silav %{name}, şîfreya te ya Just Arrivedê hatiye guhertin Heger ev ne tu bî, ji kerema xwe pêwendîyê bi rêya help@justarrived.se bi Just Arrivedê bike.
+    job_match:
+      accepted_line: Karekê guncayî yê nû  ji te re derket!
+      congrats_line: Pîroz be %{name}!
+      contact_line: Ji bo agahdarîyên zêdetir pêwendîyê bi %{email} bike.
+      job_line: 'Ew kar: ''%{name}'' e û li devera te ye.'
+      subject: Pîroz be! Karekê guncayî yê nû ji te re heye.
+    job_performed:
+      congrats_line: Pîroz be %{name}!
+      contact_line: Heger hin pirsên te yên dawîyê hebin, tu dikarî bi rêya %{email} pêwendîyê bi wan bikî.
+      job_line: Karê ku hatiye kirin %{name} e.
+      performed_line: "%{name} tesdîq kiriye ku wan ji te re karek kiriye."
+      subject: Pîroz be! Karek yê ku te îlan kiriye hatiye kirin.
+    invoice_created:
+      congrats_line: Pîroz be %{name}!
+      contact_line: Heger hin pirsên te yên dawîyê hebin, tu dikarî pêwendîyê bi %{email} bikî.
+      job_line: 'Karê ku te kiriye: ''%{name}'''
+      performed_line: "%{name} tesdîq kiriye ku te kar temam kiriye."
+      subject: Pîroz be! Karek yê ku te kiriye hat qebûl kirin.
+    new_applicant:
+      applicant_line: Bikarîner '%{name}' e û li devera te dijî.
+      congrats_line: Pîroz be %{name}!
+      contact_line: Heger hin pirsên te hebin, tu dikarî bi rêya %{email} û %{phone} pêwendîyê bi wan bikî.
+      job_line: Daxwaznameyeka nû ji bo karê te '%{name}' heye.
+      subject: Pîroz be! Daxwazeka nû ji te re hatiye.
+    reset_password:
+      subject: '?'
+      body_header: 'Silav %{name}, te xwastiye ku şîfreya te bê rast kirin. Ji kerema xwe li lînkê vegere da tu şîfeya xwe ya nû bidî:'
+    welcome:
+      subject: Tu bi xêr hatî Just Arrivedê!
+      body_header: Tu bi xêr hatî Just Arrivedê %{name}!
+      body_line: Spas ji bo ku te xwe qeyd kir. Em hêvî dikin ku tu dê ji vê xizmetê hez bikî!
+    signoff: Bi hêvîya rojeka xweş!
+  not_logged_in_error: Divê tu têkevî hundir.
+  notifications:
+    accepted_applicant_confirmation_overdue: Dema teyîdkirinê ya bikarînerê qebûlkirî derbaz bûye
+    accepted_applicant_withdrawn: Bikarînerê qebûlkirî daxwaznameya xwe paşde vegerandiye.
+    applicant_accepted: Tu ji bo karekî hatî qebûl kirin
+    applicant_will_perform: Bikarînerî qebûlkirin teyîd kir
+    invoice_created: Fatûre hat afirandin
+    job_user_performed: Bikarîneran teyîd kir ku wan kar temam kiriye
+    new_applicant: Daxwazkerekê nû
+    user_job_match: Karguncîneka nû
