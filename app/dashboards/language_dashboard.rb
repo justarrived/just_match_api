@@ -31,6 +31,7 @@ class LanguageDashboard < Administrate::BaseDashboard
     :id,
     :lang_code,
     :en_name,
+    :system_language,
     :users,
     :jobs
   ].freeze

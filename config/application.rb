@@ -26,7 +26,7 @@ module JustMatch
     # ku    - Kurdish [partial Rails translation locally]
     # ti    - Tigrinya [partial Rails translation locally]
     # fa_AF - Dari / Persian (Afghanistan) [partial Rails translation locally]
-    # ps    - Pushto [partial Rails translation locally]
+    # ps    - Pashto [partial Rails translation locally]
     config.i18n.available_locales = [:en, :sv, :ar, :fa, :ku, :ti, :fa_AF, :ps]
     config.i18n.fallbacks = {
       'fa_AF' => 'fa',
