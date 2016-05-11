@@ -14,6 +14,11 @@ class LanguageDashboard < Administrate::BaseDashboard
     jobs: Field::HasMany,
     id: Field::Number,
     lang_code: Field::String,
+    en_name: Field::String,
+    direction: Field::String,
+    local_name: Field::String,
+    system_language: Field::Boolean,
+    en_name: Field::String,
     created_at: Field::DateTime,
     updated_at: Field::DateTime
   }.freeze
@@ -26,6 +31,7 @@ class LanguageDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = [
     :id,
     :lang_code,
+    :en_name,
     :users,
     :jobs
   ].freeze
@@ -38,6 +44,10 @@ class LanguageDashboard < Administrate::BaseDashboard
     :jobs,
     :id,
     :lang_code,
+    :en_name,
+    :direction,
+    :local_name,
+    :system_language,
     :created_at,
     :updated_at
   ].freeze
@@ -49,7 +59,11 @@ class LanguageDashboard < Administrate::BaseDashboard
     :user_languages,
     :users,
     :jobs,
-    :lang_code
+    :lang_code,
+    :en_name,
+    :direction,
+    :local_name,
+    :system_language
   ].freeze
 
   # Overwrite this method to customize how languages are displayed
