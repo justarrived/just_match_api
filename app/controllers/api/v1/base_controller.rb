@@ -6,7 +6,7 @@ module Api
         api_version '1.0'
         # rubocop:disable Metrics/LineLength
         app_info "
-          # JustMatch API - v1.0 (alpha) [![JSON API 1.0](https://img.shields.io/badge/JSON%20API-1.0-lightgrey.svg)](http://jsonapi.org/)
+          # JustMatch API - v1.0 (beta) [![JSON API 1.0](https://img.shields.io/badge/JSON%20API-1.0-lightgrey.svg)](http://jsonapi.org/)
 
           ---
 

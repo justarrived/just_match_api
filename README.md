@@ -1,4 +1,4 @@
-# JustMatch API (beta) [![Build Status](https://travis-ci.org/justarrived/just_match_api.svg?branch=master)](https://travis-ci.org/justarrived/just_match_api)
+# JustMatch API (beta) [![Build status](https://circleci.com/gh/justarrived/just_match_api.svg?style=shield)](https://circleci.com/gh/justarrived/just_match_api) [![Build Status](https://travis-ci.org/justarrived/just_match_api.svg?branch=master)](https://travis-ci.org/justarrived/just_match_api)
 
 [![Code Climate](https://codeclimate.com/github/justarrived/just_match_api/badges/gpa.svg)](https://codeclimate.com/github/justarrived/just_match_api) [![Test Coverage](https://codeclimate.com/github/justarrived/just_match_api/badges/coverage.svg)](https://codeclimate.com/github/justarrived/just_match_api/coverage) [![Dependency Status](https://gemnasium.com/justarrived/just_match_api.svg)](https://gemnasium.com/justarrived/just_match_api)
 
