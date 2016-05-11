@@ -18,7 +18,6 @@ class LanguageDashboard < Administrate::BaseDashboard
     direction: Field::String,
     local_name: Field::String,
     system_language: Field::Boolean,
-    en_name: Field::String,
     created_at: Field::DateTime,
     updated_at: Field::DateTime
   }.freeze
@@ -39,9 +38,6 @@ class LanguageDashboard < Administrate::BaseDashboard
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = [
-    :user_languages,
-    :users,
-    :jobs,
     :id,
     :lang_code,
     :en_name,
@@ -49,21 +45,24 @@ class LanguageDashboard < Administrate::BaseDashboard
     :local_name,
     :system_language,
     :created_at,
-    :updated_at
+    :updated_at,
+    :user_languages,
+    :users,
+    :jobs
   ].freeze
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
-    :user_languages,
-    :users,
-    :jobs,
     :lang_code,
     :en_name,
     :direction,
     :local_name,
-    :system_language
+    :system_language,
+    :user_languages,
+    :users,
+    :jobs
   ].freeze
 
   # Overwrite this method to customize how languages are displayed
