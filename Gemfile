@@ -37,7 +37,7 @@ gem 'bcrypt', '~> 3.1.7', require: true # Encrypt passwords
 gem 'puma', '~> 3.4' # App server
 
 gem 'newrelic_rpm', '~> 3.15' # Performance monitoring
-gem 'skylight', '~> 0.10'  # Performance monitoring
+gem 'skylight', '~> 0.10' # Performance monitoring
 
 gem 'geocoder', '~> 1.3' # Geocode resources
 
@@ -55,13 +55,14 @@ gem 'rack-attack', '~> 4.4' # Throttle API usage
 gem 'redis-activesupport', '~> 4.1' # To use Redis as the cache store for rack-attack
 
 gem 'yagni_json_encoder', '~> 0.0.2' # Make Rails use the OJ gem for JSON
+gem 'fast_blank', '~> 1.0' # Re-implements #blank? in C
 
 gem 'rails-i18n', '~> 4.0.0' # Rails translations
 
 gem 'honey_format', '~> 0.2' # Simple CSV reading
 
 group :development, :test do
-  gem 'byebug', '~> 8.2'
+  gem 'byebug', '~> 9.0'
   gem 'rspec-rails', '~> 3.4'
   gem 'regressor', '~> 0.6'
   gem 'rubocop', '~> 0.35', require: false
