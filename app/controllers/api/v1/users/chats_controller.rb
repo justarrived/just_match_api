@@ -56,7 +56,7 @@ module Api
         def set_chat
           chats_scope = @user.chats
 
-          if included_resources.include?('messages')
+          if included_resources.include?(:messages)
             chats_scope = chats_scope.includes(messages: [:author, :language])
           end
 

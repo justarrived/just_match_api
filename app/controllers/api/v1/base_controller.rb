@@ -117,6 +117,10 @@ module Api
         @_included_resources ||= include_params.permit(self.class::ALLOWED_INCLUDES)
       end
 
+      def included_resource?(resource_name)
+        included_resources.include?(resource_name.to_s)
+      end
+
       def require_promo_code
         return if logged_in?
 

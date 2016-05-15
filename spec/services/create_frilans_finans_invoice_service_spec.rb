@@ -4,7 +4,7 @@ require 'rails_helper'
 RSpec.describe CreateFrilansFinansInvoiceService do
   before(:each) { stub_frilans_finans_auth_request }
 
-  let(:base_uri) { ENV.fetch('FRILANS_FINANS_BASE_URI') }
+  let(:base_uri) { FrilansFinansApi.base_uri }
   let(:company) { FactoryGirl.create(:company, frilans_finans_id: 1) }
   let(:job) do
     owner = FactoryGirl.create(:user, company: company)
