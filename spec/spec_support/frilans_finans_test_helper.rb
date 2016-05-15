@@ -10,7 +10,7 @@ module FrilansFinansApiTest
 
   def stub_frilans_finans_auth_request
     # Stub auth request
-    base_uri = ENV.fetch('FRILANS_FINANS_BASE_URI')
+    base_uri = FrilansFinansApi.base_uri
     headers = { 'User-Agent' => 'FrilansFinansAPI - Ruby client' }
     body = [
       'grant_type=client_credentials',

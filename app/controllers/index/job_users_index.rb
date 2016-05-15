@@ -6,7 +6,7 @@ module Index
 
     def job_users(scope = JobUser)
       @job_users ||= begin
-        include_scopes = [:job, :invoice]
+        include_scopes = [:invoice]
         include_scopes << user_include_scopes
 
         prepare_records(scope.includes(*include_scopes))

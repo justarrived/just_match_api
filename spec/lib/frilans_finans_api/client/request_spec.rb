@@ -6,7 +6,7 @@ RSpec.describe FrilansFinansApi::Request do
   let(:headers) do
     { 'User-Agent' => 'FrilansFinansAPI - Ruby client' }
   end
-  let(:base_uri) { ENV.fetch('FRILANS_FINANS_BASE_URI') }
+  let(:base_uri) { FrilansFinansApi.base_uri }
 
   describe '#get' do
     before(:each) { stub_frilans_finans_auth_request }

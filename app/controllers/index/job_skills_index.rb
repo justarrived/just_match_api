@@ -4,7 +4,7 @@ module Index
     def job_skills(scope = JobSkill)
       @job_skills ||= begin
         include_scopes = []
-        include_scopes << included?('skill') ? { skill: [:language] } : :skill
+        include_scopes << included_resource?(:skill) ? { skill: [:language] } : :skill
 
         prepare_records(scope.includes(*include_scopes))
       end

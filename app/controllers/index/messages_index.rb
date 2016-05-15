@@ -4,7 +4,7 @@ module Index
     def messages(scope = Message)
       @messages ||= begin
         include_scopes = [:language]
-        include_scopes << user_include_scopes(:author)
+        include_scopes << user_include_scopes(user_key: :author)
 
         prepare_records(scope.includes(*include_scopes))
       end

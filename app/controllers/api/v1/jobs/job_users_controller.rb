@@ -20,7 +20,8 @@ module Api
 
             1. To apply for a job a user creates a job user
             2. The owner accepts the user by setting `accepted` to true
-            3. The user then confirms that they will perform the job by setting `will-perform` to true. It has to be done within #{JobUser::MAX_CONFIRMATION_TIME_HOURS}, if not `accepted` will be set to false.
+            3. The user then confirms that they will perform the job by setting `will-perform` to true.
+                * It has be be done before `will-perform-confirmation-by` (date-time), if not `accepted` will be set to false automatically.
             4. The user verifies the that the job has been performed by setting `performed` to true
             5. The owner then creates an invoice to pay the user
           "
@@ -41,7 +42,9 @@ module Api
           authorize(JobUser)
 
           job_users_index = Index::JobUsersIndex.new(self)
-          @job_users = job_users_index.job_users(@job.job_users)
+          job_users_scope = job_users_index_scope(@job.job_users)
+
+          @job_users = job_users_index.job_users(job_users_scope)
 
           api_render(@job_users, total: job_users_index.count)
         end
@@ -178,6 +181,24 @@ module Api
               :nothing
             end
           end
+        end
+
+        def job_users_index_scope(base_scope)
+          if included_resource?(:job)
+            base_scope = base_scope.includes(job: :job_users)
+          end
+
+          if included_resource?(:user) || included_resource?(:'user.user_images')
+            user_includes = [:owned_jobs, :user_images, :chats]
+            base_scope = base_scope.includes(user: user_includes)
+          end
+
+          if included_resource?(:'user.user_images')
+            user_includes = [:language, :languages, :company]
+            base_scope = base_scope.includes(user: user_includes)
+          end
+
+          base_scope
         end
       end
     end

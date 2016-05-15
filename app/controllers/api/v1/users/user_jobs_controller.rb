@@ -7,7 +7,7 @@ module Api
 
         after_action :verify_authorized, except: %i(index)
 
-        ALLOWED_INCLUDES = %w(job user).freeze
+        ALLOWED_INCLUDES = %w(job user user user.user_images).freeze
 
         api :GET, '/users/:user_id/jobs', 'Shows all job the user has applied to.'
         # rubocop:disable Metrics/LineLength
@@ -20,7 +20,7 @@ module Api
         def index
           authorize_index(@user)
 
-          job_user_scope = JobUser.where(user: @user)
+          job_user_scope = job_user_index_scope(JobUser.where(user: @user))
 
           job_users_index = Index::JobUsersIndex.new(self)
           @job_users = job_users_index.job_users(job_user_scope)
@@ -32,6 +32,23 @@ module Api
 
         def set_user
           @user = User.find(params[:user_id])
+        end
+
+        def job_user_index_scope(scope)
+          job_includes = []
+          if included_resource?(:job)
+            job_includes = [
+              :job_users, :owner, :company, :language, :category, :hourly_pay
+            ]
+          end
+
+          scope = scope.includes(job: job_includes)
+
+          if included_resource?(:user)
+            scope = scope.includes(user: [:user_images, :chats])
+          end
+
+          scope
         end
 
         def authorize_index(user)

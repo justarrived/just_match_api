@@ -8,7 +8,7 @@ module Index
     def jobs(scope = Job)
       @jobs ||= begin
         include_scopes = [:language, :company, :category, :hourly_pay]
-        include_scopes << user_include_scopes(:owner)
+        include_scopes << user_include_scopes(user_key: :owner)
 
         prepare_records(scope.includes(*include_scopes))
       end
