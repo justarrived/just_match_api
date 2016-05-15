@@ -21,8 +21,13 @@ module Api
       def index
         authorize(Job)
 
+        # NOTE: N+1 Query
+        #   Causes N+1 for job_users resource if current user is owner
+        #     :includes => [:job_users]
+
         jobs_index = Index::JobsIndex.new(self)
-        @jobs = jobs_index.jobs(Job.uncancelled)
+        jobs_scope = jobs_index_scope(Job.uncancelled)
+        @jobs = jobs_index.jobs(jobs_scope)
 
         api_render(@jobs, total: jobs_index.count)
       end
@@ -144,6 +149,18 @@ module Api
 
       def job_policy
         policy(@job || Job.new)
+      end
+
+      def jobs_index_scope(base_scope)
+        if included_resource?(:company)
+          base_scope = base_scope.includes(company: [:company_images])
+        end
+
+        if included_resource?(:comments)
+          base_scope = base_scope.includes(comment: :owner)
+        end
+
+        base_scope
       end
 
       def permitted_attributes
