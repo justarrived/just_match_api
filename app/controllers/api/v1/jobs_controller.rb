@@ -157,7 +157,7 @@ module Api
         end
 
         if included_resource?(:comments)
-          base_scope = base_scope.includes(comment: :owner)
+          base_scope = base_scope.includes(comments: :owner)
         end
 
         base_scope
