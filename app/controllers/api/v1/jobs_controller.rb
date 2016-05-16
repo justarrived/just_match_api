@@ -152,7 +152,7 @@ module Api
       end
 
       def jobs_index_scope(base_scope)
-        base_scope = base_scope.joins(comments: [:owner, :language])
+        base_scope = base_scope.includes(comments: [:owner, :language])
 
         base_scope = base_scope.includes(:hourly_pay) if included_resource?(:hourly_pay)
         base_scope = base_scope.includes(:category) if included_resource?(:category)
