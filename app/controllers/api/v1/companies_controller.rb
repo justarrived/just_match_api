@@ -22,7 +22,7 @@ module Api
         authorize(Company)
 
         companies_index = Index::CompaniesIndex.new(self)
-        @companies = companies_index.companies
+        @companies = companies_index.companies(Company.includes(:company_images))
 
         api_render(@companies, total: companies_index.count)
       end
