@@ -10,9 +10,6 @@
         "name": "A job",
         "created-at": "2016-02-10 01:01:01 +0100",
         "updated-at": "2016-02-12 01:01:01 +0100",
-        "latitude": 59.3158558,
-        "longitude": 18.0552976,
-        "street": "Bankgatan 14C",
         "zip": "223 52",
         "zip-latitude": 59.7117339,
         "zip-longitude": 18.4256286,
@@ -21,11 +18,6 @@
       },
       "relationships": {
         "job-users": {
-          "data": [
-
-          ]
-        },
-        "comments": {
           "data": [
 
           ]

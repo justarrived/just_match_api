@@ -3,7 +3,7 @@ class FrontendRoutesReader
   attr_reader :routes, :base_url
 
   def initialize
-    @routes = YAML.load_file('config/frontend-routes.yml')['routes']
+    @routes = YAML.load_file('config/frontend_routes.yml')['routes']
     @base_url = @routes['base_url']
   end
 
