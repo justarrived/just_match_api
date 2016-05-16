@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class SkillSerializer < ActiveModel::Serializer
+class SkillSerializer < ApplicationSerializer
   ATTRIBUTES = [:name].freeze
 
   attributes ATTRIBUTES

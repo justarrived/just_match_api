@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class HourlyPaySerializer < ActiveModel::Serializer
+class HourlyPaySerializer < ApplicationSerializer
   ATTRIBUTES = [:rate, :active, :currency].freeze
 
   attributes ATTRIBUTES

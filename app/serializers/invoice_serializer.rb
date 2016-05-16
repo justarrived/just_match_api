@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class InvoiceSerializer < ActiveModel::Serializer
+class InvoiceSerializer < ApplicationSerializer
   belongs_to :job_user
 end
 

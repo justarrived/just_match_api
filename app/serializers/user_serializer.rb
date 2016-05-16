@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class UserSerializer < ActiveModel::Serializer
+class UserSerializer < ApplicationSerializer
   # Since the #attributes method is overriden and provides a whitelist of attribute_names
   # that can be returned to the user we can return all User column names here
   attributes User.column_names.map(&:to_sym) + %i(ignored_notifications)
@@ -9,12 +9,12 @@ class UserSerializer < ActiveModel::Serializer
 
   has_many :user_images
   has_many :languages
-  has_many :chats
+  has_many :chats, unless: :collection_serializer?
 
   def attributes(_)
     data = super
 
-    data.slice(*policy.present_attributes)
+    data.slice(*policy.present_attributes(collection: collection_serializer?))
   end
 
   private

@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class UserSkillSerializer < ActiveModel::Serializer
+class UserSkillSerializer < ApplicationSerializer
   belongs_to :user
   belongs_to :skill
 end

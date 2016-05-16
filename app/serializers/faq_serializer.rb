@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class FaqSerializer < ActiveModel::Serializer
+class FaqSerializer < ApplicationSerializer
   ATTRIBUTES = [:question, :answer].freeze
 
   attributes ATTRIBUTES

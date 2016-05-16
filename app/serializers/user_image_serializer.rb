@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class UserImageSerializer < ActiveModel::Serializer
+class UserImageSerializer < ApplicationSerializer
   ATTRIBUTES = [:one_time_token, :one_time_token_expires_at].freeze
   attributes ATTRIBUTES
 

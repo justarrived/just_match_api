@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class JobSerializer < ActiveModel::Serializer
+class JobSerializer < ApplicationSerializer
   # Since the #attributes method is overriden and provides a whitelist of attribute_names
   # that can be returned to the user we can return all Job column names here
   attributes Job.column_names.map(&:to_sym)
@@ -14,7 +14,7 @@ class JobSerializer < ActiveModel::Serializer
     end
   end
 
-  has_many :comments do
+  has_many :comments, unless: :collection_serializer? do
     object.comments.visible
   end
 
@@ -27,7 +27,7 @@ class JobSerializer < ActiveModel::Serializer
   def attributes(_)
     data = super
 
-    data.slice(*policy.present_attributes)
+    data.slice(*policy.present_attributes(collection: collection_serializer?))
   end
 
   private

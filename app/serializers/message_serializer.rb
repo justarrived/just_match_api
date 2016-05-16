@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class MessageSerializer < ActiveModel::Serializer
+class MessageSerializer < ApplicationSerializer
   ATTRIBUTES = [:body].freeze
 
   attributes ATTRIBUTES

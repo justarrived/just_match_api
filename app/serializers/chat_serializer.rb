@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class ChatSerializer < ActiveModel::Serializer
+class ChatSerializer < ApplicationSerializer
   has_many :messages
   has_many :users
 end

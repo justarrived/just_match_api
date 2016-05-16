@@ -58,12 +58,12 @@ class UserPolicy < ApplicationPolicy
     true
   end
 
-  def present_attributes
+  def present_attributes(collection: false)
     return ATTRIBUTES if no_user?
 
     if admin_or_self?
       SELF_ATTRIBUTES
-    elsif accepted_applicant_for_owner?
+    elsif !collection && accepted_applicant_for_owner?
       ACCEPTED_APPLICANT_ATTRIBUTES
     else
       ATTRIBUTES

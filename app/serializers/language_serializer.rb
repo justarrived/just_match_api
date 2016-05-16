@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class LanguageSerializer < ActiveModel::Serializer
+class LanguageSerializer < ApplicationSerializer
   ATTRIBUTES = [:lang_code, :en_name, :direction, :local_name, :system_language].freeze
 
   attributes ATTRIBUTES

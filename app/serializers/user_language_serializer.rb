@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class UserLanguageSerializer < ActiveModel::Serializer
+class UserLanguageSerializer < ApplicationSerializer
   has_one :language
   has_one :user
 end

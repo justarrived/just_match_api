@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class RatingSerializer < ActiveModel::Serializer
+class RatingSerializer < ApplicationSerializer
   ATTRIBUTES = [:score].freeze
 
   attributes ATTRIBUTES

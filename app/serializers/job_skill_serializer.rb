@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class JobSkillSerializer < ActiveModel::Serializer
+class JobSkillSerializer < ApplicationSerializer
   has_one :job
   has_one :skill
 end

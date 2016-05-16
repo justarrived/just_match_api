@@ -152,7 +152,9 @@ module Api
       end
 
       def jobs_index_scope(base_scope)
-        base_scope = base_scope.includes(comments: [:owner, :language])
+        if included_resource?(:comments)
+          base_scope = base_scope.includes(comments: [:owner, :language])
+        end
 
         base_scope = base_scope.includes(:hourly_pay) if included_resource?(:hourly_pay)
         base_scope = base_scope.includes(:category) if included_resource?(:category)
@@ -163,8 +165,7 @@ module Api
         end
 
         if included_resource?(:owner)
-          user_scopes = [:owned_jobs, :user_images, :chats]
-          base_scope = base_scope.includes(users: user_scopes)
+          base_scope = base_scope.includes(owner: [:user_images])
         end
 
         base_scope

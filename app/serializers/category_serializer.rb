@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class CategorySerializer < ActiveModel::Serializer
+class CategorySerializer < ApplicationSerializer
   ATTRIBUTES = [:name].freeze
 
   attributes ATTRIBUTES

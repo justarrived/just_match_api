@@ -63,8 +63,8 @@ class JobPolicy < ApplicationPolicy
     accepted_applicant?
   end
 
-  def present_attributes
-    return ATTRIBUTES if user.nil?
+  def present_attributes(collection: false)
+    return ATTRIBUTES if user.nil? || collection
 
     if admin? || owner? || accepted_applicant?
       FULL_ATTRIBUTES

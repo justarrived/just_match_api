@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class TermsAgreementConsentSerializer < ActiveModel::Serializer
+class TermsAgreementConsentSerializer < ApplicationSerializer
   ATTRIBUTES = [].freeze
   attributes ATTRIBUTES
 end
