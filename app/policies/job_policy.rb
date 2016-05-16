@@ -39,6 +39,8 @@ class JobPolicy < ApplicationPolicy
     admin? || owner?
   end
 
+  # Methods that don't match any controller action
+
   def permitted_attributes
     return [] if no_user?
 
@@ -70,8 +72,6 @@ class JobPolicy < ApplicationPolicy
       ATTRIBUTES
     end
   end
-
-  # Methods that don't match any controller action
 
   def owner?
     record.owner?(user)
