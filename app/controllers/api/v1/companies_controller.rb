@@ -54,7 +54,7 @@ module Api
           param :'company-image-one-time-token', String, desc: 'Company image one time token' # rubocop:disable Metrics/LineLength
         end
       end
-      example Doxxer.read_example(Company)
+      example Doxxer.read_example(Company, method: :create)
       def create
         authorize(Company)
 
