@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class MessageSerializer < ApplicationSerializer
-  ATTRIBUTES = [:body].freeze
+  ATTRIBUTES = [:body, :created_at].freeze
 
   attributes ATTRIBUTES
 

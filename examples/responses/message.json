@@ -3,7 +3,8 @@
     "id": "1",
     "type": "messages",
     "attributes": {
-      "body": "Message content."
+      "body": "Message content.",
+      "created-at": "2016-02-10 01:01:01 +0100"
     },
     "relationships": {
       "chat": {
