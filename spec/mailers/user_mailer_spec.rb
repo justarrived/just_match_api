@@ -28,6 +28,16 @@ RSpec.describe UserMailer, type: :mailer do
     it 'includes @user_name in email body' do
       expect(mail).to match_email_body(user.name)
     end
+
+    it 'includes login url in email' do
+      url = FrontendRouter.draw(:login)
+      expect(mail).to match_email_body(url)
+    end
+
+    it 'includes faqs url in email' do
+      url = FrontendRouter.draw(:faqs)
+      expect(mail).to match_email_body(url)
+    end
   end
 
   describe '#job_match_email' do
@@ -61,6 +71,11 @@ RSpec.describe UserMailer, type: :mailer do
 
     it 'includes @job_name in email body' do
       expect(mail).to match_email_body(job.name)
+    end
+
+    it 'includes faqs url in email' do
+      url = FrontendRouter.draw(:job, id: job.id)
+      expect(mail).to match_email_body(url)
     end
   end
 
@@ -97,6 +112,12 @@ RSpec.describe UserMailer, type: :mailer do
     it 'includes @job_name in email body' do
       expect(mail).to match_email_body(job.name)
     end
+
+    xit 'includes job user url in email' do
+      # TODO: job_user is currently not present in args..
+      url = FrontendRouter.draw(:job_user, id: job_user.id)
+      expect(mail).to match_email_body(url)
+    end
   end
 
   describe '#new_applicant_email' do
@@ -131,6 +152,12 @@ RSpec.describe UserMailer, type: :mailer do
 
     it 'includes @job_name in email body' do
       expect(mail).to match_email_body(job.name)
+    end
+
+    xit 'includes job user url in email' do
+      # TODO: job_user is currently not present in args..
+      url = FrontendRouter.draw(:job_user, id: job_user.id)
+      expect(mail).to match_email_body(url)
     end
   end
 
@@ -167,6 +194,12 @@ RSpec.describe UserMailer, type: :mailer do
     it 'includes @job_name in email body' do
       expect(mail).to match_email_body(job.name)
     end
+
+    xit 'includes job user url in email' do
+      # TODO: job_user is currently not present in args..
+      url = FrontendRouter.draw(:job_user, id: job_user.id)
+      expect(mail).to match_email_body(url)
+    end
   end
 
   describe '#applicant_will_perform_email' do
@@ -198,6 +231,12 @@ RSpec.describe UserMailer, type: :mailer do
     it 'includes @job_name in email body' do
       expect(mail).to match_email_body(job.name)
     end
+
+    xit 'includes job user url in email' do
+      # TODO: job_user is currently not present in args..
+      url = FrontendRouter.draw(:job_user, id: job_user.id)
+      expect(mail).to match_email_body(url)
+    end
   end
 
   describe '#accepted_applicant_withdrawn_email' do
@@ -228,6 +267,12 @@ RSpec.describe UserMailer, type: :mailer do
 
     it 'includes @job_name in email body' do
       expect(mail).to match_email_body(job.name)
+    end
+
+    xit 'includes job user url in email' do
+      # TODO: job_user is currently not present in args..
+      url = FrontendRouter.draw(:job_user, id: job_user.id)
+      expect(mail).to match_email_body(url)
     end
   end
 
@@ -262,6 +307,12 @@ RSpec.describe UserMailer, type: :mailer do
     it 'includes @job_name in email body' do
       expect(mail).to match_email_body(job.name)
     end
+
+    xit 'includes job user url in email' do
+      # TODO: job_user is currently not present in args..
+      url = FrontendRouter.draw(:job_user, id: job_user.id)
+      expect(mail).to match_email_body(url)
+    end
   end
 
   describe '#reset_password_email' do
@@ -290,7 +341,7 @@ RSpec.describe UserMailer, type: :mailer do
     end
 
     it 'includes users reset password url' do
-      url = FrontendRouter.fetch(:reset_password, token: user.one_time_token)
+      url = FrontendRouter.draw(:reset_password, token: user.one_time_token)
       expect(mail).to match_email_body(url)
     end
   end
@@ -345,6 +396,11 @@ RSpec.describe UserMailer, type: :mailer do
 
     it 'includes @job_name in email body' do
       expect(mail).to match_email_body(job.name)
+    end
+
+    it 'includes jobs url in email' do
+      url = FrontendRouter.draw(:jobs)
+      expect(mail).to match_email_body(url)
     end
   end
 end

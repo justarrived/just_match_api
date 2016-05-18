@@ -1,4 +1,8 @@
 routes:
   base_url: 'https://justarrived.se/'
   reset_password: 'reset_password/%{token}'
-  login: 'login'
+  login: 'user/signin'
+  job: 'jobs/%{id}'
+  jobs: 'jobs'
+  faqs: 'faq'
+  job_user: 'arriver/%{id}'

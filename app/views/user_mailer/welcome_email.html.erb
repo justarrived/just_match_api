@@ -7,6 +7,10 @@
     <h1><%= I18n.t('mailer.welcome.body_header', name: @user_name) %></h1>
     <p><%= I18n.t('mailer.welcome.body_line') %></p>
 
+    <p><a href="<%= @login_url %>"><%= @login_url %></a></p>
+
+    <p><a href="<%= @faqs_url %>"><%= @faqs_url %></a></p>
+
     <p><%= I18n.t('mailer.signoff') %></p>
   </body>
 </html>
