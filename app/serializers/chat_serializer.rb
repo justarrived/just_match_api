@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 class ChatSerializer < ApplicationSerializer
-  ATTRIBUTES = [:created_at]
-  attributes *ATTRIBUTES
+  ATTRIBUTES = [:created_at].freeze
+  attributes ATTRIBUTES
 
   has_many :messages
   has_many :users
