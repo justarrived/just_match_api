@@ -3,6 +3,9 @@
     {
       "id": "1",
       "type": "chats",
+      "attributes": {
+        "created-at": "2016-02-10 01:01:01 +0100"
+      },
       "relationships": {
         "messages": {
           "data": [
