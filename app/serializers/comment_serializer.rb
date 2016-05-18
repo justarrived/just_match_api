@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class CommentSerializer < ApplicationSerializer
-  ATTRIBUTES = [:body, :commentable_id, :commentable_type].freeze
+  ATTRIBUTES = [:body, :created_at, :commentable_id, :commentable_type].freeze
 
   attributes ATTRIBUTES
 

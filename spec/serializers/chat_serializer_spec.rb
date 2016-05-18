@@ -10,6 +10,14 @@ RSpec.describe ChatSerializer, type: :serializer do
       JSON.parse(serialization.to_json)
     end
 
+    described_class::ATTRIBUTES.each do |attribute|
+      it "has #{attribute.to_s.humanize.downcase}" do
+        dashed_attribute = attribute.to_s.dasherize
+        value = resource.public_send(attribute)
+        expect(subject).to have_jsonapi_attribute(dashed_attribute, value)
+      end
+    end
+
     %w(users messages).each do |relationship|
       it "has #{relationship} relationship" do
         expect(subject).to have_jsonapi_relationship(relationship)
