@@ -1,1 +1,109 @@
-ar: {}
+ar:
+  api_documentation:
+    title: API dokumentation | JustMatch API
+  admin:
+    mailer:
+      invoice_missing_company_frilans_finans_id:
+        subject: 'إشعار الإدارة الشركات التي ينقصها هوية Frilans Finans'
+        notice: أُنشئت فاتورة لشركة ينقصها هوية Frilans Finans انظر %{company_link} و %{invoice_link}
+      invoice_failed_to_connect_to_frilans_finans:
+        subject: 'إشعار الإدارة فشلتَ بإنشاء فاتورة Frilans Finans'
+        notice: فشلتَ - أنشئ فاتورة Frilans Finans %{invoice_id}
+  errors:
+    chat:
+      number_of_users: تشترط الدردشة عدد %{min} و %{max} مستخدمين
+    invoice:
+      job_started: يجب بدء العمل قبل إنشاء الفاتورة
+      job_user_accepted: يجب قبول المستخدم قبل إنشاء الفاتورة
+    job:
+      job_date_in_the_past: يجب أن يكون في المستقبل
+      hourly_pay_active: يجب أن يكون فاعل
+      update_not_allowed_when_accepted: غير ممكن تحديث العمل بعد قبوله من المستخدم
+      job_end_date_after_job_date: يجب أن يكون تاريخ لاحق للعمل
+      hours_lower_bound: يجب أن يكون %{min_hours} ساعات في النهار
+      hours_upper_bound: غير ممكن أن يكون عدة %{min_hours} ساعات في النهار
+    job_user:
+      not_owner_of_job: غير جائز أن يكون ربّ عمل وطالب عمل في نفس الوقت
+      multiple_applicants: لا يستطيع قبول عدة مستخدمين
+      will_perform_true_on_delete: غير ممكن سحب الطلب بعد التأكيد
+      performed_before_job_started: غير ممكن تأكيد العمل قبل بدءه
+    rating:
+      from_user_rated: غير ممكن التصويت عدة مرات
+      to_user_rated: ممكن التصويت عدة مرات
+      comment_user: يجب أن يكون المستخدم نفسه الذي يصوّت
+      job_user_concluded: يجب أن يكون العمل منتهي
+      user_allowed_to_rate: يجب أن يكون صاحب العمل أو المستخدم المقبول
+    user_session:
+      banned: 'الإداري منعك من الدخول لأنك لم تحترم شروط الاستعمال رجاءً اتصل ب: help@justarrived'
+      wrong_email_or_password: عنوان أو كلمة سرّ خاطئة
+    user:
+      password_length: 'يجب أن تكون كلمة السر على الأقل من%{count}رموز '
+      must_be_available_locale: لغتك غير مدعومة للأسف
+    validators:
+      after_true: '%{field} يجب أن يكون حقيقي'
+      unrevertable: غير ممكن إعادة تعيين %{field}
+  invalid_credentials: مراجع خاطئة
+  mailer:
+    accepted_applicant_withdrawn:
+      subject: مستخدم مقبول لعملك سحب طلبه
+      title: مستخدم مقبول لعملك سحب طلبه
+      explaination: المستخدم المقبول %{name} لعملك %{job_name}سحب طلبه تفضل واختار مستخدم آخر
+    accepted_applicant_confirmation_overdue:
+      subject: مستخدم مقبول لعملك لم يؤكد شراكته في الوقت المناسب
+      title: مستخدم مقبول لعملك لم يؤكد شراكته في الوقت المناسب
+      explaination: المستخدم المقبول %{name} لعملك %{job_name} لم يؤكد شراكته في الوقت المناسب تفضل واختار مستخدم آخر
+    applicant_will_perform:
+      subject: مبروك! سيقوم مستخدم بعملك
+      congrats_line: مبروك!
+      details_line: "%{name} أكد أنهم سيقومون بعملك %{job_name}"
+    applicant_accepted:
+      accepted_line: لقد قُبلتَ لعمل!
+      congrats_line: مبروك %{name}!
+      contact_line: اتصل %{email} للمزيد من المعلومات
+      job_line: العمل ’%{name}’ يقع في منطقتك
+      subject: مبروك! حصلت على عمل!
+    changed_password:
+      subject: كلمة السرّ لديك لتطبيقة «وصلت لتوّي» قد تغيّرت
+      body_header: 'سلام %{name} كلمة السرّ لديك لتطبيقة «وصلت لتوّي» قد تغيّرت إذا لم يكن هذا أنت، اتصل رجاءً ب: »وصلت لتوي» عبر help@justarrived.se'
+    job_match:
+      accepted_line: حصلت على عمل مطابق جديد!
+      congrats_line: مبروك%{name}!
+      contact_line: اتصل %{email} للمزيد من المعلومات
+      job_line: 'العمل: ’%{name}’ يقع في منطقتك'
+      subject: مبروك! حصلت على عمل مطابق جديد
+    job_performed:
+      congrats_line: مبروك%{name}!
+      contact_line: إذا عندك أسئلة أخيرة اتصل بهم على %{email}
+      job_line: العمل الذي انتهى كان ’%{name}’
+      performed_line: "%{name} تأكد أنهم قاموا بالعمل لك"
+      subject: مبروك! العمل الذي وضعته قد نفّذ
+    invoice_created:
+      congrats_line: مبروك%{name}!
+      contact_line: إذا كان عندك أسئلة ختامية اتصل ب%{email}
+      job_line: 'العمل الذي قمت به: ’%{name}’'
+      performed_line: "%{name} تأكد أنك قمت بالعمل"
+      subject: مبروك! العمل الذي قمت به قد قُبل.
+    new_applicant:
+      applicant_line: المستخدم ’%{name}’ يسكن في منطقتك
+      congrats_line: مبروك%{name}!
+      contact_line: إذا كان عندك أسئلة اتصل بهم على %{email} و %{phone}
+      job_line: عندك طلب جديد لعملك ’%{name}’
+      subject: مبروك! حصلت على طلب جديد
+    reset_password:
+      subject: 'وصلت لتوّي تعيد رابط كلمة السرّ'
+      body_header: 'سلام%{name}، طلبت إعادة كلمة السر لديك تفضل وزر الرابط لتعطي كلمة السر الجديدة'
+    welcome:
+      subject: مرحبا الى وصلت لتوي!
+      body_header: مرحبا الى وصلت لتوي%{name}!
+      body_line: شكرا لأنك سجلت اسمك  نأمل أنك ستحبّ الخدمة!
+    signoff: يوم جميل!
+  not_logged_in_error: يجب أن تكون داخلاً
+  notifications:
+    accepted_applicant_confirmation_overdue: فترة التأكيد للمستخدم المقبول قد انتهت
+    accepted_applicant_withdrawn: المستخدم المقبول سحب طلبه
+    applicant_accepted: قُبلتَ لعمل ما
+    applicant_will_perform: المستخدم أكدّ القبول
+    invoice_created: أنشئت فاتورة
+    job_user_performed: المستخدم أكد قيامة بالعمل
+    new_applicant: طلب جديد
+    user_job_match: عمل جديد مطابق
