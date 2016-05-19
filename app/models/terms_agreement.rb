@@ -5,10 +5,21 @@ class TermsAgreement < ActiveRecord::Base
 
   validate :validate_url_with_protocol
 
+  scope :regular_users, -> { where(company_term: false) }
+  scope :company_users, -> { where(company_term: true) }
+
   def validate_url_with_protocol
     return if url.nil? || url_starts_with_protocol?(url)
 
     errors.add(:url, I18n.t('errors.general.protocol_missing'))
+  end
+
+  def self.current_user_terms
+    regular_users.last
+  end
+
+  def self.current_company_user_terms
+    company_users.last
   end
 
   private

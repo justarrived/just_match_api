@@ -101,6 +101,7 @@ Rails.application.routes.draw do
       resources :terms_agreements, path: 'terms-agreements', only: [] do
         collection do
           get :current
+          get :'current-company'
         end
       end
 

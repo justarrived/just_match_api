@@ -2,6 +2,26 @@
 require 'rails_helper'
 
 RSpec.describe TermsAgreement, type: :model do
+  context 'klass' do
+    describe '#current_user_terms' do
+      it 'returns the lastest user terms' do
+        FactoryGirl.create(:terms_agreement)
+        FactoryGirl.create(:terms_agreement, company_term: true)
+        terms = FactoryGirl.create(:terms_agreement)
+        expect(described_class.current_user_terms).to eq(terms)
+      end
+    end
+
+    describe '#current_company_user_terms' do
+      it 'returns the lastest user terms' do
+        FactoryGirl.create(:terms_agreement)
+        FactoryGirl.create(:terms_agreement, company_term: true)
+        terms = FactoryGirl.create(:terms_agreement, company_term: true)
+        expect(described_class.current_company_user_terms).to eq(terms)
+      end
+    end
+  end
+
   describe '#validate_url_with_protocol' do
     let(:message) { I18n.t('errors.general.protocol_missing') }
 

@@ -12,6 +12,7 @@ class TermsAgreementDashboard < Administrate::BaseDashboard
     id: Field::Number,
     version: Field::String,
     url: Field::String,
+    company_term: Field::Boolean,
     created_at: Field::DateTime,
     updated_at: Field::DateTime
   }.freeze
@@ -24,6 +25,7 @@ class TermsAgreementDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = [
     :id,
     :version,
+    :company_term,
     :created_at
   ].freeze
 
@@ -33,6 +35,7 @@ class TermsAgreementDashboard < Administrate::BaseDashboard
     :id,
     :version,
     :url,
+    :company_term,
     :created_at,
     :updated_at
   ].freeze
@@ -42,7 +45,8 @@ class TermsAgreementDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
     :version,
-    :url
+    :url,
+    :company_term
   ].freeze
 
   # Overwrite this method to customize how skills are displayed

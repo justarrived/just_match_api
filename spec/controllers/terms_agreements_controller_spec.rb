@@ -1,4 +1,25 @@
 # frozen_string_literal: true
+require 'rails_helper'
+
+RSpec.describe Api::V1::TermsAgreementsController, type: :controller do
+  describe 'GET #current' do
+    it 'returns the last terms of agreement' do
+      FactoryGirl.create(:terms_agreement)
+      terms = FactoryGirl.create(:terms_agreement)
+      get :current, {}, {}
+      expect(assigns(:terms_agreement)).to eq(terms)
+    end
+  end
+
+  describe 'GET #current_company' do
+    it 'returns the last terms of agreement' do
+      terms = FactoryGirl.create(:terms_agreement, company_term: true)
+      FactoryGirl.create(:terms_agreement)
+      get :current_company, {}, {}
+      expect(assigns(:terms_agreement)).to eq(terms)
+    end
+  end
+end
 # == Schema Information
 #
 # Table name: terms_agreements
@@ -14,16 +35,3 @@
 #
 #  index_terms_agreements_on_version  (version) UNIQUE
 #
-
-require 'rails_helper'
-
-RSpec.describe Api::V1::TermsAgreementsController, type: :controller do
-  describe 'GET #current' do
-    it 'returns the last terms of agreement' do
-      FactoryGirl.create(:terms_agreement)
-      terms = FactoryGirl.create(:terms_agreement)
-      get :current, {}, {}
-      expect(assigns(:terms_agreement)).to eq(terms)
-    end
-  end
-end

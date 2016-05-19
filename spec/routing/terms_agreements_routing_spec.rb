@@ -23,5 +23,10 @@ RSpec.describe Api::V1::TermsAgreementsController, type: :routing do
       path = '/api/v1/terms-agreements/current'
       expect(get: path).to route_to('api/v1/terms_agreements#current')
     end
+
+    it 'routes to #current_company' do
+      path = '/api/v1/terms-agreements/current-company'
+      expect(get: path).to route_to('api/v1/terms_agreements#current_company')
+    end
   end
 end
