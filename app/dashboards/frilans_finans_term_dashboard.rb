@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'administrate/base_dashboard'
 
-class TermsAgreementDashboard < Administrate::BaseDashboard
+class FrilansFinansTermDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -10,9 +10,8 @@ class TermsAgreementDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     id: Field::Number,
-    version: Field::String,
-    url: Field::String,
-    frilans_finans_term: Field::BelongsTo,
+    body: Field::String,
+    company: Field::Boolean,
     created_at: Field::DateTime,
     updated_at: Field::DateTime
   }.freeze
@@ -24,8 +23,8 @@ class TermsAgreementDashboard < Administrate::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
     :id,
-    :version,
-    :frilans_finans_term,
+    :body,
+    :company,
     :created_at
   ].freeze
 
@@ -33,9 +32,8 @@ class TermsAgreementDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = [
     :id,
-    :version,
-    :url,
-    :frilans_finans_term,
+    :body,
+    :company,
     :created_at,
     :updated_at
   ].freeze
@@ -44,15 +42,7 @@ class TermsAgreementDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
-    :version,
-    :url,
-    :frilans_finans_term
+    :body,
+    :company
   ].freeze
-
-  # Overwrite this method to customize how skills are displayed
-  # across all pages of the admin dashboard.
-  #
-  def display_resource(terms_agreement)
-    "##{terms_agreement.id} #{terms_agreement.version}"
-  end
 end

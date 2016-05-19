@@ -30,6 +30,7 @@ Rails.application.routes.draw do
     resources :skills
     resources :job_skills
     resources :user_skills
+    resources :frilans_finans_terms
 
     root to: 'jobs#index'
   end

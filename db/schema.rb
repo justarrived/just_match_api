@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160519161244) do
+ActiveRecord::Schema.define(version: 20160519184426) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -155,6 +155,13 @@ ActiveRecord::Schema.define(version: 20160519161244) do
 
   add_index "faqs", ["language_id"], name: "index_faqs_on_language_id", using: :btree
 
+  create_table "frilans_finans_terms", force: :cascade do |t|
+    t.text     "body"
+    t.boolean  "company",    default: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
   create_table "hourly_pays", force: :cascade do |t|
     t.boolean  "active",     default: false
     t.integer  "rate"
@@ -292,12 +299,13 @@ ActiveRecord::Schema.define(version: 20160519161244) do
 
   create_table "terms_agreements", force: :cascade do |t|
     t.string   "version"
-    t.string   "url",          limit: 2000
-    t.datetime "created_at",                                null: false
-    t.datetime "updated_at",                                null: false
-    t.boolean  "company_term",              default: false
+    t.string   "url",                    limit: 2000
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.integer  "frilans_finans_term_id"
   end
 
+  add_index "terms_agreements", ["frilans_finans_term_id"], name: "index_terms_agreements_on_frilans_finans_term_id", using: :btree
   add_index "terms_agreements", ["version"], name: "index_terms_agreements_on_version", unique: true, using: :btree
 
   create_table "user_images", force: :cascade do |t|
@@ -409,6 +417,7 @@ ActiveRecord::Schema.define(version: 20160519161244) do
   add_foreign_key "terms_agreement_consents", "jobs"
   add_foreign_key "terms_agreement_consents", "terms_agreements"
   add_foreign_key "terms_agreement_consents", "users"
+  add_foreign_key "terms_agreements", "frilans_finans_terms"
   add_foreign_key "user_images", "users"
   add_foreign_key "user_languages", "languages"
   add_foreign_key "user_languages", "users"

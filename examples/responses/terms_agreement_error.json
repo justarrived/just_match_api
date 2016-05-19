@@ -2,6 +2,13 @@
   {
     "status": 422,
     "source": {
+      "pointer": "/data/attributes/frilans-finans-term"
+    },
+    "detail": "can't be blank"
+  },
+  {
+    "status": 422,
+    "source": {
       "pointer": "/data/attributes/version"
     },
     "detail": "can't be blank"

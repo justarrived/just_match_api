@@ -5,8 +5,7 @@
       "type": "terms-agreements",
       "attributes": {
         "version": "v2",
-        "url": "https://example.com",
-        "company-term": false
+        "url": "https://example.com"
       }
     }
   ],
