@@ -72,7 +72,7 @@ module FrilansFinansApi
     end
 
     def headers
-      HEADERS.merge(auth_headers)
+      HEADERS.merge(auth_headers).dup
     end
 
     def authorized_request

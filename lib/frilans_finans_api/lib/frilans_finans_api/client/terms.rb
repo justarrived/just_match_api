@@ -16,7 +16,12 @@ module FrilansFinansApi
               fail(ArgumentError, "Unknown type: '#{type}'")
             end
 
-      HTTParty.get(url, headers: HEADERS).parsed_response
+      HTTParty.get(url, headers: headers).parsed_response
+    end
+
+    def self.headers
+      # Must be dup frozen hash, since HTTParty modifies it
+      HEADERS.dup
     end
   end
 end
