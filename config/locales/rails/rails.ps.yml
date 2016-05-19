@@ -1,1 +1,36 @@
-ps: {}
+ps:
+  errors:
+    format: "%{attribute} %{message}"
+    messages:
+      accepted: باید ومنل شي
+      blank: باید ځانګړی شي
+      present: ممکن ځانګړی نشي
+      confirmation: سمون نه لري
+      empty: ممکن خالي نه وي
+      equal_to: باید دې ته ورته وي %{count}
+      even: باید حتی
+      exclusion: زیرف شوی
+      greater_than: باید له 1 {} څخه لوی وي
+      greater_than_or_equal_to: باید له %{count} څخه لوی یا دې سره مساوي وي
+      inclusion: په لست کې نشته
+      invalid: ناسم فارمیټ یا بڼه
+      less_than: باید له %{count} څخه لږ وي
+      less_than_or_equal_to: باید له %{count} څخه لږ یا دې سره مساوي وي
+      not_a_number: یوه شمیره نده
+      not_an_integer: باید یو صحیح عدد وي
+      odd: باید اوډ وي
+      record_invalid: 'یوه خطا پیښ شوې: %{errors}'
+      restrict_dependent_destroy:
+        one: پوسټ حذف کیدی نشي ځکه تړاو %{record} شتون لري
+        many: پوسټ حذف کیدی نشي ځکه تړاو %{record} شتون لري
+      taken: دمخه کارول شوی
+      too_long:
+        one: خورا اوږد دی (اعظمي یې 1 توری دی)
+        other: خورا اوږد دی (اعظمي یې %{count}  توری دی)
+      too_short:
+        one: خورا لنډ دی (لږترلږه یې 1 توری دی)
+        other: خورا لنډ دی (لږترلږه یې %{count}  توری دی)
+      wrong_length:
+        one: غلط اوږدوالی دی (باید 1 توری وي)
+        other: غلط اوږدوالی دی (باید %{count}  توری وي)
+      other_than: باید له %{count} څخه ډیر وي

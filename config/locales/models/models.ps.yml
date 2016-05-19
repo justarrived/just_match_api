@@ -1,178 +1,201 @@
 ps:
   activerecord:
     models:
-      category: کټه ګورۍ
-      chat: Chat
-      chat_user: چت د کارونکي عکس
-      comment: تبصره
-      company: شرکت
-      company_image: د شرکت انځور
-      contact: تماس
-      currency: د اسعارو
-      faq: پرله پسې پوښتنې
-      invoice: صورتحساب
+      blazer/query: بلیزر/پوښتنه
+      category: کټګوري
+      chat: غږیدل
+      chat_user: د غږیدو کارونکی
+      comment: نظر
+      company: سوداګري
+      company_image: د شرکت عکس
+      contact: اړیکه
+      currency: اسعار
+      faq: تکراریدونکي پوښتنې
+      hourly_pay: ساعتوار نرخ
+      invoice: رسید
       job: دنده
-      job_skill: دنده مهارت
-      job_user: دنده د کارونکي عکس
+      job_skill: د دندې مهارت
+      job_user: د دندې کارونکی
       language: ژبه
-      message: پيغام
+      message: پیغام
       rating: درجه
       skill: مهارت
-      user: کارن
-      user_image: کارن انځور
-      user_language: د کارن ژبې
-      user_skill: کارن مهارت
+      user: کارونکی
+      user_image: د کارونکي عکس
+      user_language: د کارونکي ژبه
+      user_skill: د کارونکي مهارت
     attributes:
+      blazer/query:
+        audits: بیاکتنې
+        checks: ارزونې
+        creator: رامینځته کونکی
+        dashboard_queries: د ډشبورډ بوښتنې
+        dashboards: ډشبورډ
+        data_source: د ډیټا سرچینه
+        description: شرح
+        name: نوم
+        statement: بیان
       category:
-        jobs: دندې
+        jobs: دنده
         name: نوم
       chat:
-        chat_users: چت کاروونکو
-        messages: پیغامونه
-        users: کارنان
+        chat_users: د غږیدو کارونکي
+        messages: پیغامات
+        users: کارونکی
       chat_user:
-        chat: Chat
-        user: کارن
+        chat: غږیدل
+        user: کارونکی
       comment:
-        body: د بدن
+        body: بدن
+        commentable: د نظر لیکه
+        commentable_type: د نظر نوع
         hidden: پټ
         language: ژبه
+        owner: مالک
       company:
-        cin: cin
-        company_images: شرکت انځورونه
-        jobs: دندې
+        cin: Cin
+        company_images: د شرکت عکسونه
+        jobs: دنده
         name: نوم
-        users: کارنان
-        website: وېب پاڼه
+        users: کارونکی
+        website: ویب پاڼه
       company_image:
-        company: شرکت
-        image_content_type: د انځور ډول منځپانګې
-        image_file_name: انځور دوتنې نوم
-        image_file_size: د انځور د دوتنې کچه
-        image_updated_at: د انځور تازه په
-        one_time_token: يو وخت نښه
-        one_time_token_expires_at: په يو وخت کې د نښې په رسیږي
+        company: سوداګري
+        image_content_type: د عکس د مینځپانګې نوع
+        image_file_name: د عکس فایل نوم
+        image_file_size: د فایل اندازه
+        image_updated_at: عکس تازه شو
+        one_time_token: د یو وار ټوکن
+        one_time_token_expires_at: د یو وار ټوکن پدې نیټه پای ته رسي
       contact:
-        body: د بدن
-        email: Email
+        body: بدن
+        email: بریښنالیک
         name: نوم
       currency:
-        currency_code: د اسعارو کوډ
+        currency_code: اسعار
       faq:
-        answer: ځواب
+        answer: ځواب ورکول
         language: ژبه
         question: پوښتنه
       hourly_pay:
-        active: د فعالو
-        currency: د اسعارو
-        jobs: دندې
-        rate: Rate
+        active: فعال
+        currency: اسعار
+        jobs: دنده
+        rate: سکور
       invoice:
-        job_user: دنده_user
+        job_user: د دندې کارونکی
       job:
-        category: کټه ګورۍ
-        comments: تبصرې
-        company: شرکت
+        category: کټګوري
+        comments: نظریات
+        company: سوداګري
+        description: شرح
         hidden: پټ
+        hourly_pay: ساعتوار نرخ
         hours: ساعتونه
-        job_date: Job نيټه
-        job_end_date: دنده پای نیټه
-        job_skills: دنده مهارتونه
-        job_users: دنده کاروونکو
+        job_date: د دندې نیټه
+        job_end_date: د دندې د پای نیټه
+        job_skills: کاري تجربه
+        job_users: د دندې کارونکی
         language: ژبه
-        latitude: البلد
-        longitude: البلد
+        latitude: عرض البلد
+        longitude: طول البلد
         name: نوم
-        skills: د مهارتونو د
-        street: سړک
-        users: کارنان
-        verified: تایید شوي
-        zip: زيب
-        zip_latitude: زيب البلد
+        owner: مالک
+        skills: مهارتونه
+        street: کوڅه
+        users: کارونکی
+        verified: تایید شوی
+        zip: زیپر
+        zip_latitude: د زیپ عرض البلد
+        zip_longitude: د زیپ طول البلد
       job_skill:
         job: دنده
         skill: مهارت
       job_user:
-        accepted: منل
-        accepted_at: منل په
-        invoice: صورتحساب
+        accepted: منل شوی
+        accepted_at: منل شوی په
+        invoice: رسید
         job: دنده
-        performed: ترسره
-        user: کارن
-        will_perform: به ترسره کړي
+        performed: ترسره شوی
+        user: کارونکی
+        will_perform: ترسره به شي
       language:
-        direction: جهت
-        en_name: en نوم
-        jobs: دندې
-        lang_code: lang کوډ
-        local_name: سیمه ییز نوم
-        system_language: سيستم ژبه
-        user_languages: د کارن ژبې
-        users: کارنان
+        direction: لارښود
+        en_name: د SV نوم
+        jobs: دنده
+        lang_code: د ژبې کوډ
+        local_name: ځایی نوم
+        system_language: د سیسټم ژبه
+        user_languages: د کارونکي ژبه
+        users: کارونکی
       message:
-        body: د بدن
-        chat: Chat
+        author: لیکونکی
+        body: بدن
+        chat: غږیدل
+        integer: صحیح عدد
         language: ژبه
       rating:
-        comment: تبصره
+        comment: نظر
+        from_user: د کارونکي لخوا
         job: دنده
-        score: نمره
+        score: کول
+        to_user: کارونکي ته
       skill:
-        job_skills: دنده مهارتونه
-        jobs: دندې
+        job_skills: کاري تجربه
+        jobs: دنده
         language: ژبه
         name: نوم
-        user_skills: کارن مهارتونه
-        users: کارنان
+        user_skills: د کارونکي مهارتونه
+        users: کارونکی
       user:
-        admin: اداري
-        anonymized: په محرمانه ډول
-        auth_token: Auth نښه
-        banned: منع
-        chat_users: چت کاروونکو
-        chats: چټ
-        company: شرکت
-        description: Description
-        education: ښوونه
-        email: Email
-        first_name: اول نوم
-        ignored_notifications_mask: له پامه خبرتیاوې ماسک
+        admin: اداره
+        anonymized: مستعار
+        auth_token: د تایید ټوکن
+        banned: منع شوی
+        chat_users: د غږیدو کارونکي
+        chats: غږیدل
+        company: سوداګري
+        description: شرح
+        education: روزنه
+        email: بریښنالیک
+        first_name: لومړی نوم
+        ignored_notifications_mask: د له پامه غورزول شوي خبرتیاو ماسک
         job_experience: د کار تجربه
-        job_users: دنده کاروونکو
-        jobs: دندې
+        job_users: د دندې کارونکی
+        jobs: دنده
         language: ژبه
-        languages: ژبې
-        last_name: کورنۍ نوم
-        latitude: البلد
-        longitude: البلد
-        messages: پیغامونه
-        one_time_token: يو وخت نښه
-        one_time_token_expires_at: په يو وخت کې د نښې په رسیږي
-        owned_jobs: دولتي دندې
-        password_hash: د تېرنويې د مخلوط
-        password_salt: د تېرنويې د مالګې
-        phone: تيليفون
-        skills: د مهارتونو د
-        ssn: SSN
-        street: سړک
-        user_images: کارن انځورونه
-        user_languages: د کارن ژبې
-        user_skills: کارن مهارتونه
-        written_comments: نوشته شده تبصرې
-        zip: زيب
-        zip_latitude: زيب البلد
-        zip_longitude: Zip البلد
+        languages: ژبه
+        last_name: تخلص
+        latitude: عرض البلد
+        longitude: طول البلد
+        messages: پیغامات
+        one_time_token: د یو وار ټوکن
+        one_time_token_expires_at: د یو وار ټوکن پدې نیټه پای ته رسي
+        owned_jobs: د دندو مالکیت
+        password_hash: د رمز هش
+        password_salt: د رمز سالټ
+        phone: تلیفون
+        skills: مهارتونه
+        ssn: Ssn
+        street: کوڅه
+        user_images: د کارونکي عکسونه
+        user_languages: د کارونکي ژبه
+        user_skills: د کارونکي مهارتونه
+        written_comments: لیکلي نظرونه
+        zip: زیپر
+        zip_latitude: د زیپ عرض البلد
+        zip_longitude: د زیپ طول البلد
       user_image:
-        image_content_type: د انځور ډول منځپانګې
-        image_file_name: انځور دوتنې نوم
-        image_file_size: د انځور د دوتنې کچه
-        image_updated_at: د انځور تازه په
-        one_time_token: يو وخت نښه
-        one_time_token_expires_at: په يو وخت کې د نښې په رسیږي
-        user: کارن
+        image_content_type: د عکس د مینځپانګې نوع
+        image_file_name: د عکس فایل نوم
+        image_file_size: د فایل اندازه
+        image_updated_at: عکس تازه شو
+        one_time_token: د یو وار ټوکن
+        one_time_token_expires_at: د یو وار ټوکن پدې نیټه پای ته رسي
+        user: کارونکی
       user_language:
         language: ژبه
-        user: کارن
+        user: کارونکی
       user_skill:
-        skill: مهارت
-        user: کارن
+        skill: تجربه
+        user: کارونکی

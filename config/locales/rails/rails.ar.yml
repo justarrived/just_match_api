@@ -1,29 +1,29 @@
 ar:
   errors:
-    format: "%{attribute} %{message}"
+    format: "%{attribute}%{message}"
     messages:
-      accepted: يجب أن تقبل
-      blank: فارغ، يرجى ملء الحقل
-      present: يجب ترك الحقل فارغاً
-      confirmation: لا يتوافق مع %{attribute}
-      empty: فارغ، يرجى ملء الحقل
-      equal_to: يجب أن يساوي %{count}
-      even: يجب أن يكون عددًا زوجيًّا
+      accepted: يجب أن يكون مقبولاً
+      blank: يجب ذِكره
+      present: لا يجوز ذكره
+      confirmation: غير متطابق
+      empty: لا يجب أن يكون فارغاً
+      equal_to: يجب أن يكون نفس الشيء ك%{count}
+      even: يجب أن يكون متوازي
       exclusion: محجوز
-      greater_than: يجب أن يكون أكبر من %{count}
-      greater_than_or_equal_to: يجب أن يكون أكبر من أو يساوي %{count}
-      inclusion: غير مُدرج في القائمة
-      invalid: غير مقبول
-      less_than: يجب أن يكون أصغر من %{count}
-      less_than_or_equal_to: يجب أن يكون أصغر من أو يساوي %{count}
-      not_a_number: ليس رقمًا
-      not_an_integer: يجب أن يكون عدداً صحيحاً
-      odd: يجب أن يكون عددًا فرديًّا
-      record_invalid: '''فشل التحقّق من: %{errors}'''
+      greater_than: يجب أن يكون أكبر من%{count}
+      greater_than_or_equal_to: يجب أن يكون أكبر من أو مطابق ل%{count}
+      inclusion: غير موجود في اللائحة
+      invalid: شكله خاطئ
+      less_than: يجب أن يكون أصغر من%{count}
+      less_than_or_equal_to: يجب أن يكون أصغر من أو مطابق ل%{count}
+      not_a_number: ليس رقم
+      not_an_integer: يجب أن يكون رقم كامل
+      odd: يجب أن يكون رقم مُفرد
+      record_invalid: 'حصل خطأٌ%{errors}'
       restrict_dependent_destroy:
-        one: لا يمكن حذف السجل لوجود سجل يعتمد عليه %{record}
-        many: لا يمكن حذف السجل لوجود سجلات تعتمد عليه %{record}
-      taken: محجوز مُسبقًا
+        one: لا يمكن إلغاء الموقع لأن هناك تبعية%{record}
+        many: لا يمكن إلغاء المواقع لأن هناك تبعية%{record}
+      taken: يستخدم حالياً
       too_long:
         zero: أطول من اللّازم (الحد الأقصى هو ولا حرف)
         one: أطول من اللّازم (الحد الأقصى هو حرف واحد)
@@ -45,4 +45,4 @@ ar:
         few: الطول غير مطابق للحد المطلوب (يجب أن يكون %{count} أحرف)
         many: الطول غير مطابق للحد المطلوب (يجب أن يكون %{count} حرف)
         other: الطول غير مطابق للحد المطلوب (يجب أن يكون %{count} حرف)
-      other_than: الطول يجب ألاّ يكون %{count} حرفاً
+      other_than: يجب أن يكون غير %{count}
