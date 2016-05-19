@@ -297,6 +297,7 @@ end
 #  ignored_notifications_mask     :integer
 #  frilans_finans_id              :integer
 #  frilans_finans_payment_details :boolean          default(FALSE)
+#  competence_text                :text
 #
 # Indexes
 #

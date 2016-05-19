@@ -30,6 +30,7 @@ Rails.application.routes.draw do
     resources :skills
     resources :job_skills
     resources :user_skills
+    resources :frilans_finans_terms
 
     root to: 'jobs#index'
   end
@@ -101,6 +102,7 @@ Rails.application.routes.draw do
       resources :terms_agreements, path: 'terms-agreements', only: [] do
         collection do
           get :current
+          get :'current-company'
         end
       end
 

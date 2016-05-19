@@ -2,6 +2,29 @@
 require 'rails_helper'
 
 RSpec.describe TermsAgreement, type: :model do
+  context 'klass' do
+    let(:ff_company_term) { FactoryGirl.create(:frilans_finans_term, company: true) }
+    let(:ff_user_term) { FactoryGirl.create(:frilans_finans_term, company: true) }
+
+    describe '#current_user_terms' do
+      it 'returns the lastest user terms' do
+        FactoryGirl.create(:terms_agreement)
+        FactoryGirl.create(:terms_agreement, frilans_finans_term: ff_company_term)
+        terms = FactoryGirl.create(:terms_agreement)
+        expect(described_class.current_user_terms).to eq(terms)
+      end
+    end
+
+    describe '#current_company_user_terms' do
+      it 'returns the lastest user terms' do
+        FactoryGirl.create(:terms_agreement)
+        FactoryGirl.create(:terms_agreement, frilans_finans_term: ff_company_term)
+        terms = FactoryGirl.create(:terms_agreement, frilans_finans_term: ff_company_term)
+        expect(described_class.current_company_user_terms).to eq(terms)
+      end
+    end
+  end
+
   describe '#validate_url_with_protocol' do
     let(:message) { I18n.t('errors.general.protocol_missing') }
 
@@ -32,13 +55,19 @@ end
 #
 # Table name: terms_agreements
 #
-#  id         :integer          not null, primary key
-#  version    :string
-#  url        :string(2000)
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id                     :integer          not null, primary key
+#  version                :string
+#  url                    :string(2000)
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  frilans_finans_term_id :integer
 #
 # Indexes
 #
-#  index_terms_agreements_on_version  (version) UNIQUE
+#  index_terms_agreements_on_frilans_finans_term_id  (frilans_finans_term_id)
+#  index_terms_agreements_on_version                 (version) UNIQUE
+#
+# Foreign Keys
+#
+#  fk_rails_d0dcb0c0f5  (frilans_finans_term_id => frilans_finans_terms.id)
 #
