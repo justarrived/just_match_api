@@ -1,1 +1,109 @@
-ps: {}
+ps:
+  api_documentation:
+    title: د API اسناد | JustMatch API
+  admin:
+    mailer:
+      invoice_missing_company_frilans_finans_id:
+        subject: 'د اډمین یادونه: هغه شرکتونه چې د Frilans Finans پیژندپاڼه نلري'
+        notice: د هغه شرکت سره یو رسید رامینځته شوی چې د Frilans Finans پیژندپاڼه نلري. %{company_link} او %{invoice_link} وګورئ.
+      invoice_failed_to_connect_to_frilans_finans:
+        subject: 'د اډمین یادونه: د Frilans Finans رسید رامینځته کولو کې پاتې راغلی'
+        notice: د Frilans Finans رسید رامینځته کولو کې پاتې راغلی %{invoice_id}.
+  errors:
+    chat:
+      number_of_users: غږیدل باید لږترلږه %{min} او %{max} شمیر کارونکي ولري
+    invoice:
+      job_started: مخکې لدې چې رسید رامینځته کړی شي دنده باید پیل شي
+      job_user_accepted: مخکې لدې چې بل رامینځته کړی شي کارونکی باید ومنل شي
+    job:
+      job_date_in_the_past: باید په راتلونکي کې
+      hourly_pay_active: باید فعال وي
+      update_not_allowed_when_accepted: دنده تازه کیدی نشي یوځل چې دنده دمخه د کارونکي لخوا منل شوې
+      job_end_date_after_job_date: باید د دندې نیټې څخه وروسته وي
+      hours_lower_bound: باید په ورځ کې لږترلږه %{min_hours} ساعتونه وي
+      hours_upper_bound: په یوه ورځ کې د %{min_hours} ساعتونو څخه ډیر نشي کیدی
+    job_user:
+      not_owner_of_job: دواړه د دندې مالک او د دندې لټون کونکی نشي کیدی
+      multiple_applicants: څو کارونکي نشي منلی
+      will_perform_true_on_delete: د تایید څخه وروسته غوښتنلیک بیرته نشي اخیستل کیدی
+      performed_before_job_started: د پیل دمخه دنده تایید کیدی نشي
+    rating:
+      from_user_rated: څو ځله رایی نشي ورکولی
+      to_user_rated: څو ځله رایی ورکولی شئ
+      comment_user: باید کارونکی وي چې رایی ورکوي
+      job_user_concluded: دنده باید ترسره شي
+      user_allowed_to_rate: باید د دندې مالک وي یا منل شوی کارونکی
+    user_session:
+      banned: یوه مدیر تاسې بلاک کړي یاست ځکه چې تاسې د کارونکي شرایط ندي تعقیب کړي. مهرباني وکړئ د help@justarrived سره اړیکه ونیسئ.
+      wrong_email_or_password: غلط بریښنالیک یا رمز
+    user:
+      password_length: رمز باید لږترلږه %{count} توری وي
+      must_be_available_locale: ستاسې ژبه بدبختانه نده ملاتړ شوې
+    validators:
+      after_true: '%{field} باید صحیح وي'
+      unrevertable: '%{field} بیرته نشي زیرمه کیدی'
+  invalid_credentials: غلطې اعتبار پاڼې
+  mailer:
+    accepted_applicant_withdrawn:
+      subject: ستاسې دندې لپاره یوه منل شوي کارونکي د هغه/هغې غوښتنلیک بیرته اخیستی دی.
+      title: ستاسې دندې لپاره یوه منل شوي کارونکي د هغه/هغې غوښتنلیک بیرته اخیستی دی.
+      explaination: د %{name} دندې %{job_name} منل شوي کارونکي د هغه/هغې غوښتنلیک بیرته اخیستی دی. مهرباني وکړئ یو بل کارونکی انتخاب کړئ.
+    accepted_applicant_confirmation_overdue:
+      subject: ستاسې د دندې لپاره یو منل شوي کارونکي ګډون پدې وخت کې ندی تایید شوی.
+      title: ستاسې د دندې لپاره یو منل شوي کارونکي ګډون پدې وخت کې ندی تایید شوی.
+      explaination: منل شوي کارونکي %{name} ستاسې دندې لپاره %{job_name} د مجاز وخت چوکاټ کې د هغه/هغې ګډون ندی تایید کړی. مهرباني وکړئ یو بل کارونکی انتخاب کړئ.
+    applicant_will_perform:
+      subject: مبارک مو شه! یو کارونکی به ستاسې دنده ترسره کړي.
+      congrats_line: مبارک مو شه!
+      details_line: "%{name} تایید کړي چې دوی به ستاسې دنده ترسره کړي %{job_name}."
+    applicant_accepted:
+      accepted_line: تاسې د یوې دندې لپاره منل شوي یاست!
+      congrats_line: مبارک مو شه %{name}!
+      contact_line: د نورو معلوماتو لپاره د %{email} سره اړیکه ونیسئ.
+      job_line: دنده '%{name}' ده او ستاسې سیمه کې موقعیت لري.
+      subject: مبارک مو شه! تاسې یوه دنده ترلاسه کړې!
+    changed_password:
+      subject: ستاسې د Just Arrived رمز بدل شوی
+      body_header: سلام %{name}، ستاسې د Just Arrived رمز بدل شوی دی. که دا تاسې نه وئ، نو مهرباني وکړئ د Just Arrived سره په help@justarrived.se اړیکه ونیسئ
+    job_match:
+      accepted_line: تاسې نوې سمون لرونکې دنده لرئ!
+      congrats_line: مبارک مو شه %{name}!
+      contact_line: د نورو معلوماتو لپاره د %{email} سره اړیکه ونیسئ.
+      job_line: 'دنده ده: ''%{name}'' او دا ستاسې سیمه کې ده.'
+      subject: مبارک مو شه! تاسې نوې سمون لرونکې دنده لرئ.
+    job_performed:
+      congrats_line: مبارک مو شه %{name}!
+      contact_line: که تاسې کومې اخرنۍ پوښتنې لرئ، تاسې کولی شئ دوی سره په %{email} اړیکه ونیسئ.
+      job_line: ترسره شوې دنده '%{name}' وه.
+      performed_line: "%{name} تایید کړې چې دوی ستاسې لپاره یوه دنده ترسره کړې ده."
+      subject: مبارک مو شه! ستاسې لخوا ځړل شوې دنده ترسره شوې.
+    invoice_created:
+      congrats_line: مبارک مو شه %{name}!
+      contact_line: که تاسې کومې نهایی پوښتنې لرئ تاسې کولی شئ د %{email} سره اړیکه ونیسئ.
+      job_line: 'هغه دنده چې تاسې ترسره کړئ: ''%{name}''.'
+      performed_line: "%{name} تایید کړې چې تاسې دنده ترسره کړې ده."
+      subject: مبارک مو شه! ستاسې ترسره شوې دندنه منل شوې.
+    new_applicant:
+      applicant_line: کارونکی '%{name}' دی او ستاسې سیمه کې ژوند کوي.
+      congrats_line: مبارک مو شه %{name}!
+      contact_line: که تاسې کومې پوښتنې لرئ، تاسې کولی شئ دوی سره په %{email} او %{phone} اړیکه ونیسئ.
+      job_line: تاسې ستاسې د دندې لپاره یو نوی غوښتنلیک لرئ'%{name}'.
+      subject: مبارک مو شه! تاسې یو نوی غوښتنلیک ترلاسه کړی دی.
+    reset_password:
+      subject: 'د Just Arrived د رمز بیاتنظیم کولو لینک'
+      body_header: 'سلام %{name}، تاسې ستاسې د رمز د بیاتنظیم غوښتنه کړې. مهرباني وکړئ ستاسې د نوي رمز دننه کولو لپاره د نوي لینک څخه لیدنه وکړئ:'
+    welcome:
+      subject: Just Arrived ته ښه راغلاست!
+      body_header: Just Arrived %{name} ته ښه راغلاست!
+      body_line: د شراکت څخه مو مننه. موږ هیله لرو چې تاسې د خدمت څخه خوند واخلئ!
+    signoff: ښه ورځ ولرئ!
+  not_logged_in_error: باید دننه شئ.
+  notifications:
+    accepted_applicant_confirmation_overdue: د منل شوي کارونکي د تایید دوره پای ته رسیدلې ده
+    accepted_applicant_withdrawn: منل شوي کارونکي د هغه/هغې غوښتنلیک بیرته اخیستی
+    applicant_accepted: تاسې د یوې دندې لپاره منل شوي یاست
+    applicant_will_perform: کارونکي قبولیت تایید کړی
+    invoice_created: رسید رامینځته شوی
+    job_user_performed: کارونکي تایید کړی چې دوی دنده بشپړه کړې
+    new_applicant: نوی غوښتنلیک
+    user_job_match: د نوې دندې سمون
