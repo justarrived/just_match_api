@@ -5,6 +5,10 @@ class HourlyPay < ApplicationRecord
   validates :rate, presence: true, numericality: { only_integer: true }
 
   scope :active, -> { where(active: true) }
+
+  def rate_with_fees
+    rate * 1.5
+  end
 end
 
 # == Schema Information
