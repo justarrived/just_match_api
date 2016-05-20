@@ -3,8 +3,8 @@ require 'httparty'
 
 module FrilansFinansApi
   class Terms
-    USER_URL = 'https://mobil.frilansfinans.se/pdf/swe/allmana_villkor.txt'.freeze
-    COMPANY_USER_URL = 'https://mobil.frilansfinans.se/pdf/swe/allmana_villkor.txt'.freeze
+    USER_URL = 'https://www.frilansfinans.se/just-arrived-employment-agreement/'.freeze
+    COMPANY_USER_URL = 'https://www.frilansfinans.se/just-arrived-consultancy-agreement/'.freeze
 
     HEADERS = Request::HEADERS
 
