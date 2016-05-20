@@ -6,7 +6,12 @@
       "attributes": {
         "name": "A company",
         "website": "https://example.com",
-        "cin": "5560360793"
+        "cin": "5560360793",
+        "street": "A street",
+        "zip": "11851",
+        "city": "Stockholm",
+        "phone": null,
+        "email": "test@example.com"
       },
       "relationships": {
         "company-images": {
