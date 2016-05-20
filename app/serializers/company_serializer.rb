@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 class CompanySerializer < ApplicationSerializer
-  ATTRIBUTES = [:name, :website, :cin].freeze
-
+  ATTRIBUTES = [:name, :website, :cin, :street, :zip, :city, :phone, :email].freeze
   attributes ATTRIBUTES
 
   has_many :company_images
