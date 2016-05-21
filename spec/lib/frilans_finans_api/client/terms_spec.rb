@@ -17,6 +17,10 @@ RSpec.describe FrilansFinansApi::Terms do
       stub_request(:get, base_user_url).
         with(headers: headers).
         to_return(status: 200, body: response_content, headers: {})
+
+      stub_request(:get, base_company_user_url).
+        with(headers: headers).
+        to_return(status: 200, body: response_content, headers: {})
     end
 
     it 'returns contents of user remote file' do
