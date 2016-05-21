@@ -18,7 +18,7 @@ module Api
         authorize(Category)
 
         categories_index = Index::CategoriesIndex.new(self)
-        @categories = categories_index.categories
+        @categories = categories_index.categories(Category.insured)
 
         api_render(@categories, total: categories_index.count)
       end
