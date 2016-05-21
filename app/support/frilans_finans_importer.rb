@@ -6,7 +6,7 @@ class FrilansFinansImporter
         id = profession.id
         category_attributes = {
           name: profession.attributes['title'],
-          insurance_status: profession.attributes['insurance_status_id'],
+          insurance_status: profession.attributes['insurance_status_id']
         }
 
         category = Category.find_or_initialize_by(frilans_finans_id: id)
