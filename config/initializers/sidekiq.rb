@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 require 'airbrake/sidekiq/error_handler'
+# Respect current locale when sending background emails
+require 'sidekiq/middleware/i18n'
 
 if Rails.env.production?
   redis_url = ENV['REDIS_URL']
