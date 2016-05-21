@@ -4,7 +4,9 @@ require 'rails_helper'
 RSpec.describe Api::V1::CategoriesController, type: :controller do
   describe 'GET #index' do
     it 'assigns all categories as @categories' do
-      category = FactoryGirl.create(:category)
+      FactoryGirl.create(:category, insurance_status: :uninsured)
+      FactoryGirl.create(:category, insurance_status: :assessment_required)
+      category = FactoryGirl.create(:category, insurance_status: :insured)
       get :index, {}, {}
       expect(assigns(:categories)).to eq([category])
     end
@@ -22,6 +24,7 @@ end
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  frilans_finans_id :integer
+#  insurance_status  :integer
 #
 # Indexes
 #

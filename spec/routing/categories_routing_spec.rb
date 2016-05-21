@@ -10,6 +10,7 @@ RSpec.describe Api::V1::CategoriesController, type: :routing do
     end
   end
 end
+
 # == Schema Information
 #
 # Table name: categories
@@ -19,6 +20,7 @@ end
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  frilans_finans_id :integer
+#  insurance_status  :integer
 #
 # Indexes
 #

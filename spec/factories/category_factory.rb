@@ -4,6 +4,7 @@ FactoryGirl.define do
     sequence :name do |n|
       "Category #{n}"
     end
+    insurance_status :insured
 
     sequence :frilans_finans_id do |n|
       n
@@ -26,6 +27,7 @@ end
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  frilans_finans_id :integer
+#  insurance_status  :integer
 #
 # Indexes
 #
