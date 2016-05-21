@@ -3,7 +3,7 @@ require 'rails_helper'
 
 RSpec.describe FrontendRoutesReader do
   subject { described_class.new }
-  let(:base_url) { 'https://app.justarrived.se/' }
+  let(:base_url) { 'https://app.justarrived.se/#/' }
 
   it 'can read routes file' do
     expect(subject.routes).to be_a(Hash)

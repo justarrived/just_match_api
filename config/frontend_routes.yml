@@ -1,5 +1,5 @@
 routes:
-  base_url: 'https://app.justarrived.se/'
+  base_url: 'https://app.justarrived.se/#/'
   reset_password: 'reset_password/%{token}'
   login: 'user/signin'
   job: 'jobs/%{id}'
