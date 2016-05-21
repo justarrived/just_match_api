@@ -5,8 +5,9 @@ RSpec.describe FrilansFinansImporter do
   subject { described_class }
 
   describe '#professions' do
+    let(:attributes) { { 'title' => 'watman', 'insurance_status_id' => 1 } }
     let(:professions_mock) do
-      resource = OpenStruct.new(attributes: { 'title' => 'watman' }, id: 1)
+      resource = OpenStruct.new(attributes: attributes, id: 1)
       Struct.new(:resources).new([resource])
     end
 
