@@ -54,6 +54,8 @@ module Api
             @user.frilans_finans_id = document.resource.id
           else
             id = @user.frilans_finans_id!
+            # On update Frilans Finans don't want the attribute to be nested under a
+            # user key (unlike create)
             FrilansFinansApi::User.update(id: id, attributes: ff_user_params)
           end
 

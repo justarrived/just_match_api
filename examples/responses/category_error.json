@@ -5,5 +5,12 @@
       "pointer": "/data/attributes/name"
     },
     "detail": "is too short (minimum is 3 characters)"
+  },
+  {
+    "status": 422,
+    "source": {
+      "pointer": "/data/attributes/insurance-status"
+    },
+    "detail": "can't be blank"
   }
 ]

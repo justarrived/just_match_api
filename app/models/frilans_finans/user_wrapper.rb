@@ -2,6 +2,8 @@
 module FrilansFinans
   module UserWrapper
     def self.attributes(user)
+      # Frilans Finans wants the social security number as an integer
+      ssn = user.ssn.to_i
       {
         user: {
           email: user.email,
@@ -12,7 +14,7 @@ module FrilansFinans
           cellphone: user.phone,
           first_name: user.first_name,
           last_name: user.last_name,
-          social_security_number: user.ssn
+          social_security_number: ssn
         }
       }
     end
