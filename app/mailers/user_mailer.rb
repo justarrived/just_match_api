@@ -3,6 +3,9 @@ class UserMailer < ApplicationMailer
   def welcome_email(user:)
     @user_name = user.name
 
+    @faqs_url = FrontendRouter.draw(:faqs)
+    @login_url = FrontendRouter.draw(:login)
+
     mail(to: user.email, subject: I18n.t('mailer.welcome.subject'))
   end
 
@@ -10,6 +13,8 @@ class UserMailer < ApplicationMailer
     @user_name = user.name
     @owner_email = owner.email
     @job_name = job.name
+
+    @job_url = FrontendRouter.draw(:job, id: job.id)
 
     mail(to: user.email, subject: I18n.t('mailer.job_match.subject'))
   end
@@ -72,7 +77,7 @@ class UserMailer < ApplicationMailer
   def reset_password_email(user:)
     @user_name = user.first_name
     token = user.one_time_token
-    @reset_password_url = FrontendRouter.fetch(:reset_password, token: token)
+    @reset_password_url = FrontendRouter.draw(:reset_password, token: token)
 
     subject = I18n.t('mailer.reset_password.subject')
     mail(to: user.email, subject: subject)
@@ -87,6 +92,8 @@ class UserMailer < ApplicationMailer
 
   def job_cancelled_email(job:, user:)
     @job_name = job.name
+
+    @jobs_url = FrontendRouter.draw(:jobs)
 
     subject = I18n.t('mailer.job_cancelled.subject')
     mail(to: user.email, subject: subject)

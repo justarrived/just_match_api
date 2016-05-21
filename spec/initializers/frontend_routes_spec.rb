@@ -13,18 +13,42 @@ RSpec.describe FrontendRoutesReader do
   end
 
   it 'returns route with base url' do
-    expect(subject.fetch(:login)).to include('https://justarrived.se/')
+    expect(subject.draw(:login)).to include('https://justarrived.se/')
   end
 
-  it 'returns route' do
-    result = subject.fetch(:login)
-    expected = 'https://justarrived.se/login'
+  it 'returns login route' do
+    result = subject.draw(:login)
+    expected = 'https://justarrived.se/user/signin'
     expect(result).to eq(expected)
   end
 
-  it 'returns formatted route' do
+  it 'returns faqs route' do
+    result = subject.draw(:faqs)
+    expected = 'https://justarrived.se/faq'
+    expect(result).to eq(expected)
+  end
+
+  it 'returns route for a single job' do
+    result = subject.draw(:job, id: 1)
+    expected = 'https://justarrived.se/jobs/1'
+    expect(result).to eq(expected)
+  end
+
+  it 'returns route for jobs' do
+    result = subject.draw(:jobs)
+    expected = 'https://justarrived.se/jobs'
+    expect(result).to eq(expected)
+  end
+
+  it 'returns route for a job user' do
+    result = subject.draw(:job_user, id: 1)
+    expected = 'https://justarrived.se/arriver/1'
+    expect(result).to eq(expected)
+  end
+
+  it 'returns reset password route' do
     token = 'asd'
-    result = subject.fetch(:reset_password, token: token)
+    result = subject.draw(:reset_password, token: token)
     expected = "https://justarrived.se/reset_password/#{token}"
     expect(result).to eq(expected)
   end

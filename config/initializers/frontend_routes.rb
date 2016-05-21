@@ -7,7 +7,7 @@ class FrontendRoutesReader
     @base_url = @routes['base_url']
   end
 
-  def fetch(name, **args)
+  def draw(name, **args)
     base_url + routes.fetch(name.to_s) % args
   end
 end
