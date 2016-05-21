@@ -29,7 +29,12 @@ class CreateFrilansFinansInvoiceService
     client = FrilansFinansApi.client_klass.new
     tax = FrilansFinansApi::Tax.index(only_standard: true, client: client).resource
 
-    ff_user = FrilansFinansApi::User.show(id: user.frilans_finans_id!)
+    # We need to update the users profession title to match the jobs,
+    # in order to please Frilans Finans
+    ff_user = FrilansFinansApi::User.update(
+      id: user.frilans_finans_id!,
+      attributes: { profession_title: job.category.name }
+    )
 
     # Build frilans finans invoice attributes
     attributes = FrilansFinans::InvoiceWrapper.attributes(

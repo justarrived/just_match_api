@@ -17,7 +17,8 @@ module FrilansFinans
         amount: job.amount,
         company_id: job.company.frilans_finans_id,
         tax_id: tax.id,
-        user_id: user.frilans_finans_id
+        user_id: user.frilans_finans_id,
+        pre_report: true
       }
     end
 

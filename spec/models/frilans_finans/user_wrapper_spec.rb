@@ -16,7 +16,7 @@ RSpec.describe FrilansFinans::UserWrapper do
           cellphone: user.phone,
           first_name: user.first_name,
           last_name: user.last_name,
-          social_security_number: user.ssn
+          social_security_number: user.ssn.to_i
         }
       }
       expect(result).to eq(expected)

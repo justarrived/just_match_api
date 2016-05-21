@@ -46,7 +46,8 @@ RSpec.describe FrilansFinans::InvoiceWrapper do
         amount: job.amount,
         company_id: ff_company_id,
         tax_id: ff_tax_id,
-        user_id: ff_user_id
+        user_id: ff_user_id,
+        pre_report: true
       }
 
       expect(result).to eq(expected)
