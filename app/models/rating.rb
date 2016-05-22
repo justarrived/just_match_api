@@ -29,6 +29,12 @@ class Rating < ApplicationRecord
     user == job.owner || user == job.accepted_applicant
   end
 
+  def self.average_score(round: nil)
+    score = average(:score)
+    score = score.round(round) if !score.nil? && round
+    score
+  end
+
   def validate_comment_owned_by
     return if comment.nil?
 
