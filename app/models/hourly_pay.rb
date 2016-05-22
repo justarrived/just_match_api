@@ -6,7 +6,7 @@ class HourlyPay < ApplicationRecord
 
   scope :active, -> { where(active: true) }
 
-  RATE_WITH_FEE_DIVIDER = 0.7
+  RATE_WITH_FEE_DIVIDER = 0.57226
 
   def rate_with_fees
     rate / RATE_WITH_FEE_DIVIDER
