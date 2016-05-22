@@ -33,7 +33,7 @@ module Api
           ratings_index = Index::RatingsIndex.new(self)
           @ratings = ratings_index.ratings(ratings_scope)
 
-          meta = { 'average-score': @ratings.average(:score) }
+          meta = { 'average-score': @ratings.average_score(round: 2) }
           api_render(@ratings, total: ratings_index.count, meta: meta)
         end
 
