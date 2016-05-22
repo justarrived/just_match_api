@@ -256,11 +256,18 @@ RSpec.describe Job, type: :model do
       expect(job.errors.messages[:job_end_date]).to include(message)
     end
 
+    it 'adds *no* error if the job_end_date is equal to job_date' do
+      job = FactoryGirl.build(:job, job_date: Date.tomorrow, job_end_date: Date.tomorrow)
+      job.validate
+      message = I18n.t('errors.job.job_end_date_after_job_date')
+      expect(job.errors.messages[:job_end_date] || []).not_to include(message)
+    end
+
     it 'adds *no* error if the job_end_date is nil' do
       job = FactoryGirl.build(:job, job_end_date: nil)
       job.validate
       message = I18n.t('errors.job.job_end_date_after_job_date')
-      expect(job.errors.messages[:job_end_date]).not_to include(message)
+      expect(job.errors.messages[:job_end_date] || []).not_to include(message)
     end
 
     it 'adds *no* error if the job_date is in the future' do

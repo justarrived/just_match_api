@@ -149,7 +149,7 @@ class Job < ApplicationRecord
   end
 
   def validate_job_end_date_after_job_date
-    return if job_date.nil? || job_end_date.nil? || job_end_date > job_date
+    return if job_date.nil? || job_end_date.nil? || job_end_date >= job_date
 
     errors.add(:job_end_date, I18n.t('errors.job.job_end_date_after_job_date'))
   end
