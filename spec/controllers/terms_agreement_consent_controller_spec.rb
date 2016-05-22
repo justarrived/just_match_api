@@ -7,11 +7,11 @@ RSpec.describe Api::V1::Jobs::TermsAgreementConsentsController, type: :controlle
   let(:terms) { FactoryGirl.create(:terms_agreement) }
   let(:valid_params) do
     {
-      job_id: job.to_param,
       data: {
         attributes: {
           terms_agreement_id: terms.to_param,
-          user_id: user.to_param
+          user_id: user.to_param,
+          job_id: job.to_param
         }
       }
     }

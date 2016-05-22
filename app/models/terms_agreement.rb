@@ -29,6 +29,10 @@ class TermsAgreement < ActiveRecord::Base
     company_users.last
   end
 
+  def company_terms?
+    frilans_finans_term.company
+  end
+
   private
 
   def url_starts_with_protocol?(url)
