@@ -10,7 +10,13 @@ class FrilansFinansInvoice < ActiveRecord::Base
 
   scope :needs_frilans_finans_id, -> { where(frilans_finans_id: nil) }
 
-  # TODO: Validate JobUser#will_perform == true
+  validate :validates_job_user_will_perform
+
+  def validates_job_user_will_perform
+    return if job_user.try!(:will_perform)
+
+    errors.add(:job_user_will_perform, I18n.t('errors.messages.accepted'))
+  end
 end
 
 # == Schema Information

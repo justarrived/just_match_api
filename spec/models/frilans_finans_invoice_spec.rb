@@ -2,7 +2,26 @@
 require 'rails_helper'
 
 RSpec.describe FrilansFinansInvoice, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe '#validates_job_user_will_perform' do
+    let(:invalid_job_user) { FactoryGirl.build(:job_user) }
+    let(:valid_job_user) { FactoryGirl.build(:job_user_passed_job) }
+
+    it 'adds error if job_user#will_perform is *not* true' do
+      ff_invoice = described_class.new(job_user: invalid_job_user)
+      ff_invoice.validate
+
+      message = ff_invoice.errors.messages[:job_user_will_perform]
+      expect(message).to include(I18n.t('errors.messages.accepted'))
+    end
+
+    it 'adds *no* error if job_user#will_perform is true' do
+      ff_invoice = described_class.new(job_user: valid_job_user)
+      ff_invoice.validate
+
+      message = ff_invoice.errors.messages[:job_user_will_perform] || []
+      expect(message).not_to include(I18n.t('errors.messages.accepted'))
+    end
+  end
 end
 
 # == Schema Information

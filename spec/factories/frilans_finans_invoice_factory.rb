@@ -5,7 +5,7 @@ FactoryGirl.define do
       n
     end
 
-    association :job_user
+    association :job_user, factory: :job_user_will_perform
   end
 end
 
