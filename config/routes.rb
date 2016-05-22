@@ -54,7 +54,6 @@ Rails.application.routes.draw do
             end
           end
           resources :ratings, module: :jobs, path: :ratings, only: [:create]
-          resources :terms_agreement_consents, module: :jobs, path: 'terms-consents', only: [:create]
         end
       end
 
@@ -106,6 +105,7 @@ Rails.application.routes.draw do
         end
       end
 
+      resources :terms_agreement_consents, path: 'terms-consents', only: [:create]
       resources :languages, only: [:index, :show, :create, :update, :destroy]
       resources :skills, only: [:index, :show, :create, :update, :destroy]
       resources :categories, only: [:index]

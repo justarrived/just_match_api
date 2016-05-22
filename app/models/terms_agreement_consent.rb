@@ -6,7 +6,12 @@ class TermsAgreementConsent < ActiveRecord::Base
 
   validates :terms_agreement, presence: true
   validates :user, presence: true, uniqueness: { scope: :job }
-  validates :job, presence: true, uniqueness: { scope: :user }
+  validates :job, uniqueness: { scope: :user }
+  validates :job, presence: true, unless: :company_terms?
+
+  def company_terms?
+    terms_agreement.company_terms?
+  end
 end
 
 # == Schema Information
