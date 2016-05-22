@@ -12,6 +12,7 @@ class JobUserDashboard < Administrate::BaseDashboard
     user: Field::BelongsTo,
     job: Field::BelongsTo,
     invoice: Field::HasOne,
+    frilans_finans_invoice: Field::HasOne,
     id: Field::Number,
     accepted: Field::Boolean,
     will_perform: Field::Boolean,
@@ -30,6 +31,7 @@ class JobUserDashboard < Administrate::BaseDashboard
     :user,
     :job,
     :invoice,
+    :frilans_finans_invoice,
     :accepted,
     :will_perform,
     :performed
@@ -45,6 +47,7 @@ class JobUserDashboard < Administrate::BaseDashboard
     :will_perform,
     :performed,
     :invoice,
+    :frilans_finans_invoice,
     :created_at,
     :updated_at
   ].freeze
@@ -58,7 +61,8 @@ class JobUserDashboard < Administrate::BaseDashboard
     :accepted,
     :will_perform,
     :performed,
-    :invoice
+    :invoice,
+    :frilans_finans_invoice
   ].freeze
 
   # Overwrite this method to customize how job users are displayed
