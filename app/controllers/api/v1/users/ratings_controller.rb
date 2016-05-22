@@ -29,8 +29,9 @@ module Api
         def index
           authorize_index(@user)
 
+          ratings_scope = Rating.received_ratings(@user)
           ratings_index = Index::RatingsIndex.new(self)
-          @ratings = ratings_index.ratings
+          @ratings = ratings_index.ratings(ratings_scope)
 
           meta = { 'average-score': @ratings.average(:score) }
           api_render(@ratings, total: ratings_index.count, meta: meta)
