@@ -13,6 +13,7 @@ sv:
       faq: Faq
       hourly_pay: Timlön
       invoice: Faktura
+      frilans_finans_invoice: Frilans Finans Faktura
       job: Jobb
       job_skill: Jobb skill
       job_user: Jobb användaren
@@ -83,7 +84,9 @@ sv:
         jobs: Jobb
         rate: Betygsätta
       invoice:
-        job_user: Jobb_user
+        job_user: Jobb användare
+      frilans_finans_invoice:
+        job_user: Jobb användare
       job:
         category: Kategori
         comments: Kommentarer

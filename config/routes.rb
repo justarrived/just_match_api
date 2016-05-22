@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :jobs
     resources :invoices
+    resources :frilans_finans_invoices
     resources :job_users
     resources :ratings
     resources :users

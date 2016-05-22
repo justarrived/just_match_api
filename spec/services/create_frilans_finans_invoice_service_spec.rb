@@ -12,9 +12,7 @@ RSpec.describe CreateFrilansFinansInvoiceService do
   end
   let(:job_user) { FactoryGirl.create(:job_user_passed_job, job: job, user: user) }
   let(:user) { FactoryGirl.create(:user, frilans_finans_id: 1) }
-  let(:invoice) do
-    FactoryGirl.create(:invoice, frilans_finans_id: nil, job_user: job_user)
-  end
+  let(:ff_invoice) { job_user.frilans_finans_invoice }
 
   let(:frilans_api_klass) { FrilansFinansApi::Invoice }
   let(:ff_document_mock) { OpenStruct.new(resource: OpenStruct.new(id: 1)) }
@@ -49,19 +47,12 @@ RSpec.describe CreateFrilansFinansInvoiceService do
         with(headers: headers, body: /^profession_title=Category/).
         to_return(status: 200, body: JSON.dump(ff_user_body), headers: {})
 
-      described_class.create(invoice: invoice)
+      described_class.create(ff_invoice: ff_invoice)
     end
   end
 
   it 'creates an invoice' do
-    expect { subject }.to change(Invoice, :count).by(1)
-  end
-
-  it 'notifies user' do
-    allow(InvoiceCreatedNotifier).to receive(:call).
-      with(job: job, user: user)
-    subject
-    expect(InvoiceCreatedNotifier).to have_received(:call)
+    expect { subject }.to change(FrilansFinansInvoice, :count).by(1)
   end
 
   context 'no company frilans finans id' do
@@ -93,12 +84,11 @@ RSpec.describe CreateFrilansFinansInvoiceService do
       FactoryGirl.create(:passed_job, owner: owner)
     end
 
-    let(:job_user) { FactoryGirl.build(:job_user_passed_job, job: job, user: user) }
     let(:user) { FactoryGirl.create(:user, frilans_finans_id: 2) }
 
     subject do
       isolate_frilans_finans_client(FrilansFinansApi::NilClient) do
-        described_class.create(invoice: invoice)
+        described_class.create(ff_invoice: ff_invoice)
       end
     end
 
@@ -122,15 +112,6 @@ RSpec.describe CreateFrilansFinansInvoiceService do
         allow(InvoiceFailedToConnectToFrilansFinansNotifier).to receive(:call)
         subject
         expect(InvoiceFailedToConnectToFrilansFinansNotifier).to have_received(:call)
-      end
-    end
-
-    it 'notifies user' do
-      isolate_frilans_finans_client(FrilansFinansApi::NilClient) do
-        allow(frilans_api_klass).to receive(:create).and_return(ff_nil_document_mock)
-        allow(InvoiceCreatedNotifier).to receive(:call)
-        subject
-        expect(InvoiceCreatedNotifier).to have_received(:call)
       end
     end
   end

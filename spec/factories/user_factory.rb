@@ -15,7 +15,9 @@ FactoryGirl.define do
       num_length = case n
                    when 0...10 then 9
                    when 10...100 then 8
-                   else 7
+                   when 100...1000 then 7
+                   when 1000...10_000 then 6
+                   else 5
                    end
       "#{Faker::Number.number(num_length)}#{n}"
     end

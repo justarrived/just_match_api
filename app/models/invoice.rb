@@ -1,17 +1,16 @@
 # frozen_string_literal: true
 class Invoice < ApplicationRecord
+  belongs_to :frilans_finans_invoice
   belongs_to :job_user
 
   has_one :job, through: :job_user
   has_one :user, through: :job_user
 
   validates :job_user, uniqueness: true, presence: true
-  validates :frilans_finans_id, uniqueness: true, allow_nil: true
+  validates :frilans_finans_invoice, presence: true
 
   validate :validate_job_started
   validate :validate_job_user_accepted
-
-  scope :needs_frilans_finans_id, -> { where(frilans_finans_id: nil) }
 
   def name
     "Invoice ##{id}"
@@ -37,19 +36,20 @@ end
 #
 # Table name: invoices
 #
-#  id                :integer          not null, primary key
-#  frilans_finans_id :integer
-#  job_user_id       :integer
-#  created_at        :datetime         not null
-#  updated_at        :datetime         not null
+#  id                        :integer          not null, primary key
+#  job_user_id               :integer
+#  created_at                :datetime         not null
+#  updated_at                :datetime         not null
+#  frilans_finans_invoice_id :integer
 #
 # Indexes
 #
-#  index_invoices_on_frilans_finans_id  (frilans_finans_id) UNIQUE
-#  index_invoices_on_job_user_id        (job_user_id)
-#  index_invoices_on_job_user_id_uniq   (job_user_id) UNIQUE
+#  index_invoices_on_frilans_finans_invoice_id  (frilans_finans_invoice_id)
+#  index_invoices_on_job_user_id                (job_user_id)
+#  index_invoices_on_job_user_id_uniq           (job_user_id) UNIQUE
 #
 # Foreign Keys
 #
+#  fk_rails_bb8882afb5  (frilans_finans_invoice_id => frilans_finans_invoices.id)
 #  fk_rails_c894e05ce5  (job_user_id => job_users.id)
 #

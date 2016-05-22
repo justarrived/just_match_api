@@ -101,12 +101,17 @@ module Api
 
           @job_user.assign_attributes(permitted_attributes)
 
-          # The notifier klass needs to be fetched before save, otherwise it can't
-          # determine whats changed and therefore what notifications to send
-          notifier_klass = update_notifier_klass(@job_user)
+          # The event name needs to be set before save, otherwise it can't
+          # determine what has changed
+          set_event_name(@job_user)
 
           if @job_user.save
-            notifier_klass.call(job: @job, user: @user)
+            update_notifier_klass.call(job: @job, user: @user)
+
+            on_event(:will_perform) do
+              # Frilans Finans wants invoices to be pre-reported
+              FrilansFinansInvoice.create!(job_user: @job_user)
+            end
 
             api_render(@job_user)
           else
@@ -159,8 +164,9 @@ module Api
           JobUserPolicy::Context.new(current_user, @job, @user)
         end
 
-        def update_notifier_klass(job_user)
-          case event_name(job_user)
+        # NOTE: #set_event_name must have been called before this method
+        def update_notifier_klass
+          case event_name
           when :accepted then ApplicantAcceptedNotifier
           when :will_perform then ApplicantWillPerformNotifier
           when :performed then JobUserPerformedNotifier
@@ -169,7 +175,19 @@ module Api
           end
         end
 
-        def event_name(job_user)
+        # NOTE: #set_event_name must have been called before this method
+        def event_name
+          @_event_name
+        end
+
+        # NOTE: #set_event_name must have been called before this method
+        def on_event(name)
+          return unless event_name == name
+
+          yield
+        end
+
+        def set_event_name(job_user)
           @_event_name ||= begin
             if job_user.send_accepted_notice?
               :accepted

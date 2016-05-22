@@ -1,28 +1,26 @@
 # frozen_string_literal: true
 class CreateFrilansFinansInvoiceService
-  def self.create(invoice:)
-    job_user = invoice.job_user
+  def self.create(ff_invoice:)
+    job_user = ff_invoice.job_user
     job = job_user.job
     user = job_user.user
 
     if job.company.frilans_finans_id.nil?
-      InvoiceMissingCompanyFrilansFinansIdNotifier.call(invoice: invoice, job: job)
-      return invoice
+      InvoiceMissingCompanyFrilansFinansIdNotifier.call(ff_invoice: ff_invoice, job: job)
+      return ff_invoice
     end
 
-    ff_invoice = frilans_finans_invoice(user: user, job: job)
-    frilans_finans_id = ff_invoice.resource.id
+    ff_invoice_remote = frilans_finans_invoice(user: user, job: job)
+    frilans_finans_id = ff_invoice_remote.resource.id
 
-    invoice.frilans_finans_id = frilans_finans_id
+    ff_invoice.frilans_finans_id = frilans_finans_id
 
     if frilans_finans_id.nil?
-      InvoiceFailedToConnectToFrilansFinansNotifier.call(invoice: invoice)
+      InvoiceFailedToConnectToFrilansFinansNotifier.call(ff_invoice: ff_invoice)
     end
 
-    invoice.save!
-    InvoiceCreatedNotifier.call(job: job, user: user)
-
-    invoice
+    ff_invoice.save!
+    ff_invoice
   end
 
   def self.frilans_finans_invoice(user:, job:)

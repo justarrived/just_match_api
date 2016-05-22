@@ -6,6 +6,7 @@ class JobUser < ApplicationRecord
   belongs_to :job
 
   has_one :invoice
+  has_one :frilans_finans_invoice
 
   validates :user, presence: true
   validates :job, presence: true
