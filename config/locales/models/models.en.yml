@@ -13,6 +13,7 @@ en:
       faq: Faq
       hourly_pay: Hourly pay
       invoice: Invoice
+      frilans_finans_invoice: Frilans Finans Invoice
       job: Job
       job_skill: Job skill
       job_user: Job user
@@ -95,6 +96,9 @@ en:
         rate: Rate
 
       invoice:
+        job_user: Applicant
+
+      frilans_finans_invoice:
         job_user: Applicant
 
       job:

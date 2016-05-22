@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'administrate/base_dashboard'
 
-class InvoiceDashboard < Administrate::BaseDashboard
+class FrilansFinansInvoiceDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -11,10 +11,10 @@ class InvoiceDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
     id: Field::Number,
     frilans_finans_id: Field::Number,
-    frilans_finans_invoice: Field::BelongsTo,
     job_user: Field::BelongsTo,
     job: Field::HasOne,
     user: Field::HasOne,
+    invoice: Field::HasOne,
     created_at: Field::DateTime,
     updated_at: Field::DateTime
   }.freeze
@@ -26,7 +26,8 @@ class InvoiceDashboard < Administrate::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
     :id,
-    :frilans_finans_invoice,
+    :frilans_finans_id,
+    :invoice,
     :job_user,
     :job,
     :user
@@ -36,7 +37,8 @@ class InvoiceDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = [
     :id,
-    :frilans_finans_invoice,
+    :frilans_finans_id,
+    :invoice,
     :job_user,
     :job,
     :user,
@@ -49,10 +51,7 @@ class InvoiceDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
     :job_user,
-    :frilans_finans_invoice
+    :invoice,
+    :frilans_finans_id
   ].freeze
-
-  def display_resource(invoice)
-    "##{invoice.id} Invoice"
-  end
 end

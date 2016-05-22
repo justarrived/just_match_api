@@ -11,6 +11,14 @@ FactoryGirl.define do
       association :job, factory: :passed_job
       accepted true
       will_perform true
+
+      after(:create) do |job_user, _evaluator|
+        # Unless explicitly given a Frilans Finans Invoice add a default, valid, one
+        if job_user.frilans_finans_invoice.nil?
+          ff_invoice = FrilansFinansInvoice.find_or_create_by!(job_user_id: job_user.id)
+          job_user.frilans_finans_invoice = ff_invoice
+        end
+      end
     end
 
     factory :job_user_concluded do
@@ -18,9 +26,14 @@ FactoryGirl.define do
       accepted true
       will_perform true
       after(:create) do |job_user, _evaluator|
-        # Unless explicitly given a invoice add a default, valid, one
+        # Unless explicitly given a Invoice add a default, valid, one
         if job_user.invoice.nil?
-          job_user.invoice = Invoice.find_or_create_by!(job_user_id: job_user.id)
+          ff_invoice = FrilansFinansInvoice.find_or_create_by!(job_user_id: job_user.id)
+          invoice = Invoice.find_or_create_by!(
+            job_user_id: job_user.id,
+            frilans_finans_invoice: ff_invoice
+          )
+          job_user.invoice = invoice
         end
       end
     end

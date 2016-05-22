@@ -5,5 +5,12 @@
       "pointer": "/data/attributes/job-user"
     },
     "detail": "can't be blank"
+  },
+  {
+    "status": 422,
+    "source": {
+      "pointer": "/data/attributes/frilans-finans-invoice"
+    },
+    "detail": "can't be blank"
   }
 ]

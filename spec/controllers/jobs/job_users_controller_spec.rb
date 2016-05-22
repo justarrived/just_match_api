@@ -208,6 +208,27 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
           }
         end
 
+        it 'creates a FrilansFinansInvoice' do
+          job = FactoryGirl.create(:job_with_users, users_count: 1, owner: user)
+          user = job.users.first
+          job_user = job.job_users.first
+          job_user.accepted = true
+          job_user.save!
+
+          allow_any_instance_of(described_class).
+            to(receive(:authenticate_user_token!).
+            and_return(user))
+
+          params = {
+            job_id: job.to_param,
+            job_user_id: job_user.to_param
+          }.merge(new_attributes)
+
+          expect do
+            put :update, params, valid_session
+          end.to change(FrilansFinansInvoice, :count).by(1)
+        end
+
         it 'notifies user when updated Job#will_perform is set to true' do
           job = FactoryGirl.create(:job_with_users, users_count: 1, owner: user)
           user = job.users.first
@@ -330,7 +351,7 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
         expect(will_perform).to eq(err_msg)
       end
 
-      it 'sends a notificatiom to Job#owner if accepted applicant withdraws' do
+      it 'sends a notification to Job#owner if accepted applicant withdraws' do
         job = FactoryGirl.create(:job_with_users, users_count: 1)
         user = job.users.first
         job_user = job.job_users.first

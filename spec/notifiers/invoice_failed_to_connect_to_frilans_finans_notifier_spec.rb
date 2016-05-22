@@ -3,7 +3,7 @@ require 'rails_helper'
 
 RSpec.describe InvoiceFailedToConnectToFrilansFinansNotifier, type: :mailer do
   let(:mailer) { Struct.new(:deliver_later).new(nil) }
-  let(:invoice) { mock_model Invoice }
+  let(:ff_invoice) { mock_model FrilansFinansInvoice }
 
   it 'must work' do
     # Create an admin to send the email to
@@ -12,9 +12,9 @@ RSpec.describe InvoiceFailedToConnectToFrilansFinansNotifier, type: :mailer do
     allow(AdminMailer).to receive(:invoice_failed_to_connect_to_frilans_finans_email).
       and_return(mailer)
 
-    described_class.call(invoice: invoice)
+    described_class.call(ff_invoice: ff_invoice)
 
-    mailer_args = { user: user, invoice: invoice }
+    mailer_args = { user: user, ff_invoice: ff_invoice }
     expect(AdminMailer).to have_received(
       :invoice_failed_to_connect_to_frilans_finans_email
     ).with(mailer_args)

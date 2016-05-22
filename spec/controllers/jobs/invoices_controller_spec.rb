@@ -34,11 +34,26 @@ RSpec.describe Api::V1::Jobs::InvoicesController, type: :controller do
         end.to change(Invoice, :count).by(1)
       end
 
+      it 'notifies user' do
+        allow(InvoiceCreatedNotifier).to receive(:call).
+          with(job: job, user: user)
+        post :create, valid_params, valid_session
+        expect(InvoiceCreatedNotifier).to have_received(:call)
+      end
+
       context 'already created' do
         it 'returns 422 unprocessable entity' do
           FactoryGirl.create(:invoice, job_user: job_user)
           post :create, valid_params, valid_session
           expect(response.status).to eq(422)
+        end
+
+        it 'does *not* notify user' do
+          allow(InvoiceCreatedNotifier).to receive(:call).
+            with(job: job, user: user)
+          FactoryGirl.create(:invoice, job_user: job_user)
+          post :create, valid_params, valid_session
+          expect(InvoiceCreatedNotifier).not_to have_received(:call)
         end
       end
     end

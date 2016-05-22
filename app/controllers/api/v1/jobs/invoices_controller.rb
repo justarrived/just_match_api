@@ -26,8 +26,11 @@ module Api
           job_user = JobUser.find(params[:job_user_id])
           authorize_create(job_user)
 
-          @invoice = Invoice.new(job_user: job_user)
+          ff_invoice = FrilansFinansInvoice.find_by(job_user: job_user)
+          @invoice = Invoice.new(job_user: job_user, frilans_finans_invoice: ff_invoice)
           if @invoice.save
+            InvoiceCreatedNotifier.call(job: job_user.job, user: job_user.user)
+
             api_render(@invoice, status: :created)
           else
             respond_with_errors(@invoice)
