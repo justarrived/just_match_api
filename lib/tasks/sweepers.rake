@@ -6,6 +6,22 @@ namespace :sweepers do
     end
   end
 
+  task cleanup: :environment do
+    %w(destroy_company_image_orphans destroy_user_image_orphans).each do |task|
+      Rake::Task["sweepers:cleanup:#{task}"].execute
+    end
+  end
+
+  namespace :cleanup do
+    task destroy_company_image_orphans: :environment do |task_name|
+      wrap_sweeper_task(task_name) { Sweepers::CompanyImageSweeper.destroy_orphans }
+    end
+
+    task destroy_user_image_orphans: :environment do |task_name|
+      wrap_sweeper_task(task_name) { Sweepers::UserImageSweeper.destroy_orphans }
+    end
+  end
+
   task frilans_finans: :environment do
     %w(create_terms create_users create_companies create_invoices).each do |task|
       Rake::Task["sweepers:frilans_finans:#{task}"].execute
