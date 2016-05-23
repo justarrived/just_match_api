@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
-RSpec.describe Sweepers::InvoiceSweeper do
+RSpec.describe Sweepers::FrilansFinansInvoiceSweeper do
   describe '#create_frilans_finans' do
     it 'calls CreateFrilansFinansInvoiceService for the right invoices' do
       FactoryGirl.create(:frilans_finans_invoice, frilans_finans_id: nil)

@@ -49,7 +49,7 @@ namespace :sweepers do
 
     task create_invoices: :environment do |task_name|
       wrap_sweeper_task(task_name) do
-        Sweepers::InvoiceSweeper.create_frilans_finans
+        Sweepers::FrilansFinansInvoiceSweeper.create_frilans_finans
       end
     end
   end
