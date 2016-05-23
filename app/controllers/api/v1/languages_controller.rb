@@ -4,6 +4,8 @@ module Api
     class LanguagesController < BaseController
       before_action :set_language, only: [:show, :update, :destroy]
 
+      before_action :require_promo_code, except: [:index, :show]
+
       resource_description do
         short 'API for managing languages'
         name 'Languages'
