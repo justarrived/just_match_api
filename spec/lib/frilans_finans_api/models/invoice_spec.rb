@@ -30,4 +30,20 @@ RSpec.describe FrilansFinansApi::Invoice do
       expect(invoice.resource.attributes).to eq({})
     end
   end
+
+  describe '#update' do
+    subject { described_class }
+
+    let(:valid_attributes) do
+      json = client.read(:invoice_post)
+      data = JSON.parse(json)['data']
+      resource = FrilansFinansApi::Resource.new(data)
+      resource.attributes
+    end
+
+    it 'returns invoice' do
+      invoice = subject.update(id: 1, attributes: valid_attributes, client: client)
+      expect(invoice.resource.attributes).to eq({})
+    end
+  end
 end
