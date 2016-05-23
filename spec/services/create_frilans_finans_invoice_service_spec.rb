@@ -44,7 +44,7 @@ RSpec.describe CreateFrilansFinansInvoiceService do
       }
 
       stub_request(:patch, "#{base_uri}/users/1").
-        with(headers: headers, body: /^profession_title=Category/).
+        with(headers: headers, body: /^\{"profession_title":"Category /).
         to_return(status: 200, body: JSON.dump(ff_user_body), headers: {})
 
       described_class.create(ff_invoice: ff_invoice)

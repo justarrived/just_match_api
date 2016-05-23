@@ -83,4 +83,38 @@ RSpec.describe AdminMailer, type: :mailer do
       expect(mail).to match_email_body(admin_frilans_finans_invoice_url(ff_invoice))
     end
   end
+
+  describe '#failed_to_activate_invoice_email' do
+    let(:mail) do
+      described_class.failed_to_activate_invoice_email(
+        ff_invoice: ff_invoice,
+        user: user
+      )
+    end
+
+    it 'has both text and html part' do
+      expect(mail).to be_multipart_email(true)
+    end
+
+    it 'renders the subject' do
+      subject = I18n.t('admin.mailer.failed_to_activate_invoice.subject')
+      expect(mail.subject).to eq(subject)
+    end
+
+    it 'renders the receiver email' do
+      expect(mail.to).to eql([user.email])
+    end
+
+    it 'renders the sender email' do
+      expect(mail.from).to eql(['hello@justarrived.se'])
+    end
+
+    it 'includes invoice name in email body' do
+      expect(mail).to match_email_body('invoice for #1')
+    end
+
+    it 'includes invoice link in email body' do
+      expect(mail).to match_email_body(admin_frilans_finans_invoice_url(ff_invoice))
+    end
+  end
 end

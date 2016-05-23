@@ -23,7 +23,10 @@ namespace :sweepers do
   end
 
   task frilans_finans: :environment do
-    %w(create_terms create_users create_companies create_invoices).each do |task|
+    [
+      :create_terms, :create_users, :create_companies, :create_invoices,
+      :activate_invoices
+    ].each do |task|
       Rake::Task["sweepers:frilans_finans:#{task}"].execute
     end
   end
@@ -50,6 +53,12 @@ namespace :sweepers do
     task create_invoices: :environment do |task_name|
       wrap_sweeper_task(task_name) do
         Sweepers::FrilansFinansInvoiceSweeper.create_frilans_finans
+      end
+    end
+
+    task activate_invoices: :environment do |task_name|
+      wrap_sweeper_task(task_name) do
+        Sweepers::FrilansFinansInvoiceSweeper.activate_frilans_finans_invoices
       end
     end
   end

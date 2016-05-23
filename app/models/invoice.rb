@@ -12,6 +12,10 @@ class Invoice < ApplicationRecord
   validate :validate_job_started
   validate :validate_job_user_accepted
 
+  scope :needs_frilans_finans_activation, lambda {
+    joins(:frilans_finans_invoice).where('frilans_finans_invoices.activated = false')
+  }
+
   def name
     "Invoice ##{id}"
   end

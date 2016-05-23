@@ -9,6 +9,9 @@ sv:
       invoice_failed_to_connect_to_frilans_finans:
         subject: 'Admin notis: Misslyckades med att skapa Frilans Finans faktura'
         notice: Misslyckades skapa en Frilans Finans faktura %{invoice_id}.
+      failed_to_activate_invoice:
+        subject: 'Admin notice: Failed to activate Frilans Finans invoice'
+        notice: Failed to create a Frilans Finans invoice for %{id}
   errors:
     general:
       protocol_missing: Protocol prefix saknas http:// eller https://
