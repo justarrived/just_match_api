@@ -10,6 +10,8 @@ RSpec.describe FrilansFinansApi::NilClient do
     create_user
     create_company
     create_invoice
+    update_invoice
+    update_user
   ).each do |client_method|
     describe "##{client_method}" do
       subject { described_class.new }

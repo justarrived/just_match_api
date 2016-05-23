@@ -39,7 +39,7 @@ module FrilansFinansApi
 
     def patch(uri:, query: {}, body: {})
       authorized_request do
-        _patch(uri: uri, query: query, body: body)
+        _patch(uri: uri, query: query, body: body.to_json)
       end
     end
 
