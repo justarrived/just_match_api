@@ -12,12 +12,12 @@ module Sweepers
         ff_invoice = invoice.frilans_finans_invoice
         frilans_finans_id = ff_invoice.frilans_finans_id
 
-        # TODO: Validate the "schema" for attributes, sometimes Frilans Finans wants it
-        # nested, sometimes not...
         ff_invoice_remote = FrilansFinansApi::Invoice.update(
           id: frilans_finans_id,
           attributes: {
-            pre_report: false
+            invoice: {
+              pre_report: false
+            }
           }
         )
 
