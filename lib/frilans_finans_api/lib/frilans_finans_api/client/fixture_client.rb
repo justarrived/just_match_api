@@ -38,6 +38,10 @@ module FrilansFinansApi
       Response.new(read(:invoice))
     end
 
+    def update_invoice(**_args)
+      Response.new(read(:invoice))
+    end
+
     def update_user(**_args)
       Response.new(read(:user))
     end

@@ -47,6 +47,10 @@ module FrilansFinansApi
       request.post(uri: '/invoices', body: attributes)
     end
 
+    def update_invoice(id:, attributes: {})
+      request.patch(uri: "/invoices/#{id}", body: attributes)
+    end
+
     def update_user(id:, attributes: {})
       request.patch(uri: "/users/#{id}", body: attributes)
     end

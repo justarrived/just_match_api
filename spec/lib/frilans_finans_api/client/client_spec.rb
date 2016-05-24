@@ -158,7 +158,7 @@ RSpec.describe FrilansFinansApi::Client do
 
   describe '#invoice' do
     subject do
-      json = fixture_client .read(:invoice)
+      json = fixture_client.read(:invoice)
       url = "#{base_uri}/invoices/1"
 
       stub_request(:get, url).
@@ -170,6 +170,57 @@ RSpec.describe FrilansFinansApi::Client do
 
     it 'returns invoice' do
       response = subject.invoice(id: 1)
+      parsed_body = JSON.parse(response.body)
+      id = parsed_body.dig('data', 'id')
+      expect(id).to eq('1')
+    end
+  end
+
+  describe '#update_user' do
+    let(:user_id) { 1 }
+
+    subject do
+      json = fixture_client.read(:user)
+      url = "#{base_uri}/users/#{user_id}"
+
+      body = { first_name: 'Jacob' }.to_json
+
+      stub_request(:patch, url).
+        with(default_headers.merge(body: body)).
+        to_return(status: 200, body: json, headers: {})
+
+      described_class.new
+    end
+
+    it 'returns user' do
+      attributes = { first_name: 'Jacob' }
+      response = subject.update_user(attributes: attributes, id: user_id)
+      parsed_body = JSON.parse(response.body)
+      id = parsed_body.dig('data', 'id')
+      first_name = parsed_body.dig('data', 'attributes', 'first_name')
+      expect(first_name).to eq('Jacob')
+      expect(id).to eq('1')
+    end
+  end
+
+  describe '#update_invoice' do
+    let(:invoice_id) { 1 }
+    subject do
+      json = fixture_client .read(:invoice)
+      url = "#{base_uri}/invoices/#{invoice_id}"
+
+      body = { pre_report: 1 }.to_json
+
+      stub_request(:patch, url).
+        with(default_headers.merge(body: body)).
+        to_return(status: 200, body: json, headers: {})
+
+      described_class.new
+    end
+
+    it 'returns invoice' do
+      attributes = { pre_report: 1 }
+      response = subject.update_invoice(id: invoice_id, attributes: attributes)
       parsed_body = JSON.parse(response.body)
       id = parsed_body.dig('data', 'id')
       expect(id).to eq('1')
