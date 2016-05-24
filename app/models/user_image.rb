@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 class UserImage < ActiveRecord::Base
+  MAX_HOURS_AGE_AS_ORPHAN = 24
+  ONE_TIME_TOKEN_VALID_FOR_HOURS = 10
+
   belongs_to :user
 
   before_create :generate_one_time_token
@@ -18,7 +21,10 @@ class UserImage < ActiveRecord::Base
   validates_attachment_content_type :image, content_type: %r{\Aimage\/.*\Z}
   validates_attachment_size :image, less_than: IMAGE_MAX_MB_SIZE.megabytes
 
-  ONE_TIME_TOKEN_VALID_FOR_HOURS = 10
+  scope :orhpans, -> () { where(user: nil) }
+  scope :over_aged_orphans, lambda {
+    orhpans.where('created_at < ?', MAX_HOURS_AGE_AS_ORPHAN.hours.ago)
+  }
 
   def self.find_by_one_time_token(token)
     valid_one_time_tokens.find_by(one_time_token: token)
