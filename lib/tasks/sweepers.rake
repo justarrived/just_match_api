@@ -58,7 +58,7 @@ namespace :sweepers do
 
     task activate_invoices: :environment do |task_name|
       wrap_sweeper_task(task_name) do
-        Sweepers::FrilansFinansInvoiceSweeper.activate_frilans_finans_invoices
+        Sweepers::FrilansFinansInvoiceSweeper.activate_frilans_finans
       end
     end
   end
