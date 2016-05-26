@@ -45,17 +45,23 @@ module FrilansFinansApi
 
     def _get(uri:, query: {})
       opts = build_get_opts(query: query)
-      HTTParty.get("#{base_uri}#{uri}", opts)
+      response = HTTParty.get("#{base_uri}#{uri}", opts)
+      log_response(:get, uri: uri, params: opts, response: response)
+      response
     end
 
     def _post(uri:, query: {}, body: {})
       opts = build_post_opts(query: query, body: body)
-      HTTParty.post("#{base_uri}#{uri}", opts)
+      response = HTTParty.post("#{base_uri}#{uri}", opts)
+      log_response(:post, uri: uri, params: opts, response: response)
+      response
     end
 
     def _patch(uri:, query: {}, body: {})
       opts = build_post_opts(query: query, body: body)
-      HTTParty.patch("#{base_uri}#{uri}", opts)
+      response = HTTParty.patch("#{base_uri}#{uri}", opts)
+      log_response(:patch, uri: uri, params: opts, response: response)
+      response
     end
 
     private
@@ -94,11 +100,10 @@ module FrilansFinansApi
     end
 
     def fetch_access_token
-      response = HTTParty.post(
-        "#{base_uri}/auth/accesstoken",
-        body: credentials,
-        headers: USER_AGENT
-      )
+      uri = "#{base_uri}/auth/accesstoken"
+      response = HTTParty.post(uri, body: credentials, headers: USER_AGENT)
+      log_response(:post, uri: uri, params: {}, response: response)
+
       @access_token = extract_access_token(response)
       response
     end
@@ -111,6 +116,16 @@ module FrilansFinansApi
       parsed = JSON.parse(parsed) if parsed.is_a?(String)
 
       parsed['access_token']
+    end
+
+    def log_response(method, uri:, params:, response:)
+      uuid = SecureRandom.uuid
+      log_id = "[#{self.class.name} #{uuid}]"
+      http_verb = method.to_s.upcase
+      body = response.try(:body)
+      status = response.code
+      FrilansFinansApi.logger.info "#{log_id} #{http_verb} uri: #{uri} params: #{params}"
+      FrilansFinansApi.logger.info "#{log_id} status: #{status} body: #{body}"
     end
   end
 end

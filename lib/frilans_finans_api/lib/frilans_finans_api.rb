@@ -16,6 +16,8 @@ require 'frilans_finans_api/models/user'
 require 'frilans_finans_api/document'
 require 'frilans_finans_api/resource'
 
+require 'frilans_finans_api/nil_logger'
+
 module FrilansFinansApi
   DEFAULT_CLIENT_KLASS = FixtureClient
   DEFAULT_BASE_URI = 'https://frilansfinans.se/api'
@@ -50,6 +52,14 @@ module FrilansFinansApi
 
   def self.base_uri=(uri)
     @base_uri = uri
+  end
+
+  def self.logger
+    @logger ||= NilLogger.new
+  end
+
+  def self.logger=(logger)
+    @logger = logger
   end
 
   def self.reset_config
