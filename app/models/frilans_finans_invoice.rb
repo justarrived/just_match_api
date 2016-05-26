@@ -12,6 +12,10 @@ class FrilansFinansInvoice < ActiveRecord::Base
 
   validate :validates_job_user_will_perform
 
+  def name
+    "Frilans Finans Invoice ##{id}"
+  end
+
   def validates_job_user_will_perform
     return if job_user.try!(:will_perform)
 
