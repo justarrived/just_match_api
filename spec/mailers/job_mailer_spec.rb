@@ -253,7 +253,7 @@ RSpec.describe JobMailer, type: :mailer do
   describe '#accepted_applicant_confirmation_overdue_email' do
     let(:mail) do
       described_class.accepted_applicant_confirmation_overdue_email(
-        job: job, user: user, owner: owner
+        job_user: job_user, owner: owner
       )
     end
 
@@ -282,9 +282,8 @@ RSpec.describe JobMailer, type: :mailer do
       expect(mail).to match_email_body(job.name)
     end
 
-    xit 'includes job user url in email' do
-      # TODO: job_user is currently not present in args..
-      url = FrontendRouter.draw(:job_users, job: job.id)
+    it 'includes job user url in email' do
+      url = FrontendRouter.draw(:job_users, job_id: job.id)
       expect(mail).to match_email_body(url)
     end
   end

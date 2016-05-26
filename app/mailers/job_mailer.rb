@@ -89,9 +89,13 @@ class JobMailer < ApplicationMailer
     mail(to: owner.email, subject: subject)
   end
 
-  def accepted_applicant_confirmation_overdue_email(user:, job:, owner:)
+  def accepted_applicant_confirmation_overdue_email(job_user:, owner:)
+    user = job_user.user
+    job = job_user.job
     @user_name = user.name
     @job_name = job.name
+
+    @job_users_url = FrontendRouter.draw(:job_users, job_id: job.id)
 
     subject = I18n.t('mailer.accepted_applicant_confirmation_overdue.subject')
     mail(to: owner.email, subject: subject)
