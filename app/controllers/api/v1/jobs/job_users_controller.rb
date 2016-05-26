@@ -106,7 +106,7 @@ module Api
           set_event_name(@job_user)
 
           if @job_user.save
-            update_notifier_klass.call(job: @job, user: @user)
+            update_notifier_klass.call(job_user: @job_user, owner: @job.owner)
 
             on_event(:will_perform) do
               # Frilans Finans wants invoices to be pre-reported

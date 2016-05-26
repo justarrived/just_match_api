@@ -10,11 +10,19 @@ class JobMailer < ApplicationMailer
     mail(to: user.email, subject: I18n.t('mailer.job_match.subject'))
   end
 
-  def job_user_performed_email(user:, job:, owner:)
+  def job_user_performed_email(job_user:, owner:)
+    user = job_user.user
+    job = job_user.job
     @user_name = user.name
     @owner_name = owner.name
     @job_name = job.name
     @user_email = user.email
+
+    @job_user_url = FrontendRouter.draw(
+      :job_user_for_company,
+      job_id: job.id,
+      job_user_id: job_user.id
+    )
 
     subject = I18n.t('mailer.job_performed.subject')
     mail(to: owner.email, subject: subject)
@@ -32,18 +40,30 @@ class JobMailer < ApplicationMailer
     mail(to: owner.email, subject: subject)
   end
 
-  def applicant_accepted_email(user:, job:, owner:)
+  def applicant_accepted_email(job_user:, owner:)
+    user = job_user.user
+    job = job_user.job
     @user_name = user.name
     @owner_email = owner.email
     @job_name = job.name
+
+    @job_user_url = FrontendRouter.draw(:job_user, job_id: job.id)
 
     subject = I18n.t('mailer.applicant_accepted.subject')
     mail(to: user.email, subject: subject)
   end
 
-  def applicant_will_perform_email(user:, job:, owner:)
+  def applicant_will_perform_email(job_user:, owner:)
+    user = job_user.user
+    job = job_user.job
     @user_name = user.name
     @job_name = job.name
+
+    @job_user_url = FrontendRouter.draw(
+      :job_user_for_company,
+      job_id: job.id,
+      job_user_id: job_user.id
+    )
 
     subject = I18n.t('mailer.applicant_will_perform.subject')
     mail(to: owner.email, subject: subject)

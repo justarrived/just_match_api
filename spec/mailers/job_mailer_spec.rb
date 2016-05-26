@@ -5,6 +5,7 @@ RSpec.describe JobMailer, type: :mailer do
   let(:user) { mock_model User, name: 'User', email: 'user@example.com' }
   let(:owner) { mock_model User, name: 'Owner', email: 'owner@example.com' }
   let(:job) { mock_model Job, name: 'Job name' }
+  let(:job_user) { mock_model JobUser, user: user, job: job, id: 37 }
 
   describe '#job_match_email' do
     let(:mail) do
@@ -47,7 +48,7 @@ RSpec.describe JobMailer, type: :mailer do
 
   describe '#job_user_performed_email' do
     let(:mail) do
-      described_class.job_user_performed_email(job: job, user: user, owner: owner)
+      described_class.job_user_performed_email(job_user: job_user, owner: owner)
     end
 
     it 'has both text and html part' do
@@ -68,7 +69,7 @@ RSpec.describe JobMailer, type: :mailer do
     end
 
     it 'includes @user_name in email body' do
-      expect(mail).to match_email_body(user.name)
+      expect(mail).to match_email_body(job_user.user.name)
     end
 
     it 'includes @owner_name in email body' do
@@ -76,12 +77,15 @@ RSpec.describe JobMailer, type: :mailer do
     end
 
     it 'includes @job_name in email body' do
-      expect(mail).to match_email_body(job.name)
+      expect(mail).to match_email_body(job_user.job.name)
     end
 
-    xit 'includes job user url in email' do
-      # TODO: job_user is currently not present in args..
-      url = FrontendRouter.draw(:job_user, id: job_user.id)
+    it 'includes job user url in email' do
+      url = FrontendRouter.draw(
+        :job_user_for_company,
+        job_id: job.id,
+        job_user_id: job_user.id
+      )
       expect(mail).to match_email_body(url)
     end
   end
@@ -122,14 +126,14 @@ RSpec.describe JobMailer, type: :mailer do
 
     xit 'includes job user url in email' do
       # TODO: job_user is currently not present in args..
-      url = FrontendRouter.draw(:job_user, id: job_user.id)
+      url = FrontendRouter.draw(:job_user_for_company, job: job.id, id: job_user.id)
       expect(mail).to match_email_body(url)
     end
   end
 
   describe '#applicant_accepted_email' do
     let(:mail) do
-      described_class.applicant_accepted_email(job: job, user: user, owner: owner)
+      described_class.applicant_accepted_email(job_user: job_user, owner: owner)
     end
 
     it 'has both text and html part' do
@@ -161,16 +165,15 @@ RSpec.describe JobMailer, type: :mailer do
       expect(mail).to match_email_body(job.name)
     end
 
-    xit 'includes job user url in email' do
-      # TODO: job_user is currently not present in args..
-      url = FrontendRouter.draw(:job_user, id: job_user.id)
+    it 'includes job user url in email' do
+      url = FrontendRouter.draw(:job_user, job_id: job.id)
       expect(mail).to match_email_body(url)
     end
   end
 
   describe '#applicant_will_perform_email' do
     let(:mail) do
-      described_class.applicant_will_perform_email(job: job, user: user, owner: owner)
+      described_class.applicant_will_perform_email(job_user: job_user, owner: owner)
     end
 
     it 'has both text and html part' do
@@ -198,9 +201,12 @@ RSpec.describe JobMailer, type: :mailer do
       expect(mail).to match_email_body(job.name)
     end
 
-    xit 'includes job user url in email' do
-      # TODO: job_user is currently not present in args..
-      url = FrontendRouter.draw(:job_user, id: job_user.id)
+    it 'includes job user url in email' do
+      url = FrontendRouter.draw(
+        :job_user_for_company,
+        job_id: job.id,
+        job_user_id: job_user.id
+      )
       expect(mail).to match_email_body(url)
     end
   end
@@ -241,7 +247,7 @@ RSpec.describe JobMailer, type: :mailer do
 
     xit 'includes job user url in email' do
       # TODO: job_user is currently not present in args..
-      url = FrontendRouter.draw(:job_user, id: job_user.id)
+      url = FrontendRouter.draw(:job_users, job: job.id)
       expect(mail).to match_email_body(url)
     end
   end
@@ -280,7 +286,7 @@ RSpec.describe JobMailer, type: :mailer do
 
     xit 'includes job user url in email' do
       # TODO: job_user is currently not present in args..
-      url = FrontendRouter.draw(:job_user, id: job_user.id)
+      url = FrontendRouter.draw(:job_users, job: job.id)
       expect(mail).to match_email_body(url)
     end
   end

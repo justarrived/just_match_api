@@ -6,11 +6,12 @@ RSpec.describe JobUserPerformedNotifier, type: :mailer do
   let(:job) { mock_model Job, owner: owner, accepted_applicant: user }
   let(:user) { FactoryGirl.build(:user) }
   let(:owner) { FactoryGirl.build(:user) }
+  let(:job_user) { mock_model JobUser, job: job, user: user }
 
-  it 'must work' do
+  it 'calls job mailer' do
     allow(JobMailer).to receive(:job_user_performed_email).and_return(mailer)
-    JobUserPerformedNotifier.call(job: job, user: user)
-    mailer_args = { job: job, user: user, owner: job.owner }
+    mailer_args = { job_user: job_user, owner: job.owner }
+    JobUserPerformedNotifier.call(**mailer_args)
     expect(JobMailer).to have_received(:job_user_performed_email).with(mailer_args)
   end
 end

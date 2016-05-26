@@ -167,18 +167,18 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
           expect(response.status).to eq(200)
         end
 
-        it 'notifies user when updated Job#performed_accept is set to true' do
+        it 'notifies user when updated JobUser#accepted is set to true' do
           job = FactoryGirl.create(:job_with_users, users_count: 1, owner: user)
-          user = job.users.first
           job_user = job.job_users.first
           params = {
             job_id: job.to_param,
             job_user_id: job_user.to_param
           }.merge(new_attributes)
 
-          allow(ApplicantAcceptedNotifier).to receive(:call).with(job: job, user: user)
+          notifier_args = { job_user: job_user, owner: job.owner }
+          allow(ApplicantAcceptedNotifier).to receive(:call).with(notifier_args)
           put :update, params, valid_session
-          expect(ApplicantAcceptedNotifier).to have_received(:call)
+          expect(ApplicantAcceptedNotifier).to have_received(:call).with(notifier_args)
         end
       end
 
@@ -245,7 +245,8 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
             job_user_id: job_user.to_param
           }.merge(new_attributes)
 
-          allow(ApplicantWillPerformNotifier).to receive(:call).with(job: job, user: user)
+          notifier_args = { job_user: job_user, owner: job.owner }
+          allow(ApplicantWillPerformNotifier).to receive(:call).with(notifier_args)
           put :update, params, valid_session
           expect(ApplicantWillPerformNotifier).to have_received(:call)
         end
@@ -287,7 +288,8 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
             to(receive(:authenticate_user_token!).
             and_return(user))
 
-          allow(JobUserPerformedNotifier).to receive(:call).with(job: job, user: user)
+          notifier_args = { job_user: job_user, owner: job.owner }
+          allow(JobUserPerformedNotifier).to receive(:call).with(notifier_args)
           put :update, params, valid_session
           expect(JobUserPerformedNotifier).to have_received(:call)
         end
