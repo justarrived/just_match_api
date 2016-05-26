@@ -4,7 +4,7 @@ class AcceptedApplicantConfirmationOverdueNotifier < BaseNotifier
     owner = job.owner
     return if ignored?(owner)
 
-    UserMailer.
+    JobMailer.
       accepted_applicant_confirmation_overdue_email(user: user, job: job, owner: owner).
       deliver_later
   end

@@ -4,7 +4,7 @@ class AcceptedApplicantWithdrawnNotifier < BaseNotifier
     owner = job.owner
     return if ignored?(owner)
 
-    UserMailer.
+    JobMailer.
       accepted_applicant_withdrawn_email(user: user, job: job, owner: owner).
       deliver_later
   end

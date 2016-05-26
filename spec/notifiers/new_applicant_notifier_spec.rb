@@ -9,9 +9,9 @@ RSpec.describe NewApplicantNotifier, type: :mailer do
   let(:owner) { FactoryGirl.build(:user) }
 
   it 'must work' do
-    allow(UserMailer).to receive(:new_applicant_email).and_return(mailer)
+    allow(JobMailer).to receive(:new_applicant_email).and_return(mailer)
     NewApplicantNotifier.call(job_user: job_user)
     mailer_args = { job: job, user: user, owner: job.owner }
-    expect(UserMailer).to have_received(:new_applicant_email).with(mailer_args)
+    expect(JobMailer).to have_received(:new_applicant_email).with(mailer_args)
   end
 end

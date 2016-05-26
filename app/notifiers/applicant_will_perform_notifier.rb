@@ -4,7 +4,7 @@ class ApplicantWillPerformNotifier < BaseNotifier
     owner = job.owner
     return if ignored?(owner)
 
-    UserMailer.
+    JobMailer.
       applicant_will_perform_email(user: user, job: job, owner: owner).
       deliver_later
   end

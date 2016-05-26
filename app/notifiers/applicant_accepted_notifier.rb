@@ -4,7 +4,7 @@ class ApplicantAcceptedNotifier < BaseNotifier
     owner = job.owner
     return if ignored?(user)
 
-    UserMailer.
+    JobMailer.
       applicant_accepted_email(user: user, job: job, owner: owner).
       deliver_later
   end
