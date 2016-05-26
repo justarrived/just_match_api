@@ -119,13 +119,11 @@ module FrilansFinansApi
     end
 
     def log_response(method, uri:, params:, response:)
-      uuid = SecureRandom.uuid
-      log_id = "[#{self.class.name} #{uuid}]"
-      http_verb = method.to_s.upcase
+      log_id = "[#{self.class.name}]"
+      verb = method.to_s.upcase
       body = response.try(:body)
       status = response.code
-      FrilansFinansApi.logger.info "#{log_id} #{http_verb} uri: #{uri} params: #{params}"
-      FrilansFinansApi.logger.info "#{log_id} status: #{status} body: #{body}"
+      log_body = "#{verb} URI: #{uri} PARAMS: #{params} STATUS: #{status} BODY: #{body}"
     end
   end
 end
