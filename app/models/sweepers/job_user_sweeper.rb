@@ -7,8 +7,10 @@ module Sweepers
       begin
         overdue_job_users.each do |job_user|
           job = job_user.job
-          user = job_user.user
-          AcceptedApplicantConfirmationOverdueNotifier.call(job: job, user: user)
+          AcceptedApplicantConfirmationOverdueNotifier.call(
+            job_user: job_user,
+            owner: job.owner
+          )
         end
       ensure
         overdue_job_users.update_all(accepted: false, accepted_at: nil)

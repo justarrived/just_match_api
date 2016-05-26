@@ -4,4 +4,6 @@
 <%= I18n.t('mailer.applicant_accepted.job_line', name: @job_name) %>
 <%= I18n.t('mailer.applicant_accepted.contact_line', email: mail_to(@owner_email)).html_safe %>
 
+<%= @job_user_url %>
+
 <%= I18n.t('mailer.signoff') %>

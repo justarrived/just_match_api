@@ -41,9 +41,21 @@ RSpec.describe FrontendRoutesReader do
     expect(result).to eq(expected)
   end
 
+  it 'returns company route for a job user' do
+    result = subject.draw(:job_user_for_company, job_id: 2, job_user_id: 1)
+    expected = "#{base_url}company/job/2/candidate/1"
+    expect(result).to eq(expected)
+  end
+
+  it 'returns company route for job users' do
+    result = subject.draw(:job_users, job_id: 2)
+    expected = "#{base_url}company/job/2/candidates"
+    expect(result).to eq(expected)
+  end
+
   it 'returns route for a job user' do
-    result = subject.draw(:job_user, id: 1)
-    expected = "#{base_url}arriver/1"
+    result = subject.draw(:job_user, job_id: 1)
+    expected = "#{base_url}arriver/job/1"
     expect(result).to eq(expected)
   end
 

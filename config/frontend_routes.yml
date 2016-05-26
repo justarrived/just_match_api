@@ -5,4 +5,6 @@ routes:
   job: 'jobs/%{id}'
   jobs: 'jobs'
   faqs: 'faq'
-  job_user: 'arriver/%{id}'
+  job_user_for_company: 'company/job/%{job_id}/candidate/%{job_user_id}'
+  job_users: 'company/job/%{job_id}/candidates'
+  job_user: 'arriver/job/%{job_id}'

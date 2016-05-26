@@ -9,6 +9,8 @@
     <p><%= I18n.t('mailer.job_performed.job_line', name: @job_name) %></p>
     <p><%= I18n.t('mailer.job_performed.contact_line', email: mail_to(@user_email)).html_safe %></p>
 
+    <p><a href="<%= @job_user_url %>"><%= @job_user_url %></a></p>
+
     <p><%= I18n.t('mailer.signoff') %></p>
   </body>
 </html>

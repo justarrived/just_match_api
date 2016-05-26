@@ -7,6 +7,8 @@
     <h1><%= I18n.t('mailer.accepted_applicant_confirmation_overdue.title') %></h1>
     <p><%= I18n.t('mailer.accepted_applicant_confirmation_overdue.explaination', name: @user_name, job_name: @job_name) %></p>
 
+    <p><a href="<%= @job_users_url %>"><%= @job_users_url %></a></p>
+
     <p><%= I18n.t('mailer.signoff') %></p>
   </body>
 </html>

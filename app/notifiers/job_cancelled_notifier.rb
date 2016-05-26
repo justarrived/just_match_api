@@ -4,7 +4,7 @@ class JobCancelledNotifier < BaseNotifier
     job.users.each do |user|
       next if ignored?(user)
 
-      UserMailer.
+      JobMailer.
         job_cancelled_email(user: user, job: job).
         deliver_later
     end

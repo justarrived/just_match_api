@@ -7,6 +7,8 @@
     <h1><%= I18n.t('mailer.applicant_will_perform.congrats_line') %></h1>
     <p><%= I18n.t('mailer.applicant_will_perform.details_line', name: @user_name, job_name: @job_name) %></p>
 
+    <p><a href="<%= @job_user_url %>"><%= @job_user_url %></a></p>
+
     <p><%= I18n.t('mailer.signoff') %></p>
   </body>
 </html>

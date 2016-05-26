@@ -9,6 +9,8 @@
     <h3><%= I18n.t('mailer.new_applicant.applicant_line', name: @user_name) %></h3>
     <p><%= I18n.t('mailer.new_applicant.contact_line', email: mail_to(@user_email), phone: @user_phone).html_safe %></p>
 
+    <p><a href="<%= @job_user_url %>"><%= @job_user_url %></a></p>
+
     <p><%= I18n.t('mailer.signoff') %></p>
   </body>
 </html>
