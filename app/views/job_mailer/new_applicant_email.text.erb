@@ -3,4 +3,6 @@
 <%= I18n.t('mailer.new_applicant.applicant_line', name: @user_name) %>
 <%= I18n.t('mailer.new_applicant.contact_line', email: @user_email, phone: @user_phone) %>
 
+<%= @job_user_url %>
+
 <%= I18n.t('mailer.signoff') %>

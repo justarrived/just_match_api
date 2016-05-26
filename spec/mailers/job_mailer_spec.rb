@@ -92,7 +92,7 @@ RSpec.describe JobMailer, type: :mailer do
 
   describe '#new_applicant_email' do
     let(:mail) do
-      described_class.new_applicant_email(job: job, user: user, owner: owner)
+      described_class.new_applicant_email(job_user: job_user, owner: owner)
     end
 
     it 'has both text and html part' do
@@ -124,9 +124,12 @@ RSpec.describe JobMailer, type: :mailer do
       expect(mail).to match_email_body(job.name)
     end
 
-    xit 'includes job user url in email' do
-      # TODO: job_user is currently not present in args..
-      url = FrontendRouter.draw(:job_user_for_company, job: job.id, id: job_user.id)
+    it 'includes job user url in email' do
+      url = FrontendRouter.draw(
+        :job_user_for_company,
+        job_id: job.id,
+        job_user_id: job_user.id
+      )
       expect(mail).to match_email_body(url)
     end
   end
@@ -213,11 +216,7 @@ RSpec.describe JobMailer, type: :mailer do
 
   describe '#accepted_applicant_withdrawn_email' do
     let(:mail) do
-      described_class.accepted_applicant_withdrawn_email(
-        job: job,
-        user: user,
-        owner: owner
-      )
+      described_class.accepted_applicant_withdrawn_email(job_user: job_user, owner: owner)
     end
 
     it 'has both text and html part' do
@@ -245,9 +244,8 @@ RSpec.describe JobMailer, type: :mailer do
       expect(mail).to match_email_body(job.name)
     end
 
-    xit 'includes job user url in email' do
-      # TODO: job_user is currently not present in args..
-      url = FrontendRouter.draw(:job_users, job: job.id)
+    it 'includes job user url in email' do
+      url = FrontendRouter.draw(:job_users, job_id: job.id)
       expect(mail).to match_email_body(url)
     end
   end

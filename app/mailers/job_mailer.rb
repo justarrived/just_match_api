@@ -28,13 +28,21 @@ class JobMailer < ApplicationMailer
     mail(to: owner.email, subject: subject)
   end
 
-  def new_applicant_email(user:, job:, owner:)
+  def new_applicant_email(job_user:, owner:)
+    user = job_user.user
+    job = job_user.job
     @user_name = user.name
     @user_email = user.email
     @user_phone = user.phone
 
     @job_name = job.name
     @owner_name = owner.name
+
+    @job_user_url = FrontendRouter.draw(
+      :job_user_for_company,
+      job_id: job.id,
+      job_user_id: job_user.id
+    )
 
     subject = I18n.t('mailer.new_applicant.subject')
     mail(to: owner.email, subject: subject)
@@ -69,9 +77,13 @@ class JobMailer < ApplicationMailer
     mail(to: owner.email, subject: subject)
   end
 
-  def accepted_applicant_withdrawn_email(user:, job:, owner:)
+  def accepted_applicant_withdrawn_email(job_user:, owner:)
+    user = job_user.user
+    job = job_user.job
     @user_name = user.name
     @job_name = job.name
+
+    @job_users_url = FrontendRouter.draw(:job_users, job_id: job.id)
 
     subject = I18n.t('mailer.accepted_applicant_withdrawn.subject')
     mail(to: owner.email, subject: subject)
