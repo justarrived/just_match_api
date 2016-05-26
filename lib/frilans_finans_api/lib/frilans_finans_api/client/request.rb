@@ -124,6 +124,7 @@ module FrilansFinansApi
       body = response.try(:body)
       status = response.code
       log_body = "#{verb} URI: #{uri} PARAMS: #{params} STATUS: #{status} BODY: #{body}"
+      FrilansFinansApi.logger.info "#{log_id} #{log_body}"
     end
   end
 end
