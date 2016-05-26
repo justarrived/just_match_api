@@ -7,7 +7,7 @@ RSpec.describe UserMailer, type: :mailer do
   let(:job) { mock_model Job, name: 'Job name' }
 
   describe '#welcome_email' do
-    let(:mail) { UserMailer.welcome_email(user: user) }
+    let(:mail) { described_class.welcome_email(user: user) }
 
     it 'has both text and html part' do
       expect(mail).to be_multipart_email(true)
@@ -42,7 +42,7 @@ RSpec.describe UserMailer, type: :mailer do
 
   describe '#reset_password_email' do
     let(:user) { FactoryGirl.build(:user_with_one_time_token) }
-    let(:mail) { UserMailer.reset_password_email(user: user) }
+    let(:mail) { described_class.reset_password_email(user: user) }
 
     it 'has both text and html part' do
       expect(mail).to be_multipart_email(true)
@@ -73,7 +73,7 @@ RSpec.describe UserMailer, type: :mailer do
 
   describe '#changed_password_email' do
     let(:user) { FactoryGirl.build(:user) }
-    let(:mail) { UserMailer.changed_password_email(user: user) }
+    let(:mail) { described_class.changed_password_email(user: user) }
 
     it 'has both text and html part' do
       expect(mail).to be_multipart_email(true)

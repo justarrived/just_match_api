@@ -8,7 +8,7 @@ RSpec.describe JobMailer, type: :mailer do
 
   describe '#job_match_email' do
     let(:mail) do
-      JobMailer.job_match_email(job: job, user: user, owner: owner)
+      described_class.job_match_email(job: job, user: user, owner: owner)
     end
 
     it 'has both text and html part' do
@@ -88,7 +88,7 @@ RSpec.describe JobMailer, type: :mailer do
 
   describe '#new_applicant_email' do
     let(:mail) do
-      JobMailer.new_applicant_email(job: job, user: user, owner: owner)
+      described_class.new_applicant_email(job: job, user: user, owner: owner)
     end
 
     it 'has both text and html part' do
@@ -129,7 +129,7 @@ RSpec.describe JobMailer, type: :mailer do
 
   describe '#applicant_accepted_email' do
     let(:mail) do
-      JobMailer.applicant_accepted_email(job: job, user: user, owner: owner)
+      described_class.applicant_accepted_email(job: job, user: user, owner: owner)
     end
 
     it 'has both text and html part' do
@@ -170,7 +170,7 @@ RSpec.describe JobMailer, type: :mailer do
 
   describe '#applicant_will_perform_email' do
     let(:mail) do
-      JobMailer.applicant_will_perform_email(job: job, user: user, owner: owner)
+      described_class.applicant_will_perform_email(job: job, user: user, owner: owner)
     end
 
     it 'has both text and html part' do
@@ -207,7 +207,11 @@ RSpec.describe JobMailer, type: :mailer do
 
   describe '#accepted_applicant_withdrawn_email' do
     let(:mail) do
-      JobMailer.accepted_applicant_withdrawn_email(job: job, user: user, owner: owner)
+      described_class.accepted_applicant_withdrawn_email(
+        job: job,
+        user: user,
+        owner: owner
+      )
     end
 
     it 'has both text and html part' do
@@ -244,7 +248,7 @@ RSpec.describe JobMailer, type: :mailer do
 
   describe '#accepted_applicant_confirmation_overdue_email' do
     let(:mail) do
-      JobMailer.accepted_applicant_confirmation_overdue_email(
+      described_class.accepted_applicant_confirmation_overdue_email(
         job: job, user: user, owner: owner
       )
     end
@@ -284,7 +288,7 @@ RSpec.describe JobMailer, type: :mailer do
   describe '#job_cancelled_email' do
     let(:user) { FactoryGirl.build(:user) }
     let(:job) { FactoryGirl.build(:job) }
-    let(:mail) { JobMailer.job_cancelled_email(user: user, job: job) }
+    let(:mail) { described_class.job_cancelled_email(user: user, job: job) }
 
     it 'has both text and html part' do
       expect(mail).to be_multipart_email(true)
