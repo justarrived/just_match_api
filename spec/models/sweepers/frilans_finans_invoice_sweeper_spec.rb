@@ -54,7 +54,7 @@ RSpec.describe Sweepers::FrilansFinansInvoiceSweeper do
     end
 
     context 'failed Frilans Finans id match' do
-      let(:frilans_finans_id) { nil }
+      let(:frilans_finans_id) { 123 }
 
       it 'sends notifiation' do
         job_user_with_invoice.invoice = FactoryGirl.create(
