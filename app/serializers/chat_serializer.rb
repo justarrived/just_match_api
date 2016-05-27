@@ -5,6 +5,7 @@ class ChatSerializer < ApplicationSerializer
 
   has_many :messages
   has_many :users
+  has_many :user_images
 end
 
 # == Schema Information

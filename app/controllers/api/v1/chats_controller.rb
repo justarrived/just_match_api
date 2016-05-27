@@ -17,6 +17,8 @@ module Api
         formats [:json]
       end
 
+      ALLOWED_INCLUDES = %w(user_images).freeze
+
       api :GET, '/chats/', 'List chats'
       description 'Returns a list of chats.'
       error code: 401, desc: 'Unauthorized'
