@@ -10,7 +10,7 @@ class Job < ApplicationRecord
 
   MIN_TOTAL_HOURS = 2
   MIN_HOURS_PER_DAY = 0.5
-  MAX_HOURS_PER_DAY = 16
+  MAX_HOURS_PER_DAY = 12
 
   belongs_to :language
   belongs_to :category
