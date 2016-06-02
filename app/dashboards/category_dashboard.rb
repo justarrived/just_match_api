@@ -13,6 +13,7 @@ class CategoryDashboard < Administrate::BaseDashboard
     id: Field::Number,
     frilans_finans_id: Field::Number,
     name: Field::String,
+    insurance_status: Field::String,
     created_at: Field::DateTime,
     updated_at: Field::DateTime
   }.freeze
@@ -25,6 +26,7 @@ class CategoryDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = [
     :id,
     :name,
+    :insurance_status,
     :jobs
   ].freeze
 
@@ -35,6 +37,7 @@ class CategoryDashboard < Administrate::BaseDashboard
     :id,
     :frilans_finans_id,
     :name,
+    :insurance_status,
     :created_at,
     :updated_at
   ].freeze
@@ -45,7 +48,8 @@ class CategoryDashboard < Administrate::BaseDashboard
   FORM_ATTRIBUTES = [
     :jobs,
     :frilans_finans_id,
-    :name
+    :name,
+    :insurance_status
   ].freeze
 
   # Overwrite this method to customize how skills are displayed
