@@ -109,7 +109,7 @@ module Api
             update_notifier_klass.call(job_user: @job_user, owner: @job.owner)
 
             on_event(:will_perform) do
-              @job.update!(filled: true)
+              @job.fill_position!
               # Frilans Finans wants invoices to be pre-reported
               FrilansFinansInvoice.create!(job_user: @job_user)
             end

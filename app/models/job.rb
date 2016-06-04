@@ -78,6 +78,14 @@ class Job < ApplicationRecord
       where('jobs.owner_user_id = :user OR job_users.user_id = :user', user: user)
   end
 
+  def fill_position
+    update(filled: true)
+  end
+
+  def fill_position!
+    update!(filled: true)
+  end
+
   def locked_for_changes?
     applicant = applicants.find_by(accepted: true)
     return false unless applicant
