@@ -57,6 +57,7 @@ end
 #  verified      :boolean          default(FALSE)
 #  job_end_date  :datetime
 #  cancelled     :boolean          default(FALSE)
+#  filled        :boolean          default(FALSE)
 #
 # Indexes
 #

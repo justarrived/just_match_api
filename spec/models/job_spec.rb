@@ -17,6 +17,22 @@ RSpec.describe Job, type: :model do
     end
   end
 
+  describe '#fill_position' do
+    it 'sets filled to true' do
+      job = FactoryGirl.build(:job, filled: false)
+      job.fill_position
+      expect(job.filled).to eq(true)
+    end
+  end
+
+  describe '#fill_position!' do
+    it 'sets filled to true' do
+      job = FactoryGirl.build(:job, filled: false)
+      job.fill_position!
+      expect(job.filled).to eq(true)
+    end
+  end
+
   describe '#amount' do
     it 'can return the total amount that a user is to be payed' do
       hourly_pay = FactoryGirl.build(:hourly_pay, rate: 100)
@@ -386,6 +402,7 @@ end
 #  verified      :boolean          default(FALSE)
 #  job_end_date  :datetime
 #  cancelled     :boolean          default(FALSE)
+#  filled        :boolean          default(FALSE)
 #
 # Indexes
 #
