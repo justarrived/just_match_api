@@ -47,7 +47,10 @@ class Job < ApplicationRecord
   belongs_to :owner, class_name: 'User', foreign_key: 'owner_user_id'
 
   scope :visible, -> { where(hidden: false) }
+  scope :cancelled, -> { where(cancelled: true) }
   scope :uncancelled, -> { where(cancelled: false) }
+  scope :filled, -> { where(filled: true) }
+  scope :unfilled, -> { where(filled: false) }
 
   # This will return an Array and not an ActiveRecord::Relation
   def self.non_hired
@@ -215,6 +218,7 @@ end
 #  verified      :boolean          default(FALSE)
 #  job_end_date  :datetime
 #  cancelled     :boolean          default(FALSE)
+#  filled        :boolean          default(FALSE)
 #
 # Indexes
 #
