@@ -30,7 +30,7 @@ end
 gem 'apipie-rails', '~> 0.3' # Easy API documentation
 gem 'maruku', '~> 0.7' # Needed for apipie-rails markdown support
 
-gem 'kaminari', '~> 0.16' # Easy pagination
+gem 'kaminari', '~> 0.17' # Easy pagination
 
 gem 'bcrypt', '~> 3.1.7', require: true # Encrypt passwords
 
