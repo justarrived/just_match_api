@@ -49,6 +49,19 @@ class Job < ApplicationRecord
   scope :visible, -> { where(hidden: false) }
   scope :uncancelled, -> { where(cancelled: false) }
 
+  # This will return an Array and not an ActiveRecord::Relation
+  def self.non_hired
+    sql = <<-SQL
+    SELECT *
+    FROM "jobs"
+         full OUTER JOIN "job_users"
+                      ON "job_users"."job_id" = "jobs"."id"
+    WHERE (accepted IS FALSE
+              OR job_id IS NULL)
+    SQL
+    find_by_sql(sql)
+  end
+
   def self.matches_user(user, distance: 20, strict_match: false)
     lat = user.latitude
     long = user.longitude
