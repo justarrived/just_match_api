@@ -1,15 +1,16 @@
 fa:
   activerecord:
     models:
+      blazer/query: فهرست/پرسش
       category: دسته بندی
-      chat: گپ
+      chat: چت
       chat_user: کاربران چت
       comment: اظهار نظر
       company: شرکت
       company_image: تصویر شرکت
       contact: تماس
       currency: واحد پول
-      faq: پرسش و پاسخ
+      faq: 'پرسشها و پاسخهای متداول '
       hourly_pay: پرداخت ساعتی
       invoice: صورتحساب
       job: کار
@@ -24,6 +25,16 @@ fa:
       user_language: زبان کاربر
       user_skill: مهارت کاربران
     attributes:
+      blazer/query:
+        audits: ویرایش
+        checks: کنترل
+        creator: مؤلف
+        dashboard_queries: پرسشهای صفحۀ کنترل
+        dashboards: صفحۀ کنترل
+        data_source: منشاء داده ها
+        description: شرح
+        name: نام
+        statement: اظهارنامه
       category:
         jobs: شغل ها
         name: نام
@@ -35,11 +46,14 @@ fa:
         chat: گپ
         user: کاربر
       comment:
-        body: بدن
+        body: پیکر
+        commentable: قابل اظهار نظر
+        commentable_type: از نوع قابل اظهار نظر
         hidden: پنهان
         language: زبان
+        owner: مالک
       company:
-        cin: CIN
+        cin: شمارۀ ثبت سازمان در سوئد
         company_images: تصاویر شرکت
         jobs: شغل ها
         name: نام
@@ -47,13 +61,14 @@ fa:
         website: سایت اینترنتی
       company_image:
         company: شرکت
-        image_content_type: تصویر نوع محتوا
-        image_file_size: اندازه فایل تصویر
+        image_content_type: نوع محتوای تصویر
+        image_file_name: نام فایل تصویری
+        image_file_size: اندازه فایل تصویری
         image_updated_at: تصویر به روز شده در
-        one_time_token: رمز یک بار
-        one_time_token_expires_at: یک بار رمز منقضی می شود در
+        one_time_token: رمز یکبار مصرف
+        one_time_token_expires_at: تاریخ انقضای رمز یکبار مصرف
       contact:
-        body: بدن
+        body: پیکر
         email: پست الکترونیک
         name: نام
       currency:
@@ -77,50 +92,54 @@ fa:
         hidden: پنهان
         hourly_pay: پرداخت ساعتی
         hours: ساعت ها
-        job_date: تاریخ های شغلی
-        job_end_date: شغلی تاریخ پایان
+        job_date: تاریخ کار
+        job_end_date: ' تاریخ خاتمۀ کار'
         job_skills: مهارت های شغلی
         job_users: کاربران شغلی
         language: زبان
         latitude: عرض جغرافیایی
-        longitude: عرض جغرافیایی
+        longitude: طول جغرافیایی
         name: نام
+        owner: مالک
         skills: مهارت ها
         street: خیابان
         users: کاربران
         verified: تایید شده
-        zip: زیپ
-        zip_latitude: عرض جغرافیایی پستی
-        zip_longitude: پستی طول جغرافیایی
+        zip: کُد پستی
+        zip_latitude: عرض جغرافیایی کُد پستی
+        zip_longitude: طول جغرافیایی کُد پستی
       job_skill:
         job: کار
         skill: مهارت
       job_user:
         accepted: پذیرفته شده
-        accepted_at: پذیرفته شده در
+        accepted_at: تاریخ پذیرفته شدن
         invoice: صورتحساب
         job: کار
-        performed: انجام
+        performed: انجام شد
         user: کاربر
         will_perform: انجام خواهد شد
       language:
         direction: جهت
         en_name: نام EN
         jobs: شغل ها
-        lang_code: کد لنگ
+        lang_code: کُد زبان
         local_name: نام محلی
         system_language: زبان سیستم
         user_languages: زبان کاربر
         users: کاربران
       message:
-        body: بدن
-        chat: گپ
+        author: مؤلف
+        body: پیکر
+        chat: چت
         integer: عدد صحیح
         language: زبان
       rating:
         comment: اظهار نظر
+        from_user: از کاربر
         job: کار
         score: نمره
+        to_user: به کاربر
       skill:
         job_skills: مهارت های شغلی
         jobs: شغل ها
@@ -130,7 +149,7 @@ fa:
         users: کاربران
       user:
         admin: مدیر سایت
-        anonymized: بینام
+        anonymized: ناشناس شده
         auth_token: کد تأیید اعتبار
         banned: ممنوع
         chat_users: کاربران چت
@@ -139,22 +158,22 @@ fa:
         description: شرح
         education: تحصیلات
         email: پست الکترونیک
-        first_name: نام
-        ignored_notifications_mask: اطلاعیه نادیده گرفته ماسک
-        job_experience: تجربه کاری
+        first_name: 'نام '
+        ignored_notifications_mask: ماسک اطلاعیه های نادیده گرفته شده
+        job_experience: تجربۀ کاری/ شغلی
         job_users: کاربران شغلی
         jobs: شغل ها
         language: زبان
         languages: زبان ها
         last_name: نام خانوادگی
         latitude: عرض جغرافیایی
-        longitude: عرض جغرافیایی
+        longitude: طول جغرافیایی
         messages: پیام
-        one_time_token: رمز یک بار
-        one_time_token_expires_at: یک بار رمز منقضی می شود در
-        owned_jobs: شغل متعلق به
-        password_hash: هش رمز عبور
-        password_salt: نمک رمز عبور
+        one_time_token: رمز یکبار مصرف
+        one_time_token_expires_at: تاریخ انقضای رمز یکبار مصرف
+        owned_jobs: شغل های متعلقه
+        password_hash: آلگوریتم گذر واژه
+        password_salt: رمز گذر واژه
         phone: تلفن
         skills: مهارت ها
         ssn: SSN
@@ -162,17 +181,19 @@ fa:
         user_images: تصاویر کاربر
         user_languages: زبان کاربر
         user_skills: مهارت های کاربر
-        written_comments: نظرات نوشته شده
-        zip: زیپ
-        zip_latitude: عرض جغرافیایی پستی
-        zip_longitude: پستی طول جغرافیایی
+        written_comments: نظرات کتبی
+        zip: کُد پستی
+        zip_latitude: عرض جغرافیایی کُد پستی
+        zip_longitude: طول جغرافیایی کُد پستی
+        frilans_finans_id: شناسۀ فاینانس آزاد
+        frilans_finans_payment_details: شرح پرداختی فاینانس آزاد
       user_image:
-        image_content_type: تصویر نوع محتوا
-        image_file_name: نام فایل تصویر
-        image_file_size: اندازه فایل تصویر
-        image_updated_at: تصویر به روز شده در
-        one_time_token: رمز یک بار
-        one_time_token_expires_at: یک بار رمز منقضی می شود در
+        image_content_type: نوع محتوای تصویر
+        image_file_name: نام فایل تصویری
+        image_file_size: اندازه فایل تصویری
+        image_updated_at: 'تاریخ به روز شدن تصویر '
+        one_time_token: رمز یکبار مصرف
+        one_time_token_expires_at: تاریخ انقضای رمز یکبار مصرف
         user: کاربر
       user_language:
         language: زبان

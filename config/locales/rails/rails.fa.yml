@@ -4,7 +4,8 @@ fa:
     messages:
       accepted: باید پذیرفته شود
       blank: نباید خالی باشد
-      confirmation: با تایید نمی‌خواند
+      present: باید خالی باشد
+      confirmation: با %{attribute} همسان نیست
       empty: نمی‌تواند خالی باشد
       equal_to: باید برابر %{count} باشد
       even: باید زوج باشد
@@ -18,11 +19,15 @@ fa:
       not_a_number: عدد نیست
       not_an_integer: عدد صحیح نیست
       odd: باید فرد باشد
-      record_invalid: 'رکورد نامعتبر است %{errors}'
+      record_invalid: 'نامعتبر است %{errors}'
+      restrict_dependent_destroy:
+        one: سابقه را نمی توان حذف کرد چون یک %{record} وابسته وجود دارد
+        many: سابقه را نمی توان حذف کرد چون یک %{record} وابسته وجود دارد
       taken: پیشتر گرفته شده
       too_long:
-        other: بلند است (حداکثر %{count} کاراکتر)
+        other: بیش از حد طولانی است (حداکثر %{count} کاراکتر)
       too_short:
-        other: کوتاه است (حداقل %{count} کاراکتر)
+        other: بیش از حد کوتاه است (حداقل %{count} کاراکتر)
       wrong_length:
-        other: نااندازه است (باید %{count} کاراکتر باشد)
+        other: طول آن غلط است (باید %{count} کاراکتر باشد)
+      other_than: باید بغیر از  %{count} باشد
