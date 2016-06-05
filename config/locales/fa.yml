@@ -1,1 +1,114 @@
-fa: {}
+fa:
+  api_documentation:
+    title: اسناد آ.پ.ای
+  admin:
+    mailer:
+      invoice_missing_company_frilans_finans_id:
+        subject: 'تذکر "ادمین": شناسۀ فاینانس آزاد شرکت پیدا نشد'
+        notice: یک صورتحساب برای شرکتی که شناسۀ فاینانس آزاد ندارد تنظیم شده است. به %{company_link} and %{invoice_link} رجوع شود.
+      invoice_failed_to_connect_to_frilans_finans:
+        subject: 'تذکر "ادمین": صورتحساب فاینانس آزاد صادر نشد'
+        notice: فاینانس آزاد برای فاکتور تنظیم نشد %{invoice_id}.
+  errors:
+    general:
+      protocol_missing: پیشوند پروتکل وجود ندارد http:// or https://
+    chat:
+      number_of_users: چت باید بین تعداد  %{min}-%{max} از کاربران انجام شود
+    invoice:
+      job_started: 'کار بایستی قبل از صدور فاکتور آغاز شده باشد '
+      job_user_accepted: 'کاربر بایستی قبل از صدور فاکتور بعنوان متقاضی پذیرفته شده باشد '
+    job:
+      job_date_in_the_past: باید در آینده باشد
+      hourly_pay_active: باید فعال باشد
+      update_not_allowed_when_accepted: کار نمی تواند به روز شود چون کاربر آنرا قبول کرده است
+      job_end_date_after_job_date: باید پس از تاریخ کار باشد
+      hours_lower_bound: بایستی حداقل %{min_hours} ساعت در روز باشد
+      hours_upper_bound: نبایستی بیش از %{min_hours} ساعت در روز باشد
+    job_user:
+      not_owner_of_job: نمی توان هم دارای کار بود و هم متقاضی کار
+      multiple_applicants: چندین متقاضی پذیرفته نمی شود
+      will_perform_true_on_delete: وقتی تقاضانامه تأیید شود نمی توان آنرا پس گرفت
+      performed_before_job_started: قبل از شروع کار نمی توان تأیید کرد که کار انجام شده است
+    rating:
+      from_user_rated: نمی توان دو بار ارزشیابی کرد
+      to_user_rated: نمی توان دو بار ارزشیابی شود
+      comment_user: باید توسط کاربری که ارزشیابی می کند تنظیم شده باشد
+      job_user_concluded: کار باید خاتمه یافته باشد
+      user_allowed_to_rate: باید فرد دارای کار یا متقاضی تأیید شده، باشد
+    user_session:
+      banned: یک "ادمین" شما را بخاطر عدم رعایت شرایط قرارداد یا عدم رعایت مقررات رفتاری تحریم کرده است. لطفاً با ایمیل help@justarrived.se تماس بگیرید تا این مشکل رفع شود
+      wrong_email_or_password: ایمیل یا گذر واژه اشتباه است
+    user:
+      password_length: گذر واژه باید دارای حداقل %{count} کاراکتر باشد
+      must_be_available_locale: باید یک زبان موجود در سیستم باشد
+    validators:
+      after_true: '%{field} باید صحیح باشد'
+      unrevertable: نمی توان بازگشت %{field}
+  invalid_credentials: مشخصات اشتباه است
+  mailer:
+    accepted_applicant_withdrawn:
+      subject: یک کاربر تأیید شده برای کار شما تقاضا نامۀ خود را بازپس گرفته است
+      title: یک کاربر تأیید شده برای کار شما تقاضا نامۀ خود را بازپس گرفته است
+      explaination: کاربر تأیید شده بنام %{name} برای کار شما %{job_name} حذف شده است. لطفاً یک متقاضی دیگر برای کار خود انتخاب کنید.
+    accepted_applicant_confirmation_overdue:
+      subject: یک کاربر تأیید شده برای کار شما به موقع پاسخ مثبت نداده است
+      title: یک کاربر تأیید شده برای کار شما به موقع پاسخ مثبت نداده است
+      explaination: کاربر تأیید شده بنام %{name} برای کار شما %{job_name} در وقت تعیین شده کار را قبول نکرده است. لطفاً یک متقاضی دیگر برای کار خود انتخاب کنید.
+    applicant_will_perform:
+      subject: تبریک! متقاضی کار شما را انجام خواهد داد.
+      congrats_line: تبریک!
+      details_line: "%{name} تأیید کرده اند که کار شما %{job_name} را انجام خواهند داد."
+    applicant_accepted:
+      accepted_line: شما برای یک کار پذیرفته شده اید!
+      congrats_line: تبریک! %{name}
+      contact_line: برای کسب جزئیات بیشتر با  %{email} تماس بگیرید.
+      job_line: این کار '%{name}'  است و در منطقۀ شما قرار دارد.
+      subject: تبریک! شما یک کار گرفتید.
+    changed_password:
+      subject: گذر واژۀ شما بعنوان تازه وارد تغییر یافته است
+      body_header: سلام %{name}، گذر واژۀ شما بعنوان تازه وارد تغییر یافته است. اگر مربوط به شما نمی شود، لطفاً با بخش تازه واردان از طریق help@justarrived.se تماس بگیرید.
+    job_cancelled:
+      subject: کاری که شما آنرا تقاضا کرده بودید لغو شده است.
+      body: کار  %{job_name} لغو شده است.
+    job_match:
+      accepted_line: یک کار جدید مطابق شرایط شما وجود دارد.
+      congrats_line: تبریک! %{name}
+      contact_line: برای کسب جزئیات بیشتر با  %{email} تماس بگیرید.
+      job_line: 'این کار ''%{name}''  است و در منطقۀ شما قرار دارد.'
+      subject: تبریک! یک کار جدید مطابق شرایط شما وجود دارد.
+    job_performed:
+      congrats_line: تبریک! %{name}
+      contact_line: اگر سوال دیگری دارید می توانید با آنها از طریق %{email} تماس بگیرید.
+      job_line: کار انجام شده '%{name}' بود.
+      performed_line: "%{name} تأیید کرده اند که یک کار برای شما انجام داده اند."
+      subject: تبریک! کاری که سفارش داده بودید انجام شده است.
+    invoice_created:
+      congrats_line: تبریک! %{name}
+      contact_line: اگر سوال دیگری دارید می توانید با آنها از طریق %{email} تماس بگیرید.
+      job_line: 'کار انجام شده ''%{name}'' بود.'
+      performed_line: "%{name} تأیید کرده اند که شما یک کار  را  انجام داده اید."
+      subject: تبریک! کاری که شما انجام دادید پذیرفته شده است.
+    new_applicant:
+      applicant_line: نام این متقاضی '%{name}'  است و در منطقۀ شما زندگی می کند.
+      congrats_line: تبریک! %{name}
+      contact_line: اگر سوال دیگری دارید می توانید با آنها از طریق %{email} و شماره تلفن %{phone} تماس بگیرید.
+      job_line: شما یک متقاضی جدید برای کار خود  '%{name}' دریافت کرده اید.
+      subject: تبریک! شما یک متقاضی جدید دریافت کرده اید.
+    reset_password:
+      subject: 'لینک تجدید گذر واژۀ بعنوان تازه وارد '
+      body_header: 'سلام %{name}، شما تقاضا کرده اید گذر واژۀ تان تجدید شود. لطفاً برای وارد کردن گذر واژه جدید خود به این لینک وارد شوید.  '
+    welcome:
+      subject: به بخش تازه واردان خوش آمدید!
+      body_header: به بخش تازه واردان خوش آمدید %{name}!
+      body_line: با تشکر از اینکه ثبت نام کردید. از صمیم قلب امیدواریم که از خدمات ما بهره مند شوید.
+    signoff: روز واقعاً خوبی داشته باشید!
+  not_logged_in_error: باید بعنوان کاربر وارد شده باشید.
+  notifications:
+    accepted_applicant_confirmation_overdue: مهلت پاسخ مثبت متقاضی تأیید شده منقضی شده است.
+    accepted_applicant_withdrawn: متقاضی تأیید شده حذف شده است.
+    applicant_accepted: شما برای یک کار پذیرفته شده اید!
+    applicant_will_perform: تقاضانامه پذیرفته شده است
+    invoice_created: صورتحساب تنظیم شد
+    job_user_performed: متقاضی تکمیل مورد را پذیرفته است
+    new_applicant: متقاضی جدید
+    user_job_match: کار مناسب جدید
