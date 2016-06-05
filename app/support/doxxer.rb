@@ -11,10 +11,18 @@ class Doxxer
     CompanyImage, TermsAgreement, TermsAgreementConsent
   ].freeze
 
-  def self.read_example(model_klass, plural: false, method: nil)
+  def self.read_example(model_klass, plural: false, method: nil, meta: {})
+    model_json_string = File.read(_response_filename(model_klass, plural: plural))
+
+    unless meta.empty?
+      model_json = JSON.parse(model_json_string)
+      meta_json = model_json['meta'].merge(meta)
+      model_json['meta'] = meta_json
+      model_json_string = JSON.pretty_generate(model_json)
+    end
     response = [
       '# Response example',
-      File.read(_response_filename(model_klass, plural: plural))
+      model_json_string
     ]
 
     with_error = [:create, :update].include?(method)
