@@ -25,7 +25,7 @@ module Api
         error code: 401, desc: 'Unauthorized'
         error code: 404, desc: 'Not found'
         ApipieDocHelper.params(self, Index::RatingsIndex)
-        example Doxxer.read_example(Rating, plural: true)
+        example Doxxer.read_example(Rating, plural: true, meta: { 'average-score' => 4.3 }) # rubocop:disable Metrics/LineLength
         def index
           authorize_index(@user)
 
