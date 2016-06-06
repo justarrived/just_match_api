@@ -21,7 +21,7 @@ gem 'frilans_finans_api', path: 'lib/frilans_finans_api'
 gem 'paperclip', '~> 5.0.0.beta2' # Image handler
 gem 'aws-sdk', '~> 2.3' # Upload images to AWS S3
 
-gem 'airbrake', '~> 5.3' # Error catcher and reporter
+gem 'airbrake', '~> 5.4' # Error catcher and reporter
 
 group :production do
   gem 'rails_12factor', '~> 0.0.3' # Heroku integration
