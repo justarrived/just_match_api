@@ -13,7 +13,7 @@ ar:
     chat:
       number_of_users: تشترط الدردشة عدد %{min} و %{max} مستخدمين
     invoice:
-      job_started: يجب بدء العمل قبل إنشاء الفاتورة
+      job_started: يجب قبول المستخدم قبل إنشاء الفاتورة
       job_user_accepted: يجب قبول المستخدم قبل إنشاء الفاتورة
     job:
       job_date_in_the_past: يجب أن يكون في المستقبل

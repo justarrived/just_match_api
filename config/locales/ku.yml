@@ -13,7 +13,7 @@ ku:
     chat:
       number_of_users: divê hejmara bikarînerên çatê herî kêm %{min} û %{max} be
     invoice:
-      job_started: divê dest bi karî hatibe kirin berî ku fatûreyek bê afirandin
+      job_started: divê bikarhîner qebûlkirî be berî ku fatûreyek bê afirandin
       job_user_accepted: divê bikarhîner qebûlkirî be berî ku fatûreyek bê afirandin
     job:
       job_date_in_the_past: divê di dema bê de be

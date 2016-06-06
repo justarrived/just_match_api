@@ -13,7 +13,7 @@ ti:
     chat:
       number_of_users: ሓደ ቻት ብዉሑዱ %{min} ወይ %{max} ብዝሒ ተጠቀምቲ ክሕዝ ይግባእ፡፡
     invoice:
-      job_started: ሓደ ፋክቱራ ቅድሚ ምድላዉ እቲ ስራሕ ናይ ግድን ክጅመር ኣለዎ፡፡
+      job_started: ሓደ ፋክቱራ ቅድሚ ምድላዉ ናይ ግድን እቲ ተጠቃሚ ከምዝተቐበሎ ክገልጽ ኣለዎ፡፡
       job_user_accepted: ሓደ ፋክቱራ ቅድሚ ምድላዉ ናይ ግድን እቲ ተጠቃሚ ከምዝተቐበሎ ክገልጽ ኣለዎ፡፡
     job:
       job_date_in_the_past: ናይ ግድን ኣብ መጻኢ ክኸውን ኣለዎ፡፡
