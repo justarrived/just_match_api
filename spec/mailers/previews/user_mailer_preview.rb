@@ -6,7 +6,7 @@ class UserMailerPreview < ActionMailer::Preview
   end
 
   def reset_password_email
-    user =  User.first
+    user = User.first
     user.generate_one_time_token
     UserMailer.reset_password_email(user: user)
   end
