@@ -29,6 +29,7 @@ module Sweepers
           ff_invoice.activated = true
           ff_invoice.save!
         else
+          Rails.logger.info "Frilans Finans invoice id missmatch: local ff id: '#{frilans_finans_id}', remote ff id: '#{frilans_finans_id_remote}'" # rubocop:disable Metrics/LineLength
           FailedToActivateInvoiceNotifier.call(ff_invoice: ff_invoice)
         end
       end
