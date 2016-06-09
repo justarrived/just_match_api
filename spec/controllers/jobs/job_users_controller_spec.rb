@@ -19,6 +19,7 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
   end
 
   let(:user) { User.find_by(auth_token: valid_session[:token]) }
+  let(:owner) { User.find_by(auth_token: valid_session[:token]) }
 
   describe 'GET #index' do
     it 'assigns all user users as @users' do
@@ -137,6 +138,7 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
             job_user_id: job_user.to_param
           }.merge(new_attributes)
 
+          expect(job_user.accepted).to eq(false)
           put :update, params, valid_session
           job_user.reload
           expect(job_user.accepted).to eq(true)
@@ -208,67 +210,58 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
           }
         end
 
-        it 'creates a FrilansFinansInvoice' do
-          job = FactoryGirl.create(:job_with_users, users_count: 1, owner: user)
-          user = job.users.first
-          job_user = job.job_users.first
-          job_user.accepted = true
-          job_user.save!
+        context '#will_perform changed to true' do
+          let(:user) { FactoryGirl.create(:user) }
+          let(:job) { FactoryGirl.create(:job, owner: owner) }
+          let(:owner) { FactoryGirl.create(:user) }
+          let(:job_user) { FactoryGirl.create(:job_user_accepted, job: job, user: user) }
 
-          allow_any_instance_of(described_class).
-            to(receive(:authenticate_user_token!).
-            and_return(user))
+          # Set the job_user as the logged in user
+          let(:valid_session) do
+            allow_any_instance_of(described_class).
+              to(receive(:authenticate_user_token!).
+              and_return(user))
+            { token: user.auth_token }
+          end
 
-          params = {
-            job_id: job.to_param,
-            job_user_id: job_user.to_param
-          }.merge(new_attributes)
+          let(:new_attributes) do
+            {
+              data: {
+                attributes: { will_perform: true }
+              }
+            }
+          end
 
-          expect do
+          let(:params) do
+            {
+              job_id: job.to_param,
+              job_user_id: job_user.to_param
+            }.merge(new_attributes)
+          end
+
+          it 'can set #will_perform attribute' do
             put :update, params, valid_session
-          end.to change(FrilansFinansInvoice, :count).by(1)
-        end
+            job_user.reload
+            expect(job_user.will_perform).to eq(true)
+          end
 
-        it 'notifies user when updated Job#will_perform is set to true' do
-          job = FactoryGirl.create(:job_with_users, users_count: 1, owner: user)
-          user = job.users.first
-          job_user = job.job_users.first
-          job_user.accepted = true
-          job_user.save!
+          it 'fills job position' do
+            put :update, params, valid_session
+            expect(assigns(:job).position_filled?).to eq(true)
+          end
 
-          allow_any_instance_of(described_class).
-            to(receive(:authenticate_user_token!).
-            and_return(user))
+          it 'creates frilans finans invoice' do
+            expect do
+              put :update, params, valid_session
+            end.to change(FrilansFinansInvoice, :count).by(1)
+          end
 
-          params = {
-            job_id: job.to_param,
-            job_user_id: job_user.to_param
-          }.merge(new_attributes)
-
-          notifier_args = { job_user: job_user, owner: job.owner }
-          allow(ApplicantWillPerformNotifier).to receive(:call).with(notifier_args)
-          put :update, params, valid_session
-          expect(ApplicantWillPerformNotifier).to have_received(:call)
-        end
-
-        it 'can set #will_perform attribute' do
-          job = FactoryGirl.create(:job_with_users, users_count: 1)
-          user = job.users.first
-          job_user = job.job_users.first
-          job_user.accepted = true
-          job_user.save!
-
-          allow_any_instance_of(described_class).
-            to(receive(:authenticate_user_token!).
-            and_return(user))
-
-          params = {
-            job_id: job.to_param,
-            job_user_id: job_user.to_param
-          }.merge(new_attributes)
-          put :update, params, {}
-          job_user.reload
-          expect(job_user.will_perform).to eq(true)
+          it 'notifies user when updated Job#will_perform is set to true' do
+            notifier_args = { job_user: job_user, owner: owner }
+            allow(ApplicantWillPerformNotifier).to receive(:call).with(notifier_args)
+            put :update, params, valid_session
+            expect(ApplicantWillPerformNotifier).to have_received(:call)
+          end
         end
 
         it 'notifies owner when updated #performed is set to true' do
