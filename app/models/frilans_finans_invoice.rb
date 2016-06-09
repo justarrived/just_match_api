@@ -6,6 +6,7 @@ class FrilansFinansInvoice < ActiveRecord::Base
   has_one :user, through: :job_user
   has_one :invoice
 
+  validates :job_user, presence: true
   validates :frilans_finans_id, uniqueness: true, allow_nil: true
 
   scope :needs_frilans_finans_id, -> { where(frilans_finans_id: nil) }
