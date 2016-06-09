@@ -78,6 +78,10 @@ class Job < ApplicationRecord
       where('jobs.owner_user_id = :user OR job_users.user_id = :user', user: user)
   end
 
+  def position_filled?
+    filled
+  end
+
   def fill_position
     update(filled: true)
   end

@@ -14,6 +14,7 @@ class RatingDashboard < Administrate::BaseDashboard
     job: Field::BelongsTo,
     id: Field::Number,
     score: Field::Number,
+    comment: Field::HasOne,
     created_at: Field::DateTime,
     updated_at: Field::DateTime
   }.freeze
@@ -28,6 +29,7 @@ class RatingDashboard < Administrate::BaseDashboard
     :score,
     :from_user,
     :to_user,
+    :comment,
     :job
   ].freeze
 
@@ -39,6 +41,7 @@ class RatingDashboard < Administrate::BaseDashboard
     :job,
     :id,
     :score,
+    :comment,
     :created_at,
     :updated_at
   ].freeze
@@ -51,6 +54,7 @@ class RatingDashboard < Administrate::BaseDashboard
     :to_user,
     :job,
     :score,
+    :comment,
     :created_at,
     :updated_at
   ].freeze

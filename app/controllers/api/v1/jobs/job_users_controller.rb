@@ -97,7 +97,7 @@ module Api
         end
         example Doxxer.read_example(JobUser, method: :update)
         def update
-          authorize(JobUser)
+          authorize(@job_user)
 
           @job_user.assign_attributes(permitted_attributes)
 
@@ -126,7 +126,7 @@ module Api
         error code: 404, desc: 'Not found'
         error code: 422, desc: 'Unprocessable entity'
         def destroy
-          authorize(JobUser)
+          authorize(@job_user)
 
           if @job_user.will_perform
             message = I18n.t('errors.job_user.will_perform_true_on_delete')
@@ -160,7 +160,7 @@ module Api
         end
 
         def permitted_attributes
-          attributes = policy(JobUser.new).permitted_attributes
+          attributes = policy(@job_user || JobUser.new).permitted_attributes
           jsonapi_params.permit(attributes)
         end
 
