@@ -167,6 +167,7 @@ class Job < ApplicationRecord
   end
 
   def validate_job_date_in_future
+    return unless job_date_changed?
     return if job_date.nil? || job_date > Time.zone.now
 
     errors.add(:job_date, I18n.t('errors.job.job_date_in_the_past'))
