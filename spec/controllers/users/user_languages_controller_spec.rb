@@ -51,7 +51,7 @@ RSpec.describe Api::V1::Users::UserLanguagesController, type: :controller do
     context 'with valid params' do
       let(:proficiency) { 8 }
       let(:language) { FactoryGirl.create(:language) }
-      let(:params) do |variable|
+      let(:params) do
         {
           user_id: user.to_param,
           data: {
@@ -87,7 +87,7 @@ RSpec.describe Api::V1::Users::UserLanguagesController, type: :controller do
 
       context 'not authorized' do
         let(:other_user) { FactoryGirl.create(:user) }
-        let(:params) do |variable|
+        let(:params) do
           {
             user_id: other_user.to_param,
             data: {
