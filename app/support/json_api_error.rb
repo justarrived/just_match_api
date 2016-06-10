@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class JsonApiError
-  def initialize(status:, detail:, pointer: nil)
+  def initialize(detail:, status: 422, pointer: nil)
     @status = status
     @detail = detail
     self.pointer = pointer

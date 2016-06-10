@@ -82,8 +82,8 @@ module Api
         def respond_with_login_failure
           message = I18n.t('errors.user_session.wrong_email_or_password')
           errors = JsonApiErrors.new
-          errors.add(status: 422, detail: message, pointer: :email)
-          errors.add(status: 422, detail: message, pointer: :password)
+          errors.add(detail: message, pointer: :email)
+          errors.add(detail: message, pointer: :password)
 
           render json: errors, status: :unprocessable_entity
         end
