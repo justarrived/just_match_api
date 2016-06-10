@@ -1,10 +1,13 @@
 # frozen_string_literal: true
 class UserLanguage < ApplicationRecord
+  PROFICIENCY_RANGE = 1..10
+
   belongs_to :language
   belongs_to :user
 
   validates :language, presence: true, uniqueness: { scope: :user }
   validates :user, presence: true, uniqueness: { scope: :language }
+  validates :proficiency, numericality: { only_integer: true }, inclusion: PROFICIENCY_RANGE, allow_nil: true # rubocop:disable Metrics/LineLength
 end
 
 # == Schema Information
