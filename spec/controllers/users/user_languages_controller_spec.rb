@@ -107,14 +107,16 @@ RSpec.describe Api::V1::Users::UserLanguagesController, type: :controller do
     end
 
     context 'with invalid params' do
+      let(:params) do
+        { user_id: user.to_param, language: { id: nil } }
+      end
+
       it 'assigns a newly created but unsaved user_language as @user_language' do
-        params = { user_id: user.to_param, language: { id: nil } }
         post :create, params, valid_session
         expect(assigns(:user_language)).to be_a_new(UserLanguage)
       end
 
       it 'returns unprocessable entity status' do
-        params = { user_id: user.to_param, language: { id: nil } }
         post :create, params, valid_session
         expect(response.status).to eq(422)
       end
