@@ -12,6 +12,7 @@ class UserLanguageDashboard < Administrate::BaseDashboard
     language: Field::BelongsTo,
     user: Field::BelongsTo,
     id: Field::Number,
+    proficiency: Field::Number,
     created_at: Field::DateTime,
     updated_at: Field::DateTime
   }.freeze
@@ -24,13 +25,15 @@ class UserLanguageDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = [
     :id,
     :user,
-    :language
+    :language,
+    :proficiency
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = [
     :language,
+    :proficiency,
     :user,
     :id,
     :created_at,
@@ -42,6 +45,7 @@ class UserLanguageDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
     :language,
+    :proficiency,
     :user
   ].freeze
 
