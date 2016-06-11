@@ -49,54 +49,57 @@ RSpec.describe Api::V1::Users::UserLanguagesController, type: :controller do
 
   describe 'POST #create' do
     context 'with valid params' do
-      it 'creates a new UserLanguage' do
-        language = FactoryGirl.create(:language)
-        params = {
+      let(:proficiency) { 8 }
+      let(:language) { FactoryGirl.create(:language) }
+      let(:params) do
+        {
           user_id: user.to_param,
           data: {
-            attributes: { id: language.to_param }
+            attributes: {
+              id: language.to_param,
+              proficiency: proficiency
+            }
           }
         }
+      end
+
+      it 'creates a new UserLanguage' do
         expect do
           post :create, params, valid_session
         end.to change(UserLanguage, :count).by(1)
       end
 
       it 'assigns a newly created user_language as @user_language' do
-        language = FactoryGirl.create(:language)
-        params = {
-          user_id: user.to_param,
-          data: {
-            attributes: { id: language.to_param }
-          }
-        }
         post :create, params, valid_session
         expect(assigns(:user_language)).to be_a(UserLanguage)
         expect(assigns(:user_language)).to be_persisted
       end
 
+      it 'sets proficiency' do
+        post :create, params, valid_session
+        expect(assigns(:user_language).proficiency).to eq(proficiency)
+      end
+
       it 'returns created status' do
-        language = FactoryGirl.create(:language)
-        params = {
-          user_id: user.to_param,
-          data: {
-            attributes: { id: language.to_param }
-          }
-        }
         post :create, params, valid_session
         expect(response.status).to eq(201)
       end
 
       context 'not authorized' do
-        it 'returns created status' do
-          user = FactoryGirl.create(:user)
-          language = FactoryGirl.create(:language)
-          params = {
-            user_id: user.to_param,
+        let(:other_user) { FactoryGirl.create(:user) }
+        let(:params) do
+          {
+            user_id: other_user.to_param,
             data: {
-              attributes: { id: language.to_param }
+              attributes: {
+                id: language.to_param,
+                proficiency: proficiency
+              }
             }
           }
+        end
+
+        it 'returns created status' do
           post :create, params, valid_session
           expect(response.status).to eq(401)
         end
@@ -104,14 +107,16 @@ RSpec.describe Api::V1::Users::UserLanguagesController, type: :controller do
     end
 
     context 'with invalid params' do
+      let(:params) do
+        { user_id: user.to_param, language: { id: nil } }
+      end
+
       it 'assigns a newly created but unsaved user_language as @user_language' do
-        params = { user_id: user.to_param, language: { id: nil } }
         post :create, params, valid_session
         expect(assigns(:user_language)).to be_a_new(UserLanguage)
       end
 
       it 'returns unprocessable entity status' do
-        params = { user_id: user.to_param, language: { id: nil } }
         post :create, params, valid_session
         expect(response.status).to eq(422)
       end

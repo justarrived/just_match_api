@@ -52,16 +52,17 @@ module Api
         param :data, Hash, desc: 'Top level key', required: true do
           param :attributes, Hash, desc: 'User language attributes', required: true do
             param :id, Integer, desc: 'Language id', required: true
+            param :proficiency, Integer, desc: 'Language proficiency'
           end
         end
         example Doxxer.read_example(UserLanguage, method: :create)
         def create
-          @user_language = UserLanguage.new
+          @user_language = UserLanguage.new(user_language_params)
           @user_language.user = @user
 
           authorize(@user_language)
 
-          @user_language.language = Language.find_by(id: user_language_params[:id])
+          @user_language.language = Language.find_by(id: jsonapi_params[:id])
 
           if @user_language.save
             api_render(@user_language, status: :created)
@@ -97,7 +98,7 @@ module Api
         end
 
         def user_language_params
-          jsonapi_params.permit(:id)
+          jsonapi_params.permit(:proficiency)
         end
 
         def pundit_user

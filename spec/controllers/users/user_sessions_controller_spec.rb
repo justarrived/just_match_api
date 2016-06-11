@@ -2,12 +2,14 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::Users::UserSessionsController, type: :controller do
+  let(:email) { 'someone@example.com' }
+  let(:password) { '12345678' }
   let(:valid_attributes) do
     {
       data: {
         attributes: {
-          email: 'someone@example.com',
-          password: '12345678'
+          email: email,
+          password: password
         }
       }
     }
@@ -22,7 +24,7 @@ RSpec.describe Api::V1::Users::UserSessionsController, type: :controller do
   describe 'POST #token' do
     context 'valid user' do
       before(:each) do
-        attrs = { email: 'someone@example.com', password: '12345678' }
+        attrs = { email: email, password: password }
         FactoryGirl.create(:user, attrs)
       end
 
@@ -65,6 +67,18 @@ RSpec.describe Api::V1::Users::UserSessionsController, type: :controller do
       it 'should return forbidden status' do
         post :create, valid_attributes, valid_session
         expect(response.status).to eq(422)
+      end
+
+      it 'returns explaination' do
+        post :create, valid_attributes, valid_session
+        message = I18n.t('errors.user_session.wrong_email_or_password')
+        json = JSON.parse(response.body)
+        first_detail = json['errors'].first['detail']
+        last_detail = json['errors'].last['detail']
+
+        # The message for both password & email should be the same
+        expect(first_detail).to eq(message)
+        expect(last_detail).to eq(message)
       end
     end
 

@@ -2,6 +2,9 @@
   "data": {
     "id": "1",
     "type": "user-languages",
+    "attributes": {
+      "proficiency": 8
+    },
     "relationships": {
       "language": {
         "data": null

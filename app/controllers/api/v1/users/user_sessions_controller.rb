@@ -73,21 +73,19 @@ module Api
         private
 
         def respond_with_banned
-          message = I18n.t('errors.user_session.banned')
-          response_json = {
-            errors: [{ status: 403, detail: message }]
-          }
-          render json: response_json, status: :forbidden
+          errors = JsonApiErrors.new
+          errors.add(status: 403, detail: I18n.t('errors.user_session.banned'))
+
+          render json: errors, status: :forbidden
         end
 
         def respond_with_login_failure
           message = I18n.t('errors.user_session.wrong_email_or_password')
-          errors = [
-            { field: 'email', message: message },
-            { field: 'password', message: message }
-          ]
-          response_json = wrap_error_response(errors)
-          render json: response_json, status: :unprocessable_entity
+          errors = JsonApiErrors.new
+          errors.add(detail: message, pointer: :email)
+          errors.add(detail: message, pointer: :password)
+
+          render json: errors, status: :unprocessable_entity
         end
 
         def wrap_token_response(user_id:, token:)
@@ -101,17 +99,6 @@ module Api
               }
             }
           }
-        end
-
-        def wrap_error_response(errors)
-          errors = errors.map do |error|
-            {
-              status: 422,
-              source: { pointer: "/data/attributes/#{error[:field]}" },
-              detail: error[:message]
-            }
-          end
-          { errors: errors }
         end
       end
     end

@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 class UserLanguageSerializer < ApplicationSerializer
+  ATTRIBUTES = [:proficiency].freeze
+  attributes ATTRIBUTES.freeze
+
   has_one :language
   has_one :user
 end
@@ -13,6 +16,7 @@ end
 #  user_id     :integer
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  proficiency :integer
 #
 # Indexes
 #
