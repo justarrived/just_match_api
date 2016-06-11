@@ -45,7 +45,9 @@ module Api
           if user
             return respond_with_banned if user.banned
 
-            response = wrap_token_response(user_id: user.id, token: user.auth_token)
+            token = user.auth_token
+            attributes = { user_id: user.id, auth_token: token }
+            response = JsonApiData.new(id: token, type: :token, attributes: attributes)
             render json: response, status: :created
           else
             respond_with_login_failure
@@ -86,19 +88,6 @@ module Api
           errors.add(detail: message, pointer: :password)
 
           render json: errors, status: :unprocessable_entity
-        end
-
-        def wrap_token_response(user_id:, token:)
-          {
-            data: {
-              id: token,
-              type: :token,
-              attributes: {
-                'auth-token' => token,
-                'user-id' => user_id.to_s
-              }
-            }
-          }
         end
       end
     end
