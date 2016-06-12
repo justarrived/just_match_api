@@ -23,6 +23,8 @@ gem 'aws-sdk', '~> 2.3' # Upload images to AWS S3
 
 gem 'airbrake', '~> 5.4' # Error catcher and reporter
 
+gem 'twilio-ruby', '~> 4.11.1' # Send SMS notifications
+
 group :production do
   gem 'rails_12factor', '~> 0.0.3' # Heroku integration
 end
