@@ -21,7 +21,7 @@ RSpec.describe Api::V1::Users::UserSessionsController, type: :controller do
 
   let(:valid_session) { {} }
 
-  describe 'POST #token' do
+  describe 'POST #create' do
     context 'valid user' do
       before(:each) do
         attrs = { email: email, password: password }

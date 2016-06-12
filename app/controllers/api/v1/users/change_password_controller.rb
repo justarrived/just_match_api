@@ -55,10 +55,9 @@ module Api
         def respond_with_password_error
           min_length = User::MIN_PASSWORD_LENGTH
           message = I18n.t('errors.user.password_length', count: min_length)
-          response_json = {
-            errors: [{ status: 422, detail: message }]
-          }
-          render json: response_json, status: :unprocessable_entity
+          errors = JsonApiErrors.new
+          errors.add(detail: message)
+          render json: errors, status: :unprocessable_entity
         end
       end
     end
