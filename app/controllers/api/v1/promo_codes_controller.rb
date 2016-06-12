@@ -24,13 +24,10 @@ module Api
         if promo_code == jsonapi_params[:promo_code]
           render json: {}, status: :ok
         else
-          errors = [{
-            status: 422,
-            source: { pointer: '/data/attributes/promo-code' },
-            detail: I18n.t('errors.messages.invalid')
-          }]
+          errors = JsonApiErrors.new
+          errors.add(pointer: :promo_code, detail: I18n.t('errors.messages.invalid'))
 
-          render json: { errors: errors }, status: :unprocessable_entity
+          render json: errors, status: :unprocessable_entity
         end
       end
     end

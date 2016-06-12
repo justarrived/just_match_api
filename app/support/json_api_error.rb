@@ -6,18 +6,23 @@ class JsonApiError
     self.pointer = pointer
   end
 
-  def to_json
+  def to_h
     response = { status: @status, detail: @detail }
-    response[:source] = { pointer: @pointer } unless @pointer.nil?
-
-    response.to_json
+    response.merge!(@pointer)
   end
+
+  delegate :to_json, to: :to_h
 
   private
 
   def pointer=(pointer)
-    return if pointer.nil?
+    @pointer = {}
+    return @pointer if pointer.nil?
 
-    @pointer = "/data/attributes/#{pointer}"
+    @pointer = {
+      source: {
+        pointer: "/data/attributes/#{pointer.to_s.dasherize}"
+      }
+    }
   end
 end

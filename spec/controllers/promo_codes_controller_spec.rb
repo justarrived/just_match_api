@@ -33,6 +33,15 @@ RSpec.describe Api::V1::PromoCodesController, type: :controller do
         post :validate, {}, {}
         expect(response.status).to eq(422)
       end
+
+      it 'returns error details' do
+        post :validate, {}, {}
+        json = JSON.parse(response.body)
+        message = I18n.t('errors.messages.invalid')
+        detail = json['errors'].first['detail']
+
+        expect(detail).to eq(message)
+      end
     end
   end
 
