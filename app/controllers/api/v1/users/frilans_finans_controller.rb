@@ -39,7 +39,7 @@ module Api
 
           errors = ff_param_errors
           if errors.any?
-            render json: { errors: errors }, status: :unprocessable_entity
+            render json: errors, status: :unprocessable_entity
             return
           end
 
@@ -101,19 +101,11 @@ module Api
 
         def validate_non_blank(params_hash, *fields)
           message = I18n.t('errors.messages.blank')
+          errors = JsonApiErrors.new
           fields.map do |field|
-            format_error(field, message) if params_hash[field].blank?
-          end.compact
-        end
-
-        def format_error(field, message)
-          {
-            status: 422,
-            detail: message,
-            source: {
-              pointer: "/data/attributes/#{field.to_s.dasherize}"
-            }
-          }
+            errors.add(detail: message, pointer: field) if params_hash[field].blank?
+          end
+          errors
         end
       end
     end
