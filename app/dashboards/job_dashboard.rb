@@ -26,6 +26,7 @@ class JobDashboard < Administrate::BaseDashboard
     hidden: Field::Boolean,
     verified: Field::Boolean,
     cancelled: Field::Boolean,
+    filled: Field::Boolean,
     hours: Field::Number.with_options(decimals: 2),
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
@@ -46,6 +47,7 @@ class JobDashboard < Administrate::BaseDashboard
     :name,
     :verified,
     :cancelled,
+    :filled,
     :company,
     :hourly_pay,
     :users
@@ -56,6 +58,7 @@ class JobDashboard < Administrate::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = [
     :verified,
     :cancelled,
+    :filled,
     :language,
     :hourly_pay,
     :category,
@@ -86,6 +89,7 @@ class JobDashboard < Administrate::BaseDashboard
   FORM_ATTRIBUTES = [
     :verified,
     :cancelled,
+    :filled,
     :language,
     :hourly_pay,
     :category,
