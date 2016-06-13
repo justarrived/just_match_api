@@ -26,7 +26,7 @@ module Api
           job_user = JobUser.find(params[:job_user_id])
           authorize_create(job_user)
 
-          # NOTE: This shouldn't be nil, consider:
+          # NOTE: This (ff_invoice) shouldn't be nil, consider:
           #     - a hard crash
           #     - gracefully:
           #         + return validation error

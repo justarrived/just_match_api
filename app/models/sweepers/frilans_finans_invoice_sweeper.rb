@@ -26,6 +26,8 @@ module Sweepers
         # If the returned resource id isn't the same as the one returned from their API
         # either an error has occured or something has gone terribly wrong
         if frilans_finans_id == frilans_finans_id_remote
+          # Send a notification to the job user, that the invoice has been
+          # created/activated (perhaps to the job owner too)
           ff_invoice.activated = true
           ff_invoice.save!
         else
