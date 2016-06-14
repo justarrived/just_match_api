@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/justarrived/backport_new_renderer
+  revision: 02448549359473c596e4fe0578d629344eede169
+  specs:
+    backport_new_renderer (1.0.0)
+      rails (~> 4.0)
+
 PATH
   remote: lib/frilans_finans_api
   specs:
@@ -515,6 +522,7 @@ DEPENDENCIES
   annotate (~> 2.7)
   apipie-rails (~> 0.3)
   aws-sdk (~> 2.3)
+  backport_new_renderer (~> 1.0)!
   bcrypt (~> 3.1.7)
   better_errors (~> 2.1)
   binding_of_caller (~> 0.7)
