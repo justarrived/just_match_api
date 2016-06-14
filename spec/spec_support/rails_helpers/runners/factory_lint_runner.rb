@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require 'spec_support/runners/spec_runner_helper'
+require 'spec_support/rails_helpers/runners/spec_runner_helper'
 
 module FactoryLintRunner
   extend SpecRunnerHelper

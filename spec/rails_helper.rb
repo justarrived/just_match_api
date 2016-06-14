@@ -10,11 +10,10 @@ require 'rspec/rails'
 require 'shoulda/matchers'
 require 'paperclip/matchers'
 require 'pundit/rspec'
-require 'webmock/rspec'
 require 'sidekiq/testing'
 Sidekiq::Testing.fake!
 
-Dir[Rails.root.join('spec/spec_support/**/*.rb')].each { |f| require f }
+Dir[Rails.root.join('spec/spec_support/rails_helpers/**/*.rb')].each { |f| require f }
 
 # Checks for pending migration and applies them before tests are run.
 ActiveRecord::Migration.maintain_test_schema!
@@ -59,7 +58,3 @@ RSpec.configure do |config|
     FileUtils.rm_rf(Dir["#{Rails.root}/spec/test_files/"])
   end
 end
-
-# Only allow the tests to connect to localhost and  allow codeclimate
-# codeclimate (for test coverage reporting)
-WebMock.disable_net_connect!(allow_localhost: true, allow: 'codeclimate.com')
