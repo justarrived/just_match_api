@@ -25,7 +25,7 @@ gem 'airbrake', '~> 5.4' # Error catcher and reporter
 
 gem 'twilio-ruby', '~> 4.11.1' # Send SMS notifications
 
- # Backports, Rails 5, render view from anywhere
+# Backports, Rails 5, render view from anywhere
 gem 'backport_new_renderer', '~> 1.0', git: 'https://github.com/justarrived/backport_new_renderer' # rubocop:disable Metrics/LineLength
 
 group :production do

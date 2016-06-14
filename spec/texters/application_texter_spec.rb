@@ -55,9 +55,9 @@ RSpec.describe ApplicationTexter do
     it 'sends text message' do
       return_value = 'Wat'
       allow(described_class.delayed_job_klass).to(
-        receive(:perform_later)
-          .with(from: from, to: to, body: body)
-          .and_return(return_value)
+        receive(:perform_later).
+          with(from: from, to: to, body: body).
+          and_return(return_value)
       )
       result = subject.deliver_later
 
