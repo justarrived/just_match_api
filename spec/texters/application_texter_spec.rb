@@ -31,8 +31,7 @@ RSpec.describe ApplicationTexter do
     it 'returns a hash with all instance variables' do
       described_class.instance_variable_set('@name', value)
 
-      # RSpec adds the instance variable @parent_name, so we need to "expect" it
-      expected = { 'name' => value, 'parent_name' => nil }
+      expected = { 'name' => value }
       expect(described_class._pack_instance_variables).to eq(expected)
     end
   end

@@ -17,6 +17,10 @@ class ApplicationTexter
   def self._pack_instance_variables
     assigns = {}
     instance_variables.each do |instance_variable|
+      # Rails is being Rails, so sometimes there is an instance variable @parent_name
+      # defined (and of course... sometimes not [sic])
+      # http://api.rubyonrails.org/classes/Module.html#method-i-parent_name
+      next if instance_variable == :@parent_name
       variable_name = instance_variable.to_s[1..-1] # Remove '@' char
       assigns[variable_name] = instance_variable_get(instance_variable)
     end
