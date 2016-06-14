@@ -55,9 +55,12 @@ module JustMatch
       end
     end
 
+    # rubocop:disable Metrics/LineLength
     config.x.frilans_finans = ENV['FRILANS_FINANS_ACTIVE'] == 'true'
-    config.x.validate_job_date_in_future_inactive = ENV['VALIDATE_JOB_DATE_IN_FUTURE_INACTIVE'] == 'true' # rubocop:disable Metrics/LineLength
+    config.x.validate_job_date_in_future_inactive = ENV['VALIDATE_JOB_DATE_IN_FUTURE_INACTIVE'] == 'true'
     config.x.promo_code = ENV['PROMO_CODE']
+    config.x.send_sms_notifications = ENV.fetch('SEND_SMS_NOTIFICATIONS', 'true') == 'true'
+    # rubocop:enable Metrics/LineLength
 
     config.paperclip_defaults = {
       storage: :fog,

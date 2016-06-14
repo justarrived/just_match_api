@@ -15,6 +15,8 @@ Sidekiq::Testing.fake!
 
 Dir[Rails.root.join('spec/spec_support/rails_helpers/**/*.rb')].each { |f| require f }
 
+SMSClient.client = FakeSMS
+
 # Checks for pending migration and applies them before tests are run.
 ActiveRecord::Migration.maintain_test_schema!
 
@@ -56,5 +58,9 @@ RSpec.configure do |config|
 
   config.after(:suite) do
     FileUtils.rm_rf(Dir["#{Rails.root}/spec/test_files/"])
+  end
+
+  config.before(:each) do
+    FakeSMS.messages = []
   end
 end
