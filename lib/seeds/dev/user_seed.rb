@@ -7,6 +7,8 @@ module Dev
       max_users = max_count_opt('MAX_USERS', 50)
       max_company_users = max_count_opt('MAX_COMPANY_USERS', 5)
 
+      Faker::Config.locale = 'sv'
+
       system_languages = languages.system_languages
 
       log_seed(User, UserSkill, UserLanguage) do
