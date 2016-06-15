@@ -12,6 +12,8 @@ class User < ApplicationRecord
 
   attr_accessor :password
 
+  after_validation :normalize_phone
+
   before_create :generate_auth_token
   before_save :encrypt_password
 
@@ -124,6 +126,12 @@ class User < ApplicationRecord
     frilans_finans_id || fail('User has no Frilans Finans id!')
   end
 
+  def normalize_phone
+    normalized_phone_number = GlobalPhone.normalize(phone, :se)
+
+    self.phone = normalized_phone_number
+  end
+
   def banned=(value)
     generate_auth_token if value
     self[:banned] = value
@@ -154,7 +162,7 @@ class User < ApplicationRecord
       first_name: 'Ghost',
       last_name: 'user',
       email: "ghost+#{SecureRandom.uuid}@example.com",
-      phone: '123456789',
+      phone: '+46735000000',
       description: 'This user has been deleted.',
       street: 'Stockholm',
       zip: '11120',

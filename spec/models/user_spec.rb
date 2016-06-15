@@ -22,6 +22,24 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe '#normalize_phone' do
+    it 'normalizes phone number without country prefix' do
+      user = User.new(phone: '073 5000 000')
+      user.validate
+      expect(user.phone).to eq('+46735000000')
+    end
+
+    it 'normalizes phone number with country prefix' do
+      user = User.new(phone: '+4673 5000 000')
+      user.validate
+      expect(user.phone).to eq('+46735000000')
+
+      user = User.new(phone: '004673 5000 000')
+      user.validate
+      expect(user.phone).to eq('+46735000000')
+    end
+  end
+
   describe 'geocodable' do
     let(:user) { FactoryGirl.create(:user) }
 
@@ -50,7 +68,7 @@ RSpec.describe User, type: :model do
 
       expect(user.name).to eq('Ghost user')
       expect(user.email).not_to eq(old_email)
-      expect(user.phone).to eq('123456789')
+      expect(user.phone).to eq('+46735000000')
       expect(user.description).to eq('This user has been deleted.')
       expect(user.street).to eq('Stockholm')
       expect(user.zip).to eq('11120')
