@@ -23,40 +23,60 @@ RSpec.describe Api::V1::Users::UserSessionsController, type: :controller do
 
   describe 'POST #create' do
     context 'valid user' do
-      before(:each) do
-        attrs = { email: email, password: password }
-        FactoryGirl.create(:user, attrs)
-      end
-
-      it 'should return success status' do
-        post :create, valid_attributes, valid_session
-        expect(response.status).to eq(201)
-      end
-
-      it 'should return JSON with token key' do
-        post :create, valid_attributes, valid_session
-        json = JSON.parse(response.body)
-        jsonapi_params = JsonApiDeserializer.parse(json)
-        expect(jsonapi_params['auth_token'].length).to eq(36)
-      end
-
-      it 'should return JSON with user id' do
-        post :create, valid_attributes, valid_session
-        json = JSON.parse(response.body)
-        jsonapi_params = JsonApiDeserializer.parse(json)
-        expect(jsonapi_params['user_id']).not_to be_nil
-      end
-
-      context 'promo code' do
+      context 'with email given' do
         before(:each) do
-          Rails.configuration.x.promo_code = 'test_promo_code'
+          attrs = { email: email, password: password }
+          FactoryGirl.create(:user, attrs)
         end
 
-        after(:each) do
-          Rails.configuration.x.promo_code = nil
+        it 'should return success status' do
+          post :create, valid_attributes, valid_session
+          expect(response.status).to eq(201)
         end
 
-        it 'lets the request pass even if there is a promo code' do
+        it 'should return JSON with token key' do
+          post :create, valid_attributes, valid_session
+          json = JSON.parse(response.body)
+          jsonapi_params = JsonApiDeserializer.parse(json)
+          expect(jsonapi_params['auth_token'].length).to eq(36)
+        end
+
+        it 'should return JSON with user id' do
+          post :create, valid_attributes, valid_session
+          json = JSON.parse(response.body)
+          jsonapi_params = JsonApiDeserializer.parse(json)
+          expect(jsonapi_params['user_id']).not_to be_nil
+        end
+
+        context 'promo code' do
+          before(:each) do
+            Rails.configuration.x.promo_code = 'test_promo_code'
+          end
+
+          after(:each) do
+            Rails.configuration.x.promo_code = nil
+          end
+
+          it 'lets the request pass even if there is a promo code' do
+            post :create, valid_attributes, valid_session
+            expect(response.status).to eq(201)
+          end
+        end
+      end
+
+      context 'with phone given' do
+        it 'should return success status' do
+          password = '12345678'
+          user = FactoryGirl.create(:user, password: password)
+          valid_attributes = {
+            data: {
+              attributes: {
+                phone: user.phone,
+                password: password
+              }
+            }
+          }
+
           post :create, valid_attributes, valid_session
           expect(response.status).to eq(201)
         end

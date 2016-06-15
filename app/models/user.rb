@@ -12,7 +12,7 @@ class User < ApplicationRecord
 
   attr_accessor :password
 
-  after_validation :normalize_phone
+  after_validation :set_normalized_phone
 
   before_create :generate_auth_token
   before_save :encrypt_password
@@ -44,7 +44,7 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true
   validates :first_name, length: { minimum: 2 }, allow_blank: false
   validates :last_name, length: { minimum: 2 }, allow_blank: false
-  validates :phone, length: { minimum: 9 }, allow_blank: false
+  validates :phone, length: { minimum: 9 }, uniqueness: true, allow_blank: false
   validates :description, length: { minimum: 10 }, allow_blank: true
   validates :street, length: { minimum: 5 }, allow_blank: true
   validates :zip, length: { minimum: 5 }, allow_blank: true
@@ -85,8 +85,12 @@ class User < ApplicationRecord
     valid_one_time_tokens.find_by(one_time_token: token)
   end
 
-  def self.find_by_credentials(email:, password:)
-    user = find_by(email: email) || return
+  def self.find_by_credentials(password:, email: nil, phone: nil)
+    user = find_by(email: email) unless email.blank?
+    user = find_by(phone: phone) unless phone.blank?
+
+    return if user.nil?
+
     user if correct_password?(user, password)
   end
 
@@ -126,10 +130,12 @@ class User < ApplicationRecord
     frilans_finans_id || fail('User has no Frilans Finans id!')
   end
 
-  def normalize_phone
-    normalized_phone_number = GlobalPhone.normalize(phone, :se)
+  def set_normalized_phone
+    self.phone = normalize_phone_number(phone)
+  end
 
-    self.phone = normalized_phone_number
+  def normalize_phone_number(phone_number)
+    PhoneNumber.normalize(phone_number)
   end
 
   def banned=(value)
@@ -157,17 +163,20 @@ class User < ApplicationRecord
   end
 
   def reset!
-    update!(
+    # Update the users attributes and don't validate
+    assign_attributes(
       anonymized: true,
       first_name: 'Ghost',
       last_name: 'user',
       email: "ghost+#{SecureRandom.uuid}@example.com",
-      phone: '+46735000000',
+      phone: nil,
       description: 'This user has been deleted.',
       street: 'Stockholm',
       zip: '11120',
-      ssn: '0000000000'
+      ssn: '0000000000',
+      password: SecureRandom.uuid
     )
+    save!(validate: false)
   end
 
   def generate_auth_token
@@ -200,16 +209,14 @@ class User < ApplicationRecord
   end
 
   def validate_format_of_phone_number
-    number = GlobalPhone.parse(phone, :se)
-    return if number && number.valid?
+    return if PhoneNumber.valid?(phone)
 
     error_message = I18n.t('errors.user.must_be_valid_phone_number_format')
     errors.add(:phone, error_message)
   end
 
   def validate_swedish_phone_number
-    number = GlobalPhone.parse(phone, :se)
-    return if number && number.territory.name == 'SE'
+    return if PhoneNumber.swedish_number?(phone)
 
     error_message = I18n.t('errors.user.must_be_swedish_phone_number')
     errors.add(:phone, error_message)
