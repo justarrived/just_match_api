@@ -261,6 +261,46 @@ RSpec.describe User, type: :model do
       expect(message || []).not_to include(I18n.t('errors.user.must_be_available_locale'))
     end
   end
+
+  describe '#validate_format_of_phone_number' do
+    let(:error_message) { I18n.t('errors.user.must_be_valid_phone_number_format') }
+
+    it 'adds error if format of phone is not valid' do
+      user = FactoryGirl.build(:user, phone: '000123456789')
+      user.validate
+
+      message = user.errors.messages[:phone]
+      expect(message).to include(error_message)
+    end
+
+    it 'adds *no* error if phone format is valid' do
+      user = FactoryGirl.build(:user)
+      user.validate
+
+      message = user.errors.messages[:phone]
+      expect(message || []).not_to include(error_message)
+    end
+  end
+
+  describe '#validate_swedish_phone_number' do
+    let(:error_message) { I18n.t('errors.user.must_be_swedish_phone_number') }
+
+    it 'adds error if phone number is not Swedish' do
+      user = FactoryGirl.build(:user, phone: '+1123456789')
+      user.validate
+
+      message = user.errors.messages[:phone]
+      expect(message).to include(error_message)
+    end
+
+    it 'adds *no* error if phone number is Swedish' do
+      user = FactoryGirl.build(:user)
+      user.validate
+
+      message = user.errors.messages[:phone]
+      expect(message || []).not_to include(error_message)
+    end
+  end
 end
 
 # == Schema Information

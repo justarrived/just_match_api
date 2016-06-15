@@ -149,7 +149,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       let(:new_attributes) do
         {
           data: {
-            attributes: { phone: '987654321' }
+            attributes: { first_name: 'Johanna' }
           }
         }
       end
@@ -161,7 +161,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
           params = { user_id: user.to_param }.merge(new_attributes)
           put :update, params, valid_session
           user.reload
-          expect(user.phone).to eq('987654321')
+          expect(user.first_name).to eq('Johanna')
         end
 
         it 'assigns the requested user as @user' do
@@ -211,10 +211,11 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         let(:user) { FactoryGirl.create(:user) }
 
         it 'does not update the requested user' do
+          old_name = user.first_name
           params = { user_id: user.to_param }.merge(new_attributes)
           put :update, params, {}
           user.reload
-          expect(user.phone).to eq('1234567890')
+          expect(user.first_name).to eq(old_name)
         end
 
         it 'does not assign the requested user as user' do

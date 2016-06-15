@@ -52,6 +52,8 @@ class User < ApplicationRecord
   validates :frilans_finans_id, uniqueness: true, allow_nil: true
 
   validate :validate_language_id_in_available_locale
+  validate :validate_format_of_phone_number
+  validate :validate_swedish_phone_number
 
   scope :admins, -> { where(admin: true) }
   scope :company_users, -> { where.not(company: nil) }
@@ -187,6 +189,22 @@ class User < ApplicationRecord
     unless I18n.available_locales.map(&:to_s).include?(language.lang_code)
       errors.add(:language_id, I18n.t('errors.user.must_be_available_locale'))
     end
+  end
+
+  def validate_format_of_phone_number
+    number = GlobalPhone.parse(phone, :se)
+    return if number && number.valid?
+
+    error_message = I18n.t('errors.user.must_be_valid_phone_number_format')
+    errors.add(:phone, error_message)
+  end
+
+  def validate_swedish_phone_number
+    number = GlobalPhone.parse(phone, :se)
+    return if number && number.territory.name == 'SE'
+
+    error_message = I18n.t('errors.user.must_be_swedish_phone_number')
+    errors.add(:phone, error_message)
   end
 
   private
