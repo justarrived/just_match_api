@@ -5,6 +5,7 @@ module Api
       class ChangePasswordController < BaseController
         after_action :verify_authorized, only: []
 
+        before_action :require_promo_code, except: [:create]
         before_action :set_user
 
         api :POST, '/users/change-password/', 'Change password'

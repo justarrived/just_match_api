@@ -3,6 +3,7 @@ module Api
   module V1
     module Users
       class ResetPasswordController < BaseController
+        before_action :require_promo_code, except: [:create]
         after_action :verify_authorized, only: []
 
         api :POST, '/users/reset-password/', 'Reset password'
