@@ -21,7 +21,8 @@ module Api
         error code: 403, desc: 'Forbidden'
         param :data, Hash, desc: 'Top level key', required: true do
           param :attributes, Hash, desc: 'User session attributes', required: true do
-            param :email, String, desc: 'Email', required: true
+            param :email, String, desc: 'Email (required unless phone given)'
+            param :phone, String, desc: 'Phone (required unless email given)'
             param :password, String, desc: 'Password', required: true
           end
         end
@@ -38,10 +39,10 @@ module Api
   }'
         def create
           email = jsonapi_params[:email]
+          phone = PhoneNumber.normalize(jsonapi_params[:phone])
           password = jsonapi_params[:password]
 
-          user = User.find_by_credentials(email: email, password: password)
-
+          user = User.find_by_credentials(email: email, phone: phone, password: password)
           if user
             return respond_with_banned if user.banned
 

@@ -68,7 +68,7 @@ RSpec.describe User, type: :model do
 
       expect(user.name).to eq('Ghost user')
       expect(user.email).not_to eq(old_email)
-      expect(user.phone).to eq('+46735000000')
+      expect(user.phone).to be_nil
       expect(user.description).to eq('This user has been deleted.')
       expect(user.street).to eq('Stockholm')
       expect(user.zip).to eq('11120')
@@ -206,6 +206,101 @@ RSpec.describe User, type: :model do
         token = user.one_time_token
         Timecop.freeze(Time.zone.today + 30) do
           expect(User.find_by_one_time_token(token)).to be_nil
+        end
+      end
+    end
+  end
+
+  describe '#find_by_credentials' do
+    context 'incorrect password' do
+      it 'returns nil' do
+        password = '12345678'
+        user = FactoryGirl.create(:user, password: password)
+        email = user.email
+
+        found_user = User.find_by_credentials(email: email, password: password + '1')
+        expect(found_user).to be_nil
+      end
+    end
+
+    context 'email' do
+      context 'correct' do
+        it 'finds and returns user' do
+          password = '12345678'
+          user = FactoryGirl.create(:user, password: password)
+          email = user.email
+
+          found_user = User.find_by_credentials(email: email, password: password)
+          expect(found_user).to eq(user)
+        end
+      end
+
+      context 'incorrect' do
+        it 'returns nil' do
+          password = '12345678'
+          user = FactoryGirl.create(:user, password: password)
+          email = user.email + '1'
+
+          found_user = User.find_by_credentials(email: email, password: password)
+          expect(found_user).to be_nil
+        end
+      end
+
+      context 'email and phone given' do
+        context 'with correct email and phone' do
+          it 'finds and returns user' do
+            password = '12345678'
+            user = FactoryGirl.create(:user, password: password)
+            email = user.email
+            phone = user.phone
+
+            found_user = User.find_by_credentials(
+              email: email,
+              phone: phone,
+              password: password
+            )
+            expect(found_user).to eq(user)
+          end
+        end
+
+        context 'with incorrect email and correct phone' do
+          it 'finds and returns user' do
+            password = '12345678'
+            user = FactoryGirl.create(:user, password: password)
+            email = user.email + '1'
+            phone = user.phone
+
+            found_user = User.find_by_credentials(
+              email: email,
+              phone: phone,
+              password: password
+            )
+            expect(found_user).to eq(user)
+          end
+        end
+      end
+    end
+
+    context 'phone number' do
+      context 'correct' do
+        it 'finds and returns user' do
+          password = '12345678'
+          user = FactoryGirl.create(:user, password: password)
+          phone = user.phone
+
+          found_user = User.find_by_credentials(phone: phone, password: password)
+          expect(found_user).to eq(user)
+        end
+
+        context 'incorrect' do
+          it 'returns nil' do
+            password = '12345678'
+            user = FactoryGirl.create(:user, password: password)
+            phone = user.phone + '1'
+
+            found_user = User.find_by_credentials(phone: phone, password: password)
+            expect(found_user).to be_nil
+          end
         end
       end
     end
