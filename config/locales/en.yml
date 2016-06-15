@@ -44,6 +44,8 @@ en:
     user:
       password_length: password must have at least %{count} characters
       must_be_available_locale: must be a supported langauge
+      must_be_valid_phone_number_format: must be a valid phone number
+      must_be_swedish_phone_number: must be a Swedish phone number (+46)
     validators:
       after_true: '%{field} must be true'
       unrevertable: can't revert %{field}

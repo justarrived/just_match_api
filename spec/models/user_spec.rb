@@ -22,6 +22,24 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe '#normalize_phone' do
+    it 'normalizes phone number without country prefix' do
+      user = User.new(phone: '073 5000 000')
+      user.validate
+      expect(user.phone).to eq('+46735000000')
+    end
+
+    it 'normalizes phone number with country prefix' do
+      user = User.new(phone: '+4673 5000 000')
+      user.validate
+      expect(user.phone).to eq('+46735000000')
+
+      user = User.new(phone: '004673 5000 000')
+      user.validate
+      expect(user.phone).to eq('+46735000000')
+    end
+  end
+
   describe 'geocodable' do
     let(:user) { FactoryGirl.create(:user) }
 
@@ -50,7 +68,7 @@ RSpec.describe User, type: :model do
 
       expect(user.name).to eq('Ghost user')
       expect(user.email).not_to eq(old_email)
-      expect(user.phone).to eq('123456789')
+      expect(user.phone).to eq('+46735000000')
       expect(user.description).to eq('This user has been deleted.')
       expect(user.street).to eq('Stockholm')
       expect(user.zip).to eq('11120')
@@ -259,6 +277,46 @@ RSpec.describe User, type: :model do
 
       message = user.errors.messages[:language_id]
       expect(message || []).not_to include(I18n.t('errors.user.must_be_available_locale'))
+    end
+  end
+
+  describe '#validate_format_of_phone_number' do
+    let(:error_message) { I18n.t('errors.user.must_be_valid_phone_number_format') }
+
+    it 'adds error if format of phone is not valid' do
+      user = FactoryGirl.build(:user, phone: '000123456789')
+      user.validate
+
+      message = user.errors.messages[:phone]
+      expect(message).to include(error_message)
+    end
+
+    it 'adds *no* error if phone format is valid' do
+      user = FactoryGirl.build(:user)
+      user.validate
+
+      message = user.errors.messages[:phone]
+      expect(message || []).not_to include(error_message)
+    end
+  end
+
+  describe '#validate_swedish_phone_number' do
+    let(:error_message) { I18n.t('errors.user.must_be_swedish_phone_number') }
+
+    it 'adds error if phone number is not Swedish' do
+      user = FactoryGirl.build(:user, phone: '+1123456789')
+      user.validate
+
+      message = user.errors.messages[:phone]
+      expect(message).to include(error_message)
+    end
+
+    it 'adds *no* error if phone number is Swedish' do
+      user = FactoryGirl.build(:user)
+      user.validate
+
+      message = user.errors.messages[:phone]
+      expect(message || []).not_to include(error_message)
     end
   end
 end

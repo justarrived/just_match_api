@@ -44,6 +44,8 @@ sv:
     user:
       password_length: lösenordet måste vara minst %{count} tecken
       must_be_available_locale: ditt språk stöds tyvärr inte
+      must_be_valid_phone_number_format: måste vara ett gilltigt format
+      must_be_swedish_phone_number: måste vara ett gilltigt svenskt nummer (+46)
     validators:
       after_true: '%{field} måste vara sant'
       unrevertable: kan inte återställa %{field}

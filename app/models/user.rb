@@ -12,6 +12,8 @@ class User < ApplicationRecord
 
   attr_accessor :password
 
+  after_validation :normalize_phone
+
   before_create :generate_auth_token
   before_save :encrypt_password
 
@@ -52,6 +54,8 @@ class User < ApplicationRecord
   validates :frilans_finans_id, uniqueness: true, allow_nil: true
 
   validate :validate_language_id_in_available_locale
+  validate :validate_format_of_phone_number
+  validate :validate_swedish_phone_number
 
   scope :admins, -> { where(admin: true) }
   scope :company_users, -> { where.not(company: nil) }
@@ -122,6 +126,12 @@ class User < ApplicationRecord
     frilans_finans_id || fail('User has no Frilans Finans id!')
   end
 
+  def normalize_phone
+    normalized_phone_number = GlobalPhone.normalize(phone, :se)
+
+    self.phone = normalized_phone_number
+  end
+
   def banned=(value)
     generate_auth_token if value
     self[:banned] = value
@@ -152,7 +162,7 @@ class User < ApplicationRecord
       first_name: 'Ghost',
       last_name: 'user',
       email: "ghost+#{SecureRandom.uuid}@example.com",
-      phone: '123456789',
+      phone: '+46735000000',
       description: 'This user has been deleted.',
       street: 'Stockholm',
       zip: '11120',
@@ -187,6 +197,22 @@ class User < ApplicationRecord
     unless I18n.available_locales.map(&:to_s).include?(language.lang_code)
       errors.add(:language_id, I18n.t('errors.user.must_be_available_locale'))
     end
+  end
+
+  def validate_format_of_phone_number
+    number = GlobalPhone.parse(phone, :se)
+    return if number && number.valid?
+
+    error_message = I18n.t('errors.user.must_be_valid_phone_number_format')
+    errors.add(:phone, error_message)
+  end
+
+  def validate_swedish_phone_number
+    number = GlobalPhone.parse(phone, :se)
+    return if number && number.territory.name == 'SE'
+
+    error_message = I18n.t('errors.user.must_be_swedish_phone_number')
+    errors.add(:phone, error_message)
   end
 
   private

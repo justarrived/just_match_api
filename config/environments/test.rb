@@ -45,6 +45,10 @@ Rails.application.configure do
 
   config.x.promo_code = nil
 
+  config.active_job.queue_adapter = :test
+
+  config.x.send_sms_notifications = false
+
   config.after_initialize do
     Bullet.enable = true
     Bullet.bullet_logger = true

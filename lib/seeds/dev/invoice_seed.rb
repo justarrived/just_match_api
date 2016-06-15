@@ -14,8 +14,9 @@ module Dev
             job.save(validate: false) # Saving jobs in the passed is otherwised validated
           end
 
+          ff_invoice = FrilansFinansInvoice.find_or_initialize_by(job_user: job_user)
           invoice = Invoice.find_or_initialize_by(job_user: job_user)
-          invoice.frilans_finans_id = Faker::Number.between(1, 10_000_000)
+          invoice.frilans_finans_invoice = ff_invoice
           invoice.save!
         end
       end

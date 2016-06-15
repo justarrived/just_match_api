@@ -7,7 +7,9 @@ FactoryGirl.define do
       "person#{n}@example.com"
     end
     password '1234567890'
-    phone '1234567890'
+    sequence :phone do |n|
+      "+4673#{50_000_00 + n}"
+    end
     description 'Watman ' * 2
     street 'Bankgatan 14C'
     zip '223 52'

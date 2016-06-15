@@ -44,6 +44,8 @@ Rails.application.configure do
 
   config.action_mailer.default_url_options = { host: 'localhost:3000' }
 
+  config.x.send_sms_notifications = false
+
   config.after_initialize do
     Bullet.enable = true
     Bullet.bullet_logger = true
