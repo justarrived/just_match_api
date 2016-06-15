@@ -28,6 +28,8 @@ gem 'twilio-ruby', '~> 4.11.1' # Send SMS notifications
 # Backports, Rails 5, render view from anywhere
 gem 'backport_new_renderer', '~> 1.0', git: 'https://github.com/justarrived/backport_new_renderer' # rubocop:disable Metrics/LineLength
 
+gem 'global_phone', '~> 1.0' # Format cell phone numbers
+
 group :production do
   gem 'rails_12factor', '~> 0.0.3' # Heroku integration
 end
