@@ -35,7 +35,7 @@ ti:
       user_allowed_to_rate: እቲ ወናን ስራሕ ወይ እቲ ከምዝተቐበለ ዘረጋገጸ ተጠቃሚ ክኸውን ይግባእ፡፡
     user_session:
       banned: ንተጠቃማይ ዝምልከት መምርሒ ስለዘይተኸተልካ እቲ ኣድሚን ዓጽዩካ ወይ ብሎክ ገይሩካ ኣሎ፡፡ በዚ ዝስዕብ ናይ ኢ-መይል ኣድራሻና ክትረኽበና ትኽእል፥ help@justarrived.
-      wrong_email_or_password: ግጉይ ኢ-መይል ወይ ግጉይ መእተዊ-ኮድ
+      wrong_email_or_phone_or_password: ግጉይ ኢ-መይል ወይ ግጉይ መእተዊ-ኮድ
     user:
       password_length: እቲ ናይ መእተዊ-ኮድ ናይ ግድን ብዉሑድ %{count} ኣሃዝ ዝሓዘ ክኸውን ኣለዎ፡፡
       must_be_available_locale: ምስ ሰናይ ይቕሬታ ቋንቋኻ እቱው ኣይኮነን

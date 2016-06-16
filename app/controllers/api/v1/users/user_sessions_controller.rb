@@ -21,6 +21,8 @@ module Api
         error code: 403, desc: 'Forbidden'
         param :data, Hash, desc: 'Top level key', required: true do
           param :attributes, Hash, desc: 'User session attributes', required: true do
+            # NOTE: The email param is kept for backward compability reasons
+            #       remove when frontend is using email_or_phone param
             param :email, String, desc: 'Email (required unless email_or_phone given)'
             param :email_or_phone, String, desc: 'Email or phone (required unless email given)' # rubocop:disable Metrics/LineLength
             param :password, String, desc: 'Password', required: true
@@ -88,9 +90,12 @@ module Api
         end
 
         def respond_with_login_failure
-          message = I18n.t('errors.user_session.wrong_email_or_password')
+          message = I18n.t('errors.user_session.wrong_email_or_phone_or_password')
           errors = JsonApiErrors.new
+          # NOTE: The email param is kept for backward compability reasons
+          #       remove when frontend is using email_or_phone param
           errors.add(detail: message, pointer: :email)
+          errors.add(detail: message, pointer: :email_or_phone)
           errors.add(detail: message, pointer: :password)
 
           render json: errors, status: :unprocessable_entity

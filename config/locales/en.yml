@@ -40,7 +40,7 @@ en:
       user_allowed_to_rate: must be the job owner or the accepted applicant
     user_session:
       banned: an admin has banned you for not following the Terms of Agreement or the Code of Conduct. Please contact help@justarrived.se, to resolve this issue.
-      wrong_email_or_password: wrong email or password
+      wrong_email_or_phone_or_password: wrong email, phone or password
     user:
       password_length: password must have at least %{count} characters
       must_be_available_locale: must be a supported langauge

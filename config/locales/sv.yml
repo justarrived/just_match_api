@@ -40,7 +40,7 @@ sv:
       user_allowed_to_rate: måste vara jobb ägaren eller den accepterade användaren
     user_session:
       banned: en administratör har blockerat dig eftersom du inte följt Användarvillkoren. Vad god kontakta help@justarrived.
-      wrong_email_or_password: fel epost eller lösenord
+      wrong_email_or_phone_or_password: fel epost, telefonnummer eller lösenord
     user:
       password_length: lösenordet måste vara minst %{count} tecken
       must_be_available_locale: ditt språk stöds tyvärr inte

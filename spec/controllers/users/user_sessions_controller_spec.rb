@@ -91,7 +91,7 @@ RSpec.describe Api::V1::Users::UserSessionsController, type: :controller do
 
       it 'returns explaination' do
         post :create, valid_attributes, valid_session
-        message = I18n.t('errors.user_session.wrong_email_or_password')
+        message = I18n.t('errors.user_session.wrong_email_or_phone_or_password')
         json = JSON.parse(response.body)
         first_detail = json['errors'].first['detail']
         last_detail = json['errors'].last['detail']

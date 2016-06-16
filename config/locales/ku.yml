@@ -35,7 +35,7 @@ ku:
       user_allowed_to_rate: divê xwedîyê karî be yan bikarînerê qebûlkirî be
     user_session:
       banned: birêveberekî rê li te girtiye çunkî te li gor Şertên bikaranînê nekiriye. Ji kerema xwe pêwendîyê bi help@justarrived.se bike.
-      wrong_email_or_password: e-poste yan şîfre şaş e
+      wrong_email_or_phone_or_password: e-poste yan şîfre şaş e
     user:
       password_length: divê şîfre herî kêm %{count} nîşan be
       must_be_available_locale: mixabin, ev bi zimanê te tune ye

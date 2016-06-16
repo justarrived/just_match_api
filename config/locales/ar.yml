@@ -35,7 +35,7 @@ ar:
       user_allowed_to_rate: يجب أن يكون صاحب العمل أو المستخدم المقبول
     user_session:
       banned: 'الإداري منعك من الدخول لأنك لم تحترم شروط الاستعمال رجاءً اتصل ب: help@justarrived'
-      wrong_email_or_password: عنوان أو كلمة سرّ خاطئة
+      wrong_email_or_phone_or_password: عنوان أو كلمة سرّ خاطئة
     user:
       password_length: 'يجب أن تكون كلمة السر على الأقل من%{count}رموز '
       must_be_available_locale: لغتك غير مدعومة للأسف
