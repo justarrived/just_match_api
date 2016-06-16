@@ -22,7 +22,7 @@ module Api
         param :data, Hash, desc: 'Top level key', required: true do
           param :attributes, Hash, desc: 'User session attributes', required: true do
             param :email, String, desc: 'Email (required unless email_or_phone given)'
-            param :email_or_phone, String, desc: 'Email or phone (required unless email given)'
+            param :email_or_phone, String, desc: 'Email or phone (required unless email given)' # rubocop:disable Metrics/LineLength
             param :password, String, desc: 'Password', required: true
           end
         end
