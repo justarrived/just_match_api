@@ -218,7 +218,10 @@ RSpec.describe User, type: :model do
         user = FactoryGirl.create(:user, password: password)
         email = user.email
 
-        found_user = User.find_by_credentials(email: email, password: password + '1')
+        found_user = User.find_by_credentials(
+          email_or_phone: email,
+          password: password + '1'
+        )
         expect(found_user).to be_nil
       end
     end
@@ -230,7 +233,7 @@ RSpec.describe User, type: :model do
           user = FactoryGirl.create(:user, password: password)
           email = user.email
 
-          found_user = User.find_by_credentials(email: email, password: password)
+          found_user = User.find_by_credentials(email_or_phone: email, password: password)
           expect(found_user).to eq(user)
         end
       end
@@ -241,42 +244,8 @@ RSpec.describe User, type: :model do
           user = FactoryGirl.create(:user, password: password)
           email = user.email + '1'
 
-          found_user = User.find_by_credentials(email: email, password: password)
+          found_user = User.find_by_credentials(email_or_phone: email, password: password)
           expect(found_user).to be_nil
-        end
-      end
-
-      context 'email and phone given' do
-        context 'with correct email and phone' do
-          it 'finds and returns user' do
-            password = '12345678'
-            user = FactoryGirl.create(:user, password: password)
-            email = user.email
-            phone = user.phone
-
-            found_user = User.find_by_credentials(
-              email: email,
-              phone: phone,
-              password: password
-            )
-            expect(found_user).to eq(user)
-          end
-        end
-
-        context 'with incorrect email and correct phone' do
-          it 'finds and returns user' do
-            password = '12345678'
-            user = FactoryGirl.create(:user, password: password)
-            email = user.email + '1'
-            phone = user.phone
-
-            found_user = User.find_by_credentials(
-              email: email,
-              phone: phone,
-              password: password
-            )
-            expect(found_user).to eq(user)
-          end
         end
       end
     end
@@ -288,7 +257,16 @@ RSpec.describe User, type: :model do
           user = FactoryGirl.create(:user, password: password)
           phone = user.phone
 
-          found_user = User.find_by_credentials(phone: phone, password: password)
+          found_user = User.find_by_credentials(email_or_phone: phone, password: password)
+          expect(found_user).to eq(user)
+        end
+
+        it 'finds and returns user given a non-normalized phone number' do
+          password = '12345678'
+          user = FactoryGirl.create(:user, password: password)
+          phone = user.phone.insert(3, '-  ') # Make user phone number non-normalized
+
+          found_user = User.find_by_credentials(email_or_phone: phone, password: password)
           expect(found_user).to eq(user)
         end
 
@@ -298,7 +276,10 @@ RSpec.describe User, type: :model do
             user = FactoryGirl.create(:user, password: password)
             phone = user.phone + '1'
 
-            found_user = User.find_by_credentials(phone: phone, password: password)
+            found_user = User.find_by_credentials(
+              email_or_phone: phone,
+              password: password
+            )
             expect(found_user).to be_nil
           end
         end

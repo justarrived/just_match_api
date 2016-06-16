@@ -8,7 +8,7 @@ RSpec.describe Api::V1::Users::UserSessionsController, type: :controller do
     {
       data: {
         attributes: {
-          email: email,
+          email_or_phone: email,
           password: password
         }
       }
@@ -71,7 +71,7 @@ RSpec.describe Api::V1::Users::UserSessionsController, type: :controller do
           valid_attributes = {
             data: {
               attributes: {
-                phone: user.phone,
+                email_or_phone: user.phone,
                 password: password
               }
             }

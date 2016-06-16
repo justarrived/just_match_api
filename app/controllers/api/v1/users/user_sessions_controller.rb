@@ -21,8 +21,8 @@ module Api
         error code: 403, desc: 'Forbidden'
         param :data, Hash, desc: 'Top level key', required: true do
           param :attributes, Hash, desc: 'User session attributes', required: true do
-            param :email, String, desc: 'Email (required unless phone given)'
-            param :phone, String, desc: 'Phone (required unless email given)'
+            param :email, String, desc: 'Email (required unless email_or_phone given)'
+            param :email_or_phone, String, desc: 'Email or phone (required unless email given)'
             param :password, String, desc: 'Password', required: true
           end
         end
@@ -38,11 +38,16 @@ module Api
     }
   }'
         def create
-          email = jsonapi_params[:email]
-          phone = PhoneNumber.normalize(jsonapi_params[:phone])
+          # NOTE: The email param is kept for backward compability reasons
+          #       remove when frontend is using email_or_phone param
+          email_or_phone = jsonapi_params[:email_or_phone] || jsonapi_params[:email]
           password = jsonapi_params[:password]
 
-          user = User.find_by_credentials(email: email, phone: phone, password: password)
+          user = User.find_by_credentials(
+            email_or_phone: email_or_phone,
+            password: password
+          )
+
           if user
             return respond_with_banned if user.banned
 
