@@ -85,13 +85,25 @@ class User < ApplicationRecord
     valid_one_time_tokens.find_by(one_time_token: token)
   end
 
-  def self.find_by_credentials(password:, email: nil, phone: nil)
-    user = find_by(email: email) unless email.blank?
-    user = find_by(phone: phone) unless phone.blank?
+  def self.find_by_credentials(email_or_phone:, password:)
+    return if email_or_phone.blank?
+
+    user = find_by(email: email_or_phone)
+    user ||= find_by_phone(email_or_phone, normalize: true)
 
     return if user.nil?
 
     user if correct_password?(user, password)
+  end
+
+  def self.find_by_phone(phone, normalize: false)
+    phone_number = phone
+    if normalize
+      phone_number = PhoneNumber.normalize(phone_number)
+      return if phone_number.nil? # The phone number format is invalid
+    end
+
+    find_by(phone: phone_number)
   end
 
   def self.correct_password?(user, password)
