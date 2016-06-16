@@ -52,7 +52,7 @@ module Api
         param :data, Hash, desc: 'Top level key', required: true do
           param :attributes, Hash, desc: 'User language attributes', required: true do
             param :id, Integer, desc: 'Language id', required: true
-            param :proficiency, Integer, desc: 'Language proficiency'
+            param :proficiency, UserLanguage::PROFICIENCY_RANGE.to_a, desc: 'Language proficiency' # rubocop:disable Metrics/LineLength
           end
         end
         example Doxxer.read_example(UserLanguage, method: :create)
