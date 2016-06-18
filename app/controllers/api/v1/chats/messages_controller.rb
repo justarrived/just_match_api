@@ -47,10 +47,12 @@ module Api
         ApipieDocHelper.params(self)
         example Doxxer.read_example(Message, method: :create)
         def create
-          lang = message_params[:language_id]
-          body = message_params[:body]
-          author = current_user
-          @message = @chat.create_message(author: author, body: body, language_id: lang)
+          @message = CreateChatMessageService.create(
+            chat: @chat,
+            author: current_user,
+            body: message_params[:body],
+            language_id: message_params[:language_id]
+          )
 
           if @message.valid?
             api_render(@message, status: :created)

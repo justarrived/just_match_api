@@ -99,6 +99,10 @@ sv:
       contact_line: Om du har några frågor, kan du kontakt dem på %{email} och %{phone}.
       job_line: Du har en ny ansökning till ditt jobb '%{name}'.
       subject: Grattis! Du har en fått en ny ansökan.
+    new_chat_message:
+      view_chat_line: Du kan också läsa meddelandet här %{url}, där kan du också få meddelandet översatt.
+      received_from_line: Du har fått ett nytt meddelande från %{name}.
+      subject: "Nytt meddelande från %{name}"
     reset_password:
       subject: 'Just Arrived återställ lösenords länk'
       body_header: 'Hej %{name}, du har begärt en återställning av ditt lösenord. Var god besök länken för att ange ditt nya lösenord:'

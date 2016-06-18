@@ -1,16 +1,17 @@
 # frozen_string_literal: true
-class Message < ApplicationRecord
-  belongs_to :chat, touch: true
-  belongs_to :author, class_name: 'User', foreign_key: 'author_id'
-  belongs_to :language
+require 'rails_helper'
 
-  validates :body, presence: true
-  validates :chat, presence: true
-  validates :author, presence: true
-  validates :language, presence: true
+RSpec.describe Message, type: :model do
+  describe '#created_before?' do
+    it 'returns true if created before given datetime' do
+      message = FactoryGirl.create(:message, created_at: 2.hours.ago)
+      expect(message.created_before?(1.hour.ago)).to eq(true)
+    end
 
-  def created_before?(datetime)
-    datetime > created_at
+    it 'returns false if created after given datetime' do
+      message = FactoryGirl.create(:message, created_at: 1.hour.ago)
+      expect(message.created_before?(2.hours.ago)).to eq(false)
+    end
   end
 end
 
