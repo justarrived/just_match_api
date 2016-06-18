@@ -99,6 +99,10 @@ en:
       contact_line: If you have any questions, you can contact them on %{email} and %{phone}.
       job_line: You've got a new applicant for your job '%{name}'.
       subject: Congrats! You have a new applicant.
+    new_chat_message:
+      view_chat_line: View the message here %{url}, where you also can have the message translated.
+      received_from_line: You've received a new message from %{name}.
+      subject: "New message from %{name}"
     reset_password:
       subject: 'Just Arrived passsword reset link'
       body_header: 'Hi %{name}, you requested a password reset. Please visit this link to enter your new password:'
