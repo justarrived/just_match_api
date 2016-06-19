@@ -121,3 +121,5 @@ en:
     job_user_performed: Applicant confirmed task completion
     new_applicant: New applicant
     user_job_match: New job match
+    job_cancelled: Job cancelled
+    new_chat_message: New chat message

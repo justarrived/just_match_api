@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class MessageCreatedNotifier
+class NewChatMessageNotifier
   def self.call(chat:, message:, author:)
     chat.users.each do |user|
       next if user == author

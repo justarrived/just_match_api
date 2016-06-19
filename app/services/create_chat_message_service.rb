@@ -8,7 +8,7 @@ class CreateChatMessageService
     message = chat.create_message(author: author, body: body, language_id: language_id)
 
     if send_notification?(message: message, last_message: last_chat_message)
-      MessageCreatedNotifier.call(chat: chat, message: message, author: author)
+      NewChatMessageNotifier.call(chat: chat, message: message, author: author)
     end
 
     message

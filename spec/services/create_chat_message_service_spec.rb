@@ -22,9 +22,9 @@ RSpec.describe CreateChatMessageService do
     end
 
     it 'calls messsage created notifier' do
-      allow(MessageCreatedNotifier).to receive(:call)
+      allow(NewChatMessageNotifier).to receive(:call)
       subject
-      expect(MessageCreatedNotifier).to have_received(:call).once
+      expect(NewChatMessageNotifier).to have_received(:call).once
     end
   end
 

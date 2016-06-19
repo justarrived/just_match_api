@@ -300,13 +300,21 @@ RSpec.describe User, type: :model do
           job_cancelled
           new_applicant
           user_job_match
+          new_chat_message
         )
         expect(User::NOTIFICATIONS).to eq(expected)
       end
 
       it 'has corresponding notifier klass for each item' do
-        User::NOTIFICATIONS.each do |notifications|
-          expect { "#{notifications.camelize}Notifier".constantize }.to_not raise_error
+        User::NOTIFICATIONS.each do |notification|
+          expect { "#{notification.camelize}Notifier".constantize }.to_not raise_error
+        end
+      end
+
+      it 'has corresponding I18n for each notification' do
+        User::NOTIFICATIONS.each do |notification|
+          translation = I18n.t("notifications.#{notification}")
+          expect(translation).not_to match('translation missing:')
         end
       end
     end
