@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe MessageCreatedNotifier, type: :mailer do
+RSpec.describe NewChatMessageNotifier, type: :mailer do
   let(:mailer) { Struct.new(:deliver_later).new(nil) }
   let(:user) { FactoryGirl.create(:user) }
   let(:author) { FactoryGirl.create(:user) }

@@ -79,6 +79,7 @@ class User < ApplicationRecord
     job_cancelled
     new_applicant
     user_job_match
+    new_chat_message
   ).freeze
 
   def self.find_by_one_time_token(token)

@@ -304,11 +304,13 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
       result = JSON.parse(response.body)['data']
       result.each do |json_object|
-        attributes = json_object['attributes']
+        id = json_object['id']
+        description = json_object.dig('attributes', 'description')
         type = json_object['type']
 
-        expect(type).to eq('user_notifications')
-        expect(User::NOTIFICATIONS).to include(attributes.keys.first)
+        expect(description).to eq(I18n.t("notifications.#{id}"))
+        expect(type).to eq('user-notifications')
+        expect(User::NOTIFICATIONS).to include(id)
       end
     end
   end

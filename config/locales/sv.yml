@@ -121,3 +121,5 @@ sv:
     job_user_performed: Användaren har konfirmerat att de utfört jobbet
     new_applicant: Ny ansökande
     user_job_match: Ny jobb matchning
+    job_cancelled: Jobb avbrutet
+    new_chat_message: Nytt chatt meddelande
