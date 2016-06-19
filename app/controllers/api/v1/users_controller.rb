@@ -58,7 +58,7 @@ module Api
           param :street, String, desc: 'Street'
           param :zip, String, desc: 'Zip code'
           param :ssn, String, desc: 'Social Security Number (10 characters)', required: true
-          param :'ignored-notifications', Array, desc: 'List of ignored notifications'
+          param :'ignored-notifications', Array, desc: "List of ignored notifications, any of #{User::NOTIFICATIONS.to_sentence}"
           param :'company-id', Integer, desc: 'Company id for user'
           param :'language-id', Integer, desc: 'Primary language id for user', required: true
           param :'language-ids', Array, of: Integer, desc: 'Language ids of languages that the user knows', required: true
@@ -94,6 +94,7 @@ module Api
       error code: 401, desc: 'Unauthorized'
       param :data, Hash, desc: 'Top level key', required: true do
         param :attributes, Hash, desc: 'User attributes', required: true do
+          # rubocop:disable Metrics/LineLength
           param :'first-name', String, desc: 'First name'
           param :'last-name', String, desc: 'Last name'
           param :description, String, desc: 'Description'
@@ -105,10 +106,11 @@ module Api
           param :street, String, desc: 'Street'
           param :zip, String, desc: 'Zip code'
           param :ssn, String, desc: 'Social Security Number (10 characters)'
-          param :'ignored-notifications', Array, desc: 'List of ignored notifications'
+          param :'ignored-notifications', Array, desc: "List of ignored notifications, any of #{User::NOTIFICATIONS.to_sentence}"
           param :'language-id', Integer, desc: 'Primary language id for user'
           param :'company-id', Integer, desc: 'Company id for user'
           param :'user-image-one-time-token', String, desc: 'User image one time token'
+          # rubocop:enable Metrics/LineLength
         end
       end
       example Doxxer.read_example(User, method: :update)
