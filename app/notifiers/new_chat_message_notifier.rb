@@ -3,6 +3,7 @@ class NewChatMessageNotifier
   def self.call(chat:, message:, author:)
     chat.users.each do |user|
       next if user == author
+      next if ignored?(user)
 
       ChatMailer.new_message_email(
         user: user,
