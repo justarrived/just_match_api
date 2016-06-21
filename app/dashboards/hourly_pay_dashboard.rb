@@ -11,7 +11,10 @@ class HourlyPayDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
     jobs: Field::HasMany,
     id: Field::Number,
-    rate: Field::Number,
+    gross_salary: Field::Number,
+    net_salary: Field::Number.with_options(decimals: 2),
+    rate_excluding_vat: Field::Number.with_options(decimals: 2),
+    rate_including_vat: Field::Number.with_options(decimals: 2),
     active: Field::Boolean,
     currency: Field::String,
     created_at: Field::DateTime,
@@ -25,7 +28,7 @@ class HourlyPayDashboard < Administrate::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
     :id,
-    :rate,
+    :gross_salary,
     :active,
     :jobs
   ].freeze
@@ -35,7 +38,10 @@ class HourlyPayDashboard < Administrate::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = [
     :jobs,
     :id,
-    :rate,
+    :gross_salary,
+    :net_salary,
+    :rate_excluding_vat,
+    :rate_including_vat,
     :active,
     :currency,
     :created_at,
@@ -47,7 +53,7 @@ class HourlyPayDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
     :jobs,
-    :rate,
+    :gross_salary,
     :active
   ].freeze
 
@@ -55,6 +61,6 @@ class HourlyPayDashboard < Administrate::BaseDashboard
   # across all pages of the admin dashboard.
   #
   def display_resource(hourly_pay)
-    "##{hourly_pay.id} #{hourly_pay.rate}"
+    "##{hourly_pay.id} #{hourly_pay.gross_salary}"
   end
 end

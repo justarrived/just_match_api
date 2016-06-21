@@ -98,7 +98,7 @@ class Job < ApplicationRecord
   end
 
   def amount
-    hourly_pay.rate * hours
+    hourly_pay.gross_salary * hours
   end
 
   # NOTE: You need to call this __before__ the record is validated

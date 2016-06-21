@@ -10,8 +10,9 @@ RSpec.describe HourlyPaySerializer, type: :serializer do
       JSON.parse(serialization.to_json)
     end
 
-    # rate_with_fees is a float and causes trouble... (of course..)
-    (described_class::ATTRIBUTES - [:rate_with_fees]).each do |attribute|
+    # float values causes problems (of course..), igore them
+    float_values = [:net_salary, :rate_excluding_vat, :rate_including_vat]
+    (described_class::ATTRIBUTES - float_values).each do |attribute|
       it "has #{attribute.to_s.humanize.downcase}" do
         dashed_attribute = attribute.to_s.dasherize
         value = resource.public_send(attribute)
@@ -29,10 +30,10 @@ end
 #
 # Table name: hourly_pays
 #
-#  id         :integer          not null, primary key
-#  active     :boolean          default(FALSE)
-#  rate       :integer
-#  currency   :string           default("SEK")
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id           :integer          not null, primary key
+#  active       :boolean          default(FALSE)
+#  currency     :string           default("SEK")
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  gross_salary :integer
 #

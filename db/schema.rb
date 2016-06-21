@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160610143448) do
+ActiveRecord::Schema.define(version: 20160621102120) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -174,11 +174,11 @@ ActiveRecord::Schema.define(version: 20160610143448) do
   end
 
   create_table "hourly_pays", force: :cascade do |t|
-    t.boolean  "active",     default: false
-    t.integer  "rate"
-    t.string   "currency",   default: "SEK"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.boolean  "active",       default: false
+    t.string   "currency",     default: "SEK"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.integer  "gross_salary"
   end
 
   create_table "invoices", force: :cascade do |t|
