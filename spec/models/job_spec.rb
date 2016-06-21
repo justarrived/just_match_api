@@ -35,7 +35,7 @@ RSpec.describe Job, type: :model do
 
   describe '#amount' do
     it 'can return the total amount that a user is to be payed' do
-      hourly_pay = FactoryGirl.build(:hourly_pay, rate: 100)
+      hourly_pay = FactoryGirl.build(:hourly_pay, gross_salary: 100)
       job = FactoryGirl.build(:job, hours: 2, hourly_pay: hourly_pay)
       expect(job.amount).to eq(200)
     end

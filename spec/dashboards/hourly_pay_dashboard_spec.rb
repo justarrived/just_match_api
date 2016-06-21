@@ -4,7 +4,7 @@ require 'rails_helper'
 RSpec.describe HourlyPayDashboard do
   subject { described_class.new }
 
-  let(:company) { mock_model(HourlyPay, rate: 100, id: 1) }
+  let(:company) { mock_model(HourlyPay, gross_salary: 100, id: 1) }
 
   describe '#display_resource' do
     it 'returns the correct display name' do

@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 class HourlyPaySerializer < ApplicationSerializer
-  ATTRIBUTES = [:rate, :active, :currency, :rate_with_fees].freeze
+  ATTRIBUTES = [
+    :gross_salary, :net_salary, :rate_excluding_vat, :rate_including_vat, :active,
+    :currency
+  ].freeze
 
   attributes ATTRIBUTES
 end
@@ -9,10 +12,10 @@ end
 #
 # Table name: hourly_pays
 #
-#  id         :integer          not null, primary key
-#  active     :boolean          default(FALSE)
-#  rate       :integer
-#  currency   :string           default("SEK")
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id           :integer          not null, primary key
+#  active       :boolean          default(FALSE)
+#  currency     :string           default("SEK")
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  gross_salary :integer
 #

@@ -2,7 +2,7 @@
 FactoryGirl.define do
   factory :hourly_pay do
     active true
-    rate 100
+    gross_salary 100
     currency 'SEK'
 
     factory :inactive_hourly_pay do
@@ -21,10 +21,10 @@ end
 #
 # Table name: hourly_pays
 #
-#  id         :integer          not null, primary key
-#  active     :boolean          default(FALSE)
-#  rate       :integer
-#  currency   :string           default("SEK")
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id           :integer          not null, primary key
+#  active       :boolean          default(FALSE)
+#  currency     :string           default("SEK")
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  gross_salary :integer
 #

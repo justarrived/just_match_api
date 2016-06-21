@@ -11,7 +11,7 @@ RSpec.describe HourlyPay, regressor: true do
   # === Database (Columns) ===
   it { is_expected.to have_db_column :id }
   it { is_expected.to have_db_column :active }
-  it { is_expected.to have_db_column :rate }
+  it { is_expected.to have_db_column :gross_salary }
   it { is_expected.to have_db_column :currency }
   it { is_expected.to have_db_column :created_at }
   it { is_expected.to have_db_column :updated_at }
@@ -21,10 +21,10 @@ RSpec.describe HourlyPay, regressor: true do
   # === Validations (Length) ===
 
   # === Validations (Presence) ===
-  it { is_expected.to validate_presence_of :rate }
+  it { is_expected.to validate_presence_of :gross_salary }
 
   # === Validations (Numericality) ===
-  it { is_expected.to validate_numericality_of(:rate).only_integer }
+  it { is_expected.to validate_numericality_of(:gross_salary).only_integer }
 
   # === Enums ===
 end
