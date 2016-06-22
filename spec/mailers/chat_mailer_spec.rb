@@ -18,7 +18,8 @@ RSpec.describe ChatMailer, type: :mailer do
     end
 
     it 'renders the subject' do
-      expect(mail.subject).to eql(I18n.t('mailer.new_chat_message.subject'))
+      translation = I18n.t('mailer.new_chat_message.subject', name: author.name)
+      expect(mail.subject).to eql(translation)
     end
 
     it 'renders the receiver email' do
