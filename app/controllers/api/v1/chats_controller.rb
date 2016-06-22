@@ -17,7 +17,7 @@ module Api
         formats [:json]
       end
 
-      ALLOWED_INCLUDES = %w(user_images).freeze
+      ALLOWED_INCLUDES = %w(users user_images messages).freeze
 
       api :GET, '/chats/', 'List chats'
       description 'Returns a list of chats.'
