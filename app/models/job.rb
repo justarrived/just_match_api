@@ -139,6 +139,10 @@ class Job < ApplicationRecord
     accepted_job_user.try!(:user)
   end
 
+  def accepted_user
+    accept_applicant
+  end
+
   def accept_applicant!(user)
     applicants.find_by(user: user).tap do |applicant|
       applicant.accept

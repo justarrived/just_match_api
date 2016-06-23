@@ -42,30 +42,95 @@ RSpec.describe Rating, type: :model do
   end
 
   describe '#validate_job_concluded' do
-    let(:job) { FactoryGirl.create(:passed_job) }
-    let(:rating) { FactoryGirl.build(:rating, job: job) }
+    let(:owner) { FactoryGirl.create(:user) }
+    let(:user) { FactoryGirl.create(:user) }
+    let(:job) { FactoryGirl.create(:passed_job, owner: owner) }
 
-    context 'valid' do
-      it 'adds no error if there is *no* accepted job user' do
-        rating.validate
-        message = 'must be concluded'
-        expect(rating.errors.messages[:job_user] || []).not_to include(message)
+    context 'job owner rates' do
+      let(:rating) { FactoryGirl.build(:rating, job: job, from_user: owner) }
+
+      context 'valid' do
+        it 'adds no error if there is *no* accepted job user' do
+          rating.validate
+          message = 'must be concluded'
+          expect(rating.errors.messages[:job_user] || []).not_to include(message)
+        end
+
+        it 'adds no error if the job is concluded' do
+          FactoryGirl.create(:job_user_concluded, job: job)
+          rating.validate
+          message = I18n.t('errors.rating.job_user_concluded')
+          expect(rating.errors.messages[:job_user] || []).not_to include(message)
+        end
       end
 
-      it 'adds no error if the job is concluded' do
-        FactoryGirl.create(:job_user_concluded, job: job)
-        rating.validate
-        message = 'must be concluded'
-        expect(rating.errors.messages[:job_user] || []).not_to include(message)
+      context 'invalid' do
+        it 'adds error' do
+          FactoryGirl.create(:job_user_accepted, job: job)
+          rating.validate
+          message = I18n.t('errors.rating.job_user_concluded')
+          expect(rating.errors.messages[:job_user]).to include(message)
+        end
       end
     end
 
-    context 'invalid' do
-      it 'adds error' do
-        FactoryGirl.create(:job_user_accepted, job: job)
-        rating.validate
-        message = I18n.t('errors.rating.job_user_concluded')
-        expect(rating.errors.messages[:job_user]).to include(message)
+    context 'job user rates' do
+      let(:rating) { FactoryGirl.build(:rating, job: job, from_user: user) }
+
+      context 'invalid' do
+        it 'adds error' do
+          FactoryGirl.create(:job_user_accepted, job: job, user: user)
+          rating.validate
+          message = I18n.t('errors.rating.job_user_concluded')
+          expect(rating.errors.messages[:job_user] || []).not_to include(message)
+        end
+      end
+    end
+  end
+
+  describe '#validate_job_user_performed' do
+    let(:owner) { FactoryGirl.create(:user) }
+    let(:user) { FactoryGirl.create(:user) }
+    let(:job) { FactoryGirl.create(:passed_job, owner: owner) }
+
+    context 'job owner rates' do
+      let(:rating) { FactoryGirl.build(:rating, job: job, from_user: owner) }
+
+      context 'invalid' do
+        it 'adds error' do
+          FactoryGirl.create(:job_user_accepted, job: job)
+          rating.validate
+          message = I18n.t('errors.rating.job_user_performed')
+          expect(rating.errors.messages[:job_user]).not_to include(message)
+        end
+      end
+    end
+
+    context 'job user rates' do
+      let(:rating) { FactoryGirl.build(:rating, job: job, from_user: user) }
+
+      context 'valid' do
+        it 'adds no error if there is *no* accepted job user' do
+          rating.validate
+          message = 'must be concluded'
+          expect(rating.errors.messages[:job_user] || []).not_to include(message)
+        end
+
+        it 'adds no error if the job is concluded' do
+          FactoryGirl.create(:job_user_concluded, job: job)
+          rating.validate
+          message = I18n.t('errors.rating.job_user_performed')
+          expect(rating.errors.messages[:job_user] || []).not_to include(message)
+        end
+      end
+
+      context 'invalid' do
+        it 'adds error' do
+          FactoryGirl.create(:job_user_accepted, job: job, user: user)
+          rating.validate
+          message = I18n.t('errors.rating.job_user_performed')
+          expect(rating.errors.messages[:job_user]).to include(message)
+        end
       end
     end
   end

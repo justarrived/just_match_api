@@ -77,8 +77,12 @@ class JobUser < ApplicationRecord
     end
   end
 
-  def concluded?
+  def invoiced?
     !invoice.nil?
+  end
+
+  def concluded?
+    invoiced?
   end
 
   # NOTE: You need to call this __before__ the record is validated

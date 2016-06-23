@@ -17,7 +17,8 @@ class Rating < ApplicationRecord
   # rubocop:enable Metrics/LineLength
 
   validate :validate_comment_owned_by
-  validate :validate_job_concluded
+  validate :validate_job_invoiced
+  validate :validate_job_user_performed
   validate :validate_rating_user
 
   scope :received_ratings, ->(user) { where(to_user: user) }
@@ -43,12 +44,43 @@ class Rating < ApplicationRecord
     end
   end
 
-  def validate_job_concluded
-    job_user = job.try!(:accepted_job_user)
-    return if job_user.nil?
+  def by_job_owner?
+    return false if from_user.nil? || job.nil?
 
-    unless job_user.concluded?
+    from_user == job.owner
+  end
+
+  def by_job_user?
+    return false if from_user.nil?
+
+    from_user == accepted_user
+  end
+
+  def accepted_user
+    accepted_job_user.try!(:user)
+  end
+
+  def accepted_job_user
+    @accepted_job_user ||= job.try!(:accepted_job_user)
+  end
+
+  def validate_job_invoiced
+    # Only validate this if the rating is made by the Job#owner
+    return unless by_job_owner?
+    return if accepted_job_user.nil?
+
+    unless accepted_job_user.invoiced?
       errors.add(:job_user, I18n.t('errors.rating.job_user_concluded'))
+    end
+  end
+
+  def validate_job_user_performed
+    # Only validate this if the rating is made by the job user
+    return unless by_job_user?
+    return if accepted_job_user.nil?
+
+    unless accepted_job_user.performed?
+      errors.add(:job_user, I18n.t('errors.rating.job_user_performed'))
     end
   end
 
