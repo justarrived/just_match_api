@@ -63,6 +63,7 @@ sv:
       subject: Grattis! En användare kommer utföra ditt jobb.
       congrats_line: Grattis!
       details_line: "%{name} har konfirmerat att de kommer utföra ditt jobb %{job_name}."
+      explaination: Var god kontakta %{name} via chat under fliken Mina Jobb, på %{phone} eller %{email} för att lösa potentiella detaljer.
     applicant_accepted:
       accepted_line: Du har blivit accepterad för ett jobb!
       congrats_line: Grattis %{name}!

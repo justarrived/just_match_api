@@ -52,21 +52,22 @@ en:
   invalid_credentials: Invalid credentials.
   mailer:
     accepted_applicant_withdrawn:
-      subject: An accepted user for your job has withdrawn their application.
-      title: An accepted user for your job has withdrawn their application.
-      explaination: The accepted user %{name} for your job %{job_name} has withdrawn. Please chose another applicant for your job.
+      subject: An accepted user for your job has withdrawn the application.
+      title: An accepted user for your job has withdrawn the application.
+      explaination: The accepted user %{name} for your job %{job_name} has withdrawn. Please choose another applicant for your job by logging in to the platform, click My jobs under Menu and click on the job.
     accepted_applicant_confirmation_overdue:
-      subject: An accepted user for your job has not confirmed in time.
-      title: An accepted user for your job has not confirmed in time.
-      explaination: The accepted user %{name} for your job %{job_name} has not confirmed within the accepted time frame. Please chose another applicant for your job.
+      subject: The selected candidate for your job has not confirmed in time.
+      title: The selected candidate for your job has not confirmed in time.
+      explaination: The selected candidate %{name} for your job %{job_name} has not confirmed within the accepted time frame. Please choose another applicant for your job by logging in to the platform, click My jobs under Menu and click on the job.
     applicant_will_perform:
-      subject: Congrats! The applicant will perform your job.
-      congrats_line: Congrats!
-      details_line: "%{name} has confirmed they'll perform your job %{job_name}."
+      subject: Congratulations! The selected candidate for your job will perform it.
+      congrats_line: Congratulations!
+      details_line: "%{name} has confirmed and will perform your job %{job_name}."
+      explaination: Please contact %{name} through the chat in My jobs, on %{phone} or %{email} to settle potential details.
     applicant_accepted:
-      accepted_line: You've been accepted for a job!
+      accepted_line: You've been selected to perform a job!
       congrats_line: Congrats %{name}!
-      contact_line: Contact %{email} for more details.
+      contact_line: You have 18 hours to confirm that you will perform the job, please do so as soon as possible under My jobs in the application. If you have any questions you can contact the job owner on %{email} for more details.
       job_line: The job is '%{name}' and its in your area.
       subject: Congrats! You got a job.
     changed_password:
@@ -82,21 +83,21 @@ en:
       job_line: 'The job is: ''%{name}'' and its in your area.'
       subject: Congrats! You have a new job match.
     job_performed:
-      congrats_line: Congrats %{name}!
-      contact_line: If you have any last questions, you can contact them on %{email}.
+      congrats_line: Hello %{name}!
+      contact_line: Once you both have confirmed that the job is performed the invoice will be sent and the salary will be paid out.
       job_line: The job performed was '%{name}'.
-      performed_line: "%{name} have verified that they've performed a job for you."
-      subject: Congrats! A job you ordered has been performed.
+      performed_line: "%{name} has verified that the job you ordered is performed."
+      subject: A job you ordered has been completed.
     invoice_created:
       congrats_line: Congrats %{name}!
-      contact_line: If you have any last questions, you can contact them on %{email}.
+      contact_line: Please make sure to rate how you enjoyed working for the employer.
       job_line: 'The job you performed was: ''%{name}''.'
-      performed_line: "%{name} have verified that you've performed a job."
+      performed_line: "%{name} has verified that you've performed the job."
       subject: Congrats! A job you performed has been accepted.
     new_applicant:
-      applicant_line: The applicant is '%{name}' and lives in your area.
-      congrats_line: Congrats %{name}!
-      contact_line: If you have any questions, you can contact them on %{email} and %{phone}.
+      applicant_line: The applicant is '%{name}' and lives close to where the assignment will be carried out.
+      congrats_line: Congratulations %{name}!
+      contact_line: You can preview '%{name}' profile under My jobs. You can also contact '%{name}' directly on %{email} and %{phone}.
       job_line: You've got a new applicant for your job '%{name}'.
       subject: Congrats! You have a new applicant.
     new_chat_message:
@@ -109,7 +110,7 @@ en:
     welcome:
       subject: Welcome to Just Arrived!
       body_header: Welcome to Just Arrived %{name}!
-      body_line: Thank you for signing up. We sincerely hope that you enjoy our service!
+      body_line: Thank you for signing up. We sincerely hope that you will enjoy our service. If you have any questions or suggestions of how we could improve, please do not hesitate to email admin@justarrived.se.
     signoff: Have a great day!
   not_logged_in_error: Must be logged in.
   notifications:

@@ -65,6 +65,8 @@ class JobMailer < ApplicationMailer
     user = job_user.user
     job = job_user.job
     @user_name = user.name
+    @user_email = user.email
+    @user_phone = user.phone
     @job_name = job.name
 
     @job_user_url = FrontendRouter.draw(

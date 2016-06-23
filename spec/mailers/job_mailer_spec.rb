@@ -2,7 +2,9 @@
 require 'rails_helper'
 
 RSpec.describe JobMailer, type: :mailer do
-  let(:user) { mock_model User, name: 'User', email: 'user@example.com' }
+  let(:user) do
+    mock_model User, name: 'User', email: 'user@example.com', phone: '+46735000000'
+  end
   let(:owner) { mock_model User, name: 'Owner', email: 'owner@example.com' }
   let(:job) { mock_model Job, name: 'Job name' }
   let(:job_user) { mock_model JobUser, user: user, job: job, id: 37 }
@@ -56,7 +58,7 @@ RSpec.describe JobMailer, type: :mailer do
     end
 
     it 'renders the subject' do
-      subject = 'Congrats! A job you ordered has been performed.'
+      subject = I18n.t('mailer.job_performed.subject')
       expect(mail.subject).to eql(subject)
     end
 
@@ -100,7 +102,7 @@ RSpec.describe JobMailer, type: :mailer do
     end
 
     it 'renders the subject' do
-      subject = 'Congrats! You have a new applicant.'
+      subject = I18n.t('mailer.new_applicant.subject')
       expect(mail.subject).to eql(subject)
     end
 
@@ -184,7 +186,7 @@ RSpec.describe JobMailer, type: :mailer do
     end
 
     it 'renders the subject' do
-      subject = 'Congrats! The applicant will perform your job.'
+      subject = I18n.t('mailer.applicant_will_perform.subject')
       expect(mail.subject).to eql(subject)
     end
 
@@ -198,6 +200,14 @@ RSpec.describe JobMailer, type: :mailer do
 
     it 'includes @user_name in email body' do
       expect(mail).to match_email_body(user.name)
+    end
+
+    it 'includes @user_email in email body' do
+      expect(mail).to match_email_body(user.email)
+    end
+
+    it 'includes @user_phone in email body' do
+      expect(mail).to match_email_body(user.phone)
     end
 
     it 'includes @job_name in email body' do
@@ -224,7 +234,7 @@ RSpec.describe JobMailer, type: :mailer do
     end
 
     it 'renders the subject' do
-      subject = 'An accepted user for your job has withdrawn their application.'
+      subject = I18n.t('mailer.accepted_applicant_withdrawn.subject')
       expect(mail.subject).to eql(subject)
     end
 
@@ -262,7 +272,7 @@ RSpec.describe JobMailer, type: :mailer do
     end
 
     it 'renders the subject' do
-      subject = 'An accepted user for your job has not confirmed in time.'
+      subject = I18n.t('mailer.accepted_applicant_confirmation_overdue.subject')
       expect(mail.subject).to eql(subject)
     end
 

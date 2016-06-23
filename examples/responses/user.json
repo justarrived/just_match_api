@@ -26,7 +26,8 @@
       "ignored-notifications": [
 
       ],
-      "frilans-finans-payment-details": false
+      "frilans-finans-payment-details": false,
+      "ssn": "8901010000"
     },
     "relationships": {
       "company": {
