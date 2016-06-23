@@ -37,6 +37,7 @@ en:
       to_user_rated: can't be rated twice
       comment_user: must be made by the user making the rating
       job_user_concluded: job must be concluded
+      job_user_performed: job must be confirmed to be performed
       user_allowed_to_rate: must be the job owner or the accepted applicant
     user_session:
       banned: an admin has banned you for not following the Terms of Agreement or the Code of Conduct. Please contact help@justarrived.se, to resolve this issue.
