@@ -2,6 +2,8 @@
 
 <%= I18n.t('mailer.applicant_will_perform.details_line', name: @user_name, job_name: @job_name) %>
 
+<%= I18n.t('mailer.applicant_will_perform.explaination', name: @user_name, phone: @user_phone, email: @user_email) %>
+
 <%= @job_user_url %>
 
 <%= I18n.t('mailer.signoff') %>

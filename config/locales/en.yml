@@ -62,10 +62,8 @@ en:
     applicant_will_perform:
       subject: Congratulations! The selected candidate for your job will perform it.
       congrats_line: Congratulations!
-      details_line: "%{name} has confirmed and will perform your job %{job_name}."   
+      details_line: "%{name} has confirmed and will perform your job %{job_name}."
       explaination: Please contact %{name} through the chat in My jobs, on %{phone} or %{email} to settle potential details.
-    
-    
     applicant_accepted:
       accepted_line: You've been selected to perform a job!
       congrats_line: Congrats %{name}!
@@ -112,7 +110,7 @@ en:
     welcome:
       subject: Welcome to Just Arrived!
       body_header: Welcome to Just Arrived %{name}!
-      body_line: Thank you for signing up. We sincerely hope that you will enjoy our service. If you have any questions or suggestions of how we could improve, please do not hesitate to email admin@justarrived.se.  
+      body_line: Thank you for signing up. We sincerely hope that you will enjoy our service. If you have any questions or suggestions of how we could improve, please do not hesitate to email admin@justarrived.se.
     signoff: Have a great day!
   not_logged_in_error: Must be logged in.
   notifications:
