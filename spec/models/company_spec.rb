@@ -33,28 +33,26 @@ RSpec.describe Company, type: :model do
     end
   end
 
-  describe '#validate_website_with_protocol' do
-    let(:message) { I18n.t('errors.general.protocol_missing') }
+  describe '#add_protocol_to_website' do
+    it 'adds HTTP if missing' do
+      company = Company.new(website: 'example.com')
+      company.add_protocol_to_website
 
-    it 'adds error unless website start with protocol' do
-      company = FactoryGirl.build(:company, website: 'example.com')
-      company.validate
-
-      expect(company.errors.messages[:website]).to include(message)
+      expect(company.website).to eq('http://example.com')
     end
 
-    it 'adds *no* error if website start with http:// protocol' do
-      company = FactoryGirl.build(:company, website: 'http://example.com')
-      company.validate
+    it 'leaves it if HTTPS is present' do
+      company = Company.new(website: 'https://example.com')
+      company.add_protocol_to_website
 
-      expect(company.errors.messages[:website] || []).not_to include(message)
+      expect(company.website).to eq('https://example.com')
     end
 
-    it 'adds *no* error if website start with https:// protocol' do
-      company = FactoryGirl.build(:company, website: 'https://example.com')
-      company.validate
+    it 'leaves it if HTTP is present' do
+      company = Company.new(website: 'http://example.com')
+      company.add_protocol_to_website
 
-      expect(company.errors.messages[:website] || []).not_to include(message)
+      expect(company.website).to eq('http://example.com')
     end
   end
 end

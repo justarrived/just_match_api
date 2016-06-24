@@ -5,6 +5,8 @@ class Company < ApplicationRecord
 
   has_many :company_images
 
+  before_validation :add_protocol_to_website
+
   validates :name, length: { minimum: 2 }, allow_blank: false
   validates :cin, uniqueness: true, length: { is: 10 }, allow_blank: false
   validates :email, presence: true
@@ -12,8 +14,6 @@ class Company < ApplicationRecord
   validates :zip, length: { minimum: 1 }, allow_blank: false
   validates :city, length: { minimum: 1 }, allow_blank: false
   validates :frilans_finans_id, uniqueness: true, allow_nil: true
-
-  validate :validate_website_with_protocol
 
   # Virtual attributes for Frilans Finans
   attr_accessor :user_frilans_finans_id, :country_name
@@ -38,16 +38,10 @@ class Company < ApplicationRecord
     self.company_images = [company_image] unless company_image.nil?
   end
 
-  def validate_website_with_protocol
-    return if website.nil? || url_starts_with_protocol?(website)
+  def add_protocol_to_website
+    return if website.nil?
 
-    errors.add(:website, I18n.t('errors.general.protocol_missing'))
-  end
-
-  private
-
-  def url_starts_with_protocol?(url)
-    url.starts_with?('http://') || url.starts_with?('https://')
+    self.website = URLHelper.add_protocol(website.strip)
   end
 end
 
