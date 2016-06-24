@@ -66,6 +66,8 @@ class User < ApplicationRecord
   }
   scope :frilans_finans_users, -> { where.not(frilans_finans_id: nil) }
   scope :needs_frilans_finans_id, -> { where(frilans_finans_id: nil) }
+  scope :anonymized, -> { where(anonymized: true) }
+  scope :not_anonymized, -> { where(anonymized: false) }
 
   # Don't change the order or remove any items in the array,
   # only additions are allowed
