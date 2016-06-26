@@ -198,8 +198,8 @@ class User < ApplicationRecord
     self.auth_token = SecureRandom.uuid
   end
 
-  def generate_one_time_token
-    self.one_time_token_expires_at = Time.zone.now + ONE_TIME_TOKEN_VALID_FOR_HOURS.hours
+  def generate_one_time_token(valid_duration: ONE_TIME_TOKEN_VALID_FOR_HOURS.hours)
+    self.one_time_token_expires_at = Time.zone.now + valid_duration
     self.one_time_token = SecureRandom.uuid
   end
 

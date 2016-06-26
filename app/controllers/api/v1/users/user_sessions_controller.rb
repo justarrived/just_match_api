@@ -42,7 +42,10 @@ module Api
         def create
           # NOTE: The email param is kept for backward compability reasons
           #       remove when frontend is using email_or_phone param
-          email_or_phone = jsonapi_params[:email_or_phone] || jsonapi_params[:email]
+          email_or_phone = jsonapi_params[:email_or_phone] || begin
+            Rails.logger.info('[DEPRECATION WARNING] login with `email` is deprecated!')
+            jsonapi_params[:email]
+          end
           password = jsonapi_params[:password]
 
           user = User.find_by_credentials(

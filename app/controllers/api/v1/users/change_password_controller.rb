@@ -29,7 +29,7 @@ module Api
 
             render json: {}
           else
-            respond_with_password_error
+            render json: json_api_password_error, status: :unprocessable_entity
           end
         end
 
@@ -53,12 +53,12 @@ module Api
           jsonapi_params.permit(:password)
         end
 
-        def respond_with_password_error
+        def json_api_password_error
           min_length = User::MIN_PASSWORD_LENGTH
           message = I18n.t('errors.user.password_length', count: min_length)
           errors = JsonApiErrors.new
           errors.add(detail: message)
-          render json: errors, status: :unprocessable_entity
+          errors
         end
       end
     end
