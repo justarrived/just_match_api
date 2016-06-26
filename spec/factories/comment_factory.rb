@@ -11,8 +11,8 @@ FactoryGirl.define do
       body 'Typewriter hashtag ennui brunch post-ironic food truck vinegar.'
       commentable_type 'Job'
       commentable_id 1
-      created_at Time.new(2016, 02, 10, 1, 1, 1).utc
-      updated_at Time.new(2016, 02, 12, 1, 1, 1).utc
+      created_at Time.new(2016, 2, 10, 1, 1, 1).utc
+      updated_at Time.new(2016, 2, 12, 1, 1, 1).utc
     end
   end
 end
