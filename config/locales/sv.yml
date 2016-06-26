@@ -101,6 +101,9 @@ sv:
       contact_line: Om du har några frågor, kan du kontakt dem på %{email} och %{phone}.
       job_line: Du har en ny ansökning till ditt jobb '%{name}'.
       subject: Grattis! Du har en fått en ny ansökan.
+    magic_login_link:
+      subject: Magisk inloggningslänk
+      login_line: För att logga in på JustArrived använd länken %{url}
     new_chat_message:
       view_chat_line: Du kan också läsa meddelandet här %{url}, där kan du också få meddelandet översatt.
       received_from_line: Du har fått ett nytt meddelande från %{name}.
@@ -125,3 +128,6 @@ sv:
     user_job_match: Ny jobb matchning
     job_cancelled: Jobb avbrutet
     new_chat_message: Nytt chatt meddelande
+  texter:
+    magic_login_link:
+      login_line: JustArrived magisk inloggningslänk %{url}

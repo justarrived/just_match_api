@@ -96,4 +96,23 @@ RSpec.describe UserMailer, type: :mailer do
       expect(mail).to match_email_body(user.first_name)
     end
   end
+
+  describe '#magic_login_link_email' do
+    let(:user) { FactoryGirl.build(:user_with_one_time_token) }
+    let(:mail) { described_class.magic_login_link_email(user: user) }
+
+    it 'has both text and html part' do
+      expect(mail).to be_multipart_email(true)
+    end
+
+    it 'renders the subject' do
+      subject = I18n.t('mailer.magic_login_link.subject')
+      expect(mail.subject).to eql(subject)
+    end
+
+    it 'includes users reset password url' do
+      url = FrontendRouter.draw(:magic_login_link, token: user.one_time_token)
+      expect(mail).to match_email_body(url)
+    end
+  end
 end

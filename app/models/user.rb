@@ -89,14 +89,12 @@ class User < ApplicationRecord
   end
 
   def self.find_by_credentials(email_or_phone:, password:)
-    return if email_or_phone.blank?
-
-    user = find_by(email: email_or_phone)
-    user ||= find_by_phone(email_or_phone, normalize: true)
+    user = find_by_email_or_phone(email_or_phone)
 
     return if user.nil?
+    return unless correct_password?(user, password)
 
-    user if correct_password?(user, password)
+    user
   end
 
   def self.find_by_phone(phone, normalize: false)
@@ -107,6 +105,12 @@ class User < ApplicationRecord
     end
 
     find_by(phone: phone_number)
+  end
+
+  def self.find_by_email_or_phone(email_or_phone)
+    return if email_or_phone.blank?
+
+    find_by(email: email_or_phone) || find_by_phone(email_or_phone, normalize: true)
   end
 
   def self.correct_password?(user, password)

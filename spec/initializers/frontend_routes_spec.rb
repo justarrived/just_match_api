@@ -23,6 +23,13 @@ RSpec.describe FrontendRoutesReader do
     expect(result).to eq(expected)
   end
 
+  it 'returns magic login route' do
+    token = 'watman'
+    result = subject.draw(:magic_login_link, token: token)
+    expected = "#{base_url}user/magic-login/#{token}"
+    expect(result).to eq(expected)
+  end
+
   it 'returns faqs route' do
     result = subject.draw(:faqs)
     expected = "#{base_url}faq"

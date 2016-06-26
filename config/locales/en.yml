@@ -95,6 +95,9 @@ en:
       job_line: 'The job you performed was: ''%{name}''.'
       performed_line: "%{name} has verified that you've performed the job."
       subject: Congrats! A job you performed has been accepted.
+    magic_login_link:
+      subject: Magic sign-in link
+      login_line: To login to JustArrived use the link %{url}
     new_applicant:
       applicant_line: The applicant is '%{name}' and lives close to where the assignment will be carried out.
       congrats_line: Congratulations %{name}!
@@ -125,3 +128,6 @@ en:
     user_job_match: New job match
     job_cancelled: Job cancelled
     new_chat_message: New chat message
+  texter:
+    magic_login_link:
+      login_line: JustArrived magic login link %{url}
