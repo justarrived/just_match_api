@@ -2,6 +2,7 @@ routes:
   base_url: 'https://app.justarrived.se/#/'
   reset_password: 'reset_password/%{token}'
   login: 'user/signin'
+  magic_login_link: 'user/magic-login/%{token}'
   job: 'jobs/%{id}'
   jobs: 'jobs'
   faqs: 'faq'

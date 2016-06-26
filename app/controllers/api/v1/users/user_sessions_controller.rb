@@ -13,19 +13,19 @@ module Api
           api_versions '1.0'
         end
 
-        before_action :require_promo_code, except: [:create]
+        before_action :require_promo_code, except: [:create, :magic_link]
 
         api :POST, '/users/sessions/', 'Get auth token'
         description 'Returns the Users auth token if the user is allowed.'
         error code: 401, desc: 'Unauthorized'
         error code: 403, desc: 'Forbidden'
         param :data, Hash, desc: 'Top level key', required: true do
+          # rubocop:disable Metrics/LineLength
           param :attributes, Hash, desc: 'User session attributes', required: true do
-            # NOTE: The email param is kept for backward compability reasons
-            #       remove when frontend is using email_or_phone param
-            param :email, String, desc: 'Email (required unless email_or_phone given)'
-            param :email_or_phone, String, desc: 'Email or phone (required unless email given)' # rubocop:disable Metrics/LineLength
-            param :password, String, desc: 'Password', required: true
+            param :email_or_phone, String, desc: 'Email or phone (required unless email given)'
+            param :password, String, desc: 'Password (required unless one-time-token given)'
+            param :'one-time-token', String, desc: 'One time token (required unless one-time-token given)'
+            # rubocop:enable Metrics/LineLength
           end
         end
         example '# Response example
@@ -40,18 +40,11 @@ module Api
     }
   }'
         def create
-          # NOTE: The email param is kept for backward compability reasons
-          #       remove when frontend is using email_or_phone param
-          email_or_phone = jsonapi_params[:email_or_phone] || begin
-            Rails.logger.info('[DEPRECATION WARNING] login with `email` is deprecated!')
-            jsonapi_params[:email]
-          end
-          password = jsonapi_params[:password]
-
-          user = User.find_by_credentials(
-            email_or_phone: email_or_phone,
-            password: password
-          )
+          user = if jsonapi_params[:one_time_token].blank?
+                   user_from_credentials
+                 else
+                   user_from_token
+                 end
 
           if user
             return respond_with_banned if user.banned
@@ -83,7 +76,48 @@ module Api
           end
         end
 
+        api :POST, '/users/sessions/magic-link', 'Send magic login link'
+        description 'Sends a magic login link to the user.'
+        param :data, Hash, desc: 'Top level key', required: true do
+          param :attributes, Hash, desc: 'Magic link attributes', required: true do
+            param :email_or_phone, String, desc: 'Email or phone', required: true
+          end
+        end
+        def magic_link
+          user = User.find_by_email_or_phone(email_or_phone)
+
+          if user
+            user.generate_one_time_token
+            user.save!
+            MagicLoginLinkNotifier.call(user: user)
+          end
+
+          # Always render 202 accepted status, we don't want to expose what
+          # phone numbers are registered in the system
+          render json: {}, status: :accepted
+        end
+
         private
+
+        def user_from_token
+          User.find_by_one_time_token(jsonapi_params[:one_time_token])
+        end
+
+        def user_from_credentials
+          User.find_by_credentials(
+            email_or_phone: email_or_phone,
+            password: jsonapi_params[:password]
+          )
+        end
+
+        def email_or_phone
+          # NOTE: The email param is kept for backward compability reasons
+          #       remove when frontend is using email_or_phone param
+          jsonapi_params[:email_or_phone] || begin
+            Rails.logger.info('[DEPRECATION WARNING] login with `email` is deprecated!')
+            jsonapi_params[:email]
+          end
+        end
 
         def respond_with_banned
           errors = JsonApiErrors.new

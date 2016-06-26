@@ -14,4 +14,10 @@ class UserMailerPreview < ActionMailer::Preview
   def changed_password_email
     UserMailer.changed_password_email(user: User.first)
   end
+
+  def magic_login_link_email
+    user = User.first
+    user.generate_one_time_token
+    UserMailer.magic_login_link_email(user: user)
+  end
 end

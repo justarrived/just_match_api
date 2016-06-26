@@ -2,7 +2,7 @@
 require 'sidekiq/web'
 
 Sidekiq::Web.use Rack::Auth::Basic do |username, password|
-  User.find_by_credentials(email: username, password: password)
+  User.find_by_credentials(email_or_phone: username, password: password)
 end
 
 Rails.application.routes.draw do
@@ -74,7 +74,11 @@ Rails.application.routes.draw do
         end
 
         collection do
-          resources :user_sessions, module: :users, path: :sessions, only: [:create, :destroy]
+          resources :user_sessions, module: :users, path: :sessions, only: [:create, :destroy] do
+            collection do
+              post :magic_link, path: 'magic-link'
+            end
+          end
           resources :reset_password, path: 'reset-password', module: :users, only: [:create]
           resources :change_password, path: 'change-password', module: :users, only: [:create]
           resources :user_images, module: :users, path: :images, only: [:create]

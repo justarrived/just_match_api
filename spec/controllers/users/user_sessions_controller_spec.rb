@@ -130,6 +130,34 @@ RSpec.describe Api::V1::Users::UserSessionsController, type: :controller do
         expect(detail.starts_with?(message)).to eq(true)
       end
     end
+
+    context 'login with one time token' do
+      let(:user) do
+        u = FactoryGirl.create(:user)
+        u.generate_one_time_token
+        u.save!
+        u
+      end
+      let(:valid_attributes) do
+        {
+          data: {
+            attributes: {
+              one_time_token: user.one_time_token
+            }
+          }
+        }
+      end
+
+      it 'returns valid response' do
+        post :create, valid_attributes, valid_session
+
+        json = JSON.parse(response.body)
+        jsonapi_params = JsonApiDeserializer.parse(json)
+
+        expect(jsonapi_params['auth_token']).to eq(user.auth_token)
+        expect(response.status).to eq(201)
+      end
+    end
   end
 
   describe 'DELETE #token' do
@@ -155,6 +183,39 @@ RSpec.describe Api::V1::Users::UserSessionsController, type: :controller do
         FactoryGirl.create(:user, email: 'someone@example.com')
         delete :destroy, { id: 'dasds' }, {}
         expect(response.status).to eq(404)
+      end
+    end
+  end
+
+  describe 'POST #magic_link' do
+    context 'valid phone' do
+      let(:valid_params) do
+        FactoryGirl.create(:user, phone: '073 500 0000')
+        {
+          data: {
+            attributes: {
+              email_or_phone: '073-500 0000'
+            }
+          }
+        }
+      end
+
+      it 'sends notification' do
+        allow(MagicLoginLinkNotifier).to receive(:call)
+        post :magic_link, valid_params, {}
+        expect(MagicLoginLinkNotifier).to have_received(:call).once
+      end
+
+      it 'returns 202 accepted status' do
+        post :magic_link, valid_params, {}
+        expect(response.status).to eq(202)
+      end
+    end
+
+    context 'invalid phone' do
+      it 'returns 202 accepted status' do
+        post :magic_link, {}, {}
+        expect(response.status).to eq(202)
       end
     end
   end
