@@ -68,6 +68,8 @@ gem 'rails-i18n', '~> 4.0.0' # Rails translations
 
 gem 'honey_format', '~> 0.2' # Simple CSV reading
 
+gem 'personnummer', '~> 0.0.8' # Validate Swedish "personummer" or "samordningsnummer"
+
 group :development, :test do
   gem 'byebug', '~> 9.0'
   gem 'rspec-rails', '~> 3.4'
