@@ -95,7 +95,7 @@ group :development do
 end
 
 group :test do
-  gem 'codeclimate-test-reporter', '~> 0.5', require: false
+  gem 'codeclimate-test-reporter', '~> 0.6', require: false
   gem 'simplecov', '~> 0.11', require: false
   gem 'database_cleaner', '~> 1.5'
   gem 'webmock', '~> 2.0'
