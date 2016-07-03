@@ -19,7 +19,10 @@ module Api
       ALLOWED_INCLUDES = %w(language languages company user_images).freeze
 
       def company_users_count
-        users_count = User.company_users.count
+        users_count = ENV.fetch(
+          'CURRENT_COMPANY_USERS_COUNT',
+          User.company_users.count
+        ).to_i
 
         render json: { count: users_count }
       end
