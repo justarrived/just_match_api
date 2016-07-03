@@ -11,8 +11,8 @@ RSpec.describe Api::V1::Users::FrilansFinansController, type: :controller do
           attributes: {
             account_clearing_number: 'account_clearing_number',
             account_number: 'account_number',
-            iban: 'iban',
-            bic: 'bic'
+            iban: ' ro49  aaaa 1B31007593840000 ',
+            bic: 'SSSWEDEN'
           }
         }
       }
@@ -189,6 +189,18 @@ RSpec.describe Api::V1::Users::FrilansFinansController, type: :controller do
           'detail' => I18n.t('errors.messages.blank'),
           'source' => {
             'pointer' => '/data/attributes/bic'
+          }
+        }, {
+          'status' => 422,
+          'detail' => I18n.t('errors.bank_account.iban.unknown_country_code'),
+          'source' => {
+            'pointer' => '/data/attributes/iban'
+          }
+        }, {
+          'status' => 422,
+          'detail' => I18n.t('errors.bank_account.iban.bad_check_digits'),
+          'source' => {
+            'pointer' => '/data/attributes/iban'
           }
         }]
         expect(errors).to eq(expected)

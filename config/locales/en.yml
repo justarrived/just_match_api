@@ -19,6 +19,13 @@ en:
       invalid_characters: invalid characters
       bad_checksum: bad checksum
       unknown_clearing_number: unknown clearing number
+      iban:
+        too_short: is too short
+        bad_characters: has invalid characters
+        bad_check_digits: has invalid check digits
+        unknown_country_code: unknown country code
+        bad_length: has the wrong length
+        bad_format: has the wrong format
     general:
       protocol_missing: missing protocol prefix http:// or https://
     chat:

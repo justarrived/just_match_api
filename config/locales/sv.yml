@@ -19,6 +19,13 @@ sv:
       invalid_characters: otillåtna tecken
       bad_checksum: okänd checksumma
       unknown_clearing_number: okänt clearing nummer
+      iban:
+        too_short: är för kort
+        bad_characters: otillåtna tecken
+        bad_check_digits: otillåtna checksiffror
+        unknown_country_code: okänd landskod
+        bad_length: har fel längd
+        bad_format: har fel format
     general:
       protocol_missing: Protocol prefix saknas http:// eller https://
     chat:

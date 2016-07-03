@@ -90,7 +90,16 @@ module Api
           #
           # The drawback is if no fields at all are submitted only the local
           # bank fields will be returned as blank validation errors
-          return errors unless errors.length == 2
+          if errors.length != 2
+            iban_tool = IBANAccount.new(ff_user_params[:iban])
+            iban_tool.errors.each do |error|
+              errors.add(
+                pointer: :iban,
+                detail: I18n.t("errors.bank_account.iban.#{error}")
+              )
+            end
+            return errors
+          end
 
           bank_account_errors
         end
