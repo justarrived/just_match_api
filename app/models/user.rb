@@ -12,7 +12,7 @@ class User < ApplicationRecord
 
   attr_accessor :password
 
-  after_validation :set_normalized_phone
+  after_validation :set_normalized_phone, :set_normalized_ssn
 
   before_create :generate_auth_token
   before_save :encrypt_password
@@ -50,12 +50,13 @@ class User < ApplicationRecord
   validates :zip, length: { minimum: 5 }, allow_blank: true
   validates :password, length: { minimum: MIN_PASSWORD_LENGTH }, allow_blank: false, on: :create # rubocop:disable Metrics/LineLength
   validates :auth_token, uniqueness: true
-  validates :ssn, uniqueness: true, length: { is: 10 }, allow_blank: false
+  validates :ssn, uniqueness: true, allow_blank: false # rubocop:disable Metrics/LineLength
   validates :frilans_finans_id, uniqueness: true, allow_nil: true
 
   validate :validate_language_id_in_available_locale
   validate :validate_format_of_phone_number
   validate :validate_swedish_phone_number
+  validate :validate_swedish_ssn
 
   scope :admins, -> { where(admin: true) }
   scope :company_users, -> { where.not(company: nil) }
@@ -150,11 +151,11 @@ class User < ApplicationRecord
   end
 
   def set_normalized_phone
-    self.phone = normalize_phone_number(phone)
+    self.phone = PhoneNumber.normalize(phone)
   end
 
-  def normalize_phone_number(phone_number)
-    PhoneNumber.normalize(phone_number)
+  def set_normalized_ssn
+    self.ssn = SwedishSSN.normalize(ssn)
   end
 
   def banned=(value)
@@ -239,6 +240,15 @@ class User < ApplicationRecord
 
     error_message = I18n.t('errors.user.must_be_swedish_phone_number')
     errors.add(:phone, error_message)
+  end
+
+  def validate_swedish_ssn
+    return unless Rails.configuration.x.validate_swedish_ssn
+    return if ssn.blank?
+    return if SwedishSSN.valid?(ssn)
+
+    error_message = I18n.t('errors.user.must_be_swedish_ssn')
+    errors.add(:ssn, error_message)
   end
 
   private

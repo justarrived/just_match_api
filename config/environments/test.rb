@@ -48,6 +48,7 @@ Rails.application.configure do
   config.active_job.queue_adapter = :test
 
   config.x.send_sms_notifications = false
+  config.x.validate_swedish_ssn = false
 
   config.after_initialize do
     Bullet.enable = true

@@ -384,6 +384,32 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe '#validate_swedish_ssn' do
+    before(:each) do
+      Rails.configuration.x.validate_swedish_ssn = true
+    end
+    after(:each) do
+      Rails.configuration.x.validate_swedish_ssn = false
+    end
+    let(:error_message) { I18n.t('errors.user.must_be_swedish_ssn') }
+
+    it 'adds error if format of ssn is not valid' do
+      user = FactoryGirl.build(:user, ssn: '00012')
+      user.validate
+
+      message = user.errors.messages[:ssn]
+      expect(message).to include(error_message)
+    end
+
+    it 'adds *no* error if ssn format is valid' do
+      user = FactoryGirl.build(:user, ssn: '8908030334')
+      user.validate
+
+      message = user.errors.messages[:ssn]
+      expect(message || []).not_to include(error_message)
+    end
+  end
+
   describe '#validate_swedish_phone_number' do
     let(:error_message) { I18n.t('errors.user.must_be_swedish_phone_number') }
 

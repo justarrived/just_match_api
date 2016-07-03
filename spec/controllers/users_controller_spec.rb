@@ -18,7 +18,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
           street: 'Stora Nygatan 36',
           zip: '211 37',
           password: (1..8).to_a.join,
-          ssn: '8901010000'
+          ssn: '8901010101'
         }
       }
     }

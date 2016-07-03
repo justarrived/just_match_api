@@ -60,6 +60,6 @@
     "source": {
       "pointer": "/data/attributes/ssn"
     },
-    "detail": "is the wrong length (should be 10 characters)"
+    "detail": "is the wrong length (should be 11 characters)"
   }
 ]

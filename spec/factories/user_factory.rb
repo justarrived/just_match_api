@@ -15,10 +15,10 @@ FactoryGirl.define do
     zip '223 52'
     sequence :ssn do |n|
       num_length = case n
-                   when 0...10 then 9
-                   when 10...100 then 8
-                   when 100...1000 then 7
-                   when 1000...10_000 then 6
+                   when 0...10 then 10
+                   when 10...100 then 9
+                   when 100...1000 then 8
+                   when 1000...10_000 then 7
                    else 5
                    end
       "#{Faker::Number.number(num_length)}#{n}"
