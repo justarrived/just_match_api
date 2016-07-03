@@ -108,6 +108,18 @@ RSpec.describe Api::V1::Users::FrilansFinansController, type: :controller do
           'source' => {
             'pointer' => '/data/attributes/account-number'
           }
+        }, {
+          'status' => 422,
+          'detail' => I18n.t('errors.bank_account.too_short'),
+          'source' => {
+            'pointer' => '/data/attributes/account-number'
+          }
+        }, {
+          'status' => 422,
+          'detail' => I18n.t('errors.bank_account.unknown_clearing_number'),
+          'source' => {
+            'pointer' => '/data/attributes/account-clearing-number'
+          }
         }]
         expect(errors).to eq(expected)
       end
@@ -133,6 +145,24 @@ RSpec.describe Api::V1::Users::FrilansFinansController, type: :controller do
           'detail' => I18n.t('errors.messages.blank'),
           'source' => {
             'pointer' => '/data/attributes/account-number'
+          }
+        }, {
+          'status' => 422,
+          'detail' => I18n.t('errors.bank_account.too_short'),
+          'source' => {
+            'pointer' => '/data/attributes/account-number'
+          }
+        }, {
+          'status' => 422,
+          'detail' => I18n.t('errors.bank_account.invalid_characters'),
+          'source' => {
+            'pointer' => '/data/attributes/account-number'
+          }
+        }, {
+          'status' => 422,
+          'detail' => I18n.t('errors.bank_account.unknown_clearing_number'),
+          'source' => {
+            'pointer' => '/data/attributes/account-clearing-number'
           }
         }]
         expect(errors).to eq(expected)

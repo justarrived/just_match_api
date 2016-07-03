@@ -13,6 +13,12 @@ en:
         subject: 'Admin notice: Failed to activate Frilans Finans invoice'
         notice: Failed to create a Frilans Finans invoice for %{id}
   errors:
+    bank_account:
+      too_short: is too short
+      too_long: is too long
+      invalid_characters: invalid characters
+      bad_checksum: bad checksum
+      unknown_clearing_number: unknown clearing number
     general:
       protocol_missing: missing protocol prefix http:// or https://
     chat:

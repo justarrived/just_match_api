@@ -13,6 +13,12 @@ sv:
         subject: 'Admin notis: Aktivering av Frilans Finans Faktura misslyckades'
         notice: Misslyckades skapa Frilans Finans faktura för %{id}
   errors:
+    bank_account:
+      too_short: är för kort
+      too_long: är för lång
+      invalid_characters: otillåtna tecken
+      bad_checksum: okänd checksumma
+      unknown_clearing_number: okänt clearing nummer
     general:
       protocol_missing: Protocol prefix saknas http:// eller https://
     chat:

@@ -54,12 +54,5 @@
       "pointer": "/data/attributes/password"
     },
     "detail": "is too short (minimum is 6 characters)"
-  },
-  {
-    "status": 422,
-    "source": {
-      "pointer": "/data/attributes/ssn"
-    },
-    "detail": "is the wrong length (should be 11 characters)"
   }
 ]

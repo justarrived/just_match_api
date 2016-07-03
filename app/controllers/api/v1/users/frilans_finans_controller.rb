@@ -92,7 +92,35 @@ module Api
           # bank fields will be returned as blank validation errors
           return errors unless errors.length == 2
 
-          validate_non_blank(ff_user_params, :account_clearing_number, :account_number)
+          bank_account_errors
+        end
+
+        def bank_account_errors
+          errors = validate_non_blank(
+            ff_user_params,
+            :account_clearing_number,
+            :account_number
+          )
+
+          full_account_number = [
+            ff_user_params[:account_clearing_number],
+            ff_user_params[:account_number]
+          ]
+
+          SwedishBankAccount.new(full_account_number.join).errors.map do |error_name|
+            pointer = if [:bad_checksum, :unknown_clearing_number].include?(error_name)
+                        :account_clearing_number
+                      else
+                        :account_number
+                      end
+
+            errors.add(
+              pointer: pointer,
+              detail: I18n.t(".errors.bank_account.#{error_name}")
+            )
+          end
+
+          errors
         end
 
         def frilans_finans_active?
