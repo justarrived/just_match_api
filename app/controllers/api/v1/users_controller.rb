@@ -5,6 +5,9 @@ module Api
       SET_USER_ACTIONS = [:show, :edit, :update, :destroy, :matching_jobs, :jobs].freeze
       before_action :set_user, only: SET_USER_ACTIONS
 
+      before_action :require_promo_code, except: [:company_users_count]
+      after_action :verify_authorized, except: [:company_users_count]
+
       resource_description do
         short 'API for managing users'
         name 'Users'
@@ -14,6 +17,12 @@ module Api
       end
 
       ALLOWED_INCLUDES = %w(language languages company user_images).freeze
+
+      def company_users_count
+        users_count = User.company_users.count
+
+        render json: { count: users_count }
+      end
 
       api :GET, '/users', 'List users'
       description 'Returns a list of users if the user is allowed.'
