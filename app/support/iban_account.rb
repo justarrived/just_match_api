@@ -28,22 +28,4 @@ class IBANAccount
   def to_s
     @iban.prettify
   end
-
-  # ERRORS
-  #   :too_short
-  #   :bad_chars
-  #   :bad_check_digits
-  #   :unknown_country_code
-  #   :bad_length
-  #   :bad_format
-
-  # [
-  #   :code               # => RO49AAAA1B31007593840000
-  #   :country_code,      # => RO
-  #   :numerify,          # => 1010101011131007593840000272449
-  #   :bban,              # => AAAA1B31007593840000
-  #   :check_digits,      # => 49
-  #   :validation_errors, # => []
-  #   :prettify           # => RO49 AAAA 1B31 0075 9384 0000
-  # ]
 end
