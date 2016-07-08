@@ -58,6 +58,9 @@ RSpec.describe Invoice, type: :model do
       expect(invoice.errors.messages[:job_user] || []).not_to include(message)
     end
   end
+
+  describe '#validate_job_user_will_perform' do
+  end
 end
 
 # == Schema Information
