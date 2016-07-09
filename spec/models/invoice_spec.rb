@@ -60,6 +60,23 @@ RSpec.describe Invoice, type: :model do
   end
 
   describe '#validate_job_user_will_perform' do
+    let(:passed_job) { FactoryGirl.build(:passed_job) }
+    let(:message) { I18n.t('errors.invoice.job_user_will_perform') }
+
+    it 'adds error if the job user will perform is not true' do
+      job_user = FactoryGirl.build(:job_user, job: passed_job, accepted: false)
+      invoice = FactoryGirl.build(:invoice, job_user: job_user)
+      invoice.validate
+
+      expect(invoice.errors.messages[:job_user]).to include(message)
+    end
+
+    it 'adds *no* error if the job user will perform is true' do
+      job_user = FactoryGirl.build(:job_user, job: passed_job, will_perform: true)
+      invoice = FactoryGirl.build(:invoice, job_user: job_user)
+      invoice.validate
+      expect(invoice.errors.messages[:job_user] || []).not_to include(message)
+    end
   end
 end
 
