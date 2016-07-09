@@ -20,6 +20,7 @@ en:
     invoice:
       job_started: job start time must be in the passed before an invoice can be created
       job_user_accepted: user must be the accepted applicant before an invoice can be created
+      job_user_will_perform: user must have confirmed the job before an invoice can be created
     job:
       job_date_in_the_past: must be in the future
       hourly_pay_active: must be active
