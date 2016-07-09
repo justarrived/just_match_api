@@ -10,11 +10,18 @@ class IBANAccount
     bad_format: :bad_format
   }.freeze
 
+  # IBAN2007Identifier (taken from https://github.com/salesking/sepa_king/blob/a8213d39d82ba39110073db19d25d13ed9f17118/lib/sepa_king/validator.rb)
+  REGEX = /\A[A-Z]{2,2}[0-9]{2,2}[a-zA-Z0-9]{1,30}\z/
+
   attr_reader :errors
 
   def initialize(account_number)
-    @iban = IBANTools::IBAN.new(account_number)
+    # Remove all spaces so that we can strictly enforce the format
+    number = account_number.to_s.delete(' ')
+
+    @iban = IBANTools::IBAN.new(number)
     @errors = @iban.validation_errors.map { |error| ERRORS_MAP.fetch(error) }
+    @errors << :bad_format unless number.match(REGEX)
   end
 
   def valid?
@@ -26,6 +33,10 @@ class IBANAccount
   end
 
   def to_s
+    @iban.code
+  end
+
+  def prettify
     @iban.prettify
   end
 end

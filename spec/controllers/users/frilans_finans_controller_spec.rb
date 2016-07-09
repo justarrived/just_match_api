@@ -11,7 +11,7 @@ RSpec.describe Api::V1::Users::FrilansFinansController, type: :controller do
           attributes: {
             account_clearing_number: 'account_clearing_number',
             account_number: 'account_number',
-            iban: ' ro49  aaaa 1B31007593840000 ',
+            iban: 'SE35 5000 0000 0549 1000 0003  ',
             bic: 'SSSWEDEN'
           }
         }
@@ -199,6 +199,12 @@ RSpec.describe Api::V1::Users::FrilansFinansController, type: :controller do
         }, {
           'status' => 422,
           'detail' => I18n.t('errors.bank_account.iban.bad_check_digits'),
+          'source' => {
+            'pointer' => '/data/attributes/iban'
+          }
+        }, {
+          'status' => 422,
+          'detail' => I18n.t('errors.bank_account.iban.bad_format'),
           'source' => {
             'pointer' => '/data/attributes/iban'
           }
