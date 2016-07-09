@@ -6,7 +6,7 @@ RSpec.describe Api::V1::Users::RatingsController, type: :controller do
   let(:user) { FactoryGirl.create(:user) }
   let(:job) do
     job = FactoryGirl.create(:passed_job, owner: owner)
-    job_user = FactoryGirl.create(:job_user, accepted: true, job: job, user: user)
+    job_user = FactoryGirl.create(:job_user_will_perform, job: job, user: user)
     FactoryGirl.create(:invoice, job_user: job_user)
     job
   end

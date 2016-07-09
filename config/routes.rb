@@ -74,6 +74,8 @@ Rails.application.routes.draw do
         end
 
         collection do
+          get :company_users_count
+
           resources :user_sessions, module: :users, path: :sessions, only: [:create, :destroy] do
             collection do
               post :magic_link, path: 'magic-link'

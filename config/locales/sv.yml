@@ -36,6 +36,7 @@ sv:
     invoice:
       job_started: jobbets starttid kan inte vara i framtiden när en faktura ska skapas
       job_user_accepted: användaren måste vara accepterat innan en faktura kan bli skapad
+      job_user_will_perform: användaren måste ha bekräftat jobbet innan en faktura kan bli skapad
     job:
       job_date_in_the_past: måste vara i framtiden
       hourly_pay_active: måste vara aktiv

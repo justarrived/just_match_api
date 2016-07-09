@@ -11,6 +11,7 @@ class Invoice < ApplicationRecord
 
   validate :validate_job_started
   validate :validate_job_user_accepted
+  validate :validate_job_user_will_perform
 
   scope :needs_frilans_finans_activation, lambda {
     joins(:frilans_finans_invoice).
@@ -34,6 +35,13 @@ class Invoice < ApplicationRecord
     return if job_user.nil? || job_user.accepted
 
     message = I18n.t('errors.invoice.job_user_accepted')
+    errors.add(:job_user, message)
+  end
+
+  def validate_job_user_will_perform
+    return if job_user.nil? || job_user.will_perform
+
+    message = I18n.t('errors.invoice.job_user_will_perform')
     errors.add(:job_user, message)
   end
 end
