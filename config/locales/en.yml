@@ -26,6 +26,9 @@ en:
         unknown_country_code: unknown country code
         bad_length: has the wrong length
         bad_format: has the wrong format
+      bic:
+        bad_format: has the wrong format
+        bad_country_code: unknown country code
     general:
       protocol_missing: missing protocol prefix http:// or https://
     chat:

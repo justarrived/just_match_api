@@ -26,6 +26,9 @@ sv:
         unknown_country_code: okänd landskod
         bad_length: har fel längd
         bad_format: har fel format
+      bic:
+        bad_format: har fel format
+        bad_country_code: okänd landskod
     general:
       protocol_missing: Protocol prefix saknas http:// eller https://
     chat:

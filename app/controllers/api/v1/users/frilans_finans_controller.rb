@@ -88,45 +88,51 @@ module Api
           # If one of the two foreign bank fields are filled out return, otherwise we'll
           # assume that the user is gonna add local bank details.
           #
-          # The drawback is if no fields at all are submitted only the local
+          # The drawback is if no fields at all are submitted only the Swedish
           # bank fields will be returned as blank validation errors
-          if errors.length != 2
-            iban_tool = IBANAccount.new(ff_user_params[:iban])
-            iban_tool.errors.each do |error|
-              errors.add(
-                pointer: :iban,
-                detail: I18n.t("errors.bank_account.iban.#{error}")
-              )
-            end
-            return errors
-          end
+          return foreign_bank_account_errors(errors) if errors.length != 2
 
-          bank_account_errors
-        end
-
-        def bank_account_errors
           errors = validate_non_blank(
             ff_user_params,
             :account_clearing_number,
             :account_number
           )
 
-          full_account_number = [
+          swedish_bank_account_errors(errors)
+        end
+
+        def foreign_bank_account_errors(errors)
+          # Validate IBAN
+          iban_tool = IBANAccount.new(ff_user_params[:iban])
+          iban_tool.errors.each do |error|
+            message = I18n.t("errors.bank_account.iban.#{error}")
+            errors.add(pointer: :iban, detail: message)
+          end
+
+          # Validate BIC
+          bic_tool = BICTool.new(ff_user_params[:bic])
+          bic_tool.errors.each do |error|
+            message = I18n.t("errors.bank_account.bic.#{error}")
+            errors.add(pointer: :bic, detail: message)
+          end
+          errors
+        end
+
+        def swedish_bank_account_errors(errors)
+          full_account = [
             ff_user_params[:account_clearing_number],
             ff_user_params[:account_number]
-          ]
+          ].join
 
-          SwedishBankAccount.new(full_account_number.join).errors.map do |error_name|
+          SwedishBankAccount.new(full_account).errors.map do |error_name|
+            # Map what field the error concerns
             pointer = if [:bad_checksum, :unknown_clearing_number].include?(error_name)
                         :account_clearing_number
                       else
                         :account_number
                       end
-
-            errors.add(
-              pointer: pointer,
-              detail: I18n.t(".errors.bank_account.#{error_name}")
-            )
+            message = I18n.t(".errors.bank_account.#{error_name}")
+            errors.add(pointer: pointer, detail: message)
           end
 
           errors
