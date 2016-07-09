@@ -10,6 +10,17 @@ class User < ApplicationRecord
     address: { lat: :latitude, long: :longitude }
   }.freeze
 
+  STATUSES = {
+    asylum_seeker: 1,
+    permanent: 2,
+    residence: 3
+  }.freeze
+
+  AT_UND = {
+    yes: 1,
+    no: 2
+  }.freeze
+
   attr_accessor :password
 
   after_validation :set_normalized_phone
@@ -56,6 +67,7 @@ class User < ApplicationRecord
   validate :validate_language_id_in_available_locale
   validate :validate_format_of_phone_number
   validate :validate_swedish_phone_number
+  validate :validate_arrival_date_in_past
 
   scope :admins, -> { where(admin: true) }
   scope :company_users, -> { where.not(company: nil) }
@@ -68,6 +80,9 @@ class User < ApplicationRecord
   scope :needs_frilans_finans_id, -> { where(frilans_finans_id: nil) }
   scope :anonymized, -> { where(anonymized: true) }
   scope :not_anonymized, -> { where(anonymized: false) }
+
+  enum current_status: STATUSES
+  enum at_und: AT_UND
 
   # Don't change the order or remove any items in the array,
   # only additions are allowed
@@ -218,6 +233,13 @@ class User < ApplicationRecord
     'Sweden'
   end
 
+  def validate_arrival_date_in_past
+    return if arrived_at.nil? || arrived_at <= Time.zone.today
+
+    error_message = I18n.t('errors.user.arrived_at_must_be_in_past')
+    errors.add(:arrived_at, error_message)
+  end
+
   def validate_language_id_in_available_locale
     language = Language.find_by(id: language_id)
     return if language.nil?
@@ -286,6 +308,10 @@ end
 #  frilans_finans_id              :integer
 #  frilans_finans_payment_details :boolean          default(FALSE)
 #  competence_text                :text
+#  current_status                 :integer
+#  at_und                         :integer
+#  arrived_at                     :date
+#  country_of_origin              :string
 #
 # Indexes
 #
