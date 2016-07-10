@@ -66,6 +66,7 @@ gem 'yagni_json_encoder', '~> 0.0.2' # Make Rails use the OJ gem for JSON
 gem 'fast_blank', '~> 1.0' # Re-implements #blank? in C
 
 gem 'rails-i18n', '~> 4.0.0' # Rails translations
+gem 'i18n_data', '~> 0.7' # Language and country names in various languages
 
 gem 'honey_format', '~> 0.2' # Simple CSV reading
 

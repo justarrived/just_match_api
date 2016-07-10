@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160709165412) do
+ActiveRecord::Schema.define(version: 20160710161700) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -256,6 +256,13 @@ ActiveRecord::Schema.define(version: 20160709165412) do
     t.string   "direction"
     t.string   "local_name"
     t.boolean  "system_language", default: false
+    t.string   "sv_name"
+    t.string   "ar_name"
+    t.string   "fa_name"
+    t.string   "fa_af_name"
+    t.string   "ku_name"
+    t.string   "ti_name"
+    t.string   "ps_name"
   end
 
   add_index "languages", ["lang_code"], name: "index_languages_on_lang_code", unique: true, using: :btree
