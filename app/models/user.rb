@@ -64,6 +64,11 @@ class User < ApplicationRecord
   validates :ssn, uniqueness: true, length: { is: 10 }, allow_blank: false
   validates :frilans_finans_id, uniqueness: true, allow_nil: true
 
+  # TODO: Figure out a good way to validate theese
+  #       see https://github.com/rails/rails/issues/13971
+  # validates :current_status, inclusion: { in: STATUSES.to_a.flatten(1) }
+  # validates :at_und, inclusion: { in: AT_UND.to_a.flatten(1) }
+
   validate :validate_language_id_in_available_locale
   validate :validate_format_of_phone_number
   validate :validate_swedish_phone_number
