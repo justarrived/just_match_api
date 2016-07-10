@@ -63,12 +63,12 @@ class User < ApplicationRecord
   validates :auth_token, uniqueness: true
   validates :ssn, uniqueness: true, length: { is: 10 }, allow_blank: false
   validates :frilans_finans_id, uniqueness: true, allow_nil: true
+  validates :country_of_origin, inclusion: { in: ISO3166::Country.translations.keys }, allow_blank: true # rubocop:disable Metrics/LineLength
 
-  # TODO: Figure out a good way to validate theese
+  # NOTE: Figure out a good way to validate :current_status and :at_und
   #       see https://github.com/rails/rails/issues/13971
-  # validates :current_status, inclusion: { in: STATUSES.to_a.flatten(1) }
-  # validates :at_und, inclusion: { in: AT_UND.to_a.flatten(1) }
 
+  validate :validate_arrived_at_date
   validate :validate_language_id_in_available_locale
   validate :validate_format_of_phone_number
   validate :validate_swedish_phone_number
@@ -266,6 +266,15 @@ class User < ApplicationRecord
 
     error_message = I18n.t('errors.user.must_be_swedish_phone_number')
     errors.add(:phone, error_message)
+  end
+
+  def validate_arrived_at_date
+    arrived_at_before_cast = read_attribute_before_type_cast(:arrived_at)
+    return if arrived_at_before_cast.nil?
+    return unless arrived_at.nil?
+
+    error_message = I18n.t('errors.general.must_be_valid_date')
+    errors.add(:arrived_at, error_message)
   end
 
   private

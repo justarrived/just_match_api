@@ -78,7 +78,7 @@ module Api
           param :'current-status', User::STATUSES.keys, desc: 'Current status'
           param :'at-und', User::AT_UND.keys, desc: 'AT-UND status'
           param :'arrived-at', String, desc: 'Arrived at date'
-          param :'country-of-origin', String, desc: 'Country of origin'
+          param :'country-of-origin', String, desc: 'Country of origin (alpha-2 code)'
           # rubocop:enable Metrics/LineLength
         end
       end

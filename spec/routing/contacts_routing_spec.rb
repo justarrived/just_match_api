@@ -1,16 +1,4 @@
 # frozen_string_literal: true
-# == Schema Information
-#
-# Table name: contacts
-#
-#  id         :integer          not null, primary key
-#  name       :string
-#  email      :string
-#  body       :text
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#
-
 require 'rails_helper'
 
 RSpec.describe Api::V1::ContactsController, type: :routing do
@@ -22,3 +10,14 @@ RSpec.describe Api::V1::ContactsController, type: :routing do
     end
   end
 end
+# == Schema Information
+#
+# Table name: contacts
+#
+#  id         :integer          not null, primary key
+#  name       :string
+#  email      :string
+#  body       :text
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#

@@ -431,6 +431,34 @@ RSpec.describe User, type: :model do
       expect(message || []).not_to include(error_message)
     end
   end
+
+  describe '#validate_arrived_at_date' do
+    let(:error_message) { I18n.t('errors.general.must_be_valid_date') }
+
+    it 'adds error if arrived at is not a valid date' do
+      user = FactoryGirl.build(:user, arrived_at: '1')
+      user.validate_arrived_at_date
+
+      message = user.errors.messages[:arrived_at]
+      expect(message).to include(error_message)
+    end
+
+    it 'adds *no* error if arrived at is a valid date' do
+      user = FactoryGirl.build(:user, arrived_at: '2016-01-01')
+      user.validate_arrived_at_date
+
+      message = user.errors.messages[:arrived_at]
+      expect(message || []).not_to include(error_message)
+    end
+
+    it 'adds *no* error if arrived at is nil' do
+      user = FactoryGirl.build(:user, arrived_at: nil)
+      user.validate_arrived_at_date
+
+      message = user.errors.messages[:arrived_at]
+      expect(message || []).not_to include(error_message)
+    end
+  end
 end
 
 # == Schema Information
