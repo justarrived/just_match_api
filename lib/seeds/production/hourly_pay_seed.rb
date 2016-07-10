@@ -2,7 +2,7 @@
 require 'seeds/base_seed'
 
 class HourlyPaySeed < BaseSeed
-  DEFAULT_ALLOWED_RATES = [70, 80, 100].freeze
+  DEFAULT_ALLOWED_RATES = [105, 115, 125].freeze
 
   def self.call
     new.call
@@ -11,7 +11,7 @@ class HourlyPaySeed < BaseSeed
   def call
     log_seed(HourlyPay) do
       DEFAULT_ALLOWED_RATES.each do |rate|
-        HourlyPay.find_or_create_by!(rate: rate, active: true)
+        HourlyPay.find_or_create_by!(gross_salary: rate, active: true)
       end
     end
   end

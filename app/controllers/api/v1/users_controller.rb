@@ -75,6 +75,10 @@ module Api
           param :'language-id', Integer, desc: 'Primary language id for user', required: true
           param :'language-ids', Array, of: Integer, desc: 'Language ids of languages that the user knows', required: true
           param :'user-image-one-time-token', String, desc: 'User image one time token'
+          param :'current-status', User::STATUSES.keys, desc: 'Current status'
+          param :'at-und', User::AT_UND.keys, desc: 'AT-UND status'
+          param :'arrived-at', String, desc: 'Arrived at date'
+          param :'country-of-origin', String, desc: 'Country of origin (alpha-2 code)'
           # rubocop:enable Metrics/LineLength
         end
       end
@@ -122,6 +126,10 @@ module Api
           param :'language-id', Integer, desc: 'Primary language id for user'
           param :'company-id', Integer, desc: 'Company id for user'
           param :'user-image-one-time-token', String, desc: 'User image one time token'
+          param :'current-status', User::STATUSES.keys, desc: 'Current status'
+          param :'at-und', User::AT_UND.keys, desc: 'AT-UND status'
+          param :'arrived-at', String, desc: 'Arrived at date'
+          param :'country-of-origin', String, desc: 'Country of origin'
           # rubocop:enable Metrics/LineLength
         end
       end
@@ -181,7 +189,8 @@ module Api
         whitelist = [
           :first_name, :last_name, :email, :phone, :description, :job_experience,
           :education, :ssn, :street, :zip, :language_id, :password, :company_id,
-          :competence_text, ignored_notifications: [], skill_ids: [], language_ids: []
+          :competence_text, :current_status, :at_und, :arrived_at, :country_of_origin,
+          ignored_notifications: [], skill_ids: [], language_ids: []
         ]
         jsonapi_params.permit(*whitelist)
       end

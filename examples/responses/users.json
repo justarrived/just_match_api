@@ -25,10 +25,15 @@
         "auth-token": null,
         "anonymized": false,
         "ignored-notifications": [
-
+          "user_job_match",
+          "new_chat_message"
         ],
         "frilans-finans-payment-details": false,
-        "ssn": "8901010000"
+        "ssn": "8901010000",
+        "current-status": "asylum_seeker",
+        "at-und": "yes",
+        "arrived-at": "2015-03-11",
+        "country-of-origin": "SE"
       },
       "relationships": {
         "company": {
