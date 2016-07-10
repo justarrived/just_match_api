@@ -10,6 +10,17 @@ class User < ApplicationRecord
     address: { lat: :latitude, long: :longitude }
   }.freeze
 
+  STATUSES = {
+    asylum_seeker: 1,
+    permanent: 2,
+    residence: 3
+  }.freeze
+
+  AT_UND = {
+    yes: 1,
+    no: 2
+  }.freeze
+
   attr_accessor :password
 
   after_validation :set_normalized_phone, :set_normalized_ssn
@@ -52,11 +63,17 @@ class User < ApplicationRecord
   validates :auth_token, uniqueness: true
   validates :ssn, uniqueness: true, allow_blank: false
   validates :frilans_finans_id, uniqueness: true, allow_nil: true
+  validates :country_of_origin, inclusion: { in: ISO3166::Country.translations.keys }, allow_blank: true # rubocop:disable Metrics/LineLength
 
+  # NOTE: Figure out a good way to validate :current_status and :at_und
+  #       see https://github.com/rails/rails/issues/13971
+
+  validate :validate_arrived_at_date
   validate :validate_language_id_in_available_locale
   validate :validate_format_of_phone_number
   validate :validate_swedish_phone_number
   validate :validate_swedish_ssn
+  validate :validate_arrival_date_in_past
 
   scope :admins, -> { where(admin: true) }
   scope :company_users, -> { where.not(company: nil) }
@@ -69,6 +86,9 @@ class User < ApplicationRecord
   scope :needs_frilans_finans_id, -> { where(frilans_finans_id: nil) }
   scope :anonymized, -> { where(anonymized: true) }
   scope :not_anonymized, -> { where(anonymized: false) }
+
+  enum current_status: STATUSES
+  enum at_und: AT_UND
 
   # Don't change the order or remove any items in the array,
   # only additions are allowed
@@ -219,6 +239,13 @@ class User < ApplicationRecord
     'Sweden'
   end
 
+  def validate_arrival_date_in_past
+    return if arrived_at.nil? || arrived_at <= Time.zone.today
+
+    error_message = I18n.t('errors.user.arrived_at_must_be_in_past')
+    errors.add(:arrived_at, error_message)
+  end
+
   def validate_language_id_in_available_locale
     language = Language.find_by(id: language_id)
     return if language.nil?
@@ -249,6 +276,15 @@ class User < ApplicationRecord
 
     error_message = I18n.t('errors.user.must_be_swedish_ssn')
     errors.add(:ssn, error_message)
+  end
+
+  def validate_arrived_at_date
+    arrived_at_before_cast = read_attribute_before_type_cast(:arrived_at)
+    return if arrived_at_before_cast.nil?
+    return unless arrived_at.nil?
+
+    error_message = I18n.t('errors.general.must_be_valid_date')
+    errors.add(:arrived_at, error_message)
   end
 
   private
@@ -296,6 +332,10 @@ end
 #  frilans_finans_id              :integer
 #  frilans_finans_payment_details :boolean          default(FALSE)
 #  competence_text                :text
+#  current_status                 :integer
+#  at_und                         :integer
+#  arrived_at                     :date
+#  country_of_origin              :string
 #
 # Indexes
 #

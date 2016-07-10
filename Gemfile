@@ -29,6 +29,7 @@ gem 'twilio-ruby', '~> 4.11.1' # Send SMS notifications
 gem 'backport_new_renderer', '~> 1.0', git: 'https://github.com/justarrived/backport_new_renderer' # rubocop:disable Metrics/LineLength
 
 gem 'global_phone', '~> 1.0' # Format cell phone numbers
+gem 'countries', require: 'countries/global' # Country data in various locales
 
 group :production do
   gem 'rails_12factor', '~> 0.0.3' # Heroku integration
@@ -65,6 +66,7 @@ gem 'yagni_json_encoder', '~> 0.0.2' # Make Rails use the OJ gem for JSON
 gem 'fast_blank', '~> 1.0' # Re-implements #blank? in C
 
 gem 'rails-i18n', '~> 4.0.0' # Rails translations
+gem 'i18n_data', '~> 0.7' # Language and country names in various languages
 
 gem 'honey_format', '~> 0.2' # Simple CSV reading
 

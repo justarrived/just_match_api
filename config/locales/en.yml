@@ -31,6 +31,7 @@ en:
         bad_country_code: unknown country code
     general:
       protocol_missing: missing protocol prefix http:// or https://
+      must_be_valid_date: must be a valid date
     chat:
       number_of_users: a chat must consist of between %{min}-%{max} number of users
     invoice:
@@ -65,6 +66,7 @@ en:
       must_be_valid_phone_number_format: must be a valid phone number
       must_be_swedish_phone_number: must be a Swedish phone number (+46)
       must_be_swedish_ssn: must be a valid Swedish social security number
+      arrived_at_must_be_in_past: must be in the past
     validators:
       after_true: '%{field} must be true'
       unrevertable: can't revert %{field}

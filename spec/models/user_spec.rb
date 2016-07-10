@@ -364,6 +364,34 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe '#validate_arrival_date_in_past' do
+    let(:error_message) { I18n.t('errors.user.arrived_at_must_be_in_past') }
+
+    it 'adds error if arrived_at is in the future' do
+      user = FactoryGirl.build(:user, arrived_at: 2.days.from_now.to_date)
+      user.validate
+
+      message = user.errors.messages[:arrived_at]
+      expect(message).to include(error_message)
+    end
+
+    it 'adds *no* error if arrived_at is in the past' do
+      user = FactoryGirl.build(:user, arrived_at: 2.days.ago.to_date)
+      user.validate
+
+      message = user.errors.messages[:arrived_at]
+      expect(message || []).not_to include(error_message)
+    end
+
+    it 'adds *no* error if arrived_at is nil' do
+      user = FactoryGirl.build(:user, arrived_at: nil)
+      user.validate
+
+      message = user.errors.messages[:arrived_at]
+      expect(message || []).not_to include(error_message)
+    end
+  end
+
   describe '#validate_format_of_phone_number' do
     let(:error_message) { I18n.t('errors.user.must_be_valid_phone_number_format') }
 
@@ -426,6 +454,34 @@ RSpec.describe User, type: :model do
       user.validate
 
       message = user.errors.messages[:phone]
+      expect(message || []).not_to include(error_message)
+    end
+  end
+
+  describe '#validate_arrived_at_date' do
+    let(:error_message) { I18n.t('errors.general.must_be_valid_date') }
+
+    it 'adds error if arrived at is not a valid date' do
+      user = FactoryGirl.build(:user, arrived_at: '1')
+      user.validate_arrived_at_date
+
+      message = user.errors.messages[:arrived_at]
+      expect(message).to include(error_message)
+    end
+
+    it 'adds *no* error if arrived at is a valid date' do
+      user = FactoryGirl.build(:user, arrived_at: '2016-01-01')
+      user.validate_arrived_at_date
+
+      message = user.errors.messages[:arrived_at]
+      expect(message || []).not_to include(error_message)
+    end
+
+    it 'adds *no* error if arrived at is nil' do
+      user = FactoryGirl.build(:user, arrived_at: nil)
+      user.validate_arrived_at_date
+
+      message = user.errors.messages[:arrived_at]
       expect(message || []).not_to include(error_message)
     end
   end

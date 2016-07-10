@@ -4,10 +4,17 @@
     "type": "languages",
     "attributes": {
       "lang-code": "en",
-      "en-name": null,
       "direction": null,
+      "system-language": false,
       "local-name": null,
-      "system-language": false
+      "en-name": null,
+      "sv-name": null,
+      "ar-name": null,
+      "fa-name": null,
+      "fa-af-name": null,
+      "ku-name": null,
+      "ti-name": null,
+      "ps-name": null
     }
   }
 }

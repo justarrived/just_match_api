@@ -31,6 +31,7 @@ sv:
         bad_country_code: okänd landskod
     general:
       protocol_missing: Protocol prefix saknas http:// eller https://
+      must_be_valid_date: måste vara ett gilltigt datum
     chat:
       number_of_users: en chat måste bestå av minst %{min} och %{max} antal användare
     invoice:
@@ -65,6 +66,7 @@ sv:
       must_be_valid_phone_number_format: måste vara ett gilltigt format
       must_be_swedish_phone_number: måste vara ett gilltigt svenskt nummer (+46)
       must_be_swedish_ssn: måste vara ett gilltigt svenskt personnummer or samordningsnummer
+      arrived_at_must_be_in_past: måste vara i det förflutna
     validators:
       after_true: '%{field} måste vara sant'
       unrevertable: kan inte återställa %{field}
