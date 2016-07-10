@@ -50,7 +50,7 @@ class User < ApplicationRecord
   validates :zip, length: { minimum: 5 }, allow_blank: true
   validates :password, length: { minimum: MIN_PASSWORD_LENGTH }, allow_blank: false, on: :create # rubocop:disable Metrics/LineLength
   validates :auth_token, uniqueness: true
-  validates :ssn, uniqueness: true, allow_blank: false # rubocop:disable Metrics/LineLength
+  validates :ssn, uniqueness: true, allow_blank: false
   validates :frilans_finans_id, uniqueness: true, allow_nil: true
 
   validate :validate_language_id_in_available_locale
