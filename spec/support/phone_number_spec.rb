@@ -10,6 +10,10 @@ RSpec.describe PhoneNumber do
     it 'returns nil when passed a number thats nil' do
       expect(described_class.normalize(nil)).to be_nil
     end
+
+    it 'returns the number untouched when passed an invalid number' do
+      expect(described_class.normalize('073')).to eq('073')
+    end
   end
 
   describe '#valid?' do

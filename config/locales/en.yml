@@ -13,6 +13,22 @@ en:
         subject: 'Admin notice: Failed to activate Frilans Finans invoice'
         notice: Failed to create a Frilans Finans invoice for %{id}
   errors:
+    bank_account:
+      too_short: is too short
+      too_long: is too long
+      invalid_characters: invalid characters
+      bad_checksum: bad checksum
+      unknown_clearing_number: unknown clearing number
+      iban:
+        too_short: is too short
+        bad_characters: has invalid characters
+        bad_check_digits: has invalid check digits
+        unknown_country_code: unknown country code
+        bad_length: has the wrong length
+        bad_format: has the wrong format
+      bic:
+        bad_format: has the wrong format
+        bad_country_code: unknown country code
     general:
       protocol_missing: missing protocol prefix http:// or https://
       must_be_valid_date: must be a valid date
@@ -49,6 +65,7 @@ en:
       must_be_available_locale: must be a supported langauge
       must_be_valid_phone_number_format: must be a valid phone number
       must_be_swedish_phone_number: must be a Swedish phone number (+46)
+      must_be_swedish_ssn: must be a valid Swedish social security number
       arrived_at_must_be_in_past: must be in the past
     validators:
       after_true: '%{field} must be true'

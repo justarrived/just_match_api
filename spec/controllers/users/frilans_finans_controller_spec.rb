@@ -11,8 +11,8 @@ RSpec.describe Api::V1::Users::FrilansFinansController, type: :controller do
           attributes: {
             account_clearing_number: 'account_clearing_number',
             account_number: 'account_number',
-            iban: 'iban',
-            bic: 'bic'
+            iban: 'SE35 5000 0000 0549 1000 0003  ',
+            bic: 'SWEDSESS'
           }
         }
       }
@@ -108,6 +108,18 @@ RSpec.describe Api::V1::Users::FrilansFinansController, type: :controller do
           'source' => {
             'pointer' => '/data/attributes/account-number'
           }
+        }, {
+          'status' => 422,
+          'detail' => I18n.t('errors.bank_account.too_short'),
+          'source' => {
+            'pointer' => '/data/attributes/account-number'
+          }
+        }, {
+          'status' => 422,
+          'detail' => I18n.t('errors.bank_account.unknown_clearing_number'),
+          'source' => {
+            'pointer' => '/data/attributes/account-clearing-number'
+          }
         }]
         expect(errors).to eq(expected)
       end
@@ -134,6 +146,24 @@ RSpec.describe Api::V1::Users::FrilansFinansController, type: :controller do
           'source' => {
             'pointer' => '/data/attributes/account-number'
           }
+        }, {
+          'status' => 422,
+          'detail' => I18n.t('errors.bank_account.too_short'),
+          'source' => {
+            'pointer' => '/data/attributes/account-number'
+          }
+        }, {
+          'status' => 422,
+          'detail' => I18n.t('errors.bank_account.invalid_characters'),
+          'source' => {
+            'pointer' => '/data/attributes/account-number'
+          }
+        }, {
+          'status' => 422,
+          'detail' => I18n.t('errors.bank_account.unknown_clearing_number'),
+          'source' => {
+            'pointer' => '/data/attributes/account-clearing-number'
+          }
         }]
         expect(errors).to eq(expected)
       end
@@ -157,6 +187,30 @@ RSpec.describe Api::V1::Users::FrilansFinansController, type: :controller do
         expected = [{
           'status' => 422,
           'detail' => I18n.t('errors.messages.blank'),
+          'source' => {
+            'pointer' => '/data/attributes/bic'
+          }
+        }, {
+          'status' => 422,
+          'detail' => I18n.t('errors.bank_account.iban.unknown_country_code'),
+          'source' => {
+            'pointer' => '/data/attributes/iban'
+          }
+        }, {
+          'status' => 422,
+          'detail' => I18n.t('errors.bank_account.iban.bad_check_digits'),
+          'source' => {
+            'pointer' => '/data/attributes/iban'
+          }
+        }, {
+          'status' => 422,
+          'detail' => I18n.t('errors.bank_account.iban.bad_format'),
+          'source' => {
+            'pointer' => '/data/attributes/iban'
+          }
+        }, {
+          'status' => 422,
+          'detail' => I18n.t('errors.bank_account.bic.bad_format'),
           'source' => {
             'pointer' => '/data/attributes/bic'
           }

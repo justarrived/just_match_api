@@ -13,6 +13,22 @@ sv:
         subject: 'Admin notis: Aktivering av Frilans Finans Faktura misslyckades'
         notice: Misslyckades skapa Frilans Finans faktura för %{id}
   errors:
+    bank_account:
+      too_short: är för kort
+      too_long: är för lång
+      invalid_characters: otillåtna tecken
+      bad_checksum: okänd checksumma
+      unknown_clearing_number: okänt clearing nummer
+      iban:
+        too_short: är för kort
+        bad_characters: otillåtna tecken
+        bad_check_digits: otillåtna checksiffror
+        unknown_country_code: okänd landskod
+        bad_length: har fel längd
+        bad_format: har fel format
+      bic:
+        bad_format: har fel format
+        bad_country_code: okänd landskod
     general:
       protocol_missing: Protocol prefix saknas http:// eller https://
       must_be_valid_date: måste vara ett gilltigt datum
@@ -49,6 +65,7 @@ sv:
       must_be_available_locale: ditt språk stöds tyvärr inte
       must_be_valid_phone_number_format: måste vara ett gilltigt format
       must_be_swedish_phone_number: måste vara ett gilltigt svenskt nummer (+46)
+      must_be_swedish_ssn: måste vara ett gilltigt svenskt personnummer or samordningsnummer
       arrived_at_must_be_in_past: måste vara i det förflutna
     validators:
       after_true: '%{field} måste vara sant'

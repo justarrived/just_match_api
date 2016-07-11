@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 class PhoneNumber
   def self.normalize(phone_number)
-    GlobalPhone.normalize(phone_number, :se)
+    # GlobalPhone returns nil if the number is invalid
+    GlobalPhone.normalize(phone_number, :se) || phone_number
   end
 
   def self.valid?(phone_number)

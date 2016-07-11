@@ -70,6 +70,10 @@ gem 'i18n_data', '~> 0.7' # Language and country names in various languages
 
 gem 'honey_format', '~> 0.2' # Simple CSV reading
 
+gem 'personnummer', '~> 0.0.8' # Validate Swedish "personummer" or "samordningsnummer"
+gem 'banktools-se', '~> 0.11' # Validate Swedish bank account
+gem 'iban-tools', '~> 1.1' # Validate IBAN
+
 group :development, :test do
   gem 'byebug', '~> 9.0'
   gem 'rspec-rails', '~> 3.4'
