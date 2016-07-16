@@ -31,7 +31,8 @@
       "current-status": "asylum_seeker",
       "at-und": "yes",
       "arrived-at": "2015-03-11",
-      "country-of-origin": "SE"
+      "country-of-origin": "SE",
+      "auth-token": null
     },
     "relationships": {
       "company": {
