@@ -15,7 +15,8 @@
         "zip-longitude": 18.4256286,
         "verified": false,
         "job-end-date": "2016-02-20 01:01:01 +0100",
-        "filled": false
+        "filled": false,
+        "short-description": "Watman"
       },
       "relationships": {
         "job-users": {
