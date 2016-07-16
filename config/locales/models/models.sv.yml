@@ -150,10 +150,13 @@ sv:
         name: Namn
         user_skills: Användar färdigheter
         users: Användare
+      token:
+        token: Token
+        expires_at: går ut vid
+        user: Användare
       user:
         admin: Administration
         anonymized: Anonym
-        auth_token: Auth token
         banned: Förbjudits
         chat_users: Chattanvändare
         chats: Chattar

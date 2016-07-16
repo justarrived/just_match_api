@@ -32,7 +32,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     }
   end
 
-  let(:logged_in_user) { FactoryGirl.create(:user) }
+  let(:logged_in_user) { FactoryGirl.create(:user_with_tokens) }
 
   let(:valid_session) do
     allow_any_instance_of(described_class).
@@ -155,7 +155,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       end
 
       context 'authorized' do
-        let(:user) { User.find_by(auth_token: valid_session[:token]) }
+        let(:user) { User.find_by_auth_token(valid_session[:token]) }
 
         it 'updates the requested user' do
           params = { user_id: user.to_param }.merge(new_attributes)
@@ -233,7 +233,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     end
 
     context 'with invalid params' do
-      let(:user) { User.find_by(auth_token: valid_session[:token]) }
+      let(:user) { User.find_by_auth_token(valid_session[:token]) }
 
       it 'assigns the user as @user' do
         params = { user_id: user.to_param }.merge(invalid_attributes)
@@ -251,7 +251,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
   describe 'DELETE #destroy' do
     context 'authorized' do
-      let(:user) { User.find_by(auth_token: valid_session[:token]) }
+      let(:user) { User.find_by_auth_token(valid_session[:token]) }
 
       it 'destroys the requested user' do
         delete :destroy, { user_id: user.to_param }, valid_session

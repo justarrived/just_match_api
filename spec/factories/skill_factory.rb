@@ -2,7 +2,7 @@
 FactoryGirl.define do
   factory :skill do
     sequence :name do |n|
-      "Skill #{n} #{SecureRandom.uuid}"
+      "Skill #{n} #{SecureGenerator.token(length: 32)}"
     end
     association :language
 

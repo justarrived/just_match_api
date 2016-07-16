@@ -52,7 +52,7 @@ module Dev
     end
 
     def self.create_user(address:, language:, email: nil, admin: false, company: nil)
-      email_address = email || "#{SecureRandom.uuid}@example.com"
+      email_address = email || "#{SecureGenerator.token(length: 32)}@example.com"
       user = User.find_or_initialize_by(email: email_address)
 
       user.assign_attributes(
@@ -68,7 +68,9 @@ module Dev
         admin: admin,
         company: company
       )
-      user.save!
+      # We have to skip all validations since we can't fake a SSN, without
+      # accidentally generating a real persons SSN
+      user.save(validate: false)
       user
     end
   end

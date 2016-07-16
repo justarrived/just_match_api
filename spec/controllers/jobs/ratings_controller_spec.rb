@@ -7,7 +7,7 @@ RSpec.describe Api::V1::Jobs::RatingsController do
   end
 
   let(:job_user) { FactoryGirl.create(:job_user_concluded, job: job) }
-  let(:job_owner) { FactoryGirl.create(:user) }
+  let(:job_owner) { FactoryGirl.create(:user_with_tokens) }
   let(:job) do
     job = FactoryGirl.create(:passed_job, owner: job_owner)
     job

@@ -31,7 +31,6 @@ RSpec.describe User, regressor: true do
   it { is_expected.to have_db_column :longitude }
   it { is_expected.to have_db_column :language_id }
   it { is_expected.to have_db_column :anonymized }
-  it { is_expected.to have_db_column :auth_token }
   it { is_expected.to have_db_column :password_hash }
   it { is_expected.to have_db_column :password_salt }
   it { is_expected.to have_db_column :admin }
@@ -51,7 +50,6 @@ RSpec.describe User, regressor: true do
   it { is_expected.to have_db_column :ignored_notifications_mask }
 
   # === Database (Indexes) ===
-  it { is_expected.to have_db_index ['auth_token'] }
   it { is_expected.to have_db_index ['company_id'] }
   it { is_expected.to have_db_index ['email'] }
   it { is_expected.to have_db_index ['language_id'] }

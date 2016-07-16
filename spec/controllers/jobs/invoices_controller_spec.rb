@@ -5,7 +5,11 @@ RSpec.describe Api::V1::Jobs::InvoicesController, type: :controller do
   let(:job_user) { FactoryGirl.create(:job_user_passed_job) }
   let(:user) { job_user.user }
   let(:job) { job_user.job }
-  let(:logged_in_user) { job.owner }
+  let(:logged_in_user) do
+    user = job.owner
+    user.create_auth_token
+    user
+  end
   let(:valid_params) do
     {
       job_id: job.to_param,

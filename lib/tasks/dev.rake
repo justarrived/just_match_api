@@ -2,10 +2,12 @@
 require 'seeds/dev/chat_seed'
 require 'seeds/dev/company_seed'
 require 'seeds/dev/faq_seed'
+require 'seeds/dev/frilans_finans_term_seed'
 require 'seeds/dev/invoice_seed'
 require 'seeds/dev/job_seed'
 require 'seeds/dev/job_user_seed'
 require 'seeds/dev/skill_seed'
+require 'seeds/dev/terms_agreement_seed'
 require 'seeds/dev/user_seed'
 
 namespace :dev do
@@ -40,7 +42,10 @@ namespace :dev do
   ].freeze
 
   task seed: :environment do
-    %w(companies skills users jobs chats job_users invoices faqs).each do |task|
+    %w(
+      companies skills users jobs chats job_users invoices faqs frilans_finans_terms
+      terms_agreements
+    ).each do |task|
       Rake::Task["dev:seed:#{task}"].execute
     end
   end
@@ -52,6 +57,15 @@ namespace :dev do
 
     task skills: :environment do
       Dev::SkillSeed.call
+    end
+
+    task frilans_finans_terms: :environment do
+      Dev::FrilansFinansTermSeed.call
+    end
+
+    task terms_agreements: :environment do
+      frilans_finans_terms = FrilansFinansTerm.all
+      Dev::TermsAgreementSeed.call(frilans_finans_terms: frilans_finans_terms)
     end
 
     task users: :environment do

@@ -32,6 +32,7 @@ Rails.application.routes.draw do
     resources :job_skills
     resources :user_skills
     resources :frilans_finans_terms
+    resources :tokens
 
     root to: 'jobs#index'
   end

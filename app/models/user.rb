@@ -25,11 +25,12 @@ class User < ApplicationRecord
 
   after_validation :set_normalized_phone, :set_normalized_ssn
 
-  before_create :generate_auth_token
   before_save :encrypt_password
 
   belongs_to :language
   belongs_to :company
+
+  has_many :auth_tokens, class_name: 'Token'
 
   has_many :user_skills
   has_many :skills, through: :user_skills
@@ -60,7 +61,6 @@ class User < ApplicationRecord
   validates :street, length: { minimum: 5 }, allow_blank: true
   validates :zip, length: { minimum: 5 }, allow_blank: true
   validates :password, length: { minimum: MIN_PASSWORD_LENGTH }, allow_blank: false, on: :create # rubocop:disable Metrics/LineLength
-  validates :auth_token, uniqueness: true
   validates :ssn, uniqueness: true, allow_blank: false
   validates :frilans_finans_id, uniqueness: true, allow_nil: true
   validates :country_of_origin, inclusion: { in: ISO3166::Country.translations.keys }, allow_blank: true # rubocop:disable Metrics/LineLength
@@ -118,6 +118,22 @@ class User < ApplicationRecord
     user
   end
 
+  def self.find_token(auth_token)
+    Token.find_by(token: auth_token)
+  end
+
+  def self.find_token!(auth_token)
+    Token.find_by!(token: auth_token)
+  end
+
+  def self.find_by_auth_token(auth_token)
+    find_token(auth_token).try(:user)
+  end
+
+  def self.find_by_auth_token!(auth_token)
+    find_token!(auth_token).user
+  end
+
   def self.find_by_phone(phone, normalize: false)
     phone_number = phone
     if normalize
@@ -170,6 +186,10 @@ class User < ApplicationRecord
     frilans_finans_id || fail('User has no Frilans Finans id!')
   end
 
+  def auth_token
+    auth_tokens.first.try(:token)
+  end
+
   def set_normalized_phone
     self.phone = PhoneNumber.normalize(phone)
   end
@@ -178,8 +198,10 @@ class User < ApplicationRecord
     self.ssn = SwedishSSN.normalize(ssn)
   end
 
+  # NOTE: This method has unintuitive side effects.. if the banned attribute is
+  #   just set to true all associated auth_tokens will immediately be destroyed
   def banned=(value)
-    generate_auth_token if value
+    auth_tokens.destroy_all if value
     self[:banned] = value
   end
 
@@ -208,24 +230,26 @@ class User < ApplicationRecord
       anonymized: true,
       first_name: 'Ghost',
       last_name: 'user',
-      email: "ghost+#{SecureRandom.uuid}@example.com",
+      email: "ghost+#{SecureGenerator.token(length: 64)}@example.com",
       phone: nil,
       description: 'This user has been deleted.',
       street: 'Stockholm',
       zip: '11120',
       ssn: '0000000000',
-      password: SecureRandom.uuid
+      password: SecureGenerator.token
     )
     save!(validate: false)
   end
 
-  def generate_auth_token
-    self.auth_token = SecureRandom.uuid
+  def create_auth_token
+    token = Token.new
+    auth_tokens << token
+    token
   end
 
   def generate_one_time_token(valid_duration: ONE_TIME_TOKEN_VALID_FOR_HOURS.hours)
     self.one_time_token_expires_at = Time.zone.now + valid_duration
-    self.one_time_token = SecureRandom.uuid
+    self.one_time_token = SecureGenerator.token
   end
 
   def self.valid_password?(password)
@@ -311,7 +335,6 @@ end
 #  longitude                      :float
 #  language_id                    :integer
 #  anonymized                     :boolean          default(FALSE)
-#  auth_token                     :string
 #  password_hash                  :string
 #  password_salt                  :string
 #  admin                          :boolean          default(FALSE)
@@ -339,7 +362,6 @@ end
 #
 # Indexes
 #
-#  index_users_on_auth_token         (auth_token) UNIQUE
 #  index_users_on_company_id         (company_id)
 #  index_users_on_email              (email) UNIQUE
 #  index_users_on_frilans_finans_id  (frilans_finans_id) UNIQUE

@@ -11,7 +11,7 @@ RSpec.describe Api::V1::Users::UserSkillsController, type: :controller do
   end
 
   let(:valid_session) do
-    user = FactoryGirl.create(:user)
+    user = FactoryGirl.create(:user_with_tokens)
     allow_any_instance_of(described_class).
       to(receive(:authenticate_user_token!).
       and_return(user))
@@ -57,7 +57,7 @@ RSpec.describe Api::V1::Users::UserSkillsController, type: :controller do
   describe 'POST #create' do
     context 'with valid params' do
       context 'authorized user' do
-        let(:user) { User.find_by(auth_token: valid_session[:token]) }
+        let(:user) { User.find_by_auth_token(valid_session[:token]) }
 
         it 'creates a new UserSkill' do
           skill = FactoryGirl.create(:skill)
@@ -112,7 +112,7 @@ RSpec.describe Api::V1::Users::UserSkillsController, type: :controller do
 
     context 'with invalid params' do
       context 'authorized user' do
-        let(:user) { User.find_by(auth_token: valid_session[:token]) }
+        let(:user) { User.find_by_auth_token(valid_session[:token]) }
 
         it 'assigns a newly created but unsaved user_skill as @user_skill' do
           post :create, { user_id: user.to_param, skill: {} }, valid_session
@@ -131,13 +131,14 @@ RSpec.describe Api::V1::Users::UserSkillsController, type: :controller do
     context 'authorized user' do
       let(:valid_session) do
         user = FactoryGirl.create(:user_with_skills)
+        user.create_auth_token
         allow_any_instance_of(described_class).
           to(receive(:authenticate_user_token!).
           and_return(user))
         { token: user.auth_token }
       end
 
-      let(:user) { User.find_by(auth_token: valid_session[:token]) }
+      let(:user) { User.find_by_auth_token(valid_session[:token]) }
 
       it 'destroys the requested user_skill' do
         user_skill = user.user_skills.first

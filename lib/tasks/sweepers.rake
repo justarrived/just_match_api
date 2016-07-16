@@ -7,7 +7,11 @@ namespace :sweepers do
   end
 
   task cleanup: :environment do
-    %w(destroy_company_image_orphans destroy_user_image_orphans).each do |task|
+    %w(
+      destroy_company_image_orphans
+      destroy_user_image_orphans
+      destroy_expired_tokens
+    ).each do |task|
       Rake::Task["sweepers:cleanup:#{task}"].execute
     end
   end
@@ -19,6 +23,10 @@ namespace :sweepers do
 
     task destroy_user_image_orphans: :environment do |task_name|
       wrap_sweeper_task(task_name) { Sweepers::UserImageSweeper.destroy_orphans }
+    end
+
+    task destroy_expired_tokens: :environment do |task_name|
+      wrap_sweeper_task(task_name) { Sweepers::TokenSweeper.destroy_expired_tokens }
     end
   end
 

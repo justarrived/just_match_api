@@ -21,7 +21,6 @@
       "created-at": "2016-02-10 01:01:01 +0100",
       "updated-at": "2016-02-12 01:01:01 +0100",
       "admin": false,
-      "auth-token": null,
       "anonymized": false,
       "ignored-notifications": [
         "user_job_match",
@@ -32,7 +31,8 @@
       "current-status": "asylum_seeker",
       "at-und": "yes",
       "arrived-at": "2015-03-11",
-      "country-of-origin": "SE"
+      "country-of-origin": "SE",
+      "auth-token": null
     },
     "relationships": {
       "company": {

@@ -32,7 +32,7 @@ RSpec.describe Api::V1::JobsController, type: :controller do
   end
 
   let(:valid_session) do
-    user = FactoryGirl.create(:user)
+    user = FactoryGirl.create(:user_with_tokens)
     allow_any_instance_of(described_class).
       to(receive(:authenticate_user_token!).
       and_return(user))
@@ -139,7 +139,7 @@ RSpec.describe Api::V1::JobsController, type: :controller do
         }
       end
 
-      let(:user) { User.find_by(auth_token: valid_session[:token]) }
+      let(:user) { User.find_by_auth_token(valid_session[:token]) }
 
       context 'owner user' do
         it 'updates the requested job' do
@@ -229,14 +229,14 @@ RSpec.describe Api::V1::JobsController, type: :controller do
         end
 
         let(:valid_session) do
-          user = FactoryGirl.create(:user)
+          user = FactoryGirl.create(:user_with_tokens)
           allow_any_instance_of(described_class).
             to(receive(:authenticate_user_token!).
             and_return(user))
           { token: user.auth_token }
         end
 
-        let(:user) { User.find_by(auth_token: valid_session[:token]) }
+        let(:user) { User.find_by_auth_token(valid_session[:token]) }
 
         it 'returns forbidden status' do
           FactoryGirl.create(:user)
@@ -251,7 +251,7 @@ RSpec.describe Api::V1::JobsController, type: :controller do
 
     context 'with invalid params' do
       let(:job) do
-        user = User.find_by(auth_token: valid_session[:token])
+        user = User.find_by_auth_token(valid_session[:token])
         FactoryGirl.create(:job, owner: user)
       end
 
