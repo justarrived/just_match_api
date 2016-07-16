@@ -170,12 +170,13 @@ RSpec.describe Api::V1::Users::UserSessionsController, type: :controller do
         expect(response.status).to eq(204)
       end
 
-      it 'should re-generate user auth token' do
+      it 'destroys users auth token' do
         user = FactoryGirl.create(:user, email: 'someone@example.com')
-        auth_token = user.create_auth_token
-        delete :destroy, { id: auth_token.token }, {}
+        token = user.create_auth_token
+        auth_token = token.token
+        delete :destroy, { id: auth_token }, {}
         user.reload
-        expect(user.auth_tokens).not_to include(auth_token)
+        expect(user.auth_tokens).not_to include(token)
       end
     end
 
