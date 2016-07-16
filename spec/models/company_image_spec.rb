@@ -19,7 +19,7 @@ RSpec.describe CompanyImage, type: :model do
 
     it 'generates one time token' do
       company_image.generate_one_time_token
-      expect(company_image.one_time_token.length).to eq(36)
+      expect(company_image.one_time_token.length).to eq(96)
     end
 
     it 'generates one time token expiry datetime' do

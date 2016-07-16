@@ -163,6 +163,11 @@ en:
         score: Score
         to_user: To user
 
+      token:
+        token: Token
+        expires_at: Expires at
+        user: User
+
       skill:
         job_skills: Job skills
         jobs: Jobs
@@ -174,7 +179,6 @@ en:
       user:
         admin: Admin
         anonymized: Anonymized
-        auth_token: Auth token
         banned: Banned
         chat_users: Chat users
         chats: Chats

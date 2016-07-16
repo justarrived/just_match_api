@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160710161700) do
+ActiveRecord::Schema.define(version: 20160716111219) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -207,12 +207,13 @@ ActiveRecord::Schema.define(version: 20160710161700) do
   create_table "job_users", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "job_id"
-    t.boolean  "accepted",     default: false
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
-    t.boolean  "will_perform", default: false
+    t.boolean  "accepted",      default: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.boolean  "will_perform",  default: false
     t.datetime "accepted_at"
-    t.boolean  "performed",    default: false
+    t.boolean  "performed",     default: false
+    t.text     "apply_message"
   end
 
   add_index "job_users", ["job_id", "user_id"], name: "index_job_users_on_job_id_and_user_id", unique: true, using: :btree
@@ -327,6 +328,17 @@ ActiveRecord::Schema.define(version: 20160710161700) do
   add_index "terms_agreements", ["frilans_finans_term_id"], name: "index_terms_agreements_on_frilans_finans_term_id", using: :btree
   add_index "terms_agreements", ["version"], name: "index_terms_agreements_on_version", unique: true, using: :btree
 
+  create_table "tokens", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "token"
+    t.datetime "expires_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "tokens", ["token"], name: "index_tokens_on_token", using: :btree
+  add_index "tokens", ["user_id"], name: "index_tokens_on_user_id", using: :btree
+
   create_table "user_images", force: :cascade do |t|
     t.datetime "one_time_token_expires_at"
     t.string   "one_time_token"
@@ -376,7 +388,6 @@ ActiveRecord::Schema.define(version: 20160710161700) do
     t.float    "longitude"
     t.integer  "language_id"
     t.boolean  "anonymized",                     default: false
-    t.string   "auth_token"
     t.string   "password_hash"
     t.string   "password_salt"
     t.boolean  "admin",                          default: false
@@ -403,7 +414,6 @@ ActiveRecord::Schema.define(version: 20160710161700) do
     t.string   "country_of_origin"
   end
 
-  add_index "users", ["auth_token"], name: "index_users_on_auth_token", unique: true, using: :btree
   add_index "users", ["company_id"], name: "index_users_on_company_id", using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["frilans_finans_id"], name: "index_users_on_frilans_finans_id", unique: true, using: :btree
@@ -444,6 +454,7 @@ ActiveRecord::Schema.define(version: 20160710161700) do
   add_foreign_key "terms_agreement_consents", "terms_agreements"
   add_foreign_key "terms_agreement_consents", "users"
   add_foreign_key "terms_agreements", "frilans_finans_terms"
+  add_foreign_key "tokens", "users"
   add_foreign_key "user_images", "users"
   add_foreign_key "user_languages", "languages"
   add_foreign_key "user_languages", "users"

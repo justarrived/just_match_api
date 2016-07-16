@@ -20,7 +20,7 @@ RSpec.describe Api::V1::ChatsController, type: :controller do
   end
 
   let(:valid_session) do
-    user = FactoryGirl.create(:user)
+    user = FactoryGirl.create(:user_with_tokens)
     allow_any_instance_of(described_class).
       to(
         receive(:authenticate_user_token!).
@@ -49,7 +49,7 @@ RSpec.describe Api::V1::ChatsController, type: :controller do
   describe 'GET #show' do
     context 'authorized' do
       it 'assigns the requested chat as @chat' do
-        user = User.find_by(auth_token: valid_session[:token])
+        user = User.find_by_auth_token(valid_session[:token])
         chat_user = FactoryGirl.create(:chat_user, user: user)
         chat = chat_user.chat
         get :show, { id: chat.to_param }, valid_session

@@ -36,7 +36,7 @@ class CompanyImage < ActiveRecord::Base
 
   def generate_one_time_token
     self.one_time_token_expires_at = Time.zone.now + ONE_TIME_TOKEN_VALID_FOR_HOURS.hours
-    self.one_time_token = SecureRandom.uuid
+    self.one_time_token = SecureGenerator.token
   end
 end
 

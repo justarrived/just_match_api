@@ -52,7 +52,7 @@ module Dev
     end
 
     def self.create_user(address:, language:, email: nil, admin: false, company: nil)
-      email_address = email || "#{SecureRandom.uuid}@example.com"
+      email_address = email || "#{SecureGenerator.token(length: 32)}@example.com"
       user = User.find_or_initialize_by(email: email_address)
 
       user.assign_attributes(

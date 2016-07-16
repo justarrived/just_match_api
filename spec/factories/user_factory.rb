@@ -25,6 +25,17 @@ FactoryGirl.define do
     end
     # association :language
 
+    factory :user_with_tokens do
+      transient do
+        tokens_count 1
+      end
+
+      after(:create) do |user, evaluator|
+        tokens = create_list(:token, evaluator.tokens_count)
+        user.auth_tokens = tokens
+      end
+    end
+
     before(:create) do |user, _evaluator|
       # Unless explicitly given a language add a default, valid, one
       if user.language.nil?
@@ -116,6 +127,10 @@ end
 #  frilans_finans_id              :integer
 #  frilans_finans_payment_details :boolean          default(FALSE)
 #  competence_text                :text
+#  current_status                 :integer
+#  at_und                         :integer
+#  arrived_at                     :date
+#  country_of_origin              :string
 #
 # Indexes
 #

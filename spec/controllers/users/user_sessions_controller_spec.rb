@@ -47,7 +47,7 @@ RSpec.describe Api::V1::Users::UserSessionsController, type: :controller do
           post :create, valid_attributes, valid_session
           json = JSON.parse(response.body)
           jsonapi_params = JsonApiDeserializer.parse(json)
-          expect(jsonapi_params['auth_token'].length).to eq(36)
+          expect(jsonapi_params['auth_token'].length).to eq(96)
         end
 
         it 'should return JSON with user id' do
@@ -163,7 +163,7 @@ RSpec.describe Api::V1::Users::UserSessionsController, type: :controller do
   describe 'DELETE #token' do
     context 'valid user' do
       it 'should return success status' do
-        user = FactoryGirl.create(:user, email: 'someone@example.com')
+        user = FactoryGirl.create(:user_with_tokens, email: 'someone@example.com')
         token = user.auth_token
         delete :destroy, { id: token }, {}
         expect(response.status).to eq(204)
@@ -171,16 +171,16 @@ RSpec.describe Api::V1::Users::UserSessionsController, type: :controller do
 
       it 'should re-generate user auth token' do
         user = FactoryGirl.create(:user, email: 'someone@example.com')
-        token = user.auth_token
-        delete :destroy, { id: token }, {}
+        auth_token = user.create_auth_token
+        delete :destroy, { id: auth_token.token }, {}
         user.reload
-        expect(user.auth_token).not_to eq(token)
+        expect(user.auth_tokens).not_to include(auth_token)
       end
     end
 
     context 'no such user auth_token' do
       it 'should return 404 not found' do
-        FactoryGirl.create(:user, email: 'someone@example.com')
+        FactoryGirl.create(:user_with_tokens, email: 'someone@example.com')
         delete :destroy, { id: 'dasds' }, {}
         expect(response.status).to eq(404)
       end
@@ -190,7 +190,7 @@ RSpec.describe Api::V1::Users::UserSessionsController, type: :controller do
   describe 'POST #magic_link' do
     context 'valid phone' do
       let(:valid_params) do
-        FactoryGirl.create(:user, phone: '073 500 0000')
+        FactoryGirl.create(:user_with_tokens, phone: '073 500 0000')
         {
           data: {
             attributes: {

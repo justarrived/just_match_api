@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 class JobUserSerializer < ApplicationSerializer
   ATTRIBUTES = [
-    :accepted, :accepted_at, :will_perform, :performed, :will_perform_confirmation_by
+    :accepted, :accepted_at, :will_perform, :performed, :will_perform_confirmation_by,
+    :apply_message
   ].freeze
 
   attributes ATTRIBUTES
@@ -16,15 +17,16 @@ end
 #
 # Table name: job_users
 #
-#  id           :integer          not null, primary key
-#  user_id      :integer
-#  job_id       :integer
-#  accepted     :boolean          default(FALSE)
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  will_perform :boolean          default(FALSE)
-#  accepted_at  :datetime
-#  performed    :boolean          default(FALSE)
+#  id            :integer          not null, primary key
+#  user_id       :integer
+#  job_id        :integer
+#  accepted      :boolean          default(FALSE)
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  will_perform  :boolean          default(FALSE)
+#  accepted_at   :datetime
+#  performed     :boolean          default(FALSE)
+#  apply_message :text
 #
 # Indexes
 #
