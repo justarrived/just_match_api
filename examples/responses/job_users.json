@@ -8,7 +8,8 @@
         "accepted-at": null,
         "will-perform": false,
         "performed": false,
-        "will-perform-confirmation-by": null
+        "will-perform-confirmation-by": null,
+        "apply-message": null
       },
       "relationships": {
         "user": {

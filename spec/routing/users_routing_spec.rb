@@ -80,6 +80,10 @@ end
 #  frilans_finans_id              :integer
 #  frilans_finans_payment_details :boolean          default(FALSE)
 #  competence_text                :text
+#  current_status                 :integer
+#  at_und                         :integer
+#  arrived_at                     :date
+#  country_of_origin              :string
 #
 # Indexes
 #

@@ -47,6 +47,13 @@ end
 #  direction       :string
 #  local_name      :string
 #  system_language :boolean          default(FALSE)
+#  sv_name         :string
+#  ar_name         :string
+#  fa_name         :string
+#  fa_af_name      :string
+#  ku_name         :string
+#  ti_name         :string
+#  ps_name         :string
 #
 # Indexes
 #
