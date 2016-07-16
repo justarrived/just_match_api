@@ -16,7 +16,7 @@ class UserDashboard < Administrate::BaseDashboard
     skills: Field::HasMany,
     owned_jobs: Field::HasMany.with_options(class_name: 'Job'),
     job_users: Field::HasMany,
-    auth_tokens: Field::HasMany,
+    auth_tokens: Field::HasMany.with_options(class_name: 'Token'),
     jobs: Field::HasMany,
     user_languages: Field::HasMany,
     languages: Field::HasMany,
