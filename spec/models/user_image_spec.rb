@@ -19,7 +19,7 @@ RSpec.describe UserImage, type: :model do
 
     it 'generates one time token' do
       user_image.generate_one_time_token
-      expect(user_image.one_time_token.length).to eq(36)
+      expect(user_image.one_time_token.length).to eq(96)
     end
 
     it 'generates one time token expiry datetime' do

@@ -25,7 +25,7 @@ class User < ApplicationRecord
 
   after_validation :set_normalized_phone, :set_normalized_ssn
 
-  before_create :generate_auth_token
+  before_create :regenerate_auth_token
   before_save :encrypt_password
 
   belongs_to :language
@@ -179,7 +179,7 @@ class User < ApplicationRecord
   end
 
   def banned=(value)
-    generate_auth_token if value
+    regenerate_auth_token if value
     self[:banned] = value
   end
 
@@ -208,24 +208,24 @@ class User < ApplicationRecord
       anonymized: true,
       first_name: 'Ghost',
       last_name: 'user',
-      email: "ghost+#{SecureRandom.uuid}@example.com",
+      email: "ghost+#{SecureGenerator.token(length: 32)}@example.com",
       phone: nil,
       description: 'This user has been deleted.',
       street: 'Stockholm',
       zip: '11120',
       ssn: '0000000000',
-      password: SecureRandom.uuid
+      password: SecureGenerator.token
     )
     save!(validate: false)
   end
 
-  def generate_auth_token
-    self.auth_token = SecureRandom.uuid
+  def regenerate_auth_token
+    self.auth_token = SecureGenerator.token
   end
 
   def generate_one_time_token(valid_duration: ONE_TIME_TOKEN_VALID_FOR_HOURS.hours)
     self.one_time_token_expires_at = Time.zone.now + valid_duration
-    self.one_time_token = SecureRandom.uuid
+    self.one_time_token = SecureGenerator.token
   end
 
   def self.valid_password?(password)

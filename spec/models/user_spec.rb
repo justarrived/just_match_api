@@ -18,7 +18,7 @@ RSpec.describe User, type: :model do
   describe '#auth_token' do
     it 'creates a new user with an auth_token of length 36' do
       user = FactoryGirl.create(:user)
-      expect(user.auth_token.length).to eq(36)
+      expect(user.auth_token.length).to eq(96)
     end
   end
 
@@ -172,7 +172,7 @@ RSpec.describe User, type: :model do
 
     it 'generates one time token' do
       user.generate_one_time_token
-      expect(user.one_time_token.length).to eq(36)
+      expect(user.one_time_token.length).to eq(96)
     end
 
     it 'generates one time token expiry datetime' do

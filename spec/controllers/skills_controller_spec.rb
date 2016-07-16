@@ -12,7 +12,7 @@ RSpec.describe Api::V1::SkillsController, type: :controller do
     {
       data: {
         attributes: {
-          name: "Skill #{SecureRandom.uuid}",
+          name: "Skill #{SecureGenerator.token(length: 32)}",
           language_id: lang_id
         }
       }

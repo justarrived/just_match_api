@@ -47,7 +47,7 @@ RSpec.describe Api::V1::Users::UserSessionsController, type: :controller do
           post :create, valid_attributes, valid_session
           json = JSON.parse(response.body)
           jsonapi_params = JsonApiDeserializer.parse(json)
-          expect(jsonapi_params['auth_token'].length).to eq(36)
+          expect(jsonapi_params['auth_token'].length).to eq(96)
         end
 
         it 'should return JSON with user id' do
