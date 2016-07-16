@@ -198,6 +198,8 @@ class User < ApplicationRecord
     self.ssn = SwedishSSN.normalize(ssn)
   end
 
+  # NOTE: This method has unintuitive side effects.. if the banned attribute is
+  #   just set to true all associated auth_tokens will immediately be destroyed
   def banned=(value)
     auth_tokens.destroy_all if value
     self[:banned] = value
