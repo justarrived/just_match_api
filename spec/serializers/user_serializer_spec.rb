@@ -44,7 +44,6 @@ end
 #  longitude                      :float
 #  language_id                    :integer
 #  anonymized                     :boolean          default(FALSE)
-#  auth_token                     :string
 #  password_hash                  :string
 #  password_salt                  :string
 #  admin                          :boolean          default(FALSE)
@@ -72,7 +71,6 @@ end
 #
 # Indexes
 #
-#  index_users_on_auth_token         (auth_token) UNIQUE
 #  index_users_on_company_id         (company_id)
 #  index_users_on_email              (email) UNIQUE
 #  index_users_on_frilans_finans_id  (frilans_finans_id) UNIQUE

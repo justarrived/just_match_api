@@ -52,6 +52,7 @@ module Api
           # rubocop:disable Metrics/LineLength
           param :hours, Float, desc: 'Estmiated completion time', required: true
           param :name, String, desc: 'Name', required: true
+          param :'short-description', String, desc: 'Short description'
           param :description, String, desc: 'Description', required: true
           param :'job-date', String, desc: 'Job start date', required: true
           param :'job-end-date', String, desc: 'Job end date', required: true
@@ -93,6 +94,7 @@ module Api
       param :data, Hash, desc: 'Top level key', required: true do
         param :attributes, Hash, desc: 'Job attributes', required: true do
           param :name, String, desc: 'Name'
+          param :'short-description', String, desc: 'Short description'
           param :description, String, desc: 'Description'
           param :'job-date', String, desc: 'Job start date'
           param :'job-end-date', String, desc: 'Job end date'
