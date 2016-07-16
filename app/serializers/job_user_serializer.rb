@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 class JobUserSerializer < ApplicationSerializer
   ATTRIBUTES = [
-    :accepted, :accepted_at, :will_perform, :performed, :will_perform_confirmation_by
+    :accepted, :accepted_at, :will_perform, :performed, :will_perform_confirmation_by,
+    :apply_message
   ].freeze
 
   attributes ATTRIBUTES

@@ -66,6 +66,11 @@ module Api
         error code: 400, desc: 'Bad request'
         error code: 404, desc: 'Not found'
         error code: 422, desc: 'Unprocessable entity'
+        param :data, Hash, desc: 'Top level key', required: true do
+          param :attributes, Hash, desc: 'Job user attributes', required: true do
+            param :'apply-message', String, desc: 'Apply message'
+          end
+        end
         example Doxxer.read_example(JobUser, method: :create)
         def create
           authorize(JobUser)
@@ -73,6 +78,7 @@ module Api
           @job_user = JobUser.new
           @job_user.user = current_user
           @job_user.job = @job
+          @job_user.apply_message = jsonapi_params[:apply_message]
 
           if @job_user.save
             NewApplicantNotifier.call(job_user: @job_user, owner: @job.owner)

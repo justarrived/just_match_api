@@ -3,7 +3,7 @@ class JobUserPolicy < ApplicationPolicy
   Context = Struct.new(:current_user, :job_context, :user_record)
 
   JOB_OWNER_ATTRIBUTES = [:accepted].freeze
-  JOB_USER_ATTRIBUTES = [:will_perform, :performed].freeze
+  JOB_USER_ATTRIBUTES = [:will_perform, :performed, :apply_message].freeze
   ADMIN_ATTRIBUTES = JOB_OWNER_ATTRIBUTES + JOB_USER_ATTRIBUTES
 
   attr_reader :job_context, :user_record
