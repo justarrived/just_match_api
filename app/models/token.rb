@@ -11,6 +11,8 @@ class Token < ActiveRecord::Base
   validates :token, uniqueness: true
   validates :expires_at, presence: true
 
+  scope :expired, -> { where('expires_at < ?', Time.zone.now) }
+
   def regenerate_token
     self.token = SecureGenerator.token
   end
