@@ -68,7 +68,9 @@ module Dev
         admin: admin,
         company: company
       )
-      user.save!
+      # We have to skip all validations since we can't fake a SSN, without
+      # accidentally generating a real persons SSN
+      user.save(validate: false)
       user
     end
   end
