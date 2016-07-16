@@ -33,8 +33,8 @@ RSpec.describe Token, type: :model do
 
       token.regenerate_token
 
-      expect(token.token).not_to eq(first_token
-      expected = SecureGenerator::DEFAULT_TOKEN_LENGTH)
+      expect(token.token).not_to eq(first_token)
+      expected = SecureGenerator::DEFAULT_TOKEN_LENGTH
       expect(token.token.length).to eq(expected)
     end
 

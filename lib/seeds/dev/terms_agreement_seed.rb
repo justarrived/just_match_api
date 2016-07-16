@@ -7,7 +7,7 @@ module Dev
       max_terms_agreement = max_count_opt('MAX_TERMS_AGREEMENTS_SEED', 3)
 
       log_seed(TermsAgreement) do
-        max_terms_agreement.times do |n|
+        max_terms_agreement.times do
           TermsAgreement.create(
             version: SecureGenerator.token,
             frilans_finans_term: frilans_finans_terms.sample,

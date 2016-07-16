@@ -43,9 +43,9 @@ namespace :dev do
 
   task seed: :environment do
     %w(
-        companies skills users jobs chats job_users invoices faqs frilans_finans_terms
-        terms_agreements
-      ).each do |task|
+      companies skills users jobs chats job_users invoices faqs frilans_finans_terms
+      terms_agreements
+    ).each do |task|
       Rake::Task["dev:seed:#{task}"].execute
     end
   end
