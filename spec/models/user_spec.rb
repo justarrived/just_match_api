@@ -165,7 +165,8 @@ RSpec.describe User, type: :model do
 
     it 'generates one time token' do
       user.generate_one_time_token
-      expect(user.one_time_token.length).to eq(96)
+      expected = SecureGenerator::DEFAULT_TOKEN_LENGTH
+      expect(user.one_time_token.length).to eq(expected)
     end
 
     it 'generates one time token expiry datetime' do

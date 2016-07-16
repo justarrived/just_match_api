@@ -28,12 +28,14 @@ RSpec.describe Token, type: :model do
     it 'regenerates token' do
       token = described_class.create
       first_token = token.regenerate_token
-      expect(token.token.length).to eq(96)
+      expected = SecureGenerator::DEFAULT_TOKEN_LENGTH
+      expect(token.token.length).to eq(expected)
 
       token.regenerate_token
 
-      expect(token.token).not_to eq(first_token)
-      expect(token.token.length).to eq(96)
+      expect(token.token).not_to eq(first_token
+      expected = SecureGenerator::DEFAULT_TOKEN_LENGTH)
+      expect(token.token.length).to eq(expected)
     end
 
     it 'leaves expires at if set' do

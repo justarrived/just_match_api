@@ -6,7 +6,8 @@ RSpec.describe SecureGenerator do
     subject { described_class.token }
 
     it 'generates token' do
-      expect(subject.length).to eq(96)
+      expected = SecureGenerator::DEFAULT_TOKEN_LENGTH
+      expect(subject.length).to eq(expected)
     end
 
     context 'length option' do

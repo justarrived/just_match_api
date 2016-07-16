@@ -228,7 +228,7 @@ class User < ApplicationRecord
       anonymized: true,
       first_name: 'Ghost',
       last_name: 'user',
-      email: "ghost+#{SecureGenerator.token(length: 32)}@example.com",
+      email: "ghost+#{SecureGenerator.token(length: 64)}@example.com",
       phone: nil,
       description: 'This user has been deleted.',
       street: 'Stockholm',

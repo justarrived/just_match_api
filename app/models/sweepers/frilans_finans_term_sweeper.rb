@@ -11,7 +11,7 @@ module Sweepers
       ff_terms = FrilansFinansTerm.create!(body: terms_text, company: type == :company)
 
       TermsAgreement.create!(
-        version: SecureGenerator.token(length: 32),
+        version: SecureGenerator.token,
         url: url,
         frilans_finans_term: ff_terms
       )
