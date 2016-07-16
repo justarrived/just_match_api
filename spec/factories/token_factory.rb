@@ -1,7 +1,8 @@
+# frozen_string_literal: true
 FactoryGirl.define do
   factory :token do
-    user nil
-    token "MyString"
+    association :user
+    token SecureGenerator.token
   end
 end
 
@@ -12,6 +13,7 @@ end
 #  id         :integer          not null, primary key
 #  user_id    :integer
 #  token      :string
+#  expires_at :datetime
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #

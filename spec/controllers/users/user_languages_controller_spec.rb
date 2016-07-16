@@ -11,14 +11,14 @@ RSpec.describe Api::V1::Users::UserLanguagesController, type: :controller do
   end
 
   let(:valid_session) do
-    user = FactoryGirl.create(:user)
+    user = FactoryGirl.create(:user_with_tokens)
     allow_any_instance_of(described_class).
       to(receive(:authenticate_user_token!).
       and_return(user))
     { token: user.auth_token }
   end
 
-  let(:user) { User.find_by(auth_token: valid_session[:token]) }
+  let(:user) { User.find_by_auth_token(valid_session[:token]) }
 
   describe 'GET #index' do
     it 'assigns all user languages as @languages' do

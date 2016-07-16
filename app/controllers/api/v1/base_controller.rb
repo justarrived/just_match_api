@@ -206,7 +206,7 @@ module Api
 
       def authenticate_user_token!
         authenticate_with_http_token do |token, _options|
-          return User.includes(:language).find_by(auth_token: token)
+          return User.find_by_auth_token(token)
         end
       end
     end

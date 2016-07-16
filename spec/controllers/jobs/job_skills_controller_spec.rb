@@ -11,7 +11,7 @@ RSpec.describe Api::V1::Jobs::JobSkillsController, type: :controller do
   end
 
   let(:valid_session) do
-    user = FactoryGirl.create(:user)
+    user = FactoryGirl.create(:user_with_tokens)
     allow_any_instance_of(described_class).
       to(receive(:authenticate_user_token!).
       and_return(user))
@@ -48,7 +48,7 @@ RSpec.describe Api::V1::Jobs::JobSkillsController, type: :controller do
   describe 'POST #create' do
     context 'with valid params' do
       context 'logged in' do
-        let(:user) { User.find_by(auth_token: valid_session[:token]) }
+        let(:user) { User.find_by_auth_token(valid_session[:token]) }
 
         it 'creates a new JobSkill' do
           job = FactoryGirl.create(:job, owner: user)
@@ -102,7 +102,7 @@ RSpec.describe Api::V1::Jobs::JobSkillsController, type: :controller do
     end
 
     context 'with invalid params' do
-      let(:user) { User.find_by(auth_token: valid_session[:token]) }
+      let(:user) { User.find_by_auth_token(valid_session[:token]) }
 
       it 'assigns a newly created but unsaved job_skill as @job_skill' do
         job = FactoryGirl.create(:job, owner: user)
@@ -120,7 +120,7 @@ RSpec.describe Api::V1::Jobs::JobSkillsController, type: :controller do
 
   describe 'DELETE #destroy' do
     context 'logged in user is owner' do
-      let(:user) { User.find_by(auth_token: valid_session[:token]) }
+      let(:user) { User.find_by_auth_token(valid_session[:token]) }
 
       it 'destroys the requested job_skill' do
         job = FactoryGirl.create(:job_with_skills, owner: user)

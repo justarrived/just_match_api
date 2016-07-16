@@ -49,9 +49,18 @@ module Api
           if user
             return respond_with_banned if user.banned
 
-            token = user.auth_token
-            attributes = { user_id: user.id, auth_token: token }
-            response = JsonApiData.new(id: token, type: :token, attributes: attributes)
+            token = user.create_auth_token
+            auth_token = token.token
+            attributes = {
+              user_id: user.id,
+              auth_token: auth_token,
+              expires_at: token.expires_at
+            }
+            response = JsonApiData.new(
+              id: auth_token,
+              type: :token,
+              attributes: attributes
+            )
             render json: response, status: :created
           else
             respond_with_login_failure
@@ -61,14 +70,10 @@ module Api
         api :DELETE, '/users/sessions/:auth_token', 'Reset auth token'
         description 'Resets the Users auth token if the user is allowed.'
         error code: 404, desc: 'Not found'
-        error code: 422, desc: 'Unprocessable entity'
         def destroy
-          token = params[:id]
-
-          user = User.find_by(auth_token: token)
-          if user
-            user.auth_token = user.regenerate_auth_token
-            user.save!
+          token = Token.find_by(token: params[:id])
+          if token
+            token.destroy!
 
             head :no_content
           else

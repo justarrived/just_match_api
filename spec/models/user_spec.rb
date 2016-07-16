@@ -15,13 +15,6 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe '#auth_token' do
-    it 'creates a new user with an auth_token of length 36' do
-      user = FactoryGirl.create(:user)
-      expect(user.auth_token.length).to eq(96)
-    end
-  end
-
   describe '#normalize_phone' do
     it 'normalizes phone number without country prefix' do
       user = User.new(phone: '073 5000 000')
@@ -110,11 +103,11 @@ RSpec.describe User, type: :model do
   describe '#banned' do
     let(:user) { FactoryGirl.create(:user) }
 
-    it 'generates a new auth_token when user is banned' do
-      token = user.auth_token
+    it 'destroys all auth tokens when user is banned' do
+      user.create_auth_token
       user.banned = true
       user.save
-      expect(user.auth_token).not_to eq(token)
+      expect(user.auth_tokens).to be_empty
       expect(user.banned).to eq(true)
     end
   end
