@@ -9,17 +9,17 @@ class JobPolicy < ApplicationPolicy
   FULL_ATTRIBUTES = [
     :id, :description, :job_date, :hours, :name, :created_at, :updated_at, :latitude,
     :longitude, :street, :zip, :zip_latitude, :zip_longitude, :verified, :job_end_date,
-    :filled
+    :filled, :short_description
   ].freeze
 
   ATTRIBUTES = [
     :id, :description, :job_date, :hours, :name, :created_at, :updated_at, :zip,
-    :zip_latitude, :zip_longitude, :verified, :job_end_date, :filled
+    :zip_latitude, :zip_longitude, :verified, :job_end_date, :filled, :short_description
   ].freeze
 
   OWNER_ATTRIBUTES = [
     :description, :job_date, :street, :zip, :name, :hours, :job_end_date, :cancelled,
-    :filled, :language_id, :category_id, :hourly_pay_id, skill_ids: []
+    :filled, :short_description, :language_id, :category_id, :hourly_pay_id, skill_ids: []
   ].freeze
 
   def index?

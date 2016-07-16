@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160716111219) do
+ActiveRecord::Schema.define(version: 20160716163111) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -226,8 +226,8 @@ ActiveRecord::Schema.define(version: 20160716111219) do
     t.datetime "job_date"
     t.float    "hours"
     t.string   "name"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
     t.integer  "owner_user_id"
     t.float    "latitude"
     t.float    "longitude"
@@ -236,13 +236,14 @@ ActiveRecord::Schema.define(version: 20160716111219) do
     t.string   "zip"
     t.float    "zip_latitude"
     t.float    "zip_longitude"
-    t.boolean  "hidden",        default: false
+    t.boolean  "hidden",            default: false
     t.integer  "category_id"
     t.integer  "hourly_pay_id"
-    t.boolean  "verified",      default: false
+    t.boolean  "verified",          default: false
     t.datetime "job_end_date"
-    t.boolean  "cancelled",     default: false
-    t.boolean  "filled",        default: false
+    t.boolean  "cancelled",         default: false
+    t.boolean  "filled",            default: false
+    t.string   "short_description"
   end
 
   add_index "jobs", ["category_id"], name: "index_jobs_on_category_id", using: :btree

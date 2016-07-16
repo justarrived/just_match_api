@@ -9,7 +9,8 @@ RSpec.describe JobPolicy do
   let(:owner_params) do
     [
       :description, :job_date, :street, :zip, :name, :hours, :job_end_date,
-      :cancelled, :filled, :language_id, :category_id, :hourly_pay_id, { skill_ids: [] }
+      :cancelled, :filled, :short_description,
+      :language_id, :category_id, :hourly_pay_id, { skill_ids: [] }
     ]
   end
   let(:admin_params) { owner_params }

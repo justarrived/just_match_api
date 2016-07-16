@@ -2,6 +2,7 @@
 FactoryGirl.define do
   factory :job do
     name 'A job'
+    short_description 'Watman'
     description 'Watman' * 2
     street 'Bankgatan 14C'
     zip '223 52'
@@ -85,28 +86,29 @@ end
 #
 # Table name: jobs
 #
-#  id            :integer          not null, primary key
-#  description   :text
-#  job_date      :datetime
-#  hours         :float
-#  name          :string
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  owner_user_id :integer
-#  latitude      :float
-#  longitude     :float
-#  language_id   :integer
-#  street        :string
-#  zip           :string
-#  zip_latitude  :float
-#  zip_longitude :float
-#  hidden        :boolean          default(FALSE)
-#  category_id   :integer
-#  hourly_pay_id :integer
-#  verified      :boolean          default(FALSE)
-#  job_end_date  :datetime
-#  cancelled     :boolean          default(FALSE)
-#  filled        :boolean          default(FALSE)
+#  id                :integer          not null, primary key
+#  description       :text
+#  job_date          :datetime
+#  hours             :float
+#  name              :string
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  owner_user_id     :integer
+#  latitude          :float
+#  longitude         :float
+#  language_id       :integer
+#  street            :string
+#  zip               :string
+#  zip_latitude      :float
+#  zip_longitude     :float
+#  hidden            :boolean          default(FALSE)
+#  category_id       :integer
+#  hourly_pay_id     :integer
+#  verified          :boolean          default(FALSE)
+#  job_end_date      :datetime
+#  cancelled         :boolean          default(FALSE)
+#  filled            :boolean          default(FALSE)
+#  short_description :string
 #
 # Indexes
 #
