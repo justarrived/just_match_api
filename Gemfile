@@ -11,7 +11,7 @@ gem 'rails-api', '~> 0.4', require: false
 gem 'sidekiq', '~> 4.1' # Background worker (Redis-backed)
 gem 'sinatra', '~> 1.4', require: false # Required for sidekiqs web interface
 
-gem 'active_model_serializers', '~> 0.10.0.rc5' # Serialize models to JSON
+gem 'active_model_serializers', '~> 0.10' # Serialize models to JSON
 
 gem 'blazer', '~> 1.3' # Explore data with SQL
 
