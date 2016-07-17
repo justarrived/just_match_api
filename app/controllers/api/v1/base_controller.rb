@@ -146,7 +146,8 @@ module Api
           model_or_model_array,
           included: included_resources,
           current_user: current_user,
-          meta: meta
+          meta: meta,
+          request: ActionDispatchRequestAMSWrapper.new(request)
         )
 
         render json: serialized_model, status: status

@@ -1,17 +1,18 @@
 # frozen_string_literal: true
 class JsonApiSerializer
-  attr_reader :serializer, :included, :current_user, :model_scope, :meta
+  attr_reader :serializer, :included, :current_user, :model_scope, :meta, :request
 
   def self.serialize(*args)
     new(*args).serialize
   end
 
-  def initialize(model_scope, included: [], current_user: nil, meta: {})
+  def initialize(model_scope, included: [], current_user: nil, meta: {}, request: nil)
     @model_scope = model_scope
     @included = included
     @meta = meta
     @current_user = current_user
     @serializer = ActiveModel::Serializer.serializer_for(model_scope)
+    @request = request
   end
 
   def serializer_instance
@@ -28,7 +29,8 @@ class JsonApiSerializer
     ActiveModelSerializers::Adapter.create(
       serializer_instance,
       include: included,
-      meta: meta
+      meta: meta,
+      serialization_context: request
     )
   end
 end
