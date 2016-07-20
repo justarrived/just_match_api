@@ -46,10 +46,10 @@ module JustMatch
 
     config.active_job.queue_adapter = :sidekiq
 
-    config.middleware.insert_before 0, 'Rack::Cors' do
+    config.middleware.insert_before ActionDispatch::Static, 'Rack::Cors', logger: -> { Rails.logger } do # rubocop:disable Metrics/LineLength
       allow do
-        origins '*'
-        resource '*',
+        origins(*ENV.fetch('CORS_WHITELIST', '').split(',').map(&:strip))
+        resource '/api/*',
                  headers: :any,
                  methods: [:get, :post, :delete, :put, :patch, :options, :head]
       end

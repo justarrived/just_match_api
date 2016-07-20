@@ -24,6 +24,11 @@
       "value": "",
       "required": false
     },
+    "CORS_WHITELIST": {
+      "description": "CORS Whitelist",
+      "value": "",
+      "required": false
+    },
     "SENDGRID_USERNAME": {
       "description": "SendGrid username (required for email)",
       "value": "",
