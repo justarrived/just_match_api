@@ -53,6 +53,7 @@ class CompanyDashboard < Administrate::BaseDashboard
     :zip,
     :city,
     :country_name,
+    :users,
     :created_at,
     :updated_at
   ].freeze
