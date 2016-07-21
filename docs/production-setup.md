@@ -28,7 +28,7 @@ Can be run more seldom, however once a day is recommended.
 rake sweepers:cleanup
 ```
 
-removes all orphan data.
+removes orphan and expired data.
 
 __Frilans Finans__
 

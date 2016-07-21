@@ -76,7 +76,7 @@ $ COVERAGE=true script/test
 
 __Public JSON API documentation__
 
-[Docs for the current version of the API](http://just-match-api.herokuapp.com/).
+[Docs for the current version of the API](https://api.justarrived.se/).
 
 The API documentation is generated right where the code for that particular endpoint is.
 That way the documentation is kept up to date.

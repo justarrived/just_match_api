@@ -33,8 +33,24 @@ The code follows most Rails conventions. If you've worked with Rails before the 
 
 
 * __Notifications and emails__
+  - An `ActionMailer` like implementation for SMS has been implemented, see `JobTexter`
   - Every single notification/email has their on class in `app/notifiers`
-    + Notifiers invokes the appropriate Rails mailers
+    + Notifiers invokes the appropriate mailers and texters
+  - Sends SMS messages using Twilio and the `twilio-ruby` gem
+
+* __Invoices__
+  - Integrates with Frilans Finans, using the local gem `frilans_finans_api`
+  - All API communication to Frilans Finans is done from background jobs
+
+
+* __File upload__
+  - Uses the `paperclip` gem, together with `aws-sdk` to save files to AWS S3
+  - All files are uploaded separately, then returns a token that is used for the actual resource that is connected to the file
+
+
+* __Errors & Monitoring__
+  - Uses the Airbrake and the `airbrake` gem for error notifications
+  - Currently uses both `newrelic_rpm` and `skylight` gems, one will be picked later
 
 
 * __API versions__
@@ -46,6 +62,9 @@ The code follows most Rails conventions. If you've worked with Rails before the 
   - Uses the `administrate` gem
   - Controllers namespaced under `Admin`
   - Admin dashboards under `app/dashboards`
+  - Admin interface under path `/admin`
+  - Admin insights interface under path `/insights`
+    + Uses the `blazer` gem
 
 
 * __SQL queries/finders__
