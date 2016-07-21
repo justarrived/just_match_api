@@ -121,7 +121,8 @@ module FrilansFinansApi
     def log_response(method, uri:, params:, response:)
       log_id = "[#{self.class.name}]"
       verb = method.to_s.upcase
-      body = response.body
+      hash_body = response.body
+      body = hash_body.to_json unless hash_body.nil?
       status = response.code
       log_body = "#{verb} URI: #{uri} PARAMS: #{params} STATUS: #{status} BODY: #{body}"
       FrilansFinansApi.logger.info "#{log_id} #{log_body}"
