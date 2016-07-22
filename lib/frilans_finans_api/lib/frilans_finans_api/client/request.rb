@@ -123,7 +123,13 @@ module FrilansFinansApi
       verb = method.to_s.upcase
       body = response.body
       status = response.code
-      log_body = "#{verb} URI: #{uri} PARAMS: #{params} STATUS: #{status} BODY: #{body}"
+      log_body = [
+        verb,
+        "URI: #{uri}",
+        "PARAMS: #{params.to_json}",
+        "STATUS: #{status}",
+        "BODY: #{body}"
+      ].join(' ')
       FrilansFinansApi.logger.info "#{log_id} #{log_body}"
     end
   end
