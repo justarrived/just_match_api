@@ -2,6 +2,7 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::UsersController, type: :controller do
+  let(:lang_proficiency) { 8 }
   let(:valid_attributes) do
     lang_id = Language.find_or_create_by!(lang_code: 'en').id
     {
@@ -14,7 +15,8 @@ RSpec.describe Api::V1::UsersController, type: :controller do
           phone: '123456789',
           description: 'Some user description',
           language_id: lang_id,
-          language_ids: [lang_id],
+          # language_ids: [lang_id],
+          language_ids: [{ id: lang_id, proficiency: lang_proficiency }],
           street: 'Stora Nygatan 36',
           zip: '211 37',
           password: (1..8).to_a.join,
@@ -127,6 +129,28 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
           post :create, valid_attributes, {}
           expect(assigns(:user).user_images.first).to be_nil
+        end
+      end
+
+      context 'user languages' do
+        let(:language_id) { valid_attributes[:data][:attributes][:language_id] }
+
+        it 'creates from deprecated language id list' do
+          valid_attributes[:data][:attributes][:language_ids] = [language_id]
+
+          post :create, valid_attributes, {}
+
+          user_language = assigns(:user).user_languages.first
+          expect(user_language.language.id).to eq(language_id)
+          expect(user_language.proficiency).to be_nil
+        end
+
+        it 'creates from language list of ids and proficiencies' do
+          post :create, valid_attributes, {}
+
+          user_language = assigns(:user).user_languages.first
+          expect(user_language.language.id).to eq(language_id)
+          expect(user_language.proficiency).to eq(lang_proficiency)
         end
       end
     end
