@@ -3,7 +3,7 @@
 [![Code Climate](https://codeclimate.com/github/justarrived/just_match_api/badges/gpa.svg)](https://codeclimate.com/github/justarrived/just_match_api) [![Test Coverage](https://codeclimate.com/github/justarrived/just_match_api/badges/coverage.svg)](https://codeclimate.com/github/justarrived/just_match_api/coverage) [![Dependency Status](https://gemnasium.com/justarrived/just_match_api.svg)](https://gemnasium.com/justarrived/just_match_api)
 
 
-Welcome to the official API for the [Just Arrived](http://www.justarrived.se/) matching service.
+Welcome to the official API for the [Just Arrived](https://app.justarrived.se/) matching service.
 
 The API aims to follow the [JSON API 1.0](http://jsonapi.org/) standard. Please report any violations.
 
