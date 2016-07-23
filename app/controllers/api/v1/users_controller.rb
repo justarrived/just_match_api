@@ -73,7 +73,10 @@ module Api
           param :'ignored-notifications', Array, desc: "List of ignored notifications, any of #{User::NOTIFICATIONS.to_sentence}"
           param :'company-id', Integer, desc: 'Company id for user'
           param :'language-id', Integer, desc: 'Primary language id for user', required: true
-          param :'language-ids', Array, of: Integer, desc: 'Language ids of languages that the user knows', required: true
+          param :'language-ids', Array, of: Hash, desc: 'Languages that the user knows', required: true do
+            param :id, Integer, desc: 'Language id', required: true
+            param :proficiency, UserLanguage::PROFICIENCY_RANGE.to_a, desc: 'Language proficiency'
+          end
           param :'user-image-one-time-token', String, desc: 'User image one time token'
           param :'current-status', User::STATUSES.keys, desc: 'Current status'
           param :'at-und', User::AT_UND.keys, desc: 'AT-UND status'
@@ -92,8 +95,15 @@ module Api
           login_user(@user)
 
           @user.skills = Skill.where(id: user_params[:skill_ids])
-          @user.languages = Language.where(id: user_params[:language_ids])
           @user.profile_image_token = jsonapi_params[:user_image_one_time_token]
+
+          user_languages_params = normalize_language_ids(jsonapi_params[:language_ids])
+          @user.user_languages = user_languages_params.map do |attrs|
+            UserLanguage.new(
+              language_id: attrs[:id],
+              proficiency: attrs[:proficiency]
+            )
+          end
 
           UserWelcomeNotifier.call(user: @user)
 
@@ -181,6 +191,22 @@ module Api
 
       private
 
+      def normalize_language_ids(language_ids)
+        language_ids.map do |lang|
+          if lang.is_a?(Hash)
+            lang
+          else
+            message = [
+              'Passing languages as a list of integers is deprecated.',
+              'Please pass an array of objects, i.e [{ id: 1, proficiency: 1 }]'
+            ].join(' ')
+            ActiveSupport::Deprecation.warn(message)
+
+            { id: lang, proficiency: nil }
+          end
+        end
+      end
+
       def set_user
         @user = User.find(params[:user_id])
       end
@@ -190,7 +216,7 @@ module Api
           :first_name, :last_name, :email, :phone, :description, :job_experience,
           :education, :ssn, :street, :zip, :language_id, :password, :company_id,
           :competence_text, :current_status, :at_und, :arrived_at, :country_of_origin,
-          ignored_notifications: [], skill_ids: [], language_ids: []
+          ignored_notifications: [], skill_ids: []
         ]
         jsonapi_params.permit(*whitelist)
       end
