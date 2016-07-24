@@ -95,6 +95,7 @@ group :development do
   gem 'spring-commands-rspec', '~> 1.0'
   gem 'i18n-tasks', '~> 0.9.2'
   gem 'i18n_generators', '~> 2.1'
+  gem 'listen', '~> 3.1'
 end
 
 group :test do
