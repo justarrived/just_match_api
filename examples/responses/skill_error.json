@@ -2,9 +2,9 @@
   {
     "status": 422,
     "source": {
-      "pointer": "/data/attributes/name"
+      "pointer": "/data/attributes/language"
     },
-    "detail": "is too short (minimum is 3 characters)"
+    "detail": "must exist"
   },
   {
     "status": 422,
@@ -12,5 +12,12 @@
       "pointer": "/data/attributes/language"
     },
     "detail": "can't be blank"
+  },
+  {
+    "status": 422,
+    "source": {
+      "pointer": "/data/attributes/name"
+    },
+    "detail": "is too short (minimum is 3 characters)"
   }
 ]

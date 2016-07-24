@@ -4,6 +4,13 @@
     "source": {
       "pointer": "/data/attributes/frilans-finans-term"
     },
+    "detail": "must exist"
+  },
+  {
+    "status": 422,
+    "source": {
+      "pointer": "/data/attributes/frilans-finans-term"
+    },
     "detail": "can't be blank"
   },
   {

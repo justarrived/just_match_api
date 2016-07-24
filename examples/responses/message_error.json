@@ -2,9 +2,9 @@
   {
     "status": 422,
     "source": {
-      "pointer": "/data/attributes/body"
+      "pointer": "/data/attributes/chat"
     },
-    "detail": "can't be blank"
+    "detail": "must exist"
   },
   {
     "status": 422,
@@ -18,12 +18,33 @@
     "source": {
       "pointer": "/data/attributes/author"
     },
+    "detail": "must exist"
+  },
+  {
+    "status": 422,
+    "source": {
+      "pointer": "/data/attributes/author"
+    },
     "detail": "can't be blank"
   },
   {
     "status": 422,
     "source": {
       "pointer": "/data/attributes/language"
+    },
+    "detail": "must exist"
+  },
+  {
+    "status": 422,
+    "source": {
+      "pointer": "/data/attributes/language"
+    },
+    "detail": "can't be blank"
+  },
+  {
+    "status": 422,
+    "source": {
+      "pointer": "/data/attributes/body"
     },
     "detail": "can't be blank"
   }

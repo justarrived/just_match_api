@@ -2,6 +2,34 @@
   {
     "status": 422,
     "source": {
+      "pointer": "/data/attributes/commentable"
+    },
+    "detail": "must exist"
+  },
+  {
+    "status": 422,
+    "source": {
+      "pointer": "/data/attributes/owner"
+    },
+    "detail": "must exist"
+  },
+  {
+    "status": 422,
+    "source": {
+      "pointer": "/data/attributes/language"
+    },
+    "detail": "must exist"
+  },
+  {
+    "status": 422,
+    "source": {
+      "pointer": "/data/attributes/language"
+    },
+    "detail": "can't be blank"
+  },
+  {
+    "status": 422,
+    "source": {
       "pointer": "/data/attributes/owner-user-id"
     },
     "detail": "can't be blank"
@@ -24,13 +52,6 @@
     "status": 422,
     "source": {
       "pointer": "/data/attributes/body"
-    },
-    "detail": "can't be blank"
-  },
-  {
-    "status": 422,
-    "source": {
-      "pointer": "/data/attributes/language"
     },
     "detail": "can't be blank"
   }

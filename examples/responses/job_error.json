@@ -4,12 +4,12 @@
     "source": {
       "pointer": "/data/attributes/language"
     },
-    "detail": "can't be blank"
+    "detail": "must exist"
   },
   {
     "status": 422,
     "source": {
-      "pointer": "/data/attributes/hourly-pay"
+      "pointer": "/data/attributes/language"
     },
     "detail": "can't be blank"
   },
@@ -17,6 +17,27 @@
     "status": 422,
     "source": {
       "pointer": "/data/attributes/category"
+    },
+    "detail": "must exist"
+  },
+  {
+    "status": 422,
+    "source": {
+      "pointer": "/data/attributes/category"
+    },
+    "detail": "can't be blank"
+  },
+  {
+    "status": 422,
+    "source": {
+      "pointer": "/data/attributes/hourly-pay"
+    },
+    "detail": "must exist"
+  },
+  {
+    "status": 422,
+    "source": {
+      "pointer": "/data/attributes/hourly-pay"
     },
     "detail": "can't be blank"
   },
@@ -68,6 +89,13 @@
       "pointer": "/data/attributes/owner"
     },
     "detail": "can't be blank"
+  },
+  {
+    "status": 422,
+    "source": {
+      "pointer": "/data/attributes/owner"
+    },
+    "detail": "must exist"
   },
   {
     "status": 422,

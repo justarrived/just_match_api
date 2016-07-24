@@ -2,7 +2,8 @@
 require 'rails_helper'
 
 RSpec.describe ErrorSerializer do
-  let(:model) { Skill.new.tap(&:validate) }
+  let(:language) { FactoryGirl.build(:language) }
+  let(:model) { Skill.new(language: language).tap(&:validate) }
   subject { described_class.serialize(model) }
 
   it 'returns an array' do

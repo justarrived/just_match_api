@@ -4,6 +4,13 @@
     "source": {
       "pointer": "/data/attributes/language"
     },
+    "detail": "must exist"
+  },
+  {
+    "status": 422,
+    "source": {
+      "pointer": "/data/attributes/language"
+    },
     "detail": "can't be blank"
   }
 ]

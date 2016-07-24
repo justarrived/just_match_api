@@ -2,9 +2,9 @@
   {
     "status": 422,
     "source": {
-      "pointer": "/data/attributes/terms-agreement"
+      "pointer": "/data/attributes/user"
     },
-    "detail": "can't be blank"
+    "detail": "must exist"
   },
   {
     "status": 422,
@@ -17,6 +17,27 @@
     "status": 422,
     "source": {
       "pointer": "/data/attributes/job"
+    },
+    "detail": "must exist"
+  },
+  {
+    "status": 422,
+    "source": {
+      "pointer": "/data/attributes/job"
+    },
+    "detail": "can't be blank"
+  },
+  {
+    "status": 422,
+    "source": {
+      "pointer": "/data/attributes/terms-agreement"
+    },
+    "detail": "must exist"
+  },
+  {
+    "status": 422,
+    "source": {
+      "pointer": "/data/attributes/terms-agreement"
     },
     "detail": "can't be blank"
   }
