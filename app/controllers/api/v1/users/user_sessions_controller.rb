@@ -98,7 +98,7 @@ module Api
           end
 
           # Always render 202 accepted status, we don't want to expose what
-          # phone numbers are registered in the system
+          # phone numbers or emails are registered in the system
           render json: {}, status: :accepted
         end
 
