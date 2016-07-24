@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/greetpoint/administrate.git
+  remote: https://github.com/greetpoint/administrate
   revision: 3ac84a8820a72ffc8ed6568ca899bcc9a8e0cdba
   branch: rails5
   specs:
@@ -16,7 +16,7 @@ GIT
       selectize-rails (~> 0.6)
 
 GIT
-  remote: git://github.com/sinatra/sinatra.git
+  remote: https://github.com/sinatra/sinatra
   revision: 751f2a7a8f26a01f984cecbfe1385ecc0feda9e0
   specs:
     sinatra (2.0.0.pre.alpha)

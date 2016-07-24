@@ -8,7 +8,7 @@ gem 'pg', '~> 0.15' # Use postgresql as the database for Active Record
 
 gem 'sidekiq', '~> 4.1' # Background worker (Redis-backed)
 # gem 'sinatra', '~> 1.4', require: false # Required for sidekiqs web interface
-gem 'sinatra', github: 'sinatra/sinatra', require: false
+gem 'sinatra', git: 'https://github.com/sinatra/sinatra', require: false
 
 gem 'active_model_serializers', '~> 0.10' # Serialize models to JSON
 
@@ -45,7 +45,7 @@ gem 'skylight', '~> 0.10' # Performance monitoring
 
 gem 'geocoder', '~> 1.3' # Geocode resources
 
-gem 'administrate', github: 'greetpoint/administrate', branch: 'rails5'
+gem 'administrate', git: 'https://github.com/greetpoint/administrate', branch: 'rails5'
 gem 'bourbon', '~> 5.0.0.beta.6'
 # gem 'administrate', '~> 0.2' # Admin dashboard
 # gem 'administrate-field-image', '~> 0.0.2' # Administrate image support
