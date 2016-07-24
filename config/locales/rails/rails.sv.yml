@@ -1,4 +1,10 @@
 sv:
+  activerecord:
+    errors:
+      record_invalid: 'Validation failed: %{errors}'
+      restrict_dependent_destroy:
+        one: Cannot delete record because a dependent %{record} exists
+        many: Cannot delete record because dependent %{record} exist
   errors:
     format: "%{attribute} %{message}"
     messages:
@@ -19,11 +25,9 @@ sv:
       not_a_number: är inte ett nummer
       not_an_integer: måste vara ett heltal
       odd: måste vara udda
-      record_invalid: 'Ett fel uppstod: %{errors}'
-      restrict_dependent_destroy:
-        one: Kan inte ta bort post då beroende %{record} finns
-        many: Kan inte ta bort poster då beroende %{record} finns
+      required: must exist
       taken: används redan
+      model_invalid: 'Validation failed: %{errors}'
       too_long:
         one: är för lång (maximum är 1 tecken)
         other: är för lång (maximum är %{count} tecken)
