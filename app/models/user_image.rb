@@ -3,7 +3,7 @@ class UserImage < ActiveRecord::Base
   MAX_HOURS_AGE_AS_ORPHAN = 24
   ONE_TIME_TOKEN_VALID_FOR_HOURS = 10
 
-  belongs_to :user
+  belongs_to :user, optional: true
 
   before_create :generate_one_time_token
 

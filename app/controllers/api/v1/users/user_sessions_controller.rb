@@ -118,9 +118,15 @@ module Api
         def email_or_phone
           # NOTE: The email param is kept for backward compability reasons
           #       remove when frontend is using email_or_phone param
-          jsonapi_params[:email_or_phone] || begin
-            Rails.logger.info('[DEPRECATION WARNING] login with `email` is deprecated!')
+          if jsonapi_params[:email_or_phone].blank?
+            message = [
+              'Param `email` is deprecated!',
+              'Please uses `email_or_phone` instead.'
+            ].join(' ')
+            ActiveSupport::Deprecation.warn(message)
             jsonapi_params[:email]
+          else
+            jsonapi_params[:email_or_phone]
           end
         end
 

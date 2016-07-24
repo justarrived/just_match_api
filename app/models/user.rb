@@ -28,7 +28,7 @@ class User < ApplicationRecord
   before_save :encrypt_password
 
   belongs_to :language
-  belongs_to :company
+  belongs_to :company, optional: true
 
   has_many :auth_tokens, class_name: 'Token'
 

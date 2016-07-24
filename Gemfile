@@ -3,22 +3,21 @@ source 'https://rubygems.org'
 
 ruby '2.3.0'
 
-gem 'rails', '4.2.6'
+gem 'rails', '5.0.0'
 gem 'pg', '~> 0.15' # Use postgresql as the database for Active Record
 
-gem 'rails-api', '~> 0.4', require: false
-
 gem 'sidekiq', '~> 4.1' # Background worker (Redis-backed)
-gem 'sinatra', '~> 1.4', require: false # Required for sidekiqs web interface
+# gem 'sinatra', '~> 1.4', require: false # Required for sidekiqs web interface
+gem 'sinatra', github: 'sinatra/sinatra', require: false
 
 gem 'active_model_serializers', '~> 0.10' # Serialize models to JSON
 
-gem 'blazer', '~> 1.3' # Explore data with SQL
+gem 'blazer', '~> 1.5' # Explore data with SQL
 
 # Interact with Frilans Finans API
 gem 'frilans_finans_api', path: 'lib/frilans_finans_api'
 
-gem 'paperclip', '~> 5.0.0.beta2' # Image handler
+gem 'paperclip', '~> 5.0' # Image handler
 gem 'aws-sdk', '~> 2.3' # Upload images to AWS S3
 
 gem 'airbrake', '~> 5.4' # Error catcher and reporter
@@ -26,7 +25,7 @@ gem 'airbrake', '~> 5.4' # Error catcher and reporter
 gem 'twilio-ruby', '~> 4.11.1' # Send SMS notifications
 
 # Backports, Rails 5, render view from anywhere
-gem 'backport_new_renderer', '~> 1.0', git: 'https://github.com/justarrived/backport_new_renderer' # rubocop:disable Metrics/LineLength
+# gem 'backport_new_renderer', '~> 1.0', git: 'https://github.com/justarrived/backport_new_renderer' # rubocop:disable Metrics/LineLength
 
 gem 'global_phone', '~> 1.0' # Format cell phone numbers
 gem 'countries', require: 'countries/global' # Country data in various locales
@@ -49,8 +48,10 @@ gem 'skylight', '~> 0.10' # Performance monitoring
 
 gem 'geocoder', '~> 1.3' # Geocode resources
 
-gem 'administrate', '~> 0.2' # Admin dashboard
-gem 'administrate-field-image', '~> 0.0.2' # Administrate image support
+gem 'administrate', github: 'greetpoint/administrate', branch: 'rails5'
+gem 'bourbon', '~> 5.0.0.beta.5'
+# gem 'administrate', '~> 0.2' # Admin dashboard
+# gem 'administrate-field-image', '~> 0.0.2' # Administrate image support
 gem 'uglifier', '~> 3.0' # Needed administrate assets compilation
 
 gem 'pundit', '~> 1.1' # Authorization policies
@@ -60,12 +61,12 @@ gem 'faker', '~> 1.6' # Easily generate fake data (used for seeding dev/test/sta
 gem 'rack-timeout', '~> 0.4' # Kill requests that run for too long
 gem 'rack-cors', '~> 0.4', require: 'rack/cors' # Configure CORS
 gem 'rack-attack', '~> 4.4' # Throttle API usage
-gem 'redis-activesupport', '~> 4.1' # To use Redis as the cache store for rack-attack
+gem 'redis-activesupport', '~> 5.0' # To use Redis as the cache store for rack-attack
 
 gem 'yagni_json_encoder', '~> 0.0.2' # Make Rails use the OJ gem for JSON
 gem 'fast_blank', '~> 1.0' # Re-implements #blank? in C
 
-gem 'rails-i18n', '~> 4.0.0' # Rails translations
+gem 'rails-i18n', '~> 5.0' # Rails translations
 gem 'i18n_data', '~> 0.7' # Language and country names in various languages
 
 gem 'honey_format', '~> 0.2' # Simple CSV reading
@@ -76,8 +77,8 @@ gem 'iban-tools', '~> 1.1' # Validate IBAN
 
 group :development, :test do
   gem 'byebug', '~> 9.0'
-  gem 'rspec-rails', '~> 3.4'
-  gem 'regressor', '~> 0.6'
+  gem 'rspec-rails', '~> 3.5'
+  # gem 'regressor', '~> 0.6'
   gem 'rubocop', '~> 0.35', require: false
   gem 'dotenv-rails', '~> 2.1'
   gem 'factory_girl_rails', '~> 4.0'
@@ -107,4 +108,5 @@ group :test do
   gem 'webmock', '~> 2.0'
   gem 'rspec-activemodel-mocks', '~> 1.0'
   gem 'timecop', '~> 0.8.0'
+  gem 'rails-controller-testing'
 end

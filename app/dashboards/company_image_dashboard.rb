@@ -10,7 +10,8 @@ class CompanyImageDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     id: Field::Number,
-    image: Field::Image,
+    # image: Field::Image,
+    image: Field::String,
     company: Field::BelongsTo,
     created_at: Field::DateTime,
     updated_at: Field::DateTime

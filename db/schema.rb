@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -62,22 +61,20 @@ ActiveRecord::Schema.define(version: 20160716163111) do
     t.datetime "updated_at",        null: false
     t.integer  "frilans_finans_id"
     t.integer  "insurance_status"
+    t.index ["frilans_finans_id"], name: "index_categories_on_frilans_finans_id", unique: true, using: :btree
+    t.index ["name"], name: "index_categories_on_name", unique: true, using: :btree
   end
-
-  add_index "categories", ["frilans_finans_id"], name: "index_categories_on_frilans_finans_id", unique: true, using: :btree
-  add_index "categories", ["name"], name: "index_categories_on_name", unique: true, using: :btree
 
   create_table "chat_users", force: :cascade do |t|
     t.integer  "chat_id"
     t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["chat_id", "user_id"], name: "index_chat_users_on_chat_id_and_user_id", unique: true, using: :btree
+    t.index ["chat_id"], name: "index_chat_users_on_chat_id", using: :btree
+    t.index ["user_id", "chat_id"], name: "index_chat_users_on_user_id_and_chat_id", unique: true, using: :btree
+    t.index ["user_id"], name: "index_chat_users_on_user_id", using: :btree
   end
-
-  add_index "chat_users", ["chat_id", "user_id"], name: "index_chat_users_on_chat_id_and_user_id", unique: true, using: :btree
-  add_index "chat_users", ["chat_id"], name: "index_chat_users_on_chat_id", using: :btree
-  add_index "chat_users", ["user_id", "chat_id"], name: "index_chat_users_on_user_id_and_chat_id", unique: true, using: :btree
-  add_index "chat_users", ["user_id"], name: "index_chat_users_on_user_id", using: :btree
 
   create_table "chats", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -93,10 +90,9 @@ ActiveRecord::Schema.define(version: 20160716163111) do
     t.datetime "updated_at",                       null: false
     t.integer  "language_id"
     t.boolean  "hidden",           default: false
+    t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id", using: :btree
+    t.index ["language_id"], name: "index_comments_on_language_id", using: :btree
   end
-
-  add_index "comments", ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id", using: :btree
-  add_index "comments", ["language_id"], name: "index_comments_on_language_id", using: :btree
 
   create_table "companies", force: :cascade do |t|
     t.string   "name"
@@ -110,10 +106,9 @@ ActiveRecord::Schema.define(version: 20160716163111) do
     t.string   "zip"
     t.string   "city"
     t.string   "phone"
+    t.index ["cin"], name: "index_companies_on_cin", unique: true, using: :btree
+    t.index ["frilans_finans_id"], name: "index_companies_on_frilans_finans_id", unique: true, using: :btree
   end
-
-  add_index "companies", ["cin"], name: "index_companies_on_cin", unique: true, using: :btree
-  add_index "companies", ["frilans_finans_id"], name: "index_companies_on_frilans_finans_id", unique: true, using: :btree
 
   create_table "company_images", force: :cascade do |t|
     t.datetime "one_time_token_expires_at"
@@ -125,9 +120,8 @@ ActiveRecord::Schema.define(version: 20160716163111) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
+    t.index ["company_id"], name: "index_company_images_on_company_id", using: :btree
   end
-
-  add_index "company_images", ["company_id"], name: "index_company_images_on_company_id", using: :btree
 
   create_table "contacts", force: :cascade do |t|
     t.string   "name"
@@ -142,9 +136,8 @@ ActiveRecord::Schema.define(version: 20160716163111) do
     t.integer  "frilans_finans_id"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
+    t.index ["frilans_finans_id"], name: "index_currencies_on_frilans_finans_id", unique: true, using: :btree
   end
-
-  add_index "currencies", ["frilans_finans_id"], name: "index_currencies_on_frilans_finans_id", unique: true, using: :btree
 
   create_table "faqs", force: :cascade do |t|
     t.text     "answer"
@@ -152,9 +145,8 @@ ActiveRecord::Schema.define(version: 20160716163111) do
     t.integer  "language_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.index ["language_id"], name: "index_faqs_on_language_id", using: :btree
   end
-
-  add_index "faqs", ["language_id"], name: "index_faqs_on_language_id", using: :btree
 
   create_table "frilans_finans_invoices", force: :cascade do |t|
     t.integer  "frilans_finans_id"
@@ -162,9 +154,8 @@ ActiveRecord::Schema.define(version: 20160716163111) do
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
     t.boolean  "activated",         default: false
+    t.index ["job_user_id"], name: "index_frilans_finans_invoices_on_job_user_id", using: :btree
   end
-
-  add_index "frilans_finans_invoices", ["job_user_id"], name: "index_frilans_finans_invoices_on_job_user_id", using: :btree
 
   create_table "frilans_finans_terms", force: :cascade do |t|
     t.text     "body"
@@ -186,23 +177,21 @@ ActiveRecord::Schema.define(version: 20160716163111) do
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
     t.integer  "frilans_finans_invoice_id"
+    t.index ["frilans_finans_invoice_id"], name: "index_invoices_on_frilans_finans_invoice_id", using: :btree
+    t.index ["job_user_id"], name: "index_invoices_on_job_user_id", using: :btree
+    t.index ["job_user_id"], name: "index_invoices_on_job_user_id_uniq", unique: true, using: :btree
   end
-
-  add_index "invoices", ["frilans_finans_invoice_id"], name: "index_invoices_on_frilans_finans_invoice_id", using: :btree
-  add_index "invoices", ["job_user_id"], name: "index_invoices_on_job_user_id", using: :btree
-  add_index "invoices", ["job_user_id"], name: "index_invoices_on_job_user_id_uniq", unique: true, using: :btree
 
   create_table "job_skills", force: :cascade do |t|
     t.integer  "job_id"
     t.integer  "skill_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["job_id", "skill_id"], name: "index_job_skills_on_job_id_and_skill_id", unique: true, using: :btree
+    t.index ["job_id"], name: "index_job_skills_on_job_id", using: :btree
+    t.index ["skill_id", "job_id"], name: "index_job_skills_on_skill_id_and_job_id", unique: true, using: :btree
+    t.index ["skill_id"], name: "index_job_skills_on_skill_id", using: :btree
   end
-
-  add_index "job_skills", ["job_id", "skill_id"], name: "index_job_skills_on_job_id_and_skill_id", unique: true, using: :btree
-  add_index "job_skills", ["job_id"], name: "index_job_skills_on_job_id", using: :btree
-  add_index "job_skills", ["skill_id", "job_id"], name: "index_job_skills_on_skill_id_and_job_id", unique: true, using: :btree
-  add_index "job_skills", ["skill_id"], name: "index_job_skills_on_skill_id", using: :btree
 
   create_table "job_users", force: :cascade do |t|
     t.integer  "user_id"
@@ -214,12 +203,11 @@ ActiveRecord::Schema.define(version: 20160716163111) do
     t.datetime "accepted_at"
     t.boolean  "performed",     default: false
     t.text     "apply_message"
+    t.index ["job_id", "user_id"], name: "index_job_users_on_job_id_and_user_id", unique: true, using: :btree
+    t.index ["job_id"], name: "index_job_users_on_job_id", using: :btree
+    t.index ["user_id", "job_id"], name: "index_job_users_on_user_id_and_job_id", unique: true, using: :btree
+    t.index ["user_id"], name: "index_job_users_on_user_id", using: :btree
   end
-
-  add_index "job_users", ["job_id", "user_id"], name: "index_job_users_on_job_id_and_user_id", unique: true, using: :btree
-  add_index "job_users", ["job_id"], name: "index_job_users_on_job_id", using: :btree
-  add_index "job_users", ["user_id", "job_id"], name: "index_job_users_on_user_id_and_job_id", unique: true, using: :btree
-  add_index "job_users", ["user_id"], name: "index_job_users_on_user_id", using: :btree
 
   create_table "jobs", force: :cascade do |t|
     t.text     "description"
@@ -244,11 +232,10 @@ ActiveRecord::Schema.define(version: 20160716163111) do
     t.boolean  "cancelled",         default: false
     t.boolean  "filled",            default: false
     t.string   "short_description"
+    t.index ["category_id"], name: "index_jobs_on_category_id", using: :btree
+    t.index ["hourly_pay_id"], name: "index_jobs_on_hourly_pay_id", using: :btree
+    t.index ["language_id"], name: "index_jobs_on_language_id", using: :btree
   end
-
-  add_index "jobs", ["category_id"], name: "index_jobs_on_category_id", using: :btree
-  add_index "jobs", ["hourly_pay_id"], name: "index_jobs_on_hourly_pay_id", using: :btree
-  add_index "jobs", ["language_id"], name: "index_jobs_on_language_id", using: :btree
 
   create_table "languages", force: :cascade do |t|
     t.string   "lang_code"
@@ -265,9 +252,8 @@ ActiveRecord::Schema.define(version: 20160716163111) do
     t.string   "ku_name"
     t.string   "ti_name"
     t.string   "ps_name"
+    t.index ["lang_code"], name: "index_languages_on_lang_code", unique: true, using: :btree
   end
-
-  add_index "languages", ["lang_code"], name: "index_languages_on_lang_code", unique: true, using: :btree
 
   create_table "messages", force: :cascade do |t|
     t.integer  "chat_id"
@@ -277,10 +263,9 @@ ActiveRecord::Schema.define(version: 20160716163111) do
     t.text     "body"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.index ["chat_id"], name: "index_messages_on_chat_id", using: :btree
+    t.index ["language_id"], name: "index_messages_on_language_id", using: :btree
   end
-
-  add_index "messages", ["chat_id"], name: "index_messages_on_chat_id", using: :btree
-  add_index "messages", ["language_id"], name: "index_messages_on_language_id", using: :btree
 
   create_table "ratings", force: :cascade do |t|
     t.integer  "from_user_id"
@@ -289,20 +274,18 @@ ActiveRecord::Schema.define(version: 20160716163111) do
     t.integer  "score",        null: false
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.index ["job_id", "from_user_id"], name: "index_ratings_on_job_id_and_from_user_id", unique: true, using: :btree
+    t.index ["job_id", "to_user_id"], name: "index_ratings_on_job_id_and_to_user_id", unique: true, using: :btree
   end
-
-  add_index "ratings", ["job_id", "from_user_id"], name: "index_ratings_on_job_id_and_from_user_id", unique: true, using: :btree
-  add_index "ratings", ["job_id", "to_user_id"], name: "index_ratings_on_job_id_and_to_user_id", unique: true, using: :btree
 
   create_table "skills", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.integer  "language_id"
+    t.index ["language_id"], name: "index_skills_on_language_id", using: :btree
+    t.index ["name"], name: "index_skills_on_name", unique: true, using: :btree
   end
-
-  add_index "skills", ["language_id"], name: "index_skills_on_language_id", using: :btree
-  add_index "skills", ["name"], name: "index_skills_on_name", unique: true, using: :btree
 
   create_table "terms_agreement_consents", force: :cascade do |t|
     t.integer  "user_id"
@@ -310,13 +293,12 @@ ActiveRecord::Schema.define(version: 20160716163111) do
     t.integer  "terms_agreement_id"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
+    t.index ["job_id", "user_id"], name: "index_terms_agreement_consents_on_job_id_and_user_id", unique: true, using: :btree
+    t.index ["job_id"], name: "index_terms_agreement_consents_on_job_id", using: :btree
+    t.index ["terms_agreement_id"], name: "index_terms_agreement_consents_on_terms_agreement_id", using: :btree
+    t.index ["user_id", "job_id"], name: "index_terms_agreement_consents_on_user_id_and_job_id", unique: true, using: :btree
+    t.index ["user_id"], name: "index_terms_agreement_consents_on_user_id", using: :btree
   end
-
-  add_index "terms_agreement_consents", ["job_id", "user_id"], name: "index_terms_agreement_consents_on_job_id_and_user_id", unique: true, using: :btree
-  add_index "terms_agreement_consents", ["job_id"], name: "index_terms_agreement_consents_on_job_id", using: :btree
-  add_index "terms_agreement_consents", ["terms_agreement_id"], name: "index_terms_agreement_consents_on_terms_agreement_id", using: :btree
-  add_index "terms_agreement_consents", ["user_id", "job_id"], name: "index_terms_agreement_consents_on_user_id_and_job_id", unique: true, using: :btree
-  add_index "terms_agreement_consents", ["user_id"], name: "index_terms_agreement_consents_on_user_id", using: :btree
 
   create_table "terms_agreements", force: :cascade do |t|
     t.string   "version"
@@ -324,10 +306,9 @@ ActiveRecord::Schema.define(version: 20160716163111) do
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.integer  "frilans_finans_term_id"
+    t.index ["frilans_finans_term_id"], name: "index_terms_agreements_on_frilans_finans_term_id", using: :btree
+    t.index ["version"], name: "index_terms_agreements_on_version", unique: true, using: :btree
   end
-
-  add_index "terms_agreements", ["frilans_finans_term_id"], name: "index_terms_agreements_on_frilans_finans_term_id", using: :btree
-  add_index "terms_agreements", ["version"], name: "index_terms_agreements_on_version", unique: true, using: :btree
 
   create_table "tokens", force: :cascade do |t|
     t.integer  "user_id"
@@ -335,10 +316,9 @@ ActiveRecord::Schema.define(version: 20160716163111) do
     t.datetime "expires_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["token"], name: "index_tokens_on_token", using: :btree
+    t.index ["user_id"], name: "index_tokens_on_user_id", using: :btree
   end
-
-  add_index "tokens", ["token"], name: "index_tokens_on_token", using: :btree
-  add_index "tokens", ["user_id"], name: "index_tokens_on_user_id", using: :btree
 
   create_table "user_images", force: :cascade do |t|
     t.datetime "one_time_token_expires_at"
@@ -350,9 +330,8 @@ ActiveRecord::Schema.define(version: 20160716163111) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
+    t.index ["user_id"], name: "index_user_images_on_user_id", using: :btree
   end
-
-  add_index "user_images", ["user_id"], name: "index_user_images_on_user_id", using: :btree
 
   create_table "user_languages", force: :cascade do |t|
     t.integer  "language_id"
@@ -360,24 +339,22 @@ ActiveRecord::Schema.define(version: 20160716163111) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.integer  "proficiency"
+    t.index ["language_id", "user_id"], name: "index_user_languages_on_language_id_and_user_id", unique: true, using: :btree
+    t.index ["language_id"], name: "index_user_languages_on_language_id", using: :btree
+    t.index ["user_id", "language_id"], name: "index_user_languages_on_user_id_and_language_id", unique: true, using: :btree
+    t.index ["user_id"], name: "index_user_languages_on_user_id", using: :btree
   end
-
-  add_index "user_languages", ["language_id", "user_id"], name: "index_user_languages_on_language_id_and_user_id", unique: true, using: :btree
-  add_index "user_languages", ["language_id"], name: "index_user_languages_on_language_id", using: :btree
-  add_index "user_languages", ["user_id", "language_id"], name: "index_user_languages_on_user_id_and_language_id", unique: true, using: :btree
-  add_index "user_languages", ["user_id"], name: "index_user_languages_on_user_id", using: :btree
 
   create_table "user_skills", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "skill_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["skill_id", "user_id"], name: "index_user_skills_on_skill_id_and_user_id", unique: true, using: :btree
+    t.index ["skill_id"], name: "index_user_skills_on_skill_id", using: :btree
+    t.index ["user_id", "skill_id"], name: "index_user_skills_on_user_id_and_skill_id", unique: true, using: :btree
+    t.index ["user_id"], name: "index_user_skills_on_user_id", using: :btree
   end
-
-  add_index "user_skills", ["skill_id", "user_id"], name: "index_user_skills_on_skill_id_and_user_id", unique: true, using: :btree
-  add_index "user_skills", ["skill_id"], name: "index_user_skills_on_skill_id", using: :btree
-  add_index "user_skills", ["user_id", "skill_id"], name: "index_user_skills_on_user_id_and_skill_id", unique: true, using: :btree
-  add_index "user_skills", ["user_id"], name: "index_user_skills_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email"
@@ -413,14 +390,13 @@ ActiveRecord::Schema.define(version: 20160716163111) do
     t.integer  "at_und"
     t.date     "arrived_at"
     t.string   "country_of_origin"
+    t.index ["company_id"], name: "index_users_on_company_id", using: :btree
+    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["frilans_finans_id"], name: "index_users_on_frilans_finans_id", unique: true, using: :btree
+    t.index ["language_id"], name: "index_users_on_language_id", using: :btree
+    t.index ["one_time_token"], name: "index_users_on_one_time_token", unique: true, using: :btree
+    t.index ["ssn"], name: "index_users_on_ssn", unique: true, using: :btree
   end
-
-  add_index "users", ["company_id"], name: "index_users_on_company_id", using: :btree
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["frilans_finans_id"], name: "index_users_on_frilans_finans_id", unique: true, using: :btree
-  add_index "users", ["language_id"], name: "index_users_on_language_id", using: :btree
-  add_index "users", ["one_time_token"], name: "index_users_on_one_time_token", unique: true, using: :btree
-  add_index "users", ["ssn"], name: "index_users_on_ssn", unique: true, using: :btree
 
   add_foreign_key "blazer_audits", "blazer_queries", column: "query_id", name: "blazer_audits_query_id_fk"
   add_foreign_key "blazer_checks", "blazer_queries", column: "query_id", name: "blazer_checks_query_id_fk"

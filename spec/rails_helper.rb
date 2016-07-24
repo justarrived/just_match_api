@@ -7,7 +7,7 @@ if Rails.env.production?
 end
 require 'spec_helper'
 require 'rspec/rails'
-require 'shoulda/matchers'
+# require 'shoulda/matchers'
 require 'paperclip/matchers'
 require 'pundit/rspec'
 require 'sidekiq/testing'

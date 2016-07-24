@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require File.expand_path('../boot', __FILE__)
+require_relative 'boot'
 
 require 'rails'
 # Pick the frameworks you want:
