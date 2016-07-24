@@ -31,7 +31,7 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
-  # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+  config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log

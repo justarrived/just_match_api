@@ -547,7 +547,7 @@ DEPENDENCIES
   better_errors (~> 2.1)
   binding_of_caller (~> 0.7)
   blazer (~> 1.5)
-  bourbon (~> 5.0.0.beta.5)
+  bourbon (~> 5.0.0.beta.6)
   bullet (~> 5.0)
   byebug (~> 9.0)
   codeclimate-test-reporter (~> 0.6)

@@ -24,9 +24,6 @@ gem 'airbrake', '~> 5.4' # Error catcher and reporter
 
 gem 'twilio-ruby', '~> 4.11.1' # Send SMS notifications
 
-# Backports, Rails 5, render view from anywhere
-# gem 'backport_new_renderer', '~> 1.0', git: 'https://github.com/justarrived/backport_new_renderer' # rubocop:disable Metrics/LineLength
-
 gem 'global_phone', '~> 1.0' # Format cell phone numbers
 gem 'countries', require: 'countries/global' # Country data in various locales
 
@@ -49,7 +46,7 @@ gem 'skylight', '~> 0.10' # Performance monitoring
 gem 'geocoder', '~> 1.3' # Geocode resources
 
 gem 'administrate', github: 'greetpoint/administrate', branch: 'rails5'
-gem 'bourbon', '~> 5.0.0.beta.5'
+gem 'bourbon', '~> 5.0.0.beta.6'
 # gem 'administrate', '~> 0.2' # Admin dashboard
 # gem 'administrate-field-image', '~> 0.0.2' # Administrate image support
 gem 'uglifier', '~> 3.0' # Needed administrate assets compilation
