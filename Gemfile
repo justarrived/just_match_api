@@ -78,7 +78,6 @@ gem 'iban-tools', '~> 1.1' # Validate IBAN
 group :development, :test do
   gem 'byebug', '~> 9.0'
   gem 'rspec-rails', '~> 3.5'
-  # gem 'regressor', '~> 0.6'
   gem 'rubocop', '~> 0.35', require: false
   gem 'dotenv-rails', '~> 2.1'
   gem 'factory_girl_rails', '~> 4.0'
