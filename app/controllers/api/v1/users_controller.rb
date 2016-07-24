@@ -193,6 +193,8 @@ module Api
       private
 
       def normalize_language_ids(language_ids)
+        return [] if language_ids.nil?
+
         language_ids.map do |lang|
           if lang.is_a?(ActionController::Parameters)
             lang.permit(:id, :proficiency)
