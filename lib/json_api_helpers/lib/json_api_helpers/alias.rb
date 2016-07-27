@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 module JsonApiHelpers
-  JsonApiError = Helper::Error
-  JsonApiErrors = Helper::Errors
-  JsonApiData = Helper::Data
-  JsonApiDatum = Helper::Datum
+  module Alias
+    JsonApiError = JsonApiHelpers::Helper::Error
+    JsonApiErrors = JsonApiHelpers::Helper::Errors
+    JsonApiData = JsonApiHelpers::Helper::Data
+    JsonApiDatum = JsonApiHelpers::Helper::Datum
 
-  JsonApiSerializer = AMS::Serializer
-  JsonApiDeserializer = AMS::Deserializer
+    JsonApiSerializer = JsonApiHelpers::AMS::Serializer
+    JsonApiDeserializer = JsonApiHelpers::AMS::Deserializer
+  end
 end

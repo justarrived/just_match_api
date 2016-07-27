@@ -6,14 +6,16 @@ require 'active_support/core_ext/object/json'
 
 require 'active_model_serializers'
 
+# Local requires
+require 'ams/deserializer'
+require 'ams/serializer'
+
 require 'json_api_helpers/version'
 require 'json_api_helpers/data'
 require 'json_api_helpers/datum'
 require 'json_api_helpers/error'
 require 'json_api_helpers/errors'
-
-require 'ams/deserializer'
-require 'ams/serializer'
+require 'json_api_helpers/alias'
 
 module JsonApiHelpers
   def self.deserializer_klass=(deserializer_klass)
