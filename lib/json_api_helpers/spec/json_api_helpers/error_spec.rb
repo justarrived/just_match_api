@@ -1,11 +1,11 @@
 # frozen_string_literal: true
-require 'rails_helper'
+require 'spec_helper'
 
-RSpec.describe JsonApiError do
+RSpec.describe JsonApiHelpers::Helper::Error do
   let(:pointer) { :first_name }
 
   subject do
-    JsonApiError.new(status: 422, detail: 'too short', pointer: pointer).to_h
+    described_class.new(status: 422, detail: 'too short', pointer: pointer).to_h
   end
 
   it 'returns correct status' do

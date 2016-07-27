@@ -19,7 +19,7 @@ require 'frilans_finans_api/resource'
 require 'frilans_finans_api/nil_logger'
 
 module FrilansFinansApi
-  DEFAULT_CLIENT_KLASS = FixtureClient
+  DEFAULT_CLIENT_KLASS = Client
   DEFAULT_BASE_URI = 'https://frilansfinans.se/api'
 
   def self.client_klass

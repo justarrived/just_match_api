@@ -11,6 +11,12 @@ PATH
     frilans_finans_api (0.1.0)
       httparty (~> 0.13)
 
+PATH
+  remote: lib/json_api_helpers
+  specs:
+    json_api_helpers (0.1.0)
+      activesupport (>= 4.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -573,6 +579,7 @@ DEPENDENCIES
   i18n_generators (~> 2.1)
   iban-tools (~> 1.1)
   immigrant (~> 0.3)
+  json_api_helpers!
   kaminari (~> 0.17)
   letter_opener (~> 1.4)
   maruku (~> 0.7)

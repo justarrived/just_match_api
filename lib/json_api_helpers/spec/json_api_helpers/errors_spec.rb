@@ -1,9 +1,9 @@
 # frozen_string_literal: true
-require 'rails_helper'
+require 'spec_helper'
 
-RSpec.describe JsonApiErrors do
+RSpec.describe JsonApiHelpers::Helper::Errors do
   context 'with no errors' do
-    subject { JsonApiErrors.new.to_h }
+    subject { described_class.new.to_h }
 
     it 'returns empty array' do
       expect(subject).to eq(errors: [])
@@ -12,7 +12,7 @@ RSpec.describe JsonApiErrors do
 
   context 'with errors' do
     subject do
-      errors = JsonApiErrors.new
+      errors = described_class.new
       errors.add(status: 422, detail: 'too short')
       errors.to_h
     end

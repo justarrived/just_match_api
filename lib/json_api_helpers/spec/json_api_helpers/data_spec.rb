@@ -1,12 +1,14 @@
 # frozen_string_literal: true
-require 'rails_helper'
+require 'json'
 
-RSpec.describe JsonApiData do
+require 'spec_helper'
+
+RSpec.describe JsonApiHelpers::Helper::Data do
   let(:id) { 1 }
   let(:type) { 'watman' }
   let(:attributes) { { 'test_key' => 3 } }
   subject do
-    json = JsonApiData.new(id: id, type: type, attributes: attributes).to_json
+    json = described_class.new(id: id, type: type, attributes: attributes).to_json
     JSON.parse(json)
   end
 
