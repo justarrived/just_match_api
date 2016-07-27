@@ -3,8 +3,16 @@ set -euo pipefail
 IFS=$'\n\t'
 
 cd "$(dirname "$0")/.."
+RUN_NESTED_GEMS_SPECS=${RUN_NESTED_GEMS_SPECS-:'false'}
+
+run_nested_gems_specs=''
+if [[ $RUN_NESTED_GEMS_SPECS == 'true' ]]; then
+  # TODO: We should also run lib/frilans_finans_api/spec, but those tests are failing
+  #       so that is best fixed in later
+  run_nested_gems_specs='lib/json_api_helpers/spec'
+fi
 
 echo -e '\n== Running tests =='
 export RAILS_ENV=test
 export RAKE_ENV=test
-bin/rspec "$@"
+bin/rspec "$@" $run_nested_gems_specs

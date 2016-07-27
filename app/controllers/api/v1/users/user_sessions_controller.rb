@@ -121,7 +121,7 @@ module Api
           if jsonapi_params[:email_or_phone].blank?
             message = [
               'Param `email` is deprecated!',
-              'Please uses `email_or_phone` instead.'
+              'Please use `email_or_phone` instead.'
             ].join(' ')
             ActiveSupport::Deprecation.warn(message)
             jsonapi_params[:email]

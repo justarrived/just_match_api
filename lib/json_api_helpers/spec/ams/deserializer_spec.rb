@@ -1,7 +1,7 @@
 # frozen_string_literal: true
-require 'rails_helper'
+require 'spec_helper'
 
-RSpec.describe JsonApiDeserializer do
+RSpec.describe JsonApiHelpers::AMS::Deserializer do
   let(:params) do
     {
       'data' => {
@@ -11,11 +11,6 @@ RSpec.describe JsonApiDeserializer do
         }
       }
     }
-  end
-
-  it 'returns instance of ActionController::Parameters' do
-    result = described_class.parse(params)
-    expect(result).to be_a(ActionController::Parameters)
   end
 
   it 'can deserialize params' do
