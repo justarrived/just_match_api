@@ -15,8 +15,6 @@ PATH
   remote: lib/json_api_helpers
   specs:
     json_api_helpers (0.1.0)
-      active_model_serializers (~> 0.10)
-      activemodel (>= 4.2)
       activesupport (>= 4.2)
 
 GEM

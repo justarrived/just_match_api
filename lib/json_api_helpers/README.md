@@ -42,7 +42,7 @@ JsonApiHelpers::Error.new(status: 422, detail: 'too short', pointer: :first_name
 There are shorthands for all helpers that you can include:
 
 ```ruby
-require 'json_api_helpers/alias'
+include JsonApiHelpers::Alias
 
 JsonApiError  = JsonApiHelpers::Helper::Error
 JsonApiErrors = JsonApiHelpers::Helper::Errors
@@ -59,11 +59,13 @@ After checking out the repo, run `bin/setup` to install dependencies. Then, run 
 
 To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 
-## TODO
+## Future
 
 * Allow configuring the "field separator" between underscore/dash/camelCase
 * Testing the `Serializer` class is currently not "possible" and the code in there is hard to follow and not very well extracted, this should be fixed :)
 * There is currently a mix of high and low level components
+* Better dependency injection
+* Test `JsonApiHelpers::Serializer` (currently those tests areas in the parent repos tests
 
 ## Contributing
 
