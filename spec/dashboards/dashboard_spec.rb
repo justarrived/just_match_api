@@ -3,9 +3,12 @@ require 'rails_helper'
 
 [
   CategoryDashboard, ChatDashboard, ChatUserDashboard, CommentDashboard,
-  CompanyDashboard, ContactDashboard, JobDashboard, JobSkillDashboard, JobUserDashboard,
-  LanguageDashboard, MessageDashboard, RatingDashboard, SkillDashboard, UserDashboard,
-  UserLanguageDashboard, UserSkillDashboard
+  CompanyDashboard, CompanyImageDashboard, ContactDashboard, FaqDashboard,
+  FrilansFinansInvoiceDashboard, FrilansFinansTermDashboard, HourlyPayDashboard,
+  InvoiceDashboard, JobDashboard, JobSkillDashboard, JobUserDashboard,
+  LanguageDashboard, MessageDashboard, RatingDashboard, SkillDashboard,
+  TermsAgreementConsentDashboard, TermsAgreementDashboard, TokenDashboard, UserDashboard,
+  UserImageDashboard, UserLanguageDashboard, UserSkillDashboard
 ].each do |dashboard_klass|
   RSpec.describe dashboard_klass do
     subject { described_class }
