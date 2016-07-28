@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 module JsonApiHelpers
-  module Helper
+  module Helpers
     class Datum
       def initialize(json_api_datums)
         @datums = json_api_datums

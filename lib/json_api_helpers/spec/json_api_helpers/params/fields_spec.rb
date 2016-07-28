@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'spec_helper'
 
-RSpec.describe FieldsParams do
+RSpec.describe JsonApiHelpers::Params::Fields do
   let(:params) do
     {
       jobs: 'id,name,email',
@@ -11,7 +11,7 @@ RSpec.describe FieldsParams do
 
   describe '#permit' do
     context 'with fields params nil' do
-      subject { FieldsParams.new(nil) }
+      subject { described_class.new(nil) }
 
       it 'returns whitelist when nothing permitted' do
         expect(subject.permit(owner: [:email])).to eq(owner: ['email'])

@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require 'ams/action_dispatch_request_wrapper'
+require 'json_api_helpers/ams/action_dispatch_request_wrapper'
 
 module JsonApiHelpers
   module AMS

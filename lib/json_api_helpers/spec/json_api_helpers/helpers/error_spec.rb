@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'spec_helper'
 
-RSpec.describe JsonApiHelpers::Helper::Error do
+RSpec.describe JsonApiHelpers::Helpers::Error do
   let(:pointer) { :first_name }
 
   subject do
