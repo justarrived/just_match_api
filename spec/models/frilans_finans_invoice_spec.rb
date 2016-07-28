@@ -2,6 +2,13 @@
 require 'rails_helper'
 
 RSpec.describe FrilansFinansInvoice, type: :model do
+  describe '#name' do
+    it 'returns the correct email' do
+      ff_invoice = FactoryGirl.create(:frilans_finans_invoice)
+      expect(ff_invoice.name).to eq("Frilans Finans Invoice ##{ff_invoice.id}")
+    end
+  end
+
   describe '#validates_job_user_will_perform' do
     let(:invalid_job_user) { FactoryGirl.build(:job_user) }
     let(:valid_job_user) { FactoryGirl.build(:job_user_passed_job) }
