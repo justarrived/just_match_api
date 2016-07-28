@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'spec_helper'
 
-RSpec.describe ActionDispatchRequestAMSWrapper do
+RSpec.describe JsonApiHelpers::AMS::ActionDispatchRequestWrapper do
   let(:url) { 'http://example.com' }
   let(:name) { 'Watwoman' }
   let(:object) { OpenStruct.new(watman: name, original_url: url) }

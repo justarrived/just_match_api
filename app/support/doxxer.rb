@@ -101,7 +101,7 @@ class Doxxer
 
   def self._error_example_for(model_klass)
     model = model_klass.new.tap(&:validate)
-    model_hash = model.valid? ? {} : ErrorSerializer.serialize(model)
+    model_hash = model.valid? ? {} : JsonApiErrorSerializer.serialize(model)
     JSON.pretty_generate(model_hash)
   end
 

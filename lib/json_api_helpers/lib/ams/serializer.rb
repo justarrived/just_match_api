@@ -1,4 +1,6 @@
 # frozen_string_literal: true
+require 'ams/action_dispatch_request_wrapper'
+
 module JsonApiHelpers
   module AMS
     class Serializer
@@ -15,7 +17,7 @@ module JsonApiHelpers
         @current_user = current_user
         # NOTE: ActiveModel::Serializer#serializer_for is from active_model_serializers
         @serializer = ActiveModel::Serializer.serializer_for(model_scope)
-        @request = request
+        @request = ActionDispatchRequestWrapper.new(request)
       end
 
       def serializer_instance

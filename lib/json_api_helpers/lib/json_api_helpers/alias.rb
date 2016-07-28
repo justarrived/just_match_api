@@ -6,6 +6,7 @@ module JsonApiHelpers
     JsonApiData = JsonApiHelpers::Helper::Data
     JsonApiDatum = JsonApiHelpers::Helper::Datum
 
+    JsonApiErrorSerializer = JsonApiHelpers::Helper::ErrorSerializer
     JsonApiSerializer = JsonApiHelpers::AMS::Serializer
     JsonApiDeserializer = JsonApiHelpers::AMS::Deserializer
   end
