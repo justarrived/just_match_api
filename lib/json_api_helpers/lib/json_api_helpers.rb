@@ -15,6 +15,7 @@ require 'json_api_helpers/data'
 require 'json_api_helpers/datum'
 require 'json_api_helpers/error'
 require 'json_api_helpers/errors'
+require 'json_api_helpers/error_serializer'
 require 'json_api_helpers/alias'
 
 module JsonApiHelpers

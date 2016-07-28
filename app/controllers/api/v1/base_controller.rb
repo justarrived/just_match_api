@@ -129,13 +129,13 @@ module Api
 
         return if promo_code == api_promo_code_header
         render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized
-        false
+        false # Rails5: Should be updated to use throw
       end
 
       protected
 
       def respond_with_errors(model)
-        serialized_error = { errors: ErrorSerializer.serialize(model) }
+        serialized_error = { errors: JsonApiErrorSerializer.serialize(model) }
         render json: serialized_error, status: :unprocessable_entity
       end
 
@@ -147,7 +147,7 @@ module Api
           included: included_resources,
           current_user: current_user,
           meta: meta,
-          request: ActionDispatchRequestAMSWrapper.new(request)
+          request: request
         )
 
         render json: serialized_model, status: status
@@ -155,7 +155,7 @@ module Api
 
       def user_not_authorized
         render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized
-        false
+        false # Rails5: Should be updated to use throw
       end
 
       def require_user
@@ -163,7 +163,7 @@ module Api
           error_message = I18n.t('not_logged_in_error')
           render json: { error: error_message }, status: :unauthorized
         end
-        false
+        false # Rails5: Should be updated to use throw
       end
 
       def current_user

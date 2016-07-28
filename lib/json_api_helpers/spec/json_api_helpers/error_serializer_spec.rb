@@ -1,8 +1,15 @@
 # frozen_string_literal: true
-require 'rails_helper'
+require 'spec_helper'
 
-RSpec.describe ErrorSerializer do
-  let(:model) { Skill.new.tap(&:validate) }
+RSpec.describe JsonApiHelpers::Helper::ErrorSerializer do
+  class ExampleModel
+    include ActiveModel::Model
+
+    attr_accessor :name
+    validates :name, length: { minimum: 3 }
+  end
+
+  let(:model) { ExampleModel.new.tap(&:validate) }
   subject { described_class.serialize(model) }
 
   it 'returns an array' do
