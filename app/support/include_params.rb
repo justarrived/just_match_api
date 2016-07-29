@@ -3,7 +3,7 @@ class IncludeParams
   attr_reader :include_param
 
   def initialize(include_param)
-    # Underscore the field (JSONAPI attributes are dasherized)
+    # Underscore the field (JSONAPI attributes are by recommendation dasherized)
     @include_param = (include_param || '').underscore
   end
 
