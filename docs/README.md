@@ -48,6 +48,13 @@ The code follows most Rails conventions. If you've worked with Rails before the 
   - All files are uploaded separately, then returns a token that is used for the actual resource that is connected to the file
 
 
+* __Internal gems__
+  - Some logic have been extracted to gems located in `lib/`, i.e
+    + `JsonApiHelpers` "A set of helpers for generating JSON API compliant responses."
+    + `FrilansFinansApi` "Interact with Frilans Finans API."
+  - They aren't published separately because they aren't quite complete or ready for external use
+
+
 * __Errors & Monitoring__
   - Uses the Airbrake and the `airbrake` gem for error notifications
   - Currently uses both `newrelic_rpm` and `skylight` gems, one will be picked later

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 module JsonApiHelpers
-  module Helper
+  module Helpers
     class Errors
       include Enumerable
 

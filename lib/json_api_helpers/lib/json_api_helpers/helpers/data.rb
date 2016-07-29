@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 module JsonApiHelpers
-  module Helper
+  module Helpers
     class Data
       def initialize(id:, type:, attributes: {})
         @id = id

@@ -1,8 +1,7 @@
 # frozen_string_literal: true
+require 'spec_helper'
 
-require 'rails_helper'
-
-RSpec.describe FilterParams do
+RSpec.describe JsonApiHelpers::Params::Filter do
   let(:filter_hash) do
     {
       'name' => 'watman',

@@ -1,8 +1,7 @@
 # frozen_string_literal: true
+require 'spec_helper'
 
-require 'rails_helper'
-
-RSpec.describe SortParams do
+RSpec.describe JsonApiHelpers::Params::Sort do
   let(:default) { %w(created_at) }
 
   describe '#sorted_fields' do

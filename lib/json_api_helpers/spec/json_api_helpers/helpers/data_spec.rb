@@ -3,7 +3,7 @@ require 'json'
 
 require 'spec_helper'
 
-RSpec.describe JsonApiHelpers::Helper::Data do
+RSpec.describe JsonApiHelpers::Helpers::Data do
   let(:id) { 1 }
   let(:type) { 'watman' }
   let(:attributes) { { 'test_key' => 3 } }

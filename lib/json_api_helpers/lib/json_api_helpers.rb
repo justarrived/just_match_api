@@ -7,15 +7,22 @@ require 'active_support/core_ext/object/json'
 require 'active_model_serializers'
 
 # Local requires
-require 'ams/deserializer'
-require 'ams/serializer'
-
 require 'json_api_helpers/version'
-require 'json_api_helpers/data'
-require 'json_api_helpers/datum'
-require 'json_api_helpers/error'
-require 'json_api_helpers/errors'
+
+require 'json_api_helpers/ams/deserializer'
+require 'json_api_helpers/ams/serializer'
 require 'json_api_helpers/error_serializer'
+
+require 'json_api_helpers/helpers/data'
+require 'json_api_helpers/helpers/datum'
+require 'json_api_helpers/helpers/error'
+require 'json_api_helpers/helpers/errors'
+
+require 'json_api_helpers/params/fields'
+require 'json_api_helpers/params/filter'
+require 'json_api_helpers/params/sort'
+
+# Defines aliases for most classes
 require 'json_api_helpers/alias'
 
 module JsonApiHelpers
