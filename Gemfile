@@ -50,7 +50,6 @@ gem 'skylight', '~> 0.10' # Performance monitoring
 gem 'geocoder', '~> 1.3' # Geocode resources
 
 gem 'administrate', git: 'https://github.com/greetpoint/administrate', branch: 'rails5'
-gem 'bourbon', '~> 5.0.0.beta.6'
 # gem 'administrate', '~> 0.2' # Admin dashboard
 # gem 'administrate-field-image', '~> 0.0.2' # Administrate image support
 gem 'uglifier', '~> 3.0' # Needed administrate assets compilation
