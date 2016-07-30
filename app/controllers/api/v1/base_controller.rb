@@ -106,11 +106,11 @@ module Api
       end
 
       def include_params
-        @_include_params ||= IncludeParams.new(params[:include])
+        @_include_params ||= JsonApiIncludeParams.new(params[:include])
       end
 
       def fields_params
-        @_fields_params ||= FieldsParams.new(params[:fields])
+        @_fields_params ||= JsonApiFieldsParams.new(params[:fields])
       end
 
       def included_resources

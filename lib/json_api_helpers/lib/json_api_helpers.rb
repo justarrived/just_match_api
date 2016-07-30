@@ -1,25 +1,23 @@
 # frozen_string_literal: true
-require 'active_support'
-require 'active_support/core_ext/string'
-require 'active_support/core_ext/hash'
 require 'active_support/core_ext/object/json'
-
-require 'active_model_serializers'
 
 # Local requires
 require 'json_api_helpers/version'
 
-require 'json_api_helpers/ams/deserializer'
-require 'json_api_helpers/ams/serializer'
-require 'json_api_helpers/error_serializer'
+require 'json_api_helpers/support/key_transform'
+require 'json_api_helpers/support/string_support'
 
-require 'json_api_helpers/helpers/data'
-require 'json_api_helpers/helpers/datum'
-require 'json_api_helpers/helpers/error'
-require 'json_api_helpers/helpers/errors'
+require 'json_api_helpers/serializers/deserializer'
+require 'json_api_helpers/serializers/model'
+require 'json_api_helpers/serializers/model_error'
+require 'json_api_helpers/serializers/data'
+require 'json_api_helpers/serializers/datum'
+require 'json_api_helpers/serializers/error'
+require 'json_api_helpers/serializers/errors'
 
 require 'json_api_helpers/params/fields'
 require 'json_api_helpers/params/filter'
+require 'json_api_helpers/params/includes'
 require 'json_api_helpers/params/sort'
 
 # Defines aliases for most classes
@@ -40,5 +38,13 @@ module JsonApiHelpers
 
   def self.params_klass
     @params_klass || ActionController::Parameters
+  end
+
+  def self.default_key_transform=(key_transform)
+    @default_key_transform = key_transform
+  end
+
+  def self.default_key_transform
+    @default_key_transform || :dash
   end
 end

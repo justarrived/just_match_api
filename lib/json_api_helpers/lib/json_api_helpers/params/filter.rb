@@ -4,13 +4,12 @@ require 'date'
 module JsonApiHelpers
   module Params
     module Filter
-      def self.filtered_fields(filters, allowed, transform)
+      def self.build(filters, allowed, transform)
         return {} if filters.nil? || filters.is_a?(String)
 
         filtered = {}
         filters.each do |key, value|
-          # Underscore the field (JSONAPI attributes are by recommendation dasherized)
-          key_sym = key.underscore.to_sym
+          key_sym = StringSupport.underscore(key).to_sym
           if allowed.include?(key_sym)
             filtered[key_sym] = format_value(value, transform[key_sym])
           end

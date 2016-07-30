@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 require 'spec_helper'
+require 'active_model'
 
-RSpec.describe JsonApiHelpers::ErrorSerializer do
+RSpec.describe JsonApiHelpers::Serializers::ModelError do
   class ExampleModel
     include ActiveModel::Model
 

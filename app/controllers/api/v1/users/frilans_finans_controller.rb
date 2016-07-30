@@ -106,14 +106,14 @@ module Api
           iban_tool = IBANAccount.new(ff_user_params[:iban])
           iban_tool.errors.each do |error|
             message = I18n.t("errors.bank_account.iban.#{error}")
-            errors.add(pointer: :iban, detail: message)
+            errors.add(attribute: :iban, detail: message)
           end
 
           # Validate BIC
           bic_tool = BICTool.new(ff_user_params[:bic])
           bic_tool.errors.each do |error|
             message = I18n.t("errors.bank_account.bic.#{error}")
-            errors.add(pointer: :bic, detail: message)
+            errors.add(attribute: :bic, detail: message)
           end
           errors
         end
@@ -132,7 +132,7 @@ module Api
                         :account_number
                       end
             message = I18n.t(".errors.bank_account.#{error_name}")
-            errors.add(pointer: pointer, detail: message)
+            errors.add(attribute: pointer, detail: message)
           end
 
           errors
@@ -146,7 +146,7 @@ module Api
           message = I18n.t('errors.messages.blank')
           errors = JsonApiErrors.new
           fields.map do |field|
-            errors.add(detail: message, pointer: field) if params_hash[field].blank?
+            errors.add(detail: message, attribute: field) if params_hash[field].blank?
           end
           errors
         end

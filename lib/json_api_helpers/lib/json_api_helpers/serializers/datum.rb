@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 module JsonApiHelpers
-  module Helpers
+  module Serializers
     class Datum
       def initialize(json_api_datums)
         @datums = json_api_datums
@@ -16,6 +16,7 @@ module JsonApiHelpers
       end
 
       # Rails is awkward and calls #to_json with a context argument
+      # NOTE: Rails only method Hash#to_json
       def to_json(_context = nil)
         to_h.to_json
       end

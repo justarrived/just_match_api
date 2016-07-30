@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'spec_helper'
 
-RSpec.describe JsonApiHelpers::Helpers::Errors do
+RSpec.describe JsonApiHelpers::Serializers::Errors do
   context 'with no errors' do
     subject { described_class.new.to_h }
 
