@@ -2,7 +2,7 @@
 module FrilansFinansApi
   class FixtureClient
     # NOTE: If this is extracted out of just_match_api, this will need to change
-    BASE_PATH = 'lib/frilans_finans_api/lib/frilans_finans_api/fixtures'
+    BASE_PATH = __dir__ + '/../../../fixtures'
 
     Response = Struct.new(:body)
 

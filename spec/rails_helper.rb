@@ -9,6 +9,7 @@ require 'spec_helper'
 require 'rspec/rails'
 require 'shoulda/matchers'
 require 'paperclip/matchers'
+
 require 'pundit/rspec'
 require 'sidekiq/testing'
 Sidekiq::Testing.fake!
@@ -22,7 +23,6 @@ ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
   config.include Paperclip::Shoulda::Matchers
-  config.include FrilansFinansApiTest
 
   # Run each example within a transaction
   config.use_transactional_fixtures = true

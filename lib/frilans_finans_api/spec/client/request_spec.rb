@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require 'rails_helper'
+require 'spec_helper'
 
 RSpec.describe FrilansFinansApi::Request do
   let(:auth_headers) { frilans_finans_authed_request_headers }

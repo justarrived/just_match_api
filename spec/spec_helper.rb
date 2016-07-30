@@ -8,11 +8,14 @@ elsif ENV.fetch('COVERAGE', false)
 end
 
 require 'webmock/rspec'
+require 'frilans_finans_api/test_helper'
 
 Dir[Rails.root.join('spec/spec_support/spec_helpers/**/*.rb')].each { |f| require f }
 
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
+  config.include FrilansFinansApi::TestHelper
+
   config.expect_with :rspec do |expectations|
     # Better expetations output
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
@@ -42,10 +45,13 @@ RSpec.configure do |config|
   # Allows RSpec to persist some state between runs in order to support
   # the `--only-failures` and `--next-failure` CLI options.
   config.example_status_persistence_file_path = 'spec/.rspec_examples.txt'
-
-  # Set test defaults
-  FrilansFinansApi.client_klass = FrilansFinansApi::FixtureClient
 end
+
+# Set test defaults
+FrilansFinansApi.client_klass = FrilansFinansApi::FixtureClient
+FrilansFinansApi.base_uri = 'https://example.com'
+FrilansFinansApi.client_id = '123456'
+FrilansFinansApi.client_secret = 'notsosecret'
 
 # Only allow the tests to connect to localhost and  allow codeclimate
 # codeclimate (for test coverage reporting)

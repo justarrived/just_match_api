@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require 'rails_helper'
+require 'spec_helper'
 
 RSpec.describe FrilansFinansApi::Client do
   before(:each) { stub_frilans_finans_auth_request }

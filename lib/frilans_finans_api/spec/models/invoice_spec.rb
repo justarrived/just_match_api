@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require 'rails_helper'
+require 'spec_helper'
 
 RSpec.describe FrilansFinansApi::Invoice do
   let(:default_headers) { FrilansFinansApi::Client::HEADERS }
