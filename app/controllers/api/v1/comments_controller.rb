@@ -62,7 +62,7 @@ module Api
         if @comment.save
           api_render(@comment, status: :created)
         else
-          respond_with_errors(@comment)
+          api_render_errors(@comment)
         end
       end
 

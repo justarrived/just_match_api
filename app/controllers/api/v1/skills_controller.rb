@@ -58,7 +58,7 @@ module Api
         if @skill.save
           api_render(@skill, status: :created)
         else
-          respond_with_errors(@skill)
+          api_render_errors(@skill)
         end
       end
 
@@ -81,7 +81,7 @@ module Api
         if @skill.update(skill_params)
           api_render(@skill)
         else
-          respond_with_errors(@skill)
+          api_render_errors(@skill)
         end
       end
 

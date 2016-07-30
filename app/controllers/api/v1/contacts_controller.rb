@@ -29,7 +29,7 @@ module Api
           ContactNotifier.call(contact: contact)
           head :no_content
         else
-          respond_with_errors(contact)
+          api_render_errors(contact)
         end
       end
 

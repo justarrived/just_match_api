@@ -41,7 +41,7 @@ module Api
         if @terms_consent.save
           api_render(@terms_consent, status: :created)
         else
-          respond_with_errors(@terms_consent)
+          api_render_errors(@terms_consent)
         end
       end
 

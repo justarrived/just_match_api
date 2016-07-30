@@ -80,7 +80,7 @@ module Api
 
           api_render(@job, status: :created)
         else
-          respond_with_errors(@job)
+          api_render_errors(@job)
         end
       end
 
@@ -129,7 +129,7 @@ module Api
 
           api_render(@job)
         else
-          respond_with_errors(@job)
+          api_render_errors(@job)
         end
       end
 

@@ -67,7 +67,7 @@ module Api
           if @user_language.save
             api_render(@user_language, status: :created)
           else
-            respond_with_errors(@user_language)
+            api_render_errors(@user_language)
           end
         end
 

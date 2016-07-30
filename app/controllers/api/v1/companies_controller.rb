@@ -66,7 +66,7 @@ module Api
 
           api_render(@company, status: :created)
         else
-          respond_with_errors(@company)
+          api_render_errors(@company)
         end
       end
 

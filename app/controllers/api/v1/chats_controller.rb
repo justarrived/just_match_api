@@ -68,7 +68,7 @@ module Api
         if @chat.errors[:users].empty?
           api_render(@chat, status: :created)
         else
-          respond_with_errors(@chat)
+          api_render_errors(@chat)
         end
       end
 

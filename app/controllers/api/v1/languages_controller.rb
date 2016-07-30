@@ -59,7 +59,7 @@ module Api
         if @language.save
           api_render(@language, status: :created)
         else
-          respond_with_errors(@language)
+          api_render_errors(@language)
         end
       end
 
@@ -81,7 +81,7 @@ module Api
         if @language.update(language_params)
           api_render(@language)
         else
-          respond_with_errors(@language)
+          api_render_errors(@language)
         end
       end
 

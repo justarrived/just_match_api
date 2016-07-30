@@ -18,7 +18,7 @@ module Api
           if @company_image.save
             api_render(@company_image, status: :created)
           else
-            respond_with_errors(@company_image)
+            api_render_errors(@company_image)
           end
         end
 
