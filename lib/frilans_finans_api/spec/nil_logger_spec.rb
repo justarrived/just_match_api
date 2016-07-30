@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require 'rails_helper'
+require 'spec_helper'
 
 RSpec.describe FrilansFinansApi::NilLogger do
   it 'has the same methods as Ruby standard lib Logger' do
