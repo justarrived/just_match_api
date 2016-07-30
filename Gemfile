@@ -8,8 +8,8 @@ gem 'pg', '~> 0.15' # Use postgresql as the database for Active Record
 
 gem 'sidekiq', '~> 4.1' # Background worker (Redis-backed)
 # gem 'sinatra', '~> 1.4', require: false # Required for sidekiqs web interface
-gem 'sinatra', git: 'https://github.com/sinatra/sinatra', require: false
-gem 'rack-protection', git: 'https://github.com/sinatra/rack-protection'
+gem 'sinatra', git: 'https://github.com/sinatra/sinatra', require: false # rails5..
+gem 'rack-protection', git: 'https://github.com/sinatra/rack-protection' # rails5..
 
 gem 'active_model_serializers', '~> 0.10' # Serialize models to JSON
 

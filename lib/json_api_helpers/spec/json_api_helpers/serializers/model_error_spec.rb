@@ -2,11 +2,6 @@
 require 'spec_helper'
 require 'active_model'
 
-<<<<<<< HEAD:spec/support/error_serializer_spec.rb
-RSpec.describe ErrorSerializer do
-  let(:language) { FactoryGirl.build(:language) }
-  let(:model) { Skill.new(language: language).tap(&:validate) }
-=======
 RSpec.describe JsonApiHelpers::Serializers::ModelError do
   class ExampleModel
     include ActiveModel::Model
@@ -16,7 +11,6 @@ RSpec.describe JsonApiHelpers::Serializers::ModelError do
   end
 
   let(:model) { ExampleModel.new.tap(&:validate) }
->>>>>>> master:lib/json_api_helpers/spec/json_api_helpers/serializers/model_error_spec.rb
   subject { described_class.serialize(model) }
 
   it 'returns an array' do
