@@ -201,8 +201,6 @@ RSpec.describe JobUser, type: :model do
       job_user.save!
       job_user.will_perform = false
       job_user.validate
-      # TODO: This should really be the translated field name
-      # expected_field = I18n.t('...')
       expected_field = 'will perform'
       err_msg = I18n.t('errors.validators.unrevertable', field: expected_field)
       expect(job_user.errors.messages[:will_perform]).to include(err_msg)
@@ -223,8 +221,6 @@ RSpec.describe JobUser, type: :model do
       job_user.save!
       job_user.accepted = false
       job_user.validate
-      # TODO: This should really be the translated field name
-      # expected_field = I18n.t('...')
       expected_field = 'accepted'
       err_msg = I18n.t('errors.validators.unrevertable', field: expected_field)
       expect(job_user.errors.messages[:accepted]).to include(err_msg)

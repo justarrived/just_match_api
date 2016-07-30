@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class Faq < ActiveRecord::Base
+class Faq < ApplicationRecord
   belongs_to :language
 
   validates :language, presence: true

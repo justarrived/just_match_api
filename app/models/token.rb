@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class Token < ActiveRecord::Base
+class Token < ApplicationRecord
   DEFAULT_EXPIRE_IN_DAYS = 14
 
   belongs_to :user

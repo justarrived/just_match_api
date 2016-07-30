@@ -42,6 +42,9 @@ RSpec.configure do |config|
   # Allows RSpec to persist some state between runs in order to support
   # the `--only-failures` and `--next-failure` CLI options.
   config.example_status_persistence_file_path = 'spec/.rspec_examples.txt'
+
+  # Set test defaults
+  FrilansFinansApi.client_klass = FrilansFinansApi::FixtureClient
 end
 
 # Only allow the tests to connect to localhost and  allow codeclimate

@@ -121,7 +121,7 @@ module Api
           if jsonapi_params[:email_or_phone].blank?
             message = [
               'Param `email` is deprecated!',
-              'Please uses `email_or_phone` instead.'
+              'Please use `email_or_phone` instead.'
             ].join(' ')
             ActiveSupport::Deprecation.warn(message)
             jsonapi_params[:email]
@@ -142,9 +142,9 @@ module Api
           errors = JsonApiErrors.new
           # NOTE: The email param is kept for backward compability reasons
           #       remove when frontend is using email_or_phone param
-          errors.add(detail: message, pointer: :email)
-          errors.add(detail: message, pointer: :email_or_phone)
-          errors.add(detail: message, pointer: :password)
+          errors.add(detail: message, attribute: :email)
+          errors.add(detail: message, attribute: :email_or_phone)
+          errors.add(detail: message, attribute: :password)
 
           render json: errors, status: :unprocessable_entity
         end

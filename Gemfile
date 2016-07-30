@@ -9,16 +9,20 @@ gem 'pg', '~> 0.15' # Use postgresql as the database for Active Record
 gem 'sidekiq', '~> 4.1' # Background worker (Redis-backed)
 # gem 'sinatra', '~> 1.4', require: false # Required for sidekiqs web interface
 gem 'sinatra', git: 'https://github.com/sinatra/sinatra', require: false
+gem 'rack-protection', git: 'https://github.com/sinatra/rack-protection'
 
 gem 'active_model_serializers', '~> 0.10' # Serialize models to JSON
 
-gem 'blazer', '~> 1.5' # Explore data with SQL
+gem 'blazer', '~> 1.6' # Explore data with SQL
 
 # Interact with Frilans Finans API
 gem 'frilans_finans_api', path: 'lib/frilans_finans_api'
 
-gem 'paperclip', '~> 5.0' # Image handler
-gem 'aws-sdk', '~> 2.3' # Upload images to AWS S3
+# JSON API helpers
+gem 'json_api_helpers', path: 'lib/json_api_helpers'
+
+gem 'paperclip', '~> 5.0.0' # Image handler
+gem 'aws-sdk', '~> 2.4' # Upload images to AWS S3
 
 gem 'airbrake', '~> 5.4' # Error catcher and reporter
 
@@ -104,6 +108,7 @@ group :test do
   gem 'database_cleaner', '~> 1.5'
   gem 'webmock', '~> 2.0'
   gem 'rspec-activemodel-mocks', '~> 1.0'
-  gem 'timecop', '~> 0.8.0'
   gem 'rails-controller-testing'
+  gem 'timecop', '~> 0.8'
+  gem 'fuubar', '~> 2.1'
 end

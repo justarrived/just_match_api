@@ -4,11 +4,11 @@ require 'rails_helper'
 RSpec.describe HourlyPayDashboard do
   subject { described_class.new }
 
-  let(:company) { mock_model(HourlyPay, gross_salary: 100, id: 1) }
+  let(:pay) { mock_model(HourlyPay, gross_salary: 100, id: 1) }
 
   describe '#display_resource' do
     it 'returns the correct display name' do
-      expect(subject.display_resource(company)).to eq('#1 100')
+      expect(subject.display_resource(pay)).to eq('#1 100')
     end
   end
 end

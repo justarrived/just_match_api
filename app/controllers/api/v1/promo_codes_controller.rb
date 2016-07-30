@@ -25,7 +25,7 @@ module Api
           render json: {}, status: :ok
         else
           errors = JsonApiErrors.new
-          errors.add(pointer: :promo_code, detail: I18n.t('errors.messages.invalid'))
+          errors.add(attribute: :promo_code, detail: I18n.t('errors.messages.invalid'))
 
           render json: errors, status: :unprocessable_entity
         end

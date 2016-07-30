@@ -67,6 +67,15 @@ RSpec.describe User, type: :model do
       expect(user.zip).to eq('11120')
       expect(user.ssn).to eq('0000000000')
     end
+
+    it 'does *not* reset frilans_finans_id' do
+      user = FactoryGirl.create(:user)
+      old_ff_id = user.frilans_finans_id
+
+      user.reset!
+
+      expect(user.frilans_finans_id).to eq(old_ff_id)
+    end
   end
 
   describe '#accepted_applicant_for_owner?' do
