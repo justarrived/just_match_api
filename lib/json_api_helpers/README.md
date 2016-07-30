@@ -32,13 +32,17 @@ JsonApiHelpers.params_klass = ActionController::Parameters
 JsonApiHelpers.default_key_transform = :dash # camel, camel_lower, underscore, unaltered
 
 # Error
-JsonApiError.new(status: 422, detail: 'too short', pointer: :first_name).to_h
+errors = JsonApiErrors.new
+errors.add(status: 422, detail: 'too short', attribute: :first_name).to_h
+errors.to_h
 # => {
-#   :status => 422,
-#   :detail => 'too short',
-#   :source => {
-#     :pointer => "/data/attributes/first-name"
-#   }
+#   errors: [{
+#     :status => 422,
+#     :detail => 'too short',
+#     :source => {
+#       :pointer => "/data/attributes/first-name"
+#     }
+#   }]
 # }
 ```
 
@@ -47,7 +51,6 @@ There are shorthands for all helpers that you can include:
 ```ruby
 include JsonApiHelpers::Alias
 
-JsonApiError
 JsonApiErrors
 JsonApiData
 JsonApiDatum

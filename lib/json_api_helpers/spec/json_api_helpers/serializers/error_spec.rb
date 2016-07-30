@@ -2,10 +2,13 @@
 require 'spec_helper'
 
 RSpec.describe JsonApiHelpers::Serializers::Error do
-  let(:pointer) { :first_name }
+  let(:pointer) { nil }
+  let(:attribute) { nil }
 
   subject do
-    described_class.new(status: 422, detail: 'too short', pointer: pointer).to_h
+    described_class.new(
+      status: 422, detail: 'too short', pointer: pointer, attribute: attribute
+    ).to_h
   end
 
   it 'returns correct status' do
@@ -16,13 +19,28 @@ RSpec.describe JsonApiHelpers::Serializers::Error do
     expect(subject[:detail]).to eq('too short')
   end
 
-  it 'returns correct pointer' do
-    expected_pointer = { pointer: '/data/attributes/first-name' }
-    expect(subject[:source]).to eq(expected_pointer)
+  context 'with pointer' do
+    let(:pointer) { '/data/first_name' }
+
+    it 'returns the correct pointer' do
+      expected_pointer = { pointer: '/data/first_name' }
+      expect(subject[:source]).to eq(expected_pointer)
+    end
   end
 
-  context 'with pointer' do
+  context 'with only attribute' do
     let(:pointer) { nil }
+    let(:attribute) { :first_name }
+
+    it 'returns correct pointer' do
+      expected_pointer = { pointer: '/data/attributes/first-name' }
+      expect(subject[:source]).to eq(expected_pointer)
+    end
+  end
+
+  context 'without pointer and attribute' do
+    let(:pointer) { nil }
+    let(:attribute) { nil }
 
     it 'returns a response without source-key' do
       expect(subject[:source]).to be_nil

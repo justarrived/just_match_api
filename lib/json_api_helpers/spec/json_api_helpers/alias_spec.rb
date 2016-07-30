@@ -2,10 +2,6 @@
 require 'spec_helper'
 
 RSpec.describe JsonApiHelpers::Alias do
-  it 'defines JsonApiError' do
-    expect(defined?(described_class::JsonApiError)).to eq('constant')
-  end
-
   it 'defines JsonApiErrors' do
     expect(defined?(described_class::JsonApiErrors)).to eq('constant')
   end

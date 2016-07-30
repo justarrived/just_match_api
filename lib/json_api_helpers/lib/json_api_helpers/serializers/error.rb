@@ -2,10 +2,10 @@
 module JsonApiHelpers
   module Serializers
     class Error
-      def initialize(detail:, status: 422, pointer: nil)
+      def initialize(detail:, status: 422, pointer: nil, attribute: nil)
         @status = status
         @detail = detail
-        self.pointer = pointer
+        @pointer = pointer(pointer: pointer, attribute: attribute)
       end
 
       def to_h
@@ -15,13 +15,17 @@ module JsonApiHelpers
 
       private
 
-      def pointer=(pointer)
-        @pointer = {}
-        return @pointer if pointer.nil?
+      def pointer(pointer:, attribute:)
+        return {} if pointer.nil? && attribute.nil?
 
-        @pointer = {
+        full_pointer = if pointer
+                         pointer
+                       else
+                         "/data/attributes/#{KeyTransform.call(attribute.to_s)}"
+                       end
+        {
           source: {
-            pointer: "/data/attributes/#{KeyTransform.call(pointer.to_s)}"
+            pointer: full_pointer
           }
         }
       end
