@@ -8,6 +8,7 @@ WebMock.disable_net_connect!
 
 # Set test defaults
 FrilansFinansApi.client_klass = FrilansFinansApi::FixtureClient
+FrilansFinansApi.base_uri = 'https://example.com'
 FrilansFinansApi.client_id = '123456'
 FrilansFinansApi.client_secret = 'notsosecret'
 
