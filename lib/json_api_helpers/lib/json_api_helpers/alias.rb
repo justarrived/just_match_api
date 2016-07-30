@@ -6,9 +6,9 @@ module JsonApiHelpers
     JsonApiData = Serializers::Data
     JsonApiDatum = Serializers::Datum
 
-    JsonApiErrorSerializer = ActiveModel::ErrorSerializer
-    JsonApiSerializer = ActiveModel::Serializer
-    JsonApiDeserializer = ActiveModel::Deserializer
+    JsonApiErrorSerializer = Serializers::ModelError
+    JsonApiSerializer = Serializers::Model
+    JsonApiDeserializer = Serializers::Deserializer
 
     JsonApiFilterParams = Params::Filter
     JsonApiSortParams = Params::Sort

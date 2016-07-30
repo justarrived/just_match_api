@@ -4,15 +4,12 @@ require 'active_support/core_ext/string'
 require 'active_support/core_ext/hash'
 require 'active_support/core_ext/object/json'
 
-require 'active_model_serializers'
-
 # Local requires
 require 'json_api_helpers/version'
 
-require 'json_api_helpers/active_model/deserializer'
-require 'json_api_helpers/active_model/serializer'
-require 'json_api_helpers/active_model/error_serializer'
-
+require 'json_api_helpers/serializers/deserializer'
+require 'json_api_helpers/serializers/model'
+require 'json_api_helpers/serializers/model_error'
 require 'json_api_helpers/serializers/data'
 require 'json_api_helpers/serializers/datum'
 require 'json_api_helpers/serializers/error'

@@ -2,13 +2,15 @@
 require 'json_api_helpers/action_dispatch_request_wrapper'
 
 module JsonApiHelpers
-  module ActiveModel
-    class Serializer
+  module Serializers
+    class Model
       attr_reader :serializer, :included, :current_user, :model_scope, :meta, :request
 
       def self.serialize(*args)
         new(*args).serialize
       end
+
+      # private
 
       def initialize(model_scope, included: [], current_user: nil, meta: {}, request: nil)
         @model_scope = model_scope

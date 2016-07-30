@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'spec_helper'
 
-RSpec.describe JsonApiHelpers::ActiveModel::Deserializer do
+RSpec.describe JsonApiHelpers::Serializers::Deserializer do
   let(:params) do
     {
       'data' => {

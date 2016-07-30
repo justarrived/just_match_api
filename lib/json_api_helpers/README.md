@@ -44,13 +44,12 @@ There are shorthands for all helpers that you can include:
 ```ruby
 include JsonApiHelpers::Alias
 
-JsonApiError  = JsonApiHelpers::Helper::Error
-JsonApiErrors = JsonApiHelpers::Helper::Errors
-JsonApiData   = JsonApiHelpers::Helper::Data
-JsonApiDatum  = JsonApiHelpers::Helper::Datum
-
-JsonApiSerializer   = JsonApiHelpers::AMS::Serializer
-JsonApiDeserializer = JsonApiHelpers::AMS::Deserializer
+JsonApiError
+JsonApiErrors
+JsonApiData
+JsonApiDatum
+JsonApiSerializer
+JsonApiDeserialize
 ```
 
 ## Development

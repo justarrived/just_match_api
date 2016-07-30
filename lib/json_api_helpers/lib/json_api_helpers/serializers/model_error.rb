@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 module JsonApiHelpers
-  module ActiveModel
-    module ErrorSerializer
+  module Serializers
+    module ModelError
       # NOTE: Rails only method used: String#dasherize
       def self.serialize(model)
         model.errors.messages.flat_map do |field, errors|
