@@ -127,7 +127,7 @@ There are a few convenience commands
 [Developer docs](docs/README.md).
 
 We would love if you'd like to help us build and improve this product for the
-benefit of everyone. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org/) code of conduct.
+benefit of everyone. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](CODE_OF_CONDUCT.md).
 
 Any contributions, feedback and suggestions are more than welcome.
 
