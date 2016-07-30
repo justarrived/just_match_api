@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class Currency < ActiveRecord::Base
+class Currency < ApplicationRecord
   validates :frilans_finans_id, uniqueness: true
   validates :currency_code, presence: true
 

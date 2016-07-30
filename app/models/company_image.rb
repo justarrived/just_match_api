@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class CompanyImage < ActiveRecord::Base
+class CompanyImage < ApplicationRecord
   MAX_HOURS_AGE_AS_ORPHAN = 24
   ONE_TIME_TOKEN_VALID_FOR_HOURS = 10
 

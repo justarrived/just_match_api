@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class TermsAgreementConsent < ActiveRecord::Base
+class TermsAgreementConsent < ApplicationRecord
   belongs_to :user
   belongs_to :job
   belongs_to :terms_agreement

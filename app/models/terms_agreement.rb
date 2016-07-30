@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class TermsAgreement < ActiveRecord::Base
+class TermsAgreement < ApplicationRecord
   belongs_to :frilans_finans_term
 
   validates :frilans_finans_term, presence: true

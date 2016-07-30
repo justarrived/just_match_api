@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class FrilansFinansInvoice < ActiveRecord::Base
+class FrilansFinansInvoice < ApplicationRecord
   belongs_to :job_user
 
   has_one :job, through: :job_user
