@@ -21,7 +21,7 @@ module JsonApiHelpers
 
         @pointer = {
           source: {
-            pointer: "/data/attributes/#{KeyTransform.(pointer.to_s)}"
+            pointer: "/data/attributes/#{KeyTransform.call(pointer.to_s)}"
           }
         }
       end

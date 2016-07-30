@@ -7,7 +7,7 @@ module JsonApiHelpers
           errors.map do |error_message|
             {
               status: 422,
-              source: { pointer: "/data/attributes/#{KeyTransform.(field.to_s)}" },
+              source: { pointer: "/data/attributes/#{KeyTransform.call(field.to_s)}" },
               detail: error_message
             }
           end

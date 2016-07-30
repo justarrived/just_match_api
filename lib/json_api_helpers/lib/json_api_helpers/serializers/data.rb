@@ -13,8 +13,8 @@ module JsonApiHelpers
       def to_h(shallow: false)
         data = {
           id: @id,
-          type: KeyTransform.(@type.to_s),
-          attributes: KeyTransform.(@attributes)
+          type: KeyTransform.call(@type.to_s),
+          attributes: KeyTransform.call(@attributes)
         }
 
         if shallow
