@@ -67,7 +67,7 @@ module Api
           if @job_skill.save
             api_render(@job_skill, status: :created)
           else
-            respond_with_errors(@job_skill)
+            api_render_errors(@job_skill)
           end
         end
 

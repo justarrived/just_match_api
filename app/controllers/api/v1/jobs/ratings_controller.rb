@@ -51,7 +51,7 @@ module Api
           if @rating.save
             api_render(@rating, status: :created)
           else
-            respond_with_errors(@rating)
+            api_render_errors(@rating)
           end
         end
 

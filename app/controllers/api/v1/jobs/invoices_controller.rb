@@ -39,7 +39,7 @@ module Api
 
             api_render(@invoice, status: :created)
           else
-            respond_with_errors(@invoice)
+            api_render_errors(@invoice)
           end
         end
 

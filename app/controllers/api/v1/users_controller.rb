@@ -109,7 +109,7 @@ module Api
 
           api_render(@user, status: :created)
         else
-          respond_with_errors(@user)
+          api_render_errors(@user)
         end
       end
 
@@ -152,7 +152,7 @@ module Api
 
           api_render(@user)
         else
-          respond_with_errors(@user)
+          api_render_errors(@user)
         end
       end
 

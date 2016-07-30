@@ -18,7 +18,7 @@ module Api
           if @user_image.save
             api_render(@user_image, status: :created)
           else
-            respond_with_errors(@user_image)
+            api_render_errors(@user_image)
           end
         end
 

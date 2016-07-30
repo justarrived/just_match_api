@@ -84,7 +84,7 @@ module Api
             NewApplicantNotifier.call(job_user: @job_user, owner: @job.owner)
             api_render(@job_user, status: :created)
           else
-            respond_with_errors(@job_user)
+            api_render_errors(@job_user)
           end
         end
 
@@ -122,7 +122,7 @@ module Api
 
             api_render(@job_user)
           else
-            respond_with_errors(@job_user)
+            api_render_errors(@job_user)
           end
         end
 
@@ -137,7 +137,7 @@ module Api
           if @job_user.will_perform
             message = I18n.t('errors.job_user.will_perform_true_on_delete')
             @job_user.errors.add(:will_perform, message)
-            respond_with_errors(@job_user)
+            api_render_errors(@job_user)
           else
             if @job_user.accepted
               AcceptedApplicantWithdrawnNotifier.call(

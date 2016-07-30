@@ -65,7 +65,7 @@ module Api
           if @message.valid?
             api_render(@message, status: :created)
           else
-            respond_with_errors(@message)
+            api_render_errors(@message)
           end
         end
 
