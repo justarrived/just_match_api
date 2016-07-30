@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 require 'spec_helper'
 
-RSpec.describe JsonApiHelpers::Helpers::Datum do
+RSpec.describe JsonApiHelpers::Serializers::Datum do
   describe '#to_h' do
     let(:json_api_data) do
-      JsonApiHelpers::Helpers::Data.new(
+      JsonApiHelpers::Serializers::Data.new(
         id: '1',
         type: :user_notice,
         attributes: { id: '1' }

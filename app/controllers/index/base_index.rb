@@ -63,13 +63,13 @@ module Index
     def sort_params
       sortable_fields = self.class::SORTABLE_FIELDS
       default_sorting = self.class::DEFAULT_SORTING
-      SortParams.sorted_fields(params[:sort], sortable_fields, default_sorting)
+      JsonApiSortParams.sorted_fields(params[:sort], sortable_fields, default_sorting)
     end
 
     def filter_params
       filterable_fields = self.class::ALLOWED_FILTERS
       transformable = self.class::TRANSFORMABLE_FILTERS
-      FilterParams.filtered_fields(params[:filter], filterable_fields, transformable)
+      JsonApiFilterParams.filtered_fields(params[:filter], filterable_fields, transformable)
     end
   end
 end

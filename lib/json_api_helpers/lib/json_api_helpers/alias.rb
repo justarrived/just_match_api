@@ -1,17 +1,17 @@
 # frozen_string_literal: true
 module JsonApiHelpers
   module Alias
-    JsonApiError = Helpers::Error
-    JsonApiErrors = Helpers::Errors
-    JsonApiData = Helpers::Data
-    JsonApiDatum = Helpers::Datum
+    JsonApiError = Serializers::Error
+    JsonApiErrors = Serializers::Errors
+    JsonApiData = Serializers::Data
+    JsonApiDatum = Serializers::Datum
 
-    JsonApiErrorSerializer = ErrorSerializer
-    JsonApiSerializer = AMS::Serializer
-    JsonApiDeserializer = AMS::Deserializer
+    JsonApiErrorSerializer = ActiveModel::ErrorSerializer
+    JsonApiSerializer = ActiveModel::Serializer
+    JsonApiDeserializer = ActiveModel::Deserializer
 
-    FilterParams = Params::Filter
-    SortParams = Params::Sort
-    FieldsParams = Params::Fields
+    JsonApiFilterParams = Params::Filter
+    JsonApiSortParams = Params::Sort
+    JsonApiFieldsParams = Params::Fields
   end
 end

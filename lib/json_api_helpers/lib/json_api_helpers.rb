@@ -9,14 +9,14 @@ require 'active_model_serializers'
 # Local requires
 require 'json_api_helpers/version'
 
-require 'json_api_helpers/ams/deserializer'
-require 'json_api_helpers/ams/serializer'
-require 'json_api_helpers/error_serializer'
+require 'json_api_helpers/active_model/deserializer'
+require 'json_api_helpers/active_model/serializer'
+require 'json_api_helpers/active_model/error_serializer'
 
-require 'json_api_helpers/helpers/data'
-require 'json_api_helpers/helpers/datum'
-require 'json_api_helpers/helpers/error'
-require 'json_api_helpers/helpers/errors'
+require 'json_api_helpers/serializers/data'
+require 'json_api_helpers/serializers/datum'
+require 'json_api_helpers/serializers/error'
+require 'json_api_helpers/serializers/errors'
 
 require 'json_api_helpers/params/fields'
 require 'json_api_helpers/params/filter'

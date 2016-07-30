@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 module JsonApiHelpers
-  module Helpers
+  module Serializers
     class Error
       def initialize(detail:, status: 422, pointer: nil)
         @status = status

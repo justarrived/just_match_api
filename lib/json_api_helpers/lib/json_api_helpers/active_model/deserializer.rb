@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 module JsonApiHelpers
-  module AMS
+  module ActiveModel
     module Deserializer
       def self.parse(params)
         # Parse the params hash and "flatten" the structure

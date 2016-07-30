@@ -1,8 +1,8 @@
 # frozen_string_literal: true
-require 'json_api_helpers/ams/action_dispatch_request_wrapper'
+require 'json_api_helpers/action_dispatch_request_wrapper'
 
 module JsonApiHelpers
-  module AMS
+  module ActiveModel
     class Serializer
       attr_reader :serializer, :included, :current_user, :model_scope, :meta, :request
 
