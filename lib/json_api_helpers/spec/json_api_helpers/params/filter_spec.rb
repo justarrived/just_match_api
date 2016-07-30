@@ -10,32 +10,32 @@ RSpec.describe JsonApiHelpers::Params::Filter do
     }
   end
 
-  describe '#filtered_fields' do
+  describe '#build' do
     it 'returns empty hash when no filers are present' do
-      expect(described_class.filtered_fields({}, [], {})).to eq({})
+      expect(described_class.build({}, [], {})).to eq({})
     end
 
     it 'returns empty hash when filter is a string' do
-      expect(described_class.filtered_fields('', [], {})).to eq({})
+      expect(described_class.build('', [], {})).to eq({})
     end
 
     it 'returns empty hash when filter is nil' do
-      expect(described_class.filtered_fields(nil, [], {})).to eq({})
+      expect(described_class.build(nil, [], {})).to eq({})
     end
 
     it 'returns empty hash when there is no allowed keys' do
-      result = described_class.filtered_fields(filter_hash, [], {})
+      result = described_class.build(filter_hash, [], {})
       expect(result).to eq({})
     end
 
     it 'only returns allowed keys' do
-      result = described_class.filtered_fields(filter_hash, [:name], {})
+      result = described_class.build(filter_hash, [:name], {})
       expect(result).to eq(name: 'watman')
     end
 
     it 'can transform values' do
       transform = { created_at: :date_range }
-      result = described_class.filtered_fields(filter_hash, [:created_at], transform)
+      result = described_class.build(filter_hash, [:created_at], transform)
       expect(result[:created_at].first).to be_a(Date)
     end
   end

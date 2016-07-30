@@ -3,7 +3,7 @@ module JsonApiHelpers
   module Params
     module Sort
       # NOTE: Rails only method: Object#present?
-      def self.sorted_fields(sort, allowed, default)
+      def self.build(sort, allowed, default)
         allowed = allowed.map(&:to_s)
         fields = sort.to_s.split(',')
 
