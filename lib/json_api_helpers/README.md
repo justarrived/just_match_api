@@ -25,12 +25,15 @@ Or install it yourself as:
 ```ruby
 require 'json_api_helpers'
 
+include JsonApiHelpers::Alias
+
 JsonApiHelpers.deserializer_klass = ActiveModelSerializers::Deserialization
 JsonApiHelpers.params_klass = ActionController::Parameters
+JsonApiHelpers.default_key_transform = :dash # camel, camel_lower, underscore, unaltered
 
 # Error
-JsonApiHelpers::Error.new(status: 422, detail: 'too short', pointer: :first_name).to_h
-# {
+JsonApiError.new(status: 422, detail: 'too short', pointer: :first_name).to_h
+# => {
 #   :status => 422,
 #   :detail => 'too short',
 #   :source => {
@@ -48,21 +51,24 @@ JsonApiError
 JsonApiErrors
 JsonApiData
 JsonApiDatum
+JsonApiErrorSerializer
 JsonApiSerializer
-JsonApiDeserialize
+JsonApiDeserializer
+JsonApiFilterParams
+JsonApiSortParams
+JsonApiFieldsParams
+JsonApiIncludeParams
 ```
 
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+To install this gem onto your local machine, run `bundle exec rake install`.
 
 ## Future
 
-* Allow configuring the "field separator" between underscore/dash/camelCase
 * Testing the `Serializer` class is currently not "possible" and the code in there is hard to follow and not very well extracted, this should be fixed :)
-* There is currently a mix of high and low level components
 * Better dependency injection
 * Test `JsonApiHelpers::Serializer` (currently those tests areas in the parent repos tests
 

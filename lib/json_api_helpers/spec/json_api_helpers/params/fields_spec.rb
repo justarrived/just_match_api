@@ -4,7 +4,7 @@ require 'spec_helper'
 RSpec.describe JsonApiHelpers::Params::Fields do
   let(:params) do
     {
-      jobs: 'id,name,email',
+      jobs: 'id,full-name,email',
       owner: 'email'
     }
   end
@@ -22,7 +22,7 @@ RSpec.describe JsonApiHelpers::Params::Fields do
       subject { described_class.new(params) }
 
       let(:owner_params) { { owner: ['email'] } }
-      let(:job_params) { { jobs: %w(name email) } }
+      let(:job_params) { { jobs: %w(full_name email) } }
 
       it 'returns empty when nothing permitted' do
         expect(subject.permit({})).to eq({})

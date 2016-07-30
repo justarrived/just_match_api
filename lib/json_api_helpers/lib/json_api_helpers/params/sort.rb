@@ -2,7 +2,6 @@
 module JsonApiHelpers
   module Params
     module Sort
-      # NOTE: Rails only method: Object#present?
       def self.build(sort, allowed, default)
         allowed = allowed.map(&:to_s)
         fields = sort.to_s.split(',')
@@ -15,12 +14,10 @@ module JsonApiHelpers
       def self.convert_to_ordered_hash(fields)
         fields.each_with_object({}) do |field, hash|
           if field.start_with?('-')
-            # Underscore the field (JSONAPI attributes are by recommendation dasherized)
-            field = field[1..-1].underscore
+            field = StringSupport.underscore(field[1..-1])
             hash[field] = :desc
           else
-            # Underscore the field (JSONAPI attributes are by recommendation dasherized)
-            hash[field.underscore] = :asc
+            hash[StringSupport.underscore(field)] = :asc
           end
         end
       end

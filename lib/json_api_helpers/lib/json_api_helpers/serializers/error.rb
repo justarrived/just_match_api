@@ -13,11 +13,6 @@ module JsonApiHelpers
         response.merge!(@pointer)
       end
 
-      # delegate :to_json, to: :to_h
-      def to_json
-        to_h
-      end
-
       private
 
       def pointer=(pointer)
@@ -26,7 +21,7 @@ module JsonApiHelpers
 
         @pointer = {
           source: {
-            pointer: "/data/attributes/#{pointer.to_s.dasherize}"
+            pointer: "/data/attributes/#{KeyTransform.(pointer.to_s)}"
           }
         }
       end

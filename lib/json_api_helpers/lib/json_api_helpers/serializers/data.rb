@@ -1,4 +1,6 @@
 # frozen_string_literal: true
+require 'active_support/core_ext/hash/keys'
+
 module JsonApiHelpers
   module Serializers
     class Data
@@ -8,14 +10,11 @@ module JsonApiHelpers
         @attributes = attributes
       end
 
-      # NOTE: Rails only methods used:
-      #   String#dasherize
-      #   Hash#deep_transform_keys!
       def to_h(shallow: false)
         data = {
           id: @id,
-          type: @type.to_s.dasherize,
-          attributes: @attributes.deep_transform_keys! { |key| key.to_s.dasherize }
+          type: KeyTransform.(@type.to_s),
+          attributes: KeyTransform.(@attributes)
         }
 
         if shallow

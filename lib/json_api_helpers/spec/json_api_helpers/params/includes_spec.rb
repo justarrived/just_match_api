@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'spec_helper'
 
-RSpec.describe IncludeParams do
+RSpec.describe JsonApiHelpers::Params::Includes do
   describe '#permit' do
     describe 'many includes in param' do
       let(:param) { described_class.new('job-users,jobs') }

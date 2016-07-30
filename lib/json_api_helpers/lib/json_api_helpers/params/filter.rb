@@ -9,8 +9,7 @@ module JsonApiHelpers
 
         filtered = {}
         filters.each do |key, value|
-          # Underscore the field (JSONAPI attributes are by recommendation dasherized)
-          key_sym = key.underscore.to_sym
+          key_sym = StringSupport.underscore(key).to_sym
           if allowed.include?(key_sym)
             filtered[key_sym] = format_value(value, transform[key_sym])
           end

@@ -8,10 +8,12 @@ module JsonApiHelpers
 
     JsonApiErrorSerializer = Serializers::ModelError
     JsonApiSerializer = Serializers::Model
+
     JsonApiDeserializer = Serializers::Deserializer
 
     JsonApiFilterParams = Params::Filter
     JsonApiSortParams = Params::Sort
     JsonApiFieldsParams = Params::Fields
+    JsonApiIncludeParams = Params::Includes
   end
 end

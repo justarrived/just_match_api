@@ -23,7 +23,10 @@ module JsonApiHelpers
 
       def merge_fields(requested_fields, whitelisted_fields)
         if requested_fields
-          requested_fields.split(',') & whitelisted_fields
+          fields = requested_fields.split(',').map do |field|
+            StringSupport.underscore(field)
+          end
+          fields & whitelisted_fields
         else
           whitelisted_fields
         end
