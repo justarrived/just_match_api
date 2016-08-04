@@ -5,12 +5,14 @@ class NewChatMessageNotifier < BaseNotifier
       next if user == author
       next if ignored?(user)
 
-      ChatMailer.new_message_email(
-        user: user,
-        chat: chat,
-        message: message,
-        author: author
-      ).deliver_later
+      with_locale(user.locale) do
+        ChatMailer.new_message_email(
+          user: user,
+          chat: chat,
+          message: message,
+          author: author
+        ).deliver_later
+      end
     end
   end
 end
