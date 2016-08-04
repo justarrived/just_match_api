@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 class Chat < ApplicationRecord
-  has_many :chat_users
+  has_many :chat_users, dependent: :destroy
   has_many :users, through: :chat_users
   has_many :user_images, through: :users
-  has_many :messages
+  has_many :messages, dependent: :destroy
 
   MIN_USERS = 2
   MAX_USERS = 2
@@ -46,9 +46,10 @@ class Chat < ApplicationRecord
     message = Message.new(
       author: author,
       body: body,
-      language: Language.find_by(id: language_id)
+      language: Language.find_by(id: language_id),
+      chat: self
     )
-    messages << message
+    message.save
     message
   end
 end
