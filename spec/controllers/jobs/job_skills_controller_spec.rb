@@ -155,7 +155,7 @@ RSpec.describe Api::V1::Jobs::JobSkillsController, type: :controller do
         job_skill = job.job_skills.first
         params = { job_id: job.to_param, job_skill_id: job_skill.to_param }
         delete :destroy, params, valid_session
-        expect(response.status).to eq(401)
+        expect(response.status).to eq(403)
       end
     end
   end

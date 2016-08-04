@@ -69,11 +69,11 @@ RSpec.describe Api::V1::SkillsController, type: :controller do
         expect(response.status).to eq(201)
       end
 
-      context 'unauthorized user' do
-        it 'returns unauthorized status' do
+      context 'user not allowed' do
+        it 'returns forbidden status' do
           allow_any_instance_of(User).to receive(:admin?).and_return(false)
           post :create, valid_attributes, valid_session
-          expect(response.status).to eq(401)
+          expect(response.status).to eq(403)
         end
       end
     end
@@ -125,12 +125,12 @@ RSpec.describe Api::V1::SkillsController, type: :controller do
         expect(response.status).to eq(200)
       end
 
-      context 'unauthorized user' do
-        it 'returns unauthorized status' do
+      context 'user not allowed' do
+        it 'returns forbidden status' do
           skill = FactoryGirl.create(:skill)
           allow_any_instance_of(User).to receive(:admin?).and_return(false)
           post :update, { id: skill.to_param }.merge(new_attributes), valid_session
-          expect(response.status).to eq(401)
+          expect(response.status).to eq(403)
         end
       end
     end
@@ -168,12 +168,12 @@ RSpec.describe Api::V1::SkillsController, type: :controller do
       expect(response.status).to eq(204)
     end
 
-    context 'unauthorized user' do
-      it 'returns unauthorized status' do
+    context 'user not allowed' do
+      it 'returns forbidden status' do
         skill = FactoryGirl.create(:skill)
         allow_any_instance_of(User).to receive(:admin?).and_return(false)
         delete :destroy, { id: skill.to_param, skill: valid_attributes }, valid_session
-        expect(response.status).to eq(401)
+        expect(response.status).to eq(403)
       end
     end
   end

@@ -156,7 +156,7 @@ RSpec.describe Api::V1::Users::UserSkillsController, type: :controller do
       end
     end
 
-    context 'unauthorized user' do
+    context 'user not allowed' do
       it 'does not destroy the requested user_skill' do
         user = FactoryGirl.create(:user_with_skills)
         user_skill = user.user_skills.first
@@ -171,7 +171,7 @@ RSpec.describe Api::V1::Users::UserSkillsController, type: :controller do
         user_skill = user.user_skills.first
         params = { user_id: user.to_param, user_skill_id: user_skill.to_param }
         delete :destroy, params, valid_session
-        expect(response.status).to eq(401)
+        expect(response.status).to eq(403)
       end
     end
   end
