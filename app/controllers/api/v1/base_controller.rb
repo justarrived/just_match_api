@@ -99,7 +99,7 @@ module Api
 
       after_action :verify_authorized
 
-      rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+      rescue_from Pundit::NotAuthorizedError, with: :user_forbidden
       rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
       def jsonapi_params
@@ -154,14 +154,9 @@ module Api
         render json: serialized_model, status: status
       end
 
-      def user_not_authorized
-        render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized
-        false # Rails5: Should be updated to use throw
-      end
-
       def record_not_found
         errors = JsonApiErrors.new
-        errors.add(status: 404, detail: I18n.t('errors.record_not_found'))
+        errors.add(status: 404, detail: I18n.t('record_not_found'))
 
         render json: errors, status: :not_found
         false # Rails5: Should be updated to use throw
@@ -169,9 +164,27 @@ module Api
 
       def require_user
         unless logged_in?
-          error_message = I18n.t('not_logged_in_error')
-          render json: { error: error_message }, status: :unauthorized
+          errors = JsonApiErrors.new
+          errors.add(status: 401, detail: I18n.t('not_logged_in_error'))
+
+          render json: errors, status: :unauthorized
         end
+        false # Rails5: Should be updated to use throw
+      end
+
+      def user_forbidden
+        status = nil
+        errors = JsonApiErrors.new
+
+        if logged_in?
+          status = 403 # forbidden
+          errors.add(status: status, detail: I18n.t('invalid_credentials'))
+        else
+          status = 401 # unauthorized
+          errors.add(status: 401, detail: I18n.t('not_logged_in_error'))
+        end
+
+        render json: errors, status: status
         false # Rails5: Should be updated to use throw
       end
 
