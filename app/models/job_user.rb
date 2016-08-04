@@ -81,10 +81,6 @@ class JobUser < ApplicationRecord
     !invoice.nil?
   end
 
-  def concluded?
-    invoiced?
-  end
-
   # NOTE: You need to call this __before__ the record is validated
   #       otherwise it will always return false
   def send_accepted_notice?
