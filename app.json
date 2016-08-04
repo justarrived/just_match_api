@@ -19,6 +19,11 @@
       "value": "",
       "required": false
     },
+    "AWS_REGION": {
+      "description": "AWS region (required for image upload, for example eu-west-1)",
+      "value": "",
+      "required": false
+    },
     "AWS_SECRET_ACCESS_KEY": {
       "description": "AWS secret access key (required for image upload)",
       "value": "",
