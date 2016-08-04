@@ -71,6 +71,7 @@ sv:
       after_true: '%{field} måste vara sant'
       unrevertable: kan inte återställa %{field}
   invalid_credentials: Fel referenser.
+  record_not_found: Sidan kunde inte hittas.
   mailer:
     accepted_applicant_withdrawn:
       subject: En accepterad användare för ditt jobb har dragit tillbaka sin ansökan.

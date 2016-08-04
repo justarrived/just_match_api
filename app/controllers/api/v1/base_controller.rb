@@ -100,6 +100,7 @@ module Api
       after_action :verify_authorized
 
       rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+      rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
       def jsonapi_params
         @_deserialized_params ||= JsonApiDeserializer.parse(params)
@@ -155,6 +156,14 @@ module Api
 
       def user_not_authorized
         render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized
+        false # Rails5: Should be updated to use throw
+      end
+
+      def record_not_found
+        errors = JsonApiErrors.new
+        errors.add(status: 404, detail: I18n.t('errors.record_not_found'))
+
+        render json: errors, status: :not_found
         false # Rails5: Should be updated to use throw
       end
 
