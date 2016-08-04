@@ -4,6 +4,31 @@
   "repository": "https://github.com/justarrived/just_match_api",
   "keywords": [],
   "env": {
+    "PROMO_CODE": {
+      "description": "Promo Code for the API (if set all clients must provide this code OR be logged in)",
+      "value": "",
+      "required": false
+    },
+    "SEND_SMS_NOTIFICATIONS": {
+      "description": "Send SMS notifications",
+      "value": "",
+      "required": false
+    },
+    "TWILIO_ACCOUNT_SID": {
+      "description": "Twilio account SID (required if SEND_SMS_NOTIFICATIONS is true)",
+      "value": "",
+      "required": false
+    },
+    "TWILIO_AUTH_TOKEN": {
+      "description": "Twilio auth token (required if SEND_SMS_NOTIFICATIONS is true)",
+      "value": "",
+      "required": false
+    },
+    "TWILIO_NUMBER": {
+      "description": "Twilio phone number (required if SEND_SMS_NOTIFICATIONS is true)",
+      "value": "",
+      "required": false
+    },
     "RAILS_ENV": "production",
     "SECRET_KEY_BASE": {
       "description": "Rails secret token",
@@ -61,6 +86,11 @@
     },
     "FRILANS_FINANS_CLIENT_SECRET": {
       "description": "Frilans Finans API OAuth client secret (required for invoices)",
+      "value": "",
+      "required": false
+    },
+    "GOOGLE_MAPS_API_TOKEN": {
+      "description": "Goole Maps API token (required geocoding)",
       "value": "",
       "required": false
     }
