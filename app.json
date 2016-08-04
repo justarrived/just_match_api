@@ -74,6 +74,11 @@
       "value": "",
       "required": false
     },
+    "FRILANS_FINANS_ACTIVE": {
+      "description": "Frilans Finans integration active",
+      "value": "true",
+      "required": false
+    },
     "FRILANS_FINANS_BASE_URI": {
       "description": "Frilans Finans API base URI (required for invoices)",
       "value": "",
