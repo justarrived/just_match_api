@@ -113,9 +113,10 @@ module Api
         if @job.locked_for_changes?
           message = I18n.t('errors.job.update_not_allowed_when_accepted')
           errors = JsonApiErrors.new
-          errors.add(status: 403, detail: message)
+          status = 403 # forbidden
+          errors.add(status: status, detail: message)
 
-          render json: errors, status: :forbidden
+          render json: errors, status: status
           return
         end
 

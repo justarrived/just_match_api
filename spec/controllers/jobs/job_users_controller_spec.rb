@@ -33,7 +33,7 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
       it 'returns not authorized status' do
         job = FactoryGirl.create(:job_with_users, users_count: 1)
         get :index, { job_id: job.to_param }, valid_session
-        expect(response.status).to eq(401)
+        expect(response.status).to eq(403)
       end
     end
   end
@@ -56,7 +56,7 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
         job_user = job.job_users.first
         params = { job_id: job.to_param, job_user_id: job_user.to_param }
         get :show, params, valid_session
-        expect(response.status).to eq(401)
+        expect(response.status).to eq(403)
       end
     end
   end
@@ -197,7 +197,7 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
             job_user_id: job_user.to_param
           }.merge(new_attributes)
           put :update, params, valid_session
-          expect(response.status).to eq(401)
+          expect(response.status).to eq(403)
         end
       end
 
@@ -306,7 +306,7 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
         job_user = job.job_users.first
         params = { job_id: job.to_param, job_user_id: job_user.to_param }
         delete :destroy, params, valid_session
-        expect(response.status).to eq(401)
+        expect(response.status).to eq(403)
       end
     end
 

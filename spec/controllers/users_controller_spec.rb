@@ -289,7 +289,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       end
     end
 
-    context 'unauthorized' do
+    context 'not allowed' do
       it 'does not destroy the requested user' do
         first_name = 'Some user'
 
@@ -299,10 +299,10 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         expect(user.first_name).to eq(first_name)
       end
 
-      it 'returns not authorized status' do
+      it 'returns not forbidden status' do
         user = FactoryGirl.create(:user)
         delete :destroy, { user_id: user.to_param }, valid_session
-        expect(response.status).to eq(401)
+        expect(response.status).to eq(403)
       end
     end
   end

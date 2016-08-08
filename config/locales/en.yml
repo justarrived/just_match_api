@@ -71,6 +71,8 @@ en:
       after_true: '%{field} must be true'
       unrevertable: can't revert %{field}
   invalid_credentials: Invalid credentials.
+  not_logged_in_error: Must be logged in.
+  record_not_found: Page does not exists.
   mailer:
     accepted_applicant_withdrawn:
       subject: An accepted user for your job has withdrawn the application.
@@ -136,7 +138,6 @@ en:
       body_header: Welcome to Just Arrived %{name}!
       body_line: Thank you for signing up. We sincerely hope that you will enjoy our service. If you have any questions or suggestions of how we could improve, please do not hesitate to email admin@justarrived.se.
     signoff: Have a great day!
-  not_logged_in_error: Must be logged in.
   notifications:
     accepted_applicant_confirmation_overdue: Accepted applicants confirmation is overdue
     accepted_applicant_withdrawn: Accepted applicant has withdrawn

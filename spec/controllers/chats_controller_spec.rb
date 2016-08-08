@@ -41,7 +41,7 @@ RSpec.describe Api::V1::ChatsController, type: :controller do
       it 'returns not authorized status' do
         allow_any_instance_of(User).to receive(:admin?).and_return(false)
         get :index, {}, valid_session
-        expect(response.status).to eq(401)
+        expect(response.status).to eq(403)
       end
     end
   end
@@ -61,9 +61,8 @@ RSpec.describe Api::V1::ChatsController, type: :controller do
       it 'raises record not found error' do
         chat_user = FactoryGirl.create(:chat_user)
         chat = chat_user.chat
-        expect do
-          get :show, { id: chat.to_param }, valid_session
-        end.to raise_error(ActiveRecord::RecordNotFound)
+        get :show, { id: chat.to_param }, valid_session
+        expect(response.status).to eq(404)
       end
     end
   end

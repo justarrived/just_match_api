@@ -101,7 +101,7 @@ RSpec.describe Api::V1::Users::UserLanguagesController, type: :controller do
 
         it 'returns created status' do
           post :create, params, valid_session
-          expect(response.status).to eq(401)
+          expect(response.status).to eq(403)
         end
       end
     end
@@ -156,7 +156,7 @@ RSpec.describe Api::V1::Users::UserLanguagesController, type: :controller do
         user_language = user.user_languages.first
         params = { user_id: user.to_param, user_language_id: user_language.to_param }
         delete :destroy, params, valid_session
-        expect(response.status).to eq(401)
+        expect(response.status).to eq(403)
       end
     end
   end

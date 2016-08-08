@@ -215,7 +215,7 @@ RSpec.describe Api::V1::JobsController, type: :controller do
           FactoryGirl.create(:job_user, user: user2, job: job)
           params = { job_id: job.to_param }.merge(new_attributes)
           put :update, params, valid_session
-          expect(response.status).to eq(401)
+          expect(response.status).to eq(403)
         end
       end
 
@@ -244,7 +244,7 @@ RSpec.describe Api::V1::JobsController, type: :controller do
           FactoryGirl.create(:job_user, user: user, job: job)
           params = { job_id: job.to_param }.merge(new_attributes)
           put :update, params, valid_session
-          expect(response.status).to eq(401)
+          expect(response.status).to eq(403)
         end
       end
     end
