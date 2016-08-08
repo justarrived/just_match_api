@@ -40,10 +40,41 @@ RSpec.describe Api::V1::SkillsController, type: :controller do
       expect(response.status).to eq(200)
     end
 
-    it 'returns unauthorized status if incorrect promo code' do
-      request.headers['X-API-PROMO-CODE'] = 'wrong_promo_code'
-      get :index, {}, {}
-      expect(response.status).to eq(401)
+    context 'incorrect promo code' do
+      it 'returns unauthorized status' do
+        request.headers['X-API-PROMO-CODE'] = 'wrong_promo_code'
+        get :index, {}, {}
+        expect(response.status).to eq(401)
+      end
+
+      it 'returns JSONAPI errors' do
+        request.headers['X-API-PROMO-CODE'] = 'wrong_promo_code'
+        get :index, {}, {}
+        jsonapi_error = JSON.parse(response.body)
+        expected = {
+          'errors' => [{
+            'status' => 401,
+            'detail' => I18n.t('invalid_credentials')
+          }]
+        }
+        expect(jsonapi_error).to eq(expected)
+      end
+    end
+  end
+
+  context 'record not found' do
+    let(:non_existing_record) { 56_768 }
+
+    it 'returns JSONAPI errors' do
+      get :show, { id: non_existing_record }, {}
+      jsonapi_error = JSON.parse(response.body)
+      expected = {
+        'errors' => [{
+          'status' => 404,
+          'detail' => I18n.t('record_not_found')
+        }]
+      }
+      expect(jsonapi_error).to eq(expected)
     end
   end
 end
