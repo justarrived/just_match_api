@@ -127,9 +127,13 @@ module Api
 
         promo_code = Rails.configuration.x.promo_code
         return if promo_code.nil? || promo_code == {} # Rails config can return nil & {}
-
         return if promo_code == api_promo_code_header
-        render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized
+
+        errors = JsonApiErrors.new
+        status = 401 # unauthorized
+        errors.add(status: 401, detail: I18n.t('invalid_credentials'))
+
+        render json: errors, status: status
         false # Rails5: Should be updated to use throw
       end
 
