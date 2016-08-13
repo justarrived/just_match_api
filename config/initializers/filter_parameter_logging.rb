@@ -6,6 +6,7 @@ Rails.application.config.filter_parameters += [
   :password,
   :auth_token,
   :'auth-token',
+  :token,
   :'account-clearing-number',
   :'account-number',
   :iban,
