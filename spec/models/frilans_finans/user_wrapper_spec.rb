@@ -4,7 +4,7 @@ require 'rails_helper'
 RSpec.describe FrilansFinans::UserWrapper do
   describe '#attributes' do
     it 'returns the correct attributes' do
-      user = FactoryGirl.build(:user)
+      user = FactoryGirl.build(:user, ssn: '890101-0101')
       result = described_class.attributes(user)
       expected = {
         user: {
@@ -16,7 +16,7 @@ RSpec.describe FrilansFinans::UserWrapper do
           cellphone: user.phone,
           first_name: user.first_name,
           last_name: user.last_name,
-          social_security_number: user.ssn.to_i
+          social_security_number: '8901010101'.to_i
         }
       }
       expect(result).to eq(expected)
