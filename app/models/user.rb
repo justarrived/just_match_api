@@ -119,11 +119,11 @@ class User < ApplicationRecord
   end
 
   def self.find_token(auth_token)
-    Token.find_by(token: auth_token)
+    Token.not_expired.find_by(token: auth_token)
   end
 
   def self.find_token!(auth_token)
-    Token.find_by!(token: auth_token)
+    Token.not_expired.find_by!(token: auth_token)
   end
 
   def self.find_by_auth_token(auth_token)

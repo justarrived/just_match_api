@@ -3,6 +3,10 @@ FactoryGirl.define do
   factory :token do
     association :user
     token SecureGenerator.token
+
+    factory :expired_token do
+      expires_at Date.new(2016, 1, 1)
+    end
   end
 end
 

@@ -488,6 +488,24 @@ RSpec.describe User, type: :model do
       expect(message || []).not_to include(error_message)
     end
   end
+
+  describe '#find_token' do
+    context 'valid token' do
+      it 'returns token' do
+        token = FactoryGirl.create(:token)
+
+        expect(User.find_token(token.token)).to eq(token)
+      end
+    end
+
+    context 'valid token' do
+      it 'returns nil' do
+        token = FactoryGirl.create(:expired_token)
+
+        expect(User.find_token(token.token)).to be_nil
+      end
+    end
+  end
 end
 
 # == Schema Information

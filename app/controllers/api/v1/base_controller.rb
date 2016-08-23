@@ -77,7 +77,6 @@ module Api
               #{Doxxer.curl_for(name: 'users', id: 1, auth: true, join_with: " \\
                      ")}
         DOCDESCRIPTION
-        # rubocop:enable Metrics/LineLength
         api_base_url '/api/v1'
       end
 

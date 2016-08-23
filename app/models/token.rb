@@ -12,6 +12,7 @@ class Token < ApplicationRecord
   validates :expires_at, presence: true
 
   scope :expired, -> { where('expires_at < ?', Time.zone.now) }
+  scope :not_expired, -> { where('expires_at > ?', Time.zone.now) }
 
   def regenerate_token
     self.token = SecureGenerator.token
