@@ -15,8 +15,7 @@ module Api
         param :data, Hash, desc: 'Top level key', required: true do
           param :attributes, Hash, desc: 'Reset password attributes', required: true do
             param :password, String, desc: 'New password', required: true
-            param :'one-time-token', String, desc: 'One time token (if no email)'
-            param :email, String, desc: 'Email of the user (if no one time token)'
+            param :'one-time-token', String, desc: 'One time token (if not logged in)'
           end
         end
         example '# Response example
