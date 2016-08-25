@@ -8,22 +8,36 @@ module Api
         before_action :require_promo_code, except: [:create]
         before_action :set_user
 
+        # rubocop:disable Metrics/LineLength
         api :POST, '/users/change-password/', 'Change password'
-        description 'Change password for user, use one time token if the user is not logged in' # rubocop:disable Metrics/LineLength
+        description 'Change password for user, use one time token if the user is not logged in'
         error code: 404, desc: 'Not found'
         error code: 422, desc: 'Unprocessable entity'
         param :data, Hash, desc: 'Top level key', required: true do
           param :attributes, Hash, desc: 'Reset password attributes', required: true do
             param :password, String, desc: 'New password', required: true
-            param :'one-time-token', String, desc: 'One time token (if not logged in)'
+            param :'old-password', String, desc: 'Old password (required if logged in)'
+            param :'one-time-token', String, desc: 'One time token (required if not logged in)'
           end
         end
+        # rubocop:enable Metrics/LineLength
         example '# Response example
 {}
 '
         def create
-          if User.valid_password?(user_params[:password])
-            @user.update!(user_params)
+          new_password = jsonapi_params[:password]
+          old_password = jsonapi_params[:old_password]
+
+          # If the user logged in, require the old password,
+          # otherwise the one_time_token is enough
+          if logged_in? && User.wrong_password?(@user, old_password)
+            return render json: wrong_password_error, status: :unprocessable_entity
+          end
+
+          if User.valid_password_format?(new_password)
+            @user.generate_one_time_token
+            @user.password = new_password
+            @user.save!
             ChangedPasswordNotifier.call(user: @user)
 
             render json: {}
@@ -42,14 +56,17 @@ module Api
                     token_user = User.find_by_one_time_token(token)
                     if token_user.nil?
                       render json: {}, status: :not_found
-                      return false
+                      return false # Rails5: Should be updated to use throw
                     end
                     token_user
                   end
         end
 
-        def user_params
-          jsonapi_params.permit(:password)
+        def wrong_password_error
+          message = I18n.t('errors.user.wrong_password')
+          errors = JsonApiErrors.new
+          errors.add(detail: message, attribute: :password)
+          errors
         end
 
         def json_api_password_error
