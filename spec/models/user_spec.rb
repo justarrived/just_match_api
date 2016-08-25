@@ -141,23 +141,23 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe '#valid_password?' do
+  describe '#valid_password_format?' do
     it 'returns true if password is at least of length 6' do
-      expect(User.valid_password?('123456')).to eq(true)
+      expect(User.valid_password_format?('123456')).to eq(true)
     end
 
     it 'returns false if password is at less than 6 in length' do
-      expect(User.valid_password?('12345')).to eq(false)
+      expect(User.valid_password_format?('12345')).to eq(false)
     end
 
     it 'returns false if password is *not* a string' do
-      expect(User.valid_password?(%w(1 2 3 4 5 6))).to eq(false)
-      expect(User.valid_password?(a: 2)).to eq(false)
+      expect(User.valid_password_format?(%w(1 2 3 4 5 6))).to eq(false)
+      expect(User.valid_password_format?(a: 2)).to eq(false)
     end
 
     it 'returns false if password is blank' do
-      expect(User.valid_password?('')).to eq(false)
-      expect(User.valid_password?(nil)).to eq(false)
+      expect(User.valid_password_format?('')).to eq(false)
+      expect(User.valid_password_format?(nil)).to eq(false)
     end
   end
 

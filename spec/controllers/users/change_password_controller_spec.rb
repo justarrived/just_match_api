@@ -3,14 +3,16 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::Users::ChangePasswordController, type: :controller do
   describe 'POST #create' do
+    let(:old_password) { 'OLD PASSWORD' }
     let(:new_password) { 'NEW PASSWORD' }
-    let!(:user) { FactoryGirl.create(:user_with_one_time_token) }
+    let!(:user) { FactoryGirl.create(:user_with_one_time_token, password: old_password) }
 
     context 'logged in user' do
       let(:valid_attributes) do
         {
           data: {
             attributes: {
+              old_password: old_password,
               password: new_password
             }
           }
@@ -22,6 +24,11 @@ RSpec.describe Api::V1::Users::ChangePasswordController, type: :controller do
           to(receive(:authenticate_user_token!).
           and_return(user))
         {}
+      end
+
+      it 'changes the user password' do
+        post :create, valid_attributes, valid_session
+        expect(User.correct_password?(assigns(:user), new_password)).to eq(true)
       end
 
       it 'returns 200 ok sucessfull password update' do
@@ -68,6 +75,12 @@ RSpec.describe Api::V1::Users::ChangePasswordController, type: :controller do
         it 'changes the user password' do
           post :create, valid_attributes, {}
           expect(User.correct_password?(assigns(:user), new_password)).to eq(true)
+        end
+
+        it 'regenerates the users one time token' do
+          before_token = user.one_time_token
+          post :create, valid_attributes, {}
+          expect(assigns(:user).one_time_token).not_to eq(before_token)
         end
       end
 

@@ -155,6 +155,10 @@ class User < ApplicationRecord
     user.password_hash.eql?(password_hash)
   end
 
+  def self.wrong_password?(user, password)
+    !correct_password?(user, password)
+  end
+
   def self.matches_job(job, distance: 20, strict_match: false)
     lat = job.latitude
     long = job.longitude
@@ -252,7 +256,7 @@ class User < ApplicationRecord
     self.one_time_token = SecureGenerator.token
   end
 
-  def self.valid_password?(password)
+  def self.valid_password_format?(password)
     return false if password.blank?
     return false unless password.is_a?(String)
 
