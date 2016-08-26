@@ -1,7 +1,11 @@
 # frozen_string_literal: true
 class CountriesSerializer
-  def self.serializeble_resource
-    countries_data = ISO3166::Country.translations.map do |country_code, _name|
+  def self.serializeble_resource(filter: {})
+    countries_data = []
+    ISO3166::Country.translations.each do |country_code, name|
+      if filter[:name]
+        next unless name.downcase.starts_with?(filter[:name].downcase)
+      end
       country = ISO3166::Country[country_code]
       attributes = {
         country_code: country_code,
@@ -13,7 +17,11 @@ class CountriesSerializer
 
         attributes[:"#{locale}_name"] = country.translations[load_locale]
       end
-      JsonApiData.new(id: country_code, type: :countries, attributes: attributes)
+      countries_data << JsonApiData.new(
+        id: country_code,
+        type: :countries,
+        attributes: attributes
+      )
     end
 
     JsonApiDatum.new(countries_data)
