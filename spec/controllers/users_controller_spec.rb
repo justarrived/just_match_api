@@ -338,6 +338,32 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       end
     end
   end
+
+  describe 'GET #statuses' do
+    it 'returns 200 status' do
+      user = FactoryGirl.create(:user)
+      get :statuses, { user_id: user.to_param }, {}
+      expect(response.status).to eq(200)
+    end
+
+    it 'correct response body' do
+      user = FactoryGirl.create(:user)
+      get :statuses, { user_id: user.to_param }, {}
+
+      result = JSON.parse(response.body)['data']
+      result.each do |json_object|
+        id = json_object['id']
+        name = json_object.dig('attributes', 'en-name')
+        description = json_object.dig('attributes', 'en-description')
+        type = json_object['type']
+
+        expect(name).to eq(I18n.t("user.statuses.#{id}"))
+        expect(description).to eq(I18n.t("user.statuses.#{id}_description"))
+        expect(type).to eq('user-statuses')
+        expect(User::STATUSES.keys).to include(id.to_sym)
+      end
+    end
+  end
 end
 
 # == Schema Information

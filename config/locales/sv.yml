@@ -139,6 +139,14 @@ sv:
       body_line: Tack för att du har signat upp. Vi hoppas att du kommer tycka om tjänsten!
     signoff: Ha en bra dag!
   not_logged_in_error: Måste vara inloggad.
+  user:
+    statuses:
+      asylum_seeker: Asylsökande
+      asylum_seeker_description: Asylsökande
+      permanent: Permanent
+      permanent_description: Permanent
+      residence: Medborgare
+      residence_description: Medborgare
   notifications:
     accepted_applicant_confirmation_overdue: Den accepterade användarens konfirmationsperiod har gått ut
     accepted_applicant_withdrawn: Den accepterade användaren har dragit tillbaka sin ansökan

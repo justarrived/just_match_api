@@ -59,6 +59,10 @@ class UserPolicy < ApplicationPolicy
     true
   end
 
+  def statuses?
+    true
+  end
+
   def present_attributes(collection: false)
     return ATTRIBUTES if no_user?
 

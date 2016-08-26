@@ -139,6 +139,14 @@ en:
       body_header: Welcome to Just Arrived %{name}!
       body_line: Thank you for signing up. We sincerely hope that you will enjoy our service. If you have any questions or suggestions of how we could improve, please do not hesitate to email admin@justarrived.se.
     signoff: Have a great day!
+  user:
+    statuses:
+      asylum_seeker: Asylum seeker
+      asylum_seeker_description: Asylum seeker
+      permanent: Permanent
+      permanent_description: Permanent
+      residence: Residence
+      residence_description: Residence
   notifications:
     accepted_applicant_confirmation_overdue: Accepted applicants confirmation is overdue
     accepted_applicant_withdrawn: Accepted applicant has withdrawn
