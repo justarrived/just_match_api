@@ -8,7 +8,7 @@ RSpec.describe UserStatusesSerializer do
 
     it 'returns serialized statues' do
       data = subject[:data].first
-      expect(data[:id]).to eq(1)
+      expect(data[:id]).to eq(:asylum_seeker)
 
       en_name = I18n.t('user.statuses.asylum_seeker', locale: :en)
       ar_name = I18n.t('user.statuses.asylum_seeker', locale: :ar)
