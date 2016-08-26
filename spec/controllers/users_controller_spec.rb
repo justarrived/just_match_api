@@ -353,15 +353,14 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       result = JSON.parse(response.body)['data']
       result.each do |json_object|
         id = json_object['id']
-        name = json_object.dig('attributes', 'name')
-        description = json_object.dig('attributes', 'description')
+        name = json_object.dig('attributes', 'en-name')
+        description = json_object.dig('attributes', 'en-description')
         type = json_object['type']
 
-        status_enum_name = User::STATUSES.invert[id]
-        expect(name).to eq(I18n.t("user.statuses.#{status_enum_name}"))
-        expect(description).to eq(I18n.t("user.statuses.#{status_enum_name}_description"))
+        expect(name).to eq(I18n.t("user.statuses.#{id}"))
+        expect(description).to eq(I18n.t("user.statuses.#{id}_description"))
         expect(type).to eq('user-statuses')
-        expect(status_enum_name).to eq(User::STATUSES.invert[id])
+        expect(User::STATUSES.keys).to include(id.to_sym)
       end
     end
   end
