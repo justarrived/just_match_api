@@ -189,6 +189,18 @@ module Api
         render json: resource
       end
 
+      api :GET, '/users/statuses', 'Show all possible user statuses'
+      description 'Returns a list of all possible user statuses.'
+      example "# Example response
+#{JSON.pretty_generate(UserStatusesSerializer.serializeble_resource.to_h)}"
+      def statuses
+        authorize(User)
+
+        resource = UserStatusesSerializer.serializeble_resource
+
+        render json: resource
+      end
+
       private
 
       def normalize_language_ids(language_ids)

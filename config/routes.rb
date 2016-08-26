@@ -87,6 +87,7 @@ Rails.application.routes.draw do
           resources :user_images, module: :users, path: :images, only: [:create]
 
           get :notifications
+          get :statuses
         end
       end
 
