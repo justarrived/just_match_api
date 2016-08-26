@@ -17,7 +17,9 @@ module Api
       example "# Example response
 #{JSON.pretty_generate(CountriesSerializer.serializeble_resource.to_h)}"
       def index
-        render json: CountriesSerializer.serializeble_resource
+        filter = JsonApiFilterParams.build(params[:filter], %i(name), {})
+
+        render json: CountriesSerializer.serializeble_resource(filter: filter)
       end
     end
   end
