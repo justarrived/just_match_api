@@ -187,7 +187,7 @@ class User < ApplicationRecord
   end
 
   def frilans_finans_id!
-    frilans_finans_id || fail('User has no Frilans Finans id!')
+    frilans_finans_id || fail("User ##{id} has no Frilans Finans id!")
   end
 
   def auth_token

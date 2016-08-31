@@ -25,14 +25,14 @@
     "source": {
       "pointer": "/data/attributes/street"
     },
-    "detail": "is too short (minimum is 1 character)"
+    "detail": "is too short (minimum is 5 characters)"
   },
   {
     "status": 422,
     "source": {
       "pointer": "/data/attributes/zip"
     },
-    "detail": "is too short (minimum is 1 character)"
+    "detail": "is too short (minimum is 5 characters)"
   },
   {
     "status": 422,
