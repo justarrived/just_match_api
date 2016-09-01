@@ -23,7 +23,7 @@ class User < ApplicationRecord
 
   attr_accessor :password
 
-  after_validation :set_normalized_phone, :set_normalized_ssn
+  after_validation :set_normalized_phone, :set_normalized_ssn, :set_lowercased_email
 
   before_save :encrypt_password
 
@@ -147,7 +147,9 @@ class User < ApplicationRecord
   def self.find_by_email_or_phone(email_or_phone)
     return if email_or_phone.blank?
 
-    find_by(email: email_or_phone) || find_by_phone(email_or_phone, normalize: true)
+    email = email_or_phone.downcase
+    phone = email_or_phone
+    find_by(email: email) || find_by_phone(phone, normalize: true)
   end
 
   def self.correct_password?(user, password)
@@ -202,8 +204,13 @@ class User < ApplicationRecord
     self.ssn = SwedishSSN.normalize(ssn)
   end
 
+  def set_lowercased_email
+    self.email = email&.downcase
+  end
+
   # NOTE: This method has unintuitive side effects.. if the banned attribute is
   #   just set to true all associated auth_tokens will immediately be destroyed
+  #   We should probably convert this to #banned! which also saves the user
   def banned=(value)
     auth_tokens.destroy_all if value
     self[:banned] = value
