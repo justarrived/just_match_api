@@ -62,7 +62,7 @@ gem 'faker', '~> 1.6' # Easily generate fake data (used for seeding dev/test/sta
 
 gem 'rack-timeout', '~> 0.4' # Kill requests that run for too long
 gem 'rack-cors', '~> 0.4', require: 'rack/cors' # Configure CORS
-gem 'rack-attack', '~> 4.4' # Throttle API usage
+gem 'rack-attack', '~> 5.0' # Throttle API usage
 gem 'redis-activesupport', '~> 4.1' # To use Redis as the cache store for rack-attack
 
 gem 'yagni_json_encoder', '~> 0.0.2' # Make Rails use the OJ gem for JSON
@@ -72,7 +72,7 @@ gem 'rails-i18n', '~> 4.0.0' # Rails translations
 gem 'i18n_data', '~> 0.7' # Language and country names in various languages
 
 gem 'honey_format', '~> 0.2' # Simple CSV reading
-gem 'personnummer', git: 'https://github.com/buren/personnummer', branch: 'normalized-samordningsnummer' # Swedish "personummer" or "samordningsnummer"
+gem 'personnummer', '~> 0.0.9' # Swedish "personummer" or "samordningsnummer"
 gem 'banktools-se', '~> 0.11' # Validate Swedish bank account
 gem 'iban-tools', '~> 1.1' # Validate IBAN
 
