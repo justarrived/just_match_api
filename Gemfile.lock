@@ -1,4 +1,11 @@
 GIT
+  remote: https://github.com/buren/personnummer
+  revision: e27d7256ea7412986d79f840b56f12b7b62b9a6f
+  branch: normalized-samordningsnummer
+  specs:
+    personnummer (0.0.8)
+
+GIT
   remote: https://github.com/justarrived/backport_new_renderer
   revision: 02448549359473c596e4fe0578d629344eede169
   specs:
@@ -367,7 +374,6 @@ GEM
       mimemagic (~> 0.3.0)
     parser (2.3.1.2)
       ast (~> 2.2)
-    personnummer (0.0.8)
     pg (0.18.4)
     pkg-config (1.1.7)
     powerpack (0.1.1)
@@ -585,7 +591,7 @@ DEPENDENCIES
   maruku (~> 0.7)
   newrelic_rpm (~> 3.15)
   paperclip (~> 5.0.0.beta2)
-  personnummer (~> 0.0.8)
+  personnummer!
   pg (~> 0.15)
   puma (~> 3.4)
   pundit (~> 1.1)

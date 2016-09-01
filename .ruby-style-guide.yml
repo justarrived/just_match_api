@@ -175,6 +175,7 @@ Metrics/LineLength:
   - config/routes.rb
   - spec/controllers/regression/**/*
   - spec/models/regression/**/*
+  - Gemfile
 Lint/AssignmentInCondition:
   Description: Don't use assignment in conditions.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#safe-assignment-in-condition
