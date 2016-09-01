@@ -29,7 +29,7 @@ gem 'airbrake', '~> 5.4' # Error catcher and reporter
 gem 'twilio-ruby', '~> 4.11.1' # Send SMS notifications
 
 # Backports, Rails 5, render view from anywhere
-gem 'backport_new_renderer', '~> 1.0', git: 'https://github.com/justarrived/backport_new_renderer' # rubocop:disable Metrics/LineLength
+gem 'backport_new_renderer', '~> 1.0', git: 'https://github.com/justarrived/backport_new_renderer'
 
 gem 'global_phone', '~> 1.0' # Format cell phone numbers
 gem 'countries', require: 'countries/global' # Country data in various locales
@@ -72,8 +72,7 @@ gem 'rails-i18n', '~> 4.0.0' # Rails translations
 gem 'i18n_data', '~> 0.7' # Language and country names in various languages
 
 gem 'honey_format', '~> 0.2' # Simple CSV reading
-
-gem 'personnummer', '~> 0.0.8' # Validate Swedish "personummer" or "samordningsnummer"
+gem 'personnummer', git: 'https://github.com/buren/personnummer', branch: 'normalized-samordningsnummer' # Swedish "personummer" or "samordningsnummer"
 gem 'banktools-se', '~> 0.11' # Validate Swedish bank account
 gem 'iban-tools', '~> 1.1' # Validate IBAN
 
