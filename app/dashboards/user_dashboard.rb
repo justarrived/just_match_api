@@ -24,6 +24,7 @@ class UserDashboard < Administrate::BaseDashboard
     chat_users: Field::HasMany,
     chats: Field::HasMany,
     messages: Field::HasMany,
+    user_images: Field::HasMany,
     id: Field::Number,
     first_name: Field::String,
     last_name: Field::String,
@@ -103,7 +104,8 @@ class UserDashboard < Administrate::BaseDashboard
     :banned,
     :admin,
     :user_skills,
-    :skills
+    :skills,
+    :user_images
   ].freeze
 
   # FORM_ATTRIBUTES

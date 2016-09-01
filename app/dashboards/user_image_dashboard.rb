@@ -31,6 +31,7 @@ class UserImageDashboard < Administrate::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = [
     :id,
     :image,
+    :user,
     :created_at,
     :updated_at
   ].freeze
@@ -38,7 +39,10 @@ class UserImageDashboard < Administrate::BaseDashboard
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
-  FORM_ATTRIBUTES = [].freeze
+  FORM_ATTRIBUTES = [
+    :image,
+    :user
+  ].freeze
 
   # Overwrite this method to customize how comments are displayed
   # across all pages of the admin dashboard.
