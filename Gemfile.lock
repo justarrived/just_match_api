@@ -381,7 +381,7 @@ GEM
     pundit (1.1.0)
       activesupport (>= 3.0.0)
     rack (1.6.4)
-    rack-attack (4.4.1)
+    rack-attack (5.0.1)
       rack
     rack-cors (0.4.0)
     rack-protection (1.5.3)
@@ -595,7 +595,7 @@ DEPENDENCIES
   pg (~> 0.15)
   puma (~> 3.4)
   pundit (~> 1.1)
-  rack-attack (~> 4.4)
+  rack-attack (~> 5.0)
   rack-cors (~> 0.4)
   rack-timeout (~> 0.4)
   rails (= 4.2.7.1)

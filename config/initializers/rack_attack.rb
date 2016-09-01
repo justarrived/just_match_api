@@ -4,7 +4,7 @@ module Rack
     redis = ENV.fetch('REDIS_URL', 'localhost')
     Rack::Attack.cache.store = ActiveSupport::Cache::RedisStore.new(redis)
 
-    whitelist('allow-localhost') do |req|
+    safelist('allow from localhost') do |req|
       '127.0.0.1' == req.ip || '::1' == req.ip
     end
 
@@ -13,10 +13,16 @@ module Rack
 
     self.throttled_response = lambda { |env|
       retry_after = (env['rack.attack.match_data'] || {})[:period]
+
+      errors = JsonApiErrors.new
+      errors.add(status: 429, detail: I18n.t('errors.rate_limit.details'))
       [
         429,
-        { 'Content-Type' => 'application/json', 'Retry-After' => retry_after.to_s },
-        [{ error: 'Throttle limit reached. Retry later.' }.to_json]
+        {
+          'Content-Type' => 'application/vnd.api+json',
+          'Retry-After' => retry_after.to_s
+        },
+        [errors.to_json]
       ]
     }
   end

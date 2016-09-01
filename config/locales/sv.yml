@@ -13,6 +13,8 @@ sv:
         subject: 'Admin notis: Aktivering av Frilans Finans Faktura misslyckades'
         notice: Misslyckades skapa Frilans Finans faktura för %{id}
   errors:
+    rate_limit:
+      details: För många anrop gjorda på kort tid. Försök igen om en liten stund.
     bank_account:
       too_short: är för kort
       too_long: är för lång
