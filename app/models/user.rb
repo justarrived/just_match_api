@@ -192,6 +192,16 @@ class User < ApplicationRecord
     frilans_finans_id || fail("User ##{id} has no Frilans Finans id!")
   end
 
+  def primary_role
+    if admin?
+      :admin
+    elsif company_id
+      :company
+    else
+      :candidate
+    end
+  end
+
   def auth_token
     auth_tokens.first.try(:token)
   end

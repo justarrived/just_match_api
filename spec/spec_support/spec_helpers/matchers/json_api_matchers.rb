@@ -29,6 +29,8 @@ RSpec::Matchers.define :have_jsonapi_attribute do |field, value|
   match do |actual|
     # Format a datetime value correctly
     value = value.as_json if value.is_a?(ActiveSupport::TimeWithZone)
+    # Symbols are strings in JSON..
+    value = value.to_s if value.is_a?(Symbol)
 
     actual.dig('data', 'attributes', field) == value
   end

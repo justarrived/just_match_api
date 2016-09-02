@@ -2,7 +2,8 @@
 class UserSerializer < ApplicationSerializer
   # Since the #attributes method is overriden and provides a whitelist of attribute_names
   # that can be returned to the user we can return all User column names here
-  attributes User.column_names.map(&:to_sym) + %i(ignored_notifications auth_token)
+  EXTRA_ATTRIBUTES = %i(ignored_notifications auth_token primary_role).freeze
+  attributes User.column_names.map(&:to_sym) + EXTRA_ATTRIBUTES
 
   has_one :company
   has_one :language

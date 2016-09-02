@@ -13,6 +13,7 @@
         "zip-latitude": null,
         "zip-longitude": null,
         "competence-text": null,
+        "primary-role": "candidate",
         "phone": "+46735000002",
         "street": "Bankgatan 14C",
         "latitude": null,

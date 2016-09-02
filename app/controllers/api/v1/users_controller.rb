@@ -11,7 +11,7 @@ module Api
       resource_description do
         short 'API for managing users'
         name 'Users'
-        description ''
+        description 'There are currently three types of user roles: `candidate`, `company` and `admin`.' # rubocop:disable Metrics/LineLength
         formats [:json]
         api_versions '1.0'
       end
