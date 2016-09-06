@@ -15,10 +15,11 @@ module Index
     TRANSFORMABLE_FILTERS = { created_at: :date_range }.freeze
     ALLOWED_FILTERS = %i(created_at).freeze
 
-    attr_reader :controller, :count
+    attr_reader :controller, :count, :current_user
 
-    def initialize(controller)
+    def initialize(controller, current_user = User.new)
       @controller = controller
+      @current_user = current_user
       @count = nil
     end
 

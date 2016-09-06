@@ -25,7 +25,7 @@ module Api
         #   Causes N+1 for job_users resource if current user is owner
         #     :includes => [:job_users]
 
-        jobs_index = Index::JobsIndex.new(self)
+        jobs_index = Index::JobsIndex.new(self, current_user)
         jobs_scope = jobs_index_scope(Job.uncancelled)
         @jobs = jobs_index.jobs(jobs_scope)
 

@@ -174,6 +174,10 @@ class User < ApplicationRecord
     jobs.any?
   end
 
+  def not_persisted?
+    !persisted?
+  end
+
   def name
     "#{first_name} #{last_name}"
   end

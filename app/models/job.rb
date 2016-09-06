@@ -51,6 +51,12 @@ class Job < ApplicationRecord
   scope :uncancelled, -> { where(cancelled: false) }
   scope :filled, -> { where(filled: true) }
   scope :unfilled, -> { where(filled: false) }
+  scope :applied_jobs, lambda { |user_id|
+    joins(:job_users).where('job_users.user_id = ?', user_id)
+  }
+  scope :no_applied_jobs, lambda { |user_id|
+    where.not(id: applied_jobs(user_id).map(&:id))
+  }
 
   # This will return an Array and not an ActiveRecord::Relation
   def self.non_hired
