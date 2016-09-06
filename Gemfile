@@ -54,6 +54,8 @@ gem 'geocoder', '~> 1.3' # Geocode resources
 
 gem 'administrate', '~> 0.2' # Admin dashboard
 gem 'administrate-field-image', '~> 0.0.2' # Administrate image support
+gem 'administrate-field-enum', '~> 0.0.2' # Administrate enum support
+
 gem 'uglifier', '~> 3.0' # Needed administrate assets compilation
 
 gem 'pundit', '~> 1.1' # Authorization policies

@@ -12,6 +12,7 @@ class UserImageDashboard < Administrate::BaseDashboard
     id: Field::Number,
     image: Field::Image,
     user: Field::BelongsTo,
+    category: Field::Enum,
     created_at: Field::DateTime,
     updated_at: Field::DateTime
   }.freeze
@@ -23,6 +24,7 @@ class UserImageDashboard < Administrate::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
     :id,
+    :category,
     :user
   ].freeze
 
@@ -31,6 +33,7 @@ class UserImageDashboard < Administrate::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = [
     :id,
     :image,
+    :category,
     :user,
     :created_at,
     :updated_at
@@ -40,6 +43,7 @@ class UserImageDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
+    :category,
     :image,
     :user
   ].freeze

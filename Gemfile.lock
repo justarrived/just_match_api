@@ -73,6 +73,9 @@ GEM
       rails (~> 4.2)
       sass-rails (~> 5.0)
       selectize-rails (~> 0.6)
+    administrate-field-enum (0.0.2)
+      administrate (>= 0.2.2, < 0.3.0)
+      rails (>= 4.0, < 5.1)
     administrate-field-image (0.0.2)
       administrate (>= 0.2.0.rc1, < 0.3.0)
       rails (~> 4.2)
@@ -547,6 +550,7 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers (~> 0.10)
   administrate (~> 0.2)
+  administrate-field-enum (~> 0.0.2)
   administrate-field-image (~> 0.0.2)
   airbrake (~> 5.4)
   annotate (~> 2.7)
