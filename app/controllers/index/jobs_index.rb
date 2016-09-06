@@ -2,7 +2,7 @@
 module Index
   class JobsIndex < BaseIndex
     TRANSFORMABLE_FILTERS = TRANSFORMABLE_FILTERS.merge(job_date: :date_range).freeze
-    ALLOWED_FILTERS = %i(id hours created_at job_date verified filled job_user.user_id).freeze
+    ALLOWED_FILTERS = %i(id hours created_at job_date verified filled job_user.user_id).freeze # rubocop:disable Metrics/LineLength
     SORTABLE_FIELDS = %i(hours job_date name verified created_at updated_at).freeze
 
     def jobs(scope = Job)
@@ -16,7 +16,6 @@ module Index
       end
     end
 
-    # NOTE: This method doesn't have any automated tests :( yet...
     def filter_job_user_jobs(scope, filter_user_id)
       return scope if filter_user_id.blank? || current_user.not_persisted?
 
