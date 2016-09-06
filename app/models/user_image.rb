@@ -21,7 +21,7 @@ class UserImage < ApplicationRecord
   validates_attachment_content_type :image, content_type: %r{\Aimage\/.*\Z}
   validates_attachment_size :image, less_than: IMAGE_MAX_MB_SIZE.megabytes
 
-  scope :orhpans, -> () { where(user: nil) }
+  scope :orhpans, -> { where(user: nil) }
   scope :over_aged_orphans, lambda {
     orhpans.where('created_at < ?', MAX_HOURS_AGE_AS_ORPHAN.hours.ago)
   }
@@ -54,6 +54,7 @@ end
 #  image_content_type        :string
 #  image_file_size           :integer
 #  image_updated_at          :datetime
+#  category                  :integer
 #
 # Indexes
 #
