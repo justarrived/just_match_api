@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 class UserImageSerializer < ApplicationSerializer
-  ATTRIBUTES = [:one_time_token, :one_time_token_expires_at, :category_name].freeze
+  ATTRIBUTES = [:one_time_token, :one_time_token_expires_at, :category].freeze
   attributes ATTRIBUTES
 
+  attribute :category_name
   attribute :image_url
   attribute :image_url_large
   attribute :image_url_medium
@@ -12,6 +13,10 @@ class UserImageSerializer < ApplicationSerializer
 
   def image_url
     object.image.url
+  end
+
+  def category_name
+    object.category
   end
 
   def image_url_large

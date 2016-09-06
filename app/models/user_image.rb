@@ -2,6 +2,10 @@
 class UserImage < ApplicationRecord
   MAX_HOURS_AGE_AS_ORPHAN = 24
   ONE_TIME_TOKEN_VALID_FOR_HOURS = 10
+  CATEGORIES = {
+    profile: 1,
+    swedish_id: 2
+  }.freeze
 
   belongs_to :user
 
@@ -17,6 +21,7 @@ class UserImage < ApplicationRecord
 
   has_attached_file :image, styles: IMAGE_STYLES, default_url: IMAGE_DEFAULT_URL
 
+  validates :category, presence: true
   validates :image, attachment_presence: true
   validates_attachment_content_type :image, content_type: %r{\Aimage\/.*\Z}
   validates_attachment_size :image, less_than: IMAGE_MAX_MB_SIZE.megabytes
@@ -26,11 +31,15 @@ class UserImage < ApplicationRecord
     orhpans.where('created_at < ?', MAX_HOURS_AGE_AS_ORPHAN.hours.ago)
   }
 
+  # NOTE: Figure out a good way to validate :current_status and :at_und
+  #       see https://github.com/rails/rails/issues/13971
+  enum category: CATEGORIES
+
   def self.find_by_one_time_token(token)
     valid_one_time_tokens.find_by(one_time_token: token)
   end
 
-  def category_name
+  def default_category
     'profile'
   end
 
@@ -54,7 +63,6 @@ end
 #  image_content_type        :string
 #  image_file_size           :integer
 #  image_updated_at          :datetime
-#  category                  :integer
 #
 # Indexes
 #
