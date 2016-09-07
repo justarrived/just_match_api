@@ -12,7 +12,7 @@ class UserImageDashboard < Administrate::BaseDashboard
     id: Field::Number,
     image: Field::Image,
     user: Field::BelongsTo,
-    category: Field::Enum,
+    category: Field::Integer,
     created_at: Field::DateTime,
     updated_at: Field::DateTime
   }.freeze
@@ -43,7 +43,6 @@ class UserImageDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
-    :category,
     :image,
     :user
   ].freeze
