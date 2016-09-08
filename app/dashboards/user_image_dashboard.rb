@@ -12,7 +12,7 @@ class UserImageDashboard < Administrate::BaseDashboard
     id: Field::Number,
     image: Field::Image,
     user: Field::BelongsTo,
-    category: Field::Integer,
+    category: Field::Number,
     created_at: Field::DateTime,
     updated_at: Field::DateTime
   }.freeze

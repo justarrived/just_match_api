@@ -230,10 +230,24 @@ class User < ApplicationRecord
   end
 
   def profile_image_token=(token)
+    ActiveSupport::Deprecation.warn('User#profile_image_token= has been deprecated, please use User#set_images_by_tokens or User#add_image_by_token instead.') # rubocop:disable Metrics/LineLength
     return if token.blank?
 
     user_image = UserImage.find_by_one_time_token(token)
     self.user_images = [user_image] unless user_image.nil?
+  end
+
+  def add_image_by_token=(token)
+    return if token.blank?
+
+    user_image = UserImage.find_by_one_time_token(token)
+    user_images << user_image if user_image
+  end
+
+  def set_images_by_tokens=(tokens)
+    return if tokens.blank?
+
+    self.user_images = UserImage.find_by_one_time_tokens(tokens)
   end
 
   def ignored_notification?(notification)

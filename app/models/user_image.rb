@@ -35,6 +35,10 @@ class UserImage < ApplicationRecord
   #       see https://github.com/rails/rails/issues/13971
   enum category: CATEGORIES
 
+  def self.find_by_one_time_tokens(tokens)
+    valid_one_time_tokens.where(one_time_token: tokens)
+  end
+
   def self.find_by_one_time_token(token)
     valid_one_time_tokens.find_by(one_time_token: token)
   end

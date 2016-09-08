@@ -112,7 +112,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         expect(UserWelcomeNotifier).to have_received(:call)
       end
 
-      context 'user image' do
+      context 'user image token [DEPRECATED version]' do
         let(:user_image) { FactoryGirl.create(:user_image) }
 
         it 'can add user image' do
@@ -126,6 +126,26 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
         it 'does not create user image if invalid one time token' do
           valid_attributes[:data][:attributes][:user_image_one_time_token] = 'token'
+
+          post :create, valid_attributes, {}
+          expect(assigns(:user).user_images.first).to be_nil
+        end
+      end
+
+      context 'user image tokens' do
+        let(:user_image) { FactoryGirl.create(:user_image) }
+
+        it 'can add user image' do
+          token = user_image.one_time_token
+
+          valid_attributes[:data][:attributes][:user_image_one_time_tokens] = [token]
+
+          post :create, valid_attributes, {}
+          expect(assigns(:user).user_images.first).to eq(user_image)
+        end
+
+        it 'does not create user image if invalid one time tokens' do
+          valid_attributes[:data][:attributes][:user_image_one_time_tokens] = 'token'
 
           post :create, valid_attributes, {}
           expect(assigns(:user).user_images.first).to be_nil

@@ -157,6 +157,33 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe '#add_image_by_token=' do
+    let(:user) { FactoryGirl.create(:user) }
+    let(:user_image) { FactoryGirl.create(:user_image) }
+    let(:user_image1) { FactoryGirl.create(:user_image) }
+
+    it 'can set image from token' do
+      user.add_image_by_token = user_image.one_time_token
+      expect(user.user_images.first).to eq(user_image)
+    end
+
+    it 'does not replace older images' do
+      user.add_image_by_token = user_image.one_time_token
+      user.add_image_by_token = user_image1.one_time_token
+      expect(user.user_images.length).to eq(2)
+    end
+
+    it 'does not set token when such token is found' do
+      user.add_image_by_token = 'invalid token'
+      expect(user.user_images.first).to be_nil
+    end
+
+    it 'does not set token when token is nil' do
+      user.add_image_by_token = nil
+      expect(user.user_images.first).to be_nil
+    end
+  end
+
   describe '#valid_password_format?' do
     it 'returns true if password is at least of length 6' do
       expect(User.valid_password_format?('123456')).to eq(true)

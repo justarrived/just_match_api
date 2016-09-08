@@ -58,7 +58,7 @@ module Api
           param :'job-end-date', String, desc: 'Job end date', required: true
           param :'language-id', Integer, desc: 'Langauge id of the text content', required: true
           param :'hourly-pay-id', Integer, desc: 'Hourly pay id', required: true
-          param :'skill-ids', Array, of: Integer, desc: 'List of skill ids', required: true
+          param :'skill-ids', Array, of: 'Skill IDs', desc: 'List of skill ids', required: true
           # rubocop:enable Metrics/LineLength
         end
       end

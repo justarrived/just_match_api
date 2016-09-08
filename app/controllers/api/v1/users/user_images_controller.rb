@@ -20,6 +20,7 @@ module Api
 
           @user_image = UserImage.new(image: params[:image])
           @user_image.category = if user_image_params[:category].blank?
+                                   ActiveSupport::Deprecation.warn('Not setting an image category has been deprecated, please provide a "category" param.') # rubocop:disable Metrics/LineLength
                                    @user_image.default_category
                                  else
                                    user_image_params[:category]
