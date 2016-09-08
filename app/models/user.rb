@@ -104,6 +104,12 @@ class User < ApplicationRecord
     new_chat_message
   ).freeze
 
+  def contact_email
+    return email unless managed
+
+    ManagedEmailAddress.call(email: email, id: "user#{id}")
+  end
+
   def self.find_by_one_time_token(token)
     valid_one_time_tokens.find_by(one_time_token: token)
   end
@@ -397,6 +403,7 @@ end
 #  at_und                         :integer
 #  arrived_at                     :date
 #  country_of_origin              :string
+#  managed                        :boolean          default(FALSE)
 #
 # Indexes
 #

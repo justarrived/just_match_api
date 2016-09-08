@@ -3,7 +3,7 @@ require 'rails_helper'
 
 RSpec.describe AdminMailer, type: :mailer do
   let(:company) { mock_model(Company, name: 'ACME') }
-  let(:user) { mock_model User, email: 'admin@example.com' }
+  let(:user) { mock_model User, contact_email: 'admin@example.com' }
   let(:job) { mock_model Job, company: company }
   let(:ff_invoice) { mock_model FrilansFinansInvoice, user: user, name: 'ff invoice #1' }
 
@@ -26,7 +26,7 @@ RSpec.describe AdminMailer, type: :mailer do
     end
 
     it 'renders the receiver email' do
-      expect(mail.to).to eql([user.email])
+      expect(mail.to).to eql([user.contact_email])
     end
 
     it 'renders the sender email' do
@@ -68,7 +68,7 @@ RSpec.describe AdminMailer, type: :mailer do
     end
 
     it 'renders the receiver email' do
-      expect(mail.to).to eql([user.email])
+      expect(mail.to).to eql([user.contact_email])
     end
 
     it 'renders the sender email' do
@@ -102,7 +102,7 @@ RSpec.describe AdminMailer, type: :mailer do
     end
 
     it 'renders the receiver email' do
-      expect(mail.to).to eql([user.email])
+      expect(mail.to).to eql([user.contact_email])
     end
 
     it 'renders the sender email' do

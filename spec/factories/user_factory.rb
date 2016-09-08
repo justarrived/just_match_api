@@ -130,6 +130,7 @@ end
 #  at_und                         :integer
 #  arrived_at                     :date
 #  country_of_origin              :string
+#  managed                        :boolean
 #
 # Indexes
 #
