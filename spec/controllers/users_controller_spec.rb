@@ -101,6 +101,13 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         expect(assigns(:user)).to be_persisted
       end
 
+      it 'strip user email' do
+        attrs = valid_attributes.dup
+        attrs[:data][:attributes][:email] = '  user@example.com   '
+        post :create, attrs, {}
+        expect(assigns(:user).email).to eq('user@example.com')
+      end
+
       it 'returns created status' do
         post :create, valid_attributes, {}
         expect(response.status).to eq(201)
