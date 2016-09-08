@@ -46,6 +46,14 @@ RSpec.describe Api::V1::Users::UserSessionsController, type: :controller do
           expect(response.status).to eq(201)
         end
 
+        it 'should work with extra spaces in email address' do
+          attributes = valid_attributes.dup
+          attributes[:data][:attributes][:email_or_phone] = "  #{email}  "
+
+          post :create, attributes, valid_session
+          expect(response.status).to eq(201)
+        end
+
         it 'should return success status' do
           post :create, valid_attributes, valid_session
           expect(response.status).to eq(201)
