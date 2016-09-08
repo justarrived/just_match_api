@@ -2,8 +2,8 @@
 require 'rails_helper'
 
 RSpec.describe InvoiceMailer, type: :mailer do
-  let(:user) { mock_model User, name: 'User', email: 'user@example.com' }
-  let(:owner) { mock_model User, name: 'Owner', email: 'owner@example.com' }
+  let(:user) { mock_model User, name: 'User', contact_email: 'user@example.com' }
+  let(:owner) { mock_model User, name: 'Owner', contact_email: 'owner@example.com' }
   let(:job) { mock_model Job, name: 'Job name' }
 
   describe '#invoice_created_email' do
@@ -21,7 +21,7 @@ RSpec.describe InvoiceMailer, type: :mailer do
     end
 
     it 'renders the receiver email' do
-      expect(mail.to).to eql([user.email])
+      expect(mail.to).to eql([user.contact_email])
     end
 
     it 'renders the sender email' do

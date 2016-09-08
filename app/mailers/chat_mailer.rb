@@ -7,6 +7,6 @@ class ChatMailer < ApplicationMailer
     @chat_url = FrontendRouter.draw(:chat, id: chat.id)
 
     subject = I18n.t('mailer.new_chat_message.subject', name: @author_name)
-    mail(to: user.email, subject: subject)
+    mail(to: user.contact_email, subject: subject)
   end
 end

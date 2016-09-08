@@ -414,7 +414,7 @@ ActiveRecord::Schema.define(version: 20160908191422) do
     t.integer  "at_und"
     t.date     "arrived_at"
     t.string   "country_of_origin"
-    t.boolean  "managed"
+    t.boolean  "managed",                        default: false
   end
 
   add_index "users", ["company_id"], name: "index_users_on_company_id", using: :btree

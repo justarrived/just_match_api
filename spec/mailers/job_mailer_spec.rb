@@ -3,9 +3,11 @@ require 'rails_helper'
 
 RSpec.describe JobMailer, type: :mailer do
   let(:user) do
-    mock_model User, name: 'User', email: 'user@example.com', phone: '+46735000000'
+    tel = '+46735000000'
+    mail = 'user@example.com'
+    mock_model(User, name: 'User', contact_email: mail, phone: tel)
   end
-  let(:owner) { mock_model User, name: 'Owner', email: 'owner@example.com' }
+  let(:owner) { mock_model User, name: 'Owner', contact_email: 'owner@example.com' }
   let(:job) { mock_model Job, name: 'Job name' }
   let(:job_user) { mock_model JobUser, user: user, job: job, id: 37 }
 
@@ -23,7 +25,7 @@ RSpec.describe JobMailer, type: :mailer do
     end
 
     it 'renders the receiver email' do
-      expect(mail.to).to eql([user.email])
+      expect(mail.to).to eql([user.contact_email])
     end
 
     it 'renders the sender email' do
@@ -35,7 +37,7 @@ RSpec.describe JobMailer, type: :mailer do
     end
 
     it 'includes @owner_email in email body' do
-      expect(mail).to match_email_body(owner.email)
+      expect(mail).to match_email_body(owner.contact_email)
     end
 
     it 'includes @job_name in email body' do
@@ -63,7 +65,7 @@ RSpec.describe JobMailer, type: :mailer do
     end
 
     it 'renders the receiver email' do
-      expect(mail.to).to eql([owner.email])
+      expect(mail.to).to eql([owner.contact_email])
     end
 
     it 'renders the sender email' do
@@ -107,7 +109,7 @@ RSpec.describe JobMailer, type: :mailer do
     end
 
     it 'renders the receiver email' do
-      expect(mail.to).to eql([owner.email])
+      expect(mail.to).to eql([owner.contact_email])
     end
 
     it 'renders the sender email' do
@@ -151,7 +153,7 @@ RSpec.describe JobMailer, type: :mailer do
     end
 
     it 'renders the receiver email' do
-      expect(mail.to).to eql([user.email])
+      expect(mail.to).to eql([user.contact_email])
     end
 
     it 'renders the sender email' do
@@ -163,7 +165,7 @@ RSpec.describe JobMailer, type: :mailer do
     end
 
     it 'includes @owner_email in email body' do
-      expect(mail).to match_email_body(owner.email)
+      expect(mail).to match_email_body(owner.contact_email)
     end
 
     it 'includes @job_name in email body' do
@@ -191,7 +193,7 @@ RSpec.describe JobMailer, type: :mailer do
     end
 
     it 'renders the receiver email' do
-      expect(mail.to).to eql([owner.email])
+      expect(mail.to).to eql([owner.contact_email])
     end
 
     it 'renders the sender email' do
@@ -203,7 +205,7 @@ RSpec.describe JobMailer, type: :mailer do
     end
 
     it 'includes @user_email in email body' do
-      expect(mail).to match_email_body(user.email)
+      expect(mail).to match_email_body(user.contact_email)
     end
 
     it 'includes @user_phone in email body' do
@@ -239,7 +241,7 @@ RSpec.describe JobMailer, type: :mailer do
     end
 
     it 'renders the receiver email' do
-      expect(mail.to).to eql([owner.email])
+      expect(mail.to).to eql([owner.contact_email])
     end
 
     it 'renders the sender email' do
@@ -277,7 +279,7 @@ RSpec.describe JobMailer, type: :mailer do
     end
 
     it 'renders the receiver email' do
-      expect(mail.to).to eql([owner.email])
+      expect(mail.to).to eql([owner.contact_email])
     end
 
     it 'renders the sender email' do
@@ -313,7 +315,7 @@ RSpec.describe JobMailer, type: :mailer do
     end
 
     it 'renders the receiver email' do
-      expect(mail.to).to eql([user.email])
+      expect(mail.to).to eql([user.contact_email])
     end
 
     it 'renders the sender email' do

@@ -15,6 +15,33 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe '#contact_email' do
+    context 'not managed' do
+      let(:user) { FactoryGirl.build(:user, managed: false) }
+
+      it 'returns users email' do
+        expect(user.contact_email).to eq(user.email)
+      end
+    end
+
+    context 'managed' do
+      let(:user_id) { 73 }
+      let(:user) { FactoryGirl.build(:user, id: user_id, managed: true) }
+      let(:env_map) do
+        {
+          MANAGED_EMAIL_USERNAME: 'address',
+          MANAGED_EMAIL_HOSTNAME: 'example.com'
+        }
+      end
+
+      it 'returns managed email' do
+        ENVTestHelper.wrap(env_map) do
+          expect(user.contact_email).to eq("address+user#{user_id}@example.com")
+        end
+      end
+    end
+  end
+
   describe '#normalize_phone' do
     it 'normalizes phone number without country prefix' do
       user = User.new(phone: '073 5000 000')
