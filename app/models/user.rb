@@ -65,9 +65,6 @@ class User < ApplicationRecord
   validates :frilans_finans_id, uniqueness: true, allow_nil: true
   validates :country_of_origin, inclusion: { in: ISO3166::Country.translations.keys }, allow_blank: true # rubocop:disable Metrics/LineLength
 
-  # NOTE: Figure out a good way to validate :current_status and :at_und
-  #       see https://github.com/rails/rails/issues/13971
-
   validate :validate_arrived_at_date
   validate :validate_language_id_in_available_locale
   validate :validate_format_of_phone_number
@@ -87,6 +84,8 @@ class User < ApplicationRecord
   scope :anonymized, -> { where(anonymized: true) }
   scope :not_anonymized, -> { where(anonymized: false) }
 
+  # NOTE: Figure out a good way to validate :current_status and :at_und
+  #       see https://github.com/rails/rails/issues/13971
   enum current_status: STATUSES
   enum at_und: AT_UND
 
@@ -231,10 +230,24 @@ class User < ApplicationRecord
   end
 
   def profile_image_token=(token)
+    ActiveSupport::Deprecation.warn('User#profile_image_token= has been deprecated, please use User#set_images_by_tokens or User#add_image_by_token instead.') # rubocop:disable Metrics/LineLength
     return if token.blank?
 
     user_image = UserImage.find_by_one_time_token(token)
     self.user_images = [user_image] unless user_image.nil?
+  end
+
+  def add_image_by_token=(token)
+    return if token.blank?
+
+    user_image = UserImage.find_by_one_time_token(token)
+    user_images << user_image if user_image
+  end
+
+  def set_images_by_tokens=(tokens)
+    return if tokens.blank?
+
+    self.user_images = UserImage.find_by_one_time_tokens(tokens)
   end
 
   def ignored_notification?(notification)
