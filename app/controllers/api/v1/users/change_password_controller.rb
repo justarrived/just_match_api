@@ -38,6 +38,10 @@ module Api
             @user.generate_one_time_token
             @user.password = new_password
             @user.save!
+
+            # Destroy all other user sessions
+            @user.auth_tokens.destroy_all
+
             ChangedPasswordNotifier.call(user: @user)
 
             render json: {}
