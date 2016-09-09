@@ -143,16 +143,16 @@ Translations are managed at [Transifex](https://www.transifex.com/justarrived/ju
 
 To push or pull new translations, you need to install the [Transifex client](http://docs.transifex.com/client/setup/).
 
-__Fetch translations from transifex__
+__Fetch translations__
 
 ```
-$ tx pull -a -f
+$ script/pull-translations
 ```
 
-__Push source language file to transifex__
+__Push source language__
 
 ```
-$ tx push -s
+$ script/push-translations
 ```
 
 The configuration is in [.tx/config](.tx/config).
