@@ -13,7 +13,7 @@ gem 'sinatra', '~> 1.4', require: false # Required for sidekiqs web interface
 
 gem 'active_model_serializers', '~> 0.10' # Serialize models to JSON
 
-gem 'blazer', '~> 1.6' # Explore data with SQL
+gem 'blazer', '~> 1.7' # Explore data with SQL
 
 # Interact with Frilans Finans API
 gem 'frilans_finans_api', path: 'lib/frilans_finans_api'
@@ -26,7 +26,7 @@ gem 'aws-sdk', '~> 2.5' # Upload images to AWS S3
 
 gem 'airbrake', '~> 5.4' # Error catcher and reporter
 
-gem 'twilio-ruby', '~> 4.11.1' # Send SMS notifications
+gem 'twilio-ruby', '~> 4.11' # Send SMS notifications
 
 # Backports, Rails 5, render view from anywhere
 gem 'backport_new_renderer', '~> 1.0', git: 'https://github.com/justarrived/backport_new_renderer'
@@ -50,7 +50,7 @@ gem 'puma', '~> 3.4' # App server
 gem 'newrelic_rpm', '~> 3.15' # Performance monitoring
 gem 'skylight', '~> 0.10' # Performance monitoring
 
-gem 'geocoder', '~> 1.3' # Geocode resources
+gem 'geocoder', '~> 1.4' # Geocode resources
 
 gem 'administrate', '~> 0.2' # Admin dashboard
 gem 'administrate-field-image', '~> 0.0.2' # Administrate image support
