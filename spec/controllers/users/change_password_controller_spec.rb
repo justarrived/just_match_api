@@ -35,6 +35,14 @@ RSpec.describe Api::V1::Users::ChangePasswordController, type: :controller do
         post :create, valid_attributes, valid_session
         expect(response.status).to eq(200)
       end
+
+      it 'destroys all user tokens' do
+        user.create_auth_token
+
+        post :create, valid_attributes, valid_session
+
+        expect(assigns(:user).auth_tokens.length).to be_zero
+      end
     end
 
     context 'valid one time token' do
