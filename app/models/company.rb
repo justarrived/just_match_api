@@ -39,7 +39,7 @@ class Company < ApplicationRecord
   end
 
   def add_protocol_to_website
-    return if website.nil?
+    return if website.blank?
 
     self.website = URLHelper.add_protocol(website.strip)
   end

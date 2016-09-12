@@ -54,6 +54,13 @@ RSpec.describe Company, type: :model do
 
       expect(company.website).to eq('http://example.com')
     end
+
+    it 'leaves it if website is blank' do
+      company = Company.new(website: '  ')
+      company.add_protocol_to_website
+
+      expect(company.website).to eq('http://example.com')
+    end
   end
 end
 
