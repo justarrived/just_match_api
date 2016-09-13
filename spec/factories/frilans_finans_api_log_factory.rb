@@ -1,10 +1,11 @@
+# frozen_string_literal: true
 FactoryGirl.define do
   factory :frilans_finans_api_log do
     status 1
-    status_name "MyString"
-    params "MyText"
-    response_body ""
-    uri "MyText"
+    status_name 'MyString'
+    params 'MyText'
+    response_body ''
+    uri 'MyText'
   end
 end
 
