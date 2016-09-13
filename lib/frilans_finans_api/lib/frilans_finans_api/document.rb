@@ -4,8 +4,12 @@ require 'json'
 
 module FrilansFinansApi
   class Document
-    def initialize(json)
-      @parsed_json = JSON.parse(json)
+    attr_reader :status, :json, :uri
+
+    def initialize(response)
+      @json = JSON.parse(response.body)
+      @status = response.code
+      @uri = response.request.uri.to_s
     end
 
     def resources
@@ -26,38 +30,38 @@ module FrilansFinansApi
     end
 
     def collection?
-      data = @parsed_json['data']
+      data = json['data']
       return false if data.nil? || data.is_a?(Hash)
 
       true
     end
 
     def data
-      @parsed_json['data']
+      json['data']
     end
 
     def next_page_link
-      @parsed_json.dig('meta', 'pagination', 'links', 'next')
+      json.dig('meta', 'pagination', 'links', 'next')
     end
 
     def current_page
-      @parsed_json.dig('meta', 'pagination', 'current_page')
+      json.dig('meta', 'pagination', 'current_page')
     end
 
     def per_page
-      @parsed_json.dig('meta', 'pagination', 'per_page')
+      json.dig('meta', 'pagination', 'per_page')
     end
 
     def total_pages
-      @parsed_json.dig('meta', 'pagination', 'total_pages')
+      json.dig('meta', 'pagination', 'total_pages')
     end
 
     def total
-      @parsed_json.dig('meta', 'pagination', 'total')
+      json.dig('meta', 'pagination', 'total')
     end
 
     def count
-      @parsed_json.dig('meta', 'pagination', 'count')
+      json.dig('meta', 'pagination', 'count')
     end
   end
 end
