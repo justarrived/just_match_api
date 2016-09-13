@@ -56,7 +56,7 @@ RSpec.describe Company, type: :model do
     end
 
     it 'leaves it if website is blank' do
-      website  = '   '
+      website = '   '
       company = Company.new(website: website)
       company.add_protocol_to_website
 
