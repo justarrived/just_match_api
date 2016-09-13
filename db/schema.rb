@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160908191422) do
+ActiveRecord::Schema.define(version: 20160913211853) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -155,6 +155,16 @@ ActiveRecord::Schema.define(version: 20160908191422) do
   end
 
   add_index "faqs", ["language_id"], name: "index_faqs_on_language_id", using: :btree
+
+  create_table "frilans_finans_api_logs", force: :cascade do |t|
+    t.integer  "status"
+    t.string   "status_name"
+    t.text     "params"
+    t.text     "response_body"
+    t.string   "uri",           limit: 2083
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
 
   create_table "frilans_finans_invoices", force: :cascade do |t|
     t.integer  "frilans_finans_id"
