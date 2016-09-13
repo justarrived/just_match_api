@@ -8,8 +8,8 @@ class Job < ApplicationRecord
     zip: { lat: :zip_latitude, long: :zip_longitude }
   }.freeze
 
-  MIN_TOTAL_HOURS = 2
-  MIN_HOURS_PER_DAY = 0.5
+  MIN_TOTAL_HOURS = 1
+  MIN_HOURS_PER_DAY = 0.0
   MAX_HOURS_PER_DAY = 12
 
   belongs_to :language
