@@ -2,10 +2,39 @@
 require 'spec_helper'
 
 RSpec.describe FrilansFinansApi::Document do
-  context 'collection' do
+  context 'status' do
+    let(:response) { mock_httparty_response(code: 200, body: '{}') }
+
     subject do
+      described_class.new(response)
+    end
+
+    it 'returns the documents http status' do
+      expect(subject.status).to eq(200)
+    end
+  end
+
+  context 'uri' do
+    let(:uri) { 'http://example.com' }
+    let(:response) { mock_httparty_response(uri: uri) }
+
+    subject do
+      described_class.new(response)
+    end
+
+    it 'returns the documents http status' do
+      expect(subject.uri).to eq(uri)
+    end
+  end
+
+  context 'collection' do
+    let(:response) do
       json = FrilansFinansApi::FixtureClient.new.read(:professions)
-      described_class.new(json)
+      mock_httparty_response(body: json)
+    end
+
+    subject do
+      described_class.new(response)
     end
 
     it 'is a collection' do
@@ -45,9 +74,13 @@ RSpec.describe FrilansFinansApi::Document do
   end
 
   context 'single' do
-    subject do
+    let(:response) do
       json = FrilansFinansApi::FixtureClient.new.read(:profession)
-      described_class.new(json)
+      mock_httparty_response(body: json)
+    end
+
+    subject do
+      described_class.new(response)
     end
 
     it 'is a collection' do

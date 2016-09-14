@@ -1,10 +1,16 @@
 # frozen_string_literal: true
 module FrilansFinansApi
   class NilClient
-    Response = Struct.new(:body)
+    HTTP_STATUS = 200
+    NIL_URI = URI('http://example.com')
+
+    Request = Struct.new(:uri)
+    Response = Struct.new(:code, :body, :request)
 
     def currencies(**_args)
-      Response.new('{}')
+      body = '{}'
+      request = Request.new(NIL_URI)
+      Response.new(HTTP_STATUS, body, request)
     end
 
     alias_method :professions, :currencies
