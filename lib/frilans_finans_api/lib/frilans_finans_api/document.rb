@@ -63,5 +63,10 @@ module FrilansFinansApi
     def count
       json.dig('meta', 'pagination', 'count')
     end
+
+    def error_status?
+      # Consider both 300, 400 and 500-statuses as errors
+      status >= 300
+    end
   end
 end

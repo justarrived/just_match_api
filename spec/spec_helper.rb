@@ -52,6 +52,7 @@ FrilansFinansApi.client_klass = FrilansFinansApi::FixtureClient
 FrilansFinansApi.base_uri = 'https://example.com'
 FrilansFinansApi.client_id = '123456'
 FrilansFinansApi.client_secret = 'notsosecret'
+FrilansFinansApi.event_logger = FrilansFinansApi::NilEventLogger.new
 
 # Only allow the tests to connect to localhost and  allow codeclimate
 # codeclimate (for test coverage reporting)
