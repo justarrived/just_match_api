@@ -119,7 +119,11 @@ Rails.application.routes.draw do
       resources :languages, only: [:index, :show, :create, :update, :destroy]
       resources :skills, only: [:index, :show, :create, :update, :destroy]
       resources :categories, only: [:index]
-      resources :hourly_pays, path: 'hourly-pays', only: [:index]
+      resources :hourly_pays, path: 'hourly-pays', only: [:index] do
+        collection do
+          get :calculate
+        end
+      end
       resources :faqs, only: [:index]
       resources :promo_codes, path: 'promo-codes', only: [] do
         collection do

@@ -20,5 +20,11 @@ RSpec.describe Api::V1::HourlyPaysController, type: :routing do
       route_path = 'api/v1/hourly_pays#index'
       expect(get: path).to route_to(route_path)
     end
+
+    it 'routes to #calculate' do
+      path = '/api/v1/hourly-pays/calculate'
+      route_path = 'api/v1/hourly_pays#calculate'
+      expect(get: path).to route_to(route_path)
+    end
   end
 end
