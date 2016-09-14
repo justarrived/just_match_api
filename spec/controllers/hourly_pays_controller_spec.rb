@@ -9,6 +9,17 @@ RSpec.describe Api::V1::HourlyPaysController, type: :controller do
       expect(assigns(:hourly_pays)).to eq([hourly_pay])
     end
   end
+
+  describe 'GET #calculate' do
+    let(:valid_attributes) { { gross_salary: 100 } }
+
+    it 'returns calculated salary' do
+      get :calculate, valid_attributes, {}
+
+      expect(response.body).to be_jsonapi_response_for('hourly-pays')
+      expect(response.body).to be_jsonapi_attribute('gross-salary', 100)
+    end
+  end
 end
 
 # == Schema Information
