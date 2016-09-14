@@ -11,8 +11,9 @@ class CreateFrilansFinansInvoiceService
     end
 
     ff_invoice_remote = frilans_finans_invoice(user: user, job: job)
-    frilans_finans_id = ff_invoice_remote.resource.id
+    return ff_invoice if ff_invoice_remote.error_status?
 
+    frilans_finans_id = ff_invoice_remote.resource.id
     ff_invoice.frilans_finans_id = frilans_finans_id
 
     if frilans_finans_id.nil?

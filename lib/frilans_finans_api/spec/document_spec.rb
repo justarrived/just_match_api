@@ -2,8 +2,8 @@
 require 'spec_helper'
 
 RSpec.describe FrilansFinansApi::Document do
-  context 'status' do
-    let(:response) { mock_httparty_response(code: 200, body: '{}') }
+  describe 'status' do
+    let(:response) { mock_httparty_response(code: 200) }
 
     subject do
       described_class.new(response)
@@ -14,7 +14,29 @@ RSpec.describe FrilansFinansApi::Document do
     end
   end
 
-  context 'uri' do
+  describe 'error_status?' do
+    let(:response) { mock_httparty_response(code: 422) }
+
+    subject do
+      described_class.new(response)
+    end
+
+    context 'response is error status' do
+      it 'returns true' do
+        expect(subject.error_status?).to eq(true)
+      end
+    end
+
+    context 'response is *not* error status' do
+      let(:response) { mock_httparty_response(code: 200) }
+
+      it 'returns true' do
+        expect(subject.error_status?).to eq(false)
+      end
+    end
+  end
+
+  describe 'uri' do
     let(:uri) { 'http://example.com' }
     let(:response) { mock_httparty_response(uri: uri) }
 
