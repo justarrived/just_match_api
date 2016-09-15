@@ -23,7 +23,7 @@ gem 'json_api_helpers', path: 'lib/json_api_helpers'
 gem 'paperclip', '~> 5.0.0.beta2' # Image handler
 gem 'aws-sdk', '~> 2.6' # Upload images to AWS S3
 
-gem 'airbrake', '~> 5.4' # Error catcher and reporter
+gem 'airbrake', '~> 5.5' # Error catcher and reporter
 
 gem 'twilio-ruby', '~> 4.11' # Send SMS notifications
 
