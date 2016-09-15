@@ -4,17 +4,40 @@ ar:
   admin:
     mailer:
       invoice_missing_company_frilans_finans_id:
-        subject: 'إشعار الإدارة الشركات التي ينقصها هوية Frilans Finans'
-        notice: أُنشئت فاتورة لشركة ينقصها هوية Frilans Finans انظر %{company_link} و %{invoice_link}
+        subject: 'ملاحظات المشرف: بيانات Frilans Finans مفقودة'
+        notice: الفاتورة التي أنشأتها مع الشركة ينقصها بيانات  Frilans Finans id. تابع %{company_link} and %{invoice_link}.
       invoice_failed_to_connect_to_frilans_finans:
-        subject: 'إشعار الإدارة فشلتَ بإنشاء فاتورة Frilans Finans'
-        notice: فشلتَ - أنشئ فاتورة Frilans Finans %{invoice_id}
+        subject: 'ملاحظة المشرف: فشل في إنشاء فاتورة Frilans Finans'
+        notice: فشل في إنشاء فاتورة Frilans Finans %{invoice_id}
+      failed_to_activate_invoice:
+        subject: 'ملاحظة المشرف: تعذر تفعيل فاتورة Frilans Finans'
+        notice: تعذر انشاء فاتورة Frilans Finans
   errors:
+    bank_account:
+      too_short: قصير جداً
+      too_long: طويل جداً
+      invalid_characters: أحرف خاطئة
+      bad_checksum: تدقيق المجموع سيء
+      unknown_clearing_number: رقم التخليص غير معروف
+      iban:
+        too_short: قصير جداً
+        bad_characters: به أحرف خاطئة
+        bad_check_digits: به احرف تحقق خاطئة
+        unknown_country_code: رقم البلد غير معروف
+        bad_length: لديه خطأ بالطول
+        bad_format: لديه خطأ بالتنسيق
+      bic:
+        bad_format: لديه خطأ بالتنسيق
+        bad_country_code: رقم البلد غير معروف
+    general:
+      protocol_missing: الخادم مفقود  http:// or https://
+      must_be_valid_date: يجب أن يكون التاريخ صالح
     chat:
-      number_of_users: تشترط الدردشة عدد %{min} و %{max} مستخدمين
+      number_of_users: الدردشة يجب ان تكون بين  %{min}-%{max}  وعدد من المستخدمين
     invoice:
       job_started: يجب قبول المستخدم قبل إنشاء الفاتورة
       job_user_accepted: يجب قبول المستخدم قبل إنشاء الفاتورة
+      job_user_will_perform: يجب على المستخدم تأكيد الوظيفة قبل التمكن من إنشاء فاتورة
     job:
       job_date_in_the_past: يجب أن يكون في المستقبل
       hourly_pay_active: يجب أن يكون فاعل
@@ -32,39 +55,50 @@ ar:
       to_user_rated: ممكن التصويت عدة مرات
       comment_user: يجب أن يكون المستخدم نفسه الذي يصوّت
       job_user_concluded: يجب أن يكون العمل منتهي
+      job_user_performed: يجب تأكيد الوظيفة للتمكن من تأديتها
       user_allowed_to_rate: يجب أن يكون صاحب العمل أو المستخدم المقبول
     user_session:
       banned: 'الإداري منعك من الدخول لأنك لم تحترم شروط الاستعمال رجاءً اتصل ب: help@justarrived'
-      wrong_email_or_phone_or_password: عنوان أو كلمة سرّ خاطئة
+      wrong_email_or_phone_or_password: خطأ في البريد الإلكتروني أو الهاتف أو كلمة السر
     user:
       password_length: 'يجب أن تكون كلمة السر على الأقل من%{count}رموز '
       must_be_available_locale: لغتك غير مدعومة للأسف
+      must_be_valid_phone_number_format: يجب أن يكون رقم هاتف فعال
+      must_be_swedish_phone_number: يجب أن يكون رقم هاتف سويدي ( +٤٦ )
+      must_be_swedish_ssn: يجب أن يكون رقم الضمان الاجتماعي السويدي صحيح
+      arrived_at_must_be_in_past: يجب أن يكون في الماضي
     validators:
       after_true: '%{field} يجب أن يكون حقيقي'
       unrevertable: غير ممكن إعادة تعيين %{field}
   invalid_credentials: مراجع خاطئة
+  not_logged_in_error: يجب أن تكون داخلاً
+  record_not_found: السجل غير موجود.
   mailer:
     accepted_applicant_withdrawn:
-      subject: مستخدم مقبول لعملك سحب طلبه
-      title: مستخدم مقبول لعملك سحب طلبه
-      explaination: المستخدم المقبول %{name} لعملك %{job_name}سحب طلبه تفضل واختار مستخدم آخر
+      subject: مستخدم مقبول لوظيفتك قد سحب طلبه.
+      title: مستخدم مقبول لوظيفتك قد سحب طلبه.
+      explaination: 'المستخدم المقبول %{name} لوظيفتك %{job_name} قد انسحب. الرجاء اختيار متقدم آخر لوظيفتك عبر تسجيل الدخول للمنصة، قم بالضغط على وظائفي في القائمة واختيار الوظيفة.  '
     accepted_applicant_confirmation_overdue:
-      subject: مستخدم مقبول لعملك لم يؤكد شراكته في الوقت المناسب
-      title: مستخدم مقبول لعملك لم يؤكد شراكته في الوقت المناسب
-      explaination: المستخدم المقبول %{name} لعملك %{job_name} لم يؤكد شراكته في الوقت المناسب تفضل واختار مستخدم آخر
+      subject: 'لم يؤكد المرشخ المختار في الوقت المناسب.  '
+      title: 'لم يؤكد المرشخ المختار في الوقت المناسب.  '
+      explaination: 'المرشح المختار %{name} لوظيفتك %{job_name}  لم يؤكد خلال الإطار الزمني المقبول.  الرجاء اختيار متقدم آخر لوظيفتك عبر تسجيل الدخول للمنصة، قم بالضغط على وظائفي في القائمة واختيار الوظيفة.  '
     applicant_will_perform:
-      subject: مبروك! سيقوم مستخدم بعملك
-      congrats_line: مبروك!
-      details_line: "%{name} أكد أنهم سيقومون بعملك %{job_name}"
+      subject: تهانينا! المرشح المختار لوظيفتك سيقوم بأدائها.
+      congrats_line: تهانينا!
+      details_line: "%{name} قد أكد وسوف يؤدي وظيفتك %{job_name}."
+      explaination: "يرجى الاتصال %{name} من خلال الدردشة في وظائفي، على %{phone} أو \n%{email} لتسوية التفاصيل المحتملة."
     applicant_accepted:
-      accepted_line: لقد قُبلتَ لعمل!
+      accepted_line: تم اختيارك لأداء وظيفة!
       congrats_line: مبروك %{name}!
-      contact_line: اتصل %{email} للمزيد من المعلومات
+      contact_line: لديك 18 ساعة لتأكيد استطاعتك لأداء هذه الوظيفة، يرجى القيام بذلك في أقرب وقت ممكن في وظائفي في التطبيق. إذا كان لديك أي أسئلة يمكنك الاتصال بصاحب الوظيفة على %{email}  لمزيد من التفاصيل.
       job_line: العمل ’%{name}’ يقع في منطقتك
       subject: مبروك! حصلت على عمل!
     changed_password:
       subject: كلمة السرّ لديك لتطبيقة «وصلت لتوّي» قد تغيّرت
       body_header: 'سلام %{name} كلمة السرّ لديك لتطبيقة «وصلت لتوّي» قد تغيّرت إذا لم يكن هذا أنت، اتصل رجاءً ب: »وصلت لتوي» عبر help@justarrived.se'
+    job_cancelled:
+      subject: العمل الذي تقدمت إليه قد تم إلغاؤه
+      body: العمل %{job_name}  قد ألغي
     job_match:
       accepted_line: حصلت على عمل مطابق جديد!
       congrats_line: مبروك%{name}!
@@ -72,32 +106,38 @@ ar:
       job_line: 'العمل: ’%{name}’ يقع في منطقتك'
       subject: مبروك! حصلت على عمل مطابق جديد
     job_performed:
-      congrats_line: مبروك%{name}!
-      contact_line: إذا عندك أسئلة أخيرة اتصل بهم على %{email}
+      congrats_line: مرحباً %{name}!
+      contact_line: بمجرد تأكيد كلاكما بأنه تم تنفيذ هذه الوظيفة سيتم إرسال الفاتورة و دفع الراتب.
       job_line: العمل الذي انتهى كان ’%{name}’
-      performed_line: "%{name} تأكد أنهم قاموا بالعمل لك"
-      subject: مبروك! العمل الذي وضعته قد نفّذ
+      performed_line: "%{name} قد أكد بأن الوظيفة التي طلبتها قد تم أدائها."
+      subject: الوظيفة التي طلبتها قد تم اتمامها.
     invoice_created:
       congrats_line: مبروك%{name}!
-      contact_line: إذا كان عندك أسئلة ختامية اتصل ب%{email}
+      contact_line: الرجاء التأكد من تقييم مدى استمتاعك بالعمل مع صاحب العمل.
       job_line: 'العمل الذي قمت به: ’%{name}’'
-      performed_line: "%{name} تأكد أنك قمت بالعمل"
+      performed_line: "%{name} قد أكد بأنك قمت بأداء الوظيفة."
       subject: مبروك! العمل الذي قمت به قد قُبل.
+    magic_login_link:
+      subject: رابط تسجيل الدخول السحري
+      login_line: لتسجيل الدخول الى JustArrived استخدم الرابط التالي %{url}
     new_applicant:
-      applicant_line: المستخدم ’%{name}’ يسكن في منطقتك
-      congrats_line: مبروك%{name}!
-      contact_line: إذا كان عندك أسئلة اتصل بهم على %{email} و %{phone}
+      applicant_line: مقدم الطلب هو '%{name}' ويعيش على مقربة من مكان الوظيفة التي سيتم عملها.
+      congrats_line: تهانينا %{name}!
+      contact_line: يمكنك معاينة الملف الشخصي الخاص بـ '%{name}'  في وظائفي. يمكنك أيضا الاتصال بـ '%{name}' مباشرة على%{email} و %{phone}.
       job_line: عندك طلب جديد لعملك ’%{name}’
       subject: مبروك! حصلت على طلب جديد
+    new_chat_message:
+      view_chat_line: 'لعرض الرسالة من هنا %{url},  حيث يمكنك الحصور أيضا الرسالة مترجمة. '
+      received_from_line: لقد تلقيت رسالة جديدة من  %{name}.
+      subject: "رسالة جديدة من  %{name}."
     reset_password:
       subject: 'وصلت لتوّي تعيد رابط كلمة السرّ'
       body_header: 'سلام%{name}، طلبت إعادة كلمة السر لديك تفضل وزر الرابط لتعطي كلمة السر الجديدة'
     welcome:
       subject: مرحبا الى وصلت لتوي!
       body_header: مرحبا الى وصلت لتوي%{name}!
-      body_line: شكرا لأنك سجلت اسمك  نأمل أنك ستحبّ الخدمة!
+      body_line: شكرا لتسجيلك. ونحن نأمل بأن تستمتع بخدماتنا. إذا كان لديك أي أسئلة أو اقتراحات عن كيفية تحسين أدائنا، من فضلك لا تتردد في ارسال رسالة لنا على البريد الإلكتروني admin@justarrived.se.
     signoff: يوم جميل!
-  not_logged_in_error: يجب أن تكون داخلاً
   notifications:
     accepted_applicant_confirmation_overdue: فترة التأكيد للمستخدم المقبول قد انتهت
     accepted_applicant_withdrawn: المستخدم المقبول سحب طلبه
@@ -107,3 +147,8 @@ ar:
     job_user_performed: المستخدم أكد قيامة بالعمل
     new_applicant: طلب جديد
     user_job_match: عمل جديد مطابق
+    job_cancelled: الوظيفة ألغيت
+    new_chat_message: رسالة محادثة جديدة
+  texter:
+    magic_login_link:
+      login_line: رابط تسجيل الدخول السحري لـ JustArrived %{url}
