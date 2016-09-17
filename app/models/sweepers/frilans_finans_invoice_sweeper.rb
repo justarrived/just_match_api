@@ -12,13 +12,15 @@ module Sweepers
         ff_invoice = invoice.frilans_finans_invoice
         frilans_finans_id = ff_invoice.frilans_finans_id
 
+        attributes = FrilansFinansInvoiceAttributesService.call(
+          user: invoice.user,
+          job: invoice.job,
+          pre_report: false
+        )
+
         ff_invoice_remote = FrilansFinansApi::Invoice.update(
           id: frilans_finans_id,
-          attributes: {
-            invoice: {
-              pre_report: false
-            }
-          }
+          attributes: attributes
         )
 
         frilans_finans_id_remote = ff_invoice_remote.resource.id.to_i
