@@ -60,6 +60,12 @@ Rails.application.routes.draw do
         end
       end
 
+      resources :chats, only: [:index, :show, :create] do
+        member do
+          resources :messages, module: :chats, only: [:create, :index]
+        end
+      end
+
       resources :users, param: :user_id, only: [:index, :show, :create, :update, :destroy] do
         member do
           resources :messages, module: :users, only: [:create, :index]
@@ -89,12 +95,6 @@ Rails.application.routes.draw do
 
           get :notifications
           get :statuses
-        end
-      end
-
-      resources :chats, only: [:index, :show, :create] do
-        member do
-          resources :messages, module: :chats, only: [:create, :index]
         end
       end
 

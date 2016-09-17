@@ -90,11 +90,7 @@ class Doxxer
     model = [model] if plural
 
     fake_admin = OpenStruct.new(admin?: true, persisted?: true)
-    serialized_model = JsonApiSerializer.serialize(
-      model,
-      current_user: fake_admin,
-      host: 'api.justarrived.se'
-    )
+    serialized_model = JsonApiSerializer.serialize(model, current_user: fake_admin)
     model_hash = serialized_model.serializable_hash
 
     # Merge meta attributes for plural examples

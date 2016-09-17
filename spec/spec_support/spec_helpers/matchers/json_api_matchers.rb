@@ -7,7 +7,8 @@ def has_jsonapi_root_keys(actual, model)
   actual.dig('data', 'type') == model &&
     actual.dig('data', 'id').is_a?(String) &&
     hash_or_nil?(actual.dig('data', 'attributes')) &&
-    hash_or_nil?(actual.dig('data', 'relationships'))
+    hash_or_nil?(actual.dig('data', 'relationships')) &&
+    hash_or_nil?(actual.dig('data', 'links'))
 end
 
 # For testing contollers responses

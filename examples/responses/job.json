@@ -29,16 +29,28 @@
       "comments": {
         "data": [
 
-        ]
+        ],
+        "links": {
+          "self": "https://api.justarrived.se/api/v1/jobs/1/comments"
+        }
       },
       "owner": {
-        "data": null
+        "data": null,
+        "links": {
+          "self": null
+        }
       },
       "company": {
-        "data": null
+        "data": null,
+        "links": {
+          "self": null
+        }
       },
       "language": {
-        "data": null
+        "data": null,
+        "links": {
+          "self": null
+        }
       },
       "category": {
         "data": null
@@ -46,6 +58,9 @@
       "hourly-pay": {
         "data": null
       }
+    },
+    "links": {
+      "self": "https://api.justarrived.se/api/v1/jobs/1"
     }
   }
 }
