@@ -103,6 +103,7 @@ module Api
         end
         example Doxxer.read_example(JobUser, method: :update)
         def update
+          ActiveSupport::Deprecation.warn('This route has been deprecated.')
           authorize(@job_user)
 
           @job_user.assign_attributes(permitted_attributes)
