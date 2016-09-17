@@ -37,10 +37,16 @@
     },
     "relationships": {
       "company": {
-        "data": null
+        "data": null,
+        "links": {
+          "self": null
+        }
       },
       "language": {
-        "data": null
+        "data": null,
+        "links": {
+          "self": null
+        }
       },
       "user-images": {
         "data": [
@@ -57,6 +63,9 @@
 
         ]
       }
+    },
+    "links": {
+      "self": "https://api.justarrived.se/api/v1/users/1"
     }
   }
 }

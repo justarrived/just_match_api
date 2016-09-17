@@ -21,6 +21,9 @@
 
         ]
       }
+    },
+    "links": {
+      "self": "https://api.justarrived.se/api/v1/chats/1"
     }
   }
 }

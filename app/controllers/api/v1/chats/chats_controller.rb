@@ -1,0 +1,89 @@
+# frozen_string_literal: true
+module Api
+  module V1
+    module Chats
+      class ChatsController < BaseController
+        before_action :require_user
+        before_action :set_chat, only: [:show, :update]
+
+        after_action :verify_authorized, only: []
+
+        resource_description do
+          api_versions '1.0'
+          name 'Chats'
+          short 'API for managing chats'
+          description '
+            A `Chat` has many users and messages.
+          '
+          formats [:json]
+        end
+
+        ALLOWED_INCLUDES = %w(users user_images messages).freeze
+
+        api :GET, '/chats/', 'List chats'
+        description 'Returns a list of chats.'
+        error code: 401, desc: 'Unauthorized'
+        ApipieDocHelper.params(self, Index::ChatsIndex)
+        example Doxxer.read_example(Chat, plural: true)
+        def index
+          authorize(Chat)
+
+          chats_index = Index::ChatsIndex.new(self)
+          @chats = chats_index.chats
+
+          api_render(@chats, total: chats_index.count)
+        end
+
+        api :GET, '/chats/:id', 'Show chat'
+        description 'Return chat.'
+        error code: 404, desc: 'Not found'
+        ApipieDocHelper.params(self)
+        example Doxxer.read_example(Chat)
+        def show
+          authorize(@chat)
+
+          api_render(@chat)
+        end
+
+        api :POST, '/chats/', 'Create new chat'
+        description "
+          Creates and returns new chat.
+
+          * Min #{Chat::MIN_USERS} users per chat.
+          * Max #{Chat::MAX_USERS} users per chat.
+        "
+        param :data, Hash, desc: 'Top level key', required: true do
+          param :attributes, Hash, desc: 'Chat attributes', required: true do
+            # rubocop:disable Metrics/LineLength
+            param :'user-ids', Array, of: 'User IDs', desc: "Must be between #{Chat::MIN_USERS}-#{Chat::MAX_USERS} users per chat.", required: true
+            # rubocop:enable Metrics/LineLength
+          end
+        end
+        error code: 400, desc: 'Bad request'
+        error code: 422, desc: 'Unprocessable entity'
+        example Doxxer.read_example(Chat, method: :create)
+        def create
+          users = User.where(id: param_user_ids)
+          @chat = Chat.find_or_create_private_chat(users)
+
+          if @chat.errors[:users].empty?
+            api_render(@chat, status: :created)
+          else
+            api_render_errors(@chat)
+          end
+        end
+
+        private
+
+        def set_chat
+          @chat = policy_scope(Chat).find(params[:id])
+        end
+
+        def param_user_ids
+          user_ids = jsonapi_params[:user_ids] || []
+          user_ids + [current_user.id]
+        end
+      end
+    end
+  end
+end

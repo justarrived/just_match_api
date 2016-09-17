@@ -60,7 +60,7 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :chats, only: [:index, :show, :create] do
+      resources :chats, module: :chats, only: [:index, :show, :create] do
         member do
           resources :messages, module: :chats, only: [:create, :index]
         end
