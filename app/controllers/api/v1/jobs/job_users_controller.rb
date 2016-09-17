@@ -88,7 +88,7 @@ module Api
           end
         end
 
-        api :PATCH, '/jobs/:job_id/users/:job_user_id', 'Update job user'
+        api :PATCH, '/jobs/:job_id/users/:job_user_id', '[DEPRECATED] Update job user'
         description 'Updates a job user if the user is allowed.'
         error code: 400, desc: 'Bad request'
         error code: 401, desc: 'Unauthorized'
