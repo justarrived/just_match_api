@@ -12,7 +12,8 @@ RSpec.describe FrilansFinans::InvoiceWrapper do
         job: nil,
         user: nil,
         tax: nil,
-        ff_user: nil
+        ff_user: nil,
+        pre_report: false
       )
 
       expected = {
@@ -38,7 +39,12 @@ RSpec.describe FrilansFinans::InvoiceWrapper do
       ff_user_id = 10
       user = FactoryGirl.build(:user, frilans_finans_id: ff_user_id)
 
-      result = described_class.invoice_data(job: job, user: user, tax: tax)
+      result = described_class.invoice_data(
+        job: job,
+        user: user,
+        tax: tax,
+        pre_report: true
+      )
 
       expected = {
         currency_id: Currency.default_currency.try!(:frilans_finans_id),
@@ -66,7 +72,7 @@ RSpec.describe FrilansFinans::InvoiceWrapper do
       result = described_class.invoice_users(job: job, user: user, ff_user: ff_user_mock)
 
       expected = [{
-        user_id: nil,
+        user_id: user.frilans_finans_id,
         total: 5000.0,
         taxkey_id: taxkey_id,
         allowance: 0,
