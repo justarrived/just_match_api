@@ -88,7 +88,7 @@ module Api
           end
         end
 
-        api :PATCH, '/jobs/:job_id/users/:job_user_id', 'Update job user'
+        api :PATCH, '/jobs/:job_id/users/:job_user_id', '[DEPRECATED] Update job user'
         description 'Updates a job user if the user is allowed.'
         error code: 400, desc: 'Bad request'
         error code: 401, desc: 'Unauthorized'
@@ -96,13 +96,14 @@ module Api
         error code: 422, desc: 'Unprocessable entity'
         param :data, Hash, desc: 'Top level key', required: true do
           param :attributes, Hash, desc: 'Job user attributes', required: true do
-            param :accepted, [true], desc: 'User accepted for job'
-            param :'will-perform', [true], desc: 'User will perform job'
-            param :performed, [true], desc: 'Job has been performed by user'
+            param :accepted, [true], desc: '[DEPRECATED] User accepted for job'
+            param :'will-perform', [true], desc: '[DEPRECATED] User will perform job'
+            param :performed, [true], desc: '[DEPRECATED] Job has been performed by user'
           end
         end
         example Doxxer.read_example(JobUser, method: :update)
         def update
+          ActiveSupport::Deprecation.warn('This route has been deprecated.')
           authorize(@job_user)
 
           @job_user.assign_attributes(permitted_attributes)
@@ -200,10 +201,25 @@ module Api
         def set_event_name(job_user)
           @_event_name ||= begin
             if job_user.send_accepted_notice?
+              message = [
+                'Setting JobUser#accepted using PATCH /jobs/:id/users',
+                'is deprecated, please use POST /jobs/:id/users/acceptances instead'
+              ].join(' ')
+              ActiveSupport::Deprecation.warn(message)
               :accepted
             elsif job_user.send_will_perform_notice?
+              message = [
+                'Setting JobUser#will_perform using PATCH /jobs/:id/users',
+                'is deprecated, please use POST /jobs/:id/users/confirmations instead'
+              ].join(' ')
+              ActiveSupport::Deprecation.warn(message)
               :will_perform
             elsif job_user.send_performed_notice?
+              message = [
+                'Setting JobUser#performed using PATCH /jobs/:id/users',
+                'is deprecated, please use POST /jobs/:id/users/performed instead'
+              ].join(' ')
+              ActiveSupport::Deprecation.warn(message)
               :performed
             else
               :nothing
