@@ -149,7 +149,6 @@ module Api
           model_or_model_array,
           included: included_resources,
           current_user: current_user,
-          host: request.host_with_port,
           meta: meta,
           request: request
         )

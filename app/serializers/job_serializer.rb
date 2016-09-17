@@ -4,7 +4,7 @@ class JobSerializer < ApplicationSerializer
   # that can be returned to the user we can return all Job column names here
   attributes Job.column_names.map(&:to_sym)
 
-  link(:self) { api_v1_job_url(object.id, host: scope[:host]) }
+  link(:self) { api_v1_job_url(object.id) }
 
   has_many :job_users do
     # Only disclose job users to the job owner
@@ -17,19 +17,19 @@ class JobSerializer < ApplicationSerializer
   end
 
   has_many :comments, unless: :collection_serializer? do
-    link(:self) { api_v1_job_comments_url(job_id: object.id, host: scope[:host]) }
+    link(:self) { api_v1_job_comments_url(job_id: object.id) }
 
     object.comments.visible
   end
 
   has_one :owner do
-    link(:self) { api_v1_user_url(object.owner_id, host: scope[:host]) }
+    link(:self) { api_v1_user_url(object.owner_id) }
   end
   has_one :company do
-    link(:self) { api_v1_company_url(object.company, host: scope[:host]) }
+    link(:self) { api_v1_company_url(object.company) }
   end
   has_one :language do
-    link(:self) { api_v1_language_url(object.language_id, host: scope[:host]) }
+    link(:self) { api_v1_language_url(object.language_id) }
   end
   has_one :category
   has_one :hourly_pay

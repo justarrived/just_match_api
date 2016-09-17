@@ -4,7 +4,7 @@ require 'json_api_helpers/action_dispatch_request_wrapper'
 module JsonApiHelpers
   module Serializers
     class Model
-      attr_reader :serializer, :included, :current_user, :model_scope, :host, :meta, :request # rubocop:disable Metrics/LineLength
+      attr_reader :serializer, :included, :current_user, :model_scope, :meta, :request
 
       def self.serialize(*args)
         new(*args).serialize
@@ -12,11 +12,10 @@ module JsonApiHelpers
 
       # private
 
-      def initialize(model_scope, included: [], current_user: nil, host: nil, meta: {}, request: nil) # rubocop:disable Metrics/LineLength
+      def initialize(model_scope, included: [], current_user: nil, meta: {}, request: nil)
         @model_scope = model_scope
         @included = included
         @meta = meta
-        @host = host
         @current_user = current_user
         # NOTE: ActiveModel::Serializer#serializer_for is from active_model_serializers
         @serializer = ActiveModel::Serializer.serializer_for(model_scope)
@@ -24,12 +23,7 @@ module JsonApiHelpers
       end
 
       def serializer_instance
-        serializer_options = {
-          scope: {
-            current_user: current_user,
-            host: host
-          }
-        }
+        serializer_options = { scope: { current_user: current_user } }
 
         if @model_scope.respond_to?(:to_ary)
           serializer_options[:each_serializer] = serializer
