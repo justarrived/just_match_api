@@ -20,11 +20,7 @@ module Api
         def create
           user = User.find_by(email: jsonapi_params[:email])
 
-          if user
-            user.generate_one_time_token
-            user.save!
-            ResetPasswordNotifier.call(user: user)
-          end
+          CreateUserResetPasswordService.call(user: user) if user
 
           # Always render 202 accepted status, we don't want to increase the number of
           # places that exposes what emails are in the system
