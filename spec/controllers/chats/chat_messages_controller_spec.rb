@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
-RSpec.describe Api::V1::Chats::MessagesController, type: :controller do
+RSpec.describe Api::V1::Chats::ChatMessagesController, type: :controller do
   before(:each) do
     @chat_user = FactoryGirl.create(:chat_user)
   end

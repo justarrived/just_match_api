@@ -10,13 +10,21 @@ class UserSerializer < ApplicationSerializer
   has_one :company do
     link(:self) { api_v1_company_url(object.company) if object.company }
   end
+
   has_one :language do
     link(:self) { api_v1_language_url(object.language_id) if object.language_id }
   end
 
+  # TODO: Add links
   has_many :user_images
-  has_many :languages
-  has_many :chats, unless: :collection_serializer?
+
+  has_many :languages do
+    link(:self) { api_v1_user_languages_url(object.id) }
+  end
+
+  has_many :chats, unless: :collection_serializer? do
+    link(:self) { api_v1_user_chats_url(object.id) }
+  end
 
   def attributes(_)
     data = super

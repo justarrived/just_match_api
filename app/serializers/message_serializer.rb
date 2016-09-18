@@ -4,6 +4,8 @@ class MessageSerializer < ApplicationSerializer
 
   attributes ATTRIBUTES
 
+  link(:self) { api_v1_chat_message_url(object.chat_id, object) }
+
   has_one :chat
   has_one :author
   has_one :language
