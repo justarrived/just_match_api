@@ -9,7 +9,7 @@ class CompanyImageSerializer < ApplicationSerializer
   attribute :image_url_medium
   attribute :image_url_small
 
-  link(:self) { api_v1_company_image_url(object.user_id, object) }
+  link(:self) { api_v1_company_image_url(object.company_id, object) if object.company_id }
 
   has_one :company
 

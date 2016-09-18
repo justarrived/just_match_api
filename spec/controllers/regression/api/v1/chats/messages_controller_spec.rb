@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
-RSpec.describe Api::V1::Chats::MessagesController, regressor: true do
+RSpec.describe Api::V1::Chats::ChatMessagesController, regressor: true do
   # === Routes (REST) ===
   it { should route(:get, '/api/v1/chats/1/messages').to('api/v1/chats/messages#index', id: '1') }
   it { should route(:post, '/api/v1/chats/1/messages').to('api/v1/chats/messages#create', id: '1') }

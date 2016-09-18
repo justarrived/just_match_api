@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
-RSpec.describe Api::V1::Chats::MessagesController, type: :routing do
+RSpec.describe Api::V1::Chats::ChatMessagesController, type: :routing do
   describe 'routing' do
     it 'routes to #index' do
       path = '/api/v1/chats/1/messages'

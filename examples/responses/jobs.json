@@ -43,10 +43,16 @@
           }
         },
         "category": {
-          "data": null
+          "data": null,
+          "links": {
+            "self": null
+          }
         },
         "hourly-pay": {
-          "data": null
+          "data": null,
+          "links": {
+            "self": null
+          }
         }
       },
       "links": {

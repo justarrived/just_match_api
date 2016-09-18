@@ -18,6 +18,9 @@
 
         ]
       }
+    },
+    "links": {
+      "self": "https://api.justarrived.se/api/v1/companies/1"
     }
   }
 }

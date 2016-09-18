@@ -10,7 +10,10 @@
         "messages": {
           "data": [
 
-          ]
+          ],
+          "links": {
+            "related": "https://api.justarrived.se/api/v1/chats/1/messages"
+          }
         },
         "users": {
           "data": [

@@ -7,7 +7,7 @@ class JobUserSerializer < ApplicationSerializer
 
   attributes ATTRIBUTES
 
-  link(:self) { api_v1_job_user_url(object.job_id, object) }
+  link(:self) { api_v1_job_user_url(object.job_id, object) if object.job_id }
 
   belongs_to :user
   belongs_to :job

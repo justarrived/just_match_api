@@ -31,7 +31,7 @@
 
         ],
         "links": {
-          "self": "https://api.justarrived.se/api/v1/jobs/1/comments"
+          "related": "https://api.justarrived.se/api/v1/jobs/1/comments"
         }
       },
       "owner": {
@@ -53,10 +53,16 @@
         }
       },
       "category": {
-        "data": null
+        "data": null,
+        "links": {
+          "self": null
+        }
       },
       "hourly-pay": {
-        "data": null
+        "data": null,
+        "links": {
+          "self": null
+        }
       }
     },
     "links": {

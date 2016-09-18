@@ -56,12 +56,18 @@
       "languages": {
         "data": [
 
-        ]
+        ],
+        "links": {
+          "related": "https://api.justarrived.se/api/v1/users/1/languages"
+        }
       },
       "chats": {
         "data": [
 
-        ]
+        ],
+        "links": {
+          "related": "https://api.justarrived.se/api/v1/users/1/chats"
+        }
       }
     },
     "links": {

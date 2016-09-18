@@ -10,6 +10,9 @@
         "language": {
           "data": null
         }
+      },
+      "links": {
+        "self": "https://api.justarrived.se/api/v1/skills/1"
       }
     }
   ],
