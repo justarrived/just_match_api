@@ -17,7 +17,7 @@ class JobSerializer < ApplicationSerializer
   end
 
   has_many :comments, unless: :collection_serializer? do
-    link(:self) { api_v1_job_comments_url(job_id: object.id) }
+    link(:related) { api_v1_job_comments_url(job_id: object.id) }
 
     object.comments.visible
   end
@@ -29,6 +29,7 @@ class JobSerializer < ApplicationSerializer
   has_one :company do
     link(:self) { api_v1_company_url(object.company) if object.company }
   end
+
   has_one :language do
     link(:self) { api_v1_language_url(object.language_id) if object.language_id }
   end

@@ -5,7 +5,10 @@ class ChatSerializer < ApplicationSerializer
 
   link(:self) { api_v1_chat_url(object) }
 
-  has_many :messages
+  has_many :messages do
+    link(:related) { api_v1_chat_messages_url(object.id) }
+  end
+
   has_many :users
   has_many :user_images
 end
