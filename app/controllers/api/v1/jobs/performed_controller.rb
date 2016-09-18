@@ -23,6 +23,7 @@ module Api
         error code: 401, desc: 'Unauthorized'
         error code: 404, desc: 'Not found'
         error code: 422, desc: 'Unprocessable entity'
+        example Doxxer.read_example(JobUser, method: :update)
         def create
           @job_user.performed = true
 
