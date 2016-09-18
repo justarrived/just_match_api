@@ -88,7 +88,7 @@ module Api
           end
         end
 
-        api :PATCH, '/jobs/:job_id/users/:job_user_id', '[DEPRECATED] Update job user'
+        api :PATCH, '/jobs/:job_id/users/:job_user_id', '_DEPRECATED_: Update job user'
         description 'Updates a job user if the user is allowed.'
         error code: 400, desc: 'Bad request'
         error code: 401, desc: 'Unauthorized'
@@ -96,9 +96,9 @@ module Api
         error code: 422, desc: 'Unprocessable entity'
         param :data, Hash, desc: 'Top level key', required: true do
           param :attributes, Hash, desc: 'Job user attributes', required: true do
-            param :accepted, [true], desc: '[DEPRECATED] User accepted for job'
-            param :'will-perform', [true], desc: '[DEPRECATED] User will perform job'
-            param :performed, [true], desc: '[DEPRECATED] Job has been performed by user'
+            param :accepted, [true], desc: '_DEPRECATED_: User accepted for job'
+            param :'will-perform', [true], desc: '_DEPRECATED_: User will perform job'
+            param :performed, [true], desc: '_DEPRECATED_: Job has been performed by user'
           end
         end
         example Doxxer.read_example(JobUser, method: :update)

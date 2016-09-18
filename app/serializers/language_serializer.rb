@@ -6,6 +6,8 @@ class LanguageSerializer < ApplicationSerializer
   ].freeze
 
   attributes ATTRIBUTES
+
+  link(:self) { api_v1_language_url(object) }
 end
 
 # == Schema Information

@@ -15,6 +15,9 @@
       "ku-name": null,
       "ti-name": null,
       "ps-name": null
+    },
+    "links": {
+      "self": "https://api.justarrived.se/api/v1/languages/1"
     }
   }
 }

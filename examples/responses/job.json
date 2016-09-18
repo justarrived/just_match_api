@@ -29,23 +29,44 @@
       "comments": {
         "data": [
 
-        ]
+        ],
+        "links": {
+          "related": "https://api.justarrived.se/api/v1/jobs/1/comments"
+        }
       },
       "owner": {
-        "data": null
+        "data": null,
+        "links": {
+          "self": null
+        }
       },
       "company": {
-        "data": null
+        "data": null,
+        "links": {
+          "self": null
+        }
       },
       "language": {
-        "data": null
+        "data": null,
+        "links": {
+          "self": null
+        }
       },
       "category": {
-        "data": null
+        "data": null,
+        "links": {
+          "self": null
+        }
       },
       "hourly-pay": {
-        "data": null
+        "data": null,
+        "links": {
+          "self": null
+        }
       }
+    },
+    "links": {
+      "self": "https://api.justarrived.se/api/v1/jobs/1"
     }
   }
 }

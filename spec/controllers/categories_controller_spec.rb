@@ -3,12 +3,20 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::CategoriesController, type: :controller do
   describe 'GET #index' do
-    it 'assigns all categories as @categories' do
+    it 'only returns insured categories' do
       FactoryGirl.create(:category, insurance_status: :uninsured)
       FactoryGirl.create(:category, insurance_status: :assessment_required)
       category = FactoryGirl.create(:category, insurance_status: :insured)
       get :index, {}, {}
       expect(assigns(:categories)).to eq([category])
+    end
+  end
+
+  describe 'GET #show' do
+    it 'returns category' do
+      category = FactoryGirl.create(:category, insurance_status: :insured)
+      get :show, { id: category.id }, {}
+      expect(assigns(:category)).to eq(category)
     end
   end
 end

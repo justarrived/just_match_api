@@ -2,7 +2,7 @@
 module Api
   module V1
     module Users
-      class ChatsController < BaseController
+      class UserChatsController < BaseController
         before_action :require_user
         before_action :set_user
         before_action :set_chat, only: [:show]

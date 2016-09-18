@@ -9,6 +9,8 @@ class UserImageSerializer < ApplicationSerializer
   attribute :image_url_medium
   attribute :image_url_small
 
+  link(:self) { api_v1_user_image_url(object.user_id, object) if object.user_id }
+
   has_one :user
 
   def image_url

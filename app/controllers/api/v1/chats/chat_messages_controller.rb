@@ -2,7 +2,7 @@
 module Api
   module V1
     module Chats
-      class MessagesController < BaseController
+      class ChatMessagesController < BaseController
         before_action :require_user
         before_action :set_chat
 
@@ -64,7 +64,10 @@ module Api
         private
 
         def set_chat
-          @chat = current_user.chats.find(params[:id])
+          chats_scope = current_user.chats
+          chats_scope = Chat if current_user.admin?
+
+          @chat = chats_scope.find(params[:id])
         end
 
         def message_params

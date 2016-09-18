@@ -3,6 +3,8 @@ class CategorySerializer < ApplicationSerializer
   ATTRIBUTES = [:name].freeze
 
   attributes ATTRIBUTES
+
+  link(:self) { api_v1_category_url(object) }
 end
 
 # == Schema Information

@@ -3,14 +3,14 @@ require 'rails_helper'
 
 RSpec.describe UserSerializer, type: :serializer do
   context 'Individual Resource Representation' do
-    let(:resource) { FactoryGirl.build(:user) }
+    let(:resource) { FactoryGirl.build(:user, id: '1') }
     let(:serialization) { JsonApiSerializer.serialize(resource) }
 
     subject do
       JSON.parse(serialization.to_json)
     end
 
-    UserPolicy::ATTRIBUTES.each do |attribute|
+    (UserPolicy::ATTRIBUTES - %i(id)).each do |attribute|
       it "has #{attribute.to_s.humanize.downcase}" do
         dashed_attribute = attribute.to_s.dasherize
         value = resource.public_send(attribute)
