@@ -45,7 +45,7 @@ module Api
 
         hourly_pay = HourlyPay.new(
           id: SecureGenerator.token,
-          gross_salary: params[:gross_salary].to_i,
+          gross_salary: params[:gross_salary].to_i
         )
 
         api_render(hourly_pay)
