@@ -9,6 +9,24 @@ RSpec.describe JsonApiHelpers::Params::Fields do
     }
   end
 
+  describe '#to_h' do
+    it 'converts fields params to hash' do
+      fields_params = {
+        jobs: 'name,hours,job-date',
+        users: 'name'
+      }
+      expected = {
+        jobs: %w(name hours job_date),
+        users: %w(name)
+      }
+      expect(described_class.new(fields_params).to_h).to eq(expected)
+    end
+
+    it 'returns empty hash when fields params empty' do
+      expect(described_class.new({}).to_h).to eq({})
+    end
+  end
+
   describe '#permit' do
     context 'with fields params nil' do
       subject { described_class.new(nil) }
