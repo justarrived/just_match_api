@@ -25,14 +25,21 @@ class JobSerializer < ApplicationSerializer
   has_one :owner do
     link(:self) { api_v1_user_url(object.owner_id) if object.owner_id }
   end
+
   has_one :company do
     link(:self) { api_v1_company_url(object.company) if object.company }
   end
   has_one :language do
     link(:self) { api_v1_language_url(object.language_id) if object.language_id }
   end
-  has_one :category
-  has_one :hourly_pay
+
+  has_one :category do
+    link(:self) { api_v1_category_url(object.category_id) if object.category_id }
+  end
+
+  has_one :hourly_pay do
+    link(:self) { api_v1_hourly_pay_url(object.hourly_pay_id) if object.hourly_pay_id }
+  end
 
   def attributes(_)
     data = super

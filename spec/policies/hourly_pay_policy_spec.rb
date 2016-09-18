@@ -4,9 +4,17 @@ require 'rails_helper'
 RSpec.describe HourlyPayPolicy do
   subject { described_class.new(nil, HourlyPay.new) }
 
-  permissions :index?, :calculate? do
+  permissions :index?, :show?, :calculate? do
     it 'allows access for everyone' do
       expect(subject.index?).to eq(true)
+    end
+
+    it 'allows access for everyone' do
+      expect(subject.show?).to eq(true)
+    end
+
+    it 'allows access for everyone' do
+      expect(subject.calculate?).to eq(true)
     end
   end
 

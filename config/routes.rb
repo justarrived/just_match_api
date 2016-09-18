@@ -118,8 +118,8 @@ Rails.application.routes.draw do
       resources :terms_agreement_consents, path: 'terms-consents', only: [:create]
       resources :languages, only: [:index, :show, :create, :update, :destroy]
       resources :skills, only: [:index, :show, :create, :update, :destroy]
-      resources :categories, only: [:index]
-      resources :hourly_pays, path: 'hourly-pays', only: [:index] do
+      resources :categories, only: [:index, :show]
+      resources :hourly_pays, path: 'hourly-pays', only: [:index, :show] do
         collection do
           get :calculate
         end

@@ -10,6 +10,10 @@ class HourlyPayPolicy < ApplicationPolicy
     true
   end
 
+  def show?
+    true
+  end
+
   def calculate?
     true
   end

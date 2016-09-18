@@ -25,6 +25,17 @@ module Api
         api_render(@hourly_pays, total: hourly_pays_index.count)
       end
 
+      api :GET, '/hourly-pays/:id', 'Show hourly pays'
+      description 'Returns hourly pay.'
+      example Doxxer.read_example(HourlyPay)
+      def show
+        authorize(HourlyPay)
+
+        @hourly_pay = policy_scope(HourlyPay).find(params[:id])
+
+        api_render(@hourly_pay)
+      end
+
       api :GET, '/hourly-pays/calculate', 'Calculate hourly pays'
       description 'Returns a list of hourly pays.'
       param :gross_salary, Float, desc: 'Gross salary', required: true
