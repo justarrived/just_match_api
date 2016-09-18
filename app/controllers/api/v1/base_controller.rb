@@ -148,6 +148,7 @@ module Api
         serialized_model = JsonApiSerializer.serialize(
           model_or_model_array,
           included: included_resources,
+          fields: fields_params.to_h,
           current_user: current_user,
           meta: meta,
           request: request
