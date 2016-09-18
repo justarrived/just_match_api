@@ -17,13 +17,13 @@ RSpec.describe Api::V1::Chats::ChatsController, type: :routing do
 
     it 'routes to #messages' do
       path = '/api/v1/chats/1/messages'
-      route_path = 'api/v1/chats/messages#create'
+      route_path = 'api/v1/chats/chat_messages#create'
       expect(post: path).to route_to(route_path, id: '1')
     end
 
     it 'routes to #messages' do
       path = '/api/v1/chats/1/messages'
-      route_path = 'api/v1/chats/messages#index'
+      route_path = 'api/v1/chats/chat_messages#index'
       expect(get: path).to route_to(route_path, id: '1')
     end
   end

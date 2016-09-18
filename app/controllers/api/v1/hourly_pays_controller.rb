@@ -37,13 +37,16 @@ module Api
       end
 
       api :GET, '/hourly-pays/calculate', 'Calculate hourly pays'
-      description 'Returns a list of hourly pays.'
+      description 'Returns a non-persisted hourly pay.'
       param :gross_salary, Float, desc: 'Gross salary', required: true
       example Doxxer.read_example(HourlyPay)
       def calculate
         authorize(HourlyPay)
 
-        hourly_pay = HourlyPay.new(gross_salary: params[:gross_salary].to_i)
+        hourly_pay = HourlyPay.new(
+          id: SecureGenerator.token,
+          gross_salary: params[:gross_salary].to_i,
+        )
 
         api_render(hourly_pay)
       end

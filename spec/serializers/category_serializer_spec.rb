@@ -3,7 +3,7 @@ require 'rails_helper'
 
 RSpec.describe CategorySerializer, type: :serializer do
   context 'Individual Resource Representation' do
-    let(:resource) { FactoryGirl.build(:category) }
+    let(:resource) { FactoryGirl.build(:category, id: '1') }
     let(:serialization) { JsonApiSerializer.serialize(resource) }
 
     subject do
