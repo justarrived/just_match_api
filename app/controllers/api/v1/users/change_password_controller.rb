@@ -34,7 +34,10 @@ module Api
             return render json: wrong_password_error, status: :unprocessable_entity
           end
 
-          success = UpdateUserPasswordService.call(user: @user, new_password: new_password)
+          success = UpdateUserPasswordService.call(
+            user: @user,
+            new_password: new_password
+          )
 
           if success
             render json: {}
