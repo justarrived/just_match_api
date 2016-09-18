@@ -54,6 +54,9 @@ Rails.application.routes.draw do
           resources :job_users, param: :job_user_id, module: :jobs, path: :users, only: [:index, :show, :create, :update, :destroy] do
             member do
               resources :invoices, only: [:create]
+              resources :confirmations, only: [:create]
+              resources :acceptances, only: [:create]
+              resources :performed, only: [:create]
             end
           end
           resources :ratings, module: :jobs, path: :ratings, only: [:create]
