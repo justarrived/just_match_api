@@ -125,9 +125,9 @@ module Api
               'Please use `email_or_phone` instead.'
             ].join(' ')
             ActiveSupport::Deprecation.warn(message)
-            jsonapi_params[:email].try(:strip)
+            jsonapi_params[:email]&.strip&.downcase
           else
-            jsonapi_params[:email_or_phone].try(:strip)
+            jsonapi_params[:email_or_phone]&.strip&.downcase
           end
         end
 

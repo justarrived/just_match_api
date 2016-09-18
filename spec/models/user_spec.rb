@@ -60,13 +60,13 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe '#set_lowercased_email' do
-    let(:email) { 'SOME_EMAIL_ADDRESS@example.com' }
+  describe '#set_normalized_email' do
+    let(:email) { ' SOME_EMAIL_ADDRESS@example.com  ' }
 
     it 'lowercases email after validation' do
       user = User.new(email: email)
       user.validate
-      expect(user.email).to eq(email.downcase)
+      expect(user.email).to eq(email.downcase.strip)
     end
 
     it 'can handle nil address' do

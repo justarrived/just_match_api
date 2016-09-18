@@ -23,7 +23,7 @@ class User < ApplicationRecord
 
   attr_accessor :password
 
-  after_validation :set_normalized_phone, :set_normalized_ssn, :set_lowercased_email
+  after_validation :set_normalized_phone, :set_normalized_ssn, :set_normalized_email
 
   before_save :encrypt_password
 
@@ -223,8 +223,8 @@ class User < ApplicationRecord
     self.ssn = SwedishSSN.normalize(ssn)
   end
 
-  def set_lowercased_email
-    self.email = email&.downcase
+  def set_normalized_email
+    self.email = email&.strip&.downcase
   end
 
   # NOTE: This method has unintuitive side effects.. if the banned attribute is
