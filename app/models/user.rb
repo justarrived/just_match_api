@@ -212,7 +212,7 @@ class User < ApplicationRecord
   end
 
   def auth_token
-    auth_tokens.first.try(:token)
+    auth_tokens.last.try(:token)
   end
 
   def set_normalized_phone
