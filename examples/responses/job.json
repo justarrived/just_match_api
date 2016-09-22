@@ -18,7 +18,8 @@
       "verified": false,
       "job-end-date": "2016-02-20 01:01:01 +0100",
       "filled": false,
-      "short-description": "Watman"
+      "short-description": "Watman",
+      "featured": false
     },
     "relationships": {
       "job-users": {

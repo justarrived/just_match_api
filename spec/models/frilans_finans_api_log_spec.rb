@@ -11,6 +11,7 @@ end
 #  id            :integer          not null, primary key
 #  status        :integer
 #  status_name   :string
+#  verb          :string
 #  params        :text
 #  response_body :text
 #  uri           :string(2083)

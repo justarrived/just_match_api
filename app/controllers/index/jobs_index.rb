@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 module Index
   class JobsIndex < BaseIndex
+    # rubocop:disable Metrics/LineLength
     TRANSFORMABLE_FILTERS = TRANSFORMABLE_FILTERS.merge(job_date: :date_range).freeze
-    ALLOWED_FILTERS = %i(id hours created_at job_date verified filled job_user.user_id).freeze # rubocop:disable Metrics/LineLength
-    SORTABLE_FIELDS = %i(hours job_date name verified filled created_at updated_at).freeze
+    ALLOWED_FILTERS = %i(id hours created_at job_date verified filled featured job_user.user_id).freeze
+    SORTABLE_FIELDS = %i(hours job_date name verified filled featured created_at updated_at).freeze
+    # rubocop:enable Metrics/LineLength
 
     def jobs(scope = Job)
       @jobs ||= begin
