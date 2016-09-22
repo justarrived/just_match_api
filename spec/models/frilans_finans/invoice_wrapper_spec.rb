@@ -28,35 +28,40 @@ RSpec.describe FrilansFinans::InvoiceWrapper do
   end
 
   describe '#invoice_data' do
-    it 'returns the main invoice data' do
-      ff_company_id = 11
-      company = FactoryGirl.create(:company, frilans_finans_id: ff_company_id)
-      owner = FactoryGirl.create(:user, company: company)
-      job = FactoryGirl.create(:job, owner: owner, hours: 50)
-      ff_tax_id = '3'
-      tax = Struct.new(:id).new(ff_tax_id)
-
-      ff_user_id = 10
-      user = FactoryGirl.build(:user, frilans_finans_id: ff_user_id)
-
-      result = described_class.invoice_data(
+    let(:ff_user_id) { 10 }
+    let(:ff_company_id) { 11 }
+    let(:ff_tax_id) { '3' }
+    let(:company) { FactoryGirl.create(:company, frilans_finans_id: ff_company_id) }
+    let(:owner) { FactoryGirl.create(:user, company: company) }
+    let(:job) { FactoryGirl.create(:job, owner: owner, hours: 50) }
+    let(:tax) { Struct.new(:id).new(ff_tax_id) }
+    let(:user) { FactoryGirl.build(:user, frilans_finans_id: ff_user_id) }
+    let(:invoice_data) do
+      described_class.invoice_data(
         job: job,
         user: user,
         tax: tax,
         pre_report: true
       )
+    end
 
+    it 'returns the main invoice data' do
       expected = {
         currency_id: Currency.default_currency.try!(:frilans_finans_id),
         specification: "#{job.category.name} - #{job.name} (##{job.id})",
-        amount: job.amount,
+        amount: job.invoice_amount,
         company_id: ff_company_id,
         tax_id: ff_tax_id,
         user_id: ff_user_id,
         pre_report: true
       }
 
-      expect(result).to eq(expected)
+      expect(invoice_data).to eq(expected)
+    end
+
+    it 'calculates amount based on gross salary' do
+      expected_amount = job.hourly_pay.gross_salary * job.hours
+      expect(invoice_data[:amount]).to eq(expected_amount)
     end
   end
 

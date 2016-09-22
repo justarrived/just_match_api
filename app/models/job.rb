@@ -107,6 +107,10 @@ class Job < ApplicationRecord
     hourly_pay.gross_salary * hours
   end
 
+  def invoice_amount
+    amount
+  end
+
   # NOTE: You need to call this __before__ the record is validated
   #       otherwise it will always return false
   def send_cancelled_notice?
