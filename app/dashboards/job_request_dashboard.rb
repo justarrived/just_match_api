@@ -11,6 +11,7 @@ class JobRequestDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
     id: Field::Number,
     company_name: Field::String,
+    short_name: Field::String,
     contact_string: Field::String,
     assignment: Field::String,
     job_scope: Field::String,
@@ -32,6 +33,7 @@ class JobRequestDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = [
     :id,
     :company_name,
+    :short_name,
     :responsible,
     :job_scope
   ].freeze
@@ -41,6 +43,7 @@ class JobRequestDashboard < Administrate::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = [
     :id,
     :company_name,
+    :short_name,
     :contact_string,
     :assignment,
     :job_scope,
@@ -59,6 +62,7 @@ class JobRequestDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
     :company_name,
+    :short_name,
     :contact_string,
     :assignment,
     :job_scope,
