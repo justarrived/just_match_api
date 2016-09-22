@@ -8,6 +8,7 @@ end
 Rails.application.routes.draw do
   namespace :admin do
     resources :jobs
+    resources :job_requests
     resources :invoices
     resources :frilans_finans_invoices
     resources :job_users
