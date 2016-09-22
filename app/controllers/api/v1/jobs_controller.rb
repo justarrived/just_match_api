@@ -3,6 +3,7 @@ module Api
   module V1
     class JobsController < BaseController
       before_action :set_job, only: [:show, :edit, :update, :matching_users]
+      before_action :require_promo_code, except: [:index]
 
       resource_description do
         short 'API for managing jobs'
