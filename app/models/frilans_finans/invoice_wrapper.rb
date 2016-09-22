@@ -29,7 +29,7 @@ module FrilansFinans
 
       [{
         user_id: user.frilans_finans_id,
-        total: job.amount,
+        total: job.invoice_amount,
         taxkey_id: taxkey_id,
         allowance: 0,
         travel: 0,
