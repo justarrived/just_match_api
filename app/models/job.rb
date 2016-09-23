@@ -108,7 +108,7 @@ class Job < ApplicationRecord
   end
 
   def invoice_amount
-    amount
+    hourly_pay.rate_excluding_vat * hours
   end
 
   # NOTE: You need to call this __before__ the record is validated
