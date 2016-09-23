@@ -20,6 +20,7 @@ class JobRequestDashboard < Administrate::BaseDashboard
     job_at_date: Field::String,
     responsible: Field::String,
     suitable_candidates: Field::String,
+    finished: Field::Boolean,
     comment: Field::Text,
     created_at: Field::DateTime,
     updated_at: Field::DateTime
@@ -35,13 +36,15 @@ class JobRequestDashboard < Administrate::BaseDashboard
     :company_name,
     :short_name,
     :responsible,
-    :job_scope
+    :job_scope,
+    :finished
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = [
     :id,
+    :finished,
     :company_name,
     :short_name,
     :contact_string,
@@ -61,6 +64,7 @@ class JobRequestDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
+    :finished,
     :company_name,
     :short_name,
     :contact_string,
