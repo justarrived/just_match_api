@@ -60,7 +60,7 @@ RSpec.describe FrilansFinans::InvoiceWrapper do
     end
 
     it 'calculates amount based on gross salary' do
-      expected_amount = job.hourly_pay.gross_salary * job.hours
+      expected_amount = job.hourly_pay.rate_excluding_vat * job.hours
       expect(invoice_data[:amount]).to eq(expected_amount)
     end
   end
@@ -78,7 +78,7 @@ RSpec.describe FrilansFinans::InvoiceWrapper do
 
       expected = [{
         user_id: user.frilans_finans_id,
-        total: 5000.0,
+        total: 7000.0,
         taxkey_id: taxkey_id,
         allowance: 0,
         travel: 0,

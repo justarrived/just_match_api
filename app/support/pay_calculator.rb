@@ -4,6 +4,7 @@ module PayCalculator
   RATE_EXCLUDING_VAT_MULTIPLIER = 1.4
   VAT_MULTIPLIER = 1.25
 
+  # NOTE: APPROX. since the exact tax level isn't known here
   def self.net_salary(gross_salary)
     gross_salary * NET_SALARY_MULTIPLIER
   end
