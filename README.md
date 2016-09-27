@@ -159,4 +159,4 @@ The configuration is in [.tx/config](.tx/config).
 
 ## License
 
-This project is open source and licensed under [AGPL](LICENSE.txt).
+This project is open source and licensed under [AGPL](LICENSE.md).
