@@ -9,4 +9,12 @@ class HourlyPayPolicy < ApplicationPolicy
   def index?
     true
   end
+
+  def show?
+    true
+  end
+
+  def calculate?
+    true
+  end
 end

@@ -14,6 +14,21 @@
       "value": "",
       "required": false
     },
+    "APP_HOST": {
+      "description": "Application host (api.example.com)",
+      "value": "api.justarrived.se",
+      "required": false
+    },
+    "MANAGED_EMAIL_USERNAME": {
+      "description": "Managed accounts received email username (optional) [support]",
+      "value": "",
+      "required": false
+    },
+    "MANAGED_EMAIL_HOSTNAME": {
+      "description": "Managed accounts received hostname username (optional) [example.com]",
+      "value": "",
+      "required": false
+    },
     "TWILIO_ACCOUNT_SID": {
       "description": "Twilio account SID (required if SEND_SMS_NOTIFICATIONS is true)",
       "value": "",

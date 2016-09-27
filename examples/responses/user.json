@@ -37,10 +37,16 @@
     },
     "relationships": {
       "company": {
-        "data": null
+        "data": null,
+        "links": {
+          "self": null
+        }
       },
       "language": {
-        "data": null
+        "data": null,
+        "links": {
+          "self": null
+        }
       },
       "user-images": {
         "data": [
@@ -50,13 +56,22 @@
       "languages": {
         "data": [
 
-        ]
+        ],
+        "links": {
+          "related": "https://api.justarrived.se/api/v1/users/1/languages"
+        }
       },
       "chats": {
         "data": [
 
-        ]
+        ],
+        "links": {
+          "related": "https://api.justarrived.se/api/v1/users/1/chats"
+        }
       }
+    },
+    "links": {
+      "self": "https://api.justarrived.se/api/v1/users/1"
     }
   }
 }

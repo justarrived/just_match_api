@@ -4,6 +4,8 @@ class SkillSerializer < ApplicationSerializer
 
   attributes ATTRIBUTES
 
+  link(:self) { api_v1_skill_url(object) }
+
   has_one :language
 end
 

@@ -1,19 +1,18 @@
 # frozen_string_literal: true
 source 'https://rubygems.org'
 
-ruby '2.3.0'
+ruby '2.3.1'
 
 gem 'rails', '4.2.7.1'
 gem 'pg', '~> 0.15' # Use postgresql as the database for Active Record
 
 gem 'rails-api', '~> 0.4', require: false
 
-gem 'sidekiq', '~> 4.1' # Background worker (Redis-backed)
-gem 'sinatra', '~> 1.4', require: false # Required for sidekiqs web interface
+gem 'sidekiq', '~> 4.2' # Background worker (Redis-backed)
 
 gem 'active_model_serializers', '~> 0.10' # Serialize models to JSON
 
-gem 'blazer', '~> 1.6' # Explore data with SQL
+gem 'blazer', '~> 1.7' # Explore data with SQL
 
 # Interact with Frilans Finans API
 gem 'frilans_finans_api', path: 'lib/frilans_finans_api'
@@ -22,11 +21,11 @@ gem 'frilans_finans_api', path: 'lib/frilans_finans_api'
 gem 'json_api_helpers', path: 'lib/json_api_helpers'
 
 gem 'paperclip', '~> 5.0.0.beta2' # Image handler
-gem 'aws-sdk', '~> 2.5' # Upload images to AWS S3
+gem 'aws-sdk', '~> 2.6' # Upload images to AWS S3
 
-gem 'airbrake', '~> 5.4' # Error catcher and reporter
+gem 'airbrake', '~> 5.5' # Error catcher and reporter
 
-gem 'twilio-ruby', '~> 4.11.1' # Send SMS notifications
+gem 'twilio-ruby', '~> 4.11' # Send SMS notifications
 
 # Backports, Rails 5, render view from anywhere
 gem 'backport_new_renderer', '~> 1.0', git: 'https://github.com/justarrived/backport_new_renderer'
@@ -50,10 +49,12 @@ gem 'puma', '~> 3.4' # App server
 gem 'newrelic_rpm', '~> 3.15' # Performance monitoring
 gem 'skylight', '~> 0.10' # Performance monitoring
 
-gem 'geocoder', '~> 1.3' # Geocode resources
+gem 'geocoder', '~> 1.4' # Geocode resources
 
 gem 'administrate', '~> 0.2' # Admin dashboard
 gem 'administrate-field-image', '~> 0.0.2' # Administrate image support
+gem 'bourbon' # Fix for administrate gem (they're not listing this dependency in their Gemfile)
+
 gem 'uglifier', '~> 3.0' # Needed administrate assets compilation
 
 gem 'pundit', '~> 1.1' # Authorization policies

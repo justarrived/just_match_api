@@ -9,6 +9,9 @@
       "rate-including-vat": 175.0,
       "active": true,
       "currency": "SEK"
+    },
+    "links": {
+      "self": "https://api.justarrived.se/api/v1/hourly-pays/1"
     }
   }
 }

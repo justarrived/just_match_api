@@ -9,6 +9,7 @@ class UserDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
+    managed: Field::Boolean,
     frilans_finans_id: Field::Number,
     language: Field::BelongsTo,
     company: Field::BelongsTo,
@@ -74,6 +75,7 @@ class UserDashboard < Administrate::BaseDashboard
     :email,
     :phone,
     :company,
+    :managed,
     :language,
     :owned_jobs,
     :job_users,
@@ -118,6 +120,7 @@ class UserDashboard < Administrate::BaseDashboard
     :password,
     :language,
     :company,
+    :managed,
     :owned_jobs,
     :job_users,
     :jobs,

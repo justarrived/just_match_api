@@ -3,6 +3,8 @@ class CompanySerializer < ApplicationSerializer
   ATTRIBUTES = [:name, :website, :cin, :street, :zip, :city, :phone, :email].freeze
   attributes ATTRIBUTES
 
+  link(:self) { api_v1_company_url(object) }
+
   has_many :company_images
 end
 

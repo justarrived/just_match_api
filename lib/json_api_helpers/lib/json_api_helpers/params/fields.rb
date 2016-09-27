@@ -5,31 +5,16 @@ module JsonApiHelpers
       attr_reader :fields_params
 
       def initialize(fields_params)
-        @fields_params = fields_params || {}
-      end
-
-      def permit(resources_hash)
-        permitted = {}
-        resources_hash.map do |resource_symbol, whitelisted_fields|
-          requested_fields = fields_params[resource_symbol]
-          whitelist = whitelisted_fields.map(&:to_s)
-
-          permitted[resource_symbol] = merge_fields(requested_fields, whitelist)
-        end
-        permitted
-      end
-
-      private
-
-      def merge_fields(requested_fields, whitelisted_fields)
-        if requested_fields
-          fields = requested_fields.split(',').map do |field|
-            StringSupport.underscore(field)
+        @fields_params = {}
+        (fields_params || {}).each do |model_name, value|
+          @fields_params[model_name] = value.split(',').map do |name|
+            StringSupport.underscore(name.strip)
           end
-          fields & whitelisted_fields
-        else
-          whitelisted_fields
         end
+      end
+
+      def to_h
+        fields_params
       end
     end
   end

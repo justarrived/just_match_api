@@ -22,7 +22,7 @@ module JsonApiHelpers
     end
 
     def request_url
-      @action_dispatch_request.original_url
+      "#{@action_dispatch_request.base_url}#{@action_dispatch_request.path}"
     end
   end
 end

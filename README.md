@@ -11,7 +11,7 @@ The API aims to follow the [JSON API 1.0](http://jsonapi.org/) standard. Please 
 
 If you're looking for help, ask questions, want to contribute or give feedback, you're more than welcome to join our [Gitter](https://gitter.im/justarrived/just_match_api) chat. You can also checkout the tasks that are ready for development over at [Waffle.io](http://waffle.io/justarrived/just_match_api).
 
-[![Join the chat at https://gitter.im/justarrived/just_match_api](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/justarrived/just_match_api?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![Stories in Ready](https://badge.waffle.io/justarrived/just_match_api.png?label=ready&title=Ready)](http://waffle.io/justarrived/just_match_api)
+[![Join the chat at https://gitter.im/justarrived/just_match_api](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/justarrived/just_match_api?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![Stories in Ready](https://badge.waffle.io/justarrived/just_match_api.png?label=ready&title=Ready+Tasks)](http://waffle.io/justarrived/just_match_api)
 
 
 * [Built with](#built-with)
@@ -143,16 +143,16 @@ Translations are managed at [Transifex](https://www.transifex.com/justarrived/ju
 
 To push or pull new translations, you need to install the [Transifex client](http://docs.transifex.com/client/setup/).
 
-__Fetch translations from transifex__
+__Fetch translations__
 
 ```
-$ tx pull -a -f
+$ script/pull-translations
 ```
 
-__Push source language file to transifex__
+__Push source language__
 
 ```
-$ tx push -s
+$ script/push-translations
 ```
 
 The configuration is in [.tx/config](.tx/config).

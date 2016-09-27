@@ -3,7 +3,7 @@ require 'rails_helper'
 
 RSpec.describe HourlyPaySerializer, type: :serializer do
   context 'Individual Resource Representation' do
-    let(:resource) { FactoryGirl.build(:hourly_pay) }
+    let(:resource) { FactoryGirl.build(:hourly_pay, id: '1') }
     let(:serialization) { JsonApiSerializer.serialize(resource) }
 
     subject do

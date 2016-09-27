@@ -17,6 +17,7 @@ require 'frilans_finans_api/document'
 require 'frilans_finans_api/resource'
 
 require 'frilans_finans_api/nil_logger'
+require 'frilans_finans_api/nil_event_logger'
 
 module FrilansFinansApi
   DEFAULT_CLIENT_KLASS = Client
@@ -60,6 +61,14 @@ module FrilansFinansApi
 
   def self.logger=(logger)
     @logger = logger
+  end
+
+  def self.event_logger
+    @event_logger ||= NilEventLogger.new
+  end
+
+  def self.event_logger=(logger)
+    @event_logger = logger
   end
 
   def self.reset_config

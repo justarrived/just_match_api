@@ -38,6 +38,8 @@ module Api
           @rating = Rating.new(rating_params)
           @rating.job = @job
 
+          # NOTE: Implicitly assigning this to #current_user isn't very RESTful, we
+          #       should instead force the client to pass this value explicitly
           @rating.from_user = current_user
           @rating.to_user = User.find_by(id: jsonapi_params[:user_id])
 

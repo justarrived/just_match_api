@@ -4,7 +4,7 @@ module FrilansFinansApi
   class Company
     def self.create(attributes:, client: FrilansFinansApi.client_klass.new)
       response = client.create_company(attributes: attributes)
-      Document.new(response.body)
+      Document.new(response)
     end
   end
 end

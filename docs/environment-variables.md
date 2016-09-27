@@ -1,15 +1,30 @@
 # Environment variables
 
-## Application config
+List of all environment variables used in the application.
+
+## Application settings
 
 ```
-REDIS_URL
-APP_BASE_URL
+# Re-route managed users email (optional)
+MANAGED_EMAIL_USERNAME=support
+MANAGED_EMAIL_HOSTNAME=example.com
+
 DEFAULT_RECORDS_PER_PAGE
 DEFAULT_MAX_RECORDS_PER_PAGE
 MAX_RECORDS_PER_PAGE
 FRILANS_FINANS_ACTIVE
 CORS_WHITELIST
+PROMO_CODE
+SEND_SMS_NOTIFICATIONS
+APP_HOST
+```
+
+## Application config
+
+```
+REDIS_URL
+APP_BASE_URL
+LIVE_FRILANS_FINANS_SEED
 ```
 
 ## Application Server
@@ -64,11 +79,4 @@ CODECLIMATE_REPO_TOKEN
 RAILS_ENV
 RACK_ENV
 RAILS_SERVE_STATIC_FILES
-```
-
-## MISC
-
-```
-PROMO_CODE
-LIVE_FRILANS_FINANS_SEED
 ```

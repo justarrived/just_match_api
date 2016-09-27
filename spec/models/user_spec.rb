@@ -4,14 +4,41 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   describe '#frilans_finans_users' do
     it 'returns users with frilans finans id set' do
-      FactoryGirl.create(:user)
+      FactoryGirl.create(:user, frilans_finans_id: nil)
       first = FactoryGirl.create(:user, frilans_finans_id: 10)
       last = FactoryGirl.create(:user, frilans_finans_id: 11)
       frilans_users = described_class.frilans_finans_users
 
       expect(frilans_users.count).to eq(2)
-      expect(frilans_users.first).to eq(first)
-      expect(frilans_users.last).to eq(last)
+      expect(frilans_users).to include(first)
+      expect(frilans_users).to include(last)
+    end
+  end
+
+  describe '#contact_email' do
+    context 'not managed' do
+      let(:user) { FactoryGirl.build(:user, managed: false) }
+
+      it 'returns users email' do
+        expect(user.contact_email).to eq(user.email)
+      end
+    end
+
+    context 'managed' do
+      let(:user_id) { 73 }
+      let(:user) { FactoryGirl.build(:user, id: user_id, managed: true) }
+      let(:env_map) do
+        {
+          MANAGED_EMAIL_USERNAME: 'address',
+          MANAGED_EMAIL_HOSTNAME: 'example.com'
+        }
+      end
+
+      it 'returns managed email' do
+        ENVTestHelper.wrap(env_map) do
+          expect(user.contact_email).to eq("address+user#{user_id}@example.com")
+        end
+      end
     end
   end
 
@@ -33,13 +60,13 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe '#set_lowercased_email' do
-    let(:email) { 'SOME_EMAIL_ADDRESS@example.com' }
+  describe '#set_normalized_email' do
+    let(:email) { ' SOME_EMAIL_ADDRESS@example.com  ' }
 
     it 'lowercases email after validation' do
       user = User.new(email: email)
       user.validate
-      expect(user.email).to eq(email.downcase)
+      expect(user.email).to eq(email.downcase.strip)
     end
 
     it 'can handle nil address' do
@@ -153,6 +180,33 @@ RSpec.describe User, type: :model do
 
     it 'does not set token when token is nil' do
       user.profile_image_token = nil
+      expect(user.user_images.first).to be_nil
+    end
+  end
+
+  describe '#add_image_by_token=' do
+    let(:user) { FactoryGirl.create(:user) }
+    let(:user_image) { FactoryGirl.create(:user_image) }
+    let(:user_image1) { FactoryGirl.create(:user_image) }
+
+    it 'can set image from token' do
+      user.add_image_by_token = user_image.one_time_token
+      expect(user.user_images.first).to eq(user_image)
+    end
+
+    it 'does not replace older images' do
+      user.add_image_by_token = user_image.one_time_token
+      user.add_image_by_token = user_image1.one_time_token
+      expect(user.user_images.length).to eq(2)
+    end
+
+    it 'does not set token when such token is found' do
+      user.add_image_by_token = 'invalid token'
+      expect(user.user_images.first).to be_nil
+    end
+
+    it 'does not set token when token is nil' do
+      user.add_image_by_token = nil
       expect(user.user_images.first).to be_nil
     end
   end
@@ -562,6 +616,7 @@ end
 #  at_und                         :integer
 #  arrived_at                     :date
 #  country_of_origin              :string
+#  managed                        :boolean          default(FALSE)
 #
 # Indexes
 #

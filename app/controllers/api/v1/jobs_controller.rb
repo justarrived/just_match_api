@@ -3,6 +3,7 @@ module Api
   module V1
     class JobsController < BaseController
       before_action :set_job, only: [:show, :edit, :update, :matching_users]
+      before_action :require_promo_code, except: [:index]
 
       resource_description do
         short 'API for managing jobs'
@@ -25,7 +26,7 @@ module Api
         #   Causes N+1 for job_users resource if current user is owner
         #     :includes => [:job_users]
 
-        jobs_index = Index::JobsIndex.new(self)
+        jobs_index = Index::JobsIndex.new(self, current_user)
         jobs_scope = jobs_index_scope(Job.uncancelled)
         @jobs = jobs_index.jobs(jobs_scope)
 
@@ -58,7 +59,7 @@ module Api
           param :'job-end-date', String, desc: 'Job end date', required: true
           param :'language-id', Integer, desc: 'Langauge id of the text content', required: true
           param :'hourly-pay-id', Integer, desc: 'Hourly pay id', required: true
-          param :'skill-ids', Array, of: Integer, desc: 'List of skill ids', required: true
+          param :'skill-ids', Array, of: 'Skill IDs', desc: 'List of skill ids', required: true
           # rubocop:enable Metrics/LineLength
         end
       end

@@ -3,6 +3,10 @@ module Queries
   class Filter
     def self.filter(records, filters, filter_types)
       filters.each do |field_name, value|
+        # If it includes a '.' it means its a filter on a relation and
+        # should therefore be ignored
+        next if field_name.to_s.include?('.')
+
         filter_type = filter_types[field_name]
         if filter_type
           like_query = extract_like_query(filter_type)

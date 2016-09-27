@@ -4,7 +4,7 @@ require 'spec_helper'
 RSpec.describe JsonApiHelpers::ActionDispatchRequestWrapper do
   let(:url) { 'http://example.com' }
   let(:name) { 'Watwoman' }
-  let(:object) { OpenStruct.new(watman: name, original_url: url) }
+  let(:object) { OpenStruct.new(watman: name, base_url: url, path: '') }
 
   subject { described_class.new(object) }
 

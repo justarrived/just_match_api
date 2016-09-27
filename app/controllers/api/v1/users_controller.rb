@@ -58,7 +58,7 @@ module Api
       param :data, Hash, desc: 'Top level key', required: true do
         param :attributes, Hash, desc: 'User attributes', required: true do
           # rubocop:disable Metrics/LineLength
-          param :'skill-ids', Array, of: Integer, desc: 'List of skill ids'
+          param :'skill-ids', Array, of: 'Skill IDs', desc: 'List of skill ids'
           param :'first-name', String, desc: 'First name', required: true
           param :'last-name', String, desc: 'Last name', required: true
           param :description, String, desc: 'Description'
@@ -70,14 +70,14 @@ module Api
           param :street, String, desc: 'Street'
           param :zip, String, desc: 'Zip code'
           param :ssn, String, desc: 'Social Security Number (10 characters)', required: true
-          param :'ignored-notifications', Array, desc: "List of ignored notifications, any of #{User::NOTIFICATIONS.to_sentence}"
+          param :'ignored-notifications', Array, of: 'ignored notifications', desc: "List of ignored notifications. Any of: #{User::NOTIFICATIONS.map { |n| "`#{n}`" }.join(', ')}"
           param :'company-id', Integer, desc: 'Company id for user'
           param :'language-id', Integer, desc: 'Primary language id for user', required: true
           param :'language-ids', Array, of: Hash, desc: 'Languages that the user knows', required: true do
             param :id, Integer, desc: 'Language id', required: true
             param :proficiency, UserLanguage::PROFICIENCY_RANGE.to_a, desc: 'Language proficiency'
           end
-          param :'user-image-one-time-token', String, desc: 'User image one time token'
+          param :'user-image-one-time-tokens', Array, of: 'UserImage one time tokens', desc: 'User image one time tokens'
           param :'current-status', User::STATUSES.keys, desc: 'Current status'
           param :'at-und', User::AT_UND.keys, desc: 'AT-UND status'
           param :'arrived-at', String, desc: 'Arrived at date'
@@ -88,6 +88,7 @@ module Api
       example Doxxer.read_example(User, method: :create)
       def create
         @user = User.new(user_params)
+        @user.email = @user.email.try(:strip)
 
         authorize(@user)
 
@@ -95,7 +96,17 @@ module Api
           login_user(@user)
 
           @user.skills = Skill.where(id: user_params[:skill_ids])
-          @user.profile_image_token = jsonapi_params[:user_image_one_time_token]
+
+          image_tokens = jsonapi_params[:user_image_one_time_tokens]
+
+          deprecated_param_value = jsonapi_params[:user_image_one_time_token]
+          if deprecated_param_value.blank?
+            @user.set_images_by_tokens = image_tokens unless image_tokens.blank?
+          else
+            message = 'The param "user_image_one_time_token" has been deprecated please use "user_image_one_time_tokens" instead' # rubocop:disable Metrics/LineLength
+            ActiveSupport::Deprecation.warn(message)
+            @user.profile_image_token = deprecated_param_value
+          end
 
           user_languages_params = normalize_language_ids(jsonapi_params[:language_ids])
           @user.user_languages = user_languages_params.map do |attrs|
@@ -132,7 +143,7 @@ module Api
           param :street, String, desc: 'Street'
           param :zip, String, desc: 'Zip code'
           param :ssn, String, desc: 'Social Security Number (10 characters)'
-          param :'ignored-notifications', Array, desc: "List of ignored notifications, any of #{User::NOTIFICATIONS.to_sentence}"
+          param :'ignored-notifications', Array, of: 'ignored notifications', desc: "List of ignored notifications. Any of: #{User::NOTIFICATIONS.map { |n| "`#{n}`" }.join(', ')}"
           param :'language-id', Integer, desc: 'Primary language id for user'
           param :'company-id', Integer, desc: 'Company id for user'
           param :'user-image-one-time-token', String, desc: 'User image one time token'

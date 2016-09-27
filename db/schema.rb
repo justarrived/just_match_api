@@ -11,16 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160716163111) do
+ActiveRecord::Schema.define(version: 20160923075450) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "ar_internal_metadata", primary_key: "key", force: :cascade do |t|
-    t.string   "value"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
 
   create_table "blazer_audits", force: :cascade do |t|
     t.integer  "user_id"
@@ -162,6 +156,17 @@ ActiveRecord::Schema.define(version: 20160716163111) do
 
   add_index "faqs", ["language_id"], name: "index_faqs_on_language_id", using: :btree
 
+  create_table "frilans_finans_api_logs", force: :cascade do |t|
+    t.integer  "status"
+    t.string   "status_name"
+    t.string   "verb"
+    t.text     "params"
+    t.text     "response_body"
+    t.string   "uri",           limit: 2083
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
   create_table "frilans_finans_invoices", force: :cascade do |t|
     t.integer  "frilans_finans_id"
     t.integer  "job_user_id"
@@ -197,6 +202,23 @@ ActiveRecord::Schema.define(version: 20160716163111) do
   add_index "invoices", ["frilans_finans_invoice_id"], name: "index_invoices_on_frilans_finans_invoice_id", using: :btree
   add_index "invoices", ["job_user_id"], name: "index_invoices_on_job_user_id", using: :btree
   add_index "invoices", ["job_user_id"], name: "index_invoices_on_job_user_id_uniq", unique: true, using: :btree
+
+  create_table "job_requests", force: :cascade do |t|
+    t.string   "company_name"
+    t.string   "contact_string"
+    t.string   "assignment"
+    t.string   "job_scope"
+    t.string   "job_specification"
+    t.string   "language_requirements"
+    t.string   "job_at_date"
+    t.string   "responsible"
+    t.string   "suitable_candidates"
+    t.string   "comment"
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.string   "short_name"
+    t.boolean  "finished",              default: false
+  end
 
   create_table "job_skills", force: :cascade do |t|
     t.integer  "job_id"
@@ -250,6 +272,7 @@ ActiveRecord::Schema.define(version: 20160716163111) do
     t.boolean  "cancelled",         default: false
     t.boolean  "filled",            default: false
     t.string   "short_description"
+    t.boolean  "featured",          default: false
   end
 
   add_index "jobs", ["category_id"], name: "index_jobs_on_category_id", using: :btree
@@ -356,6 +379,7 @@ ActiveRecord::Schema.define(version: 20160716163111) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
+    t.integer  "category"
   end
 
   add_index "user_images", ["user_id"], name: "index_user_images_on_user_id", using: :btree
@@ -419,6 +443,7 @@ ActiveRecord::Schema.define(version: 20160716163111) do
     t.integer  "at_und"
     t.date     "arrived_at"
     t.string   "country_of_origin"
+    t.boolean  "managed",                        default: false
   end
 
   add_index "users", ["company_id"], name: "index_users_on_company_id", using: :btree

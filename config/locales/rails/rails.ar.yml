@@ -2,8 +2,8 @@ ar:
   errors:
     format: "%{attribute}%{message}"
     messages:
-      accepted: يجب أن يكون مقبولاً
-      blank: يجب ذِكره
+      accepted: يجب أن يكون مقبولا
+      blank: لا يمكن أن يكون فارغا
       present: لا يجوز ذكره
       confirmation: غير متطابق
       empty: لا يجب أن يكون فارغاً
@@ -23,7 +23,7 @@ ar:
       restrict_dependent_destroy:
         one: لا يمكن إلغاء الموقع لأن هناك تبعية%{record}
         many: لا يمكن إلغاء المواقع لأن هناك تبعية%{record}
-      taken: يستخدم حالياً
+      taken: مستخدم مسبقا
       too_long:
         zero: أطول من اللّازم (الحد الأقصى هو ولا حرف)
         one: أطول من اللّازم (الحد الأقصى هو حرف واحد)

@@ -39,5 +39,13 @@ module FrilansFinansApi
         'User-Agent' => 'FrilansFinansAPI - Ruby client'
       }
     end
+
+    def mock_httparty_response(code: 200, body: '{}', uri: 'http://example.com')
+      request_struct = Struct.new(:uri)
+      request = request_struct.new(URI(uri))
+
+      response_struct = Struct.new(:code, :body, :request)
+      response_struct.new(code, body, request)
+    end
   end
 end

@@ -23,7 +23,7 @@ RSpec.describe ChatMailer, type: :mailer do
     end
 
     it 'renders the receiver email' do
-      expect(mail.to).to eql([user.email])
+      expect(mail.to).to eql([user.contact_email])
     end
 
     it 'renders the sender email' do

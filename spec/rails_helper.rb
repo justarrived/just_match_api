@@ -38,9 +38,6 @@ RSpec.configure do |config|
   # Before the test suite is run
   config.before(:suite) do
     DocExamplesRunner.run
-    RubocopRunner.run
-    CheckDBIndexesRunner.run
-    CheckDBUniqIndexesRunner.run
 
     begin
       # Since we're using Spring we must reload all factories
@@ -58,6 +55,10 @@ RSpec.configure do |config|
 
   config.after(:suite) do
     FileUtils.rm_rf(Dir["#{Rails.root}/spec/test_files/"])
+
+    RubocopRunner.run
+    CheckDBIndexesRunner.run
+    CheckDBUniqIndexesRunner.run
   end
 
   config.before(:each) do

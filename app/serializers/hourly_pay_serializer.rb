@@ -6,6 +6,8 @@ class HourlyPaySerializer < ApplicationSerializer
   ].freeze
 
   attributes ATTRIBUTES
+
+  link(:self) { api_v1_hourly_pay_url(object) }
 end
 
 # == Schema Information

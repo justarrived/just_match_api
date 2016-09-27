@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
-RSpec.describe Api::V1::Users::ChatsController, type: :controller do
+RSpec.describe Api::V1::Users::UserChatsController, type: :controller do
   let(:user) { FactoryGirl.create(:user) }
   let(:valid_session) do
     allow_any_instance_of(described_class).

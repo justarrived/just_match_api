@@ -19,6 +19,18 @@ RSpec.describe DateSupport do
 
       expect(days_in).to eq(expected)
     end
+
+    context 'if start and end date is the same date' do
+      let(:start) { Date.new(2016, 4, 22) }
+      let(:finish) { start }
+
+      it 'returns the date' do
+        days_in = described_class.days_in(start, finish)
+
+        expected = [start]
+        expect(days_in).to eq(expected)
+      end
+    end
   end
 
   describe '#weekdays_in' do

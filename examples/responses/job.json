@@ -18,7 +18,8 @@
       "verified": false,
       "job-end-date": "2016-02-20 01:01:01 +0100",
       "filled": false,
-      "short-description": "Watman"
+      "short-description": "Watman",
+      "featured": false
     },
     "relationships": {
       "job-users": {
@@ -29,23 +30,44 @@
       "comments": {
         "data": [
 
-        ]
+        ],
+        "links": {
+          "related": "https://api.justarrived.se/api/v1/jobs/1/comments"
+        }
       },
       "owner": {
-        "data": null
+        "data": null,
+        "links": {
+          "self": null
+        }
       },
       "company": {
-        "data": null
+        "data": null,
+        "links": {
+          "self": null
+        }
       },
       "language": {
-        "data": null
+        "data": null,
+        "links": {
+          "self": null
+        }
       },
       "category": {
-        "data": null
+        "data": null,
+        "links": {
+          "self": null
+        }
       },
       "hourly-pay": {
-        "data": null
+        "data": null,
+        "links": {
+          "self": null
+        }
       }
+    },
+    "links": {
+      "self": "https://api.justarrived.se/api/v1/jobs/1"
     }
   }
 }
