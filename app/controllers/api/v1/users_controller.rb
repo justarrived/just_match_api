@@ -94,6 +94,7 @@ module Api
 
         if @user.save
           login_user(@user)
+          analytics.track_user_creation
 
           @user.skills = Skill.where(id: user_params[:skill_ids])
 

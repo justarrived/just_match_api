@@ -199,6 +199,10 @@ module Api
         @_current_user = user
       end
 
+      def analytics
+        @_analytics ||= Analytics.new(current_user)
+      end
+
       def not_logged_in?
         !logged_in?
       end
