@@ -47,8 +47,8 @@ class Analytics
       phone: user.phone,
       first_name: user.first_name,
       last_name: user.last_name,
-      zip: user.zip,
-    }.reject { |key, value| value.blank? }
+      zip: user.zip
+    }.reject { |_key, value| value.blank? }
   end
 
   def track(options)

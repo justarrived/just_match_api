@@ -65,6 +65,7 @@ class FakeAnalytics
     end
 
     private
+
     attr_reader :events
   end
 end

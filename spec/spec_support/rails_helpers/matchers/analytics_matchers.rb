@@ -11,12 +11,12 @@ RSpec::Matchers.define :have_tracked do |event_name|
     'tracked event'
   end
 
-  failure_message do |text|
-    "expected event '#{@event_name}' to be tracked for user '#{@user}' with included properties #{@properties} but was not"
+  failure_message do |_text|
+    "expected event '#{@event_name}' to be tracked for user '#{@user}' with included properties #{@properties} but was not" # rubocop:disable Metrics/LineLength
   end
 
-  failure_message_when_negated do |text|
-    "expected event '#{@event_name}' not to be tracked for user '#{@user}' with included properties #{@properties} but was"
+  failure_message_when_negated do |_text|
+    "expected event '#{@event_name}' not to be tracked for user '#{@user}' with included properties #{@properties} but was" # rubocop:disable Metrics/LineLength
   end
 
   chain(:for_user) { |user| @user = user }
@@ -36,11 +36,11 @@ RSpec::Matchers.define :have_identified do |user|
     'identified user'
   end
 
-  failure_message_for_should do |text|
+  failure_message_for_should do |_text|
     "expected identification of user '#{@user}' with traits #{@traits}, who was not"
   end
 
-  failure_message_for_should_not do |text|
+  failure_message_for_should_not do |_text|
     "expected no identification of user '#{@user}' with traits #{@traits}, who was"
   end
 

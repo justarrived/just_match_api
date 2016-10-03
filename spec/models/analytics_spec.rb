@@ -5,8 +5,9 @@ RSpec.describe Analytics do
     let(:analytics_backend) { described_class.backend }
     let(:fake_analytics) do
       instance = Class.new do
-        def identify(*);end
-        def track(*);end
+        def identify(*); end
+
+        def track(*); end
       end.new
       allow(instance).to receive(:track)
       instance
