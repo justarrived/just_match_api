@@ -48,7 +48,15 @@ Airbrake.configure do |c|
   # Airbrake. By default, all "password" attributes will have their contents
   # replaced.
   # https://github.com/airbrake/airbrake-ruby#blacklist_keys
-  c.blacklist_keys = [/password/i, /one-time-token/i]
+  c.blacklist_keys = [
+    /password/i,
+    /one-time-token/i,
+    /one_time_token/i,
+    /oneTimeToken/i,
+    /auth-token/i,
+    /auth_token/i,
+    /authToken/i
+  ]
 end
 
 # If Airbrake doesn't send any expected exceptions, we suggest to uncomment the

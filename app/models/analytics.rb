@@ -28,11 +28,11 @@ class Analytics
 
   private
 
+  attr_reader :user, :client
+
   def identify
     client.identify(identify_params)
   end
-
-  attr_reader :user, :client
 
   def identify_params
     {

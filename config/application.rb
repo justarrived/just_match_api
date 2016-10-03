@@ -61,6 +61,7 @@ module JustMatch
     config.x.promo_code = ENV['PROMO_CODE']
     config.x.send_sms_notifications = ENV.fetch('SEND_SMS_NOTIFICATIONS', 'true') == 'true'
     config.x.validate_swedish_ssn = true
+    config.x.active_analytics_tracking = ENV['ACTIVE_ANALYTICS_TRACKING'] == 'true'
     # rubocop:enable Metrics/LineLength
 
     config.paperclip_defaults = {
