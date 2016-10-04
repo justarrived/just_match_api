@@ -132,7 +132,7 @@ class User < ApplicationRecord
   end
 
   def self.find_by_auth_token(auth_token)
-    find_token(auth_token).try(:user)
+    find_token(auth_token)&.user
   end
 
   def self.find_by_auth_token!(auth_token)
@@ -212,7 +212,7 @@ class User < ApplicationRecord
   end
 
   def auth_token
-    auth_tokens.last.try(:token)
+    auth_tokens.last&.token
   end
 
   def set_normalized_phone
