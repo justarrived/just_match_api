@@ -35,7 +35,7 @@ class User < ApplicationRecord
   has_many :user_skills
   has_many :skills, through: :user_skills
 
-  has_many :owned_jobs, class_name: 'Job', foreign_key: 'owner_user_id'
+  has_many :owned_jobs, class_name: 'Job', foreign_key: 'owner_user_id', inverse_of: :owned_jobs
 
   has_many :job_users
   has_many :jobs, through: :job_users
