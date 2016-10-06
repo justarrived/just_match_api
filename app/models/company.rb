@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 class Company < ApplicationRecord
   has_many :users
-  has_many :owned_jobs, through: :users
+  has_many :jobs, through: :users
 
   has_many :company_images
 
