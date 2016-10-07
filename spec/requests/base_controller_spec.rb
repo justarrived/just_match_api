@@ -6,7 +6,7 @@ RSpec.describe 'BaseController', type: :request do
     context 'with valid token' do
       let(:token) { FactoryGirl.create(:token) }
       let(:auth_header) do
-        encoded_token =  ActionController::HttpAuthentication::Token.encode_credentials(token.token) # rubocop:disable Metrics/LineLength
+        encoded_token = ActionController::HttpAuthentication::Token.encode_credentials(token.token) # rubocop:disable Metrics/LineLength
         { 'HTTP_AUTHORIZATION' => encoded_token }
       end
 
@@ -25,7 +25,7 @@ RSpec.describe 'BaseController', type: :request do
     context 'with invalid token' do
       let(:token) { FactoryGirl.create(:token) }
       let(:auth_header) do
-        encoded_token =  ActionController::HttpAuthentication::Token.encode_credentials('notavalidtoken') # rubocop:disable Metrics/LineLength
+        encoded_token = ActionController::HttpAuthentication::Token.encode_credentials('notavalidtoken') # rubocop:disable Metrics/LineLength
         { 'HTTP_AUTHORIZATION' => encoded_token }
       end
 
@@ -41,7 +41,7 @@ RSpec.describe 'BaseController', type: :request do
     context 'with expired token' do
       let(:token) { FactoryGirl.create(:expired_token) }
       let(:auth_header) do
-        encoded_token =  ActionController::HttpAuthentication::Token.encode_credentials(token.token) # rubocop:disable Metrics/LineLength
+        encoded_token = ActionController::HttpAuthentication::Token.encode_credentials(token.token) # rubocop:disable Metrics/LineLength
         { 'HTTP_AUTHORIZATION' => encoded_token }
       end
 
