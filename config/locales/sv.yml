@@ -75,6 +75,7 @@ sv:
       unrevertable: kan inte återställa %{field}
   invalid_credentials: Fel referenser.
   record_not_found: Sidan kunde inte hittas.
+  token_expired_error: Din token har upphört att gälla.
   mailer:
     accepted_applicant_withdrawn:
       subject: En accepterad användare för ditt jobb har dragit tillbaka sin ansökan.
