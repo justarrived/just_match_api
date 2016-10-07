@@ -5,7 +5,7 @@ RSpec.describe Company, regressor: true do
   # === Relations ===
 
   it { is_expected.to have_many :users }
-  it { is_expected.to have_many :jobs }
+  it { is_expected.to have_many :owned_jobs }
 
   # === Nested Attributes ===
 

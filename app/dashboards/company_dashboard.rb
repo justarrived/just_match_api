@@ -10,6 +10,7 @@ class CompanyDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     users: Field::HasMany,
+    owned_jobs: Field::HasMany,
     id: Field::Number,
     frilans_finans_id: Field::Number,
     user_frilans_finans_id: Field::Number,
@@ -36,6 +37,7 @@ class CompanyDashboard < Administrate::BaseDashboard
     :frilans_finans_id,
     :name,
     :cin,
+    :owned_jobs,
     :users
   ].freeze
 
