@@ -54,8 +54,8 @@ RSpec.describe Api::V1::SkillsController, type: :controller do
         expected = {
           'errors' => [{
             'status' => 401,
-            'code' => 'invalid_credentials',
-            'detail' => I18n.t('invalid_credentials')
+            'code' => 'login_required',
+            'detail' => I18n.t('not_logged_in_error')
           }]
         }
         expect(jsonapi_error).to eq(expected)

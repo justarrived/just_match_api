@@ -40,6 +40,10 @@ class Doxxer
     [response, error].flatten(1).compact.join("\n")
   end
 
+  def self.read_example_file(filename)
+    File.read("#{RESPONSE_PATH}/#{filename}.json")
+  end
+
   def self.curl_for(name:, id: nil, auth: false, locale: false, join_with: ' ')
     path = [name, id].compact.join('/')
     curl_opts = []
@@ -52,6 +56,12 @@ class Doxxer
   end
 
   def self.generate_response_examples
+    # Write "global" error response examples
+    [InvalidCredentials, LoginRequired, NotFound, TokenExpired].each do |error_klass|
+      _write_general_response_error(error_klass)
+    end
+
+    # Write models eamples
     RELEVANT_DOC_MODELS.each do |klass|
       _write_response_example!(klass)
       _write_response_error_example!(klass)
@@ -59,6 +69,13 @@ class Doxxer
   end
 
   # private
+
+  def self._write_general_response_error(error_klass)
+    errors = error_klass.add(JsonApiErrors.new)
+    json = JSON.pretty_generate(errors.to_h)
+    filename = error_klass.to_s.underscore
+    File.write("#{RESPONSE_PATH}/#{filename}.json", json)
+  end
 
   def self._response_filename(model_klass, plural: false, error: false)
     model_name = _format_model_name(model_klass, plural: plural)

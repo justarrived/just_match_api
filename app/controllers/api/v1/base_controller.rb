@@ -76,6 +76,25 @@ module Api
 
               #{Doxxer.curl_for(name: 'users', id: 1, auth: true, join_with: " \\
                      ")}
+
+          ## Errors
+
+          ### 401 - Login Required
+
+              #{JSON.parse(Doxxer.read_example_file(:login_required)).to_json}
+
+          ### 401 - Token Expired
+
+              #{JSON.parse(Doxxer.read_example_file(:token_expired)).to_json}
+
+          ### 403 - Invalid Credentials
+
+              #{JSON.parse(Doxxer.read_example_file(:invalid_credentials)).to_json}
+
+          ### 404 - Not Found
+
+              #{JSON.parse(Doxxer.read_example_file(:not_found)).to_json}
+
         DOCDESCRIPTION
         api_base_url '/api/v1'
       end
@@ -87,12 +106,6 @@ module Api
       before_action :set_locale
 
       ALLOWED_INCLUDES = [].freeze
-
-      # JSONAPI error codes
-      TOKEN_EXPIRED_CODE = :token_expired
-      LOGIN_REQUIRED_CODE = :login_required
-      INVALID_CREDENTIALS_CODE = :invalid_credentials
-      NOT_FOUND_CODE = :not_found
 
       # Needed for #authenticate_with_http_token
       include ActionController::HttpAuthentication::Token::ControllerMethods
@@ -130,14 +143,8 @@ module Api
         return if promo_code.nil? || promo_code == {} # Rails config can return nil & {}
         return if promo_code == api_promo_code_header
 
-        errors = JsonApiErrors.new
         status = 401 # unauthorized
-        errors.add(
-          status: 401,
-          code: INVALID_CREDENTIALS_CODE,
-          detail: I18n.t('invalid_credentials')
-        )
-
+        errors = LoginRequired.add(JsonApiErrors.new)
         render json: errors, status: status
         false # Rails5: Should be updated to use throw
       end
@@ -166,12 +173,7 @@ module Api
       end
 
       def record_not_found
-        errors = JsonApiErrors.new
-        errors.add(
-          status: 404,
-          code: NOT_FOUND_CODE,
-          detail: I18n.t('record_not_found')
-        )
+        errors = NotFound.add(JsonApiErrors.new)
 
         render json: errors, status: :not_found
         false # Rails5: Should be updated to use throw
@@ -179,13 +181,7 @@ module Api
 
       def require_user
         unless logged_in?
-          errors = JsonApiErrors.new
-          errors.add(
-            status: 401,
-            code: LOGIN_REQUIRED_CODE,
-            detail: I18n.t('not_logged_in_error')
-          )
-
+          errors = LoginRequired.add(JsonApiErrors.new)
           render json: errors, status: :unauthorized
         end
         false # Rails5: Should be updated to use throw
@@ -197,10 +193,10 @@ module Api
 
         if logged_in?
           status = 403 # forbidden
-          errors.add(status: status, detail: I18n.t('invalid_credentials'))
+          InvalidCredentials.add(errors)
         else
           status = 401 # unauthorized
-          errors.add(status: 401, detail: I18n.t('not_logged_in_error'))
+          LoginRequired.add(errors)
         end
 
         render json: errors, status: status
@@ -208,15 +204,9 @@ module Api
       end
 
       def expired_token
-        errors = JsonApiErrors.new
+        errors = TokenExpired.add(JsonApiErrors.new)
 
         status = 401 # unauthorized
-        errors.add(
-          status: 401,
-          detail: I18n.t('token_expired_error'),
-          code: TOKEN_EXPIRED_CODE
-        )
-
         render json: errors.to_json, status: status
         false # Rails5: Should be updated to use throw
       end
