@@ -4,7 +4,7 @@ require 'json_api_helpers/action_dispatch_request_wrapper'
 module JsonApiHelpers
   module Serializers
     class Model
-      attr_reader :serializer, :included, :fields, :current_user, :model_scope, :meta, :request # rubocop:disable Metrics/LineLength
+      attr_reader :serializer, :included, :fields, :current_user, :model_scope, :meta, :request, :key_transform # rubocop:disable Metrics/LineLength
 
       def self.serialize(*args)
         new(*args).serialize
@@ -12,12 +12,13 @@ module JsonApiHelpers
 
       # private
 
-      def initialize(model_scope, included: [], fields: {}, current_user: nil, meta: {}, request: nil) # rubocop:disable Metrics/LineLength
+      def initialize(model_scope, key_transform: :dash, included: [], fields: {}, current_user: nil, meta: {}, request: nil) # rubocop:disable Metrics/LineLength
         @model_scope = model_scope
         @included = included
         @fields = fields
         @meta = meta
         @current_user = current_user
+        @key_transform = key_transform
         # NOTE: ActiveModel::Serializer#serializer_for is from active_model_serializers
         @serializer = ActiveModel::Serializer.serializer_for(model_scope)
         @request = ActionDispatchRequestWrapper.new(request)
@@ -37,6 +38,7 @@ module JsonApiHelpers
         # NOTE: ActiveModelSerializers::Adapter#create is from active_model_serializers
         ActiveModelSerializers::Adapter.create(
           serializer_instance,
+          key_transform: key_transform,
           include: included,
           fields: fields,
           meta: meta,

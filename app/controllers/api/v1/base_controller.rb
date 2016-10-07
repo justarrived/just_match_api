@@ -147,6 +147,7 @@ module Api
 
         serialized_model = JsonApiSerializer.serialize(
           model_or_model_array,
+          key_transform: key_transform_header,
           included: included_resources,
           fields: fields_params.to_h,
           current_user: current_user,
@@ -226,6 +227,14 @@ module Api
 
       def api_promo_code_header
         request.headers['X-API-PROMO-CODE']
+      end
+
+      def key_transform_header
+        case request.headers['X-API-KEY-TRANSFORM']
+        when 'underscore' then :underscore
+        else
+          'dash'
+        end
       end
 
       private
