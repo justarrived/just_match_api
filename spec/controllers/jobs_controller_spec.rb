@@ -51,7 +51,7 @@ RSpec.describe Api::V1::JobsController, type: :controller do
     user = FactoryGirl.create(:user)
     allow_any_instance_of(described_class).
       to(receive(:current_user).
-      and_return(nil))
+      and_return(User.new))
     { token: user.auth_token }
   end
 

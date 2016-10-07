@@ -84,6 +84,7 @@ module Api
 
       before_action :authenticate_user_token!
       before_action :require_promo_code
+      before_action :set_locale
 
       ALLOWED_INCLUDES = [].freeze
 
@@ -92,8 +93,6 @@ module Api
 
       # Needed for #authenticate_with_http_token
       include ActionController::HttpAuthentication::Token::ControllerMethods
-
-      before_action :set_locale
 
       after_action :verify_authorized
 

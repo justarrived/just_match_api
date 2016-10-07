@@ -103,7 +103,7 @@ RSpec.describe Api::V1::Users::UserSkillsController, type: :controller do
       it 'returns not authorized status' do
         allow_any_instance_of(described_class).
           to(receive(:current_user).
-          and_return(nil))
+          and_return(User.new))
         user = FactoryGirl.create(:user)
         post :create, { user_id: user.to_param, skill: {} }, {}
         expect(response.status).to eq(401)
