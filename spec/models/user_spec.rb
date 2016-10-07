@@ -568,7 +568,7 @@ RSpec.describe User, type: :model do
       end
     end
 
-    context 'valid token' do
+    context 'expired token' do
       it 'returns nil' do
         token = FactoryGirl.create(:expired_token)
 

@@ -2,6 +2,24 @@
 require 'rails_helper'
 
 RSpec.describe Token, type: :model do
+  describe '#expired?' do
+    context 'valid token' do
+      let(:token) { FactoryGirl.create(:token) }
+
+      it 'returns false' do
+        expect(token.expired?).to eq(false)
+      end
+    end
+
+    context 'expired token' do
+      let(:token) { FactoryGirl.create(:expired_token) }
+
+      it 'returns true' do
+        expect(token.expired?).to eq(true)
+      end
+    end
+  end
+
   describe '#default_expires_at' do
     it 'sets default expires at if unset' do
       token = described_class.new

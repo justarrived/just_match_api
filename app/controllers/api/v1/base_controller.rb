@@ -80,15 +80,15 @@ module Api
         api_base_url '/api/v1'
       end
 
-      # NOTE:
-      # Set the current user directly upon request, otherwise require_promo_code can't
-      # check if the user is logged in and allow those users to continue without the
-      # promo code, if the promo code is ever to be removed from the code base
-      # the #current_user before action can safely be removed
-      before_action :current_user
+      ExpiredTokenError = Class.new(ArgumentError)
+
+      before_action :authenticate_user_token!
       before_action :require_promo_code
 
       ALLOWED_INCLUDES = [].freeze
+
+      # JSONAPI error codes
+      TOKEN_EXPIRED_CODE = :token_expired
 
       # Needed for #authenticate_with_http_token
       include ActionController::HttpAuthentication::Token::ControllerMethods
@@ -99,6 +99,7 @@ module Api
 
       rescue_from Pundit::NotAuthorizedError, with: :user_forbidden
       rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+      rescue_from ExpiredTokenError, with: :expired_token
 
       def jsonapi_params
         @_deserialized_params ||= JsonApiDeserializer.parse(params)
@@ -192,8 +193,22 @@ module Api
         false # Rails5: Should be updated to use throw
       end
 
+      def expired_token
+        errors = JsonApiErrors.new
+
+        status = 401 # unauthorized
+        errors.add(
+          status: 401,
+          detail: I18n.t('token_expired_error'),
+          code: TOKEN_EXPIRED_CODE
+        )
+
+        render json: errors.to_json, status: status
+        false # Rails5: Should be updated to use throw
+      end
+
       def current_user
-        @_current_user ||= authenticate_user_token! || User.new
+        @_current_user ||= User.new
       end
 
       def login_user(user)
@@ -240,8 +255,15 @@ module Api
       private
 
       def authenticate_user_token!
-        authenticate_with_http_token do |token, _options|
-          return User.includes(:language).find_by_auth_token(token)
+        authenticate_with_http_token do |auth_token, _options|
+          token = Token.includes(:user).find_by(token: auth_token)
+          return if token.nil?
+
+          if token.expired?
+            raise ExpiredTokenError
+          else
+            return @_current_user = token.user
+          end
         end
       end
     end
