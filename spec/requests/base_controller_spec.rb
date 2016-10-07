@@ -54,7 +54,7 @@ RSpec.describe 'BaseController', type: :request do
         errors = parsed_body.dig('errors').first
         expect(errors['status']).to eq(401)
         expect(errors['detail']).to eq(I18n.t('token_expired_error'))
-        expect(errors['code']).to eq(Api::V1::BaseController::TOKEN_EXPIRED_CODE.to_s)
+        expect(errors['code']).to eq('token_expired')
       end
     end
   end
