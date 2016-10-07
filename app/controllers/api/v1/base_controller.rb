@@ -258,7 +258,7 @@ module Api
           token = Token.includes(:user).find_by(token: auth_token)
           return if token.nil?
           return raise ExpiredTokenError if token.expired?
-          return @_current_user = token.user
+          return login_user(token.user)
         end
       end
     end
