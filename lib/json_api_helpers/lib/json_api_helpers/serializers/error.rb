@@ -10,7 +10,8 @@ module JsonApiHelpers
       end
 
       def to_h
-        response = { status: @status, code: @code, detail: @detail }
+        response = { status: @status, detail: @detail }
+        response.merge!(code: @code) unless @code.nil?
         response.merge!(@pointer)
       end
 

@@ -33,7 +33,7 @@ RSpec.describe Api::V1::SkillsController, type: :controller do
     it 'lets the request pass if the user is logged in' do
       user = FactoryGirl.create(:user)
       allow_any_instance_of(described_class).
-        to(receive(:authenticate_user_token!).
+        to(receive(:current_user).
         and_return(user))
 
       get :index, {}, {}
