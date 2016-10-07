@@ -54,6 +54,7 @@ RSpec.describe Api::V1::SkillsController, type: :controller do
         expected = {
           'errors' => [{
             'status' => 401,
+            'code' => 'invalid_credentials',
             'detail' => I18n.t('invalid_credentials')
           }]
         }
@@ -71,6 +72,7 @@ RSpec.describe Api::V1::SkillsController, type: :controller do
       expected = {
         'errors' => [{
           'status' => 404,
+          'code' => 'not_found',
           'detail' => I18n.t('record_not_found')
         }]
       }

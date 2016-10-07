@@ -90,6 +90,9 @@ module Api
 
       # JSONAPI error codes
       TOKEN_EXPIRED_CODE = :token_expired
+      LOGIN_REQUIRED_CODE = :login_required
+      INVALID_CREDENTIALS_CODE = :invalid_credentials
+      NOT_FOUND_CODE = :not_found
 
       # Needed for #authenticate_with_http_token
       include ActionController::HttpAuthentication::Token::ControllerMethods
@@ -129,7 +132,11 @@ module Api
 
         errors = JsonApiErrors.new
         status = 401 # unauthorized
-        errors.add(status: 401, detail: I18n.t('invalid_credentials'))
+        errors.add(
+          status: 401,
+          code: INVALID_CREDENTIALS_CODE,
+          detail: I18n.t('invalid_credentials')
+        )
 
         render json: errors, status: status
         false # Rails5: Should be updated to use throw
@@ -160,7 +167,11 @@ module Api
 
       def record_not_found
         errors = JsonApiErrors.new
-        errors.add(status: 404, detail: I18n.t('record_not_found'))
+        errors.add(
+          status: 404,
+          code: NOT_FOUND_CODE,
+          detail: I18n.t('record_not_found')
+        )
 
         render json: errors, status: :not_found
         false # Rails5: Should be updated to use throw
@@ -169,7 +180,11 @@ module Api
       def require_user
         unless logged_in?
           errors = JsonApiErrors.new
-          errors.add(status: 401, detail: I18n.t('not_logged_in_error'))
+          errors.add(
+            status: 401,
+            code: LOGIN_REQUIRED_CODE,
+            detail: I18n.t('not_logged_in_error')
+          )
 
           render json: errors, status: :unauthorized
         end
