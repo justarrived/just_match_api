@@ -5,22 +5,22 @@
       "type": "jobs",
       "attributes": {
         "description": "Typewriter hashtag ennui brunch post-ironic food truck vinegar.",
-        "job-date": "2016-02-18 01:01:01 +0100",
+        "job_date": "2016-02-18 01:01:01 +0100",
         "hours": 30.0,
         "name": "A job",
-        "created-at": "2016-02-10 01:01:01 +0100",
-        "updated-at": "2016-02-12 01:01:01 +0100",
+        "created_at": "2016-02-10 01:01:01 +0100",
+        "updated_at": "2016-02-12 01:01:01 +0100",
         "zip": "223 52",
-        "zip-latitude": 59.7117339,
-        "zip-longitude": 18.4256286,
+        "zip_latitude": 59.7117339,
+        "zip_longitude": 18.4256286,
         "verified": false,
-        "job-end-date": "2016-02-20 01:01:01 +0100",
+        "job_end_date": "2016-02-20 01:01:01 +0100",
         "filled": false,
-        "short-description": "Watman",
+        "short_description": "Watman",
         "featured": false
       },
       "relationships": {
-        "job-users": {
+        "job_users": {
           "data": [
 
           ]
@@ -49,7 +49,7 @@
             "self": null
           }
         },
-        "hourly-pay": {
+        "hourly_pay": {
           "data": null,
           "links": {
             "self": null
