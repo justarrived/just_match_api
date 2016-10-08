@@ -121,6 +121,8 @@ There are a few convenience commands
 * `script/test` - runs tests
 * `script/console` - opens a console
 * `script/docs` - generate docs
+* `script/pull-translations` - pull translation from Transifex
+* `script/push-translations` - push translation to Transifex
 
 ## Contributing
 
