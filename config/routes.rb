@@ -60,6 +60,11 @@ Rails.application.routes.draw do
               resources :performed, only: [:create]
             end
           end
+          resources :calendar, module: :jobs, path: :calendar do
+            collection do
+              get :google
+            end
+          end
           resources :ratings, module: :jobs, path: :ratings, only: [:create]
         end
       end
