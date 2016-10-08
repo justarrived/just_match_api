@@ -12,7 +12,7 @@ module JsonApiHelpers
 
       # private
 
-      def initialize(model_scope, key_transform: :dash, included: [], fields: {}, current_user: nil, meta: {}, request: nil) # rubocop:disable Metrics/LineLength
+      def initialize(model_scope, included: [], fields: {}, current_user: nil, meta: {}, request: nil, key_transform: JsonApiHelpers.default_key_transform) # rubocop:disable Metrics/LineLength
         @model_scope = model_scope
         @included = included
         @fields = fields
