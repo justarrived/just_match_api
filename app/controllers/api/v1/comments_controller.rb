@@ -48,9 +48,9 @@ module Api
         param :attributes, Hash, desc: 'Comment attributes', required: true do
           param :body, String, desc: 'Body of the comment', required: true
           # rubocop:disable Metrics/LineLength
-          param :'language-id', Integer, desc: 'Language id of the body content', required: true
-          param :'commentable-id', Integer, desc: 'Id of the owner resource', required: true
-          param :'commentable-type', String, desc: 'Owner resource type, i.e "jobs"', required: true
+          param :language_id, Integer, desc: 'Language id of the body content', required: true
+          param :commentable_id, Integer, desc: 'Id of the owner resource', required: true
+          param :commentable_type, String, desc: 'Owner resource type, i.e "jobs"', required: true
           # rubocop:enable Metrics/LineLength
         end
       end
@@ -73,7 +73,7 @@ module Api
       param :data, Hash, desc: 'Top level key', required: true do
         param :attributes, Hash, desc: 'Comment attributes', required: true do
           param :body, String, desc: 'Body of the comment'
-          param :'language-id', Integer, desc: 'Language id of the body content'
+          param :language_id, Integer, desc: 'Language id of the body content'
         end
       end
       example Doxxer.read_example(Comment)

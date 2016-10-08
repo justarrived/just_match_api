@@ -3,37 +3,37 @@
     "id": "1",
     "type": "users",
     "attributes": {
-      "first-name": "Jane",
+      "first_name": "Jane",
       "description": "Watman Watman ",
-      "job-experience": null,
+      "job_experience": null,
       "education": null,
-      "language-id": null,
+      "language_id": null,
       "zip": "223 52",
-      "zip-latitude": null,
-      "zip-longitude": null,
-      "competence-text": null,
-      "primary-role": "candidate",
+      "zip_latitude": null,
+      "zip_longitude": null,
+      "competence_text": null,
+      "primary_role": "candidate",
       "phone": "+46735000001",
       "street": "Bankgatan 14C",
       "latitude": null,
       "longitude": null,
       "email": "person1@example.com",
-      "last-name": "Doe",
-      "created-at": "2016-02-10 01:01:01 +0100",
-      "updated-at": "2016-02-12 01:01:01 +0100",
+      "last_name": "Doe",
+      "created_at": "2016-02-10 01:01:01 +0100",
+      "updated_at": "2016-02-12 01:01:01 +0100",
       "admin": false,
       "anonymized": false,
-      "ignored-notifications": [
+      "ignored_notifications": [
         "user_job_match",
         "new_chat_message"
       ],
-      "frilans-finans-payment-details": false,
+      "frilans_finans_payment_details": false,
       "ssn": "8901010000",
-      "current-status": "asylum_seeker",
-      "at-und": "yes",
-      "arrived-at": "2015-03-11",
-      "country-of-origin": "SE",
-      "auth-token": null
+      "current_status": "asylum_seeker",
+      "at_und": "yes",
+      "arrived_at": "2015-03-11",
+      "country_of_origin": "SE",
+      "auth_token": null
     },
     "relationships": {
       "company": {
@@ -48,7 +48,7 @@
           "self": null
         }
       },
-      "user-images": {
+      "user_images": {
         "data": [
 
         ]

@@ -58,30 +58,30 @@ module Api
       param :data, Hash, desc: 'Top level key', required: true do
         param :attributes, Hash, desc: 'User attributes', required: true do
           # rubocop:disable Metrics/LineLength
-          param :'skill-ids', Array, of: 'Skill IDs', desc: 'List of skill ids'
-          param :'first-name', String, desc: 'First name', required: true
-          param :'last-name', String, desc: 'Last name', required: true
+          param :skill_ids, Array, of: 'Skill IDs', desc: 'List of skill ids'
+          param :first_name, String, desc: 'First name', required: true
+          param :last_name, String, desc: 'Last name', required: true
           param :description, String, desc: 'Description'
-          param :'job-experience', String, desc: 'Job experience'
+          param :job_experience, String, desc: 'Job experience'
           param :education, String, desc: 'Education'
-          param :'competence-text', String, desc: 'Competences'
+          param :competence_text, String, desc: 'Competences'
           param :email, String, desc: 'Email', required: true
           param :phone, String, desc: 'Phone', required: true
           param :street, String, desc: 'Street'
           param :zip, String, desc: 'Zip code'
           param :ssn, String, desc: 'Social Security Number (10 characters)', required: true
-          param :'ignored-notifications', Array, of: 'ignored notifications', desc: "List of ignored notifications. Any of: #{User::NOTIFICATIONS.map { |n| "`#{n}`" }.join(', ')}"
-          param :'company-id', Integer, desc: 'Company id for user'
-          param :'language-id', Integer, desc: 'Primary language id for user', required: true
-          param :'language-ids', Array, of: Hash, desc: 'Languages that the user knows', required: true do
+          param :ignored_notifications, Array, of: 'ignored notifications', desc: "List of ignored notifications. Any of: #{User::NOTIFICATIONS.map { |n| "`#{n}`" }.join(', ')}"
+          param :company_id, Integer, desc: 'Company id for user'
+          param :language_id, Integer, desc: 'Primary language id for user', required: true
+          param :language_ids, Array, of: Hash, desc: 'Languages that the user knows', required: true do
             param :id, Integer, desc: 'Language id', required: true
             param :proficiency, UserLanguage::PROFICIENCY_RANGE.to_a, desc: 'Language proficiency'
           end
-          param :'user-image-one-time-tokens', Array, of: 'UserImage one time tokens', desc: 'User image one time tokens'
-          param :'current-status', User::STATUSES.keys, desc: 'Current status'
-          param :'at-und', User::AT_UND.keys, desc: 'AT-UND status'
-          param :'arrived-at', String, desc: 'Arrived at date'
-          param :'country-of-origin', String, desc: 'Country of origin (alpha-2 code)'
+          param :user_image_one_time_tokens, Array, of: 'UserImage one time tokens', desc: 'User image one time tokens'
+          param :current_status, User::STATUSES.keys, desc: 'Current status'
+          param :at_und, User::AT_UND.keys, desc: 'AT-UND status'
+          param :arrived_at, String, desc: 'Arrived at date'
+          param :country_of_origin, String, desc: 'Country of origin (alpha-2 code)'
           # rubocop:enable Metrics/LineLength
         end
       end
@@ -132,25 +132,25 @@ module Api
       param :data, Hash, desc: 'Top level key', required: true do
         param :attributes, Hash, desc: 'User attributes', required: true do
           # rubocop:disable Metrics/LineLength
-          param :'first-name', String, desc: 'First name'
-          param :'last-name', String, desc: 'Last name'
+          param :first_name, String, desc: 'First name'
+          param :last_name, String, desc: 'Last name'
           param :description, String, desc: 'Description'
-          param :'job-experience', String, desc: 'Job experience'
+          param :job_experience, String, desc: 'Job experience'
           param :education, String, desc: 'Education'
-          param :'competence-text', String, desc: 'Competences'
+          param :competence_text, String, desc: 'Competences'
           param :email, String, desc: 'Email'
           param :phone, String, desc: 'Phone'
           param :street, String, desc: 'Street'
           param :zip, String, desc: 'Zip code'
           param :ssn, String, desc: 'Social Security Number (10 characters)'
-          param :'ignored-notifications', Array, of: 'ignored notifications', desc: "List of ignored notifications. Any of: #{User::NOTIFICATIONS.map { |n| "`#{n}`" }.join(', ')}"
-          param :'language-id', Integer, desc: 'Primary language id for user'
-          param :'company-id', Integer, desc: 'Company id for user'
-          param :'user-image-one-time-token', String, desc: 'User image one time token'
-          param :'current-status', User::STATUSES.keys, desc: 'Current status'
-          param :'at-und', User::AT_UND.keys, desc: 'AT-UND status'
-          param :'arrived-at', String, desc: 'Arrived at date'
-          param :'country-of-origin', String, desc: 'Country of origin'
+          param :ignored_notifications, Array, of: 'ignored notifications', desc: "List of ignored notifications. Any of: #{User::NOTIFICATIONS.map { |n| "`#{n}`" }.join(', ')}"
+          param :language_id, Integer, desc: 'Primary language id for user'
+          param :company_id, Integer, desc: 'Company id for user'
+          param :user_image_one_time_token, String, desc: 'User image one time token'
+          param :current_status, User::STATUSES.keys, desc: 'Current status'
+          param :at_und, User::AT_UND.keys, desc: 'AT-UND status'
+          param :arrived_at, String, desc: 'Arrived at date'
+          param :country_of_origin, String, desc: 'Country of origin'
           # rubocop:enable Metrics/LineLength
         end
       end

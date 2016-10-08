@@ -22,9 +22,9 @@ module Api
         param :data, Hash, desc: 'Top level key', required: true do
           # rubocop:disable Metrics/LineLength
           param :attributes, Hash, desc: 'User session attributes', required: true do
-            param :'email-or-phone', String, desc: 'Email or phone (required unless email given)'
+            param :email_or_phone, String, desc: 'Email or phone (required unless email given)'
             param :password, String, desc: 'Password (required unless one-time-token given)'
-            param :'one-time-token', String, desc: 'One time token (required unless one-time-token given)'
+            param :one_time_token, String, desc: 'One time token (required unless one-time-token given)'
             # rubocop:enable Metrics/LineLength
           end
         end
@@ -86,7 +86,7 @@ module Api
         description 'Sends a magic login link to the user.'
         param :data, Hash, desc: 'Top level key', required: true do
           param :attributes, Hash, desc: 'Magic link attributes', required: true do
-            param :'email-or_phone', String, desc: 'Email or phone', required: true
+            param :email_or_phone, String, desc: 'Email or phone', required: true
           end
         end
         def magic_link

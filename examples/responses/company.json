@@ -13,7 +13,7 @@
       "email": "test@example.com"
     },
     "relationships": {
-      "company-images": {
+      "company_images": {
         "data": [
 
         ]

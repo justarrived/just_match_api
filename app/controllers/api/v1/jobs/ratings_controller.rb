@@ -27,8 +27,8 @@ module Api
           param :attributes, Hash, desc: 'Rating attributes', required: true do
             param :score, Rating::SCORE_RANGE.to_a, desc: 'Rating score', required: true
             param :body, String, desc: 'Comment body', required: true
-            param :'language-id', Integer, desc: 'Language id', required: true
-            param :'user-id', Integer, desc: 'User id (receiver of rating)', required: true # rubocop:disable Metrics/LineLength
+            param :language_id, Integer, desc: 'Language id', required: true
+            param :user_id, Integer, desc: 'User id (receiver of rating)', required: true # rubocop:disable Metrics/LineLength
           end
         end
         example Doxxer.read_example(Rating, method: :create)

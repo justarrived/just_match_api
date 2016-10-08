@@ -3,18 +3,18 @@
     "id": "1",
     "type": "languages",
     "attributes": {
-      "lang-code": "en",
+      "lang_code": "en",
       "direction": null,
-      "system-language": false,
-      "local-name": null,
-      "en-name": null,
-      "sv-name": null,
-      "ar-name": null,
-      "fa-name": null,
-      "fa-af-name": null,
-      "ku-name": null,
-      "ti-name": null,
-      "ps-name": null
+      "system_language": false,
+      "local_name": null,
+      "en_name": null,
+      "sv_name": null,
+      "ar_name": null,
+      "fa_name": null,
+      "fa_af_name": null,
+      "ku_name": null,
+      "ti_name": null,
+      "ps_name": null
     },
     "links": {
       "self": "https://api.justarrived.se/api/v1/languages/1"

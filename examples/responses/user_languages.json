@@ -2,7 +2,7 @@
   "data": [
     {
       "id": "1",
-      "type": "user-languages",
+      "type": "user_languages",
       "attributes": {
         "proficiency": 8
       },
