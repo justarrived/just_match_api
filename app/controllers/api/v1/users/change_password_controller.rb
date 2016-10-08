@@ -34,16 +34,12 @@ module Api
             return render json: wrong_password_error, status: :unprocessable_entity
           end
 
-          if User.valid_password_format?(new_password)
-            @user.generate_one_time_token
-            @user.password = new_password
-            @user.save!
+          success = UpdateUserPasswordService.call(
+            user: @user,
+            new_password: new_password
+          )
 
-            # Destroy all other user sessions
-            @user.auth_tokens.destroy_all
-
-            ChangedPasswordNotifier.call(user: @user)
-
+          if success
             render json: {}
           else
             render json: json_api_password_error, status: :unprocessable_entity

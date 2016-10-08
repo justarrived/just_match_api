@@ -25,11 +25,9 @@ module Api
         error code: 422, desc: 'Unprocessable entity'
         example Doxxer.read_example(JobUser, method: :update)
         def create
-          @job_user.accepted = true
+          @job_user = CreateJobUserAcceptService.call(job_user: @job_user)
 
-          if @job_user.save
-            ApplicantAcceptedNotifier.call(job_user: @job_user, owner: @job.owner)
-
+          if @job_user.valid?
             api_render(@job_user)
           else
             api_render_errors(@job_user)
