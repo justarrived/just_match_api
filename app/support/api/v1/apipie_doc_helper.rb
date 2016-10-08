@@ -8,12 +8,12 @@ module Api
           param 'fields[model_type]', String, 'Require only certain fields (comma separated) [jsonapi.org spec](http://jsonapi.org/format/#fetching-sparse-fieldsets)'
 
           if controller_klass::ALLOWED_INCLUDES.any?
-            include_resources = controller_klass::ALLOWED_INCLUDES.map { |resource| resource.to_s }
+            include_resources = controller_klass::ALLOWED_INCLUDES.map(&:to_s)
             param 'include', String, "Inline resources *#{include_resources.join(', ')}* [jsonapi.org spec](http://jsonapi.org/format/#fetching-includes)"
           end
 
           if index_klass
-            sortable_fields = index_klass::SORTABLE_FIELDS.map { |field| field.to_s }
+            sortable_fields = index_klass::SORTABLE_FIELDS.map(&:to_s)
             if sortable_fields.any?
               param :sort, String, "Sort on *#{sortable_fields.join(', ')}* (comma separated) [jsonapi.org spec](http://jsonapi.org/format/#fetching-sorting)"
             end
