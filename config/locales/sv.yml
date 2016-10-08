@@ -128,7 +128,7 @@ sv:
       subject: Grattis! Du har en fått en ny ansökan.
     magic_login_link:
       subject: Magisk inloggningslänk
-      login_line: För att logga in på JustArrived använd länken %{url}
+      login_line: För att logga in på Just Arrived använd länken %{url}
     new_chat_message:
       view_chat_line: Du kan också läsa meddelandet här %{url}, där kan du också få meddelandet översatt.
       received_from_line: Du har fått ett nytt meddelande från %{name}.
@@ -146,10 +146,8 @@ sv:
     statuses:
       asylum_seeker: Asylsökande
       asylum_seeker_description: Asylsökande
-      permanent: Permanent
-      permanent_description: Permanent
-      residence: Medborgare
-      residence_description: Medborgare
+      permanent_residence: Permanent
+      permanent_residence_description: Permanent
   notifications:
     accepted_applicant_confirmation_overdue: Den accepterade användarens konfirmationsperiod har gått ut
     accepted_applicant_withdrawn: Den accepterade användaren har dragit tillbaka sin ansökan
@@ -163,4 +161,4 @@ sv:
     new_chat_message: Nytt chatt meddelande
   texter:
     magic_login_link:
-      login_line: JustArrived magisk inloggningslänk %{url}
+      login_line: Just Arrived magisk inloggningslänk %{url}
