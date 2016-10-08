@@ -64,6 +64,7 @@ module Api
         private
 
         def set_chat
+          # NOTE: Not very RESTful to set user from current_user
           chats_scope = current_user.chats
           chats_scope = Chat if current_user.admin?
 

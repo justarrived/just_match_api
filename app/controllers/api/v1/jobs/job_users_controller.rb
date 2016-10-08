@@ -76,6 +76,7 @@ module Api
           authorize(JobUser)
 
           @job_user = JobUser.new
+          # NOTE: Not very RESTful to set user from current_user
           @job_user.user = current_user
           @job_user.job = @job
           @job_user.apply_message = jsonapi_params[:apply_message]

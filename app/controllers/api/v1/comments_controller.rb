@@ -57,6 +57,7 @@ module Api
       example Doxxer.read_example(Comment, method: :create)
       def create
         @comment = @commentable.comments.new(comment_params)
+        # NOTE: Not very RESTful to set user from current_user
         @comment.owner_user_id = current_user.id
 
         if @comment.save
@@ -101,6 +102,7 @@ module Api
       private
 
       def user_comment_scope
+        # NOTE: Not very RESTful to set user from current_user
         if current_user.admin?
           Comment.all
         else
