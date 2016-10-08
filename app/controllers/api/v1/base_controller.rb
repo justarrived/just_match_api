@@ -76,29 +76,45 @@ module Api
 
               #{Doxxer.curl_for(name: 'users', id: 1, auth: true, join_with: " \\
                      ")}
+
+          ## Errors
+
+          ### 401 - Login Required
+
+              #{JSON.parse(Doxxer.read_example_file(:login_required)).to_json}
+
+          ### 401 - Token Expired
+
+              #{JSON.parse(Doxxer.read_example_file(:token_expired)).to_json}
+
+          ### 403 - Invalid Credentials
+
+              #{JSON.parse(Doxxer.read_example_file(:invalid_credentials)).to_json}
+
+          ### 404 - Not Found
+
+              #{JSON.parse(Doxxer.read_example_file(:not_found)).to_json}
+
         DOCDESCRIPTION
         api_base_url '/api/v1'
       end
 
-      # NOTE:
-      # Set the current user directly upon request, otherwise require_promo_code can't
-      # check if the user is logged in and allow those users to continue without the
-      # promo code, if the promo code is ever to be removed from the code base
-      # the #current_user before action can safely be removed
-      before_action :current_user
+      ExpiredTokenError = Class.new(ArgumentError)
+
+      before_action :authenticate_user_token!
       before_action :require_promo_code
+      before_action :set_locale
 
       ALLOWED_INCLUDES = [].freeze
 
       # Needed for #authenticate_with_http_token
       include ActionController::HttpAuthentication::Token::ControllerMethods
 
-      before_action :set_locale
-
       after_action :verify_authorized
 
       rescue_from Pundit::NotAuthorizedError, with: :user_forbidden
       rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+      rescue_from ExpiredTokenError, with: :expired_token
 
       def jsonapi_params
         @_deserialized_params ||= JsonApiDeserializer.parse(params)
@@ -127,10 +143,8 @@ module Api
         return if promo_code.nil? || promo_code == {} # Rails config can return nil & {}
         return if promo_code == api_promo_code_header
 
-        errors = JsonApiErrors.new
         status = 401 # unauthorized
-        errors.add(status: 401, detail: I18n.t('invalid_credentials'))
-
+        errors = LoginRequired.add(JsonApiErrors.new)
         render json: errors, status: status
         false # Rails5: Should be updated to use throw
       end
@@ -159,8 +173,7 @@ module Api
       end
 
       def record_not_found
-        errors = JsonApiErrors.new
-        errors.add(status: 404, detail: I18n.t('record_not_found'))
+        errors = NotFound.add(JsonApiErrors.new)
 
         render json: errors, status: :not_found
         false # Rails5: Should be updated to use throw
@@ -168,9 +181,7 @@ module Api
 
       def require_user
         unless logged_in?
-          errors = JsonApiErrors.new
-          errors.add(status: 401, detail: I18n.t('not_logged_in_error'))
-
+          errors = LoginRequired.add(JsonApiErrors.new)
           render json: errors, status: :unauthorized
         end
         false # Rails5: Should be updated to use throw
@@ -182,18 +193,26 @@ module Api
 
         if logged_in?
           status = 403 # forbidden
-          errors.add(status: status, detail: I18n.t('invalid_credentials'))
+          InvalidCredentials.add(errors)
         else
           status = 401 # unauthorized
-          errors.add(status: 401, detail: I18n.t('not_logged_in_error'))
+          LoginRequired.add(errors)
         end
 
         render json: errors, status: status
         false # Rails5: Should be updated to use throw
       end
 
+      def expired_token
+        errors = TokenExpired.add(JsonApiErrors.new)
+
+        status = 401 # unauthorized
+        render json: errors.to_json, status: status
+        false # Rails5: Should be updated to use throw
+      end
+
       def current_user
-        @_current_user ||= authenticate_user_token! || User.new
+        @_current_user ||= User.new
       end
 
       def login_user(user)
@@ -240,8 +259,11 @@ module Api
       private
 
       def authenticate_user_token!
-        authenticate_with_http_token do |token, _options|
-          return User.includes(:language).find_by_auth_token(token)
+        authenticate_with_http_token do |auth_token, _options|
+          token = Token.includes(:user).find_by(token: auth_token)
+          return if token.nil?
+          return raise ExpiredTokenError if token.expired?
+          return login_user(token.user)
         end
       end
     end

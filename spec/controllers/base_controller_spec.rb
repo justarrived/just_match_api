@@ -33,7 +33,7 @@ RSpec.describe Api::V1::SkillsController, type: :controller do
     it 'lets the request pass if the user is logged in' do
       user = FactoryGirl.create(:user)
       allow_any_instance_of(described_class).
-        to(receive(:authenticate_user_token!).
+        to(receive(:current_user).
         and_return(user))
 
       get :index, {}, {}
@@ -54,7 +54,8 @@ RSpec.describe Api::V1::SkillsController, type: :controller do
         expected = {
           'errors' => [{
             'status' => 401,
-            'detail' => I18n.t('invalid_credentials')
+            'code' => 'login_required',
+            'detail' => I18n.t('not_logged_in_error')
           }]
         }
         expect(jsonapi_error).to eq(expected)
@@ -71,6 +72,7 @@ RSpec.describe Api::V1::SkillsController, type: :controller do
       expected = {
         'errors' => [{
           'status' => 404,
+          'code' => 'not_found',
           'detail' => I18n.t('record_not_found')
         }]
       }

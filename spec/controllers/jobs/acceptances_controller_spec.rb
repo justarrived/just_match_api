@@ -7,7 +7,7 @@ RSpec.describe Api::V1::Jobs::AcceptancesController, type: :controller do
   let(:valid_session) do
     user = FactoryGirl.create(:user_with_tokens)
     allow_any_instance_of(described_class).
-      to(receive(:authenticate_user_token!).
+      to(receive(:current_user).
       and_return(user))
     { token: user.auth_token }
   end

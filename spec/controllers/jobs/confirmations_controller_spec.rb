@@ -11,7 +11,7 @@ RSpec.describe Api::V1::Jobs::ConfirmationsController, type: :controller do
     # Set the job_user as the logged in user
     let(:valid_session) do
       allow_any_instance_of(described_class).
-        to(receive(:authenticate_user_token!).
+        to(receive(:current_user).
         and_return(user))
       { token: user.auth_token }
     end

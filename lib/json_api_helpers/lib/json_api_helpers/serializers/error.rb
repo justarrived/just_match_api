@@ -2,14 +2,16 @@
 module JsonApiHelpers
   module Serializers
     class Error
-      def initialize(detail:, status: 422, pointer: nil, attribute: nil)
+      def initialize(detail:, status: 422, code: nil, pointer: nil, attribute: nil)
         @status = status
         @detail = detail
         @pointer = pointer(pointer: pointer, attribute: attribute)
+        @code = code
       end
 
       def to_h
         response = { status: @status, detail: @detail }
+        response[:code] = @code unless @code.nil?
         response.merge!(@pointer)
       end
 

@@ -1,0 +1,9 @@
+{
+  "errors": [
+    {
+      "status": 401,
+      "detail": "Must be logged in.",
+      "code": "login_required"
+    }
+  ]
+}

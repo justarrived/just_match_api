@@ -20,7 +20,7 @@ RSpec.describe Api::V1::Chats::ChatMessagesController, type: :controller do
     user = @chat_user.user
     user.create_auth_token
     allow_any_instance_of(described_class).
-      to(receive(:authenticate_user_token!).
+      to(receive(:current_user).
       and_return(user))
     { token: user.auth_token }
   end
