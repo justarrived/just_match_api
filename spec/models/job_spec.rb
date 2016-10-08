@@ -346,7 +346,7 @@ RSpec.describe Job, type: :model do
       it 'adds error if under allowed hours' do
         start_date = Date.new(2016, 4, 4)
         end_date = Date.new(2016, 4, 18)
-        job_attributes = { job_date: start_date, job_end_date: end_date, hours: 3 }
+        job_attributes = { job_date: start_date, job_end_date: end_date, hours: -3 }
         job = FactoryGirl.build(:job, job_attributes)
 
         job.validate
@@ -368,7 +368,7 @@ RSpec.describe Job, type: :model do
       it 'adds error if under allowed hours' do
         start_date = Date.new(2016, 4, 8)
         end_date = Date.new(2016, 4, 10)
-        job_attributes = { job_date: start_date, job_end_date: end_date, hours: 1 }
+        job_attributes = { job_date: start_date, job_end_date: end_date, hours: -1 }
         job = FactoryGirl.build(:job, job_attributes)
 
         job.validate
