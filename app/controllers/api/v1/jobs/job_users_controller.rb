@@ -68,7 +68,7 @@ module Api
         error code: 422, desc: 'Unprocessable entity'
         param :data, Hash, desc: 'Top level key', required: true do
           param :attributes, Hash, desc: 'Job user attributes', required: true do
-            param :'apply-message', String, desc: 'Apply message'
+            param :apply_message, String, desc: 'Apply message'
           end
         end
         example Doxxer.read_example(JobUser, method: :create)
@@ -97,7 +97,7 @@ module Api
         param :data, Hash, desc: 'Top level key', required: true do
           param :attributes, Hash, desc: 'Job user attributes', required: true do
             param :accepted, [true], desc: '_DEPRECATED_: User accepted for job'
-            param :'will-perform', [true], desc: '_DEPRECATED_: User will perform job'
+            param :will_perform, [true], desc: '_DEPRECATED_: User will perform job'
             param :performed, [true], desc: '_DEPRECATED_: Job has been performed by user'
           end
         end

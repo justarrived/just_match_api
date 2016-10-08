@@ -53,13 +53,13 @@ module Api
           # rubocop:disable Metrics/LineLength
           param :hours, Float, desc: 'Estmiated completion time', required: true
           param :name, String, desc: 'Name', required: true
-          param :'short-description', String, desc: 'Short description'
+          param :short_description, String, desc: 'Short description'
           param :description, String, desc: 'Description', required: true
-          param :'job-date', String, desc: 'Job start date', required: true
-          param :'job-end-date', String, desc: 'Job end date', required: true
-          param :'language-id', Integer, desc: 'Langauge id of the text content', required: true
-          param :'hourly-pay-id', Integer, desc: 'Hourly pay id', required: true
-          param :'skill-ids', Array, of: 'Skill IDs', desc: 'List of skill ids', required: true
+          param :job_date, String, desc: 'Job start date', required: true
+          param :job_end_date, String, desc: 'Job end date', required: true
+          param :language_id, Integer, desc: 'Langauge id of the text content', required: true
+          param :hourly_pay_id, Integer, desc: 'Hourly pay id', required: true
+          param :skill_ids, Array, of: 'Skill IDs', desc: 'List of skill ids', required: true
           # rubocop:enable Metrics/LineLength
         end
       end
@@ -69,6 +69,7 @@ module Api
         authorize(Job)
 
         @job = Job.new(permitted_attributes)
+        # NOTE: Not very RESTful to assume current_user
         @job.owner_user_id = current_user.id
 
         if @job.save
@@ -95,15 +96,15 @@ module Api
       param :data, Hash, desc: 'Top level key', required: true do
         param :attributes, Hash, desc: 'Job attributes', required: true do
           param :name, String, desc: 'Name'
-          param :'short-description', String, desc: 'Short description'
+          param :short_description, String, desc: 'Short description'
           param :description, String, desc: 'Description'
-          param :'job-date', String, desc: 'Job start date'
-          param :'job-end-date', String, desc: 'Job end date'
+          param :job_date, String, desc: 'Job start date'
+          param :job_end_date, String, desc: 'Job end date'
           param :hours, Float, desc: 'Estmiated completion time'
           param :cancelled, [true], desc: 'Cancel the job'
-          param :'language-id', Integer, desc: 'Langauge id of the text content'
-          param :'hourly-pay-id', Integer, desc: 'Hourly pay id'
-          param :'owner-user-id', Integer, desc: 'User id for the job owner'
+          param :language_id, Integer, desc: 'Langauge id of the text content'
+          param :hourly_pay_id, Integer, desc: 'Hourly pay id'
+          param :owner_user_id, Integer, desc: 'User id for the job owner'
         end
       end
       example Doxxer.read_example(Job, method: :update)

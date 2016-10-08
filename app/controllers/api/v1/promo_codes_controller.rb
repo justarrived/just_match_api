@@ -11,7 +11,7 @@ module Api
       error code: 422, desc: 'Unprocessable entity'
       param :data, Hash, desc: 'Top level key', required: true do
         param :attributes, Hash, desc: 'Promo codes attributes', required: true do
-          param :'promo-code', String, desc: 'Promo code', required: true
+          param :promo_code, String, desc: 'Promo code', required: true
         end
       end
       def validate

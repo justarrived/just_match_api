@@ -19,9 +19,9 @@ module Api
       error code: 422, desc: 'Unprocessable entity'
       param :data, Hash, desc: 'Top level key', required: true do
         param :attributes, Hash, desc: 'Terms attributes', required: true do
-          param :'terms-agreement-id', Integer, desc: 'Terms of agreement id', required: true # rubocop:disable Metrics/LineLength
-          param :'user-id', Integer, desc: 'User id', required: true
-          param :'job-id', Integer, desc: 'Job id (required unless the terms agreement is for companies)' # rubocop:disable Metrics/LineLength
+          param :terms_agreement_id, Integer, desc: 'Terms of agreement id', required: true # rubocop:disable Metrics/LineLength
+          param :user_id, Integer, desc: 'User id', required: true
+          param :job_id, Integer, desc: 'Job id (required unless the terms agreement is for companies)' # rubocop:disable Metrics/LineLength
         end
       end
       example Doxxer.read_example(TermsAgreementConsent, method: :create)
