@@ -12,8 +12,7 @@ class User < ApplicationRecord
 
   STATUSES = {
     asylum_seeker: 1,
-    permanent: 2,
-    residence: 3
+    permanent_residence: 2
   }.freeze
 
   AT_UND = {
