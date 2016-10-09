@@ -9,7 +9,7 @@
   {
     "status": 422,
     "source": {
-      "pointer": "/data/attributes/hourly-pay"
+      "pointer": "/data/attributes/hourly_pay"
     },
     "detail": "can't be blank"
   },
@@ -51,14 +51,14 @@
   {
     "status": 422,
     "source": {
-      "pointer": "/data/attributes/job-date"
+      "pointer": "/data/attributes/job_date"
     },
     "detail": "can't be blank"
   },
   {
     "status": 422,
     "source": {
-      "pointer": "/data/attributes/job-end-date"
+      "pointer": "/data/attributes/job_end_date"
     },
     "detail": "can't be blank"
   },
