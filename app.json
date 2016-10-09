@@ -19,6 +19,16 @@
       "value": "api.justarrived.se",
       "required": false
     },
+    "SEGMENT_ANALYTICS_KEY": {
+      "description": "Segment.com Write key (optional)",
+      "value": "",
+      "required": false
+    },
+    "ACTIVE_ANALYTICS_TRACKING": {
+      "description": "Activate analytics tracking",
+      "value": "false",
+      "required": false
+    },
     "MANAGED_EMAIL_USERNAME": {
       "description": "Managed accounts received email username (optional) [support]",
       "value": "",

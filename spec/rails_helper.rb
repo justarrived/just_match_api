@@ -63,5 +63,6 @@ RSpec.configure do |config|
 
   config.before(:each) do
     FakeSMS.messages = []
+    Analytics.backend = FakeAnalytics.new
   end
 end

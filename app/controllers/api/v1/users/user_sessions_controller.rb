@@ -47,7 +47,11 @@ module Api
                  end
 
           if user
+            login_user(user)
+
             return respond_with_banned if user.banned
+
+            analytics.track_user_sign_in
 
             token = user.create_auth_token
             auth_token = token.token

@@ -20,6 +20,8 @@ gem 'frilans_finans_api', path: 'lib/frilans_finans_api'
 # JSON API helpers
 gem 'json_api_helpers', path: 'lib/json_api_helpers'
 
+gem 'analytics-ruby', '~> 2.2', require: 'segment/analytics'
+
 gem 'paperclip', '~> 5.0.0.beta2' # Image handler
 gem 'aws-sdk', '~> 2.6' # Upload images to AWS S3
 

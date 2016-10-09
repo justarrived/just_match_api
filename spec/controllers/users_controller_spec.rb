@@ -3,6 +3,7 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::UsersController, type: :controller do
   let(:lang_proficiency) { 8 }
+  let(:zip) { '211 37' }
   let(:valid_attributes) do
     lang_id = Language.find_or_create_by!(lang_code: 'en').id
     {
@@ -15,10 +16,9 @@ RSpec.describe Api::V1::UsersController, type: :controller do
           phone: '123456789',
           description: 'Some user description',
           language_id: lang_id,
-          # language_ids: [lang_id],
           language_ids: [{ id: lang_id, proficiency: lang_proficiency }],
           street: 'Stora Nygatan 36',
-          zip: '211 37',
+          zip: zip,
           password: (1..8).to_a.join,
           ssn: '8901010101'
         }
@@ -111,6 +111,13 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       it 'returns created status' do
         post :create, valid_attributes, {}
         expect(response.status).to eq(201)
+      end
+
+      it 'sends "Create User" analytics event' do
+        post :create, valid_attributes, {}
+        expect(Analytics.backend).to have_tracked('Create User').
+          for_user(User.last).
+          with_properties(zip: zip)
       end
 
       it 'sends welcome notification' do
