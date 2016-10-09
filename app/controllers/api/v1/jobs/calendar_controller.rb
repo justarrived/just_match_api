@@ -5,13 +5,12 @@ module Api
       class CalendarController < BaseController
         before_action :set_job
 
-        # TODO: Add pundit authorization
-        after_action :verify_authorized, except: [:google]
-
         api :GET, '/jobs/:job_id/calendar/google', 'List users'
         description 'Returns a jobs google calendar.'
         example '# Response'
         def google
+          authorize(@job)
+
           response = JsonApiData.new(
             id: @job.id,
             type: :google_calendar,
@@ -26,8 +25,7 @@ module Api
         private
 
         def set_job
-          # TODO: Wrap; #policy_scope(Job)
-          @job = Job.find(params[:job_id])
+          @job = policy_scope(Job).find(params[:job_id])
         end
       end
     end

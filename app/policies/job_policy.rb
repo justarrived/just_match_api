@@ -29,6 +29,7 @@ class JobPolicy < ApplicationPolicy
   end
 
   alias_method :show?, :index?
+  alias_method :google?, :show?
 
   def create?
     company_user?
