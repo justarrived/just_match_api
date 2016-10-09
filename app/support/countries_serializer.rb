@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class CountriesSerializer
-  def self.serializeble_resource(filter: {})
+  def self.serializeble_resource(key_transform:, filter: {})
     countries_data = []
     ISO3166::Country.translations.each do |country_code, name|
       if filter[:name]
@@ -20,7 +20,8 @@ class CountriesSerializer
       countries_data << JsonApiData.new(
         id: country_code,
         type: :countries,
-        attributes: attributes
+        attributes: attributes,
+        key_transform: key_transform
       )
     end
 

@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe UserStatusesSerializer do
   describe '#serializeble_resource' do
-    subject { described_class.serializeble_resource.to_h }
+    subject { described_class.serializeble_resource(key_transform: :dash).to_h }
 
     it 'returns serialized statues' do
       data = subject[:data].first

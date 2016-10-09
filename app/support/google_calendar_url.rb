@@ -1,5 +1,6 @@
+# frozen_string_literal: true
 class GoogleCalendarUrl
-  BASE_URL = 'https://www.google.com/calendar/render?'
+  BASE_URL = 'https://www.google.com/calendar/render?'.freeze
 
   def self.build(name:, description:, location:, start_date:, end_date:)
     query_params = [

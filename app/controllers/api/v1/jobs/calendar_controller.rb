@@ -17,7 +17,8 @@ module Api
             type: :google_calendar,
             attributes: {
               template_url: @job.google_calendar_template_url
-            }
+            },
+            key_transform: key_transform_header
           )
           render json: response
         end
