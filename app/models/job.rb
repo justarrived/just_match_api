@@ -189,8 +189,8 @@ class Job < ApplicationRecord
       name: name,
       description: description,
       location: [street, zip].join(', '),
-      start_date: job_date,
-      end_date: job_end_date
+      start_time: job_date,
+      end_time: job_end_date
     )
   end
 

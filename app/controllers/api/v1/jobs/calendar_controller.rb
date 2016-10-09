@@ -7,19 +7,25 @@ module Api
 
         api :GET, '/jobs/:job_id/calendar/google', 'List users'
         description 'Returns a jobs google calendar.'
-        example '# Response'
+        # rubocop:disable Metrics/LineLength
+        example '{
+  "data": {
+    "id": 1,
+    "type": "google-calendar",
+    "attributes": {
+      "template-url": "https://www.google.com/calendar/render?action=TEMPLATE&text=Dr.%20Hans%20Olsson&dates=20160628T160756Z/20160628T220000Z&details=Keffiyeh%20fap%20shabby%20chic.%20Bushwick%20organic%20distillery%20poutine%20craft%20beer.%20Chambray%20heirloom%20direct%20trade.&location=Stora%20Nygatan%2012,%2021137&sf=true&output=xml"
+    }
+  }
+}'
+        # rubocop:enable Metrics/LineLength
         def google
           authorize(@job)
 
-          response = JsonApiData.new(
-            id: @job.id,
-            type: :google_calendar,
-            attributes: {
-              template_url: @job.google_calendar_template_url
-            },
+          serialized_data = JobGoogleCalendarSerializer.serializeble_resource(
+            job: @job,
             key_transform: key_transform_header
           )
-          render json: response
+          render json: serialized_data
         end
 
         private

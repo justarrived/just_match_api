@@ -2,11 +2,11 @@
 class GoogleCalendarUrl
   BASE_URL = 'https://www.google.com/calendar/render?'.freeze
 
-  def self.build(name:, description:, location:, start_date:, end_date:)
+  def self.build(name:, description:, location:, start_time:, end_time:)
     query_params = [
       'action=TEMPLATE',
       "text=#{URI.encode(name)}",
-      "dates=#{format_date(start_date)}/#{format_date(end_date)}",
+      "dates=#{format_datetime(start_time)}/#{format_datetime(end_time)}",
       "details=#{URI.encode(description&.truncate(1000))}",
       "location=#{URI.encode(location)}",
       'sf=true',
@@ -16,7 +16,7 @@ class GoogleCalendarUrl
     BASE_URL + query_params
   end
 
-  def self.format_date(date)
+  def self.format_datetime(date)
     date.utc.iso8601.gsub(/\+|-|:|\.\d\d\d/, '')
   end
 end
