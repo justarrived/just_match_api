@@ -148,17 +148,14 @@ RSpec.describe JobUser, type: :model do
   end
 
   it 'validates only one applicant' do
-    job = FactoryGirl.create(:job)
-    user = FactoryGirl.create(:user)
+    accepted_job_user = FactoryGirl.create(:job_user_accepted)
 
-    FactoryGirl.create(:job_user, job: job, accepted: true)
-
-    job_user = FactoryGirl.create(:job_user, user: user, job: job)
+    job_user = FactoryGirl.create(:job_user, job: accepted_job_user.job)
     job_user.validate
 
     err_msg = I18n.t('errors.job_user.multiple_applicants')
     expected = job_user.errors.messages[:multiple_applicants]
-    expect(expected).to eq([err_msg])
+    expect(expected || []).not_to include(err_msg)
   end
 
   describe '#send_will_perform_notice?' do
@@ -293,6 +290,48 @@ RSpec.describe JobUser, type: :model do
       job_user.validate
       err_msg = I18n.t('errors.validators.after_true', field: 'will perform')
       expect(job_user.errors.messages[:performed] || []).not_to include(err_msg)
+    end
+  end
+
+  describe 'validate that only one applicant is accepted' do
+    let(:first_job_user) { FactoryGirl.create(:job_user_accepted) }
+    let(:job_user) do
+      FactoryGirl.build(:job_user, job: first_job_user.job)
+    end
+
+    context 'with no accpeted applicant' do
+      let(:first_job_user) { FactoryGirl.create(:job_user) }
+
+      it 'adds error when value is true and set to false' do
+        job_user.accepted = true
+        job_user.validate
+        err_msg = I18n.t('errors.job_user.multiple_applicants')
+        expect(job_user.errors.messages[:accepted] || []).not_to include(err_msg)
+      end
+    end
+
+    context 'with accepted applicant' do
+      let(:first_job_user) { FactoryGirl.create(:job_user_accepted) }
+
+      it 'adds *no* error when accepted is false' do
+        job_user.accepted = false
+        job_user.validate
+        err_msg = I18n.t('errors.job_user.multiple_applicants')
+        expect(job_user.errors.messages[:accepted] || []).not_to include(err_msg)
+      end
+
+      it 'adds *no* error when accepted user is updated' do
+        first_job_user.validate
+        err_msg = I18n.t('errors.job_user.multiple_applicants')
+        expect(job_user.errors.messages[:accepted] || []).not_to include(err_msg)
+      end
+
+      it 'adds error when value is true and set to false' do
+        job_user.accepted = true
+        job_user.validate
+        err_msg = I18n.t('errors.job_user.multiple_applicants')
+        expect(job_user.errors.messages[:accepted]).to include(err_msg)
+      end
     end
   end
 end
