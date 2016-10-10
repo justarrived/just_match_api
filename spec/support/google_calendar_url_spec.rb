@@ -2,7 +2,7 @@
 require 'spec_helper'
 
 RSpec.describe GoogleCalendarUrl do
-  let(:start_time) { Time.new(2016, 1, 1, 1, 1, 1).utc }
+  let(:start_time) { Time.new(2016, 1, 1, 1, 1, 1, '+01:00') }
   let(:start_time_iso8601) { '20160101T000101Z' }
 
   describe '#build' do
@@ -16,7 +16,7 @@ RSpec.describe GoogleCalendarUrl do
         description: description,
         location: location,
         start_time: start_time,
-        end_time: Time.new(2017, 1, 1, 1, 1, 1).utc
+        end_time: Time.new(2017, 1, 1, 1, 1, 1, '+01:00')
       )
     end
 
