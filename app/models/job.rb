@@ -184,6 +184,16 @@ class Job < ApplicationRecord
     DateSupport.weekdays_in(job_date, job_end_date)
   end
 
+  def google_calendar_template_url
+    GoogleCalendarUrl.build(
+      name: name,
+      description: description,
+      location: [street, zip].join(', '),
+      start_time: job_date,
+      end_time: job_end_date
+    )
+  end
+
   def validate_job_date_in_future
     return unless job_date_changed?
     return if job_date.nil? || job_date > Time.zone.now

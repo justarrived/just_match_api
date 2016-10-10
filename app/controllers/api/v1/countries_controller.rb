@@ -14,12 +14,15 @@ module Api
 
       api :GET, '/countries', 'List countries'
       description 'Returns a list of countries'
-      example "# Example response
-#{JSON.pretty_generate(CountriesSerializer.serializeble_resource.to_h)}"
+      example JSON.pretty_generate(CountriesSerializer.serializeble_resource(key_transform: :underscore).to_h) # rubocop:disable Metrics/LineLength
       def index
         filter = JsonApiFilterParams.build(params[:filter], %i(name), {})
 
-        render json: CountriesSerializer.serializeble_resource(filter: filter)
+        countries = CountriesSerializer.serializeble_resource(
+          filter: filter,
+          key_transform: key_transform_header
+        )
+        render json: countries
       end
     end
   end

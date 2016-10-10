@@ -9,7 +9,7 @@
   {
     "status": 422,
     "source": {
-      "pointer": "/data/attributes/insurance-status"
+      "pointer": "/data/attributes/insurance_status"
     },
     "detail": "can't be blank"
   }

@@ -28,6 +28,10 @@ RSpec.describe JobPolicy do
       expect(subject.show?).to eq(true)
     end
 
+    it '#google? returns true' do
+      expect(subject.google?).to eq(true)
+    end
+
     it '#create? returns false' do
       expect(subject.create?).to eq(false)
     end

@@ -4,17 +4,18 @@ require 'active_support/core_ext/hash/keys'
 module JsonApiHelpers
   module Serializers
     class Data
-      def initialize(id:, type:, attributes: {})
+      def initialize(id:, type:, attributes: {}, key_transform: JsonApiHelpers.default_key_transform) # rubocop:disable Metrics/LineLength
         @id = id
         @type = type
         @attributes = attributes
+        @key_transform = key_transform
       end
 
       def to_h(shallow: false)
         data = {
           id: @id,
-          type: KeyTransform.call(@type.to_s),
-          attributes: KeyTransform.call(@attributes)
+          type: KeyTransform.call(@type.to_s, key_transform: @key_transform),
+          attributes: KeyTransform.call(@attributes, key_transform: @key_transform)
         }
 
         if shallow

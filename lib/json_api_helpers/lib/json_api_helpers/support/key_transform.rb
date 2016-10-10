@@ -7,8 +7,9 @@ module JsonApiHelpers
   module KeyTransform
     module_function
 
-    def call(object)
-      send(JsonApiHelpers.default_key_transform, object)
+    def call(object, key_transform: nil)
+      key_transform ||= JsonApiHelpers.default_key_transform
+      public_send(key_transform, object)
     end
 
     # Transforms values to UpperCamelCase or PascalCase.

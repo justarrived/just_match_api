@@ -60,7 +60,8 @@ module Api
             response = JsonApiData.new(
               id: auth_token,
               type: :token,
-              attributes: attributes
+              attributes: attributes,
+              key_transform: key_transform_header
             )
             render json: response, status: :created
           else
