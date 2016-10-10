@@ -13,7 +13,7 @@ RSpec.describe Api::V1::JobsController, type: :controller do
           language_id: FactoryGirl.create(:language).id,
           hourly_pay_id: FactoryGirl.create(:hourly_pay).id,
           category_id: FactoryGirl.create(:category).id,
-          owner_user_id: FactoryGirl.create(:user).id,
+          owner_user_id: logged_in_user.id,
           street: 'Stora Nygatan 36',
           zip: '211 37',
           job_date: 1.day.from_now,
@@ -31,20 +31,21 @@ RSpec.describe Api::V1::JobsController, type: :controller do
     }
   end
 
+  let(:logged_in_user) { FactoryGirl.create(:user_with_tokens) }
+  let(:logged_in_admin) { FactoryGirl.create(:admin_user) }
+
   let(:valid_session) do
-    user = FactoryGirl.create(:user_with_tokens)
     allow_any_instance_of(described_class).
       to(receive(:current_user).
-      and_return(user))
-    { token: user.auth_token }
+      and_return(logged_in_user))
+    { token: logged_in_user.auth_token }
   end
 
   let(:valid_admin_session) do
-    admin = FactoryGirl.create(:admin_user)
     allow_any_instance_of(described_class).
       to(receive(:current_user).
-      and_return(admin))
-    { token: admin.auth_token }
+      and_return(logged_in_admin))
+    { token: logged_in_admin.auth_token }
   end
 
   let(:invalid_session) do
@@ -97,6 +98,31 @@ RSpec.describe Api::V1::JobsController, type: :controller do
     end
 
     context 'with valid params' do
+      context 'with no owner_user_id set [deprecated]' do
+        let(:attributes) do
+          attributes = valid_attributes.deep_dup
+          attributes[:data][:attributes][:owner_user_id] = nil
+          attributes
+        end
+
+        it 'creates a new Job' do
+          expect do
+            post :create, attributes, valid_session
+          end.to change(Job, :count).by(1)
+        end
+
+        it 'assigns a newly created job as @job' do
+          post :create, attributes, valid_session
+          expect(assigns(:job)).to be_a(Job)
+          expect(assigns(:job)).to be_persisted
+        end
+
+        it 'resturns created status' do
+          post :create, attributes, valid_session
+          expect(response.status).to eq(201)
+        end
+      end
+
       it 'creates a new Job' do
         expect do
           post :create, valid_attributes, valid_session

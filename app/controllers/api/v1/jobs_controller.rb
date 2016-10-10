@@ -60,6 +60,7 @@ module Api
           param :language_id, Integer, desc: 'Langauge id of the text content', required: true
           param :hourly_pay_id, Integer, desc: 'Hourly pay id', required: true
           param :skill_ids, Array, of: 'Skill IDs', desc: 'List of skill ids', required: true
+          param :owner_user_id, Integer, desc: 'Owner user id', required: true
           # rubocop:enable Metrics/LineLength
         end
       end
@@ -69,8 +70,7 @@ module Api
         authorize(Job)
 
         @job = Job.new(permitted_attributes)
-        # NOTE: Not very RESTful to assume current_user
-        @job.owner_user_id = current_user.id
+        @job.owner_user_id = owner_user_id
 
         if @job.save
           @job.skills = Skill.where(id: jsonapi_params[:skill_ids])
@@ -127,6 +127,8 @@ module Api
           notifier_klass = JobCancelledNotifier
         end
 
+        @job.owner_user_id = owner_user_id
+
         if @job.save
           notifier_klass.call(job: @job)
 
@@ -150,6 +152,26 @@ module Api
 
       def set_job
         @job = policy_scope(Job).find(params[:job_id])
+      end
+
+      def owner_user_id
+        user_id = jsonapi_params[:owner_user_id]
+        if user_id.nil?
+          message = [
+            'Please set `owner_user_id`. Not supplying it explicitly it is deprecated.',
+            '(you might want to set `owner_user_id` to the current users id?)'
+          ].join(' ')
+          ActiveSupport::Deprecation.warn(message)
+          user_id = current_user.id
+        end
+
+        if current_user.admin? || user_id.to_i == current_user.id
+          user_id
+        else
+          # NOTE: We should raise forbidden error here since the user is not allowed to
+          #       set this user id
+          nil
+        end
       end
 
       def job_policy
