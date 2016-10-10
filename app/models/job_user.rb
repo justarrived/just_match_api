@@ -21,7 +21,7 @@ class JobUser < ApplicationRecord
   validates :will_perform, unrevertable: true
   validates :performed, unrevertable: true
 
-  validate :validate_single_applicant, on: :update
+  validate :validate_single_accepted_applicant
   validate :validate_applicant_not_owner_of_job
   validate :validate_job_started_before_performed
 
@@ -59,12 +59,14 @@ class JobUser < ApplicationRecord
     end
   end
 
-  def validate_single_applicant
+  def validate_single_accepted_applicant
     accepted_user = self.class.accepted.find_by(job: job).try!(:user)
-    if accepted_user && user != accepted_user
-      message = I18n.t('errors.job_user.multiple_applicants')
-      errors.add(:multiple_applicants, message)
-    end
+    return if accepted_user.nil?
+    return if user == accepted_user
+    return unless accepted
+
+    message = I18n.t('errors.job_user.multiple_applicants')
+    errors.add(:accepted, message)
   end
 
   def accept
