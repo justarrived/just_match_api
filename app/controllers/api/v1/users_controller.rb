@@ -69,7 +69,7 @@ module Api
           param :phone, String, desc: 'Phone', required: true
           param :street, String, desc: 'Street'
           param :zip, String, desc: 'Zip code'
-          param :ssn, String, desc: 'Social Security Number (10 characters)', required: true
+          param :ssn, String, desc: 'Social Security Number (10 characters)'
           param :ignored_notifications, Array, of: 'ignored notifications', desc: "List of ignored notifications. Any of: #{User::NOTIFICATIONS.map { |n| "`#{n}`" }.join(', ')}"
           param :company_id, Integer, desc: 'Company id for user'
           param :language_id, Integer, desc: 'Primary language id for user', required: true
