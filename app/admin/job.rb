@@ -1,5 +1,6 @@
 ActiveAdmin.register Job do
   permit_params do
-    JobPolicy::FULL_ATTRIBUTES
+    relations = [:language_id, :hourly_pay_id, :category_id, :owner_user_id]
+    JobPolicy::FULL_ATTRIBUTES + relations
   end
 end
