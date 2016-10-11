@@ -13,7 +13,7 @@ module Api
         api_versions '1.0'
       end
 
-      ALLOWED_INCLUDES = %w(owner company language category hourly_pay comments).freeze
+      ALLOWED_INCLUDES = %w(owner company company.company_images language category hourly_pay comments).freeze # rubocop:disable Metrics/LineLength
 
       api :GET, '/jobs', 'List jobs'
       description 'Returns a list of jobs.'
