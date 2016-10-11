@@ -1,10 +1,11 @@
+# frozen_string_literal: true
 ActiveAdmin.setup do |config|
   # == Site Title
   #
   # Set the title that is displayed on the main layout
   # for each of the active admin pages.
   #
-  config.site_title = "Just Match"
+  config.site_title = 'Just Match'
 
   # Set the link url for the title. For example, to take
   # users to your main site. Defaults to no link.
@@ -189,7 +190,8 @@ ActiveAdmin.setup do |config|
   # To load a stylesheet:
   #   config.register_stylesheet 'my_stylesheet.css'
   #
-  # You can provide an options hash for more control, which is passed along to stylesheet_link_tag():
+  # You can provide an options hash for more control, which is passed along
+  # to stylesheet_link_tag():
   #   config.register_stylesheet 'my_print_stylesheet.css', media: :print
   #
   # To load a javascript file:
@@ -205,13 +207,14 @@ ActiveAdmin.setup do |config|
 
   # == Menu System
   #
-  # You can add a navigation menu to be used in your application, or configure a provided menu
+  # You can add a navigation menu to be used in your application, or configure a provided
+  # menu
   #
   # To change the default utility navigation to show a link to your website & a logout btn
   #
   #   config.namespace :admin do |admin|
   #     admin.build_menu :utility_navigation do |menu|
-  #       menu.add label: "My Great Website", url: "http://www.mygreatwebsite.com", html_options: { target: :blank }
+  #       menu.add label: "W", url: "http://example.com", html_options: { target: :blank }
   #       admin.add_logout_button_to_menu menu
   #     end
   #   end
@@ -220,7 +223,7 @@ ActiveAdmin.setup do |config|
   #
   #   config.namespace :admin do |admin|
   #     admin.build_menu :default do |menu|
-  #       menu.add label: "My Great Website", url: "http://www.mygreatwebsite.com", html_options: { target: :blank }
+  #       menu.add label: "W", url: "http://example.com", html_options: { target: :blank }
   #     end
   #   end
 

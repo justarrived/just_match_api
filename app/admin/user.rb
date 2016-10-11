@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 ActiveAdmin.register User do
   form do |f|
     f.semantic_errors # shows errors on :base

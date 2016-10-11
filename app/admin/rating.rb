@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 ActiveAdmin.register Rating do
   permit_params do
     [
