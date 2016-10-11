@@ -6,7 +6,9 @@ Sidekiq::Web.use Rack::Auth::Basic do |username, password|
 end
 
 Rails.application.routes.draw do
-  namespace :admin do
+
+  ActiveAdmin.routes(self)
+  namespace :administrate do
     resources :jobs
     resources :job_requests
     resources :invoices
