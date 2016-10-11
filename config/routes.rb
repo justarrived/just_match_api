@@ -7,38 +7,6 @@ end
 
 Rails.application.routes.draw do
   ActiveAdmin.routes(self)
-  namespace :administrate do
-    resources :jobs
-    resources :job_requests
-    resources :invoices
-    resources :frilans_finans_invoices
-    resources :job_users
-    resources :ratings
-    resources :users
-    resources :companies
-    resources :contacts
-    resources :faqs
-    resources :hourly_pays
-    resources :languages
-    resources :terms_agreements
-    resources :terms_agreement_consents
-    resources :comments
-    resources :chats
-    resources :messages
-    resources :user_images
-    resources :company_images
-    resources :categories
-    resources :user_languages
-    resources :chat_users
-    resources :skills
-    resources :job_skills
-    resources :user_skills
-    resources :frilans_finans_terms
-    resources :tokens
-    resources :frilans_finans_api_logs
-
-    root to: 'jobs#index'
-  end
 
   apipie
   get '/', to: redirect('/api_docs')

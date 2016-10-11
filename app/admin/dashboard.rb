@@ -8,7 +8,7 @@ ActiveAdmin.register_page 'Dashboard' do
         panel 'Recent Jobs' do
           ul do
             Job.last(5).map do |job|
-              li link_to(job.name, activeadmin_job_path(job))
+              li link_to(job.name, admin_job_path(job))
             end
           end
         end

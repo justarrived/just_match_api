@@ -11,12 +11,6 @@ class Comment < ApplicationRecord
   validates :language, presence: true
 
   scope :visible, -> { where(hidden: false) }
-
-  # Needed for administrate
-  # see https://github.com/thoughtbot/administrate/issues/354
-  def owner_id
-    owner.try!(:id)
-  end
 end
 # rubocop:disable Metrics/LineLength
 
