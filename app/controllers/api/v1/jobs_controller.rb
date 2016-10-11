@@ -57,6 +57,7 @@ module Api
           param :description, String, desc: 'Description', required: true
           param :job_date, String, desc: 'Job start date', required: true
           param :job_end_date, String, desc: 'Job end date', required: true
+          param :upcoming, [true, false], desc: 'Upcoming job (default false)'
           param :language_id, Integer, desc: 'Langauge id of the text content', required: true
           param :hourly_pay_id, Integer, desc: 'Hourly pay id', required: true
           param :skill_ids, Array, of: 'Skill IDs', desc: 'List of skill ids', required: true
@@ -102,6 +103,7 @@ module Api
           param :job_end_date, String, desc: 'Job end date'
           param :hours, Float, desc: 'Estmiated completion time'
           param :cancelled, [true], desc: 'Cancel the job'
+          param :upcoming, [true, false], desc: 'Upcoming job (default false)'
           param :language_id, Integer, desc: 'Langauge id of the text content'
           param :hourly_pay_id, Integer, desc: 'Hourly pay id'
           param :owner_user_id, Integer, desc: 'User id for the job owner'
