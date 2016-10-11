@@ -258,6 +258,7 @@ end
 #  filled            :boolean          default(FALSE)
 #  short_description :string
 #  featured          :boolean          default(FALSE)
+#  upcoming          :boolean          default(FALSE)
 #
 # Indexes
 #
