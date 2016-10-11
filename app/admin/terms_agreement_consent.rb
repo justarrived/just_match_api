@@ -1,0 +1,2 @@
+ActiveAdmin.register TermsAgreementConsent do
+end
