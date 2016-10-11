@@ -52,6 +52,7 @@ gem 'skylight', '~> 0.10' # Performance monitoring
 gem 'geocoder', '~> 1.4' # Geocode resources
 
 gem 'activeadmin', '~> 1.0.0.pre4' # Admin interface
+gem 'uglifier', '~> 3.0' # Needed for activeadmin assets compilation
 
 gem 'pundit', '~> 1.1' # Authorization policies
 
