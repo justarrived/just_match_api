@@ -27,7 +27,12 @@ class JobSerializer < ApplicationSerializer
   end
 
   has_one :company do
-    link(:self) { api_v1_company_url(object.company) if object.company }
+    # Anonymize the company if the job is upcoming
+    link(:self) do
+      api_v1_company_url(object.company) if object.company && !object.upcoming
+    end
+
+    object.company unless object.upcoming
   end
 
   has_one :language do
@@ -83,6 +88,7 @@ end
 #  filled            :boolean          default(FALSE)
 #  short_description :string
 #  featured          :boolean          default(FALSE)
+#  upcoming          :boolean          default(FALSE)
 #
 # Indexes
 #

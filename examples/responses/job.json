@@ -19,7 +19,8 @@
       "job_end_date": "2016-02-20 01:01:01 +0100",
       "filled": false,
       "short_description": "Watman",
-      "featured": false
+      "featured": false,
+      "upcoming": false
     },
     "relationships": {
       "job_users": {
