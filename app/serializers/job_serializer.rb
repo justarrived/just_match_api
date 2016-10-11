@@ -9,7 +9,7 @@ class JobSerializer < ApplicationSerializer
   has_many :job_users do
     # Only disclose job users to the job owner
     user = scope[:current_user]
-    if user && (user.id == object.owner_id || user.admin)
+    if user && (user.id == object.owner_user_id || user.admin)
       object.job_users
     else
       []
@@ -23,7 +23,7 @@ class JobSerializer < ApplicationSerializer
   end
 
   has_one :owner do
-    link(:self) { api_v1_user_url(object.owner_id) if object.owner_id }
+    link(:self) { api_v1_user_url(object.owner_user_id) if object.owner_user_id }
   end
 
   has_one :company do
