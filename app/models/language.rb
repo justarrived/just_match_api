@@ -8,6 +8,10 @@ class Language < ApplicationRecord
   validates :lang_code, uniqueness: true, presence: true
 
   scope :system_languages, -> { where(system_language: true) }
+
+  def name
+    en_name
+  end
 end
 
 # == Schema Information

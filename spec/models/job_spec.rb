@@ -6,17 +6,6 @@ RSpec.describe Job, type: :model do
     describe '#matches_user'
   end
 
-  describe '#owner_id' do
-    it 'returns nil if no owner' do
-      expect(Job.new.owner_id).to be_nil
-    end
-
-    it 'returns nil if no owner' do
-      job = FactoryGirl.build(:job, owner: mock_model(User, id: 1))
-      expect(job.owner_id).to eq(1)
-    end
-  end
-
   describe '#fill_position' do
     it 'sets filled to true' do
       job = FactoryGirl.build(:job, filled: false)
@@ -54,17 +43,6 @@ RSpec.describe Job, type: :model do
       job.cancelled = false
       result = job.send_cancelled_notice?
       expect(result).to eq(false)
-    end
-  end
-
-  describe '#owner_id=' do
-    it 'can set owner' do
-      user = FactoryGirl.create(:user)
-      other_user = FactoryGirl.create(:user)
-      job = FactoryGirl.build(:job, owner: user)
-      expect(job.owner_id).to eq(user.id)
-      job.owner_id = other_user.id
-      expect(job.owner_id).to eq(other_user.id)
     end
   end
 

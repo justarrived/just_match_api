@@ -117,18 +117,6 @@ class Job < ApplicationRecord
     cancelled_changed? && cancelled
   end
 
-  # Needed for administrate
-  # see https://github.com/thoughtbot/administrate/issues/354
-  def owner_id
-    owner.try!(:id)
-  end
-
-  # Needed for administrate
-  # see https://github.com/thoughtbot/administrate/issues/354
-  def owner_id=(id)
-    self.owner = User.find_by(id: id)
-  end
-
   def owner?(user)
     !owner.nil? && owner == user
   end

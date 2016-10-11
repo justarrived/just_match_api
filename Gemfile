@@ -51,11 +51,7 @@ gem 'skylight', '~> 0.10' # Performance monitoring
 
 gem 'geocoder', '~> 1.4' # Geocode resources
 
-gem 'administrate', '~> 0.2' # Admin dashboard
-gem 'administrate-field-image', '~> 0.0.2' # Administrate image support
-gem 'bourbon' # Fix for administrate gem (they're not listing this dependency in their Gemfile)
-
-gem 'uglifier', '~> 3.0' # Needed administrate assets compilation
+gem 'activeadmin', '~> 1.0.0.pre4' # Admin interface
 
 gem 'pundit', '~> 1.1' # Authorization policies
 

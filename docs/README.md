@@ -66,9 +66,7 @@ The code follows most Rails conventions. If you've worked with Rails before the 
 
 
 * __Admin tools__
-  - Uses the `administrate` gem
-  - Controllers namespaced under `Admin`
-  - Admin dashboards under `app/dashboards`
+  - Uses `activeadmin` gem
   - Admin interface under path `/admin`
   - Admin insights interface under path `/insights`
     + Uses the `blazer` gem

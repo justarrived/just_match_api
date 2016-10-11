@@ -2,17 +2,6 @@
 require 'rails_helper'
 
 RSpec.describe Comment, type: :model do
-  describe '#owner_id' do
-    it 'returns nil if no owner' do
-      expect(Comment.new.owner_id).to eq(nil)
-    end
-
-    it 'returns owner id' do
-      user = FactoryGirl.create(:user)
-      comment = FactoryGirl.build(:comment, owner: user)
-      expect(comment.owner_id).to eq(user.id)
-    end
-  end
 end
 # rubocop:disable Metrics/LineLength
 
