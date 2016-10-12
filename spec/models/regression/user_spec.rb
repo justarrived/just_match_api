@@ -54,7 +54,6 @@ RSpec.describe User, regressor: true do
   it { is_expected.to have_db_index ['email'] }
   it { is_expected.to have_db_index ['language_id'] }
   it { is_expected.to have_db_index ['one_time_token'] }
-  it { is_expected.to have_db_index ['ssn'] }
 
   # === Validations (Length) ===
   it { is_expected.to allow_value(Faker::Lorem.characters(2)).for :first_name }
