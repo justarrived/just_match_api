@@ -3,6 +3,7 @@ ActiveAdmin.register User do
   form do |f|
     f.semantic_errors # shows errors on :base
     f.inputs          # builds an input field for every attribute
+    f.input :password
     f.actions         # adds the 'Submit' and 'Cancel' buttons
   end
 
