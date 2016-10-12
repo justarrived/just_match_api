@@ -15,6 +15,14 @@ module Api
 
           ### Headers
 
+          __Content-Type__
+
+          The correct Content-Type is:
+
+          `Content-Type: application/vnd.api+json`
+
+          Please note that the correct Content-Type isn't standard. See the specification at [jsosnapi.org/format](http://jsonapi.org/format/#content-negotiation-clients).
+
           __Locale__
 
           `X-API-LOCALE: en` is used to specify current locale, valid locales are #{I18n.available_locales.map { |locale| "`#{locale}`" }.join(', ')}
