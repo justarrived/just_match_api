@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161011215710) do
+ActiveRecord::Schema.define(version: 20161012215923) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -473,7 +473,6 @@ ActiveRecord::Schema.define(version: 20161011215710) do
   add_index "users", ["frilans_finans_id"], name: "index_users_on_frilans_finans_id", unique: true, using: :btree
   add_index "users", ["language_id"], name: "index_users_on_language_id", using: :btree
   add_index "users", ["one_time_token"], name: "index_users_on_one_time_token", unique: true, using: :btree
-  add_index "users", ["ssn"], name: "index_users_on_ssn", unique: true, using: :btree
 
   add_foreign_key "blazer_audits", "blazer_queries", column: "query_id", name: "blazer_audits_query_id_fk"
   add_foreign_key "blazer_checks", "blazer_queries", column: "query_id", name: "blazer_checks_query_id_fk"
