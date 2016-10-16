@@ -18,7 +18,7 @@ module FrilansFinans
 
       ssn = user.ssn
       # Company users doesn't need to have ssn set
-      attrs[:user][:social_security_number] = format_ssn(ssn) unless ssn.nil?
+      attrs[:user][:social_security_number] = format_ssn(ssn) unless ssn.blank?
       attrs
     end
 
