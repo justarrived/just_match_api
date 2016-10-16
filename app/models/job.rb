@@ -51,6 +51,8 @@ class Job < ApplicationRecord
   scope :uncancelled, -> { where(cancelled: false) }
   scope :filled, -> { where(filled: true) }
   scope :unfilled, -> { where(filled: false) }
+  scope :upcoming, -> { where(upcoming: true) }
+  scope :featured, -> { where(featured: true) }
   scope :applied_jobs, lambda { |user_id|
     joins(:job_users).where('job_users.user_id = ?', user_id)
   }
