@@ -3,7 +3,14 @@ class UserSerializer < ApplicationSerializer
   # Since the #attributes method is overriden and provides a whitelist of attribute_names
   # that can be returned to the user we can return all User column names here
   EXTRA_ATTRIBUTES = %i(ignored_notifications auth_token primary_role).freeze
-  attributes User.column_names.map(&:to_sym) + EXTRA_ATTRIBUTES
+  attributes [
+    :id, :email, :phone, :description, :created_at, :updated_at, :latitude, :longitude,
+    :language_id, :anonymized, :password_hash, :password_salt, :admin, :street, :zip,
+    :zip_latitude, :zip_longitude, :first_name, :last_name, :ssn, :company_id, :banned,
+    :job_experience, :education, :one_time_token, :one_time_token_expires_at,
+    :ignored_notifications_mask, :frilans_finans_id, :frilans_finans_payment_details,
+    :competence_text, :current_status, :at_und, :arrived_at, :country_of_origin, :managed
+  ] + EXTRA_ATTRIBUTES
 
   link(:self) { api_v1_user_url(object) }
 
