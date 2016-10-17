@@ -23,6 +23,10 @@ class Invoice < ApplicationRecord
     "Invoice ##{id}"
   end
 
+  def activated
+    frilans_finans_invoice.activated
+  end
+
   def validate_job_started
     job = job_user&.job
     return if job.nil? || job.started?
