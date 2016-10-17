@@ -8,7 +8,7 @@ The code follows most Rails conventions. If you've worked with Rails before the 
 
 * __Technology__
   - Ruby 2.3
-  - Ruby on Rails 4.2
+  - Ruby on Rails 5.0
   - PostgreSQL 9.3
   - Redis 3
 
