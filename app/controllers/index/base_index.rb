@@ -47,7 +47,9 @@ module Index
     end
 
     def current_size
-      page_size = SafeDig.dig(params.to_unsafe_h, 'page', 'size')
+      # #to_unsafe_h is needed otherwise query params wont be included
+      full_params = params.to_unsafe_h
+      page_size = SafeDig.dig(full_params, 'page', 'size')
       per_page = (page_size || PER_PAGE).to_i
       [per_page, self.class::MAX_PER_PAGE].min
     end

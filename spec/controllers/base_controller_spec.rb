@@ -54,8 +54,8 @@ RSpec.describe Api::V1::SkillsController, type: :controller do
         expected = {
           'errors' => [{
             'status' => 401,
-            'code' => 'login_required',
-            'detail' => I18n.t('not_logged_in_error')
+            'code' => 'promo_code_or_login_required',
+            'detail' => I18n.t('promo_code_required')
           }]
         }
         expect(jsonapi_error).to eq(expected)
@@ -64,7 +64,7 @@ RSpec.describe Api::V1::SkillsController, type: :controller do
   end
 
   context 'record not found' do
-    let(:non_existing_record) { 56_768 }
+    let(:non_existing_record) { 123_456_768 }
 
     it 'returns JSONAPI errors' do
       get :show, { id: non_existing_record }, {}

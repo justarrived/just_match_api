@@ -68,6 +68,17 @@ RSpec.describe Api::V1::Users::ChangePasswordController, type: :controller do
         }
       end
 
+      let(:invalid_attributes_token) do
+        {
+          data: {
+            attributes: {
+              password: '12345678',
+              one_time_token: nil
+            }
+          }
+        }
+      end
+
       context 'with valid params' do
         it 'returns 200 ok status' do
           post :create, valid_attributes, {}
@@ -92,7 +103,15 @@ RSpec.describe Api::V1::Users::ChangePasswordController, type: :controller do
         end
       end
 
-      context 'with invalid params' do
+      context 'with invalid one_time_token' do
+        it 'returns 404 not found with correct errors body' do
+          post :create, invalid_attributes_token, {}
+          expect(response.status).to eq(404)
+          expect(JSON.parse(response.body)['errors'].first['status']).to eq(404)
+        end
+      end
+
+      context 'with invalid password' do
         it 'returns 422 unprocessable entity status' do
           post :create, invalid_attributes, {}
           expect(response.status).to eq(422)
