@@ -109,8 +109,9 @@ module Api
           end
 
           user_languages_params = normalize_language_ids(jsonapi_params[:language_ids])
-          @user.user_languages = user_languages_params.map do |attrs|
-            UserLanguage.new(
+          user_languages_params.map do |attrs|
+            UserLanguage.create(
+              user: @user,
               language_id: attrs[:id],
               proficiency: attrs[:proficiency]
             )
@@ -216,8 +217,8 @@ module Api
         return [] if language_ids.nil?
 
         language_ids.map do |lang|
-          if lang.is_a?(Hash)
-            lang
+          if lang.is_a?(ActionController::Parameters)
+            lang.permit(:id, :proficiency)
           else
             message = [
               'Passing languages as a list of integers is deprecated.',

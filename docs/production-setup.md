@@ -15,7 +15,7 @@ __Overdue applications__
 Should run at least once an hour, but running more often (every 10 minutes) is recommended.
 
 ```
-rake sweepers:applicant_confirmation_overdue
+rails sweepers:applicant_confirmation_overdue
 ```
 
 updates all job applicants that haven't confirmed job owners acceptance in time.
@@ -25,7 +25,7 @@ __Cleanup__
 Can be run more seldom, however once a day is recommended.
 
 ```
-rake sweepers:cleanup
+rails sweepers:cleanup
 ```
 
 removes orphan and expired data.
@@ -35,7 +35,7 @@ __Frilans Finans__
 Should run at least once an hour, but running more often (every 10 minutes) is recommended.
 
 ```
-rake sweepers:frilans_finans
+rails sweepers:frilans_finans
 ```
 
 syncs relevant data with Frilans Finans.

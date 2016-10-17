@@ -45,7 +45,7 @@ $ script/server
 # You can now open http://localhost:3000
 ```
 
-You can generate some development seed data by running `rake dev:seed`.
+You can generate some development seed data by running `rails dev:seed`.
 
 If you navigate to `http://localhost:3000` you'll find the API documentation.
 
@@ -107,7 +107,7 @@ You can also do it using the command line if you have the Heroku toolbelt instal
 ```
 $ heroku create my-server-name
 $ git push heroku master
-$ heroku run rake db:migrate
+$ heroku run rails db:migrate
 ```
 
 ## Commands

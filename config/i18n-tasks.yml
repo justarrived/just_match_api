@@ -92,6 +92,7 @@ ignore_missing:
 ignore_unused:
 - 'activerecord.attributes.*'
 - 'activerecord.models.*'
+- 'activerecord.errors.*'
 - 'errors.*'
 # - '{devise,kaminari,will_paginate}.*'
 # - 'simple_form.{yes,no}'

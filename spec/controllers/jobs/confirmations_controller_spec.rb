@@ -26,26 +26,26 @@ RSpec.describe Api::V1::Jobs::ConfirmationsController, type: :controller do
     end
 
     it 'can set #will_perform attribute' do
-      post :create, params, valid_session
+      post :create, params: params, headers: valid_session
       job_user.reload
       expect(job_user.will_perform).to eq(true)
     end
 
     it 'fills job position' do
-      post :create, params, valid_session
+      post :create, params: params, headers: valid_session
       expect(assigns(:job).position_filled?).to eq(true)
     end
 
     it 'creates frilans finans invoice' do
       expect do
-        post :create, params, valid_session
+        post :create, params: params, headers: valid_session
       end.to change(FrilansFinansInvoice, :count).by(1)
     end
 
     it 'notifies user when updated Job#will_perform is set to true' do
       notifier_args = { job_user: job_user, owner: owner }
       allow(ApplicantWillPerformNotifier).to receive(:call).with(notifier_args)
-      post :create, params, valid_session
+      post :create, params: params, headers: valid_session
       expect(ApplicantWillPerformNotifier).to have_received(:call)
     end
   end

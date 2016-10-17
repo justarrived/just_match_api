@@ -24,19 +24,19 @@ RSpec.describe Api::V1::ContactsController, type: :controller do
   describe 'POST #create' do
     context 'with valid params' do
       it 'renders 204 status' do
-        post :create, valid_attributes, {}
+        post :create, params: valid_attributes
         expect(response.status).to eq(204)
       end
 
       it 'creates a new Contact' do
         expect do
-          post :create, valid_attributes, {}
+          post :create, params: valid_attributes
         end.to change(Contact, :count).by(1)
       end
 
       it 'sends email' do
         allow(ContactNotifier).to receive(:call)
-        post :create, valid_attributes, {}
+        post :create, params: valid_attributes
         expect(ContactNotifier).to have_received(:call)
       end
     end
@@ -44,12 +44,12 @@ RSpec.describe Api::V1::ContactsController, type: :controller do
     context 'with invalid params' do
       it 'does not create a new Contact' do
         expect do
-          post :create, invalid_attributes, {}
+          post :create, params: invalid_attributes
         end.to change(Contact, :count).by(0)
       end
 
       it 'renders 422 unprocessable entity status' do
-        post :create, invalid_attributes, {}
+        post :create, params: invalid_attributes
         expect(response.status).to eq(422)
       end
     end

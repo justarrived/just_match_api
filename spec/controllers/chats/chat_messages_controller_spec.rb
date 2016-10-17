@@ -35,7 +35,7 @@ RSpec.describe Api::V1::Chats::ChatMessagesController, type: :controller do
       end
 
       it 'assigns all messages as @messages' do
-        get :index, valid_attributes, valid_session
+        get :index, params: valid_attributes, headers: valid_session
         expect(assigns(:messages).first).to be_a(Message)
       end
     end
@@ -56,24 +56,24 @@ RSpec.describe Api::V1::Chats::ChatMessagesController, type: :controller do
 
       it 'creates a new Message' do
         expect do
-          post :create, valid_attributes, valid_session
+          post :create, params: valid_attributes, headers: valid_session
         end.to change(Message, :count).by(1)
       end
 
       it 'assigns chat as @chat' do
-        post :create, valid_attributes, valid_session
+        post :create, params: valid_attributes, headers: valid_session
         expect(assigns(:chat)).to be_a(Chat)
         expect(assigns(:chat)).to be_persisted
       end
 
       it 'assigns a newly created message as @message' do
-        post :create, valid_attributes, valid_session
+        post :create, params: valid_attributes, headers: valid_session
         expect(assigns(:message)).to be_a(Message)
         expect(assigns(:message)).to be_persisted
       end
 
       it 'returns created status' do
-        post :create, valid_attributes, valid_session
+        post :create, params: valid_attributes, headers: valid_session
         expect(response.status).to eq(201)
       end
     end
@@ -85,12 +85,12 @@ RSpec.describe Api::V1::Chats::ChatMessagesController, type: :controller do
       end
 
       it 'assigns message as @message' do
-        post :create, invalid_attributes, valid_session
+        post :create, params: invalid_attributes, headers: valid_session
         expect(assigns(:message)).to be_a(Message)
       end
 
       it 'returns @message errors' do
-        post :create, invalid_attributes, valid_session
+        post :create, params: invalid_attributes, headers: valid_session
         expect(assigns(:message).errors[:body]).to eq(["can't be blank"])
       end
     end

@@ -23,14 +23,14 @@ RSpec.describe Api::V1::Users::RatingsController, type: :controller do
   end
 
   it 'returns user ratings' do
-    get :index, valid_params, valid_session
+    get :index, params: valid_params, headers: valid_session
 
     expect(response.status).to eq(200)
     expect(assigns(:ratings)).to eq([rating])
   end
 
   it 'returns average rating in meta tag' do
-    get :index, valid_params, valid_session
+    get :index, params: valid_params, headers: valid_session
 
     parsed_body = JSON.parse(response.body)
     average_score = parsed_body.dig('meta', 'average-score')

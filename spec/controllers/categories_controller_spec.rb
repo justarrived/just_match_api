@@ -7,7 +7,7 @@ RSpec.describe Api::V1::CategoriesController, type: :controller do
       FactoryGirl.create(:category, insurance_status: :uninsured)
       FactoryGirl.create(:category, insurance_status: :assessment_required)
       category = FactoryGirl.create(:category, insurance_status: :insured)
-      get :index, {}, {}
+      get :index
       expect(assigns(:categories)).to eq([category])
     end
   end
@@ -15,7 +15,7 @@ RSpec.describe Api::V1::CategoriesController, type: :controller do
   describe 'GET #show' do
     it 'returns category' do
       category = FactoryGirl.create(:category, insurance_status: :insured)
-      get :show, { id: category.id }, {}
+      get :show, params: { id: category.id }
       expect(assigns(:category)).to eq(category)
     end
   end

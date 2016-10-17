@@ -28,27 +28,27 @@ RSpec.describe Api::V1::Jobs::InvoicesController, type: :controller do
   describe 'POST #create' do
     context 'with valid params' do
       it 'returns 201 created' do
-        post :create, valid_params, valid_session
+        post :create, params: valid_params, headers: valid_session
         expect(response.status).to eq(201)
       end
 
       it 'creates an Invoice' do
         expect do
-          post :create, valid_params, valid_session
+          post :create, params: valid_params, headers: valid_session
         end.to change(Invoice, :count).by(1)
       end
 
       it 'notifies user' do
         allow(InvoiceCreatedNotifier).to receive(:call).
           with(job: job, user: user)
-        post :create, valid_params, valid_session
+        post :create, params: valid_params, headers: valid_session
         expect(InvoiceCreatedNotifier).to have_received(:call)
       end
 
       context 'already created' do
         it 'returns 422 unprocessable entity' do
           FactoryGirl.create(:invoice, job_user: job_user)
-          post :create, valid_params, valid_session
+          post :create, params: valid_params, headers: valid_session
           expect(response.status).to eq(422)
         end
 
@@ -56,7 +56,7 @@ RSpec.describe Api::V1::Jobs::InvoicesController, type: :controller do
           allow(InvoiceCreatedNotifier).to receive(:call).
             with(job: job, user: user)
           FactoryGirl.create(:invoice, job_user: job_user)
-          post :create, valid_params, valid_session
+          post :create, params: valid_params, headers: valid_session
           expect(InvoiceCreatedNotifier).not_to have_received(:call)
         end
       end
@@ -64,7 +64,7 @@ RSpec.describe Api::V1::Jobs::InvoicesController, type: :controller do
 
     context 'invalid user' do
       it 'returns 401 unauthorized' do
-        post :create, valid_params, {}
+        post :create, params: valid_params
         expect(response.status).to eq(401)
       end
     end

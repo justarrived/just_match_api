@@ -22,7 +22,7 @@ RSpec.describe Api::V1::Jobs::PerformedController, type: :controller do
     }
 
     expect(job_user.performed).to eq(false)
-    post :create, params, valid_session
+    post :create, params: params, headers: valid_session
     job_user.reload
     expect(job_user.performed).to eq(true)
   end
@@ -41,7 +41,7 @@ RSpec.describe Api::V1::Jobs::PerformedController, type: :controller do
 
     notifier_args = { job_user: job_user, owner: job.owner }
     allow(JobUserPerformedNotifier).to receive(:call).with(notifier_args)
-    post :create, params, valid_session
+    post :create, params: params, headers: valid_session
     expect(JobUserPerformedNotifier).to have_received(:call)
   end
 end

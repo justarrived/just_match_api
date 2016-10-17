@@ -117,6 +117,6 @@
   },
   "addons": ["sendgrid:starter", "scheduler:standard", "heroku-redis:hobby-dev", "airbrake:free_heroku"],
   "scripts": {
-    "postdeploy": "bundle exec rake db:migrate db:seed"
+    "postdeploy": "bundle exec rails db:migrate db:seed"
   }
 }

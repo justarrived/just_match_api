@@ -1,4 +1,11 @@
 ku:
+  activerecord:
+    errors:
+      messages:
+        record_invalid: 'Şaşîyek peyda bû: %{errors}'
+        restrict_dependent_destroy:
+          one: Nikarî postê bavêjî dema ku %{record} ya eleqedar hebe
+          many: Nikarî postan bavêjî dema ku %{record} hebe
   errors:
     format: "%{attribute} %{message}"
     messages:
@@ -19,10 +26,6 @@ ku:
       not_a_number: ne hejmar e
       not_an_integer: divê hejmara temam be
       odd: divê kit be
-      record_invalid: 'Şaşîyek peyda bû: %{errors}'
-      restrict_dependent_destroy:
-        one: Nikarî postê bavêjî dema ku %{record} ya eleqedar hebe
-        many: Nikarî postan bavêjî dema ku %{record} hebe
       taken: aniha jî tê bi kar anîn
       too_long:
         one: zêde dirêj e (hedê herî zêde 1 nîşan e)

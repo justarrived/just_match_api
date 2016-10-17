@@ -152,9 +152,8 @@ module Api
         return if promo_code == api_promo_code_header
 
         status = 401 # unauthorized
-        errors = LoginRequired.add(JsonApiErrors.new)
+        errors = PromoCodeOrLoginRequired.add(JsonApiErrors.new)
         render json: errors, status: status
-        false # Rails5: Should be updated to use throw
       end
 
       protected
@@ -184,15 +183,13 @@ module Api
         errors = NotFound.add(JsonApiErrors.new)
 
         render json: errors, status: :not_found
-        false # Rails5: Should be updated to use throw
       end
 
       def require_user
-        unless logged_in?
-          errors = LoginRequired.add(JsonApiErrors.new)
-          render json: errors, status: :unauthorized
-        end
-        false # Rails5: Should be updated to use throw
+        return if logged_in?
+
+        errors = LoginRequired.add(JsonApiErrors.new)
+        render json: errors, status: :unauthorized
       end
 
       def user_forbidden
@@ -208,7 +205,6 @@ module Api
         end
 
         render json: errors, status: status
-        false # Rails5: Should be updated to use throw
       end
 
       def expired_token
@@ -216,7 +212,6 @@ module Api
 
         status = 401 # unauthorized
         render json: errors.to_json, status: status
-        false # Rails5: Should be updated to use throw
       end
 
       def current_user

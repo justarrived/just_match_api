@@ -26,7 +26,7 @@ RSpec.describe Api::V1::Users::UserSkillsController, type: :controller do
         and_return(user))
 
       user_skill = user.user_skills.first
-      get :index, { user_id: user.to_param }, {}
+      get :index, params: { user_id: user.to_param }
       expect(assigns(:user_skills)).to eq([user_skill])
     end
 
@@ -35,7 +35,7 @@ RSpec.describe Api::V1::Users::UserSkillsController, type: :controller do
       allow_any_instance_of(described_class).
         to(receive(:current_user).
         and_return(user))
-      get :index, { user_id: user.to_param }, {}
+      get :index, params: { user_id: user.to_param }
       expect(response.status).to eq(200)
     end
   end
@@ -46,7 +46,7 @@ RSpec.describe Api::V1::Users::UserSkillsController, type: :controller do
       user_skill = user.user_skills.first
       skill = user_skill.skill
       params = { user_id: user.to_param, user_skill_id: user_skill.to_param }
-      get :show, params, valid_session
+      get :show, params: params, headers: valid_session
 
       expect(assigns(:skill)).to eq(skill)
       expect(assigns(:user_skill)).to eq(user_skill)
@@ -68,7 +68,7 @@ RSpec.describe Api::V1::Users::UserSkillsController, type: :controller do
             }
           }
           expect do
-            post :create, params, valid_session
+            post :create, params: params, headers: valid_session
           end.to change(UserSkill, :count).by(1)
         end
 
@@ -80,7 +80,7 @@ RSpec.describe Api::V1::Users::UserSkillsController, type: :controller do
               attributes: { id: skill.to_param }
             }
           }
-          post :create, params, valid_session
+          post :create, params: params, headers: valid_session
           expect(assigns(:user_skill)).to be_a(UserSkill)
           expect(assigns(:user_skill)).to be_persisted
         end
@@ -93,7 +93,7 @@ RSpec.describe Api::V1::Users::UserSkillsController, type: :controller do
               attributes: { id: skill.to_param }
             }
           }
-          post :create, params, valid_session
+          post :create, params: params, headers: valid_session
           expect(response.status).to eq(201)
         end
       end
@@ -105,7 +105,7 @@ RSpec.describe Api::V1::Users::UserSkillsController, type: :controller do
           to(receive(:current_user).
           and_return(User.new))
         user = FactoryGirl.create(:user)
-        post :create, { user_id: user.to_param, skill: {} }, {}
+        post :create, params: { user_id: user.to_param, skill: {} }
         expect(response.status).to eq(401)
       end
     end
@@ -115,12 +115,12 @@ RSpec.describe Api::V1::Users::UserSkillsController, type: :controller do
         let(:user) { User.find_by_auth_token(valid_session[:token]) }
 
         it 'assigns a newly created but unsaved user_skill as @user_skill' do
-          post :create, { user_id: user.to_param, skill: {} }, valid_session
+          post :create, params: { user_id: user.to_param, skill: {} }, headers: valid_session # rubocop:disable Metrics/LineLength
           expect(assigns(:user_skill)).to be_a_new(UserSkill)
         end
 
         it 'returns unprocessable entity status' do
-          post :create, { user_id: user.to_param, skill: {} }, valid_session
+          post :create, params: { user_id: user.to_param, skill: {} }, headers: valid_session # rubocop:disable Metrics/LineLength
           expect(response.status).to eq(422)
         end
       end
@@ -144,14 +144,14 @@ RSpec.describe Api::V1::Users::UserSkillsController, type: :controller do
         user_skill = user.user_skills.first
         expect do
           params = { user_id: user.to_param, user_skill_id: user_skill.to_param }
-          delete :destroy, params, valid_session
+          delete :destroy, params: params, headers: valid_session
         end.to change(UserSkill, :count).by(-1)
       end
 
       it 'returns no content status' do
         user_skill = user.user_skills.first
         params = { user_id: user.to_param, user_skill_id: user_skill.to_param }
-        delete :destroy, params, valid_session
+        delete :destroy, params: params, headers: valid_session
         expect(response.status).to eq(204)
       end
     end
@@ -162,7 +162,7 @@ RSpec.describe Api::V1::Users::UserSkillsController, type: :controller do
         user_skill = user.user_skills.first
         expect do
           params = { user_id: user.to_param, user_skill_id: user_skill.to_param }
-          delete :destroy, params, valid_session
+          delete :destroy, params: params, headers: valid_session
         end.to change(UserSkill, :count).by(0)
       end
 
@@ -170,7 +170,7 @@ RSpec.describe Api::V1::Users::UserSkillsController, type: :controller do
         user = FactoryGirl.create(:user_with_skills)
         user_skill = user.user_skills.first
         params = { user_id: user.to_param, user_skill_id: user_skill.to_param }
-        delete :destroy, params, valid_session
+        delete :destroy, params: params, headers: valid_session
         expect(response.status).to eq(403)
       end
     end

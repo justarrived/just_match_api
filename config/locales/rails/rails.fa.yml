@@ -1,4 +1,11 @@
 fa:
+  activerecord:
+    errors:
+      messages:
+        record_invalid: 'نامعتبر است %{errors}'
+        restrict_dependent_destroy:
+          one: سابقه را نمی توان حذف کرد چون یک %{record} وابسته وجود دارد
+          many: سابقه را نمی توان حذف کرد چون یک %{record} وابسته وجود دارد
   errors:
     format: "%{attribute} %{message}"
     messages:
@@ -19,10 +26,6 @@ fa:
       not_a_number: عدد نیست
       not_an_integer: عدد صحیح نیست
       odd: باید فرد باشد
-      record_invalid: 'نامعتبر است %{errors}'
-      restrict_dependent_destroy:
-        one: سابقه را نمی توان حذف کرد چون یک %{record} وابسته وجود دارد
-        many: سابقه را نمی توان حذف کرد چون یک %{record} وابسته وجود دارد
       taken: پیشتر گرفته شده
       too_long:
         other: بیش از حد طولانی است (حداکثر %{count} کاراکتر)
