@@ -1,4 +1,11 @@
 ti:
+  activerecord:
+    errors:
+      messages:
+        record_invalid: 'ግጉይ ኣጀማምራ: %{errors}'
+        restrict_dependent_destroy:
+          one: ክድምሰስ ዘይከኣል ኮይኑ ኣብ ህላወ %{record} ይምርኮስ
+          many: ክድምሰስ ዘይከኣል ኮይኑ ኣብ ህላወ %{record} ይምርኮስ
   errors:
     format: "%{attribute} %{message}"
     messages:
@@ -19,10 +26,6 @@ ti:
       not_a_number: ቁጽሪ ኣይኮነን
       not_an_integer: ናይ ግድን ምሉእ-ቁጽሪ ክኸውን ኣለዎ
       odd: ናይ ግድን ናብ ክልተ ዘይምቀል (ኦድ ቁጽር) ክኸውን ኣለዎ
-      record_invalid: 'ግጉይ ኣጀማምራ: %{errors}'
-      restrict_dependent_destroy:
-        one: ክድምሰስ ዘይከኣል ኮይኑ ኣብ ህላወ %{record} ይምርኮስ
-        many: ክድምሰስ ዘይከኣል ኮይኑ ኣብ ህላወ %{record} ይምርኮስ
       taken: ድሮ ኣብ ጠቕሚ ኣሎ
       too_long:
         one: ኣዝዩ ነዊሑ (እንተነወሐደ 1 ኣሃዝ)

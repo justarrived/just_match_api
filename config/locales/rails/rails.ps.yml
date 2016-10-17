@@ -1,4 +1,11 @@
 ps:
+  activerecord:
+    errors:
+      messages:
+        record_invalid: 'یوه خطا پیښ شوې: %{errors}'
+        restrict_dependent_destroy:
+          one: پوسټ حذف کیدی نشي ځکه تړاو %{record} شتون لري
+          many: پوسټ حذف کیدی نشي ځکه تړاو %{record} شتون لري
   errors:
     format: "%{attribute} %{message}"
     messages:
@@ -19,10 +26,6 @@ ps:
       not_a_number: یوه شمیره نده
       not_an_integer: باید یو صحیح عدد وي
       odd: باید اوډ وي
-      record_invalid: 'یوه خطا پیښ شوې: %{errors}'
-      restrict_dependent_destroy:
-        one: پوسټ حذف کیدی نشي ځکه تړاو %{record} شتون لري
-        many: پوسټ حذف کیدی نشي ځکه تړاو %{record} شتون لري
       taken: دمخه کارول شوی
       too_long:
         one: خورا اوږد دی (اعظمي یې 1 توری دی)
