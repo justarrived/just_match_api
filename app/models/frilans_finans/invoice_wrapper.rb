@@ -12,7 +12,7 @@ module FrilansFinans
 
     def self.invoice_data(job:, user:, tax:, pre_report:)
       {
-        currency_id: Currency.default_currency.try!(:frilans_finans_id),
+        currency_id: Currency.default_currency&.frilans_finans_id,
         specification: "#{job.category.name} - #{job.name} (##{job.id})",
         amount: job.invoice_amount,
         company_id: job.company.frilans_finans_id,
