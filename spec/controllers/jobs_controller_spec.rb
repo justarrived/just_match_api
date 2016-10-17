@@ -58,7 +58,7 @@ RSpec.describe Api::V1::JobsController, type: :controller do
   describe 'GET #index' do
     it 'assigns all jobs as @jobs' do
       job = FactoryGirl.create(:job)
-      get :index, {}, valid_session
+      get :index, headers: valid_session
       expect(assigns(:jobs)).to eq([job])
     end
 
@@ -67,7 +67,7 @@ RSpec.describe Api::V1::JobsController, type: :controller do
       FactoryGirl.create(:job, hours: 10)
       FactoryGirl.create(:job, hours: 5)
 
-      get :index, { sort: '-hours' }, {}
+      get :index, params: { sort: '-hours' }
       expect(response.status).to eq(200)
       parsed_body = JSON.parse(response.body)
 
@@ -81,7 +81,7 @@ RSpec.describe Api::V1::JobsController, type: :controller do
   describe 'GET #show' do
     it 'assigns the requested job as @job' do
       job = FactoryGirl.create(:job)
-      get :show, { job_id: job.to_param }, valid_session
+      get :show, params: { job_id: job.to_param }, headers: valid_session
       expect(assigns(:job)).to eq(job)
     end
   end
@@ -99,30 +99,30 @@ RSpec.describe Api::V1::JobsController, type: :controller do
     context 'with valid params' do
       it 'creates a new Job' do
         expect do
-          post :create, valid_attributes, valid_session
+          post :create, params: valid_attributes, headers: valid_session
         end.to change(Job, :count).by(1)
       end
 
       it 'assigns a newly created job as @job' do
-        post :create, valid_attributes, valid_session
+        post :create, params: valid_attributes, headers: valid_session
         expect(assigns(:job)).to be_a(Job)
         expect(assigns(:job)).to be_persisted
       end
 
       it 'resturns created status' do
-        post :create, valid_attributes, valid_session
+        post :create, params: valid_attributes, headers: valid_session
         expect(response.status).to eq(201)
       end
     end
 
     context 'with invalid params' do
       it 'assigns a newly created but unsaved job as @job' do
-        post :create, invalid_attributes, valid_session
+        post :create, params: invalid_attributes, headers: valid_session
         expect(assigns(:job)).to be_a_new(Job)
       end
 
       it 'returns 422 status' do
-        post :create, invalid_attributes, valid_session
+        post :create, params: invalid_attributes, headers: valid_session
         expect(response.status).to eq(422)
       end
     end
@@ -145,7 +145,7 @@ RSpec.describe Api::V1::JobsController, type: :controller do
         it 'updates the requested job' do
           job = FactoryGirl.create(:job, owner: user)
           params = { job_id: job.to_param }.merge(new_attributes)
-          put :update, params, valid_session
+          put :update, params: params, headers: valid_session
           job.reload
           expect(job.hours).to eq(new_hours)
         end
@@ -153,14 +153,14 @@ RSpec.describe Api::V1::JobsController, type: :controller do
         it 'assigns the requested user as @job' do
           job = FactoryGirl.create(:job)
           params = { job_id: job.to_param }.merge(new_attributes)
-          put :update, params, valid_session
+          put :update, params: params, headers: valid_session
           expect(assigns(:job)).to eq(job)
         end
 
         it 'returns success status' do
           job = FactoryGirl.create(:job, owner: user)
           params = { job_id: job.to_param }.merge(new_attributes)
-          put :update, params, valid_session
+          put :update, params: params, headers: valid_session
           expect(response.status).to eq(200)
         end
 
@@ -179,7 +179,7 @@ RSpec.describe Api::V1::JobsController, type: :controller do
             allow(JobCancelledNotifier).to receive(:call).and_return(nil)
 
             params = { job_id: job.to_param }.merge(new_attributes)
-            put :update, params, valid_session
+            put :update, params: params, headers: valid_session
 
             expect(JobCancelledNotifier).to have_received(:call).with(job: job)
           end
@@ -190,7 +190,7 @@ RSpec.describe Api::V1::JobsController, type: :controller do
             job = FactoryGirl.create(:job, owner: user)
             FactoryGirl.create(:job_user, job: job, accepted: true, will_perform: true)
             params = { job_id: job.to_param }.merge(new_attributes)
-            put :update, params, valid_session
+            put :update, params: params, headers: valid_session
             expect(response.status).to eq(403)
             parsed_json = JSON.parse(response.body)
             expect(parsed_json['errors'].first['status']).to eq(403)
@@ -214,7 +214,7 @@ RSpec.describe Api::V1::JobsController, type: :controller do
           job = FactoryGirl.create(:job, owner: user1)
           FactoryGirl.create(:job_user, user: user2, job: job)
           params = { job_id: job.to_param }.merge(new_attributes)
-          put :update, params, valid_session
+          put :update, params: params, headers: valid_session
           expect(response.status).to eq(403)
         end
       end
@@ -243,7 +243,7 @@ RSpec.describe Api::V1::JobsController, type: :controller do
           job = FactoryGirl.create(:job)
           FactoryGirl.create(:job_user, user: user, job: job)
           params = { job_id: job.to_param }.merge(new_attributes)
-          put :update, params, valid_session
+          put :update, params: params, headers: valid_session
           expect(response.status).to eq(403)
         end
       end
@@ -257,13 +257,13 @@ RSpec.describe Api::V1::JobsController, type: :controller do
 
       it 'assigns the job as @job' do
         params = { job_id: job.to_param }.merge(invalid_attributes)
-        put :update, params, valid_session
+        put :update, params: params, headers: valid_session
         expect(assigns(:job)).to eq(job)
       end
 
       it 'returns unprocessable entity status' do
         params = { job_id: job.to_param }.merge(invalid_attributes)
-        put :update, params, valid_session
+        put :update, params: params, headers: valid_session
         expect(response.status).to eq(422)
       end
     end
@@ -272,19 +272,19 @@ RSpec.describe Api::V1::JobsController, type: :controller do
   describe 'GET #matching_users' do
     it 'returns 200 status if job owner' do
       job = FactoryGirl.create(:job)
-      get :show, { job_id: job.to_param }, valid_session
+      get :show, params: { job_id: job.to_param }, headers: valid_session
       expect(response.status).to eq(200)
     end
 
     it 'returns 200 status if admin is user' do
       job = FactoryGirl.create(:job)
-      get :matching_users, { job_id: job.to_param }, valid_admin_session
+      get :matching_users, params: { job_id: job.to_param }, headers: valid_admin_session
       expect(response.status).to eq(200)
     end
 
     it 'returns 401 unauthorized status when user not authorized' do
       job = FactoryGirl.create(:job)
-      get :matching_users, { job_id: job.to_param }, invalid_session
+      get :matching_users, params: { job_id: job.to_param }, headers: invalid_session
       expect(response.status).to eq(401)
     end
   end
