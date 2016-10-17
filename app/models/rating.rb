@@ -57,11 +57,11 @@ class Rating < ApplicationRecord
   end
 
   def accepted_user
-    accepted_job_user.try!(:user)
+    accepted_job_user&.user
   end
 
   def accepted_job_user
-    @accepted_job_user ||= job.try!(:accepted_job_user)
+    @accepted_job_user ||= job&.accepted_job_user
   end
 
   def validate_job_invoiced

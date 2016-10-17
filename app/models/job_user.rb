@@ -61,7 +61,7 @@ class JobUser < ApplicationRecord
   end
 
   def validate_single_accepted_applicant
-    accepted_user = self.class.accepted.find_by(job: job).try!(:user)
+    accepted_user = self.class.accepted.find_by(job: job)&.user
     return if accepted_user.nil?
     return if user == accepted_user
     return unless accepted

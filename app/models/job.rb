@@ -136,7 +136,7 @@ class Job < ApplicationRecord
   end
 
   def accepted_applicant
-    accepted_job_user.try!(:user)
+    accepted_job_user&.user
   end
 
   def accepted_user
