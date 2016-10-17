@@ -8,5 +8,5 @@ cd "$(dirname "$0")/.."
 
 echo -e '\n== Deploying application =='
 git push heroku master
-heroku run rake db:migrate
+heroku run rails db:migrate
 echo -e '\n== Deploy done =='

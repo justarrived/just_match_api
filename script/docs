@@ -11,8 +11,8 @@ echo -e '\n== Generating documentation =='
 script/update
 
 echo -e '\n== Generating API response examples =='
-RAILS_ENV=test bin/rake docs:response_examples
+RAILS_ENV=test bin/rails docs:response_examples
 
 echo -e '\n== Generating API documentation =='
-RAILS_ENV=test bin/rake apipie:static
+RAILS_ENV=test bin/rails apipie:static
 echo -e '\n== Docs generated =='
