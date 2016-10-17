@@ -13,7 +13,7 @@ RSpec.describe Api::V1::Jobs::JobSkillsController, type: :controller do
   let(:valid_session) do
     user = FactoryGirl.create(:user_with_tokens)
     allow_any_instance_of(described_class).
-      to(receive(:authenticate_user_token!).
+      to(receive(:current_user).
       and_return(user))
     { token: user.auth_token }
   end
@@ -155,7 +155,7 @@ RSpec.describe Api::V1::Jobs::JobSkillsController, type: :controller do
         job_skill = job.job_skills.first
         params = { job_id: job.to_param, job_skill_id: job_skill.to_param }
         delete :destroy, params, valid_session
-        expect(response.status).to eq(401)
+        expect(response.status).to eq(403)
       end
     end
   end

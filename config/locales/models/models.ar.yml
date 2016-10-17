@@ -7,28 +7,29 @@ ar:
       chat_user: مستخدم الدردشة
       comment: تعليق
       company: شركة
-      company_image: سمعة الشركة
+      company_image: صورة الشركة
       contact: اتصل
       currency: العملة
       faq: أسئلة متكرّرة
       hourly_pay: أجر الساعة
       invoice: فاتورة
+      frilans_finans_invoice: فاتورة Frilans Finans
       job: عمل
       job_skill: مهارة العمل
       job_user: مستخدم العمل
       language: لغة
       message: رسالة
-      rating: علامة
+      rating: تقييم
       skill: مهارة
       user: المستخدم
       user_image: صورة المستخدم
-      user_language: لغة الاستخدام
-      user_skill: مهارة الاستخدام
+      user_language: لغة المستخدم
+      user_skill: مهارة المستخدم
     attributes:
       blazer/query:
         audits: محاسبات
         checks: شيكات
-        creator: المصمّم
+        creator: المنشيء
         dashboard_queries: لوحة الأجهزة استفسار
         dashboards: لوحة الأجهزة
         data_source: مصدر بيانات
@@ -39,9 +40,9 @@ ar:
         jobs: عمل
         name: الاسم
       chat:
-        chat_users: مستخدم الدردشة
-        messages: رسالات
-        users: المستخدم
+        chat_users: دردشة المستخدم
+        messages: رسائل
+        users: المستخدمون
       chat_user:
         chat: دردشة
         user: المستخدم
@@ -53,7 +54,7 @@ ar:
         language: لغة
         owner: مالك
       company:
-        cin: معلوماتية
+        cin: رقم المنطمة السويدية
         company_images: صور الشركة
         jobs: عمل
         name: الاسم
@@ -61,8 +62,8 @@ ar:
         website: موقع اِنترنت
       company_image:
         company: شركة
-        image_content_type: فئة محتوى الصورة
-        image_file_name: صورة اسم الملف
+        image_content_type: نوع محتوى الصورة
+        image_file_name: اسم ملف الصورة
         image_file_size: حجم الملفّ
         image_updated_at: تحديث صورة
         one_time_token: رمز لمرة واحدة
@@ -78,12 +79,14 @@ ar:
         language: لغة
         question: سؤال
       hourly_pay:
-        active: ناشطين
+        active: ناشط
         currency: العملة
         jobs: عمل
-        rate: وضع علامة
+        rate: تقييم
       invoice:
         job_user: مستخدم_العمل
+      frilans_finans_invoice:
+        job_user: طالب وظيفة
       job:
         category: فئة
         comments: تعليقات
@@ -103,9 +106,9 @@ ar:
         owner: المالك
         skills: مهارات
         street: شارع
-        users: المستخدم
-        verified: مفحوصة
-        zip: سحّاب
+        users: المستخدمون
+        verified: مؤكدة
+        zip: الرمز البريدي
         zip_latitude: الرمز البريدي حسب خطّ العرض
         zip_longitude: الرمز البريدي حسب خط الطول
       job_skill:
@@ -125,7 +128,7 @@ ar:
         jobs: عمل
         lang_code: مفتاح اللغة
         local_name: اسم محلّي
-        system_language: لغة نظام الحاسوب
+        system_language: 'لغة النظام '
         user_languages: لغة الاستخدام
         users: المستخدم
       message:
@@ -140,31 +143,34 @@ ar:
         job: عمل
         score: فِعْل
         to_user: الى المستخدم
+      token:
+        token: بطاقة
+        expires_at: ينتهي في
+        user: المستخدم
       skill:
         job_skills: خبرات عمل
         jobs: عمل
         language: لغة
         name: الاسم
-        user_skills: استخدام المهارات
+        user_skills: مهارات المستخدم
         users: المستخدم
       user:
-        admin: إدارة
+        admin: المدير
         anonymized: مجهول
-        auth_token: رمز محلّف
         banned: مُنِع
-        chat_users: مستخدم الدردشة
+        chat_users: لدردشة المستخدمون
         chats: دردشات
         company: شركة
         description: وصف
-        education: دراسة
+        education: التعليم
         email: بريد إلكتروني
         first_name: الاسم الأول
         ignored_notifications_mask: تجاهل إخطارات إخفاء
         job_experience: خبرة عمل
         job_users: مستخدم العمل
-        jobs: عمل
+        jobs: أعمال
         language: لغة
-        languages: لغة
+        languages: لغات
         last_name: اسم العائلة
         latitude: خط العرض
         longitude: خط الطول
@@ -178,16 +184,18 @@ ar:
         skills: مهارات
         ssn: رقم التأمين الاجتماعي
         street: شارع
-        user_images: صور الاستخدام
-        user_languages: لغة الاستخدام
-        user_skills: مهارات الاستخدام
-        written_comments: تعليقات مكتوبة
-        zip: سحّاب
+        user_images: صور المستخدم
+        user_languages: لغة المستخدم
+        user_skills: مهارات المستخدم
+        written_comments: تعليقات سابقة
+        zip: الرمز البريدي
         zip_latitude: الرمز البريدي حسب خط العرض
         zip_longitude: الرمز البريدي حسب خط الطول
+        frilans_finans_id: 'بيانات Frilans Finans '
+        frilans_finans_payment_details: تفاصيل دفع Frilans Finans
       user_image:
-        image_content_type: فئة محتوى الصورة
-        image_file_name: صورة اسم الملفّ
+        image_content_type: نوع محتوى الصورة
+        image_file_name: اسم ملف الصورة
         image_file_size: حجم الملفّ
         image_updated_at: تحديث صورة
         one_time_token: رمز لمرة واحدة
@@ -197,5 +205,5 @@ ar:
         language: لغة
         user: المستخدم
       user_skill:
-        skill: خبرات
+        skill: خبرة
         user: المستخدم

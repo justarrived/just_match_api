@@ -6,7 +6,7 @@ RSpec.describe Company, type: :model do
     let(:company) { FactoryGirl.build(:company) }
 
     it 'returns first user that has frilans finans id' do
-      FactoryGirl.create(:user, company: company)
+      FactoryGirl.create(:user, company: company, frilans_finans_id: nil)
       FactoryGirl.create(:user, company: company, frilans_finans_id: 10)
       FactoryGirl.create(:user, company: company, frilans_finans_id: 11)
       expect(company.find_frilans_finans_user.frilans_finans_id).to eq(10)
@@ -53,6 +53,14 @@ RSpec.describe Company, type: :model do
       company.add_protocol_to_website
 
       expect(company.website).to eq('http://example.com')
+    end
+
+    it 'leaves it if website is blank' do
+      website = '   '
+      company = Company.new(website: website)
+      company.add_protocol_to_website
+
+      expect(company.website).to eq(website)
     end
   end
 end

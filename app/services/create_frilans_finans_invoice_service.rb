@@ -10,9 +10,20 @@ class CreateFrilansFinansInvoiceService
       return ff_invoice
     end
 
-    ff_invoice_remote = frilans_finans_invoice(user: user, job: job)
-    frilans_finans_id = ff_invoice_remote.resource.id
+    client = FrilansFinansApi.client_klass.new
+    ff_invoice_attributes = FrilansFinansInvoiceAttributesService.call(
+      client: client,
+      user: user,
+      job: job,
+      pre_report: true
+    )
+    ff_invoice_remote = FrilansFinansApi::Invoice.create(
+      attributes: ff_invoice_attributes,
+      client: client
+    )
+    return ff_invoice if ff_invoice_remote.error_status?
 
+    frilans_finans_id = ff_invoice_remote.resource.id
     ff_invoice.frilans_finans_id = frilans_finans_id
 
     if frilans_finans_id.nil?
@@ -21,30 +32,5 @@ class CreateFrilansFinansInvoiceService
 
     ff_invoice.save!
     ff_invoice
-  end
-
-  def self.frilans_finans_invoice(user:, job:)
-    client = FrilansFinansApi.client_klass.new
-    tax = FrilansFinansApi::Tax.index(only_standard: true, client: client).resource
-
-    # We need to update the users profession title to match the jobs,
-    # in order to please Frilans Finans
-    ff_user = FrilansFinansApi::User.update(
-      id: user.frilans_finans_id!,
-      attributes: { profession_title: job.category.name }
-    )
-
-    # Build frilans finans invoice attributes
-    attributes = FrilansFinans::InvoiceWrapper.attributes(
-      job: job,
-      user: user,
-      tax: tax,
-      ff_user: ff_user
-    )
-
-    FrilansFinansApi::Invoice.create(
-      attributes: attributes,
-      client: client
-    )
   end
 end

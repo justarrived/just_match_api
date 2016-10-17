@@ -1,0 +1,18 @@
+#!/bin/bash
+set -euo pipefail
+IFS=$'\n\t'
+
+cd "$(dirname "$0")/.."
+
+# script/docs: Generate application documentation.
+
+echo -e '\n== Generating documentation =='
+# ensure everything in the app is up to date.
+script/update
+
+echo -e '\n== Generating API response examples =='
+RAILS_ENV=test bin/rake docs:response_examples
+
+echo -e '\n== Generating API documentation =='
+RAILS_ENV=test bin/rake apipie:static
+echo -e '\n== Docs generated =='

@@ -13,6 +13,8 @@ en:
         subject: 'Admin notice: Failed to activate Frilans Finans invoice'
         notice: Failed to create a Frilans Finans invoice for %{id}
   errors:
+    rate_limit:
+      details: Throttle limit reached. Retry later.
     bank_account:
       too_short: is too short
       too_long: is too long
@@ -61,16 +63,20 @@ en:
       banned: an admin has banned you for not following the Terms of Agreement or the Code of Conduct. Please contact help@justarrived.se, to resolve this issue.
       wrong_email_or_phone_or_password: wrong email, phone or password
     user:
+      wrong_password: wrong password
       password_length: password must have at least %{count} characters
       must_be_available_locale: must be a supported langauge
       must_be_valid_phone_number_format: must be a valid phone number
       must_be_swedish_phone_number: must be a Swedish phone number (+46)
-      must_be_swedish_ssn: must be a valid Swedish social security number
+      must_be_swedish_ssn: must be a valid Swedish social security number or coordination number
       arrived_at_must_be_in_past: must be in the past
     validators:
       after_true: '%{field} must be true'
       unrevertable: can't revert %{field}
   invalid_credentials: Invalid credentials.
+  not_logged_in_error: Must be logged in.
+  record_not_found: Record does not exist.
+  token_expired_error: Your token has expired.
   mailer:
     accepted_applicant_withdrawn:
       subject: An accepted user for your job has withdrawn the application.
@@ -105,7 +111,7 @@ en:
       subject: Congrats! You have a new job match.
     job_performed:
       congrats_line: Hello %{name}!
-      contact_line: Once you both have confirmed that the job is performed the invoice will be sent and the salary will be paid out.
+      contact_line: Once you the job owner have confirmed that the job is performed the invoice will be sent and the salary will be paid out.
       job_line: The job performed was '%{name}'.
       performed_line: "%{name} has verified that the job you ordered is performed."
       subject: A job you ordered has been completed.
@@ -117,11 +123,11 @@ en:
       subject: Congrats! A job you performed has been accepted.
     magic_login_link:
       subject: Magic sign-in link
-      login_line: To login to JustArrived use the link %{url}
+      login_line: To login to Just Arrived use the link %{url}
     new_applicant:
       applicant_line: The applicant is '%{name}' and lives close to where the assignment will be carried out.
       congrats_line: Congratulations %{name}!
-      contact_line: You can preview '%{name}' profile under My jobs. You can also contact '%{name}' directly on %{email} and %{phone}.
+      contact_line: You can preview '%{name}' profile under My jobs. You can also contact '%{name}' directly on %{email} or %{phone}.
       job_line: You've got a new applicant for your job '%{name}'.
       subject: Congrats! You have a new applicant.
     new_chat_message:
@@ -136,7 +142,12 @@ en:
       body_header: Welcome to Just Arrived %{name}!
       body_line: Thank you for signing up. We sincerely hope that you will enjoy our service. If you have any questions or suggestions of how we could improve, please do not hesitate to email admin@justarrived.se.
     signoff: Have a great day!
-  not_logged_in_error: Must be logged in.
+  user:
+    statuses:
+      asylum_seeker: Asylum seeker
+      asylum_seeker_description: Asylum seeker
+      permanent_residence: Permanent residence
+      permanent_residence_description: Permanent residence
   notifications:
     accepted_applicant_confirmation_overdue: Accepted applicants confirmation is overdue
     accepted_applicant_withdrawn: Accepted applicant has withdrawn
@@ -150,4 +161,4 @@ en:
     new_chat_message: New chat message
   texter:
     magic_login_link:
-      login_line: JustArrived magic login link %{url}
+      login_line: Just Arrived magic login link %{url}

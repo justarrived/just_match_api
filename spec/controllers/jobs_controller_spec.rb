@@ -34,7 +34,7 @@ RSpec.describe Api::V1::JobsController, type: :controller do
   let(:valid_session) do
     user = FactoryGirl.create(:user_with_tokens)
     allow_any_instance_of(described_class).
-      to(receive(:authenticate_user_token!).
+      to(receive(:current_user).
       and_return(user))
     { token: user.auth_token }
   end
@@ -42,7 +42,7 @@ RSpec.describe Api::V1::JobsController, type: :controller do
   let(:valid_admin_session) do
     admin = FactoryGirl.create(:admin_user)
     allow_any_instance_of(described_class).
-      to(receive(:authenticate_user_token!).
+      to(receive(:current_user).
       and_return(admin))
     { token: admin.auth_token }
   end
@@ -50,8 +50,8 @@ RSpec.describe Api::V1::JobsController, type: :controller do
   let(:invalid_session) do
     user = FactoryGirl.create(:user)
     allow_any_instance_of(described_class).
-      to(receive(:authenticate_user_token!).
-      and_return(nil))
+      to(receive(:current_user).
+      and_return(User.new))
     { token: user.auth_token }
   end
 
@@ -91,7 +91,7 @@ RSpec.describe Api::V1::JobsController, type: :controller do
       company = FactoryGirl.create(:company)
       user = FactoryGirl.create(:user, company: company)
       allow_any_instance_of(described_class).
-        to(receive(:authenticate_user_token!).
+        to(receive(:current_user).
         and_return(user))
       { token: user.auth_token }
     end
@@ -215,7 +215,7 @@ RSpec.describe Api::V1::JobsController, type: :controller do
           FactoryGirl.create(:job_user, user: user2, job: job)
           params = { job_id: job.to_param }.merge(new_attributes)
           put :update, params, valid_session
-          expect(response.status).to eq(401)
+          expect(response.status).to eq(403)
         end
       end
 
@@ -231,7 +231,7 @@ RSpec.describe Api::V1::JobsController, type: :controller do
         let(:valid_session) do
           user = FactoryGirl.create(:user_with_tokens)
           allow_any_instance_of(described_class).
-            to(receive(:authenticate_user_token!).
+            to(receive(:current_user).
             and_return(user))
           { token: user.auth_token }
         end
@@ -244,7 +244,7 @@ RSpec.describe Api::V1::JobsController, type: :controller do
           FactoryGirl.create(:job_user, user: user, job: job)
           params = { job_id: job.to_param }.merge(new_attributes)
           put :update, params, valid_session
-          expect(response.status).to eq(401)
+          expect(response.status).to eq(403)
         end
       end
     end
@@ -317,6 +317,8 @@ end
 #  cancelled         :boolean          default(FALSE)
 #  filled            :boolean          default(FALSE)
 #  short_description :string
+#  featured          :boolean          default(FALSE)
+#  upcoming          :boolean          default(FALSE)
 #
 # Indexes
 #

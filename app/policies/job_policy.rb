@@ -9,17 +9,19 @@ class JobPolicy < ApplicationPolicy
   FULL_ATTRIBUTES = [
     :id, :description, :job_date, :hours, :name, :created_at, :updated_at, :latitude,
     :longitude, :street, :zip, :zip_latitude, :zip_longitude, :verified, :job_end_date,
-    :filled, :short_description
+    :filled, :short_description, :featured, :upcoming
   ].freeze
 
   ATTRIBUTES = [
     :id, :description, :job_date, :hours, :name, :created_at, :updated_at, :zip,
-    :zip_latitude, :zip_longitude, :verified, :job_end_date, :filled, :short_description
+    :zip_latitude, :zip_longitude, :verified, :job_end_date, :filled, :short_description,
+    :featured, :upcoming
   ].freeze
 
   OWNER_ATTRIBUTES = [
     :description, :job_date, :street, :zip, :name, :hours, :job_end_date, :cancelled,
-    :filled, :short_description, :language_id, :category_id, :hourly_pay_id, skill_ids: []
+    :filled, :short_description, :featured, :upcoming, :language_id, :category_id,
+    :hourly_pay_id, skill_ids: []
   ].freeze
 
   def index?
@@ -27,6 +29,7 @@ class JobPolicy < ApplicationPolicy
   end
 
   alias_method :show?, :index?
+  alias_method :google?, :show?
 
   def create?
     company_user?

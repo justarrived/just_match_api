@@ -11,7 +11,7 @@ module Api
       resource_description do
         short 'API for managing users'
         name 'Users'
-        description ''
+        description 'There are currently three types of user roles: `candidate`, `company` and `admin`.' # rubocop:disable Metrics/LineLength
         formats [:json]
         api_versions '1.0'
       end
@@ -58,36 +58,37 @@ module Api
       param :data, Hash, desc: 'Top level key', required: true do
         param :attributes, Hash, desc: 'User attributes', required: true do
           # rubocop:disable Metrics/LineLength
-          param :'skill-ids', Array, of: Integer, desc: 'List of skill ids'
-          param :'first-name', String, desc: 'First name', required: true
-          param :'last-name', String, desc: 'Last name', required: true
+          param :skill_ids, Array, of: 'Skill IDs', desc: 'List of skill ids'
+          param :first_name, String, desc: 'First name', required: true
+          param :last_name, String, desc: 'Last name', required: true
           param :description, String, desc: 'Description'
-          param :'job-experience', String, desc: 'Job experience'
+          param :job_experience, String, desc: 'Job experience'
           param :education, String, desc: 'Education'
-          param :'competence-text', String, desc: 'Competences'
+          param :competence_text, String, desc: 'Competences'
           param :email, String, desc: 'Email', required: true
           param :phone, String, desc: 'Phone', required: true
           param :street, String, desc: 'Street'
           param :zip, String, desc: 'Zip code'
-          param :ssn, String, desc: 'Social Security Number (10 characters)', required: true
-          param :'ignored-notifications', Array, desc: "List of ignored notifications, any of #{User::NOTIFICATIONS.to_sentence}"
-          param :'company-id', Integer, desc: 'Company id for user'
-          param :'language-id', Integer, desc: 'Primary language id for user', required: true
-          param :'language-ids', Array, of: Hash, desc: 'Languages that the user knows', required: true do
+          param :ssn, String, desc: 'Social Security Number (10 characters)'
+          param :ignored_notifications, Array, of: 'ignored notifications', desc: "List of ignored notifications. Any of: #{User::NOTIFICATIONS.map { |n| "`#{n}`" }.join(', ')}"
+          param :company_id, Integer, desc: 'Company id for user'
+          param :language_id, Integer, desc: 'Primary language id for user', required: true
+          param :language_ids, Array, of: Hash, desc: 'Languages that the user knows', required: true do
             param :id, Integer, desc: 'Language id', required: true
             param :proficiency, UserLanguage::PROFICIENCY_RANGE.to_a, desc: 'Language proficiency'
           end
-          param :'user-image-one-time-token', String, desc: 'User image one time token'
-          param :'current-status', User::STATUSES.keys, desc: 'Current status'
-          param :'at-und', User::AT_UND.keys, desc: 'AT-UND status'
-          param :'arrived-at', String, desc: 'Arrived at date'
-          param :'country-of-origin', String, desc: 'Country of origin (alpha-2 code)'
+          param :user_image_one_time_tokens, Array, of: 'UserImage one time tokens', desc: 'User image one time tokens'
+          param :current_status, User::STATUSES.keys, desc: 'Current status'
+          param :at_und, User::AT_UND.keys, desc: 'AT-UND status'
+          param :arrived_at, String, desc: 'Arrived at date'
+          param :country_of_origin, String, desc: 'Country of origin (alpha-2 code)'
           # rubocop:enable Metrics/LineLength
         end
       end
       example Doxxer.read_example(User, method: :create)
       def create
         @user = User.new(user_params)
+        @user.email = @user.email&.strip
 
         authorize(@user)
 
@@ -95,7 +96,17 @@ module Api
           login_user(@user)
 
           @user.skills = Skill.where(id: user_params[:skill_ids])
-          @user.profile_image_token = jsonapi_params[:user_image_one_time_token]
+
+          image_tokens = jsonapi_params[:user_image_one_time_tokens]
+
+          deprecated_param_value = jsonapi_params[:user_image_one_time_token]
+          if deprecated_param_value.blank?
+            @user.set_images_by_tokens = image_tokens unless image_tokens.blank?
+          else
+            message = 'The param "user_image_one_time_token" has been deprecated please use "user_image_one_time_tokens" instead' # rubocop:disable Metrics/LineLength
+            ActiveSupport::Deprecation.warn(message)
+            @user.profile_image_token = deprecated_param_value
+          end
 
           user_languages_params = normalize_language_ids(jsonapi_params[:language_ids])
           user_languages_params.map do |attrs|
@@ -110,7 +121,7 @@ module Api
 
           api_render(@user, status: :created)
         else
-          respond_with_errors(@user)
+          api_render_errors(@user)
         end
       end
 
@@ -122,25 +133,25 @@ module Api
       param :data, Hash, desc: 'Top level key', required: true do
         param :attributes, Hash, desc: 'User attributes', required: true do
           # rubocop:disable Metrics/LineLength
-          param :'first-name', String, desc: 'First name'
-          param :'last-name', String, desc: 'Last name'
+          param :first_name, String, desc: 'First name'
+          param :last_name, String, desc: 'Last name'
           param :description, String, desc: 'Description'
-          param :'job-experience', String, desc: 'Job experience'
+          param :job_experience, String, desc: 'Job experience'
           param :education, String, desc: 'Education'
-          param :'competence-text', String, desc: 'Competences'
+          param :competence_text, String, desc: 'Competences'
           param :email, String, desc: 'Email'
           param :phone, String, desc: 'Phone'
           param :street, String, desc: 'Street'
           param :zip, String, desc: 'Zip code'
           param :ssn, String, desc: 'Social Security Number (10 characters)'
-          param :'ignored-notifications', Array, desc: "List of ignored notifications, any of #{User::NOTIFICATIONS.to_sentence}"
-          param :'language-id', Integer, desc: 'Primary language id for user'
-          param :'company-id', Integer, desc: 'Company id for user'
-          param :'user-image-one-time-token', String, desc: 'User image one time token'
-          param :'current-status', User::STATUSES.keys, desc: 'Current status'
-          param :'at-und', User::AT_UND.keys, desc: 'AT-UND status'
-          param :'arrived-at', String, desc: 'Arrived at date'
-          param :'country-of-origin', String, desc: 'Country of origin'
+          param :ignored_notifications, Array, of: 'ignored notifications', desc: "List of ignored notifications. Any of: #{User::NOTIFICATIONS.map { |n| "`#{n}`" }.join(', ')}"
+          param :language_id, Integer, desc: 'Primary language id for user'
+          param :company_id, Integer, desc: 'Company id for user'
+          param :user_image_one_time_token, String, desc: 'User image one time token'
+          param :current_status, User::STATUSES.keys, desc: 'Current status'
+          param :at_und, User::AT_UND.keys, desc: 'AT-UND status'
+          param :arrived_at, String, desc: 'Arrived at date'
+          param :country_of_origin, String, desc: 'Country of origin'
           # rubocop:enable Metrics/LineLength
         end
       end
@@ -153,7 +164,7 @@ module Api
 
           api_render(@user)
         else
-          respond_with_errors(@user)
+          api_render_errors(@user)
         end
       end
 
@@ -180,12 +191,22 @@ module Api
 
       api :GET, '/users/notifications', 'Show all possible user notifications'
       description 'Returns a list of all possible user notifications.'
-      example "# Example response
-#{JSON.pretty_generate(UserNotificationsSerializer.serializeble_resource.to_h)}"
+      example JSON.pretty_generate(UserNotificationsSerializer.serializeble_resource(key_transform: :underscore).to_h) # rubocop:disable Metrics/LineLength
       def notifications
         authorize(User)
 
-        resource = UserNotificationsSerializer.serializeble_resource
+        resource = UserNotificationsSerializer.serializeble_resource(key_transform: key_transform_header) # rubocop:disable Metrics/LineLength
+
+        render json: resource
+      end
+
+      api :GET, '/users/statuses', 'Show all possible user statuses'
+      description 'Returns a list of all possible user statuses.'
+      example JSON.pretty_generate(UserStatusesSerializer.serializeble_resource(key_transform: :underscore).to_h) # rubocop:disable Metrics/LineLength
+      def statuses
+        authorize(User)
+
+        resource = UserStatusesSerializer.serializeble_resource(key_transform: key_transform_header) # rubocop:disable Metrics/LineLength
 
         render json: resource
       end

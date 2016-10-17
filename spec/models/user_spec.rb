@@ -4,14 +4,41 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   describe '#frilans_finans_users' do
     it 'returns users with frilans finans id set' do
-      FactoryGirl.create(:user)
+      FactoryGirl.create(:user, frilans_finans_id: nil)
       first = FactoryGirl.create(:user, frilans_finans_id: 10)
       last = FactoryGirl.create(:user, frilans_finans_id: 11)
       frilans_users = described_class.frilans_finans_users
 
       expect(frilans_users.count).to eq(2)
-      expect(frilans_users.first).to eq(first)
-      expect(frilans_users.last).to eq(last)
+      expect(frilans_users).to include(first)
+      expect(frilans_users).to include(last)
+    end
+  end
+
+  describe '#contact_email' do
+    context 'not managed' do
+      let(:user) { FactoryGirl.build(:user, managed: false) }
+
+      it 'returns users email' do
+        expect(user.contact_email).to eq(user.email)
+      end
+    end
+
+    context 'managed' do
+      let(:user_id) { 73 }
+      let(:user) { FactoryGirl.build(:user, id: user_id, managed: true) }
+      let(:env_map) do
+        {
+          MANAGED_EMAIL_USERNAME: 'address',
+          MANAGED_EMAIL_HOSTNAME: 'example.com'
+        }
+      end
+
+      it 'returns managed email' do
+        ENVTestHelper.wrap(env_map) do
+          expect(user.contact_email).to eq("address+user#{user_id}@example.com")
+        end
+      end
     end
   end
 
@@ -30,6 +57,22 @@ RSpec.describe User, type: :model do
       user = User.new(phone: '004673 5000 000')
       user.validate
       expect(user.phone).to eq('+46735000000')
+    end
+  end
+
+  describe '#set_normalized_email' do
+    let(:email) { ' SOME_EMAIL_ADDRESS@example.com  ' }
+
+    it 'lowercases email after validation' do
+      user = User.new(email: email)
+      user.validate
+      expect(user.email).to eq(email.downcase.strip)
+    end
+
+    it 'can handle nil address' do
+      user = User.new(email: nil)
+      user.validate
+      expect(user.email).to be_nil
     end
   end
 
@@ -141,23 +184,50 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe '#valid_password?' do
+  describe '#add_image_by_token=' do
+    let(:user) { FactoryGirl.create(:user) }
+    let(:user_image) { FactoryGirl.create(:user_image) }
+    let(:user_image1) { FactoryGirl.create(:user_image) }
+
+    it 'can set image from token' do
+      user.add_image_by_token = user_image.one_time_token
+      expect(user.user_images.first).to eq(user_image)
+    end
+
+    it 'does not replace older images' do
+      user.add_image_by_token = user_image.one_time_token
+      user.add_image_by_token = user_image1.one_time_token
+      expect(user.user_images.length).to eq(2)
+    end
+
+    it 'does not set token when such token is found' do
+      user.add_image_by_token = 'invalid token'
+      expect(user.user_images.first).to be_nil
+    end
+
+    it 'does not set token when token is nil' do
+      user.add_image_by_token = nil
+      expect(user.user_images.first).to be_nil
+    end
+  end
+
+  describe '#valid_password_format?' do
     it 'returns true if password is at least of length 6' do
-      expect(User.valid_password?('123456')).to eq(true)
+      expect(User.valid_password_format?('123456')).to eq(true)
     end
 
     it 'returns false if password is at less than 6 in length' do
-      expect(User.valid_password?('12345')).to eq(false)
+      expect(User.valid_password_format?('12345')).to eq(false)
     end
 
     it 'returns false if password is *not* a string' do
-      expect(User.valid_password?(%w(1 2 3 4 5 6))).to eq(false)
-      expect(User.valid_password?(a: 2)).to eq(false)
+      expect(User.valid_password_format?(%w(1 2 3 4 5 6))).to eq(false)
+      expect(User.valid_password_format?(a: 2)).to eq(false)
     end
 
     it 'returns false if password is blank' do
-      expect(User.valid_password?('')).to eq(false)
-      expect(User.valid_password?(nil)).to eq(false)
+      expect(User.valid_password_format?('')).to eq(false)
+      expect(User.valid_password_format?(nil)).to eq(false)
     end
   end
 
@@ -488,6 +558,24 @@ RSpec.describe User, type: :model do
       expect(message || []).not_to include(error_message)
     end
   end
+
+  describe '#find_token' do
+    context 'valid token' do
+      it 'returns token' do
+        token = FactoryGirl.create(:token)
+
+        expect(User.find_token(token.token)).to eq(token)
+      end
+    end
+
+    context 'expired token' do
+      it 'returns nil' do
+        token = FactoryGirl.create(:expired_token)
+
+        expect(User.find_token(token.token)).to be_nil
+      end
+    end
+  end
 end
 
 # == Schema Information
@@ -528,6 +616,7 @@ end
 #  at_und                         :integer
 #  arrived_at                     :date
 #  country_of_origin              :string
+#  managed                        :boolean          default(FALSE)
 #
 # Indexes
 #
@@ -536,7 +625,6 @@ end
 #  index_users_on_frilans_finans_id  (frilans_finans_id) UNIQUE
 #  index_users_on_language_id        (language_id)
 #  index_users_on_one_time_token     (one_time_token) UNIQUE
-#  index_users_on_ssn                (ssn) UNIQUE
 #
 # Foreign Keys
 #

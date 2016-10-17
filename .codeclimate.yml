@@ -7,7 +7,7 @@ engines:
   fixme:
     enabled: true
   rubocop:
-    enabled: true
+    enabled: false
     exclude_fingerprints:
     - 97ef33d0516489c514d21af9b76b8b98
 ratings:
@@ -18,4 +18,6 @@ exclude_paths:
 - config/**/*
 - db/**/*
 - spec/**/*
+- lib/frilans_finans_api/spec/**/*
+- lib/json_api_helpers/spec/**/*
 - vendor/**/*

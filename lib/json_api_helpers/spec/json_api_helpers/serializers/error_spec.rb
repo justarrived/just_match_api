@@ -4,10 +4,12 @@ require 'spec_helper'
 RSpec.describe JsonApiHelpers::Serializers::Error do
   let(:pointer) { nil }
   let(:attribute) { nil }
+  let(:key_transform) { :dash }
 
   subject do
     described_class.new(
-      status: 422, detail: 'too short', pointer: pointer, attribute: attribute
+      status: 422, detail: 'too short', pointer: pointer, attribute: attribute,
+      key_transform: key_transform
     ).to_h
   end
 
@@ -34,6 +36,17 @@ RSpec.describe JsonApiHelpers::Serializers::Error do
 
     it 'returns correct pointer' do
       expected_pointer = { pointer: '/data/attributes/first-name' }
+      expect(subject[:source]).to eq(expected_pointer)
+    end
+  end
+
+  context 'with key transform underscore' do
+    let(:pointer) { nil }
+    let(:attribute) { 'first-name' }
+    let(:key_transform) { :underscore }
+
+    it 'returns correct pointer' do
+      expected_pointer = { pointer: '/data/attributes/first_name' }
       expect(subject[:source]).to eq(expected_pointer)
     end
   end

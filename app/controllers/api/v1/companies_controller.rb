@@ -51,7 +51,7 @@ module Api
           param :zip, String, desc: 'Zip code', required: true
           param :city, String, desc: 'City', required: true
           param :website, String, desc: 'Website URL'
-          param :'company-image-one-time-token', String, desc: 'Company image one time token' # rubocop:disable Metrics/LineLength
+          param :company_image_one_time_token, String, desc: 'Company image one time token' # rubocop:disable Metrics/LineLength
         end
       end
       example Doxxer.read_example(Company, method: :create)
@@ -66,7 +66,7 @@ module Api
 
           api_render(@company, status: :created)
         else
-          respond_with_errors(@company)
+          api_render_errors(@company)
         end
       end
 

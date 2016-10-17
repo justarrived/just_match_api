@@ -38,9 +38,14 @@ RSpec.describe Api::V1::UsersController, type: :routing do
       expect(get: path).to route_to('api/v1/users#matching_jobs', user_id: '1')
     end
 
-    it 'routes to #matching_jobs' do
+    it 'routes to #notifications' do
       path = '/api/v1/users/notifications'
       expect(get: path).to route_to('api/v1/users#notifications')
+    end
+
+    it 'routes to #statuses' do
+      path = '/api/v1/users/statuses'
+      expect(get: path).to route_to('api/v1/users#statuses')
     end
   end
 end
@@ -83,6 +88,7 @@ end
 #  at_und                         :integer
 #  arrived_at                     :date
 #  country_of_origin              :string
+#  managed                        :boolean          default(FALSE)
 #
 # Indexes
 #
@@ -91,7 +97,6 @@ end
 #  index_users_on_frilans_finans_id  (frilans_finans_id) UNIQUE
 #  index_users_on_language_id        (language_id)
 #  index_users_on_one_time_token     (one_time_token) UNIQUE
-#  index_users_on_ssn                (ssn) UNIQUE
 #
 # Foreign Keys
 #

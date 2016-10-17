@@ -4,10 +4,12 @@ class JobSerializer < ApplicationSerializer
   # that can be returned to the user we can return all Job column names here
   attributes Job.column_names.map(&:to_sym)
 
+  link(:self) { api_v1_job_url(object) }
+
   has_many :job_users do
     # Only disclose job users to the job owner
     user = scope[:current_user]
-    if user && (user.id == object.owner_id || user.admin)
+    if user && (user.id == object.owner_user_id || user.admin)
       object.job_users
     else
       []
@@ -15,14 +17,35 @@ class JobSerializer < ApplicationSerializer
   end
 
   has_many :comments, unless: :collection_serializer? do
+    link(:related) { api_v1_job_comments_url(job_id: object.id) }
+
     object.comments.visible
   end
 
-  has_one :owner
-  has_one :company
-  has_one :language
-  has_one :category
-  has_one :hourly_pay
+  has_one :owner do
+    link(:self) { api_v1_user_url(object.owner_user_id) if object.owner_user_id }
+  end
+
+  has_one :company do
+    # Anonymize the company if the job is upcoming
+    link(:self) do
+      api_v1_company_url(object.company) if object.company && !object.upcoming
+    end
+
+    object.company unless object.upcoming
+  end
+
+  has_one :language do
+    link(:self) { api_v1_language_url(object.language_id) if object.language_id }
+  end
+
+  has_one :category do
+    link(:self) { api_v1_category_url(object.category_id) if object.category_id }
+  end
+
+  has_one :hourly_pay do
+    link(:self) { api_v1_hourly_pay_url(object.hourly_pay_id) if object.hourly_pay_id }
+  end
 
   def attributes(_)
     data = super
@@ -64,6 +87,8 @@ end
 #  cancelled         :boolean          default(FALSE)
 #  filled            :boolean          default(FALSE)
 #  short_description :string
+#  featured          :boolean          default(FALSE)
+#  upcoming          :boolean          default(FALSE)
 #
 # Indexes
 #

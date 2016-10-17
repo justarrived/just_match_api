@@ -3,24 +3,30 @@
     "id": "1",
     "type": "chats",
     "attributes": {
-      "created-at": "2016-02-10 01:01:01 +0100"
+      "created_at": "2016-02-10 01:01:01 +0100"
     },
     "relationships": {
       "messages": {
         "data": [
 
-        ]
+        ],
+        "links": {
+          "related": "https://api.justarrived.se/api/v1/chats/1/messages"
+        }
       },
       "users": {
         "data": [
 
         ]
       },
-      "user-images": {
+      "user_images": {
         "data": [
 
         ]
       }
+    },
+    "links": {
+      "self": "https://api.justarrived.se/api/v1/chats/1"
     }
   }
 }

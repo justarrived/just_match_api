@@ -4,9 +4,8 @@ module Api
     class BaseController < ::Api::BaseController
       resource_description do
         api_version '1.0'
-        # rubocop:disable Metrics/LineLength
-        app_info "
-          # JustMatch API - v1.0 (beta) [![JSON API 1.0](https://img.shields.io/badge/JSON%20API-1.0-lightgrey.svg)](http://jsonapi.org/)
+        app_info <<-DOCDESCRIPTION
+          # JustMatch API - v1.0 (beta) <a href="http://jsonapi.org/"><svg xmlns="http://www.w3.org/2000/svg" style="font-weight:normal;" width="90" height="20"><linearGradient id="b" x2="0" y2="100%"><stop offset="0" stop-color="#bbb" stop-opacity=".1"/><stop offset="1" stop-opacity=".1"/></linearGradient><mask id="a"><rect width="90" height="20" rx="3" fill="#fff"/></mask><g mask="url(#a)"><path fill="#555" d="M0 0h63v20H0z"/><path fill="#9f9f9f" d="M63 0h27v20H63z"/><path fill="url(#b)" d="M0 0h90v20H0z"/></g><g fill="#fff" text-anchor="middle" font-family="DejaVu Sans,Verdana,Geneva,sans-serif" font-size="11"><text x="31.5" y="15" fill="#010101" fill-opacity=".3">JSON API</text><text x="31.5" y="14">JSON API</text><text x="75.5" y="15" fill="#010101" fill-opacity=".3">1.0</text><text x="75.5" y="14">1.0</text></g></svg></a>
 
           ---
 
@@ -15,6 +14,14 @@ module Api
           ---
 
           ### Headers
+
+          __Content-Type__
+
+          The correct Content-Type is:
+
+          `Content-Type: application/vnd.api+json`
+
+          Please note that the correct Content-Type isn't standard. See the specification at [jsosnapi.org/format](http://jsonapi.org/format/#content-negotiation-clients).
 
           __Locale__
 
@@ -77,29 +84,45 @@ module Api
 
               #{Doxxer.curl_for(name: 'users', id: 1, auth: true, join_with: " \\
                      ")}
-        "
-        # rubocop:enable Metrics/LineLength
+
+          ## Errors
+
+          ### 401 - Login Required
+
+              #{JSON.parse(Doxxer.read_example_file(:login_required)).to_json}
+
+          ### 401 - Token Expired
+
+              #{JSON.parse(Doxxer.read_example_file(:token_expired)).to_json}
+
+          ### 403 - Invalid Credentials
+
+              #{JSON.parse(Doxxer.read_example_file(:invalid_credentials)).to_json}
+
+          ### 404 - Not Found
+
+              #{JSON.parse(Doxxer.read_example_file(:not_found)).to_json}
+
+        DOCDESCRIPTION
         api_base_url '/api/v1'
       end
 
-      # NOTE:
-      # Set the current user directly upon request, otherwise require_promo_code can't
-      # check if the user is logged in and allow those users to continue without the
-      # promo code, if the promo code is ever to be removed from the code base
-      # the #current_user before action can safely be removed
-      before_action :current_user
+      ExpiredTokenError = Class.new(ArgumentError)
+
+      before_action :authenticate_user_token!
       before_action :require_promo_code
+      before_action :set_locale
 
       ALLOWED_INCLUDES = [].freeze
 
       # Needed for #authenticate_with_http_token
       include ActionController::HttpAuthentication::Token::ControllerMethods
 
-      before_action :set_locale
-
       after_action :verify_authorized
 
-      rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+      rescue_from Pundit::NotAuthorizedError, with: :user_forbidden
+      rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+      rescue_from ExpiredTokenError, with: :expired_token
 
       def jsonapi_params
         @_deserialized_params ||= JsonApiDeserializer.parse(params)
@@ -126,15 +149,17 @@ module Api
 
         promo_code = Rails.configuration.x.promo_code
         return if promo_code.nil? || promo_code == {} # Rails config can return nil & {}
-
         return if promo_code == api_promo_code_header
-        render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized
+
+        status = 401 # unauthorized
+        errors = LoginRequired.add(JsonApiErrors.new)
+        render json: errors, status: status
         false # Rails5: Should be updated to use throw
       end
 
       protected
 
-      def respond_with_errors(model)
+      def api_render_errors(model)
         serialized_error = { errors: JsonApiErrorSerializer.serialize(model) }
         render json: serialized_error, status: :unprocessable_entity
       end
@@ -144,7 +169,9 @@ module Api
 
         serialized_model = JsonApiSerializer.serialize(
           model_or_model_array,
+          key_transform: key_transform_header,
           included: included_resources,
+          fields: fields_params.to_h,
           current_user: current_user,
           meta: meta,
           request: request
@@ -153,21 +180,47 @@ module Api
         render json: serialized_model, status: status
       end
 
-      def user_not_authorized
-        render json: { error: I18n.t('invalid_credentials') }, status: :unauthorized
+      def record_not_found
+        errors = NotFound.add(JsonApiErrors.new)
+
+        render json: errors, status: :not_found
         false # Rails5: Should be updated to use throw
       end
 
       def require_user
         unless logged_in?
-          error_message = I18n.t('not_logged_in_error')
-          render json: { error: error_message }, status: :unauthorized
+          errors = LoginRequired.add(JsonApiErrors.new)
+          render json: errors, status: :unauthorized
         end
         false # Rails5: Should be updated to use throw
       end
 
+      def user_forbidden
+        status = nil
+        errors = JsonApiErrors.new
+
+        if logged_in?
+          status = 403 # forbidden
+          InvalidCredentials.add(errors)
+        else
+          status = 401 # unauthorized
+          LoginRequired.add(errors)
+        end
+
+        render json: errors, status: status
+        false # Rails5: Should be updated to use throw
+      end
+
+      def expired_token
+        errors = TokenExpired.add(JsonApiErrors.new)
+
+        status = 401 # unauthorized
+        render json: errors.to_json, status: status
+        false # Rails5: Should be updated to use throw
+      end
+
       def current_user
-        @_current_user ||= authenticate_user_token! || User.new
+        @_current_user ||= User.new
       end
 
       def login_user(user)
@@ -203,11 +256,22 @@ module Api
         request.headers['X-API-PROMO-CODE']
       end
 
+      def key_transform_header
+        case request.headers['X-API-KEY-TRANSFORM']
+        when 'underscore' then :underscore
+        else
+          'dash'
+        end
+      end
+
       private
 
       def authenticate_user_token!
-        authenticate_with_http_token do |token, _options|
-          return User.includes(:language).find_by_auth_token(token)
+        authenticate_with_http_token do |auth_token, _options|
+          token = Token.includes(:user).find_by(token: auth_token)
+          return if token.nil?
+          return raise ExpiredTokenError if token.expired?
+          return login_user(token.user)
         end
       end
     end

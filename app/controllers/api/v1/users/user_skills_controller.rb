@@ -68,7 +68,7 @@ module Api
           if @user_skill.save
             api_render(@user_skill, status: :created)
           else
-            respond_with_errors(@user_skill)
+            api_render_errors(@user_skill)
           end
         end
 

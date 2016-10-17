@@ -4,7 +4,7 @@
       "id": "1",
       "type": "invoices",
       "relationships": {
-        "job-user": {
+        "job_user": {
           "data": null
         }
       }

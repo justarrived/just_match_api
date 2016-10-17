@@ -66,7 +66,7 @@ RSpec.describe Api::V1::LanguagesController, type: :controller do
         it 'returns not authorized status' do
           allow_any_instance_of(User).to receive(:admin?).and_return(false)
           post :create, valid_attributes, valid_session
-          expect(response.status).to eq(401)
+          expect(response.status).to eq(403)
         end
       end
     end
@@ -126,7 +126,7 @@ RSpec.describe Api::V1::LanguagesController, type: :controller do
           language = FactoryGirl.create(:language)
           params = { id: language.to_param }.merge(new_attributes)
           post :update, params, valid_session
-          expect(response.status).to eq(401)
+          expect(response.status).to eq(403)
         end
       end
     end
@@ -171,7 +171,7 @@ RSpec.describe Api::V1::LanguagesController, type: :controller do
         language = FactoryGirl.create(:language)
         params = { id: language.to_param }
         post :destroy, params, valid_session
-        expect(response.status).to eq(401)
+        expect(response.status).to eq(403)
       end
     end
   end

@@ -1,0 +1,9 @@
+{
+  "errors": [
+    {
+      "status": 401,
+      "detail": "Your token has expired.",
+      "code": "token_expired"
+    }
+  ]
+}

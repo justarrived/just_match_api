@@ -7,7 +7,8 @@ def has_jsonapi_root_keys(actual, model)
   actual.dig('data', 'type') == model &&
     actual.dig('data', 'id').is_a?(String) &&
     hash_or_nil?(actual.dig('data', 'attributes')) &&
-    hash_or_nil?(actual.dig('data', 'relationships'))
+    hash_or_nil?(actual.dig('data', 'relationships')) &&
+    hash_or_nil?(actual.dig('data', 'links'))
 end
 
 # For testing contollers responses
@@ -29,6 +30,8 @@ RSpec::Matchers.define :have_jsonapi_attribute do |field, value|
   match do |actual|
     # Format a datetime value correctly
     value = value.as_json if value.is_a?(ActiveSupport::TimeWithZone)
+    # Symbols are strings in JSON..
+    value = value.to_s if value.is_a?(Symbol)
 
     actual.dig('data', 'attributes', field) == value
   end

@@ -4,6 +4,46 @@
   "repository": "https://github.com/justarrived/just_match_api",
   "keywords": [],
   "env": {
+    "PROMO_CODE": {
+      "description": "Promo Code for the API (if set all clients must provide this code OR be logged in)",
+      "value": "",
+      "required": false
+    },
+    "SEND_SMS_NOTIFICATIONS": {
+      "description": "Send SMS notifications",
+      "value": "",
+      "required": false
+    },
+    "APP_HOST": {
+      "description": "Application host (api.example.com)",
+      "value": "api.justarrived.se",
+      "required": false
+    },
+    "MANAGED_EMAIL_USERNAME": {
+      "description": "Managed accounts received email username (optional) [support]",
+      "value": "",
+      "required": false
+    },
+    "MANAGED_EMAIL_HOSTNAME": {
+      "description": "Managed accounts received hostname username (optional) [example.com]",
+      "value": "",
+      "required": false
+    },
+    "TWILIO_ACCOUNT_SID": {
+      "description": "Twilio account SID (required if SEND_SMS_NOTIFICATIONS is true)",
+      "value": "",
+      "required": false
+    },
+    "TWILIO_AUTH_TOKEN": {
+      "description": "Twilio auth token (required if SEND_SMS_NOTIFICATIONS is true)",
+      "value": "",
+      "required": false
+    },
+    "TWILIO_NUMBER": {
+      "description": "Twilio phone number (required if SEND_SMS_NOTIFICATIONS is true)",
+      "value": "",
+      "required": false
+    },
     "RAILS_ENV": "production",
     "SECRET_KEY_BASE": {
       "description": "Rails secret token",
@@ -16,6 +56,11 @@
     },
     "AWS_ACCESS_KEY_ID": {
       "description": "AWS access key id (required for image upload)",
+      "value": "",
+      "required": false
+    },
+    "AWS_REGION": {
+      "description": "AWS region (required for image upload, for example eu-west-1)",
       "value": "",
       "required": false
     },
@@ -44,6 +89,11 @@
       "value": "",
       "required": false
     },
+    "FRILANS_FINANS_ACTIVE": {
+      "description": "Frilans Finans integration active",
+      "value": "true",
+      "required": false
+    },
     "FRILANS_FINANS_BASE_URI": {
       "description": "Frilans Finans API base URI (required for invoices)",
       "value": "",
@@ -56,6 +106,11 @@
     },
     "FRILANS_FINANS_CLIENT_SECRET": {
       "description": "Frilans Finans API OAuth client secret (required for invoices)",
+      "value": "",
+      "required": false
+    },
+    "GOOGLE_MAPS_API_TOKEN": {
+      "description": "Goole Maps API token (required geocoding)",
       "value": "",
       "required": false
     }

@@ -4,12 +4,12 @@
     "source": {
       "pointer": "/data/attributes/language"
     },
-    "detail": "must exist"
+    "detail": "can't be blank"
   },
   {
     "status": 422,
     "source": {
-      "pointer": "/data/attributes/language"
+      "pointer": "/data/attributes/hourly_pay"
     },
     "detail": "can't be blank"
   },
@@ -17,27 +17,6 @@
     "status": 422,
     "source": {
       "pointer": "/data/attributes/category"
-    },
-    "detail": "must exist"
-  },
-  {
-    "status": 422,
-    "source": {
-      "pointer": "/data/attributes/category"
-    },
-    "detail": "can't be blank"
-  },
-  {
-    "status": 422,
-    "source": {
-      "pointer": "/data/attributes/hourly-pay"
-    },
-    "detail": "must exist"
-  },
-  {
-    "status": 422,
-    "source": {
-      "pointer": "/data/attributes/hourly-pay"
     },
     "detail": "can't be blank"
   },
@@ -72,21 +51,14 @@
   {
     "status": 422,
     "source": {
-      "pointer": "/data/attributes/job-date"
+      "pointer": "/data/attributes/job_date"
     },
     "detail": "can't be blank"
   },
   {
     "status": 422,
     "source": {
-      "pointer": "/data/attributes/job-end-date"
-    },
-    "detail": "can't be blank"
-  },
-  {
-    "status": 422,
-    "source": {
-      "pointer": "/data/attributes/owner"
+      "pointer": "/data/attributes/job_end_date"
     },
     "detail": "can't be blank"
   },
@@ -95,7 +67,7 @@
     "source": {
       "pointer": "/data/attributes/owner"
     },
-    "detail": "must exist"
+    "detail": "can't be blank"
   },
   {
     "status": 422,

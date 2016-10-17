@@ -68,7 +68,7 @@ module Api
         error code: 422, desc: 'Unprocessable entity'
         param :data, Hash, desc: 'Top level key', required: true do
           param :attributes, Hash, desc: 'Job user attributes', required: true do
-            param :'apply-message', String, desc: 'Apply message'
+            param :apply_message, String, desc: 'Apply message'
           end
         end
         example Doxxer.read_example(JobUser, method: :create)
@@ -76,6 +76,7 @@ module Api
           authorize(JobUser)
 
           @job_user = JobUser.new
+          # NOTE: Not very RESTful to set user from current_user
           @job_user.user = current_user
           @job_user.job = @job
           @job_user.apply_message = jsonapi_params[:apply_message]
@@ -84,11 +85,11 @@ module Api
             NewApplicantNotifier.call(job_user: @job_user, owner: @job.owner)
             api_render(@job_user, status: :created)
           else
-            respond_with_errors(@job_user)
+            api_render_errors(@job_user)
           end
         end
 
-        api :PATCH, '/jobs/:job_id/users/:job_user_id', 'Update job user'
+        api :PATCH, '/jobs/:job_id/users/:job_user_id', '_DEPRECATED_: Update job user'
         description 'Updates a job user if the user is allowed.'
         error code: 400, desc: 'Bad request'
         error code: 401, desc: 'Unauthorized'
@@ -96,13 +97,14 @@ module Api
         error code: 422, desc: 'Unprocessable entity'
         param :data, Hash, desc: 'Top level key', required: true do
           param :attributes, Hash, desc: 'Job user attributes', required: true do
-            param :accepted, [true], desc: 'User accepted for job'
-            param :'will-perform', [true], desc: 'User will perform job'
-            param :performed, [true], desc: 'Job has been performed by user'
+            param :accepted, [true], desc: '_DEPRECATED_: User accepted for job'
+            param :will_perform, [true], desc: '_DEPRECATED_: User will perform job'
+            param :performed, [true], desc: '_DEPRECATED_: Job has been performed by user'
           end
         end
         example Doxxer.read_example(JobUser, method: :update)
         def update
+          ActiveSupport::Deprecation.warn('This route has been deprecated.')
           authorize(@job_user)
 
           @job_user.assign_attributes(permitted_attributes)
@@ -122,7 +124,7 @@ module Api
 
             api_render(@job_user)
           else
-            respond_with_errors(@job_user)
+            api_render_errors(@job_user)
           end
         end
 
@@ -137,7 +139,7 @@ module Api
           if @job_user.will_perform
             message = I18n.t('errors.job_user.will_perform_true_on_delete')
             @job_user.errors.add(:will_perform, message)
-            respond_with_errors(@job_user)
+            api_render_errors(@job_user)
           else
             if @job_user.accepted
               AcceptedApplicantWithdrawnNotifier.call(
@@ -200,10 +202,25 @@ module Api
         def set_event_name(job_user)
           @_event_name ||= begin
             if job_user.send_accepted_notice?
+              message = [
+                'Setting JobUser#accepted using PATCH /jobs/:id/users',
+                'is deprecated, please use POST /jobs/:id/users/acceptances instead'
+              ].join(' ')
+              ActiveSupport::Deprecation.warn(message)
               :accepted
             elsif job_user.send_will_perform_notice?
+              message = [
+                'Setting JobUser#will_perform using PATCH /jobs/:id/users',
+                'is deprecated, please use POST /jobs/:id/users/confirmations instead'
+              ].join(' ')
+              ActiveSupport::Deprecation.warn(message)
               :will_perform
             elsif job_user.send_performed_notice?
+              message = [
+                'Setting JobUser#performed using PATCH /jobs/:id/users',
+                'is deprecated, please use POST /jobs/:id/users/performed instead'
+              ].join(' ')
+              ActiveSupport::Deprecation.warn(message)
               :performed
             else
               :nothing

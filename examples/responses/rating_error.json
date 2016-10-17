@@ -2,55 +2,6 @@
   {
     "status": 422,
     "source": {
-      "pointer": "/data/attributes/from-user"
-    },
-    "detail": "must exist"
-  },
-  {
-    "status": 422,
-    "source": {
-      "pointer": "/data/attributes/from-user"
-    },
-    "detail": "can't be blank"
-  },
-  {
-    "status": 422,
-    "source": {
-      "pointer": "/data/attributes/from-user"
-    },
-    "detail": "must be the job owner or the accepted applicant"
-  },
-  {
-    "status": 422,
-    "source": {
-      "pointer": "/data/attributes/to-user"
-    },
-    "detail": "must exist"
-  },
-  {
-    "status": 422,
-    "source": {
-      "pointer": "/data/attributes/to-user"
-    },
-    "detail": "can't be blank"
-  },
-  {
-    "status": 422,
-    "source": {
-      "pointer": "/data/attributes/to-user"
-    },
-    "detail": "must be the job owner or the accepted applicant"
-  },
-  {
-    "status": 422,
-    "source": {
-      "pointer": "/data/attributes/job"
-    },
-    "detail": "must exist"
-  },
-  {
-    "status": 422,
-    "source": {
       "pointer": "/data/attributes/job"
     },
     "detail": "can't be blank"
@@ -75,5 +26,33 @@
       "pointer": "/data/attributes/score"
     },
     "detail": "is not included in the list"
+  },
+  {
+    "status": 422,
+    "source": {
+      "pointer": "/data/attributes/from_user"
+    },
+    "detail": "can't be blank"
+  },
+  {
+    "status": 422,
+    "source": {
+      "pointer": "/data/attributes/from_user"
+    },
+    "detail": "must be the job owner or the accepted applicant"
+  },
+  {
+    "status": 422,
+    "source": {
+      "pointer": "/data/attributes/to_user"
+    },
+    "detail": "can't be blank"
+  },
+  {
+    "status": 422,
+    "source": {
+      "pointer": "/data/attributes/to_user"
+    },
+    "detail": "must be the job owner or the accepted applicant"
   }
 ]

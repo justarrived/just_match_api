@@ -3,8 +3,10 @@ class JobUserPerformedNotifier < BaseNotifier
   def self.call(job_user:, owner:)
     return if ignored?(owner)
 
-    JobMailer.
-      job_user_performed_email(job_user: job_user, owner: owner).
-      deliver_later
+    with_locale(owner.locale) do
+      JobMailer.
+        job_user_performed_email(job_user: job_user, owner: owner).
+        deliver_later
+    end
   end
 end

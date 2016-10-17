@@ -143,6 +143,10 @@ sv:
         job: Jobb
         score: Göra
         to_user: Till användare
+      token:
+        token: Nyckel
+        expires_at: Löper ut vid
+        user: Användare
       skill:
         job_skills: Arbetserfarenheter
         jobs: Jobb
@@ -150,10 +154,6 @@ sv:
         name: Namn
         user_skills: Användar färdigheter
         users: Användare
-      token:
-        token: Token
-        expires_at: går ut vid
-        user: Användare
       user:
         admin: Administration
         anonymized: Anonym

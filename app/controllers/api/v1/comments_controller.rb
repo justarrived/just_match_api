@@ -48,21 +48,22 @@ module Api
         param :attributes, Hash, desc: 'Comment attributes', required: true do
           param :body, String, desc: 'Body of the comment', required: true
           # rubocop:disable Metrics/LineLength
-          param :'language-id', Integer, desc: 'Language id of the body content', required: true
-          param :'commentable-id', Integer, desc: 'Id of the owner resource', required: true
-          param :'commentable-type', String, desc: 'Owner resource type, i.e "jobs"', required: true
+          param :language_id, Integer, desc: 'Language id of the body content', required: true
+          param :commentable_id, Integer, desc: 'Id of the owner resource', required: true
+          param :commentable_type, String, desc: 'Owner resource type, i.e "jobs"', required: true
           # rubocop:enable Metrics/LineLength
         end
       end
       example Doxxer.read_example(Comment, method: :create)
       def create
         @comment = @commentable.comments.new(comment_params)
+        # NOTE: Not very RESTful to set user from current_user
         @comment.owner_user_id = current_user.id
 
         if @comment.save
           api_render(@comment, status: :created)
         else
-          respond_with_errors(@comment)
+          api_render_errors(@comment)
         end
       end
 
@@ -73,7 +74,7 @@ module Api
       param :data, Hash, desc: 'Top level key', required: true do
         param :attributes, Hash, desc: 'Comment attributes', required: true do
           param :body, String, desc: 'Body of the comment'
-          param :'language-id', Integer, desc: 'Language id of the body content'
+          param :language_id, Integer, desc: 'Language id of the body content'
         end
       end
       example Doxxer.read_example(Comment)
@@ -84,7 +85,7 @@ module Api
         if @comment.save
           api_render(@comment)
         else
-          render json: @comment.errors, status: :unprocessable_entity
+          api_render_errors(@comment)
         end
       end
 
@@ -101,6 +102,7 @@ module Api
       private
 
       def user_comment_scope
+        # NOTE: Not very RESTful to set user from current_user
         if current_user.admin?
           Comment.all
         else

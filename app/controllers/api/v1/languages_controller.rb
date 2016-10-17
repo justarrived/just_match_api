@@ -47,7 +47,7 @@ module Api
       error code: 422, desc: 'Unprocessable entity'
       param :data, Hash, desc: 'Top level key', required: true do
         param :attributes, Hash, desc: 'Language attributes', required: true do
-          param :'lang-code', String, desc: 'Language code', required: true
+          param :lang_code, String, desc: 'Language code', required: true
         end
       end
       example Doxxer.read_example(Language, method: :create)
@@ -59,7 +59,7 @@ module Api
         if @language.save
           api_render(@language, status: :created)
         else
-          respond_with_errors(@language)
+          api_render_errors(@language)
         end
       end
 
@@ -70,7 +70,7 @@ module Api
       error code: 422, desc: 'Unprocessable entity'
       param :data, Hash, desc: 'Top level key', required: true do
         param :attributes, Hash, desc: 'Language attributes', required: true do
-          param :'lang-code', String, desc: 'Name'
+          param :lang_code, String, desc: 'Name'
         end
       end
       example Doxxer.read_example(Language)
@@ -81,7 +81,7 @@ module Api
         if @language.update(language_params)
           api_render(@language)
         else
-          respond_with_errors(@language)
+          api_render_errors(@language)
         end
       end
 

@@ -2,28 +2,14 @@
   {
     "status": 422,
     "source": {
-      "pointer": "/data/attributes/user"
-    },
-    "detail": "must exist"
-  },
-  {
-    "status": 422,
-    "source": {
-      "pointer": "/data/attributes/user"
+      "pointer": "/data/attributes/skill"
     },
     "detail": "can't be blank"
   },
   {
     "status": 422,
     "source": {
-      "pointer": "/data/attributes/skill"
-    },
-    "detail": "must exist"
-  },
-  {
-    "status": 422,
-    "source": {
-      "pointer": "/data/attributes/skill"
+      "pointer": "/data/attributes/user"
     },
     "detail": "can't be blank"
   }

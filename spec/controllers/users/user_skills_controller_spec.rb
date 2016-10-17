@@ -13,7 +13,7 @@ RSpec.describe Api::V1::Users::UserSkillsController, type: :controller do
   let(:valid_session) do
     user = FactoryGirl.create(:user_with_tokens)
     allow_any_instance_of(described_class).
-      to(receive(:authenticate_user_token!).
+      to(receive(:current_user).
       and_return(user))
     { token: user.auth_token }
   end
@@ -22,7 +22,7 @@ RSpec.describe Api::V1::Users::UserSkillsController, type: :controller do
     it 'assigns all user skills as @skills' do
       user = FactoryGirl.create(:user_with_skills, skills_count: 1)
       allow_any_instance_of(described_class).
-        to(receive(:authenticate_user_token!).
+        to(receive(:current_user).
         and_return(user))
 
       user_skill = user.user_skills.first
@@ -33,7 +33,7 @@ RSpec.describe Api::V1::Users::UserSkillsController, type: :controller do
     it 'returns 200 ok status' do
       user = FactoryGirl.create(:user)
       allow_any_instance_of(described_class).
-        to(receive(:authenticate_user_token!).
+        to(receive(:current_user).
         and_return(user))
       get :index, { user_id: user.to_param }, {}
       expect(response.status).to eq(200)
@@ -102,8 +102,8 @@ RSpec.describe Api::V1::Users::UserSkillsController, type: :controller do
     context 'not authorized' do
       it 'returns not authorized status' do
         allow_any_instance_of(described_class).
-          to(receive(:authenticate_user_token!).
-          and_return(nil))
+          to(receive(:current_user).
+          and_return(User.new))
         user = FactoryGirl.create(:user)
         post :create, { user_id: user.to_param, skill: {} }, {}
         expect(response.status).to eq(401)
@@ -133,7 +133,7 @@ RSpec.describe Api::V1::Users::UserSkillsController, type: :controller do
         user = FactoryGirl.create(:user_with_skills)
         user.create_auth_token
         allow_any_instance_of(described_class).
-          to(receive(:authenticate_user_token!).
+          to(receive(:current_user).
           and_return(user))
         { token: user.auth_token }
       end
@@ -156,7 +156,7 @@ RSpec.describe Api::V1::Users::UserSkillsController, type: :controller do
       end
     end
 
-    context 'unauthorized user' do
+    context 'user not allowed' do
       it 'does not destroy the requested user_skill' do
         user = FactoryGirl.create(:user_with_skills)
         user_skill = user.user_skills.first
@@ -171,7 +171,7 @@ RSpec.describe Api::V1::Users::UserSkillsController, type: :controller do
         user_skill = user.user_skills.first
         params = { user_id: user.to_param, user_skill_id: user_skill.to_param }
         delete :destroy, params, valid_session
-        expect(response.status).to eq(401)
+        expect(response.status).to eq(403)
       end
     end
   end

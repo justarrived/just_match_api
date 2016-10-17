@@ -37,6 +37,8 @@ end
 #  cancelled         :boolean          default(FALSE)
 #  filled            :boolean          default(FALSE)
 #  short_description :string
+#  featured          :boolean          default(FALSE)
+#  upcoming          :boolean          default(FALSE)
 #
 # Indexes
 #

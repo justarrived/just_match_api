@@ -4,12 +4,14 @@ class ApplicantAcceptedNotifier < BaseNotifier
     user = job_user.user
     return if ignored?(user)
 
-    JobTexter.
-      applicant_accepted_text(job_user: job_user).
-      deliver_later
+    with_locale(job_user.user.locale) do
+      JobTexter.
+        applicant_accepted_text(job_user: job_user).
+        deliver_later
 
-    JobMailer.
-      applicant_accepted_email(job_user: job_user, owner: owner).
-      deliver_later
+      JobMailer.
+        applicant_accepted_email(job_user: job_user, owner: owner).
+        deliver_later
+    end
   end
 end

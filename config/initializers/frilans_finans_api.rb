@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 FrilansFinansApi.logger = Rails.logger
+FrilansFinansApi.event_logger = FrilansFinansEventLogger.new
 FrilansFinansApi.client_klass = FrilansFinansApi::Client
 FrilansFinansApi.base_uri = ENV.fetch('FRILANS_FINANS_BASE_URI')
 FrilansFinansApi.client_id = ENV.fetch('FRILANS_FINANS_CLIENT_ID')

@@ -27,8 +27,8 @@ module Api
           param :attributes, Hash, desc: 'Rating attributes', required: true do
             param :score, Rating::SCORE_RANGE.to_a, desc: 'Rating score', required: true
             param :body, String, desc: 'Comment body', required: true
-            param :'language-id', Integer, desc: 'Language id', required: true
-            param :'user-id', Integer, desc: 'User id (receiver of rating)', required: true # rubocop:disable Metrics/LineLength
+            param :language_id, Integer, desc: 'Language id', required: true
+            param :user_id, Integer, desc: 'User id (receiver of rating)', required: true # rubocop:disable Metrics/LineLength
           end
         end
         example Doxxer.read_example(Rating, method: :create)
@@ -38,6 +38,7 @@ module Api
           @rating = Rating.new(rating_params)
           @rating.job = @job
 
+          # NOTE: Not very RESTful to set user from current_user
           @rating.from_user = current_user
           @rating.to_user = User.find_by(id: jsonapi_params[:user_id])
 
@@ -51,7 +52,7 @@ module Api
           if @rating.save
             api_render(@rating, status: :created)
           else
-            respond_with_errors(@rating)
+            api_render_errors(@rating)
           end
         end
 

@@ -51,6 +51,14 @@ class Job < ApplicationRecord
   scope :uncancelled, -> { where(cancelled: false) }
   scope :filled, -> { where(filled: true) }
   scope :unfilled, -> { where(filled: false) }
+  scope :upcoming, -> { where(upcoming: true) }
+  scope :featured, -> { where(featured: true) }
+  scope :applied_jobs, lambda { |user_id|
+    joins(:job_users).where('job_users.user_id = ?', user_id)
+  }
+  scope :no_applied_jobs, lambda { |user_id|
+    where.not(id: applied_jobs(user_id).map(&:id))
+  }
 
   # This will return an Array and not an ActiveRecord::Relation
   def self.non_hired
@@ -101,22 +109,14 @@ class Job < ApplicationRecord
     hourly_pay.gross_salary * hours
   end
 
+  def invoice_amount
+    hourly_pay.rate_excluding_vat * hours
+  end
+
   # NOTE: You need to call this __before__ the record is validated
   #       otherwise it will always return false
   def send_cancelled_notice?
     cancelled_changed? && cancelled
-  end
-
-  # Needed for administrate
-  # see https://github.com/thoughtbot/administrate/issues/354
-  def owner_id
-    owner.try!(:id)
-  end
-
-  # Needed for administrate
-  # see https://github.com/thoughtbot/administrate/issues/354
-  def owner_id=(id)
-    self.owner = User.find_by(id: id)
   end
 
   def owner?(user)
@@ -136,7 +136,7 @@ class Job < ApplicationRecord
   end
 
   def accepted_applicant
-    accepted_job_user.try!(:user)
+    accepted_job_user&.user
   end
 
   def accepted_user
@@ -172,6 +172,16 @@ class Job < ApplicationRecord
     return days if days.length <= 7
 
     DateSupport.weekdays_in(job_date, job_end_date)
+  end
+
+  def google_calendar_template_url
+    GoogleCalendarUrl.build(
+      name: name,
+      description: description,
+      location: [street, zip].join(', '),
+      start_time: job_date,
+      end_time: job_end_date
+    )
   end
 
   def validate_job_date_in_future
@@ -237,6 +247,8 @@ end
 #  cancelled         :boolean          default(FALSE)
 #  filled            :boolean          default(FALSE)
 #  short_description :string
+#  featured          :boolean          default(FALSE)
+#  upcoming          :boolean          default(FALSE)
 #
 # Indexes
 #

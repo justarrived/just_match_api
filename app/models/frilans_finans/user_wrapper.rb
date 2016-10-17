@@ -2,9 +2,8 @@
 module FrilansFinans
   module UserWrapper
     def self.attributes(user)
-      # Frilans Finans wants the social security number as an integer
-      ssn = user.ssn.to_i
-      {
+      # NOTE: FFAPIv2: Wrap in data/attributes instead of user
+      attrs = {
         user: {
           email: user.email,
           street: user.street || '',
@@ -13,10 +12,21 @@ module FrilansFinans
           country: user.country_name.upcase,
           cellphone: user.phone,
           first_name: user.first_name,
-          last_name: user.last_name,
-          social_security_number: ssn
+          last_name: user.last_name
         }
       }
+
+      ssn = user.ssn
+      # Company users doesn't need to have ssn set
+      attrs[:user][:social_security_number] = format_ssn(ssn) unless ssn.blank?
+      attrs
+    end
+
+    def self.format_ssn(ssn)
+      # Frilans Finans wants the social security number as an integer
+      # We store the ssn on the format YYMMDD-XXXX, so we need to remove '-'
+      # NOTE: FFAPIv2: ssn should be a string!
+      ssn.delete('-').to_i
     end
   end
 end

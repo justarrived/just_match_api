@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class UserImageSerializer < ApplicationSerializer
-  ATTRIBUTES = [:one_time_token, :one_time_token_expires_at].freeze
+  ATTRIBUTES = [:one_time_token, :one_time_token_expires_at, :category].freeze
   attributes ATTRIBUTES
 
   attribute :category_name
@@ -9,14 +9,16 @@ class UserImageSerializer < ApplicationSerializer
   attribute :image_url_medium
   attribute :image_url_small
 
-  has_one :user
+  link(:self) { api_v1_user_image_url(object.user_id, object) if object.user_id }
 
-  def category_name
-    'profile'
-  end
+  has_one :user
 
   def image_url
     object.image.url
+  end
+
+  def category_name
+    object.category
   end
 
   def image_url_large
@@ -46,6 +48,7 @@ end
 #  image_content_type        :string
 #  image_file_size           :integer
 #  image_updated_at          :datetime
+#  category                  :integer
 #
 # Indexes
 #

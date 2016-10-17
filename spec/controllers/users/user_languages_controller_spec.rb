@@ -13,7 +13,7 @@ RSpec.describe Api::V1::Users::UserLanguagesController, type: :controller do
   let(:valid_session) do
     user = FactoryGirl.create(:user_with_tokens)
     allow_any_instance_of(described_class).
-      to(receive(:authenticate_user_token!).
+      to(receive(:current_user).
       and_return(user))
     { token: user.auth_token }
   end
@@ -25,7 +25,7 @@ RSpec.describe Api::V1::Users::UserLanguagesController, type: :controller do
       user = FactoryGirl.create(:user_with_languages, languages_count: 1)
 
       allow_any_instance_of(described_class).
-        to(receive(:authenticate_user_token!).
+        to(receive(:current_user).
         and_return(user))
 
       user_language = user.user_languages.first
@@ -101,7 +101,7 @@ RSpec.describe Api::V1::Users::UserLanguagesController, type: :controller do
 
         it 'returns created status' do
           post :create, params, valid_session
-          expect(response.status).to eq(401)
+          expect(response.status).to eq(403)
         end
       end
     end
@@ -156,7 +156,7 @@ RSpec.describe Api::V1::Users::UserLanguagesController, type: :controller do
         user_language = user.user_languages.first
         params = { user_id: user.to_param, user_language_id: user_language.to_param }
         delete :destroy, params, valid_session
-        expect(response.status).to eq(401)
+        expect(response.status).to eq(403)
       end
     end
   end

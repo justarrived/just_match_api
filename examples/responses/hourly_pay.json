@@ -1,14 +1,17 @@
 {
   "data": {
     "id": "1",
-    "type": "hourly-pays",
+    "type": "hourly_pays",
     "attributes": {
-      "gross-salary": 100,
-      "net-salary": 70.0,
-      "rate-excluding-vat": 140.0,
-      "rate-including-vat": 175.0,
+      "gross_salary": 100,
+      "net_salary": 70.0,
+      "rate_excluding_vat": 140.0,
+      "rate_including_vat": 175.0,
       "active": true,
       "currency": "SEK"
+    },
+    "links": {
+      "self": "https://api.justarrived.se/api/v1/hourly-pays/1"
     }
   }
 }

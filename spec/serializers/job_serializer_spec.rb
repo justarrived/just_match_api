@@ -3,14 +3,14 @@ require 'rails_helper'
 
 RSpec.describe JobSerializer, type: :serializer do
   context 'Individual Resource Representation' do
-    let(:resource) { FactoryGirl.build(:job) }
+    let(:resource) { FactoryGirl.build(:job, id: '17') }
     let(:serialization) { JsonApiSerializer.serialize(resource) }
 
     subject do
       JSON.parse(serialization.to_json)
     end
 
-    JobPolicy::ATTRIBUTES.each do |attribute|
+    (JobPolicy::ATTRIBUTES - %i(id)).each do |attribute|
       it "has #{attribute.to_s.humanize.downcase}" do
         dashed_attribute = attribute.to_s.dasherize
         value = resource.public_send(attribute)
@@ -57,6 +57,8 @@ end
 #  cancelled         :boolean          default(FALSE)
 #  filled            :boolean          default(FALSE)
 #  short_description :string
+#  featured          :boolean          default(FALSE)
+#  upcoming          :boolean          default(FALSE)
 #
 # Indexes
 #

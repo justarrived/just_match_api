@@ -10,16 +10,20 @@ class HourlyPay < ApplicationRecord
   RATE_EXCLUDING_VAT_MULTIPLIER = 1.4
   VAT_MULTIPLIER = 1.25
 
+  def name
+    "Gross salary #{gross_salary} SEK"
+  end
+
   def net_salary
-    gross_salary * NET_SALARY_MULTIPLIER
+    PayCalculator.net_salary(gross_salary)
   end
 
   def rate_excluding_vat
-    gross_salary * RATE_EXCLUDING_VAT_MULTIPLIER
+    PayCalculator.rate_excluding_vat(gross_salary)
   end
 
   def rate_including_vat
-    rate_excluding_vat * VAT_MULTIPLIER
+    PayCalculator.rate_including_vat(gross_salary)
   end
 end
 

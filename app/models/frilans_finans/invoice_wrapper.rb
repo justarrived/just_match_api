@@ -1,24 +1,24 @@
 # frozen_string_literal: true
 module FrilansFinans
   module InvoiceWrapper
-    def self.attributes(job:, user:, tax:, ff_user:)
+    def self.attributes(job:, user:, tax:, ff_user:, pre_report:)
       {
         invoice: {
           invoiceuser: invoice_users(job: job, user: user, ff_user: ff_user),
           invoicedate: invoice_dates(job: job)
-        }.merge!(invoice_data(job: job, user: user, tax: tax))
+        }.merge!(invoice_data(job: job, user: user, tax: tax, pre_report: pre_report))
       }
     end
 
-    def self.invoice_data(job:, user:, tax:)
+    def self.invoice_data(job:, user:, tax:, pre_report:)
       {
-        currency_id: Currency.default_currency.try!(:frilans_finans_id),
+        currency_id: Currency.default_currency&.frilans_finans_id,
         specification: "#{job.category.name} - #{job.name} (##{job.id})",
-        amount: job.amount,
+        amount: job.invoice_amount,
         company_id: job.company.frilans_finans_id,
         tax_id: tax.id,
         user_id: user.frilans_finans_id,
-        pre_report: true
+        pre_report: pre_report
       }
     end
 
@@ -29,7 +29,7 @@ module FrilansFinans
 
       [{
         user_id: user.frilans_finans_id,
-        total: job.amount,
+        total: job.invoice_amount,
         taxkey_id: taxkey_id,
         allowance: 0,
         travel: 0,

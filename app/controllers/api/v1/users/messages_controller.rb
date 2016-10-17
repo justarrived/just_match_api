@@ -46,7 +46,7 @@ module Api
         param :data, Hash, desc: 'Top level key', required: true do
           param :attributes, Hash, desc: 'Message attributes', required: true do
             param :body, String, desc: 'Message body', required: true
-            param :'language-id', Integer, desc: 'Language id', required: true
+            param :language_id, Integer, desc: 'Language id', required: true
           end
         end
         ApipieDocHelper.params(self)
@@ -65,7 +65,7 @@ module Api
           if @message.valid?
             api_render(@message, status: :created)
           else
-            respond_with_errors(@message)
+            api_render_errors(@message)
           end
         end
 

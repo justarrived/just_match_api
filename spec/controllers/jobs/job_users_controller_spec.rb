@@ -13,7 +13,7 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
   let(:valid_session) do
     user = FactoryGirl.create(:user_with_tokens)
     allow_any_instance_of(described_class).
-      to(receive(:authenticate_user_token!).
+      to(receive(:current_user).
       and_return(user))
     { token: user.auth_token }
   end
@@ -33,7 +33,7 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
       it 'returns not authorized status' do
         job = FactoryGirl.create(:job_with_users, users_count: 1)
         get :index, { job_id: job.to_param }, valid_session
-        expect(response.status).to eq(401)
+        expect(response.status).to eq(403)
       end
     end
   end
@@ -56,7 +56,7 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
         job_user = job.job_users.first
         params = { job_id: job.to_param, job_user_id: job_user.to_param }
         get :show, params, valid_session
-        expect(response.status).to eq(401)
+        expect(response.status).to eq(403)
       end
     end
   end
@@ -197,7 +197,7 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
             job_user_id: job_user.to_param
           }.merge(new_attributes)
           put :update, params, valid_session
-          expect(response.status).to eq(401)
+          expect(response.status).to eq(403)
         end
       end
 
@@ -219,7 +219,7 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
           # Set the job_user as the logged in user
           let(:valid_session) do
             allow_any_instance_of(described_class).
-              to(receive(:authenticate_user_token!).
+              to(receive(:current_user).
               and_return(user))
             { token: user.auth_token }
           end
@@ -278,7 +278,7 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
           }.merge(new_performed_attributes)
 
           allow_any_instance_of(described_class).
-            to(receive(:authenticate_user_token!).
+            to(receive(:current_user).
             and_return(user))
 
           notifier_args = { job_user: job_user, owner: job.owner }
@@ -306,7 +306,7 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
         job_user = job.job_users.first
         params = { job_id: job.to_param, job_user_id: job_user.to_param }
         delete :destroy, params, valid_session
-        expect(response.status).to eq(401)
+        expect(response.status).to eq(403)
       end
     end
 
@@ -316,7 +316,7 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
         user = job.users.first
         job_user = job.job_users.first
         allow_any_instance_of(described_class).
-          to(receive(:authenticate_user_token!).
+          to(receive(:current_user).
           and_return(user))
         session = { token: user.auth_token }
         params = { job_id: job.to_param, job_user_id: job_user.to_param }
@@ -331,7 +331,7 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
         job_user = job.job_users.first
         job.job_users.first.update_attributes(accepted: true, will_perform: true)
         allow_any_instance_of(described_class).
-          to(receive(:authenticate_user_token!).
+          to(receive(:current_user).
           and_return(user))
         session = { token: user.auth_token }
         params = { job_id: job.to_param, job_user_id: job_user.to_param }
@@ -352,7 +352,7 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
         job_user = job.job_users.first
         job.job_users.first.update_attributes(accepted: true)
         allow_any_instance_of(described_class).
-          to(receive(:authenticate_user_token!).
+          to(receive(:current_user).
           and_return(user))
         session = { token: user.auth_token }
         params = { job_id: job.to_param, job_user_id: job_user.to_param }
@@ -366,7 +366,7 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
         user = job.users.first
         job_user = job.job_users.first
         allow_any_instance_of(described_class).
-          to(receive(:authenticate_user_token!).
+          to(receive(:current_user).
           and_return(user))
         session = { token: user.auth_token }
         params = { job_id: job.to_param, job_user_id: job_user.to_param }

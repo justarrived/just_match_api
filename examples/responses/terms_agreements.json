@@ -2,7 +2,7 @@
   "data": [
     {
       "id": "1",
-      "type": "terms-agreements",
+      "type": "terms_agreements",
       "attributes": {
         "version": "v2",
         "url": "https://example.com"

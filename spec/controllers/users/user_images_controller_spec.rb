@@ -3,8 +3,14 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::Users::UserImagesController, type: :controller do
   describe 'POST #create' do
+    let(:category) { UserImage::CATEGORIES.keys.last }
     let(:valid_attributes) do
-      { image: TestImageFileReader.image }
+      {
+        image: TestImageFileReader.image,
+        data: {
+          attributes: { category: category }
+        }
+      }
     end
 
     let(:invalid_attributes) do
@@ -19,8 +25,20 @@ RSpec.describe Api::V1::Users::UserImagesController, type: :controller do
 
       it 'returns 201 accepted status' do
         post :create, valid_attributes, {}
-        assigns(:user_image)
         expect(response.status).to eq(201)
+      end
+
+      it 'assigns the user image category' do
+        post :create, valid_attributes, {}
+        user_image = assigns(:user_image)
+        expect(user_image.category).to eq(category.to_s)
+      end
+
+      it 'assigns the default user image category if none given' do
+        attrs = valid_attributes.slice(:image)
+        post :create, attrs, {}
+        user_image = assigns(:user_image)
+        expect(user_image.category).to eq(user_image.default_category)
       end
     end
 
@@ -37,7 +55,7 @@ RSpec.describe Api::V1::Users::UserImagesController, type: :controller do
     let(:user_image) { FactoryGirl.create(:user_image, user: user) }
     let(:valid_session) do
       allow_any_instance_of(described_class).
-        to(receive(:authenticate_user_token!).
+        to(receive(:current_user).
         and_return(user))
       {}
     end

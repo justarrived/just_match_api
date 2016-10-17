@@ -6,7 +6,7 @@ class AdminMailer < ApplicationMailer
     @company_name = @company.name
 
     subject = I18n.t('admin.mailer.invoice_missing_company_frilans_finans_id.subject')
-    mail(to: user.email, subject: subject)
+    mail(to: user.contact_email, subject: subject)
   end
 
   def invoice_failed_to_connect_to_frilans_finans_email(user:, ff_invoice:)
@@ -16,7 +16,7 @@ class AdminMailer < ApplicationMailer
     @invoice_link_name = "#{model_name} ##{@ff_invoice_id}"
 
     subject = I18n.t('admin.mailer.invoice_failed_to_connect_to_frilans_finans.subject')
-    mail(to: user.email, subject: subject)
+    mail(to: user.contact_email, subject: subject)
   end
 
   def failed_to_activate_invoice_email(user:, ff_invoice:)
@@ -26,6 +26,6 @@ class AdminMailer < ApplicationMailer
     @invoice_link_name = "#{model_name} ##{@ff_invoice_id}"
 
     subject = I18n.t('admin.mailer.failed_to_activate_invoice.subject')
-    mail(to: user.email, subject: subject)
+    mail(to: user.contact_email, subject: subject)
   end
 end

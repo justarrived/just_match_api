@@ -19,7 +19,7 @@ RSpec.describe Api::V1::Jobs::InvoicesController, type: :controller do
 
   let(:valid_session) do
     allow_any_instance_of(described_class).
-      to(receive(:authenticate_user_token!).
+      to(receive(:current_user).
       and_return(logged_in_user))
 
     { token: logged_in_user.auth_token }

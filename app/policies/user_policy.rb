@@ -12,7 +12,7 @@ class UserPolicy < ApplicationPolicy
 
   ATTRIBUTES = [
     :id, :first_name, :description, :job_experience, :education, :language_id, :zip,
-    :zip_latitude, :zip_longitude, :competence_text
+    :zip_latitude, :zip_longitude, :competence_text, :primary_role
   ].freeze
 
   ACCEPTED_APPLICANT_ATTRIBUTES = ATTRIBUTES + [
@@ -56,6 +56,10 @@ class UserPolicy < ApplicationPolicy
   end
 
   def notifications?
+    true
+  end
+
+  def statuses?
     true
   end
 

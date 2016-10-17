@@ -20,7 +20,7 @@ RSpec.describe Api::V1::Users::FrilansFinansController, type: :controller do
 
     let(:valid_session) do
       allow_any_instance_of(described_class).
-        to(receive(:authenticate_user_token!).
+        to(receive(:current_user).
         and_return(user))
       {}
     end
@@ -46,7 +46,7 @@ RSpec.describe Api::V1::Users::FrilansFinansController, type: :controller do
       it 'sets User#frilans_finans_id' do
         isolate_frilans_finans_client(FrilansFinansApi::FixtureClient) do
           post :create, valid_params, valid_session
-          expect(assigns(:user).frilans_finans_id).to eq(1)
+          expect(assigns(:user).frilans_finans_id).not_to be_nil
         end
       end
 

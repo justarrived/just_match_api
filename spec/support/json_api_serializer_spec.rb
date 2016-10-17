@@ -6,7 +6,8 @@ require 'spec_helper'
 # ActiveModelSerializers API, we're using there private(-ish) API and can be good to
 # keep around if the compatibility brakes
 RSpec.describe JsonApiSerializer do
-  let(:skill_model) { Skill.new }
+  let(:id) { '1' }
+  let(:skill_model) { Skill.new(id: id) }
   let(:skills_relation) { Skill.none }
   let(:skill_error_model) { Skill.new.tap { |s| s.errors.add(:watman, 'Watman') } }
   let(:current_user) { nil }
@@ -62,12 +63,13 @@ RSpec.describe JsonApiSerializer do
     it 'returns the serialized data for single model' do
       expected_data = {
         data: {
-          id: '',
+          id: id,
           type: 'skills',
           attributes: { name: nil },
           relationships: {
             language: { data: nil }
-          }
+          },
+          links: { self: 'https://api.justarrived.se/api/v1/skills/1' }
         }
       }
       expect(serializer.serialize.serializable_hash).to eq(expected_data)

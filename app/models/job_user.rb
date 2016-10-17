@@ -21,7 +21,7 @@ class JobUser < ApplicationRecord
   validates :will_perform, unrevertable: true
   validates :performed, unrevertable: true
 
-  validate :validate_single_applicant, on: :update
+  validate :validate_single_accepted_applicant
   validate :validate_applicant_not_owner_of_job
   validate :validate_job_started_before_performed
 
@@ -30,6 +30,7 @@ class JobUser < ApplicationRecord
   scope :accepted, -> { where(accepted: true) }
   scope :will_perform, -> { where(will_perform: true) }
   scope :unconfirmed, -> { accepted.where(will_perform: false) }
+  scope :performed, -> { where(performed: false) }
   scope :applicant_confirmation_overdue, lambda {
     unconfirmed.where('accepted_at < ?', MAX_CONFIRMATION_TIME_HOURS.hours.ago)
   }
@@ -59,12 +60,14 @@ class JobUser < ApplicationRecord
     end
   end
 
-  def validate_single_applicant
-    accepted_user = self.class.accepted.find_by(job: job).try!(:user)
-    if accepted_user && user != accepted_user
-      message = I18n.t('errors.job_user.multiple_applicants')
-      errors.add(:multiple_applicants, message)
-    end
+  def validate_single_accepted_applicant
+    accepted_user = self.class.accepted.find_by(job: job)&.user
+    return if accepted_user.nil?
+    return if user == accepted_user
+    return unless accepted
+
+    message = I18n.t('errors.job_user.multiple_applicants')
+    errors.add(:accepted, message)
   end
 
   def accept
@@ -79,10 +82,6 @@ class JobUser < ApplicationRecord
 
   def invoiced?
     !invoice.nil?
-  end
-
-  def concluded?
-    invoiced?
   end
 
   # NOTE: You need to call this __before__ the record is validated

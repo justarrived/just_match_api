@@ -22,6 +22,17 @@ module Api
 
         api_render(@categories, total: categories_index.count)
       end
+
+      api :GET, '/categories/:id', 'Show category'
+      description 'Returns a category.'
+      example Doxxer.read_example(Category)
+      def show
+        authorize(Category)
+
+        @category = Category.insured.find(params[:id])
+
+        api_render(@category)
+      end
     end
   end
 end

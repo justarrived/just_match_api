@@ -92,12 +92,6 @@ RSpec.describe CreateFrilansFinansInvoiceService do
       end
     end
 
-    it 'does persist invoice' do
-      isolate_frilans_finans_client(FrilansFinansApi::NilClient) do
-        expect(subject.persisted?).to eq(true)
-      end
-    end
-
     it 'does call Frilans Finans API' do
       isolate_frilans_finans_client(FrilansFinansApi::NilClient) do
         allow(frilans_api_klass).to receive(:create).and_return(ff_nil_document_mock)

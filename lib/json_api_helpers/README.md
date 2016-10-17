@@ -44,6 +44,45 @@ errors.to_h
 #     }
 #   }]
 # }
+
+# In ApplicationController you can define
+class ApplicationController < ActionController::Base
+  # Define these constants in your controllers that you'd like to have
+  # different/custom behavior
+  DEFAULT_SORTING = { created_at: :desc }.freeze
+  SORTABLE_FIELDS = [].freeze
+
+  ALLOWED_INCLUDES = [].freeze
+
+  TRANSFORMABLE_FILTERS = { created_at: :date_range }.freeze
+  ALLOWED_FILTERS = %i(created_at).freeze
+
+  def jsonapi_params
+    @_deserialized_params ||= JsonApiDeserializer.parse(params)
+  end
+
+  def include_params
+    @_include_params ||= JsonApiIncludeParams.new(params[:include])
+  end
+
+  def fields_params
+    @_fields_params ||= JsonApiFieldsParams.new(params[:fields])
+  end
+
+  def sort_params
+    sortable_fields = self.class::SORTABLE_FIELDS
+    default_sorting = self.class::DEFAULT_SORTING
+    @_sort_params = JsonApiSortParams.build(params[:sort], sortable_fields, default_sorting)
+  end
+
+  def filter_params
+    filterable_fields = self.class::ALLOWED_FILTERS
+    transformable = self.class::TRANSFORMABLE_FILTERS
+    @_filter_params = JsonApiFilterParams.build(params[:filter], filterable_fields, transformable)
+  end
+
+  # ...
+end
 ```
 
 There are shorthands for all helpers that you can include:

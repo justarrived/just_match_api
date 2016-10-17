@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 class Company < ApplicationRecord
   has_many :users
-  has_many :jobs, through: :users
+  has_many :owned_jobs, through: :users
 
   has_many :company_images
 
@@ -10,8 +10,8 @@ class Company < ApplicationRecord
   validates :name, length: { minimum: 2 }, allow_blank: false
   validates :cin, uniqueness: true, length: { is: 10 }, allow_blank: false
   validates :email, presence: true
-  validates :street, length: { minimum: 1 }, allow_blank: false
-  validates :zip, length: { minimum: 1 }, allow_blank: false
+  validates :street, length: { minimum: 5 }, allow_blank: false
+  validates :zip, length: { minimum: 5 }, allow_blank: false
   validates :city, length: { minimum: 1 }, allow_blank: false
   validates :frilans_finans_id, uniqueness: true, allow_nil: true
 
@@ -39,7 +39,7 @@ class Company < ApplicationRecord
   end
 
   def add_protocol_to_website
-    return if website.nil?
+    return if website.blank?
 
     self.website = URLHelper.add_protocol(website.strip)
   end

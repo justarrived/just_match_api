@@ -13,6 +13,9 @@ FactoryGirl.define do
     description 'Watman ' * 2
     street 'Bankgatan 14C'
     zip '223 52'
+    sequence :frilans_finans_id do |n|
+      n
+    end
     sequence :ssn do |n|
       num_length = case n
                    when 0...10 then 10
@@ -130,6 +133,7 @@ end
 #  at_und                         :integer
 #  arrived_at                     :date
 #  country_of_origin              :string
+#  managed                        :boolean          default(FALSE)
 #
 # Indexes
 #
@@ -138,7 +142,6 @@ end
 #  index_users_on_frilans_finans_id  (frilans_finans_id) UNIQUE
 #  index_users_on_language_id        (language_id)
 #  index_users_on_one_time_token     (one_time_token) UNIQUE
-#  index_users_on_ssn                (ssn) UNIQUE
 #
 # Foreign Keys
 #

@@ -5,8 +5,8 @@ AllCops:
   Exclude:
     - "vendor/**/*"
     - "db/schema.rb"
-    - "config/unicorn.rb"
-  UseCache: false
+    - "config/puma.rb"
+  UseCache: true
 Style/CollectionMethods:
   Description: Preferred collection methods.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#map-find-select-reduce-size
@@ -175,6 +175,7 @@ Metrics/LineLength:
   - config/routes.rb
   - spec/controllers/regression/**/*
   - spec/models/regression/**/*
+  - Gemfile
 Lint/AssignmentInCondition:
   Description: Don't use assignment in conditions.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#safe-assignment-in-condition
@@ -246,4 +247,13 @@ Lint/LiteralInCondition:
   Enabled: false
 Lint/LiteralInInterpolation:
   Description: Checks for literals used in interpolation.
+  Enabled: false
+
+# Rails
+
+Rails/DynamicFindBy:
+  Enabled: false
+Rails/HttpPositionalArguments:
+  Enabled: false # Rails5: Set this to true
+Metrics/BlockLength:
   Enabled: false

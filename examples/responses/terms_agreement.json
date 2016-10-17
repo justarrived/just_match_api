@@ -1,7 +1,7 @@
 {
   "data": {
     "id": "1",
-    "type": "terms-agreements",
+    "type": "terms_agreements",
     "attributes": {
       "version": "v1",
       "url": "https://example.com"

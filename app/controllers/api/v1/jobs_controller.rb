@@ -3,6 +3,7 @@ module Api
   module V1
     class JobsController < BaseController
       before_action :set_job, only: [:show, :edit, :update, :matching_users]
+      before_action :require_promo_code, except: [:index]
 
       resource_description do
         short 'API for managing jobs'
@@ -12,7 +13,7 @@ module Api
         api_versions '1.0'
       end
 
-      ALLOWED_INCLUDES = %w(owner company language category hourly_pay comments).freeze
+      ALLOWED_INCLUDES = %w(owner company company.company_images language category hourly_pay comments).freeze # rubocop:disable Metrics/LineLength
 
       api :GET, '/jobs', 'List jobs'
       description 'Returns a list of jobs.'
@@ -25,7 +26,7 @@ module Api
         #   Causes N+1 for job_users resource if current user is owner
         #     :includes => [:job_users]
 
-        jobs_index = Index::JobsIndex.new(self)
+        jobs_index = Index::JobsIndex.new(self, current_user)
         jobs_scope = jobs_index_scope(Job.uncancelled)
         @jobs = jobs_index.jobs(jobs_scope)
 
@@ -52,13 +53,14 @@ module Api
           # rubocop:disable Metrics/LineLength
           param :hours, Float, desc: 'Estmiated completion time', required: true
           param :name, String, desc: 'Name', required: true
-          param :'short-description', String, desc: 'Short description'
+          param :short_description, String, desc: 'Short description'
           param :description, String, desc: 'Description', required: true
-          param :'job-date', String, desc: 'Job start date', required: true
-          param :'job-end-date', String, desc: 'Job end date', required: true
-          param :'language-id', Integer, desc: 'Langauge id of the text content', required: true
-          param :'hourly-pay-id', Integer, desc: 'Hourly pay id', required: true
-          param :'skill-ids', Array, of: Integer, desc: 'List of skill ids', required: true
+          param :job_date, String, desc: 'Job start date', required: true
+          param :job_end_date, String, desc: 'Job end date', required: true
+          param :upcoming, [true, false], desc: 'Upcoming job (default false)'
+          param :language_id, Integer, desc: 'Langauge id of the text content', required: true
+          param :hourly_pay_id, Integer, desc: 'Hourly pay id', required: true
+          param :skill_ids, Array, of: 'Skill IDs', desc: 'List of skill ids', required: true
           # rubocop:enable Metrics/LineLength
         end
       end
@@ -68,6 +70,7 @@ module Api
         authorize(Job)
 
         @job = Job.new(permitted_attributes)
+        # NOTE: Not very RESTful to assume current_user
         @job.owner_user_id = current_user.id
 
         if @job.save
@@ -80,7 +83,7 @@ module Api
 
           api_render(@job, status: :created)
         else
-          respond_with_errors(@job)
+          api_render_errors(@job)
         end
       end
 
@@ -94,15 +97,16 @@ module Api
       param :data, Hash, desc: 'Top level key', required: true do
         param :attributes, Hash, desc: 'Job attributes', required: true do
           param :name, String, desc: 'Name'
-          param :'short-description', String, desc: 'Short description'
+          param :short_description, String, desc: 'Short description'
           param :description, String, desc: 'Description'
-          param :'job-date', String, desc: 'Job start date'
-          param :'job-end-date', String, desc: 'Job end date'
+          param :job_date, String, desc: 'Job start date'
+          param :job_end_date, String, desc: 'Job end date'
           param :hours, Float, desc: 'Estmiated completion time'
           param :cancelled, [true], desc: 'Cancel the job'
-          param :'language-id', Integer, desc: 'Langauge id of the text content'
-          param :'hourly-pay-id', Integer, desc: 'Hourly pay id'
-          param :'owner-user-id', Integer, desc: 'User id for the job owner'
+          param :upcoming, [true, false], desc: 'Upcoming job (default false)'
+          param :language_id, Integer, desc: 'Langauge id of the text content'
+          param :hourly_pay_id, Integer, desc: 'Hourly pay id'
+          param :owner_user_id, Integer, desc: 'User id for the job owner'
         end
       end
       example Doxxer.read_example(Job, method: :update)
@@ -113,9 +117,10 @@ module Api
         if @job.locked_for_changes?
           message = I18n.t('errors.job.update_not_allowed_when_accepted')
           errors = JsonApiErrors.new
-          errors.add(status: 403, detail: message)
+          status = 403 # forbidden
+          errors.add(status: status, detail: message)
 
-          render json: errors, status: :forbidden
+          render json: errors, status: status
           return
         end
 
@@ -129,7 +134,7 @@ module Api
 
           api_render(@job)
         else
-          respond_with_errors(@job)
+          api_render_errors(@job)
         end
       end
 

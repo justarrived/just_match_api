@@ -122,15 +122,22 @@ module FrilansFinansApi
       log_id = "[#{self.class.name}]"
       verb = method.to_s.upcase
       body = response.body
+      json_params = params.to_json
       status = response.code
       log_body = [
+        log_id,
         verb,
         "URI: #{uri}",
-        "PARAMS: #{params.to_json}",
+        "PARAMS: #{json_params}",
         "STATUS: #{status}",
         "BODY: #{body}"
       ].join(' ')
-      FrilansFinansApi.logger.info "#{log_id} #{log_body}"
+      FrilansFinansApi.event_logger.request_event(params: json_params,
+                                                  status: status,
+                                                  verb: verb,
+                                                  uri: uri,
+                                                  body: body)
+      FrilansFinansApi.logger.info log_body
     end
   end
 end

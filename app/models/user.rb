@@ -12,8 +12,7 @@ class User < ApplicationRecord
 
   STATUSES = {
     asylum_seeker: 1,
-    permanent: 2,
-    residence: 3
+    permanent_residence: 2
   }.freeze
 
   AT_UND = {
@@ -23,7 +22,7 @@ class User < ApplicationRecord
 
   attr_accessor :password
 
-  after_validation :set_normalized_phone, :set_normalized_ssn
+  after_validation :set_normalized_phone, :set_normalized_ssn, :set_normalized_email
 
   before_save :encrypt_password
 
@@ -61,12 +60,9 @@ class User < ApplicationRecord
   validates :street, length: { minimum: 5 }, allow_blank: true
   validates :zip, length: { minimum: 5 }, allow_blank: true
   validates :password, length: { minimum: MIN_PASSWORD_LENGTH }, allow_blank: false, on: :create # rubocop:disable Metrics/LineLength
-  validates :ssn, uniqueness: true, allow_blank: false
+  validates :ssn, uniqueness: true, allow_blank: true
   validates :frilans_finans_id, uniqueness: true, allow_nil: true
   validates :country_of_origin, inclusion: { in: ISO3166::Country.translations.keys }, allow_blank: true # rubocop:disable Metrics/LineLength
-
-  # NOTE: Figure out a good way to validate :current_status and :at_und
-  #       see https://github.com/rails/rails/issues/13971
 
   validate :validate_arrived_at_date
   validate :validate_language_id_in_available_locale
@@ -78,6 +74,7 @@ class User < ApplicationRecord
   scope :admins, -> { where(admin: true) }
   scope :company_users, -> { where.not(company: nil) }
   scope :regular_users, -> { where(company: nil) }
+  scope :managed_users, -> { where(managed: true) }
   scope :visible, -> { where.not(banned: true) }
   scope :valid_one_time_tokens, lambda {
     where('one_time_token_expires_at > ?', Time.zone.now)
@@ -87,6 +84,8 @@ class User < ApplicationRecord
   scope :anonymized, -> { where(anonymized: true) }
   scope :not_anonymized, -> { where(anonymized: false) }
 
+  # NOTE: Figure out a good way to validate :current_status and :at_und
+  #       see https://github.com/rails/rails/issues/13971
   enum current_status: STATUSES
   enum at_und: AT_UND
 
@@ -105,6 +104,12 @@ class User < ApplicationRecord
     new_chat_message
   ).freeze
 
+  def contact_email
+    return email unless managed
+
+    ManagedEmailAddress.call(email: email, id: "user#{id}")
+  end
+
   def self.find_by_one_time_token(token)
     valid_one_time_tokens.find_by(one_time_token: token)
   end
@@ -119,19 +124,11 @@ class User < ApplicationRecord
   end
 
   def self.find_token(auth_token)
-    Token.find_by(token: auth_token)
-  end
-
-  def self.find_token!(auth_token)
-    Token.find_by!(token: auth_token)
+    Token.not_expired.find_by(token: auth_token)
   end
 
   def self.find_by_auth_token(auth_token)
-    find_token(auth_token).try(:user)
-  end
-
-  def self.find_by_auth_token!(auth_token)
-    find_token!(auth_token).user
+    find_token(auth_token)&.user
   end
 
   def self.find_by_phone(phone, normalize: false)
@@ -147,12 +144,18 @@ class User < ApplicationRecord
   def self.find_by_email_or_phone(email_or_phone)
     return if email_or_phone.blank?
 
-    find_by(email: email_or_phone) || find_by_phone(email_or_phone, normalize: true)
+    email = email_or_phone.downcase
+    phone = email_or_phone
+    find_by(email: email) || find_by_phone(phone, normalize: true)
   end
 
   def self.correct_password?(user, password)
     password_hash = BCrypt::Engine.hash_secret(password, user.password_salt)
     user.password_hash.eql?(password_hash)
+  end
+
+  def self.wrong_password?(user, password)
+    !correct_password?(user, password)
   end
 
   def self.matches_job(job, distance: 20, strict_match: false)
@@ -166,6 +169,10 @@ class User < ApplicationRecord
   def self.accepted_applicant_for_owner?(owner:, user:)
     jobs = owner.owned_jobs & JobUser.accepted_jobs_for(user)
     jobs.any?
+  end
+
+  def not_persisted?
+    !persisted?
   end
 
   def name
@@ -183,11 +190,21 @@ class User < ApplicationRecord
   end
 
   def frilans_finans_id!
-    frilans_finans_id || fail('User has no Frilans Finans id!')
+    frilans_finans_id || fail("User ##{id} has no Frilans Finans id!")
+  end
+
+  def primary_role
+    if admin?
+      :admin
+    elsif company_id
+      :company
+    else
+      :candidate
+    end
   end
 
   def auth_token
-    auth_tokens.first.try(:token)
+    auth_tokens.last&.token
   end
 
   def set_normalized_phone
@@ -198,18 +215,37 @@ class User < ApplicationRecord
     self.ssn = SwedishSSN.normalize(ssn)
   end
 
+  def set_normalized_email
+    self.email = email&.strip&.downcase
+  end
+
   # NOTE: This method has unintuitive side effects.. if the banned attribute is
   #   just set to true all associated auth_tokens will immediately be destroyed
+  #   We should probably convert this to #banned! which also saves the user
   def banned=(value)
     auth_tokens.destroy_all if value
     self[:banned] = value
   end
 
   def profile_image_token=(token)
+    ActiveSupport::Deprecation.warn('User#profile_image_token= has been deprecated, please use User#set_images_by_tokens or User#add_image_by_token instead.') # rubocop:disable Metrics/LineLength
     return if token.blank?
 
     user_image = UserImage.find_by_one_time_token(token)
     self.user_images = [user_image] unless user_image.nil?
+  end
+
+  def add_image_by_token=(token)
+    return if token.blank?
+
+    user_image = UserImage.find_by_one_time_token(token)
+    user_images << user_image if user_image
+  end
+
+  def set_images_by_tokens=(tokens)
+    return if tokens.blank?
+
+    self.user_images = UserImage.find_by_one_time_tokens(tokens)
   end
 
   def ignored_notification?(notification)
@@ -252,7 +288,7 @@ class User < ApplicationRecord
     self.one_time_token = SecureGenerator.token
   end
 
-  def self.valid_password?(password)
+  def self.valid_password_format?(password)
     return false if password.blank?
     return false unless password.is_a?(String)
 
@@ -359,6 +395,7 @@ end
 #  at_und                         :integer
 #  arrived_at                     :date
 #  country_of_origin              :string
+#  managed                        :boolean          default(FALSE)
 #
 # Indexes
 #
@@ -367,7 +404,6 @@ end
 #  index_users_on_frilans_finans_id  (frilans_finans_id) UNIQUE
 #  index_users_on_language_id        (language_id)
 #  index_users_on_one_time_token     (one_time_token) UNIQUE
-#  index_users_on_ssn                (ssn) UNIQUE
 #
 # Foreign Keys
 #

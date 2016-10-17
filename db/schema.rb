@@ -10,10 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160716163111) do
+ActiveRecord::Schema.define(version: 20161012215923) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "active_admin_comments", force: :cascade do |t|
+    t.string   "namespace"
+    t.text     "body"
+    t.string   "resource_id",   null: false
+    t.string   "resource_type", null: false
+    t.integer  "author_id"
+    t.string   "author_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id", using: :btree
+    t.index ["namespace"], name: "index_active_admin_comments_on_namespace", using: :btree
+    t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id", using: :btree
+  end
 
   create_table "blazer_audits", force: :cascade do |t|
     t.integer  "user_id"
@@ -148,6 +162,17 @@ ActiveRecord::Schema.define(version: 20160716163111) do
     t.index ["language_id"], name: "index_faqs_on_language_id", using: :btree
   end
 
+  create_table "frilans_finans_api_logs", force: :cascade do |t|
+    t.integer  "status"
+    t.string   "status_name"
+    t.string   "verb"
+    t.text     "params"
+    t.text     "response_body"
+    t.string   "uri",           limit: 2083
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
   create_table "frilans_finans_invoices", force: :cascade do |t|
     t.integer  "frilans_finans_id"
     t.integer  "job_user_id"
@@ -180,6 +205,23 @@ ActiveRecord::Schema.define(version: 20160716163111) do
     t.index ["frilans_finans_invoice_id"], name: "index_invoices_on_frilans_finans_invoice_id", using: :btree
     t.index ["job_user_id"], name: "index_invoices_on_job_user_id", using: :btree
     t.index ["job_user_id"], name: "index_invoices_on_job_user_id_uniq", unique: true, using: :btree
+  end
+
+  create_table "job_requests", force: :cascade do |t|
+    t.string   "company_name"
+    t.string   "contact_string"
+    t.string   "assignment"
+    t.string   "job_scope"
+    t.string   "job_specification"
+    t.string   "language_requirements"
+    t.string   "job_at_date"
+    t.string   "responsible"
+    t.string   "suitable_candidates"
+    t.string   "comment"
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.string   "short_name"
+    t.boolean  "finished",              default: false
   end
 
   create_table "job_skills", force: :cascade do |t|
@@ -232,6 +274,8 @@ ActiveRecord::Schema.define(version: 20160716163111) do
     t.boolean  "cancelled",         default: false
     t.boolean  "filled",            default: false
     t.string   "short_description"
+    t.boolean  "featured",          default: false
+    t.boolean  "upcoming",          default: false
     t.index ["category_id"], name: "index_jobs_on_category_id", using: :btree
     t.index ["hourly_pay_id"], name: "index_jobs_on_hourly_pay_id", using: :btree
     t.index ["language_id"], name: "index_jobs_on_language_id", using: :btree
@@ -330,6 +374,7 @@ ActiveRecord::Schema.define(version: 20160716163111) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
+    t.integer  "category"
     t.index ["user_id"], name: "index_user_images_on_user_id", using: :btree
   end
 
@@ -390,12 +435,12 @@ ActiveRecord::Schema.define(version: 20160716163111) do
     t.integer  "at_und"
     t.date     "arrived_at"
     t.string   "country_of_origin"
+    t.boolean  "managed",                        default: false
     t.index ["company_id"], name: "index_users_on_company_id", using: :btree
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["frilans_finans_id"], name: "index_users_on_frilans_finans_id", unique: true, using: :btree
     t.index ["language_id"], name: "index_users_on_language_id", using: :btree
     t.index ["one_time_token"], name: "index_users_on_one_time_token", unique: true, using: :btree
-    t.index ["ssn"], name: "index_users_on_ssn", unique: true, using: :btree
   end
 
   add_foreign_key "blazer_audits", "blazer_queries", column: "query_id", name: "blazer_audits_query_id_fk"

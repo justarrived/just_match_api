@@ -38,7 +38,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
   let(:valid_session) do
     allow_any_instance_of(described_class).
-      to(receive(:authenticate_user_token!).
+      to(receive(:current_user).
       and_return(logged_in_user))
     { token: logged_in_user.auth_token }
   end
@@ -46,7 +46,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
   let(:valid_admin_session) do
     user = FactoryGirl.create(:user, admin: true)
     allow_any_instance_of(described_class).
-      to(receive(:authenticate_user_token!).
+      to(receive(:current_user).
       and_return(user))
     { token: user.auth_token }
   end
@@ -101,6 +101,13 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         expect(assigns(:user)).to be_persisted
       end
 
+      it 'strip user email' do
+        attrs = valid_attributes.dup
+        attrs[:data][:attributes][:email] = '  user@example.com   '
+        post :create, attrs, {}
+        expect(assigns(:user).email).to eq('user@example.com')
+      end
+
       it 'returns created status' do
         post :create, valid_attributes, {}
         expect(response.status).to eq(201)
@@ -112,7 +119,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         expect(UserWelcomeNotifier).to have_received(:call)
       end
 
-      context 'user image' do
+      context 'user image token [DEPRECATED version]' do
         let(:user_image) { FactoryGirl.create(:user_image) }
 
         it 'can add user image' do
@@ -126,6 +133,26 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
         it 'does not create user image if invalid one time token' do
           valid_attributes[:data][:attributes][:user_image_one_time_token] = 'token'
+
+          post :create, valid_attributes, {}
+          expect(assigns(:user).user_images.first).to be_nil
+        end
+      end
+
+      context 'user image tokens' do
+        let(:user_image) { FactoryGirl.create(:user_image) }
+
+        it 'can add user image' do
+          token = user_image.one_time_token
+
+          valid_attributes[:data][:attributes][:user_image_one_time_tokens] = [token]
+
+          post :create, valid_attributes, {}
+          expect(assigns(:user).user_images.first).to eq(user_image)
+        end
+
+        it 'does not create user image if invalid one time tokens' do
+          valid_attributes[:data][:attributes][:user_image_one_time_tokens] = 'token'
 
           post :create, valid_attributes, {}
           expect(assigns(:user).user_images.first).to be_nil
@@ -289,7 +316,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       end
     end
 
-    context 'unauthorized' do
+    context 'not allowed' do
       it 'does not destroy the requested user' do
         first_name = 'Some user'
 
@@ -299,10 +326,10 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         expect(user.first_name).to eq(first_name)
       end
 
-      it 'returns not authorized status' do
+      it 'returns not forbidden status' do
         user = FactoryGirl.create(:user)
         delete :destroy, { user_id: user.to_param }, valid_session
-        expect(response.status).to eq(401)
+        expect(response.status).to eq(403)
       end
     end
   end
@@ -335,6 +362,32 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         expect(description).to eq(I18n.t("notifications.#{id}"))
         expect(type).to eq('user-notifications')
         expect(User::NOTIFICATIONS).to include(id)
+      end
+    end
+  end
+
+  describe 'GET #statuses' do
+    it 'returns 200 status' do
+      user = FactoryGirl.create(:user)
+      get :statuses, { user_id: user.to_param }, {}
+      expect(response.status).to eq(200)
+    end
+
+    it 'correct response body' do
+      user = FactoryGirl.create(:user)
+      get :statuses, { user_id: user.to_param }, {}
+
+      result = JSON.parse(response.body)['data']
+      result.each do |json_object|
+        id = json_object['id']
+        name = json_object.dig('attributes', 'en-name')
+        description = json_object.dig('attributes', 'en-description')
+        type = json_object['type']
+
+        expect(name).to eq(I18n.t("user.statuses.#{id}"))
+        expect(description).to eq(I18n.t("user.statuses.#{id}_description"))
+        expect(type).to eq('user-statuses')
+        expect(User::STATUSES.keys).to include(id.to_sym)
       end
     end
   end
@@ -378,6 +431,7 @@ end
 #  at_und                         :integer
 #  arrived_at                     :date
 #  country_of_origin              :string
+#  managed                        :boolean          default(FALSE)
 #
 # Indexes
 #
@@ -386,7 +440,6 @@ end
 #  index_users_on_frilans_finans_id  (frilans_finans_id) UNIQUE
 #  index_users_on_language_id        (language_id)
 #  index_users_on_one_time_token     (one_time_token) UNIQUE
-#  index_users_on_ssn                (ssn) UNIQUE
 #
 # Foreign Keys
 #

@@ -2,14 +2,28 @@
 class UserSerializer < ApplicationSerializer
   # Since the #attributes method is overriden and provides a whitelist of attribute_names
   # that can be returned to the user we can return all User column names here
-  attributes User.column_names.map(&:to_sym) + %i(ignored_notifications auth_token)
+  EXTRA_ATTRIBUTES = %i(ignored_notifications auth_token primary_role).freeze
+  attributes User.column_names.map(&:to_sym) + EXTRA_ATTRIBUTES
 
-  has_one :company
-  has_one :language
+  link(:self) { api_v1_user_url(object) }
+
+  has_one :company do
+    link(:self) { api_v1_company_url(object.company) if object.company }
+  end
+
+  has_one :language do
+    link(:self) { api_v1_language_url(object.language_id) if object.language_id }
+  end
 
   has_many :user_images
-  has_many :languages
-  has_many :chats, unless: :collection_serializer?
+
+  has_many :languages do
+    link(:related) { api_v1_user_languages_url(object.id) }
+  end
+
+  has_many :chats, unless: :collection_serializer? do
+    link(:related) { api_v1_user_chats_url(object.id) }
+  end
 
   def attributes(_)
     data = super
@@ -62,6 +76,7 @@ end
 #  at_und                         :integer
 #  arrived_at                     :date
 #  country_of_origin              :string
+#  managed                        :boolean          default(FALSE)
 #
 # Indexes
 #
@@ -70,7 +85,6 @@ end
 #  index_users_on_frilans_finans_id  (frilans_finans_id) UNIQUE
 #  index_users_on_language_id        (language_id)
 #  index_users_on_one_time_token     (one_time_token) UNIQUE
-#  index_users_on_ssn                (ssn) UNIQUE
 #
 # Foreign Keys
 #

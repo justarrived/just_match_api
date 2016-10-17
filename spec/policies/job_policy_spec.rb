@@ -9,7 +9,7 @@ RSpec.describe JobPolicy do
   let(:owner_params) do
     [
       :description, :job_date, :street, :zip, :name, :hours, :job_end_date,
-      :cancelled, :filled, :short_description,
+      :cancelled, :filled, :short_description, :featured, :upcoming,
       :language_id, :category_id, :hourly_pay_id, { skill_ids: [] }
     ]
   end
@@ -26,6 +26,10 @@ RSpec.describe JobPolicy do
 
     it '#show? returns true' do
       expect(subject.show?).to eq(true)
+    end
+
+    it '#google? returns true' do
+      expect(subject.google?).to eq(true)
     end
 
     it '#create? returns false' do

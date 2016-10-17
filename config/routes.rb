@@ -6,36 +6,7 @@ Sidekiq::Web.use Rack::Auth::Basic do |username, password|
 end
 
 Rails.application.routes.draw do
-  namespace :admin do
-    resources :jobs
-    resources :invoices
-    resources :frilans_finans_invoices
-    resources :job_users
-    resources :ratings
-    resources :users
-    resources :companies
-    resources :contacts
-    resources :faqs
-    resources :hourly_pays
-    resources :languages
-    resources :terms_agreements
-    resources :terms_agreement_consents
-    resources :comments
-    resources :chats
-    resources :messages
-    resources :user_images
-    resources :company_images
-    resources :categories
-    resources :user_languages
-    resources :chat_users
-    resources :skills
-    resources :job_skills
-    resources :user_skills
-    resources :frilans_finans_terms
-    resources :tokens
-
-    root to: 'jobs#index'
-  end
+  ActiveAdmin.routes(self)
 
   apipie
   get '/', to: redirect('/api_docs')
@@ -53,16 +24,30 @@ Rails.application.routes.draw do
           resources :job_users, param: :job_user_id, module: :jobs, path: :users, only: [:index, :show, :create, :update, :destroy] do
             member do
               resources :invoices, only: [:create]
+              resources :confirmations, only: [:create]
+              resources :acceptances, only: [:create]
+              resources :performed, only: [:create]
+            end
+          end
+          resources :calendar, module: :jobs, path: :calendar do
+            collection do
+              get :google
             end
           end
           resources :ratings, module: :jobs, path: :ratings, only: [:create]
         end
       end
 
+      resources :chats, module: :chats, only: [:index, :show, :create] do
+        member do
+          resources :chat_messages, path: :messages, only: [:create, :index]
+        end
+      end
+
       resources :users, param: :user_id, only: [:index, :show, :create, :update, :destroy] do
         member do
           resources :messages, module: :users, only: [:create, :index]
-          resources :chats, module: :users, only: [:index, :show]
+          resources :user_chats, path: :chats, module: :users, only: [:index, :show]
 
           get :matching_jobs, path: 'matching-jobs'
           resources :user_jobs, path: :jobs, module: :users, only: [:index]
@@ -87,12 +72,7 @@ Rails.application.routes.draw do
           resources :user_images, module: :users, path: :images, only: [:create]
 
           get :notifications
-        end
-      end
-
-      resources :chats, only: [:index, :show, :create] do
-        member do
-          resources :messages, module: :chats, only: [:create, :index]
+          get :statuses
         end
       end
 
@@ -116,8 +96,12 @@ Rails.application.routes.draw do
       resources :terms_agreement_consents, path: 'terms-consents', only: [:create]
       resources :languages, only: [:index, :show, :create, :update, :destroy]
       resources :skills, only: [:index, :show, :create, :update, :destroy]
-      resources :categories, only: [:index]
-      resources :hourly_pays, path: 'hourly-pays', only: [:index]
+      resources :categories, only: [:index, :show]
+      resources :hourly_pays, path: 'hourly-pays', only: [:index, :show] do
+        collection do
+          get :calculate
+        end
+      end
       resources :faqs, only: [:index]
       resources :promo_codes, path: 'promo-codes', only: [] do
         collection do

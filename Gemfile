@@ -1,19 +1,16 @@
 # frozen_string_literal: true
 source 'https://rubygems.org'
 
-ruby '2.3.0'
+ruby '2.3.1'
 
-gem 'rails', '5.0.0'
+gem 'rails', '5.0.0.1'
 gem 'pg', '~> 0.15' # Use postgresql as the database for Active Record
 
-gem 'sidekiq', '~> 4.1' # Background worker (Redis-backed)
-# gem 'sinatra', '~> 1.4', require: false # Required for sidekiqs web interface
-gem 'sinatra', git: 'https://github.com/sinatra/sinatra', require: false # rails5..
-gem 'rack-protection', git: 'https://github.com/sinatra/rack-protection' # rails5..
+gem 'sidekiq', '~> 4.2' # Background worker (Redis-backed)
 
 gem 'active_model_serializers', '~> 0.10' # Serialize models to JSON
 
-gem 'blazer', '~> 1.6' # Explore data with SQL
+gem 'blazer', '~> 1.7' # Explore data with SQL
 
 # Interact with Frilans Finans API
 gem 'frilans_finans_api', path: 'lib/frilans_finans_api'
@@ -22,18 +19,14 @@ gem 'frilans_finans_api', path: 'lib/frilans_finans_api'
 gem 'json_api_helpers', path: 'lib/json_api_helpers'
 
 gem 'paperclip', '~> 5.0.0' # Image handler
-gem 'aws-sdk', '~> 2.4' # Upload images to AWS S3
+gem 'aws-sdk', '~> 2.6' # Upload images to AWS S3
 
-gem 'airbrake', '~> 5.4' # Error catcher and reporter
+gem 'airbrake', '~> 5.5' # Error catcher and reporter
 
-gem 'twilio-ruby', '~> 4.11.1' # Send SMS notifications
+gem 'twilio-ruby', '~> 4.11' # Send SMS notifications
 
 gem 'global_phone', '~> 1.0' # Format cell phone numbers
 gem 'countries', require: 'countries/global' # Country data in various locales
-
-group :production do
-  gem 'rails_12factor', '~> 0.0.3' # Heroku integration
-end
 
 gem 'apipie-rails', '~> 0.3' # Easy API documentation
 gem 'maruku', '~> 0.7' # Needed for apipie-rails markdown support
@@ -47,12 +40,11 @@ gem 'puma', '~> 3.4' # App server
 gem 'newrelic_rpm', '~> 3.15' # Performance monitoring
 gem 'skylight', '~> 0.10' # Performance monitoring
 
-gem 'geocoder', '~> 1.3' # Geocode resources
+gem 'geocoder', '~> 1.4' # Geocode resources
 
-gem 'administrate', git: 'https://github.com/greetpoint/administrate', branch: 'rails5'
-# gem 'administrate', '~> 0.2' # Admin dashboard
-# gem 'administrate-field-image', '~> 0.0.2' # Administrate image support
-gem 'uglifier', '~> 3.0' # Needed administrate assets compilation
+gem 'activeadmin', '~> 1.0.0.pre4' # Admin interface
+gem 'inherited_resources', git: 'https://github.com/activeadmin/inherited_resources' # activeadmin Rails 5
+gem 'uglifier', '~> 3.0' # Needed for activeadmin assets compilation
 
 gem 'pundit', '~> 1.1' # Authorization policies
 
@@ -60,7 +52,7 @@ gem 'faker', '~> 1.6' # Easily generate fake data (used for seeding dev/test/sta
 
 gem 'rack-timeout', '~> 0.4' # Kill requests that run for too long
 gem 'rack-cors', '~> 0.4', require: 'rack/cors' # Configure CORS
-gem 'rack-attack', '~> 4.4' # Throttle API usage
+gem 'rack-attack', '~> 5.0' # Throttle API usage
 gem 'redis-activesupport', '~> 5.0' # To use Redis as the cache store for rack-attack
 
 gem 'yagni_json_encoder', '~> 0.0.2' # Make Rails use the OJ gem for JSON
@@ -70,8 +62,7 @@ gem 'rails-i18n', '~> 5.0' # Rails translations
 gem 'i18n_data', '~> 0.7' # Language and country names in various languages
 
 gem 'honey_format', '~> 0.2' # Simple CSV reading
-
-gem 'personnummer', '~> 0.0.8' # Validate Swedish "personummer" or "samordningsnummer"
+gem 'personnummer', '~> 0.0.9' # Swedish "personummer" or "samordningsnummer"
 gem 'banktools-se', '~> 0.11' # Validate Swedish bank account
 gem 'iban-tools', '~> 1.1' # Validate IBAN
 

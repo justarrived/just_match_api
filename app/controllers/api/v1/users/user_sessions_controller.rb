@@ -24,7 +24,7 @@ module Api
           param :attributes, Hash, desc: 'User session attributes', required: true do
             param :email_or_phone, String, desc: 'Email or phone (required unless email given)'
             param :password, String, desc: 'Password (required unless one-time-token given)'
-            param :'one-time-token', String, desc: 'One time token (required unless one-time-token given)'
+            param :one_time_token, String, desc: 'One time token (required unless one-time-token given)'
             # rubocop:enable Metrics/LineLength
           end
         end
@@ -53,13 +53,15 @@ module Api
             auth_token = token.token
             attributes = {
               user_id: user.id,
+              locale: user.language.lang_code,
               auth_token: auth_token,
               expires_at: token.expires_at
             }
             response = JsonApiData.new(
               id: auth_token,
               type: :token,
-              attributes: attributes
+              attributes: attributes,
+              key_transform: key_transform_header
             )
             render json: response, status: :created
           else
@@ -124,9 +126,9 @@ module Api
               'Please use `email_or_phone` instead.'
             ].join(' ')
             ActiveSupport::Deprecation.warn(message)
-            jsonapi_params[:email]
+            jsonapi_params[:email]&.strip&.downcase
           else
-            jsonapi_params[:email_or_phone]
+            jsonapi_params[:email_or_phone]&.strip&.downcase
           end
         end
 
