@@ -254,6 +254,6 @@ Lint/LiteralInInterpolation:
 Rails/DynamicFindBy:
   Enabled: false
 Rails/HttpPositionalArguments:
-  Enabled: false
+  Enabled: false # Rails5: Set this to true
 Metrics/BlockLength:
   Enabled: false
