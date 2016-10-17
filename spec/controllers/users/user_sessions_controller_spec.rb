@@ -34,7 +34,7 @@ RSpec.describe Api::V1::Users::UserSessionsController, type: :controller do
           attributes[:data][:attributes][:email] = email
           attributes[:data][:attributes][:email_or_phone] = nil
 
-          post :create, attributes, valid_session
+          post :create, params: attributes, headers: valid_session
           expect(response.status).to eq(201)
         end
 
@@ -42,7 +42,7 @@ RSpec.describe Api::V1::Users::UserSessionsController, type: :controller do
           attributes = valid_attributes.dup
           attributes[:data][:attributes][:email_or_phone] = email.upcase
 
-          post :create, attributes, valid_session
+          post :create, params: attributes, headers: valid_session
           expect(response.status).to eq(201)
         end
 
@@ -50,17 +50,17 @@ RSpec.describe Api::V1::Users::UserSessionsController, type: :controller do
           attributes = valid_attributes.dup
           attributes[:data][:attributes][:email_or_phone] = "  #{email}  "
 
-          post :create, attributes, valid_session
+          post :create, params: attributes, headers: valid_session
           expect(response.status).to eq(201)
         end
 
         it 'should return success status' do
-          post :create, valid_attributes, valid_session
+          post :create, params: valid_attributes, headers: valid_session
           expect(response.status).to eq(201)
         end
 
         it 'should return JSON with token key' do
-          post :create, valid_attributes, valid_session
+          post :create, params: valid_attributes, headers: valid_session
           json = JSON.parse(response.body)
           jsonapi_params = JsonApiDeserializer.parse(json)
           expected = SecureGenerator::DEFAULT_TOKEN_LENGTH
@@ -68,7 +68,7 @@ RSpec.describe Api::V1::Users::UserSessionsController, type: :controller do
         end
 
         it 'should return JSON with user id' do
-          post :create, valid_attributes, valid_session
+          post :create, params: valid_attributes, headers: valid_session
           json = JSON.parse(response.body)
           jsonapi_params = JsonApiDeserializer.parse(json)
           expect(jsonapi_params['user_id']).not_to be_nil
@@ -84,7 +84,7 @@ RSpec.describe Api::V1::Users::UserSessionsController, type: :controller do
           end
 
           it 'lets the request pass even if there is a promo code' do
-            post :create, valid_attributes, valid_session
+            post :create, params: valid_attributes, headers: valid_session
             expect(response.status).to eq(201)
           end
         end
@@ -103,7 +103,7 @@ RSpec.describe Api::V1::Users::UserSessionsController, type: :controller do
             }
           }
 
-          post :create, valid_attributes, valid_session
+          post :create, params: valid_attributes, headers: valid_session
           expect(response.status).to eq(201)
         end
       end
@@ -111,12 +111,12 @@ RSpec.describe Api::V1::Users::UserSessionsController, type: :controller do
 
     context 'invalid user' do
       it 'should return forbidden status' do
-        post :create, valid_attributes, valid_session
+        post :create, params: valid_attributes, headers: valid_session
         expect(response.status).to eq(422)
       end
 
       it 'returns explaination' do
-        post :create, valid_attributes, valid_session
+        post :create, params: valid_attributes, headers: valid_session
         message = I18n.t('errors.user_session.wrong_email_or_phone_or_password')
         json = JSON.parse(response.body)
         first_detail = json['errors'].first['detail']
@@ -135,12 +135,12 @@ RSpec.describe Api::V1::Users::UserSessionsController, type: :controller do
       end
 
       it 'returns forbidden status' do
-        post :create, valid_attributes, valid_session
+        post :create, params: valid_attributes, headers: valid_session
         expect(response.status).to eq(403)
       end
 
       it 'returns explaination' do
-        post :create, valid_attributes, valid_session
+        post :create, params: valid_attributes, headers: valid_session
         json = JSON.parse(response.body)
         message = 'an admin has banned'
         detail = json['errors'].first['detail']
@@ -166,7 +166,7 @@ RSpec.describe Api::V1::Users::UserSessionsController, type: :controller do
       end
 
       it 'returns valid response' do
-        post :create, valid_attributes, valid_session
+        post :create, params: valid_attributes, headers: valid_session
 
         json = JSON.parse(response.body)
         jsonapi_params = JsonApiDeserializer.parse(json)
@@ -182,7 +182,7 @@ RSpec.describe Api::V1::Users::UserSessionsController, type: :controller do
       it 'should return success status' do
         user = FactoryGirl.create(:user_with_tokens, email: 'someone@example.com')
         token = user.auth_token
-        delete :destroy, { id: token }, {}
+        delete :destroy, params: { id: token }
         expect(response.status).to eq(204)
       end
 
@@ -190,7 +190,7 @@ RSpec.describe Api::V1::Users::UserSessionsController, type: :controller do
         user = FactoryGirl.create(:user, email: 'someone@example.com')
         token = user.create_auth_token
         auth_token = token.token
-        delete :destroy, { id: auth_token }, {}
+        delete :destroy, params: { id: auth_token }
         user.reload
         expect(user.auth_tokens).not_to include(token)
       end
@@ -199,7 +199,7 @@ RSpec.describe Api::V1::Users::UserSessionsController, type: :controller do
     context 'no such user auth_token' do
       it 'should return 404 not found' do
         FactoryGirl.create(:user_with_tokens, email: 'someone@example.com')
-        delete :destroy, { id: 'dasds' }, {}
+        delete :destroy, params: { id: 'dasds' }
         expect(response.status).to eq(404)
       end
     end
@@ -220,19 +220,19 @@ RSpec.describe Api::V1::Users::UserSessionsController, type: :controller do
 
       it 'sends notification' do
         allow(MagicLoginLinkNotifier).to receive(:call)
-        post :magic_link, valid_params, {}
+        post :magic_link, params: valid_params
         expect(MagicLoginLinkNotifier).to have_received(:call).once
       end
 
       it 'returns 202 accepted status' do
-        post :magic_link, valid_params, {}
+        post :magic_link, params: valid_params
         expect(response.status).to eq(202)
       end
     end
 
     context 'invalid phone' do
       it 'returns 202 accepted status' do
-        post :magic_link, {}, {}
+        post :magic_link
         expect(response.status).to eq(202)
       end
     end

@@ -48,36 +48,36 @@ RSpec.describe Api::V1::Jobs::RatingsController do
     context 'with valid params' do
       it 'creates a new Rating' do
         expect do
-          post :create, valid_params, valid_session
+          post :create, params: valid_params, headers: valid_session
         end.to change(Rating, :count).by(1)
       end
 
       it 'creates a new Rating with comment' do
         expect do
-          post :create, valid_params, valid_session
+          post :create, params: valid_params, headers: valid_session
         end.to change(Comment, :count).by(1)
       end
 
       it 'assigns a newly created rating as @rating' do
-        post :create, valid_params, valid_session
+        post :create, params: valid_params, headers: valid_session
         expect(assigns(:rating)).to be_a(Rating)
         expect(assigns(:rating)).to be_persisted
       end
 
       it 'returns created status' do
-        post :create, valid_params, valid_session
+        post :create, params: valid_params, headers: valid_session
         expect(response.status).to eq(201)
       end
     end
 
     context 'with invalid params' do
       it 'assigns a newly created but unsaved rating as @rating' do
-        post :create, invalid_params, valid_session
+        post :create, params: invalid_params, headers: valid_session
         expect(assigns(:rating)).to be_a_new(Rating)
       end
 
       it 'returns unprocessable entity status' do
-        post :create, invalid_params, valid_session
+        post :create, params: invalid_params, headers: valid_session
         expect(response.status).to eq(422)
       end
     end

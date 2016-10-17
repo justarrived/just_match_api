@@ -10,7 +10,7 @@ RSpec.describe Api::V1::SkillsController, type: :controller do
 
     it 'sets the locale from header' do
       request.headers['X-API-LOCALE'] = 'sv'
-      get :index, {}, {}
+      get :index
       expect(I18n.locale).to eq(:sv)
     end
   end
@@ -26,7 +26,7 @@ RSpec.describe Api::V1::SkillsController, type: :controller do
 
     it 'lets the request pass if correct promo code' do
       request.headers['X-API-PROMO-CODE'] = 'test_promo_code'
-      get :index, {}, {}
+      get :index
       expect(response.status).to eq(200)
     end
 
@@ -36,20 +36,20 @@ RSpec.describe Api::V1::SkillsController, type: :controller do
         to(receive(:current_user).
         and_return(user))
 
-      get :index, {}, {}
+      get :index
       expect(response.status).to eq(200)
     end
 
     context 'incorrect promo code' do
       it 'returns unauthorized status' do
         request.headers['X-API-PROMO-CODE'] = 'wrong_promo_code'
-        get :index, {}, {}
+        get :index
         expect(response.status).to eq(401)
       end
 
       it 'returns JSONAPI errors' do
         request.headers['X-API-PROMO-CODE'] = 'wrong_promo_code'
-        get :index, {}, {}
+        get :index
         jsonapi_error = JSON.parse(response.body)
         expected = {
           'errors' => [{
@@ -67,7 +67,7 @@ RSpec.describe Api::V1::SkillsController, type: :controller do
     let(:non_existing_record) { 123_456_768 }
 
     it 'returns JSONAPI errors' do
-      get :show, { id: non_existing_record }, {}
+      get :show, params: { id: non_existing_record }
       jsonapi_error = JSON.parse(response.body)
       expected = {
         'errors' => [{

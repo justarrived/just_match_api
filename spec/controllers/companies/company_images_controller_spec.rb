@@ -13,12 +13,12 @@ RSpec.describe Api::V1::Companies::CompanyImagesController, type: :controller do
 
     context 'with valid params' do
       it 'saves user image' do
-        post :create, valid_attributes, {}
+        post :create, params: valid_attributes
         expect(assigns(:company_image)).to be_persisted
       end
 
       it 'returns 201 accepted status' do
-        post :create, valid_attributes, {}
+        post :create, params: valid_attributes
         assigns(:company_image)
         expect(response.status).to eq(201)
       end
@@ -26,7 +26,7 @@ RSpec.describe Api::V1::Companies::CompanyImagesController, type: :controller do
 
     context 'with invalid params' do
       it 'returns 422 accepted status' do
-        post :create, invalid_attributes, {}
+        post :create, params: invalid_attributes
         expect(response.status).to eq(422)
       end
     end
@@ -39,13 +39,13 @@ RSpec.describe Api::V1::Companies::CompanyImagesController, type: :controller do
 
     it 'returns user image' do
       params = { company_id: company.to_param, id: company_image.to_param }
-      get :show, params, valid_session
+      get :show, params: params, headers: valid_session
       expect(assigns(:company_image)).to eq(company_image)
     end
 
     it 'returns 200 ok status' do
       params = { company_id: company.to_param, id: company_image.to_param }
-      get :show, params, valid_session
+      get :show, params: params, headers: valid_session
       assigns(:company_image)
       expect(response.status).to eq(200)
     end

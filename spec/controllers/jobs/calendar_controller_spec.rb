@@ -6,7 +6,7 @@ RSpec.describe Api::V1::Jobs::CalendarController, type: :controller do
     let(:job) { FactoryGirl.create(:job) }
 
     it 'returns google calendar link' do
-      get :google, { job_id: job.id }, {}
+      get :google, params: { job_id: job.id }
 
       json = JSON.parse(response.body)
 

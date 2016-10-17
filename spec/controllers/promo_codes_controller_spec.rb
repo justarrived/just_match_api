@@ -23,19 +23,19 @@ RSpec.describe Api::V1::PromoCodesController, type: :controller do
 
     context 'valid attributes' do
       it 'returns 200 ok' do
-        post :validate, valid_params, {}
+        post :validate, params: valid_params
         expect(response.status).to eq(200)
       end
     end
 
     context 'invalid attributes' do
       it 'returns 422 unprocessable entity' do
-        post :validate, {}, {}
+        post :validate
         expect(response.status).to eq(422)
       end
 
       it 'returns error details' do
-        post :validate, {}, {}
+        post :validate
         json = JSON.parse(response.body)
         message = I18n.t('errors.messages.invalid')
         detail = json['errors'].first['detail']
@@ -47,7 +47,7 @@ RSpec.describe Api::V1::PromoCodesController, type: :controller do
 
   context 'inactive promo code' do
     it 'returns 200 ok status' do
-      post :validate, {}, {}
+      post :validate
       expect(response.status).to eq(200)
     end
   end

@@ -27,20 +27,20 @@ RSpec.describe Api::V1::Users::ResetPasswordController, type: :controller do
 
     context 'with valid params' do
       it 'returns 202 accepted status' do
-        post :create, valid_attributes, {}
+        post :create, params: valid_attributes
         expect(response.status).to eq(202)
       end
 
       it 'sends reset password email' do
         allow(ResetPasswordNotifier).to receive(:call).with(user: user)
-        post :create, valid_attributes, {}
+        post :create, params: valid_attributes
         expect(ResetPasswordNotifier).to have_received(:call)
       end
     end
 
     context 'with invalid params' do
       it 'returns 202 accepted status' do
-        post :create, invalid_attributes, {}
+        post :create, params: invalid_attributes
         expect(response.status).to eq(202)
       end
     end

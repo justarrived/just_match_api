@@ -34,24 +34,24 @@ RSpec.describe Api::V1::Users::FrilansFinansController, type: :controller do
       end
 
       it 'returns 200 ok' do
-        post :create, valid_params, valid_session
+        post :create, params: valid_params, headers: valid_session
         expect(response.status).to eq(200)
       end
 
       it 'returns empty JSON body' do
-        post :create, valid_params, valid_session
+        post :create, params: valid_params, headers: valid_session
         expect(response.body).to eq('{}')
       end
 
       it 'sets User#frilans_finans_id' do
         isolate_frilans_finans_client(FrilansFinansApi::FixtureClient) do
-          post :create, valid_params, valid_session
+          post :create, params: valid_params, headers: valid_session
           expect(assigns(:user).frilans_finans_id).not_to be_nil
         end
       end
 
       it 'sets User#frilans_finans_payment_details' do
-        post :create, valid_params, valid_session
+        post :create, params: valid_params, headers: valid_session
         expect(assigns(:user).frilans_finans_payment_details).to eq(true)
       end
 
@@ -67,17 +67,17 @@ RSpec.describe Api::V1::Users::FrilansFinansController, type: :controller do
         let(:user) { FactoryGirl.create(:user, frilans_finans_id: ff_id) }
 
         it 'leaves User#frilans_finans_id unchanged' do
-          post :create, valid_params, valid_session
+          post :create, params: valid_params, headers: valid_session
           expect(assigns(:user).frilans_finans_id).to eq(ff_id)
         end
 
         it 'sets User#frilans_finans_payment_details' do
-          post :create, valid_params, valid_session
+          post :create, params: valid_params, headers: valid_session
           expect(assigns(:user).frilans_finans_payment_details).to eq(true)
         end
 
         it 'returns 200 ok status' do
-          post :create, valid_params, valid_session
+          post :create, params: valid_params, headers: valid_session
           expect(response.status).to eq(200)
         end
       end
@@ -94,7 +94,7 @@ RSpec.describe Api::V1::Users::FrilansFinansController, type: :controller do
       end
 
       it 'returns valid jsonapi errors' do
-        post :create, invalid_params, valid_session
+        post :create, params: invalid_params, headers: valid_session
         errors = JSON.parse(response.body)['errors']
         expected = [{
           'status' => 422,
@@ -138,7 +138,7 @@ RSpec.describe Api::V1::Users::FrilansFinansController, type: :controller do
       end
 
       it 'returns valid jsonapi errors' do
-        post :create, invalid_params, valid_session
+        post :create, params: invalid_params, headers: valid_session
         errors = JSON.parse(response.body)['errors']
         expected = [{
           'status' => 422,
@@ -182,7 +182,7 @@ RSpec.describe Api::V1::Users::FrilansFinansController, type: :controller do
       end
 
       it 'returns valid jsonapi errors' do
-        post :create, invalid_params, valid_session
+        post :create, params: invalid_params, headers: valid_session
         errors = JSON.parse(response.body)['errors']
         expected = [{
           'status' => 422,

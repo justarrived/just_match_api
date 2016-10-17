@@ -25,7 +25,7 @@ RSpec.describe Api::V1::Jobs::AcceptancesController, type: :controller do
 
     notifier_args = { job_user: job_user, owner: job.owner }
     allow(ApplicantAcceptedNotifier).to receive(:call).with(notifier_args)
-    post :create, params, valid_session
+    post :create, params: params, headers: valid_session
     expect(ApplicantAcceptedNotifier).to have_received(:call).with(notifier_args)
   end
 
@@ -38,7 +38,7 @@ RSpec.describe Api::V1::Jobs::AcceptancesController, type: :controller do
       job_user_id: job_user.to_param
     }.merge(new_attributes)
 
-    post :create, params, valid_session
+    post :create, params: params, headers: valid_session
     expect(assigns(:job_user).accepted).to eq(true)
   end
 
@@ -50,7 +50,7 @@ RSpec.describe Api::V1::Jobs::AcceptancesController, type: :controller do
       job_user_id: job_user.to_param
     }.merge(new_attributes)
 
-    post :create, params, valid_session
+    post :create, params: params, headers: valid_session
     expect(response.status).to eq(200)
   end
 end

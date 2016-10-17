@@ -32,7 +32,7 @@ RSpec.describe Api::V1::Jobs::JobCommentsController, type: :controller do
     it 'assigns all comments as @comments' do
       job = FactoryGirl.create(:job_with_comments, comments_count: 1)
       comment = job.comments.first
-      get :index, { job_id: job.to_param }, valid_session
+      get :index, params: { job_id: job.to_param }, headers: valid_session
       expect(assigns(:comments)).to eq([comment])
     end
   end
@@ -41,7 +41,7 @@ RSpec.describe Api::V1::Jobs::JobCommentsController, type: :controller do
     it 'assigns the requested comment as @comment' do
       job = FactoryGirl.create(:job_with_comments, comments_count: 1)
       comment = job.comments.first
-      get :show, { job_id: job.to_param, id: comment.to_param }, valid_session
+      get :show, params: { job_id: job.to_param, id: comment.to_param }, headers: valid_session # rubocop:disable Metrics/LineLength
       expect(assigns(:comment)).to eq(comment)
     end
   end
@@ -52,14 +52,14 @@ RSpec.describe Api::V1::Jobs::JobCommentsController, type: :controller do
         job = FactoryGirl.create(:job)
         params = { job_id: job.to_param }.merge(valid_attributes)
         expect do
-          post :create, params, valid_session
+          post :create, params: params, headers: valid_session
         end.to change(Comment, :count).by(1)
       end
 
       it 'assigns a newly created comment as @comment' do
         job = FactoryGirl.create(:job)
         params = { job_id: job.to_param }.merge(valid_attributes)
-        post :create, params, valid_session
+        post :create, params: params, headers: valid_session
         expect(assigns(:comment)).to be_a(Comment)
         expect(assigns(:comment)).to be_persisted
       end
@@ -67,7 +67,7 @@ RSpec.describe Api::V1::Jobs::JobCommentsController, type: :controller do
       it 'returns 201 created status' do
         job = FactoryGirl.create(:job)
         params = { job_id: job.to_param }.merge(valid_attributes)
-        post :create, params, valid_session
+        post :create, params: params, headers: valid_session
         expect(response.status).to eq(201)
       end
     end
@@ -76,7 +76,7 @@ RSpec.describe Api::V1::Jobs::JobCommentsController, type: :controller do
       it 'assigns a newly created but unsaved comment as @comment' do
         job = FactoryGirl.create(:job)
         params = { job_id: job.to_param }.merge(invalid_attributes)
-        post :create, params, valid_session
+        post :create, params: params, headers: valid_session
         expect(assigns(:comment)).to be_a_new(Comment)
       end
 
@@ -84,7 +84,7 @@ RSpec.describe Api::V1::Jobs::JobCommentsController, type: :controller do
         job = FactoryGirl.create(:job)
         expect do
           params = { job_id: job.to_param }.merge(invalid_attributes)
-          post :create, params, valid_session
+          post :create, params: params, headers: valid_session
         end.to change(Comment, :count).by(0)
       end
     end
@@ -113,7 +113,7 @@ RSpec.describe Api::V1::Jobs::JobCommentsController, type: :controller do
         job = FactoryGirl.create(:job)
         comment = FactoryGirl.create(:comment, owner: user, commentable: job)
         params = { job_id: job.to_param, id: comment.to_param }.merge(new_attributes)
-        put :update, params, valid_session
+        put :update, params: params, headers: valid_session
         comment.reload
         expect(comment.body).to eq('Something, something else darkside..')
       end
@@ -122,7 +122,7 @@ RSpec.describe Api::V1::Jobs::JobCommentsController, type: :controller do
         job = FactoryGirl.create(:job)
         comment = FactoryGirl.create(:comment, owner: user, commentable: job)
         params = { job_id: job.to_param, id: comment.to_param }.merge(new_attributes)
-        put :update, params, valid_session
+        put :update, params: params, headers: valid_session
         expect(assigns(:comment)).to eq(comment)
       end
 
@@ -130,7 +130,7 @@ RSpec.describe Api::V1::Jobs::JobCommentsController, type: :controller do
         job = FactoryGirl.create(:job)
         comment = FactoryGirl.create(:comment, owner: user, commentable: job)
         params = { job_id: job.to_param, id: comment.to_param }.merge(new_attributes)
-        put :update, params, valid_session
+        put :update, params: params, headers: valid_session
         expect(response.status).to eq(200)
       end
     end
@@ -144,7 +144,7 @@ RSpec.describe Api::V1::Jobs::JobCommentsController, type: :controller do
           id: comment.to_param,
           comment: invalid_attributes
         }
-        put :update, params, valid_session
+        put :update, params: params, headers: valid_session
         expect(assigns(:comment)).to eq(comment)
       end
 
@@ -156,7 +156,7 @@ RSpec.describe Api::V1::Jobs::JobCommentsController, type: :controller do
           id: comment.to_param,
           comment: invalid_attributes
         }
-        put :update, params, valid_session
+        put :update, params: params, headers: valid_session
         expect(response.status).to eq(422)
       end
     end
@@ -176,14 +176,14 @@ RSpec.describe Api::V1::Jobs::JobCommentsController, type: :controller do
       job = FactoryGirl.create(:job)
       comment = FactoryGirl.create(:comment, owner: user, commentable: job)
       expect do
-        delete :destroy, { job_id: job.to_param, id: comment.to_param }, valid_session
+        delete :destroy, params: { job_id: job.to_param, id: comment.to_param }, headers: valid_session # rubocop:disable Metrics/LineLength
       end.to change(Comment, :count).by(-1)
     end
 
     it 'returns 204 no content status' do
       job = FactoryGirl.create(:job)
       comment = FactoryGirl.create(:comment, owner: user, commentable: job)
-      delete :destroy, { job_id: job.to_param, id: comment.to_param }, valid_session
+      delete :destroy, params: { job_id: job.to_param, id: comment.to_param }, headers: valid_session # rubocop:disable Metrics/LineLength
       expect(response.status).to eq(204)
     end
   end
