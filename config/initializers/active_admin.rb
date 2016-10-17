@@ -147,6 +147,7 @@ ActiveAdmin.setup do |config|
   # Active Admin resources and pages from here.
   #
   config.before_filter :authenticate_admin
+  config.before_filter :set_admin_locale
 
   # == Localize Date/Time Format
   #
