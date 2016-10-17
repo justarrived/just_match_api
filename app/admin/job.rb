@@ -28,7 +28,6 @@ ActiveAdmin.register Job do
     column :job_date
     column :job_end_date
     column :hours
-    column :street
     column :featured
     column :filled
     column :upcoming
