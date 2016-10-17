@@ -58,7 +58,7 @@ RSpec.describe Api::V1::JobsController, type: :controller do
   describe 'GET #index' do
     it 'assigns all jobs as @jobs' do
       job = FactoryGirl.create(:job)
-      get :index, headers: valid_session
+      process :index, method: :get, headers: valid_session
       expect(assigns(:jobs)).to eq([job])
     end
 

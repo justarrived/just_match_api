@@ -27,7 +27,7 @@ RSpec.describe Api::V1::LanguagesController, type: :controller do
   describe 'GET #index' do
     it 'assigns all languages as @languages' do
       language = FactoryGirl.create(:language)
-      get :index, headers: valid_session
+      process :index, method: :get, headers: valid_session
       expect(assigns(:languages)).to eq([language])
     end
   end

@@ -34,7 +34,7 @@ RSpec.describe Api::V1::SkillsController, type: :controller do
   describe 'GET #index' do
     it 'assigns all skills as @skills' do
       skill = FactoryGirl.create(:skill)
-      get :index, headers: valid_session
+      process :index, method: :get, headers: valid_session
       expect(assigns(:skills)).to eq([skill])
     end
   end

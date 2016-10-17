@@ -7,7 +7,7 @@ RSpec.describe Api::V1::CompaniesController, type: :controller do
   describe 'GET #index' do
     it 'assigns all companies as @companies' do
       company = FactoryGirl.create(:company)
-      get :index, headers: valid_session
+      process :index, method: :get, headers: valid_session
       expect(assigns(:companies)).to eq([company])
     end
   end

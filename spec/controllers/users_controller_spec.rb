@@ -54,20 +54,20 @@ RSpec.describe Api::V1::UsersController, type: :controller do
   describe 'GET #index' do
     it 'assigns all users as @users' do
       user = FactoryGirl.create(:user)
-      get :index, headers: valid_admin_session
+      process :index, method: :get, headers: valid_admin_session
       expect(assigns(:users)).to include(user)
     end
 
     context 'not authorized' do
       it 'does not assigns all users as @users' do
         FactoryGirl.create(:user)
-        get :index
+        process :index, method: :get
         expect(assigns(:users)).to eq(nil)
       end
 
       it 'returns 401 status' do
         FactoryGirl.create(:user)
-        get :index
+        process :index, method: :get
         expect(response.status).to eq(401)
       end
     end
