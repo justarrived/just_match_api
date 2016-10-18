@@ -13,6 +13,7 @@ ActiveAdmin.register FrilansFinansInvoice do
   index do
     column :id
     column :activated
+    column :ff_status
     column :user
     column :job
     column :frilans_finans_id
