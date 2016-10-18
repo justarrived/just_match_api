@@ -69,6 +69,12 @@ namespace :sweepers do
         Sweepers::FrilansFinansInvoiceSweeper.activate_frilans_finans
       end
     end
+
+    task remote_sync: :environment do |task_name|
+      wrap_sweeper_task(task_name) do
+        Sweepers::FrilansFinansInvoiceSweeper.remote_sync
+      end
+    end
   end
 
   def wrap_sweeper_task(task_name)

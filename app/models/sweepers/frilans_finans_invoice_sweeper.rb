@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 module Sweepers
   class FrilansFinansInvoiceSweeper
+    FF_PAID_STATUS = 2
+
     def self.create_frilans_finans(scope = FrilansFinansInvoice)
       scope.needs_frilans_finans_id.find_each(batch_size: 1000) do |ff_invoice|
         CreateFrilansFinansInvoiceService.create(ff_invoice: ff_invoice)
@@ -36,6 +38,12 @@ module Sweepers
           Rails.logger.info "Frilans Finans invoice id missmatch: local ff id: '#{frilans_finans_id}', remote ff id: '#{frilans_finans_id_remote}'" # rubocop:disable Metrics/LineLength
           FailedToActivateInvoiceNotifier.call(ff_invoice: ff_invoice)
         end
+      end
+    end
+
+    def self.remote_sync(scope = FrilansFinansInvoice)
+      scope.where.not(ff_status: FF_PAID_STATUS).find_each(batch_size: 1000) do |ff_invoice|
+        SyncFrilansFinansInvoices.call(frilans_finans_invoice: ff_invoice)
       end
     end
   end

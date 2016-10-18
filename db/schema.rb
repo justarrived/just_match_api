@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161012215923) do
+ActiveRecord::Schema.define(version: 20161018202448) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -176,9 +176,17 @@ ActiveRecord::Schema.define(version: 20161012215923) do
   create_table "frilans_finans_invoices", force: :cascade do |t|
     t.integer  "frilans_finans_id"
     t.integer  "job_user_id"
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
-    t.boolean  "activated",         default: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.boolean  "activated",          default: false
+    t.boolean  "ff_pre_report",      default: true
+    t.float    "ff_amount"
+    t.float    "ff_gross_salary"
+    t.float    "ff_net_salary"
+    t.integer  "ff_payment_status"
+    t.integer  "ff_approval_status"
+    t.integer  "ff_status"
+    t.datetime "ff_sent_at"
     t.index ["job_user_id"], name: "index_frilans_finans_invoices_on_job_user_id", using: :btree
   end
 
