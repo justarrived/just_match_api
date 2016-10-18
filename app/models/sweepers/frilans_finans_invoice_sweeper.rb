@@ -43,7 +43,7 @@ module Sweepers
 
     def self.remote_sync(scope = FrilansFinansInvoice)
       scope.where.not(ff_status: FF_PAID_STATUS).find_each(batch_size: 1000) do |ff_invoice|
-        SyncFrilansFinansInvoices.call(frilans_finans_invoice: ff_invoice)
+        SyncFrilansFinansInvoiceService.call(frilans_finans_invoice: ff_invoice)
       end
     end
   end

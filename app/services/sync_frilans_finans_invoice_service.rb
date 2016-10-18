@@ -1,7 +1,8 @@
 # frozen_string_literal: true
-class SyncFrilansFinansInvoices
+class SyncFrilansFinansInvoiceService
   def self.call(frilans_finans_invoice:, client: FrilansFinansApi.client_klass.new)
-    document = FrilansFinansApi::Invoice.show(id: frilans_finans_invoice.id)
+    ff_id = frilans_finans_invoice.frilans_finans_id
+    document = FrilansFinansApi::Invoice.show(id: ff_id)
     ff_invoice = document.resource.attributes
 
     frilans_finans_invoice.ff_payment_status = ff_invoice['payment_status']
