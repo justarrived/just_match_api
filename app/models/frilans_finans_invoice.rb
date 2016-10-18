@@ -13,7 +13,7 @@ class FrilansFinansInvoice < ApplicationRecord
   scope :activated, -> { where(activated: true) }
   scope :pre_report, -> { where(activated: false) }
 
-  validate :validates_job_user_will_perform
+  validate :validates_job_user_will_perform, on: :create
 
   def name
     "Frilans Finans Invoice ##{id}"
