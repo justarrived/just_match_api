@@ -10,6 +10,7 @@ class FrilansFinansInvoice < ApplicationRecord
   validates :frilans_finans_id, uniqueness: true, allow_nil: true
 
   scope :needs_frilans_finans_id, -> { where(frilans_finans_id: nil) }
+  scope :has_frilans_finans_id, -> { where.not(frilans_finans_id: nil) }
   scope :activated, -> { where(activated: true) }
   scope :pre_report, -> { where(activated: false) }
 
