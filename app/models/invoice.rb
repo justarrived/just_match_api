@@ -23,9 +23,7 @@ class Invoice < ApplicationRecord
     "Invoice ##{id}"
   end
 
-  def activated
-    frilans_finans_invoice.activated
-  end
+  delegate :activated, to: :frilans_finans_invoice
 
   def validate_job_started
     job = job_user&.job
