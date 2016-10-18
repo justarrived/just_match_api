@@ -2,9 +2,9 @@
 require 'reports/invoices_report'
 
 namespace :reports do
-  namespace :finalcial do
-    task montly: :environment do
-      monthly_data = (6..10).map do |month_no|
+  namespace :financials do
+    task monthly: :environment do
+      monthly_data = (6..12).map do |month_no|
         time_range = Date.new(2016, month_no, 1)..Date.new(2016, month_no + 1, 1)
         InvoicesReport.call(time_range)
       end
@@ -31,8 +31,9 @@ namespace :reports do
         summary_rows_csv.flush
       end
 
+      email = User.admins.first.email
       ReportsMailer.send_monthly_report(
-        email: User.admins.first.email,
+        email: email,
         job_rows_path: job_rows_csv.path,
         summary_path: summary_rows_csv.path
       ).deliver_later
