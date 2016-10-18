@@ -6,12 +6,20 @@ end
 #
 # Table name: frilans_finans_invoices
 #
-#  id                :integer          not null, primary key
-#  frilans_finans_id :integer
-#  job_user_id       :integer
-#  created_at        :datetime         not null
-#  updated_at        :datetime         not null
-#  activated         :boolean          default(FALSE)
+#  id                 :integer          not null, primary key
+#  frilans_finans_id  :integer
+#  job_user_id        :integer
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  activated          :boolean          default(FALSE)
+#  ff_pre_report      :boolean          default(TRUE)
+#  ff_amount          :float
+#  ff_gross_salary    :float
+#  ff_net_salary      :float
+#  ff_payment_status  :integer
+#  ff_approval_status :integer
+#  ff_status          :integer
+#  ff_sent_at         :datetime
 #
 # Indexes
 #
