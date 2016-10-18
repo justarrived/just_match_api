@@ -3,7 +3,7 @@ module InvoicesReport
   JOB_ROWS_HEADER = %w(
     company job_name activated status payment_status approval_status
     user_name hours invoice_amount startdate enddate job_id
-    invoice_id company_id
+    invoice_id company_id frilans_finans_id
   ).freeze
 
   def self.call(range)
@@ -44,7 +44,8 @@ module InvoicesReport
     company = job.company
     ff_invoice = invoice.frilans_finans_invoice
 
-    ff_remote_data = remote_frilans_finans_data(ff_invoice.frilans_finans_id)
+    frilans_finans_id = ff_invoice.frilans_finans_id
+    ff_remote_data = remote_frilans_finans_data(frilans_finans_id)
 
     [
       company.name,
@@ -60,7 +61,8 @@ module InvoicesReport
       job.job_end_date,
       job.id,
       invoice.id,
-      company.id
+      company.id,
+      frilans_finans_id
     ]
   end
 
