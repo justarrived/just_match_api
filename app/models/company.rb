@@ -6,10 +6,12 @@ class Company < ApplicationRecord
   has_many :company_images
 
   before_validation :add_protocol_to_website
+  before_validation :set_default_billing_email
 
   validates :name, length: { minimum: 2 }, allow_blank: false
   validates :cin, uniqueness: true, length: { is: 10 }, allow_blank: false
   validates :email, presence: true
+  validates :billing_email, presence: true
   validates :street, length: { minimum: 5 }, allow_blank: false
   validates :zip, length: { minimum: 5 }, allow_blank: false
   validates :city, length: { minimum: 1 }, allow_blank: false
@@ -42,6 +44,13 @@ class Company < ApplicationRecord
     return if website.blank?
 
     self.website = URLHelper.add_protocol(website.strip)
+  end
+
+  def set_default_billing_email
+    return unless billing_email.blank?
+    return if email.blank?
+
+    self.billing_email = email
   end
 end
 
