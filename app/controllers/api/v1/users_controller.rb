@@ -125,7 +125,7 @@ module Api
         end
       end
 
-      api :PATCH, '/users/', 'Update new user'
+      api :PATCH, '/users/:id', 'Update new user'
       description 'Updates and returns the updated user if the user is allowed.'
       error code: 400, desc: 'Bad request'
       error code: 422, desc: 'Unprocessable entity'
