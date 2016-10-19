@@ -12,12 +12,15 @@ ActiveAdmin.register Company do
   filter :created_at
 
   index do
+    column :id
     column :name
     column :cin
     column :frilans_finans_id
     column :email
     column :phone
     column :created_at
+
+    actions
   end
 
   permit_params do
