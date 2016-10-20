@@ -78,6 +78,7 @@ group :development, :test do
   gem 'rspec_junit_formatter', '~> 0.2'
   gem 'derailed_benchmarks', '~> 1.3'
   gem 'stackprof', '~> 0.2'
+  gem 'memory_profiler', '~> 0.9'
 end
 
 group :development do
