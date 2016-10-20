@@ -19,6 +19,7 @@ ActiveAdmin.register Job do
   filter :featured
   filter :filled
   filter :upcoming
+  filter :cancelled
   filter :hidden
   filter :hourly_pay
 

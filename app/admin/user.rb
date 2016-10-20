@@ -12,11 +12,17 @@ ActiveAdmin.register User do
   filter :phone
   filter :first_name
   filter :last_name
+  filter :ssn
   filter :language
   filter :company
+  filter :frilans_finans_id
   filter :job_experience
   filter :education
   filter :competence_text
+  filter :admin
+  filter :cancelled
+  filter :anonymized
+  filter :managed
 
   index do
     column :id
