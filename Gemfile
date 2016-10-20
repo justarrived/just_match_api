@@ -77,6 +77,8 @@ group :development, :test do
   gem 'bullet', '~> 5.0'
   gem 'fog', '~> 1.38' # Cloud services gem, in production the aws-sdk gem is used
   gem 'rspec_junit_formatter', '~> 0.2'
+  gem 'derailed_benchmarks', '~> 1.3'
+  gem 'stackprof', '~> 0.2'
 end
 
 group :development do
