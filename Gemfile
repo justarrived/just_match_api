@@ -76,9 +76,6 @@ group :development, :test do
   gem 'bullet', '~> 5.0'
   gem 'fog', '~> 1.38' # Cloud services gem, in production the aws-sdk gem is used
   gem 'rspec_junit_formatter', '~> 0.2'
-  gem 'derailed_benchmarks', '~> 1.3'
-  gem 'stackprof', '~> 0.2'
-  gem 'memory_profiler', '~> 0.9'
 end
 
 group :development do
@@ -92,6 +89,9 @@ group :development do
   gem 'i18n-tasks', '~> 0.9.2'
   gem 'i18n_generators', '~> 2.1'
   gem 'listen', '~> 3.1'
+  gem 'derailed_benchmarks', '~> 1.3'
+  gem 'stackprof', '~> 0.2'
+  gem 'memory_profiler', '~> 0.9'
 end
 
 group :test do
