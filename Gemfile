@@ -37,7 +37,6 @@ gem 'bcrypt', '~> 3.1.7', require: true # Encrypt passwords
 
 gem 'puma', '~> 3.4' # App server
 
-gem 'newrelic_rpm', '~> 3.15' # Performance monitoring
 gem 'skylight', '~> 0.10' # Performance monitoring
 
 gem 'geocoder', '~> 1.4' # Geocode resources
