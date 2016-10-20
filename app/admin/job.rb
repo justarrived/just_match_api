@@ -4,6 +4,7 @@ ActiveAdmin.register Job do
   scope :all, default: true
   scope :featured
   scope :visible
+  scope :uncancelled
   scope :cancelled
   scope :filled
   scope :unfilled
