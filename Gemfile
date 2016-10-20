@@ -18,10 +18,10 @@ gem 'frilans_finans_api', path: 'lib/frilans_finans_api'
 # JSON API helpers
 gem 'json_api_helpers', path: 'lib/json_api_helpers'
 
-gem 'paperclip', '~> 5.0.0' # Image handler
+gem 'paperclip', '~> 5.1' # Image handler
 gem 'aws-sdk', '~> 2.6' # Upload images to AWS S3
 
-gem 'airbrake', '~> 5.5' # Error catcher and reporter
+gem 'airbrake', '~> 5.6' # Error catcher and reporter
 
 gem 'twilio-ruby', '~> 4.11' # Send SMS notifications
 
@@ -37,7 +37,7 @@ gem 'bcrypt', '~> 3.1.7', require: true # Encrypt passwords
 
 gem 'puma', '~> 3.4' # App server
 
-gem 'skylight', '~> 0.10' # Performance monitoring
+gem 'skylight', '~> 1.0' # Performance monitoring
 
 gem 'geocoder', '~> 1.4' # Geocode resources
 
