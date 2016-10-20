@@ -91,6 +91,7 @@ end
 #  zip               :string
 #  city              :string
 #  phone             :string
+#  billing_email     :string
 #
 # Indexes
 #

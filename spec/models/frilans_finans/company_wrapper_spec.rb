@@ -14,7 +14,7 @@ RSpec.describe FrilansFinans::CompanyWrapper do
           street: company.street,
           city: company.city,
           zip: company.zip,
-          send_to_email: company.email,
+          send_to_email: company.billing_email,
           user_id: user.frilans_finans_id
         }
       }

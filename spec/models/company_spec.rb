@@ -63,6 +63,28 @@ RSpec.describe Company, type: :model do
       expect(company.website).to eq(website)
     end
   end
+
+  describe '#set_default_billing_email' do
+    context 'with blank billing_email' do
+      it 'sets billing_email from email ' do
+        email = 'company@example.com'
+        company = Company.new(email: email)
+        company.set_default_billing_email
+
+        expect(company.billing_email).to eq(email)
+      end
+    end
+
+    context 'with billing_email' do
+      it 'sets billing_email' do
+        billing_email = 'billing@example.com'
+        company = Company.new(email: 'company@example.com', billing_email: billing_email)
+        company.set_default_billing_email
+
+        expect(company.billing_email).to eq(billing_email)
+      end
+    end
+  end
 end
 
 # == Schema Information
@@ -81,6 +103,7 @@ end
 #  zip               :string
 #  city              :string
 #  phone             :string
+#  billing_email     :string
 #
 # Indexes
 #
