@@ -14,6 +14,7 @@ ActiveAdmin.register FrilansFinansInvoice do
     column :id
     column :activated
     column :ff_status
+    column :ff_amount
     column :user
     column :job
     column :frilans_finans_id
