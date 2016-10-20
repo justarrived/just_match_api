@@ -5,6 +5,7 @@ ActiveAdmin.register Company do
 
   filter :name
   filter :email
+  filter :billing_email
   filter :phone
   filter :cin
   filter :street
