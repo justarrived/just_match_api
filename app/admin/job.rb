@@ -39,7 +39,9 @@ ActiveAdmin.register Job do
   end
 
   permit_params do
-    extras = [:cancelled, :language_id, :hourly_pay_id, :category_id, :owner_user_id]
+    extras = [
+      :cancelled, :language_id, :hourly_pay_id, :category_id, :owner_user_id, :hidden
+    ]
     JobPolicy::FULL_ATTRIBUTES + extras
   end
 end
