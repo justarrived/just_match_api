@@ -171,6 +171,21 @@ class User < ApplicationRecord
     jobs.any?
   end
 
+  def self.build_anonymous(role:)
+    new(
+      id: 0,
+      anonymized: true,
+      first_name: 'Anonymous',
+      last_name: 'User',
+      email: "anonymous@example.com",
+      description: 'This user is anonymous.',
+      street: 'XXXXXXXX',
+      zip: 'XXX XX',
+      ssn: 'XXXXXXXXXX',
+      company: role == :candidate ? nil : Company.build_anonymous
+    )
+  end
+
   def not_persisted?
     !persisted?
   end
@@ -260,8 +275,7 @@ class User < ApplicationRecord
     BitmaskField.from_mask(ignored_notifications_mask, NOTIFICATIONS)
   end
 
-  def reset!
-    # Update the users attributes and don't validate
+  def anonymize_attributes
     assign_attributes(
       anonymized: true,
       first_name: 'Ghost',
@@ -274,6 +288,11 @@ class User < ApplicationRecord
       ssn: '0000000000',
       password: SecureGenerator.token
     )
+  end
+
+  def reset!
+    # Update the users attributes and don't validate
+    anonymize_attributes
     save!(validate: false)
   end
 

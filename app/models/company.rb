@@ -25,6 +25,19 @@ class Company < ApplicationRecord
       joins(:users).where('users.frilans_finans_id IS NOT NULL')
   }
 
+  def self.build_anonymous
+    new(
+      id: 0,
+      name: 'Anonymous',
+      cin: 'XXXXXXXXXX',
+      email: 'anonymous@example.com',
+      billing_email: 'anonymous@example.com',
+      street: 'XXXX X',
+      zip: 'XXX XX',
+      city: 'XXXXX'
+    )
+  end
+
   def find_frilans_finans_user
     users.frilans_finans_users.first
   end
