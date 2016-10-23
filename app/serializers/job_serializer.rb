@@ -28,7 +28,15 @@ class JobSerializer < ApplicationSerializer
   end
 
   has_one :owner do
-    link(:self) { api_v1_user_url(object.owner_user_id) if object.owner_user_id }
+    link(:self) do
+      api_v1_user_url(object.owner_user_id) if object.owner_user_id && !object.upcoming
+    end
+
+    if object.upcoming
+      User.build_anonymous(role: :owner)
+    else
+      object.owner
+    end
   end
 
   has_one :company do
@@ -37,7 +45,11 @@ class JobSerializer < ApplicationSerializer
       api_v1_company_url(object.company) if object.company && !object.upcoming
     end
 
-    object.company unless object.upcoming
+    if object.upcoming
+      Company.build_anonymous
+    else
+      object.company
+    end
   end
 
   has_one :language do
