@@ -29,12 +29,12 @@ class Company < ApplicationRecord
     new(
       id: 0,
       name: 'Anonymous',
-      cin: 'XXXXXXXXXX',
+      cin: 'XYZXYZXYZX',
       email: 'anonymous@example.com',
       billing_email: 'anonymous@example.com',
-      street: 'XXXX X',
-      zip: 'XXX XX',
-      city: 'XXXXX'
+      street: 'XYZXYZ XX',
+      zip: 'XYZX YZ',
+      city: 'XYZXYZ'
     )
   end
 

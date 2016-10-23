@@ -179,9 +179,9 @@ class User < ApplicationRecord
       last_name: 'User',
       email: "anonymous@example.com",
       description: 'This user is anonymous.',
-      street: 'XXXXXXXX',
-      zip: 'XXX XX',
-      ssn: 'XXXXXXXXXX',
+      street: 'XYZXYZ XX',
+      zip: 'XYZX YZ',
+      ssn: 'XYZXYZXYZX',
       company: role == :candidate ? nil : Company.build_anonymous
     )
   end
