@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 class FrilansFinansInvoice < ApplicationRecord
+  FF_PAID_STATUS = 2
+
   belongs_to :job_user
 
   has_one :job, through: :job_user
@@ -13,6 +15,7 @@ class FrilansFinansInvoice < ApplicationRecord
   scope :has_frilans_finans_id, -> { where.not(frilans_finans_id: nil) }
   scope :activated, -> { where(activated: true) }
   scope :pre_report, -> { where(activated: false) }
+  scope :not_paid, -> { where('ff_status IS NULL OR ff_status != ?', FF_PAID_STATUS) }
 
   validate :validates_job_user_will_perform, on: :create
 

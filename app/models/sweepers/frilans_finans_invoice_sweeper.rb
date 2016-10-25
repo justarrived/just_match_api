@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 module Sweepers
   class FrilansFinansInvoiceSweeper
-    FF_PAID_STATUS = 2
-
     def self.create_frilans_finans(scope = FrilansFinansInvoice)
       scope.needs_frilans_finans_id.find_each(batch_size: 1000) do |ff_invoice|
         CreateFrilansFinansInvoiceService.create(ff_invoice: ff_invoice)
@@ -42,8 +40,7 @@ module Sweepers
     end
 
     def self.remote_sync(scope = FrilansFinansInvoice)
-      scope.has_frilans_finans_id.
-        where.not(ff_status: FF_PAID_STATUS).find_each(batch_size: 1000) do |ff_invoice|
+      scope.has_frilans_finans_id.not_paid.find_each(batch_size: 1000) do |ff_invoice|
         SyncFrilansFinansInvoiceService.call(frilans_finans_invoice: ff_invoice)
       end
     end

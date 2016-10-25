@@ -177,7 +177,7 @@ class User < ApplicationRecord
       anonymized: true,
       first_name: 'Anonymous',
       last_name: 'User',
-      email: "anonymous@example.com",
+      email: 'anonymous@example.com',
       description: 'This user is anonymous.',
       street: 'XYZXYZ XX',
       zip: 'XYZX YZ',
