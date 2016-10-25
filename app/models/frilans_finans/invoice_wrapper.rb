@@ -28,12 +28,9 @@ module FrilansFinans
       if ff_user.resource.attributes
         taxkey_id = ff_user_attributes['default_taxkey_id']
       else
-        message = "Missing default_taxkey_id for user ##{user.id}"
+        message = "Missing FF user attributes for user ##{user.id}"
         Rails.logger.warn "WARN -- : #{message}"
-        context = {
-          user_id: user.id, job_id: job.id,
-          ff_user_attributes: ff_user_attributes
-        }
+        context = { user_id: user.id, job_id: job.id, resource: ff_user.resource.inspect }
         ErrorNotifier.send(message, context: context)
       end
 
