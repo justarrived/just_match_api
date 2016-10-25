@@ -30,7 +30,10 @@ module FrilansFinans
       else
         message = "Missing default_taxkey_id for user ##{user.id}"
         Rails.logger.warn "WARN -- : #{message}"
-        context = { user_id: user.id, job_id: job.id }
+        context = {
+          user_id: user.id, job_id: job.id,
+          ff_user_attributes: ff_user_attributes
+        }
         ErrorNotifier.send(message, context: context)
       end
 
