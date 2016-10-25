@@ -25,7 +25,14 @@ module FrilansFinans
     def self.invoice_users(job:, user:, ff_user:)
       ff_user_attributes = ff_user.resource.attributes
 
-      taxkey_id = ff_user_attributes['default_taxkey_id'] if ff_user.resource.attributes
+      if ff_user.resource.attributes
+        taxkey_id = ff_user_attributes['default_taxkey_id']
+      else
+        message = "Missing default_taxkey_id for user ##{user.id}"
+        Rails.logger.warn "WARN -- : #{message}"
+        context = { user_id: user.id, job_id: job.id }
+        ErrorNotifier.send(message, context: context)
+      end
 
       [{
         user_id: user.frilans_finans_id,
