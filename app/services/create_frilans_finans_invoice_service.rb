@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class CreateFrilansFinansInvoiceService
-  def self.create(ff_invoice:)
+  def self.create(ff_invoice:, pre_report: true)
     job_user = ff_invoice.job_user
     job = job_user.job
     user = job_user.user
@@ -15,7 +15,7 @@ class CreateFrilansFinansInvoiceService
       client: client,
       user: user,
       job: job,
-      pre_report: true
+      pre_report: pre_report
     )
     ff_invoice_remote = FrilansFinansApi::Invoice.create(
       attributes: ff_invoice_attributes,
