@@ -8,6 +8,8 @@ List of all environment variables used in the application.
 # Re-route managed users email (optional)
 MANAGED_EMAIL_USERNAME=support
 MANAGED_EMAIL_HOSTNAME=example.com
+# Send all invoices to company with Frilans Finans ID
+INVOICE_COMPANY_FRILANS_FINANS_ID
 
 DEFAULT_RECORDS_PER_PAGE
 DEFAULT_MAX_RECORDS_PER_PAGE

@@ -63,6 +63,7 @@ module JustMatch
     config.x.promo_code = ENV['PROMO_CODE']
     config.x.send_sms_notifications = ENV.fetch('SEND_SMS_NOTIFICATIONS', 'true') == 'true'
     config.x.validate_swedish_ssn = true
+    config.x.invoice_company_frilans_finans_id = ENV.fetch('INVOICE_COMPANY_FRILANS_FINANS_ID', nil)
     # rubocop:enable Metrics/LineLength
 
     config.paperclip_defaults = {
