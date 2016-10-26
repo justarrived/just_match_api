@@ -16,6 +16,7 @@ class FrilansFinansInvoice < ApplicationRecord
   scope :activated, -> { where(activated: true) }
   scope :pre_report, -> { where(activated: false) }
   scope :not_paid, -> { where('ff_status IS NULL OR ff_status != ?', FF_PAID_STATUS) }
+  scope :uncancelled_jobs, -> { joins(:job).where('jobs.cancelled = ?', false) }
 
   validate :validates_job_user_will_perform, on: :create
 
