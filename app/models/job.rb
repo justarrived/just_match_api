@@ -90,7 +90,7 @@ class Job < ApplicationRecord
     ff_id = Rails.configuration.x.invoice_company_frilans_finans_id
     return owner.company.frilans_finans_id if ff_id.nil?
 
-    ff_id
+    Integer(ff_id)
   end
 
   def position_filled?
