@@ -15,7 +15,7 @@ module FrilansFinans
         currency_id: Currency.default_currency&.frilans_finans_id,
         specification: "#{job.category.name} - #{job.name} (##{job.id})",
         amount: job.invoice_amount,
-        company_id: job.company.frilans_finans_id,
+        company_id: job.invoice_company_frilans_finans_id,
         tax_id: tax.id,
         user_id: user.frilans_finans_id,
         pre_report: pre_report

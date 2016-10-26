@@ -6,6 +6,28 @@ RSpec.describe Job, type: :model do
     describe '#matches_user'
   end
 
+  describe '#invoice_company_frilans_finans_id' do
+    let(:company) { FactoryGirl.build(:company, frilans_finans_id: 7373) }
+    let(:owner) { FactoryGirl.build(:user, company: company) }
+    let(:job) { FactoryGirl.build(:job, owner: owner) }
+
+    context 'with configuration default_invoice_company_frilans_finans_id' do
+      it 'returns id from config' do
+        ff_id = 3737337
+        Rails.configuration.x.invoice_company_frilans_finans_id = ff_id
+        expect(job.invoice_company_frilans_finans_id).to eq(ff_id)
+        Rails.configuration.x.invoice_company_frilans_finans_id = nil
+      end
+    end
+
+    context '*without* configuration default_invoice_company_frilans_finans_id' do
+      it 'returns id from config' do
+        expected_id = company.frilans_finans_id
+        expect(job.invoice_company_frilans_finans_id).to eq(expected_id)
+      end
+    end
+  end
+
   describe '#fill_position' do
     it 'sets filled to true' do
       job = FactoryGirl.build(:job, filled: false)

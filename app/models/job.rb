@@ -86,6 +86,13 @@ class Job < ApplicationRecord
       where('jobs.owner_user_id = :user OR job_users.user_id = :user', user: user)
   end
 
+  def invoice_company_frilans_finans_id
+    ff_id = Rails.configuration.x.invoice_company_frilans_finans_id
+    return owner.company.frilans_finans_id if ff_id.nil?
+
+    ff_id
+  end
+
   def position_filled?
     filled
   end
