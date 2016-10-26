@@ -281,6 +281,29 @@ RSpec.describe Api::V1::UsersController, type: :controller do
           expect(response.status).to eq(401)
         end
       end
+
+      context 'with user languages' do
+        let(:user) { User.find_by_auth_token(valid_session[:token]) }
+        let(:language_id) { valid_attributes[:data][:attributes][:language_id] }
+        let(:new_attributes) do
+          {
+            data: {
+              attributes: {
+                language_ids: [{ id: language_id, proficiency: lang_proficiency }]
+              }
+            }
+          }
+        end
+
+        it 'creates from language list of ids and proficiencies' do
+          params = { user_id: user.to_param }.merge(new_attributes)
+          put :update, params: params, headers: valid_session
+
+          user_language = assigns(:user).user_languages.first
+          expect(user_language.language.id).to eq(language_id)
+          expect(user_language.proficiency).to eq(lang_proficiency)
+        end
+      end
     end
 
     context 'with invalid params' do
