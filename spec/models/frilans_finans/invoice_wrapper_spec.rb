@@ -48,7 +48,7 @@ RSpec.describe FrilansFinans::InvoiceWrapper do
     it 'returns the main invoice data' do
       expected = {
         currency_id: Currency.default_currency&.frilans_finans_id,
-        specification: "#{job.category.name} - #{job.name} (##{job.id})",
+        specification: job.invoice_specification,
         amount: job.invoice_amount,
         company_id: ff_company_id,
         tax_id: ff_tax_id,

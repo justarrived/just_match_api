@@ -21,6 +21,7 @@ class HourlyPay < ApplicationRecord
   def rate_excluding_vat
     PayCalculator.rate_excluding_vat(gross_salary)
   end
+  alias_method :invoice_amount, :rate_excluding_vat
 
   def rate_including_vat
     PayCalculator.rate_including_vat(gross_salary)

@@ -86,6 +86,23 @@ class Job < ApplicationRecord
       where('jobs.owner_user_id = :user OR job_users.user_id = :user', user: user)
   end
 
+  def invoice_specification
+    <<-JOB_SPECIFICATION
+#{name} (ID: ##{id}) - #{category.name}
+
+Period: #{job_date.to_date} - #{job_end_date.to_date}
+Total hours: #{hours}
+
+Hourly invoice: #{hourly_pay.invoice_amount} SEK/h
+Gross salary: #{hourly_pay.gross_salary} SEK/h
+
+COMPANY
+#{company.name} (ID: ##{company.id})
+Billing email: #{company.billing_email}
+Address: #{company.address}
+    JOB_SPECIFICATION
+  end
+
   def invoice_company_frilans_finans_id
     ff_id = Rails.configuration.x.invoice_company_frilans_finans_id
     return owner.company.frilans_finans_id if ff_id.nil?
@@ -117,7 +134,7 @@ class Job < ApplicationRecord
   end
 
   def invoice_amount
-    hourly_pay.rate_excluding_vat * hours
+    hourly_pay.invoice_amount * hours
   end
 
   # NOTE: You need to call this __before__ the record is validated
