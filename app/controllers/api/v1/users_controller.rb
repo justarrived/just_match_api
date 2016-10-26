@@ -108,15 +108,8 @@ module Api
             @user.profile_image_token = deprecated_param_value
           end
 
-          user_languages_params = normalize_language_ids(jsonapi_params[:language_ids])
-          user_languages_params.map do |attrs|
-            UserLanguage.create(
-              user: @user,
-              language_id: attrs[:id],
-              proficiency: attrs[:proficiency]
-            )
-          end
-
+          language_ids = jsonapi_params[:language_ids]
+          SetUserLanguagesService.call(user: @user, language_ids_param: language_ids)
           UserWelcomeNotifier.call(user: @user)
 
           api_render(@user, status: :created)
@@ -146,6 +139,10 @@ module Api
           param :ssn, String, desc: 'Social Security Number (10 characters)'
           param :ignored_notifications, Array, of: 'ignored notifications', desc: "List of ignored notifications. Any of: #{User::NOTIFICATIONS.map { |n| "`#{n}`" }.join(', ')}"
           param :language_id, Integer, desc: 'Primary language id for user'
+          param :language_ids, Array, of: Hash, desc: 'Languages that the user knows (if specified this will completely replace the users languages)' do
+            param :id, Integer, desc: 'Language id', required: true
+            param :proficiency, UserLanguage::PROFICIENCY_RANGE.to_a, desc: 'Language proficiency'
+          end
           param :company_id, Integer, desc: 'Company id for user'
           param :user_image_one_time_token, String, desc: 'User image one time token'
           param :current_status, User::STATUSES.keys, desc: 'Current status'
@@ -160,6 +157,9 @@ module Api
         authorize(@user)
 
         if @user.update(user_params)
+          language_ids = jsonapi_params[:language_ids]
+          SetUserLanguagesService.call(user: @user, language_ids_param: language_ids)
+
           @user.profile_image_token = jsonapi_params[:user_image_one_time_token]
 
           api_render(@user)
@@ -212,24 +212,6 @@ module Api
       end
 
       private
-
-      def normalize_language_ids(language_ids)
-        return [] if language_ids.nil?
-
-        language_ids.map do |lang|
-          if lang.is_a?(ActionController::Parameters)
-            lang.permit(:id, :proficiency)
-          else
-            message = [
-              'Passing languages as a list of integers is deprecated.',
-              'Please pass an array of objects, i.e [{ id: 1, proficiency: 1 }]'
-            ].join(' ')
-            ActiveSupport::Deprecation.warn(message)
-
-            { id: lang, proficiency: nil }
-          end
-        end
-      end
 
       def set_user
         @user = User.find(params[:user_id])
