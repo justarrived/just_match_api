@@ -44,6 +44,29 @@ RSpec.describe Job, type: :model do
     end
   end
 
+  describe '#invoice_specification' do
+    let(:job_id) { 73_000_000 }
+    let(:job) { FactoryGirl.build(:job, id: job_id) }
+
+    it 'returns with the correct content parts' do
+       [
+        job.category.name,
+        job.name,
+        job.id,
+        job.job_date.to_date,
+        job.job_end_date.to_date,
+        job.hours,
+        job.hourly_pay.invoice_rate,
+        job.hourly_pay.gross_salary,
+        job.company.name,
+        job.company.billing_email,
+        job.company.address
+      ].map(&:to_s).each do |expected_part|
+        expect(job.invoice_specification).to include(expected_part)
+      end
+    end
+  end
+
   describe '#amount' do
     it 'can return the total amount that a user is to be payed' do
       hourly_pay = FactoryGirl.build(:hourly_pay, gross_salary: 100)

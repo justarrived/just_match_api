@@ -38,6 +38,10 @@ class Company < ApplicationRecord
     )
   end
 
+  def address
+    [street, zip, city, 'Sverige'].compact.join(', ')
+  end
+
   def find_frilans_finans_user
     users.frilans_finans_users.first
   end

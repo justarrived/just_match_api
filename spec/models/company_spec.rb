@@ -13,6 +13,19 @@ RSpec.describe Company, type: :model do
     end
   end
 
+  describe '#address' do
+    let(:company) { FactoryGirl.build(:company, street: '1', zip: '1', city: '1') }
+
+    it 'returns the company address' do
+      expect(company.address).to eq('1, 1, 1, Sverige')
+    end
+
+    it 'returns the compacted company address' do
+      company.city = nil
+      expect(company.address).to eq('1, 1, Sverige')
+    end
+  end
+
   describe '#logo_image_token=' do
     let(:company) { FactoryGirl.create(:company) }
     let(:company_image) { FactoryGirl.create(:company_image) }
