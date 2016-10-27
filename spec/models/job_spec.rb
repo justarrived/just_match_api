@@ -56,7 +56,7 @@ RSpec.describe Job, type: :model do
         job.job_date.to_date,
         job.job_end_date.to_date,
         job.hours,
-        job.hourly_pay.invoice_amount,
+        job.hourly_pay.invoice_rate,
         job.hourly_pay.gross_salary,
         job.company.name,
         job.company.billing_email,
