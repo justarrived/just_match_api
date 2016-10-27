@@ -36,6 +36,7 @@ ActiveAdmin.register Company do
       :street,
       :zip,
       :city,
+      :billing_email,
       :phone
     ]
   end
