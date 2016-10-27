@@ -93,7 +93,7 @@ class Job < ApplicationRecord
 Period: #{job_date.to_date} - #{job_end_date.to_date}
 Total hours: #{hours}
 
-Hourly invoice: #{hourly_pay.invoice_amount} SEK/h
+Hourly invoice: #{hourly_pay.invoice_rate} SEK/h
 Gross salary: #{hourly_pay.gross_salary} SEK/h
 
 COMPANY
