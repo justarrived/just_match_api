@@ -18,7 +18,21 @@ class FrilansFinansInvoice < ApplicationRecord
   scope :not_paid, -> { where('ff_status IS NULL OR ff_status != ?', FF_PAID_STATUS) }
   scope :uncancelled_jobs, -> { joins(:job).where('jobs.cancelled = ?', false) }
 
+  scope :job_ended, lambda { |start:, finish:|
+    joins(:job).
+      where('jobs.job_end_date > ? AND jobs.job_end_date < ?', start, finish)
+  }
+
   validate :validates_job_user_will_perform, on: :create
+
+  def self.sent_invoices(start:, finish:)
+    activated.job_ended(start: start, finish: finish)
+  end
+
+  def self.invoice_amount(start:, finish:)
+    sent_invoices(start: start, finish: finish).
+      sum(:ff_amount)
+  end
 
   def name
     "Frilans Finans Invoice ##{id}"
