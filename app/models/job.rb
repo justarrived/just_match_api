@@ -134,7 +134,7 @@ Address: #{company.address}
   end
 
   def invoice_amount
-    hourly_pay.invoice_amount * hours
+    hourly_pay.invoice_rate * hours
   end
 
   # NOTE: You need to call this __before__ the record is validated
