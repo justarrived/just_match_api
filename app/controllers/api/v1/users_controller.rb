@@ -16,7 +16,7 @@ module Api
         api_versions '1.0'
       end
 
-      ALLOWED_INCLUDES = %w(language languages company user_images).freeze
+      ALLOWED_INCLUDES = %w(user_languages language languages company user_images).freeze
 
       def company_users_count
         users_count = ENV.fetch(

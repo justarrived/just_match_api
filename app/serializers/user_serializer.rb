@@ -28,6 +28,10 @@ class UserSerializer < ApplicationSerializer
     link(:related) { api_v1_user_languages_url(object.id) }
   end
 
+  has_many :user_languages do
+    link(:related) { api_v1_user_languages_url(object.id) }
+  end
+
   has_many :chats, unless: :collection_serializer? do
     link(:related) { api_v1_user_chats_url(object.id) }
   end
