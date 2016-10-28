@@ -45,7 +45,9 @@ ActiveAdmin.register User do
   end
 
   permit_params do
-    extras = [:password, :language_id, :company_id, :managed]
+    extras = [
+      :password, :language_id, :company_id, :managed, :frilans_finans_payment_details
+    ]
     UserPolicy::SELF_ATTRIBUTES + extras
   end
 end
