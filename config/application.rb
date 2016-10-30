@@ -28,11 +28,14 @@ module JustMatch
     # fa_AF - Dari / Persian (Afghanistan) [partial Rails translation locally]
     # ps    - Pashto [partial Rails translation locally]
     config.i18n.available_locales = [:en, :sv, :ar, :fa, :ku, :ti, :fa_AF, :ps]
-    config.i18n.fallbacks = {
-      'fa_AF' => 'fa',
-      'ps' => 'fa_AF',
-      'ti' => 'ar'
+    i18n_fallbacks = {
+      'fa_AF' => ['fa_AF', 'fa'],
+      'ps' => ['ps', 'fa_AF'],
+      'ti' => ['ti', 'ar'],
+      'en' => ['en', 'sv'],
+      'sv' => ['sv', 'en'],
     }
+    config.i18n.fallbacks = i18n_fallbacks
     config.i18n.load_path += Dir[
       Rails.root.join('config', 'locales', '**', '*.{rb,yml}')
     ]
