@@ -15,6 +15,11 @@
       "value": "",
       "required": false
     },
+    "GOOGLE_TRANSLATE_API_KEY": {
+      "description": "Google Translate API key (required)",
+      "value": "",
+      "required": false
+    },
     "APP_HOST": {
       "description": "Application host (api.example.com)",
       "value": "api.justarrived.se",
