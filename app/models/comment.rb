@@ -4,6 +4,8 @@ class Comment < ApplicationRecord
   belongs_to :owner, class_name: 'User', foreign_key: 'owner_user_id'
   belongs_to :language
 
+  has_many :comment_translations
+
   validates :owner_user_id, presence: true
   validates :commentable_id, presence: true
   validates :commentable_type, presence: true
