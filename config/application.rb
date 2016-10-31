@@ -29,11 +29,11 @@ module JustMatch
     # ps    - Pashto [partial Rails translation locally]
     config.i18n.available_locales = [:en, :sv, :ar, :fa, :ku, :ti, :fa_AF, :ps]
     i18n_fallbacks = {
-      'fa_AF' => ['fa_AF', 'fa'],
-      'ps' => ['ps', 'fa_AF'],
-      'ti' => ['ti', 'ar'],
-      'en' => ['en', 'sv'],
-      'sv' => ['sv', 'en'],
+      'fa_AF' => %w(fa_AF fa),
+      'ps' => %w(ps fa_AF),
+      'ti' => %w(ti ar),
+      'en' => %w(en sv),
+      'sv' => %w(sv en)
     }
     config.i18n.fallbacks = i18n_fallbacks
     config.i18n.load_path += Dir[

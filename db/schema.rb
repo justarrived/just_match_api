@@ -96,7 +96,6 @@ ActiveRecord::Schema.define(version: 20161019090139) do
   end
 
   create_table "comments", force: :cascade do |t|
-    t.text     "body"
     t.integer  "commentable_id"
     t.string   "commentable_type"
     t.integer  "owner_user_id"
@@ -104,6 +103,7 @@ ActiveRecord::Schema.define(version: 20161019090139) do
     t.datetime "updated_at",                       null: false
     t.integer  "language_id"
     t.boolean  "hidden",           default: false
+    t.text     "body"
     t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id", using: :btree
     t.index ["language_id"], name: "index_comments_on_language_id", using: :btree
   end
