@@ -4,15 +4,22 @@ class Comment < ApplicationRecord
   belongs_to :owner, class_name: 'User', foreign_key: 'owner_user_id'
   belongs_to :language
 
-  has_many :comment_translations
-
   validates :owner_user_id, presence: true
   validates :commentable_id, presence: true
   validates :commentable_type, presence: true
+  # TODO: Consider keeping this and adding a virtual attribute `body` on comment
+  #       (not as a final design choice but rather a workaround to keep validations
+  #       going with a large refactor at this point)
   validates :body, presence: true
   validates :language, presence: true
 
   scope :visible, -> { where(hidden: false) }
+
+  # TODO: Potentially uncomment the below line, once the Comment#body column is removed
+  # attr_writer :body
+
+  include Translatable
+  translates :body
 end
 # rubocop:disable Metrics/LineLength
 

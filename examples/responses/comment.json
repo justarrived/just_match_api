@@ -3,10 +3,11 @@
     "id": "1",
     "type": "comments",
     "attributes": {
-      "body": "Typewriter hashtag ennui brunch post-ironic food truck vinegar.",
-      "created_at": "2016-02-10 01:01:01 +0100",
-      "commentable_id": 1,
-      "commentable_type": "Job"
+      "body": null,
+      "original_text": {
+        "body": null
+      },
+      "created_at": "2016-02-10 01:01:01 +0100"
     },
     "relationships": {
       "owner": {

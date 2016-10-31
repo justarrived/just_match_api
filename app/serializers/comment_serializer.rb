@@ -1,11 +1,22 @@
 # frozen_string_literal: true
 class CommentSerializer < ApplicationSerializer
-  ATTRIBUTES = [:body, :created_at, :commentable_id, :commentable_type].freeze
+  ATTRIBUTES = [:created_at].freeze
 
   attributes ATTRIBUTES
 
+  attribute :body
+  attribute :original_text
+
   has_one :owner
   has_one :language
+
+  def body
+    object.translated_body
+  end
+
+  def original_text
+    { body: object.original_body }
+  end
 end
 # rubocop:disable Metrics/LineLength
 

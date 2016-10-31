@@ -22,7 +22,7 @@ I18N_FALLBACKS = {
   'sv' => %w(en),
   'ku' => %w(en),
   'ar' => %w(en)
-}
+}.freeze
 
 Bundler.require(*Rails.groups)
 

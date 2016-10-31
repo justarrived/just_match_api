@@ -25,7 +25,8 @@ module Api
       example Doxxer.read_example(Comment, plural: true)
       def index
         comments_index = Index::CommentsIndex.new(self)
-        @comments = comments_index.comments(@commentable.comments)
+        base_comments = @commentable.comments.includes(:translations, :language)
+        @comments = comments_index.comments(base_comments)
 
         api_render(@comments, total: comments_index.count)
       end
@@ -57,10 +58,21 @@ module Api
       example Doxxer.read_example(Comment, method: :create)
       def create
         @comment = @commentable.comments.new(comment_params)
+        # TODO: Validate `body` param in another way
+        # (that doesn't abuse virtual attributes on ActiveRecord models)
+        @comment.body = comment_params[:body] # Needed for validation reasons
+        # TODO: Validate `language_id` param is an available locale
+
         # NOTE: Not very RESTful to set user from current_user
         @comment.owner_user_id = current_user.id
 
         if @comment.save
+          locale = Language.find_by(id: comment_params[:language_id])&.lang_code
+          @comment.translations << CommentTranslation.new(
+            body: comment_params[:body],
+            locale: locale
+          )
+
           api_render(@comment, status: :created)
         else
           api_render_errors(@comment)
@@ -74,15 +86,21 @@ module Api
       param :data, Hash, desc: 'Top level key', required: true do
         param :attributes, Hash, desc: 'Comment attributes', required: true do
           param :body, String, desc: 'Body of the comment'
-          param :language_id, Integer, desc: 'Language id of the body content'
         end
       end
       example Doxxer.read_example(Comment)
       def update
         @comment = user_comment_scope.find(params[:id])
+        # TODO: Validate `body` param in another way
+        # (that doesn't abuse virtual attributes on ActiveRecord models)
         @comment.body = comment_params[:body]
 
-        if @comment.save
+        if @comment.valid?
+          locale = Language.find_by(id: @comment.language_id)&.lang_code
+          translation = @comment.translations.find_or_initialize_by(locale: locale)
+          translation.body = comment_params[:body]
+          translation.save!
+
           api_render(@comment)
         else
           api_render_errors(@comment)
@@ -103,11 +121,12 @@ module Api
 
       def user_comment_scope
         # NOTE: Not very RESTful to set user from current_user
-        if current_user.admin?
-          Comment.all
-        else
-          current_user.written_comments
-        end
+        comments = if current_user.admin?
+                     Comment.all
+                   else
+                     current_user.written_comments
+                   end
+        comments.includes(:translations, :language)
       end
 
       def comment_params
