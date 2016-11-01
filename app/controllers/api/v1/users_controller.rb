@@ -95,6 +95,8 @@ module Api
         if @user.save
           login_user(@user)
 
+          @user.create_translation(user_params, @user.language_id)
+
           @user.skills = Skill.where(id: user_params[:skill_ids])
 
           image_tokens = jsonapi_params[:user_image_one_time_tokens]
@@ -157,6 +159,9 @@ module Api
         authorize(@user)
 
         if @user.update(user_params)
+          @user.update_translation(user_params)
+          @user.reload
+
           language_ids = jsonapi_params[:language_ids]
           SetUserLanguagesService.call(user: @user, language_ids_param: language_ids)
 

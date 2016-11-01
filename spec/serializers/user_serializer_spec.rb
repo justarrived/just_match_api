@@ -10,7 +10,8 @@ RSpec.describe UserSerializer, type: :serializer do
       JSON.parse(serialization.to_json)
     end
 
-    (UserPolicy::ATTRIBUTES - %i(id)).each do |attribute|
+    ignored = %i(id description competence_text original_text)
+    (UserPolicy::ATTRIBUTES - ignored).each do |attribute|
       it "has #{attribute.to_s.humanize.downcase}" do
         dashed_attribute = attribute.to_s.dasherize
         value = resource.public_send(attribute)

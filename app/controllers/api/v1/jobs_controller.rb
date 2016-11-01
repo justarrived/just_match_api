@@ -131,6 +131,7 @@ module Api
 
         if @job.save
           @job.update_translation(job_attributes)
+          @job.reload
 
           notifier_klass.call(job: @job)
 
