@@ -18,7 +18,7 @@ module Translatable
       end
 
       define_method(:update_translation) do |t_hash, language_id = self.language_id|
-        # TODO: The problem with this is that the main/parent record needs to be
+        # NOTE: The problem with this is that the main/parent record needs to be
         #       reloaded otherwise the old text will be returned
         locale = Language.find_by(id: language_id)&.lang_code
         translation = translations.find_or_initialize_by(locale: locale)
@@ -53,7 +53,7 @@ module Translatable
         end
 
         define_method(original_text_method_name) do
-          # TODO: We should store language_id on the transltion model braking DB
+          # NOTE: We should store language_id on the transltion model braking DB
           #       normalization just a little bit, this can cause gnarly N+1 queries..
           locale = language&.lang_code
 

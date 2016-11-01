@@ -82,8 +82,6 @@ module Api
       example Doxxer.read_example(Comment)
       def update
         @comment = user_comment_scope.find(params[:id])
-        # TODO: Validate `body` param in another way
-        # (that doesn't abuse virtual attributes on ActiveRecord models)
         @comment.body = comment_params[:body]
 
         if @comment.valid?
