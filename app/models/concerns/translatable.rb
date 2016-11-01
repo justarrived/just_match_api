@@ -3,7 +3,10 @@ module Translatable
   extend ActiveSupport::Concern
 
   included do
-    has_many :translations, class_name: "#{name}Translation", foreign_key: "#{name.downcase}_id", dependent: :destroy # rubocop:disable Metrics/LineLength
+    TRANSLATION_KLASS_NAME = "#{name}Translation".freeze
+    TRANSLATION_KLASS = TRANSLATION_KLASS_NAME.constantize
+
+    has_many :translations, class_name: TRANSLATION_KLASS_NAME, foreign_key: "#{name.downcase}_id", dependent: :destroy # rubocop:disable Metrics/LineLength
   end
 
   class_methods do
@@ -49,6 +52,22 @@ module Translatable
         }
         ErrorNotifier.send('Resource is missing original language!', context: context)
         nil
+      end
+
+      define_method("add_#{attribute_name}_translation") do |content, language_id:|
+        locale = Language.find_by(id: language_id)&.lang_code
+        translation = TRANSLATION_KLASS.new(attribute_name => content, locale: locale)
+
+        translations << translation
+      end
+
+      define_method("update_#{attribute_name}_translation") do |content, language_id: self.language_id| # rubocop:disable Metrics/LineLength
+        # TODO: The problem with this is that the main/parent record needs to be reloaded
+        #       otherwise the old text will be returned
+        locale = Language.find_by(id: language_id)&.lang_code
+        translation = translations.find_or_initialize_by(locale: locale)
+        translation.attributes = { attribute_name => content }
+        translation.save!
       end
     end
   end

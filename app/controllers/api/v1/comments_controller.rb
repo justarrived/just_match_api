@@ -67,10 +67,9 @@ module Api
         @comment.owner_user_id = current_user.id
 
         if @comment.save
-          locale = Language.find_by(id: comment_params[:language_id])&.lang_code
-          @comment.translations << CommentTranslation.new(
-            body: comment_params[:body],
-            locale: locale
+          @comment.add_body_translation(
+            comment_params[:body],
+            language_id: comment_params[:language_id]
           )
 
           api_render(@comment, status: :created)
@@ -96,10 +95,11 @@ module Api
         @comment.body = comment_params[:body]
 
         if @comment.valid?
-          locale = Language.find_by(id: @comment.language_id)&.lang_code
-          translation = @comment.translations.find_or_initialize_by(locale: locale)
-          translation.body = comment_params[:body]
-          translation.save!
+          @comment.update_body_translation(comment_params[:body])
+
+          # TODO: This is here because of the problem the Translatable has with
+          #       how it updates the translation relationship
+          @comment.reload
 
           api_render(@comment)
         else
