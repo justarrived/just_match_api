@@ -55,7 +55,7 @@ module Translatable
         define_method(original_text_method_name) do
           # TODO: We should store language_id on the transltion model braking DB
           #       normalization just a little bit, this can cause gnarly N+1 queries..
-          locale = language.lang_code
+          locale = language&.lang_code
 
           translations.each do |translation|
             if translation.locale == locale

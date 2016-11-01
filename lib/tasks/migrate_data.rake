@@ -2,9 +2,6 @@
 require 'migrate_data/migrate_translations'
 
 namespace :migrate_data do
-  task translations: :environment do
-  end
-
   namespace :translations do
     task up: :environment do
       MigrateTranslations.up
