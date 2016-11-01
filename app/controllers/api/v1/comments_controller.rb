@@ -58,11 +58,6 @@ module Api
       example Doxxer.read_example(Comment, method: :create)
       def create
         @comment = @commentable.comments.new(comment_params)
-        # TODO: Validate `body` param in another way
-        # (that doesn't abuse virtual attributes on ActiveRecord models)
-        @comment.body = comment_params[:body] # Needed for validation reasons
-        # TODO: Validate `language_id` param is an available locale
-
         # NOTE: Not very RESTful to set user from current_user
         @comment.owner_user_id = current_user.id
 
@@ -97,7 +92,7 @@ module Api
         if @comment.valid?
           @comment.update_body_translation(comment_params[:body])
 
-          # TODO: This is here because of the problem the Translatable has with
+          # NOTE: This is here because of the problem the Translatable has with
           #       how it updates the translation relationship
           @comment.reload
 

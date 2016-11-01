@@ -7,16 +7,12 @@ class Comment < ApplicationRecord
   validates :owner_user_id, presence: true
   validates :commentable_id, presence: true
   validates :commentable_type, presence: true
-  # TODO: Consider keeping this and adding a virtual attribute `body` on comment
-  #       (not as a final design choice but rather a workaround to keep validations
-  #       going with a large refactor at this point)
-  validates :body, presence: true
   validates :language, presence: true
+  validates :body, presence: true # Virtual attribute
 
   scope :visible, -> { where(hidden: false) }
 
-  # TODO: Potentially uncomment the below line, once the Comment#body column is removed
-  # attr_writer :body
+  attr_accessor :body
 
   include Translatable
   translates :body

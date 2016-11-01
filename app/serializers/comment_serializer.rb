@@ -4,19 +4,16 @@ class CommentSerializer < ApplicationSerializer
 
   attributes ATTRIBUTES
 
-  attribute :body
-  attribute :original_text
-
-  has_one :owner
-  has_one :language
-
-  def body
+  attribute :body do
     object.translated_body
   end
 
-  def original_text
+  attribute :original_text do
     { body: object.original_body }
   end
+
+  has_one :owner
+  has_one :language
 end
 # rubocop:disable Metrics/LineLength
 
