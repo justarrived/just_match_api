@@ -165,7 +165,7 @@ module Api
         base_scope.includes(:language, :translations)
 
         if included_resource?(:comments)
-          base_scope = base_scope.includes(comments: [:owner, :language])
+          base_scope = base_scope.includes(comments: [:owner, :language, :translations])
         end
 
         base_scope = base_scope.includes(:hourly_pay) if included_resource?(:hourly_pay)

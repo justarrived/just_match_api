@@ -92,8 +92,16 @@ The code follows most Rails conventions. If you've worked with Rails before the 
   - Uses `webmock`
   - Geocode mocks in `spec/spec_support/geocoder_support.rb`
 
+* __Model translation__
+  - Each model that need translated columns has a corresponding model, i.e `JobTranslation`
+  - Includes the module `Translatable`
+  - Defines the translated columns with the `translated` macro
+    + Defines `create_translation` & `update_translation` instance methods on the model
 
-* __Translations__
+* __Static Translations__
+  - Uses `rails-i18n`
+  - Stored in `config/locales/`
+  - Supports fallbacks
   - Uses [Transifex](https://www.transifex.com/justarrived/justmatch-api/) to translate.
     + Configuration in `.tx/config`
     + Push/pull translations with [Transifex CLI](http://docs.transifex.com/client/)
