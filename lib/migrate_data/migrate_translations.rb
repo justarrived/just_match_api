@@ -4,12 +4,14 @@ module MigrateTranslations
     jobs_down
     comments_down
     users_down
+    messages_down
   end
 
   def self.up
     jobs_up
     comments_up
     users_up
+    messages_up
   end
 
   def self.jobs_up
@@ -52,5 +54,16 @@ module MigrateTranslations
 
   def self.users_down
     UserTranslation.delete_all
+  end
+
+  def self.messages_up
+    Message.all.each do |message|
+      attributes = { body: message[:body] }
+      message.create_translation(attributes, message.language_id)
+    end
+  end
+
+  def self.comments_down
+    MessageTranslation.delete_all
   end
 end
