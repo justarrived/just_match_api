@@ -69,11 +69,12 @@ module Api
       def create
         authorize(Job)
 
-        @job = Job.new(permitted_attributes)
+        @job = Job.new(job_attributes)
         # NOTE: Not very RESTful to assume current_user
         @job.owner_user_id = current_user.id
 
         if @job.save
+          @job.create_translation(job_attributes, @job.language_id)
           @job.skills = Skill.where(id: jsonapi_params[:skill_ids])
 
           owner = @job.owner
@@ -104,7 +105,6 @@ module Api
           param :hours, Float, desc: 'Estmiated completion time'
           param :cancelled, [true], desc: 'Cancel the job'
           param :upcoming, [true, false], desc: 'Upcoming job (default false)'
-          param :language_id, Integer, desc: 'Langauge id of the text content'
           param :hourly_pay_id, Integer, desc: 'Hourly pay id'
           param :owner_user_id, Integer, desc: 'User id for the job owner'
         end
@@ -113,7 +113,7 @@ module Api
       def update
         authorize(@job)
 
-        @job.assign_attributes(permitted_attributes)
+        @job.assign_attributes(job_attributes)
         if @job.locked_for_changes?
           message = I18n.t('errors.job.update_not_allowed_when_accepted')
           errors = JsonApiErrors.new
@@ -130,6 +130,8 @@ module Api
         end
 
         if @job.save
+          @job.update_translation(job_attributes)
+
           notifier_klass.call(job: @job)
 
           api_render(@job)
@@ -159,13 +161,14 @@ module Api
       end
 
       def jobs_index_scope(base_scope)
+        base_scope.includes(:language, :translations)
+
         if included_resource?(:comments)
           base_scope = base_scope.includes(comments: [:owner, :language])
         end
 
         base_scope = base_scope.includes(:hourly_pay) if included_resource?(:hourly_pay)
         base_scope = base_scope.includes(:category) if included_resource?(:category)
-        base_scope = base_scope.includes(:language) if included_resource?(:language)
 
         if included_resource?(:company)
           base_scope = base_scope.includes(company: [:company_images])
@@ -178,7 +181,7 @@ module Api
         base_scope
       end
 
-      def permitted_attributes
+      def job_attributes
         jsonapi_params.permit(job_policy.permitted_attributes)
       end
     end

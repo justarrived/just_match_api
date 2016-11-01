@@ -29,8 +29,8 @@ class Job < ApplicationRecord
   validates :language, presence: true
   validates :hourly_pay, presence: true
   validates :category, presence: true
-  validates :name, length: { minimum: 2 }, allow_blank: false
-  validates :description, length: { minimum: 10 }, allow_blank: false
+  validates :name, presence: true, on: :create # Virtual attribute
+  validates :description, presence: true, on: :create # Virtual attribute
   validates :street, length: { minimum: 5 }, allow_blank: false
   validates :zip, length: { minimum: 5 }, allow_blank: false
   validates :job_date, presence: true
@@ -59,6 +59,9 @@ class Job < ApplicationRecord
   scope :no_applied_jobs, lambda { |user_id|
     where.not(id: applied_jobs(user_id).map(&:id))
   }
+
+  include Translatable
+  translates :name, :short_description, :description
 
   # This will return an Array and not an ActiveRecord::Relation
   def self.non_hired
