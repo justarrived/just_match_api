@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 class UserLanguageSerializer < ApplicationSerializer
-  ATTRIBUTES = [:proficiency].freeze
+  LANGUAGE_ATTRIBUTES = [
+    :lang_code, :direction, :system_language, :local_name, :en_name, :sv_name, :ar_name,
+    :fa_name, :fa_af_name, :ku_name, :ti_name, :ps_name
+  ].freeze
+  ATTRIBUTES = (LANGUAGE_ATTRIBUTES + [:proficiency]).freeze
   attributes ATTRIBUTES.freeze
 
   has_one :language
