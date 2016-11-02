@@ -1,8 +1,16 @@
 # frozen_string_literal: true
 class MessageSerializer < ApplicationSerializer
-  ATTRIBUTES = [:body, :created_at].freeze
+  ATTRIBUTES = [:created_at].freeze
 
   attributes ATTRIBUTES
+
+  attribute :body do
+    object.translated_body
+  end
+
+  attribute :original_text do
+    { body: object.original_body }
+  end
 
   has_one :chat
   has_one :author
