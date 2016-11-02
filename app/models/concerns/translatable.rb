@@ -7,14 +7,20 @@ module Translatable
   end
 
   class_methods do
+    attr_reader :translated_fields
+
     def translates(*attribute_names)
+      @translated_fields = attribute_names
+
       define_method(:create_translation) do |t_hash, language_id|
         translation_klass = "#{self.class.name}Translation".constantize
 
         locale = Language.find_by(id: language_id)&.lang_code
         attributes = t_hash.slice(*attribute_names).merge(locale: locale)
 
-        translations << translation_klass.new(attributes)
+        translation = translation_klass.new(attributes)
+        translations << translation
+        translation
       end
 
       define_method(:update_translation) do |t_hash, language_id = self.language_id|
@@ -28,6 +34,7 @@ module Translatable
 
         translation.assign_attributes(attributes)
         translation.save!
+        translation
       end
 
       # Atribute helpers
