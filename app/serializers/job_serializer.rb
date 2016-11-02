@@ -12,22 +12,22 @@ class JobSerializer < ApplicationSerializer
   link(:self) { api_v1_job_url(object) }
 
   attribute :name do
-    object.original_name
+    object.translated_name
   end
 
   attribute :short_description do
-    object.original_short_description
+    object.translated_short_description
   end
 
   attribute :description do
-    object.original_description
+    object.translated_description
   end
 
-  attribute :translated_text do
+  attribute :original_text do
     {
-      name: object.translated_name,
-      short_description: object.translated_short_description,
-      description: object.translated_description
+      name: object.original_name,
+      short_description: object.original_short_description,
+      description: object.original_description
     }
   end
 

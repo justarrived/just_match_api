@@ -18,8 +18,13 @@ RSpec.describe CommentSerializer, type: :serializer do
       end
     end
 
-    it 'has translated_text' do
-      dashed_attribute = 'translated_text'.dasherize
+    it 'has translated_body' do
+      dashed_attribute = 'translated_body'.dasherize
+      expect(subject).to have_jsonapi_attribute(dashed_attribute, nil)
+    end
+
+    it 'has original_text' do
+      dashed_attribute = 'original_text'.dasherize
       value = { 'body' => nil }
       expect(subject).to have_jsonapi_attribute(dashed_attribute, value)
     end

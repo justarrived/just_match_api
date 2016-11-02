@@ -10,24 +10,13 @@ RSpec.describe UserSerializer, type: :serializer do
       JSON.parse(serialization.to_json)
     end
 
-    ignored = %i(id description competence_text translated_text)
+    ignored = %i(id description competence_text original_text)
     (UserPolicy::ATTRIBUTES - ignored).each do |attribute|
       it "has #{attribute.to_s.humanize.downcase}" do
         dashed_attribute = attribute.to_s.dasherize
         value = resource.public_send(attribute)
         expect(subject).to have_jsonapi_attribute(dashed_attribute, value)
       end
-    end
-
-    it 'has translated_text' do
-      dashed_attribute = 'translated_text'.dasherize
-      value = {
-        'education' => nil,
-        'description' => nil,
-        'competence_text'.dasherize => nil,
-        'job_experience'.dasherize => nil
-      }
-      expect(subject).to have_jsonapi_attribute(dashed_attribute, value)
     end
 
     %w(language languages company user-images).each do |relationship|

@@ -5,11 +5,11 @@ class CommentSerializer < ApplicationSerializer
   attributes ATTRIBUTES
 
   attribute :body do
-    object.original_body
+    object.translated_body
   end
 
-  attribute :translated_text do
-    { body: object.translated_body }
+  attribute :original_text do
+    { body: object.original_body }
   end
 
   has_one :owner
