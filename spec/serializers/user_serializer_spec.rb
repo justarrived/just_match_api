@@ -19,6 +19,17 @@ RSpec.describe UserSerializer, type: :serializer do
       end
     end
 
+    it 'has original_text' do
+      dashed_attribute = 'original_text'.dasherize
+      value = {
+        'description' => nil,
+        'education' => nil,
+        'job_experience'.dasherize => nil,
+        'competence_text'.dasherize => nil,
+      }
+      expect(subject).to have_jsonapi_attribute(dashed_attribute, value)
+    end
+
     %w(language languages company user-images).each do |relationship|
       it "has #{relationship} relationship" do
         expect(subject).to have_jsonapi_relationship(relationship)

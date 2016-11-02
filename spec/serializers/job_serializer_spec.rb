@@ -19,21 +19,6 @@ RSpec.describe JobSerializer, type: :serializer do
       end
     end
 
-    it 'has translated_name' do
-      dashed_attribute = 'translated_name'.dasherize
-      expect(subject).to have_jsonapi_attribute(dashed_attribute, nil)
-    end
-
-    it 'has translated_description' do
-      dashed_attribute = 'translated_description'.dasherize
-      expect(subject).to have_jsonapi_attribute(dashed_attribute, nil)
-    end
-
-    it 'has translated_short_description' do
-      dashed_attribute = 'translated_short_description'.dasherize
-      expect(subject).to have_jsonapi_attribute(dashed_attribute, nil)
-    end
-
     it 'has original_text' do
       dashed_attribute = 'original_text'.dasherize
       value = {
