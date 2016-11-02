@@ -63,7 +63,7 @@ module MigrateTranslations
     end
   end
 
-  def self.comments_down
+  def self.messages_down
     MessageTranslation.delete_all
   end
 end
