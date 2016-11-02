@@ -18,7 +18,8 @@
         "filled": false,
         "short_description": "Watman",
         "featured": false,
-        "upcoming": false
+        "upcoming": false,
+        "street": "Bankgatan 14C"
       },
       "relationships": {
         "job_users": {
