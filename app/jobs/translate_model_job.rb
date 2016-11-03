@@ -4,7 +4,7 @@ require 'i18n/google_translate'
 class TranslateModelJob < ApplicationJob
   def perform(translation)
     # Not supported by Google Translate: ti - Tigrinya, fa_AF - Dari
-    ignore_locales = %W(ti fa_AF)
+    ignore_locales = %w(ti fa_AF)
     locale = translation.locale
     return if ignore_locales.include?(locale)
 

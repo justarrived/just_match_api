@@ -25,7 +25,7 @@ RSpec.describe UserSerializer, type: :serializer do
         'description' => nil,
         'education' => nil,
         'job_experience'.dasherize => nil,
-        'competence_text'.dasherize => nil,
+        'competence_text'.dasherize => nil
       }
       expect(subject).to have_jsonapi_attribute(dashed_attribute, value)
     end
