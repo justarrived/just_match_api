@@ -47,11 +47,11 @@ en:
       subject: Magic sign-in link
       login_line: To login to Just Arrived use the link %{url}
     new_applicant:
-      applicant_line: The applicant is '%{name}' and lives close to where the assignment will be carried out.
-      congrats_line: Congratulations %{name}!
-      contact_line: You can preview '%{name}' profile under My jobs. You can also contact '%{name}' directly on %{email} or %{phone}.
-      job_line: You've got a new applicant for your job '%{name}'.
-      subject: Congrats! You have a new applicant.
+      applicant_line: The applicant is %{name}.
+      congrats_line: Hi %{name}!
+      contact_line: "Check out the applicants profile:"
+      job_line: You've got a new applicant for your job %{name}.
+      subject: You have a new applicant
     new_chat_message:
       view_chat_line: View the message here %{url}, where you also can have the message translated.
       received_from_line: You've received a new message from %{name}.
