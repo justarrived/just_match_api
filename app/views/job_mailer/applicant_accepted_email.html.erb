@@ -6,7 +6,7 @@
   <body>
     <h3><%= I18n.t('mailer.applicant_accepted.congrats_line', name: @user_name) %></h3>
     <h3><%= I18n.t('mailer.applicant_accepted.accepted_line') %></h3>
-    <p><%= I18n.t('mailer.applicant_accepted.job_line', name: @job_name) %></p>
+    <p><%= I18n.t('mailer.applicant_accepted.job_line', name: @job_name, address: @job_address) %></p>
     <p><%= I18n.t('mailer.applicant_accepted.contact_line', email: mail_to(@owner_email)).html_safe %></p>
 
     <p><a href="<%= @job_user_url %>"><%= @job_user_url %></a></p>

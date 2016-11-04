@@ -7,8 +7,6 @@
     <h3><%= I18n.t('mailer.accepted_applicant_withdrawn.title') %></h3>
     <p><%= I18n.t('mailer.accepted_applicant_withdrawn.explaination', name: @user_name, job_name: @job_name) %></p>
 
-    <p><a href="<%= @job_users_url %>"><%= @job_users_url %></a></p>
-
     <p><%= I18n.t('mailer.signoff') %></p>
   </body>
 </html>
