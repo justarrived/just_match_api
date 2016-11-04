@@ -33,14 +33,14 @@ en:
       subject: Congrats! You have a new job match.
     job_performed:
       congrats_line: Hello %{name}!
-      contact_line: Once you the job owner have confirmed that the job is performed the invoice will be sent and the salary will be paid out.
+      contact_line: Once you have confirmed that the job is performed the invoice will be sent and the salary will be paid out.
       job_line: The job performed was '%{name}'.
       performed_line: "%{name} has verified that the job you ordered is performed."
       subject: A job you ordered has been completed.
     invoice_created:
       congrats_line: Congrats %{name}!
       contact_line: Please make sure to rate how you enjoyed working for the employer.
-      job_line: 'The job you performed was: ''%{name}''.'
+      job_line: 'The job you performed was: %{name}.'
       performed_line: "%{name} has verified that you've performed the job."
       subject: Congrats! A job you performed has been accepted.
     magic_login_link:
