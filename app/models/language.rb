@@ -12,6 +12,10 @@ class Language < ApplicationRecord
   def name
     en_name
   end
+
+  def locale
+    lang_code
+  end
 end
 
 # == Schema Information
