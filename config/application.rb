@@ -62,7 +62,7 @@ module JustMatch
     config.x.validate_job_date_in_future_inactive = ENV['VALIDATE_JOB_DATE_IN_FUTURE_INACTIVE'] == 'true'
     config.x.promo_code = ENV['PROMO_CODE']
     config.x.send_sms_notifications = ENV.fetch('SEND_SMS_NOTIFICATIONS', 'true') == 'true'
-    config.x.validate_swedish_ssn = true
+    config.x.validate_swedish_ssn = ENV.fetch('VALIDATE_SWEDISH_SSN', 'true') == 'true'
     config.x.invoice_company_frilans_finans_id = ENV.fetch('INVOICE_COMPANY_FRILANS_FINANS_ID', nil)
     # rubocop:enable Metrics/LineLength
 
