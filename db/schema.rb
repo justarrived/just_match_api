@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161019090139) do
+ActiveRecord::Schema.define(version: 20161101235138) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,8 +20,8 @@ ActiveRecord::Schema.define(version: 20161019090139) do
     t.text     "body"
     t.string   "resource_id",   null: false
     t.string   "resource_type", null: false
-    t.integer  "author_id"
     t.string   "author_type"
+    t.integer  "author_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id", using: :btree
@@ -95,10 +95,19 @@ ActiveRecord::Schema.define(version: 20161019090139) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "comment_translations", force: :cascade do |t|
+    t.string   "locale"
+    t.text     "body"
+    t.integer  "comment_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["comment_id"], name: "index_comment_translations_on_comment_id", using: :btree
+  end
+
   create_table "comments", force: :cascade do |t|
     t.text     "body"
-    t.integer  "commentable_id"
     t.string   "commentable_type"
+    t.integer  "commentable_id"
     t.integer  "owner_user_id"
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
@@ -244,6 +253,17 @@ ActiveRecord::Schema.define(version: 20161019090139) do
     t.index ["skill_id"], name: "index_job_skills_on_skill_id", using: :btree
   end
 
+  create_table "job_translations", force: :cascade do |t|
+    t.string   "locale"
+    t.string   "short_description"
+    t.string   "name"
+    t.text     "description"
+    t.integer  "job_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.index ["job_id"], name: "index_job_translations_on_job_id", using: :btree
+  end
+
   create_table "job_users", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "job_id"
@@ -306,6 +326,15 @@ ActiveRecord::Schema.define(version: 20161019090139) do
     t.string   "ti_name"
     t.string   "ps_name"
     t.index ["lang_code"], name: "index_languages_on_lang_code", unique: true, using: :btree
+  end
+
+  create_table "message_translations", force: :cascade do |t|
+    t.string   "locale"
+    t.text     "body"
+    t.integer  "message_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["message_id"], name: "index_message_translations_on_message_id", using: :btree
   end
 
   create_table "messages", force: :cascade do |t|
@@ -410,6 +439,18 @@ ActiveRecord::Schema.define(version: 20161019090139) do
     t.index ["user_id"], name: "index_user_skills_on_user_id", using: :btree
   end
 
+  create_table "user_translations", force: :cascade do |t|
+    t.string   "locale"
+    t.text     "description"
+    t.text     "job_experience"
+    t.text     "education"
+    t.text     "competence_text"
+    t.integer  "user_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["user_id"], name: "index_user_translations_on_user_id", using: :btree
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "email"
     t.string   "phone"
@@ -459,6 +500,7 @@ ActiveRecord::Schema.define(version: 20161019090139) do
   add_foreign_key "blazer_queries", "users", column: "creator_id", name: "blazer_queries_creator_id_fk"
   add_foreign_key "chat_users", "chats"
   add_foreign_key "chat_users", "users"
+  add_foreign_key "comment_translations", "comments"
   add_foreign_key "comments", "languages"
   add_foreign_key "comments", "users", column: "owner_user_id", name: "comments_owner_user_id_fk"
   add_foreign_key "company_images", "companies"
@@ -468,12 +510,14 @@ ActiveRecord::Schema.define(version: 20161019090139) do
   add_foreign_key "invoices", "job_users"
   add_foreign_key "job_skills", "jobs"
   add_foreign_key "job_skills", "skills"
+  add_foreign_key "job_translations", "jobs"
   add_foreign_key "job_users", "jobs"
   add_foreign_key "job_users", "users"
   add_foreign_key "jobs", "categories"
   add_foreign_key "jobs", "hourly_pays"
   add_foreign_key "jobs", "languages"
   add_foreign_key "jobs", "users", column: "owner_user_id", name: "jobs_owner_user_id_fk"
+  add_foreign_key "message_translations", "messages"
   add_foreign_key "messages", "chats"
   add_foreign_key "messages", "languages"
   add_foreign_key "messages", "users", column: "author_id", name: "messages_author_id_fk"
@@ -491,6 +535,7 @@ ActiveRecord::Schema.define(version: 20161019090139) do
   add_foreign_key "user_languages", "users"
   add_foreign_key "user_skills", "skills"
   add_foreign_key "user_skills", "users"
+  add_foreign_key "user_translations", "users"
   add_foreign_key "users", "companies"
   add_foreign_key "users", "languages"
 end

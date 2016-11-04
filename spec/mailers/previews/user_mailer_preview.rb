@@ -12,6 +12,7 @@ class UserMailerPreview < ActionMailer::Preview
   end
 
   def changed_password_email
+    I18n.locale = :en
     UserMailer.changed_password_email(user: User.first)
   end
 

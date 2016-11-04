@@ -4,7 +4,7 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h1><%= I18n.t('mailer.welcome.body_header', name: @user_name) %></h1>
+    <h3><%= I18n.t('mailer.welcome.body_header', name: @user_name) %></h3>
     <p><%= I18n.t('mailer.welcome.body_line') %></p>
 
     <p><a href="<%= @login_url %>"><%= @login_url %></a></p>
