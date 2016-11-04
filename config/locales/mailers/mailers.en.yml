@@ -24,7 +24,7 @@ en:
       body_header: Hi %{name}, your Just Arrived password has been changed. If this wasn't you, please contact Just Arrived at help@justarrived.se
     job_cancelled:
       subject: A job you have applied for has been cancelled
-      body: The job %{job_name} has been cancelled.
+      body: The job %{job_name} has unfortunately been cancelled, click the link below to find more jobs.
     job_match:
       accepted_line: You've got a new job match!
       congrats_line: Congrats %{name}!
