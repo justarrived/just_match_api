@@ -39,7 +39,7 @@ class User < ApplicationRecord
   has_many :job_users
   has_many :jobs, through: :job_users
 
-  has_many :user_languages
+  has_many :user_languages, dependent: :destroy
   has_many :languages, through: :user_languages
 
   has_many :written_comments, class_name: 'Comment', foreign_key: 'owner_user_id'
