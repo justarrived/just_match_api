@@ -88,6 +88,7 @@ FactoryGirl.define do
       current_status User::STATUSES.values.first
       country_of_origin 'SE'
       ignored_notifications User::NOTIFICATIONS.last(2)
+      association :language, factory: :language_for_docs
       arrived_at Time.new(2015, 3, 11, 1, 1, 1).utc
       created_at Time.new(2016, 2, 10, 1, 1, 1).utc
       updated_at Time.new(2016, 2, 12, 1, 1, 1).utc

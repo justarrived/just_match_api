@@ -14,6 +14,7 @@ FactoryGirl.define do
       lang_code 'en'
       created_at Time.new(2016, 2, 10, 1, 1, 1).utc
       updated_at Time.new(2016, 2, 12, 1, 1, 1).utc
+      initialize_with { Language.find_or_create_by(lang_code: :en) }
     end
   end
 end
