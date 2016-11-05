@@ -36,8 +36,6 @@ RSpec.configure do |config|
 
   # Before the test suite is run
   config.before(:suite) do
-    DocExamplesRunner.run
-
     begin
       # Since we're using Spring we must reload all factories
       # see: https://github.com/thoughtbot/factory_girl/blob/master/GETTING_STARTED.md#rails-preloaders-and-rspec
