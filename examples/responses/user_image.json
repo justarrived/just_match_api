@@ -7,10 +7,10 @@
       "one_time_token_expires_at": "2016-02-11 01:01:01 +0100",
       "category": "profile",
       "category_name": "profile",
-      "image_url": "localhost/spec/test_files/user_images/000/000/001/original.png",
-      "image_url_large": "localhost/spec/test_files/user_images/000/000/001/large.png",
-      "image_url_medium": "localhost/spec/test_files/user_images/000/000/001/medium.png",
-      "image_url_small": "localhost/spec/test_files/user_images/000/000/001/small.png"
+      "image_url": "localhost//user_images/images/000/000/001/original/test.png",
+      "image_url_large": "localhost//user_images/images/000/000/001/large/test.png",
+      "image_url_medium": "localhost//user_images/images/000/000/001/medium/test.png",
+      "image_url_small": "localhost//user_images/images/000/000/001/small/test.png"
     },
     "relationships": {
       "user": {

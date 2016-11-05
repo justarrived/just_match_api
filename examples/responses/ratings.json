@@ -8,10 +8,16 @@
       },
       "relationships": {
         "job": {
-          "data": null
+          "data": {
+            "id": "4",
+            "type": "jobs"
+          }
         },
         "to_user": {
-          "data": null
+          "data": {
+            "id": "14",
+            "type": "users"
+          }
         },
         "comment": {
           "data": null

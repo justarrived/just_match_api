@@ -5,7 +5,10 @@
       "type": "invoices",
       "relationships": {
         "job_user": {
-          "data": null
+          "data": {
+            "id": "3",
+            "type": "job_users"
+          }
         }
       }
     }

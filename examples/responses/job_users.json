@@ -13,14 +13,23 @@
       },
       "relationships": {
         "user": {
-          "data": null
+          "data": {
+            "id": "19",
+            "type": "users"
+          }
         },
         "job": {
-          "data": null
+          "data": {
+            "id": "6",
+            "type": "jobs"
+          }
         },
         "invoice": {
           "data": null
         }
+      },
+      "links": {
+        "self": "https://api.justarrived.se/api/v1/jobs/6/users/1"
       }
     }
   ],

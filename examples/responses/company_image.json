@@ -6,10 +6,10 @@
       "one_time_token": "ea91a434-3381-480d-95fc-4e3efccc08b7",
       "one_time_token_expires_at": "2016-02-11 01:01:01 +0100",
       "category_name": "logo",
-      "image_url": "localhost/spec/test_files/company_images/000/000/001/original.png",
-      "image_url_large": "localhost/spec/test_files/company_images/000/000/001/large.png",
-      "image_url_medium": "localhost/spec/test_files/company_images/000/000/001/medium.png",
-      "image_url_small": "localhost/spec/test_files/company_images/000/000/001/small.png"
+      "image_url": "localhost//company_images/images/000/000/001/original/test.png",
+      "image_url_large": "localhost//company_images/images/000/000/001/large/test.png",
+      "image_url_medium": "localhost//company_images/images/000/000/001/medium/test.png",
+      "image_url_small": "localhost//company_images/images/000/000/001/small/test.png"
     },
     "relationships": {
       "company": {
