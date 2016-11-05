@@ -20,8 +20,8 @@ ActiveRecord::Schema.define(version: 20161019090139) do
     t.text     "body"
     t.string   "resource_id",   null: false
     t.string   "resource_type", null: false
-    t.integer  "author_id"
     t.string   "author_type"
+    t.integer  "author_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id", using: :btree
@@ -97,8 +97,8 @@ ActiveRecord::Schema.define(version: 20161019090139) do
 
   create_table "comments", force: :cascade do |t|
     t.text     "body"
-    t.integer  "commentable_id"
     t.string   "commentable_type"
+    t.integer  "commentable_id"
     t.integer  "owner_user_id"
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
