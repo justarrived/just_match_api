@@ -5,10 +5,16 @@
       "type": "job_skills",
       "relationships": {
         "job": {
-          "data": null
+          "data": {
+            "id": "8",
+            "type": "jobs"
+          }
         },
         "skill": {
-          "data": null
+          "data": {
+            "id": "2",
+            "type": "skills"
+          }
         }
       }
     }
