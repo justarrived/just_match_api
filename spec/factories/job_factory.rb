@@ -78,7 +78,6 @@ FactoryGirl.define do
       job_date Time.new(2016, 2, 18, 1, 1, 1).utc
       job_end_date Time.new(2016, 2, 20, 1, 1, 1).utc
       description 'Typewriter hashtag ennui brunch post-ironic food truck vinegar.'
-      hourly_pay
     end
   end
 end
