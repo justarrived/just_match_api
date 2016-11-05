@@ -121,7 +121,10 @@ namespace :dev do
   end
 
   task doc_examples: :environment do
-    fail 'Can only generate docs when Rails is in test mode.' unless Rails.env.test?
+    fail 'Can only generate docs when Rails is in docs env.' unless Rails.env.docs?
+
+    %w(drop create schema:load).each { |task| Rake::Task["db:#{task}"].invoke }
+
     Doxxer.generate_response_examples
   end
 end

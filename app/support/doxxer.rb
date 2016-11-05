@@ -142,10 +142,10 @@ class Doxxer
   def self._factory_attributes(model_klass)
     model_name = _format_model_name(model_klass)
     begin
-      FactoryGirl.attributes_for("#{model_name}_for_docs")
+      FactoryGirl.build("#{model_name}_for_docs").attributes
     rescue ArgumentError => e
       if e.message.start_with?('Factory not registered:')
-        return FactoryGirl.attributes_for(model_name)
+        return FactoryGirl.build(model_name).attributes
       end
 
       raise e
