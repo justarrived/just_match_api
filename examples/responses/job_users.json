@@ -9,7 +9,10 @@
         "will_perform": false,
         "performed": false,
         "will_perform_confirmation_by": null,
-        "apply_message": null
+        "apply_message": null,
+        "original_text": {
+          "apply_message": null
+        }
       },
       "relationships": {
         "user": {

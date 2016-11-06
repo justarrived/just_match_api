@@ -4,7 +4,7 @@
       "id": "1",
       "type": "user_languages",
       "attributes": {
-        "lang_code": "sv_8",
+        "lang_code": "sv_10",
         "direction": null,
         "system_language": false,
         "local_name": null,
@@ -21,7 +21,7 @@
       "relationships": {
         "language": {
           "data": {
-            "id": "9",
+            "id": "11",
             "type": "languages"
           }
         },

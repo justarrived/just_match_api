@@ -63,11 +63,11 @@
       },
       "language": {
         "data": {
-          "id": "4",
+          "id": "6",
           "type": "languages"
         },
         "links": {
-          "self": "https://api.justarrived.se/api/v1/languages/4"
+          "self": "https://api.justarrived.se/api/v1/languages/6"
         }
       },
       "category": {

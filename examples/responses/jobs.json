@@ -19,14 +19,14 @@
         "short_description": null,
         "featured": false,
         "upcoming": false,
+        "street": "Bankgatan 14C",
+        "amount": 3000.0,
+        "invoice_amount": 4200.0,
         "original_text": {
           "name": null,
           "short_description": null,
           "description": null
-        },
-        "street": "Bankgatan 14C",
-        "amount": 3000.0,
-        "invoice_amount": 4200.0
+        }
       },
       "relationships": {
         "job_users": {
@@ -54,11 +54,11 @@
         },
         "language": {
           "data": {
-            "id": "5",
+            "id": "7",
             "type": "languages"
           },
           "links": {
-            "self": "https://api.justarrived.se/api/v1/languages/5"
+            "self": "https://api.justarrived.se/api/v1/languages/7"
           }
         },
         "category": {
