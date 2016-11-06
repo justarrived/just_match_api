@@ -75,7 +75,7 @@ module Api
         @job.owner_user_id = current_user.id
 
         if @job.save
-          @job.create_translation(job_attributes, @job.language_id)
+          @job.set_translation(job_attributes, @job.language_id)
           @job.skills = Skill.where(id: jsonapi_params[:skill_ids])
 
           owner = @job.owner
@@ -132,7 +132,7 @@ module Api
         end
 
         if @job.save
-          @job.update_translation(job_attributes)
+          @job.set_translation(job_attributes)
           @job.reload
 
           notifier_klass.call(job: @job)

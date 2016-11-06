@@ -96,7 +96,7 @@ The code follows most Rails conventions. If you've worked with Rails before the 
   - Each model that need translated columns has a corresponding model, i.e `JobTranslation`
   - Includes the module `Translatable`
   - Defines the translated columns with the `translated` macro
-    + Defines `create_translation` & `update_translation` instance methods on the model
+    + Defines `set_translation` & `set_translation` instance methods on the model
   - There are a few helper services, plus one `ActiveJob` class to do machine translations
     + `MachineTranslationsService` takes a translation and creates translations for to all eligible locales
     + `MachineTranslationService` takes a translation and a language for it to be translated to

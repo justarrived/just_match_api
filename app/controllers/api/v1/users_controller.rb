@@ -95,7 +95,7 @@ module Api
         if @user.save
           login_user(@user)
 
-          @user.create_translation(user_params, @user.language_id)
+          @user.set_translation(user_params, @user.language_id)
 
           @user.skills = Skill.where(id: user_params[:skill_ids])
 
@@ -159,7 +159,7 @@ module Api
         authorize(@user)
 
         if @user.update(user_params)
-          @user.update_translation(user_params)
+          @user.set_translation(user_params)
           @user.reload
 
           language_ids = jsonapi_params[:language_ids]

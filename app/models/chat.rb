@@ -51,7 +51,7 @@ class Chat < ApplicationRecord
       chat: self
     )
     if message.save
-      message.create_translation({ body: body }, language&.lang_code)
+      message.set_translation({ body: body }, language&.lang_code)
     end
     message
   end

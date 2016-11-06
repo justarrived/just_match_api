@@ -28,14 +28,6 @@ module Translatable
         translation
       end
 
-      define_method(:create_translation) do |t_hash, language_id|
-        set_translation(t_hash, language_id)
-      end
-
-      define_method(:update_translation) do |t_hash, language_id = self.language_id|
-        set_translation(t_hash, language_id)
-      end
-
       # Atribute helpers
       attribute_names.each do |attribute_name|
         original_text_method_name = "original_#{attribute_name}"

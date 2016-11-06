@@ -85,7 +85,7 @@ module Api
           @job_user.language = Language.find_by(id: job_user_attributes[:language_id])
 
           if @job_user.save
-            @job_user.create_translation(job_user_attributes, @job_user.language_id)
+            @job_user.set_translation(job_user_attributes, @job_user.language_id)
 
             NewApplicantNotifier.call(job_user: @job_user, owner: @job.owner)
             api_render(@job_user, status: :created)
