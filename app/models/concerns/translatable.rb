@@ -15,6 +15,10 @@ module Translatable
       attribute_names = attr_names.map(&:to_sym)
       @translated_fields = attribute_names
 
+      define_method(:original_translation) do
+        self.translations.find_by(locale: language.lang_code)
+      end
+
       define_method(:set_translation) do |t_hash, language_id = self.language_id|
         # NOTE: The problem with this is that the main/parent record needs to be
         #       reloaded otherwise the old text will be returned
