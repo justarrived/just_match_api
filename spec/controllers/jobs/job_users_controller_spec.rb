@@ -264,7 +264,7 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
           end
         end
 
-        it 'notifies owner when updated #performed is set to true' do
+        it 'nil notifies owner when updated #performed is set to true' do
           new_performed_attributes = {
             data: {
               attributes: { performed: true }
@@ -282,9 +282,9 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
             and_return(user))
 
           notifier_args = { job_user: job_user, owner: job.owner }
-          allow(JobUserPerformedNotifier).to receive(:call).with(notifier_args)
+          allow(NilNotifier).to receive(:call).with(notifier_args)
           put :update, params: params, headers: valid_session
-          expect(JobUserPerformedNotifier).to have_received(:call)
+          expect(NilNotifier).to have_received(:call)
         end
       end
     end

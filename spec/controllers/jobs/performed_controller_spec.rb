@@ -27,7 +27,7 @@ RSpec.describe Api::V1::Jobs::PerformedController, type: :controller do
     expect(job_user.performed).to eq(true)
   end
 
-  it 'notifies owner when updated #performed is set to true' do
+  it 'nil notifies owner when updated #performed is set to true' do
     job = FactoryGirl.create(:passed_job, owner: user)
     job_user = FactoryGirl.create(:job_user_will_perform, job: job)
     user = job_user.user
@@ -40,8 +40,8 @@ RSpec.describe Api::V1::Jobs::PerformedController, type: :controller do
       and_return(user))
 
     notifier_args = { job_user: job_user, owner: job.owner }
-    allow(JobUserPerformedNotifier).to receive(:call).with(notifier_args)
+    allow(NilNotifier).to receive(:call).with(notifier_args)
     post :create, params: params, headers: valid_session
-    expect(JobUserPerformedNotifier).to have_received(:call)
+    expect(NilNotifier).to have_received(:call)
   end
 end

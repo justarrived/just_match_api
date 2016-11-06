@@ -16,7 +16,7 @@ RSpec.describe InvoiceMailer, type: :mailer do
     end
 
     it 'renders the subject' do
-      subject = 'Congrats! A job you performed has been accepted.'
+      subject = I18n.t('mailer.invoice_created.subject')
       expect(mail.subject).to eql(subject)
     end
 
