@@ -13,7 +13,7 @@ RSpec.describe Job, type: :model do
 
     context 'with configuration default_invoice_company_frilans_finans_id' do
       it 'returns id from config' do
-        ff_id = 3737337
+        ff_id = 3_737_337
         Rails.configuration.x.invoice_company_frilans_finans_id = ff_id
         expect(job.invoice_company_frilans_finans_id).to eq(ff_id)
         Rails.configuration.x.invoice_company_frilans_finans_id = nil
@@ -49,7 +49,7 @@ RSpec.describe Job, type: :model do
     let(:job) { FactoryGirl.build(:job, id: job_id) }
 
     it 'returns with the correct content parts' do
-       [
+      [
         job.category.name,
         job.name,
         job.id,
