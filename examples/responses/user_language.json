@@ -3,14 +3,32 @@
     "id": "1",
     "type": "user_languages",
     "attributes": {
+      "lang_code": "sv_7",
+      "direction": null,
+      "system_language": false,
+      "local_name": null,
+      "en_name": null,
+      "sv_name": null,
+      "ar_name": null,
+      "fa_name": null,
+      "fa_af_name": null,
+      "ku_name": null,
+      "ti_name": null,
+      "ps_name": null,
       "proficiency": 8
     },
     "relationships": {
       "language": {
-        "data": null
+        "data": {
+          "id": "8",
+          "type": "languages"
+        }
       },
       "user": {
-        "data": null
+        "data": {
+          "id": "9",
+          "type": "users"
+        }
       }
     }
   }

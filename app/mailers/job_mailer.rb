@@ -54,6 +54,7 @@ class JobMailer < ApplicationMailer
     @user_name = user.name
     @owner_email = owner.contact_email
     @job_name = job.name
+    @job_address = job.address
 
     @job_user_url = FrontendRouter.draw(:job_user, job_id: job.id)
 
@@ -84,8 +85,6 @@ class JobMailer < ApplicationMailer
     job = job_user.job
     @user_name = user.name
     @job_name = job.name
-
-    @job_users_url = FrontendRouter.draw(:job_users, job_id: job.id)
 
     subject = I18n.t('mailer.accepted_applicant_withdrawn.subject')
     mail(to: owner.contact_email, subject: subject)

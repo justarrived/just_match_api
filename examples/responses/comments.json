@@ -12,10 +12,16 @@
       },
       "relationships": {
         "owner": {
-          "data": null
+          "data": {
+            "id": "3",
+            "type": "users"
+          }
         },
         "language": {
-          "data": null
+          "data": {
+            "id": "1",
+            "type": "languages"
+          }
         }
       }
     }

@@ -8,6 +8,19 @@ class UserLanguage < ApplicationRecord
   validates :language, presence: true, uniqueness: { scope: :user }
   validates :user, presence: true, uniqueness: { scope: :language }
   validates :proficiency, numericality: { only_integer: true }, inclusion: PROFICIENCY_RANGE, allow_nil: true # rubocop:disable Metrics/LineLength
+
+  delegate :lang_code, to: :language
+  delegate :direction, to: :language
+  delegate :system_language, to: :language
+  delegate :local_name, to: :language
+  delegate :en_name, to: :language
+  delegate :sv_name, to: :language
+  delegate :ar_name, to: :language
+  delegate :fa_name, to: :language
+  delegate :fa_af_name, to: :language
+  delegate :ku_name, to: :language
+  delegate :ti_name, to: :language
+  delegate :ps_name, to: :language
 end
 
 # == Schema Information

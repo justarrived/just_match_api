@@ -67,7 +67,7 @@ gem 'personnummer', '~> 0.0.9' # Swedish "personummer" or "samordningsnummer"
 gem 'banktools-se', '~> 2.6' # Validate Swedish bank account
 gem 'iban-tools', '~> 1.1' # Validate IBAN
 
-group :development, :test do
+group :development, :test, :docs do
   gem 'byebug', '~> 9.0'
   gem 'rspec-rails', '~> 3.5'
   gem 'rubocop', '~> 0.35', require: false
@@ -96,7 +96,7 @@ group :development do
   gem 'memory_profiler', '~> 0.9'
 end
 
-group :test do
+group :test, :docs do
   gem 'codeclimate-test-reporter', '~> 0.6', require: false
   gem 'simplecov', '~> 0.11', require: false
   gem 'database_cleaner', '~> 1.5'

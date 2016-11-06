@@ -181,7 +181,7 @@ module Api
           case event_name
           when :accepted then ApplicantAcceptedNotifier
           when :will_perform then ApplicantWillPerformNotifier
-          when :performed then JobUserPerformedNotifier
+          when :performed then NilNotifier # JobUserPerformedNotifier
           else
             NilNotifier
           end

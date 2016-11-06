@@ -58,51 +58,6 @@ RSpec.describe Doxxer do
       end
     end
 
-    describe '#_factory_attributes' do
-      it 'returns attributes for model' do
-        result = described_class._factory_attributes(Skill)
-        expect(result[:id]).to eq(1)
-      end
-
-      it 'returns attributes for model without _for_docs factory' do
-        FactoryGirl.define do
-          factory(:fake_model) { id 1 }
-        end
-
-        result = described_class._factory_attributes(FakeModel)
-        expect(result[:id]).to eq(1)
-      end
-
-      it 'returns attributes for model _for_docs factory' do
-        FactoryGirl.define do
-          factory :another_fake_model do
-            id 1
-            factory(:another_fake_model_for_docs) { id 2 }
-          end
-        end
-
-        result = described_class._factory_attributes(AnotherFakeModel)
-        expect(result[:id]).to eq(2)
-      end
-
-      it 'raises error for non-existing factory' do
-        err_msg = 'Factory not registered: fake_model_without_factory'
-        expect do
-          described_class._factory_attributes(FakeModelWithoutFactory)
-        end.to raise_error(ArgumentError, err_msg)
-      end
-
-      it 're-raises unknown ArgumentError' do
-        allow(FactoryGirl).to receive(:attributes_for) do
-          raise ArgumentError, 'Test error'
-        end
-
-        expect do
-          described_class._factory_attributes(FakeModel)
-        end.to raise_error(ArgumentError, 'Test error')
-      end
-    end
-
     describe '#_format_model_name' do
       it 'returns correctly formatted model name for single example' do
         result = described_class._format_model_name(FakeModel)

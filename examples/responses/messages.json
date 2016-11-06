@@ -12,13 +12,22 @@
       },
       "relationships": {
         "chat": {
-          "data": null
+          "data": {
+            "id": "2",
+            "type": "chats"
+          }
         },
         "author": {
-          "data": null
+          "data": {
+            "id": "8",
+            "type": "users"
+          }
         },
         "language": {
-          "data": null
+          "data": {
+            "id": "7",
+            "type": "languages"
+          }
         }
       }
     }

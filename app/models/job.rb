@@ -89,6 +89,10 @@ class Job < ApplicationRecord
       where('jobs.owner_user_id = :user OR job_users.user_id = :user', user: user)
   end
 
+  def address
+    full_street_address # From the Geocodable module
+  end
+
   def invoice_specification
     <<-JOB_SPECIFICATION
 #{name} (ID: ##{id}) - #{category.name}

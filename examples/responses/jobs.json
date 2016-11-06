@@ -23,7 +23,10 @@
           "name": null,
           "short_description": null,
           "description": null
-        }
+        },
+        "street": "Bankgatan 14C",
+        "amount": 3000.0,
+        "invoice_amount": 4200.0
       },
       "relationships": {
         "job_users": {
@@ -32,33 +35,48 @@
           ]
         },
         "owner": {
-          "data": null,
+          "data": {
+            "id": "6",
+            "type": "users"
+          },
           "links": {
-            "self": null
+            "self": "https://api.justarrived.se/api/v1/users/6"
           }
         },
         "company": {
-          "data": null,
+          "data": {
+            "id": "4",
+            "type": "companies"
+          },
           "links": {
-            "self": null
+            "self": "https://api.justarrived.se/api/v1/companies/4"
           }
         },
         "language": {
-          "data": null,
+          "data": {
+            "id": "5",
+            "type": "languages"
+          },
           "links": {
-            "self": null
+            "self": "https://api.justarrived.se/api/v1/languages/5"
           }
         },
         "category": {
-          "data": null,
+          "data": {
+            "id": "4",
+            "type": "categories"
+          },
           "links": {
-            "self": null
+            "self": "https://api.justarrived.se/api/v1/categories/4"
           }
         },
         "hourly_pay": {
-          "data": null,
+          "data": {
+            "id": "4",
+            "type": "hourly_pays"
+          },
           "links": {
-            "self": null
+            "self": "https://api.justarrived.se/api/v1/hourly-pays/4"
           }
         }
       },
