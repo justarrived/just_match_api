@@ -85,8 +85,9 @@ module Api
           @job_user.language = Language.find_by(id: job_user_attributes[:language_id])
 
           if @job_user.save
-            translation = @job_user.set_translation(job_user_attributes, @job_user.language_id) # rubocop:disable Metrics/LineLength
-            MachineTranslationsJob.perform_later(translation)
+            @job_user.set_translation(job_user_attributes, @job_user.language_id).tap do |result| # rubocop:disable Metrics/LineLength
+              EnqueueCheapTranslation.call(result)
+            end
 
             NewApplicantNotifier.call(job_user: @job_user, owner: @job.owner)
             api_render(@job_user, status: :created)

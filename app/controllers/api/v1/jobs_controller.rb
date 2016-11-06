@@ -75,8 +75,9 @@ module Api
         @job.owner_user_id = current_user.id
 
         if @job.save
-          translation = @job.set_translation(job_attributes, @job.language_id)
-          MachineTranslationsJob.perform_later(translation)
+          @job.set_translation(job_attributes, @job.language_id).tap do |result|
+            EnqueueCheapTranslation.call(result)
+          end
 
           @job.skills = Skill.where(id: jsonapi_params[:skill_ids])
 
@@ -134,8 +135,9 @@ module Api
         end
 
         if @job.save
-          translation = @job.set_translation(job_attributes)
-          MachineTranslationsJob.perform_later(translation)
+          @job.set_translation(job_attributes).tap do |result|
+            EnqueueCheapTranslation.call(result)
+          end
 
           @job.reload
 

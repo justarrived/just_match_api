@@ -62,8 +62,9 @@ module Api
         @comment.owner_user_id = current_user.id
 
         if @comment.save
-          translation = @comment.set_translation(comment_params, @comment.language_id)
-          MachineTranslationsJob.perform_later(translation)
+          @comment.set_translation(comment_params, @comment.language_id).tap do |result|
+            EnqueueCheapTranslation.call(result)
+          end
 
           api_render(@comment, status: :created)
         else
@@ -86,8 +87,9 @@ module Api
         @comment.body = comment_params[:body]
 
         if @comment.valid?
-          translation = @comment.set_translation(body: comment_params[:body])
-          MachineTranslationsJob.perform_later(translation)
+          @comment.set_translation(body: comment_params[:body]).tap do |result|
+            EnqueueCheapTranslation.call(result)
+          end
 
           # NOTE: This is here because of the problem the Translatable has with
           #       how it updates the translation relationship

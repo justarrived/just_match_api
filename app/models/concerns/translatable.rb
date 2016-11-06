@@ -1,11 +1,17 @@
 # frozen_string_literal: true
 module Translatable
+  TranslationResult = Struct.new(:translation, :changed_fields)
+
   extend ActiveSupport::Concern
 
   included do
     has_many :translations, class_name: "#{name}Translation", foreign_key: "#{name.underscore.downcase}_id", dependent: :destroy # rubocop:disable Metrics/LineLength
 
     scope :with_translations, -> { includes(:language, :translations) }
+
+    def original_translation
+      translations.find_by(locale: language.lang_code)
+    end
   end
 
   class_methods do
@@ -13,11 +19,7 @@ module Translatable
 
     def translates(*attr_names)
       attribute_names = attr_names.map(&:to_sym)
-      @translated_fields = attribute_names
-
-      define_method(:original_translation) do
-        translations.find_by(locale: language.lang_code)
-      end
+      @translated_fields = attr_names.map(&:to_s)
 
       define_method(:set_translation) do |t_hash, language_id = self.language_id|
         # NOTE: The problem with this is that the main/parent record needs to be
@@ -28,8 +30,10 @@ module Translatable
         attributes = t_hash.slice(*attribute_names).to_h
 
         translation.assign_attributes(attributes)
+        changed_fields = translation.changed_translation_fields
+
         translation.save!
-        translation
+        TranslationResult.new(translation, changed_fields)
       end
 
       # Atribute helpers

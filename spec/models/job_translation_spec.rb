@@ -11,6 +11,25 @@ RSpec.describe JobTranslation, type: :model do
     )
   end
 
+  describe '#changed_translation_fields' do
+    subject { FactoryGirl.create(:job_translation) }
+
+    it 'returns a list of changed translation attributes' do
+      subject.name = 'Watwoman'
+      expect(subject.changed_translation_fields).to eq(%w(name))
+    end
+  end
+
+  describe '#unchanged_translation_fields' do
+    subject { FactoryGirl.create(:job_translation) }
+
+    it 'returns a list of changed translation attributes' do
+      subject.name = 'Watwoman'
+      expected = %w(short_description description)
+      expect(subject.unchanged_translation_fields).to eq(expected)
+    end
+  end
+
   describe '#translates_model' do
     it 'returns job model' do
       expect(subject.translates_model).to be_a(Job)
