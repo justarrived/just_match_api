@@ -21,32 +21,4 @@ RSpec.describe CreateMachineTranslationsService do
       end
     end
   end
-
-  describe '#eligible_locales' do
-    it 'returns eligible locales' do
-      expected = %w(sv ar fa ku ps)
-      expect(described_class.eligible_locales('en')).to eq(expected)
-    end
-  end
-
-  describe '#eligible_locale?' do
-    context 'ineligle' do
-      it 'returns false' do
-        expect(described_class.eligible_locale?('asd')).to eq(false)
-      end
-    end
-
-    context 'eligle' do
-      it 'returns true' do
-        expect(described_class.eligible_locale?('en')).to eq(true)
-      end
-    end
-  end
-
-  describe '#available_locales' do
-    it 'returns available locales string array' do
-      expected = I18n.available_locales.map(&:to_s)
-      expect(described_class.available_locales). to eq(expected)
-    end
-  end
 end

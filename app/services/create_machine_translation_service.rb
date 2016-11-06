@@ -28,7 +28,7 @@ module CreateMachineTranslationService
   end
 
   def self.model_for_translation(translation)
-    # Translations only belong to one model, so grab the first one :)
+    # NOTE: Translations only belong to one model, so grab the first one
     belongs_to_meta = translation.class.belongs_to_models.first
     translation.public_send(belongs_to_meta[:relation_name])
   end
