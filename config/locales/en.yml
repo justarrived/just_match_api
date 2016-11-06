@@ -34,6 +34,7 @@ en:
     general:
       protocol_missing: missing protocol prefix http:// or https://
       must_be_valid_date: must be a valid date
+      blank_if_field: can't be blank if %{field} is present
     chat:
       number_of_users: a chat must consist of between %{min}-%{max} number of users
     invoice:

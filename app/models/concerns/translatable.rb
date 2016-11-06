@@ -3,7 +3,7 @@ module Translatable
   extend ActiveSupport::Concern
 
   included do
-    has_many :translations, class_name: "#{name}Translation", foreign_key: "#{name.downcase}_id", dependent: :destroy # rubocop:disable Metrics/LineLength
+    has_many :translations, class_name: "#{name}Translation", foreign_key: "#{name.underscore.downcase}_id", dependent: :destroy # rubocop:disable Metrics/LineLength
 
     scope :with_translations, -> { includes(:language, :translations) }
   end

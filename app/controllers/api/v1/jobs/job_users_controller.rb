@@ -69,6 +69,7 @@ module Api
         param :data, Hash, desc: 'Top level key', required: true do
           param :attributes, Hash, desc: 'Job user attributes', required: true do
             param :apply_message, String, desc: 'Apply message'
+            param :language_id, Integer, desc: 'Language id of the text content (required if apply message is present)' # rubocop:disable Metrics/LineLength
           end
         end
         example Doxxer.read_example(JobUser, method: :create)
@@ -79,9 +80,13 @@ module Api
           # NOTE: Not very RESTful to set user from current_user
           @job_user.user = current_user
           @job_user.job = @job
-          @job_user.apply_message = jsonapi_params[:apply_message]
+
+          @job_user.apply_message = job_user_attributes[:apply_message]
+          @job_user.language = Language.find_by(id: job_user_attributes[:language_id])
 
           if @job_user.save
+            @job_user.create_translation(job_user_attributes, @job_user.language_id)
+
             NewApplicantNotifier.call(job_user: @job_user, owner: @job.owner)
             api_render(@job_user, status: :created)
           else
@@ -107,7 +112,7 @@ module Api
           ActiveSupport::Deprecation.warn('This route has been deprecated.')
           authorize(@job_user)
 
-          @job_user.assign_attributes(permitted_attributes)
+          @job_user.assign_attributes(job_user_attributes)
 
           # The event name needs to be set before save, otherwise it can't
           # determine what has changed
@@ -167,9 +172,11 @@ module Api
           @job_user = @job.job_users.find(params[:job_user_id])
         end
 
-        def permitted_attributes
-          attributes = policy(@job_user || JobUser.new).permitted_attributes
-          jsonapi_params.permit(attributes)
+        def job_user_attributes
+          @job_user_attributes ||= begin
+            attributes = policy(@job_user || JobUser.new).permitted_attributes
+            jsonapi_params.permit(attributes)
+          end
         end
 
         def pundit_user

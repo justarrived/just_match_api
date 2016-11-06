@@ -4,6 +4,7 @@ class JobUser < ApplicationRecord
 
   belongs_to :user
   belongs_to :job
+  belongs_to :language, optional: true
 
   has_one :invoice
   has_one :frilans_finans_invoice
@@ -24,6 +25,7 @@ class JobUser < ApplicationRecord
   validate :validate_single_accepted_applicant
   validate :validate_applicant_not_owner_of_job
   validate :validate_job_started_before_performed
+  validate :validate_language_presence_if_apply_message
 
   before_validation :accepted_at_setter
 
@@ -34,6 +36,9 @@ class JobUser < ApplicationRecord
   scope :applicant_confirmation_overdue, lambda {
     unconfirmed.where('accepted_at < ?', MAX_CONFIRMATION_TIME_HOURS.hours.ago)
   }
+
+  include Translatable
+  translates :apply_message
 
   def self.accepted_jobs_for(user)
     where(user: user, accepted: true).
@@ -109,6 +114,15 @@ class JobUser < ApplicationRecord
     message = I18n.t('errors.job_user.performed_before_job_started')
     errors.add(:performed, message)
   end
+
+  def validate_language_presence_if_apply_message
+    return if apply_message.blank?
+    return unless language.nil?
+
+    field = self.class.human_attribute_name(:apply_message)
+    message = I18n.t('errors.general.blank_if_field', field: field)
+    errors.add(:language, message)
+  end
 end
 
 # == Schema Information
@@ -125,11 +139,13 @@ end
 #  accepted_at   :datetime
 #  performed     :boolean          default(FALSE)
 #  apply_message :text
+#  language_id   :integer
 #
 # Indexes
 #
 #  index_job_users_on_job_id              (job_id)
 #  index_job_users_on_job_id_and_user_id  (job_id,user_id) UNIQUE
+#  index_job_users_on_language_id         (language_id)
 #  index_job_users_on_user_id             (user_id)
 #  index_job_users_on_user_id_and_job_id  (user_id,job_id) UNIQUE
 #
@@ -137,4 +153,5 @@ end
 #
 #  fk_rails_548d2d3ba9  (job_id => jobs.id)
 #  fk_rails_815844930e  (user_id => users.id)
+#  fk_rails_93547d43e9  (language_id => languages.id)
 #

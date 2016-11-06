@@ -83,6 +83,34 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
         expect(assigns(:job_user)).to be_persisted
       end
 
+      context 'with apply message' do
+        let(:language) { FactoryGirl.create(:language) }
+        let(:apply_message) { 'Something something, darkside..' }
+
+        it 'creates a apply message' do
+          user = FactoryGirl.create(:user)
+          user1 = FactoryGirl.create(:user)
+          job = FactoryGirl.create(:job, owner: user1)
+          params = {
+            job_id: job.to_param,
+            user: { id: user.to_param },
+            data: {
+              attributes: {
+                apply_message: apply_message,
+                language_id: language.id
+              }
+            }
+          }
+          post :create, params: params, headers: valid_session
+          job_user = assigns(:job_user)
+          job_user.reload
+          expect(job_user).to be_a(JobUser)
+          expect(job_user).to be_persisted
+          expect(job_user.translations.length).to eq(1)
+          expect(job_user.original_apply_message).to eq(apply_message)
+        end
+      end
+
       it 'returns created status' do
         user = FactoryGirl.create(:user)
         user1 = FactoryGirl.create(:user)

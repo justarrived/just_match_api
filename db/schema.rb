@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161101235138) do
+ActiveRecord::Schema.define(version: 20161106170456) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -264,6 +264,15 @@ ActiveRecord::Schema.define(version: 20161101235138) do
     t.index ["job_id"], name: "index_job_translations_on_job_id", using: :btree
   end
 
+  create_table "job_user_translations", force: :cascade do |t|
+    t.string   "locale"
+    t.text     "apply_message"
+    t.integer  "job_user_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["job_user_id"], name: "index_job_user_translations_on_job_user_id", using: :btree
+  end
+
   create_table "job_users", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "job_id"
@@ -274,8 +283,10 @@ ActiveRecord::Schema.define(version: 20161101235138) do
     t.datetime "accepted_at"
     t.boolean  "performed",     default: false
     t.text     "apply_message"
+    t.integer  "language_id"
     t.index ["job_id", "user_id"], name: "index_job_users_on_job_id_and_user_id", unique: true, using: :btree
     t.index ["job_id"], name: "index_job_users_on_job_id", using: :btree
+    t.index ["language_id"], name: "index_job_users_on_language_id", using: :btree
     t.index ["user_id", "job_id"], name: "index_job_users_on_user_id_and_job_id", unique: true, using: :btree
     t.index ["user_id"], name: "index_job_users_on_user_id", using: :btree
   end
@@ -511,7 +522,9 @@ ActiveRecord::Schema.define(version: 20161101235138) do
   add_foreign_key "job_skills", "jobs"
   add_foreign_key "job_skills", "skills"
   add_foreign_key "job_translations", "jobs"
+  add_foreign_key "job_user_translations", "job_users"
   add_foreign_key "job_users", "jobs"
+  add_foreign_key "job_users", "languages"
   add_foreign_key "job_users", "users"
   add_foreign_key "jobs", "categories"
   add_foreign_key "jobs", "hourly_pays"
