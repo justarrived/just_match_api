@@ -1,13 +1,20 @@
 # frozen_string_literal: true
 class JobUserSerializer < ApplicationSerializer
   ATTRIBUTES = [
-    :accepted, :accepted_at, :will_perform, :performed, :will_perform_confirmation_by,
-    :apply_message
+    :accepted, :accepted_at, :will_perform, :performed, :will_perform_confirmation_by
   ].freeze
 
   attributes ATTRIBUTES
 
   link(:self) { api_v1_job_user_url(object.job_id, object) if object.job_id }
+
+  attribute :apply_message do
+    object.translated_apply_message
+  end
+
+  attribute :original_text do
+    { apply_message: object.original_apply_message }
+  end
 
   belongs_to :user
   belongs_to :job

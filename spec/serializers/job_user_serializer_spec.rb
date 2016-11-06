@@ -18,6 +18,12 @@ RSpec.describe JobUserSerializer, type: :serializer do
       end
     end
 
+    it 'has original_text' do
+      dashed_attribute = 'original_text'.dasherize
+      value = { 'apply_message'.dasherize => nil }
+      expect(subject).to have_jsonapi_attribute(dashed_attribute, value)
+    end
+
     %w(job user).each do |relationship|
       it "has #{relationship} relationship" do
         expect(subject).to have_jsonapi_relationship(relationship)
