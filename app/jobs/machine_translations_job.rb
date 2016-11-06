@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class MachineTranslationJob < ApplicationJob
+class MachineTranslationsJob < ApplicationJob
   def perform(translation)
     CreateMachineTranslationsService.call(translation: translation)
   end
