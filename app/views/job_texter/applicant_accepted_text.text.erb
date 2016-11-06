@@ -1,7 +1,7 @@
 <%= I18n.t('mailer.applicant_accepted.congrats_line', name: @user_name) %>
 
 <%= I18n.t('mailer.applicant_accepted.accepted_line') %>
-<%= I18n.t('mailer.applicant_accepted.job_line', name: @job_name) %>
+<%= I18n.t('mailer.applicant_accepted.job_line', name: @job_name, address: @job_address) %>
 
 <%= @job_user_url %>
 

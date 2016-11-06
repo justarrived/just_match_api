@@ -28,7 +28,7 @@ module Api
           @job_user.performed = true
 
           if @job_user.save
-            JobUserPerformedNotifier.call(job_user: @job_user, owner: @job.owner)
+            performed_notifer_klass.call(job_user: @job_user, owner: @job.owner)
 
             api_render(@job_user)
           else
@@ -56,6 +56,11 @@ module Api
           unless policy.permitted_attributes.include?(:performed)
             raise Pundit::NotAuthorizedError
           end
+        end
+
+        def performed_notifer_klass
+          # JobUserPerformedNotifier
+          NilNotifier
         end
       end
     end
