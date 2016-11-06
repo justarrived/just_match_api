@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161106170456) do
+ActiveRecord::Schema.define(version: 20161106185710) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -323,12 +323,12 @@ ActiveRecord::Schema.define(version: 20161106170456) do
 
   create_table "languages", force: :cascade do |t|
     t.string   "lang_code"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.string   "en_name"
     t.string   "direction"
     t.string   "local_name"
-    t.boolean  "system_language", default: false
+    t.boolean  "system_language",     default: false
     t.string   "sv_name"
     t.string   "ar_name"
     t.string   "fa_name"
@@ -336,6 +336,7 @@ ActiveRecord::Schema.define(version: 20161106170456) do
     t.string   "ku_name"
     t.string   "ti_name"
     t.string   "ps_name"
+    t.boolean  "machine_translation", default: false
     t.index ["lang_code"], name: "index_languages_on_lang_code", unique: true, using: :btree
   end
 
