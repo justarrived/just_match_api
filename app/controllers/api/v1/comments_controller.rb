@@ -111,12 +111,11 @@ module Api
 
       def user_comment_scope
         # NOTE: Not very RESTful to set user from current_user
-        comments = if current_user.admin?
-                     Comment.all
-                   else
-                     current_user.written_comments
-                   end
-        comments.includes(:translations, :language)
+        if current_user.admin?
+          Comment.all
+        else
+          current_user.written_comments
+        end
       end
 
       def comment_params

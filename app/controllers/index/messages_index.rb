@@ -6,7 +6,7 @@ module Index
         include_scopes = [:language]
         include_scopes << user_include_scopes(user_key: :author)
 
-        prepare_records(scope.includes(*include_scopes))
+        prepare_records(scope.with_translations.includes(*include_scopes))
       end
     end
   end

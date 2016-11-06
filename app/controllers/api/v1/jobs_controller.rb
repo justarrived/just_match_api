@@ -164,8 +164,6 @@ module Api
       end
 
       def jobs_index_scope(base_scope)
-        base_scope.includes(:language, :translations)
-
         if included_resource?(:comments)
           base_scope = base_scope.includes(comments: [:owner, :language, :translations])
         end
