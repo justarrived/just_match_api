@@ -10,13 +10,13 @@ module Translatable
     attr_reader :translated_fields
 
     def translates(*attribute_names)
-      @translated_fields = attribute_names
+      @translated_fields = attribute_names.map(&:to_sym)
 
       define_method(:create_translation) do |t_hash, language_id|
         translation_klass = "#{self.class.name}Translation".constantize
 
         locale = Language.find_by(id: language_id)&.lang_code
-        attributes = t_hash.slice(*attribute_names).merge(locale: locale)
+        attributes = t_hash.slice(*@translated_fields).merge(locale: locale)
 
         translation = translation_klass.new(attributes)
         translations << translation
@@ -29,7 +29,7 @@ module Translatable
         locale = Language.find_by(id: language_id)&.lang_code
         translation = translations.find_or_initialize_by(locale: locale)
 
-        attributes = t_hash.slice(*attribute_names).
+        attributes = t_hash.slice(*@translated_fields).
                      to_h.reject { |_key, value| value.nil? }
 
         translation.assign_attributes(attributes)
@@ -38,7 +38,7 @@ module Translatable
       end
 
       # Atribute helpers
-      attribute_names.each do |attribute_name|
+      @translated_fields.each do |attribute_name|
         original_text_method_name = "original_#{attribute_name}"
 
         define_method("translated_#{attribute_name}") do
