@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'i18n/google_translate'
 
-module CreateTranslationService
+module CreateMachineTranslationService
   def self.call(translation:, language:)
     locale = translation.locale
     model = model_for_translation(translation)

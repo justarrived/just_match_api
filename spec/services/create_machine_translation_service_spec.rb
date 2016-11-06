@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
-RSpec.describe CreateTranslationService do
+RSpec.describe CreateMachineTranslationService do
   let(:translation) do
     FactoryGirl.build(
       :job_translation,

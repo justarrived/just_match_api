@@ -22,7 +22,7 @@ module MigrateTranslations
         short_description: job[:short_description]
       }
       translation = job.create_translation(attributes, job.language_id)
-      TranslateModelJob.perform_later(translation) if google_translate
+      MachineTranslationJob.perform_later(translation) if google_translate
     end
   end
 
@@ -34,7 +34,7 @@ module MigrateTranslations
     Comment.all.each do |comment|
       attributes = { body: comment[:body] }
       translation = comment.create_translation(attributes, comment.language_id)
-      TranslateModelJob.perform_later(translation) if google_translate
+      MachineTranslationJob.perform_later(translation) if google_translate
     end
   end
 
@@ -51,7 +51,7 @@ module MigrateTranslations
         competence_text: user[:competence_text]
       }
       translation = user.create_translation(attributes, user.language_id)
-      TranslateModelJob.perform_later(translation) if google_translate
+      MachineTranslationJob.perform_later(translation) if google_translate
     end
   end
 
@@ -63,7 +63,7 @@ module MigrateTranslations
     Message.all.each do |message|
       attributes = { body: message[:body] }
       translation = message.create_translation(attributes, message.language_id)
-      TranslateModelJob.perform_later(translation) if google_translate
+      MachineTranslationJob.perform_later(translation) if google_translate
     end
   end
 

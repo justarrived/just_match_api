@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-module CreateTranslationsService
+module CreateMachineTranslationsService
   # Not supported by Google Translate: ti - Tigrinya, fa_AF - Dari
   IGNORE_LOCALES = %w(ti fa_AF).freeze
 
@@ -10,7 +10,7 @@ module CreateTranslationsService
     (
       languages || Language.where(lang_code: eligible_locales(locale))
     ).map do |language|
-      CreateTranslationService.call(translation: translation, language: language)
+      CreateMachineTranslationService.call(translation: translation, language: language)
     end
   end
 
