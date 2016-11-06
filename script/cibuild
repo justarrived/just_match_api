@@ -20,7 +20,6 @@ script/bootstrap
 
 bin/rails db:create db:schema:load
 
-export DOC_EXAMPLES=false
 export LINT_FACTORY=true
 export RUBOCOP=false
 export CHECK_DB_INDEXES=true

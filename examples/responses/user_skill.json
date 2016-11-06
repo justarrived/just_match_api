@@ -4,10 +4,16 @@
     "type": "user_skills",
     "relationships": {
       "user": {
-        "data": null
+        "data": {
+          "id": "23",
+          "type": "users"
+        }
       },
       "skill": {
-        "data": null
+        "data": {
+          "id": "3",
+          "type": "skills"
+        }
       }
     }
   }

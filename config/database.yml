@@ -13,6 +13,10 @@ test:
   <<: *default
   database: just_match_test
 
+docs:
+  <<: *default
+  database: just_match_docs
+
 production:
   <<: *default
   database: just_match_production

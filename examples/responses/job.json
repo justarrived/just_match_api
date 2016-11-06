@@ -20,7 +20,9 @@
       "filled": false,
       "short_description": "Watman",
       "featured": false,
-      "upcoming": false
+      "upcoming": false,
+      "amount": 3000.0,
+      "invoice_amount": 4200.0
     },
     "relationships": {
       "job_users": {
@@ -37,33 +39,48 @@
         }
       },
       "owner": {
-        "data": null,
+        "data": {
+          "id": "5",
+          "type": "users"
+        },
         "links": {
-          "self": null
+          "self": "https://api.justarrived.se/api/v1/users/5"
         }
       },
       "company": {
-        "data": null,
+        "data": {
+          "id": "3",
+          "type": "companies"
+        },
         "links": {
-          "self": null
+          "self": "https://api.justarrived.se/api/v1/companies/3"
         }
       },
       "language": {
-        "data": null,
+        "data": {
+          "id": "4",
+          "type": "languages"
+        },
         "links": {
-          "self": null
+          "self": "https://api.justarrived.se/api/v1/languages/4"
         }
       },
       "category": {
-        "data": null,
+        "data": {
+          "id": "3",
+          "type": "categories"
+        },
         "links": {
-          "self": null
+          "self": "https://api.justarrived.se/api/v1/categories/3"
         }
       },
       "hourly_pay": {
-        "data": null,
+        "data": {
+          "id": "3",
+          "type": "hourly_pays"
+        },
         "links": {
-          "self": null
+          "self": "https://api.justarrived.se/api/v1/hourly-pays/3"
         }
       }
     },
