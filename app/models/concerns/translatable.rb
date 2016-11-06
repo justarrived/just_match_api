@@ -4,19 +4,22 @@ module Translatable
 
   included do
     has_many :translations, class_name: "#{name}Translation", foreign_key: "#{name.downcase}_id", dependent: :destroy # rubocop:disable Metrics/LineLength
+
+    scope :with_translations, -> { includes(:language, :translations) }
   end
 
   class_methods do
     attr_reader :translated_fields
 
-    def translates(*attribute_names)
-      @translated_fields = attribute_names.map(&:to_sym)
+    def translates(*attr_names)
+      attribute_names = attr_names.map(&:to_sym)
+      @translated_fields = attribute_names
 
       define_method(:create_translation) do |t_hash, language_id|
         translation_klass = "#{self.class.name}Translation".constantize
 
         locale = Language.find_by(id: language_id)&.lang_code
-        attributes = t_hash.slice(*@translated_fields).merge(locale: locale)
+        attributes = t_hash.slice(*attribute_names).merge(locale: locale)
 
         translation = translation_klass.new(attributes)
         translations << translation
@@ -29,7 +32,7 @@ module Translatable
         locale = Language.find_by(id: language_id)&.lang_code
         translation = translations.find_or_initialize_by(locale: locale)
 
-        attributes = t_hash.slice(*@translated_fields).
+        attributes = t_hash.slice(*attribute_names).
                      to_h.reject { |_key, value| value.nil? }
 
         translation.assign_attributes(attributes)
@@ -38,7 +41,7 @@ module Translatable
       end
 
       # Atribute helpers
-      @translated_fields.each do |attribute_name|
+      attribute_names.each do |attribute_name|
         original_text_method_name = "original_#{attribute_name}"
 
         define_method("translated_#{attribute_name}") do
