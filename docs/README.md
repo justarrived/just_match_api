@@ -98,9 +98,9 @@ The code follows most Rails conventions. If you've worked with Rails before the 
   - Defines the translated columns with the `translated` macro
     + Defines `create_translation` & `update_translation` instance methods on the model
   - There are a few helper services, plus one `ActiveJob` class to do machine translations
-    + `CreateMachineTranslationsService` takes a translation and creates translations for to all eligible locales
-    + `CreateMachineTranslationService` takes a translation and a language for it to be translated to
-    + `MachineTranslationsJob` background job for `CreateMachineTranslationsService`
+    + `MachineTranslationsService` takes a translation and creates translations for to all eligible locales
+    + `MachineTranslationService` takes a translation and a language for it to be translated to
+    + `MachineTranslationsJob` background job for `MachineTranslationsService`
 
 * __Static Translations__
   - Uses `rails-i18n`

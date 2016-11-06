@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 class JobUserTranslation < ApplicationRecord
   belongs_to :job_user
+
+  include TranslationModel
 end
 
 # == Schema Information

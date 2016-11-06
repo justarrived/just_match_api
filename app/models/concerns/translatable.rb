@@ -15,29 +15,25 @@ module Translatable
       attribute_names = attr_names.map(&:to_sym)
       @translated_fields = attribute_names
 
-      define_method(:create_translation) do |t_hash, language_id|
-        translation_klass = "#{self.class.name}Translation".constantize
-
-        locale = Language.find_by(id: language_id)&.lang_code
-        attributes = t_hash.slice(*attribute_names).merge(locale: locale)
-
-        translation = translation_klass.new(attributes)
-        translations << translation
-        translation
-      end
-
-      define_method(:update_translation) do |t_hash, language_id = self.language_id|
+      define_method(:set_translation) do |t_hash, language_id = self.language_id|
         # NOTE: The problem with this is that the main/parent record needs to be
         #       reloaded otherwise the old text will be returned
         locale = Language.find_by(id: language_id)&.lang_code
         translation = translations.find_or_initialize_by(locale: locale)
 
-        attributes = t_hash.slice(*attribute_names).
-                     to_h.reject { |_key, value| value.nil? }
+        attributes = t_hash.slice(*attribute_names).to_h
 
         translation.assign_attributes(attributes)
         translation.save!
         translation
+      end
+
+      define_method(:create_translation) do |t_hash, language_id|
+        set_translation(t_hash, language_id)
+      end
+
+      define_method(:update_translation) do |t_hash, language_id = self.language_id|
+        set_translation(t_hash, language_id)
       end
 
       # Atribute helpers

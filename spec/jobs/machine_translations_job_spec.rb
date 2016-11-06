@@ -5,10 +5,10 @@ RSpec.describe MachineTranslationsJob do
   let(:translation) { FactoryGirl.create(:job_translation) }
   let(:job_args) { { translation: translation } }
 
-  it 'calls CreateMachineTranslationsService' do
-    allow(CreateMachineTranslationsService).to receive(:call)
+  it 'calls MachineTranslationsService' do
+    allow(MachineTranslationsService).to receive(:call)
     described_class.perform_now(**job_args)
-    expect(CreateMachineTranslationsService).to have_received(:call)
+    expect(MachineTranslationsService).to have_received(:call)
   end
 
   it 'enqueues job' do

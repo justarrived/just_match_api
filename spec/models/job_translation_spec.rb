@@ -2,6 +2,32 @@
 require 'rails_helper'
 
 RSpec.describe JobTranslation, type: :model do
+  subject do
+    FactoryGirl.build(
+      :job_translation,
+      name: 'Wat',
+      short_description: 'Short',
+      description: 'Desc'
+    )
+  end
+
+  describe '#translates_model' do
+    it 'returns job model' do
+      expect(subject.translates_model).to be_a(Job)
+    end
+  end
+
+  describe '#build_model_attributes' do
+    it 'returns model attributes' do
+      result = subject.translation_attributes
+      expected = {
+        'name' => 'Wat',
+        'short_description' => 'Short',
+        'description' => 'Desc'
+      }
+      expect(result).to eq(expected)
+    end
+  end
 end
 
 # == Schema Information
