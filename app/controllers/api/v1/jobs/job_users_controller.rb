@@ -19,11 +19,11 @@ module Api
             A typical flow would be something like this:
 
             1. To apply for a job a user creates a job user
-            2. The owner accepts the user by setting `accepted` to true
-            3. The user then confirms that they will perform the job by setting `will-perform` to true.
+            2. The owner accepts the user with `POST /jobs/:id/users/:job_user_id/acceptances`
+            3. The user then confirms that they will perform the job by setting `POST /jobs/:id/users/:job_user_id/confirmations`
                 * It has be be done before `will-perform-confirmation-by` (date-time), if not `accepted` will be set to false automatically.
-            4. The user verifies the that the job has been performed by setting `performed` to true
-            5. The owner then creates an invoice to pay the user
+            4. The user verifies the that the job has been performed with `POST /jobs/:id/users/:job_user_id/performed`
+            5. The owner then creates an invoice to pay the user with `POST /jobs/:id/users/:job_user_id/invoices`
           "
           # rubocop:enable Metrics/LineLength
           formats [:json]
