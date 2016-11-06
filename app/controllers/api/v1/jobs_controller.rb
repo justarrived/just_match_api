@@ -58,7 +58,7 @@ module Api
           param :job_date, String, desc: 'Job start date', required: true
           param :job_end_date, String, desc: 'Job end date', required: true
           param :upcoming, [true, false], desc: 'Upcoming job (default false)'
-          param :language_id, Integer, desc: 'Langauge id of the text content', required: true
+          param :language_id, Integer, desc: 'Language id of the text content', required: true
           param :category_id, Integer, desc: 'Category id', required: true
           param :hourly_pay_id, Integer, desc: 'Hourly pay id', required: true
           param :skill_ids, Array, of: 'Skill IDs', desc: 'List of skill ids', required: true
