@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 ActiveAdmin.register User do
+  batch_action :destroy, false
+
   # Create sections on the index screen
   scope :all, default: true
   scope :admins

@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 ActiveAdmin.register Invoice do
+  batch_action :destroy, false
+
   scope :all, default: true
   scope :needs_frilans_finans_activation
 

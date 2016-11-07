@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 ActiveAdmin.register JobUser do
+  batch_action :destroy, false
+
   scope :all, default: true
   scope :accepted
   scope :will_perform

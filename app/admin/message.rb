@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 ActiveAdmin.register Message do
+  batch_action :destroy, false
+
   index do
     selectable_column
 
