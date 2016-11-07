@@ -53,6 +53,11 @@ ActiveAdmin.register Job do
     job.set_translation(translation_params, job.language_id)
   end
 
+  action_item :view, only: :show do
+    title = I18n.t('admin.job.google_calendar_link')
+    link_to title, resource.google_calendar_template_url
+  end
+
   permit_params do
     extras = [
       :cancelled, :language_id, :hourly_pay_id, :category_id, :owner_user_id, :hidden

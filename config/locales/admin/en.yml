@@ -5,3 +5,5 @@ en:
       queued_msg: Machine translation queued successfully.
       queued_msg_multiple: Machine translations queued successfully.
       post_btn: Machine Translate
+    job:
+      google_calendar_link: Google Calendar
