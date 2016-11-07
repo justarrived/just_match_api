@@ -50,4 +50,10 @@ ActiveAdmin.register User do
     ]
     UserPolicy::SELF_ATTRIBUTES + extras
   end
+
+  controller do
+    def scoped_collection
+      super.with_translations
+    end
+  end
 end

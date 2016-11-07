@@ -26,7 +26,7 @@ ActiveAdmin.register Job do
   # Customize columns displayed on the index screen in the table
   index do
     column :id
-    column :name
+    column :original_name
     column :job_date
     column :job_end_date
     column :hours
@@ -43,5 +43,11 @@ ActiveAdmin.register Job do
       :cancelled, :language_id, :hourly_pay_id, :category_id, :owner_user_id, :hidden
     ]
     JobPolicy::FULL_ATTRIBUTES + extras
+  end
+
+  controller do
+    def scoped_collection
+      super.with_translations
+    end
   end
 end

@@ -27,4 +27,10 @@ ActiveAdmin.register JobUser do
   permit_params do
     [:accepted, :will_perform, :performed, :apply_message]
   end
+
+  controller do
+    def scoped_collection
+      super.with_translations
+    end
+  end
 end
