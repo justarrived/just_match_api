@@ -24,6 +24,13 @@ ActiveAdmin.register JobUser do
     actions
   end
 
+  after_save do |job_user|
+    translation_params = {
+      name: permitted_params.dig(:job_user, :apply_message)
+    }
+    job_user.set_translation(translation_params, job_user.language_id)
+  end
+
   permit_params do
     [:accepted, :will_perform, :performed, :apply_message]
   end

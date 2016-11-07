@@ -44,6 +44,16 @@ ActiveAdmin.register User do
     f.actions         # adds the 'Submit' and 'Cancel' buttons
   end
 
+  after_save do |user|
+    translation_params = {
+      description: permitted_params.dig(:user, :description),
+      job_experience: permitted_params.dig(:user, :job_experience),
+      education: permitted_params.dig(:user, :education),
+      competence_text: permitted_params.dig(:user, :competence_text)
+    }
+    user.set_translation(translation_params, user.language_id)
+  end
+
   permit_params do
     extras = [
       :password, :language_id, :company_id, :managed, :frilans_finans_payment_details

@@ -9,7 +9,7 @@ ActiveAdmin.register_page 'Dashboard' do
           ul do
             JobUser.last(5).map do |job_user|
               li link_to(
-                "#{job_user.user.name} applied to #{job_user.job.name}",
+                "#{job_user.user.name} applied for #{job_user.job.name}",
                 admin_job_user_path(job_user)
               )
             end

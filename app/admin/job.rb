@@ -38,6 +38,15 @@ ActiveAdmin.register Job do
     actions
   end
 
+  after_save do |job|
+    translation_params = {
+      name: permitted_params.dig(:job, :name),
+      description: permitted_params.dig(:job, :description),
+      short_description: permitted_params.dig(:job, :short_description)
+    }
+    job.set_translation(translation_params, job.language_id)
+  end
+
   permit_params do
     extras = [
       :cancelled, :language_id, :hourly_pay_id, :category_id, :owner_user_id, :hidden

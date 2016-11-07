@@ -10,6 +10,13 @@ ActiveAdmin.register Message do
     actions
   end
 
+  after_save do |message|
+    translation_params = {
+      name: permitted_params.dig(:message, :body)
+    }
+    message.set_translation(translation_params, message.language_id)
+  end
+
   permit_params do
     [
       :chat_id,
