@@ -25,6 +25,8 @@ ActiveAdmin.register User do
   filter :managed
 
   index do
+    selectable_column
+
     column :id
     column :first_name
     column :last_name
@@ -43,6 +45,8 @@ ActiveAdmin.register User do
     f.input :password
     f.actions         # adds the 'Submit' and 'Cancel' buttons
   end
+
+  include AdminHelpers::MachineTranslation::Actions
 
   after_save do |user|
     translation_params = {

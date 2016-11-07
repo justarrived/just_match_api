@@ -30,4 +30,11 @@ ActiveAdmin.register Language do
 
     actions
   end
+
+  permit_params do
+    [
+      :system_language, :machine_translation, :direction, :local_name, :en_name,
+      :sv_name, :ar_name, :fa_name, :fa_af_name, :ku_name, :ti_name, :ps_name
+    ]
+  end
 end

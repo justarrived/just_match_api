@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 ActiveAdmin.register Message do
   index do
+    selectable_column
+
     column :id
     column :original_body
     column :author
@@ -9,6 +11,8 @@ ActiveAdmin.register Message do
 
     actions
   end
+
+  include AdminHelpers::MachineTranslation::Actions
 
   after_save do |message|
     translation_params = {

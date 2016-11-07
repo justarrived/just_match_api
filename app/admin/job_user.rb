@@ -12,6 +12,8 @@ ActiveAdmin.register JobUser do
   filter :created_at
 
   index do
+    selectable_column
+
     column :id
     column :user
     column :job
@@ -23,6 +25,8 @@ ActiveAdmin.register JobUser do
 
     actions
   end
+
+  include AdminHelpers::MachineTranslation::Actions
 
   after_save do |job_user|
     translation_params = {

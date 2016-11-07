@@ -25,6 +25,8 @@ ActiveAdmin.register Job do
 
   # Customize columns displayed on the index screen in the table
   index do
+    selectable_column
+
     column :id
     column :original_name
     column :job_date
@@ -37,6 +39,8 @@ ActiveAdmin.register Job do
 
     actions
   end
+
+  include AdminHelpers::MachineTranslation::Actions
 
   after_save do |job|
     translation_params = {
