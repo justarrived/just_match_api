@@ -7,22 +7,21 @@ module MigrateTranslations
     messages_down
   end
 
-  def self.up(google_translate: false)
-    jobs_up(google_translate: google_translate)
-    comments_up(google_translate: google_translate)
-    users_up(google_translate: google_translate)
-    messages_up(google_translate: google_translate)
+  def self.up
+    jobs_up
+    comments_up
+    users_up
+    messages_up
   end
 
-  def self.jobs_up(google_translate:)
+  def self.jobs_up
     Job.all.each do |job|
       attributes = {
         name: job[:name],
         description: job[:description],
         short_description: job[:short_description]
       }
-      translation = job.set_translation(attributes, job.language_id)
-      MachineTranslationsJob.perform_later(translation) if google_translate
+      job.set_translation(attributes, job.language_id)
     end
   end
 
@@ -30,11 +29,10 @@ module MigrateTranslations
     JobTranslation.delete_all
   end
 
-  def self.comments_up(google_translate:)
+  def self.comments_up
     Comment.all.each do |comment|
       attributes = { body: comment[:body] }
-      translation = comment.set_translation(attributes, comment.language_id)
-      MachineTranslationsJob.perform_later(translation) if google_translate
+      comment.set_translation(attributes, comment.language_id)
     end
   end
 
@@ -42,7 +40,7 @@ module MigrateTranslations
     CommentTranslation.delete_all
   end
 
-  def self.users_up(google_translate:)
+  def self.users_up
     User.all.each do |user|
       attributes = {
         description: user[:description],
@@ -50,8 +48,7 @@ module MigrateTranslations
         education: user[:education],
         competence_text: user[:competence_text]
       }
-      translation = user.set_translation(attributes, user.language_id)
-      MachineTranslationsJob.perform_later(translation) if google_translate
+      user.set_translation(attributes, user.language_id)
     end
   end
 
@@ -59,11 +56,10 @@ module MigrateTranslations
     UserTranslation.delete_all
   end
 
-  def self.messages_up(google_translate:)
+  def self.messages_up
     Message.all.each do |message|
       attributes = { body: message[:body] }
-      translation = message.set_translation(attributes, message.language_id)
-      MachineTranslationsJob.perform_later(translation) if google_translate
+      message.set_translation(attributes, message.language_id)
     end
   end
 
