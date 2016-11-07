@@ -42,8 +42,8 @@ ActiveAdmin.register_page 'Dashboard' do
       column do
         panel 'Recent Jobs' do
           ul do
-            Job.last(5).map do |job|
-              li link_to(job.name, admin_job_path(job))
+            Job.with_translations.last(5).map do |job|
+              li link_to(job.original_name, admin_job_path(job))
             end
           end
         end
