@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161106185710) do
+ActiveRecord::Schema.define(version: 20161107200703) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -105,7 +105,6 @@ ActiveRecord::Schema.define(version: 20161106185710) do
   end
 
   create_table "comments", force: :cascade do |t|
-    t.text     "body"
     t.string   "commentable_type"
     t.integer  "commentable_id"
     t.integer  "owner_user_id"
@@ -276,13 +275,12 @@ ActiveRecord::Schema.define(version: 20161106185710) do
   create_table "job_users", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "job_id"
-    t.boolean  "accepted",      default: false
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
-    t.boolean  "will_perform",  default: false
+    t.boolean  "accepted",     default: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.boolean  "will_perform", default: false
     t.datetime "accepted_at"
-    t.boolean  "performed",     default: false
-    t.text     "apply_message"
+    t.boolean  "performed",    default: false
     t.integer  "language_id"
     t.index ["job_id", "user_id"], name: "index_job_users_on_job_id_and_user_id", unique: true, using: :btree
     t.index ["job_id"], name: "index_job_users_on_job_id", using: :btree
@@ -292,12 +290,10 @@ ActiveRecord::Schema.define(version: 20161106185710) do
   end
 
   create_table "jobs", force: :cascade do |t|
-    t.text     "description"
     t.datetime "job_date"
     t.float    "hours"
-    t.string   "name"
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
     t.integer  "owner_user_id"
     t.float    "latitude"
     t.float    "longitude"
@@ -306,16 +302,15 @@ ActiveRecord::Schema.define(version: 20161106185710) do
     t.string   "zip"
     t.float    "zip_latitude"
     t.float    "zip_longitude"
-    t.boolean  "hidden",            default: false
+    t.boolean  "hidden",        default: false
     t.integer  "category_id"
     t.integer  "hourly_pay_id"
-    t.boolean  "verified",          default: false
+    t.boolean  "verified",      default: false
     t.datetime "job_end_date"
-    t.boolean  "cancelled",         default: false
-    t.boolean  "filled",            default: false
-    t.string   "short_description"
-    t.boolean  "featured",          default: false
-    t.boolean  "upcoming",          default: false
+    t.boolean  "cancelled",     default: false
+    t.boolean  "filled",        default: false
+    t.boolean  "featured",      default: false
+    t.boolean  "upcoming",      default: false
     t.index ["category_id"], name: "index_jobs_on_category_id", using: :btree
     t.index ["hourly_pay_id"], name: "index_jobs_on_hourly_pay_id", using: :btree
     t.index ["language_id"], name: "index_jobs_on_language_id", using: :btree
@@ -354,7 +349,6 @@ ActiveRecord::Schema.define(version: 20161106185710) do
     t.integer  "author_id"
     t.integer  "integer"
     t.integer  "language_id"
-    t.text     "body"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.index ["chat_id"], name: "index_messages_on_chat_id", using: :btree
@@ -466,7 +460,6 @@ ActiveRecord::Schema.define(version: 20161106185710) do
   create_table "users", force: :cascade do |t|
     t.string   "email"
     t.string   "phone"
-    t.text     "description"
     t.datetime "created_at",                                     null: false
     t.datetime "updated_at",                                     null: false
     t.float    "latitude"
@@ -485,14 +478,11 @@ ActiveRecord::Schema.define(version: 20161106185710) do
     t.string   "ssn"
     t.integer  "company_id"
     t.boolean  "banned",                         default: false
-    t.text     "job_experience"
-    t.text     "education"
     t.string   "one_time_token"
     t.datetime "one_time_token_expires_at"
     t.integer  "ignored_notifications_mask"
     t.integer  "frilans_finans_id"
     t.boolean  "frilans_finans_payment_details", default: false
-    t.text     "competence_text"
     t.integer  "current_status"
     t.integer  "at_und"
     t.date     "arrived_at"

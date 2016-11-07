@@ -23,7 +23,6 @@ end
 #  author_id   :integer
 #  integer     :integer
 #  language_id :integer
-#  body        :text
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #
