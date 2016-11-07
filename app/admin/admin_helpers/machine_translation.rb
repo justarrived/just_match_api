@@ -21,7 +21,7 @@ module AdminHelpers
             redirect_to(collection_path, notice: message)
           end
 
-          action_item :view, only: :show do
+          action_item :view, only: :show, if: proc { resource.original_translation } do
             title = I18n.t('admin.machine_translate.post_btn')
             path_method = "machine_translate_admin_#{resource.model_name.singular}_path"
             link_to title, public_send(path_method, resource), method: :post
