@@ -386,6 +386,7 @@ end
 #  id                             :integer          not null, primary key
 #  email                          :string
 #  phone                          :string
+#  description                    :text
 #  created_at                     :datetime         not null
 #  updated_at                     :datetime         not null
 #  latitude                       :float
@@ -404,11 +405,14 @@ end
 #  ssn                            :string
 #  company_id                     :integer
 #  banned                         :boolean          default(FALSE)
+#  job_experience                 :text
+#  education                      :text
 #  one_time_token                 :string
 #  one_time_token_expires_at      :datetime
 #  ignored_notifications_mask     :integer
 #  frilans_finans_id              :integer
 #  frilans_finans_payment_details :boolean          default(FALSE)
+#  competence_text                :text
 #  current_status                 :integer
 #  at_und                         :integer
 #  arrived_at                     :date
