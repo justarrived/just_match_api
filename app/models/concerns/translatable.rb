@@ -10,6 +10,8 @@ module Translatable
     scope :with_translations, -> { includes(:language, :translations) }
 
     def original_translation
+      return if language_id.nil?
+
       translations.find_by(locale: language.lang_code)
     end
   end
@@ -19,8 +21,9 @@ module Translatable
 
     def translates(*attr_names)
       attribute_names = attr_names.map(&:to_sym)
+      attr_writer(*attribute_names)
+
       @translated_fields = attr_names.map(&:to_s)
-      attr_writer *attribute_names
 
       define_method(:set_translation) do |t_hash, language_id = self.language_id|
         # NOTE: The problem with this is that the main/parent record needs to be
