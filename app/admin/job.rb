@@ -14,7 +14,6 @@ ActiveAdmin.register Job do
   # Filterable attributes on the index screen
   filter :name
   filter :company
-  filter :owner
   filter :job_date
   filter :job_end_date
   filter :created_at
