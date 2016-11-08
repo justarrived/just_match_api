@@ -5,10 +5,10 @@ class GoogleCalendarUrl
   def self.build(name:, description:, location:, start_time:, end_time:)
     query_params = [
       'action=TEMPLATE',
-      "text=#{URI.encode(name)}",
+      "text=#{uri_encode(name)}",
       "dates=#{format_datetime(start_time)}/#{format_datetime(end_time)}",
-      "details=#{URI.encode(description&.truncate(1000))}",
-      "location=#{URI.encode(location)}",
+      "details=#{uri_encode(description&.truncate(1000))}",
+      "location=#{uri_encode(location)}",
       'sf=true',
       'output=xml'
     ].join('&')
@@ -18,5 +18,9 @@ class GoogleCalendarUrl
 
   def self.format_datetime(date)
     date.utc.iso8601.gsub(/\+|-|:|\.\d\d\d/, '')
+  end
+
+  def self.uri_encode(text)
+    URI.encode(text || '')
   end
 end
