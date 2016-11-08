@@ -209,7 +209,7 @@ Address: #{company.address}
     GoogleCalendarUrl.build(
       name: name,
       description: description,
-      location: [street, zip].join(', '),
+      location: address,
       start_time: job_date,
       end_time: job_end_date
     )

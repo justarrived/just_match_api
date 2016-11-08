@@ -20,6 +20,7 @@ module Translatable
     def translates(*attr_names)
       attribute_names = attr_names.map(&:to_sym)
       @translated_fields = attr_names.map(&:to_s)
+      attr_writer *attribute_names
 
       define_method(:set_translation) do |t_hash, language_id = self.language_id|
         # NOTE: The problem with this is that the main/parent record needs to be
@@ -40,6 +41,23 @@ module Translatable
       attribute_names.each do |attribute_name|
         original_text_method_name = "original_#{attribute_name}"
 
+        if instance_methods.include?(attribute_name)
+          fail "Method name collision! `#{attribute_name}' method already exists."
+        end
+
+        # Define convinience methods, i.e #original_name => #name
+        define_method(attribute_name) do
+          # Check if the instance variable has been set and if so return it
+          instance_variable = "@#{attribute_name}"
+          if instance_variable_defined?(instance_variable)
+            return instance_variable_get(instance_variable)
+          end
+          # There can't be any translations unless the record has been persisted
+          return unless persisted?
+
+          public_send(original_text_method_name)
+        end
+
         define_method("translated_#{attribute_name}") do
           locale = I18n.locale.to_s
           locale_fallbacks = I18N_FALLBACKS[locale]
@@ -59,8 +77,8 @@ module Translatable
         end
 
         define_method(original_text_method_name) do
-          # NOTE: We should store language_id on the transltion model braking DB
-          #       normalization just a little bit, this can cause gnarly N+1 queries..
+          # NOTE: We should store language_id on the translation model breaking DB
+          #       normalization just a little bit
           locale = language&.lang_code
 
           translations.each do |translation|

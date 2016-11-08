@@ -116,6 +116,7 @@ class JobUser < ApplicationRecord
   end
 
   def validate_language_presence_if_apply_message
+    # TODO: Replace with @apply_message or refactor!
     return if apply_message.blank?
     return unless language.nil?
 

@@ -12,8 +12,6 @@ class Comment < ApplicationRecord
 
   scope :visible, -> { where(hidden: false) }
 
-  attr_accessor :body
-
   include Translatable
   translates :body
 end

@@ -3,7 +3,7 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::Jobs::CalendarController, type: :controller do
   context '#google' do
-    let(:job) { FactoryGirl.create(:job) }
+    let(:job) { FactoryGirl.create(:job_with_translation) }
 
     it 'returns google calendar link' do
       get :google, params: { job_id: job.id }

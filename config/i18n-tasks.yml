@@ -85,6 +85,7 @@ search:
 ## Do not consider these keys missing:
 ignore_missing:
 - 'active_admin.*'
+- 'admin.*'
 # - 'errors.messages.{accepted,blank,invalid,too_short,too_long}'
 # - '{devise,simple_form}.*'
 

@@ -5,7 +5,7 @@ module TranslationModel
   included do
     def translates_model_meta
       # NOTE: Translations only belong to one model, so grab the first one
-      belongs_to_meta = self.class.belongs_to_models.first
+      self.class.belongs_to_models.first
     end
 
     def translates_model

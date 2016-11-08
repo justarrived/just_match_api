@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module EnqueueCheapTranslation
   def self.call(result)
     MachineTranslationsJob.perform_later(
