@@ -116,7 +116,8 @@ class JobUser < ApplicationRecord
   end
 
   def validate_language_presence_if_apply_message
-    # TODO: Replace with @apply_message or refactor!
+    # NOTE: apply_message might be fetched from the translations relationship causing
+    #       a SQL-query
     return if apply_message.blank?
     return unless language.nil?
 
