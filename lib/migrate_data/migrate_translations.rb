@@ -1,69 +1,61 @@
 # frozen_string_literal: true
 module MigrateTranslations
+  BATCH_SIZE = 100
+
+  MODELS_DATA = [
+    ['Comment', [:body]],
+    ['Message', [:body]],
+    ['Job', [:name, :description, :short_description]],
+    ['JobUser', [:apply_message]],
+    ['User', [:description, :education, :competence_text, :job_experience]]
+  ].freeze
+
   def self.down
-    jobs_down
-    comments_down
-    users_down
-    messages_down
+    MODELS_DATA.each do |klass_name, attributes|
+      puts "Down migration for #{klass_name}"
+      down_model(klass_name.constantize, attributes)
+    end
   end
 
   def self.up
-    jobs_up
-    comments_up
-    users_up
-    messages_up
-  end
-
-  def self.jobs_up
-    Job.all.each do |job|
-      attributes = {
-        name: job[:name],
-        description: job[:description],
-        short_description: job[:short_description]
-      }
-      job.set_translation(attributes, job.language_id)
+    MODELS_DATA.each do |klass_name, attributes|
+      puts "Up migration for #{klass_name}"
+      up_model(klass_name.constantize, attributes)
     end
   end
 
-  def self.jobs_down
-    JobTranslation.delete_all
-  end
-
-  def self.comments_up
-    Comment.all.each do |comment|
-      attributes = { body: comment[:body] }
-      comment.set_translation(attributes, comment.language_id)
+  def self.up_model(model_klass, attributes)
+    process_each(model_klass, attributes, :up) do |model, model_attributes|
+      model.set_translation(model_attributes, model.language_id)
     end
   end
 
-  def self.comments_down
-    CommentTranslation.delete_all
+  def self.down_model(model_klass, attributes)
+    process_each(model_klass, attributes, :down) do |model, model_attributes|
+      model.assign_attributes(model_attributes)
+      model.save(validate: false)
+    end
+
+    "#{model_klass.name}Translation".constantize.delete_all
   end
 
-  def self.users_up
-    User.all.each do |user|
-      attributes = {
-        description: user[:description],
-        job_experience: user[:job_experience],
-        education: user[:education],
-        competence_text: user[:competence_text]
-      }
-      user.set_translation(attributes, user.language_id)
+  def self.process_each(model_klass, attributes, direction)
+    model_klass.find_each(batch_size: BATCH_SIZE) do |model|
+      process(model, attributes, direction) do |model_attributes|
+        yield(model, model_attributes)
+      end
     end
   end
 
-  def self.users_down
-    UserTranslation.delete_all
-  end
+  def self.process(model, attributes, direction)
+    return if model.language_id.nil?
 
-  def self.messages_up
-    Message.all.each do |message|
-      attributes = { body: message[:body] }
-      message.set_translation(attributes, message.language_id)
-    end
-  end
+    base_model = direction == :up ? model : model.original_translation
 
-  def self.messages_down
-    MessageTranslation.delete_all
+    model_attributes = attributes.map do |attribute|
+      [attribute, base_model[attribute]]
+    end.to_h
+
+    yield(model_attributes)
   end
 end
