@@ -16,7 +16,9 @@ module Api
         formats [:json]
       end
 
-      ALLOWED_INCLUDES = %w(language owner owner.user_images owner.company owner.company.company_images).freeze
+      ALLOWED_INCLUDES = %w(
+        language owner owner.user_images owner.company owner.company.company_images
+      ).freeze
 
       api :GET, '/:resource_name/:resource_id/comments', 'List comments'
       description 'Returns a list of comments.'
