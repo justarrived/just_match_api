@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 class JobUserSerializer < ApplicationSerializer
   ATTRIBUTES = [
-    :accepted, :accepted_at, :will_perform, :performed, :will_perform_confirmation_by
+    :accepted, :accepted_at, :will_perform, :performed, :will_perform_confirmation_by,
+    :language_id
   ].freeze
 
   attributes ATTRIBUTES
@@ -13,7 +14,10 @@ class JobUserSerializer < ApplicationSerializer
   end
 
   attribute :translated_text do
-    { apply_message: object.translated_apply_message }
+    {
+      apply_message: object.translated_apply_message,
+      langauge_id: object.translated_language_id
+    }
   end
 
   belongs_to :user

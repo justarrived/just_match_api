@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161107200703) do
+ActiveRecord::Schema.define(version: 20161109102811) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -99,9 +99,11 @@ ActiveRecord::Schema.define(version: 20161107200703) do
     t.string   "locale"
     t.text     "body"
     t.integer  "comment_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "language_id"
     t.index ["comment_id"], name: "index_comment_translations_on_comment_id", using: :btree
+    t.index ["language_id"], name: "index_comment_translations_on_language_id", using: :btree
   end
 
   create_table "comments", force: :cascade do |t|
@@ -261,7 +263,9 @@ ActiveRecord::Schema.define(version: 20161107200703) do
     t.integer  "job_id"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
+    t.integer  "language_id"
     t.index ["job_id"], name: "index_job_translations_on_job_id", using: :btree
+    t.index ["language_id"], name: "index_job_translations_on_language_id", using: :btree
   end
 
   create_table "job_user_translations", force: :cascade do |t|
@@ -270,7 +274,9 @@ ActiveRecord::Schema.define(version: 20161107200703) do
     t.integer  "job_user_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.integer  "language_id"
     t.index ["job_user_id"], name: "index_job_user_translations_on_job_user_id", using: :btree
+    t.index ["language_id"], name: "index_job_user_translations_on_language_id", using: :btree
   end
 
   create_table "job_users", force: :cascade do |t|
@@ -344,8 +350,10 @@ ActiveRecord::Schema.define(version: 20161107200703) do
     t.string   "locale"
     t.text     "body"
     t.integer  "message_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "language_id"
+    t.index ["language_id"], name: "index_message_translations_on_language_id", using: :btree
     t.index ["message_id"], name: "index_message_translations_on_message_id", using: :btree
   end
 
@@ -460,6 +468,8 @@ ActiveRecord::Schema.define(version: 20161107200703) do
     t.integer  "user_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.integer  "language_id"
+    t.index ["language_id"], name: "index_user_translations_on_language_id", using: :btree
     t.index ["user_id"], name: "index_user_translations_on_user_id", using: :btree
   end
 
@@ -513,6 +523,7 @@ ActiveRecord::Schema.define(version: 20161107200703) do
   add_foreign_key "chat_users", "chats"
   add_foreign_key "chat_users", "users"
   add_foreign_key "comment_translations", "comments"
+  add_foreign_key "comment_translations", "languages"
   add_foreign_key "comments", "languages"
   add_foreign_key "comments", "users", column: "owner_user_id", name: "comments_owner_user_id_fk"
   add_foreign_key "company_images", "companies"
@@ -523,7 +534,9 @@ ActiveRecord::Schema.define(version: 20161107200703) do
   add_foreign_key "job_skills", "jobs"
   add_foreign_key "job_skills", "skills"
   add_foreign_key "job_translations", "jobs"
+  add_foreign_key "job_translations", "languages"
   add_foreign_key "job_user_translations", "job_users"
+  add_foreign_key "job_user_translations", "languages"
   add_foreign_key "job_users", "jobs"
   add_foreign_key "job_users", "languages"
   add_foreign_key "job_users", "users"
@@ -531,6 +544,7 @@ ActiveRecord::Schema.define(version: 20161107200703) do
   add_foreign_key "jobs", "hourly_pays"
   add_foreign_key "jobs", "languages"
   add_foreign_key "jobs", "users", column: "owner_user_id", name: "jobs_owner_user_id_fk"
+  add_foreign_key "message_translations", "languages"
   add_foreign_key "message_translations", "messages"
   add_foreign_key "messages", "chats"
   add_foreign_key "messages", "languages"
@@ -549,6 +563,7 @@ ActiveRecord::Schema.define(version: 20161107200703) do
   add_foreign_key "user_languages", "users"
   add_foreign_key "user_skills", "skills"
   add_foreign_key "user_skills", "users"
+  add_foreign_key "user_translations", "languages"
   add_foreign_key "user_translations", "users"
   add_foreign_key "users", "companies"
   add_foreign_key "users", "languages"

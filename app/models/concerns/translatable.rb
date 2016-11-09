@@ -61,34 +61,37 @@ module Translatable
           public_send(original_text_method_name)
         end
 
-        define_method("translated_#{attribute_name}") do
-          locale = I18n.locale.to_s
-          locale_fallbacks = I18N_FALLBACKS[locale]
+        define_method(:find_translation) do |for_locale: I18n.locale, fallback: true|
+          locale = for_locale.to_s
+          @_translation_for ||= {}
+          @_translation_for[locale] ||= begin
+            locale_fallbacks = I18N_FALLBACKS[locale]
 
-          prioritised_texts = []
-          translations.each do |translation|
-            return translation.public_send(attribute_name) if locale == translation.locale
+            prioritised_texts = []
+            translations.each do |translation|
+              return translation if locale == translation.locale
+              return unless fallback
 
-            index = locale_fallbacks.index(translation.locale)
-            if index
-              text = translation.public_send(attribute_name)
-              prioritised_texts.insert(index, text)
+              index = locale_fallbacks.index(translation.locale)
+              prioritised_texts.insert(index, translation) if index
             end
-          end
 
-          prioritised_texts.detect { |text| !text.nil? } || public_send(original_text_method_name) # rubocop:disable Metrics/LineLength
+            # TODO: Consider fallback on original translation if nothing else if found
+            prioritised_texts.detect { |translation| !translation.nil? }
+          end
         end
 
-        define_method(original_text_method_name) do
-          # NOTE: We should store language_id on the translation model breaking DB
-          #       normalization just a little bit
-          locale = language&.lang_code
+        define_method("translated_#{attribute_name}") do
+          find_translation&.public_send(attribute_name)
+        end
 
-          translations.each do |translation|
-            if translation.locale == locale
-              return translation.public_send(attribute_name)
-            end
-          end
+        define_method(:translated_language_id) { find_translation&.language_id }
+        define_method(:original_language_id) { language_id }
+
+        define_method(original_text_method_name) do
+          locale = language&.lang_code
+          translation = find_translation(for_locale: locale, fallback: false)
+          return translation.public_send(attribute_name) unless translation.nil?
 
           # This shouldn't happen! All resources should have an original language!
           context = {

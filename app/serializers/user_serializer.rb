@@ -35,7 +35,8 @@ class UserSerializer < ApplicationSerializer
       description: object.translated_description,
       job_experience: object.translated_job_experience,
       education: object.translated_education,
-      competence_text: object.translated_competence_text
+      competence_text: object.translated_competence_text,
+      langauge_id: object.translated_language_id
     }
   end
 
