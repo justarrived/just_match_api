@@ -85,7 +85,7 @@ module Api
           @job_user.language = Language.find_by(id: job_user_attributes[:language_id])
 
           if @job_user.save
-            @job_user.set_translation(job_user_attributes, @job_user.language_id).tap do |result| # rubocop:disable Metrics/LineLength
+            @job_user.set_translation(job_user_attributes).tap do |result|
               EnqueueCheapTranslation.call(result)
             end
 

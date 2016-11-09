@@ -75,7 +75,7 @@ module Api
         @job.owner_user_id = current_user.id
 
         if @job.save
-          @job.set_translation(job_attributes, @job.language_id).tap do |result|
+          @job.set_translation(job_attributes).tap do |result|
             EnqueueCheapTranslation.call(result)
           end
 

@@ -49,7 +49,7 @@ ActiveAdmin.register Job do
       description: permitted_params.dig(:job, :description),
       short_description: permitted_params.dig(:job, :short_description)
     }
-    job.set_translation(translation_params, job.language_id)
+    job.set_translation(translation_params)
   end
 
   action_item :view, only: :show do

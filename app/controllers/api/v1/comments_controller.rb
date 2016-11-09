@@ -62,7 +62,7 @@ module Api
         @comment.owner_user_id = current_user.id
 
         if @comment.save
-          @comment.set_translation(comment_params, @comment.language_id).tap do |result|
+          @comment.set_translation(comment_params).tap do |result|
             EnqueueCheapTranslation.call(result)
           end
 

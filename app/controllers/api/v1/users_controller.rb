@@ -95,7 +95,7 @@ module Api
         if @user.save
           login_user(@user)
 
-          @user.set_translation(user_params, @user.language_id).tap do |result|
+          @user.set_translation(user_params).tap do |result|
             EnqueueCheapTranslation.call(result)
           end
 

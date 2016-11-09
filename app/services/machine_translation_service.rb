@@ -12,7 +12,7 @@ module MachineTranslationService
 
     translation.
       translates_model.
-      set_translation(translated_attributes, language.id)
+      set_translation(translated_attributes, language)
   end
 
   def self.build_translation_attributes(attributes:, from_locale:, to_locale:, ignore_attributes:) # rubocop:disable Metrics/LineLength

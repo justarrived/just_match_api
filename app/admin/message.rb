@@ -20,7 +20,7 @@ ActiveAdmin.register Message do
     translation_params = {
       name: permitted_params.dig(:message, :body)
     }
-    message.set_translation(translation_params, message.language_id)
+    message.set_translation(translation_params)
   end
 
   permit_params do

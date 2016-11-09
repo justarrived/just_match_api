@@ -21,7 +21,7 @@ FactoryGirl.define do
           description: job.description,
           short_description: job.short_description
         }
-        job.set_translation(translation_attributes, job.language_id)
+        job.set_translation(translation_attributes)
       end
     end
 

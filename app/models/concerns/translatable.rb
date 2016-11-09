@@ -25,20 +25,26 @@ module Translatable
 
       @translated_fields = attr_names.map(&:to_s)
 
-      # NOTE: The problem with this is that the main/parent record needs to be
-      #       reloaded otherwise the old text will be returned
-      define_method(:set_translation) do |t_hash, language_id = self.language_id|
-        # TODO: Refactor and have the "outside" pass language and not language_id
-        language = Language.find_by(id: language_id)
-        translation = translations.find_or_initialize_by(language: language)
-        translation.locale = language&.lang_code
+      define_method(:set_translation) do |t_hash, language = self.language|
+        # Unset all translatable instance variables when setting translations, otherwise
+        # we risk to return outdated information. This is really a code smell.. and
+        # we shouldn't set instance variables on the model at all, but instead handle
+        # it elesewhere
+        attribute_names.each do |attribute_name|
+          instance_variable = "@#{attribute_name}"
+          next unless instance_variable_defined?(instance_variable)
+          remove_instance_variable(instance_variable)
+        end
 
         attributes = t_hash.slice(*attribute_names).to_h
 
+        translation = translations.find_or_initialize_by(language: language)
+        translation.locale = language&.lang_code
         translation.assign_attributes(attributes)
         changed_fields = translation.changed_translation_fields
 
         translation.save!
+
         TranslationResult.new(translation, changed_fields)
       end
 
@@ -50,7 +56,7 @@ module Translatable
           fail "Method name collision! `#{attribute_name}' method already exists."
         end
 
-        # Define convinience methods, i.e #original_name => #name
+        # Define convinience methods, i.e define #name as an alias for #original_name
         define_method(attribute_name) do
           # If the instance variable has been set that means that someone has written
           # that attribute to the model, in that case return the written attribute

@@ -26,7 +26,7 @@ module MigrateTranslations
 
   def self.up_model(model_klass, attributes)
     process_each(model_klass, attributes, :up) do |model, model_attributes|
-      model.set_translation(model_attributes, model.language_id)
+      model.set_translation(model_attributes)
     end
   end
 

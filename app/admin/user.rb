@@ -57,7 +57,7 @@ ActiveAdmin.register User do
       education: permitted_params.dig(:user, :education),
       competence_text: permitted_params.dig(:user, :competence_text)
     }
-    user.set_translation(translation_params, user.language_id)
+    user.set_translation(translation_params)
   end
 
   permit_params do

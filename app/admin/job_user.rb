@@ -34,7 +34,7 @@ ActiveAdmin.register JobUser do
     translation_params = {
       name: permitted_params.dig(:job_user, :apply_message)
     }
-    job_user.set_translation(translation_params, job_user.language_id)
+    job_user.set_translation(translation_params)
   end
 
   permit_params do
