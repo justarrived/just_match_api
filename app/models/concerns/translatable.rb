@@ -89,7 +89,7 @@ module Translatable
               prioritised_texts.insert(index, translation) if index
             end
 
-            # TODO: Consider fallback on original translation if nothing else is found
+            # NOTE: Consider fallback on original translation if nothing else is found
             prioritised_texts.detect { |translation| !translation.nil? }
           end
         end
