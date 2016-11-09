@@ -10,7 +10,7 @@ RSpec.describe JobSerializer, type: :serializer do
       JSON.parse(serialization.to_json)
     end
 
-    ignore_fields = %i(id original_text name description short_description)
+    ignore_fields = %i(id translated_text name description short_description)
     (JobPolicy::ATTRIBUTES - ignore_fields).each do |attribute|
       it "has #{attribute.to_s.humanize.downcase}" do
         dashed_attribute = attribute.to_s.dasherize
@@ -19,8 +19,8 @@ RSpec.describe JobSerializer, type: :serializer do
       end
     end
 
-    it 'has original_text' do
-      dashed_attribute = 'original_text'.dasherize
+    it 'has translated_text' do
+      dashed_attribute = 'translated_text'.dasherize
       value = {
         'name' => nil,
         'description' => nil,

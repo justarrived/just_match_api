@@ -9,11 +9,11 @@ class JobUserSerializer < ApplicationSerializer
   link(:self) { api_v1_job_user_url(object.job_id, object) if object.job_id }
 
   attribute :apply_message do
-    object.translated_apply_message
+    object.original_apply_message
   end
 
-  attribute :original_text do
-    { apply_message: object.original_apply_message }
+  attribute :translated_text do
+    { apply_message: object.translated_apply_message }
   end
 
   belongs_to :user

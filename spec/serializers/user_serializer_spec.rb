@@ -10,7 +10,7 @@ RSpec.describe UserSerializer, type: :serializer do
       JSON.parse(serialization.to_json)
     end
 
-    ignored = %i(id description competence_text original_text)
+    ignored = %i(id description competence_text translated_text)
     (UserPolicy::ATTRIBUTES - ignored).each do |attribute|
       it "has #{attribute.to_s.humanize.downcase}" do
         dashed_attribute = attribute.to_s.dasherize
@@ -19,8 +19,8 @@ RSpec.describe UserSerializer, type: :serializer do
       end
     end
 
-    it 'has original_text' do
-      dashed_attribute = 'original_text'.dasherize
+    it 'has translated_text' do
+      dashed_attribute = 'translated_text'.dasherize
       value = {
         'description' => nil,
         'education' => nil,
