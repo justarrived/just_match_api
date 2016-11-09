@@ -12,14 +12,14 @@ module MigrateTranslations
 
   def self.down
     MODELS_DATA.each do |klass_name, attributes|
-      puts "Down migration for #{klass_name}"
+      Rails.logger.info "Down migration for #{klass_name}"
       down_model(klass_name.constantize, attributes)
     end
   end
 
   def self.up
     MODELS_DATA.each do |klass_name, attributes|
-      puts "Up migration for #{klass_name}"
+      Rails.logger.info "Up migration for #{klass_name}"
       up_model(klass_name.constantize, attributes)
     end
   end
@@ -30,9 +30,9 @@ module MigrateTranslations
     end
   end
 
-  def self.down_model(model_klass, attributes)
+  def self.down_model(model_klass, _attributes)
     # Set model attributes from stored translation
-    # process_each(model_klass, attributes, :down) do |model, model_attributes|
+    # process_each(model_klass, _attributes, :down) do |model, model_attributes|
     #   model.assign_attributes(model_attributes)
     #   model.save(validate: false)
     # end
