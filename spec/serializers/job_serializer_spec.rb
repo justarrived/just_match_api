@@ -24,7 +24,8 @@ RSpec.describe JobSerializer, type: :serializer do
       value = {
         'name' => nil,
         'description' => nil,
-        'short_description'.dasherize => nil
+        'short_description'.dasherize => nil,
+        'language_id'.dasherize => nil
       }
       expect(subject).to have_jsonapi_attribute(dashed_attribute, value)
     end

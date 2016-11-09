@@ -20,7 +20,7 @@ RSpec.describe CommentSerializer, type: :serializer do
 
     it 'has translated_text' do
       dashed_attribute = 'translated_text'.dasherize
-      value = { 'body' => nil }
+      value = { 'body' => nil, 'language_id'.dasherize => nil }
       expect(subject).to have_jsonapi_attribute(dashed_attribute, value)
     end
 

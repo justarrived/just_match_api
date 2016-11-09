@@ -16,7 +16,7 @@ class JobUserSerializer < ApplicationSerializer
   attribute :translated_text do
     {
       apply_message: object.translated_apply_message,
-      langauge_id: object.translated_language_id
+      language_id: object.translated_language_id
     }
   end
 

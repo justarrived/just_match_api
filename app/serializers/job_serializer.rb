@@ -26,7 +26,7 @@ class JobSerializer < ApplicationSerializer
       name: object.translated_name,
       short_description: object.translated_short_description,
       description: object.translated_description,
-      langauge_id: object.translated_language_id
+      language_id: object.translated_language_id
     }
   end
 

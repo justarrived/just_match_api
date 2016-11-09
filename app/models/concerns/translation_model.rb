@@ -3,9 +3,14 @@ module TranslationModel
   extend ActiveSupport::Concern
 
   included do
+    belongs_to :language
+
     def translates_model_meta
-      # NOTE: Translations only belong to one model, so grab the first one
-      self.class.belongs_to_models.first
+      # Find the first model that includes the Translatable module,
+      # thats the model thats being translated
+      self.class.belongs_to_models.detect do |model_meta|
+        model_meta[:model_klass].ancestors.include?(Translatable)
+      end
     end
 
     def translates_model

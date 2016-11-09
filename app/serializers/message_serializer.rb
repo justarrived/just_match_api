@@ -11,7 +11,7 @@ class MessageSerializer < ApplicationSerializer
   attribute :translated_text do
     {
       body: object.translated_body,
-      langauge_id: object.translated_language_id
+      language_id: object.translated_language_id
     }
   end
 

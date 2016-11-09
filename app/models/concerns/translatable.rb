@@ -10,7 +10,7 @@ module Translatable
     scope :with_translations, -> { includes(:language, :translations) }
 
     def original_translation
-      return if language_id.nil?
+      return if language.nil?
 
       translations.find_by(locale: language.lang_code)
     end
@@ -25,11 +25,13 @@ module Translatable
 
       @translated_fields = attr_names.map(&:to_s)
 
+      # NOTE: The problem with this is that the main/parent record needs to be
+      #       reloaded otherwise the old text will be returned
       define_method(:set_translation) do |t_hash, language_id = self.language_id|
-        # NOTE: The problem with this is that the main/parent record needs to be
-        #       reloaded otherwise the old text will be returned
-        locale = Language.find_by(id: language_id)&.lang_code
-        translation = translations.find_or_initialize_by(locale: locale)
+        # TODO: Refactor and have the "outside" pass language and not language_id
+        language = Language.find_by(id: language_id)
+        translation = translations.find_or_initialize_by(language: language)
+        translation.locale = language&.lang_code
 
         attributes = t_hash.slice(*attribute_names).to_h
 
@@ -50,7 +52,11 @@ module Translatable
 
         # Define convinience methods, i.e #original_name => #name
         define_method(attribute_name) do
-          # Check if the instance variable has been set and if so return it
+          # If the instance variable has been set that means that someone has written
+          # that attribute to the model, in that case return the written attribute
+          # Note that this is a code smell.. the real issue is that the attributes are
+          # set first on the model and not on explicitly on the translation model,
+          # its like this now for model validation reasons
           instance_variable = "@#{attribute_name}"
           if instance_variable_defined?(instance_variable)
             return instance_variable_get(instance_variable)
@@ -58,6 +64,7 @@ module Translatable
           # There can't be any translations unless the record has been persisted
           return unless persisted?
 
+          # Get the attribute from the translation table
           public_send(original_text_method_name)
         end
 
@@ -69,14 +76,14 @@ module Translatable
 
             prioritised_texts = []
             translations.each do |translation|
-              return translation if locale == translation.locale
+              return translation if translation.locale == locale
               return unless fallback
 
               index = locale_fallbacks.index(translation.locale)
               prioritised_texts.insert(index, translation) if index
             end
 
-            # TODO: Consider fallback on original translation if nothing else if found
+            # TODO: Consider fallback on original translation if nothing else is found
             prioritised_texts.detect { |translation| !translation.nil? }
           end
         end
@@ -93,7 +100,7 @@ module Translatable
           translation = find_translation(for_locale: locale, fallback: false)
           return translation.public_send(attribute_name) unless translation.nil?
 
-          # This shouldn't happen! All resources should have an original language!
+          # NOTE: This shouldn't happen! All resources should have an original language!
           context = {
             resource: {
               name: self.class.name,
