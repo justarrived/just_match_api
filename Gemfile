@@ -42,6 +42,7 @@ gem 'skylight', '~> 1.0' # Performance monitoring
 gem 'geocoder', '~> 1.4' # Geocode resources
 
 gem 'activeadmin', '~> 1.0.0.pre4' # Admin interface
+gem 'chosen-rails', '~> 1.5' # Needed for autocomplete select input for activeadmin
 gem 'inherited_resources', git: 'https://github.com/activeadmin/inherited_resources' # activeadmin Rails 5
 gem 'uglifier', '~> 3.0' # Needed for activeadmin assets compilation
 
