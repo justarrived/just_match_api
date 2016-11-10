@@ -26,16 +26,6 @@ module Translatable
       @translated_fields = attr_names.map(&:to_s)
 
       define_method(:set_translation) do |t_hash, language = self.language|
-        # Unset all translatable instance variables when setting translations, otherwise
-        # we risk to return outdated information. This is really a code smell.. and
-        # we shouldn't set instance variables on the model at all, but instead handle
-        # it elesewhere
-        attribute_names.each do |attribute_name|
-          instance_variable = "@#{attribute_name}"
-          next unless instance_variable_defined?(instance_variable)
-          remove_instance_variable(instance_variable)
-        end
-
         attributes = t_hash.slice(*attribute_names).to_h
 
         translation = translations.find_or_initialize_by(language: language)
