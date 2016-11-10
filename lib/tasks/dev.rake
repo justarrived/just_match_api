@@ -69,7 +69,7 @@ namespace :dev do
     end
 
     task users: :environment do
-      languages = Language.all
+      languages = Language.system_languages
       skills = Skill.all
       companies = Company.all
       Dev::UserSeed.call(
@@ -81,7 +81,7 @@ namespace :dev do
     end
 
     task jobs: :environment do
-      languages = Language.all
+      languages = Language.system_languages
       skills = Skill.all
       users = User.company_users
       categories = Category.all
@@ -99,14 +99,15 @@ namespace :dev do
 
     task chats: :environment do
       users = User.all
-      languages = Language.all
+      languages = Language.system_languages
       Dev::ChatSeed.call(users: users, languages: languages)
     end
 
     task job_users: :environment do
       jobs = Job.all
       users = User.regular_users
-      Dev::JobUserSeed.call(jobs: jobs, users: users)
+      languages = Language.system_languages
+      Dev::JobUserSeed.call(jobs: jobs, users: users, languages: languages)
     end
 
     task invoices: :environment do

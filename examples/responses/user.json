@@ -4,15 +4,21 @@
     "type": "users",
     "attributes": {
       "first_name": "Jane",
-      "description": "Watman Watman ",
+      "description": null,
       "job_experience": null,
       "education": null,
-      "language_id": 1,
+      "language_id": null,
       "zip": "223 52",
       "zip_latitude": null,
       "zip_longitude": null,
       "competence_text": null,
       "primary_role": "candidate",
+      "original_text": {
+        "description": null,
+        "job_experience": null,
+        "education": null,
+        "competence_text": null
+      },
       "phone": "+46735000007",
       "street": "Bankgatan 14C",
       "latitude": null,
@@ -43,12 +49,9 @@
         }
       },
       "language": {
-        "data": {
-          "id": "1",
-          "type": "languages"
-        },
+        "data": null,
         "links": {
-          "self": "https://api.justarrived.se/api/v1/languages/1"
+          "self": null
         }
       },
       "user_images": {

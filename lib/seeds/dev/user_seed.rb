@@ -59,7 +59,6 @@ module Dev
         first_name: Faker::Name.first_name,
         last_name: Faker::Name.last_name,
         phone: Faker::PhoneNumber.cell_phone,
-        description: Faker::Hipster.paragraph(2),
         street: address[:street],
         zip: address[:zip],
         language: language,
@@ -71,6 +70,12 @@ module Dev
       # We have to skip all validations since we can't fake a SSN, without
       # accidentally generating a real persons SSN
       user.save(validate: false)
+      user.set_translation(
+        description: Faker::Hipster.paragraph(2),
+        job_experience: Faker::Hipster.paragraph(2),
+        education: Faker::Hipster.paragraph(2),
+        competence_text: Faker::Hipster.paragraph(2)
+      )
       user
     end
   end

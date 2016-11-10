@@ -9,7 +9,7 @@
     "relationships": {
       "language": {
         "data": {
-          "id": "26",
+          "id": "34",
           "type": "languages"
         }
       }

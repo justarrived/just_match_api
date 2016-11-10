@@ -2,12 +2,12 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::Jobs::JobCommentsController, type: :controller do
+  let(:en_language) { Language.find_or_create_by!(lang_code: :en) }
+  let(:comment_body) { 'Something, something darkside..' }
   let(:valid_attributes) do
-    language = FactoryGirl.create(:language)
-    body = 'Something, something darkside..'
     {
       data: {
-        attributes: { language_id: language.to_param, body: body }
+        attributes: { language_id: en_language.to_param, body: comment_body }
       }
     }
   end
@@ -101,21 +101,24 @@ RSpec.describe Api::V1::Jobs::JobCommentsController, type: :controller do
     end
 
     context 'with valid params' do
+      let(:new_comment_body) { 'Something, something else darkside..' }
       let(:new_attributes) do
         {
           data: {
-            attributes: { body: 'Something, something else darkside..' }
+            attributes: { body: new_comment_body }
           }
         }
       end
 
       it 'updates the requested comment' do
         job = FactoryGirl.create(:job)
-        comment = FactoryGirl.create(:comment, owner: user, commentable: job)
+        comment = FactoryGirl.create(
+          :comment, owner: user, commentable: job, language: en_language
+        )
         params = { job_id: job.to_param, id: comment.to_param }.merge(new_attributes)
         put :update, params: params, headers: valid_session
         comment.reload
-        expect(comment.body).to eq('Something, something else darkside..')
+        expect(comment.translated_body).to eq(new_comment_body)
       end
 
       it 'assigns the requested comment as @comment' do

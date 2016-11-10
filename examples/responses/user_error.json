@@ -51,6 +51,13 @@
   {
     "status": 422,
     "source": {
+      "pointer": "/data/attributes/description"
+    },
+    "detail": "can't be blank"
+  },
+  {
+    "status": 422,
+    "source": {
       "pointer": "/data/attributes/password"
     },
     "detail": "is too short (minimum is 6 characters)"

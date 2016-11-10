@@ -15,7 +15,6 @@ RSpec.describe Api::V1::UsersController, type: :controller do
           phone: '123456789',
           description: 'Some user description',
           language_id: lang_id,
-          # language_ids: [lang_id],
           language_ids: [{ id: lang_id, proficiency: lang_proficiency }],
           street: 'Stora Nygatan 36',
           zip: '211 37',

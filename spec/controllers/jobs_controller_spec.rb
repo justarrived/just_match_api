@@ -9,6 +9,7 @@ RSpec.describe Api::V1::JobsController, type: :controller do
           skill_ids: [FactoryGirl.create(:skill).id],
           hours: 2,
           name: 'Some job name',
+          short_description: 'Short description',
           description: 'Some job description',
           language_id: FactoryGirl.create(:language).id,
           hourly_pay_id: FactoryGirl.create(:hourly_pay).id,
@@ -103,14 +104,13 @@ RSpec.describe Api::V1::JobsController, type: :controller do
         end.to change(Job, :count).by(1)
       end
 
-      it 'assigns a newly created job as @job' do
+      it 'works' do
         post :create, params: valid_attributes, headers: valid_session
-        expect(assigns(:job)).to be_a(Job)
-        expect(assigns(:job)).to be_persisted
-      end
+        job = assigns(:job)
 
-      it 'resturns created status' do
-        post :create, params: valid_attributes, headers: valid_session
+        expect(job.translations.length).to eq(1)
+        expect(job).to be_a(Job)
+        expect(job).to be_persisted
         expect(response.status).to eq(201)
       end
     end

@@ -58,7 +58,7 @@ module Api
           param :job_date, String, desc: 'Job start date', required: true
           param :job_end_date, String, desc: 'Job end date', required: true
           param :upcoming, [true, false], desc: 'Upcoming job (default false)'
-          param :language_id, Integer, desc: 'Langauge id of the text content', required: true
+          param :language_id, Integer, desc: 'Language id of the text content', required: true
           param :category_id, Integer, desc: 'Category id', required: true
           param :hourly_pay_id, Integer, desc: 'Hourly pay id', required: true
           param :skill_ids, Array, of: 'Skill IDs', desc: 'List of skill ids', required: true
@@ -70,11 +70,15 @@ module Api
       def create
         authorize(Job)
 
-        @job = Job.new(permitted_attributes)
+        @job = Job.new(job_attributes)
         # NOTE: Not very RESTful to assume current_user
         @job.owner_user_id = current_user.id
 
         if @job.save
+          @job.set_translation(job_attributes).tap do |result|
+            EnqueueCheapTranslation.call(result)
+          end
+
           @job.skills = Skill.where(id: jsonapi_params[:skill_ids])
 
           owner = @job.owner
@@ -105,7 +109,6 @@ module Api
           param :hours, Float, desc: 'Estmiated completion time'
           param :cancelled, [true], desc: 'Cancel the job'
           param :upcoming, [true, false], desc: 'Upcoming job (default false)'
-          param :language_id, Integer, desc: 'Langauge id of the text content'
           param :category_id, Integer, desc: 'Category id'
           param :hourly_pay_id, Integer, desc: 'Hourly pay id'
           param :owner_user_id, Integer, desc: 'User id for the job owner'
@@ -115,7 +118,7 @@ module Api
       def update
         authorize(@job)
 
-        @job.assign_attributes(permitted_attributes)
+        @job.assign_attributes(job_attributes)
         if @job.locked_for_changes?
           message = I18n.t('errors.job.update_not_allowed_when_accepted')
           errors = JsonApiErrors.new
@@ -132,6 +135,12 @@ module Api
         end
 
         if @job.save
+          @job.set_translation(job_attributes).tap do |result|
+            EnqueueCheapTranslation.call(result)
+          end
+
+          @job.reload
+
           notifier_klass.call(job: @job)
 
           api_render(@job)
@@ -162,12 +171,11 @@ module Api
 
       def jobs_index_scope(base_scope)
         if included_resource?(:comments)
-          base_scope = base_scope.includes(comments: [:owner, :language])
+          base_scope = base_scope.includes(comments: [:owner, :language, :translations])
         end
 
         base_scope = base_scope.includes(:hourly_pay) if included_resource?(:hourly_pay)
         base_scope = base_scope.includes(:category) if included_resource?(:category)
-        base_scope = base_scope.includes(:language) if included_resource?(:language)
 
         if included_resource?(:company)
           base_scope = base_scope.includes(company: [:company_images])
@@ -180,7 +188,7 @@ module Api
         base_scope
       end
 
-      def permitted_attributes
+      def job_attributes
         jsonapi_params.permit(job_policy.permitted_attributes)
       end
     end

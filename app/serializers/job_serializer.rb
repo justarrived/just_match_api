@@ -1,15 +1,34 @@
 # frozen_string_literal: true
 class JobSerializer < ApplicationSerializer
-  # Since the #attributes method is overriden and provides a whitelist of attribute_names
-  # that can be returned to the user we can return all Job column names here
   attributes [
-    :id, :description, :job_date, :hours, :name, :created_at, :updated_at, :owner_user_id,
+    :id, :job_date, :hours, :created_at, :updated_at, :owner_user_id,
     :latitude, :longitude, :language_id, :street, :zip, :zip_latitude, :zip_longitude,
     :hidden, :category_id, :hourly_pay_id, :verified, :job_end_date, :cancelled, :filled,
-    :short_description, :featured, :upcoming, :amount, :invoice_amount
+    :featured, :upcoming, :amount, :invoice_amount, :language_id
   ]
 
   link(:self) { api_v1_job_url(object) }
+
+  attribute :name do
+    object.original_name
+  end
+
+  attribute :short_description do
+    object.original_short_description
+  end
+
+  attribute :description do
+    object.original_description
+  end
+
+  attribute :translated_text do
+    {
+      name: object.translated_name,
+      short_description: object.translated_short_description,
+      description: object.translated_description,
+      language_id: object.translated_language_id
+    }
+  end
 
   has_many :job_users do
     # Only disclose job users to the job owner

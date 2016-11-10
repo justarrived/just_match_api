@@ -34,6 +34,7 @@ sv:
     general:
       protocol_missing: Protocol prefix saknas http:// eller https://
       must_be_valid_date: måste vara ett giltigt datum
+      blank_if_field: kan inte lämnas blank om %{field} är satt
     chat:
       number_of_users: en chat måste bestå av minst %{min} och %{max} antal användare
     invoice:

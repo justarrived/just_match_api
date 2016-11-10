@@ -1,8 +1,19 @@
 # frozen_string_literal: true
 class CommentSerializer < ApplicationSerializer
-  ATTRIBUTES = [:body, :created_at, :commentable_id, :commentable_type].freeze
+  ATTRIBUTES = [:created_at, :language_id].freeze
 
   attributes ATTRIBUTES
+
+  attribute :body do
+    object.original_body
+  end
+
+  attribute :translated_text do
+    {
+      body: object.translated_body,
+      language_id: object.translated_language_id
+    }
+  end
 
   has_one :owner
   has_one :language
@@ -15,8 +26,8 @@ end
 #
 #  id               :integer          not null, primary key
 #  body             :text
-#  commentable_id   :integer
 #  commentable_type :string
+#  commentable_id   :integer
 #  owner_user_id    :integer
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null

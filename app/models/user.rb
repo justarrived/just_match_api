@@ -29,7 +29,7 @@ class User < ApplicationRecord
   belongs_to :language
   belongs_to :company, optional: true
 
-  has_many :auth_tokens, class_name: 'Token'
+  has_many :auth_tokens, class_name: 'Token', dependent: :destroy
 
   has_many :user_skills
   has_many :skills, through: :user_skills
@@ -56,7 +56,6 @@ class User < ApplicationRecord
   validates :first_name, length: { minimum: 2 }, allow_blank: false
   validates :last_name, length: { minimum: 2 }, allow_blank: false
   validates :phone, length: { minimum: 9 }, uniqueness: true, allow_blank: false
-  validates :description, length: { minimum: 10 }, allow_blank: true
   validates :street, length: { minimum: 5 }, allow_blank: true
   validates :zip, length: { minimum: 5 }, allow_blank: true
   validates :password, length: { minimum: MIN_PASSWORD_LENGTH }, allow_blank: false, on: :create # rubocop:disable Metrics/LineLength
@@ -88,6 +87,9 @@ class User < ApplicationRecord
   #       see https://github.com/rails/rails/issues/13971
   enum current_status: STATUSES
   enum at_und: AT_UND
+
+  include Translatable
+  translates :description, :job_experience, :education, :competence_text
 
   # Don't change the order or remove any items in the array,
   # only additions are allowed

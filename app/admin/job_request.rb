@@ -17,6 +17,8 @@ ActiveAdmin.register JobRequest do
   filter :finished
 
   index do
+    selectable_column
+
     column :finished
     column :company_name
     column :responsible

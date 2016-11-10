@@ -13,6 +13,7 @@ machine:
     TWILIO_ACCOUNT_SID: XYZ
     TWILIO_AUTH_TOKEN: notsosecret
     TWILIO_NUMBER: '+46735000000'
+    GOOGLE_TRANSLATE_API_KEY: XYZ
 
 test:
   override:

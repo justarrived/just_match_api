@@ -3,10 +3,10 @@
     "id": "1",
     "type": "jobs",
     "attributes": {
-      "description": "Typewriter hashtag ennui brunch post-ironic food truck vinegar.",
+      "description": null,
       "job_date": "2016-02-18 01:01:01 +0100",
       "hours": 30.0,
-      "name": "A job",
+      "name": null,
       "created_at": "2016-02-10 01:01:01 +0100",
       "updated_at": "2016-02-12 01:01:01 +0100",
       "latitude": 59.3158558,
@@ -18,9 +18,14 @@
       "verified": false,
       "job_end_date": "2016-02-20 01:01:01 +0100",
       "filled": false,
-      "short_description": "Watman",
+      "short_description": null,
       "featured": false,
       "upcoming": false,
+      "original_text": {
+        "name": null,
+        "short_description": null,
+        "description": null
+      },
       "amount": 3000.0,
       "invoice_amount": 4200.0
     },
@@ -58,11 +63,11 @@
       },
       "language": {
         "data": {
-          "id": "4",
+          "id": "6",
           "type": "languages"
         },
         "links": {
-          "self": "https://api.justarrived.se/api/v1/languages/4"
+          "self": "https://api.justarrived.se/api/v1/languages/6"
         }
       },
       "category": {

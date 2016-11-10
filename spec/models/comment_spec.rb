@@ -11,8 +11,8 @@ end
 #
 #  id               :integer          not null, primary key
 #  body             :text
-#  commentable_id   :integer
 #  commentable_type :string
+#  commentable_id   :integer
 #  owner_user_id    :integer
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null

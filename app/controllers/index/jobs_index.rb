@@ -14,7 +14,7 @@ module Index
 
         scope = filter_job_user_jobs(scope, filter_params[:'job_user.user_id'])
 
-        prepare_records(scope.includes(*include_scopes))
+        prepare_records(scope.with_translations.includes(*include_scopes))
       end
     end
 

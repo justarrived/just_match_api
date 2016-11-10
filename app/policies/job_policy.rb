@@ -9,13 +9,15 @@ class JobPolicy < ApplicationPolicy
   FULL_ATTRIBUTES = [
     :id, :description, :job_date, :hours, :name, :created_at, :updated_at, :latitude,
     :longitude, :street, :zip, :zip_latitude, :zip_longitude, :verified, :job_end_date,
-    :filled, :short_description, :featured, :upcoming, :amount, :invoice_amount
+    :filled, :short_description, :featured, :upcoming, :translated_text, :amount,
+    :invoice_amount, :language_id
   ].freeze
 
   ATTRIBUTES = [
     :id, :description, :job_date, :hours, :name, :created_at, :updated_at, :zip,
     :zip_latitude, :zip_longitude, :verified, :job_end_date, :filled, :short_description,
-    :featured, :upcoming, :street, :amount, :invoice_amount
+    :featured, :upcoming, :street, :amount, :invoice_amount, :translated_text,
+    :language_id
   ].freeze
 
   OWNER_ATTRIBUTES = [

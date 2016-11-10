@@ -70,4 +70,25 @@ RSpec.describe GoogleCalendarUrl do
       expect(described_class.format_datetime(start_time)).to eq(start_time_iso8601)
     end
   end
+
+  describe '#uri_encode' do
+    let(:text) { 'Hello^' }
+    let(:encoded_text) { 'Hello%5E' }
+    subject(:uri) { described_class.uri_encode(text) }
+
+    context 'when passed string' do
+      it 'returns encoded string' do
+        expect(uri).to eq(encoded_text)
+      end
+    end
+
+    context 'when passed nil' do
+      let(:text) { nil }
+      let(:encoded_text) { '' }
+
+      it 'returns empty string' do
+        expect(uri).to eq(encoded_text)
+      end
+    end
+  end
 end
