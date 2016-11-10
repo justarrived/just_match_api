@@ -121,6 +121,10 @@ GEM
       uniform_notifier (~> 1.10.0)
     byebug (9.0.6)
     chartkick (2.1.1)
+    chosen-rails (1.5.2)
+      coffee-rails (>= 3.2)
+      railties (>= 3.0)
+      sass-rails (>= 3.2)
     climate_control (0.0.3)
       activesupport (>= 3.0)
     cocaine (0.5.8)
@@ -628,6 +632,7 @@ DEPENDENCIES
   blazer (~> 1.7)
   bullet (~> 5.0)
   byebug (~> 9.0)
+  chosen-rails (~> 1.5)
   codeclimate-test-reporter (~> 0.6)
   consistency_fail (~> 0.3)
   countries
