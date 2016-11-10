@@ -83,7 +83,7 @@ module Translatable
             prioritised_texts = []
             translations.each do |translation|
               return translation if translation.locale == locale
-              return unless fallback
+              return nil unless fallback
 
               index = locale_fallbacks.index(translation.locale)
               prioritised_texts.insert(index, translation) if index

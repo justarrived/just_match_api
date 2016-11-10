@@ -2,7 +2,6 @@
 module AdminHelpers
   module MachineTranslation
     module Actions
-
       def self.included(mod)
         mod.instance_eval do
           confirm_msg = I18n.t('admin.machine_translate.confirm_dialog_title')
