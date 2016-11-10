@@ -30,12 +30,12 @@ module MigrateTranslations
     end
   end
 
-  def self.down_model(model_klass, _attributes)
+  def self.down_model(model_klass, attributes)
     # Set model attributes from stored translation
-    # process_each(model_klass, _attributes, :down) do |model, model_attributes|
-    #   model.assign_attributes(model_attributes)
-    #   model.save(validate: false)
-    # end
+    process_each(model_klass, attributes, :down) do |model, model_attributes|
+      model_attributes.each { |name, value| model[name] = value }
+      model.save(validate: false)
+    end
 
     "#{model_klass.name}Translation".constantize.delete_all
   end
