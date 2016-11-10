@@ -4,8 +4,8 @@ require 'seeds/base_seed'
 module Dev
   class ChatSeed < BaseSeed
     def self.call(users:, languages:)
-      max_chats = max_count_opt('MAX_CHATS', 100)
-      max_chat_messages = max_count_opt('MAX_CHAT_MESSAGES', 30)
+      max_chats = max_count_opt('MAX_CHATS', 50)
+      max_chat_messages = max_count_opt('MAX_CHAT_MESSAGES', 10)
 
       log_seed(Chat, Message) do
         max_chats.times do
@@ -17,12 +17,14 @@ module Dev
 
           Random.rand(1..max_chat_messages).times do
             author = [user, other_user].sample
-            Message.create!(
-              body: Faker::Hipster.paragraph(2),
+            body = Faker::Hipster.paragraph(2)
+            message = Message.create!(
+              body: body,
               chat: chat,
               author: author,
               language: language
             )
+            message.set_translation(body: body)
           end
         end
       end
