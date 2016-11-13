@@ -87,7 +87,7 @@ group :development do
   gem 'better_errors', '~> 2.1'
   gem 'annotate', '~> 2.7'
   gem 'web-console', '~> 3.3'
-  gem 'spring', '~> 1.6'
+  gem 'spring', '~> 2.0'
   gem 'spring-commands-rspec', '~> 1.0'
   gem 'i18n-tasks', '~> 0.9.2'
   gem 'i18n_generators', '~> 2.1'
