@@ -71,7 +71,7 @@ gem 'iban-tools', '~> 1.1' # Validate IBAN
 group :development, :test, :docs do
   gem 'byebug', '~> 9.0'
   gem 'rspec-rails', '~> 3.5'
-  gem 'rubocop', '~> 0.35', require: false
+  gem 'rubocop', '~> 0.44', require: false
   gem 'dotenv-rails', '~> 2.1'
   gem 'factory_girl_rails', '~> 4.0'
   gem 'immigrant', '~> 0.3'
@@ -86,7 +86,7 @@ group :development do
   gem 'binding_of_caller', '~> 0.7'
   gem 'better_errors', '~> 2.1'
   gem 'annotate', '~> 2.7'
-  gem 'web-console', '~> 3.0'
+  gem 'web-console', '~> 3.3'
   gem 'spring', '~> 1.6'
   gem 'spring-commands-rspec', '~> 1.0'
   gem 'i18n-tasks', '~> 0.9.2'
