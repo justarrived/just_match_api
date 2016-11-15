@@ -14,10 +14,14 @@ ActiveAdmin.register FrilansFinansApiLog do
   filter :created_at
 
   index do
+    selectable_column
+
     column :id
     column :status
     column :verb
     column :uri
     column :created_at
+
+    actions
   end
 end
