@@ -12,6 +12,7 @@ ActiveAdmin.register FrilansFinansInvoice do
   filter :ff_status
   filter :user
   filter :job
+  filter :express_payment
   filter :frilans_finans_id
   filter :ff_pre_report
   filter :ff_amount
@@ -31,6 +32,6 @@ ActiveAdmin.register FrilansFinansInvoice do
   end
 
   permit_params do
-    [:activated, :job_user_id]
+    [:activated, :job_user_id, :express_payment]
   end
 end
