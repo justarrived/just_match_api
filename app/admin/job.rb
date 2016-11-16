@@ -57,6 +57,25 @@ ActiveAdmin.register Job do
     link_to title, resource.google_calendar_template_url
   end
 
+  member_action :clone, method: :get do
+    base_job = Job.find(params[:id])
+    @job = base_job.dup
+
+    Job.translated_fields.each do |translated_field|
+      text = base_job.public_send(translated_field)
+      @job.public_send("#{translated_field}=", text)
+      # NOTE: We can't use the regular #field= method, since the active admin
+      #  form will access the attribute using the #[] method
+      @job[translated_field] = text
+    end
+
+    render :new, layout: false
+  end
+
+  action_item only: :show do
+    link_to('Clone', clone_admin_job_path(id: job.id))
+  end
+
   permit_params do
     extras = [
       :cancelled, :language_id, :hourly_pay_id, :category_id, :owner_user_id, :hidden
