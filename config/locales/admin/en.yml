@@ -7,3 +7,6 @@ en:
       post_btn: Machine Translate
     job:
       google_calendar_link: Google Calendar
+
+  active_admin:
+    clone_model: "Clone %{model}"
