@@ -23,12 +23,15 @@ end
 #  user_id         :integer
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  language_id     :integer
 #
 # Indexes
 #
-#  index_user_translations_on_user_id  (user_id)
+#  index_user_translations_on_language_id  (language_id)
+#  index_user_translations_on_user_id      (user_id)
 #
 # Foreign Keys
 #
 #  fk_rails_4459d4650d  (user_id => users.id)
+#  fk_rails_c58bd6dc9f  (language_id => languages.id)
 #

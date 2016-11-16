@@ -10,14 +10,16 @@ RSpec.describe CreateFrilansFinansInvoiceService do
     owner = FactoryGirl.create(:user, company: company)
     FactoryGirl.create(:passed_job, owner: owner)
   end
+  let(:user_ff_id) { 11 }
   let(:job_user) { FactoryGirl.create(:job_user_passed_job, job: job, user: user) }
-  let(:user) { FactoryGirl.create(:user, frilans_finans_id: 1) }
+  let(:user) { FactoryGirl.create(:user, frilans_finans_id: user_ff_id) }
   let(:ff_invoice) { job_user.frilans_finans_invoice }
 
   let(:frilans_api_klass) { FrilansFinansApi::Invoice }
-  let(:ff_document_mock) { OpenStruct.new(resource: OpenStruct.new(id: 1)) }
+  let(:ff_document_mock) { OpenStruct.new(resource: OpenStruct.new(id: user_ff_id)) }
   let(:ff_nil_document_mock) { OpenStruct.new(resource: OpenStruct.new(id: nil)) }
   let(:invoice_request_body) { /^\{"invoice":*/ }
+  let(:express_payment) { false }
 
   subject do
     isolate_frilans_finans_client(FrilansFinansApi::Client) do
@@ -27,10 +29,11 @@ RSpec.describe CreateFrilansFinansInvoiceService do
         'Content-Type' => 'application/json'
       }
 
+      invoice_body = "{ \"data\": { \"id\": \"#{user_ff_id}\" } }"
       stub_request(:post, "#{base_uri}/invoices").
         with(body: invoice_request_body,
              headers: headers).
-        to_return(status: 200, body: '{ "data": { "id": "1" } }', headers: {})
+        to_return(status: 200, body: invoice_body, headers: {})
 
       stub_request(:get, "#{base_uri}/taxes?filter%5Bstandard%5D=1&page=1").
         with(headers: headers).
@@ -43,11 +46,11 @@ RSpec.describe CreateFrilansFinansInvoiceService do
         }
       }
 
-      stub_request(:patch, "#{base_uri}/users/1").
+      stub_request(:patch, "#{base_uri}/users/#{user_ff_id}").
         with(headers: headers, body: /^\{"profession_title":"Category /).
         to_return(status: 200, body: JSON.dump(ff_user_body), headers: {})
 
-      described_class.create(ff_invoice: ff_invoice)
+      described_class.create(ff_invoice: ff_invoice, express_payment: express_payment)
     end
   end
 
@@ -56,6 +59,7 @@ RSpec.describe CreateFrilansFinansInvoiceService do
   end
 
   context 'no company frilans finans id' do
+    let(:user_ff_id) { 3 }
     let(:company) { FactoryGirl.create(:company, frilans_finans_id: nil) }
 
     it 'calls missing company frilans finans id notifier' do
@@ -66,8 +70,22 @@ RSpec.describe CreateFrilansFinansInvoiceService do
   end
 
   context 'Frilans Finans' do
+    let(:user_ff_id) { 33 }
+
     it 'creates with a Frilans Finans id' do
-      expect(subject.frilans_finans_id).to eq(1)
+      expect(subject.frilans_finans_id).to eq(33)
+    end
+
+    it 'creates with express_payment value' do
+      expect(subject.express_payment).to eq(false)
+    end
+
+    context 'with express_payment true' do
+      let(:express_payment) { true }
+
+      it 'creates with express_payment value true' do
+        expect(subject.express_payment).to eq(true)
+      end
     end
 
     it 'calls Frilans Finans API' do
@@ -78,13 +96,15 @@ RSpec.describe CreateFrilansFinansInvoiceService do
   end
 
   context 'invalid Frilans Finans API response' do
+    let(:user_ff_id) { 4 }
+
     let(:job) do
-      company = FactoryGirl.create(:company, frilans_finans_id: 1)
+      company = FactoryGirl.create(:company, frilans_finans_id: 2)
       owner = FactoryGirl.create(:user, company: company)
       FactoryGirl.create(:passed_job, owner: owner)
     end
 
-    let(:user) { FactoryGirl.create(:user, frilans_finans_id: 2) }
+    let(:user) { FactoryGirl.create(:user, frilans_finans_id: 2222) }
 
     subject do
       isolate_frilans_finans_client(FrilansFinansApi::NilClient) do
