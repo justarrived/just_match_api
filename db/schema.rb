@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161109102811) do
+ActiveRecord::Schema.define(version: 20161116151348) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -199,6 +199,7 @@ ActiveRecord::Schema.define(version: 20161109102811) do
     t.integer  "ff_approval_status"
     t.integer  "ff_status"
     t.datetime "ff_sent_at"
+    t.boolean  "express_payment",    default: false
     t.index ["job_user_id"], name: "index_frilans_finans_invoices_on_job_user_id", using: :btree
   end
 
@@ -223,7 +224,6 @@ ActiveRecord::Schema.define(version: 20161109102811) do
     t.datetime "updated_at",                null: false
     t.integer  "frilans_finans_invoice_id"
     t.index ["frilans_finans_invoice_id"], name: "index_invoices_on_frilans_finans_invoice_id", using: :btree
-    t.index ["job_user_id"], name: "index_invoices_on_job_user_id", using: :btree
     t.index ["job_user_id"], name: "index_invoices_on_job_user_id_uniq", unique: true, using: :btree
   end
 

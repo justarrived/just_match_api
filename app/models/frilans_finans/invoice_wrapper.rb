@@ -1,10 +1,17 @@
 # frozen_string_literal: true
 module FrilansFinans
   module InvoiceWrapper
-    def self.attributes(job:, user:, tax:, ff_user:, pre_report:)
+    def self.attributes(job:, user:, tax:, ff_user:, pre_report:, express_payment:)
+      invoice_users_data = invoice_users(
+        job: job,
+        user: user,
+        ff_user: ff_user,
+        express_payment: express_payment
+      )
+
       {
         invoice: {
-          invoiceuser: invoice_users(job: job, user: user, ff_user: ff_user),
+          invoiceuser: invoice_users_data,
           invoicedate: invoice_dates(job: job)
         }.merge!(invoice_data(job: job, user: user, tax: tax, pre_report: pre_report))
       }
@@ -22,7 +29,7 @@ module FrilansFinans
       }
     end
 
-    def self.invoice_users(job:, user:, ff_user:)
+    def self.invoice_users(job:, user:, ff_user:, express_payment: false)
       ff_user_attributes = ff_user.resource.attributes
 
       if ff_user.resource.attributes
@@ -42,7 +49,7 @@ module FrilansFinans
         travel: 0,
         save_vacation_pay: 0,
         save_itp: 0,
-        express_payment: 0
+        express_payment: express_payment ? 1 : 0
       }]
     end
 

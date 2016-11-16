@@ -20,6 +20,7 @@ end
 #  ff_approval_status :integer
 #  ff_status          :integer
 #  ff_sent_at         :datetime
+#  express_payment    :boolean          default(FALSE)
 #
 # Indexes
 #
