@@ -61,7 +61,7 @@ gem 'fast_blank', '~> 1.0' # Re-implements #blank? in C
 gem 'rails-i18n', '~> 5.0' # Rails translations
 gem 'i18n_data', '~> 0.7' # Language and country names in various languages
 
-gem 'google-cloud-translate', '~> 0.21' # Translate with Google Translate API
+gem 'google-cloud-translate', '~> 0.22' # Translate with Google Translate API
 
 gem 'honey_format', '~> 0.2' # Simple CSV reading
 gem 'personnummer', '~> 0.0.9' # Swedish "personummer" or "samordningsnummer"
