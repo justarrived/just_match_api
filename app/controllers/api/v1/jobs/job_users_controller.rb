@@ -24,6 +24,12 @@ module Api
                 * It has be be done before `will-perform-confirmation-by` (date-time), if not `accepted` will be set to false automatically.
             4. The user verifies the that the job has been performed with `POST /jobs/:id/users/:job_user_id/performed`
             5. The owner then creates an invoice to pay the user with `POST /jobs/:id/users/:job_user_id/invoices`
+
+            __States__
+
+            * If `accepted` is true then the company has offered job to the user
+            * If `accepted` and `will_perform` is true then the job is confirmed from both parties
+            * If `performed` is true then the user has confirmed that the job has been performed and that they expect to be paid
           "
           # rubocop:enable Metrics/LineLength
           formats [:json]
