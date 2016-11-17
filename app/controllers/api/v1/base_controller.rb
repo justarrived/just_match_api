@@ -39,13 +39,16 @@ module Api
 
           ### Example job scenario
 
-          Step | Request |
-          ----------------------------------------------------------------------------------|:---------------------------------------------|
-          1. User (owner) creates job                                                       | `POST /jobs/`                             |
-          2. Another user can apply to a job by creating a job user                         | `POST /jobs/:job_id/users/`               |
-          3. Owner can accept a user by updating job user `accepted`                        | `PATCH /jobs/:job_id/users/:job_user_id/` |
-          4. User confirms that they will perform a job by updating job user `will-perform` | `PATCH /jobs/:job_id/users/:job_user_id/` |
-          5. Owner creates invoice                                                          | `POST /jobs/:job_id/invoices`             |
+          Action | Request |
+          ------------------------------------------------------------------------------------------|:-------------------------------------------------------------|
+          1. Owner creates job                                                                      | `POST /api/v1/jobs/`                                         |
+          2. User can apply to a job by creating a job user                                         | `POST /api/v1/jobs/:job_id/users/`                           |
+          3. Owner can accept a user                                                                | `POST /api/v1/jobs/:job_id/users/:job_user_id/acceptances`   |
+          4. User confirms that they will perform                                                   | `POST /api/v1/jobs/:job_id/users/:job_user_id/confirmations` |
+          5. Check if user has added bank account details (frilans_finans_payment_details: `true`)  | `GET  /api/v1/users/:id`                                      |
+          5.1 If `false` then add bank account details                                              | `POST /api/v1/users/:user_id/frilans-finans`
+          6. Owner creates invoice                                                                  | `POST /api/v1/jobs/:job_id/users/:job_user_id/invoices`      |
+          7. (optional) User confirms that they've performed the job                                | `POST /api/v1/jobs/:job_id/users/:job_user_id/performed`     |
 
           ---
 
