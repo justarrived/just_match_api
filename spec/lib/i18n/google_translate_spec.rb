@@ -5,12 +5,16 @@ require 'i18n/google_translate'
 RSpec.describe GoogleTranslate do
   let(:text) { 'Hello' }
   let(:translated_text) { 'Hej' }
-  let(:google_translation_result_mock) { Struct.new(:text).new(translated_text) }
+  let(:google_translate_mock) do
+    Class.new(Struct.new(:key)) do
+      def self.translate(*args)
+        Struct.new(:text).new('Hej')
+      end
+    end
+  end
 
   subject do
-    allow_any_instance_of(Google::Cloud::Translate::Api).to(
-      receive(:translate).and_return(google_translation_result_mock)
-    )
+    allow(Google::Cloud::Translate).to receive(:new).and_return(google_translate_mock)
     described_class
   end
 
