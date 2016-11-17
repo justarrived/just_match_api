@@ -10,3 +10,7 @@ en:
 
   active_admin:
     clone_model: "Clone %{model}"
+    ff_remote_sync:
+      msg_multiple: Synced successfully.
+      msg: Synced successfully.
+      post_btn: Sync with Frilans Finans
