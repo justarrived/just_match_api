@@ -13,6 +13,7 @@ class SyncFrilansFinansInvoiceService
     frilans_finans_invoice.ff_gross_salary = ff_invoice['gross']
     frilans_finans_invoice.ff_net_salary = ff_invoice['net']
     frilans_finans_invoice.ff_sent_at = ff_invoice['sent']
+    frilans_finans_invoice.ff_last_synced_at = Time.zone.now
     frilans_finans_invoice.save!
   end
 end
