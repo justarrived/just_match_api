@@ -61,4 +61,29 @@ ActiveAdmin.register FrilansFinansInvoice do
   permit_params do
     [:activated, :job_user_id, :express_payment]
   end
+
+  csv do
+    column :id
+    column :activated
+
+    column(:job) { |ff_invoice| ff_invoice.job.report_name }
+    column(:user) { |ff_invoice| ff_invoice.user.name }
+
+    column(:invoice_amount) { |ff_invoice| ff_invoice.job.invoice_amount }
+
+    column :frilans_finans_id
+    column :ff_pre_report
+    column :ff_amount
+    column :ff_gross_salary
+    column :ff_net_salary
+    column :ff_payment_status
+    column :ff_approval_status
+    column :ff_status
+    column :ff_sent_at
+    column :express_payment
+
+    column :created_at
+    column :updated_at
+    column :job_user_id
+  end
 end
