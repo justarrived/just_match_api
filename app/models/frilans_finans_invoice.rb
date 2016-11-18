@@ -64,6 +64,7 @@ end
 #  ff_status          :integer
 #  ff_sent_at         :datetime
 #  express_payment    :boolean          default(FALSE)
+#  ff_last_synced_at  :datetime
 #
 # Indexes
 #
