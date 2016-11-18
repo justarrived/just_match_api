@@ -26,7 +26,7 @@ gem 'airbrake', '~> 5.6' # Error catcher and reporter
 gem 'twilio-ruby', '~> 4.11' # Send SMS notifications
 
 gem 'global_phone', '~> 1.0' # Format cell phone numbers
-gem 'countries', require: 'countries/global' # Country data in various locales
+gem 'countries', '~> 2.0', require: 'countries/global' # Country data in various locales
 
 gem 'apipie-rails', '~> 0.3' # Easy API documentation
 gem 'maruku', '~> 0.7' # Needed for apipie-rails markdown support
