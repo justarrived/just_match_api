@@ -93,6 +93,10 @@ class Job < ApplicationRecord
     full_street_address # From the Geocodable module
   end
 
+  def report_name
+    "#{name} (##{id})"
+  end
+
   def invoice_specification
     <<-JOB_SPECIFICATION
 #{name} (ID: ##{id}) - #{category.name}
