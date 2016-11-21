@@ -96,18 +96,8 @@ module Translatable
         define_method(original_text_method_name) do
           locale = language&.lang_code
           translation = find_translation(for_locale: locale, fallback: false)
-          return translation.public_send(attribute_name) unless translation.nil?
 
-          # NOTE: This shouldn't happen! All resources should have an original language!
-          context = {
-            resource: {
-              name: self.class.name,
-              id: id,
-              language_id: language_id
-            }
-          }
-          ErrorNotifier.send('Resource is missing original language!', context: context)
-          nil
+          translation&.public_send(attribute_name)
         end
       end
     end
