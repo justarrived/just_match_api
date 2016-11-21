@@ -35,7 +35,7 @@ gem 'kaminari', '~> 0.17' # Easy pagination
 
 gem 'bcrypt', '~> 3.1.7', require: true # Encrypt passwords
 
-gem 'puma', '~> 3.4' # App server
+gem 'puma', '~> 3.6' # App server
 
 gem 'skylight', '~> 1.0' # Performance monitoring
 
