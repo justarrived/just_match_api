@@ -10,6 +10,7 @@ require 'frilans_finans_api/models/company'
 require 'frilans_finans_api/models/currency'
 require 'frilans_finans_api/models/invoice'
 require 'frilans_finans_api/models/profession'
+require 'frilans_finans_api/models/salary'
 require 'frilans_finans_api/models/tax'
 require 'frilans_finans_api/models/user'
 
