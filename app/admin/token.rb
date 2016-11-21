@@ -10,4 +10,8 @@ ActiveAdmin.register Token do
 
     actions
   end
+
+  permit_params do
+    [:user_id]
+  end
 end
