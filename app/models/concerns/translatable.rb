@@ -68,7 +68,8 @@ module Translatable
           locale = for_locale.to_s
           @_translation_for ||= {}
           @_translation_for[locale] ||= begin
-            locale_fallbacks = I18N_FALLBACKS[locale]
+            # Return empty list on locale with no fallbacks
+            locale_fallbacks = I18nFallback.get(locale)
 
             prioritised_texts = []
             translations.each do |translation|

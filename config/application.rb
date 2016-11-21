@@ -12,17 +12,7 @@ require 'action_view/railtie' # Needed for Rails mailers
 # require 'sprockets/railtie'
 # require "rails/test_unit/railtie"
 
-# Custom fallback rules
-I18N_FALLBACKS = {
-  'fa_AF' => %w(fa en),
-  'ps' => %w(fa_AF fa en),
-  'fa' => %w(en),
-  'ti' => %w(en),
-  'en' => %w(sv),
-  'sv' => %w(en),
-  'ku' => %w(en),
-  'ar' => %w(en)
-}.freeze
+require_relative 'i18n_fallback'
 
 Bundler.require(*Rails.groups)
 
@@ -40,7 +30,7 @@ module JustMatch
     # fa_AF - Dari / Persian (Afghanistan) [partial Rails translation locally]
     # ps    - Pashto [partial Rails translation locally]
     config.i18n.available_locales = [:en, :sv, :ar, :fa, :ku, :ti, :fa_AF, :ps]
-    config.i18n.fallbacks = I18N_FALLBACKS
+    config.i18n.fallbacks = I18nFallback.to_h
     config.i18n.load_path += Dir[
       Rails.root.join('config', 'locales', '**', '*.{rb,yml}')
     ]
