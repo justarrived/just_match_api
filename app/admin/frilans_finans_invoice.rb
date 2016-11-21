@@ -35,7 +35,7 @@ ActiveAdmin.register FrilansFinansInvoice do
     ff_invoice = resource
     SyncFrilansFinansInvoiceService.call(frilans_finans_invoice: ff_invoice)
     message = I18n.t('admin.ff_remote_sync.msg')
-    redirect_to(collection_path, notice: message)
+    redirect_to(resource_path(resource), notice: message)
   end
 
   action_item :view, only: :show, if: proc { resource.frilans_finans_id } do

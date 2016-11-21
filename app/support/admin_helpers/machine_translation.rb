@@ -17,7 +17,7 @@ module AdminHelpers
           member_action :machine_translate, method: :post do
             MachineTranslationsJob.perform_later(resource.original_translation)
             message = I18n.t('admin.machine_translate.queued_msg')
-            redirect_to(collection_path, notice: message)
+            redirect_to(resource_path(resource), notice: message)
           end
 
           action_item :view, only: :show, if: proc { resource.original_translation } do
