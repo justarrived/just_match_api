@@ -20,6 +20,10 @@ module FrilansFinansApi
       mock_response(read(:professions))
     end
 
+    def salaries(**_args)
+      mock_response(read(:salaries))
+    end
+
     def taxes(**_args)
       mock_response(read(:taxes))
     end
