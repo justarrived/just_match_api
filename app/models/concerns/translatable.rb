@@ -64,16 +64,16 @@ module Translatable
           public_send(original_text_method_name)
         end
 
-        define_method(:find_translation) do |for_locale: I18n.locale, fallback: true|
-          locale = for_locale.to_s
+        define_method(:find_translation) do |locale: I18n.locale, fallback: true|
+          for_locale = locale.to_s
           @_translation_for ||= {}
-          @_translation_for[locale] ||= begin
+          @_translation_for[for_locale] ||= begin
             # Return empty list on locale with no fallbacks
-            locale_fallbacks = I18nFallback.get(locale)
+            locale_fallbacks = I18nFallback.get(for_locale)
 
             prioritised_texts = []
             translations.each do |translation|
-              return translation if translation.locale == locale
+              return translation if translation.locale == for_locale
 
               index = locale_fallbacks.index(translation.locale)
               prioritised_texts.insert(index, translation) if index
@@ -95,7 +95,7 @@ module Translatable
 
         define_method(original_text_method_name) do
           locale = language&.lang_code
-          translation = find_translation(for_locale: locale, fallback: false)
+          translation = find_translation(locale: locale, fallback: false)
 
           translation&.public_send(attribute_name)
         end
