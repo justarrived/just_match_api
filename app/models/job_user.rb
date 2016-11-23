@@ -46,6 +46,10 @@ class JobUser < ApplicationRecord
       map(&:job)
   end
 
+  def name
+    "JobUser ##{id}"
+  end
+
   def applicant_confirmation_overdue?
     return false if accepted_at.nil? || will_perform
 
