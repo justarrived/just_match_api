@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 class TermsAgreement < ApplicationRecord
+  MAX_DAYS_AGE_AS_ORPHAN = 2
+
   belongs_to :frilans_finans_term
 
   validates :frilans_finans_term, presence: true
@@ -13,6 +15,13 @@ class TermsAgreement < ApplicationRecord
   }
   scope :company_users, lambda {
     joins(:frilans_finans_term).where('frilans_finans_terms.company = ?',  true)
+  }
+  scope :orphans, lambda {
+    ids = TermsAgreementConsent.pluck(:terms_agreement_id)
+    where.not(id: ids)
+  }
+  scope :over_aged_orphans, lambda {
+    orphans.where('created_at < ?', MAX_DAYS_AGE_AS_ORPHAN.days.ago)
   }
 
   def validate_url_with_protocol
