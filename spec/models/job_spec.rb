@@ -59,6 +59,7 @@ RSpec.describe Job, type: :model do
         job.hourly_pay.invoice_rate,
         job.hourly_pay.gross_salary,
         job.company.name,
+        job.company.cin,
         job.company.billing_email,
         job.company.address
       ].map(&:to_s).each do |expected_part|

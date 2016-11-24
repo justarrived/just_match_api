@@ -109,6 +109,7 @@ Gross salary: #{hourly_pay.gross_salary} SEK/h
 
 COMPANY
 #{company.name} (ID: ##{company.id})
+CIN (Org. No.): #{company.cin}
 Billing email: #{company.billing_email}
 Address: #{company.address}
     JOB_SPECIFICATION
