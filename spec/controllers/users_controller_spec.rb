@@ -454,6 +454,8 @@ end
 #  arrived_at                     :date
 #  country_of_origin              :string
 #  managed                        :boolean          default(FALSE)
+#  account_clearing_number        :string
+#  account_number                 :string
 #
 # Indexes
 #

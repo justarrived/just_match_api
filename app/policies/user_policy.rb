@@ -23,7 +23,7 @@ class UserPolicy < ApplicationPolicy
   SELF_ATTRIBUTES = (ATTRIBUTES + ACCEPTED_APPLICANT_ATTRIBUTES + [
     :created_at, :updated_at, :admin, :anonymized, :ignored_notifications,
     :frilans_finans_payment_details, :ssn, :current_status, :at_und, :arrived_at,
-    :country_of_origin, :auth_token
+    :country_of_origin, :auth_token, :account_clearing_number, :account_number
   ]).freeze
 
   attr_reader :accepted_applicant

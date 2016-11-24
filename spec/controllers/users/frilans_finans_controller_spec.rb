@@ -55,6 +55,12 @@ RSpec.describe Api::V1::Users::FrilansFinansController, type: :controller do
         expect(assigns(:user).frilans_finans_payment_details).to eq(true)
       end
 
+      it 'sets User#account_clearing_number and User#account_number' do
+        post :create, params: valid_params, headers: valid_session
+        expect(assigns(:user).account_clearing_number).to eq('account_clearing_number')
+        expect(assigns(:user).account_number).to eq('account_number')
+      end
+
       context 'frilans_finans_id already set' do
         before(:each) do
           stub_frilans_finans_auth_request
