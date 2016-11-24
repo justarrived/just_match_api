@@ -7,7 +7,7 @@ module Api
 
         after_action :verify_authorized, except: %i(index)
 
-        ALLOWED_INCLUDES = %w(owner company language category hourly_pay job_users).freeze
+        ALLOWED_INCLUDES = %w(owner company language category hourly_pay job_users job_users.user job_users.user.user_images).freeze # rubocop:disable Metrics/LineLength
 
         api :GET, '/users/:user_id/owned-jobs', 'Shows all jobs that the user owns'
         description 'Returns the all the jobs a user owns if the user is allowed.'
