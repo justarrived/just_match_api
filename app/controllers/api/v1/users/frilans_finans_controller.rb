@@ -59,8 +59,14 @@ module Api
             FrilansFinansApi::User.update(id: id, attributes: ff_user_params)
           end
 
-          @user.frilans_finans_payment_details = true
-          @user.save!
+          @user.tap do |user|
+            user.account_clearing_number = jsonapi_params[:account_clearing_number]
+            user.account_number = jsonapi_params[:account_number]
+
+            user.frilans_finans_payment_details = true
+            user.save!
+          end
+
           render json: {}, status: :ok
         end
 
