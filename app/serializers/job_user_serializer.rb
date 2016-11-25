@@ -20,6 +20,10 @@ class JobUserSerializer < ApplicationSerializer
     }
   end
 
+  attribute :rating_average do
+    object.rating_average if object.respond_to?(:rating_average)
+  end
+
   belongs_to :user
   belongs_to :job
 

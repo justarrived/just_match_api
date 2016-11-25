@@ -7,7 +7,7 @@ module Api
 
         after_action :verify_authorized, except: %i(index)
 
-        ALLOWED_INCLUDES = %w(job user user user.user_images).freeze
+        ALLOWED_INCLUDES = %w(job user user.user_images).freeze
 
         api :GET, '/users/:user_id/jobs', 'Shows all job the user has applied to.'
         # rubocop:disable Metrics/LineLength
@@ -16,7 +16,7 @@ module Api
         error code: 401, desc: 'Unauthorized'
         error code: 404, desc: 'Not found'
         ApipieDocHelper.params(self, Index::JobUsersIndex)
-        example Doxxer.read_example(JobUser, plural: true)
+        example Doxxer.read_example(JobUser, plural: true, meta: { average_score: 4.3 })
         def index
           authorize_index(@user)
 
@@ -25,7 +25,8 @@ module Api
           job_users_index = Index::JobUsersIndex.new(self)
           @job_users = job_users_index.job_users(job_user_scope)
 
-          api_render(@job_users, total: job_users_index.count)
+          meta = { average_score: @user.average_score }
+          api_render(@job_users, total: job_users_index.count, meta: meta)
         end
 
         private

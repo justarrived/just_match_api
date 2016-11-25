@@ -93,6 +93,11 @@ class Job < ApplicationRecord
     full_street_address # From the Geocodable module
   end
 
+  # ActiveAdmin display name
+  def display_name
+    "#{name} ##{id}"
+  end
+
   def report_name
     "#{name} (##{id})"
   end
