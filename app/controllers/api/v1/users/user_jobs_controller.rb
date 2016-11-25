@@ -16,7 +16,7 @@ module Api
         error code: 401, desc: 'Unauthorized'
         error code: 404, desc: 'Not found'
         ApipieDocHelper.params(self, Index::JobUsersIndex)
-        example Doxxer.read_example(JobUser, plural: true, meta: { average_score: 4.3 })
+        example Doxxer.read_example(JobUser, plural: true)
         def index
           authorize_index(@user)
 
@@ -48,7 +48,7 @@ module Api
             scope = scope.includes(user: [:user_images, :chats])
           end
 
-          scope
+          scope.joins(user: [:received_ratings])
         end
 
         def authorize_index(user)
