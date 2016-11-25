@@ -31,7 +31,12 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
-  config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+  # NOTE: This causes `fsevent: running worker failed: Resource temporarily unavailable`,
+  # see https://github.com/phusion/passenger/issues/1879
+  # Detect changes using an evented update checker
+  # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+  # Detect changes by polling the change of the file
+  config.file_watcher = ActiveSupport::FileUpdateChecker
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log

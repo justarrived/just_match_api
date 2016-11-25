@@ -44,11 +44,15 @@ module Api
       description 'Returns user is allowed to.'
       error code: 404, desc: 'Not found'
       ApipieDocHelper.params(self)
-      example Doxxer.read_example(User)
+      example Doxxer.read_example(User, meta: { average_score: 4.3, total_ratings_count: 5 }) # rubocop:disable Metrics/LineLength
       def show
         authorize(@user)
 
-        api_render(@user)
+        meta = {
+          average_score: @user.average_score,
+          total_ratings_count: @user.received_ratings_count
+        }
+        api_render(@user, meta: meta)
       end
 
       api :POST, '/users/', 'Create new user'

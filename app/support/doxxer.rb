@@ -16,6 +16,8 @@ class Doxxer
 
     unless meta.empty?
       model_json = JSON.parse(model_json_string)
+      model_json['meta'] ||= {}
+
       meta_json = model_json['meta'].merge(meta)
       model_json['meta'] = meta_json
       model_json_string = JSON.pretty_generate(model_json)
