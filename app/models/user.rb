@@ -192,12 +192,11 @@ class User < ApplicationRecord
   end
 
   def average_score
-    self.class.select('users.id, AVG(ratings.score) AS avg_score')
-      .where(id: id)
-      .joins(:received_ratings)
-      .group('users.id')
-      .first
-      &.avg_score
+    received_ratings.average(:score)
+  end
+
+  def received_ratings_count
+    received_ratings.count
   end
 
   # ActiveAdmin display name

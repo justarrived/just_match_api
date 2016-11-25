@@ -25,8 +25,7 @@ module Api
           job_users_index = Index::JobUsersIndex.new(self)
           @job_users = job_users_index.job_users(job_user_scope)
 
-          meta = { average_score: @user.average_score }
-          api_render(@job_users, total: job_users_index.count, meta: meta)
+          api_render(@job_users, total: job_users_index.count)
         end
 
         private
