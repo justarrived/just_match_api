@@ -197,7 +197,7 @@ class User < ApplicationRecord
       .joins(:received_ratings)
       .group('users.id')
       .first
-      .avg_score
+      &.avg_score
   end
 
   # ActiveAdmin display name
