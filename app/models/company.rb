@@ -25,17 +25,19 @@ class Company < ApplicationRecord
       joins(:users).where('users.frilans_finans_id IS NOT NULL')
   }
 
-  def self.build_anonymous
-    new(
-      id: 0,
+  def anonymize
+    assign_attributes(
+      id: -1,
       name: 'Anonymous',
       cin: 'XYZXYZXYZX',
       email: 'anonymous@example.com',
       billing_email: 'anonymous@example.com',
+      website: 'https://example.com',
       street: 'XYZXYZ XX',
       zip: 'XYZX YZ',
       city: 'XYZXYZ'
     )
+    self
   end
 
   def address

@@ -47,28 +47,32 @@ class JobSerializer < ApplicationSerializer
   end
 
   has_one :owner do
+    owner_object = if object.upcoming
+                     object.owner.anonymize
+                   else
+                     object.owner
+                   end
+
     link(:self) do
-      api_v1_user_url(object.owner_user_id) if object.owner_user_id && !object.upcoming
+      api_v1_user_url(owner_object) if owner_object
     end
 
-    if object.upcoming
-      User.build_anonymous(role: :owner)
-    else
-      object.owner
-    end
+    owner_object
   end
 
   has_one :company do
     # Anonymize the company if the job is upcoming
+    company_object = if object.upcoming
+                       object.company.anonymize
+                     else
+                       object.company
+                     end
+
     link(:self) do
-      api_v1_company_url(object.company) if object.company && !object.upcoming
+      api_v1_company_url(company_object) if company_object
     end
 
-    if object.upcoming
-      Company.build_anonymous
-    else
-      object.company
-    end
+    company_object
   end
 
   has_one :language do

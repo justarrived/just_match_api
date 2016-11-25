@@ -176,9 +176,9 @@ class User < ApplicationRecord
     jobs.any?
   end
 
-  def self.build_anonymous(role:)
-    new(
-      id: 0,
+  def anonymize
+    assign_attributes(
+      id: -1,
       anonymized: true,
       first_name: 'Anonymous',
       last_name: 'User',
@@ -187,8 +187,9 @@ class User < ApplicationRecord
       street: 'XYZXYZ XX',
       zip: 'XYZX YZ',
       ssn: 'XYZXYZXYZX',
-      company: role == :candidate ? nil : Company.build_anonymous
+      company: primary_role == :candidate ? nil : company.anonymize
     )
+    self
   end
 
   def average_score
