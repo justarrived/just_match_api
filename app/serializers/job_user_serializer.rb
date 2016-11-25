@@ -23,9 +23,9 @@ class JobUserSerializer < ApplicationSerializer
   attribute :rating_score do
     # Don't bother looking for a rating unless the user will perform the job
     if object.will_perform
-      object.user
-        .received_ratings
-        .detect { |rating| rating.job == object.job }
+      object.user.
+        received_ratings.
+        detect { |rating| rating.job == object.job }
         &.score
     end
   end

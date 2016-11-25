@@ -48,7 +48,7 @@ module Api
             scope = scope.includes(user: [:user_images, :chats])
           end
 
-          scope.joins(user: [:received_ratings])
+          scope.left_outer_joins(user: [:received_ratings])
         end
 
         def authorize_index(user)

@@ -195,9 +195,7 @@ class User < ApplicationRecord
     received_ratings.average(:score)
   end
 
-  def received_ratings_count
-    received_ratings.count
-  end
+  delegate :count, to: :received_ratings, prefix: true
 
   # ActiveAdmin display name
   def display_name
