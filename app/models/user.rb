@@ -51,6 +51,9 @@ class User < ApplicationRecord
 
   has_many :user_images
 
+  has_many :given_ratings, class_name: 'Rating', foreign_key: 'from_user_id'
+  has_many :received_ratings, class_name: 'Rating', foreign_key: 'to_user_id'
+
   validates :language, presence: true
   validates :email, presence: true, uniqueness: true
   validates :first_name, length: { minimum: 2 }, allow_blank: false
@@ -186,6 +189,20 @@ class User < ApplicationRecord
       ssn: 'XYZXYZXYZX',
       company: role == :candidate ? nil : Company.build_anonymous
     )
+  end
+
+  def average_score
+    self.class.select('users.id, AVG(ratings.score) AS avg_score')
+      .where(id: id)
+      .joins(:received_ratings)
+      .group('users.id')
+      .first
+      &.avg_score
+  end
+
+  # ActiveAdmin display name
+  def display_name
+    "#{name} ##{id}"
   end
 
   def not_persisted?
