@@ -262,14 +262,26 @@ module Api
         end
       end
 
+      def act_as_user_header
+        request.headers['X-API-ACT-AS-USER']
+      end
+
       private
 
       def authenticate_user_token!
         authenticate_with_http_token do |auth_token, _options|
+
           token = Token.includes(:user).find_by(token: auth_token)
           return if token.nil?
           return raise ExpiredTokenError if token.expired?
-          return login_user(token.user)
+
+          user = token.user
+
+          if user.admin? && !act_as_user_header.blank?
+            user = User.find(act_as_user_header)
+          end
+
+          return login_user(user)
         end
       end
     end
