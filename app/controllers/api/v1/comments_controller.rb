@@ -16,7 +16,9 @@ module Api
         formats [:json]
       end
 
-      ALLOWED_INCLUDES = %w(language owner owner.user_images).freeze
+      ALLOWED_INCLUDES = %w(
+        language owner owner.user_images owner.company owner.company.company_images
+      ).freeze
 
       api :GET, '/:resource_name/:resource_id/comments', 'List comments'
       description 'Returns a list of comments.'
@@ -25,7 +27,8 @@ module Api
       example Doxxer.read_example(Comment, plural: true)
       def index
         comments_index = Index::CommentsIndex.new(self)
-        @comments = comments_index.comments(@commentable.comments)
+        base_comments = @commentable.comments.includes(:translations, :language)
+        @comments = comments_index.comments(base_comments)
 
         api_render(@comments, total: comments_index.count)
       end
@@ -61,6 +64,10 @@ module Api
         @comment.owner_user_id = current_user.id
 
         if @comment.save
+          @comment.set_translation(comment_params).tap do |result|
+            EnqueueCheapTranslation.call(result)
+          end
+
           api_render(@comment, status: :created)
         else
           api_render_errors(@comment)
@@ -74,7 +81,6 @@ module Api
       param :data, Hash, desc: 'Top level key', required: true do
         param :attributes, Hash, desc: 'Comment attributes', required: true do
           param :body, String, desc: 'Body of the comment'
-          param :language_id, Integer, desc: 'Language id of the body content'
         end
       end
       example Doxxer.read_example(Comment)
@@ -82,7 +88,15 @@ module Api
         @comment = user_comment_scope.find(params[:id])
         @comment.body = comment_params[:body]
 
-        if @comment.save
+        if @comment.valid?
+          @comment.set_translation(body: comment_params[:body]).tap do |result|
+            EnqueueCheapTranslation.call(result)
+          end
+
+          # NOTE: This is here because of the problem the Translatable has with
+          #       how it updates the translation relationship
+          @comment.reload
+
           api_render(@comment)
         else
           api_render_errors(@comment)

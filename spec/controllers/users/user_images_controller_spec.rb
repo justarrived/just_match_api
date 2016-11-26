@@ -19,24 +19,24 @@ RSpec.describe Api::V1::Users::UserImagesController, type: :controller do
 
     context 'with valid params' do
       it 'saves user image' do
-        post :create, valid_attributes, {}
+        post :create, params: valid_attributes
         expect(assigns(:user_image)).to be_persisted
       end
 
       it 'returns 201 accepted status' do
-        post :create, valid_attributes, {}
+        post :create, params: valid_attributes
         expect(response.status).to eq(201)
       end
 
       it 'assigns the user image category' do
-        post :create, valid_attributes, {}
+        post :create, params: valid_attributes
         user_image = assigns(:user_image)
         expect(user_image.category).to eq(category.to_s)
       end
 
       it 'assigns the default user image category if none given' do
         attrs = valid_attributes.slice(:image)
-        post :create, attrs, {}
+        post :create, params: attrs, headers: {}
         user_image = assigns(:user_image)
         expect(user_image.category).to eq(user_image.default_category)
       end
@@ -44,7 +44,7 @@ RSpec.describe Api::V1::Users::UserImagesController, type: :controller do
 
     context 'with invalid params' do
       it 'returns 422 accepted status' do
-        post :create, invalid_attributes, {}
+        post :create, params: invalid_attributes
         expect(response.status).to eq(422)
       end
     end
@@ -61,12 +61,12 @@ RSpec.describe Api::V1::Users::UserImagesController, type: :controller do
     end
 
     it 'returns user image' do
-      get :show, { user_id: user.to_param, id: user_image.to_param }, valid_session
+      get :show, params: { user_id: user.to_param, id: user_image.to_param }, headers: valid_session # rubocop:disable Metrics/LineLength
       expect(assigns(:user_image)).to eq(user_image)
     end
 
     it 'returns 200 ok status' do
-      get :show, { user_id: user.to_param, id: user_image.to_param }, valid_session
+      get :show, params: { user_id: user.to_param, id: user_image.to_param }, headers: valid_session # rubocop:disable Metrics/LineLength
       assigns(:user_image)
       expect(response.status).to eq(200)
     end

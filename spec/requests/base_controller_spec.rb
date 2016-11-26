@@ -13,7 +13,7 @@ RSpec.describe 'BaseController', type: :request do
       it 'returns user if passed valid token' do
         user = token.user
 
-        get api_v1_user_path(user_id: user.id), nil, auth_header
+        get api_v1_user_path(user_id: user.id), headers: auth_header
 
         parsed_body = JSON.parse(response.body)
         first_name = parsed_body.dig('data', 'attributes', 'first-name')
@@ -32,7 +32,7 @@ RSpec.describe 'BaseController', type: :request do
       it 'returns unauthorized if passed invalid token' do
         user = token.user
 
-        get api_v1_user_path(user_id: user.id), nil, auth_header
+        get api_v1_user_path(user_id: user.id), headers: auth_header
 
         expect(response.code).to eq('401')
       end
@@ -48,7 +48,7 @@ RSpec.describe 'BaseController', type: :request do
       it 'returns unauthorized if passed invalid token' do
         user = token.user
 
-        get api_v1_user_path(user_id: user.id), nil, auth_header
+        get api_v1_user_path(user_id: user.id), headers: auth_header
 
         parsed_body = JSON.parse(response.body)
         errors = parsed_body.dig('errors').first
@@ -60,8 +60,9 @@ RSpec.describe 'BaseController', type: :request do
   end
 
   describe 'key transform header' do
+    let(:zip_long) { 18 }
     before(:each) do
-      FactoryGirl.create(:job, short_description: 'shortdescription')
+      FactoryGirl.create(:job, zip_longitude: 18)
     end
 
     context 'with X-API-KEY-TRANSFORM underscore' do
@@ -70,8 +71,8 @@ RSpec.describe 'BaseController', type: :request do
 
         parsed_body = JSON.parse(response.body)
         first_data = parsed_body['data'].first
-        short_description = first_data.dig('attributes', 'short-description')
-        expect(short_description).to eq('shortdescription')
+        zip_long = first_data.dig('attributes', 'zip_longitude')
+        expect(zip_long).to eq(zip_long)
       end
     end
 
@@ -81,9 +82,9 @@ RSpec.describe 'BaseController', type: :request do
 
         parsed_body = JSON.parse(response.body)
         first_data = parsed_body['data'].first
-        short_description = first_data.dig('attributes', 'short-description')
+        zip_long = first_data.dig('attributes', 'zip-longitude')
 
-        expect(short_description).to eq('shortdescription')
+        expect(zip_long).to eq(zip_long)
       end
 
       it 'returns all keys in dashed/kebab-case format by default' do
@@ -91,9 +92,9 @@ RSpec.describe 'BaseController', type: :request do
 
         parsed_body = JSON.parse(response.body)
         first_data = parsed_body['data'].first
-        short_description = first_data.dig('attributes', 'short-description')
+        zip_long = first_data.dig('attributes', 'zip-longitude')
 
-        expect(short_description).to eq('shortdescription')
+        expect(zip_long).to eq(zip_long)
       end
     end
   end

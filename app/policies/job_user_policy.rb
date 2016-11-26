@@ -3,7 +3,7 @@ class JobUserPolicy < ApplicationPolicy
   Context = Struct.new(:current_user, :job_context, :user_record)
 
   JOB_OWNER_ATTRIBUTES = [:accepted].freeze
-  JOB_USER_ATTRIBUTES = [:will_perform, :performed, :apply_message].freeze
+  JOB_USER_ATTRIBUTES = [:will_perform, :performed, :apply_message, :language_id].freeze
   ADMIN_ATTRIBUTES = JOB_OWNER_ATTRIBUTES + JOB_USER_ATTRIBUTES
 
   attr_reader :job_context, :user_record
@@ -35,12 +35,11 @@ class JobUserPolicy < ApplicationPolicy
 
   def permitted_attributes
     return [] if no_user?
+    return ADMIN_ATTRIBUTES if admin?
+    return JOB_OWNER_ATTRIBUTES if job_owner?
+    return JOB_USER_ATTRIBUTES unless record&.persisted?
 
-    if admin?
-      ADMIN_ATTRIBUTES
-    elsif job_owner?
-      JOB_OWNER_ATTRIBUTES
-    elsif job_user?
+    if job_user?
       JOB_USER_ATTRIBUTES
     else
       []

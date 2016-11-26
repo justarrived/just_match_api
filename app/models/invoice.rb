@@ -23,8 +23,10 @@ class Invoice < ApplicationRecord
     "Invoice ##{id}"
   end
 
+  delegate :activated, to: :frilans_finans_invoice
+
   def validate_job_started
-    job = job_user.try!(:job)
+    job = job_user&.job
     return if job.nil? || job.started?
 
     message = I18n.t('errors.invoice.job_started')

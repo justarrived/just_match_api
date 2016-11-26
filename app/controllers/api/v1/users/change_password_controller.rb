@@ -58,10 +58,7 @@ module Api
                   else
                     token = jsonapi_params[:one_time_token]
                     token_user = User.find_by_one_time_token(token)
-                    if token_user.nil?
-                      render json: {}, status: :not_found
-                      return false # Rails5: Should be updated to use throw
-                    end
+                    raise ActiveRecord::RecordNotFound if token_user.nil?
                     token_user
                   end
         end

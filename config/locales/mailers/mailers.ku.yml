@@ -1,0 +1,55 @@
+ku:
+  mailer:
+    accepted_applicant_withdrawn:
+      subject: Bikarînerekê qebûlkirî ji bo karê te daxwaznameya xwe paşde vegerandiye.
+      title: Bikarînerekê qebûlkirî ji bo karê te daxwaznameya xwe paşde vegerandiye.
+      explaination: Bikarînerekê qebûlkirî %{name} ji bo karê %{job_name} daxwaznameya xwe paşde vegerandiye. Ji kerema xwe bikarînerekê din hilbijêre.
+    accepted_applicant_confirmation_overdue:
+      subject: Bikarînerekê qebûlkirî ji bo karê te tevkarî di dema diyarkirî de teyîd nekiriye.
+      title: Bikarînerekê qebûlkirî ji bo karê te tevkarî di dema diyarkirî de teyîd nekiriye.
+      explaination: Bikarînerekê qebûlkirî %{name} ji bo karê te %{job_name} tevkarîya xwe di dema îzindayî de teyîd nekiriye. Ji kerema xwe bikarînerekê din hilbijêre.
+    applicant_will_perform:
+      subject: Pîroz be! Bikarînerekê dê karê te bike.
+      congrats_line: Pîroz be!
+      details_line: "%{name} teyîd kiriye ku ew dê karê te %{job_name} bikin."
+    applicant_accepted:
+      accepted_line: Tu ji bo karekî hatî qebûl kirin!
+      congrats_line: Pîroz be %{name}!
+      contact_line: Ji bo agahdarîyên zêdetir pêwendîyê bi %{email} bike.
+      job_line: Kar '%{name}' e û li devera te ye.
+      subject: Pîroz be! Kar ji te re derket!
+    changed_password:
+      subject: Şîfreya te ya Just Arrivedê hatiye guhertin
+      body_header: Silav %{name}, şîfreya te ya Just Arrivedê hatiye guhertin Heger ev ne tu bî, ji kerema xwe pêwendîyê bi rêya help@justarrived.se bi Just Arrivedê bike.
+    job_match:
+      accepted_line: Karekê guncayî yê nû  ji te re derket!
+      congrats_line: Pîroz be %{name}!
+      contact_line: Ji bo agahdarîyên zêdetir pêwendîyê bi %{email} bike.
+      job_line: 'Ew kar: ''%{name}'' e û li devera te ye.'
+      subject: Pîroz be! Karekê guncayî yê nû ji te re heye.
+    job_performed:
+      congrats_line: Pîroz be %{name}!
+      contact_line: Heger hin pirsên te yên dawîyê hebin, tu dikarî bi rêya %{email} pêwendîyê bi wan bikî.
+      job_line: Karê ku hatiye kirin %{name} e.
+      performed_line: "%{name} tesdîq kiriye ku wan ji te re karek kiriye."
+      subject: Pîroz be! Karek yê ku te îlan kiriye hatiye kirin.
+    invoice_created:
+      congrats_line: Pîroz be %{name}!
+      contact_line: Heger hin pirsên te yên dawîyê hebin, tu dikarî pêwendîyê bi %{email} bikî.
+      job_line: 'Karê ku te kiriye: ''%{name}'''
+      performed_line: "%{name} tesdîq kiriye ku te kar temam kiriye."
+      subject: Pîroz be! Karek yê ku te kiriye hat qebûl kirin.
+    new_applicant:
+      applicant_line: Bikarîner '%{name}' e û li devera te dijî.
+      congrats_line: Pîroz be %{name}!
+      contact_line: Heger hin pirsên te hebin, tu dikarî bi rêya %{email} û %{phone} pêwendîyê bi wan bikî.
+      job_line: Daxwaznameyeka nû ji bo karê te '%{name}' heye.
+      subject: Pîroz be! Daxwazeka nû ji te re hatiye.
+    reset_password:
+      subject: '?'
+      body_header: 'Silav %{name}, te xwastiye ku şîfreya te bê rast kirin. Ji kerema xwe li lînkê vegere da tu şîfeya xwe ya nû bidî:'
+    welcome:
+      subject: Tu bi xêr hatî Just Arrivedê!
+      body_header: Tu bi xêr hatî Just Arrivedê %{name}!
+      body_line: Spas ji bo ku te xwe qeyd kir. Em hêvî dikin ku tu dê ji vê xizmetê hez bikî!
+    signoff: Bi hêvîya rojeka xweş!

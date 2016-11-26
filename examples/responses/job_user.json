@@ -8,18 +8,30 @@
       "will_perform": false,
       "performed": false,
       "will_perform_confirmation_by": null,
-      "apply_message": null
+      "apply_message": null,
+      "original_text": {
+        "apply_message": null
+      }
     },
     "relationships": {
       "user": {
-        "data": null
+        "data": {
+          "id": "17",
+          "type": "users"
+        }
       },
       "job": {
-        "data": null
+        "data": {
+          "id": "5",
+          "type": "jobs"
+        }
       },
       "invoice": {
         "data": null
       }
+    },
+    "links": {
+      "self": "https://api.justarrived.se/api/v1/jobs/5/users/1"
     }
   }
 }

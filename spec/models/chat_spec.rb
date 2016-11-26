@@ -77,11 +77,11 @@ RSpec.describe Chat, type: :model do
         author = FactoryGirl.create(:user)
         lang = FactoryGirl.create(:language)
         body = 'My text chat message.'
-        messsage = chat.create_message(author: author, body: body, language_id: lang)
-        expect(messsage.valid?).to eq(true)
-        expect(messsage.chat).to eq(chat)
-        expect(messsage.language).to eq(lang)
-        expect(messsage.author).to eq(author)
+        message = chat.create_message(author: author, body: body, language_id: lang.id)
+        expect(message.valid?).to eq(true)
+        expect(message.chat).to eq(chat)
+        expect(message.language).to eq(lang)
+        expect(message.author).to eq(author)
       end
     end
 
@@ -91,7 +91,7 @@ RSpec.describe Chat, type: :model do
         FactoryGirl.create(:language)
         messsage = chat.create_message(author: nil, body: nil, language_id: nil)
         expect(messsage.valid?).to eq(false)
-        expect(messsage.errors[:author]).to eq(["can't be blank"])
+        expect(messsage.errors[:author]).to include("can't be blank")
       end
     end
   end

@@ -2,7 +2,8 @@
   "name": "JustMatch API",
   "description": "Match users with job opportunities.",
   "repository": "https://github.com/justarrived/just_match_api",
-  "keywords": [],
+  "website": "http://justarrived.se/",
+  "keywords": ["Just Arrived", "Just Match API", "job matching", "Ruby", "Ruby on Rails"],
   "env": {
     "PROMO_CODE": {
       "description": "Promo Code for the API (if set all clients must provide this code OR be logged in)",
@@ -11,6 +12,11 @@
     },
     "SEND_SMS_NOTIFICATIONS": {
       "description": "Send SMS notifications",
+      "value": "",
+      "required": false
+    },
+    "GOOGLE_TRANSLATE_API_KEY": {
+      "description": "Google Translate API key (required)",
       "value": "",
       "required": false
     },
@@ -115,8 +121,8 @@
       "required": false
     }
   },
-  "addons": ["sendgrid:starter", "scheduler:standard", "heroku-redis:hobby-dev", "airbrake:free_heroku"],
+  "addons": ["sendgrid:starter", "scheduler:standard", "heroku-redis:hobby-dev", "airbrake:free-hrku"],
   "scripts": {
-    "postdeploy": "bundle exec rake db:migrate db:seed"
+    "postdeploy": "bundle exec rails db:migrate db:seed"
   }
 }

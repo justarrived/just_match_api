@@ -8,7 +8,7 @@ The code follows most Rails conventions. If you've worked with Rails before the 
 
 * __Technology__
   - Ruby 2.3
-  - Ruby on Rails 4.2
+  - Ruby on Rails 5.0
   - PostgreSQL 9.3
   - Redis 3
 
@@ -66,9 +66,7 @@ The code follows most Rails conventions. If you've worked with Rails before the 
 
 
 * __Admin tools__
-  - Uses the `administrate` gem
-  - Controllers namespaced under `Admin`
-  - Admin dashboards under `app/dashboards`
+  - Uses `activeadmin` gem
   - Admin interface under path `/admin`
   - Admin insights interface under path `/insights`
     + Uses the `blazer` gem
@@ -94,8 +92,23 @@ The code follows most Rails conventions. If you've worked with Rails before the 
   - Uses `webmock`
   - Geocode mocks in `spec/spec_support/geocoder_support.rb`
 
+* __Model translation__
+  - Each model that need translated columns
+    + has a corresponding model, i.e `JobTranslation`
+    + includes `Translatable` module
+  - Translation model
+    + includes `TranslationModel` module
+  - Defines the translated columns with the `translates` macro
+    + Defines `set_translation` instance methods on the model
+  - There are a few helper services, plus one `ActiveJob` class to do machine translations
+    + `MachineTranslationsService` takes a translation and creates translations for to all eligible locales
+    + `MachineTranslationService` takes a translation and a language for it to be translated to
+    + `MachineTranslationsJob` background job for `MachineTranslationsService`
 
-* __Translations__
+* __Static Translations__
+  - Uses `rails-i18n`
+  - Stored in `config/locales/`
+  - Supports fallbacks
   - Uses [Transifex](https://www.transifex.com/justarrived/justmatch-api/) to translate.
     + Configuration in `.tx/config`
     + Push/pull translations with [Transifex CLI](http://docs.transifex.com/client/)

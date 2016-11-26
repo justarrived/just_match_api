@@ -22,7 +22,7 @@ RSpec.describe UserMailer, type: :mailer do
     end
 
     it 'renders the sender email' do
-      expect(mail.from).to eql(['hello@justarrived.se'])
+      expect(mail.from).to eql(['support@justarrived.se'])
     end
 
     it 'includes @user_name in email body' do
@@ -58,7 +58,7 @@ RSpec.describe UserMailer, type: :mailer do
     end
 
     it 'renders the sender email' do
-      expect(mail.from).to eql(['hello@justarrived.se'])
+      expect(mail.from).to eql(['support@justarrived.se'])
     end
 
     it 'includes @user_name in email body' do
@@ -89,7 +89,7 @@ RSpec.describe UserMailer, type: :mailer do
     end
 
     it 'renders the sender email' do
-      expect(mail.from).to eql(['hello@justarrived.se'])
+      expect(mail.from).to eql(['support@justarrived.se'])
     end
 
     it 'includes @user_name in email body' do

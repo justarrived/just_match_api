@@ -4,7 +4,7 @@ require 'rails_helper'
 RSpec.describe Api::V1::CountriesController, type: :controller do
   describe 'GET #index' do
     it 'renders countries' do
-      get :index, {}, {}
+      get :index
       body = JSON.parse(response.body)
       first_country = body.fetch('data').first
       first_country_attrs = first_country.fetch('attributes')

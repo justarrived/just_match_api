@@ -9,6 +9,9 @@ class Message < ApplicationRecord
   validates :author, presence: true
   validates :language, presence: true
 
+  include Translatable
+  translates :body
+
   def created_before?(datetime)
     datetime > created_at
   end

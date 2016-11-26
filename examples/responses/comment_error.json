@@ -23,14 +23,14 @@
   {
     "status": 422,
     "source": {
-      "pointer": "/data/attributes/body"
+      "pointer": "/data/attributes/language"
     },
     "detail": "can't be blank"
   },
   {
     "status": 422,
     "source": {
-      "pointer": "/data/attributes/language"
+      "pointer": "/data/attributes/body"
     },
     "detail": "can't be blank"
   }

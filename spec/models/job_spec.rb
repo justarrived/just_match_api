@@ -6,14 +6,25 @@ RSpec.describe Job, type: :model do
     describe '#matches_user'
   end
 
-  describe '#owner_id' do
-    it 'returns nil if no owner' do
-      expect(Job.new.owner_id).to be_nil
+  describe '#invoice_company_frilans_finans_id' do
+    let(:company) { FactoryGirl.build(:company, frilans_finans_id: 7373) }
+    let(:owner) { FactoryGirl.build(:user, company: company) }
+    let(:job) { FactoryGirl.build(:job, owner: owner) }
+
+    context 'with configuration default_invoice_company_frilans_finans_id' do
+      it 'returns id from config' do
+        ff_id = 3_737_337
+        Rails.configuration.x.invoice_company_frilans_finans_id = ff_id
+        expect(job.invoice_company_frilans_finans_id).to eq(ff_id)
+        Rails.configuration.x.invoice_company_frilans_finans_id = nil
+      end
     end
 
-    it 'returns nil if no owner' do
-      job = FactoryGirl.build(:job, owner: mock_model(User, id: 1))
-      expect(job.owner_id).to eq(1)
+    context '*without* configuration default_invoice_company_frilans_finans_id' do
+      it 'returns id from config' do
+        expected_id = company.frilans_finans_id
+        expect(job.invoice_company_frilans_finans_id).to eq(expected_id)
+      end
     end
   end
 
@@ -30,6 +41,30 @@ RSpec.describe Job, type: :model do
       job = FactoryGirl.build(:job, filled: false)
       job.fill_position!
       expect(job.filled).to eq(true)
+    end
+  end
+
+  describe '#invoice_specification' do
+    let(:job_id) { 73_000_000 }
+    let(:job) { FactoryGirl.build(:job, id: job_id) }
+
+    it 'returns with the correct content parts' do
+      [
+        job.category.name,
+        job.name,
+        job.id,
+        job.job_date.to_date,
+        job.job_end_date.to_date,
+        job.hours,
+        job.hourly_pay.invoice_rate,
+        job.hourly_pay.gross_salary,
+        job.company.name,
+        job.company.cin,
+        job.company.billing_email,
+        job.company.address
+      ].map(&:to_s).each do |expected_part|
+        expect(job.invoice_specification).to include(expected_part)
+      end
     end
   end
 
@@ -54,17 +89,6 @@ RSpec.describe Job, type: :model do
       job.cancelled = false
       result = job.send_cancelled_notice?
       expect(result).to eq(false)
-    end
-  end
-
-  describe '#owner_id=' do
-    it 'can set owner' do
-      user = FactoryGirl.create(:user)
-      other_user = FactoryGirl.create(:user)
-      job = FactoryGirl.build(:job, owner: user)
-      expect(job.owner_id).to eq(user.id)
-      job.owner_id = other_user.id
-      expect(job.owner_id).to eq(other_user.id)
     end
   end
 
@@ -416,6 +440,7 @@ end
 #  filled            :boolean          default(FALSE)
 #  short_description :string
 #  featured          :boolean          default(FALSE)
+#  upcoming          :boolean          default(FALSE)
 #
 # Indexes
 #

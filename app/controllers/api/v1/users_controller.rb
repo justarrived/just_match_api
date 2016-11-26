@@ -5,9 +5,6 @@ module Api
       SET_USER_ACTIONS = [:show, :edit, :update, :destroy, :matching_jobs, :jobs].freeze
       before_action :set_user, only: SET_USER_ACTIONS
 
-      before_action :require_promo_code, except: [:company_users_count]
-      after_action :verify_authorized, except: [:company_users_count]
-
       resource_description do
         short 'API for managing users'
         name 'Users'
@@ -16,16 +13,7 @@ module Api
         api_versions '1.0'
       end
 
-      ALLOWED_INCLUDES = %w(language languages company user_images).freeze
-
-      def company_users_count
-        users_count = ENV.fetch(
-          'CURRENT_COMPANY_USERS_COUNT',
-          User.company_users.count
-        ).to_i
-
-        render json: { count: users_count }
-      end
+      ALLOWED_INCLUDES = %w(user_languages language languages company user_images).freeze
 
       api :GET, '/users', 'List users'
       description 'Returns a list of users if the user is allowed.'
@@ -44,11 +32,15 @@ module Api
       description 'Returns user is allowed to.'
       error code: 404, desc: 'Not found'
       ApipieDocHelper.params(self)
-      example Doxxer.read_example(User)
+      example Doxxer.read_example(User, meta: { average_score: 4.3, total_ratings_count: 5 }) # rubocop:disable Metrics/LineLength
       def show
         authorize(@user)
 
-        api_render(@user)
+        meta = {
+          average_score: @user.average_score,
+          total_ratings_count: @user.received_ratings_count
+        }
+        api_render(@user, meta: meta)
       end
 
       api :POST, '/users/', 'Create new user'
@@ -69,7 +61,7 @@ module Api
           param :phone, String, desc: 'Phone', required: true
           param :street, String, desc: 'Street'
           param :zip, String, desc: 'Zip code'
-          param :ssn, String, desc: 'Social Security Number (10 characters)', required: true
+          param :ssn, String, desc: 'Social Security Number (10 characters)'
           param :ignored_notifications, Array, of: 'ignored notifications', desc: "List of ignored notifications. Any of: #{User::NOTIFICATIONS.map { |n| "`#{n}`" }.join(', ')}"
           param :company_id, Integer, desc: 'Company id for user'
           param :language_id, Integer, desc: 'Primary language id for user', required: true
@@ -95,6 +87,10 @@ module Api
         if @user.save
           login_user(@user)
 
+          @user.set_translation(user_params).tap do |result|
+            EnqueueCheapTranslation.call(result)
+          end
+
           @user.skills = Skill.where(id: user_params[:skill_ids])
 
           image_tokens = jsonapi_params[:user_image_one_time_tokens]
@@ -108,14 +104,8 @@ module Api
             @user.profile_image_token = deprecated_param_value
           end
 
-          user_languages_params = normalize_language_ids(jsonapi_params[:language_ids])
-          @user.user_languages = user_languages_params.map do |attrs|
-            UserLanguage.new(
-              language_id: attrs[:id],
-              proficiency: attrs[:proficiency]
-            )
-          end
-
+          language_ids = jsonapi_params[:language_ids]
+          SetUserLanguagesService.call(user: @user, language_ids_param: language_ids)
           UserWelcomeNotifier.call(user: @user)
 
           api_render(@user, status: :created)
@@ -124,7 +114,7 @@ module Api
         end
       end
 
-      api :PATCH, '/users/', 'Update new user'
+      api :PATCH, '/users/:id', 'Update new user'
       description 'Updates and returns the updated user if the user is allowed.'
       error code: 400, desc: 'Bad request'
       error code: 422, desc: 'Unprocessable entity'
@@ -145,6 +135,10 @@ module Api
           param :ssn, String, desc: 'Social Security Number (10 characters)'
           param :ignored_notifications, Array, of: 'ignored notifications', desc: "List of ignored notifications. Any of: #{User::NOTIFICATIONS.map { |n| "`#{n}`" }.join(', ')}"
           param :language_id, Integer, desc: 'Primary language id for user'
+          param :language_ids, Array, of: Hash, desc: 'Languages that the user knows (if specified this will completely replace the users languages)' do
+            param :id, Integer, desc: 'Language id', required: true
+            param :proficiency, UserLanguage::PROFICIENCY_RANGE.to_a, desc: 'Language proficiency'
+          end
           param :company_id, Integer, desc: 'Company id for user'
           param :user_image_one_time_token, String, desc: 'User image one time token'
           param :current_status, User::STATUSES.keys, desc: 'Current status'
@@ -159,6 +153,15 @@ module Api
         authorize(@user)
 
         if @user.update(user_params)
+          @user.set_translation(user_params).tap do |result|
+            EnqueueCheapTranslation.call(result)
+          end
+
+          @user.reload
+
+          language_ids = jsonapi_params[:language_ids]
+          SetUserLanguagesService.call(user: @user, language_ids_param: language_ids)
+
           @user.profile_image_token = jsonapi_params[:user_image_one_time_token]
 
           api_render(@user)
@@ -211,24 +214,6 @@ module Api
       end
 
       private
-
-      def normalize_language_ids(language_ids)
-        return [] if language_ids.nil?
-
-        language_ids.map do |lang|
-          if lang.is_a?(Hash)
-            lang
-          else
-            message = [
-              'Passing languages as a list of integers is deprecated.',
-              'Please pass an array of objects, i.e [{ id: 1, proficiency: 1 }]'
-            ].join(' ')
-            ActiveSupport::Deprecation.warn(message)
-
-            { id: lang, proficiency: nil }
-          end
-        end
-      end
 
       def set_user
         @user = User.find(params[:user_id])

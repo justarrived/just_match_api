@@ -11,9 +11,9 @@ module Index
 
     def users(scope = User)
       @users ||= begin
-        scope_includes = %i(language languages company chats)
+        scope_includes = %i(user_languages language languages company chats)
 
-        prepare_records(scope.includes(*scope_includes))
+        prepare_records(scope.with_translations.includes(*scope_includes))
       end
     end
   end

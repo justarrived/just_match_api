@@ -37,7 +37,7 @@ RSpec.describe Api::V1::Jobs::TermsAgreementConsentsController, type: :controlle
     context 'valid params' do
       it 'creates a terms of agreement consent' do
         expect do
-          post :create, valid_params, valid_session
+          post :create, params: valid_params, headers: valid_session
         end.to change(TermsAgreementConsent, :count).by(1)
       end
     end
@@ -45,7 +45,7 @@ RSpec.describe Api::V1::Jobs::TermsAgreementConsentsController, type: :controlle
     context 'invalid params' do
       it 'does not create a terms of agreement consent' do
         expect do
-          post :create, invalid_params, valid_session
+          post :create, params: invalid_params, headers: valid_session
         end.to change(TermsAgreementConsent, :count).by(0)
       end
     end

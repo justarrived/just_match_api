@@ -34,6 +34,7 @@ sv:
     general:
       protocol_missing: Protocol prefix saknas http:// eller https://
       must_be_valid_date: måste vara ett giltigt datum
+      blank_if_field: kan inte lämnas blank om %{field} är satt
     chat:
       number_of_users: en chat måste bestå av minst %{min} och %{max} antal användare
     invoice:
@@ -74,74 +75,10 @@ sv:
       after_true: '%{field} måste vara sant'
       unrevertable: kan inte återställa %{field}
   invalid_credentials: Fel referenser.
+  promo_code_required: Promo kod eller inloggings krävs.
   not_logged_in_error: Måste vara inloggad.
   record_not_found: Posten existerar inte.
   token_expired_error: Din token har upphört att gälla.
-  mailer:
-    accepted_applicant_withdrawn:
-      subject: En accepterad användare för ditt jobb har dragit tillbaka sin ansökan.
-      title: En accepterad användare för ditt jobb har dragit tillbaka sin ansökan.
-      explaination: Den accepterade användaren %{name} för ditt jobb %{job_name} har dragit tillbaka sin ansökan. Var god välj en annan kandidat genom att logga in på plattformen, klicka Mina uppdrag som ligger i Menyn.
-    accepted_applicant_confirmation_overdue:
-      subject: Den accepterade användaren för ditt jobb har inte konfirmerat i tid.
-      title: Den accepterade användaren för ditt jobb har inte konfirmerat i tid.
-      explaination: Den accepterade användare %{name} för ditt jobb %{job_name} har inte konfirmerat i tid. Var god välj en annan kandidat genom att logga in på plattformen och under meny klicka på Mina uppdrag.
-    applicant_will_perform:
-      subject: Grattis! Den accepterade användare för ditt jobb har konfirmerat.
-      congrats_line: Grattis!
-      details_line: "%{name} har konfirmerat ditt och kommer utföra %{job_name}."
-      explaination: Var god kontakta %{name} genom chatten under Mina jobb, på %{phone} or %{email} för att gå igenom potentiella detaljer.
-    applicant_accepted:
-      accepted_line: Du har blivit accepterad för ett jobb!
-      congrats_line: Grattis %{name}!
-      contact_line: Du har 18 timmar på dig att konfirmera att du kommer utföra jobbet, var god gör det så snart du kan under Mina uppdrag i applikationen. Om du har några frågor kan du kontakta den ansvarige på email %{email} för mer detaljer.
-      job_line: Jobbet är '%{name}' och ligger i ditt område.
-      subject: Grattis! Du har fått jobb!
-    changed_password:
-      subject: Ditt Just Arrived lösenord har blivit ändrat
-      body_header: Hej %{name}, ditt Just Arrived lösenord har blivit ändrat. Om det här inte var du, var god kontakta Just Arrived på help@justarrived.se
-    job_cancelled:
-      subject: 'Ett uppdrag du har sökt har avbrutits  '
-      body: Jobbet %{job_name}  har avbrutits
-    job_match:
-      accepted_line: Du har fått en ny jobbmatchning!
-      congrats_line: Grattis %{name}!
-      contact_line: Kontakta %{email} för mer information.
-      job_line: 'Jobbet är: ''%{name}'' och det ligger i ditt område.'
-      subject: Grattis! Du har en ny jobbmatchning.
-    job_performed:
-      congrats_line: Hej %{name}!
-      contact_line: Så fort arbetsgivaren har konfirmerat att jobbet är genomfört kommer en faktura att skickas och lön kommer sedan betalas ut.
-      job_line: Jobbet som utförts var '%{name}'.
-      performed_line: "%{name} har verifierat att de har utfört ett jobb åt dig."
-      subject: Ett jobb du har beställt har blivit utfört.
-    invoice_created:
-      congrats_line: Grattis %{name}!
-      contact_line: Var snäll och betygsätt arbetsgivaren.
-      job_line: 'Jobbet du har utfört: ''%{name}''.'
-      performed_line: "%{name} har verifierat att du har utfört ett jobb."
-      subject: Grattis! ett jobb du har utfört har blivit accepterat.
-    magic_login_link:
-      subject: Magisk login-länk
-      login_line: Logga in på Just Arrived här %{url}
-    new_applicant:
-      applicant_line: Kandidaten är %{name} och bor i närheten av där uppdraget ska utföras.
-      congrats_line: Grattis %{name}!
-      contact_line: Du kan förhandsgranska %{name} profil under Mina uppdrag. Du kan också kontakta %{name} direkt på %{email} eller %{phone}.
-      job_line: Du har en ny ansökning till ditt jobb '%{name}'.
-      subject: Grattis! Du har en fått en ny ansökan.
-    new_chat_message:
-      view_chat_line: Du kan läsa meddelandet här %{url}, där kan du kan du också få meddelandet översatt.
-      received_from_line: Du har fått ett meddelande från %{name}.
-      subject: "Nytt meddelande från %{name}"
-    reset_password:
-      subject: 'Just Arrived återställ lösenords länk'
-      body_header: 'Hej %{name}, du har begärt en återställning av ditt lösenord. Var god besök länken för att ange ditt nya lösenord:'
-    welcome:
-      subject: Välkommen till Just Arrived!
-      body_header: Välkommen till Just Arrived %{name}!
-      body_line: Tack för att du registrerat dig. Vi hoppas du kommer tycka om tjänsten. Om du har några frågor eller förslag om hur vi kan förbättra oss, får du gärna höra av dig till oss på admin@justarrived.se.
-    signoff: Ha en bra dag!
   user:
     statuses:
       asylum_seeker: Asylsökande

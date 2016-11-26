@@ -31,6 +31,25 @@ RSpec.describe FrilansFinansApi::Client do
     end
   end
 
+  describe '#salaries' do
+    let(:invoice_id) { 1 }
+    subject do
+      json = fixture_client.read(:salaries)
+      url = "#{base_uri}/invoices/#{invoice_id}/salaries?page=1"
+
+      stub_request(:get, url).
+        with(default_headers).
+        to_return(status: 200, body: json, headers: {})
+
+      described_class.new
+    end
+
+    it 'returns salaries array' do
+      parsed_body = JSON.parse(subject.salaries(invoice_id: invoice_id).body)
+      expect(parsed_body['data']).to be_a(Array)
+    end
+  end
+
   describe '#currencies' do
     subject do
       json = fixture_client.read(:currencies)

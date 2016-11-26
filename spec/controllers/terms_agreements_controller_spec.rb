@@ -6,7 +6,7 @@ RSpec.describe Api::V1::TermsAgreementsController, type: :controller do
     it 'returns the last terms of agreement' do
       FactoryGirl.create(:terms_agreement)
       terms = FactoryGirl.create(:terms_agreement)
-      get :current, {}, {}
+      get :current
       expect(assigns(:terms_agreement)).to eq(terms)
     end
   end
@@ -16,7 +16,7 @@ RSpec.describe Api::V1::TermsAgreementsController, type: :controller do
       ff_company_term = FactoryGirl.create(:frilans_finans_term, company: true)
       terms = FactoryGirl.create(:terms_agreement, frilans_finans_term: ff_company_term)
       FactoryGirl.create(:terms_agreement)
-      get :current_company, {}, {}
+      get :current_company
       expect(assigns(:terms_agreement)).to eq(terms)
     end
   end

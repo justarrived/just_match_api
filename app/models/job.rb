@@ -29,8 +29,8 @@ class Job < ApplicationRecord
   validates :language, presence: true
   validates :hourly_pay, presence: true
   validates :category, presence: true
-  validates :name, length: { minimum: 2 }, allow_blank: false
-  validates :description, length: { minimum: 10 }, allow_blank: false
+  validates :name, presence: true, on: :create # Virtual attribute
+  validates :description, presence: true, on: :create # Virtual attribute
   validates :street, length: { minimum: 5 }, allow_blank: false
   validates :zip, length: { minimum: 5 }, allow_blank: false
   validates :job_date, presence: true
@@ -51,12 +51,17 @@ class Job < ApplicationRecord
   scope :uncancelled, -> { where(cancelled: false) }
   scope :filled, -> { where(filled: true) }
   scope :unfilled, -> { where(filled: false) }
+  scope :upcoming, -> { where(upcoming: true) }
+  scope :featured, -> { where(featured: true) }
   scope :applied_jobs, lambda { |user_id|
     joins(:job_users).where('job_users.user_id = ?', user_id)
   }
   scope :no_applied_jobs, lambda { |user_id|
     where.not(id: applied_jobs(user_id).map(&:id))
   }
+
+  include Translatable
+  translates :name, :short_description, :description
 
   # This will return an Array and not an ActiveRecord::Relation
   def self.non_hired
@@ -84,6 +89,44 @@ class Job < ApplicationRecord
       where('jobs.owner_user_id = :user OR job_users.user_id = :user', user: user)
   end
 
+  def address
+    full_street_address # From the Geocodable module
+  end
+
+  # ActiveAdmin display name
+  def display_name
+    "#{name} ##{id}"
+  end
+
+  def report_name
+    "#{name} (##{id})"
+  end
+
+  def invoice_specification
+    <<-JOB_SPECIFICATION
+#{name} (ID: ##{id}) - #{category.name}
+
+Period: #{job_date.to_date} - #{job_end_date.to_date}
+Total hours: #{hours}
+
+Hourly invoice: #{hourly_pay.invoice_rate} SEK/h
+Gross salary: #{hourly_pay.gross_salary} SEK/h
+
+COMPANY
+#{company.name} (ID: ##{company.id})
+CIN (Org. No.): #{company.cin}
+Billing email: #{company.billing_email}
+Address: #{company.address}
+    JOB_SPECIFICATION
+  end
+
+  def invoice_company_frilans_finans_id
+    ff_id = Rails.configuration.x.invoice_company_frilans_finans_id
+    return owner.company.frilans_finans_id if ff_id.nil?
+
+    Integer(ff_id)
+  end
+
   def position_filled?
     filled
   end
@@ -108,25 +151,13 @@ class Job < ApplicationRecord
   end
 
   def invoice_amount
-    hourly_pay.rate_excluding_vat * hours
+    hourly_pay.invoice_rate * hours
   end
 
   # NOTE: You need to call this __before__ the record is validated
   #       otherwise it will always return false
   def send_cancelled_notice?
     cancelled_changed? && cancelled
-  end
-
-  # Needed for administrate
-  # see https://github.com/thoughtbot/administrate/issues/354
-  def owner_id
-    owner.try!(:id)
-  end
-
-  # Needed for administrate
-  # see https://github.com/thoughtbot/administrate/issues/354
-  def owner_id=(id)
-    self.owner = User.find_by(id: id)
   end
 
   def owner?(user)
@@ -146,7 +177,7 @@ class Job < ApplicationRecord
   end
 
   def accepted_applicant
-    accepted_job_user.try!(:user)
+    accepted_job_user&.user
   end
 
   def accepted_user
@@ -188,7 +219,7 @@ class Job < ApplicationRecord
     GoogleCalendarUrl.build(
       name: name,
       description: description,
-      location: [street, zip].join(', '),
+      location: address,
       start_time: job_date,
       end_time: job_end_date
     )
@@ -258,6 +289,7 @@ end
 #  filled            :boolean          default(FALSE)
 #  short_description :string
 #  featured          :boolean          default(FALSE)
+#  upcoming          :boolean          default(FALSE)
 #
 # Indexes
 #

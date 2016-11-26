@@ -19,18 +19,24 @@ module Api
             A typical flow would be something like this:
 
             1. To apply for a job a user creates a job user
-            2. The owner accepts the user by setting `accepted` to true
-            3. The user then confirms that they will perform the job by setting `will-perform` to true.
+            2. The owner accepts the user with `POST /jobs/:id/users/:job_user_id/acceptances`
+            3. The user then confirms that they will perform the job by setting `POST /jobs/:id/users/:job_user_id/confirmations`
                 * It has be be done before `will-perform-confirmation-by` (date-time), if not `accepted` will be set to false automatically.
-            4. The user verifies the that the job has been performed by setting `performed` to true
-            5. The owner then creates an invoice to pay the user
+            4. The user verifies the that the job has been performed with `POST /jobs/:id/users/:job_user_id/performed`
+            5. The owner then creates an invoice to pay the user with `POST /jobs/:id/users/:job_user_id/invoices`
+
+            __States__
+
+            * If `accepted` is true then the company has offered job to the user
+            * If `accepted` and `will_perform` is true then the job is confirmed from both parties
+            * If `performed` is true then the user has confirmed that the job has been performed and that they expect to be paid
           "
           # rubocop:enable Metrics/LineLength
           formats [:json]
           api_versions '1.0'
         end
 
-        ALLOWED_INCLUDES = %w(job user user.user_images user.language user.languages).freeze # rubocop:disable Metrics/LineLength
+        ALLOWED_INCLUDES = %w(job job.hourly_pay user user.user_images user.language user.languages).freeze # rubocop:disable Metrics/LineLength
 
         api :GET, '/jobs/:job_id/users', 'Show job users'
         description 'Returns list of job users if the user is allowed.'
@@ -69,6 +75,7 @@ module Api
         param :data, Hash, desc: 'Top level key', required: true do
           param :attributes, Hash, desc: 'Job user attributes', required: true do
             param :apply_message, String, desc: 'Apply message'
+            param :language_id, Integer, desc: 'Language id of the text content (required if apply message is present)' # rubocop:disable Metrics/LineLength
           end
         end
         example Doxxer.read_example(JobUser, method: :create)
@@ -79,9 +86,15 @@ module Api
           # NOTE: Not very RESTful to set user from current_user
           @job_user.user = current_user
           @job_user.job = @job
-          @job_user.apply_message = jsonapi_params[:apply_message]
+
+          @job_user.apply_message = job_user_attributes[:apply_message]
+          @job_user.language = Language.find_by(id: job_user_attributes[:language_id])
 
           if @job_user.save
+            @job_user.set_translation(job_user_attributes).tap do |result|
+              EnqueueCheapTranslation.call(result)
+            end
+
             NewApplicantNotifier.call(job_user: @job_user, owner: @job.owner)
             api_render(@job_user, status: :created)
           else
@@ -107,7 +120,7 @@ module Api
           ActiveSupport::Deprecation.warn('This route has been deprecated.')
           authorize(@job_user)
 
-          @job_user.assign_attributes(permitted_attributes)
+          @job_user.assign_attributes(job_user_attributes)
 
           # The event name needs to be set before save, otherwise it can't
           # determine what has changed
@@ -167,9 +180,11 @@ module Api
           @job_user = @job.job_users.find(params[:job_user_id])
         end
 
-        def permitted_attributes
-          attributes = policy(@job_user || JobUser.new).permitted_attributes
-          jsonapi_params.permit(attributes)
+        def job_user_attributes
+          @job_user_attributes ||= begin
+            attributes = policy(@job_user || JobUser.new).permitted_attributes
+            jsonapi_params.permit(attributes)
+          end
         end
 
         def pundit_user
@@ -181,7 +196,7 @@ module Api
           case event_name
           when :accepted then ApplicantAcceptedNotifier
           when :will_perform then ApplicantWillPerformNotifier
-          when :performed then JobUserPerformedNotifier
+          when :performed then NilNotifier # JobUserPerformedNotifier
           else
             NilNotifier
           end

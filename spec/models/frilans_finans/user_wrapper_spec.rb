@@ -22,6 +22,22 @@ RSpec.describe FrilansFinans::UserWrapper do
       expect(result).to eq(expected)
     end
 
+    context 'when ssn is nil' do
+      it 'returns no social_security_number key' do
+        user = FactoryGirl.build(:user, ssn: nil)
+        result = described_class.attributes(user)
+        expect(result[:user].key?(:social_security_number)).to eq(false)
+      end
+    end
+
+    context 'when ssn is blank string' do
+      it 'returns no social_security_number key' do
+        user = FactoryGirl.build(:user, ssn: ' ')
+        result = described_class.attributes(user)
+        expect(result[:user].key?(:social_security_number)).to eq(false)
+      end
+    end
+
     it 'returns the empty street string if no street present' do
       user = FactoryGirl.build(:user, street: nil)
       result = described_class.attributes(user)

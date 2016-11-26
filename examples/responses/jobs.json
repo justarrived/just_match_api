@@ -4,10 +4,10 @@
       "id": "1",
       "type": "jobs",
       "attributes": {
-        "description": "Typewriter hashtag ennui brunch post-ironic food truck vinegar.",
+        "description": null,
         "job_date": "2016-02-18 01:01:01 +0100",
         "hours": 30.0,
-        "name": "A job",
+        "name": null,
         "created_at": "2016-02-10 01:01:01 +0100",
         "updated_at": "2016-02-12 01:01:01 +0100",
         "zip": "223 52",
@@ -16,8 +16,17 @@
         "verified": false,
         "job_end_date": "2016-02-20 01:01:01 +0100",
         "filled": false,
-        "short_description": "Watman",
-        "featured": false
+        "short_description": null,
+        "featured": false,
+        "upcoming": false,
+        "street": "Bankgatan 14C",
+        "amount": 3000.0,
+        "invoice_amount": 4200.0,
+        "original_text": {
+          "name": null,
+          "short_description": null,
+          "description": null
+        }
       },
       "relationships": {
         "job_users": {
@@ -26,33 +35,48 @@
           ]
         },
         "owner": {
-          "data": null,
+          "data": {
+            "id": "6",
+            "type": "users"
+          },
           "links": {
-            "self": null
+            "self": "https://api.justarrived.se/api/v1/users/6"
           }
         },
         "company": {
-          "data": null,
+          "data": {
+            "id": "4",
+            "type": "companies"
+          },
           "links": {
-            "self": null
+            "self": "https://api.justarrived.se/api/v1/companies/4"
           }
         },
         "language": {
-          "data": null,
+          "data": {
+            "id": "7",
+            "type": "languages"
+          },
           "links": {
-            "self": null
+            "self": "https://api.justarrived.se/api/v1/languages/7"
           }
         },
         "category": {
-          "data": null,
+          "data": {
+            "id": "4",
+            "type": "categories"
+          },
           "links": {
-            "self": null
+            "self": "https://api.justarrived.se/api/v1/categories/4"
           }
         },
         "hourly_pay": {
-          "data": null,
+          "data": {
+            "id": "4",
+            "type": "hourly_pays"
+          },
           "links": {
-            "self": null
+            "self": "https://api.justarrived.se/api/v1/hourly-pays/4"
           }
         }
       },

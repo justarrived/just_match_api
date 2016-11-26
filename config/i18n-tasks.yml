@@ -83,7 +83,9 @@ search:
 #   api_key: "AbC-dEf5"
 
 ## Do not consider these keys missing:
-# ignore_missing:
+ignore_missing:
+- 'active_admin.*'
+- 'admin.*'
 # - 'errors.messages.{accepted,blank,invalid,too_short,too_long}'
 # - '{devise,simple_form}.*'
 
@@ -91,6 +93,7 @@ search:
 ignore_unused:
 - 'activerecord.attributes.*'
 - 'activerecord.models.*'
+- 'activerecord.errors.*'
 - 'errors.*'
 # - '{devise,kaminari,will_paginate}.*'
 # - 'simple_form.{yes,no}'

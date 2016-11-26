@@ -45,7 +45,7 @@ module Api
         param :attributes, Hash, desc: 'Skill attributes', required: true do
           param :name, String, desc: 'Name', required: true
           # rubocop:disable Metrics/LineLength
-          param :language_id, Integer, desc: 'Langauge id of the text content', required: true
+          param :language_id, Integer, desc: 'Language id of the text content', required: true
           # rubocop:enable Metrics/LineLength
         end
       end
@@ -71,7 +71,7 @@ module Api
       param :data, Hash, desc: 'Top level key', required: true do
         param :attributes, Hash, desc: 'Skill attributes', required: true do
           param :name, String, desc: 'Name'
-          param :language_id, Integer, desc: 'Langauge id of the text content'
+          param :language_id, Integer, desc: 'Language id of the text content'
         end
       end
       example Doxxer.read_example(Skill)

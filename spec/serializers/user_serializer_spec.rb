@@ -10,12 +10,25 @@ RSpec.describe UserSerializer, type: :serializer do
       JSON.parse(serialization.to_json)
     end
 
-    (UserPolicy::ATTRIBUTES - %i(id)).each do |attribute|
+    ignored = %i(id description competence_text translated_text)
+    (UserPolicy::ATTRIBUTES - ignored).each do |attribute|
       it "has #{attribute.to_s.humanize.downcase}" do
         dashed_attribute = attribute.to_s.dasherize
         value = resource.public_send(attribute)
         expect(subject).to have_jsonapi_attribute(dashed_attribute, value)
       end
+    end
+
+    it 'has translated_text' do
+      dashed_attribute = 'translated_text'.dasherize
+      value = {
+        'description' => nil,
+        'education' => nil,
+        'job_experience'.dasherize => nil,
+        'competence_text'.dasherize => nil,
+        'language_id'.dasherize => nil
+      }
+      expect(subject).to have_jsonapi_attribute(dashed_attribute, value)
     end
 
     %w(language languages company user-images).each do |relationship|
@@ -69,6 +82,9 @@ end
 #  arrived_at                     :date
 #  country_of_origin              :string
 #  managed                        :boolean          default(FALSE)
+#  account_clearing_number        :string
+#  account_number                 :string
+#  verified                       :boolean          default(FALSE)
 #
 # Indexes
 #
@@ -77,7 +93,6 @@ end
 #  index_users_on_frilans_finans_id  (frilans_finans_id) UNIQUE
 #  index_users_on_language_id        (language_id)
 #  index_users_on_one_time_token     (one_time_token) UNIQUE
-#  index_users_on_ssn                (ssn) UNIQUE
 #
 # Foreign Keys
 #

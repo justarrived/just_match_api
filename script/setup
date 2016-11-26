@@ -10,7 +10,7 @@ cd "$(dirname "$0")/.."
 script/bootstrap
 
 echo -e '\n== Preparing database =='
-bin/rake db:setup
+bin/rails db:setup
 
 echo -e '\n== Removing old logs and tempfiles =='
 rm -f log/*

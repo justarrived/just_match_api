@@ -1,4 +1,11 @@
 ar:
+  activerecord:
+    errors:
+      messages:
+        record_invalid: 'حصل خطأٌ%{errors}'
+        restrict_dependent_destroy:
+          one: لا يمكن إلغاء الموقع لأن هناك تبعية%{record}
+          many: لا يمكن إلغاء المواقع لأن هناك تبعية%{record}
   errors:
     format: "%{attribute}%{message}"
     messages:
@@ -19,10 +26,6 @@ ar:
       not_a_number: ليس رقم
       not_an_integer: يجب أن يكون رقم كامل
       odd: يجب أن يكون رقم مُفرد
-      record_invalid: 'حصل خطأٌ%{errors}'
-      restrict_dependent_destroy:
-        one: لا يمكن إلغاء الموقع لأن هناك تبعية%{record}
-        many: لا يمكن إلغاء المواقع لأن هناك تبعية%{record}
       taken: مستخدم مسبقا
       too_long:
         zero: أطول من اللّازم (الحد الأقصى هو ولا حرف)

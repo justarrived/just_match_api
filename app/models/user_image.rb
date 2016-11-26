@@ -7,7 +7,7 @@ class UserImage < ApplicationRecord
     swedish_id: 2
   }.freeze
 
-  belongs_to :user
+  belongs_to :user, optional: true
 
   before_create :generate_one_time_token
 

@@ -14,6 +14,55 @@ class BlazerSeed < BaseSeed
     create_job_users_status_dashboard
   end
 
+  def create_invoice_dashboard
+    dashboard = Blazer::Dashboard.create!(name: 'Monthly report')
+    dashboard.queries = [
+      create_report_invoice_amount_query,
+      create_report_invoice_report_query
+    ]
+  end
+
+  def create_report_invoice_report_query
+    sql_statement = <<-SQL
+SELECT "frilans_finans_invoices"."id",
+       "frilans_finans_invoices"."ff_amount",
+       "frilans_finans_invoices"."ff_gross_salary",
+       "frilans_finans_invoices"."job_user_id",
+       "frilans_finans_invoices"."frilans_finans_id"
+FROM "frilans_finans_invoices"
+INNER JOIN "job_users" ON "job_users"."id" = "frilans_finans_invoices"."job_user_id"
+INNER JOIN "jobs" ON "jobs"."id" = "job_users"."job_id" WHERE "frilans_finans_invoices"."activated" = {activated}
+AND (jobs.job_end_date > {start_time}
+     AND jobs.job_end_date < {end_time})
+    SQL
+
+    Blazer::Query.create!(
+      name: 'Invoice by job end date',
+      description: '',
+      statement: sql_statement,
+      data_source: 'main'
+    )
+  end
+
+  def create_report_invoice_amount_query
+    sql_statement = <<-SQL
+SELECT SUM("frilans_finans_invoices"."ff_amount")
+FROM "frilans_finans_invoices"
+INNER JOIN "job_users" ON "job_users"."id" = "frilans_finans_invoices"."job_user_id"
+INNER JOIN "jobs" ON "jobs"."id" = "job_users"."job_id"
+WHERE "frilans_finans_invoices"."activated" = {activated}
+    AND (jobs.job_end_date > {start_time}
+         AND jobs.job_end_date < {end_time})
+    SQL
+
+    Blazer::Query.create!(
+      name: 'Invoice amount by job end date',
+      description: '',
+      statement: sql_statement,
+      data_source: 'main'
+    )
+  end
+
   def create_job_users_status_dashboard
     dashboard = Blazer::Dashboard.create!(name: 'Job User Status')
 

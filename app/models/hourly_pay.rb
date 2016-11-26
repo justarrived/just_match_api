@@ -6,9 +6,9 @@ class HourlyPay < ApplicationRecord
 
   scope :active, -> { where(active: true) }
 
-  NET_SALARY_MULTIPLIER = 0.7
-  RATE_EXCLUDING_VAT_MULTIPLIER = 1.4
-  VAT_MULTIPLIER = 1.25
+  def name
+    "Gross salary #{gross_salary} SEK"
+  end
 
   def net_salary
     PayCalculator.net_salary(gross_salary)
@@ -17,6 +17,7 @@ class HourlyPay < ApplicationRecord
   def rate_excluding_vat
     PayCalculator.rate_excluding_vat(gross_salary)
   end
+  alias_method :invoice_rate, :rate_excluding_vat
 
   def rate_including_vat
     PayCalculator.rate_including_vat(gross_salary)

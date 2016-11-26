@@ -49,6 +49,9 @@ end
 #  arrived_at                     :date
 #  country_of_origin              :string
 #  managed                        :boolean          default(FALSE)
+#  account_clearing_number        :string
+#  account_number                 :string
+#  verified                       :boolean          default(FALSE)
 #
 # Indexes
 #
@@ -57,7 +60,6 @@ end
 #  index_users_on_frilans_finans_id  (frilans_finans_id) UNIQUE
 #  index_users_on_language_id        (language_id)
 #  index_users_on_one_time_token     (one_time_token) UNIQUE
-#  index_users_on_ssn                (ssn) UNIQUE
 #
 # Foreign Keys
 #

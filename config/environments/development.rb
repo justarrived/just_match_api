@@ -11,11 +11,32 @@ Rails.application.configure do
   config.eager_load = false
 
   # Show full error reports and disable caching.
-  config.consider_all_requests_local       = true
-  config.action_controller.perform_caching = false
+  config.consider_all_requests_local = true
+  # Enable/disable caching. By default caching is disabled.
+  if Rails.root.join('tmp/caching-dev.txt').exist?
+    config.action_controller.perform_caching = true
+
+    config.cache_store = :memory_store
+    config.public_file_server.headers = {
+      'Cache-Control' => 'public, max-age=172800'
+    }
+  else
+    config.action_controller.perform_caching = false
+
+    config.cache_store = :null_store
+  end
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
+
+  config.action_mailer.perform_caching = false
+
+  # NOTE: This causes `fsevent: running worker failed: Resource temporarily unavailable`,
+  # see https://github.com/phusion/passenger/issues/1879
+  # Detect changes using an evented update checker
+  # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+  # Detect changes by polling the change of the file
+  config.file_watcher = ActiveSupport::FileUpdateChecker
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
@@ -45,6 +66,7 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: 'localhost:3000' }
 
   config.x.send_sms_notifications = false
+  config.x.validate_swedish_ssn = ENV.fetch('VALIDATE_SWEDISH_SSN', 'true') == 'true'
 
   config.after_initialize do
     Bullet.enable = true

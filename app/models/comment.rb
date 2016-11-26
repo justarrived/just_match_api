@@ -7,16 +7,13 @@ class Comment < ApplicationRecord
   validates :owner_user_id, presence: true
   validates :commentable_id, presence: true
   validates :commentable_type, presence: true
-  validates :body, presence: true
   validates :language, presence: true
+  validates :body, presence: true # Virtual attribute
 
   scope :visible, -> { where(hidden: false) }
 
-  # Needed for administrate
-  # see https://github.com/thoughtbot/administrate/issues/354
-  def owner_id
-    owner.try!(:id)
-  end
+  include Translatable
+  translates :body
 end
 # rubocop:disable Metrics/LineLength
 
@@ -26,8 +23,8 @@ end
 #
 #  id               :integer          not null, primary key
 #  body             :text
-#  commentable_id   :integer
 #  commentable_type :string
+#  commentable_id   :integer
 #  owner_user_id    :integer
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null

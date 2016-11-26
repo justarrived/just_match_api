@@ -25,14 +25,14 @@
     "source": {
       "pointer": "/data/attributes/name"
     },
-    "detail": "is too short (minimum is 2 characters)"
+    "detail": "can't be blank"
   },
   {
     "status": 422,
     "source": {
       "pointer": "/data/attributes/description"
     },
-    "detail": "is too short (minimum is 10 characters)"
+    "detail": "can't be blank"
   },
   {
     "status": 422,

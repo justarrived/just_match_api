@@ -15,6 +15,14 @@ module Api
 
           ### Headers
 
+          __Content-Type__
+
+          The correct Content-Type is:
+
+          `Content-Type: application/vnd.api+json`
+
+          Please note that the correct Content-Type isn't standard. See the specification at [jsosnapi.org/format](http://jsonapi.org/format/#content-negotiation-clients).
+
           __Locale__
 
           `X-API-LOCALE: en` is used to specify current locale, valid locales are #{I18n.available_locales.map { |locale| "`#{locale}`" }.join(', ')}
@@ -31,13 +39,16 @@ module Api
 
           ### Example job scenario
 
-          Step | Request |
-          ----------------------------------------------------------------------------------|:---------------------------------------------|
-          1. User (owner) creates job                                                       | `POST /jobs/`                             |
-          2. Another user can apply to a job by creating a job user                         | `POST /jobs/:job_id/users/`               |
-          3. Owner can accept a user by updating job user `accepted`                        | `PATCH /jobs/:job_id/users/:job_user_id/` |
-          4. User confirms that they will perform a job by updating job user `will-perform` | `PATCH /jobs/:job_id/users/:job_user_id/` |
-          5. Owner creates invoice                                                          | `POST /jobs/:job_id/invoices`             |
+          Action | Request |
+          ------------------------------------------------------------------------------------------|:-------------------------------------------------------------|
+          1. Owner creates job                                                                      | `POST /api/v1/jobs/`                                         |
+          2. User can apply to a job by creating a job user                                         | `POST /api/v1/jobs/:job_id/users/`                           |
+          3. Owner can accept a user                                                                | `POST /api/v1/jobs/:job_id/users/:job_user_id/acceptances`   |
+          4. User confirms that they will perform                                                   | `POST /api/v1/jobs/:job_id/users/:job_user_id/confirmations` |
+          5. Check if user has added bank account details (frilans_finans_payment_details: `true`)  | `GET  /api/v1/users/:id`                                      |
+          5.1 If `false` then add bank account details                                              | `POST /api/v1/users/:user_id/frilans-finans`
+          6. Owner creates invoice                                                                  | `POST /api/v1/jobs/:job_id/users/:job_user_id/invoices`      |
+          7. (optional) User confirms that they've performed the job                                | `POST /api/v1/jobs/:job_id/users/:job_user_id/performed`     |
 
           ---
 
@@ -144,9 +155,8 @@ module Api
         return if promo_code == api_promo_code_header
 
         status = 401 # unauthorized
-        errors = LoginRequired.add(JsonApiErrors.new)
+        errors = PromoCodeOrLoginRequired.add(JsonApiErrors.new)
         render json: errors, status: status
-        false # Rails5: Should be updated to use throw
       end
 
       protected
@@ -157,10 +167,14 @@ module Api
       end
 
       def api_render(model_or_model_array, status: :ok, total: nil, meta: {})
+        model = model_or_model_array
         meta[:total] = total if total
 
+        meta[:current_page] = model.current_page if model.respond_to?(:current_page)
+        meta[:total_pages] = model.total_pages if model.respond_to?(:total_pages)
+
         serialized_model = JsonApiSerializer.serialize(
-          model_or_model_array,
+          model,
           key_transform: key_transform_header,
           included: included_resources,
           fields: fields_params.to_h,
@@ -176,15 +190,13 @@ module Api
         errors = NotFound.add(JsonApiErrors.new)
 
         render json: errors, status: :not_found
-        false # Rails5: Should be updated to use throw
       end
 
       def require_user
-        unless logged_in?
-          errors = LoginRequired.add(JsonApiErrors.new)
-          render json: errors, status: :unauthorized
-        end
-        false # Rails5: Should be updated to use throw
+        return if logged_in?
+
+        errors = LoginRequired.add(JsonApiErrors.new)
+        render json: errors, status: :unauthorized
       end
 
       def user_forbidden
@@ -200,7 +212,6 @@ module Api
         end
 
         render json: errors, status: status
-        false # Rails5: Should be updated to use throw
       end
 
       def expired_token
@@ -208,7 +219,6 @@ module Api
 
         status = 401 # unauthorized
         render json: errors.to_json, status: status
-        false # Rails5: Should be updated to use throw
       end
 
       def current_user
@@ -256,14 +266,26 @@ module Api
         end
       end
 
+      def act_as_user_header
+        request.headers['X-API-ACT-AS-USER']
+      end
+
       private
 
       def authenticate_user_token!
         authenticate_with_http_token do |auth_token, _options|
+
           token = Token.includes(:user).find_by(token: auth_token)
           return if token.nil?
           return raise ExpiredTokenError if token.expired?
-          return login_user(token.user)
+
+          user = token.user
+
+          if user.admin? && !act_as_user_header.blank?
+            user = User.find(act_as_user_header)
+          end
+
+          return login_user(user)
         end
       end
     end

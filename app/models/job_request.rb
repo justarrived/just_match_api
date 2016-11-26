@@ -1,5 +1,7 @@
 # frozen_string_literal: true
-class JobRequest < ActiveRecord::Base
+class JobRequest < ApplicationRecord
+  scope :finished, -> { where(finished: true) }
+  scope :pending, -> { where(finished: false) }
 end
 
 # == Schema Information

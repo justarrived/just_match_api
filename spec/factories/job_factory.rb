@@ -14,6 +14,17 @@ FactoryGirl.define do
     job_end_date 2.weeks.from_now
     hours 30
 
+    factory :job_with_translation do
+      after(:create) do |job, _evaluator|
+        translation_attributes = {
+          name: job.name,
+          description: job.description,
+          short_description: job.short_description
+        }
+        job.set_translation(translation_attributes)
+      end
+    end
+
     factory :passed_job do
       job_date 7.days.ago
       job_end_date 6.days.ago
@@ -110,6 +121,7 @@ end
 #  filled            :boolean          default(FALSE)
 #  short_description :string
 #  featured          :boolean          default(FALSE)
+#  upcoming          :boolean          default(FALSE)
 #
 # Indexes
 #

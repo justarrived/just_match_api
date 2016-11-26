@@ -5,8 +5,8 @@ AllCops:
   Exclude:
     - "vendor/**/*"
     - "db/schema.rb"
-    - "config/unicorn.rb"
-  UseCache: false
+    - "config/puma.rb"
+  UseCache: true
 Style/CollectionMethods:
   Description: Preferred collection methods.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#map-find-select-reduce-size
@@ -247,4 +247,11 @@ Lint/LiteralInCondition:
   Enabled: false
 Lint/LiteralInInterpolation:
   Description: Checks for literals used in interpolation.
+  Enabled: false
+
+# Rails
+
+Rails/DynamicFindBy:
+  Enabled: false
+Metrics/BlockLength:
   Enabled: false

@@ -19,7 +19,7 @@ RSpec.describe Api::V1::Users::MessagesController, type: :controller do
 
       it 'assigns all messages as @messages' do
         expected_klass = Message::ActiveRecord_Relation
-        get :index, valid_attributes, valid_session
+        get :index, params: valid_attributes, headers: valid_session
         expect(assigns(:messages).class).to eq(expected_klass)
       end
     end
@@ -41,18 +41,18 @@ RSpec.describe Api::V1::Users::MessagesController, type: :controller do
 
       it 'creates a new Message' do
         expect do
-          post :create, valid_attributes, valid_session
+          post :create, params: valid_attributes, headers: valid_session
         end.to change(Message, :count).by(1)
       end
 
       it 'assigns a newly created message as @message' do
-        post :create, valid_attributes, valid_session
+        post :create, params: valid_attributes, headers: valid_session
         expect(assigns(:message)).to be_a(Message)
         expect(assigns(:message)).to be_persisted
       end
 
       it 'returns created status' do
-        post :create, valid_attributes, valid_session
+        post :create, params: valid_attributes, headers: valid_session
         expect(response.status).to eq(201)
       end
     end
@@ -70,12 +70,12 @@ RSpec.describe Api::V1::Users::MessagesController, type: :controller do
 
       it 'does not create a new Message' do
         expect do
-          post :create, invalid_attributes, valid_session
+          post :create, params: invalid_attributes, headers: valid_session
         end.to change(Message, :count).by(0)
       end
 
       it 'returns @message errors' do
-        post :create, invalid_attributes, valid_session
+        post :create, params: invalid_attributes, headers: valid_session
         expect(assigns(:message).errors[:body]).to eq(["can't be blank"])
       end
     end

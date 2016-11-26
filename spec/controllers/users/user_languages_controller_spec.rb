@@ -29,7 +29,7 @@ RSpec.describe Api::V1::Users::UserLanguagesController, type: :controller do
         and_return(user))
 
       user_language = user.user_languages.first
-      get :index, { user_id: user.to_param }, {}
+      get :index, params: { user_id: user.to_param }
       expect(assigns(:user_languages)).to eq([user_language])
     end
   end
@@ -40,7 +40,7 @@ RSpec.describe Api::V1::Users::UserLanguagesController, type: :controller do
       language = user.languages.first
       user_language = user.user_languages.first
       params = { user_id: user.to_param, user_language_id: user_language.to_param }
-      get :show, params, valid_session
+      get :show, params: params, headers: valid_session
       expect(assigns(:language)).to eq(language)
       expect(assigns(:user_language)).to eq(user_language)
       expect(assigns(:user)).to eq(user)
@@ -65,23 +65,23 @@ RSpec.describe Api::V1::Users::UserLanguagesController, type: :controller do
 
       it 'creates a new UserLanguage' do
         expect do
-          post :create, params, valid_session
+          post :create, params: params, headers: valid_session
         end.to change(UserLanguage, :count).by(1)
       end
 
       it 'assigns a newly created user_language as @user_language' do
-        post :create, params, valid_session
+        post :create, params: params, headers: valid_session
         expect(assigns(:user_language)).to be_a(UserLanguage)
         expect(assigns(:user_language)).to be_persisted
       end
 
       it 'sets proficiency' do
-        post :create, params, valid_session
+        post :create, params: params, headers: valid_session
         expect(assigns(:user_language).proficiency).to eq(proficiency)
       end
 
       it 'returns created status' do
-        post :create, params, valid_session
+        post :create, params: params, headers: valid_session
         expect(response.status).to eq(201)
       end
 
@@ -100,7 +100,7 @@ RSpec.describe Api::V1::Users::UserLanguagesController, type: :controller do
         end
 
         it 'returns created status' do
-          post :create, params, valid_session
+          post :create, params: params, headers: valid_session
           expect(response.status).to eq(403)
         end
       end
@@ -112,12 +112,12 @@ RSpec.describe Api::V1::Users::UserLanguagesController, type: :controller do
       end
 
       it 'assigns a newly created but unsaved user_language as @user_language' do
-        post :create, params, valid_session
+        post :create, params: params, headers: valid_session
         expect(assigns(:user_language)).to be_a_new(UserLanguage)
       end
 
       it 'returns unprocessable entity status' do
-        post :create, params, valid_session
+        post :create, params: params, headers: valid_session
         expect(response.status).to eq(422)
       end
     end
@@ -129,14 +129,14 @@ RSpec.describe Api::V1::Users::UserLanguagesController, type: :controller do
         user_language = FactoryGirl.create(:user_language, user: user)
         params = { user_id: user.to_param, user_language_id: user_language.to_param }
         expect do
-          delete :destroy, params, valid_session
+          delete :destroy, params: params, headers: valid_session
         end.to change(UserLanguage, :count).by(-1)
       end
 
       it 'returns no content status' do
         user_language = FactoryGirl.create(:user_language, user: user)
         params = { user_id: user.to_param, user_language_id: user_language.to_param }
-        delete :destroy, params, valid_session
+        delete :destroy, params: params, headers: valid_session
         expect(response.status).to eq(204)
       end
     end
@@ -147,7 +147,7 @@ RSpec.describe Api::V1::Users::UserLanguagesController, type: :controller do
         user_language = user.user_languages.first
         params = { user_id: user.to_param, user_language_id: user_language.to_param }
         expect do
-          delete :destroy, params, valid_session
+          delete :destroy, params: params, headers: valid_session
         end.to change(UserLanguage, :count).by(0)
       end
 
@@ -155,7 +155,7 @@ RSpec.describe Api::V1::Users::UserLanguagesController, type: :controller do
         user = FactoryGirl.create(:user_with_languages)
         user_language = user.user_languages.first
         params = { user_id: user.to_param, user_language_id: user_language.to_param }
-        delete :destroy, params, valid_session
+        delete :destroy, params: params, headers: valid_session
         expect(response.status).to eq(403)
       end
     end

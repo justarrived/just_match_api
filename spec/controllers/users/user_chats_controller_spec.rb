@@ -18,7 +18,7 @@ RSpec.describe Api::V1::Users::UserChatsController, type: :controller do
 
       it 'assigns all chats as @chats' do
         chat = FactoryGirl.create(:chat, users: [user])
-        get :index, valid_params, valid_session
+        get :index, params: valid_params, headers: valid_session
         expect(assigns(:chats)).to eq([chat])
       end
     end
@@ -32,7 +32,7 @@ RSpec.describe Api::V1::Users::UserChatsController, type: :controller do
       end
 
       it 'assigns chat as @chat' do
-        get :show, valid_params, valid_session
+        get :show, params: valid_params, headers: valid_session
         expect(assigns(:chat)).to eq(chat)
       end
     end

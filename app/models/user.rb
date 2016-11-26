@@ -27,9 +27,9 @@ class User < ApplicationRecord
   before_save :encrypt_password
 
   belongs_to :language
-  belongs_to :company
+  belongs_to :company, optional: true
 
-  has_many :auth_tokens, class_name: 'Token'
+  has_many :auth_tokens, class_name: 'Token', dependent: :destroy
 
   has_many :user_skills
   has_many :skills, through: :user_skills
@@ -39,7 +39,7 @@ class User < ApplicationRecord
   has_many :job_users
   has_many :jobs, through: :job_users
 
-  has_many :user_languages
+  has_many :user_languages, dependent: :destroy
   has_many :languages, through: :user_languages
 
   has_many :written_comments, class_name: 'Comment', foreign_key: 'owner_user_id'
@@ -51,16 +51,18 @@ class User < ApplicationRecord
 
   has_many :user_images
 
+  has_many :given_ratings, class_name: 'Rating', foreign_key: 'from_user_id'
+  has_many :received_ratings, class_name: 'Rating', foreign_key: 'to_user_id'
+
   validates :language, presence: true
   validates :email, presence: true, uniqueness: true
   validates :first_name, length: { minimum: 2 }, allow_blank: false
   validates :last_name, length: { minimum: 2 }, allow_blank: false
   validates :phone, length: { minimum: 9 }, uniqueness: true, allow_blank: false
-  validates :description, length: { minimum: 10 }, allow_blank: true
   validates :street, length: { minimum: 5 }, allow_blank: true
   validates :zip, length: { minimum: 5 }, allow_blank: true
   validates :password, length: { minimum: MIN_PASSWORD_LENGTH }, allow_blank: false, on: :create # rubocop:disable Metrics/LineLength
-  validates :ssn, uniqueness: true, allow_blank: false
+  validates :ssn, uniqueness: true, allow_blank: true
   validates :frilans_finans_id, uniqueness: true, allow_nil: true
   validates :country_of_origin, inclusion: { in: ISO3166::Country.translations.keys }, allow_blank: true # rubocop:disable Metrics/LineLength
 
@@ -74,6 +76,7 @@ class User < ApplicationRecord
   scope :admins, -> { where(admin: true) }
   scope :company_users, -> { where.not(company: nil) }
   scope :regular_users, -> { where(company: nil) }
+  scope :managed_users, -> { where(managed: true) }
   scope :visible, -> { where.not(banned: true) }
   scope :valid_one_time_tokens, lambda {
     where('one_time_token_expires_at > ?', Time.zone.now)
@@ -87,6 +90,9 @@ class User < ApplicationRecord
   #       see https://github.com/rails/rails/issues/13971
   enum current_status: STATUSES
   enum at_und: AT_UND
+
+  include Translatable
+  translates :description, :job_experience, :education, :competence_text
 
   # Don't change the order or remove any items in the array,
   # only additions are allowed
@@ -168,6 +174,33 @@ class User < ApplicationRecord
   def self.accepted_applicant_for_owner?(owner:, user:)
     jobs = owner.owned_jobs & JobUser.accepted_jobs_for(user)
     jobs.any?
+  end
+
+  def anonymize
+    assign_attributes(
+      id: -1,
+      anonymized: true,
+      first_name: 'Anonymous',
+      last_name: 'User',
+      email: 'anonymous@example.com',
+      description: 'This user is anonymous.',
+      street: 'XYZXYZ XX',
+      zip: 'XYZX YZ',
+      ssn: 'XYZXYZXYZX',
+      company: primary_role == :candidate ? nil : company.anonymize
+    )
+    self
+  end
+
+  def average_score
+    received_ratings.average(:score)
+  end
+
+  delegate :count, to: :received_ratings, prefix: true
+
+  # ActiveAdmin display name
+  def display_name
+    "#{name} ##{id}"
   end
 
   def not_persisted?
@@ -259,8 +292,7 @@ class User < ApplicationRecord
     BitmaskField.from_mask(ignored_notifications_mask, NOTIFICATIONS)
   end
 
-  def reset!
-    # Update the users attributes and don't validate
+  def anonymize_attributes
     assign_attributes(
       anonymized: true,
       first_name: 'Ghost',
@@ -273,6 +305,11 @@ class User < ApplicationRecord
       ssn: '0000000000',
       password: SecureGenerator.token
     )
+  end
+
+  def reset!
+    # Update the users attributes and don't validate
+    anonymize_attributes
     save!(validate: false)
   end
 
@@ -395,6 +432,9 @@ end
 #  arrived_at                     :date
 #  country_of_origin              :string
 #  managed                        :boolean          default(FALSE)
+#  account_clearing_number        :string
+#  account_number                 :string
+#  verified                       :boolean          default(FALSE)
 #
 # Indexes
 #
@@ -403,7 +443,6 @@ end
 #  index_users_on_frilans_finans_id  (frilans_finans_id) UNIQUE
 #  index_users_on_language_id        (language_id)
 #  index_users_on_one_time_token     (one_time_token) UNIQUE
-#  index_users_on_ssn                (ssn) UNIQUE
 #
 # Foreign Keys
 #

@@ -16,6 +16,8 @@ class Doxxer
 
     unless meta.empty?
       model_json = JSON.parse(model_json_string)
+      model_json['meta'] ||= {}
+
       meta_json = model_json['meta'].merge(meta)
       model_json['meta'] = meta_json
       model_json_string = JSON.pretty_generate(model_json)
@@ -142,10 +144,10 @@ class Doxxer
   def self._factory_attributes(model_klass)
     model_name = _format_model_name(model_klass)
     begin
-      FactoryGirl.attributes_for("#{model_name}_for_docs")
+      FactoryGirl.build("#{model_name}_for_docs").attributes
     rescue ArgumentError => e
       if e.message.start_with?('Factory not registered:')
-        return FactoryGirl.attributes_for(model_name)
+        return FactoryGirl.build(model_name).attributes
       end
 
       raise e

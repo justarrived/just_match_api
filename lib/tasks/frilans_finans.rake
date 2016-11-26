@@ -16,7 +16,7 @@ namespace :frilans_finans do
     end
   end
 
-  # $ rake frilans_finans:parse_log['tmp/test_file.txt']
+  # $ rails frilans_finans:parse_log['tmp/test_file.txt']
   task :parse_log, [:filename] do |_t, args|
     require 'frilans_finans_api/parse_log'
 

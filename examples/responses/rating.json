@@ -7,10 +7,16 @@
     },
     "relationships": {
       "job": {
-        "data": null
+        "data": {
+          "id": "3",
+          "type": "jobs"
+        }
       },
       "to_user": {
-        "data": null
+        "data": {
+          "id": "11",
+          "type": "users"
+        }
       },
       "comment": {
         "data": null

@@ -15,7 +15,6 @@ RSpec.describe Api::V1::UsersController, type: :controller do
           phone: '123456789',
           description: 'Some user description',
           language_id: lang_id,
-          # language_ids: [lang_id],
           language_ids: [{ id: lang_id, proficiency: lang_proficiency }],
           street: 'Stora Nygatan 36',
           zip: '211 37',
@@ -54,20 +53,20 @@ RSpec.describe Api::V1::UsersController, type: :controller do
   describe 'GET #index' do
     it 'assigns all users as @users' do
       user = FactoryGirl.create(:user)
-      get :index, {}, valid_admin_session
+      process :index, method: :get, headers: valid_admin_session
       expect(assigns(:users)).to include(user)
     end
 
     context 'not authorized' do
       it 'does not assigns all users as @users' do
         FactoryGirl.create(:user)
-        get :index, {}, {}
+        process :index, method: :get
         expect(assigns(:users)).to eq(nil)
       end
 
       it 'returns 401 status' do
         FactoryGirl.create(:user)
-        get :index, {}, {}
+        process :index, method: :get
         expect(response.status).to eq(401)
       end
     end
@@ -76,13 +75,13 @@ RSpec.describe Api::V1::UsersController, type: :controller do
   describe 'GET #show' do
     it 'assigns the requested user as @user' do
       user = FactoryGirl.create(:user)
-      get :show, { user_id: user.to_param }, valid_session
+      get :show, params: { user_id: user.to_param }, headers: valid_session
       expect(assigns(:user)).to eq(user)
     end
 
     it 'returns 401 status' do
       user = FactoryGirl.create(:user)
-      get :show, { user_id: user.to_param }, {}
+      get :show, params: { user_id: user.to_param }
       expect(response.status).to eq(401)
     end
   end
@@ -91,12 +90,12 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     context 'with valid params' do
       it 'creates a new User' do
         expect do
-          post :create, valid_attributes, {}
+          post :create, params: valid_attributes
         end.to change(User, :count).by(1)
       end
 
       it 'assigns a newly created user as @user' do
-        post :create, valid_attributes, {}
+        post :create, params: valid_attributes
         expect(assigns(:user)).to be_a(User)
         expect(assigns(:user)).to be_persisted
       end
@@ -104,18 +103,18 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       it 'strip user email' do
         attrs = valid_attributes.dup
         attrs[:data][:attributes][:email] = '  user@example.com   '
-        post :create, attrs, {}
+        post :create, params: attrs, headers: {}
         expect(assigns(:user).email).to eq('user@example.com')
       end
 
       it 'returns created status' do
-        post :create, valid_attributes, {}
+        post :create, params: valid_attributes
         expect(response.status).to eq(201)
       end
 
       it 'sends welcome notification' do
         allow(UserWelcomeNotifier).to receive(:call)
-        post :create, valid_attributes, {}
+        post :create, params: valid_attributes
         expect(UserWelcomeNotifier).to have_received(:call)
       end
 
@@ -127,14 +126,14 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
           valid_attributes[:data][:attributes][:user_image_one_time_token] = token
 
-          post :create, valid_attributes, {}
+          post :create, params: valid_attributes
           expect(assigns(:user).user_images.first).to eq(user_image)
         end
 
         it 'does not create user image if invalid one time token' do
           valid_attributes[:data][:attributes][:user_image_one_time_token] = 'token'
 
-          post :create, valid_attributes, {}
+          post :create, params: valid_attributes
           expect(assigns(:user).user_images.first).to be_nil
         end
       end
@@ -147,14 +146,14 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
           valid_attributes[:data][:attributes][:user_image_one_time_tokens] = [token]
 
-          post :create, valid_attributes, {}
+          post :create, params: valid_attributes
           expect(assigns(:user).user_images.first).to eq(user_image)
         end
 
         it 'does not create user image if invalid one time tokens' do
           valid_attributes[:data][:attributes][:user_image_one_time_tokens] = 'token'
 
-          post :create, valid_attributes, {}
+          post :create, params: valid_attributes
           expect(assigns(:user).user_images.first).to be_nil
         end
       end
@@ -165,7 +164,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         it 'creates from deprecated language id list' do
           valid_attributes[:data][:attributes][:language_ids] = [language_id]
 
-          post :create, valid_attributes, {}
+          post :create, params: valid_attributes
 
           user_language = assigns(:user).user_languages.first
           expect(user_language.language.id).to eq(language_id)
@@ -173,7 +172,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         end
 
         it 'creates from language list of ids and proficiencies' do
-          post :create, valid_attributes, {}
+          post :create, params: valid_attributes
 
           user_language = assigns(:user).user_languages.first
           expect(user_language.language.id).to eq(language_id)
@@ -184,12 +183,12 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
     context 'with invalid params' do
       it 'assigns a newly created but unsaved user as @user' do
-        post :create, invalid_attributes, valid_session
+        post :create, params: invalid_attributes, headers: valid_session
         expect(assigns(:user)).to be_a_new(User)
       end
 
       it 'returns unprocessable entity status' do
-        post :create, invalid_attributes, valid_session
+        post :create, params: invalid_attributes, headers: valid_session
         expect(response.status).to eq(422)
       end
     end
@@ -210,20 +209,20 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
         it 'updates the requested user' do
           params = { user_id: user.to_param }.merge(new_attributes)
-          put :update, params, valid_session
+          put :update, params: params, headers: valid_session
           user.reload
           expect(user.first_name).to eq('Johanna')
         end
 
         it 'assigns the requested user as @user' do
           params = { user_id: user.to_param }.merge(new_attributes)
-          put :update, params, valid_session
+          put :update, params: params, headers: valid_session
           expect(assigns(:user)).to eq(user)
         end
 
         it 'returns success status' do
           params = { user_id: user.to_param }.merge(new_attributes)
-          put :update, params, valid_session
+          put :update, params: params, headers: valid_session
           expect(response.status).to eq(200)
         end
 
@@ -242,7 +241,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
             params = { user_id: user.to_param }.merge(new_attributes)
             user_image.one_time_token
-            post :update, params, {}
+            post :update, params: params, headers: {}
             expect(assigns(:user).user_images.first).to eq(user_image)
           end
 
@@ -252,7 +251,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
             params = { user_id: user.to_param }
 
-            post :update, params, {}
+            post :update, params: params, headers: {}
             expect(assigns(:user).user_images.first).to eq(first_user_image)
           end
         end
@@ -264,21 +263,44 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         it 'does not update the requested user' do
           old_name = user.first_name
           params = { user_id: user.to_param }.merge(new_attributes)
-          put :update, params, {}
+          put :update, params: params, headers: {}
           user.reload
           expect(user.first_name).to eq(old_name)
         end
 
         it 'does not assign the requested user as user' do
           params = { user_id: user.to_param }.merge(new_attributes)
-          put :update, params, {}
+          put :update, params: params, headers: {}
           expect(assigns(:user)).to eq(user)
         end
 
         it 'returns not authorized status' do
           params = { user_id: user.to_param }.merge(new_attributes)
-          put :update, params, {}
+          put :update, params: params, headers: {}
           expect(response.status).to eq(401)
+        end
+      end
+
+      context 'with user languages' do
+        let(:user) { User.find_by_auth_token(valid_session[:token]) }
+        let(:language_id) { valid_attributes[:data][:attributes][:language_id] }
+        let(:new_attributes) do
+          {
+            data: {
+              attributes: {
+                language_ids: [{ id: language_id, proficiency: lang_proficiency }]
+              }
+            }
+          }
+        end
+
+        it 'creates from language list of ids and proficiencies' do
+          params = { user_id: user.to_param }.merge(new_attributes)
+          put :update, params: params, headers: valid_session
+
+          user_language = assigns(:user).user_languages.first
+          expect(user_language.language.id).to eq(language_id)
+          expect(user_language.proficiency).to eq(lang_proficiency)
         end
       end
     end
@@ -288,13 +310,13 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
       it 'assigns the user as @user' do
         params = { user_id: user.to_param }.merge(invalid_attributes)
-        put :update, params, valid_session
+        put :update, params: params, headers: valid_session
         expect(assigns(:user)).to eq(user)
       end
 
       it 'returns unprocessable entity status' do
         params = { user_id: user.to_param }.merge(invalid_attributes)
-        put :update, params, valid_session
+        put :update, params: params, headers: valid_session
         expect(response.status).to eq(422)
       end
     end
@@ -305,13 +327,13 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       let(:user) { User.find_by_auth_token(valid_session[:token]) }
 
       it 'destroys the requested user' do
-        delete :destroy, { user_id: user.to_param }, valid_session
+        delete :destroy, params: { user_id: user.to_param }, headers: valid_session
         user.reload
         expect(user.name).to eq('Ghost user')
       end
 
       it 'returns no content status' do
-        delete :destroy, { user_id: user.to_param }, valid_session
+        delete :destroy, params: { user_id: user.to_param }, headers: valid_session
         expect(response.status).to eq(204)
       end
     end
@@ -321,14 +343,14 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         first_name = 'Some user'
 
         user = FactoryGirl.create(:user, first_name: first_name)
-        delete :destroy, { user_id: user.to_param }, valid_session
+        delete :destroy, params: { user_id: user.to_param }, headers: valid_session
         user.reload
         expect(user.first_name).to eq(first_name)
       end
 
       it 'returns not forbidden status' do
         user = FactoryGirl.create(:user)
-        delete :destroy, { user_id: user.to_param }, valid_session
+        delete :destroy, params: { user_id: user.to_param }, headers: valid_session
         expect(response.status).to eq(403)
       end
     end
@@ -337,7 +359,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
   describe 'GET #matching_jobs' do
     it 'returns 200 status for admin user' do
       user = FactoryGirl.create(:user)
-      get :show, { user_id: user.to_param }, valid_admin_session
+      get :show, params: { user_id: user.to_param }, headers: valid_admin_session
       expect(response.status).to eq(200)
     end
   end
@@ -345,13 +367,13 @@ RSpec.describe Api::V1::UsersController, type: :controller do
   describe 'GET #notifications' do
     it 'returns 200 status' do
       user = FactoryGirl.create(:user)
-      get :notifications, { user_id: user.to_param }, {}
+      get :notifications, params: { user_id: user.to_param }
       expect(response.status).to eq(200)
     end
 
     it 'correct response body' do
       user = FactoryGirl.create(:user)
-      get :notifications, { user_id: user.to_param }, {}
+      get :notifications, params: { user_id: user.to_param }
 
       result = JSON.parse(response.body)['data']
       result.each do |json_object|
@@ -369,13 +391,13 @@ RSpec.describe Api::V1::UsersController, type: :controller do
   describe 'GET #statuses' do
     it 'returns 200 status' do
       user = FactoryGirl.create(:user)
-      get :statuses, { user_id: user.to_param }, {}
+      get :statuses, params: { user_id: user.to_param }
       expect(response.status).to eq(200)
     end
 
     it 'correct response body' do
       user = FactoryGirl.create(:user)
-      get :statuses, { user_id: user.to_param }, {}
+      get :statuses, params: { user_id: user.to_param }
 
       result = JSON.parse(response.body)['data']
       result.each do |json_object|
@@ -432,6 +454,9 @@ end
 #  arrived_at                     :date
 #  country_of_origin              :string
 #  managed                        :boolean          default(FALSE)
+#  account_clearing_number        :string
+#  account_number                 :string
+#  verified                       :boolean          default(FALSE)
 #
 # Indexes
 #
@@ -440,7 +465,6 @@ end
 #  index_users_on_frilans_finans_id  (frilans_finans_id) UNIQUE
 #  index_users_on_language_id        (language_id)
 #  index_users_on_one_time_token     (one_time_token) UNIQUE
-#  index_users_on_ssn                (ssn) UNIQUE
 #
 # Foreign Keys
 #

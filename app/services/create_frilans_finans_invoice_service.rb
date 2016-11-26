@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class CreateFrilansFinansInvoiceService
-  def self.create(ff_invoice:)
+  def self.create(ff_invoice:, pre_report: true, express_payment: false)
     job_user = ff_invoice.job_user
     job = job_user.job
     user = job_user.user
@@ -15,7 +15,8 @@ class CreateFrilansFinansInvoiceService
       client: client,
       user: user,
       job: job,
-      pre_report: true
+      pre_report: pre_report,
+      express_payment: express_payment
     )
     ff_invoice_remote = FrilansFinansApi::Invoice.create(
       attributes: ff_invoice_attributes,
@@ -25,6 +26,7 @@ class CreateFrilansFinansInvoiceService
 
     frilans_finans_id = ff_invoice_remote.resource.id
     ff_invoice.frilans_finans_id = frilans_finans_id
+    ff_invoice.express_payment = express_payment
 
     if frilans_finans_id.nil?
       InvoiceFailedToConnectToFrilansFinansNotifier.call(ff_invoice: ff_invoice)

@@ -13,7 +13,8 @@ RSpec.describe FrilansFinans::InvoiceWrapper do
         user: nil,
         tax: nil,
         ff_user: nil,
-        pre_report: false
+        pre_report: false,
+        express_payment: false
       )
 
       expected = {
@@ -47,8 +48,8 @@ RSpec.describe FrilansFinans::InvoiceWrapper do
 
     it 'returns the main invoice data' do
       expected = {
-        currency_id: Currency.default_currency.try!(:frilans_finans_id),
-        specification: "#{job.category.name} - #{job.name} (##{job.id})",
+        currency_id: Currency.default_currency&.frilans_finans_id,
+        specification: job.invoice_specification,
         amount: job.invoice_amount,
         company_id: ff_company_id,
         tax_id: ff_tax_id,
@@ -66,16 +67,23 @@ RSpec.describe FrilansFinans::InvoiceWrapper do
   end
 
   describe '#invoice_users' do
-    it 'returns invoice users data' do
-      job = FactoryGirl.build(:job, hours: 50)
-      user = FactoryGirl.build(:user)
-
-      taxkey_id = 13
+    let(:user) { FactoryGirl.build(:user) }
+    let(:job) { FactoryGirl.build(:job, hours: 50) }
+    let(:taxkey_id) { 13 }
+    let(:express_payment) { false }
+    let(:invoice_users_result) do
       attributes_mock = Struct.new(:attributes).new('default_taxkey_id' => taxkey_id)
       ff_user_mock = Struct.new(:resource).new(attributes_mock)
 
-      result = described_class.invoice_users(job: job, user: user, ff_user: ff_user_mock)
+      described_class.invoice_users(
+        job: job,
+        user: user,
+        ff_user: ff_user_mock,
+        express_payment: express_payment
+      )
+    end
 
+    it 'returns invoice users data' do
       expected = [{
         user_id: user.frilans_finans_id,
         total: 7000.0,
@@ -87,7 +95,26 @@ RSpec.describe FrilansFinans::InvoiceWrapper do
         express_payment: 0
       }]
 
-      expect(result).to eq(expected)
+      expect(invoice_users_result).to eq(expected)
+    end
+
+    context 'with express payment' do
+      let(:express_payment) { true }
+
+      it 'returns invoice users data' do
+        expected = [{
+          user_id: user.frilans_finans_id,
+          total: 7000.0,
+          taxkey_id: taxkey_id,
+          allowance: 0,
+          travel: 0,
+          save_vacation_pay: 0,
+          save_itp: 0,
+          express_payment: 1
+        }]
+
+        expect(invoice_users_result).to eq(expected)
+      end
     end
   end
 

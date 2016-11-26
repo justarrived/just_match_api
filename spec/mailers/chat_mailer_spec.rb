@@ -27,7 +27,7 @@ RSpec.describe ChatMailer, type: :mailer do
     end
 
     it 'renders the sender email' do
-      expect(mail.from).to eql(['hello@justarrived.se'])
+      expect(mail.from).to eql(['support@justarrived.se'])
     end
 
     it 'renders author name' do

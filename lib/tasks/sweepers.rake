@@ -10,6 +10,7 @@ namespace :sweepers do
     %w(
       destroy_company_image_orphans
       destroy_user_image_orphans
+      destroy_terms_agreement_orphans
       destroy_expired_tokens
     ).each do |task|
       Rake::Task["sweepers:cleanup:#{task}"].execute
@@ -23,6 +24,10 @@ namespace :sweepers do
 
     task destroy_user_image_orphans: :environment do |task_name|
       wrap_sweeper_task(task_name) { Sweepers::UserImageSweeper.destroy_orphans }
+    end
+
+    task destroy_terms_agreement_orphans: :environment do |task_name|
+      wrap_sweeper_task(task_name) { Sweepers::TermsAgreementSweeper.destroy_orphans }
     end
 
     task destroy_expired_tokens: :environment do |task_name|
@@ -67,6 +72,12 @@ namespace :sweepers do
     task activate_invoices: :environment do |task_name|
       wrap_sweeper_task(task_name) do
         Sweepers::FrilansFinansInvoiceSweeper.activate_frilans_finans
+      end
+    end
+
+    task remote_sync: :environment do |task_name|
+      wrap_sweeper_task(task_name) do
+        Sweepers::FrilansFinansInvoiceSweeper.remote_sync
       end
     end
   end

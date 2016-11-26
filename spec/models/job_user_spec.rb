@@ -334,6 +334,25 @@ RSpec.describe JobUser, type: :model do
       end
     end
   end
+
+  describe '#validate_language_presence_if_apply_message' do
+    let(:job_user) { FactoryGirl.build(:job_user_accepted) }
+
+    it 'adds *no* error when value is already false' do
+      job_user.validate
+      err_msg = I18n.t('errors.general.blank_if_field', field: :apply_message)
+      expect(job_user.errors.messages[:language] || []).not_to include(err_msg)
+    end
+
+    it 'adds error when value is true and set to false' do
+      job_user.language = nil
+      job_user.apply_message = 'Something something, darkside..'
+      job_user.validate
+      field = described_class.human_attribute_name(:apply_message)
+      err_msg = I18n.t('errors.general.blank_if_field', field: field)
+      expect(job_user.errors.messages[:language]).to include(err_msg)
+    end
+  end
 end
 
 # == Schema Information
@@ -350,11 +369,13 @@ end
 #  accepted_at   :datetime
 #  performed     :boolean          default(FALSE)
 #  apply_message :text
+#  language_id   :integer
 #
 # Indexes
 #
 #  index_job_users_on_job_id              (job_id)
 #  index_job_users_on_job_id_and_user_id  (job_id,user_id) UNIQUE
+#  index_job_users_on_language_id         (language_id)
 #  index_job_users_on_user_id             (user_id)
 #  index_job_users_on_user_id_and_job_id  (user_id,job_id) UNIQUE
 #
@@ -362,4 +383,5 @@ end
 #
 #  fk_rails_548d2d3ba9  (job_id => jobs.id)
 #  fk_rails_815844930e  (user_id => users.id)
+#  fk_rails_93547d43e9  (language_id => languages.id)
 #

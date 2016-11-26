@@ -7,7 +7,7 @@ RSpec.describe Api::V1::CompaniesController, type: :controller do
   describe 'GET #index' do
     it 'assigns all companies as @companies' do
       company = FactoryGirl.create(:company)
-      get :index, {}, valid_session
+      process :index, method: :get, headers: valid_session
       expect(assigns(:companies)).to eq([company])
     end
   end
@@ -15,7 +15,7 @@ RSpec.describe Api::V1::CompaniesController, type: :controller do
   describe 'GET #show' do
     it 'assigns company as @company' do
       company = FactoryGirl.create(:company)
-      get :show, { company_id: company.to_param }, valid_session
+      get :show, params: { company_id: company.to_param }, headers: valid_session
       expect(assigns(:company)).to eq(company)
     end
   end
@@ -39,17 +39,17 @@ RSpec.describe Api::V1::CompaniesController, type: :controller do
 
     it 'creates a new Company' do
       expect do
-        post :create, valid_params, valid_session
+        post :create, params: valid_params, headers: valid_session
       end.to change(Company, :count).by(1)
     end
 
     it 'assigns a valid company as @company' do
-      get :create, valid_params, {}
+      get :create, params: valid_params
       expect(assigns(:company).valid?).to eq(true)
     end
 
     it 'returns 201 created status' do
-      get :create, valid_params, valid_session
+      get :create, params: valid_params, headers: valid_session
       expect(response.status).to eq(201)
     end
 
@@ -61,14 +61,14 @@ RSpec.describe Api::V1::CompaniesController, type: :controller do
 
         valid_params[:data][:attributes][:company_image_one_time_token] = token
 
-        post :create, valid_params, {}
+        post :create, params: valid_params
         expect(assigns(:company).company_images.first).to eq(company_image)
       end
 
       it 'does not create company image if invalid one time token' do
         valid_params[:data][:attributes][:company_image_one_time_token] = 'token'
 
-        post :create, valid_params, {}
+        post :create, params: valid_params
         expect(assigns(:company).company_images.first).to be_nil
       end
     end
@@ -91,6 +91,7 @@ end
 #  zip               :string
 #  city              :string
 #  phone             :string
+#  billing_email     :string
 #
 # Indexes
 #

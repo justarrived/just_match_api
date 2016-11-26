@@ -18,6 +18,12 @@ RSpec.describe MessageSerializer, type: :serializer do
       end
     end
 
+    it 'has translated_text' do
+      dashed_attribute = 'translated_text'.dasherize
+      value = { 'body' => nil, 'language_id'.dasherize => nil }
+      expect(subject).to have_jsonapi_attribute(dashed_attribute, value)
+    end
+
     %w(chat author language).each do |relationship|
       it "has #{relationship} relationship" do
         expect(subject).to have_jsonapi_relationship(relationship)

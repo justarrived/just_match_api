@@ -8,7 +8,10 @@
       },
       "relationships": {
         "language": {
-          "data": null
+          "data": {
+            "id": "13",
+            "type": "languages"
+          }
         }
       },
       "links": {

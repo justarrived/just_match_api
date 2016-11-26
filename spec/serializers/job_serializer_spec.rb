@@ -10,12 +10,24 @@ RSpec.describe JobSerializer, type: :serializer do
       JSON.parse(serialization.to_json)
     end
 
-    (JobPolicy::ATTRIBUTES - %i(id)).each do |attribute|
+    ignore_fields = %i(id translated_text name description short_description)
+    (JobPolicy::ATTRIBUTES - ignore_fields).each do |attribute|
       it "has #{attribute.to_s.humanize.downcase}" do
         dashed_attribute = attribute.to_s.dasherize
         value = resource.public_send(attribute)
         expect(subject).to have_jsonapi_attribute(dashed_attribute, value)
       end
+    end
+
+    it 'has translated_text' do
+      dashed_attribute = 'translated_text'.dasherize
+      value = {
+        'name' => nil,
+        'description' => nil,
+        'short_description'.dasherize => nil,
+        'language_id'.dasherize => nil
+      }
+      expect(subject).to have_jsonapi_attribute(dashed_attribute, value)
     end
 
     %w(owner company language category hourly-pay).each do |relationship|
@@ -58,6 +70,7 @@ end
 #  filled            :boolean          default(FALSE)
 #  short_description :string
 #  featured          :boolean          default(FALSE)
+#  upcoming          :boolean          default(FALSE)
 #
 # Indexes
 #

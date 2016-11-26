@@ -1,15 +1,39 @@
 # frozen_string_literal: true
 class JobSerializer < ApplicationSerializer
-  # Since the #attributes method is overriden and provides a whitelist of attribute_names
-  # that can be returned to the user we can return all Job column names here
-  attributes Job.column_names.map(&:to_sym)
+  attributes [
+    :id, :job_date, :hours, :created_at, :updated_at, :owner_user_id,
+    :latitude, :longitude, :language_id, :street, :zip, :zip_latitude, :zip_longitude,
+    :hidden, :category_id, :hourly_pay_id, :verified, :job_end_date, :cancelled, :filled,
+    :featured, :upcoming, :amount, :invoice_amount, :language_id
+  ]
 
   link(:self) { api_v1_job_url(object) }
+
+  attribute :name do
+    object.original_name
+  end
+
+  attribute :short_description do
+    object.original_short_description
+  end
+
+  attribute :description do
+    object.original_description
+  end
+
+  attribute :translated_text do
+    {
+      name: object.translated_name,
+      short_description: object.translated_short_description,
+      description: object.translated_description,
+      language_id: object.translated_language_id
+    }
+  end
 
   has_many :job_users do
     # Only disclose job users to the job owner
     user = scope[:current_user]
-    if user && (user.id == object.owner_id || user.admin)
+    if user && (user.id == object.owner_user_id || user.admin)
       object.job_users
     else
       []
@@ -23,11 +47,32 @@ class JobSerializer < ApplicationSerializer
   end
 
   has_one :owner do
-    link(:self) { api_v1_user_url(object.owner_id) if object.owner_id }
+    owner_object = if object.upcoming
+                     object.owner.anonymize
+                   else
+                     object.owner
+                   end
+
+    link(:self) do
+      api_v1_user_url(owner_object) if owner_object
+    end
+
+    owner_object
   end
 
   has_one :company do
-    link(:self) { api_v1_company_url(object.company) if object.company }
+    # Anonymize the company if the job is upcoming
+    company_object = if object.upcoming
+                       object.company.anonymize
+                     else
+                       object.company
+                     end
+
+    link(:self) do
+      api_v1_company_url(company_object) if company_object
+    end
+
+    company_object
   end
 
   has_one :language do
@@ -83,6 +128,7 @@ end
 #  filled            :boolean          default(FALSE)
 #  short_description :string
 #  featured          :boolean          default(FALSE)
+#  upcoming          :boolean          default(FALSE)
 #
 # Indexes
 #

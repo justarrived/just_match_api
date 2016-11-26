@@ -20,9 +20,6 @@ require 'json_api_helpers/params/filter'
 require 'json_api_helpers/params/includes'
 require 'json_api_helpers/params/sort'
 
-# Defines aliases for most classes
-require 'json_api_helpers/alias'
-
 module JsonApiHelpers
   def self.deserializer_klass=(deserializer_klass)
     @deserializer_klass = deserializer_klass

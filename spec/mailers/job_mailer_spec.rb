@@ -8,7 +8,7 @@ RSpec.describe JobMailer, type: :mailer do
     mock_model(User, name: 'User', contact_email: mail, phone: tel)
   end
   let(:owner) { mock_model User, name: 'Owner', contact_email: 'owner@example.com' }
-  let(:job) { mock_model Job, name: 'Job name' }
+  let(:job) { mock_model Job, name: 'Job name', address: 'Sveavägen 1' }
   let(:job_user) { mock_model JobUser, user: user, job: job, id: 37 }
 
   describe '#job_match_email' do
@@ -21,7 +21,7 @@ RSpec.describe JobMailer, type: :mailer do
     end
 
     it 'renders the subject' do
-      expect(mail.subject).to eql('Congrats! You have a new job match.')
+      expect(mail.subject).to eql(I18n.t('mailer.job_match.subject'))
     end
 
     it 'renders the receiver email' do
@@ -29,7 +29,7 @@ RSpec.describe JobMailer, type: :mailer do
     end
 
     it 'renders the sender email' do
-      expect(mail.from).to eql(['hello@justarrived.se'])
+      expect(mail.from).to eql(['support@justarrived.se'])
     end
 
     it 'includes @user_name in email body' do
@@ -69,7 +69,7 @@ RSpec.describe JobMailer, type: :mailer do
     end
 
     it 'renders the sender email' do
-      expect(mail.from).to eql(['hello@justarrived.se'])
+      expect(mail.from).to eql(['support@justarrived.se'])
     end
 
     it 'includes @user_name in email body' do
@@ -113,7 +113,7 @@ RSpec.describe JobMailer, type: :mailer do
     end
 
     it 'renders the sender email' do
-      expect(mail.from).to eql(['hello@justarrived.se'])
+      expect(mail.from).to eql(['support@justarrived.se'])
     end
 
     it 'includes @user_name in email body' do
@@ -148,7 +148,7 @@ RSpec.describe JobMailer, type: :mailer do
     end
 
     it 'renders the subject' do
-      subject = 'Congrats! You got a job.'
+      subject = I18n.t('mailer.applicant_accepted.subject')
       expect(mail.subject).to eql(subject)
     end
 
@@ -157,7 +157,7 @@ RSpec.describe JobMailer, type: :mailer do
     end
 
     it 'renders the sender email' do
-      expect(mail.from).to eql(['hello@justarrived.se'])
+      expect(mail.from).to eql(['support@justarrived.se'])
     end
 
     it 'includes @user_name in email body' do
@@ -197,7 +197,7 @@ RSpec.describe JobMailer, type: :mailer do
     end
 
     it 'renders the sender email' do
-      expect(mail.from).to eql(['hello@justarrived.se'])
+      expect(mail.from).to eql(['support@justarrived.se'])
     end
 
     it 'includes @user_name in email body' do
@@ -245,7 +245,7 @@ RSpec.describe JobMailer, type: :mailer do
     end
 
     it 'renders the sender email' do
-      expect(mail.from).to eql(['hello@justarrived.se'])
+      expect(mail.from).to eql(['support@justarrived.se'])
     end
 
     it 'includes @user_name in email body' do
@@ -254,11 +254,6 @@ RSpec.describe JobMailer, type: :mailer do
 
     it 'includes @job_name in email body' do
       expect(mail).to match_email_body(job.name)
-    end
-
-    it 'includes job user url in email' do
-      url = FrontendRouter.draw(:job_users, job_id: job.id)
-      expect(mail).to match_email_body(url)
     end
   end
 
@@ -283,7 +278,7 @@ RSpec.describe JobMailer, type: :mailer do
     end
 
     it 'renders the sender email' do
-      expect(mail.from).to eql(['hello@justarrived.se'])
+      expect(mail.from).to eql(['support@justarrived.se'])
     end
 
     it 'includes @user_name in email body' do
@@ -319,7 +314,7 @@ RSpec.describe JobMailer, type: :mailer do
     end
 
     it 'renders the sender email' do
-      expect(mail.from).to eql(['hello@justarrived.se'])
+      expect(mail.from).to eql(['support@justarrived.se'])
     end
 
     it 'includes @job_name in email body' do

@@ -8,11 +8,11 @@ cd "$(dirname "$0")/.."
 
 echo -e '\n== Generating documentation =='
 # ensure everything in the app is up to date.
-script/update
+RAILS_ENV=docs script/update
 
 echo -e '\n== Generating API response examples =='
-RAILS_ENV=test bin/rake docs:response_examples
+RAILS_ENV=docs bin/rails docs:api_examples
 
 echo -e '\n== Generating API documentation =='
-RAILS_ENV=test bin/rake apipie:static
+RAILS_ENV=docs bin/rails apipie:static
 echo -e '\n== Docs generated =='

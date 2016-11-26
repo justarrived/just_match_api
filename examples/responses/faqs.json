@@ -9,7 +9,10 @@
       },
       "relationships": {
         "language": {
-          "data": null
+          "data": {
+            "id": "35",
+            "type": "languages"
+          }
         }
       }
     }

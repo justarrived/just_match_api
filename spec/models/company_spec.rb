@@ -13,6 +13,19 @@ RSpec.describe Company, type: :model do
     end
   end
 
+  describe '#address' do
+    let(:company) { FactoryGirl.build(:company, street: '1', zip: '1', city: '1') }
+
+    it 'returns the company address' do
+      expect(company.address).to eq('1, 1, 1, Sverige')
+    end
+
+    it 'returns the compacted company address' do
+      company.city = nil
+      expect(company.address).to eq('1, 1, Sverige')
+    end
+  end
+
   describe '#logo_image_token=' do
     let(:company) { FactoryGirl.create(:company) }
     let(:company_image) { FactoryGirl.create(:company_image) }
@@ -63,6 +76,28 @@ RSpec.describe Company, type: :model do
       expect(company.website).to eq(website)
     end
   end
+
+  describe '#set_default_billing_email' do
+    context 'with blank billing_email' do
+      it 'sets billing_email from email ' do
+        email = 'company@example.com'
+        company = Company.new(email: email)
+        company.set_default_billing_email
+
+        expect(company.billing_email).to eq(email)
+      end
+    end
+
+    context 'with billing_email' do
+      it 'sets billing_email' do
+        billing_email = 'billing@example.com'
+        company = Company.new(email: 'company@example.com', billing_email: billing_email)
+        company.set_default_billing_email
+
+        expect(company.billing_email).to eq(billing_email)
+      end
+    end
+  end
 end
 
 # == Schema Information
@@ -81,6 +116,7 @@ end
 #  zip               :string
 #  city              :string
 #  phone             :string
+#  billing_email     :string
 #
 # Indexes
 #

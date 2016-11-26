@@ -43,13 +43,16 @@ class Chat < ApplicationRecord
   end
 
   def create_message(author:, body:, language_id:)
+    language = Language.find_by(id: language_id)
     message = Message.new(
       author: author,
       body: body,
-      language: Language.find_by(id: language_id),
+      language: language,
       chat: self
     )
-    message.save
+    if message.save
+      message.set_translation({ body: body }, language)
+    end
     message
   end
 end
