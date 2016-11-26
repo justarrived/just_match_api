@@ -167,10 +167,14 @@ module Api
       end
 
       def api_render(model_or_model_array, status: :ok, total: nil, meta: {})
+        model = model_or_model_array
         meta[:total] = total if total
 
+        meta[:current_page] = model.current_page if model.respond_to?(:current_page)
+        meta[:total_pages] = model.total_pages if model.respond_to?(:total_pages)
+
         serialized_model = JsonApiSerializer.serialize(
-          model_or_model_array,
+          model,
           key_transform: key_transform_header,
           included: included_resources,
           fields: fields_params.to_h,
