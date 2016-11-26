@@ -51,6 +51,7 @@ end
 #  managed                        :boolean          default(FALSE)
 #  account_clearing_number        :string
 #  account_number                 :string
+#  verified                       :boolean          default(FALSE)
 #
 # Indexes
 #
