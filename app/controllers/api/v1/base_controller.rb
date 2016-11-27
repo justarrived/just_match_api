@@ -35,6 +35,10 @@ module Api
 
           `X-API-PROMO-CODE: promocode` is used to specify the promo code, logged in users and logged in attemps are exempt.
 
+          __Admin__
+
+          `X-API-ACT-AS-USER` an admin can "act as" a user by sending this header.
+
           ---
 
           ### Example job scenario
