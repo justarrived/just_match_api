@@ -146,8 +146,17 @@ Address: #{company.address}
     applicant.will_perform
   end
 
-  def amount
+  def gross_amount
     hourly_pay.gross_salary * hours
+  end
+
+  def net_amount
+    hourly_pay.net_salary * hours
+  end
+
+  # [DEPRECATED] please use #gross_amount instead
+  def amount
+    gross_amount
   end
 
   def invoice_amount
