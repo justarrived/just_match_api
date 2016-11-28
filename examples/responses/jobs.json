@@ -22,11 +22,15 @@
         "street": "Bankgatan 14C",
         "amount": 3000.0,
         "invoice_amount": 4200.0,
-        "original_text": {
+        "translated_text": {
           "name": null,
           "short_description": null,
-          "description": null
-        }
+          "description": null,
+          "language_id": null
+        },
+        "language_id": 7,
+        "gross_amount": 3000.0,
+        "net_amount": 2100.0
       },
       "relationships": {
         "job_users": {

@@ -8,10 +8,13 @@
       "will_perform": false,
       "performed": false,
       "will_perform_confirmation_by": null,
+      "language_id": 17,
       "apply_message": null,
-      "original_text": {
-        "apply_message": null
-      }
+      "translated_text": {
+        "apply_message": null,
+        "language_id": null
+      },
+      "rating_score": null
     },
     "relationships": {
       "user": {

@@ -14,11 +14,12 @@
         "zip_longitude": null,
         "competence_text": null,
         "primary_role": "candidate",
-        "original_text": {
+        "translated_text": {
           "description": null,
           "job_experience": null,
           "education": null,
-          "competence_text": null
+          "competence_text": null,
+          "language_id": null
         },
         "phone": "+46735000008",
         "street": "Bankgatan 14C",
@@ -44,16 +45,10 @@
       },
       "relationships": {
         "company": {
-          "data": null,
-          "links": {
-            "self": null
-          }
+          "data": null
         },
         "language": {
-          "data": null,
-          "links": {
-            "self": null
-          }
+          "data": null
         },
         "user_images": {
           "data": [

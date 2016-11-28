@@ -21,13 +21,17 @@
       "short_description": null,
       "featured": false,
       "upcoming": false,
-      "original_text": {
+      "translated_text": {
         "name": null,
         "short_description": null,
-        "description": null
+        "description": null,
+        "language_id": null
       },
       "amount": 3000.0,
-      "invoice_amount": 4200.0
+      "invoice_amount": 4200.0,
+      "language_id": 6,
+      "gross_amount": 3000.0,
+      "net_amount": 2100.0
     },
     "relationships": {
       "job_users": {
