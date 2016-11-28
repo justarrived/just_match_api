@@ -166,8 +166,10 @@ module Api
       protected
 
       def api_render_errors(model)
-        serialized_error = { errors: JsonApiErrorSerializer.serialize(model) }
-        render json: serialized_error, status: :unprocessable_entity
+        errors = {
+          errors: JsonApiErrorSerializer.serialize(model, key_transform: key_transform_header) # rubocop:disable Metrics/LineLength
+        }
+        render json: errors, status: :unprocessable_entity
       end
 
       def api_render(model_or_model_array, status: :ok, total: nil, meta: {})
