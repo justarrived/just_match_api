@@ -33,7 +33,43 @@ module Api
             param :bic, String, desc: 'BIC number'
           end
         end
-        example '{}'
+        example <<-JSON
+# Response example
+{}
+# Error response example
+{
+  "errors": [
+    {
+      "status": 422,
+      "detail": "can't be blank",
+      "source": {
+        "pointer": "/data/attributes/account_number"
+      }
+    },
+    {
+      "status": 422,
+      "detail": "is too short",
+      "source": {
+        "pointer": "/data/attributes/account_number"
+      }
+    },
+    {
+      "status": 422,
+      "detail": "invalid characters",
+      "source": {
+        "pointer": "/data/attributes/account_number"
+      }
+    },
+    {
+      "status": 422,
+      "detail": "unknown clearing number",
+      "source": {
+        "pointer": "/data/attributes/account_clearing_number"
+      }
+    }
+  ]
+}
+        JSON
         def create
           authorize_create(@user)
 

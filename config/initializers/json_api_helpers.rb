@@ -14,3 +14,6 @@ JsonApiFilterParams = JsonApiHelpers::Params::Filter
 JsonApiSortParams = JsonApiHelpers::Params::Sort
 JsonApiFieldsParams = JsonApiHelpers::Params::Fields
 JsonApiIncludeParams = JsonApiHelpers::Params::Includes
+
+# Config
+JsonApiHelpers.default_key_transform = :dash

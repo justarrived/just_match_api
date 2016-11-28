@@ -119,6 +119,7 @@ module Api
       before_action :authenticate_user_token!
       before_action :require_promo_code
       before_action :set_locale
+      before_action :set_json_api_helper_default_key_transform_header
 
       ALLOWED_INCLUDES = [].freeze
 
@@ -254,6 +255,10 @@ module Api
         I18n.available_locales.map(&:to_s).each do |locale|
           I18n.locale = locale if locale == locale_header
         end
+      end
+
+      def set_json_api_helper_default_key_transform_header
+        JsonApiHelpers.default_key_transform = key_transform_header
       end
 
       def api_locale_header
