@@ -32,7 +32,7 @@ JsonApiHelpers.params_klass = ActionController::Parameters
 JsonApiHelpers.default_key_transform = :dash # camel, camel_lower, underscore, unaltered
 
 # Error
-errors = JsonApiErrors.new
+errors = JsonApiHelpers::Serializers::Errors.new
 errors.add(status: 422, detail: 'too short', attribute: :first_name).to_h
 errors.to_h
 # => {
@@ -58,27 +58,27 @@ class ApplicationController < ActionController::Base
   ALLOWED_FILTERS = %i(created_at).freeze
 
   def jsonapi_params
-    @_deserialized_params ||= JsonApiDeserializer.parse(params)
+    @_deserialized_params ||= JsonApiHelpers::Serializers::Deserializer.parse(params)
   end
 
   def include_params
-    @_include_params ||= JsonApiIncludeParams.new(params[:include])
+    @_include_params ||= JsonApiHelpers::Params::Includes.new(params[:include])
   end
 
   def fields_params
-    @_fields_params ||= JsonApiFieldsParams.new(params[:fields])
+    @_fields_params ||= JsonApiHelpers::Params::Fields.new(params[:fields])
   end
 
   def sort_params
     sortable_fields = self.class::SORTABLE_FIELDS
     default_sorting = self.class::DEFAULT_SORTING
-    @_sort_params = JsonApiSortParams.build(params[:sort], sortable_fields, default_sorting)
+    @_sort_params = JsonApiHelpers::Params::Sort.build(params[:sort], sortable_fields, default_sorting)
   end
 
   def filter_params
     filterable_fields = self.class::ALLOWED_FILTERS
     transformable = self.class::TRANSFORMABLE_FILTERS
-    @_filter_params = JsonApiFilterParams.build(params[:filter], filterable_fields, transformable)
+    @_filter_params = JsonApiHelpers::Params::Filter.build(params[:filter], filterable_fields, transformable)
   end
 
   # ...
