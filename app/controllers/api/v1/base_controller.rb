@@ -280,7 +280,6 @@ module Api
 
       def authenticate_user_token!
         authenticate_with_http_token do |auth_token, _options|
-
           token = Token.includes(:user).find_by(token: auth_token)
           return if token.nil?
           return raise ExpiredTokenError if token.expired?

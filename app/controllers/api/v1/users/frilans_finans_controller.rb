@@ -130,15 +130,18 @@ module Api
             ff_user_params[:account_number]
           ].join
 
-          SwedishBankAccount.new(full_account).errors.map do |error_name|
-            # Map what field the error concerns
-            pointer = if [:bad_checksum, :unknown_clearing_number].include?(error_name)
-                        :account_clearing_number
-                      else
-                        :account_number
-                      end
-            message = I18n.t(".errors.bank_account.#{error_name}")
-            errors.add(attribute: pointer, detail: message)
+          field_map = {
+            clearing_number: :account_clearing_number,
+            serial_number: :account_number,
+            account: :account
+          }
+          SwedishBankAccount.new(full_account).tap do |account|
+            account.errors_by_field do |field, error_types|
+              error_types.each do |type|
+                message = I18n.t("errors.bank_account.#{type}")
+                errors.add(attribute: field_map[field], detail: message)
+              end
+            end
           end
 
           errors

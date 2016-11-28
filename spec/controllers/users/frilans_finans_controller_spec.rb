@@ -118,7 +118,7 @@ RSpec.describe Api::V1::Users::FrilansFinansController, type: :controller do
           'status' => 422,
           'detail' => I18n.t('errors.bank_account.too_short'),
           'source' => {
-            'pointer' => '/data/attributes/account-number'
+            'pointer' => '/data/attributes/account'
           }
         }, {
           'status' => 422,
@@ -156,13 +156,13 @@ RSpec.describe Api::V1::Users::FrilansFinansController, type: :controller do
           'status' => 422,
           'detail' => I18n.t('errors.bank_account.too_short'),
           'source' => {
-            'pointer' => '/data/attributes/account-number'
+            'pointer' => '/data/attributes/account'
           }
         }, {
           'status' => 422,
           'detail' => I18n.t('errors.bank_account.invalid_characters'),
           'source' => {
-            'pointer' => '/data/attributes/account-number'
+            'pointer' => '/data/attributes/account'
           }
         }, {
           'status' => 422,

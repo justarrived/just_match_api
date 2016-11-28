@@ -74,4 +74,72 @@ RSpec.describe SwedishBankAccount do
       end
     end
   end
+
+  describe '#errors_by_field' do
+    let(:test_datum) do
+      [
+        [:account, [:too_short, :invalid_characters]],
+        [:clearing_number, [:unknown_clearing_number]],
+        [:serial_number, []]
+      ]
+    end
+
+    subject { described_class.new('åäö') }
+
+    it 'yields errors for each field' do
+      cycle = [0, 1, 2].cycle
+      subject.errors_by_field do |field, errors|
+        test_data = test_datum[cycle.next]
+
+        expect(test_data.first).to eq(field)
+        expect(test_data.last).to eq(errors)
+      end
+    end
+
+    it 'returns pair of errors for each field' do
+      expected = [:account, [:too_short, :invalid_characters]]
+      expect(subject.errors_by_field.first).to eq(expected)
+    end
+  end
+
+  describe '#errors_for' do
+    subject { described_class.new('åäö') }
+
+    [
+      [:serial_number, []],
+      [:account, [:too_short, :invalid_characters]],
+      [:clearing_number, [:unknown_clearing_number]]
+    ].each do |test_data|
+      field = test_data.first
+      expected = test_data.last
+
+      it "only selects errors for #{field}" do
+        expect(subject.errors_for(field)).to eq(expected)
+      end
+    end
+  end
+
+  describe '#known_error_for' do
+    subject { described_class.new(nil) }
+
+    [
+      [:account, [:invalid_characters, :too_short, :too_long]],
+      [:serial_number, [:bad_checksum]],
+      [:clearing_number, [:unknown_clearing_number]]
+    ].each do |test_data|
+      field = test_data.first
+      expected = test_data.last
+
+      it "returns known error list for #{field}" do
+        result = subject.known_errors_for(field)
+        expect(result).to eq(expected)
+      end
+    end
+
+    it 'raises exception if passed unknown field' do
+      expect do
+        subject.known_errors_for(:watman)
+      end.to raise_error(SwedishBankAccount::UnknownErrorType)
+    end
+  end
 end
