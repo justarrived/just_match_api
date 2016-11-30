@@ -32,9 +32,9 @@ ActiveAdmin.register User do
     column :id
     column :first_name
     column :last_name
+    column :email
     column :company
     column :frilans_finans_id
-    column :current_status
     column :managed
     column :created_at
 
