@@ -15,7 +15,7 @@ Gem::Specification.new do |spec|
   spec.homepage      = 'https://github.com/justarrived/just_match_api/tree/master/lib/json_api_helpers'
   spec.license       = 'MIT'
 
-  spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) } # rubocop:disable Metrics/LineLength
+  spec.files         = Dir['lib/*/**.rb'] + Dir['lib/*/**.json'] + Dir['bin/*'] + %w(README.MD LICENSE.txt) # rubocop:disable Metrics/LineLength
   spec.bindir        = 'exe'
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
