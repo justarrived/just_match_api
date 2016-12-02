@@ -94,6 +94,18 @@ module Api
 
           ## Errors
 
+          All errors returned by the API should conform to the [JSONAPI spec](http://jsonapi.org/format/#error-objects).
+
+          Errors can be both general and specific (i.e validation error for an attribute).
+
+          :warning: The errors below are not intended to be a comprehensive list of all errors that the API can return. It lists the most important ones and tries to show the format of the errors.
+
+          ## Global errors
+
+          Below is a list of a few global/general errors that can be returned from the API.
+          Note that global/general errors lack a `source/pointer` attribute, since they don't belong to any specific attribute.
+
+
           ### 401 - Login Required
 
               #{JSON.parse(Doxxer.read_example_file(:login_required)).to_json}
@@ -109,6 +121,78 @@ module Api
           ### 404 - Not Found
 
               #{JSON.parse(Doxxer.read_example_file(:not_found)).to_json}
+
+          ## Resource errors
+
+          Below is a list of a few resource errors that can be returned from the API.
+          Note that errors have a `source/pointer` attribute, since errors belong to a specific attribute or resource.
+
+          Simple example:
+
+              {
+                "errors": [
+                  {
+                    "status": 422,
+                    "source": {
+                      "pointer": "/data/attributes/email"
+                    },
+                    "detail": "has already been taken"
+                  }
+                ]
+              }
+
+          There can also be multiple errors on the same field
+
+              {
+                "errors": [
+                  {
+                    "status": 422,
+                    "source": {
+                      "pointer": "/data/attributes/phone"
+                    },
+                    "detail": "must be a valid phone number"
+                  },
+                  {
+                    "status": 422,
+                    "source": {
+                      "pointer": "/data/attributes/phone"
+                    },
+                    "detail": "must be a Swedish phone number (+46)"
+                  }
+                ]
+              }
+
+          Its also possible that the `pointer` is more general and doesn't point to a specific attribute, but instead `data/attributes`.
+          In this case there is a general error.
+          One example could be that the user has a max limit on the number of resources they create per day and when they reached their max limit:
+
+              {
+                "errors": [
+                  {
+                    "status": 403,
+                    "source": {
+                      "pointer": "/data/attributes"
+                    },
+                    "detail": "can't create more than 10 per day"
+                  }
+                ]
+              }
+
+          In rare cases `source/pointer` can point to a "vritual" attribute.
+          For example `clearing_number` and `account_number` can have specific errors, but they can also have an error that is due to the combination of the two.
+          In this case called `account` (this should be documented under each specific resource that can have errors like this).
+
+              {
+                "errors": [
+                  {
+                    "status": 422,
+                    "source": {
+                      "pointer": "/data/attributes/account"
+                    },
+                    "detail": "is too short"
+                  }
+                ]
+              }
 
         DOCDESCRIPTION
         api_base_url '/api/v1'
