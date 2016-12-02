@@ -5,6 +5,8 @@ module Api
       SET_USER_ACTIONS = [:show, :edit, :update, :destroy, :matching_jobs, :jobs].freeze
       before_action :set_user, only: SET_USER_ACTIONS
 
+      before_action :require_promo_code, except: [:statuses]
+
       resource_description do
         short 'API for managing users'
         name 'Users'
