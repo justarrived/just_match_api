@@ -49,13 +49,48 @@ ActiveAdmin.register FrilansFinansInvoice do
 
     column :id
     column :activated
-    column :ff_status
+    column :ff_status do |object|
+      object.ff_status_name(with_id: true)
+    end
     column :ff_amount
     column :user
     column :job
     column :frilans_finans_id
 
     actions
+  end
+
+  show do
+    attributes_table do
+      row :id
+      row :frilans_finans_id
+      row :activated
+      row :user
+      row :job
+      row :job_user
+      row :invoice
+
+      row :ff_amount
+      row :ff_status do
+        frilans_finans_invoice.ff_status_name(with_id: true)
+      end
+      row :ff_pre_report
+      row :ff_gross_salary
+      row :ff_net_salary
+      row :ff_payment_status do
+        frilans_finans_invoice.ff_payment_status_name(with_id: true)
+      end
+      row :ff_approval_status do
+        frilans_finans_invoice.ff_approval_status_name(with_id: true)
+      end
+      row :express_payment
+      row :ff_sent_at
+      row :ff_last_synced_at
+
+      row :created_at
+      row :updated_at
+    end
+    active_admin_comments
   end
 
   permit_params do

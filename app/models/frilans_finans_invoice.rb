@@ -25,6 +25,8 @@ class FrilansFinansInvoice < ApplicationRecord
 
   validate :validates_job_user_will_perform, on: :create
 
+  FFInvoiceStatuses = FrilansFinansApi::Statuses::Invoice
+
   def self.sent_invoices(start:, finish:)
     activated.job_ended(start: start, finish: finish)
   end
@@ -36,6 +38,18 @@ class FrilansFinansInvoice < ApplicationRecord
 
   def name
     "Frilans Finans Invoice ##{id}"
+  end
+
+  def ff_status_name(with_id: false)
+    FFInvoiceStatuses.status(ff_status, with_id: with_id)
+  end
+
+  def ff_payment_status_name(with_id: false)
+    FFInvoiceStatuses.payment_status(ff_payment_status, with_id: with_id)
+  end
+
+  def ff_approval_status_name(with_id: false)
+    FFInvoiceStatuses.approval_status(ff_approval_status, with_id: with_id)
   end
 
   def validates_job_user_will_perform
