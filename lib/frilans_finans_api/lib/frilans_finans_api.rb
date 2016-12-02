@@ -17,6 +17,8 @@ require 'frilans_finans_api/models/user'
 require 'frilans_finans_api/document'
 require 'frilans_finans_api/resource'
 
+require 'frilans_finans_api/statuses'
+
 require 'frilans_finans_api/nil_logger'
 require 'frilans_finans_api/nil_event_logger'
 
