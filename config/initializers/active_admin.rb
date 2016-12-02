@@ -215,7 +215,7 @@ ActiveAdmin.setup do |config|
   #
   # config.namespace :admin do |admin|
   #   admin.build_menu :utility_navigation do |menu|
-  #     menu.add label: "Goto App", url: 'https://app.justarrived.se', html_options: { target: :blank }
+  #     menu.add label: "Goto App", url: 'https://app.justarrived.se'
   #   end
   # end
   #

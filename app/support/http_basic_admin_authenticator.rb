@@ -5,8 +5,9 @@ module HttpBasicAdminAuthenticator
   def authenticate_admin
     authenticate_or_request_with_http_basic do |raw_email, password|
       email = raw_email&.strip&.downcase
-      @authenticated_admin = User.admins.
-        find_by_credentials(email_or_phone: email, password: password)
+      @authenticated_admin = begin
+        User.admins.find_by_credentials(email_or_phone: email, password: password)
+      end
     end
   end
 

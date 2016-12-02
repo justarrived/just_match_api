@@ -39,6 +39,12 @@ ActiveAdmin.register JobUser do
     job_user.set_translation(translation_params)
   end
 
+  sidebar :app, only: :show do
+    ul do
+      li link_to 'View candiate in app', FrontendRouter.draw(:job_user_for_company, job_id: job_user.job_id, job_user_id: job_user.id), target: '_blank' # rubocop:disable Metrics/LineLength
+    end
+  end
+
   permit_params do
     [:accepted, :will_perform, :performed, :apply_message]
   end

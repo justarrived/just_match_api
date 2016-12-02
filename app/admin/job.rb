@@ -78,6 +78,26 @@ ActiveAdmin.register Job do
     link_to('Clone', clone_admin_job_path(id: job.id))
   end
 
+  sidebar :applicants, only: :show do
+    ul do
+      li link_to "Has #{job.job_users.count} applicants", admin_job_users_path + "?q[job_id_eq]=#{job.id}" # rubocop:disable Metrics/LineLength
+      li link_to 'View applicants', admin_job_users_path + "?q[job_id_eq]=#{job.id}"
+    end
+  end
+
+  sidebar :comments, only: :show do
+    ul do
+      li "Has #{job.comments.count} comments"
+    end
+  end
+
+  sidebar :app, only: :show do
+    ul do
+      li link_to 'View in app', FrontendRouter.draw(:job, id: job.id), target: '_blank'
+      li link_to 'View candiates in app', FrontendRouter.draw(:job_users, job_id: job.id), target: '_blank' # rubocop:disable Metrics/LineLength
+    end
+  end
+
   permit_params do
     extras = [
       :cancelled, :language_id, :hourly_pay_id, :category_id, :owner_user_id, :hidden
