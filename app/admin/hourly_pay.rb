@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 ActiveAdmin.register HourlyPay do
-  menu parent: 'Misc'
+  menu parent: 'Settings'
 
   batch_action :destroy, false
 

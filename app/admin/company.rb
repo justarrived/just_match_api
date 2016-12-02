@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 ActiveAdmin.register Company do
-  menu parent: 'Company'
+  menu parent: 'Companies'
 
   batch_action :destroy, false
 

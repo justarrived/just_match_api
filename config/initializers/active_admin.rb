@@ -213,20 +213,27 @@ ActiveAdmin.setup do |config|
   #
   # To change the default utility navigation to show a link to your website & a logout btn
   #
-  #   config.namespace :admin do |admin|
-  #     admin.build_menu :utility_navigation do |menu|
-  #       menu.add label: "W", url: "http://example.com", html_options: { target: :blank }
-  #       admin.add_logout_button_to_menu menu
-  #     end
+  # config.namespace :admin do |admin|
+  #   admin.build_menu :utility_navigation do |menu|
+  #     menu.add label: "Goto App", url: 'https://app.justarrived.se', html_options: { target: :blank }
   #   end
+  # end
   #
   # If you wanted to add a static menu item to the default menu provided:
   #
-  #   config.namespace :admin do |admin|
-  #     admin.build_menu :default do |menu|
-  #       menu.add label: "W", url: "http://example.com", html_options: { target: :blank }
-  #     end
-  #   end
+  config.namespace :admin do |admin|
+    admin.build_menu :default do |menu|
+      menu.add label: 'Jobs', priority: 2
+      menu.add label: 'Users', priority: 3
+      menu.add label: 'Invoices', priority: 4
+      menu.add label: 'Companies', priority: 5
+      menu.add label: 'Translation', priority: 6
+      menu.add label: 'Settings', priority: 7
+      menu.add label: 'Misc', priority: 8
+      menu.add label: 'Comment', priority: 9
+      menu.add label: 'Frilans Finans', priority: 10
+    end
+  end
 
   # == Download Links
   #

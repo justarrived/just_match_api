@@ -1,4 +1,4 @@
 # frozen_string_literal: true
 ActiveAdmin.register Contact do
-  menu parent: 'Misc'
+  menu priority: 20, label: 'Support contact'
 end

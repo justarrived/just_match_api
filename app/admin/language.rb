@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 ActiveAdmin.register Language do
+  menu parent: 'Settings'
+
   scope :all
   scope :system_languages, default: true
   scope :non_system_languages

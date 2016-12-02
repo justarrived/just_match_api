@@ -1,4 +1,4 @@
 # frozen_string_literal: true
 ActiveAdmin.register Skill do
-  menu parent: 'Misc'
+  menu parent: 'Settings'
 end
