@@ -76,6 +76,7 @@ module Api
           param :at_und, User::AT_UND.keys, desc: 'AT-UND status'
           param :arrived_at, String, desc: 'Arrived at date'
           param :country_of_origin, String, desc: 'Country of origin (alpha-2 code)'
+          param :skype_username, String, desc: 'Skype username'
           # rubocop:enable Metrics/LineLength
         end
       end
@@ -147,6 +148,7 @@ module Api
           param :at_und, User::AT_UND.keys, desc: 'AT-UND status'
           param :arrived_at, String, desc: 'Arrived at date'
           param :country_of_origin, String, desc: 'Country of origin'
+          param :skype_username, String, desc: 'Skype username'
           # rubocop:enable Metrics/LineLength
         end
       end
@@ -226,7 +228,7 @@ module Api
           :first_name, :last_name, :email, :phone, :description, :job_experience,
           :education, :ssn, :street, :zip, :language_id, :password, :company_id,
           :competence_text, :current_status, :at_und, :arrived_at, :country_of_origin,
-          ignored_notifications: [], skill_ids: []
+          :skype_username, ignored_notifications: [], skill_ids: []
         ]
         jsonapi_params.permit(*whitelist)
       end
