@@ -7,6 +7,8 @@ ActiveAdmin.register FrilansFinansInvoice do
   scope :all, default: true
   scope :activated
   scope :pre_report
+  scope :not_paid
+  scope :paid
   scope :needs_frilans_finans_id
   scope :uncancelled_jobs
 
