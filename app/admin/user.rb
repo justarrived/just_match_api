@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 ActiveAdmin.register User do
-  menu parent: 'User', priority: 1
+  menu parent: 'Users', priority: 1
 
   batch_action :destroy, false
 

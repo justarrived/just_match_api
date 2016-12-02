@@ -1,4 +1,4 @@
 # frozen_string_literal: true
 ActiveAdmin.register UserImage do
-  menu parent: 'User'
+  menu parent: 'Users'
 end

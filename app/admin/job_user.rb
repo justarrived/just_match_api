@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 ActiveAdmin.register JobUser do
-  menu parent: 'Job'
+  menu parent: 'Jobs'
 
   batch_action :destroy, false
 

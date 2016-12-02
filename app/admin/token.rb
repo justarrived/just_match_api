@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 ActiveAdmin.register Token do
-  menu parent: 'Misc'
+  menu parent: 'Users'
 
   filter :user
   filter :created_at

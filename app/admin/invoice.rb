@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 ActiveAdmin.register Invoice do
-  menu parent: 'Job'
+  menu parent: 'Invoices'
 
   batch_action :destroy, false
 

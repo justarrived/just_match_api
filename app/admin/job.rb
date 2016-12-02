@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 ActiveAdmin.register Job do
-  menu parent: 'Job', priority: 1
+  menu parent: 'Jobs', priority: 1
 
   batch_action :destroy, false
 
