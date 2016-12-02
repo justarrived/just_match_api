@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 ActiveAdmin.register JobRequest do
+  menu parent: 'Misc'
+
   scope :all, default: true
   scope :pending
   scope :finished

@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 ActiveAdmin.register FrilansFinansApiLog do
+  menu parent: 'Frilans Finans'
+
   scope :all, default: true
   scope :created
   scope :success

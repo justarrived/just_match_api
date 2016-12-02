@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 ActiveAdmin.register Job do
+  menu parent: 'Job', priority: 1
+
   batch_action :destroy, false
 
   # Create sections on the index screen

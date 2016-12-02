@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 ActiveAdmin.register User do
+  menu parent: 'User', priority: 1
+
   batch_action :destroy, false
 
   # Create sections on the index screen

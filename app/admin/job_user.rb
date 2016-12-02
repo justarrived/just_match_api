@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 ActiveAdmin.register JobUser do
+  menu parent: 'Job'
+
   batch_action :destroy, false
 
   scope :all, default: true

@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 ActiveAdmin.register Rating do
+  menu parent: 'Job'
+
   batch_action :destroy, false
 
   scope :all, default: true
