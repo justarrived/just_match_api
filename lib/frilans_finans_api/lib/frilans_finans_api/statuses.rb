@@ -33,26 +33,20 @@ module FrilansFinansApi
       }.freeze
 
       def self.status(status_int, with_id: false)
-        name = STATUSES[status_int]
-        return name if name.nil?
-
-        return name + " ##{status_int}" if with_id
-        name
+        _format_name(status_int, STATUSES[status_int], with_id)
       end
 
       def self.payment_status(status_int, with_id: false)
-        name = PAYMENT_STATUS[status_int]
-        return name if name.nil?
-
-        return name + " ##{status_int}" if with_id
-        name
+        _format_name(status_int, PAYMENT_STATUS[status_int], with_id)
       end
 
       def self.approval_status(status_int, with_id: false)
-        name = APPROVAL_STATUS[status_int]
-        return name if name.nil?
+        _format_name(status_int, APPROVAL_STATUS[status_int], with_id)
+      end
 
-        return name + " ##{status_int}" if with_id
+      def self._format_name(status_int, name, with_id)
+        return name if name.nil?
+        return "##{status_int} " + name if with_id
         name
       end
     end
