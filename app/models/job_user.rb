@@ -47,7 +47,7 @@ class JobUser < ApplicationRecord
   end
 
   def name
-    "JobUser ##{id}"
+    "##{id} Job User"
   end
 
   def applicant_confirmation_overdue?

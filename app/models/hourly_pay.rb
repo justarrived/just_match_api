@@ -11,7 +11,7 @@ class HourlyPay < ApplicationRecord
   end
 
   def display_name
-    name
+    "##{id} Gross salary #{gross_salary} SEK"
   end
 
   def net_salary

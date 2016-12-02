@@ -20,7 +20,7 @@ class Invoice < ApplicationRecord
   }
 
   def name
-    "Invoice ##{id}"
+    "##{id} Invoice"
   end
 
   delegate :activated, to: :frilans_finans_invoice

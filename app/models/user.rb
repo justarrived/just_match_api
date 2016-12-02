@@ -200,7 +200,7 @@ class User < ApplicationRecord
 
   # ActiveAdmin display name
   def display_name
-    "#{name} ##{id}"
+    "##{id} #{name}"
   end
 
   def not_persisted?

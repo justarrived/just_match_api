@@ -14,6 +14,6 @@ class ApplicationRecord < ActiveRecord::Base
 
   # ActiveAdmin display name
   def display_name
-    self.class.model_name.human + " ##{id || 'unsaved'}"
+    "##{id || 'unsaved'} " + self.class.model_name.human
   end
 end

@@ -18,7 +18,7 @@ class Language < ApplicationRecord
   end
 
   def display_name
-    name + " ##{id}"
+    "##{id} " + name
   end
 
   def locale
