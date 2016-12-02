@@ -1,16 +1,18 @@
-[
-  {
-    "status": 422,
-    "source": {
-      "pointer": "/data/attributes/job_user"
+{
+  "errors": [
+    {
+      "status": 422,
+      "source": {
+        "pointer": "/data/attributes/job_user"
+      },
+      "detail": "can't be blank"
     },
-    "detail": "can't be blank"
-  },
-  {
-    "status": 422,
-    "source": {
-      "pointer": "/data/attributes/frilans_finans_invoice"
-    },
-    "detail": "can't be blank"
-  }
-]
+    {
+      "status": 422,
+      "source": {
+        "pointer": "/data/attributes/frilans_finans_invoice"
+      },
+      "detail": "can't be blank"
+    }
+  ]
+}

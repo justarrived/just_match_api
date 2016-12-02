@@ -1,16 +1,18 @@
-[
-  {
-    "status": 422,
-    "source": {
-      "pointer": "/data/attributes/name"
+{
+  "errors": [
+    {
+      "status": 422,
+      "source": {
+        "pointer": "/data/attributes/name"
+      },
+      "detail": "is too short (minimum is 3 characters)"
     },
-    "detail": "is too short (minimum is 3 characters)"
-  },
-  {
-    "status": 422,
-    "source": {
-      "pointer": "/data/attributes/language"
-    },
-    "detail": "can't be blank"
-  }
-]
+    {
+      "status": 422,
+      "source": {
+        "pointer": "/data/attributes/language"
+      },
+      "detail": "can't be blank"
+    }
+  ]
+}

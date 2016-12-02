@@ -1,51 +1,53 @@
-[
-  {
-    "status": 422,
-    "source": {
-      "pointer": "/data/attributes/name"
+{
+  "errors": [
+    {
+      "status": 422,
+      "source": {
+        "pointer": "/data/attributes/name"
+      },
+      "detail": "is too short (minimum is 2 characters)"
     },
-    "detail": "is too short (minimum is 2 characters)"
-  },
-  {
-    "status": 422,
-    "source": {
-      "pointer": "/data/attributes/cin"
+    {
+      "status": 422,
+      "source": {
+        "pointer": "/data/attributes/cin"
+      },
+      "detail": "is the wrong length (should be 10 characters)"
     },
-    "detail": "is the wrong length (should be 10 characters)"
-  },
-  {
-    "status": 422,
-    "source": {
-      "pointer": "/data/attributes/email"
+    {
+      "status": 422,
+      "source": {
+        "pointer": "/data/attributes/email"
+      },
+      "detail": "can't be blank"
     },
-    "detail": "can't be blank"
-  },
-  {
-    "status": 422,
-    "source": {
-      "pointer": "/data/attributes/billing_email"
+    {
+      "status": 422,
+      "source": {
+        "pointer": "/data/attributes/billing_email"
+      },
+      "detail": "can't be blank"
     },
-    "detail": "can't be blank"
-  },
-  {
-    "status": 422,
-    "source": {
-      "pointer": "/data/attributes/street"
+    {
+      "status": 422,
+      "source": {
+        "pointer": "/data/attributes/street"
+      },
+      "detail": "is too short (minimum is 5 characters)"
     },
-    "detail": "is too short (minimum is 5 characters)"
-  },
-  {
-    "status": 422,
-    "source": {
-      "pointer": "/data/attributes/zip"
+    {
+      "status": 422,
+      "source": {
+        "pointer": "/data/attributes/zip"
+      },
+      "detail": "is too short (minimum is 5 characters)"
     },
-    "detail": "is too short (minimum is 5 characters)"
-  },
-  {
-    "status": 422,
-    "source": {
-      "pointer": "/data/attributes/city"
-    },
-    "detail": "is too short (minimum is 1 character)"
-  }
-]
+    {
+      "status": 422,
+      "source": {
+        "pointer": "/data/attributes/city"
+      },
+      "detail": "is too short (minimum is 1 character)"
+    }
+  ]
+}

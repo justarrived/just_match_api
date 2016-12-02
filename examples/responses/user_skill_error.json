@@ -1,16 +1,18 @@
-[
-  {
-    "status": 422,
-    "source": {
-      "pointer": "/data/attributes/skill"
+{
+  "errors": [
+    {
+      "status": 422,
+      "source": {
+        "pointer": "/data/attributes/skill"
+      },
+      "detail": "can't be blank"
     },
-    "detail": "can't be blank"
-  },
-  {
-    "status": 422,
-    "source": {
-      "pointer": "/data/attributes/user"
-    },
-    "detail": "can't be blank"
-  }
-]
+    {
+      "status": 422,
+      "source": {
+        "pointer": "/data/attributes/user"
+      },
+      "detail": "can't be blank"
+    }
+  ]
+}

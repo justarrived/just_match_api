@@ -1,58 +1,60 @@
-[
-  {
-    "status": 422,
-    "source": {
-      "pointer": "/data/attributes/language"
+{
+  "errors": [
+    {
+      "status": 422,
+      "source": {
+        "pointer": "/data/attributes/language"
+      },
+      "detail": "can't be blank"
     },
-    "detail": "can't be blank"
-  },
-  {
-    "status": 422,
-    "source": {
-      "pointer": "/data/attributes/email"
+    {
+      "status": 422,
+      "source": {
+        "pointer": "/data/attributes/email"
+      },
+      "detail": "can't be blank"
     },
-    "detail": "can't be blank"
-  },
-  {
-    "status": 422,
-    "source": {
-      "pointer": "/data/attributes/first_name"
+    {
+      "status": 422,
+      "source": {
+        "pointer": "/data/attributes/first_name"
+      },
+      "detail": "is too short (minimum is 2 characters)"
     },
-    "detail": "is too short (minimum is 2 characters)"
-  },
-  {
-    "status": 422,
-    "source": {
-      "pointer": "/data/attributes/last_name"
+    {
+      "status": 422,
+      "source": {
+        "pointer": "/data/attributes/last_name"
+      },
+      "detail": "is too short (minimum is 2 characters)"
     },
-    "detail": "is too short (minimum is 2 characters)"
-  },
-  {
-    "status": 422,
-    "source": {
-      "pointer": "/data/attributes/phone"
+    {
+      "status": 422,
+      "source": {
+        "pointer": "/data/attributes/phone"
+      },
+      "detail": "is too short (minimum is 9 characters)"
     },
-    "detail": "is too short (minimum is 9 characters)"
-  },
-  {
-    "status": 422,
-    "source": {
-      "pointer": "/data/attributes/phone"
+    {
+      "status": 422,
+      "source": {
+        "pointer": "/data/attributes/phone"
+      },
+      "detail": "must be a valid phone number"
     },
-    "detail": "must be a valid phone number"
-  },
-  {
-    "status": 422,
-    "source": {
-      "pointer": "/data/attributes/phone"
+    {
+      "status": 422,
+      "source": {
+        "pointer": "/data/attributes/phone"
+      },
+      "detail": "must be a Swedish phone number (+46)"
     },
-    "detail": "must be a Swedish phone number (+46)"
-  },
-  {
-    "status": 422,
-    "source": {
-      "pointer": "/data/attributes/password"
-    },
-    "detail": "is too short (minimum is 6 characters)"
-  }
-]
+    {
+      "status": 422,
+      "source": {
+        "pointer": "/data/attributes/password"
+      },
+      "detail": "is too short (minimum is 6 characters)"
+    }
+  ]
+}

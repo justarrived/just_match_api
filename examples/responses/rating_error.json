@@ -1,58 +1,60 @@
-[
-  {
-    "status": 422,
-    "source": {
-      "pointer": "/data/attributes/job"
+{
+  "errors": [
+    {
+      "status": 422,
+      "source": {
+        "pointer": "/data/attributes/job"
+      },
+      "detail": "can't be blank"
     },
-    "detail": "can't be blank"
-  },
-  {
-    "status": 422,
-    "source": {
-      "pointer": "/data/attributes/score"
+    {
+      "status": 422,
+      "source": {
+        "pointer": "/data/attributes/score"
+      },
+      "detail": "can't be blank"
     },
-    "detail": "can't be blank"
-  },
-  {
-    "status": 422,
-    "source": {
-      "pointer": "/data/attributes/score"
+    {
+      "status": 422,
+      "source": {
+        "pointer": "/data/attributes/score"
+      },
+      "detail": "is not a number"
     },
-    "detail": "is not a number"
-  },
-  {
-    "status": 422,
-    "source": {
-      "pointer": "/data/attributes/score"
+    {
+      "status": 422,
+      "source": {
+        "pointer": "/data/attributes/score"
+      },
+      "detail": "is not included in the list"
     },
-    "detail": "is not included in the list"
-  },
-  {
-    "status": 422,
-    "source": {
-      "pointer": "/data/attributes/from_user"
+    {
+      "status": 422,
+      "source": {
+        "pointer": "/data/attributes/from_user"
+      },
+      "detail": "can't be blank"
     },
-    "detail": "can't be blank"
-  },
-  {
-    "status": 422,
-    "source": {
-      "pointer": "/data/attributes/from_user"
+    {
+      "status": 422,
+      "source": {
+        "pointer": "/data/attributes/from_user"
+      },
+      "detail": "must be the job owner or the accepted applicant"
     },
-    "detail": "must be the job owner or the accepted applicant"
-  },
-  {
-    "status": 422,
-    "source": {
-      "pointer": "/data/attributes/to_user"
+    {
+      "status": 422,
+      "source": {
+        "pointer": "/data/attributes/to_user"
+      },
+      "detail": "can't be blank"
     },
-    "detail": "can't be blank"
-  },
-  {
-    "status": 422,
-    "source": {
-      "pointer": "/data/attributes/to_user"
-    },
-    "detail": "must be the job owner or the accepted applicant"
-  }
-]
+    {
+      "status": 422,
+      "source": {
+        "pointer": "/data/attributes/to_user"
+      },
+      "detail": "must be the job owner or the accepted applicant"
+    }
+  ]
+}

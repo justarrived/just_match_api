@@ -1,9 +1,11 @@
-[
-  {
-    "status": 422,
-    "source": {
-      "pointer": "/data/attributes/image"
-    },
-    "detail": "can't be blank"
-  }
-]
+{
+  "errors": [
+    {
+      "status": 422,
+      "source": {
+        "pointer": "/data/attributes/image"
+      },
+      "detail": "can't be blank"
+    }
+  ]
+}
