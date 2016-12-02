@@ -129,7 +129,7 @@ class Doxxer
                  else
                    JsonApiErrorSerializer.serialize(model, key_transform: :underscore)
                  end
-    JSON.pretty_generate(model_hash)
+    JSON.pretty_generate(errors: model_hash)
   end
 
   def self._format_model_name(model_klass, plural: false)
