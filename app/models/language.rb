@@ -17,6 +17,10 @@ class Language < ApplicationRecord
     en_name
   end
 
+  def display_name
+    name + " ##{id}"
+  end
+
   def locale
     lang_code
   end

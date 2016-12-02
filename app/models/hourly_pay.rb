@@ -10,6 +10,10 @@ class HourlyPay < ApplicationRecord
     "Gross salary #{gross_salary} SEK"
   end
 
+  def display_name
+    name
+  end
+
   def net_salary
     PayCalculator.net_salary(gross_salary)
   end
