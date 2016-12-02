@@ -13,7 +13,7 @@ module Api
         api_versions '1.0'
       end
 
-      ALLOWED_INCLUDES = %w(user_languages language languages company user_images).freeze
+      ALLOWED_INCLUDES = %w(user_languages user_languages.language language languages company user_images).freeze # rubocop:disable Metrics/LineLength
 
       api :GET, '/users', 'List users'
       description 'Returns a list of users if the user is allowed.'
