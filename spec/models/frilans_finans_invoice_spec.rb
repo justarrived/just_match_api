@@ -5,7 +5,7 @@ RSpec.describe FrilansFinansInvoice, type: :model do
   describe '#name' do
     it 'returns the correct email' do
       ff_invoice = FactoryGirl.create(:frilans_finans_invoice)
-      expect(ff_invoice.name).to eq("Frilans Finans Invoice ##{ff_invoice.id}")
+      expect(ff_invoice.name).to eq("##{ff_invoice.id} Frilans Finans Invoice")
     end
   end
 

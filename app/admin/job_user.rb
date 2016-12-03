@@ -30,6 +30,28 @@ ActiveAdmin.register JobUser do
     actions
   end
 
+  show do
+    attributes_table do
+      row :id
+      row :frilans_finans_invoice
+      row :invoice
+      row :user
+      row :job
+
+      row :accepted
+      row :will_perform
+      row :performed
+      row :accepted_at
+
+      row :apply_message
+      row :language
+
+      row :created_at
+      row :updated_at
+    end
+    active_admin_comments
+  end
+
   include AdminHelpers::MachineTranslation::Actions
 
   after_save do |job_user|
@@ -41,7 +63,7 @@ ActiveAdmin.register JobUser do
 
   sidebar :app, only: :show do
     ul do
-      li link_to 'View candiate in app', FrontendRouter.draw(:job_user_for_company, job_id: job_user.job_id, job_user_id: job_user.id), target: '_blank' # rubocop:disable Metrics/LineLength
+      li link_to I18n.t('admin.view_in_app.candidates'), FrontendRouter.draw(:job_user_for_company, job_id: job_user.job_id, job_user_id: job_user.id), target: '_blank' # rubocop:disable Metrics/LineLength
     end
   end
 

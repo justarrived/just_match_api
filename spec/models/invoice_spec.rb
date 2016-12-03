@@ -3,10 +3,10 @@ require 'rails_helper'
 
 RSpec.describe Invoice, type: :model do
   describe '#name' do
-    let(:invoice) { Invoice.new }
+    let(:invoice) { Invoice.new(id: 3) }
 
     it 'returns name' do
-      expect(invoice.name).to eq('Invoice #')
+      expect(invoice.name).to eq('#3 Invoice')
     end
   end
 

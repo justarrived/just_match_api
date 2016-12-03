@@ -38,7 +38,12 @@ class FrilansFinansInvoice < ApplicationRecord
   end
 
   def name
-    "Frilans Finans Invoice ##{id}"
+    display_name
+  end
+
+  def display_name
+    name = "(#{ff_status_name})" if ff_status_name
+    "##{id} #{human_model_name} #{name}"
   end
 
   def ff_status_name(with_id: false)

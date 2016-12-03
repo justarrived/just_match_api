@@ -112,7 +112,7 @@ ActiveAdmin.register Job do
     end
   end
 
-  show do |job|
+  show do
     attributes_table do
       row :id
       row :filled
@@ -145,7 +145,6 @@ ActiveAdmin.register Job do
 
       row :created_at
       row :updated_at
-
     end
     active_admin_comments
   end
