@@ -71,7 +71,7 @@ gem 'iban-tools', '~> 1.1' # Validate IBAN
 group :development, :test, :docs do
   gem 'byebug', '~> 9.0'
   gem 'rspec-rails', '~> 3.5'
-  gem 'rubocop', '~> 0.44', require: false
+  gem 'rubocop', '~> 0.46', require: false
   gem 'dotenv-rails', '~> 2.1'
   gem 'factory_girl_rails', '~> 4.0'
   gem 'immigrant', '~> 0.3'
