@@ -1,5 +1,8 @@
 en:
   admin:
+    view_in_app:
+      view: View in app
+      candidates: View candidates in app
     confirm_dialog_title: Are you sure?
     machine_translate:
       queued_msg: Machine translation queued successfully.
@@ -11,6 +14,10 @@ en:
       msg_multiple: Synced successfully.
       msg: Synced successfully.
       post_btn: Sync with Frilans Finans
+    counts:
+      applicants: Has %{count} applicants
+      comments: Has %{count} comments
+      translations: Has %{count} translations
 
   active_admin:
     clone_model: "Clone %{model}"

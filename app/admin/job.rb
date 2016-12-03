@@ -78,23 +78,37 @@ ActiveAdmin.register Job do
     link_to('Clone', clone_admin_job_path(id: job.id))
   end
 
-  sidebar :applicants, only: :show do
-    ul do
-      li link_to "Has #{job.job_users.count} applicants", admin_job_users_path + "?q[job_id_eq]=#{job.id}" # rubocop:disable Metrics/LineLength
-      li link_to 'View applicants', admin_job_users_path + "?q[job_id_eq]=#{job.id}"
-    end
-  end
+  sidebar :relations, only: :show do
+    job_query = AdminHelpers::Link.query(:job_id, job.id)
 
-  sidebar :comments, only: :show do
     ul do
-      li "Has #{job.comments.count} comments"
+      li link_to job.company.name, admin_company_path(job.company)
+      li link_to job.owner.name, admin_user_path(job.owner)
+    end
+
+    ul do
+      li(
+        link_to(
+          I18n.t('admin.counts.applicants', count: job.job_users.count),
+          admin_job_users_path + job_query
+        )
+      )
+      li(
+        link_to(
+          I18n.t('admin.counts.translations', count: job.translations.count),
+          admin_job_translations_path + job_query
+        )
+      )
+      li I18n.t('admin.counts.comments', count: job.comments.count)
     end
   end
 
   sidebar :app, only: :show do
     ul do
-      li link_to 'View in app', FrontendRouter.draw(:job, id: job.id), target: '_blank'
-      li link_to 'View candiates in app', FrontendRouter.draw(:job_users, job_id: job.id), target: '_blank' # rubocop:disable Metrics/LineLength
+      # rubocop:disable Metrics/LineLength
+      li link_to I18n.t('admin.view_in_app.view'), FrontendRouter.draw(:job, id: job.id), target: '_blank'
+      li link_to I18n.t('admin.view_in_app.candidates'), FrontendRouter.draw(:job_users, job_id: job.id), target: '_blank'
+      # rubocop:enable Metrics/LineLength
     end
   end
 
