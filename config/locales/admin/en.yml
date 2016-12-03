@@ -38,8 +38,13 @@ en:
       queued_msg: Machine translation queued successfully.
       queued_msg_multiple: Machine translations queued successfully.
       post_btn: Machine Translate
+    job_user:
+      apply_message: Apply message
     job:
       google_calendar_link: Google Calendar
+      name: Name
+      description: Description
+      short_description: Short Description
       show:
         general: General
         status_flags: Status flags
@@ -53,6 +58,12 @@ en:
         dates: Dates
     user:
       primary_language: Primary language %{lang}
+      name: Name
+      verified: Verified
+      description: Description
+      education: Education
+      competence_text: Competences
+      job_experience: Job experience
       show:
         general: General
         profile: Profile

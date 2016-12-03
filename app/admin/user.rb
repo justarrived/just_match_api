@@ -13,11 +13,10 @@ ActiveAdmin.register User do
   scope :managed_users
   scope :verified
 
+  filter :first_name_or_last_name_cont, as: :string, label: I18n.t('admin.user.name')
   filter :email
   filter :verified
   filter :phone
-  filter :first_name
-  filter :last_name
   filter :ssn
   filter :language
   filter :company
@@ -26,9 +25,14 @@ ActiveAdmin.register User do
   filter :education
   filter :competence_text
   filter :admin
-  filter :cancelled
   filter :anonymized
   filter :managed
+  # rubocop:disable Metrics/LineLength
+  filter :translations_description_cont, as: :string, label: I18n.t('admin.user.description')
+  filter :translations_education_cont, as: :string, label: I18n.t('admin.user.education')
+  filter :translations_competence_text_cont, as: :string, label: I18n.t('admin.user.competence_text')
+  filter :translations_job_experience_cont, as: :string, label: I18n.t('admin.user.job_experience')
+  # rubocop:enable Metrics/LineLength
 
   index do
     selectable_column

@@ -9,6 +9,7 @@ ActiveAdmin.register JobUser do
   scope :will_perform
   scope :verified
 
+  filter :user_verified_eq, as: :boolean, label: I18n.t('admin.user.verified')
   filter :user
   filter :job
   filter :frilans_finans_invoice
@@ -18,6 +19,7 @@ ActiveAdmin.register JobUser do
   filter :performed
   filter :updated_at
   filter :created_at
+  filter :translations_apply_message_cont, as: :string, label: I18n.t('admin.job_user.apply_message') # rubocop:disable Metrics/LineLength
 
   index do
     selectable_column

@@ -14,7 +14,7 @@ ActiveAdmin.register Job do
   scope :unfilled
 
   # Filterable attributes on the index screen
-  filter :name
+  filter :translations_name_cont, as: :string, label: I18n.t('admin.job.name')
   filter :company
   filter :job_date
   filter :job_end_date
@@ -25,6 +25,8 @@ ActiveAdmin.register Job do
   filter :cancelled
   filter :hidden
   filter :hourly_pay
+  filter :translations_description_cont, as: :string, label: I18n.t('admin.job.description') # rubocop:disable Metrics/LineLength
+  filter :translations_short_description_cont, as: :string, label: I18n.t('admin.job.short_description') # rubocop:disable Metrics/LineLength
 
   # Customize columns displayed on the index screen in the table
   index do

@@ -100,13 +100,13 @@ ActiveAdmin.setup do |config|
   #
   # Default:
   # config.logout_link_path = :destroy_admin_user_session_path
-  config.logout_link_path = 'http://justarrived.se'
+  # config.logout_link_path = 'http://justarrived.se'
 
   # This setting changes the http method used when rendering the
   # link. For example :get, :delete, :put, etc..
   #
   # Default:
-  config.logout_link_method = :get
+  # config.logout_link_method = :get
 
   # == Root
   #
@@ -213,11 +213,12 @@ ActiveAdmin.setup do |config|
   #
   # To change the default utility navigation to show a link to your website & a logout btn
   #
-  # config.namespace :admin do |admin|
-  #   admin.build_menu :utility_navigation do |menu|
-  #     menu.add label: "Goto App", url: 'https://app.justarrived.se'
-  #   end
-  # end
+  config.namespace :admin do |admin|
+    admin.build_menu :utility_navigation do |menu|
+      admin.add_current_user_to_menu(menu)
+      menu.add label: 'Goto App', url: 'https://app.justarrived.se'
+    end
+  end
   #
   # If you wanted to add a static menu item to the default menu provided:
   #
@@ -229,8 +230,7 @@ ActiveAdmin.setup do |config|
       menu.add label: 'Translations', priority: 6
       menu.add label: 'Settings', priority: 7
       menu.add label: 'Misc', priority: 8
-      menu.add label: 'Comment', priority: 9
-      menu.add label: 'Frilans Finans', priority: 10
+      menu.add label: 'Frilans Finans', priority: 9
     end
   end
 
