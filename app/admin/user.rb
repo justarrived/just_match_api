@@ -203,6 +203,30 @@ ActiveAdmin.register User do
     end
   end
 
+  sidebar :latest_applications, only: :show, if: proc { !user.company? } do
+    ul do
+      user.job_users
+        .order(created_at: :desc)
+        .includes(job: [:translations])
+        .limit(50).each do |job_user|
+
+        li link_to("##{job_user.id} " + job_user.job.name, admin_job_user_path(job_user))
+      end
+    end
+  end
+
+  sidebar :latest_owned_jobs, only: :show, if: proc { user.company? } do
+    ul do
+      user.owned_jobs
+        .order(created_at: :desc)
+        .includes(:translations)
+        .limit(50).each do |job|
+
+        li link_to("##{job.id} " + job.name, admin_job_path(job))
+      end
+    end
+  end
+
   after_save do |user|
     translation_params = {
       description: permitted_params.dig(:user, :description),

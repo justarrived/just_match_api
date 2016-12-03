@@ -112,6 +112,18 @@ ActiveAdmin.register Job do
     end
   end
 
+  sidebar :latest_applicants, only: :show do
+    ul do
+      job.job_users
+        .order(created_at: :desc)
+        .includes(:user)
+        .limit(50).each do |job_user|
+
+        li link_to("##{job_user.id} " + job_user.user.name, admin_job_user_path(job_user))
+      end
+    end
+  end
+
   show do
     attributes_table do
       row :id
