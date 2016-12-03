@@ -85,6 +85,7 @@ class User < ApplicationRecord
   scope :needs_frilans_finans_id, -> { where(frilans_finans_id: nil) }
   scope :anonymized, -> { where(anonymized: true) }
   scope :not_anonymized, -> { where(anonymized: false) }
+  scope :verified, -> { where(verified: true) }
 
   # NOTE: Figure out a good way to validate :current_status and :at_und
   #       see https://github.com/rails/rails/issues/13971

@@ -11,8 +11,10 @@ ActiveAdmin.register User do
   scope :regular_users
   scope :needs_frilans_finans_id
   scope :managed_users
+  scope :verified
 
   filter :email
+  filter :verified
   filter :phone
   filter :first_name
   filter :last_name
@@ -38,7 +40,6 @@ ActiveAdmin.register User do
     column :company
     column :frilans_finans_id
     column :managed
-    column :created_at
 
     actions
   end
