@@ -22,7 +22,7 @@ ActiveAdmin.register_page 'Dashboard' do
           ul do
             FrilansFinansInvoice.last(20).reverse.map do |ff_invoice|
               li link_to(
-                "##{ff_invoice.name}", admin_frilans_finans_invoice_path(ff_invoice)
+                ff_invoice.name, admin_frilans_finans_invoice_path(ff_invoice)
               )
             end
           end

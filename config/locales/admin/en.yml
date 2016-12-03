@@ -10,14 +10,32 @@ en:
       post_btn: Machine Translate
     job:
       google_calendar_link: Google Calendar
+    user:
+      primary_language: Primary language %{lang}
+      show:
+        general: General
+        profile: Profile
+        payment: Payment details
+        status_flags: Status flags
+        misc: Misc
     ff_remote_sync:
       msg_multiple: Synced successfully.
       msg: Synced successfully.
       post_btn: Sync with Frilans Finans
     counts:
+      applications: Has %{count} applications
       applicants: Has %{count} applicants
       comments: Has %{count} comments
+      written_comments: Has written %{count} comments
+      written_messages: Has written %{count} messages
       translations: Has %{count} translations
+      images: Has %{count} images
+      sessions: Has %{count} login sessions
+      languages: Has %{count} languages
+      chats: Has %{count} chats
+      received_ratings: Has received %{count} ratings
+      given_ratings: Has given %{count} ratings
+      owned_jobs: Owns %{count} jobs
 
   active_admin:
     clone_model: "Clone %{model}"

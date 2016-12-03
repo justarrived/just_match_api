@@ -25,6 +25,10 @@ class Company < ApplicationRecord
       joins(:users).where('users.frilans_finans_id IS NOT NULL')
   }
 
+  def display_name
+    "##{id} #{name}"
+  end
+
   def anonymize
     assign_attributes(
       id: -1,

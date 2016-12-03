@@ -36,6 +36,9 @@ ActiveAdmin.register JobUser do
       row :frilans_finans_invoice
       row :invoice
       row :user
+      row :average_user_score do
+        job_user.user.average_score
+      end
       row :job
 
       row :accepted
@@ -53,6 +56,76 @@ ActiveAdmin.register JobUser do
   end
 
   include AdminHelpers::MachineTranslation::Actions
+
+  sidebar :user_information, only: :show do
+    user = job_user.user
+
+    user_query = AdminHelpers::Link.query(:user_id, user.id)
+    from_user_query = AdminHelpers::Link.query(:from_user_id, user.id)
+    to_user_query = AdminHelpers::Link.query(:to_user_id, user.id)
+    owner_user_query = AdminHelpers::Link.query(:owner_user_id, user.id)
+
+    ul do
+      li(
+        link_to(
+          I18n.t('admin.user.primary_language', lang: user.language.display_name),
+          admin_language_path(user.language)
+        )
+      )
+    end
+
+    ul do
+      li(
+        link_to(
+          I18n.t('admin.counts.applications', count: user.job_users.count),
+          admin_job_users_path + user_query
+        )
+      )
+      li(
+        link_to(
+          I18n.t('admin.counts.translations', count: user.translations.count),
+          admin_user_translations_path + user_query
+        )
+      )
+      li(
+        link_to(
+          I18n.t('admin.counts.sessions', count: user.auth_tokens.count),
+          admin_tokens_path + user_query
+        )
+      )
+      li(
+        link_to(
+          I18n.t('admin.counts.chats', count: user.chats.count),
+          admin_chats_path + user_query
+        )
+      )
+      li(
+        link_to(
+          I18n.t('admin.counts.written_messages', count: user.messages.count),
+          admin_messages_path + user_query
+        )
+      )
+      li(
+        link_to(
+          I18n.t('admin.counts.images', count: user.user_images.count),
+          admin_user_images_path + user_query
+        )
+      )
+      li(
+        link_to(
+          I18n.t('admin.counts.received_ratings', count: user.received_ratings.count),
+          admin_ratings_path + to_user_query
+        )
+      )
+      li(
+        link_to(
+          I18n.t('admin.counts.given_ratings', count: user.given_ratings.count),
+          admin_ratings_path + from_user_query
+        )
+      )
+      li I18n.t('admin.counts.written_comments', count: user.written_comments.count)
+    end
+  end
 
   after_save do |job_user|
     translation_params = {

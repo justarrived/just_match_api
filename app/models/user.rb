@@ -109,12 +109,6 @@ class User < ApplicationRecord
     new_chat_message
   ).freeze
 
-  def contact_email
-    return email unless managed
-
-    ManagedEmailAddress.call(email: email, id: "user#{id}")
-  end
-
   def self.find_by_one_time_token(token)
     valid_one_time_tokens.find_by(one_time_token: token)
   end
@@ -176,6 +170,12 @@ class User < ApplicationRecord
     jobs.any?
   end
 
+  def contact_email
+    return email unless managed
+
+    ManagedEmailAddress.call(email: email, id: "user#{id}")
+  end
+
   def anonymize
     assign_attributes(
       id: -1,
@@ -213,6 +213,10 @@ class User < ApplicationRecord
 
   def admin?
     admin
+  end
+
+  def company?
+    company_id.present?
   end
 
   def locale

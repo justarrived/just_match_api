@@ -13,13 +13,14 @@ ActiveAdmin.register Rating do
   filter :created_at
 
   index do
-    column :id
     column :score
     column :job
     column :from_user
     column :to_user
     column :comment
     column :created_at
+
+    actions
   end
 
   permit_params do
