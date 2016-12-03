@@ -36,6 +36,7 @@ class JobUser < ApplicationRecord
   scope :applicant_confirmation_overdue, lambda {
     unconfirmed.where('accepted_at < ?', MAX_CONFIRMATION_TIME_HOURS.hours.ago)
   }
+  scope :verified, -> { joins(:user).where('users.verified = ?', true) }
 
   include Translatable
   translates :apply_message

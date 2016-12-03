@@ -1,17 +1,21 @@
 # frozen_string_literal: true
 ActiveAdmin.register JobUser do
-  menu parent: 'Jobs'
+  menu parent: 'Jobs', priority: 2
 
   batch_action :destroy, false
 
   scope :all, default: true
   scope :accepted
   scope :will_perform
+  scope :verified
 
   filter :user
   filter :job
   filter :frilans_finans_invoice
   filter :invoice
+  filter :accepted
+  filter :will_perform
+  filter :performed
   filter :updated_at
   filter :created_at
 
