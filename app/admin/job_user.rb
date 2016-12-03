@@ -140,7 +140,17 @@ ActiveAdmin.register JobUser do
 
   sidebar :app, only: :show do
     ul do
-      li link_to I18n.t('admin.view_in_app.candidates'), FrontendRouter.draw(:job_user_for_company, job_id: job_user.job_id, job_user_id: job_user.id), target: '_blank' # rubocop:disable Metrics/LineLength
+      li(
+        link_to(
+          I18n.t('admin.view_in_app.candidates'),
+          FrontendRouter.draw(
+            :job_user_for_company,
+            job_id: job_user.job_id,
+            job_user_id: job_user.id
+          ),
+          target: '_blank'
+        )
+      )
     end
   end
 

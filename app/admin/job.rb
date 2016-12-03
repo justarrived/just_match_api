@@ -125,6 +125,7 @@ ActiveAdmin.register Job do
   end
 
   show do
+    h3 I18n.t('admin.job.show.general')
     attributes_table do
       row :id
       row :filled
@@ -132,24 +133,31 @@ ActiveAdmin.register Job do
       row :hours
       row :job_date
       row :job_end_date
+      row :hourly_pay
       row :short_description
       row :street
       row :zip
       row :description
     end
 
+    h3 I18n.t('admin.job.show.status_flags')
     attributes_table do
-      row :owner
-      row :category
-      row :hourly_pay
-      row :language
-
       row :featured
       row :verified
       row :upcoming
       row :cancelled
       row :hidden
+    end
 
+    h3 I18n.t('admin.job.show.relations')
+    attributes_table do
+      row :owner
+      row :category
+      row :language
+    end
+
+    h3 I18n.t('admin.job.show.misc')
+    attributes_table do
       row :latitude
       row :longitude
       row :zip_latitude

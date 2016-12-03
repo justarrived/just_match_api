@@ -10,6 +10,11 @@ en:
       post_btn: Machine Translate
     job:
       google_calendar_link: Google Calendar
+      show:
+        general: General
+        status_flags: Status flags
+        relations: Relations
+        misc: Misc
     user:
       primary_language: Primary language %{lang}
       show:
