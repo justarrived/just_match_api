@@ -226,7 +226,7 @@ ActiveAdmin.setup do |config|
       menu.add label: 'Jobs', priority: 2
       menu.add label: 'Users', priority: 3
       menu.add label: 'Invoices', priority: 4
-      menu.add label: 'Translation', priority: 6
+      menu.add label: 'Translations', priority: 6
       menu.add label: 'Settings', priority: 7
       menu.add label: 'Misc', priority: 8
       menu.add label: 'Comment', priority: 9

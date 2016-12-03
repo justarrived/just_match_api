@@ -1,5 +1,35 @@
 en:
   admin:
+    job_name: Job
+    user_name: User
+    job_user_name: Job User
+    time_ago: '%{time} ago'
+    time_from_now: '%{time} from now'
+    recent_users:
+      title: Recent users
+      name: Name
+      verified: Verified
+      phone: Phone
+      email: Email
+      company: Company
+    recent_jobs:
+      title: Recent jobs
+      name: Name
+      filled: Filled
+      start_date: Start date
+      hours: Hours
+      hourly_pay: Hourly pay
+    recent_ff_invoices:
+      title: Recent Frilans Finans Invoices
+      status: Status
+      name: Name
+    recent_job_users:
+      title: Recent applicants
+      accepted: Accepted
+      will_perform: Will perform
+      name: Name
+      job: Job
+      user: User
     view_in_app:
       view: View in app
       candidates: View candidates in app
@@ -15,6 +45,12 @@ en:
         status_flags: Status flags
         relations: Relations
         misc: Misc
+    frilans_finans_invoice:
+      not_paid: Not paid
+      show:
+        general: General
+        frilans_finans: Frilans Finans
+        dates: Dates
     user:
       primary_language: Primary language %{lang}
       show:

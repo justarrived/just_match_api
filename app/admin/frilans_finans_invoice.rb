@@ -65,15 +65,24 @@ ActiveAdmin.register FrilansFinansInvoice do
   end
 
   show do
+    h3 I18n.t('admin.frilans_finans_invoice.show.general')
     attributes_table do
       row :id
-      row :frilans_finans_id
       row :activated
+      row :ff_amount
+      row :ff_gross_salary
+      row :ff_status do
+        frilans_finans_invoice.ff_status_name(with_id: true)
+      end
+      row :frilans_finans_id
       row :user
       row :job
       row :job_user
       row :invoice
+    end
 
+    h3 I18n.t('admin.frilans_finans_invoice.show.frilans_finans')
+    attributes_table do
       row :ff_amount
       row :ff_status do
         frilans_finans_invoice.ff_status_name(with_id: true)
@@ -87,13 +96,19 @@ ActiveAdmin.register FrilansFinansInvoice do
       row :ff_approval_status do
         frilans_finans_invoice.ff_approval_status_name(with_id: true)
       end
+
       row :express_payment
       row :ff_sent_at
       row :ff_last_synced_at
-
-      row :created_at
-      row :updated_at
     end
+
+    h3 I18n.t('admin.frilans_finans_invoice.show.dates')
+    attributes_table do
+      row :ff_last_synced_at
+      row :updated_at
+      row :created_at
+    end
+
     active_admin_comments
   end
 

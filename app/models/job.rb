@@ -95,7 +95,7 @@ class Job < ApplicationRecord
 
   # ActiveAdmin display name
   def display_name
-    "##{id} #{name}"
+    "##{id} #{original_name}"
   end
 
   def report_name

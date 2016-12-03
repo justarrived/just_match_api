@@ -5,49 +5,146 @@ ActiveAdmin.register_page 'Dashboard' do
   content title: proc { I18n.t('active_admin.dashboard') } do
     columns do
       column do
-        panel 'Recent Candidates' do
-          ul do
-            JobUser.last(20).reverse.map do |job_user|
-              li link_to(
-                "#{job_user.user.name} applied for #{job_user.job.name}",
-                admin_job_user_path(job_user)
+        panel(link_to(I18n.t('admin.recent_job_users.title'), admin_job_users_path)) do
+          scope = JobUser.order(created_at: :desc)
+            .includes(:user, job: [:translations])
+            .limit(20)
+
+          table_for(scope) do
+            column(I18n.t('admin.recent_job_users.accepted')) do |job_user|
+              status_tag(job_user.accepted)
+            end
+
+            column(I18n.t('admin.recent_job_users.will_perform')) do |job_user|
+              status_tag(job_user.will_perform)
+            end
+
+            column(I18n.t('admin.recent_job_users.name')) do |job_user|
+              link_to(job_user.name, admin_job_user_path(job_user))
+            end
+
+            column(I18n.t('admin.recent_job_users.job')) do |job_user|
+              link_to(
+                truncate(job_user.job.display_name),
+                admin_job_path(job_user.job)
               )
+            end
+
+            column(I18n.t('admin.recent_job_users.user')) do |job_user|
+              link_to(job_user.user.name, admin_user_path(job_user.user))
             end
           end
         end
       end
 
       column do
-        panel 'Recent Frilans Finans Invoices' do
-          ul do
-            FrilansFinansInvoice.last(20).reverse.map do |ff_invoice|
-              li link_to(
+        panel link_to(I18n.t('admin.recent_ff_invoices.title'), admin_frilans_finans_invoices_path) do # rubocop:disable Metrics/LineLength
+          scope = FrilansFinansInvoice.order(created_at: :desc)
+            .includes(:job_user, :user, job: [:translations])
+            .limit(20)
+
+          table_for(scope) do
+            column(I18n.t('admin.recent_ff_invoices.status')) do |ff_invoice|
+              paid_status = FrilansFinansInvoice::FF_PAID_STATUS
+              default_status_name = I18n.t('admin.frilans_finans_invoice.not_paid')
+              status_tag(
+                ff_invoice.ff_status_name || default_status_name,
+                ff_invoice.ff_status == paid_status ? :yes : :warning
+              )
+            end
+            column(I18n.t('admin.recent_ff_invoices.name')) do |ff_invoice|
+              link_to(
                 ff_invoice.name, admin_frilans_finans_invoice_path(ff_invoice)
               )
             end
-          end
-        end
-      end
 
-      column do
-        panel 'Recent Users' do
-          ul do
-            User.last(20).reverse.map do |user|
-              li link_to(user.name, admin_user_path(user))
+            column(I18n.t('admin.job_user_name')) do |ff_invoice|
+              link_to(
+                ff_invoice.job_user.name,
+                admin_job_user_path(ff_invoice.job_user)
+              )
             end
-          end
-        end
-      end
 
-      column do
-        panel 'Recent Jobs' do
-          ul do
-            Job.with_translations.last(20).reverse.map do |job|
-              li link_to(job.original_name, admin_job_path(job))
+            column(I18n.t('admin.job_name')) do |ff_invoice|
+              link_to(
+                truncate((ff_invoice.job.original_name)),
+                admin_job_path(ff_invoice.job)
+              )
+            end
+
+            column(I18n.t('admin.user_name')) do |ff_invoice|
+              link_to(
+                ff_invoice.user.name,
+                admin_user_path(ff_invoice.user)
+              )
             end
           end
         end
       end
     end
-  end # content
+
+    columns do
+      column do
+        panel link_to(I18n.t('admin.recent_users.title'), admin_users_path) do
+          table_for User.order(created_at: :desc).limit(20) do
+            column(I18n.t('admin.recent_users.verified')) do |user|
+              status_tag(user.verified)
+            end
+
+            column(I18n.t('admin.recent_users.email')) do |user|
+              truncate(user.email)
+            end
+
+            column(I18n.t('admin.recent_users.phone')) do |user|
+              user.phone
+            end
+
+            column(I18n.t('admin.recent_users.name')) do |user|
+              link_to(user.display_name, admin_user_path(user))
+            end
+
+            column(I18n.t('admin.recent_users.company')) do |user|
+              status_tag(user.company?)
+            end
+          end
+        end
+      end
+
+      column do
+        panel link_to(I18n.t('admin.recent_jobs.title'), admin_jobs_path) do
+          scope = Job.with_translations.includes(:hourly_pay).order(created_at: :desc).limit(20)
+          table_for(scope) do
+            column(I18n.t('admin.recent_jobs.filled')) do |job|
+              status_tag(job.filled)
+            end
+
+            column(I18n.t('admin.recent_jobs.hours')) do |job|
+              job.hours.round(0)
+            end
+
+            column(I18n.t('admin.recent_jobs.hourly_pay')) do |job|
+              job.hourly_pay.gross_salary
+            end
+
+            column(I18n.t('admin.recent_jobs.name')) do |job|
+              link_to(truncate(job.display_name), admin_job_path(job))
+            end
+
+            column(I18n.t('admin.recent_jobs.start_date')) do |job|
+              now_time = Time.now.utc
+              job_date = job.job_date
+
+              time_in_words = distance_of_time_in_words(now_time, job_date)
+
+              if now_time > job_date
+                I18n.t('admin.time_ago', time: time_in_words)
+              else
+                I18n.t('admin.time_from_now', time: time_in_words)
+              end
+            end
+          end
+        end
+      end
+    end
+  end
 end

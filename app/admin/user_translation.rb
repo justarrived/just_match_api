@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 ActiveAdmin.register UserTranslation do
-  menu parent: 'Translation'
+  menu parent: 'Translations'
 
   permit_params do
     [:body, :locale]
