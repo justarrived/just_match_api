@@ -82,8 +82,8 @@ ActiveAdmin.register Job do
     job_query = AdminHelpers::Link.query(:job_id, job.id)
 
     ul do
-      li link_to job.company.name, admin_company_path(job.company)
-      li link_to job.owner.name, admin_user_path(job.owner)
+      li link_to job.company.display_name, admin_company_path(job.company)
+      li link_to job.owner.display_name, admin_user_path(job.owner)
     end
 
     ul do
@@ -110,6 +110,44 @@ ActiveAdmin.register Job do
       li link_to I18n.t('admin.view_in_app.candidates'), FrontendRouter.draw(:job_users, job_id: job.id), target: '_blank'
       # rubocop:enable Metrics/LineLength
     end
+  end
+
+  show do |job|
+    attributes_table do
+      row :id
+      row :filled
+      row :name
+      row :hours
+      row :job_date
+      row :job_end_date
+      row :short_description
+      row :street
+      row :zip
+      row :description
+    end
+
+    attributes_table do
+      row :owner
+      row :category
+      row :hourly_pay
+      row :language
+
+      row :featured
+      row :verified
+      row :upcoming
+      row :cancelled
+      row :hidden
+
+      row :latitude
+      row :longitude
+      row :zip_latitude
+      row :zip_longitude
+
+      row :created_at
+      row :updated_at
+
+    end
+    active_admin_comments
   end
 
   permit_params do
