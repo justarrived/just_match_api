@@ -5,11 +5,21 @@ ActiveAdmin.register User do
   batch_action :destroy, false
 
   batch_action :send_message_to, form: {
-    type: %w[sms],
+    type: %w[sms email both],
+    subject:  :text,
     message:  :textarea
   } do |ids, inputs|
+    template = inputs['message']
+    type = inputs['type']
+    subject = inputs['subject']
+
     users = User.where(id: ids)
-    response = MessageUsers.call(users: users, template: inputs['message'])
+    response = MessageUsers.call(
+      type: type,
+      users: users,
+      template: template,
+      subject: subject
+    )
     notice = response[:message]
 
     if response[:success]
