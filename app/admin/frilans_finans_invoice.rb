@@ -66,7 +66,6 @@ ActiveAdmin.register FrilansFinansInvoice do
     column :job do |ff_invoice|
       truncate(ff_invoice.job.original_name)
     end
-    column :frilans_finans_id
 
     actions
   end
