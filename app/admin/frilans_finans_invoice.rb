@@ -53,8 +53,13 @@ ActiveAdmin.register FrilansFinansInvoice do
 
     column :id
     column :activated
-    column :ff_status do |object|
-      object.ff_status_name(with_id: true)
+    column :ff_status do |ff_invoice|
+      paid_status = FrilansFinansInvoice::FF_PAID_STATUS
+      default_status_name = I18n.t('admin.frilans_finans_invoice.not_paid')
+      status_tag(
+        ff_invoice.ff_status_name(with_id: true) || default_status_name,
+        ff_invoice.ff_status == paid_status ? :yes : :warning
+      )
     end
     column :ff_amount
     column :user
