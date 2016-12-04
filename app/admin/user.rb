@@ -78,7 +78,7 @@ ActiveAdmin.register User do
       row :language
     end
 
-    if !user.company?
+    unless user.company?
       h3 I18n.t('admin.user.show.profile')
       attributes_table do
         row :current_status
@@ -221,10 +221,11 @@ ActiveAdmin.register User do
 
   sidebar :latest_applications, only: :show, if: proc { !user.company? } do
     ul do
-      user.job_users
-        .order(created_at: :desc)
-        .includes(job: [:translations])
-        .limit(50).each do |job_user|
+      user.job_users.
+        order(created_at: :desc).
+        includes(job: [:translations]).
+        limit(50).
+        each do |job_user|
 
         li link_to("##{job_user.id} " + job_user.job.name, admin_job_user_path(job_user))
       end
@@ -233,10 +234,11 @@ ActiveAdmin.register User do
 
   sidebar :latest_owned_jobs, only: :show, if: proc { user.company? } do
     ul do
-      user.owned_jobs
-        .order(created_at: :desc)
-        .includes(:translations)
-        .limit(50).each do |job|
+      user.owned_jobs.
+        order(created_at: :desc).
+        includes(:translations).
+        limit(50).
+        each do |job|
 
         li link_to("##{job.id} " + job.name, admin_job_path(job))
       end

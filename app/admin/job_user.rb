@@ -69,7 +69,6 @@ ActiveAdmin.register JobUser do
     user_query = AdminHelpers::Link.query(:user_id, user.id)
     from_user_query = AdminHelpers::Link.query(:from_user_id, user.id)
     to_user_query = AdminHelpers::Link.query(:to_user_id, user.id)
-    owner_user_query = AdminHelpers::Link.query(:owner_user_id, user.id)
 
     ul do
       li(
