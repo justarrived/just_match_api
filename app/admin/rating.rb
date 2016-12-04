@@ -9,7 +9,7 @@ ActiveAdmin.register Rating do
   filter :score
   filter :from_user
   filter :to_user
-  filter :job
+  filter :job, collection: -> { Job.with_translations }
   filter :created_at
 
   index do
@@ -30,5 +30,11 @@ ActiveAdmin.register Rating do
       :job_id,
       :score
     ]
+  end
+
+  controller do
+    def scoped_collection
+      super.includes(job: [:language, :translations])
+    end
   end
 end

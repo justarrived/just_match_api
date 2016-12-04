@@ -15,7 +15,7 @@ ActiveAdmin.register FrilansFinansInvoice do
   filter :activated
   filter :ff_status
   filter :user
-  filter :job
+  filter :job, collection: -> { Job.with_translations }
   filter :express_payment
   filter :frilans_finans_id
   filter :ff_pre_report
@@ -63,7 +63,9 @@ ActiveAdmin.register FrilansFinansInvoice do
     end
     column :ff_amount
     column :user
-    column :job
+    column :job do |ff_invoice|
+      truncate(ff_invoice.job.original_name)
+    end
     column :frilans_finans_id
 
     actions
@@ -144,5 +146,11 @@ ActiveAdmin.register FrilansFinansInvoice do
     column :created_at
     column :updated_at
     column :job_user_id
+  end
+
+  controller do
+    def scoped_collection
+      super.includes(job: [:language, :translations])
+    end
   end
 end

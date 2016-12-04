@@ -9,7 +9,8 @@ ActiveAdmin.register Invoice do
 
   filter :frilans_finans_invoice
   filter :user
-  filter :job
+  filter :job, collection: -> { Job.with_translations }
+  filter :created_at
 
   index do
     column :id
@@ -19,5 +20,11 @@ ActiveAdmin.register Invoice do
     column :created_at
 
     actions
+  end
+
+  controller do
+    def scoped_collection
+      super.includes(job: [:language, :translations])
+    end
   end
 end
