@@ -50,8 +50,7 @@ ActiveAdmin.register User do
     selectable_column
 
     column :id
-    column :first_name
-    column :last_name
+    column :name
     column :email
     column :company
     column :frilans_finans_id
