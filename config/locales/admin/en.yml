@@ -22,7 +22,7 @@ en:
     recent_ff_invoices:
       title: Recent Frilans Finans Invoices
       status: Status
-      name: Name
+      id: ID
     recent_job_users:
       title: Recent applicants
       accepted: Accepted

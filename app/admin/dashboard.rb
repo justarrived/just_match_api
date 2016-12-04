@@ -52,9 +52,9 @@ ActiveAdmin.register_page 'Dashboard' do
                 ff_invoice.ff_status == paid_status ? :yes : :warning
               )
             end
-            column(I18n.t('admin.recent_ff_invoices.name')) do |ff_invoice|
+            column(I18n.t('admin.recent_ff_invoices.id')) do |ff_invoice|
               link_to(
-                ff_invoice.name, admin_frilans_finans_invoice_path(ff_invoice)
+                "##{ff_invoice.id}", admin_frilans_finans_invoice_path(ff_invoice)
               )
             end
 
