@@ -19,8 +19,8 @@ ActiveAdmin.register_page 'Dashboard' do
               status_tag(job_user.will_perform)
             end
 
-            column(I18n.t('admin.recent_job_users.name')) do |job_user|
-              link_to(job_user.name, admin_job_user_path(job_user))
+            column(I18n.t('admin.recent_job_users.id')) do |job_user|
+              link_to("##{job_user.id}", admin_job_user_path(job_user))
             end
 
             column(I18n.t('admin.recent_job_users.job')) do |job_user|
@@ -86,24 +86,24 @@ ActiveAdmin.register_page 'Dashboard' do
     columns do
       column do
         panel link_to(I18n.t('admin.recent_users.title'), admin_users_path) do
-          table_for User.order(created_at: :desc).limit(20) do
-            column(I18n.t('admin.recent_users.verified')) do |user|
+          table_for User.includes(:language).order(created_at: :desc).limit(20) do
+            column(I18n.t('admin.user.verified')) do |user|
               status_tag(user.verified)
             end
 
-            column(I18n.t('admin.recent_users.email')) do |user|
+            column(I18n.t('admin.user.locale')) do |user|
+              truncate(user.locale)
+            end
+
+            column(I18n.t('admin.user.email')) do |user|
               truncate(user.email)
             end
 
-            column(I18n.t('admin.recent_users.phone')) do |user|
-              user.phone
-            end
-
-            column(I18n.t('admin.recent_users.name')) do |user|
+            column(I18n.t('admin.user.name')) do |user|
               link_to(user.display_name, admin_user_path(user))
             end
 
-            column(I18n.t('admin.recent_users.company')) do |user|
+            column(I18n.t('admin.user.company')) do |user|
               status_tag(user.company?)
             end
           end

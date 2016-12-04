@@ -7,11 +7,6 @@ en:
     time_from_now: '%{time} from now'
     recent_users:
       title: Recent users
-      name: Name
-      verified: Verified
-      phone: Phone
-      email: Email
-      company: Company
     recent_jobs:
       title: Recent jobs
       name: Name
@@ -30,6 +25,7 @@ en:
       name: Name
       job: Job
       user: User
+      id: ID
     view_in_app:
       view: View in app
       candidates: View candidates in app
@@ -59,6 +55,10 @@ en:
     user:
       primary_language: Primary language %{lang}
       name: Name
+      phone: Phone
+      email: Email
+      company: Company
+      locale: Locale
       verified: Verified
       description: Description
       education: Education
