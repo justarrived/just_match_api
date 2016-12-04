@@ -457,6 +457,7 @@ end
 #  account_clearing_number        :string
 #  account_number                 :string
 #  verified                       :boolean          default(FALSE)
+#  skype_username                 :string
 #
 # Indexes
 #

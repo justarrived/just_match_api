@@ -8,12 +8,13 @@ end
 #
 # Table name: user_languages
 #
-#  id          :integer          not null, primary key
-#  language_id :integer
-#  user_id     :integer
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  proficiency :integer
+#  id                   :integer          not null, primary key
+#  language_id          :integer
+#  user_id              :integer
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
+#  proficiency          :integer
+#  proficiency_by_admin :integer
 #
 # Indexes
 #
