@@ -3,8 +3,7 @@ require 'rails_helper'
 
 RSpec.describe ApplicationPolicy do
   class MockModel
-    def id
-    end
+    def id; end
 
     def where(*_args)
       OpenStruct.new(exists?: false)

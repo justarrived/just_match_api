@@ -6,8 +6,7 @@ RSpec.describe UnrevertableValidator do
     Class.new(ValidationTester) do
       attr_accessor :boolean_field
 
-      def boolean_field_changed?
-      end
+      def boolean_field_changed?; end
 
       validates :boolean_field, unrevertable: options
     end

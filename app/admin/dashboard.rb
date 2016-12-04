@@ -6,9 +6,9 @@ ActiveAdmin.register_page 'Dashboard' do
     columns do
       column do
         panel(link_to(I18n.t('admin.recent_job_users.title'), admin_job_users_path)) do
-          scope = JobUser.order(created_at: :desc)
-            .includes(:user, job: [:translations])
-            .limit(20)
+          scope = JobUser.order(created_at: :desc).
+                  includes(:user, job: [:translations]).
+                  limit(20)
 
           table_for(scope) do
             column(I18n.t('admin.recent_job_users.accepted')) do |job_user|
@@ -39,9 +39,9 @@ ActiveAdmin.register_page 'Dashboard' do
 
       column do
         panel link_to(I18n.t('admin.recent_ff_invoices.title'), admin_frilans_finans_invoices_path) do # rubocop:disable Metrics/LineLength
-          scope = FrilansFinansInvoice.order(created_at: :desc)
-            .includes(:job_user, :user, job: [:translations])
-            .limit(20)
+          scope = FrilansFinansInvoice.order(created_at: :desc).
+                  includes(:job_user, :user, job: [:translations]).
+                  limit(20)
 
           table_for(scope) do
             column(I18n.t('admin.recent_ff_invoices.status')) do |ff_invoice|
@@ -67,7 +67,7 @@ ActiveAdmin.register_page 'Dashboard' do
 
             column(I18n.t('admin.job_name')) do |ff_invoice|
               link_to(
-                truncate((ff_invoice.job.original_name)),
+                truncate(ff_invoice.job.original_name),
                 admin_job_path(ff_invoice.job)
               )
             end
@@ -112,7 +112,11 @@ ActiveAdmin.register_page 'Dashboard' do
 
       column do
         panel link_to(I18n.t('admin.recent_jobs.title'), admin_jobs_path) do
-          scope = Job.with_translations.includes(:hourly_pay).order(created_at: :desc).limit(20)
+          scope = Job.with_translations.
+                  includes(:hourly_pay).
+                  order(created_at: :desc).
+                  limit(20)
+
           table_for(scope) do
             column(I18n.t('admin.recent_jobs.filled')) do |job|
               status_tag(job.filled)
