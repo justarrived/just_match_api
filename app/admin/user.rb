@@ -4,6 +4,21 @@ ActiveAdmin.register User do
 
   batch_action :destroy, false
 
+  batch_action :send_message_to, form: {
+    type: %w[sms],
+    message:  :textarea
+  } do |ids, inputs|
+    users = User.where(id: ids)
+    response = MessageUsers.call(users: users, template: inputs['message'])
+    notice = response[:message]
+
+    if response[:success]
+      redirect_to collection_path, notice: notice
+    else
+      redirect_to collection_path, alert: notice
+    end
+  end
+
   batch_action :verify, confirm: I18n.t('admin.batch_action_confirm') do |ids|
     collection.where(id: ids).map { |u| u.update(verified: true) }
 
