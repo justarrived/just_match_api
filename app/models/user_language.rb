@@ -8,6 +8,7 @@ class UserLanguage < ApplicationRecord
   validates :language, presence: true, uniqueness: { scope: :user }
   validates :user, presence: true, uniqueness: { scope: :language }
   validates :proficiency, numericality: { only_integer: true }, inclusion: PROFICIENCY_RANGE, allow_nil: true # rubocop:disable Metrics/LineLength
+  validates :proficiency_by_admin, numericality: { only_integer: true }, inclusion: PROFICIENCY_RANGE, allow_nil: true # rubocop:disable Metrics/LineLength
 
   delegate :lang_code, to: :language
   delegate :direction, to: :language
@@ -27,12 +28,13 @@ end
 #
 # Table name: user_languages
 #
-#  id          :integer          not null, primary key
-#  language_id :integer
-#  user_id     :integer
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  proficiency :integer
+#  id                   :integer          not null, primary key
+#  language_id          :integer
+#  user_id              :integer
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
+#  proficiency          :integer
+#  proficiency_by_admin :integer
 #
 # Indexes
 #
