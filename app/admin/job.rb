@@ -4,6 +4,30 @@ ActiveAdmin.register Job do
 
   batch_action :destroy, false
 
+  batch_action :filled, confirm: I18n.t('admin.batch_action_confirm') do |ids|
+    collection.where(id: ids).map { |j| j.update(filled: true) }
+
+    redirect_to collection_path, notice: I18n.t('admin.job.filled_selected')
+  end
+
+  batch_action :upcoming, confirm: I18n.t('admin.batch_action_confirm') do |ids|
+    collection.where(id: ids).map { |j| j.update(upcoming: true) }
+
+    redirect_to collection_path, notice: I18n.t('admin.job.upcoming_selected')
+  end
+
+  batch_action :hidden, confirm: I18n.t('admin.batch_action_confirm') do |ids|
+    collection.where(id: ids).map { |j| j.update(hidden: true) }
+
+    redirect_to collection_path, notice: I18n.t('admin.job.hidden_selected')
+  end
+
+  batch_action :verify, confirm: I18n.t('admin.batch_action_confirm') do |ids|
+    collection.where(id: ids).map { |j| j.update(verified: true) }
+
+    redirect_to collection_path, notice: I18n.t('admin.verified_selected')
+  end
+
   # Create sections on the index screen
   scope :all, default: true
   scope :featured

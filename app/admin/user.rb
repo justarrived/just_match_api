@@ -4,6 +4,18 @@ ActiveAdmin.register User do
 
   batch_action :destroy, false
 
+  batch_action :verify, confirm: I18n.t('admin.batch_action_confirm') do |ids|
+    collection.where(id: ids).map { |u| u.update(verified: true) }
+
+    redirect_to collection_path, notice: I18n.t('admin.verified_selected')
+  end
+
+  batch_action :managed, confirm: I18n.t('admin.batch_action_confirm') do |ids|
+    collection.where(id: ids).map { |u| u.update(managed: true) }
+
+    redirect_to collection_path, notice: I18n.t('admin.user.managed_selected')
+  end
+
   # Create sections on the index screen
   scope :all, default: true
   scope :admins

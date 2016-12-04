@@ -1,5 +1,7 @@
 en:
   admin:
+    batch_action_confirm: Are you sure?
+    verified_selected: Verified selected.
     job_name: Job
     user_name: User
     job_user_name: Job User
@@ -41,6 +43,9 @@ en:
       name: Name
       description: Description
       short_description: Short Description
+      filled_selected: Selected jobs have been marked as filled.
+      upcoming_selected: Selected jobs have been marked as upcoming.
+      hidden_selected: Selected jobs have been marked as hidden.
       show:
         general: General
         status_flags: Status flags
@@ -64,6 +69,7 @@ en:
       education: Education
       competence_text: Competences
       job_experience: Job experience
+      managed_selected: All selected users marked as managed.
       show:
         general: General
         profile: Profile
