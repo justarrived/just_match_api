@@ -3,7 +3,7 @@ set -euo pipefail
 IFS=$'\n\t'
 
 cd "$(dirname "$0")/.."
-RUN_NESTED_GEMS_SPECS=${RUN_NESTED_GEMS_SPECS-:'false'}
+RUN_NESTED_GEMS_SPECS=${RUN_NESTED_GEMS_SPECS-'false'}
 
 run_frilans_finans_api_specs=''
 run_json_api_helpers_specs=''
@@ -16,3 +16,14 @@ echo -e '\n== Running tests =='
 export RAILS_ENV=test
 export RAKE_ENV=test
 bin/rspec "$@" $run_json_api_helpers_specs $run_frilans_finans_api_specs
+test_suite_exit_status=$?
+
+# If token is set send coverage report to CodeClimate
+CODECLIMATE_REPO_TOKEN=${CODECLIMATE_REPO_TOKEN-}
+if [[ -n $CODECLIMATE_REPO_TOKEN ]]; then
+  bundle exec codeclimate-test-reporter
+else
+  echo '[warn] Not sending test coverage report data (CODECLIMATE_REPO_TOKEN not set).'
+fi
+
+exit $test_suite_exit_status
