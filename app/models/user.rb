@@ -82,7 +82,9 @@ class User < ApplicationRecord
     where('one_time_token_expires_at > ?', Time.zone.now)
   }
   scope :frilans_finans_users, -> { where.not(frilans_finans_id: nil) }
-  scope :needs_frilans_finans_id, -> { where(frilans_finans_id: nil) }
+  scope :needs_frilans_finans_id, lambda {
+    not_anonymized.regular_users.where(frilans_finans_id: nil)
+  }
   scope :anonymized, -> { where(anonymized: true) }
   scope :not_anonymized, -> { where(anonymized: false) }
   scope :verified, -> { where(verified: true) }
