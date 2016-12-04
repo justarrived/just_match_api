@@ -13,14 +13,16 @@ class MessageUsers
 
   def call
     @users.each do |user|
+      attributes = user.attributes.symbolize_keys
       begin
-        message = @template % user.attributes.symbolize_keys
+        message = @template % attributes
+        subject = @subject % attributes
       rescue KeyError => e
         return { success: false, message: "Unknown key: '#{e.message}'" }
       end
 
       send_sms(user.phone, message)
-      send_email(user.email, message)
+      send_email(user.email, subject, message)
     end
 
     { success: true, message: "Sending #{type_name} to #{@users.length} user(s)." }
@@ -33,13 +35,13 @@ class MessageUsers
     TexterJob.perform_later(from: from, to: phone, body: message)
   end
 
-  def send_email(email, message)
+  def send_email(email, subject, message)
     return unless send_email?
 
     ActionMailer::Base.mail(
       from: ApplicationMailer::NO_REPLY_EMAIL,
       to: email,
-      subject: @subject,
+      subject: subject,
       body: message
     ).deliver_later
   end
