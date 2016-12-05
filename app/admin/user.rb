@@ -78,8 +78,8 @@ ActiveAdmin.register User do
     column :name
     column :email
     column :company
-    column :frilans_finans_id
     column :managed
+    column :created_at
 
     actions
   end
