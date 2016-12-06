@@ -6,7 +6,7 @@ module Index
     MAX_PER_PAGE = 100
 
     def faqs(scope = Faq)
-      @faqs ||= prepare_records(scope)
+      @faqs ||= prepare_records(scope.with_translations)
     end
   end
 end
