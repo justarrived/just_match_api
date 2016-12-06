@@ -4,6 +4,7 @@ FactoryGirl.define do
     question 'Whats the answer to live the universe and everyhting?'
     answer '42'
     association :faq
+    association :language
   end
 end
 

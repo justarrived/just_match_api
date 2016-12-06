@@ -237,7 +237,6 @@ ActiveRecord::Schema.define(version: 20161206103154) do
     t.datetime "updated_at",                null: false
     t.integer  "frilans_finans_invoice_id"
     t.index ["frilans_finans_invoice_id"], name: "index_invoices_on_frilans_finans_invoice_id", using: :btree
-    t.index ["job_user_id"], name: "index_invoices_on_job_user_id", using: :btree
     t.index ["job_user_id"], name: "index_invoices_on_job_user_id_uniq", unique: true, using: :btree
   end
 
