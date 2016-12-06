@@ -3,6 +3,9 @@ class Faq < ApplicationRecord
   belongs_to :language
 
   validates :language, presence: true
+
+  include Translatable
+  translates :question, :answer
 end
 
 # == Schema Information

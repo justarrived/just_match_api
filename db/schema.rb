@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161204213559) do
+ActiveRecord::Schema.define(version: 20161206103154) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -165,6 +165,18 @@ ActiveRecord::Schema.define(version: 20161204213559) do
     t.index ["frilans_finans_id"], name: "index_currencies_on_frilans_finans_id", unique: true, using: :btree
   end
 
+  create_table "faq_translations", force: :cascade do |t|
+    t.string   "locale"
+    t.text     "question"
+    t.text     "answer"
+    t.integer  "language_id"
+    t.integer  "faq_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["faq_id"], name: "index_faq_translations_on_faq_id", using: :btree
+    t.index ["language_id"], name: "index_faq_translations_on_language_id", using: :btree
+  end
+
   create_table "faqs", force: :cascade do |t|
     t.text     "answer"
     t.text     "question"
@@ -225,7 +237,6 @@ ActiveRecord::Schema.define(version: 20161204213559) do
     t.datetime "updated_at",                null: false
     t.integer  "frilans_finans_invoice_id"
     t.index ["frilans_finans_invoice_id"], name: "index_invoices_on_frilans_finans_invoice_id", using: :btree
-    t.index ["job_user_id"], name: "index_invoices_on_job_user_id", using: :btree
     t.index ["job_user_id"], name: "index_invoices_on_job_user_id_uniq", unique: true, using: :btree
   end
 
@@ -534,6 +545,8 @@ ActiveRecord::Schema.define(version: 20161204213559) do
   add_foreign_key "comments", "languages"
   add_foreign_key "comments", "users", column: "owner_user_id", name: "comments_owner_user_id_fk"
   add_foreign_key "company_images", "companies"
+  add_foreign_key "faq_translations", "faqs"
+  add_foreign_key "faq_translations", "languages"
   add_foreign_key "faqs", "languages"
   add_foreign_key "frilans_finans_invoices", "job_users"
   add_foreign_key "invoices", "frilans_finans_invoices"

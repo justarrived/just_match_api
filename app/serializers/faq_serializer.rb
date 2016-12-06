@@ -1,10 +1,27 @@
 # frozen_string_literal: true
 class FaqSerializer < ApplicationSerializer
-  ATTRIBUTES = [:question, :answer].freeze
-
+  ATTRIBUTES = [].freeze
   attributes ATTRIBUTES
 
   belongs_to :language
+
+  attribute :language_id # Inline the language id to make it easier for clients
+
+  attribute :question do
+    object.original_question
+  end
+
+  attribute :answer do
+    object.original_answer
+  end
+
+  attribute :translated_text do
+    {
+      question: object.translated_question,
+      answer: object.translated_answer,
+      language_id: object.translated_language_id
+    }
+  end
 end
 
 # == Schema Information
