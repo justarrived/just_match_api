@@ -59,6 +59,17 @@ class Job < ApplicationRecord
   scope :no_applied_jobs, lambda { |user_id|
     where.not(id: applied_jobs(user_id).map(&:id))
   }
+  scope :active_between, lambda { |from, to|
+    between = between(:job_date, from, to).or(between(:job_end_date, from, to))
+    outer_between = where('job_date <= ? AND job_end_date >= ?', from, to)
+
+    between.or(outer_between)
+  }
+  scope :ongoing, lambda {
+    today = Date.today
+
+    active_between(today.beginning_of_day, today.end_of_day)
+  }
 
   include Translatable
   translates :name, :short_description, :description
