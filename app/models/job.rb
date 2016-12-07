@@ -67,7 +67,6 @@ class Job < ApplicationRecord
   }
   scope :ongoing, lambda {
     today = Date.today
-
     active_between(today.beginning_of_day, today.end_of_day)
   }
 

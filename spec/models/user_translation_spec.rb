@@ -2,6 +2,9 @@
 require 'rails_helper'
 
 RSpec.describe UserTranslation, type: :model do
+  it 'has TranslationModel as an ancestor' do
+    expect(described_class.ancestors).to include(TranslationModel)
+  end
 end
 
 # == Schema Information

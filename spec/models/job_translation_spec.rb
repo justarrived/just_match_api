@@ -11,6 +11,10 @@ RSpec.describe JobTranslation, type: :model do
     )
   end
 
+  it 'has TranslationModel as an ancestor' do
+    expect(described_class.ancestors).to include(TranslationModel)
+  end
+
   describe '#changed_translation_fields' do
     subject { FactoryGirl.create(:job_translation) }
 
