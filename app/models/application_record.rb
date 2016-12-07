@@ -2,6 +2,10 @@
 class ApplicationRecord < ActiveRecord::Base
   self.abstract_class = true
 
+  scope :between, lambda { |field, from, to|
+    where("#{field} >= ? AND #{field} <= ?", from, to)
+  }
+
   def self.belongs_to_models
     reflections.map do |_, ba|
       next unless ba.macro == :belongs_to

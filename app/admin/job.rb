@@ -30,6 +30,7 @@ ActiveAdmin.register Job do
 
   # Create sections on the index screen
   scope :all, default: true
+  scope :ongoing
   scope :featured
   scope :visible
   scope :uncancelled
