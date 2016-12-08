@@ -7,6 +7,8 @@ en:
     job_user_name: Job User
     time_ago: '%{time} ago'
     time_from_now: '%{time} from now'
+    filter:
+      near_address: 'Near address (add km: XX for distance)'
     recent_users:
       title: Recent users
     recent_jobs:

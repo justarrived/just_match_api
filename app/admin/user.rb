@@ -50,6 +50,7 @@ ActiveAdmin.register User do
   scope :managed_users
   scope :verified
 
+  filter :by_near_address, label: I18n.t('admin.filter.near_address'), as: :string
   filter :first_name_or_last_name_cont, as: :string, label: I18n.t('admin.user.name')
   filter :email
   filter :verified

@@ -39,6 +39,7 @@ ActiveAdmin.register Job do
   scope :unfilled
 
   # Filterable attributes on the index screen
+  filter :by_near_address, label: I18n.t('admin.filter.near_address'), as: :string
   filter :translations_name_cont, as: :string, label: I18n.t('admin.job.name')
   filter :company
   filter :job_date
