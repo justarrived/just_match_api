@@ -63,7 +63,7 @@ class Job < ApplicationRecord
     between = between(:job_date, from, to).or(between(:job_end_date, from, to))
     outer_between = where('job_date <= ? AND job_end_date >= ?', from, to)
 
-    between.or(outer_between)
+    between.or(outer_between).uncancelled
   }
   scope :ongoing, lambda {
     today = Date.today
