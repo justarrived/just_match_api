@@ -112,6 +112,10 @@ class User < ApplicationRecord
     new_chat_message
   ).freeze
 
+  def self.ransackable_scopes(_auth_object = nil)
+    [:by_near_address]
+  end
+
   def self.find_by_one_time_token(token)
     valid_one_time_tokens.find_by(one_time_token: token)
   end

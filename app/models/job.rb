@@ -73,6 +73,10 @@ class Job < ApplicationRecord
   include Translatable
   translates :name, :short_description, :description
 
+  def self.ransackable_scopes(_auth_object = nil)
+    [:by_near_address]
+  end
+
   # This will return an Array and not an ActiveRecord::Relation
   def self.non_hired
     sql = <<-SQL
