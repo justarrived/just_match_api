@@ -8,7 +8,7 @@ en:
     time_ago: '%{time} ago'
     time_from_now: '%{time} from now'
     filter:
-      near_address: 'Near address (add km: XX for distance)'
+      near_address: "Near address (add 'km: XX' for distance)"
     recent_users:
       title: Recent users
     recent_jobs:
