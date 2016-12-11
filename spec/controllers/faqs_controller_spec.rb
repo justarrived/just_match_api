@@ -2,13 +2,6 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::FaqsController, type: :controller do
-  describe 'GET #index' do
-    it 'assigns all faqs as @faqs' do
-      hourly_pay = FactoryGirl.create(:faq)
-      get :index
-      expect(assigns(:faqs)).to eq([hourly_pay])
-    end
-  end
 end
 # == Schema Information
 #
