@@ -32,7 +32,7 @@ class ReadStaticFAQ
   end
 
   def self.locale_path(locale)
-    "config/locales/faq/#{locale}.yml"
+    "config/locales/faq/faq.#{locale}.yml"
   end
 
   def self.flatten_hash(hash, parent = [])
