@@ -22,12 +22,15 @@ module Api
           param :body, String, desc: 'Body', required: true
         end
       end
+      example '# Response example
+{}
+'
       def create
         contact = Contact.new(contact_params)
 
         if contact.save
           ContactNotifier.call(contact: contact)
-          head :no_content
+          render json: {}, status: :created
         else
           api_render_errors(contact)
         end
