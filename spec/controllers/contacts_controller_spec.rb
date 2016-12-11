@@ -23,9 +23,9 @@ RSpec.describe Api::V1::ContactsController, type: :controller do
 
   describe 'POST #create' do
     context 'with valid params' do
-      it 'renders 204 status' do
+      it 'renders 201 Created status' do
         post :create, params: valid_attributes
-        expect(response.status).to eq(204)
+        expect(response.status).to eq(201)
       end
 
       it 'creates a new Contact' do
