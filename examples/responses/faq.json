@@ -3,8 +3,14 @@
     "id": "1",
     "type": "faqs",
     "attributes": {
-      "question": "A question",
-      "answer": "An answer"
+      "language_id": 34,
+      "question": null,
+      "answer": null,
+      "translated_text": {
+        "question": null,
+        "answer": null,
+        "language_id": null
+      }
     },
     "relationships": {
       "language": {
