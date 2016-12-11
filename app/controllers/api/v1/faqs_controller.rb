@@ -14,15 +14,19 @@ module Api
 
       api :GET, '/faqs', 'List FAQs'
       description 'Returns a list of FAQs.'
-      ApipieDocHelper.params(self, Index::FaqsIndex)
-      example Doxxer.read_example(Faq, plural: true)
+      # ApipieDocHelper.params(self, Index::FaqsIndex)
+      # example Doxxer.read_example(Faq, plural: true)
+      example "# Response example
+#{JSON.pretty_generate(StaticFAQSerializer.serializeble_resource(locale: :en, key_transform: :underscore).to_h)}" # rubocop:disable Metrics/LineLength
       def index
         authorize(Faq)
 
-        faqs_index = Index::FaqsIndex.new(self)
-        @faqs = faqs_index.faqs
+        @faqs = StaticFAQSerializer.serializeble_resource(
+          locale: I18n.locale,
+          key_transform: key_transform_header
+        )
 
-        api_render(@faqs, total: faqs_index.count)
+        render json: @faqs
       end
     end
   end

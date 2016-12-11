@@ -1,0 +1,153 @@
+en:
+  faq:
+    company:
+      general:
+        why:
+          question: Why should I employ through Just Arrived?
+          answer: By using Just Arrived, you will strengthen your operations with qualified workers. You will also assist by integrating motivated, and ambitious individuals who are eager to become part of the Swedish society and work for Swedish companies.
+        whom:
+          question: For whom are Just Arrived mediating jobs?
+          answer: At present, Just Arrived are focusing on mediating jobs for Swedish newcomers and asylum seekers. The reason is that these individuals are the furthest away from the Swedish labour market. Just Arrived makes it possible for companies and newcomers to discover the potential in each other.
+        newcomer_definition:
+          question: What is the definition of a newcomer?
+          answer: A newcomer is a person possessing a temporary or permanent residence permit in Sweden. A newcomer has the same legal right to work in Sweden as any other Swedish citizen.
+        asylum_seeker_explain:
+          question: What does it mean that the person is an asylum seeker?
+          answer: An asylum seeker is a person who moved to Sweden for protection (asylum), but the asylum application has not yet been determined. Asylum seekers are allowed to work in Sweden if they’ve received the status AT-UND from Migrationsverket..
+        how_just_arrived_choses:
+          question: How does Just Arrived ensure good quality for the candidates?
+          answer: To work through Just Arrived, the candidates fill in a profile on our website. Suitable candidates are then chosen for interview where competences are being validated. <br> Just Arrived obtains a copy of all documents proving fulfillment of requirement concerning Swedish law for asylum seekers. Just Arrived ensures that the candidate is allowed to work.
+        company_requirements:
+          question: What is needed from us as a company?
+          answer: From the company, we are only asking:<br>Job description for the task<br>Prerequisites to be able to complete the task
+        company_interview_allowed:
+          question: Is the company allowed to interview the candidate before the job?
+          answer: We have a validation process of our candidates. They also have in their profiles ratings from previous jobs. If you still feel that you would like to have an interview with the candidate, it can of course be arranged. Please remember to communicate this clearly.
+        who_is_the_employer:
+          question: Who is the formal employer?
+          answer: Just Arrived is a job matching service between newcomer and business. The jobs are being executed together with our partner Frilans Finans, who is the formal employer according to frilansmodellen.
+        insurance:
+          question: Are the workers insured during the job, and social security contributions paid?
+          answer: Yes, everyone who is working through Just Arrived is insured throughout the job and social-security contributions are paid via Frilans Finans simultaneously with the salary for the job.
+        how_do_i_pay:
+          question: How do I pay for the job?
+          answer: The payment differs depending on what kind of job it is. In general, following applies:<br>For longer jobs, an invoice is sent every other week <br>For shorter jobs, an invoice is sent every week <br>The due date of the invoice is 30 days from issue date
+        just_arrived_fee:
+          question: What doues Just Arrived earn from mediating jobs?
+          answer: A fee is taken by Just Arrived to mediate jobs. The revenue is reinvested in the company to improve the operations. The fee is not affected by the salary to the worker.
+        just_arrived_subventions:
+          question: Does Just Arrived enjoy governmental subventions to mediate jobs?
+          answer: No, Just Arrived does not accept governmental subventions for the jobs.
+        just_arrived_simple_jobs:
+          question: What is meant by simple jobs?
+          answer: Just Arrived defines simple jobs as tasks that can be performed without previous experience or education
+        what_jobs:
+          question: What kind of job can I appoint Just Arrived for?
+          answer: "Just Arrived offers a wide competence under an insurance that covers the most. The jobs that we cannot offer are few, part of that category is professional driver. Most of our jobs are inside following areas:
+            <br><b>Facility</b><br>
+            <ul>
+              <li>Construction</li>
+              <li>Painting</li>
+              <li>Cleaning</li>
+              <li>Assembling furniture</li>
+            </ul>
+            <b>Support</b><br>
+            <ul>
+              <li>Office & administration</li>
+              <li>Production</li>
+              <li>Design</li>
+            </ul>
+            <b>Event</b><br>
+            <ul>
+              <li>Distribution</li>
+              <li>Assembly/mounting</li>
+              <li>Hosting & Guiding</li>
+            </ul>
+            <b>Service</b><br>
+            <ul>
+              <li>Cooking</li>
+              <li>Dishes</li>
+              <li>Serving</li>
+              <li>Hotel</li>
+            </ul>
+            <b>Commerce</b><br>
+            <ul>
+              <li>Stores</li>
+              <li>Warehouse</li>
+              <li>Inventory</li>
+            </ul>"
+        what_after_completion:
+          question: What happens after a job is completed?
+          answer: After a job is completed, an invoice is sent together with a template for reference and rating of the service to the company. The purpose with the rating and reference is to allow the newcomer to create a new resume and reference list in Sweden.
+    newcomer:
+      general:
+        what:
+          question: What do I need to work through Just Arrived?
+          answer: <b>If you have residence permit,</b> then all you need is a Swedish bank account.
+            <br><b>If you are an asylum seeker</b> then you need AT-UND on item 7 on your LMA-card, a coordination number from the Swedish Tax Agency, and access to a Swedish bank account.
+            <br><b>If you are a EU citizen,</b> then you need a coordination number from the Swedish tax agency, and access to a Swedish bank account.
+        at_und:
+          question: What is AT-UND?
+          answer: AT-UND is an exception from the law saying you need to have a work permit to work in Sweden. Anyone who seeks asylum in Sweden, and has identified themselves at the Migration office have AT-UND. If you are unsure, look at your LMA-card. AT-UND is under item 7.
+        coordination_number:
+          question: What is a Coordinations number?
+          answer: You get a coordination number from the Swedish Tax Agency. This is a temporary personal id number consisting of your date of birth plus four numbers. This number is NOT on your LMA-card. To get a coordination number can be difficult. You need a employment contract to get it from the Swedish tax Agency. Just Arrived can’t help at present to get a contract, since we are not the employers and only mediate jobs.
+        bank_account:
+          question: Do I need to have a bank account of my own to be able to apply for a job?
+          answer: You need access to a bank account since we cannot pay cash, it does not need to be registered in your name. I.e. a family member's bank account also work.
+        get_account:
+          question: How can i obtain a bank account?
+          answer: Obtaining a bank account as an asylum seeker can be difficult. The requirements differs between banks. The banks with the lowest thresholds requires following<br>
+            <ol>
+              <li>1 - Address </li>
+              <li>2 - LMA card </li>
+              <li>3 - copy of legitimation approved by Migrationsverket </li>
+              <li>4 - Certificate from Swedish Tax Authority concerning coordination number.</li>
+            </ol>
+        language_requirements:
+          question: Do I have to be able to speak Swedish or English?
+          answer: You do not have to be able to speak Swedish or English to be able to apply for a job via Just Arrived. Level of language skill differs between companies.
+        type_of_job:
+          question: What kind of job can i obtain via Just Arrived?
+          answer: At present we provide different kinds of jobs. To work via us it is good if you are flexible. Common for all our jobs is that they are of the simpler nature, which does not require any education nor experience. Most of our jobs are inside following areas<br>
+            <br><b>Facility</b><br>
+            <ul>
+              <li>Construction</li>
+              <li>Painting</li>
+              <li>Cleaning</li>
+              <li>Assembling furniture</li>
+            </ul>
+            <b>Support</b><br>
+            <ul>
+              <li>Office & administration</li>
+              <li>Production</li>
+              <li>Design</li>
+            </ul>
+            <b>Event</b><br>
+            <ul>
+              <li>Distribution</li>
+              <li>Assembly/mounting</li>
+              <li>Hosting & Guiding</li>
+            </ul>
+            <b>Service</b><br>
+            <ul>
+              <li>Cooking</li>
+              <li>Dishes</li>
+              <li>Serving</li>
+              <li>Hotel</li>
+            </ul>
+            <b>Commerce</b><br>
+            <ul>
+              <li>Stores</li>
+              <li>Warehouse</li>
+              <li>Inventory</li>
+            </ul>
+        how_much_job:
+          question: How much jobs can I get through just Arrived?
+          answer: We mediate anything from a couple of hours assignment to full time jobs. A good impression during an assignment will increase the chance for the company to hire you more often. This is up to you!
+        salary_levels:
+          question: What kind of salary does Just Arrived offer?
+          answer: Our salaries are according to recommendation from Unions. We believe it’s important to offer a reasonable compensation for the jobs we facilitate.
+        migrationsverket:
+          question: What happens to my compensation from Migrationsverket/Försäkringskassan if I am working?
+          answer: This will be affected, and you may have to start paying for your accommodation at the Migration office if you make enough money. How the money from Försäkringskassan is effected gets evaluated individually by your handler at Arbetsförmedlingen. In the event of an employment you will get enough information to pass on to your handler to get an exact answer.

@@ -1,0 +1,147 @@
+sv:
+  faq:
+    newcomer:
+      general:
+        what:
+          question: Vad behöver jag för att arbeta genom Just Arrived?
+          answer: "<b>Om du har uppehållstillstånd,</b> då är allt du behöver ett svenskt
+            bankkonto. <br><b>Om du är asylsökande</b> då behöver du AT-UND under punkt
+            7 på ditt LMA-kort, ett samordningsnummer från Skatteverket, och tillgång
+            till ett svenskt bankkonto. <br><b> Om du är medborgare inom EU,</b> då behöver
+            du ett samordningsnummer från Skatteverket och tillgång till ett svenskt personnummer."
+        at_und:
+          question: Vad är AT-UND?
+          answer: AT-UND är ett undantag från lagen som säger att du behöver ett arbetstillstånd
+            för att arbeta i Sverige. Alla som ansöker om asyl i Sverige, och har identifierat
+            sig själva hos Migrationsverket har AT-UND. Om du är osäker, titta på ditt
+            LMA-kort. AT-UND står under punkt 7.
+        coordination_number:
+          question: Vad är ett samordningsnummer?
+          answer: Du får ett samordningsnummer från Skatteverket. Detta är ett tillfälligt
+            personnummer som består av ditt födelsedatum plus fyra siffror. Detta nummer
+            står INTE på ditt LMA-kort. Att få ett samordningsnummer kan vara svårt. Du
+            behöver ett anställningskontrakt för att få det från Skatteverket. Just Arrived
+            kan i nuläget inte hjälpa till med kontraktet, eftersom vi inte är arbetsgivare
+            utan endast förmedlar jobb.
+        bank_account:
+          question: Behöver jag ett eget bankkonto för att kunna ansöka om jobb?
+          answer: Du behöver ha tillgång till ett bankkonto eftersom vi inte betalar lön
+            kontant. Det behöver inte vara registrerat i ditt namn, t.ex. skulle en familjemedlems
+            bankkonto gå bra.
+        get_account:
+          question: Hur kan jag få ett bankkonto?
+          answer: Att få ett bankkonto som asylsökande kan vara svårt. Kraven varierar
+            mellan banker. Bankerna med lägst krav kräver följande<br> <ol> <li>1 - Adress
+            </li> <li>2 - LMA kort </li> <li>3 - kopia av legitimation godkänd av Migrationsverket
+            </li> <li>4 - Intyg från Skatteverket gällande samordningsnummer.</li> </ol>
+        language_requirements:
+          question: Behöver jag kunna tala svenska eller engelska?
+          answer: Du behöver inte kunna tala svenska eller engelska för att kunna ansöka
+            om jobb via Just Arrived. Vilken nivå av språk som krävs varierar mellan företag.
+        type_of_job:
+          question: Vilken typ av jobb kan jag få via Just Arrived?
+          answer: Just nu förmedlar vi olika typer av jobb. Om du ska arbeta via oss är
+            det bra att vara flexibel. Gemensamt för att våra jobb är att de är av en
+            enklare natur, och kräver inte tidigare utbildning eller erfarenhet. De flesta
+            av våra jobb är inom följande områden<br> <br><b>Anläggning</b><br> <ul> <li>Bygg</li>
+            <li>Målning</li> <li>Städning</li> <li>Montering av möbler</li> </ul> <b>Support</b><br>
+            <ul> <li>Kontor & administration</li> <li>Produktion</li> <li>Design</li>
+            </ul> <b>Event</b><br> <ul> <li>Distribution</li> <li>Montering</li> <li>Värdar
+            & Guider</li> </ul> <b>Service</b><br> <ul> <li>Matlagning</li> <li>Diskning</li>
+            <li>Servering</li> <li>Hotell</li> </ul> <b>Handel</b><br> <ul> <li>Butik</li>
+            <li>Lager</li> <li>Inventering</li> </ul>
+        how_much_job:
+          question: Hur mycket jobb kan jag få via Just Arrived?
+          answer: Vi förmedlar allt från ett par timmars uppdrag till heltidsjobb. Att
+            göra ett gott intryck under ett uppdrag ökar chansen för att företaget anställer
+            dig oftare. Detta är upp till dig!
+        salary_levels:
+          question: Vilka löner erbjuder Just Arrived?
+          answer: Våra löner är enligt fackliga rekommendationer. Vi anser att det är
+            viktigt att erbjuda rimlig kompensation för jobben vi möjliggör.
+        migrationsverket:
+          question: Vad händer med min ersättning från Migrationsverket eller Försäkringskassan
+            om jag arbetar?
+          answer: Detta kommer påverkas, och du kan komma att behöva börja betala för
+            ditt boende via Migrationsverket. Hur pengarna från Försäkringskassan påverkas
+            utvärderas individuellt av din handläggare på Arbetsförmedlingen. Vid en eventuell
+            anställning så kommer du få information att förmedla till din handläggare
+            för ett exakt svar.
+    company:
+      general:
+        why:
+          question: Varför ska jag anställa via Just Arrived?
+          answer: Genom att anlita en person genom Just Arrived, kommer du att få förstärkning
+            i din verksamhet av validerade och kvalificerade personer. Du kommer även
+            hjälpa till med att integrera motiverade, ambitiösa individer som brinner
+            för att ta steget in i det svenska samhället och arbeta för svenska företag.
+        whom:
+          question: För vem förmedlar Just Arrived jobb?
+          answer: Just nu fokuserar Just Arrived på att förmedla jobb till svenska nyanlända
+            och asylsökande personer. Anledningen är att det är dessa individer som står
+            längst från arbetsmarknaden. Just Arrived möjliggör för företag och nyanlända
+            att upptäcka varandras potential.
+        newcomer_definition:
+          question: Vad är definitionen av nyanländ?
+          answer: En nyanländ är den som fått tillfälligt eller permanent uppehållstillstånd
+            i Sverige. En nyanländ person har juridisk rätt att arbeta i Sverige som vilken
+            annan svensk medborgare som helst.
+        asylum_seeker_explain:
+          question: Vad betyder det att en person är asylsökande?
+          answer: En asylsökande är den som tar sig till Sverige och ansöker om skydd
+            (asyl) här, men som ännu inte har fått sin ansökan avgjord. Asylsökande har
+            enbart rätt att arbeta efter att ha blivit tilldelade AT-UND från arbetsförmedlingen.
+        how_just_arrived_choses:
+          question: Hur försäkrar sig Just Arrived om en god kvalitet på kandidater?
+          answer: |-
+            För att arbeta genom Just Arrived går kandidaterna igenom ett ansökningsformulär på hemsidan. Lämpliga kandidater väljs sedan ut för intervju där kompetenser valideras. <br>
+            Just Arrived erhåller en kopia på handlingar och uppfyllnaden av krav gällande svensk lag för asylsökande. Just Arrived säkerställer kandidatens rätt att arbeta.
+        company_requirements:
+          question: Vad krävs från oss som företag?
+          answer: Från företaget behöver vi endast:<br>Arbetsbeskrivning över de uppgifter
+            uppdraget innefattar<br>Kravspecifikation för att klara av uppdraget
+        company_interview_allowed:
+          question: Får jag som företag intervjua kandidaten innan uppdraget?
+          answer: Våra kandidater går igenom en valideringsprocess. I deras profiler finns
+            även betyg från tidigare uppdrag. Om ni ändå känner att ni vill ha ett eget
+            intervjusteg, går detta givetvis bra. Tänk bara på att kommunicera detta tydligt
+            till oss.
+        who_is_the_employer:
+          question: Vem är arbetsgivare?
+          answer: Just Arrived är en matchningsservice mellan nyanländ och företag. När
+            uppdraget utförs görs detta med vår samarbetspartner Frilans Finans som formellt
+            är arbetsgivare enligt frilansmodellen.
+        insurance:
+          question: Är arbetstagarna försäkrade under jobbet, och betalas sociala avgifter?
+          answer: Ja, samtliga som utför uppdrag genom Just Arrived är försäkrade under
+            hela uppdraget och sociala avgifter betalas genom Frilans Finans tillsammans
+            med lönen för uppdraget.
+        how_do_i_pay:
+          question: Hur betalar jag för jobbet?
+          answer: 'Beroende på uppdragets art skiljer sig betalningen åt. Generellt gäller
+            följande: <br>För länge uppdrag skickas faktura varannan vecka <br>För kortare
+            uppdrag, skickas faktura efter avslutat arbete <br>Fakturans förfallodag är
+            30 dagar från dess att den utställdes'
+        just_arrived_fee:
+          question: Vad tjänar Just Arrived på att förmedla uppdrag?
+          answer: Just Arrived tar ut en avgift för att förmedla jobben. Intäkten återinvesteras
+            i företaget för att förbättra verksamheten. Avgiften är fast och påverkas
+            inte av lönen till arbetaren.
+        just_arrived_subventions:
+          question: Är uppdragen genom Just Arrived statligt subventionerade?
+          answer: Nej, Just Arrived tar inte emot bidrag i form av statliga subventioner
+            för uppdragen.
+        just_arrived_simple_jobs:
+          question: Vad innebär enkla jobb?
+          answer: Just Arrived definierar enkla jobb som uppdrag som kan utföras utan
+            tidigare erfarenhet eller utbildning
+        what_jobs:
+          question: Vilken typ av jobb kan jag använda mig av Just Arrived för?
+          answer: |-
+            Just Arrived erbjuder en bred kompetens och under en försäkring som täcker det mesta. Undantagen för vad vi inte kan erbjuda är få, ett av dem är att i dagsläget kan vi inte erbjuda uppdrag som yrkeschaufför. De flesta av våra jobb ryms inom något av följande områden:
+            <br><b>Anläggning</b><br> <ul> <li>Bygg</li> <li>Målning</li> <li>Städning</li> <li>Montering av möbler</li> </ul> <b>Support</b><br> <ul> <li>Kontor & administration</li> <li>Produktion</li> <li>Design</li> </ul> <b>Event</b><br> <ul> <li>Distribution</li> <li>Montering</li> <li>Värdar & Guider</li> </ul> <b>Service</b><br> <ul> <li>Matlagning</li> <li>Diskning</li> <li>Servering</li> <li>Hotell</li> </ul> <b>Handel</b><br> <ul> <li>Butik</li> <li>Lager</li> <li>Inventering</li> </ul>
+        what_after_completion:
+          question: Vad händer efter att ett jobb är slutfört?
+          answer: Efter utfört uppdrag skickas faktura tillsammans med mall för omdöme
+            och betyg för tjänsten till företaget. Syftet med betygsättning och omdömet
+            är att den nyanlände ska få skapa sig ett levande CV och referenslista i Sverige.
