@@ -4,7 +4,7 @@ require 'date'
 module JsonApiHelpers
   module Params
     module Filter
-      def self.build(filters, allowed, transform)
+      def self.build(filters, allowed, transform = {})
         return {} if filters.nil? || filters.is_a?(String)
 
         filtered = {}
