@@ -13,7 +13,7 @@ module Api
       before_action :require_promo_code, except: [:index]
 
       api :GET, '/faqs', 'List FAQs'
-      description 'Returns a list of FAQs.'
+      description 'Returns a list of FAQs. There are two possible values for `category`, `newcomer` and `company`' # rubocop:disable Metrics/LineLength
       # ApipieDocHelper.params(self, Index::FaqsIndex)
       # example Doxxer.read_example(Faq, plural: true)
       example "# Response example
@@ -21,9 +21,11 @@ module Api
       def index
         authorize(Faq)
 
+        filter = JsonApiFilterParams.build(params[:filter], [:category])
         @faqs = StaticFAQSerializer.serializeble_resource(
           language_id: Language.find_by(lang_code: I18n.locale)&.id,
           locale: I18n.locale,
+          filter: filter,
           key_transform: key_transform_header
         )
 

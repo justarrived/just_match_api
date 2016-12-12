@@ -6,6 +6,8 @@ class StaticFAQSerializer
     StaticFAQ.get(locale: locale).each_with_index do |attrs, index|
       index += 1
 
+      next unless selected_category?(filter, attrs.fetch(:category))
+
       faqs_data << JsonApiData.new(
         id: index,
         type: :faqs,
@@ -33,5 +35,12 @@ class StaticFAQSerializer
         language_id: language_id
       }
     }
+  end
+
+  def self.selected_category?(filter, category)
+    category_filter = filter.fetch(:category, nil)
+    return true if category_filter.nil?
+
+    category_filter == category
   end
 end
