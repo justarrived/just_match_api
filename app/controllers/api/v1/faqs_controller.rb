@@ -22,7 +22,7 @@ module Api
         authorize(Faq)
 
         @faqs = StaticFAQSerializer.serializeble_resource(
-          language_id: Language.find_by(lang_code: I18n.locale),
+          language_id: Language.find_by(lang_code: I18n.locale)&.id,
           locale: I18n.locale,
           key_transform: key_transform_header
         )
