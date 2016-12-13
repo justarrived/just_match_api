@@ -40,12 +40,17 @@ The code follows most Rails conventions. If you've worked with Rails before the 
 
 * __Invoices__
   - Integrates with Frilans Finans, using the local gem `frilans_finans_api`
-  - All API communication to Frilans Finans is done from background jobs
+  - Almost all API communication with Frilans Finans is done from scheduled jobs
+
+* __Geocoding__
+  - Uses `geocoder`
+  - All models that need geocoding abilities include the `Geocodable` module
+  - Uses Google Maps under-the-hood
 
 
 * __File upload__
   - Uses the `paperclip` gem, together with `aws-sdk` to save files to AWS S3
-  - All files are uploaded separately, then returns a token that is used for the actual resource that is connected to the file
+  - All files are uploaded separately, the API then returns a token, that then can be used when creating a new resource
 
 
 * __Internal gems__
@@ -57,7 +62,7 @@ The code follows most Rails conventions. If you've worked with Rails before the 
 
 * __Errors & Monitoring__
   - Uses the Airbrake and the `airbrake` gem for error notifications
-  - Currently uses both `newrelic_rpm` and `skylight` gems, one will be picked later
+  - Uses `skylight` gem for performance monitoring ([skylight.io](https://skylight.io))
 
 
 * __API versions__
@@ -77,18 +82,19 @@ The code follows most Rails conventions. If you've worked with Rails before the 
 
 
 * __Documentation__
+  - Generate docs with `script/docs`
   - Uses the `apipie-rails` gem
   - API documentation is annotated just above each controller method
-  - Can be generated with `script/doc`
   - The `Doxxer` class in `app/support` is for writing and reading API response examples
 
 
 * __Tests__
+  - Uses `rspec`
+  - Uses `factory_girl`
   - Runners in `spec/spec_support/runners` are used to run extra checks when running tests
     + Runs only when running the entire test suite or if explicitly set
     + Some of them can halt the execution and return a non-zero exit status.
   - Test helpers are located in `spec/spec_support`
-  - Uses `rspec`
   - Uses `webmock`
   - Geocode mocks in `spec/spec_support/geocoder_support.rb`
 
@@ -104,6 +110,7 @@ The code follows most Rails conventions. If you've worked with Rails before the 
     + `MachineTranslationsService` takes a translation and creates translations for to all eligible locales
     + `MachineTranslationService` takes a translation and a language for it to be translated to
     + `MachineTranslationsJob` background job for `MachineTranslationsService`
+  - Uses Google Translate under the hood
 
 * __Static Translations__
   - Uses `rails-i18n`
