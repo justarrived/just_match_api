@@ -14,10 +14,10 @@ module Api
 
       api :GET, '/faqs', 'List FAQs'
       description 'Returns a list of FAQs. There are two possible values for `category`, `newcomer` and `company`' # rubocop:disable Metrics/LineLength
-      # ApipieDocHelper.params(self, Index::FaqsIndex)
-      # example Doxxer.read_example(Faq, plural: true)
+      # rubocop:disable Metrics/LineLength
       example "# Response example
-#{JSON.pretty_generate(StaticFAQSerializer.serializeble_resource(language_id: 1, locale: :en, key_transform: :underscore).to_h)}" # rubocop:disable Metrics/LineLength
+#{JSON.pretty_generate(StaticFAQSerializer.serializeble_resource(language_id: 1, locale: :en, key_transform: :underscore).to_h)}" # rubocop:disable Style/CommentIndentation
+      # rubocop:enable Metrics/LineLength
       def index
         authorize(Faq)
 
