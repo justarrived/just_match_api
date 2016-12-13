@@ -13,6 +13,6 @@ RAILS_ENV=docs script/update
 echo -e '\n== Generating API response examples =='
 RAILS_ENV=docs bin/rails docs:api_examples
 
-echo -e '\n== Generating API documentation =='
-RAILS_ENV=docs bin/rails apipie:static
-echo -e '\n== Docs generated =='
+# echo -e '\n== Generating API documentation =='
+# RAILS_ENV=docs bin/rails apipie:static
+# echo -e '\n== Docs generated =='
