@@ -38,10 +38,10 @@ class ReadStaticFAQ
   def self.flatten_hash(hash, parent = [])
     hash.flat_map do |key, value|
       case value
-        when Hash then flatten_hash(value, parent + [key])
-        else
-          keys = (parent + [key])
-          [keys.join('.'), value]
+      when Hash then flatten_hash(value, parent + [key])
+      else
+        keys = (parent + [key])
+        [keys.join('.'), value]
       end
     end
   end

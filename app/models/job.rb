@@ -66,7 +66,7 @@ class Job < ApplicationRecord
     between.or(outer_between).uncancelled.filled
   }
   scope :ongoing, lambda {
-    today = Date.today
+    today = Time.zone.today
     active_between(today.beginning_of_day, today.end_of_day)
   }
 

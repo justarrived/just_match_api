@@ -7,7 +7,7 @@ ActiveAdmin.register Faq do
   after_save do |faq|
     translation_params = {
       question: permitted_params.dig(:faq, :question),
-      answer: permitted_params.dig(:faq, :answer),
+      answer: permitted_params.dig(:faq, :answer)
     }
     faq.set_translation(translation_params)
   end
