@@ -18,7 +18,15 @@ Should run at least once an hour, but running more often (every 10 minutes) is r
 rails sweepers:applicant_confirmation_overdue
 ```
 
-updates all job applicants that haven't confirmed job owners acceptance in time.
+__Update `Job#filled` status__
+
+Should run at least once an hour, but running more often (every 10 minutes) is recommended.
+
+```
+rails sweepers:update_job_filled_status
+```
+
+updates all job filled statuses, by checking if there is a confirmed user for the job.
 
 __Cleanup__
 
