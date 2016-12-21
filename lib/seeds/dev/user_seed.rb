@@ -63,13 +63,10 @@ module Dev
         zip: address[:zip],
         language: language,
         password: (1..8).to_a.join,
-        ssn: Faker::Number.number(10),
         admin: admin,
         company: company
       )
-      # We have to skip all validations since we can't fake a SSN, without
-      # accidentally generating a real persons SSN
-      user.save(validate: false)
+      user.save
       user.set_translation(
         description: Faker::Hipster.paragraph(2),
         job_experience: Faker::Hipster.paragraph(2),
