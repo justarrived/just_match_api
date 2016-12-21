@@ -163,7 +163,8 @@ ActiveAdmin.register User do
 
   include AdminHelpers::MachineTranslation::Actions
 
-  member_action :sync_ff_bank_account, method: :patch do
+title = :sync_ff_bank_account
+  member_action title, method: :patch do
     user = User.find(params[:id])
 
     if user.frilans_finans_id.nil?
@@ -185,7 +186,8 @@ ActiveAdmin.register User do
   end
 
   action_item only: :show do
-    link_to 'Sync bank account', sync_ff_bank_account_admin_user_path(user), method: :patch
+    title = I18n.t('admin.user.sync_ff_bank_account')
+    link_to title, sync_ff_bank_account_admin_user_path(user), method: :patch
   end
 
   sidebar :relations, only: :show do

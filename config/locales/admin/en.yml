@@ -76,6 +76,7 @@ en:
       missing_account_details: 'Can not sync: Account clearing number and account number must be set.'
       account_details_synced: Synced bank account details to Frilans Finans.
       missing_ff_id: 'Can not sync: User is missing Frilans Finans ID.'
+      sync_ff_bank_account: Sync bank account
       show:
         general: General
         profile: Profile
