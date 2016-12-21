@@ -5,7 +5,7 @@ class CreateFrilansFinansInvoiceService
     job = job_user.job
     user = job_user.user
 
-    if job.company.frilans_finans_id.nil?
+    if job.invoice_company_frilans_finans_id.nil?
       InvoiceMissingCompanyFrilansFinansIdNotifier.call(ff_invoice: ff_invoice, job: job)
       return ff_invoice
     end

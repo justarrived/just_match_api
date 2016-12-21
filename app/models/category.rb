@@ -13,6 +13,10 @@ class Category < ApplicationRecord
   validates :frilans_finans_id, uniqueness: true
 
   enum insurance_status: INSURANCE_STATUSES
+
+  def display_name
+    "##{id} #{name}"
+  end
 end
 
 # == Schema Information

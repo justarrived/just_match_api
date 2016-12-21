@@ -48,6 +48,7 @@ en:
       filled_selected: Selected jobs have been marked as filled.
       upcoming_selected: Selected jobs have been marked as upcoming.
       hidden_selected: Selected jobs have been marked as hidden.
+      clone: Clone
       show:
         general: General
         status_flags: Status flags
@@ -72,6 +73,10 @@ en:
       competence_text: Competences
       job_experience: Job experience
       managed_selected: All selected users marked as managed.
+      missing_account_details: 'Can not sync: Account clearing number and account number must be set.'
+      account_details_synced: Synced bank account details to Frilans Finans.
+      missing_ff_id: 'Can not sync: User is missing Frilans Finans ID.'
+      sync_ff_bank_account: Sync bank account
       show:
         general: General
         profile: Profile
