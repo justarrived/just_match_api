@@ -3,6 +3,10 @@
 HEAD
 -----------
 
+v0.3
+------------
+- _Background job_: Updates all job filled statuses, by checking if there is a confirmed user for the job.
+
 v0.2
 ------------
 - `CreateFrilansFinansInvoiceService` now calls `Job#invoice_company_frilans_finans_id` correctly instead of calling the associations directly, causing a check on Frilans Finans id on the wrong company.

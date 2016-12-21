@@ -6,6 +6,12 @@ namespace :sweepers do
     end
   end
 
+  task update_job_filled_status: :environment do |task_name|
+    wrap_sweeper_task(task_name) do
+      Sweepers::JobUserSweeper.update_job_filled
+    end
+  end
+
   task cleanup: :environment do
     %w(
       destroy_company_image_orphans

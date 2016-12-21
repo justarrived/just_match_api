@@ -34,4 +34,18 @@ RSpec.describe Sweepers::JobUserSweeper do
         exactly(record_count).times
     end
   end
+
+  describe '#update_job_filled' do
+    before(:each) do
+      @job_user = FactoryGirl.create(:job_user, accepted: true, will_perform: true)
+      @job_user.save!
+    end
+
+    subject { described_class.update_job_filled(Job) }
+
+    it 'updates job#filled attribute to true' do
+      subject
+      expect(@job_user.job.reload.filled).to eq(true)
+    end
+  end
 end

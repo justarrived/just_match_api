@@ -19,5 +19,15 @@ module Sweepers
       # accepted & accepted_at attriubutes, must be reloaded by the callee
       overdue_job_users
     end
+
+    def self.update_job_filled(scope = Job)
+      scope.unfilled.includes(:job_users).find_each(batch_size: 1000) do |job|
+        confirmed_job_user = job.job_users.detect { |job_user| job_user.will_perform }
+        next if confirmed_job_user.nil?
+
+        job.filled = true
+        job.save!
+      end
+    end
   end
 end
