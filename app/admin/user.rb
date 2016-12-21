@@ -163,8 +163,7 @@ ActiveAdmin.register User do
 
   include AdminHelpers::MachineTranslation::Actions
 
-title = :sync_ff_bank_account
-  member_action title, method: :patch do
+  member_action :sync_ff_bank_account, method: :patch do
     user = User.find(params[:id])
 
     if user.frilans_finans_id.nil?
