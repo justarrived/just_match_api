@@ -103,7 +103,7 @@ ActiveAdmin.register Job do
   end
 
   action_item only: :show do
-    link_to('Clone', clone_admin_job_path(id: job.id))
+    link_to(I18n.t('admin.job.clone'), clone_admin_job_path(id: job.id))
   end
 
   sidebar :relations, only: :show do

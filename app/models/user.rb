@@ -177,6 +177,13 @@ class User < ApplicationRecord
     jobs.any?
   end
 
+  def bank_account_details?
+    return false if account_clearing_number.blank?
+    return false if account_number.blank?
+
+    true
+  end
+
   def contact_email
     return email unless managed
 
