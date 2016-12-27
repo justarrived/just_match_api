@@ -11,7 +11,7 @@ ActiveAdmin.register JobUser do
 
   filter :user_verified_eq, as: :boolean, label: I18n.t('admin.user.verified')
   filter :user
-  filter :job
+  filter :job, collection: -> { Job.with_translations }
   filter :frilans_finans_invoice
   filter :invoice
   filter :accepted
@@ -161,7 +161,11 @@ ActiveAdmin.register JobUser do
 
   controller do
     def scoped_collection
-      super.with_translations
+      super.includes(
+        :user,
+        :frilans_finans_invoice,
+        job: [:translations, :language]
+      )
     end
   end
 end

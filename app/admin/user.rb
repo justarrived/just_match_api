@@ -184,7 +184,7 @@ ActiveAdmin.register User do
     redirect_to(admin_user_path(user), notice: notice)
   end
 
-  action_item only: :show do
+  action_item :view, only: :show do
     title = I18n.t('admin.user.sync_ff_bank_account')
     link_to title, sync_ff_bank_account_admin_user_path(user), method: :patch
   end
