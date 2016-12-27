@@ -2,6 +2,7 @@
 
 HEAD
 -----------
+- _Admin_: Remove N+1 queries from job user view
 
 v0.3
 ------------
