@@ -4,6 +4,6 @@
 Geocoder.configure(
   timeout: 3, # seconds
   units: :km,
-  api_key: ENV['GOOGLE_MAPS_API_TOKEN'],
+  api_key: AppSecrets.google_maps_api_token,
   use_https: true
 )

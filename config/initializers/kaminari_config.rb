@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 Kaminari.configure do |config|
-  config.default_per_page = ENV.fetch('DEFAULT_RECORDS_PER_PAGE', 10)
-  config.max_per_page = ENV.fetch('MAX_RECORDS_PER_PAGE', 1000)
+  config.default_per_page = AppConfig.default_records_per_page
+  config.max_per_page = AppConfig.max_records_per_page
   config.window = 4
   config.outer_window = 0
   config.left = 0
