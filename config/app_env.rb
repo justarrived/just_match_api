@@ -1,6 +1,6 @@
 # frozen_string_literal: true
-class Env
-  NO_DEFAULT = :'a931e53fede62dc64fd24a09a4c9eafa29b63d0982c399be36e6561d5daf63d54a4c'
+class AppEnv
+  NO_DEFAULT = :a931e53fede62dc64fd24a09a4c9eafa29b63d0982c399be36e6561d5daf63d54a4c
 
   def initialize(env: ENV)
     @env = env
@@ -14,12 +14,12 @@ class Env
     @env[key] = value
   end
 
-  def fetch(key, default = NO_DEFAULT, &block)
+  def fetch(key, default = NO_DEFAULT)
     return self[key] if key?(key)
 
     fail(KeyError, "key not found: #{key}") if default == NO_DEFAULT && !block_given?
 
-    return block.call if block_given?
+    return yield if block_given?
     default
   end
 

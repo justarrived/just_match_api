@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 require 'spec_helper'
-require 'env'
 
-RSpec.describe Env do
+require_relative '../../config/app_env'
+
+RSpec.describe AppEnv do
   describe '#[]' do
     it 'returns value' do
       env = described_class.new(env: { present_key: :a })
