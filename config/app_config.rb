@@ -112,15 +112,15 @@ class AppConfig
   end
 
   def self.port
-    env['PORT']
+    env.fetch('PORT', 3000)
   end
 
   def self.max_threads
-    env['MAX_THREADS']
+    Integer(env.fetch('MAX_THREADS', 2))
   end
 
   def self.web_concurrency
-    env['WEB_CONCURRENCY']
+    Integer(env.fetch('WEB_CONCURRENCY', 2))
   end
 
   # Environment
@@ -130,7 +130,7 @@ class AppConfig
   end
 
   def self.rack_env
-    env['RACK_ENV']
+    env.fetch('RACK_ENV', 'development')
   end
 
   def self.rails_log_to_stdout?

@@ -8,15 +8,15 @@
 # Starting with a low number of workers and threads provides adequate
 # performance for most applications, even under load, while maintaining a low
 # risk of overusing memory.
-workers Integer(ENV.fetch('WEB_CONCURRENCY', 2))
-threads_count = Integer(ENV.fetch('MAX_THREADS', 2))
+workers AppConfig.web_concurrency
+threads_count = AppConfig.max_threads
 threads threads_count, threads_count
 
 preload_app!
 
 rackup DefaultRackup
-port ENV.fetch('PORT', 3000)
-environment ENV.fetch('RACK_ENV', 'development')
+port AppConfig.port
+environment AppConfig.rack_env
 
 on_worker_boot do
   # Worker specific setup for Rails 4.1+
