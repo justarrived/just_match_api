@@ -226,6 +226,33 @@ RSpec.describe JobMailer, type: :mailer do
     end
   end
 
+  describe '#applicant_rejected_email' do
+    let(:mail) do
+      described_class.applicant_rejected_email(job_user: job_user)
+    end
+
+    it 'has both text and html part' do
+      expect(mail).to be_multipart_email(true)
+    end
+
+    it 'renders the subject' do
+      subject = I18n.t('mailer.applicant_rejected.subject')
+      expect(mail.subject).to eql(subject)
+    end
+
+    it 'renders the receiver email' do
+      expect(mail.to).to eql([job_user.user.contact_email])
+    end
+
+    it 'renders the sender email' do
+      expect(mail.from).to eql(['support@justarrived.se'])
+    end
+
+    it 'includes @job_name in email body' do
+      expect(mail).to match_email_body(job.name)
+    end
+  end
+
   describe '#accepted_applicant_withdrawn_email' do
     let(:mail) do
       described_class.accepted_applicant_withdrawn_email(job_user: job_user, owner: owner)

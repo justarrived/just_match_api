@@ -8,6 +8,8 @@ en:
       subject: An accepted candidate has not confirmed in time
       title: An accepted candidate has not confirmed in time.
       explaination: The accepted candidate %{name} for your job %{job_name} has not confirmed within the accepted time frame. Please chose the same or another candidate for your job.
+    applicant_rejected:
+      subject: Another candidate has been chosen
     applicant_will_perform:
       subject: Congrats! The candidate will perform your job
       congrats_line: Congrats!

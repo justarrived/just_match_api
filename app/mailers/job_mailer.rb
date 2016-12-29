@@ -80,6 +80,17 @@ class JobMailer < ApplicationMailer
     mail(to: owner.contact_email, subject: subject)
   end
 
+  def applicant_rejected_email(job_user:)
+    user = job_user.user
+    job = job_user.job
+    @user_name = user.name
+    @user_email = user.contact_email
+    @job_name = job.name
+
+    subject = I18n.t('mailer.applicant_rejected.subject')
+    mail(to: @user_email, subject: subject)
+  end
+
   def accepted_applicant_withdrawn_email(job_user:, owner:)
     user = job_user.user
     job = job_user.job
