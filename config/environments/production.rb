@@ -24,7 +24,7 @@ Rails.application.configure do
 
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.
-  config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
+  config.public_file_server.enabled = AppConfig.rails_serve_static_files?
 
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = :uglifier
@@ -69,23 +69,23 @@ Rails.application.configure do
   # raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
   config.action_mailer.smtp_settings = {
-    user_name: ENV['SENDGRID_USERNAME'],
-    password: ENV['SENDGRID_PASSWORD'],
+    user_name: AppSecrets.sendgrid_username,
+    password: AppSecrets.sendgrid_password,
     domain: 'heroku.com',
     address: 'smtp.sendgrid.net',
     port: 587,
     authentication: :plain,
     enable_starttls_auto: true
   }
-  config.action_mailer.default_url_options = { host: 'api.justarrived.se' }
+  config.action_mailer.default_url_options = { host: AppConfig.default_mailer_url_host }
 
   config.paperclip_defaults = {
     storage: :s3,
     s3_credentials: {
-      s3_region: ENV['AWS_REGION'],
-      bucket: ENV['S3_BUCKET_NAME'],
-      access_key_id: ENV['AWS_ACCESS_KEY_ID'],
-      secret_access_key: ENV['AWS_SECRET_ACCESS_KEY']
+      s3_region: AppConfig.aws_region,
+      bucket: AppConfig.s3_bucket_name,
+      access_key_id: AppSecrets.aws_access_key_id,
+      secret_access_key: AppSecrets.aws_secret_access_key
     }
   }
 
@@ -103,7 +103,7 @@ Rails.application.configure do
   # require 'syslog/logger'
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
 
-  if ENV['RAILS_LOG_TO_STDOUT'].present?
+  if AppConfig.rails_log_to_stdout?
     logger = ActiveSupport::Logger.new(STDOUT)
     logger.formatter = config.log_formatter
     config.logger = ActiveSupport::TaggedLogging.new(logger)

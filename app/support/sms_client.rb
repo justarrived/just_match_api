@@ -7,8 +7,8 @@ class SMSClient
   self.client = Twilio::REST::Client
 
   def initialize(account_sid: nil, auth_token: nil)
-    sid = account_sid || ENV['TWILIO_ACCOUNT_SID'] || fail_with_missing_account_sid
-    token = auth_token || ENV['TWILIO_AUTH_TOKEN'] || fail_with_missing_auth_token
+    sid = account_sid || AppSecrets.twilio_account_sid || fail_with_missing_account_sid
+    token = auth_token || AppSecrets.twilio_auth_token || fail_with_missing_auth_token
     @client = client.new(sid, token)
   end
 

@@ -2,6 +2,6 @@
 FrilansFinansApi.logger = Rails.logger
 FrilansFinansApi.event_logger = FrilansFinansEventLogger.new
 FrilansFinansApi.client_klass = FrilansFinansApi::Client
-FrilansFinansApi.base_uri = ENV.fetch('FRILANS_FINANS_BASE_URI')
-FrilansFinansApi.client_id = ENV.fetch('FRILANS_FINANS_CLIENT_ID')
-FrilansFinansApi.client_secret = ENV.fetch('FRILANS_FINANS_CLIENT_SECRET')
+FrilansFinansApi.base_uri = AppSecrets.frilans_finans_base_uri
+FrilansFinansApi.client_id = AppSecrets.frilans_finans_client_id
+FrilansFinansApi.client_secret = AppSecrets.frilans_finans_client_secret

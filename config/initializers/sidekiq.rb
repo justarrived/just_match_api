@@ -4,8 +4,8 @@ require 'airbrake/sidekiq/error_handler'
 require 'sidekiq/middleware/i18n'
 
 if Rails.env.production?
-  redis_url = ENV['REDIS_URL']
-  redis_timeout = ENV.fetch('REDIS_TIMEOUT', 5)
+  redis_url = AppConfig.redis_url
+  redis_timeout = AppConfig.redis_timeout
 
   Sidekiq.configure_server do |config|
     config.redis = { url: redis_url, network_timeout: redis_timeout, size: 20 }

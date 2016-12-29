@@ -2,8 +2,8 @@
 
 module ManagedEmailAddress
   def self.call(email:, id:)
-    email_username = ENV.fetch('MANAGED_EMAIL_USERNAME', nil)
-    email_hostname = ENV.fetch('MANAGED_EMAIL_HOSTNAME', nil)
+    email_username = AppConfig.managed_email_username
+    email_hostname = AppConfig.managed_email_hostname
 
     return email if email_username.blank? || email_hostname.blank?
 
