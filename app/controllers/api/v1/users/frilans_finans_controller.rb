@@ -15,8 +15,8 @@ module Api
           api_versions '1.0'
         end
 
-        api :POST, '/users/:user_id/frilans-finans', '[DEPRECATED] Adds bank account details to Frilans Finans user'
         # rubocop:disable Metrics/LineLength
+        api :POST, '/users/:user_id/frilans-finans', '[DEPRECATED] Adds bank account details to Frilans Finans user'
         description '
           DEPRECATED please set bank account details directly on user instead `PATCH /api/v1/users/`.
 

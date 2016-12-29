@@ -244,11 +244,11 @@ module Api
         end
 
         def job_users_index_scope(base_scope)
-          if included_resource?(:job)
-            base_scope = base_scope.includes(job: :job_users)
-          else
-            base_scope = base_scope.includes(:job)
-          end
+          base_scope = if included_resource?(:job)
+                         base_scope.includes(job: :job_users)
+                       else
+                         base_scope.includes(:job)
+                       end
 
           if included_resource?(:user) || included_resource?(:'user.user_images')
             user_includes = [:owned_jobs, :user_images, :chats]
