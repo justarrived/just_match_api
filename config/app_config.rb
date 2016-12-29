@@ -25,15 +25,11 @@ class AppConfig
   end
 
   def self.default_records_per_page
-    value = env.fetch('DEFAULT_RECORDS_PER_PAGE', 10)
-
-    Integer(value)
+    Integer(env.fetch('DEFAULT_RECORDS_PER_PAGE', 10))
   end
 
   def self.default_max_records_per_page
-    value = env.fetch('DEFAULT_MAX_RECORDS_PER_PAGE', 50)
-
-    Integer(value)
+    Integer(env.fetch('DEFAULT_MAX_RECORDS_PER_PAGE', 50))
   end
 
   def self.max_records_per_page
@@ -96,9 +92,7 @@ class AppConfig
   # Application Server
 
   def self.rack_timeout
-    value = env.fetch('RACK_TIMEOUT', 15) # seconds
-
-    Integer(value)
+    Integer(env.fetch('RACK_TIMEOUT', 15)) # seconds
   end
 
   def self.db_pool
@@ -106,9 +100,7 @@ class AppConfig
   end
 
   def self.redis_timeout
-    value = env.fetch('REDIS_TIMEOUT', 5)
-
-    Integer(value)
+    Integer(env.fetch('REDIS_TIMEOUT', 5))
   end
 
   def self.port
