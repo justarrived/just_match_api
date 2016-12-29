@@ -21,4 +21,4 @@ production:
   <<: *default
   database: just_match_production
   username: just_match
-  password: <%= AppSecrets.just_match_database_password %>
+  password: <%= ENV['JUST_MATCH_DATABASE_PASSWORD'] %>

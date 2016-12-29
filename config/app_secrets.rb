@@ -6,16 +6,8 @@ class AppSecrets
     AppEnv.new
   end
 
-  def self.secret_key_base
-    env['SECRET_KEY_BASE']
-  end
-
   def self.skylight_authentication
     env['SKYLIGHT_AUTHENTICATION']
-  end
-
-  def self.just_match_database_password
-    env['JUST_MATCH_DATABASE_PASSWORD']
   end
 
   def self.blazer_database_url
