@@ -8,6 +8,8 @@ sv:
       subject: Den accepterade användaren för ditt jobb har inte konfirmerat i tid.
       title: Den accepterade användaren för ditt jobb har inte konfirmerat i tid.
       explaination: Den accepterade användare %{name} för ditt jobb %{job_name} har inte konfirmerat i tid. Var god välj en annan kandidat genom att logga in på plattformen och under meny klicka på Mina uppdrag.
+    applicant_rejected:
+      subject: En annan kandidat har blivit vald
     applicant_will_perform:
       subject: Grattis! Den accepterade användare för ditt jobb har konfirmerat.
       congrats_line: Grattis!
