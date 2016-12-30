@@ -11,7 +11,7 @@ class ApplicantWillPerformNotifier < BaseNotifier
 
     job_users.each do |job_user|
       next if job_user == confirmed_job_user
-      next if ignored?(job_user.user)
+      next if ignored?(job_user.user, :applicant_rejected)
 
       JobMailer.
         applicant_rejected_email(job_user: job_user).

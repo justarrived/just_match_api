@@ -111,6 +111,7 @@ class User < ApplicationRecord
     user_job_match
     new_chat_message
     new_job_comment
+    applicant_rejected
   ).freeze
 
   def self.ransackable_scopes(_auth_object = nil)
