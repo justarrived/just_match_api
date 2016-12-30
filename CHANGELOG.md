@@ -2,6 +2,12 @@
 
 HEAD
 -----------
+
+- _Configuration_: Globally ignored notifications from ENV [PR #754](https://github.com/justarrived/just_match_api/pull/754)
+- _DEPRECATE_: Frilans Finans Controller
+- :hocho: Kill N+1 query for /api/v1/jobs/:id/users
+- Add `AppConfig` & `AppSecrets` class
+- Add `AppEnv` class wrapper around ENV for easier testing of ENV vars
 - _Admin_: Remove N+1 queries from job user view
 
 v0.3
