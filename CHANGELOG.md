@@ -3,6 +3,8 @@
 HEAD
 -----------
 
+v0.4
+------------
 - _Notification_: Email notification on new job comment sent to job owner
 - _Configuration_: Globally ignored notifications from ENV [PR #754](https://github.com/justarrived/just_match_api/pull/754)
 - _DEPRECATE_: Frilans Finans Controller
