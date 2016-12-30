@@ -20,6 +20,13 @@ class AppConfig
 
   # Application settings
 
+  def self.globally_ignored_notifications
+    (env['GLOBALLY_IGNORED_NOTIFICATIONS'] || '').
+      split(',').
+      map { |name| name.strip.downcase }.
+      compact
+  end
+
   def self.managed_email_username
     env['MANAGED_EMAIL_USERNAME']
   end
