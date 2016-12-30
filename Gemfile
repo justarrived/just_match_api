@@ -73,7 +73,7 @@ gem 'apipie-rails', '~> 0.3' # Easy API documentation
 gem 'maruku', '~> 0.7' # Needed for apipie-rails markdown support
 
 # UTILS
-gem 'faker', '~> 1.6' # Easily generate fake data (used for seeding dev/test/staging)
+gem 'faker', '~> 1.7' # Easily generate fake data (used for seeding dev/test/staging)
 gem 'honey_format', '~> 0.2' # Simple CSV reading
 
 # DEVELOPMENT/TEST/DOCS
