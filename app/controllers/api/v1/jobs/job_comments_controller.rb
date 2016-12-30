@@ -13,9 +13,7 @@ module Api
 
           if @comment.persisted?
             job = @commentable
-            JobMailer.
-              new_job_comment_email(comment: comment, job: job).
-              deliver_later
+            NewJobCommentNotifier.call(comment: @comment, job: job)
           end
         end
 
