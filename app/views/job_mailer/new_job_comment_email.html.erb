@@ -6,7 +6,7 @@
   <body>
     <p><%= I18n.t('mailer.new_job_comment.body') %></p>
 
-    <%= @job_url %>
+    <a href="<%= @job_url %>"><%= @job_url %></a>
 
     <p><%= I18n.t('mailer.signoff') %></p>
   </body>
