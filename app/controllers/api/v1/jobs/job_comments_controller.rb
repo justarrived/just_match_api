@@ -8,6 +8,17 @@ module Api
 
         after_action :verify_authorized, only: []
 
+        def create
+          super
+
+          if @comment.persisted?
+            job = @commentable
+            JobMailer.
+              new_job_comment_email(comment: comment, job: job).
+              deliver_later
+          end
+        end
+
         private
 
         def set_commentable

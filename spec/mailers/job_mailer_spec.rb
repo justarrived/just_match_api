@@ -326,4 +326,33 @@ RSpec.describe JobMailer, type: :mailer do
       expect(mail).to match_email_body(url)
     end
   end
+
+  describe '#new_job_comment_email' do
+    let(:owner) { FactoryGirl.build(:user) }
+    let(:job) { FactoryGirl.build(:job, owner: owner) }
+    let(:comment) { FactoryGirl.build(:comment) }
+    let(:mail) { described_class.new_job_comment_email(comment: comment, job: job) }
+
+    it 'has both text and html part' do
+      expect(mail).to be_multipart_email(true)
+    end
+
+    it 'renders the subject' do
+      subject = I18n.t('mailer.new_job_comment.subject')
+      expect(mail.subject).to eql(subject)
+    end
+
+    it 'renders the receiver email' do
+      expect(mail.to).to eql([owner.contact_email])
+    end
+
+    it 'renders the sender email' do
+      expect(mail.from).to eql(['support@justarrived.se'])
+    end
+
+    it 'includes job url in email' do
+      url = FrontendRouter.draw(:job, id: job.id)
+      expect(mail).to match_email_body(url)
+    end
+  end
 end
