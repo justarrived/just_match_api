@@ -3,7 +3,15 @@ require_relative 'app_env'
 
 class AppConfig
   def self.env
-    AppEnv.new
+    @env ||= default_env
+  end
+
+  def self.env=(env)
+    @env = AppEnv.new(env: env)
+  end
+
+  def self.default_env
+    @env = AppEnv.new
   end
 
   def self.default_mailer_url_host

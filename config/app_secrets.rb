@@ -3,7 +3,15 @@ require_relative 'app_env'
 
 class AppSecrets
   def self.env
-    AppEnv.new
+    @env ||= default_env
+  end
+
+  def self.env=(env)
+    @env = AppEnv.new(env: env)
+  end
+
+  def self.default_env
+    @env = AppEnv.new
   end
 
   def self.skylight_authentication
