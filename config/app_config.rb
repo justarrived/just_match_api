@@ -15,7 +15,6 @@ class AppConfig
   def self.globally_ignored_notifications
     (env['GLOBALLY_IGNORED_NOTIFICATIONS'] || '').
       split(',').
-      reject(&:blank).
       map { |name| name.strip.downcase }.
       compact
   end
