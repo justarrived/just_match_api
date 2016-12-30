@@ -3,7 +3,15 @@ require_relative 'app_env'
 
 class AppConfig
   def self.env
-    AppEnv.new
+    @env ||= default_env
+  end
+
+  def self.env=(env)
+    @env = AppEnv.new(env: env)
+  end
+
+  def self.default_env
+    @env = AppEnv.new
   end
 
   def self.default_mailer_url_host
@@ -11,6 +19,13 @@ class AppConfig
   end
 
   # Application settings
+
+  def self.globally_ignored_notifications
+    (env['GLOBALLY_IGNORED_NOTIFICATIONS'] || '').
+      split(',').
+      map { |name| name.strip.downcase }.
+      compact
+  end
 
   def self.managed_email_username
     env['MANAGED_EMAIL_USERNAME']

@@ -1,8 +1,13 @@
 # frozen_string_literal: true
 class BaseNotifier
-  def self.ignored?(user, name = nil)
-    notification_name = (name || underscored_name).to_s
-    user.ignored_notification?(notification_name)
+  def self.ignored?(user, notification_name = nil)
+    name = (notification_name || underscored_name).to_s
+
+    user.ignored_notification?(name) || globally_ignored?(name)
+  end
+
+  def self.globally_ignored?(notification_name)
+    AppConfig.globally_ignored_notifications.include?(notification_name)
   end
 
   def self.underscored_name
