@@ -97,6 +97,7 @@ en:
     job_cancelled: Job cancelled
     new_chat_message: New chat message
     new_job_comment: New job comment
+    applicant_rejected: Someone else got the job
   texter:
     magic_login_link:
       login_line: Just Arrived magic login link %{url}
