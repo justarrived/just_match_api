@@ -374,6 +374,7 @@ RSpec.describe User, type: :model do
           new_applicant
           user_job_match
           new_chat_message
+          new_job_comment
         )
         expect(User::NOTIFICATIONS).to eq(expected)
       end

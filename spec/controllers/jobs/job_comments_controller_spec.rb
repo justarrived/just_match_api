@@ -70,6 +70,14 @@ RSpec.describe Api::V1::Jobs::JobCommentsController, type: :controller do
         post :create, params: params, headers: valid_session
         expect(response.status).to eq(201)
       end
+
+      it 'sends welcome notification' do
+        allow(NewJobCommentNotifier).to receive(:call)
+        job = FactoryGirl.create(:job)
+        params = { job_id: job.to_param }.merge(valid_attributes)
+        post :create, params: params, headers: valid_session
+        expect(NewJobCommentNotifier).to have_received(:call)
+      end
     end
 
     context 'with invalid params' do

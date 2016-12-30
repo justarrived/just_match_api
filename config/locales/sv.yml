@@ -96,6 +96,7 @@ sv:
     user_job_match: Ny jobb matchning
     job_cancelled: Jobb avbrutet
     new_chat_message: Nytt chattmeddelande
+    new_job_comment: Ny jobbkommentar
   texter:
     magic_login_link:
       login_line: Just Arrived magisk login länk %{url}
