@@ -29,6 +29,33 @@ ActiveAdmin.register User do
     end
   end
 
+  batch_action :add_and_remove_tag, form: {
+    # NOTE: Tag's will be loaded when the code is, instead of on each request.
+    # Server restart required to get an update list of tags
+    remove_tag: Tag.to_form_array(include_blank: true),
+    add_tag: Tag.to_form_array(include_blank: true)
+  } do |ids, inputs|
+    add_tag = inputs['add_tag']
+    remove_tag = inputs['remove_tag']
+
+    users = User.where(id: ids)
+    notice = []
+
+    unless add_tag.blank?
+      tag = Tag.find_by(id: add_tag)
+      UserTag.safe_create(tag: tag, users: users)
+      notice << I18n.t('admin.user.batch_form.tag_added_notice', name: tag.name)
+    end
+
+    unless remove_tag.blank?
+      tag = Tag.find_by(id: remove_tag)
+      UserTag.safe_destroy(tag: tag, users: users)
+      notice << I18n.t('admin.user.batch_form.tag_removed_notice', name: tag.name)
+    end
+
+    redirect_to collection_path, notice: notice.join(' ')
+  end
+
   batch_action :verify, confirm: I18n.t('admin.batch_action_confirm') do |ids|
     collection.where(id: ids).map { |u| u.update(verified: true) }
 
@@ -56,6 +83,7 @@ ActiveAdmin.register User do
   filter :verified
   filter :phone
   filter :ssn
+  filter :tags
   filter :language
   filter :company
   filter :frilans_finans_id
@@ -102,6 +130,10 @@ ActiveAdmin.register User do
       row :ssn
       row :company
       row :language
+      row :tags do
+        tag_links = user.tags.map { |tag| link_to tag.name, admin_tag_path(tag) }
+        safe_join(tag_links, ', ')
+      end
     end
 
     unless user.company?

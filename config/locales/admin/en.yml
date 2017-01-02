@@ -77,6 +77,10 @@ en:
       account_details_synced: Synced bank account details to Frilans Finans.
       missing_ff_id: 'Can not sync: User is missing Frilans Finans ID.'
       sync_ff_bank_account: Sync bank account
+      batch_form:
+        no_tag_chosen: '-- No tag --'
+        tag_added_notice: '"%{name}"-tag added.'
+        tag_removed_notice: '"%{name}"-tag removed.'
       show:
         general: General
         profile: Profile
