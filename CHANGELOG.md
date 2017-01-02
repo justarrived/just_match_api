@@ -3,12 +3,20 @@
 HEAD
 -----------
 
+v0.5
+-----------
+- _Admin_: Smarter user index view for company users scope
+- _Feature_: Enhanced `UserSkill`
+  + Add `proficiency` and `proficiency_by_admin` fields
+  + Searchable from admin user index view
+- _Feature_: Adds support for `User ---* Tags`
+
 v0.4
 ------------
 - _Notification_: Email notification on new job comment sent to job owner
 - _Configuration_: Globally ignored notifications from ENV [PR #754](https://github.com/justarrived/just_match_api/pull/754)
 - _DEPRECATE_: Frilans Finans Controller
-- :hocho: Kill N+1 query for /api/v1/jobs/:id/users
+- :hocho: Kill N+1 query for `/api/v1/jobs/:id/users`
 - Add `AppConfig` & `AppSecrets` class
 - Add `AppEnv` class wrapper around ENV for easier testing of ENV vars
 - _Admin_: Remove N+1 queries from job user view
