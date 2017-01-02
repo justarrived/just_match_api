@@ -4,7 +4,6 @@ require 'seeds/base_seed'
 module Dev
   class TagSeed < BaseSeed
     def self.call
-
       log_seed(Tag) do
         %w(content happy grumpy awesome nice random smug).each do |name|
           tag = Tag.find_or_initialize_by(name: name)
@@ -15,7 +14,7 @@ module Dev
     end
 
     def self.random_color
-      '#' + '%06x' % (rand * 0xffffff)
+      format('#' + '%06x', (rand * 0xffffff))
     end
   end
 end
