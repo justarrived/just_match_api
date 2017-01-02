@@ -38,26 +38,31 @@ ActiveAdmin.register User do
     add_tag = inputs['add_tag']
     remove_tag = inputs['remove_tag']
 
-    users = User.where(id: ids)
-    notice = []
+    if add_tag == remove_tag
+      alert = I18n.t('admin.user.batch_form.tag_add_and_remove_not_uniq_notice')
+      redirect_to collection_path, alert: alert
+    else
+      users = User.where(id: ids)
+      notice = []
 
-    unless add_tag.blank?
-      tag = Tag.find_by(id: add_tag)
-      users.each do |user|
-        UserTag.safe_create(tag: tag, user: user)
+      unless add_tag.blank?
+        tag = Tag.find_by(id: add_tag)
+        users.each do |user|
+          UserTag.safe_create(tag: tag, user: user)
+        end
+        notice << I18n.t('admin.user.batch_form.tag_added_notice', name: tag.name)
       end
-      notice << I18n.t('admin.user.batch_form.tag_added_notice', name: tag.name)
-    end
 
-    unless remove_tag.blank?
-      tag = Tag.find_by(id: remove_tag)
-      users.each do |user|
-        UserTag.safe_destroy(tag: tag, user: user)
+      unless remove_tag.blank?
+        tag = Tag.find_by(id: remove_tag)
+        users.each do |user|
+          UserTag.safe_destroy(tag: tag, user: user)
+        end
+        notice << I18n.t('admin.user.batch_form.tag_removed_notice', name: tag.name)
       end
-      notice << I18n.t('admin.user.batch_form.tag_removed_notice', name: tag.name)
-    end
 
-    redirect_to collection_path, notice: notice.join(' ')
+      redirect_to collection_path, notice: notice.join(' ')
+    end
   end
 
   batch_action :add_user_skill, form: lambda {

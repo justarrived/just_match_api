@@ -82,6 +82,7 @@ en:
       sync_ff_bank_account: Sync bank account
       batch_form:
         tag_added_notice: 'Added "%{name}".'
+        tag_add_and_remove_not_uniq_notice: "You can't add and remove the same tag."
         tag_removed_notice: 'Removed "%{name}".'
         skill_added_notice: 'Added "%{name}" as skill'
       show:
