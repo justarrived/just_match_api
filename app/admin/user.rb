@@ -69,10 +69,10 @@ ActiveAdmin.register User do
   end
 
   # Create sections on the index screen
-  scope :all, default: true
+  scope :all
   scope :admins
   scope :company_users
-  scope :regular_users
+  scope :regular_users, default: true
   scope :needs_frilans_finans_id
   scope :managed_users
   scope :verified
@@ -93,6 +93,7 @@ ActiveAdmin.register User do
   filter :admin
   filter :anonymized
   filter :managed
+  filter :created_at
   # rubocop:disable Metrics/LineLength
   filter :translations_description_cont, as: :string, label: I18n.t('admin.user.description')
   filter :translations_education_cont, as: :string, label: I18n.t('admin.user.education')
@@ -106,9 +107,6 @@ ActiveAdmin.register User do
     column :id
     column :name
     column :email
-    column :company
-    column :managed
-    column :created_at
 
     actions
   end
