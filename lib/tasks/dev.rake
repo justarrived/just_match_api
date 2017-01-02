@@ -7,6 +7,7 @@ require 'seeds/dev/invoice_seed'
 require 'seeds/dev/job_seed'
 require 'seeds/dev/job_user_seed'
 require 'seeds/dev/skill_seed'
+require 'seeds/dev/tag_seed'
 require 'seeds/dev/terms_agreement_seed'
 require 'seeds/dev/user_seed'
 
@@ -43,7 +44,7 @@ namespace :dev do
 
   task seed: :environment do
     %w(
-      companies skills users jobs chats job_users invoices faqs frilans_finans_terms
+      companies skills tags users jobs chats job_users invoices faqs frilans_finans_terms
       terms_agreements
     ).each do |task|
       Rake::Task["dev:seed:#{task}"].execute
@@ -59,6 +60,10 @@ namespace :dev do
       Dev::SkillSeed.call
     end
 
+    task tags: :environment do
+      Dev::TagSeed.call
+    end
+
     task frilans_finans_terms: :environment do
       Dev::FrilansFinansTermSeed.call
     end
@@ -72,11 +77,13 @@ namespace :dev do
       languages = Language.system_languages
       skills = Skill.all
       companies = Company.all
+      tags = Tag.all
       Dev::UserSeed.call(
         languages: languages,
         skills: skills,
         addresses: SEED_ADDRESSES,
-        companies: companies
+        companies: companies,
+        tags: tags
       )
     end
 

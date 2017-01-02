@@ -3,7 +3,7 @@ require 'seeds/base_seed'
 
 module Dev
   class UserSeed < BaseSeed
-    def self.call(languages:, skills:, addresses:, companies:)
+    def self.call(languages:, skills:, addresses:, companies:, tags:)
       max_users = max_count_opt('MAX_USERS', 50)
       max_company_users = max_count_opt('MAX_COMPANY_USERS', 5)
 
@@ -24,7 +24,8 @@ module Dev
         max_users.times do
           user = create_user(
             address: addresses.sample,
-            language: system_languages.sample
+            language: system_languages.sample,
+            tags: tags
           )
           user.skills << skills.sample if skills.any?
           user.languages << languages.sample
@@ -51,7 +52,7 @@ module Dev
       end
     end
 
-    def self.create_user(address:, language:, email: nil, admin: false, company: nil)
+    def self.create_user(address:, language:, email: nil, admin: false, company: nil, tags: nil) # rubocop:disable Metrics/LineLength
       email_address = email || "#{SecureGenerator.token(length: 32)}@example.com"
       user = User.find_or_initialize_by(email: email_address)
 
@@ -62,7 +63,7 @@ module Dev
         street: address[:street],
         zip: address[:zip],
         language: language,
-        password: (1..8).to_a.join,
+        password: '12345678',
         admin: admin,
         company: company
       )
@@ -73,6 +74,10 @@ module Dev
         education: Faker::Hipster.paragraph(2),
         competence_text: Faker::Hipster.paragraph(2)
       )
+      if tags
+        UserTag.safe_create(tag: tags.sample, user: user)
+        UserTag.safe_create(tag: tags.sample, user: user) if Random.rand(2) == 1
+      end
       user
     end
   end
