@@ -8,7 +8,7 @@ module AdminHelper
   def user_tag_badge(user:, tag:)
     link_to(
       tag.name,
-      admin_tag_path(tag),
+      admin_users_path + AdminHelpers::Link.query(:user_tags_tag_id, tag.id),
       class: 'user-badge-tag-link',
       style: "background-color: #{tag.color}"
     )
