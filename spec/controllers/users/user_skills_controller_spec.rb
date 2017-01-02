@@ -23,7 +23,6 @@ RSpec.describe Api::V1::Users::UserSkillsController, type: :controller do
       user = FactoryGirl.create(:user_with_skills, skills_count: 2)
       user.user_skills.last.skill.update(internal: true)
 
-
       allow_any_instance_of(described_class).
         to(receive(:current_user).
         and_return(user))
@@ -41,7 +40,6 @@ RSpec.describe Api::V1::Users::UserSkillsController, type: :controller do
         to(receive(:current_user).
         and_return(user))
 
-      user_skill = user.user_skills.first
       get :index, params: { user_id: user.to_param }
       expect(assigns(:user_skills)).to eq([])
     end
