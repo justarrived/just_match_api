@@ -16,6 +16,7 @@ ActiveAdmin.register UserTag do
         style: "background-color: #{tag.color}"
       )
     end
+    column :user
     column :created_at
 
     actions
@@ -27,7 +28,7 @@ ActiveAdmin.register UserTag do
 
   controller do
     def scoped_collection
-      super.includes(:tag)
+      super.includes(:user, :tag)
     end
   end
 end

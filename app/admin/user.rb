@@ -60,32 +60,30 @@ ActiveAdmin.register User do
     redirect_to collection_path, notice: notice.join(' ')
   end
 
-  batch_action :add_and_remove_user_skill, form: lambda {
+  batch_action :add_user_skill, form: lambda {
     {
-      remove_skill: Skill.to_form_array(include_blank: true),
-      add_skill: Skill.to_form_array(include_blank: true)
+      add_skill: Skill.to_form_array(include_blank: true),
+      proficiency_by_admin: [nil, nil] + UserSkill::PROFICIENCY_ADMIN_RANGE.to_a
     }
   } do |ids, inputs|
     add_skill = inputs['add_skill']
     remove_skill = inputs['remove_skill']
+    proficiency_by_admin = inputs['proficiency_by_admin']
 
     users = User.where(id: ids)
     notice = []
 
     unless add_skill.blank?
-      tag = Skill.find_by(id: add_skill)
+      skill = Skill.find_by(id: add_skill)
       users.each do |user|
-        UserSkill.safe_create(tag: tag, user: user)
-      end
-      notice << I18n.t('admin.user.batch_form.tag_added_notice', name: tag.name)
-    end
+        attributes = { skill: skill, user: user }
+        unless proficiency_by_admin.blank?
+          attributes[:proficiency_by_admin] = proficiency_by_admin
+        end
 
-    unless remove_skill.blank?
-      tag = Skill.find_by(id: remove_skill)
-      users.each do |user|
-        UserSkill.safe_destroy(tag: tag, user: user)
+        UserSkill.safe_create(**attributes)
       end
-      notice << I18n.t('admin.user.batch_form.tag_removed_notice', name: tag.name)
+      notice << I18n.t('admin.user.batch_form.skill_added_notice', name: skill.name)
     end
 
     redirect_to collection_path, notice: notice.join(' ')
@@ -132,7 +130,7 @@ ActiveAdmin.register User do
   filter :created_at
   # rubocop:disable Metrics/LineLength
   filter :user_skills_proficiency_gteq, as: :select, collection: [nil, nil] + UserSkill::PROFICIENCY_RANGE.to_a
-  filter :user_skills_proficiency_by_admin_gteq, as: :select, collection: [nil, nil] + UserSkill::PROFICIENCY_RANGE.to_a
+  filter :user_skills_proficiency_by_admin_gteq, as: :select, collection: [nil, nil] + UserSkill::PROFICIENCY_ADMIN_RANGE.to_a
   filter :translations_description_cont, as: :string, label: I18n.t('admin.user.description')
   filter :translations_education_cont, as: :string, label: I18n.t('admin.user.education')
   filter :translations_competence_text_cont, as: :string, label: I18n.t('admin.user.competence_text')

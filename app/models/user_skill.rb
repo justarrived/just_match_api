@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 class UserSkill < ApplicationRecord
   PROFICIENCY_RANGE = 1..10
+  PROFICIENCY_ADMIN_RANGE = 1..7
 
   belongs_to :user
   belongs_to :skill
@@ -12,8 +13,13 @@ class UserSkill < ApplicationRecord
 
   scope :visible, -> { joins(:skill).where(skills: { internal: false }) }
 
-  def self.safe_create(skill:, user:)
-    find_or_create_by(user: user, skill: skill)
+  def self.safe_create(skill:, user:, proficiency_by_admin: nil)
+    return find_or_create_by(user: user, skill: skill) if proficiency_by_admin.blank?
+
+    find_or_initialize_by(user: user, skill: skill).tap do |user_skill|
+      user_skill.proficiency_by_admin = proficiency_by_admin
+      user_skill.save
+    end
   end
 
   def self.safe_destroy(skill:, user:)

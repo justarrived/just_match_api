@@ -8,8 +8,8 @@ en:
     time_ago: '%{time} ago'
     time_from_now: '%{time} from now'
     form:
-      no_tag_chosen: '-- No tag --'
-      no_tag_chosen: '-- No skill --'
+      no_tag_chosen: 'No tag chosen'
+      no_skill_chosen: 'No skill chosen'
     filter:
       near_address: "Near address (add 'km: XX' for distance)"
     recent_users:
@@ -83,6 +83,7 @@ en:
       batch_form:
         tag_added_notice: 'Added "%{name}".'
         tag_removed_notice: 'Removed "%{name}".'
+        skill_added_notice: 'Added "%{name}" as skill'
       show:
         general: General
         profile: Profile
@@ -113,4 +114,5 @@ en:
 
     batch_actions:
       labels:
-        add_and_remove_user_tag: 'Add/Remove User Tag From'
+        add_and_remove_user_tag: 'Add/Remove User Tag To/From'
+        add_user_skill: 'Add User Skill To'

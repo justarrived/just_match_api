@@ -16,6 +16,7 @@ ActiveAdmin.register UserSkill do
     end
     column :proficiency
     column :proficiency_by_admin
+    column :user
     column :created_at
 
     actions
@@ -27,7 +28,7 @@ ActiveAdmin.register UserSkill do
 
   controller do
     def scoped_collection
-      super.includes(:skill)
+      super.includes(:user, :skill)
     end
   end
 end
