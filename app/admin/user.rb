@@ -259,7 +259,7 @@ ActiveAdmin.register User do
     link_to title, sync_ff_bank_account_admin_user_path(user), method: :patch
   end
 
-  sidebar :relations, only: :show do
+  sidebar :relations, only: [:show, :edit] do
     user_query = AdminHelpers::Link.query(:user_id, user.id)
     from_user_query = AdminHelpers::Link.query(:from_user_id, user.id)
     to_user_query = AdminHelpers::Link.query(:to_user_id, user.id)
@@ -341,7 +341,7 @@ ActiveAdmin.register User do
     end
   end
 
-  sidebar :latest_applications, only: :show, if: proc { !user.company? } do
+  sidebar :latest_applications, only: [:show, :edit], if: proc { !user.company? } do
     ul do
       user.job_users.
         order(created_at: :desc).
@@ -354,7 +354,7 @@ ActiveAdmin.register User do
     end
   end
 
-  sidebar :latest_owned_jobs, only: :show, if: proc { user.company? } do
+  sidebar :latest_owned_jobs, only: [:show, :edit], if: proc { user.company? } do
     ul do
       user.owned_jobs.
         order(created_at: :desc).
