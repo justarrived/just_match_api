@@ -9,6 +9,7 @@ en:
     time_from_now: '%{time} from now'
     form:
       no_tag_chosen: '-- No tag --'
+      no_tag_chosen: '-- No skill --'
     filter:
       near_address: "Near address (add 'km: XX' for distance)"
     recent_users:

@@ -1,5 +1,11 @@
 # frozen_string_literal: true
 class SkillPolicy < ApplicationPolicy
+  class Scope < Scope
+    def resolve
+      scope.visible
+    end
+  end
+
   def index?
     true
   end
