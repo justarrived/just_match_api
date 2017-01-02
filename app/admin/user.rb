@@ -143,6 +143,7 @@ ActiveAdmin.register User do
     column :id
     column :name
     column :email
+    column :managed if params[:scope] == 'company_users'
     column(:tags) { |user| user_tag_badges(user: user) }
 
     actions
