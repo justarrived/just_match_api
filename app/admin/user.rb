@@ -107,6 +107,10 @@ ActiveAdmin.register User do
     column :id
     column :name
     column :email
+    column :tags do |user|
+      tag_links = user.tags.map { |tag| link_to tag.name, admin_tag_path(tag) }
+      safe_join(tag_links, ', ')
+    end
 
     actions
   end
@@ -347,7 +351,7 @@ ActiveAdmin.register User do
 
   controller do
     def scoped_collection
-      super.with_translations
+      super.with_translations.joins(:tags)
     end
   end
 end
