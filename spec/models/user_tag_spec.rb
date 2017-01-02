@@ -2,7 +2,27 @@
 require 'rails_helper'
 
 RSpec.describe UserTag, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  let(:user) { FactoryGirl.create(:user) }
+  let(:tag) { FactoryGirl.create(:tag) }
+
+  describe '#safe_create' do
+    it 'can create user tag' do
+      expect do
+        user_tag = described_class.safe_create(tag: tag, user: user)
+
+        expect(user_tag).to be_persisted
+      end.to change(described_class, :count).by(1)
+    end
+
+    it 'can safely invoke create user tag twice' do
+      expect do
+        user_tag = described_class.safe_create(tag: tag, user: user)
+        described_class.safe_create(tag: tag, user: user)
+
+        expect(user_tag).to be_persisted
+      end.to change(described_class, :count).by(1)
+    end
+  end
 end
 
 # == Schema Information
