@@ -17,3 +17,11 @@
 //   .status_tag { background: #6090DB; }
 
 @import "chosen";
+
+a.user-badge-tag-link {
+  padding: 5px;
+  border-radius: 4px;
+  background-color: #a9a9a9;
+  color: #fff;
+  text-decoration: none;
+}

@@ -29,11 +29,11 @@ ActiveAdmin.register User do
     end
   end
 
-  batch_action :add_and_remove_tag, form: {
-    # NOTE: Tag's will be loaded when the code is, instead of on each request.
-    # Server restart required to get an update list of tags
-    remove_tag: Tag.to_form_array(include_blank: true),
-    add_tag: Tag.to_form_array(include_blank: true)
+  batch_action :add_and_remove_tag, form: lambda {
+    {
+      remove_tag: Tag.to_form_array(include_blank: true),
+      add_tag: Tag.to_form_array(include_blank: true)
+    }
   } do |ids, inputs|
     add_tag = inputs['add_tag']
     remove_tag = inputs['remove_tag']
@@ -107,10 +107,7 @@ ActiveAdmin.register User do
     column :id
     column :name
     column :email
-    column :tags do |user|
-      tag_links = user.tags.map { |tag| link_to tag.name, admin_tag_path(tag) }
-      safe_join(tag_links, ', ')
-    end
+    column(:tags) { |user| user_tag_badges(user: user) }
 
     actions
   end
@@ -132,10 +129,7 @@ ActiveAdmin.register User do
       row :ssn
       row :company
       row :language
-      row :tags do
-        tag_links = user.tags.map { |tag| link_to tag.name, admin_tag_path(tag) }
-        safe_join(tag_links, ', ')
-      end
+      row(:tags) { user_tag_badges(user: user) }
     end
 
     unless user.company?
@@ -351,7 +345,7 @@ ActiveAdmin.register User do
 
   controller do
     def scoped_collection
-      super.with_translations.joins(:tags)
+      super.with_translations.includes(:tags)
     end
   end
 end
