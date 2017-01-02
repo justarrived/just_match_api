@@ -7,6 +7,8 @@ en:
     job_user_name: Job User
     time_ago: '%{time} ago'
     time_from_now: '%{time} from now'
+    form:
+      no_tag_chosen: '-- No tag --'
     filter:
       near_address: "Near address (add 'km: XX' for distance)"
     recent_users:
@@ -78,7 +80,6 @@ en:
       missing_ff_id: 'Can not sync: User is missing Frilans Finans ID.'
       sync_ff_bank_account: Sync bank account
       batch_form:
-        no_tag_chosen: '-- No tag --'
         tag_added_notice: 'Added "%{name}".'
         tag_removed_notice: 'Removed "%{name}".'
       show:
