@@ -5,8 +5,7 @@ ActiveAdmin.register Tag do
   index do
     column :name
     column :color do |tag|
-      style = "background-color: #{tag.color}"
-      span(tag.color, class: 'user-badge-tag-link', style: style)
+      colored_badge_tag(tag.color, tag.color)
     end
 
     actions

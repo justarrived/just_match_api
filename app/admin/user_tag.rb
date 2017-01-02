@@ -7,8 +7,14 @@ ActiveAdmin.register UserTag do
 
     column :id
     column :name do |user_tag|
-      url = admin_users_path + AdminHelpers::Link.query(:user_tags_tag_id, user_tag.tag.id) # rubocop:disable Metrics/LineLength
-      link_to(user_tag.tag.display_name, url)
+      tag = user_tag.tag
+
+      link_to(
+        tag.name,
+        admin_users_path + AdminHelpers::Link.query(:user_tags_tag_id, tag.id),
+        class: 'user-badge-tag-link',
+        style: "background-color: #{tag.color}"
+      )
     end
     column :created_at
 
