@@ -43,13 +43,17 @@ ActiveAdmin.register User do
 
     unless add_tag.blank?
       tag = Tag.find_by(id: add_tag)
-      UserTag.safe_create(tag: tag, users: users)
+      users.each do |user|
+        UserTag.safe_create(tag: tag, user: user)
+      end
       notice << I18n.t('admin.user.batch_form.tag_added_notice', name: tag.name)
     end
 
     unless remove_tag.blank?
       tag = Tag.find_by(id: remove_tag)
-      UserTag.safe_destroy(tag: tag, users: users)
+      users.each do |user|
+        UserTag.safe_destroy(tag: tag, user: user)
+      end
       notice << I18n.t('admin.user.batch_form.tag_removed_notice', name: tag.name)
     end
 

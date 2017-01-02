@@ -8,16 +8,12 @@ class UserTag < ApplicationRecord
   validates :tag, uniqueness: { scope: :user }
   validates :user, uniqueness: { scope: :tag }
 
-  def self.safe_create(tag:, users:)
-    users.each do |user|
-      find_or_create_by(user: user, tag: tag)
-    end
+  def self.safe_create(tag:, user:)
+    find_or_create_by(user: user, tag: tag)
   end
 
-  def self.safe_destroy(tag:, users:)
-    users.each do |user|
-      find_by(user: user, tag: tag)&.destroy!
-    end
+  def self.safe_destroy(tag:, user:)
+    find_by(user: user, tag: tag)&.destroy!
   end
 end
 
