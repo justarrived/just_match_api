@@ -79,8 +79,8 @@ en:
       sync_ff_bank_account: Sync bank account
       batch_form:
         no_tag_chosen: '-- No tag --'
-        tag_added_notice: '"%{name}"-tag added.'
-        tag_removed_notice: '"%{name}"-tag removed.'
+        tag_added_notice: 'Added "%{name}"-tag.'
+        tag_removed_notice: '"Removed %{name}"-tag.'
       show:
         general: General
         profile: Profile
