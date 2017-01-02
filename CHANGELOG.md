@@ -6,10 +6,10 @@ HEAD
 v0.5
 -----------
 - _Admin_: Smarter user index view for company users scope
-- _Feature_: Enhanced `UserSkill`
+- _Feature_: Enhanced `UserSkill` [PR #764](https://github.com/justarrived/just_match_api/pull/764)
   + Add `proficiency` and `proficiency_by_admin` fields
   + Searchable from admin user index view
-- _Feature_: Adds support for `User ---* Tags`
+- _Feature_: Adds support for `User ---* Tags` [PR #759](https://github.com/justarrived/just_match_api/pull/759)
 
 v0.4
 ------------
