@@ -29,7 +29,7 @@ ActiveAdmin.register User do
     end
   end
 
-  batch_action :add_and_remove_tag, form: lambda {
+  batch_action :add_and_remove_user_tag, form: lambda {
     {
       remove_tag: Tag.to_form_array(include_blank: true),
       add_tag: Tag.to_form_array(include_blank: true)

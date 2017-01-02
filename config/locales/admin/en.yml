@@ -108,3 +108,7 @@ en:
 
   active_admin:
     clone_model: "Clone %{model}"
+
+    batch_actions:
+      labels:
+        add_and_remove_user_tag: 'Add/Remove User Tag From'
