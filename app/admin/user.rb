@@ -29,6 +29,37 @@ ActiveAdmin.register User do
     end
   end
 
+  batch_action :add_and_remove_user_tag, form: lambda {
+    {
+      remove_tag: Tag.to_form_array(include_blank: true),
+      add_tag: Tag.to_form_array(include_blank: true)
+    }
+  } do |ids, inputs|
+    add_tag = inputs['add_tag']
+    remove_tag = inputs['remove_tag']
+
+    users = User.where(id: ids)
+    notice = []
+
+    unless add_tag.blank?
+      tag = Tag.find_by(id: add_tag)
+      users.each do |user|
+        UserTag.safe_create(tag: tag, user: user)
+      end
+      notice << I18n.t('admin.user.batch_form.tag_added_notice', name: tag.name)
+    end
+
+    unless remove_tag.blank?
+      tag = Tag.find_by(id: remove_tag)
+      users.each do |user|
+        UserTag.safe_destroy(tag: tag, user: user)
+      end
+      notice << I18n.t('admin.user.batch_form.tag_removed_notice', name: tag.name)
+    end
+
+    redirect_to collection_path, notice: notice.join(' ')
+  end
+
   batch_action :verify, confirm: I18n.t('admin.batch_action_confirm') do |ids|
     collection.where(id: ids).map { |u| u.update(verified: true) }
 
@@ -42,10 +73,10 @@ ActiveAdmin.register User do
   end
 
   # Create sections on the index screen
-  scope :all, default: true
+  scope :all
   scope :admins
   scope :company_users
-  scope :regular_users
+  scope :regular_users, default: true
   scope :needs_frilans_finans_id
   scope :managed_users
   scope :verified
@@ -56,6 +87,7 @@ ActiveAdmin.register User do
   filter :verified
   filter :phone
   filter :ssn
+  filter :tags
   filter :language
   filter :company
   filter :frilans_finans_id
@@ -65,6 +97,7 @@ ActiveAdmin.register User do
   filter :admin
   filter :anonymized
   filter :managed
+  filter :created_at
   # rubocop:disable Metrics/LineLength
   filter :translations_description_cont, as: :string, label: I18n.t('admin.user.description')
   filter :translations_education_cont, as: :string, label: I18n.t('admin.user.education')
@@ -78,9 +111,7 @@ ActiveAdmin.register User do
     column :id
     column :name
     column :email
-    column :company
-    column :managed
-    column :created_at
+    column(:tags) { |user| user_tag_badges(user: user) }
 
     actions
   end
@@ -102,6 +133,7 @@ ActiveAdmin.register User do
       row :ssn
       row :company
       row :language
+      row(:tags) { user_tag_badges(user: user) }
     end
 
     unless user.company?
@@ -317,7 +349,7 @@ ActiveAdmin.register User do
 
   controller do
     def scoped_collection
-      super.with_translations
+      super.with_translations.includes(:tags)
     end
   end
 end

@@ -7,6 +7,8 @@ en:
     job_user_name: Job User
     time_ago: '%{time} ago'
     time_from_now: '%{time} from now'
+    form:
+      no_tag_chosen: '-- No tag --'
     filter:
       near_address: "Near address (add 'km: XX' for distance)"
     recent_users:
@@ -77,6 +79,9 @@ en:
       account_details_synced: Synced bank account details to Frilans Finans.
       missing_ff_id: 'Can not sync: User is missing Frilans Finans ID.'
       sync_ff_bank_account: Sync bank account
+      batch_form:
+        tag_added_notice: 'Added "%{name}".'
+        tag_removed_notice: 'Removed "%{name}".'
       show:
         general: General
         profile: Profile
@@ -104,3 +109,7 @@ en:
 
   active_admin:
     clone_model: "Clone %{model}"
+
+    batch_actions:
+      labels:
+        add_and_remove_user_tag: 'Add/Remove User Tag From'

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161206103154) do
+ActiveRecord::Schema.define(version: 20170102123906) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -237,7 +237,6 @@ ActiveRecord::Schema.define(version: 20161206103154) do
     t.datetime "updated_at",                null: false
     t.integer  "frilans_finans_invoice_id"
     t.index ["frilans_finans_invoice_id"], name: "index_invoices_on_frilans_finans_invoice_id", using: :btree
-    t.index ["job_user_id"], name: "index_invoices_on_job_user_id", using: :btree
     t.index ["job_user_id"], name: "index_invoices_on_job_user_id_uniq", unique: true, using: :btree
   end
 
@@ -403,6 +402,13 @@ ActiveRecord::Schema.define(version: 20161206103154) do
     t.index ["name"], name: "index_skills_on_name", unique: true, using: :btree
   end
 
+  create_table "tags", force: :cascade do |t|
+    t.string   "color"
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "terms_agreement_consents", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "job_id"
@@ -472,6 +478,15 @@ ActiveRecord::Schema.define(version: 20161206103154) do
     t.index ["skill_id"], name: "index_user_skills_on_skill_id", using: :btree
     t.index ["user_id", "skill_id"], name: "index_user_skills_on_user_id_and_skill_id", unique: true, using: :btree
     t.index ["user_id"], name: "index_user_skills_on_user_id", using: :btree
+  end
+
+  create_table "user_tags", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "tag_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tag_id"], name: "index_user_tags_on_tag_id", using: :btree
+    t.index ["user_id"], name: "index_user_tags_on_user_id", using: :btree
   end
 
   create_table "user_translations", force: :cascade do |t|
@@ -584,6 +599,8 @@ ActiveRecord::Schema.define(version: 20161206103154) do
   add_foreign_key "user_languages", "users"
   add_foreign_key "user_skills", "skills"
   add_foreign_key "user_skills", "users"
+  add_foreign_key "user_tags", "tags"
+  add_foreign_key "user_tags", "users"
   add_foreign_key "user_translations", "languages"
   add_foreign_key "user_translations", "users"
   add_foreign_key "users", "companies"
