@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170102123906) do
+ActiveRecord::Schema.define(version: 20170102205042) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -237,6 +237,7 @@ ActiveRecord::Schema.define(version: 20170102123906) do
     t.datetime "updated_at",                null: false
     t.integer  "frilans_finans_invoice_id"
     t.index ["frilans_finans_invoice_id"], name: "index_invoices_on_frilans_finans_invoice_id", using: :btree
+    t.index ["job_user_id"], name: "index_invoices_on_job_user_id", using: :btree
     t.index ["job_user_id"], name: "index_invoices_on_job_user_id_uniq", unique: true, using: :btree
   end
 
@@ -395,9 +396,10 @@ ActiveRecord::Schema.define(version: 20170102123906) do
 
   create_table "skills", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.integer  "language_id"
+    t.boolean  "internal",    default: false
     t.index ["language_id"], name: "index_skills_on_language_id", using: :btree
     t.index ["name"], name: "index_skills_on_name", unique: true, using: :btree
   end
@@ -472,8 +474,10 @@ ActiveRecord::Schema.define(version: 20170102123906) do
   create_table "user_skills", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "skill_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.integer  "proficiency"
+    t.integer  "proficiency_by_admin"
     t.index ["skill_id", "user_id"], name: "index_user_skills_on_skill_id_and_user_id", unique: true, using: :btree
     t.index ["skill_id"], name: "index_user_skills_on_skill_id", using: :btree
     t.index ["user_id", "skill_id"], name: "index_user_skills_on_user_id_and_skill_id", unique: true, using: :btree
