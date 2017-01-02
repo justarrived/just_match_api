@@ -53,7 +53,7 @@ module Dev
     end
 
     def self.create_user(address:, language:, email: nil, admin: false, company: nil, tags: nil) # rubocop:disable Metrics/LineLength
-      email_address = email || "#{SecureGenerator.token(length: 32)}@example.com"
+      email_address = email || "#{SecureGenerator.token(length: 4)}@example.com"
       user = User.find_or_initialize_by(email: email_address)
 
       user.assign_attributes(
