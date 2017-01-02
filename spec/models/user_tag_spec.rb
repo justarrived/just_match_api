@@ -23,6 +23,23 @@ RSpec.describe UserTag, type: :model do
       end.to change(described_class, :count).by(1)
     end
   end
+
+  describe '#safe_destroy' do
+    it 'can delete user tag' do
+      described_class.safe_create(tag: tag, user: user)
+      expect do
+        described_class.safe_destroy(tag: tag, user: user)
+      end.to change(described_class, :count).by(-1)
+    end
+
+    it 'can safely invoke delete user tag twice' do
+      described_class.safe_create(tag: tag, user: user)
+      expect do
+        described_class.safe_destroy(tag: tag, user: user)
+        described_class.safe_destroy(tag: tag, user: user)
+      end.to change(described_class, :count).by(-1)
+    end
+  end
 end
 
 # == Schema Information
