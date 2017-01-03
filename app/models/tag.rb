@@ -6,7 +6,7 @@ class Tag < ApplicationRecord
   validates :name, presence: true
 
   def self.to_form_array(include_blank: false)
-    form_array = pluck(:name, :id)
+    form_array = order(:name).pluck(:name, :id)
     return form_array unless include_blank
 
     [[I18n.t('admin.form.no_tag_chosen'), nil]] + form_array

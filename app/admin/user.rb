@@ -68,7 +68,7 @@ ActiveAdmin.register User do
   batch_action :add_user_skill, form: lambda {
     {
       add_skill: Skill.to_form_array(include_blank: true),
-      proficiency_by_admin: [nil, nil] + UserSkill::PROFICIENCY_ADMIN_RANGE.to_a
+      proficiency_by_admin: ['-', nil] + UserSkill::PROFICIENCY_ADMIN_RANGE.to_a
     }
   } do |ids, inputs|
     add_skill = inputs['add_skill']
@@ -387,7 +387,7 @@ ActiveAdmin.register User do
 
   controller do
     def scoped_collection
-      super.with_translations.includes(:tags)
+      super.includes(:tags)
     end
   end
 end
