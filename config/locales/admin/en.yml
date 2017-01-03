@@ -86,6 +86,11 @@ en:
         tag_removed_notice: 'Removed "%{name}".'
         skill_added_notice: 'Added "%{name}" as skill'
       show:
+        contact: Contact
+        tags: Tags
+        skills: Skills
+        candidate_summary: Candidate summary
+        average_score: 'Avg. score: %{score}'
         general: General
         profile: Profile
         payment: Payment details

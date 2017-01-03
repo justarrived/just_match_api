@@ -154,13 +154,31 @@ ActiveAdmin.register User do
   end
 
   show do |user|
+    panel I18n.t('admin.user.show.candidate_summary') do
+      h3 I18n.t('admin.user.show.tags')
+      div do
+        content_tag(:p, user_tag_badges(user: user))
+      end
+
+      h3 I18n.t('admin.user.show.skills')
+      div do
+        content_tag(:p, user_skills_badges(user_skills: user.user_skills))
+      end
+      h3 I18n.t('admin.user.show.average_score', score: user.average_score || '-')
+    end
+
     h3 I18n.t('admin.user.show.general')
     attributes_table do
       row :id
       row :frilans_finans_id
       row :verified
-      row :average_score
 
+      row :company
+      row :language
+    end
+
+    h3 I18n.t('admin.user.show.contact')
+    attributes_table do
       row :name
       row :email
       row :phone
@@ -168,9 +186,6 @@ ActiveAdmin.register User do
       row :street
       row :zip
       row :ssn
-      row :company
-      row :language
-      row(:tags) { user_tag_badges(user: user) }
     end
 
     unless user.company?
@@ -387,6 +402,10 @@ ActiveAdmin.register User do
   controller do
     def scoped_collection
       super.includes(:tags)
+    end
+
+    def find_resource
+      User.includes(user_skills: [:skill]).where(id: params[:id]).first!
     end
   end
 end

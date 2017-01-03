@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170102205042) do
+ActiveRecord::Schema.define(version: 20170103224431) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -400,6 +400,7 @@ ActiveRecord::Schema.define(version: 20170102205042) do
     t.datetime "updated_at",                  null: false
     t.integer  "language_id"
     t.boolean  "internal",    default: false
+    t.string   "color"
     t.index ["language_id"], name: "index_skills_on_language_id", using: :btree
     t.index ["name"], name: "index_skills_on_name", unique: true, using: :btree
   end
