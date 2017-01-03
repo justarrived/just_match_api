@@ -154,17 +154,19 @@ ActiveAdmin.register User do
   end
 
   show do |user|
-    panel I18n.t('admin.user.show.candidate_summary') do
-      h3 I18n.t('admin.user.show.tags')
-      div do
-        content_tag(:p, user_tag_badges(user: user))
-      end
+    if user.candidate?
+      panel I18n.t('admin.user.show.candidate_summary') do
+        h3 I18n.t('admin.user.show.tags')
+        div do
+          content_tag(:p, user_tag_badges(user: user))
+        end
 
-      h3 I18n.t('admin.user.show.skills')
-      div do
-        content_tag(:p, user_skills_badges(user_skills: user.user_skills))
+        h3 I18n.t('admin.user.show.skills')
+        div do
+          content_tag(:p, user_skills_badges(user_skills: user.user_skills))
+        end
+        h3 I18n.t('admin.user.show.average_score', score: user.average_score || '-')
       end
-      h3 I18n.t('admin.user.show.average_score', score: user.average_score || '-')
     end
 
     h3 I18n.t('admin.user.show.general')

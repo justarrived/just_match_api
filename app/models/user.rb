@@ -205,7 +205,7 @@ class User < ApplicationRecord
       street: 'XYZXYZ XX',
       zip: 'XYZX YZ',
       ssn: 'XYZXYZXYZX',
-      company: primary_role == :candidate ? nil : company.anonymize
+      company: candidate? ? nil : company.anonymize
     )
     self
   end
@@ -235,6 +235,10 @@ class User < ApplicationRecord
 
   def company?
     company_id.present?
+  end
+
+  def candidate?
+    primary_role == :candidate
   end
 
   def locale
