@@ -356,6 +356,54 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     end
   end
 
+  describe 'POST #images' do
+    let(:category) { UserImage::CATEGORIES.keys.last }
+    let(:valid_attributes) do
+      {
+        image: TestImageFileReader.image,
+        data: {
+          attributes: { category: category }
+        }
+      }
+    end
+
+    let(:invalid_attributes) do
+      {}
+    end
+
+    context 'with valid params' do
+      it 'saves user image' do
+        post :images, params: valid_attributes
+        expect(assigns(:user_image)).to be_persisted
+      end
+
+      it 'returns 201 accepted status' do
+        post :images, params: valid_attributes
+        expect(response.status).to eq(201)
+      end
+
+      it 'assigns the user image category' do
+        post :images, params: valid_attributes
+        user_image = assigns(:user_image)
+        expect(user_image.category).to eq(category.to_s)
+      end
+
+      it 'assigns the default user image category if none given' do
+        attrs = valid_attributes.slice(:image)
+        post :images, params: attrs, headers: {}
+        user_image = assigns(:user_image)
+        expect(user_image.category).to eq(user_image.default_category)
+      end
+    end
+
+    context 'with invalid params' do
+      it 'returns 422 accepted status' do
+        post :images, params: invalid_attributes
+        expect(response.status).to eq(422)
+      end
+    end
+  end
+
   describe 'GET #matching_jobs' do
     it 'returns 200 status for admin user' do
       user = FactoryGirl.create(:user)

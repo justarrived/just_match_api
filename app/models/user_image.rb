@@ -35,6 +35,17 @@ class UserImage < ApplicationRecord
   #       see https://github.com/rails/rails/issues/13971
   enum category: CATEGORIES
 
+  def self.replace_image(user:, image:, category:)
+    new.tap do |user_image|
+      user_image.user = user
+      user_image.image = image
+      user_image.category = category
+      user_image.save
+
+      find_by(user: user, category: category)&.destroy! if user_image.valid?
+    end
+  end
+
   def self.find_by_one_time_tokens(tokens)
     valid_one_time_tokens.where(one_time_token: tokens)
   end

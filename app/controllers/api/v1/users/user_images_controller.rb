@@ -3,7 +3,7 @@ module Api
   module V1
     module Users
       class UserImagesController < BaseController
-        before_action :set_user, only: [:show]
+        before_action :set_user, only: [:show, :create]
         before_action :set_user_image, only: [:show]
 
         api :GET, '/users/:user_id/images/:id', 'Show user image'
@@ -17,7 +17,7 @@ module Api
           api_render(@user_image)
         end
 
-        api :POST, '/users/images/', 'User images'
+        api :POST, '/users/:user_id/images/', 'User images'
         description 'Creates a user image'
         error code: 422, desc: 'Unprocessable entity'
         param :image, File, desc: 'Image (multipart/form-data)', required: true
@@ -30,15 +30,14 @@ module Api
         def create
           authorize(UserImage)
 
-          @user_image = UserImage.new(image: params[:image])
-          @user_image.category = if user_image_params[:category].blank?
-                                   ActiveSupport::Deprecation.warn('Not setting an image category has been deprecated, please provide a "category" param.') # rubocop:disable Metrics/LineLength
-                                   @user_image.default_category
-                                 else
-                                   user_image_params[:category]
-                                 end
+          attributes = {
+            user: @user,
+            image: params[:image],
+            category: user_image_params[:category]
+          }
+          @user_image = UserImage.replace_image(**attributes)
 
-          if @user_image.save
+          if @user_image.valid?
             api_render(@user_image, status: :created)
           else
             api_render_errors(@user_image)
