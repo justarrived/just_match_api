@@ -72,7 +72,6 @@ ActiveAdmin.register User do
     }
   } do |ids, inputs|
     add_skill = inputs['add_skill']
-    remove_skill = inputs['remove_skill']
     proficiency_by_admin = inputs['proficiency_by_admin']
 
     users = User.where(id: ids)
