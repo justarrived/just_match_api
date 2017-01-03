@@ -71,4 +71,38 @@ RSpec.describe UserImagePolicy do
       end
     end
   end
+
+  permissions :create? do
+    context 'admin' do
+      let(:policy_context) { admin_user }
+
+      it 'allows access' do
+        expect(policy.create?).to eq(true)
+      end
+    end
+
+    context 'a user' do
+      let(:policy_context) { a_user }
+
+      it 'allows access' do
+        expect(policy.create?).to eq(true)
+      end
+    end
+
+    context 'current user' do
+      let(:policy_context) { user }
+
+      it 'denies access' do
+        expect(policy.create?).to eq(true)
+      end
+    end
+
+    context 'no user' do
+      let(:policy_context) { nil }
+
+      it 'denies access' do
+        expect(policy.create?).to eq(true)
+      end
+    end
+  end
 end
