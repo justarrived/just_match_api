@@ -4,7 +4,7 @@ class UserImagePolicy < ApplicationPolicy
     admin_or_self?
   end
 
-  def create?
+  def images?
     true
   end
 

@@ -145,7 +145,7 @@ module Api
             param :proficiency, UserLanguage::PROFICIENCY_RANGE.to_a, desc: 'Language proficiency'
           end
           param :company_id, Integer, desc: 'Company id for user'
-          param :user_image_one_time_token, String, desc: 'User image one time token'
+          param :user_image_one_time_token, String, desc: '_DEPRECATED_ User image one time token'
           param :current_status, User::STATUSES.keys, desc: 'Current status'
           param :at_und, User::AT_UND.keys, desc: 'AT-UND status'
           param :arrived_at, String, desc: 'Arrived at date'
@@ -189,7 +189,35 @@ module Api
         head :no_content
       end
 
-      api :GET, '/users/:id/matching_jobs', 'Show matching jobs for user'
+      api :POST, '/users/images/', 'User images'
+      description 'Creates a user image'
+      error code: 422, desc: 'Unprocessable entity'
+      param :image, File, desc: 'Image (multipart/form-data)', required: true
+      param :data, Hash, desc: 'Top level key', required: true do
+        param :attributes, Hash, desc: 'User image attributes', required: true do
+          param :category, UserImage::CATEGORIES.keys, desc: 'User image category', required: true # rubocop:disable Metrics/LineLength
+        end
+      end
+      example Doxxer.read_example(UserImage, method: :create)
+      def images
+        authorize(UserImage)
+
+        @user_image = UserImage.new(image: params[:image])
+        @user_image.category = if user_image_params[:category].blank?
+                                 ActiveSupport::Deprecation.warn('Not setting an image category has been deprecated, please provide a "category" param.') # rubocop:disable Metrics/LineLength
+                                 @user_image.default_category
+                               else
+                                 user_image_params[:category]
+                               end
+
+        if @user_image.save
+          api_render(@user_image, status: :created)
+        else
+          api_render_errors(@user_image)
+        end
+      end
+
+      api :GET, '/users/:id/matching-jobs', 'Show matching jobs for user'
       description 'Returns the matching jobs for user if the user is allowed.'
       error code: 401, desc: 'Unauthorized'
       error code: 404, desc: 'Not found'
@@ -225,6 +253,10 @@ module Api
 
       def set_user
         @user = User.find(params[:user_id])
+      end
+
+      def user_image_params
+        jsonapi_params.permit(:category)
       end
 
       def user_params

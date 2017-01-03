@@ -38,12 +38,12 @@ RSpec.describe UserImagePolicy do
     end
   end
 
-  permissions :create? do
+  permissions :images? do
     context 'admin' do
       let(:policy_context) { admin_user }
 
       it 'allows access' do
-        expect(policy.show?).to eq(true)
+        expect(policy.images?).to eq(true)
       end
     end
 
@@ -51,7 +51,7 @@ RSpec.describe UserImagePolicy do
       let(:policy_context) { a_user }
 
       it 'allows access' do
-        expect(policy.create?).to eq(true)
+        expect(policy.images?).to eq(true)
       end
     end
 
@@ -59,7 +59,7 @@ RSpec.describe UserImagePolicy do
       let(:policy_context) { user }
 
       it 'denies access' do
-        expect(policy.show?).to eq(true)
+        expect(policy.images?).to eq(true)
       end
     end
 
@@ -67,7 +67,7 @@ RSpec.describe UserImagePolicy do
       let(:policy_context) { nil }
 
       it 'denies access' do
-        expect(policy.create?).to eq(true)
+        expect(policy.images?).to eq(true)
       end
     end
   end

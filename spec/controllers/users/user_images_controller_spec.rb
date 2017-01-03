@@ -2,54 +2,6 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::Users::UserImagesController, type: :controller do
-  describe 'POST #create' do
-    let(:category) { UserImage::CATEGORIES.keys.last }
-    let(:valid_attributes) do
-      {
-        image: TestImageFileReader.image,
-        data: {
-          attributes: { category: category }
-        }
-      }
-    end
-
-    let(:invalid_attributes) do
-      {}
-    end
-
-    context 'with valid params' do
-      it 'saves user image' do
-        post :create, params: valid_attributes
-        expect(assigns(:user_image)).to be_persisted
-      end
-
-      it 'returns 201 accepted status' do
-        post :create, params: valid_attributes
-        expect(response.status).to eq(201)
-      end
-
-      it 'assigns the user image category' do
-        post :create, params: valid_attributes
-        user_image = assigns(:user_image)
-        expect(user_image.category).to eq(category.to_s)
-      end
-
-      it 'assigns the default user image category if none given' do
-        attrs = valid_attributes.slice(:image)
-        post :create, params: attrs, headers: {}
-        user_image = assigns(:user_image)
-        expect(user_image.category).to eq(user_image.default_category)
-      end
-    end
-
-    context 'with invalid params' do
-      it 'returns 422 accepted status' do
-        post :create, params: invalid_attributes
-        expect(response.status).to eq(422)
-      end
-    end
-  end
-
   describe 'GET #show' do
     let(:user) { FactoryGirl.create(:user) }
     let(:user_image) { FactoryGirl.create(:user_image, user: user) }
