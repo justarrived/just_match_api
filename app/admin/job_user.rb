@@ -63,7 +63,7 @@ ActiveAdmin.register JobUser do
 
   include AdminHelpers::MachineTranslation::Actions
 
-  sidebar :user_information, only: :show do
+  sidebar :user_information, only: [:show, :edit] do
     user = job_user.user
 
     user_query = AdminHelpers::Link.query(:user_id, user.id)
@@ -139,7 +139,7 @@ ActiveAdmin.register JobUser do
     job_user.set_translation(translation_params)
   end
 
-  sidebar :app, only: :show do
+  sidebar :app, only: [:show, :edit] do
     ul do
       li(
         link_to(

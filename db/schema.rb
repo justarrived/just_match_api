@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161206103154) do
+ActiveRecord::Schema.define(version: 20170102205042) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -396,11 +396,19 @@ ActiveRecord::Schema.define(version: 20161206103154) do
 
   create_table "skills", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.integer  "language_id"
+    t.boolean  "internal",    default: false
     t.index ["language_id"], name: "index_skills_on_language_id", using: :btree
     t.index ["name"], name: "index_skills_on_name", unique: true, using: :btree
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string   "color"
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "terms_agreement_consents", force: :cascade do |t|
@@ -466,12 +474,23 @@ ActiveRecord::Schema.define(version: 20161206103154) do
   create_table "user_skills", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "skill_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.integer  "proficiency"
+    t.integer  "proficiency_by_admin"
     t.index ["skill_id", "user_id"], name: "index_user_skills_on_skill_id_and_user_id", unique: true, using: :btree
     t.index ["skill_id"], name: "index_user_skills_on_skill_id", using: :btree
     t.index ["user_id", "skill_id"], name: "index_user_skills_on_user_id_and_skill_id", unique: true, using: :btree
     t.index ["user_id"], name: "index_user_skills_on_user_id", using: :btree
+  end
+
+  create_table "user_tags", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "tag_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tag_id"], name: "index_user_tags_on_tag_id", using: :btree
+    t.index ["user_id"], name: "index_user_tags_on_user_id", using: :btree
   end
 
   create_table "user_translations", force: :cascade do |t|
@@ -584,6 +603,8 @@ ActiveRecord::Schema.define(version: 20161206103154) do
   add_foreign_key "user_languages", "users"
   add_foreign_key "user_skills", "skills"
   add_foreign_key "user_skills", "users"
+  add_foreign_key "user_tags", "tags"
+  add_foreign_key "user_tags", "users"
   add_foreign_key "user_translations", "languages"
   add_foreign_key "user_translations", "users"
   add_foreign_key "users", "companies"

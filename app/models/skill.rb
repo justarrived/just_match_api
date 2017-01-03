@@ -10,6 +10,19 @@ class Skill < ApplicationRecord
 
   validates :name, uniqueness: true, length: { minimum: 3 }, allow_blank: false
   validates :language, presence: true
+
+  scope :visible, -> { where(internal: false) }
+
+  def self.to_form_array(include_blank: false)
+    form_array = order(:name).pluck(:name, :id)
+    return form_array unless include_blank
+
+    [[I18n.t('admin.form.no_skill_chosen'), nil]] + form_array
+  end
+
+  def display_name
+    "##{id} #{name}"
+  end
 end
 
 # == Schema Information
@@ -21,6 +34,7 @@ end
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  language_id :integer
+#  internal    :boolean          default(FALSE)
 #
 # Indexes
 #

@@ -99,7 +99,7 @@ module Api
       private
 
       def set_skill
-        @skill = Skill.find(params[:id])
+        @skill = policy_scope(Skill).find(params[:id])
       end
 
       def skill_params

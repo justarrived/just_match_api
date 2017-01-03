@@ -1,5 +1,11 @@
 # frozen_string_literal: true
 class UserSkillPolicy < ApplicationPolicy
+  class Scope < Scope
+    def resolve
+      scope.visible
+    end
+  end
+
   Context = Struct.new(:user, :user_record)
 
   attr_reader :user_record

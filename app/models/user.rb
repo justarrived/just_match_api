@@ -29,6 +29,9 @@ class User < ApplicationRecord
   belongs_to :language
   belongs_to :company, optional: true
 
+  has_many :user_tags
+  has_many :tags, through: :user_tags
+
   has_many :auth_tokens, class_name: 'Token', dependent: :destroy
 
   has_many :user_skills

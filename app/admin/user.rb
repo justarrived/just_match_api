@@ -29,6 +29,71 @@ ActiveAdmin.register User do
     end
   end
 
+  batch_action :add_and_remove_user_tag, form: lambda {
+    {
+      remove_tag: Tag.to_form_array(include_blank: true),
+      add_tag: Tag.to_form_array(include_blank: true)
+    }
+  } do |ids, inputs|
+    add_tag = inputs['add_tag']
+    remove_tag = inputs['remove_tag']
+
+    if add_tag == remove_tag
+      alert = I18n.t('admin.user.batch_form.tag_add_and_remove_not_uniq_notice')
+      redirect_to collection_path, alert: alert
+    else
+      users = User.where(id: ids)
+      notice = []
+
+      unless add_tag.blank?
+        tag = Tag.find_by(id: add_tag)
+        users.each do |user|
+          UserTag.safe_create(tag: tag, user: user)
+        end
+        notice << I18n.t('admin.user.batch_form.tag_added_notice', name: tag.name)
+      end
+
+      unless remove_tag.blank?
+        tag = Tag.find_by(id: remove_tag)
+        users.each do |user|
+          UserTag.safe_destroy(tag: tag, user: user)
+        end
+        notice << I18n.t('admin.user.batch_form.tag_removed_notice', name: tag.name)
+      end
+
+      redirect_to collection_path, notice: notice.join(' ')
+    end
+  end
+
+  batch_action :add_user_skill, form: lambda {
+    {
+      add_skill: Skill.to_form_array(include_blank: true),
+      proficiency_by_admin: ['-', nil] + UserSkill::PROFICIENCY_ADMIN_RANGE.to_a
+    }
+  } do |ids, inputs|
+    add_skill = inputs['add_skill']
+    remove_skill = inputs['remove_skill']
+    proficiency_by_admin = inputs['proficiency_by_admin']
+
+    users = User.where(id: ids)
+    notice = []
+
+    unless add_skill.blank?
+      skill = Skill.find_by(id: add_skill)
+      users.each do |user|
+        attributes = { skill: skill, user: user }
+        unless proficiency_by_admin.blank?
+          attributes[:proficiency_by_admin] = proficiency_by_admin
+        end
+
+        UserSkill.safe_create(**attributes)
+      end
+      notice << I18n.t('admin.user.batch_form.skill_added_notice', name: skill.name)
+    end
+
+    redirect_to collection_path, notice: notice.join(' ')
+  end
+
   batch_action :verify, confirm: I18n.t('admin.batch_action_confirm') do |ids|
     collection.where(id: ids).map { |u| u.update(verified: true) }
 
@@ -42,10 +107,10 @@ ActiveAdmin.register User do
   end
 
   # Create sections on the index screen
-  scope :all, default: true
+  scope :all
   scope :admins
   scope :company_users
-  scope :regular_users
+  scope :regular_users, default: true
   scope :needs_frilans_finans_id
   scope :managed_users
   scope :verified
@@ -56,6 +121,8 @@ ActiveAdmin.register User do
   filter :verified
   filter :phone
   filter :ssn
+  filter :tags
+  filter :skills
   filter :language
   filter :company
   filter :frilans_finans_id
@@ -65,7 +132,10 @@ ActiveAdmin.register User do
   filter :admin
   filter :anonymized
   filter :managed
+  filter :created_at
   # rubocop:disable Metrics/LineLength
+  filter :user_skills_proficiency_gteq, as: :select, collection: [nil, nil] + UserSkill::PROFICIENCY_RANGE.to_a
+  filter :user_skills_proficiency_by_admin_gteq, as: :select, collection: [nil, nil] + UserSkill::PROFICIENCY_ADMIN_RANGE.to_a
   filter :translations_description_cont, as: :string, label: I18n.t('admin.user.description')
   filter :translations_education_cont, as: :string, label: I18n.t('admin.user.education')
   filter :translations_competence_text_cont, as: :string, label: I18n.t('admin.user.competence_text')
@@ -78,9 +148,8 @@ ActiveAdmin.register User do
     column :id
     column :name
     column :email
-    column :company
-    column :managed
-    column :created_at
+    column :managed if params[:scope] == 'company_users'
+    column(:tags) { |user| user_tag_badges(user: user) }
 
     actions
   end
@@ -102,6 +171,7 @@ ActiveAdmin.register User do
       row :ssn
       row :company
       row :language
+      row(:tags) { user_tag_badges(user: user) }
     end
 
     unless user.company?
@@ -189,7 +259,7 @@ ActiveAdmin.register User do
     link_to title, sync_ff_bank_account_admin_user_path(user), method: :patch
   end
 
-  sidebar :relations, only: :show do
+  sidebar :relations, only: [:show, :edit] do
     user_query = AdminHelpers::Link.query(:user_id, user.id)
     from_user_query = AdminHelpers::Link.query(:from_user_id, user.id)
     to_user_query = AdminHelpers::Link.query(:to_user_id, user.id)
@@ -271,7 +341,7 @@ ActiveAdmin.register User do
     end
   end
 
-  sidebar :latest_applications, only: :show, if: proc { !user.company? } do
+  sidebar :latest_applications, only: [:show, :edit], if: proc { !user.company? } do
     ul do
       user.job_users.
         order(created_at: :desc).
@@ -284,7 +354,7 @@ ActiveAdmin.register User do
     end
   end
 
-  sidebar :latest_owned_jobs, only: :show, if: proc { user.company? } do
+  sidebar :latest_owned_jobs, only: [:show, :edit], if: proc { user.company? } do
     ul do
       user.owned_jobs.
         order(created_at: :desc).
@@ -317,7 +387,7 @@ ActiveAdmin.register User do
 
   controller do
     def scoped_collection
-      super.with_translations
+      super.includes(:tags)
     end
   end
 end

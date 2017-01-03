@@ -54,6 +54,7 @@ module Api
         param :data, Hash, desc: 'Top level key', required: true do
           param :attributes, Hash, desc: 'Skill attributes', required: true do
             param :id, Integer, desc: 'Skill id', required: true
+            param :proficiency, UserSkill::PROFICIENCY_RANGE.to_a, desc: 'Skill proficiency' # rubocop:disable Metrics/LineLength
           end
         end
         example Doxxer.read_example(UserSkill, method: :create)
@@ -64,6 +65,7 @@ module Api
           authorize(@user_skill)
 
           @user_skill.skill = Skill.find_by(id: skill_params[:id])
+          @user_skill.proficiency = skill_params[:proficiency]
 
           if @user_skill.save
             api_render(@user_skill, status: :created)
@@ -79,7 +81,8 @@ module Api
         def destroy
           authorize(@user_skill)
 
-          @user_skill.destroy
+          @user_skill.destroy unless @user_skill.touched_by_admin?
+
           head :no_content
         end
 
@@ -98,7 +101,7 @@ module Api
         end
 
         def skill_params
-          jsonapi_params.permit(:id)
+          jsonapi_params.permit(:id, :proficiency)
         end
 
         def pundit_user
