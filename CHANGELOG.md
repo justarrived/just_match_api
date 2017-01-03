@@ -2,6 +2,7 @@
 
 HEAD
 -----------
+- _Update_: Update `UserLanguage` proficiency range from 1..10 to 1..5
 
 v0.5
 -----------
