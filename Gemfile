@@ -40,11 +40,10 @@ gem 'bcrypt', '~> 3.1.7', require: true # Encrypt passwords
 gem 'pundit', '~> 1.1' # Authorization policies
 
 # ADMIN
-gem 'activeadmin', '~> 1.0.0.pre4' # Admin interface
+gem 'activeadmin', git: 'https://github.com/activeadmin/activeadmin' # Admin interface
 gem 'blazer', '~> 1.7' # Explore data with SQL
 gem 'chosen-rails', '~> 1.5' # Needed for autocomplete select input for activeadmin
 gem 'inherited_resources', git: 'https://github.com/activeadmin/inherited_resources' # activeadmin Rails 5
-gem 'jquery-ui-rails', '~> 5.0' # Needeed for activeadmin assets until patch is released to RubyGems (see https://github.com/activeadmin/activeadmin/commit/5b8ded8bcc1cd3ed09ea5c10fc992e47614d4bd1, https://github.com/jquery-ui-rails/jquery-ui-rails/issues/111)
 gem 'uglifier', '~> 3.0' # Needed for activeadmin assets compilation
 
 # Invoices
