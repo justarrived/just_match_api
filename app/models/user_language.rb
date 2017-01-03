@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class UserLanguage < ApplicationRecord
-  PROFICIENCY_RANGE = 1..10
+  PROFICIENCY_RANGE = 1..5
 
   belongs_to :language
   belongs_to :user

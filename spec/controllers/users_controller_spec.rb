@@ -2,7 +2,7 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::UsersController, type: :controller do
-  let(:lang_proficiency) { 8 }
+  let(:lang_proficiency) { 4 }
   let(:valid_attributes) do
     lang_id = Language.find_or_create_by!(lang_code: 'en').id
     {
