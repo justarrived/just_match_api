@@ -56,7 +56,7 @@ class AppConfig
   end
 
   def self.validate_job_date_in_future_inactive?
-    truthy?(env.fetch('VALIDATE_JOB_DATE_IN_FUTURE_INACTIVE', 'true'))
+    truthy?(env['VALIDATE_JOB_DATE_IN_FUTURE_INACTIVE'])
   end
 
   def self.cors_whitelist
