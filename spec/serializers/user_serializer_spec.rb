@@ -86,6 +86,7 @@ end
 #  account_number                 :string
 #  verified                       :boolean          default(FALSE)
 #  skype_username                 :string
+#  interview_comment              :text
 #
 # Indexes
 #
