@@ -91,6 +91,7 @@ en:
         tags: Tags
         skills: Skills
         candidate_summary: Candidate summary
+        languages: Languages
         average_score: 'Avg. score: %{score}'
         profile: Profile
         payment: Payment details

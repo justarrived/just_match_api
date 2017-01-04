@@ -48,6 +48,34 @@ module AdminHelper
     )
   end
 
+  def user_languages_badges(user_languages:)
+    links = user_languages.map do |user_language|
+      language_badge(language: user_language.language, user_language: user_language)
+    end
+
+    safe_join(links, ' ')
+  end
+
+  def language_badge(language:, user_language: nil)
+    name = language.name
+    if user_language
+      proficiency = user_language.proficiency || '-'
+      proficiency_by_admin = user_language.proficiency_by_admin || '-'
+      html_parts = [
+        name,
+        ' &nbsp; '.html_safe,
+        "(#{proficiency}/#{proficiency_by_admin})"
+      ]
+      name = safe_join(html_parts, ' ')
+    end
+
+    link_to(
+      name,
+      admin_users_path + AdminHelpers::Link.query(:user_languages_language_id, language.id), # rubocop:disable Metrics/LineLength
+      class: 'user-badge-tag-link'
+    )
+  end
+
   def colored_badge_tag(name, color)
     content_tag(
       :span,
