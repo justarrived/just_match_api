@@ -153,6 +153,8 @@ module Api
           param :skype_username, String, desc: 'Skype username'
           param :account_clearing_number, String, desc: 'User account clearing number'
           param :account_number, String, desc: 'User account number'
+          param :next_of_kin_name, String, desc: 'Next of kin name'
+          param :next_of_kin_phone, String, desc: 'Next of kin phone'
           # rubocop:enable Metrics/LineLength
         end
       end

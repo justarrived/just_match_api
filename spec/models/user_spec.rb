@@ -623,6 +623,8 @@ end
 #  verified                       :boolean          default(FALSE)
 #  skype_username                 :string
 #  interview_comment              :text
+#  next_of_kin_name               :string
+#  next_of_kin_phone              :string
 #
 # Indexes
 #
