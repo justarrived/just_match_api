@@ -9,7 +9,8 @@ class UserSerializer < ApplicationSerializer
     :zip_latitude, :zip_longitude, :first_name, :last_name, :ssn, :company_id, :banned,
     :one_time_token, :one_time_token_expires_at,
     :ignored_notifications_mask, :frilans_finans_id, :frilans_finans_payment_details,
-    :current_status, :at_und, :arrived_at, :country_of_origin, :managed, :verified
+    :current_status, :at_und, :arrived_at, :country_of_origin, :managed, :verified,
+    :account_clearing_number, :account_number
   ] + EXTRA_ATTRIBUTES
 
   link(:self) { api_v1_user_url(object) }
