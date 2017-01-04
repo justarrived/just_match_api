@@ -2,6 +2,8 @@
 
 HEAD
 -----------
+- _Admin_: Update user admin show view
+
 
 v0.6
 -----------
