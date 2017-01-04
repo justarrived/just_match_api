@@ -32,7 +32,12 @@ module AdminHelper
     if user_skill
       proficiency = user_skill.proficiency || '-'
       proficiency_by_admin = user_skill.proficiency_by_admin || '-'
-      name = "#{name} &nbsp; (#{proficiency}/#{proficiency_by_admin})".html_safe
+      html_parts = [
+        name,
+        ' &nbsp; '.html_safe,
+        "(#{proficiency}/#{proficiency_by_admin})"
+      ]
+      name = safe_join(html_parts, ' ')
     end
 
     link_to(

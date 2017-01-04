@@ -192,7 +192,6 @@ ActiveAdmin.register User do
       end
 
       panel(I18n.t('admin.user.show.profile')) do
-
         div do
           h3 User.human_attribute_name(:description)
           div do

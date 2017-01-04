@@ -9,7 +9,7 @@ RSpec.describe EmailAddress do
       ' test@example.com   ',
       'test@example.com ',
       '  tEsT@EXample.COM ',
-      '  TEST@EXAMPLE.cOM ',
+      '  TEST@EXAMPLE.cOM '
     ].each do |email|
       it "normalizes '#{email}' to 'test@example.com'" do
         expect(described_class.normalize(email)).to eq('test@example.com')
@@ -20,7 +20,7 @@ RSpec.describe EmailAddress do
       ['    ', ''],
       ['+46735000000  ', '+46735000000'],
       ['+467350000AA  ', '+467350000aa'],
-      ['TEST@  ', 'test@'],
+      ['TEST@  ', 'test@']
     ].each do |value_pair|
       value, expected = value_pair
 
