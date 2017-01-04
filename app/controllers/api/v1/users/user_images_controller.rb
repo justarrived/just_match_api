@@ -20,19 +20,25 @@ module Api
         api :POST, '/users/:user_id/images/', 'User images'
         description 'Creates a user image'
         error code: 422, desc: 'Unprocessable entity'
-        param :image, File, desc: 'Image (multipart/form-data)', required: true
         param :data, Hash, desc: 'Top level key', required: true do
           param :attributes, Hash, desc: 'User image attributes', required: true do
             param :category, UserImage::CATEGORIES.keys, desc: 'User image category', required: true # rubocop:disable Metrics/LineLength
+            param :image, String, desc: 'Image (data uri, data/image)', required: true
           end
         end
         example Doxxer.read_example(UserImage, method: :create)
         def create
           authorize(UserImage)
 
+          data_image = DataUriImage.new(user_image_params[:image])
+          unless data_image.valid?
+            respond_with_invalid_image_content_type
+            return
+          end
+
           attributes = {
             user: @user,
-            image: params[:image],
+            image: data_image.image,
             category: user_image_params[:category]
           }
           @user_image = UserImage.replace_image(**attributes)
@@ -46,6 +52,14 @@ module Api
 
         private
 
+        def respond_with_invalid_image_content_type
+          errors = JsonApiErrors.new
+          message = I18n.t('errors.user.invalid_image_content_type')
+          errors.add(status: 422, detail: message)
+
+          render json: errors, status: :unprocessable_entity
+        end
+
         def set_user
           @user = User.find(params[:user_id])
         end
@@ -55,7 +69,7 @@ module Api
         end
 
         def user_image_params
-          jsonapi_params.permit(:category)
+          jsonapi_params.permit(:category, :image)
         end
       end
     end

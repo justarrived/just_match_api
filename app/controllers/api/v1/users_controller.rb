@@ -198,17 +198,29 @@ module Api
       api :POST, '/users/images/', 'User images'
       description 'Creates a user image'
       error code: 422, desc: 'Unprocessable entity'
-      param :image, File, desc: 'Image (multipart/form-data)', required: true
       param :data, Hash, desc: 'Top level key', required: true do
         param :attributes, Hash, desc: 'User image attributes', required: true do
           param :category, UserImage::CATEGORIES.keys, desc: 'User image category', required: true # rubocop:disable Metrics/LineLength
+          param :image, String, desc: 'Image (data uri, data/image)', required: true
         end
       end
       example Doxxer.read_example(UserImage, method: :create)
       def images
         authorize(UserImage)
 
-        @user_image = UserImage.new(image: params[:image])
+        if params[:image]
+          @user_image = UserImage.new(image: params[:image])
+          ActiveSupport::Deprecation.warn('Using multipart to upload an image is deprecated and will soon be removed please consult the documentation at api.justarrived.se to see the new method.') # rubocop:disable Metrics/LineLength
+        else
+          data_image = DataUriImage.new(user_image_params[:image])
+          unless data_image.valid?
+            respond_with_invalid_image_content_type
+            return
+          end
+
+          @user_image = UserImage.new(image: data_image.image)
+        end
+
         @user_image.category = if user_image_params[:category].blank?
                                  ActiveSupport::Deprecation.warn('Not setting an image category has been deprecated, please provide a "category" param.') # rubocop:disable Metrics/LineLength
                                  @user_image.default_category
@@ -257,12 +269,20 @@ module Api
 
       private
 
+      def respond_with_invalid_image_content_type
+        errors = JsonApiErrors.new
+        message = I18n.t('errors.user.invalid_image_content_type')
+        errors.add(status: 422, detail: message)
+
+        render json: errors, status: :unprocessable_entity
+      end
+
       def set_user
         @user = User.find(params[:user_id])
       end
 
       def user_image_params
-        jsonapi_params.permit(:category)
+        jsonapi_params.permit(:category, :image)
       end
 
       def user_params

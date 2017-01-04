@@ -4,7 +4,13 @@ require 'rails_helper'
 RSpec.describe Api::V1::Companies::CompanyImagesController, type: :controller do
   describe 'POST #create' do
     let(:valid_attributes) do
-      { image: TestImageFileReader.image }
+      {
+        data: {
+          attributes: {
+            image: TestImageFileReader.image
+          }
+        }
+      }
     end
 
     let(:invalid_attributes) do

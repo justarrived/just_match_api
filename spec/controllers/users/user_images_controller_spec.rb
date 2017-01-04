@@ -8,9 +8,11 @@ RSpec.describe Api::V1::Users::UserImagesController, type: :controller do
     let(:valid_params) do
       {
         user_id: user.to_param,
-        image: TestImageFileReader.image,
         data: {
-          attributes: { category: category }
+          attributes: {
+            image: TestImageFileReader.image,
+            category: category
+          }
         }
       }
     end

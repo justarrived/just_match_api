@@ -64,6 +64,7 @@ sv:
       banned: en administratör har blockerat dig eftersom du inte följt Användarvillkoren. Vad god kontakta help@justarrived.
       wrong_email_or_phone_or_password: fel email, telefonnummer eller lösenord
     user:
+      invalid_image_content_type: ogilltig filtyp
       wrong_password: fel lösenord
       password_length: lösenordet måste vara minst %{count} tecken
       must_be_available_locale: ditt språk stöds tyvärr inte
