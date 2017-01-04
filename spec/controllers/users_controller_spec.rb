@@ -398,6 +398,16 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         user_image = assigns(:user_image)
         expect(user_image.category).to eq(user_image.default_category)
       end
+
+      context 'DEPRECATED' do
+        it 'assigns the default user image category if none given' do
+          attrs = { image: TestImageFileReader.image_file }
+
+          post :images, params: attrs, headers: {}
+          user_image = assigns(:user_image)
+          expect(user_image.category).to eq(user_image.default_category)
+        end
+      end
     end
 
     context 'with invalid params' do
