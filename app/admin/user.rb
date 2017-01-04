@@ -165,6 +165,12 @@ ActiveAdmin.register User do
         div do
           content_tag(:p, user_skills_badges(user_skills: user.user_skills))
         end
+
+        h3 I18n.t('admin.user.show.languages')
+        div do
+          content_tag(:p, user_languages_badges(user_languages: user.user_languages))
+        end
+
         h3 I18n.t('admin.user.show.average_score', score: user.average_score || '-')
 
         h3 I18n.t('admin.user.show.verified', verified: user.verified)
@@ -432,7 +438,9 @@ ActiveAdmin.register User do
     end
 
     def find_resource
-      User.includes(user_skills: [:skill]).where(id: params[:id]).first!
+      User.includes(user_skills: [:skill], user_languages: [:language]).
+        where(id: params[:id]).
+        first!
     end
   end
 end
