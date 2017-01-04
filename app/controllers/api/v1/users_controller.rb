@@ -88,7 +88,7 @@ module Api
       example Doxxer.read_example(User, method: :create)
       def create
         @user = User.new(user_params)
-        @user.email = @user.email&.strip
+        @user.email = @user.email
 
         authorize(@user)
 

@@ -274,7 +274,7 @@ class User < ApplicationRecord
   end
 
   def set_normalized_email
-    self.email = email&.strip&.downcase
+    self.email = EmailAddress.normalize(email)
   end
 
   # NOTE: This method has unintuitive side effects.. if the banned attribute is
