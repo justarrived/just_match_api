@@ -360,9 +360,11 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     let(:category) { UserImage::CATEGORIES.keys.last }
     let(:valid_attributes) do
       {
-        image: TestImageFileReader.image,
         data: {
-          attributes: { category: category }
+          attributes: {
+            category: category,
+            image: TestImageFileReader.image
+          }
         }
       }
     end
@@ -389,7 +391,9 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       end
 
       it 'assigns the default user image category if none given' do
-        attrs = valid_attributes.slice(:image)
+        attrs = valid_attributes.dup
+        attrs[:data][:attributes][:category] = nil
+
         post :images, params: attrs, headers: {}
         user_image = assigns(:user_image)
         expect(user_image.category).to eq(user_image.default_category)
