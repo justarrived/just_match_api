@@ -2,6 +2,9 @@
 
 HEAD
 -----------
+
+v0.6
+-----------
 - _Admin_: Display user skills in admin interface and add `Skill#color` [PR #768](https://github.com/justarrived/just_match_api/pull/768)
 - _Update_: Update `UserLanguage` proficiency range from 1..10 to 1..5
 - _Endpoint_: Add `POST /api/v1/users/:user_id/images` endpoint [PR #766](https://github.com/justarrived/just_match_api/pull/766)
