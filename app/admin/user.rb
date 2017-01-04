@@ -166,17 +166,9 @@ ActiveAdmin.register User do
           content_tag(:p, user_skills_badges(user_skills: user.user_skills))
         end
         h3 I18n.t('admin.user.show.average_score', score: user.average_score || '-')
+
+        h3 I18n.t('admin.user.show.verified', verified: user.verified)
       end
-    end
-
-    h3 I18n.t('admin.user.show.general')
-    attributes_table do
-      row :id
-      row :frilans_finans_id
-      row :verified
-
-      row :company
-      row :language
     end
 
     h3 I18n.t('admin.user.show.contact')
@@ -190,17 +182,44 @@ ActiveAdmin.register User do
       row :ssn
     end
 
-    unless user.company?
-      h3 I18n.t('admin.user.show.profile')
+    if user.candidate?
+      h3 I18n.t('admin.user.show.candidate_status')
       attributes_table do
         row :current_status
         row :at_und
         row :arrived_at
-        row :description
-        row :job_experience
-        row :competence_text
-        row :education
         row :country_of_origin
+      end
+
+      panel(I18n.t('admin.user.show.profile')) do
+
+        div do
+          h3 User.human_attribute_name(:description)
+          div do
+            simple_format(user.description)
+          end
+        end
+
+        div do
+          h3 User.human_attribute_name(:job_experience)
+          div do
+            simple_format(user.job_experience)
+          end
+        end
+
+        div do
+          h3 User.human_attribute_name(:competence_text)
+          div do
+            simple_format(user.competence_text)
+          end
+        end
+
+        div do
+          h3 User.human_attribute_name(:education)
+          div do
+            simple_format(user.education)
+          end
+        end
       end
 
       h3 I18n.t('admin.user.show.payment')
@@ -217,6 +236,7 @@ ActiveAdmin.register User do
       row :managed
       row :anonymized
       row :banned
+      row :verified
     end
 
     h3 I18n.t('admin.user.show.misc')
@@ -224,6 +244,12 @@ ActiveAdmin.register User do
       row :ignored_notifications do
         user.ignored_notifications.join(', ')
       end
+
+      row :id
+      row :frilans_finans_id
+
+      row :company
+      row :language
 
       row :contact_email
       row :primary_role

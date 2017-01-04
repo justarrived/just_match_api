@@ -86,16 +86,17 @@ en:
         tag_removed_notice: 'Removed "%{name}".'
         skill_added_notice: 'Added "%{name}" as skill'
       show:
+        verified: 'Verified: %{verified}'
         contact: Contact
         tags: Tags
         skills: Skills
         candidate_summary: Candidate summary
         average_score: 'Avg. score: %{score}'
-        general: General
         profile: Profile
         payment: Payment details
         status_flags: Status flags
-        misc: Misc
+        candidate_status: Candidate status
+        misc: Admin details
     ff_remote_sync:
       msg_multiple: Synced successfully.
       msg: Synced successfully.
