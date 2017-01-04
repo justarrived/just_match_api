@@ -23,7 +23,8 @@ class UserPolicy < ApplicationPolicy
     :created_at, :updated_at, :admin, :anonymized, :ignored_notifications,
     :frilans_finans_payment_details, :ssn, :current_status, :at_und, :arrived_at,
     :country_of_origin, :auth_token, :account_clearing_number, :account_number,
-    :skype_username, :next_of_kin_name, :next_of_kin_phone
+    :skype_username, :next_of_kin_name, :next_of_kin_phone,
+    :arbetsformedlingen_registered_at
   ]).freeze
 
   attr_reader :accepted_applicant

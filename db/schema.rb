@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170104112553) do
+ActiveRecord::Schema.define(version: 20170104113053) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -512,15 +512,15 @@ ActiveRecord::Schema.define(version: 20170104112553) do
     t.string   "email"
     t.string   "phone"
     t.text     "description"
-    t.datetime "created_at",                                     null: false
-    t.datetime "updated_at",                                     null: false
+    t.datetime "created_at",                                       null: false
+    t.datetime "updated_at",                                       null: false
     t.float    "latitude"
     t.float    "longitude"
     t.integer  "language_id"
-    t.boolean  "anonymized",                     default: false
+    t.boolean  "anonymized",                       default: false
     t.string   "password_hash"
     t.string   "password_salt"
-    t.boolean  "admin",                          default: false
+    t.boolean  "admin",                            default: false
     t.string   "street"
     t.string   "zip"
     t.float    "zip_latitude"
@@ -529,27 +529,28 @@ ActiveRecord::Schema.define(version: 20170104112553) do
     t.string   "last_name"
     t.string   "ssn"
     t.integer  "company_id"
-    t.boolean  "banned",                         default: false
+    t.boolean  "banned",                           default: false
     t.text     "job_experience"
     t.text     "education"
     t.string   "one_time_token"
     t.datetime "one_time_token_expires_at"
     t.integer  "ignored_notifications_mask"
     t.integer  "frilans_finans_id"
-    t.boolean  "frilans_finans_payment_details", default: false
+    t.boolean  "frilans_finans_payment_details",   default: false
     t.text     "competence_text"
     t.integer  "current_status"
     t.integer  "at_und"
     t.date     "arrived_at"
     t.string   "country_of_origin"
-    t.boolean  "managed",                        default: false
+    t.boolean  "managed",                          default: false
     t.string   "account_clearing_number"
     t.string   "account_number"
-    t.boolean  "verified",                       default: false
+    t.boolean  "verified",                         default: false
     t.string   "skype_username"
     t.text     "interview_comment"
     t.string   "next_of_kin_name"
     t.string   "next_of_kin_phone"
+    t.date     "arbetsformedlingen_registered_at"
     t.index ["company_id"], name: "index_users_on_company_id", using: :btree
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["frilans_finans_id"], name: "index_users_on_frilans_finans_id", unique: true, using: :btree
