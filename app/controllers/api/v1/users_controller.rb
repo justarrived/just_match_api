@@ -88,7 +88,7 @@ module Api
       example Doxxer.read_example(User, method: :create)
       def create
         @user = User.new(user_params)
-        @user.email = @user.email
+        @user.password = jsonapi_params[:password]
 
         authorize(@user)
 
@@ -268,7 +268,7 @@ module Api
       def user_params
         whitelist = [
           :first_name, :last_name, :email, :phone, :description, :job_experience,
-          :education, :ssn, :street, :zip, :language_id, :password, :company_id,
+          :education, :ssn, :street, :zip, :language_id, :company_id,
           :competence_text, :current_status, :at_und, :arrived_at, :country_of_origin,
           :account_clearing_number, :account_number, :skype_username,
           ignored_notifications: [], skill_ids: []
