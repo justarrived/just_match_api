@@ -86,7 +86,8 @@ Rails.application.configure do
       bucket: AppConfig.s3_bucket_name,
       access_key_id: AppSecrets.aws_access_key_id,
       secret_access_key: AppSecrets.aws_secret_access_key
-    }
+    },
+    s3_protocol: :https
   }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to

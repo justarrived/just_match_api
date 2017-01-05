@@ -173,6 +173,11 @@ ActiveAdmin.register User do
 
     h3 I18n.t('admin.user.show.contact')
     attributes_table do
+      row :image do |user|
+        profile_image = user_profile_image(user: user, size: :small)
+
+        image_tag(profile_image) if profile_image
+      end
       row :name
       row :email
       row :phone
@@ -406,6 +411,10 @@ ActiveAdmin.register User do
         li link_to("##{job.id} " + job.name, admin_job_path(job))
       end
     end
+  end
+
+  sidebar :profile_image, only: [:show, :edit] do
+    image_tag(user_profile_image(user: user, size: :medium), class: 'sidebar-image')
   end
 
   after_save do |user|
