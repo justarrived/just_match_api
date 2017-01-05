@@ -2,6 +2,8 @@
 
 HEAD
 -----------
+ - Add `temporary_residence_work` to `User::STATUSES` (137f2f6)
+ - Add `work_permit` to `UserImage::CATEGORIES`
 
 v0.7 - 2017-01-04
 -----------
