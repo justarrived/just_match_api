@@ -19,7 +19,7 @@ class UserImage < ApplicationRecord
   IMAGE_DEFAULT_URL = '/images/:style/missing.png'
   IMAGE_MAX_MB_SIZE = 8
 
-  has_attached_file :image, styles: IMAGE_STYLES, default_url: IMAGE_DEFAULT_URL
+  has_attached_file :image, styles: IMAGE_STYLES, default_url: IMAGE_DEFAULT_URL, s3_protocol: :https # rubocop:disable Metrics/LineLength
 
   validates :category, presence: true
   validates :image, attachment_presence: true

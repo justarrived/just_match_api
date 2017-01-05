@@ -1,5 +1,11 @@
 # frozen_string_literal: true
 module AdminHelper
+  def user_profile_image(user:, size: :medium)
+    user.user_images.
+      where(user: user, category: 'profile').
+      first&.image&.url(size)
+  end
+
   def user_tag_badges(user:)
     tag_links = user.tags.map { |tag| user_tag_badge(tag: tag) }
     safe_join(tag_links, ' ')
