@@ -41,9 +41,10 @@ class UserImage < ApplicationRecord
       user_image.user = user
       user_image.image = image
       user_image.category = category
-      user_image.save
 
       find_by(user: user, category: category)&.destroy! if user_image.valid?
+
+      user_image.save
     end
   end
 
