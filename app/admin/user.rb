@@ -420,7 +420,8 @@ ActiveAdmin.register User do
   end
 
   sidebar :profile_image, only: [:show, :edit] do
-    image_tag(user_profile_image(user: user, size: :medium), class: 'sidebar-image')
+    profile_image = user_profile_image(user: user, size: :medium)
+    image_tag(profile_image, class: 'sidebar-image') if profile_image
   end
 
   after_save do |user|
