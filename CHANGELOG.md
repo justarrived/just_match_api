@@ -16,7 +16,7 @@ v0.7
   + Add `User#arbetsformedlingen_registered_at` field
 - _Bugfix_: Don't allow password updates for `PATCH /api/v1/users/:id`
 - _API_: Add `User#account_clearing_number` and `User#account_number` to users response (502c53a)
-_ _Update_: Don't assume live Frilans Finans seed from Rails being in production mode (7531c90)
+- _Update_: Don't assume live Frilans Finans seed from Rails being in production mode (7531c90)
 
 v0.6
 -----------
