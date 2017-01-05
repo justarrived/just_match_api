@@ -2,8 +2,21 @@
 
 HEAD
 -----------
-- _Admin_: Update user admin show view
 
+v0.7
+-----------
+- _Admin_: Update user admin show view
+  + Add profile image to user show view [PR #774](https://github.com/justarrived/just_match_api/pull/774)
+  + Add user languages to user show view [PR #773](https://github.com/justarrived/just_match_api/pull/773)
+  + Update order of user fields and panels
+- _API_: JSONAPI compliant image upload / Don't upload images with using multipart [PR #771](https://github.com/justarrived/just_match_api/pull/771)
+- _Feature_: Additional user fields
+  + Add `User#interview_comment` field
+  + Add `User#{next_of_kin_name|next_of_kin_phone}` fields
+  + Add `User#arbetsformedlingen_registered_at` field
+- _Bugfix_: Don't allow password updates for `PATCH /api/v1/users/:id`
+- _API_: Add `User#account_clearing_number` and `User#account_number` to users response (502c53a)
+_ _Update_: Don't assume live Frilans Finans seed from Rails being in production mode (7531c90)
 
 v0.6
 -----------
