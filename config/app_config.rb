@@ -151,6 +151,6 @@ class AppConfig
   # private
 
   def self.truthy?(value)
-    [true, 'true', 'enabled', 'enable', 'yes', 'y'].include?(value&.strip)
+    [true, 'true', 'enabled', 'enable', 'yes', 'y'].include?(value)
   end
 end
