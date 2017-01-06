@@ -52,11 +52,11 @@ class AppConfig
   end
 
   def self.frilans_finans_active?
-    env['FRILANS_FINANS_ACTIVE'] == 'true'
+    truthy?(env['FRILANS_FINANS_ACTIVE'])
   end
 
   def self.validate_job_date_in_future_inactive?
-    env['VALIDATE_JOB_DATE_IN_FUTURE_INACTIVE'] == 'true'
+    truthy?(env['VALIDATE_JOB_DATE_IN_FUTURE_INACTIVE'])
   end
 
   def self.cors_whitelist
@@ -71,7 +71,7 @@ class AppConfig
   end
 
   def self.send_sms_notifications?
-    env.fetch('SEND_SMS_NOTIFICATIONS', 'true') == 'true'
+    truthy?(env.fetch('SEND_SMS_NOTIFICATIONS', true))
   end
 
   def self.app_host
@@ -79,7 +79,7 @@ class AppConfig
   end
 
   def self.validate_swedish_ssn
-    env.fetch('VALIDATE_SWEDISH_SSN', 'true') == 'true'
+    truthy?(env.fetch('VALIDATE_SWEDISH_SSN', true))
   end
 
   # Application config
@@ -141,10 +141,16 @@ class AppConfig
   end
 
   def self.rails_log_to_stdout?
-    env['RAILS_LOG_TO_STDOUT'].present?
+    truthy?(env['RAILS_LOG_TO_STDOUT'])
   end
 
   def self.rails_serve_static_files?
-    env['RAILS_SERVE_STATIC_FILES'] == 'enabled'
+    truthy?(env['RAILS_SERVE_STATIC_FILES'])
+  end
+
+  # private
+
+  def self.truthy?(value)
+    [true, 'true', 'enabled', 'enable', 'yes', 'y'].include?(value)
   end
 end
