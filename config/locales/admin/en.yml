@@ -85,6 +85,22 @@ en:
         tag_add_and_remove_not_uniq_notice: "You can't add and remove the same tag."
         tag_removed_notice: 'Removed "%{name}".'
         skill_added_notice: 'Added "%{name}" as skill'
+      form:
+        details: Details
+        competences: Competences
+        immigration_status: Immigration status
+        status_flags: Status flags
+        payment_attributes: Payment attributes
+        misc: Misc
+        create_user: Create user
+        language:
+          hint: Default language for user all notifications will be sent in this language.
+        managed:
+          hint: If checked the user will not receive any notification email, all emails will be re-routed to configured receiver.
+        banned:
+          hint: If checked the user will not be able to login and will see a message that they have been banned.
+        password:
+          hint: Warning this will reset the password
       show:
         verified: 'Verified: %{verified}'
         contact: Contact

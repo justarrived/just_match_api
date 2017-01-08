@@ -2,7 +2,9 @@
 require 'rails_helper'
 
 RSpec.describe SkillTranslation, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it 'has TranslationModel as an ancestor' do
+    expect(described_class.ancestors).to include(TranslationModel)
+  end
 end
 
 # == Schema Information
