@@ -52,7 +52,6 @@ module Api
       param :data, Hash, desc: 'Top level key', required: true do
         param :attributes, Hash, desc: 'User attributes', required: true do
           # rubocop:disable Metrics/LineLength
-          param :skill_ids, Array, of: 'Skill IDs', desc: 'List of skill ids'
           param :first_name, String, desc: 'First name', required: true
           param :last_name, String, desc: 'Last name', required: true
           param :description, String, desc: 'Description'
@@ -70,6 +69,10 @@ module Api
           param :language_ids, Array, of: Hash, desc: 'Languages that the user knows', required: true do
             param :id, Integer, desc: 'Language id', required: true
             param :proficiency, UserLanguage::PROFICIENCY_RANGE.to_a, desc: 'Language proficiency'
+          end
+          param :skill_ids, Array, of: Hash, desc: 'List of skill ids' do
+            param :id, Integer, desc: 'Skill id', required: true
+            param :proficiency, UserSkill::PROFICIENCY_RANGE.to_a, desc: 'Skill proficiency'
           end
           param :user_image_one_time_tokens, Array, of: 'UserImage one time tokens', desc: 'User image one time tokens'
           param :current_status, User::STATUSES.keys, desc: 'Current status'
@@ -99,8 +102,6 @@ module Api
             EnqueueCheapTranslation.call(result)
           end
 
-          @user.skills = Skill.where(id: user_params[:skill_ids])
-
           image_tokens = jsonapi_params[:user_image_one_time_tokens]
 
           deprecated_param_value = jsonapi_params[:user_image_one_time_token]
@@ -114,6 +115,9 @@ module Api
 
           language_ids = jsonapi_params[:language_ids]
           SetUserLanguagesService.call(user: @user, language_ids_param: language_ids)
+          skill_ids = jsonapi_params[:skill_ids]
+          SetUserSkillsService.call(user: @user, skill_ids_param: skill_ids)
+
           UserWelcomeNotifier.call(user: @user)
 
           api_render(@user, status: :created)
@@ -291,7 +295,7 @@ module Api
           :education, :ssn, :street, :zip, :language_id, :company_id,
           :competence_text, :current_status, :at_und, :arrived_at, :country_of_origin,
           :account_clearing_number, :account_number, :skype_username,
-          ignored_notifications: [], skill_ids: []
+          ignored_notifications: []
         ]
         jsonapi_params.permit(*whitelist)
       end

@@ -1,10 +1,9 @@
 # frozen_string_literal: true
 module SetUserLanguagesService
   def self.call(user:, language_ids_param:)
-    return [] if language_ids_param.nil?
-    user_languages_params = normalize_language_ids(language_ids_param)
-    return [] if user_languages_params.empty?
+    return UserLanguage.none if language_ids_param.nil? || language_ids_param.empty?
 
+    user_languages_params = normalize_language_ids(language_ids_param)
     user.user_languages = user_languages_params.map do |attrs|
       UserLanguage.new(language_id: attrs[:id], proficiency: attrs[:proficiency])
     end
@@ -12,7 +11,7 @@ module SetUserLanguagesService
 
   def self.normalize_language_ids(language_ids_param)
     language_ids_param.map do |language|
-      if language.is_a?(ActionController::Parameters) || language.is_a?(Hash)
+      if language.respond_to?(:permit)
         language.permit(:id, :proficiency)
       else
         message = [
