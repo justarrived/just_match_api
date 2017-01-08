@@ -2,7 +2,7 @@
 class UserSerializer < ApplicationSerializer
   # Since the #attributes method is overriden and provides a whitelist of attribute_names
   # that can be returned to the user we can return all User column names here
-  EXTRA_ATTRIBUTES = %i(ignored_notifications auth_token primary_role).freeze
+  EXTRA_ATTRIBUTES = %i(ignored_notifications primary_role).freeze
   attributes [
     :id, :email, :phone, :description, :created_at, :updated_at, :latitude, :longitude,
     :language_id, :anonymized, :password_hash, :password_salt, :admin, :street, :zip,
