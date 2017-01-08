@@ -136,11 +136,11 @@ RSpec.describe Api::V1::SkillsController, type: :controller do
     end
 
     context 'with invalid params' do
-      it 'returns 422' do
+      it 'returns 200' do
         allow_any_instance_of(User).to receive(:admin?).and_return(true)
         skill = FactoryGirl.create(:skill)
         put :update, params: { id: skill.to_param }.merge(invalid_attributes), headers: valid_session # rubocop:disable Metrics/LineLength
-        expect(response.status).to eq(422)
+        expect(response.status).to eq(200)
       end
     end
   end
