@@ -295,6 +295,10 @@ ActiveAdmin.register User do
       end
 
       f.inputs I18n.t('admin.user.form.competences') do
+        f.has_many :user_tags, allow_destroy: true, new_record: true do |ff|
+          ff.input :tag, as: :select, collection: Tag.all
+        end
+
         f.has_many :user_skills, allow_destroy: false, new_record: true do |ff|
           ff.semantic_errors(*ff.object.errors.keys)
 
@@ -520,8 +524,9 @@ ActiveAdmin.register User do
       :password, :language_id, :company_id, :managed, :frilans_finans_payment_details,
       :verified, :interview_comment, :banned,
       :language_ids, :skill_ids, ignored_notifications: [],
-      user_skills_attributes: [:skill_id, :proficiency, :proficiency_by_admin],
-      user_languages_attributes: [:language_id, :proficiency, :proficiency_by_admin]
+                                 user_skills_attributes: [:skill_id, :proficiency, :proficiency_by_admin], # rubocop:disable Metrics/LineLength
+                                 user_languages_attributes: [:language_id, :proficiency, :proficiency_by_admin], # rubocop:disable Metrics/LineLength
+                                 user_tags_attributes: [:id, :tag_id, :_destroy]
     ]
     UserPolicy::SELF_ATTRIBUTES + extras
   end
