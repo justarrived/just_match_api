@@ -108,7 +108,7 @@ RSpec.describe Api::V1::SkillsController, type: :controller do
         skill = FactoryGirl.create(:skill)
         put :update, params: { id: skill.to_param }.merge(new_attributes), headers: valid_session # rubocop:disable Metrics/LineLength
         skill.reload
-        expect(skill.name).to eq('New skill name')
+        expect(skill.original_name).to eq('New skill name')
       end
 
       it 'assigns the requested skill as @skill' do
@@ -136,18 +136,11 @@ RSpec.describe Api::V1::SkillsController, type: :controller do
     end
 
     context 'with invalid params' do
-      it 'assigns the skill as @skill' do
+      it 'returns 200' do
         allow_any_instance_of(User).to receive(:admin?).and_return(true)
         skill = FactoryGirl.create(:skill)
         put :update, params: { id: skill.to_param }.merge(invalid_attributes), headers: valid_session # rubocop:disable Metrics/LineLength
-        expect(assigns(:skill)).to eq(skill)
-      end
-
-      it 'returns 422' do
-        allow_any_instance_of(User).to receive(:admin?).and_return(true)
-        skill = FactoryGirl.create(:skill)
-        put :update, params: { id: skill.to_param }.merge(invalid_attributes), headers: valid_session # rubocop:disable Metrics/LineLength
-        expect(response.status).to eq(422)
+        expect(response.status).to eq(200)
       end
     end
   end

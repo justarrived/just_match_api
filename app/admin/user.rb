@@ -121,7 +121,7 @@ ActiveAdmin.register User do
   filter :phone
   filter :ssn
   filter :tags
-  filter :skills
+  filter :skills, collection: -> { Skill.with_translations }
   filter :language
   filter :company
   filter :frilans_finans_id

@@ -56,6 +56,8 @@ module Api
         @skill = Skill.new(skill_params)
 
         if @skill.save
+          @skill.set_translation(skill_params)
+
           api_render(@skill, status: :created)
         else
           api_render_errors(@skill)
@@ -79,6 +81,8 @@ module Api
         authorize(@skill)
 
         if @skill.update(skill_params)
+          @skill.set_translation(skill_params)
+
           api_render(@skill)
         else
           api_render_errors(@skill)
