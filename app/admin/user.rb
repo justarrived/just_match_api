@@ -179,7 +179,7 @@ ActiveAdmin.register User do
 
     h3 I18n.t('admin.user.show.contact')
     attributes_table do
-      row :image do |user|
+      row :image do
         profile_image = user_profile_image(user: user, size: :small)
 
         image_tag(profile_image) if profile_image

@@ -8,7 +8,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     {
       data: {
         attributes: {
-          skill_ids: [FactoryGirl.create(:skill).id],
+          skill_ids: [{ id: FactoryGirl.create(:skill).id, proficiency: 4 }],
           email: 'someone@example.com',
           first_name: 'Some user',
           last_name: 'name',
@@ -92,6 +92,18 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         expect do
           post :create, params: valid_attributes
         end.to change(User, :count).by(1)
+      end
+
+      it 'creates a new User with user skills' do
+        expect do
+          post :create, params: valid_attributes
+        end.to change(UserSkill, :count).by(1)
+      end
+
+      it 'creates a new User with user languages' do
+        expect do
+          post :create, params: valid_attributes
+        end.to change(UserLanguage, :count).by(1)
       end
 
       it 'assigns a newly created user as @user' do
