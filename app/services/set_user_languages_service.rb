@@ -13,6 +13,8 @@ module SetUserLanguagesService
     language_ids_param.map do |language|
       if language.respond_to?(:permit)
         language.permit(:id, :proficiency)
+      elsif language.is_a?(Hash)
+        language
       else
         message = [
           'Passing languages as a list of integers is deprecated.',
