@@ -1,7 +1,8 @@
+# frozen_string_literal: true
 FactoryGirl.define do
   factory :skill_translation do
-    name "MyString"
-    locale "MyString"
+    name 'MyString'
+    locale 'MyString'
     language nil
     skill nil
   end

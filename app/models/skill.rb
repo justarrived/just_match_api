@@ -8,10 +8,13 @@ class Skill < ApplicationRecord
   has_many :user_skills
   has_many :users, through: :user_skills
 
-  validates :name, uniqueness: true, length: { minimum: 3 }, allow_blank: false
+  validates :name, uniqueness: true, length: { minimum: 3 }, allow_blank: false, on: :create # rubocop:disable Metrics/LineLength
   validates :language, presence: true
 
   scope :visible, -> { where(internal: false) }
+
+  include Translatable
+  translates :name
 
   def self.to_form_array(include_blank: false)
     form_array = order(:name).pluck(:name, :id)
