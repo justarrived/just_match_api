@@ -40,7 +40,7 @@ module AdminHelper
       proficiency_by_admin = user_skill.proficiency_by_admin || '-'
       html_parts = [
         name,
-        ' &nbsp; '.html_safe,
+        nbsp_html,
         "(#{proficiency}/#{proficiency_by_admin})"
       ]
       name = safe_join(html_parts, ' ')
@@ -69,7 +69,7 @@ module AdminHelper
       proficiency_by_admin = user_language.proficiency_by_admin || '-'
       html_parts = [
         name,
-        ' &nbsp; '.html_safe,
+        nbsp_html,
         "(#{proficiency}/#{proficiency_by_admin})"
       ]
       name = safe_join(html_parts, ' ')
@@ -89,5 +89,9 @@ module AdminHelper
       class: 'user-badge-tag-link',
       style: "background-color: #{color}"
     )
+  end
+
+  def nbsp_html
+    ' &nbsp; '.html_safe # rubocop:disable Rails/OutputSafety
   end
 end
