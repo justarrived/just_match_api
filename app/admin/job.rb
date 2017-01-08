@@ -50,6 +50,7 @@ ActiveAdmin.register Job do
   filter :upcoming
   filter :cancelled
   filter :hidden
+  filter :skills, collection: -> { Skill.with_translations }
   filter :hourly_pay
   filter :translations_description_cont, as: :string, label: I18n.t('admin.job.description') # rubocop:disable Metrics/LineLength
   filter :translations_short_description_cont, as: :string, label: I18n.t('admin.job.short_description') # rubocop:disable Metrics/LineLength
