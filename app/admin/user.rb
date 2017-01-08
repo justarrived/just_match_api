@@ -68,7 +68,7 @@ ActiveAdmin.register User do
   batch_action :add_user_skill, form: lambda {
     {
       add_skill: Skill.to_form_array(include_blank: true),
-      proficiency_by_admin: ['-', nil] + UserSkill::PROFICIENCY_ADMIN_RANGE.to_a
+      proficiency_by_admin: ['-', nil] + UserSkill::PROFICIENCY_RANGE.to_a
     }
   } do |ids, inputs|
     add_skill = inputs['add_skill']
@@ -134,7 +134,7 @@ ActiveAdmin.register User do
   filter :created_at
   # rubocop:disable Metrics/LineLength
   filter :user_skills_proficiency_gteq, as: :select, collection: [nil, nil] + UserSkill::PROFICIENCY_RANGE.to_a
-  filter :user_skills_proficiency_by_admin_gteq, as: :select, collection: [nil, nil] + UserSkill::PROFICIENCY_ADMIN_RANGE.to_a
+  filter :user_skills_proficiency_by_admin_gteq, as: :select, collection: [nil, nil] + UserSkill::PROFICIENCY_RANGE.to_a
   filter :translations_description_cont, as: :string, label: I18n.t('admin.user.description')
   filter :translations_education_cont, as: :string, label: I18n.t('admin.user.education')
   filter :translations_competence_text_cont, as: :string, label: I18n.t('admin.user.competence_text')
@@ -277,10 +277,91 @@ ActiveAdmin.register User do
   end
 
   form do |f|
-    f.semantic_errors # shows errors on :base
-    f.inputs          # builds an input field for every attribute
-    f.input :password
-    f.actions         # adds the 'Submit' and 'Cancel' buttons
+    f.semantic_errors
+
+    if user.persisted?
+      f.inputs I18n.t('admin.user.form.details') do
+        f.input :email
+        f.input :password, hint: I18n.t('admin.user.form.password.hint')
+        f.input :first_name
+        f.input :last_name
+        f.input :language, hint: I18n.t('admin.user.form.language.hint')
+        f.input :phone
+        f.input :ssn
+        f.input :street
+        f.input :zip
+        f.input :skype_username
+        f.input :description
+      end
+
+      f.inputs I18n.t('admin.user.form.competences') do
+        f.has_many :user_skills, allow_destroy: false, new_record: true do |ff|
+          ff.semantic_errors(*ff.object.errors.keys)
+
+          ff.input :skill, as: :select, collection: Skill.with_translations
+          ff.input :proficiency, as: :select, collection: UserSkill::PROFICIENCY_RANGE
+          ff.input :proficiency_by_admin, as: :select, collection: UserSkill::PROFICIENCY_RANGE # rubocop:disable Metrics/LineLength
+        end
+
+        f.has_many :user_languages, allow_destroy: false, new_record: true do |ff|
+          ff.semantic_errors(*ff.object.errors.keys)
+
+          ff.input :language, as: :select, collection: Language.all
+          ff.input :proficiency, as: :select, collection: UserLanguage::PROFICIENCY_RANGE
+          ff.input :proficiency_by_admin, as: :select, collection: UserLanguage::PROFICIENCY_RANGE # rubocop:disable Metrics/LineLength
+        end
+
+        f.input :job_experience
+        f.input :education
+        f.input :competence_text
+        f.input :interview_comment
+      end
+
+      f.inputs I18n.t('admin.user.form.immigration_status') do
+        f.input :current_status
+        f.input :at_und
+        f.input :arrived_at
+        f.input :country_of_origin
+        f.input :arbetsformedlingen_registered_at
+      end
+
+      f.inputs I18n.t('admin.user.form.status_flags') do
+        f.input :verified
+        f.input :admin
+        f.input :anonymized
+        f.input :banned, hint: I18n.t('admin.user.form.banned.hint')
+        f.input :managed, hint: I18n.t('admin.user.form.managed.hint')
+      end
+
+      f.inputs I18n.t('admin.user.form.payment_attributes') do
+        f.input :account_clearing_number
+        f.input :account_number
+        f.input :frilans_finans_payment_details
+      end
+
+      f.inputs I18n.t('admin.user.form.misc') do
+        f.input :company
+        f.input :next_of_kin_name
+        f.input :next_of_kin_phone
+        f.input :ignored_notifications, as: :select, collection: User::NOTIFICATIONS, multiple: true # rubocop:disable Metrics/LineLength
+      end
+    else
+      f.inputs I18n.t('admin.user.form.create_user') do
+        f.input :email
+        f.input :password
+        f.input :first_name
+        f.input :last_name
+        f.input :language
+        f.input :company
+        f.input :phone
+        f.input :ssn
+        f.input :street
+        f.input :zip
+        f.input :skype_username
+      end
+    end
+
+    f.actions
   end
 
   include AdminHelpers::MachineTranslation::Actions
@@ -437,7 +518,10 @@ ActiveAdmin.register User do
   permit_params do
     extras = [
       :password, :language_id, :company_id, :managed, :frilans_finans_payment_details,
-      :verified, :interview_comment
+      :verified, :interview_comment, :banned,
+      :language_ids, :skill_ids, ignored_notifications: [],
+      user_skills_attributes: [:skill_id, :proficiency, :proficiency_by_admin],
+      user_languages_attributes: [:language_id, :proficiency, :proficiency_by_admin]
     ]
     UserPolicy::SELF_ATTRIBUTES + extras
   end
@@ -445,6 +529,32 @@ ActiveAdmin.register User do
   controller do
     def scoped_collection
       super.includes(:tags)
+    end
+
+    def update_resource(user, params_array)
+      user_params = params_array.first
+
+      user_skills_attrs = user_params.delete(:user_skills_attributes)
+      skill_ids_param = (user_skills_attrs || {}).map do |_index, attrs|
+        {
+          id: attrs[:skill_id],
+          proficiency: attrs[:proficiency],
+          proficiency_by_admin: attrs[:proficiency_by_admin]
+        }
+      end
+      SetUserSkillsService.call(user: user, skill_ids_param: skill_ids_param)
+
+      user_languages_attrs = user_params.delete(:user_languages_attributes)
+      language_ids_param = (user_languages_attrs || {}).map do |_index, attrs|
+        {
+          id: attrs[:language_id],
+          proficiency: attrs[:proficiency],
+          proficiency_by_admin: attrs[:proficiency_by_admin]
+        }
+      end
+
+      SetUserLanguagesService.call(user: user, language_ids_param: language_ids_param)
+      super
     end
 
     def find_resource

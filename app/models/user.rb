@@ -101,6 +101,9 @@ class User < ApplicationRecord
   include Translatable
   translates :description, :job_experience, :education, :competence_text
 
+  # NOTE: This is necessary for nested activeadmin has_many form
+  accepts_nested_attributes_for :user_skills, :user_languages
+
   # Don't change the order or remove any items in the array,
   # only additions are allowed
   NOTIFICATIONS = %w(

@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 class UserSkill < ApplicationRecord
   PROFICIENCY_RANGE = 1..7
-  PROFICIENCY_ADMIN_RANGE = 1..7
 
   belongs_to :user
   belongs_to :skill
@@ -24,6 +23,14 @@ class UserSkill < ApplicationRecord
 
   def self.safe_destroy(skill:, user:)
     find_by(user: user, skill: skill)&.destroy!
+  end
+
+  def display_name
+    "##{id} #{skill.name}"
+  end
+
+  def name
+    display_name
   end
 
   def touched_by_admin?
