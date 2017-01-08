@@ -2,8 +2,16 @@
 
 HEAD
 -----------
- - Add `temporary_residence_work` to `User::STATUSES` (137f2f6)
- - Add `work_permit` to `UserImage::CATEGORIES`
+
+v0.8 - 2017-01-08
+-----------
+- _Admin_: Add custom user form [PR #781](https://github.com/justarrived/just_match_api/pull/781)
+  + Custom new/edit forms
+  + Ability add/remove `has_many` relations (`UserSkill`, `UserLanguage`, `UserTags`)
+- Add skill translation support [PR #780](https://github.com/justarrived/just_match_api/pull/780)
+- Add `Skill#proficiency` and `Skill#proficiency_by_admin` support to admin and API [PR #779](https://github.com/justarrived/just_match_api/pull/779)
+- Add `temporary_residence_work` to `User::STATUSES` (137f2f6)
+- Add `work_permit` to `UserImage::CATEGORIES`
 
 v0.7 - 2017-01-04
 -----------
