@@ -18,7 +18,7 @@ RSpec.describe Skill, type: :model do
       end
 
       it 'returns skill array' do
-        skill = FactoryGirl.create(:skill)
+        skill = FactoryGirl.create(:skill_with_translation)
         skill_array = described_class.to_form_array(include_blank: false)
         expect(skill_array).to eq([[skill.name, skill.id]])
       end
@@ -33,7 +33,7 @@ RSpec.describe Skill, type: :model do
       end
 
       it 'returns skill array' do
-        skill = FactoryGirl.create(:skill)
+        skill = FactoryGirl.create(:skill_with_translation)
         skill_array = described_class.to_form_array(include_blank: true)
         expect(skill_array).to eq([[label, nil], [skill.name, skill.id]])
       end
