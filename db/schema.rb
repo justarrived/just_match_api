@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170104113053) do
+ActiveRecord::Schema.define(version: 20170108181325) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -108,8 +108,8 @@ ActiveRecord::Schema.define(version: 20170104113053) do
 
   create_table "comments", force: :cascade do |t|
     t.text     "body"
-    t.integer  "commentable_id"
     t.string   "commentable_type"
+    t.integer  "commentable_id"
     t.integer  "owner_user_id"
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
@@ -394,6 +394,17 @@ ActiveRecord::Schema.define(version: 20170104113053) do
     t.index ["job_id", "to_user_id"], name: "index_ratings_on_job_id_and_to_user_id", unique: true, using: :btree
   end
 
+  create_table "skill_translations", force: :cascade do |t|
+    t.string   "name"
+    t.string   "locale"
+    t.integer  "language_id"
+    t.integer  "skill_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["language_id"], name: "index_skill_translations_on_language_id", using: :btree
+    t.index ["skill_id"], name: "index_skill_translations_on_skill_id", using: :btree
+  end
+
   create_table "skills", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at",                  null: false
@@ -597,6 +608,8 @@ ActiveRecord::Schema.define(version: 20170104113053) do
   add_foreign_key "ratings", "jobs", name: "ratings_job_id_fk"
   add_foreign_key "ratings", "users", column: "from_user_id", name: "ratings_from_user_id_fk"
   add_foreign_key "ratings", "users", column: "to_user_id", name: "ratings_to_user_id_fk"
+  add_foreign_key "skill_translations", "languages"
+  add_foreign_key "skill_translations", "skills"
   add_foreign_key "skills", "languages"
   add_foreign_key "terms_agreement_consents", "jobs"
   add_foreign_key "terms_agreement_consents", "terms_agreements"
