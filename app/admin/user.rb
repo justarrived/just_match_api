@@ -357,6 +357,7 @@ ActiveAdmin.register User do
         f.input :last_name
         f.input :language
         f.input :company
+        f.input :managed, hint: I18n.t('admin.user.form.managed.hint')
         f.input :phone
         f.input :ssn
         f.input :street
