@@ -3,6 +3,16 @@
 HEAD
 -----------
 
+v0.9 - 2017-01-09
+-----------
+- Update `UserSkill` proficiency range to be 1..5 instead of 1..7
+- _Admin_: Admin: Add `User#managed` to user create form
+- Add student_visa to `User::STATUSES`
+- Remove `User#auth_token` from users endpoint
+- _API_: :hocho: jobs index N+1 query for owner translations :rocket:
+- _Admin_: Order language select by name in user form
+
+
 v0.8 - 2017-01-08
 -----------
 - _Admin_: Add custom user form [PR #781](https://github.com/justarrived/just_match_api/pull/781)
