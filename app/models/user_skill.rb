@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class UserSkill < ApplicationRecord
-  PROFICIENCY_RANGE = 1..7
+  PROFICIENCY_RANGE = 1..5
 
   belongs_to :user
   belongs_to :skill
