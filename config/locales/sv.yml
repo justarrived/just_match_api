@@ -86,6 +86,10 @@ sv:
       asylum_seeker_description: Asylsökande
       permanent_residence: Permanent uppehållstillstånd
       permanent_residence_description: Permanent uppehållstillstånd
+      temporary_residence_work: Tidsbegränsat uppehållstillstånd
+      temporary_residence_work_description: 'Tidsbegränsat uppehållstillstånd'
+      student_visa: Student visa
+      student_visa_description: Du har ett svenskt student visum
   notifications:
     accepted_applicant_confirmation_overdue: Den accepterade användarens konfirmationsperiod har gått ut
     accepted_applicant_withdrawn: Den accepterade användaren har dragit tillbaka sin ansökan
