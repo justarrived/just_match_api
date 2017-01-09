@@ -63,6 +63,14 @@ class UserSerializer < ApplicationSerializer
     link(:related) { api_v1_user_chats_url(object.id) }
   end
 
+  has_many :skills, unless: :collection_serializer? do
+    link(:related) { api_v1_user_skills_url(object.id) }
+  end
+
+  has_many :user_skills, unless: :collection_serializer? do
+    link(:related) { api_v1_user_skills_url(object.id) }
+  end
+
   def attributes(_)
     data = super
 

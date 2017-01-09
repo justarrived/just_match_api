@@ -2,6 +2,8 @@
 class UserSkillSerializer < ApplicationSerializer
   belongs_to :user
   belongs_to :skill
+
+  attributes :proficiency
 end
 
 # == Schema Information
