@@ -118,7 +118,7 @@ module Api
           skill_ids = jsonapi_params[:skill_ids]
           SetUserSkillsService.call(user: @user, skill_ids_param: skill_ids)
 
-          UserWelcomeNotifier.call(user: @user)
+          UserWelcomeNotifier.call(user: @user) if @user.candidate?
 
           api_render(@user, status: :created)
         else
