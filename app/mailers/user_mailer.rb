@@ -5,7 +5,7 @@ class UserMailer < ApplicationMailer
 
     @faqs_url = FrontendRouter.draw(:faqs)
     @login_url = FrontendRouter.draw(:login)
-    @cv_template_url = AppConfig.cv_template_url(utm_medium: :email)
+    @cv_template_url = AppConfig.cv_template_url
 
     mail(to: user.contact_email, subject: I18n.t('mailer.welcome.subject'))
   end
