@@ -181,6 +181,8 @@ ActiveAdmin.register Job do
     h3 I18n.t('admin.job.show.relations')
     attributes_table do
       row :owner
+      row :company_contact
+      row :just_arrived_contact
       row :category
       row :language
     end
@@ -200,7 +202,8 @@ ActiveAdmin.register Job do
 
   permit_params do
     extras = [
-      :cancelled, :language_id, :hourly_pay_id, :category_id, :owner_user_id, :hidden
+      :cancelled, :language_id, :hourly_pay_id, :category_id, :owner_user_id, :hidden,
+      :company_contact_user_id, :just_arrived_contact_user_id
     ]
     JobPolicy::FULL_ATTRIBUTES + extras
   end

@@ -315,10 +315,10 @@ ActiveAdmin.register User do
           ff.input :proficiency_by_admin, as: :select, collection: UserLanguage::PROFICIENCY_RANGE # rubocop:disable Metrics/LineLength
         end
 
+        f.input :interview_comment
         f.input :job_experience
         f.input :education
         f.input :competence_text
-        f.input :interview_comment
       end
 
       f.inputs I18n.t('admin.user.form.immigration_status') do

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170108181325) do
+ActiveRecord::Schema.define(version: 20170110171331) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -316,8 +316,8 @@ ActiveRecord::Schema.define(version: 20170108181325) do
     t.datetime "job_date"
     t.float    "hours"
     t.string   "name"
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
     t.integer  "owner_user_id"
     t.float    "latitude"
     t.float    "longitude"
@@ -326,16 +326,18 @@ ActiveRecord::Schema.define(version: 20170108181325) do
     t.string   "zip"
     t.float    "zip_latitude"
     t.float    "zip_longitude"
-    t.boolean  "hidden",            default: false
+    t.boolean  "hidden",                       default: false
     t.integer  "category_id"
     t.integer  "hourly_pay_id"
-    t.boolean  "verified",          default: false
+    t.boolean  "verified",                     default: false
     t.datetime "job_end_date"
-    t.boolean  "cancelled",         default: false
-    t.boolean  "filled",            default: false
+    t.boolean  "cancelled",                    default: false
+    t.boolean  "filled",                       default: false
     t.string   "short_description"
-    t.boolean  "featured",          default: false
-    t.boolean  "upcoming",          default: false
+    t.boolean  "featured",                     default: false
+    t.boolean  "upcoming",                     default: false
+    t.integer  "company_contact_user_id"
+    t.integer  "just_arrived_contact_user_id"
     t.index ["category_id"], name: "index_jobs_on_category_id", using: :btree
     t.index ["hourly_pay_id"], name: "index_jobs_on_hourly_pay_id", using: :btree
     t.index ["language_id"], name: "index_jobs_on_language_id", using: :btree
@@ -599,6 +601,8 @@ ActiveRecord::Schema.define(version: 20170108181325) do
   add_foreign_key "jobs", "categories"
   add_foreign_key "jobs", "hourly_pays"
   add_foreign_key "jobs", "languages"
+  add_foreign_key "jobs", "users", column: "company_contact_user_id", name: "jobs_company_contact_user_id_fk"
+  add_foreign_key "jobs", "users", column: "just_arrived_contact_user_id", name: "jobs_just_arrived_contact_user_id_fk"
   add_foreign_key "jobs", "users", column: "owner_user_id", name: "jobs_owner_user_id_fk"
   add_foreign_key "message_translations", "languages"
   add_foreign_key "message_translations", "messages"
