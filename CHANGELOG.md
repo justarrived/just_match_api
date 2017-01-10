@@ -3,6 +3,18 @@
 HEAD
 -----------
 
+v0.10 - 2017-01-10
+-----------
+- _Admin_: Add Job company & Just Arrived contact
+- _Admin_: Remove `User#frilans_finans_payment_details` from admin user form
+- _API_: Add filter by language name support for all locales
+- _API_: Allow setting skills on `PATCH /users/:id`
+- _API_: Set reset password token expiry time to 2 hours
+- _API_: Add `user_skills.skill` to allowed includes for users endpoint
+- _API_: User status endpoint I18n
+- _API_: Add country code filter for `GET /countries` endpoint
+- _API_: Add `UserSkills` and `Skills` to user endpoint
+
 v0.9 - 2017-01-09
 -----------
 - Update `UserSkill` proficiency range to be 1..5 instead of 1..7
