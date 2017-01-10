@@ -2,7 +2,7 @@
 require 'rails_helper'
 
 RSpec.describe UserMailer, type: :mailer do
-  let(:user) { mock_model User, first_name: 'User', name: 'User', contact_email: 'user@example.com' }
+  let(:user) { mock_model User, first_name: 'User', name: 'User', contact_email: 'user@example.com' } # disable:rubocop Metrics/LineLength
   let(:owner) { mock_model User, name: 'Owner', contact_email: 'owner@example.com' }
   let(:job) { mock_model Job, name: 'Job name' }
 
