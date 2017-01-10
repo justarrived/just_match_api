@@ -1,6 +1,9 @@
-<%= I18n.t('mailer.invoice_created.congrats_line', name: @user_name) %>
-<%= I18n.t('mailer.invoice_created.performed_line', name: @owner_name) %>
-<%= I18n.t('mailer.invoice_created.job_line', name: @job_name) %>
-<%= I18n.t('mailer.invoice_created.contact_line', email: @owner_email) %>
+<%= I18n.t(
+  'mailer.invoice_created.body',
+  name: @user_name,
+  job_name: @job_name,
+  payslip_explain_url: @payslip_explain_url,
+  support_email: @support_email
+) %>
 
 <%= I18n.t('mailer.signoff') %>

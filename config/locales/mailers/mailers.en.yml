@@ -56,11 +56,18 @@ en:
       performed_line: "%{name} has verified that the job you ordered is performed."
       subject: A job you ordered has been completed.
     invoice_created:
-      congrats_line: Hi %{name}!
-      contact_line: Please make sure to rate how you enjoyed working for the employer.
-      job_line: 'The job you performed was: %{name}.'
-      performed_line: "%{name} has verified that you've performed the job."
-      subject: A job you performed is now completed
+      subject: Upcoming salary
+      body: |
+        Hi %{name}!
+
+        Today the invoice for your job “%{job_name}” was created. This means that you should have your salary on your account within two weeks.
+
+        You will also receive a specification of your salary from Frilans Finans. If you want help with understanding what all the different numbers are, please read this explaining document: %{payslip_explain_url}.
+
+        Contact us at %{support_email} if questions or problems arise.
+
+        Have you made sure to rate your work experience on Just Arrived, and told us of your experience?
+        Remember, your experience is important to us!
     magic_login_link:
       subject: Magic sign-in link
       login_line: To login to Just Arrived use the link %{url}

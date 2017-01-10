@@ -5,6 +5,7 @@ class InvoiceMailer < ApplicationMailer
     @owner_name = owner.name
     @owner_email = owner.contact_email
     @job_name = job.name
+    @payslip_explain_url = AppConfig.payslip_explain_url
 
     subject = I18n.t('mailer.invoice_created.subject')
     mail(to: user.contact_email, subject: subject)

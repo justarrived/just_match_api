@@ -18,6 +18,10 @@ class AppConfig
     'api.justarrived.se'
   end
 
+  def self.payslip_explain_url
+    'http://justarrived.se/payslip/'
+  end
+
   def self.support_email
     'support@justarrived.se'
   end
