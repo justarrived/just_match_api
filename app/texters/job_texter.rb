@@ -5,6 +5,7 @@ class JobTexter < ApplicationTexter
     job = job_user.job
     @user_name = user.name
     @job_name = job.name
+    @confirmation_time_hours = JobUser::MAX_CONFIRMATION_TIME_HOURS
 
     @job_user_url = FrontendRouter.draw(:job_user, job_id: job.id)
     text(to: user.phone, template: 'job_texter/applicant_accepted_text')

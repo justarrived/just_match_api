@@ -54,13 +54,14 @@ class JobMailer < ApplicationMailer
     @user_name = user.first_name
     @owner_email = owner.contact_email
     @job_name = job.name
-    @job_start_date = job.job_date
-    @job_end_date = job.job_end_date
+    @job_start_date = TimeZone.cest_time(job.job_date)
+    @job_end_date = TimeZone.cest_time(job.job_end_date)
     @total_hours = job.hours
     @hourly_gross_salary = job.hourly_gross_salary
     @total_salary = job.gross_amount
     @job_address = job.address
     @confirmation_time_hours = JobUser::MAX_CONFIRMATION_TIME_HOURS
+    @google_calendar_url = job.google_calendar_template_url
 
     @job_user_url = FrontendRouter.draw(:job_user, job_id: job.id)
 

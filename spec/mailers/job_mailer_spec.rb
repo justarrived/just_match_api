@@ -161,7 +161,7 @@ RSpec.describe JobMailer, type: :mailer do
     end
 
     it 'includes @user_name in email body' do
-      expect(mail).to match_email_body(user.name)
+      expect(mail).to match_email_body(user.first_name)
     end
 
     it 'includes @owner_email in email body' do

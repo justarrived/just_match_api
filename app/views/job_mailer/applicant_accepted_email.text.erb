@@ -9,7 +9,8 @@
   total_salary: @total_salary,
   address: @job_address,
   confirmation_time_hours: @confirmation_time_hours,
-  job_user_url: link_to(@job_user_url, @job_user_url)
+  job_user_url: @job_user_url,
+  google_calendar_url: nil
 ).html_safe %>
 
 <p><%= I18n.t('mailer.signoff') %></p>

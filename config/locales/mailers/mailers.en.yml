@@ -17,6 +17,9 @@ en:
       explaination: You can contact %{name} through the chat in My jobs, on %{phone} or %{email} if you want to provide more information or details about the job.
     applicant_accepted:
       subject: Congrats you've received a new job offer! Please confirm the job.
+      sms: |
+        New job offer!
+        You need to confirm, within %{confirmation_time_hours} if you want the job “%{job_name}”, go to %{job_user_url} to confirm. Please note that this is an agreement that you sign by confirming.
       body: |
           Hi %{user_name}!
 
@@ -24,7 +27,7 @@ en:
           Please observe that if you confirm you have signed an agreement, so make sure you read the following information about the job carefully first:
 
           The job: %{job_name}
-          When: %{job_start_date} - %{job_end_date}
+          When: %{job_start_date} - %{job_end_date} %{google_calendar_url}
           Hours: %{total_hours}
           Salary: %{hourly_gross_salary} kr/h before tax
           Total salary: %{total_salary} kr/h before tax
@@ -113,4 +116,5 @@ en:
         The most important thing is to login and apply often. The earlier you apply for a job the better!
         Keep your profile updated! Every skill or piece of information matters. We are sure that there are some things that you’re good at that you haven’t told us about yet!
         If anything’s unclear, or if you need help, please do not hesitate to contact us at %{support_email} or check out our %{faq_link}.
+    google_calendar_link_name: Add to Google Calendar
     signoff: "/ Team Just Arrived"
