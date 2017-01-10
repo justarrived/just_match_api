@@ -151,6 +151,10 @@ module Api
             param :id, Integer, desc: 'Language id', required: true
             param :proficiency, UserLanguage::PROFICIENCY_RANGE.to_a, desc: 'Language proficiency'
           end
+          param :skill_ids, Array, of: Hash, desc: 'List of skill ids' do
+            param :id, Integer, desc: 'Skill id', required: true
+            param :proficiency, UserSkill::PROFICIENCY_RANGE.to_a, desc: 'Skill proficiency'
+          end
           param :company_id, Integer, desc: 'Company id for user'
           param :user_image_one_time_token, String, desc: '_DEPRECATED_ User image one time token'
           param :current_status, User::STATUSES.keys, desc: 'Current status'
@@ -179,6 +183,8 @@ module Api
 
           language_ids = jsonapi_params[:language_ids]
           SetUserLanguagesService.call(user: @user, language_ids_param: language_ids)
+          skill_ids = jsonapi_params[:skill_ids]
+          SetUserSkillsService.call(user: @user, skill_ids_param: skill_ids)
 
           @user.profile_image_token = jsonapi_params[:user_image_one_time_token]
 
