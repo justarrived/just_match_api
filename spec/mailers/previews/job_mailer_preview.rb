@@ -21,6 +21,10 @@ class JobMailerPreview < ActionMailer::Preview
     JobMailer.applicant_will_perform_email(job_user: job_user, owner: owner)
   end
 
+  def applicant_rejected_email
+    JobMailer.applicant_rejected_email(job_user: job_user)
+  end
+
   def accepted_applicant_withdrawn_email
     JobMailer.accepted_applicant_withdrawn_email(job_user: job_user, owner: owner)
   end
