@@ -6,6 +6,12 @@ FactoryGirl.define do
     end
     association :language
 
+    factory :skill_with_translation do
+      after(:create) do |skill, _evaluator|
+        skill.set_translation(name: skill.name)
+      end
+    end
+
     factory :skill_for_docs do
       id 1
       name 'Carpenter'
@@ -24,6 +30,8 @@ end
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  language_id :integer
+#  internal    :boolean          default(FALSE)
+#  color       :string
 #
 # Indexes
 #

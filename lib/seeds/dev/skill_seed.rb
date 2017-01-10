@@ -10,9 +10,19 @@ module Dev
 
       log_seed(Skill) do
         max_skills.times do |n|
-          Skill.create!(name: "#{Faker::Name.title} #{n}", language: language)
+          name = "#{Faker::Name.title} #{n}"
+          skill = Skill.create!(
+            name: name,
+            language: language,
+            color: random_color
+          )
+          skill.set_translation(name: name)
         end
       end
+    end
+
+    def self.random_color
+      format('#' + '%06x', (rand * 0xffffff))
     end
   end
 end

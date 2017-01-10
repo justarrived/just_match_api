@@ -182,7 +182,7 @@ module Api
         end
 
         if included_resource?(:owner)
-          base_scope = base_scope.includes(owner: [:user_images])
+          base_scope = base_scope.includes(owner: [:user_images, :translations])
         end
 
         base_scope

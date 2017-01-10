@@ -2,13 +2,13 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::UsersController, type: :controller do
-  let(:lang_proficiency) { 8 }
+  let(:lang_proficiency) { 4 }
   let(:valid_attributes) do
     lang_id = Language.find_or_create_by!(lang_code: 'en').id
     {
       data: {
         attributes: {
-          skill_ids: [FactoryGirl.create(:skill).id],
+          skill_ids: [{ id: FactoryGirl.create(:skill).id, proficiency: 4 }],
           email: 'someone@example.com',
           first_name: 'Some user',
           last_name: 'name',
@@ -92,6 +92,18 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         expect do
           post :create, params: valid_attributes
         end.to change(User, :count).by(1)
+      end
+
+      it 'creates a new User with user skills' do
+        expect do
+          post :create, params: valid_attributes
+        end.to change(UserSkill, :count).by(1)
+      end
+
+      it 'creates a new User with user languages' do
+        expect do
+          post :create, params: valid_attributes
+        end.to change(UserLanguage, :count).by(1)
       end
 
       it 'assigns a newly created user as @user' do
@@ -356,6 +368,68 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     end
   end
 
+  describe 'POST #images' do
+    let(:category) { UserImage::CATEGORIES.keys.last }
+    let(:valid_attributes) do
+      {
+        data: {
+          attributes: {
+            category: category,
+            image: TestImageFileReader.image
+          }
+        }
+      }
+    end
+
+    let(:invalid_attributes) do
+      {}
+    end
+
+    context 'with valid params' do
+      it 'saves user image' do
+        post :images, params: valid_attributes
+        expect(assigns(:user_image)).to be_persisted
+      end
+
+      it 'returns 201 accepted status' do
+        post :images, params: valid_attributes
+        expect(response.status).to eq(201)
+      end
+
+      it 'assigns the user image category' do
+        post :images, params: valid_attributes
+        user_image = assigns(:user_image)
+        expect(user_image.category).to eq(category.to_s)
+      end
+
+      it 'assigns the default user image category if none given' do
+        attrs = valid_attributes.dup
+        attrs[:data][:attributes][:category] = nil
+
+        post :images, params: attrs, headers: {}
+        user_image = assigns(:user_image)
+        expect(user_image.category).to eq(user_image.default_category)
+      end
+
+      context 'DEPRECATED' do
+        it 'assigns the default user image category if none given' do
+          attrs = { image: TestImageFileReader.image_file }
+
+          post :images, params: attrs, headers: {}
+          user_image = assigns(:user_image)
+          expect(user_image.category).to eq(user_image.default_category)
+        end
+      end
+    end
+
+    context 'with invalid params' do
+      it 'returns 422 accepted status' do
+        post :images, params: invalid_attributes
+        expect(response.status).to eq(422)
+      end
+    end
+  end
+
   describe 'GET #matching_jobs' do
     it 'returns 200 status for admin user' do
       user = FactoryGirl.create(:user)
@@ -419,45 +493,49 @@ end
 #
 # Table name: users
 #
-#  id                             :integer          not null, primary key
-#  email                          :string
-#  phone                          :string
-#  description                    :text
-#  created_at                     :datetime         not null
-#  updated_at                     :datetime         not null
-#  latitude                       :float
-#  longitude                      :float
-#  language_id                    :integer
-#  anonymized                     :boolean          default(FALSE)
-#  password_hash                  :string
-#  password_salt                  :string
-#  admin                          :boolean          default(FALSE)
-#  street                         :string
-#  zip                            :string
-#  zip_latitude                   :float
-#  zip_longitude                  :float
-#  first_name                     :string
-#  last_name                      :string
-#  ssn                            :string
-#  company_id                     :integer
-#  banned                         :boolean          default(FALSE)
-#  job_experience                 :text
-#  education                      :text
-#  one_time_token                 :string
-#  one_time_token_expires_at      :datetime
-#  ignored_notifications_mask     :integer
-#  frilans_finans_id              :integer
-#  frilans_finans_payment_details :boolean          default(FALSE)
-#  competence_text                :text
-#  current_status                 :integer
-#  at_und                         :integer
-#  arrived_at                     :date
-#  country_of_origin              :string
-#  managed                        :boolean          default(FALSE)
-#  account_clearing_number        :string
-#  account_number                 :string
-#  verified                       :boolean          default(FALSE)
-#  skype_username                 :string
+#  id                               :integer          not null, primary key
+#  email                            :string
+#  phone                            :string
+#  description                      :text
+#  created_at                       :datetime         not null
+#  updated_at                       :datetime         not null
+#  latitude                         :float
+#  longitude                        :float
+#  language_id                      :integer
+#  anonymized                       :boolean          default(FALSE)
+#  password_hash                    :string
+#  password_salt                    :string
+#  admin                            :boolean          default(FALSE)
+#  street                           :string
+#  zip                              :string
+#  zip_latitude                     :float
+#  zip_longitude                    :float
+#  first_name                       :string
+#  last_name                        :string
+#  ssn                              :string
+#  company_id                       :integer
+#  banned                           :boolean          default(FALSE)
+#  job_experience                   :text
+#  education                        :text
+#  one_time_token                   :string
+#  one_time_token_expires_at        :datetime
+#  ignored_notifications_mask       :integer
+#  frilans_finans_id                :integer
+#  frilans_finans_payment_details   :boolean          default(FALSE)
+#  competence_text                  :text
+#  current_status                   :integer
+#  at_und                           :integer
+#  arrived_at                       :date
+#  country_of_origin                :string
+#  managed                          :boolean          default(FALSE)
+#  account_clearing_number          :string
+#  account_number                   :string
+#  verified                         :boolean          default(FALSE)
+#  skype_username                   :string
+#  interview_comment                :text
+#  next_of_kin_name                 :string
+#  next_of_kin_phone                :string
+#  arbetsformedlingen_registered_at :date
 #
 # Indexes
 #

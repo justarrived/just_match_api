@@ -49,7 +49,7 @@ RSpec.describe Api::V1::Users::UserLanguagesController, type: :controller do
 
   describe 'POST #create' do
     context 'with valid params' do
-      let(:proficiency) { 8 }
+      let(:proficiency) { 4 }
       let(:language) { FactoryGirl.create(:language) }
       let(:params) do
         {

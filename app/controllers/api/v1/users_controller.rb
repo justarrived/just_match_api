@@ -15,7 +15,7 @@ module Api
         api_versions '1.0'
       end
 
-      ALLOWED_INCLUDES = %w(user_languages user_languages.language language languages company user_images).freeze # rubocop:disable Metrics/LineLength
+      ALLOWED_INCLUDES = %w(user_languages user_languages.language language languages company user_images user_skills skills user_skills.skill).freeze # rubocop:disable Metrics/LineLength
 
       api :GET, '/users', 'List users'
       description 'Returns a list of users if the user is allowed.'
@@ -52,7 +52,6 @@ module Api
       param :data, Hash, desc: 'Top level key', required: true do
         param :attributes, Hash, desc: 'User attributes', required: true do
           # rubocop:disable Metrics/LineLength
-          param :skill_ids, Array, of: 'Skill IDs', desc: 'List of skill ids'
           param :first_name, String, desc: 'First name', required: true
           param :last_name, String, desc: 'Last name', required: true
           param :description, String, desc: 'Description'
@@ -71,6 +70,10 @@ module Api
             param :id, Integer, desc: 'Language id', required: true
             param :proficiency, UserLanguage::PROFICIENCY_RANGE.to_a, desc: 'Language proficiency'
           end
+          param :skill_ids, Array, of: Hash, desc: 'List of skill ids' do
+            param :id, Integer, desc: 'Skill id', required: true
+            param :proficiency, UserSkill::PROFICIENCY_RANGE.to_a, desc: 'Skill proficiency'
+          end
           param :user_image_one_time_tokens, Array, of: 'UserImage one time tokens', desc: 'User image one time tokens'
           param :current_status, User::STATUSES.keys, desc: 'Current status'
           param :at_und, User::AT_UND.keys, desc: 'AT-UND status'
@@ -79,13 +82,16 @@ module Api
           param :skype_username, String, desc: 'Skype username'
           param :account_clearing_number, String, desc: 'User account clearing number'
           param :account_number, String, desc: 'User account number'
+          param :next_of_kin_name, String, desc: 'Next of kin name'
+          param :next_of_kin_phone, String, desc: 'Next of kin phone'
+          param :arbetsformedlingen_registered_at, Date, desc: 'Arbetsförmedlingen registered at'
           # rubocop:enable Metrics/LineLength
         end
       end
       example Doxxer.read_example(User, method: :create)
       def create
         @user = User.new(user_params)
-        @user.email = @user.email&.strip
+        @user.password = jsonapi_params[:password]
 
         authorize(@user)
 
@@ -95,8 +101,6 @@ module Api
           @user.set_translation(user_params).tap do |result|
             EnqueueCheapTranslation.call(result)
           end
-
-          @user.skills = Skill.where(id: user_params[:skill_ids])
 
           image_tokens = jsonapi_params[:user_image_one_time_tokens]
 
@@ -111,6 +115,9 @@ module Api
 
           language_ids = jsonapi_params[:language_ids]
           SetUserLanguagesService.call(user: @user, language_ids_param: language_ids)
+          skill_ids = jsonapi_params[:skill_ids]
+          SetUserSkillsService.call(user: @user, skill_ids_param: skill_ids)
+
           UserWelcomeNotifier.call(user: @user)
 
           api_render(@user, status: :created)
@@ -144,8 +151,12 @@ module Api
             param :id, Integer, desc: 'Language id', required: true
             param :proficiency, UserLanguage::PROFICIENCY_RANGE.to_a, desc: 'Language proficiency'
           end
+          param :skill_ids, Array, of: Hash, desc: 'List of skill ids' do
+            param :id, Integer, desc: 'Skill id', required: true
+            param :proficiency, UserSkill::PROFICIENCY_RANGE.to_a, desc: 'Skill proficiency'
+          end
           param :company_id, Integer, desc: 'Company id for user'
-          param :user_image_one_time_token, String, desc: 'User image one time token'
+          param :user_image_one_time_token, String, desc: '_DEPRECATED_ User image one time token'
           param :current_status, User::STATUSES.keys, desc: 'Current status'
           param :at_und, User::AT_UND.keys, desc: 'AT-UND status'
           param :arrived_at, String, desc: 'Arrived at date'
@@ -153,6 +164,9 @@ module Api
           param :skype_username, String, desc: 'Skype username'
           param :account_clearing_number, String, desc: 'User account clearing number'
           param :account_number, String, desc: 'User account number'
+          param :next_of_kin_name, String, desc: 'Next of kin name'
+          param :next_of_kin_phone, String, desc: 'Next of kin phone'
+          param :arbetsformedlingen_registered_at, Date, desc: 'Arbetsförmedlingen registered at'
           # rubocop:enable Metrics/LineLength
         end
       end
@@ -169,6 +183,8 @@ module Api
 
           language_ids = jsonapi_params[:language_ids]
           SetUserLanguagesService.call(user: @user, language_ids_param: language_ids)
+          skill_ids = jsonapi_params[:skill_ids]
+          SetUserSkillsService.call(user: @user, skill_ids_param: skill_ids)
 
           @user.profile_image_token = jsonapi_params[:user_image_one_time_token]
 
@@ -189,7 +205,47 @@ module Api
         head :no_content
       end
 
-      api :GET, '/users/:id/matching_jobs', 'Show matching jobs for user'
+      api :POST, '/users/images/', 'User images'
+      description 'Creates a user image'
+      error code: 422, desc: 'Unprocessable entity'
+      param :data, Hash, desc: 'Top level key', required: true do
+        param :attributes, Hash, desc: 'User image attributes', required: true do
+          param :category, UserImage::CATEGORIES.keys, desc: 'User image category', required: true # rubocop:disable Metrics/LineLength
+          param :image, String, desc: 'Image (data uri, data/image)', required: true
+        end
+      end
+      example Doxxer.read_example(UserImage, method: :create)
+      def images
+        authorize(UserImage)
+
+        if params[:image]
+          @user_image = UserImage.new(image: params[:image])
+          ActiveSupport::Deprecation.warn('Using multipart to upload an image is deprecated and will soon be removed please consult the documentation at api.justarrived.se to see the new method.') # rubocop:disable Metrics/LineLength
+        else
+          data_image = DataUriImage.new(user_image_params[:image])
+          unless data_image.valid?
+            respond_with_invalid_image_content_type
+            return
+          end
+
+          @user_image = UserImage.new(image: data_image.image)
+        end
+
+        @user_image.category = if user_image_params[:category].blank?
+                                 ActiveSupport::Deprecation.warn('Not setting an image category has been deprecated, please provide a "category" param.') # rubocop:disable Metrics/LineLength
+                                 @user_image.default_category
+                               else
+                                 user_image_params[:category]
+                               end
+
+        if @user_image.save
+          api_render(@user_image, status: :created)
+        else
+          api_render_errors(@user_image)
+        end
+      end
+
+      api :GET, '/users/:id/matching-jobs', 'Show matching jobs for user'
       description 'Returns the matching jobs for user if the user is allowed.'
       error code: 401, desc: 'Unauthorized'
       error code: 404, desc: 'Not found'
@@ -223,17 +279,29 @@ module Api
 
       private
 
+      def respond_with_invalid_image_content_type
+        errors = JsonApiErrors.new
+        message = I18n.t('errors.user.invalid_image_content_type')
+        errors.add(status: 422, detail: message)
+
+        render json: errors, status: :unprocessable_entity
+      end
+
       def set_user
         @user = User.find(params[:user_id])
+      end
+
+      def user_image_params
+        jsonapi_params.permit(:category, :image)
       end
 
       def user_params
         whitelist = [
           :first_name, :last_name, :email, :phone, :description, :job_experience,
-          :education, :ssn, :street, :zip, :language_id, :password, :company_id,
+          :education, :ssn, :street, :zip, :language_id, :company_id,
           :competence_text, :current_status, :at_und, :arrived_at, :country_of_origin,
           :account_clearing_number, :account_number, :skype_username,
-          ignored_notifications: [], skill_ids: []
+          ignored_notifications: []
         ]
         jsonapi_params.permit(*whitelist)
       end

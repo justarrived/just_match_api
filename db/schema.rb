@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161206103154) do
+ActiveRecord::Schema.define(version: 20170108181325) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -394,13 +394,33 @@ ActiveRecord::Schema.define(version: 20161206103154) do
     t.index ["job_id", "to_user_id"], name: "index_ratings_on_job_id_and_to_user_id", unique: true, using: :btree
   end
 
-  create_table "skills", force: :cascade do |t|
+  create_table "skill_translations", force: :cascade do |t|
     t.string   "name"
+    t.string   "locale"
+    t.integer  "language_id"
+    t.integer  "skill_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.index ["language_id"], name: "index_skill_translations_on_language_id", using: :btree
+    t.index ["skill_id"], name: "index_skill_translations_on_skill_id", using: :btree
+  end
+
+  create_table "skills", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.integer  "language_id"
+    t.boolean  "internal",    default: false
+    t.string   "color"
     t.index ["language_id"], name: "index_skills_on_language_id", using: :btree
     t.index ["name"], name: "index_skills_on_name", unique: true, using: :btree
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string   "color"
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "terms_agreement_consents", force: :cascade do |t|
@@ -466,12 +486,23 @@ ActiveRecord::Schema.define(version: 20161206103154) do
   create_table "user_skills", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "skill_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.integer  "proficiency"
+    t.integer  "proficiency_by_admin"
     t.index ["skill_id", "user_id"], name: "index_user_skills_on_skill_id_and_user_id", unique: true, using: :btree
     t.index ["skill_id"], name: "index_user_skills_on_skill_id", using: :btree
     t.index ["user_id", "skill_id"], name: "index_user_skills_on_user_id_and_skill_id", unique: true, using: :btree
     t.index ["user_id"], name: "index_user_skills_on_user_id", using: :btree
+  end
+
+  create_table "user_tags", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "tag_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tag_id"], name: "index_user_tags_on_tag_id", using: :btree
+    t.index ["user_id"], name: "index_user_tags_on_user_id", using: :btree
   end
 
   create_table "user_translations", force: :cascade do |t|
@@ -492,15 +523,15 @@ ActiveRecord::Schema.define(version: 20161206103154) do
     t.string   "email"
     t.string   "phone"
     t.text     "description"
-    t.datetime "created_at",                                     null: false
-    t.datetime "updated_at",                                     null: false
+    t.datetime "created_at",                                       null: false
+    t.datetime "updated_at",                                       null: false
     t.float    "latitude"
     t.float    "longitude"
     t.integer  "language_id"
-    t.boolean  "anonymized",                     default: false
+    t.boolean  "anonymized",                       default: false
     t.string   "password_hash"
     t.string   "password_salt"
-    t.boolean  "admin",                          default: false
+    t.boolean  "admin",                            default: false
     t.string   "street"
     t.string   "zip"
     t.float    "zip_latitude"
@@ -509,24 +540,28 @@ ActiveRecord::Schema.define(version: 20161206103154) do
     t.string   "last_name"
     t.string   "ssn"
     t.integer  "company_id"
-    t.boolean  "banned",                         default: false
+    t.boolean  "banned",                           default: false
     t.text     "job_experience"
     t.text     "education"
     t.string   "one_time_token"
     t.datetime "one_time_token_expires_at"
     t.integer  "ignored_notifications_mask"
     t.integer  "frilans_finans_id"
-    t.boolean  "frilans_finans_payment_details", default: false
+    t.boolean  "frilans_finans_payment_details",   default: false
     t.text     "competence_text"
     t.integer  "current_status"
     t.integer  "at_und"
     t.date     "arrived_at"
     t.string   "country_of_origin"
-    t.boolean  "managed",                        default: false
+    t.boolean  "managed",                          default: false
     t.string   "account_clearing_number"
     t.string   "account_number"
-    t.boolean  "verified",                       default: false
+    t.boolean  "verified",                         default: false
     t.string   "skype_username"
+    t.text     "interview_comment"
+    t.string   "next_of_kin_name"
+    t.string   "next_of_kin_phone"
+    t.date     "arbetsformedlingen_registered_at"
     t.index ["company_id"], name: "index_users_on_company_id", using: :btree
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["frilans_finans_id"], name: "index_users_on_frilans_finans_id", unique: true, using: :btree
@@ -573,6 +608,8 @@ ActiveRecord::Schema.define(version: 20161206103154) do
   add_foreign_key "ratings", "jobs", name: "ratings_job_id_fk"
   add_foreign_key "ratings", "users", column: "from_user_id", name: "ratings_from_user_id_fk"
   add_foreign_key "ratings", "users", column: "to_user_id", name: "ratings_to_user_id_fk"
+  add_foreign_key "skill_translations", "languages"
+  add_foreign_key "skill_translations", "skills"
   add_foreign_key "skills", "languages"
   add_foreign_key "terms_agreement_consents", "jobs"
   add_foreign_key "terms_agreement_consents", "terms_agreements"
@@ -584,6 +621,8 @@ ActiveRecord::Schema.define(version: 20161206103154) do
   add_foreign_key "user_languages", "users"
   add_foreign_key "user_skills", "skills"
   add_foreign_key "user_skills", "users"
+  add_foreign_key "user_tags", "tags"
+  add_foreign_key "user_tags", "users"
   add_foreign_key "user_translations", "languages"
   add_foreign_key "user_translations", "users"
   add_foreign_key "users", "companies"

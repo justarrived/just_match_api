@@ -8,12 +8,22 @@ module Api
         api :POST, '/companies/images/', 'Company images'
         description 'Creates a user image'
         error code: 422, desc: 'Unprocessable entity'
-        param :image, File, desc: 'Image (multipart/form-data)', required: true
+        param :data, Hash, desc: 'Top level key', required: true do
+          param :attributes, Hash, desc: 'User image attributes', required: true do
+            param :image, String, desc: 'Image (data uri, data/image)', required: true
+          end
+        end
         example Doxxer.read_example(CompanyImage, method: :create)
         def create
           authorize(CompanyImage)
 
-          @company_image = CompanyImage.new(image: params[:image])
+          data_image = DataUriImage.new(company_image_params[:image])
+          unless data_image.valid?
+            respond_with_invalid_image_content_type
+            return
+          end
+
+          @company_image = CompanyImage.new(image: data_image.image)
 
           if @company_image.save
             api_render(@company_image, status: :created)
@@ -35,6 +45,18 @@ module Api
         end
 
         private
+
+        def company_image_params
+          jsonapi_params.permit(:image)
+        end
+
+        def respond_with_invalid_image_content_type
+          errors = JsonApiErrors.new
+          message = I18n.t('errors.user.invalid_image_content_type')
+          errors.add(status: 422, detail: message)
+
+          render json: errors, status: :unprocessable_entity
+        end
 
         def set_company_image
           @company_image = CompanyImage.find(params[:id])

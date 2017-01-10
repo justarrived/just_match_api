@@ -2,6 +2,9 @@
   "data": {
     "id": "1",
     "type": "user_skills",
+    "attributes": {
+      "proficiency": null
+    },
     "relationships": {
       "user": {
         "data": {

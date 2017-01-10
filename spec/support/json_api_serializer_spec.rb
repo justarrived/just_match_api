@@ -65,7 +65,14 @@ RSpec.describe JsonApiSerializer do
         data: {
           id: id,
           type: 'skills',
-          attributes: { name: nil },
+          attributes: {
+            name: nil,
+            'language-id': nil,
+            'translated-text': {
+              name: nil,
+              'language-id': nil
+            }
+          },
           relationships: {
             language: { data: nil }
           },

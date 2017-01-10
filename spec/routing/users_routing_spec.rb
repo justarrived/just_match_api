@@ -33,6 +33,12 @@ RSpec.describe Api::V1::UsersController, type: :routing do
       expect(delete: path).to route_to('api/v1/users#destroy', user_id: '1')
     end
 
+    it 'routes to #images' do
+      path = '/api/v1/users/images'
+      route_path = 'api/v1/users#images'
+      expect(post: path).to route_to(route_path)
+    end
+
     it 'routes to #matching_jobs' do
       path = '/api/v1/users/1/matching-jobs'
       expect(get: path).to route_to('api/v1/users#matching_jobs', user_id: '1')
@@ -54,45 +60,49 @@ end
 #
 # Table name: users
 #
-#  id                             :integer          not null, primary key
-#  email                          :string
-#  phone                          :string
-#  description                    :text
-#  created_at                     :datetime         not null
-#  updated_at                     :datetime         not null
-#  latitude                       :float
-#  longitude                      :float
-#  language_id                    :integer
-#  anonymized                     :boolean          default(FALSE)
-#  password_hash                  :string
-#  password_salt                  :string
-#  admin                          :boolean          default(FALSE)
-#  street                         :string
-#  zip                            :string
-#  zip_latitude                   :float
-#  zip_longitude                  :float
-#  first_name                     :string
-#  last_name                      :string
-#  ssn                            :string
-#  company_id                     :integer
-#  banned                         :boolean          default(FALSE)
-#  job_experience                 :text
-#  education                      :text
-#  one_time_token                 :string
-#  one_time_token_expires_at      :datetime
-#  ignored_notifications_mask     :integer
-#  frilans_finans_id              :integer
-#  frilans_finans_payment_details :boolean          default(FALSE)
-#  competence_text                :text
-#  current_status                 :integer
-#  at_und                         :integer
-#  arrived_at                     :date
-#  country_of_origin              :string
-#  managed                        :boolean          default(FALSE)
-#  account_clearing_number        :string
-#  account_number                 :string
-#  verified                       :boolean          default(FALSE)
-#  skype_username                 :string
+#  id                               :integer          not null, primary key
+#  email                            :string
+#  phone                            :string
+#  description                      :text
+#  created_at                       :datetime         not null
+#  updated_at                       :datetime         not null
+#  latitude                         :float
+#  longitude                        :float
+#  language_id                      :integer
+#  anonymized                       :boolean          default(FALSE)
+#  password_hash                    :string
+#  password_salt                    :string
+#  admin                            :boolean          default(FALSE)
+#  street                           :string
+#  zip                              :string
+#  zip_latitude                     :float
+#  zip_longitude                    :float
+#  first_name                       :string
+#  last_name                        :string
+#  ssn                              :string
+#  company_id                       :integer
+#  banned                           :boolean          default(FALSE)
+#  job_experience                   :text
+#  education                        :text
+#  one_time_token                   :string
+#  one_time_token_expires_at        :datetime
+#  ignored_notifications_mask       :integer
+#  frilans_finans_id                :integer
+#  frilans_finans_payment_details   :boolean          default(FALSE)
+#  competence_text                  :text
+#  current_status                   :integer
+#  at_und                           :integer
+#  arrived_at                       :date
+#  country_of_origin                :string
+#  managed                          :boolean          default(FALSE)
+#  account_clearing_number          :string
+#  account_number                   :string
+#  verified                         :boolean          default(FALSE)
+#  skype_username                   :string
+#  interview_comment                :text
+#  next_of_kin_name                 :string
+#  next_of_kin_phone                :string
+#  arbetsformedlingen_registered_at :date
 #
 # Indexes
 #

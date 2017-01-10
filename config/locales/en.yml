@@ -64,6 +64,7 @@ en:
       banned: an admin has banned you for not following the Terms of Agreement or the Code of Conduct. Please contact help@justarrived.se, to resolve this issue.
       wrong_email_or_phone_or_password: wrong email, phone or password
     user:
+      invalid_image_content_type: invalid content type for image
       wrong_password: wrong password
       password_length: password must have at least %{count} characters
       must_be_available_locale: must be a supported language
@@ -85,6 +86,10 @@ en:
       asylum_seeker_description: Asylum seeker
       permanent_residence: Permanent residence
       permanent_residence_description: Permanent residence
+      temporary_residence_work: Temporary residence for work
+      temporary_residence_work_description: 'Also called "tidsbegränsat uppehållstillstånd"'
+      student_visa: Student visa
+      student_visa_description: You have a Swedish student visa
   notifications:
     accepted_applicant_confirmation_overdue: Accepted applicants confirmation is overdue
     accepted_applicant_withdrawn: Accepted applicant has withdrawn

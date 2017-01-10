@@ -5,7 +5,7 @@ module Index
     MAX_PER_PAGE = 100
 
     def skills(scope = Skill)
-      @skills ||= prepare_records(scope)
+      @skills ||= prepare_records(scope.with_translations)
     end
   end
 end

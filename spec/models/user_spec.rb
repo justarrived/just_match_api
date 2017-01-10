@@ -580,51 +580,65 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  it 'has translations for all User statuses' do
+    User::STATUSES.keys.each do |status_name|
+      name = I18n.t("user.statuses.#{status_name}", locale: :en)
+      description = I18n.t("user.statuses.#{status_name}_description", locale: :en)
+
+      expect(name).not_to include('translation missing')
+      expect(description).not_to include('translation missing')
+    end
+  end
 end
 
 # == Schema Information
 #
 # Table name: users
 #
-#  id                             :integer          not null, primary key
-#  email                          :string
-#  phone                          :string
-#  description                    :text
-#  created_at                     :datetime         not null
-#  updated_at                     :datetime         not null
-#  latitude                       :float
-#  longitude                      :float
-#  language_id                    :integer
-#  anonymized                     :boolean          default(FALSE)
-#  password_hash                  :string
-#  password_salt                  :string
-#  admin                          :boolean          default(FALSE)
-#  street                         :string
-#  zip                            :string
-#  zip_latitude                   :float
-#  zip_longitude                  :float
-#  first_name                     :string
-#  last_name                      :string
-#  ssn                            :string
-#  company_id                     :integer
-#  banned                         :boolean          default(FALSE)
-#  job_experience                 :text
-#  education                      :text
-#  one_time_token                 :string
-#  one_time_token_expires_at      :datetime
-#  ignored_notifications_mask     :integer
-#  frilans_finans_id              :integer
-#  frilans_finans_payment_details :boolean          default(FALSE)
-#  competence_text                :text
-#  current_status                 :integer
-#  at_und                         :integer
-#  arrived_at                     :date
-#  country_of_origin              :string
-#  managed                        :boolean          default(FALSE)
-#  account_clearing_number        :string
-#  account_number                 :string
-#  verified                       :boolean          default(FALSE)
-#  skype_username                 :string
+#  id                               :integer          not null, primary key
+#  email                            :string
+#  phone                            :string
+#  description                      :text
+#  created_at                       :datetime         not null
+#  updated_at                       :datetime         not null
+#  latitude                         :float
+#  longitude                        :float
+#  language_id                      :integer
+#  anonymized                       :boolean          default(FALSE)
+#  password_hash                    :string
+#  password_salt                    :string
+#  admin                            :boolean          default(FALSE)
+#  street                           :string
+#  zip                              :string
+#  zip_latitude                     :float
+#  zip_longitude                    :float
+#  first_name                       :string
+#  last_name                        :string
+#  ssn                              :string
+#  company_id                       :integer
+#  banned                           :boolean          default(FALSE)
+#  job_experience                   :text
+#  education                        :text
+#  one_time_token                   :string
+#  one_time_token_expires_at        :datetime
+#  ignored_notifications_mask       :integer
+#  frilans_finans_id                :integer
+#  frilans_finans_payment_details   :boolean          default(FALSE)
+#  competence_text                  :text
+#  current_status                   :integer
+#  at_und                           :integer
+#  arrived_at                       :date
+#  country_of_origin                :string
+#  managed                          :boolean          default(FALSE)
+#  account_clearing_number          :string
+#  account_number                   :string
+#  verified                         :boolean          default(FALSE)
+#  skype_username                   :string
+#  interview_comment                :text
+#  next_of_kin_name                 :string
+#  next_of_kin_phone                :string
+#  arbetsformedlingen_registered_at :date
 #
 # Indexes
 #
