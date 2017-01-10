@@ -86,6 +86,7 @@ class JobMailer < ApplicationMailer
     @user_name = user.name
     @user_email = user.contact_email
     @job_name = job.name
+    @support_email = AppConfig.support_email
 
     subject = I18n.t('mailer.applicant_rejected.subject')
     mail(to: @user_email, subject: subject)

@@ -18,6 +18,10 @@ class AppConfig
     'api.justarrived.se'
   end
 
+  def self.support_email
+    'support@justarrived.se'
+  end
+
   # Application settings
 
   def self.globally_ignored_notifications

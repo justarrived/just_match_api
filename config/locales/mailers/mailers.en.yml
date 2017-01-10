@@ -68,4 +68,17 @@ en:
       subject: Welcome to Just Arrived!
       body_header: Welcome to Just Arrived %{name}!
       body_line: Thank you for signing up. We sincerely hope that you will enjoy our service. If you have any questions or suggestions of how we could improve, please do not hesitate to email admin@justarrived.se.
+    applicant_rejected:
+      subject: Someone else got the chance this time
+      body: |
+        Hi %{user_name},
+
+        This time the job “%{job_name}” was given to someone else.
+        Please note that we have many people applying for every position, and next time it could be you getting a job! We’re rooting for you!
+
+        Here are some of the surest ways to increase the chance of it being you next time!
+
+        The most important thing is to login and apply often. The earlier you apply for a job the better!
+        Keep your profile updated! Every skill or piece of information matters. We are sure that there are some things that you’re good at that you haven’t told us about yet!
+        If anything’s unclear, or if you need help, please do not hesitate to contact us at %{support_email} or check out our %{faq_link}.
     signoff: "/ Team Just Arrived"
