@@ -5,11 +5,24 @@ RSpec.describe JobMailer, type: :mailer do
   let(:user) do
     tel = '+46735000000'
     mail = 'user@example.com'
-    mock_model(User, name: 'User', contact_email: mail, phone: tel)
+    mock_model(User, first_name: 'User', name: 'User', contact_email: mail, phone: tel)
   end
   let(:owner) { mock_model User, name: 'Owner', contact_email: 'owner@example.com' }
-  let(:job) { mock_model Job, name: 'Job name', address: 'Sveavägen 1' }
   let(:job_user) { mock_model JobUser, user: user, job: job, id: 37 }
+  let(:job) do
+    mock_model(
+      Job,
+      name: 'Job name',
+      address: 'Sveavägen 1',
+      job_date: 1.day.ago,
+      job_end_date: 2.days.ago,
+      hours: 2,
+      gross_amount: 200,
+      hourly_gross_salary: 100,
+      google_calendar_template_url: 'http://google.calendar.example.com',
+      hourly_pay: mock_model(HourlyPay, gross_salary: 100)
+    )
+  end
 
   describe '#job_match_email' do
     let(:mail) do
@@ -164,12 +177,28 @@ RSpec.describe JobMailer, type: :mailer do
       expect(mail).to match_email_body(user.first_name)
     end
 
-    it 'includes @owner_email in email body' do
-      expect(mail).to match_email_body(owner.contact_email)
+    it 'includes @confirmation_time_hours in email body' do
+      expect(mail).to match_email_body(JobUser::MAX_CONFIRMATION_TIME_HOURS.to_s)
     end
 
-    it 'includes @job_name in email body' do
-      expect(mail).to match_email_body(job.name)
+    it 'includes @confirmation_time_hours in email body' do
+      expect(mail).to match_email_body(JobUser::MAX_CONFIRMATION_TIME_HOURS.to_s)
+    end
+
+    it 'includes @total_hours in email body' do
+      expect(mail).to match_email_body(job.hours.to_s)
+    end
+
+    it 'includes @hourly_gross_salary in email body' do
+      expect(mail).to match_email_body(job.hourly_gross_salary.to_s)
+    end
+
+    it 'includes @total_salary in email body' do
+      expect(mail).to match_email_body(job.gross_amount.to_s)
+    end
+
+    it 'includes @job_address in email body' do
+      expect(mail).to match_email_body(job.address)
     end
 
     it 'includes job user url in email' do
