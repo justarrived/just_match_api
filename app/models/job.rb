@@ -16,8 +16,10 @@ class Job < ApplicationRecord
   belongs_to :category
   belongs_to :hourly_pay
   belongs_to :owner, class_name: 'User', foreign_key: 'owner_user_id'
-  belongs_to :company_contact, class_name: 'User', foreign_key: 'company_contact_user_id'
-  belongs_to :just_arrived_contact, class_name: 'User', foreign_key: 'just_arrived_contact_user_id' # rubocop:disable Metrics/LineLength
+  # rubocop:disable Metrics/LineLength
+  belongs_to :company_contact, class_name: 'User', foreign_key: 'company_contact_user_id', optional: true
+  belongs_to :just_arrived_contact, class_name: 'User', foreign_key: 'just_arrived_contact_user_id', optional: true
+  # rubocop:enable Metrics/LineLength
 
   has_one :company, through: :owner
 
