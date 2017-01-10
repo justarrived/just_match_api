@@ -51,7 +51,7 @@ class JobMailer < ApplicationMailer
   def applicant_accepted_email(job_user:, owner:)
     user = job_user.user
     job = job_user.job
-    @user_name = user.name
+    @user_name = user.first_name
     @owner_email = owner.contact_email
     @job_name = job.name
     @job_address = job.address
@@ -83,7 +83,7 @@ class JobMailer < ApplicationMailer
   def applicant_rejected_email(job_user:)
     user = job_user.user
     job = job_user.job
-    @user_name = user.name
+    @user_name = user.first_name
     @user_email = user.contact_email
     @job_name = job.name
     @support_email = AppConfig.support_email

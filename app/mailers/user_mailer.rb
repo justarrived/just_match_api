@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 class UserMailer < ApplicationMailer
   def welcome_email(user:)
-    @user_name = user.name
+    @user_name = user.first_name
 
     @faqs_url = FrontendRouter.draw(:faqs)
     @login_url = FrontendRouter.draw(:login)
+    @cv_template_url = '#' # TODO: Add me!
 
     mail(to: user.contact_email, subject: I18n.t('mailer.welcome.subject'))
   end

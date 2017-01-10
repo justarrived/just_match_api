@@ -66,8 +66,27 @@ en:
       body_header: 'Hi %{name}, you requested a password reset for your account at Just Arrived. Please visit this link to enter your new password:'
     welcome:
       subject: Welcome to Just Arrived!
-      body_header: Welcome to Just Arrived %{name}!
-      body_line: Thank you for signing up. We sincerely hope that you will enjoy our service. If you have any questions or suggestions of how we could improve, please do not hesitate to email admin@justarrived.se.
+      body: |
+        Hi %{user_name}!
+
+        We are so happy that you want to apply for jobs through Just Arrived!
+        Here is some information that you need to know:
+
+        Just Arrived can not guarantee anyone jobs, but we can guarantee that we will work our very hardest to make sure that there always are jobs to apply for at our service! We provide everything from jobs that last one day, to part-time or full-time jobs, but most of our jobs are shorter.
+
+        Right now Just Arrived provides jobs in Stockholm and Gothenburg. We hope to reach other cities soon, so if you live in another city, hold tight and make sure your profile is updated!
+
+        If you get a job through us is entirely up to you! The more jobs you apply for, and the faster you apply for them, the bigger the chance of you getting any jobs.
+
+        Here’s what you can do to increase your chances of getting a job:
+
+        - Update your profile - the more information we have about you, the better. Is your CV updated? If not, take inspiration from our CV template %{cv_template_url}
+        - Login often and apply to any new jobs that you find interesting, there is of course no limit to how many jobs you can apply for!
+        - If you are offered a job - you will need to confirm that you will do it! If you don’t confirm it in time, someone else will get the chance.
+
+        You can find a lot more information in our FAQ: %{faq_url}.
+
+        Login to the app and get started: %{login_url}.
     applicant_rejected:
       subject: Someone else got the chance this time
       body: |
