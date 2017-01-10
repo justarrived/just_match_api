@@ -1,9 +1,17 @@
-<%= simple_format I18n.t(
-  'mailer.applicant_rejected.body',
-  user_name: @user_name,
-  job_name: @job_name,
-  support_email: @support_email,
-  faq_link: @faq_link
-) %>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <%= simple_format I18n.t(
+      'mailer.applicant_rejected.body',
+      user_name: @user_name,
+      job_name: @job_name,
+      support_email: @support_email,
+      faq_link: @faq_link
+    ) %>
 
-<%= I18n.t('mailer.signoff') %>
+    <%= I18n.t('mailer.signoff') %>
+  </body>
+</html>
