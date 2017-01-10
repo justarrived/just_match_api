@@ -15,6 +15,8 @@ class Job < ApplicationRecord
   belongs_to :language
   belongs_to :category
   belongs_to :hourly_pay
+  belongs_to :owner, class_name: 'User', foreign_key: 'owner_user_id'
+  belongs_to :owner, class_name: 'User', foreign_key: 'owner_user_id'
 
   has_one :company, through: :owner
 
@@ -43,8 +45,6 @@ class Job < ApplicationRecord
   validate :validate_within_allowed_hours
 
   validate :validate_job_date_in_future, unless: -> { Rails.configuration.x.validate_job_date_in_future_inactive } # rubocop:disable Metrics/LineLength
-
-  belongs_to :owner, class_name: 'User', foreign_key: 'owner_user_id'
 
   scope :visible, -> { where(hidden: false) }
   scope :cancelled, -> { where(cancelled: true) }
