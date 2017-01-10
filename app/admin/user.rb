@@ -340,7 +340,6 @@ ActiveAdmin.register User do
       f.inputs I18n.t('admin.user.form.payment_attributes') do
         f.input :account_clearing_number
         f.input :account_number
-        f.input :frilans_finans_payment_details
       end
 
       f.inputs I18n.t('admin.user.form.misc') do
