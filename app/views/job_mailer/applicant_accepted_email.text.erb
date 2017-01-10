@@ -1,9 +1,15 @@
-<%= I18n.t('mailer.applicant_accepted.congrats_line', name: @user_name) %>
+<%= I18n.t(
+  'mailer.applicant_accepted.body',
+  user_name: @user_name,
+  job_name: @job_name,
+  job_start_date: @job_start_date,
+  job_end_date: @job_end_date,
+  total_hours: @total_hours,
+  hourly_gross_salary: @hourly_gross_salary,
+  total_salary: @total_salary,
+  address: @job_address,
+  confirmation_time_hours: @confirmation_time_hours,
+  job_user_url: link_to(@job_user_url, @job_user_url)
+).html_safe %>
 
-<%= I18n.t('mailer.applicant_accepted.accepted_line') %>
-<%= I18n.t('mailer.applicant_accepted.job_line', name: @job_name, address: @job_address) %>
-<%= I18n.t('mailer.applicant_accepted.contact_line', email: @owner_email).html_safe %>
-
-<%= @job_user_url %>
-
-<%= I18n.t('mailer.signoff') %>
+<p><%= I18n.t('mailer.signoff') %></p>

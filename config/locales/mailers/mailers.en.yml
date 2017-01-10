@@ -16,11 +16,24 @@ en:
       details_line: "%{name} will perform your job %{job_name}."
       explaination: You can contact %{name} through the chat in My jobs, on %{phone} or %{email} if you want to provide more information or details about the job.
     applicant_accepted:
-      accepted_line: You've been offered a job that you've applied for!
-      congrats_line: Congrats %{name}!
-      contact_line: Now you need to confirm that you will perform the job, and provide your account details so we can pay you after the job is performed. You have 18 hours to do this, but please do so as soon as possible under My jobs in the application. If you have any questions you can contact the job owner on %{email} for more details.
-      job_line: The job is %{name} and the address is %{address}.
-      subject: Congrats! You got a job offer
+      subject: Congrats you've received a new job offer! Please confirm the job.
+      body: |
+          Hi %{user_name}!
+
+          You have been offered the job “%{job_name}”! If you want the job you have to confirm that you will do it!
+          Please observe that if you confirm you have signed an agreement, so make sure you read the following information about the job carefully first:
+
+          The job: %{job_name}
+          When: %{job_start_date} - %{job_end_date}
+          Hours: %{total_hours}
+          Salary: %{hourly_gross_salary} kr/h before tax
+          Total salary: %{total_salary} kr/h before tax
+          Where: 	%{address}
+
+          You confirm here: %{job_user_url}, and you need to do it within %{confirmation_time_hours} hours!
+          (if you don’t, someone else will get the chance this time)
+
+
     changed_password:
       subject: Your Just Arrived password has been changed
       body_header: Hi %{name}, your Just Arrived password has been changed. If this wasn't you, please contact Just Arrived at help@justarrived.se
