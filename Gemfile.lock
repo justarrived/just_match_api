@@ -371,7 +371,7 @@ GEM
       thor (>= 0.14, < 2.0)
     jquery-ui-rails (5.0.5)
       railties (>= 3.2.16)
-    json (1.8.3)
+    json (1.8.5)
     jsonapi (0.1.1.beta2)
       json (~> 1.8)
     jwt (1.5.6)
@@ -683,7 +683,7 @@ DEPENDENCIES
   yagni_json_encoder (~> 0.0.2)
 
 RUBY VERSION
-   ruby 2.3.3p222
+   ruby 2.4.0p0
 
 BUNDLED WITH
-   1.13.6
+   1.13.7
