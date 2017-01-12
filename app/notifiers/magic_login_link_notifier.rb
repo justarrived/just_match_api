@@ -6,7 +6,9 @@ class MagicLoginLinkNotifier < BaseNotifier
       UserTexter.
         magic_login_link_text(user: user).
         deliver_later
+    end
 
+    notify do
       UserMailer.
         magic_login_link_email(user: user).
         deliver_later
