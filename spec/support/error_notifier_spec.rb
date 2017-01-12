@@ -27,7 +27,8 @@ RSpec.describe ErrorNotifier do
     subject! { described_class.send(message, context: context, client: notify_client) }
 
     it 'sends' do
-      expected = { message: message, context: context }
+      default_context = { reraised_exception: true }
+      expected = { message: message, context: default_context.merge(context) }
 
       expect(notify_client.last).to eq(expected)
     end
