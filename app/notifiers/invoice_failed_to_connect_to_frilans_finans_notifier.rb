@@ -5,9 +5,11 @@ class InvoiceFailedToConnectToFrilansFinansNotifier < BaseNotifier
       next if ignored?(user)
 
       mailer_args = { user: user, ff_invoice: ff_invoice }
-      AdminMailer.
-        invoice_failed_to_connect_to_frilans_finans_email(**mailer_args).
-        deliver_later
+      notify do
+        AdminMailer.
+          invoice_failed_to_connect_to_frilans_finans_email(**mailer_args).
+          deliver_later
+      end
     end
   end
 end
