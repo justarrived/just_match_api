@@ -2,14 +2,15 @@
 class UserSerializer < ApplicationSerializer
   # Since the #attributes method is overriden and provides a whitelist of attribute_names
   # that can be returned to the user we can return all User column names here
-  EXTRA_ATTRIBUTES = %i(ignored_notifications auth_token primary_role).freeze
+  EXTRA_ATTRIBUTES = %i(ignored_notifications primary_role).freeze
   attributes [
     :id, :email, :phone, :description, :created_at, :updated_at, :latitude, :longitude,
     :language_id, :anonymized, :password_hash, :password_salt, :admin, :street, :zip,
     :zip_latitude, :zip_longitude, :first_name, :last_name, :ssn, :company_id, :banned,
     :one_time_token, :one_time_token_expires_at,
     :ignored_notifications_mask, :frilans_finans_id, :frilans_finans_payment_details,
-    :current_status, :at_und, :arrived_at, :country_of_origin, :managed, :verified
+    :current_status, :at_und, :arrived_at, :country_of_origin, :managed, :verified,
+    :account_clearing_number, :account_number
   ] + EXTRA_ATTRIBUTES
 
   link(:self) { api_v1_user_url(object) }
@@ -62,6 +63,14 @@ class UserSerializer < ApplicationSerializer
     link(:related) { api_v1_user_chats_url(object.id) }
   end
 
+  has_many :skills, unless: :collection_serializer? do
+    link(:related) { api_v1_user_skills_url(object.id) }
+  end
+
+  has_many :user_skills, unless: :collection_serializer? do
+    link(:related) { api_v1_user_skills_url(object.id) }
+  end
+
   def attributes(_)
     data = super
 
@@ -79,45 +88,49 @@ end
 #
 # Table name: users
 #
-#  id                             :integer          not null, primary key
-#  email                          :string
-#  phone                          :string
-#  description                    :text
-#  created_at                     :datetime         not null
-#  updated_at                     :datetime         not null
-#  latitude                       :float
-#  longitude                      :float
-#  language_id                    :integer
-#  anonymized                     :boolean          default(FALSE)
-#  password_hash                  :string
-#  password_salt                  :string
-#  admin                          :boolean          default(FALSE)
-#  street                         :string
-#  zip                            :string
-#  zip_latitude                   :float
-#  zip_longitude                  :float
-#  first_name                     :string
-#  last_name                      :string
-#  ssn                            :string
-#  company_id                     :integer
-#  banned                         :boolean          default(FALSE)
-#  job_experience                 :text
-#  education                      :text
-#  one_time_token                 :string
-#  one_time_token_expires_at      :datetime
-#  ignored_notifications_mask     :integer
-#  frilans_finans_id              :integer
-#  frilans_finans_payment_details :boolean          default(FALSE)
-#  competence_text                :text
-#  current_status                 :integer
-#  at_und                         :integer
-#  arrived_at                     :date
-#  country_of_origin              :string
-#  managed                        :boolean          default(FALSE)
-#  account_clearing_number        :string
-#  account_number                 :string
-#  verified                       :boolean          default(FALSE)
-#  skype_username                 :string
+#  id                               :integer          not null, primary key
+#  email                            :string
+#  phone                            :string
+#  description                      :text
+#  created_at                       :datetime         not null
+#  updated_at                       :datetime         not null
+#  latitude                         :float
+#  longitude                        :float
+#  language_id                      :integer
+#  anonymized                       :boolean          default(FALSE)
+#  password_hash                    :string
+#  password_salt                    :string
+#  admin                            :boolean          default(FALSE)
+#  street                           :string
+#  zip                              :string
+#  zip_latitude                     :float
+#  zip_longitude                    :float
+#  first_name                       :string
+#  last_name                        :string
+#  ssn                              :string
+#  company_id                       :integer
+#  banned                           :boolean          default(FALSE)
+#  job_experience                   :text
+#  education                        :text
+#  one_time_token                   :string
+#  one_time_token_expires_at        :datetime
+#  ignored_notifications_mask       :integer
+#  frilans_finans_id                :integer
+#  frilans_finans_payment_details   :boolean          default(FALSE)
+#  competence_text                  :text
+#  current_status                   :integer
+#  at_und                           :integer
+#  arrived_at                       :date
+#  country_of_origin                :string
+#  managed                          :boolean          default(FALSE)
+#  account_clearing_number          :string
+#  account_number                   :string
+#  verified                         :boolean          default(FALSE)
+#  skype_username                   :string
+#  interview_comment                :text
+#  next_of_kin_name                 :string
+#  next_of_kin_phone                :string
+#  arbetsformedlingen_registered_at :date
 #
 # Indexes
 #

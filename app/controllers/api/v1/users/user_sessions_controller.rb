@@ -120,16 +120,18 @@ module Api
         def email_or_phone
           # NOTE: The email param is kept for backward compability reasons
           #       remove when frontend is using email_or_phone param
-          if jsonapi_params[:email_or_phone].blank?
-            message = [
-              'Param `email` is deprecated!',
-              'Please use `email_or_phone` instead.'
-            ].join(' ')
-            ActiveSupport::Deprecation.warn(message)
-            jsonapi_params[:email]&.strip&.downcase
-          else
-            jsonapi_params[:email_or_phone]&.strip&.downcase
-          end
+          email_or_phone = if jsonapi_params[:email_or_phone].blank?
+                             message = [
+                               'Param `email` is deprecated!',
+                               'Please use `email_or_phone` instead.'
+                             ].join(' ')
+                             ActiveSupport::Deprecation.warn(message)
+                             jsonapi_params[:email]
+                           else
+                             jsonapi_params[:email_or_phone]
+                           end
+
+          EmailAddress.normalize(email_or_phone)
         end
 
         def respond_with_banned

@@ -64,6 +64,7 @@ sv:
       banned: en administratör har blockerat dig eftersom du inte följt Användarvillkoren. Vad god kontakta help@justarrived.
       wrong_email_or_phone_or_password: fel email, telefonnummer eller lösenord
     user:
+      invalid_image_content_type: ogilltig filtyp
       wrong_password: fel lösenord
       password_length: lösenordet måste vara minst %{count} tecken
       must_be_available_locale: ditt språk stöds tyvärr inte
@@ -85,6 +86,10 @@ sv:
       asylum_seeker_description: Asylsökande
       permanent_residence: Permanent uppehållstillstånd
       permanent_residence_description: Permanent uppehållstillstånd
+      temporary_residence_work: Tidsbegränsat uppehållstillstånd
+      temporary_residence_work_description: 'Tidsbegränsat uppehållstillstånd'
+      student_visa: Student visa
+      student_visa_description: Du har ett svenskt student visum
   notifications:
     accepted_applicant_confirmation_overdue: Den accepterade användarens konfirmationsperiod har gått ut
     accepted_applicant_withdrawn: Den accepterade användaren har dragit tillbaka sin ansökan
@@ -96,6 +101,7 @@ sv:
     user_job_match: Ny jobb matchning
     job_cancelled: Jobb avbrutet
     new_chat_message: Nytt chattmeddelande
+    new_job_comment: Ny jobbkommentar
   texter:
     magic_login_link:
       login_line: Just Arrived magisk login länk %{url}

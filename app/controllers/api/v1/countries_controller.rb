@@ -21,7 +21,7 @@ module Api
       example JSON.pretty_generate(CountriesSerializer.serializeble_resource(key_transform: :underscore).to_h)
       # rubocop:enable Metrics/LineLength
       def index
-        filter = JsonApiFilterParams.build(params[:filter], %i(name))
+        filter = JsonApiFilterParams.build(params[:filter], %i(name country_code))
 
         countries = CountriesSerializer.serializeble_resource(
           filter: filter,

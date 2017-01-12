@@ -2,7 +2,7 @@
 require 'google/cloud/translate'
 
 module GoogleTranslate
-  def self.translate(text, from:, to:, api_key: ENV.fetch('GOOGLE_TRANSLATE_API_KEY'))
+  def self.translate(text, from:, to:, api_key: AppSecrets.google_translate_api_key)
     translator = Google::Cloud::Translate.new(key: api_key)
     translation = translator.translate(text, from: from, to: to)
     translation.text

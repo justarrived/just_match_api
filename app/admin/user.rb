@@ -29,6 +29,70 @@ ActiveAdmin.register User do
     end
   end
 
+  batch_action :add_and_remove_user_tag, form: lambda {
+    {
+      remove_tag: Tag.to_form_array(include_blank: true),
+      add_tag: Tag.to_form_array(include_blank: true)
+    }
+  } do |ids, inputs|
+    add_tag = inputs['add_tag']
+    remove_tag = inputs['remove_tag']
+
+    if add_tag == remove_tag
+      alert = I18n.t('admin.user.batch_form.tag_add_and_remove_not_uniq_notice')
+      redirect_to collection_path, alert: alert
+    else
+      users = User.where(id: ids)
+      notice = []
+
+      unless add_tag.blank?
+        tag = Tag.find_by(id: add_tag)
+        users.each do |user|
+          UserTag.safe_create(tag: tag, user: user)
+        end
+        notice << I18n.t('admin.user.batch_form.tag_added_notice', name: tag.name)
+      end
+
+      unless remove_tag.blank?
+        tag = Tag.find_by(id: remove_tag)
+        users.each do |user|
+          UserTag.safe_destroy(tag: tag, user: user)
+        end
+        notice << I18n.t('admin.user.batch_form.tag_removed_notice', name: tag.name)
+      end
+
+      redirect_to collection_path, notice: notice.join(' ')
+    end
+  end
+
+  batch_action :add_user_skill, form: lambda {
+    {
+      add_skill: Skill.to_form_array(include_blank: true),
+      proficiency_by_admin: ['-', nil] + UserSkill::PROFICIENCY_RANGE.to_a
+    }
+  } do |ids, inputs|
+    add_skill = inputs['add_skill']
+    proficiency_by_admin = inputs['proficiency_by_admin']
+
+    users = User.where(id: ids)
+    notice = []
+
+    unless add_skill.blank?
+      skill = Skill.find_by(id: add_skill)
+      users.each do |user|
+        attributes = { skill: skill, user: user }
+        unless proficiency_by_admin.blank?
+          attributes[:proficiency_by_admin] = proficiency_by_admin
+        end
+
+        UserSkill.safe_create(**attributes)
+      end
+      notice << I18n.t('admin.user.batch_form.skill_added_notice', name: skill.name)
+    end
+
+    redirect_to collection_path, notice: notice.join(' ')
+  end
+
   batch_action :verify, confirm: I18n.t('admin.batch_action_confirm') do |ids|
     collection.where(id: ids).map { |u| u.update(verified: true) }
 
@@ -42,10 +106,10 @@ ActiveAdmin.register User do
   end
 
   # Create sections on the index screen
-  scope :all, default: true
+  scope :all
   scope :admins
   scope :company_users
-  scope :regular_users
+  scope :regular_users, default: true
   scope :needs_frilans_finans_id
   scope :managed_users
   scope :verified
@@ -56,6 +120,8 @@ ActiveAdmin.register User do
   filter :verified
   filter :phone
   filter :ssn
+  filter :tags
+  filter :skills, collection: -> { Skill.with_translations }
   filter :language
   filter :company
   filter :frilans_finans_id
@@ -65,7 +131,10 @@ ActiveAdmin.register User do
   filter :admin
   filter :anonymized
   filter :managed
+  filter :created_at
   # rubocop:disable Metrics/LineLength
+  filter :user_skills_proficiency_gteq, as: :select, collection: [nil, nil] + UserSkill::PROFICIENCY_RANGE.to_a
+  filter :user_skills_proficiency_by_admin_gteq, as: :select, collection: [nil, nil] + UserSkill::PROFICIENCY_RANGE.to_a
   filter :translations_description_cont, as: :string, label: I18n.t('admin.user.description')
   filter :translations_education_cont, as: :string, label: I18n.t('admin.user.education')
   filter :translations_competence_text_cont, as: :string, label: I18n.t('admin.user.competence_text')
@@ -78,21 +147,43 @@ ActiveAdmin.register User do
     column :id
     column :name
     column :email
-    column :company
-    column :managed
-    column :created_at
+    column :managed if params[:scope] == 'company_users'
+    column(:tags) { |user| user_tag_badges(user: user) }
 
     actions
   end
 
   show do |user|
-    h3 I18n.t('admin.user.show.general')
-    attributes_table do
-      row :id
-      row :frilans_finans_id
-      row :verified
-      row :average_score
+    if user.candidate?
+      panel I18n.t('admin.user.show.candidate_summary') do
+        h3 I18n.t('admin.user.show.tags')
+        div do
+          content_tag(:p, user_tag_badges(user: user))
+        end
 
+        h3 I18n.t('admin.user.show.skills')
+        div do
+          content_tag(:p, user_skills_badges(user_skills: user.user_skills))
+        end
+
+        h3 I18n.t('admin.user.show.languages')
+        div do
+          content_tag(:p, user_languages_badges(user_languages: user.user_languages))
+        end
+
+        h3 I18n.t('admin.user.show.average_score', score: user.average_score || '-')
+
+        h3 I18n.t('admin.user.show.verified', verified: user.verified)
+      end
+    end
+
+    h3 I18n.t('admin.user.show.contact')
+    attributes_table do
+      row :image do
+        profile_image = user_profile_image(user: user, size: :small)
+
+        image_tag(profile_image) if profile_image
+      end
       row :name
       row :email
       row :phone
@@ -100,21 +191,45 @@ ActiveAdmin.register User do
       row :street
       row :zip
       row :ssn
-      row :company
-      row :language
     end
 
-    unless user.company?
-      h3 I18n.t('admin.user.show.profile')
+    if user.candidate?
+      h3 I18n.t('admin.user.show.candidate_status')
       attributes_table do
         row :current_status
         row :at_und
         row :arrived_at
-        row :description
-        row :job_experience
-        row :competence_text
-        row :education
         row :country_of_origin
+      end
+
+      panel(I18n.t('admin.user.show.profile')) do
+        div do
+          h3 User.human_attribute_name(:description)
+          div do
+            simple_format(user.description)
+          end
+        end
+
+        div do
+          h3 User.human_attribute_name(:job_experience)
+          div do
+            simple_format(user.job_experience)
+          end
+        end
+
+        div do
+          h3 User.human_attribute_name(:competence_text)
+          div do
+            simple_format(user.competence_text)
+          end
+        end
+
+        div do
+          h3 User.human_attribute_name(:education)
+          div do
+            simple_format(user.education)
+          end
+        end
       end
 
       h3 I18n.t('admin.user.show.payment')
@@ -131,6 +246,7 @@ ActiveAdmin.register User do
       row :managed
       row :anonymized
       row :banned
+      row :verified
     end
 
     h3 I18n.t('admin.user.show.misc')
@@ -138,6 +254,12 @@ ActiveAdmin.register User do
       row :ignored_notifications do
         user.ignored_notifications.join(', ')
       end
+
+      row :id
+      row :frilans_finans_id
+
+      row :company
+      row :language
 
       row :contact_email
       row :primary_role
@@ -155,10 +277,95 @@ ActiveAdmin.register User do
   end
 
   form do |f|
-    f.semantic_errors # shows errors on :base
-    f.inputs          # builds an input field for every attribute
-    f.input :password
-    f.actions         # adds the 'Submit' and 'Cancel' buttons
+    f.semantic_errors
+
+    if user.persisted?
+      f.inputs I18n.t('admin.user.form.details') do
+        f.input :email
+        f.input :password, hint: I18n.t('admin.user.form.password.hint')
+        f.input :first_name
+        f.input :last_name
+        f.input :language, hint: I18n.t('admin.user.form.language.hint')
+        f.input :phone
+        f.input :ssn
+        f.input :street
+        f.input :zip
+        f.input :skype_username
+        f.input :description
+      end
+
+      f.inputs I18n.t('admin.user.form.competences') do
+        f.has_many :user_tags, allow_destroy: true, new_record: true do |ff|
+          ff.input :tag, as: :select, collection: Tag.all
+        end
+
+        f.has_many :user_skills, allow_destroy: false, new_record: true do |ff|
+          ff.semantic_errors(*ff.object.errors.keys)
+
+          ff.input :skill, as: :select, collection: Skill.with_translations
+          ff.input :proficiency, as: :select, collection: UserSkill::PROFICIENCY_RANGE
+          ff.input :proficiency_by_admin, as: :select, collection: UserSkill::PROFICIENCY_RANGE # rubocop:disable Metrics/LineLength
+        end
+
+        f.has_many :user_languages, allow_destroy: false, new_record: true do |ff|
+          ff.semantic_errors(*ff.object.errors.keys)
+
+          ff.input :language, as: :select, collection: Language.order(:en_name)
+          ff.input :proficiency, as: :select, collection: UserLanguage::PROFICIENCY_RANGE
+          ff.input :proficiency_by_admin, as: :select, collection: UserLanguage::PROFICIENCY_RANGE # rubocop:disable Metrics/LineLength
+        end
+
+        f.input :interview_comment
+        f.input :job_experience
+        f.input :education
+        f.input :competence_text
+      end
+
+      f.inputs I18n.t('admin.user.form.immigration_status') do
+        f.input :current_status
+        f.input :at_und
+        f.input :arrived_at
+        f.input :country_of_origin
+        f.input :arbetsformedlingen_registered_at
+      end
+
+      f.inputs I18n.t('admin.user.form.status_flags') do
+        f.input :verified
+        f.input :admin
+        f.input :anonymized
+        f.input :banned, hint: I18n.t('admin.user.form.banned.hint')
+        f.input :managed, hint: I18n.t('admin.user.form.managed.hint')
+      end
+
+      f.inputs I18n.t('admin.user.form.payment_attributes') do
+        f.input :account_clearing_number
+        f.input :account_number
+      end
+
+      f.inputs I18n.t('admin.user.form.misc') do
+        f.input :company
+        f.input :next_of_kin_name
+        f.input :next_of_kin_phone
+        f.input :ignored_notifications, as: :select, collection: User::NOTIFICATIONS, multiple: true # rubocop:disable Metrics/LineLength
+      end
+    else
+      f.inputs I18n.t('admin.user.form.create_user') do
+        f.input :email
+        f.input :password
+        f.input :first_name
+        f.input :last_name
+        f.input :language
+        f.input :company
+        f.input :managed, hint: I18n.t('admin.user.form.managed.hint')
+        f.input :phone
+        f.input :ssn
+        f.input :street
+        f.input :zip
+        f.input :skype_username
+      end
+    end
+
+    f.actions
   end
 
   include AdminHelpers::MachineTranslation::Actions
@@ -189,7 +396,7 @@ ActiveAdmin.register User do
     link_to title, sync_ff_bank_account_admin_user_path(user), method: :patch
   end
 
-  sidebar :relations, only: :show do
+  sidebar :relations, only: [:show, :edit] do
     user_query = AdminHelpers::Link.query(:user_id, user.id)
     from_user_query = AdminHelpers::Link.query(:from_user_id, user.id)
     to_user_query = AdminHelpers::Link.query(:to_user_id, user.id)
@@ -271,7 +478,7 @@ ActiveAdmin.register User do
     end
   end
 
-  sidebar :latest_applications, only: :show, if: proc { !user.company? } do
+  sidebar :latest_applications, only: [:show, :edit], if: proc { !user.company? } do
     ul do
       user.job_users.
         order(created_at: :desc).
@@ -284,7 +491,7 @@ ActiveAdmin.register User do
     end
   end
 
-  sidebar :latest_owned_jobs, only: :show, if: proc { user.company? } do
+  sidebar :latest_owned_jobs, only: [:show, :edit], if: proc { user.company? } do
     ul do
       user.owned_jobs.
         order(created_at: :desc).
@@ -295,6 +502,11 @@ ActiveAdmin.register User do
         li link_to("##{job.id} " + job.name, admin_job_path(job))
       end
     end
+  end
+
+  sidebar :profile_image, only: [:show, :edit] do
+    profile_image = user_profile_image(user: user, size: :medium)
+    image_tag(profile_image, class: 'sidebar-image') if profile_image
   end
 
   after_save do |user|
@@ -310,14 +522,50 @@ ActiveAdmin.register User do
   permit_params do
     extras = [
       :password, :language_id, :company_id, :managed, :frilans_finans_payment_details,
-      :verified
+      :verified, :interview_comment, :banned,
+      :language_ids, :skill_ids, ignored_notifications: [],
+                                 user_skills_attributes: [:skill_id, :proficiency, :proficiency_by_admin], # rubocop:disable Metrics/LineLength
+                                 user_languages_attributes: [:language_id, :proficiency, :proficiency_by_admin], # rubocop:disable Metrics/LineLength
+                                 user_tags_attributes: [:id, :tag_id, :_destroy]
     ]
     UserPolicy::SELF_ATTRIBUTES + extras
   end
 
   controller do
     def scoped_collection
-      super.with_translations
+      super.includes(:tags)
+    end
+
+    def update_resource(user, params_array)
+      user_params = params_array.first
+
+      user_skills_attrs = user_params.delete(:user_skills_attributes)
+      skill_ids_param = (user_skills_attrs || {}).map do |_index, attrs|
+        {
+          id: attrs[:skill_id],
+          proficiency: attrs[:proficiency],
+          proficiency_by_admin: attrs[:proficiency_by_admin]
+        }
+      end
+      SetUserSkillsService.call(user: user, skill_ids_param: skill_ids_param)
+
+      user_languages_attrs = user_params.delete(:user_languages_attributes)
+      language_ids_param = (user_languages_attrs || {}).map do |_index, attrs|
+        {
+          id: attrs[:language_id],
+          proficiency: attrs[:proficiency],
+          proficiency_by_admin: attrs[:proficiency_by_admin]
+        }
+      end
+
+      SetUserLanguagesService.call(user: user, language_ids_param: language_ids_param)
+      super
+    end
+
+    def find_resource
+      User.includes(user_skills: [:skill], user_languages: [:language]).
+        where(id: params[:id]).
+        first!
     end
   end
 end

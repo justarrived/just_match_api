@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class Doxxer
-  BASE_URL = ENV.fetch('APP_BASE_URL', 'https://api.justarrived.se')
+  BASE_URL = AppConfig.app_base_url
   EXAMPLE_OUTPUT_PATH = 'examples'
   DOC_PATH = "#{Rails.root}/#{EXAMPLE_OUTPUT_PATH}"
   RESPONSE_PATH = "#{DOC_PATH}/responses"

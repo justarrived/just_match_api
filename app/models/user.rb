@@ -1,3 +1,4 @@
+
 # frozen_string_literal: true
 class User < ApplicationRecord
   include Geocodable
@@ -12,7 +13,9 @@ class User < ApplicationRecord
 
   STATUSES = {
     asylum_seeker: 1,
-    permanent_residence: 2
+    permanent_residence: 2,
+    temporary_residence_work: 3,
+    student_visa: 4
   }.freeze
 
   AT_UND = {
@@ -28,6 +31,9 @@ class User < ApplicationRecord
 
   belongs_to :language
   belongs_to :company, optional: true
+
+  has_many :user_tags
+  has_many :tags, through: :user_tags
 
   has_many :auth_tokens, class_name: 'Token', dependent: :destroy
 
@@ -97,6 +103,10 @@ class User < ApplicationRecord
   include Translatable
   translates :description, :job_experience, :education, :competence_text
 
+  # NOTE: This is necessary for nested activeadmin has_many form
+  accepts_nested_attributes_for :user_skills, :user_languages
+  accepts_nested_attributes_for :user_tags, allow_destroy: true
+
   # Don't change the order or remove any items in the array,
   # only additions are allowed
   NOTIFICATIONS = %w(
@@ -110,6 +120,7 @@ class User < ApplicationRecord
     new_applicant
     user_job_match
     new_chat_message
+    new_job_comment
   ).freeze
 
   def self.ransackable_scopes(_auth_object = nil)
@@ -201,7 +212,7 @@ class User < ApplicationRecord
       street: 'XYZXYZ XX',
       zip: 'XYZX YZ',
       ssn: 'XYZXYZXYZX',
-      company: primary_role == :candidate ? nil : company.anonymize
+      company: candidate? ? nil : company.anonymize
     )
     self
   end
@@ -231,6 +242,10 @@ class User < ApplicationRecord
 
   def company?
     company_id.present?
+  end
+
+  def candidate?
+    primary_role == :candidate
   end
 
   def locale
@@ -266,7 +281,7 @@ class User < ApplicationRecord
   end
 
   def set_normalized_email
-    self.email = email&.strip&.downcase
+    self.email = EmailAddress.normalize(email)
   end
 
   # NOTE: This method has unintuitive side effects.. if the banned attribute is
@@ -415,45 +430,49 @@ end
 #
 # Table name: users
 #
-#  id                             :integer          not null, primary key
-#  email                          :string
-#  phone                          :string
-#  description                    :text
-#  created_at                     :datetime         not null
-#  updated_at                     :datetime         not null
-#  latitude                       :float
-#  longitude                      :float
-#  language_id                    :integer
-#  anonymized                     :boolean          default(FALSE)
-#  password_hash                  :string
-#  password_salt                  :string
-#  admin                          :boolean          default(FALSE)
-#  street                         :string
-#  zip                            :string
-#  zip_latitude                   :float
-#  zip_longitude                  :float
-#  first_name                     :string
-#  last_name                      :string
-#  ssn                            :string
-#  company_id                     :integer
-#  banned                         :boolean          default(FALSE)
-#  job_experience                 :text
-#  education                      :text
-#  one_time_token                 :string
-#  one_time_token_expires_at      :datetime
-#  ignored_notifications_mask     :integer
-#  frilans_finans_id              :integer
-#  frilans_finans_payment_details :boolean          default(FALSE)
-#  competence_text                :text
-#  current_status                 :integer
-#  at_und                         :integer
-#  arrived_at                     :date
-#  country_of_origin              :string
-#  managed                        :boolean          default(FALSE)
-#  account_clearing_number        :string
-#  account_number                 :string
-#  verified                       :boolean          default(FALSE)
-#  skype_username                 :string
+#  id                               :integer          not null, primary key
+#  email                            :string
+#  phone                            :string
+#  description                      :text
+#  created_at                       :datetime         not null
+#  updated_at                       :datetime         not null
+#  latitude                         :float
+#  longitude                        :float
+#  language_id                      :integer
+#  anonymized                       :boolean          default(FALSE)
+#  password_hash                    :string
+#  password_salt                    :string
+#  admin                            :boolean          default(FALSE)
+#  street                           :string
+#  zip                              :string
+#  zip_latitude                     :float
+#  zip_longitude                    :float
+#  first_name                       :string
+#  last_name                        :string
+#  ssn                              :string
+#  company_id                       :integer
+#  banned                           :boolean          default(FALSE)
+#  job_experience                   :text
+#  education                        :text
+#  one_time_token                   :string
+#  one_time_token_expires_at        :datetime
+#  ignored_notifications_mask       :integer
+#  frilans_finans_id                :integer
+#  frilans_finans_payment_details   :boolean          default(FALSE)
+#  competence_text                  :text
+#  current_status                   :integer
+#  at_und                           :integer
+#  arrived_at                       :date
+#  country_of_origin                :string
+#  managed                          :boolean          default(FALSE)
+#  account_clearing_number          :string
+#  account_number                   :string
+#  verified                         :boolean          default(FALSE)
+#  skype_username                   :string
+#  interview_comment                :text
+#  next_of_kin_name                 :string
+#  next_of_kin_phone                :string
+#  arbetsformedlingen_registered_at :date
 #
 # Indexes
 #

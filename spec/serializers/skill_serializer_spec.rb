@@ -39,6 +39,8 @@ end
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  language_id :integer
+#  internal    :boolean          default(FALSE)
+#  color       :string
 #
 # Indexes
 #

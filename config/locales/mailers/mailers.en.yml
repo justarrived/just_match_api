@@ -56,6 +56,9 @@ en:
       view_chat_line: View the message here %{url}, where you also can have the message translated.
       received_from_line: You've received a new message from %{name}.
       subject: "New message from %{name}"
+    new_job_comment:
+      subject: New job comment
+      body: You have a new job comment for one of your jobs.
     reset_password:
       subject: 'Just Arrived passsword reset link'
       body_header: 'Hi %{name}, you requested a password reset for your account at Just Arrived. Please visit this link to enter your new password:'

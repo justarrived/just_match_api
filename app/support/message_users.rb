@@ -31,7 +31,7 @@ class MessageUsers
   def send_sms(phone, message)
     return unless send_sms? && phone
 
-    from = ENV.fetch('TWILIO_NUMBER') # NOTE: don't use ENV like this, refactor
+    from = AppSecrets.twilio_number
     TexterJob.perform_later(from: from, to: phone, body: message)
   end
 

@@ -7,6 +7,9 @@ en:
     job_user_name: Job User
     time_ago: '%{time} ago'
     time_from_now: '%{time} from now'
+    form:
+      no_tag_chosen: 'No tag chosen'
+      no_skill_chosen: 'No skill chosen'
     filter:
       near_address: "Near address (add 'km: XX' for distance)"
     recent_users:
@@ -77,12 +80,40 @@ en:
       account_details_synced: Synced bank account details to Frilans Finans.
       missing_ff_id: 'Can not sync: User is missing Frilans Finans ID.'
       sync_ff_bank_account: Sync bank account
+      batch_form:
+        tag_added_notice: 'Added "%{name}".'
+        tag_add_and_remove_not_uniq_notice: "You can't add and remove the same tag."
+        tag_removed_notice: 'Removed "%{name}".'
+        skill_added_notice: 'Added "%{name}" as skill'
+      form:
+        details: Details
+        competences: Competences
+        immigration_status: Immigration status
+        status_flags: Status flags
+        payment_attributes: Payment attributes
+        misc: Misc
+        create_user: Create user
+        language:
+          hint: Default language for user all notifications will be sent in this language.
+        managed:
+          hint: If checked the user will not receive any notification email, all emails will be re-routed to configured receiver.
+        banned:
+          hint: If checked the user will not be able to login and will see a message that they have been banned.
+        password:
+          hint: Warning this will reset the password
       show:
-        general: General
+        verified: 'Verified: %{verified}'
+        contact: Contact
+        tags: Tags
+        skills: Skills
+        candidate_summary: Candidate summary
+        languages: Languages
+        average_score: 'Avg. score: %{score}'
         profile: Profile
         payment: Payment details
         status_flags: Status flags
-        misc: Misc
+        candidate_status: Candidate status
+        misc: Admin details
     ff_remote_sync:
       msg_multiple: Synced successfully.
       msg: Synced successfully.
@@ -104,3 +135,8 @@ en:
 
   active_admin:
     clone_model: "Clone %{model}"
+
+    batch_actions:
+      labels:
+        add_and_remove_user_tag: 'Add/Remove User Tag To/From'
+        add_user_skill: 'Add User Skill To'

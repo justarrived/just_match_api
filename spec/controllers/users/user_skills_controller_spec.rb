@@ -20,7 +20,9 @@ RSpec.describe Api::V1::Users::UserSkillsController, type: :controller do
 
   describe 'GET #index' do
     it 'assigns all user skills as @skills' do
-      user = FactoryGirl.create(:user_with_skills, skills_count: 1)
+      user = FactoryGirl.create(:user_with_skills, skills_count: 2)
+      user.user_skills.last.skill.update(internal: true)
+
       allow_any_instance_of(described_class).
         to(receive(:current_user).
         and_return(user))
@@ -28,6 +30,18 @@ RSpec.describe Api::V1::Users::UserSkillsController, type: :controller do
       user_skill = user.user_skills.first
       get :index, params: { user_id: user.to_param }
       expect(assigns(:user_skills)).to eq([user_skill])
+    end
+
+    it 'does not return internal skills' do
+      user = FactoryGirl.create(:user_with_skills, skills_count: 1)
+      user.user_skills.first.skill.update(internal: true)
+
+      allow_any_instance_of(described_class).
+        to(receive(:current_user).
+        and_return(user))
+
+      get :index, params: { user_id: user.to_param }
+      expect(assigns(:user_skills)).to eq([])
     end
 
     it 'returns 200 ok status' do
@@ -77,12 +91,13 @@ RSpec.describe Api::V1::Users::UserSkillsController, type: :controller do
           params = {
             user_id: user.to_param,
             data: {
-              attributes: { id: skill.to_param }
+              attributes: { id: skill.to_param, proficiency: 7 }
             }
           }
           post :create, params: params, headers: valid_session
           expect(assigns(:user_skill)).to be_a(UserSkill)
           expect(assigns(:user_skill)).to be_persisted
+          expect(assigns(:user_skill).proficiency).to eq(7)
         end
 
         it 'returns created status' do
@@ -146,6 +161,16 @@ RSpec.describe Api::V1::Users::UserSkillsController, type: :controller do
           params = { user_id: user.to_param, user_skill_id: user_skill.to_param }
           delete :destroy, params: params, headers: valid_session
         end.to change(UserSkill, :count).by(-1)
+      end
+
+      it 'does *not* destroy the requested user_skill if touched by admin' do
+        user_skill = user.user_skills.first
+        user_skill.update(proficiency_by_admin: 7)
+
+        expect do
+          params = { user_id: user.to_param, user_skill_id: user_skill.to_param }
+          delete :destroy, params: params, headers: valid_session
+        end.to change(UserSkill, :count).by(0)
       end
 
       it 'returns no content status' do

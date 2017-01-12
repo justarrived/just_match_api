@@ -50,6 +50,7 @@ ActiveAdmin.register Job do
   filter :upcoming
   filter :cancelled
   filter :hidden
+  filter :skills, collection: -> { Skill.with_translations }
   filter :hourly_pay
   filter :translations_description_cont, as: :string, label: I18n.t('admin.job.description') # rubocop:disable Metrics/LineLength
   filter :translations_short_description_cont, as: :string, label: I18n.t('admin.job.short_description') # rubocop:disable Metrics/LineLength
@@ -102,11 +103,11 @@ ActiveAdmin.register Job do
     render :new, layout: false
   end
 
-  action_item only: :show do
+  action_item :clone, only: :show do
     link_to(I18n.t('admin.job.clone'), clone_admin_job_path(id: job.id))
   end
 
-  sidebar :relations, only: :show do
+  sidebar :relations, only: [:show, :edit] do
     job_query = AdminHelpers::Link.query(:job_id, job.id)
 
     ul do
@@ -131,7 +132,7 @@ ActiveAdmin.register Job do
     end
   end
 
-  sidebar :app, only: :show do
+  sidebar :app, only: [:show, :edit] do
     ul do
       # rubocop:disable Metrics/LineLength
       li link_to I18n.t('admin.view_in_app.view'), FrontendRouter.draw(:job, id: job.id), target: '_blank'
@@ -140,7 +141,7 @@ ActiveAdmin.register Job do
     end
   end
 
-  sidebar :latest_applicants, only: :show do
+  sidebar :latest_applicants, only: [:show, :edit] do
     ul do
       job.job_users.
         order(created_at: :desc).
@@ -180,6 +181,8 @@ ActiveAdmin.register Job do
     h3 I18n.t('admin.job.show.relations')
     attributes_table do
       row :owner
+      row :company_contact
+      row :just_arrived_contact
       row :category
       row :language
     end
@@ -199,7 +202,8 @@ ActiveAdmin.register Job do
 
   permit_params do
     extras = [
-      :cancelled, :language_id, :hourly_pay_id, :category_id, :owner_user_id, :hidden
+      :cancelled, :language_id, :hourly_pay_id, :category_id, :owner_user_id, :hidden,
+      :company_contact_user_id, :just_arrived_contact_user_id
     ]
     JobPolicy::FULL_ATTRIBUTES + extras
   end

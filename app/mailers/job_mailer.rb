@@ -110,4 +110,13 @@ class JobMailer < ApplicationMailer
     subject = I18n.t('mailer.job_cancelled.subject')
     mail(to: user.contact_email, subject: subject)
   end
+
+  def new_job_comment_email(comment:, job:)
+    owner = job.owner
+    @job_url = FrontendRouter.draw(:job, id: job.id)
+    @comment_body = comment.original_body
+
+    subject = I18n.t('mailer.new_job_comment.subject')
+    mail(to: owner.contact_email, subject: subject)
+  end
 end

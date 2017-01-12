@@ -8,6 +8,10 @@ class UserImagePolicy < ApplicationPolicy
     true
   end
 
+  def images?
+    true
+  end
+
   private
 
   def admin_or_self?

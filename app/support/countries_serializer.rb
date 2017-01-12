@@ -6,6 +6,9 @@ class CountriesSerializer
       if filter[:name]
         next unless name.downcase.starts_with?(filter[:name].downcase)
       end
+      if filter[:country_code]
+        next unless country_code == filter[:country_code].upcase
+      end
       country = ISO3166::Country[country_code]
       attributes = {
         country_code: country_code,

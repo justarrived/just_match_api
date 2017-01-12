@@ -12,6 +12,10 @@ require 'action_view/railtie' # Needed for Rails mailers
 # require 'sprockets/railtie'
 # require "rails/test_unit/railtie"
 
+require_relative 'app_env'
+require_relative 'app_config'
+require_relative 'app_secrets'
+
 require_relative 'i18n_fallback'
 
 Bundler.require(*Rails.groups)
@@ -48,7 +52,7 @@ module JustMatch
 
     config.middleware.insert_before ActionDispatch::Static, Rack::Cors, logger: -> { Rails.logger } do # rubocop:disable Metrics/LineLength
       allow do
-        origins(*ENV.fetch('CORS_WHITELIST', '').split(',').map(&:strip))
+        origins(*AppConfig.cors_whitelist)
         resource '/api/*',
                  headers: :any,
                  methods: [:get, :post, :delete, :put, :patch, :options, :head]
@@ -56,12 +60,12 @@ module JustMatch
     end
 
     # rubocop:disable Metrics/LineLength
-    config.x.frilans_finans = ENV['FRILANS_FINANS_ACTIVE'] == 'true'
-    config.x.validate_job_date_in_future_inactive = ENV['VALIDATE_JOB_DATE_IN_FUTURE_INACTIVE'] == 'true'
-    config.x.promo_code = ENV['PROMO_CODE']
-    config.x.send_sms_notifications = ENV.fetch('SEND_SMS_NOTIFICATIONS', 'true') == 'true'
-    config.x.validate_swedish_ssn = ENV.fetch('VALIDATE_SWEDISH_SSN', 'true') == 'true'
-    config.x.invoice_company_frilans_finans_id = ENV.fetch('INVOICE_COMPANY_FRILANS_FINANS_ID', nil)
+    config.x.frilans_finans = AppConfig.frilans_finans_active?
+    config.x.validate_job_date_in_future_inactive = AppConfig.validate_job_date_in_future_inactive?
+    config.x.promo_code = AppConfig.promo_code
+    config.x.send_sms_notifications = AppConfig.send_sms_notifications?
+    config.x.validate_swedish_ssn = AppConfig.validate_swedish_ssn
+    config.x.invoice_company_frilans_finans_id = AppConfig.invoice_company_frilans_finans_id
     # rubocop:enable Metrics/LineLength
 
     config.paperclip_defaults = {

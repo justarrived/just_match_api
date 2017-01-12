@@ -15,9 +15,11 @@ module Api
           api_versions '1.0'
         end
 
-        api :POST, '/users/:user_id/frilans-finans', 'Create new Frilans Finans user'
         # rubocop:disable Metrics/LineLength
+        api :POST, '/users/:user_id/frilans-finans', '[DEPRECATED] Adds bank account details to Frilans Finans user'
         description '
+          DEPRECATED please set bank account details directly on user instead `PATCH /api/v1/users/`.
+
           Creates and returns a new Frilans Finans user.
 
           __Note__: Account clearning number and account number needs to be present __or__ IBAN and BIC
@@ -71,6 +73,8 @@ module Api
 }
         JSON
         def create
+          ActiveSupport::Deprecation.warn('POST /users/:user_id/frilans-finans has been deprecated, please set User#account_number and User#account_clearing_number instead.') # rubocop:disable Metrics/LineLength
+
           authorize_create(@user)
 
           errors = ff_param_errors

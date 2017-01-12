@@ -4,7 +4,8 @@ class UserImage < ApplicationRecord
   ONE_TIME_TOKEN_VALID_FOR_HOURS = 10
   CATEGORIES = {
     profile: 1,
-    swedish_id: 2
+    swedish_id: 2,
+    work_permit: 3
   }.freeze
 
   belongs_to :user, optional: true
@@ -19,7 +20,7 @@ class UserImage < ApplicationRecord
   IMAGE_DEFAULT_URL = '/images/:style/missing.png'
   IMAGE_MAX_MB_SIZE = 8
 
-  has_attached_file :image, styles: IMAGE_STYLES, default_url: IMAGE_DEFAULT_URL
+  has_attached_file :image, styles: IMAGE_STYLES, default_url: IMAGE_DEFAULT_URL, s3_protocol: :https # rubocop:disable Metrics/LineLength
 
   validates :category, presence: true
   validates :image, attachment_presence: true
@@ -34,6 +35,18 @@ class UserImage < ApplicationRecord
   # NOTE: Figure out a good way to validate :current_status and :at_und
   #       see https://github.com/rails/rails/issues/13971
   enum category: CATEGORIES
+
+  def self.replace_image(user:, image:, category:)
+    new.tap do |user_image|
+      user_image.user = user
+      user_image.image = image
+      user_image.category = category
+
+      find_by(user: user, category: category)&.destroy! if user_image.valid?
+
+      user_image.save
+    end
+  end
 
   def self.find_by_one_time_tokens(tokens)
     valid_one_time_tokens.where(one_time_token: tokens)

@@ -5,7 +5,7 @@
 
 Welcome to the official API for the [Just Arrived](https://app.justarrived.se/) matching service.
 
-The API aims to follow the [JSON API 1.0](http://jsonapi.org/) standard. Please report any violations.
+The API follows the [JSON API 1.0](http://jsonapi.org/) standard. Please report any violations.
 
 [![JSON API 1.0](https://img.shields.io/badge/JSON%20API-1.0-lightgrey.svg)](http://jsonapi.org/)
 

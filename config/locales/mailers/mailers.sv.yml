@@ -56,6 +56,9 @@ sv:
       view_chat_line: Du kan läsa meddelandet här %{url}, där kan du kan du också få meddelandet översatt.
       received_from_line: Du har fått ett meddelande från %{name}.
       subject: "Nytt meddelande från %{name}"
+    new_job_comment:
+      subject: Ny jobbkommentar
+      body: Du har en ny kommentar på ett av dina jobb.
     reset_password:
       subject: 'Just Arrived återställ lösenords länk'
       body_header: 'Hej %{name}, du har begärt en återställning av ditt lösenord. Var god besök länken för att ange ditt nya lösenord:'

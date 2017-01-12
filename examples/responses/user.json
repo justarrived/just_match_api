@@ -31,8 +31,8 @@
       "admin": false,
       "anonymized": false,
       "ignored_notifications": [
-        "user_job_match",
-        "new_chat_message"
+        "new_chat_message",
+        "new_job_comment"
       ],
       "frilans_finans_payment_details": false,
       "ssn": "8901010000",
@@ -40,7 +40,8 @@
       "at_und": "yes",
       "arrived_at": "2015-03-11",
       "country_of_origin": "SE",
-      "auth_token": null
+      "account_clearing_number": null,
+      "account_number": null
     },
     "relationships": {
       "company": {
@@ -76,6 +77,22 @@
         ],
         "links": {
           "related": "https://api.justarrived.se/api/v1/users/1/chats"
+        }
+      },
+      "skills": {
+        "data": [
+
+        ],
+        "links": {
+          "related": "https://api.justarrived.se/api/v1/users/1/skills"
+        }
+      },
+      "user_skills": {
+        "data": [
+
+        ],
+        "links": {
+          "related": "https://api.justarrived.se/api/v1/users/1/skills"
         }
       }
     },

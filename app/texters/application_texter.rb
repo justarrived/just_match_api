@@ -4,10 +4,7 @@ class ApplicationTexter
   cattr_accessor :delayed_job_klass
 
   self.delayed_job_klass = TexterJob
-  self.default_from = ENV.fetch('TWILIO_NUMBER') do
-    Rails.logger.warn "WARN -- : #{self} is missing env variable TWILIO_NUMBER"
-    nil
-  end
+  self.default_from = AppSecrets.twilio_number
 
   def self.text(from: default_from, to:, template:)
     body = ApplicationController.render(template, assigns: _pack_instance_variables)

@@ -66,7 +66,7 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: 'localhost:3000' }
 
   config.x.send_sms_notifications = false
-  config.x.validate_swedish_ssn = ENV.fetch('VALIDATE_SWEDISH_SSN', 'true') == 'true'
+  config.x.validate_swedish_ssn = AppConfig.validate_swedish_ssn
 
   config.after_initialize do
     Bullet.enable = true

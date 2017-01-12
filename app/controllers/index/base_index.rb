@@ -9,7 +9,7 @@ module Index
     DEFAULT_SORTING = { created_at: :desc }.freeze
     SORTABLE_FIELDS = %i(created_at).freeze
     PER_PAGE = Kaminari.config.default_per_page
-    MAX_PER_PAGE = ENV.fetch('DEFAULT_MAX_RECORDS_PER_PAGE', 50)
+    MAX_PER_PAGE = AppConfig.default_max_records_per_page
     ALLOWED_INCLUDES = [].freeze
     FILTER_MATCH_TYPES = {}.freeze
     TRANSFORMABLE_FILTERS = { created_at: :date_range }.freeze

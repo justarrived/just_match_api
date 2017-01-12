@@ -4,7 +4,12 @@
       "id": "1",
       "type": "skills",
       "attributes": {
-        "name": "Carpenter"
+        "name": null,
+        "language_id": 13,
+        "translated_text": {
+          "name": null,
+          "language_id": null
+        }
       },
       "relationships": {
         "language": {

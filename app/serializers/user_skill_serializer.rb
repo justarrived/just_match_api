@@ -2,17 +2,21 @@
 class UserSkillSerializer < ApplicationSerializer
   belongs_to :user
   belongs_to :skill
+
+  attributes :proficiency
 end
 
 # == Schema Information
 #
 # Table name: user_skills
 #
-#  id         :integer          not null, primary key
-#  user_id    :integer
-#  skill_id   :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id                   :integer          not null, primary key
+#  user_id              :integer
+#  skill_id             :integer
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
+#  proficiency          :integer
+#  proficiency_by_admin :integer
 #
 # Indexes
 #

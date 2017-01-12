@@ -3,7 +3,7 @@ module Api
   module V1
     module Users
       class UserImagesController < BaseController
-        before_action :set_user, only: [:show]
+        before_action :set_user, only: [:show, :create]
         before_action :set_user_image, only: [:show]
 
         api :GET, '/users/:user_id/images/:id', 'Show user image'
@@ -17,28 +17,33 @@ module Api
           api_render(@user_image)
         end
 
-        api :POST, '/users/images/', 'User images'
+        api :POST, '/users/:user_id/images/', 'User images'
         description 'Creates a user image'
         error code: 422, desc: 'Unprocessable entity'
-        param :image, File, desc: 'Image (multipart/form-data)', required: true
         param :data, Hash, desc: 'Top level key', required: true do
           param :attributes, Hash, desc: 'User image attributes', required: true do
             param :category, UserImage::CATEGORIES.keys, desc: 'User image category', required: true # rubocop:disable Metrics/LineLength
+            param :image, String, desc: 'Image (data uri, data/image)', required: true
           end
         end
         example Doxxer.read_example(UserImage, method: :create)
         def create
           authorize(UserImage)
 
-          @user_image = UserImage.new(image: params[:image])
-          @user_image.category = if user_image_params[:category].blank?
-                                   ActiveSupport::Deprecation.warn('Not setting an image category has been deprecated, please provide a "category" param.') # rubocop:disable Metrics/LineLength
-                                   @user_image.default_category
-                                 else
-                                   user_image_params[:category]
-                                 end
+          data_image = DataUriImage.new(user_image_params[:image])
+          unless data_image.valid?
+            respond_with_invalid_image_content_type
+            return
+          end
 
-          if @user_image.save
+          attributes = {
+            user: @user,
+            image: data_image.image,
+            category: user_image_params[:category]
+          }
+          @user_image = UserImage.replace_image(**attributes)
+
+          if @user_image.valid?
             api_render(@user_image, status: :created)
           else
             api_render_errors(@user_image)
@@ -46,6 +51,14 @@ module Api
         end
 
         private
+
+        def respond_with_invalid_image_content_type
+          errors = JsonApiErrors.new
+          message = I18n.t('errors.user.invalid_image_content_type')
+          errors.add(status: 422, detail: message)
+
+          render json: errors, status: :unprocessable_entity
+        end
 
         def set_user
           @user = User.find(params[:user_id])
@@ -56,7 +69,7 @@ module Api
         end
 
         def user_image_params
-          jsonapi_params.permit(:category)
+          jsonapi_params.permit(:category, :image)
         end
       end
     end
