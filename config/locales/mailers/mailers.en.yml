@@ -17,25 +17,32 @@ en:
       explaination: You can contact %{name} through the chat in My jobs, on %{phone} or %{email} if you want to provide more information or details about the job.
     applicant_accepted:
       subject: Congrats you've received a new job offer! Please confirm the job.
+      job_name_title: 'The job:'
+      when_title: 'When:'
+      hours_title: 'Hours:'
+      hourly_gross_salary_title: 'Salary:'
+      hourly_gross_salary_unit: 'kr/h berfore tax'
+      total_gross_salary_title: 'Total salary:'
+      total_gross_salary_unit: 'kr/h berfore tax'
+      address_title: 'Address:'
       sms: |
         New job offer!
         You need to confirm, within %{confirmation_time_hours} if you want the job “%{job_name}”, go to %{job_user_url} to confirm. Please note that this is an agreement that you sign by confirming.
-      body: |
+      body_start: |
           Hi %{user_name}!
 
           You have been offered the job “%{job_name}”! If you want the job you have to confirm that you will do it!
           Please observe that if you confirm you have signed an agreement, so make sure you read the following information about the job carefully first:
-
-          The job: %{job_name}
-          When: %{job_start_date} - %{job_end_date} %{google_calendar_url}
-          Hours: %{total_hours}
-          Salary: %{hourly_gross_salary} kr/h before tax
-          Total salary: %{total_salary} kr/h before tax
-          Where: 	%{address}
-
-          You confirm here: %{job_user_url}, and you need to do it within %{confirmation_time_hours} hours!
-          (if you don’t, someone else will get the chance this time)
-
+      body_end: |
+        You confirm here: %{job_user_url}, and you need to do it within %{confirmation_time_hours} hours!
+        (if you don’t, someone else will get the chance this time)
+      body_middle: |
+        The job:      %{job_name}
+        When:         %{job_start_date} - %{job_end_date}
+        Hours:        %{total_hours}
+        Salary:       %{hourly_gross_salary} kr/h before tax
+        Total salary: %{total_salary} kr/h before tax
+        Where:        %{address}
 
     changed_password:
       subject: Your Just Arrived password has been changed

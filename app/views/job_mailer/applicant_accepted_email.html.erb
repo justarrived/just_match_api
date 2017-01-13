@@ -5,19 +5,43 @@
   </head>
   <body>
     <%= simple_format I18n.t(
-      'mailer.applicant_accepted.body',
+      'mailer.applicant_accepted.body_start',
       user_name: @user_name,
-      job_name: @job_name,
-      job_start_date: @job_start_date,
-      job_end_date: @job_end_date,
-      total_hours: @total_hours,
-      hourly_gross_salary: @hourly_gross_salary,
-      total_salary: @total_salary,
-      address: @job_address,
-      confirmation_time_hours: @confirmation_time_hours,
-      job_user_url: link_to(@job_user_url, @job_user_url),
-      google_calendar_url: link_to(I18n.t('mailer.google_calendar_link_name'), @google_calendar_url)
+      job_name: @job_name
     ).html_safe %>
+
+    <table>
+      <tr>
+        <td colspan="2"><%= I18n.t('mailer.applicant_accepted.job_name_title') %></td>
+        <td><%= @job_name %></td>
+      </tr>
+      <tr>
+        <td colspan="2"><%= I18n.t('mailer.applicant_accepted.when_title') %></td>
+        <td><%= @job_start_date %> - <%= @job_end_date %> <%= link_to(I18n.t('mailer.google_calendar_link_name'), @google_calendar_url) %></td>
+      </tr>
+      <tr>
+        <td colspan="2"><%= I18n.t('mailer.applicant_accepted.hours_title') %></td>
+        <td><%= @total_hours %></td>
+      </tr>
+      <tr>
+        <td colspan="2"><%= I18n.t('mailer.applicant_accepted.hourly_gross_salary_title') %></td>
+        <td><%= @hourly_gross_salary %> <%= I18n.t('mailer.applicant_accepted.hourly_gross_salary_unit') %></td>
+      </tr>
+      <tr>
+        <td colspan="2"><%= I18n.t('mailer.applicant_accepted.total_gross_salary_title') %></td>
+        <td><%= @total_salary %> <%= I18n.t('mailer.applicant_accepted.hourly_total_salary_unit') %></td>
+      </tr>
+      <tr>
+        <td colspan="2"><%= I18n.t('mailer.applicant_accepted.address_title') %></td>
+        <td><%= link_to @job_address, GoogleMapsUrl.build(@job_address) %></td>
+      </tr>
+    </table>
+
+    <%= simple_format I18n.t(
+      'mailer.applicant_accepted.body_end',
+      confirmation_time_hours: @confirmation_time_hours,
+      job_user_url: link_to(@job_user_url, @job_user_url)
+    ) %>
 
     <p><%= I18n.t('mailer.signoff') %></p>
   </body>

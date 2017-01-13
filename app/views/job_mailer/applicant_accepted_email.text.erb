@@ -1,16 +1,24 @@
 <%= I18n.t(
-  'mailer.applicant_accepted.body',
+  'mailer.applicant_accepted.body_start',
   user_name: @user_name,
+  job_name: @job_name,
+) %>
+
+<%= I18n.t(
+  'mailer.applicant_accepted.body_middle',
   job_name: @job_name,
   job_start_date: @job_start_date,
   job_end_date: @job_end_date,
   total_hours: @total_hours,
   hourly_gross_salary: @hourly_gross_salary,
   total_salary: @total_salary,
-  address: @job_address,
-  confirmation_time_hours: @confirmation_time_hours,
-  job_user_url: @job_user_url,
-  google_calendar_url: nil
-).html_safe %>
+  address: @job_address
+) %>
 
-<p><%= I18n.t('mailer.signoff') %></p>
+<%= I18n.t(
+  'mailer.applicant_accepted.body_end',
+  confirmation_time_hours: @confirmation_time_hours,
+  job_user_url: @job_user_url
+) %>
+
+<%= I18n.t('mailer.signoff') %>
