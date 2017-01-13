@@ -14,7 +14,7 @@ en:
       subject: Congrats! The candidate will perform your job
       congrats_line: Congrats!
       details_line: "%{name} will perform your job %{job_name}."
-      explaination: You can contact %{name} through the chat in My jobs, on %{phone} or %{email} if you want to provide more information or details about the job.
+      explaination: You can contact %{name} on %{phone} or %{email} if you want to provide more information or details about the job.
     applicant_accepted:
       subject: Congrats you've received a new job offer! Please confirm the job.
       job_name_title: 'The job:'
@@ -69,7 +69,8 @@ en:
 
         Today the invoice for your job “%{job_name}” was created. This means that you should have your salary on your account within two weeks.
 
-        You will also receive a specification of your salary from Frilans Finans. If you want help with understanding what all the different numbers are, please read this explaining document: %{payslip_explain_url}.
+        You will also receive a specification of your salary from Frilans Finans.
+        If you want help with understanding what all the different numbers are, please read this explaining document: %{payslip_explain_url}.
 
         Contact us at %{support_email} if questions or problems arise.
 
@@ -93,7 +94,9 @@ en:
       body: You have a new job comment for one of your jobs.
     reset_password:
       subject: 'Just Arrived passsword reset link'
+      reset_password_url_title: Reset your password.
       body_header: 'Hi %{name}, you requested a password reset for your account at Just Arrived. Please visit this link to enter your new password:'
+      body_end: If you have trouble resetting your password contact us on %{support_email}.
     welcome:
       subject: Welcome to Just Arrived!
       body: |
@@ -103,9 +106,7 @@ en:
         Here is some information that you need to know:
 
         Just Arrived can not guarantee anyone jobs, but we can guarantee that we will work our very hardest to make sure that there always are jobs to apply for at our service! We provide everything from jobs that last one day, to part-time or full-time jobs, but most of our jobs are shorter.
-
         Right now Just Arrived provides jobs in Stockholm and Gothenburg. We hope to reach other cities soon, so if you live in another city, hold tight and make sure your profile is updated!
-
         If you get a job through us is entirely up to you! The more jobs you apply for, and the faster you apply for them, the bigger the chance of you getting any jobs.
 
         Here’s what you can do to increase your chances of getting a job:
@@ -127,8 +128,8 @@ en:
 
         Here are some of the surest ways to increase the chance of it being you next time!
 
-        The most important thing is to login and apply often. The earlier you apply for a job the better!
-        Keep your profile updated! Every skill or piece of information matters. We are sure that there are some things that you’re good at that you haven’t told us about yet!
-        If anything’s unclear, or if you need help, please do not hesitate to contact us at %{support_email} or check out our %{faq_link}.
+        - The most important thing is to login and apply often. The earlier you apply for a job the better!
+        - Keep your profile updated! Every skill or piece of information matters. We are sure that there are some things that you’re good at that you haven’t told us about yet!
+        - If anything’s unclear, or if you need help, please do not hesitate to contact us at %{support_email} or check out our %{faq_link}.
     google_calendar_link_name: Add to Google Calendar
     signoff: "/ Team Just Arrived"

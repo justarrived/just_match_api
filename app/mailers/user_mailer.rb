@@ -14,6 +14,7 @@ class UserMailer < ApplicationMailer
     @user_name = user.first_name
     token = user.one_time_token
     @reset_password_url = FrontendRouter.draw(:reset_password, token: token)
+    @support_email = AppConfig.support_email
 
     subject = I18n.t('mailer.reset_password.subject')
     mail(to: user.contact_email, subject: subject)
