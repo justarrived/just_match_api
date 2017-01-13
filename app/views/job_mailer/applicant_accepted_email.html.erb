@@ -12,27 +12,27 @@
 
     <table>
       <tr>
-        <td colspan="2"><%= I18n.t('mailer.applicant_accepted.job_name_title') %></td>
+        <td colspan="2"><strong><%= I18n.t('mailer.applicant_accepted.job_name_title') %></strong></td>
         <td><%= @job_name %></td>
       </tr>
       <tr>
-        <td colspan="2"><%= I18n.t('mailer.applicant_accepted.when_title') %></td>
+        <td colspan="2"><strong><%= I18n.t('mailer.applicant_accepted.when_title') %></strong></td>
         <td><%= @job_start_date %> - <%= @job_end_date %> <%= link_to(I18n.t('mailer.google_calendar_link_name'), @google_calendar_url) %></td>
       </tr>
       <tr>
-        <td colspan="2"><%= I18n.t('mailer.applicant_accepted.hours_title') %></td>
+        <td colspan="2"><strong><%= I18n.t('mailer.applicant_accepted.hours_title') %></strong></td>
         <td><%= @total_hours %></td>
       </tr>
       <tr>
-        <td colspan="2"><%= I18n.t('mailer.applicant_accepted.hourly_gross_salary_title') %></td>
+        <td colspan="2"><strong><%= I18n.t('mailer.applicant_accepted.hourly_gross_salary_title') %></strong></td>
         <td><%= @hourly_gross_salary %> <%= I18n.t('mailer.applicant_accepted.hourly_gross_salary_unit') %></td>
       </tr>
       <tr>
-        <td colspan="2"><%= I18n.t('mailer.applicant_accepted.total_gross_salary_title') %></td>
-        <td><%= @total_salary %> <%= I18n.t('mailer.applicant_accepted.hourly_total_salary_unit') %></td>
+        <td colspan="2"><strong><%= I18n.t('mailer.applicant_accepted.total_gross_salary_title') %></strong></td>
+        <td><%= @total_salary %> <%= I18n.t('mailer.applicant_accepted.total_gross_salary_unit') %></td>
       </tr>
       <tr>
-        <td colspan="2"><%= I18n.t('mailer.applicant_accepted.address_title') %></td>
+        <td colspan="2"><strong><%= I18n.t('mailer.applicant_accepted.address_title') %></strong></td>
         <td><%= link_to @job_address, GoogleMapsUrl.build(@job_address) %></td>
       </tr>
     </table>
