@@ -27,6 +27,12 @@ GIT
       railties (>= 3.2, < 5.1)
       responders
 
+GIT
+  remote: https://github.com/mailcheck/mailcheck-ruby
+  revision: a64ef45e849748cd8eaad0afd0119abcf2ab143a
+  specs:
+    mailcheck (1.0.0)
+
 PATH
   remote: lib/frilans_finans_api
   specs:
@@ -662,6 +668,7 @@ DEPENDENCIES
   kaminari (~> 0.17)
   letter_opener (~> 1.4)
   listen (~> 3.1)
+  mailcheck!
   maruku (~> 0.7)
   memory_profiler (~> 0.9)
   paperclip (~> 5.1)

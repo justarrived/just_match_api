@@ -277,6 +277,47 @@ module Api
         render json: resource
       end
 
+      api :POST, '/users/email-suggestion', 'Suggest email'
+      description 'Returns suggestions for common misstakes when inputting an email address.' # rubocop:disable Metrics/LineLength
+      error code: 400, desc: 'Bad request'
+      param :data, Hash, desc: 'Top level key', required: true do
+        param :attributes, Hash, desc: 'User attributes', required: true do
+          param :email, String, desc: 'Email address', required: true
+        end
+      end
+      example <<-JSON_EXAMPLE
+# Response example
+#{JSON.pretty_generate(JsonApiData.new(
+  id: SecureGenerator.token,
+  type: :email_suggestions,
+  attributes: {
+    address: 'buren',
+    domain: 'example.com',
+    full: 'buren@example.com'
+  },
+  key_transform: :underscore
+).to_h)}
+      JSON_EXAMPLE
+      def email_suggestion
+        authorize(User)
+        attributes = {}
+
+        email = jsonapi_params[:email]
+        unless email.blank?
+          suggestion = EmailSuggestion.call(email)
+          attributes = suggestion unless suggestion.empty?
+        end
+
+        response = JsonApiData.new(
+          id: SecureGenerator.token,
+          type: :email_suggestions,
+          attributes: attributes,
+          key_transform: key_transform_header
+        )
+
+        render json: response, status: :ok
+      end
+
       private
 
       def respond_with_invalid_image_content_type
