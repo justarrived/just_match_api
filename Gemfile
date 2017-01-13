@@ -60,6 +60,7 @@ gem 'global_phone', '~> 1.0' # Format cell phone numbers
 gem 'google-cloud-translate', '~> 0.22' # Translate with Google Translate API
 gem 'i18n_data', '~> 0.7' # Language and country names in various languages
 gem 'iban-tools', '~> 1.1' # Validate IBAN
+gem 'mailcheck', git: 'https://github.com/mailcheck/mailcheck-ruby' # Email suggestions for common email spelling misstakes
 gem 'personnummer', '~> 0.0.9' # Swedish "personummer" or "samordningsnummer"
 gem 'rails-i18n', '~> 5.0' # Rails translations
 
