@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 source 'https://rubygems.org'
 
-ruby '2.3.3'
+ruby '2.4.0'
 
 gem 'rails', '5.0.1' # Ruby on Rails MVC framework
 

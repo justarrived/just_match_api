@@ -5,8 +5,10 @@ class ContactNotifier < BaseNotifier
     email = contact.email
     body = contact.body
 
-    ContactMailer.
-      contact_email(name: name, email: email, body: body).
-      deliver_later
+    notify do
+      ContactMailer.
+        contact_email(name: name, email: email, body: body).
+        deliver_later
+    end
   end
 end

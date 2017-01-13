@@ -4,7 +4,7 @@ class JobCancelledNotifier < BaseNotifier
     job.users.each do |user|
       next if ignored?(user)
 
-      with_locale(user.locale) do
+      notify(locale: user.locale) do
         JobMailer.
           job_cancelled_email(user: user, job: job).
           deliver_later

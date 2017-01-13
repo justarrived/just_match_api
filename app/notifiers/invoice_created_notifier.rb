@@ -4,7 +4,7 @@ class InvoiceCreatedNotifier < BaseNotifier
     owner = job.owner
     return if ignored?(user)
 
-    with_locale(user.locale) do
+    notify(locale: user.locale) do
       InvoiceMailer.
         invoice_created_email(user: user, job: job, owner: owner).
         deliver_later

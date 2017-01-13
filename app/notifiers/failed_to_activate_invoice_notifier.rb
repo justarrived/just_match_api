@@ -5,9 +5,11 @@ class FailedToActivateInvoiceNotifier < BaseNotifier
       next if ignored?(user)
 
       mailer_args = { user: user, ff_invoice: ff_invoice }
-      AdminMailer.
-        failed_to_activate_invoice_email(**mailer_args).
-        deliver_later
+      notify do
+        AdminMailer.
+          failed_to_activate_invoice_email(**mailer_args).
+          deliver_later
+      end
     end
   end
 end

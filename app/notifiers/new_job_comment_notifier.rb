@@ -5,7 +5,7 @@ class NewJobCommentNotifier < BaseNotifier
     return if ignored?(owner)
     return if owner == comment.owner
 
-    with_locale(owner.locale) do
+    notify(locale: owner.locale) do
       JobMailer.
         new_job_comment_email(comment: comment, job: job).
         deliver_later
