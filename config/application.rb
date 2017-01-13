@@ -2,6 +2,12 @@
 require_relative 'boot'
 
 require 'rails'
+
+# Require JustMatch app specific config & secrets
+require_relative 'app_env'
+require_relative 'app_config'
+require_relative 'app_secrets'
+
 # Pick the frameworks you want:
 require 'active_model/railtie'
 require 'active_job/railtie'
@@ -11,10 +17,6 @@ require 'action_mailer/railtie'
 require 'action_view/railtie' # Needed for Rails mailers
 # require 'sprockets/railtie'
 # require "rails/test_unit/railtie"
-
-require_relative 'app_env'
-require_relative 'app_config'
-require_relative 'app_secrets'
 
 require_relative 'i18n_fallback'
 
