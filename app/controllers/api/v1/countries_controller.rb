@@ -18,6 +18,7 @@ module Api
       description 'Returns a list of countries'
       # rubocop:disable Metrics/LineLength
       param 'filter[name]', String, 'Filter resource by *name* [jsonapi.org spec](http://jsonapi.org/format/#fetching-filtering)'
+      param 'filter[country_code]', String, 'Filter resource by *country_code* [jsonapi.org spec](http://jsonapi.org/format/#fetching-filtering)'
       example JSON.pretty_generate(CountriesSerializer.serializeble_resource(key_transform: :underscore).to_h)
       # rubocop:enable Metrics/LineLength
       def index
