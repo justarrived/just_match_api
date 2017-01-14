@@ -111,7 +111,7 @@ class Doxxer
     fake_admin = OpenStruct.new(admin?: true, persisted?: true)
     serialized_model = JsonApiSerializer.serialize(
       model,
-      key_transform: :underscore,
+      key_transform: :unaltered,
       current_user: fake_admin
     )
     model_hash = serialized_model.serializable_hash
@@ -127,7 +127,7 @@ class Doxxer
     model_hash = if model.valid?
                    {}
                  else
-                   JsonApiErrorSerializer.serialize(model, key_transform: :underscore)
+                   JsonApiErrorSerializer.serialize(model, key_transform: :unaltered)
                  end
     JSON.pretty_generate(errors: model_hash)
   end

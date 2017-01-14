@@ -355,7 +355,7 @@ module Api
 
       def key_transform_header
         case request.headers['X-API-KEY-TRANSFORM']
-        when 'underscore' then :underscore
+        when 'underscore' then :unaltered
         else
           'dash'
         end
