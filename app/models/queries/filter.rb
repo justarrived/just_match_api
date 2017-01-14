@@ -8,17 +8,32 @@ module Queries
         next if field_name.to_s.include?('.')
 
         filter_type = filter_types[field_name]
-        if filter_type
-          like_query = extract_like_query(filter_type)
-          records = records.where(
-            "lower(#{field_name}) LIKE lower(concat(#{like_query}))",
-            value
-          )
+        if filter_type.is_a?(Hash) && filter_type[:translated]
+          records = filter_translated_records(records, field_name, value, filter_type[:translated]) # rubocop:disable Metrics/LineLength
+        elsif filter_type
+          records = filter_records(records, field_name, value, filter_type)
         else
           records = records.where(field_name => value)
         end
       end
       records
+    end
+
+    def self.filter_records(records, field_name, value, filter_type)
+      like_query = extract_like_query(filter_type)
+      records.where(
+        "lower(#{field_name}) LIKE lower(concat(#{like_query}))",
+        value
+      )
+    end
+
+    def self.filter_translated_records(records, field_name, value, filter_type)
+      relation_name = "#{records.model_name.singular}_translations"
+      like_query = extract_like_query(filter_type)
+      records.joins(:translations).where(
+        "lower(#{relation_name}.#{field_name}) LIKE lower(concat(#{like_query}))",
+        value
+      )
     end
 
     def self.extract_like_query(filter_type)
