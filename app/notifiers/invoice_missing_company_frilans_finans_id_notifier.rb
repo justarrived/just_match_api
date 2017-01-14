@@ -2,10 +2,8 @@
 class InvoiceMissingCompanyFrilansFinansIdNotifier < BaseNotifier
   def self.call(ff_invoice:, job:)
     User.admins.each do |user|
-      next if ignored?(user)
-
       mailer_args = { user: user, ff_invoice: ff_invoice, job: job }
-      notify do
+      notify(user: user) do
         AdminMailer.
           invoice_missing_company_frilans_finans_id_email(**mailer_args).
           deliver_later
