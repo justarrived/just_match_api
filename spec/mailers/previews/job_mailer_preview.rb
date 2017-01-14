@@ -26,7 +26,7 @@ class JobMailerPreview < ActionMailer::Preview
   end
 
   def applicant_will_perform_job_info_email
-    JobMailer.applicant_will_perform_job_info_email(job_user: job_user)
+    JobMailer.applicant_will_perform_job_info_email(job_user: job_user, owner: owner)
   end
 
   def applicant_rejected_email
