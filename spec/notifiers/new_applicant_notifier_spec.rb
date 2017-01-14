@@ -8,10 +8,20 @@ RSpec.describe NewApplicantNotifier, type: :mailer do
   let(:user) { FactoryGirl.build(:user) }
   let(:owner) { FactoryGirl.build(:user) }
 
-  it 'calls job mailer' do
+  before(:each) do
     allow(JobMailer).to receive(:new_applicant_email).and_return(mailer)
+    allow(JobMailer).to receive(:new_applicant_job_info_email).and_return(mailer)
+  end
+
+  it 'sends new_applicant_email mail' do
     mailer_args = { job_user: job_user, owner: owner }
     NewApplicantNotifier.call(**mailer_args)
     expect(JobMailer).to have_received(:new_applicant_email).with(mailer_args)
+  end
+
+  it 'sends new_applicant_job_info_email mail' do
+    mailer_args = { job_user: job_user, owner: owner }
+    NewApplicantNotifier.call(**mailer_args)
+    expect(JobMailer).to have_received(:new_applicant_job_info_email).with(job_user: job_user) # rubocop:disable Metrics/LineLength
   end
 end

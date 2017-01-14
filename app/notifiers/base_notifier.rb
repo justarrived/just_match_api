@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 class BaseNotifier
-  def self.notify(locale: I18n.locale)
-    with_locale(locale) { yield }
+  def self.notify(user: nil, locale: I18n.locale)
+    with_locale(locale) { yield unless ignored?(user) }
     true
   rescue Redis::ConnectionError => e
     ErrorNotifier.send(e, context: { locale: locale })
@@ -11,7 +11,7 @@ class BaseNotifier
   def self.ignored?(user, notification_name = nil)
     name = (notification_name || underscored_name).to_s
 
-    user.ignored_notification?(name) || globally_ignored?(name)
+    user&.ignored_notification?(name) || globally_ignored?(name)
   end
 
   def self.globally_ignored?(notification_name)

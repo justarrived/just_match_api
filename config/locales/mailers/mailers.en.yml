@@ -79,6 +79,19 @@ en:
     magic_login_link:
       subject: Magic sign-in link
       login_line: To login to Just Arrived use the link %{url}
+    new_applicant_job_info:
+      subject: You applied for a job
+      body: |
+        Hi %{name}!
+
+        We’re glad to see that you’ve applied for the job “%{job_name}” through Just Arrived!
+
+        Here’s what you need to know about what happens now:
+        If you get a job offer, you will receive an email and a text message. Please note that you need to confirm that you will do the job, and as soon as possible. If you do not confirm within the given time, someone else will get the job offer.
+
+        We have a lot of users and applications for our jobs, so don’t be discouraged if someone else gets the chance this time. Next time it might be you!
+
+        Your best chance to get any job is to login often, apply often, and make sure that your profile is updated! We are convinced that you will get a job that suits your profile soon!
     new_applicant:
       applicant_line: The candidate is %{name}.
       congrats_line: Hi %{name}!

@@ -28,6 +28,15 @@ class JobMailer < ApplicationMailer
     mail(to: owner.contact_email, subject: subject)
   end
 
+  def new_applicant_job_info_email(job_user:)
+    user = job_user.user
+    @user_name = user.first_name
+    @job_name = job_user.job.name
+
+    subject = I18n.t('mailer.new_applicant_job_info.subject')
+    mail(to: user.contact_email, subject: subject)
+  end
+
   def new_applicant_email(job_user:, owner:)
     user = job_user.user
     job = job_user.job

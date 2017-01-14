@@ -13,6 +13,10 @@ class JobMailerPreview < ActionMailer::Preview
     JobMailer.new_applicant_email(job_user: job_user, owner: owner)
   end
 
+  def new_applicant_job_info_email
+    JobMailer.new_applicant_job_info_email(job_user: job_user)
+  end
+
   def applicant_accepted_email
     JobMailer.applicant_accepted_email(job_user: job_user, owner: owner)
   end
