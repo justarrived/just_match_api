@@ -96,10 +96,10 @@ class JobMailer < ApplicationMailer
     mail(to: owner.contact_email, subject: subject)
   end
 
-  def applicant_will_perform_job_info_email(job_user:)
+  def applicant_will_perform_job_info_email(job_user:, owner:)
     user = job_user.user
     job = job_user.job
-    contact = job.company_contact || job.owner
+    contact = job.company_contact || owner
     ja_contact = job.just_arrived_contact
 
     @user_name = user.name

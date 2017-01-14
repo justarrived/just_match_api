@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 class ApplicantWillPerformNotifier < BaseNotifier
   def self.call(job_user:, owner:)
+    user_email(job_user: job_user, owner: owner)
     owner_email(job_user: job_user, owner: owner)
 
     rejected_emails(confirmed_job_user: job_user)
@@ -17,6 +18,15 @@ class ApplicantWillPerformNotifier < BaseNotifier
           applicant_rejected_email(job_user: job_user).
           deliver_later
       end
+    end
+  end
+
+  def self.user_email(job_user:, owner:)
+    user = job_user.user
+    notify(user: user, locale: user.locale) do
+      JobMailer.
+        applicant_will_perform_job_info_email(job_user: job_user, owner: owner).
+        deliver_later
     end
   end
 

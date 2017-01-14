@@ -10,8 +10,10 @@ RSpec.describe ApplicantWillPerformNotifier, type: :mailer do
 
   it 'must work' do
     allow(JobMailer).to receive(:applicant_will_perform_email).and_return(mailer)
+    allow(JobMailer).to receive(:applicant_will_perform_job_info_email).and_return(mailer)
     mailer_args = { job_user: job_user, owner: job.owner }
     described_class.call(**mailer_args)
     expect(JobMailer).to have_received(:applicant_will_perform_email).with(mailer_args)
+    expect(JobMailer).to have_received(:applicant_will_perform_job_info_email).with(mailer_args) # rubocop:disable Metrics/LineLength
   end
 end

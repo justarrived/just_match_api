@@ -7,7 +7,15 @@ RSpec.describe JobMailer, type: :mailer do
     mail = 'user@example.com'
     mock_model(User, first_name: 'User', name: 'User', contact_email: mail, phone: tel)
   end
-  let(:owner) { mock_model User, name: 'Owner', contact_email: 'owner@example.com' }
+  let(:ja_contact) do
+    tel = '+46735000000'
+    mail = 'user@example.com'
+    mock_model(User, first_name: 'User', name: 'User', email: mail, phone: tel)
+  end
+  let(:owner) do
+    tel = '+46735000000'
+    mock_model User, name: 'Owner', contact_email: 'owner@example.com', phone: tel
+  end
   let(:job_user) { mock_model JobUser, user: user, job: job, id: 37 }
   let(:job) do
     mock_model(
@@ -16,6 +24,8 @@ RSpec.describe JobMailer, type: :mailer do
       address: 'Sveavägen 1',
       job_date: 1.day.ago,
       job_end_date: 2.days.ago,
+      company_contact: owner,
+      just_arrived_contact: ja_contact,
       hours: 2,
       gross_amount: 200,
       hourly_gross_salary: 100,
@@ -153,7 +163,7 @@ RSpec.describe JobMailer, type: :mailer do
 
   describe '#new_applicant_job_info_email' do
     let(:mail) do
-      described_class.new_applicant_email(job_user: job_user)
+      described_class.new_applicant_job_info_email(job_user: job_user)
     end
 
     it 'has both text and html part' do
@@ -166,7 +176,7 @@ RSpec.describe JobMailer, type: :mailer do
     end
 
     it 'renders the receiver email' do
-      expect(mail.to).to eql([owner.contact_email])
+      expect(mail.to).to eql([user.contact_email])
     end
 
     it 'renders the sender email' do
@@ -179,15 +189,6 @@ RSpec.describe JobMailer, type: :mailer do
 
     it 'includes @job_name in email body' do
       expect(mail).to match_email_body(job.name)
-    end
-
-    it 'includes job user url in email' do
-      url = FrontendRouter.draw(
-        :job_user,
-        job_id: job.id,
-        job_user_id: job_user.id
-      )
-      expect(mail).to match_email_body(url)
     end
   end
 
@@ -288,6 +289,70 @@ RSpec.describe JobMailer, type: :mailer do
     it 'includes job user url in email' do
       url = FrontendRouter.draw(
         :job_user_for_company,
+        job_id: job.id,
+        job_user_id: job_user.id
+      )
+      expect(mail).to match_email_body(url)
+    end
+  end
+
+  describe '#applicant_will_perform_job_info_email' do
+    let(:mail) do
+      described_class.applicant_will_perform_job_info_email(job_user: job_user, owner: owner) # rubocop:disable Metrics/LineLength
+    end
+
+    it 'has both text and html part' do
+      expect(mail).to be_multipart_email(true)
+    end
+
+    it 'renders the subject' do
+      subject = I18n.t('mailer.applicant_will_perform_job_info.subject')
+      expect(mail.subject).to eql(subject)
+    end
+
+    it 'renders the receiver email' do
+      expect(mail.to).to eql([user.contact_email])
+    end
+
+    it 'renders the sender email' do
+      expect(mail.from).to eql(['support@justarrived.se'])
+    end
+
+    it 'includes @user_name in email body' do
+      expect(mail).to match_email_body(user.name)
+    end
+
+    it 'includes @job_name in email body' do
+      expect(mail).to match_email_body(job.name)
+    end
+
+    it 'includes @address in email body' do
+      expect(mail).to match_email_body(job.address)
+    end
+
+    it 'includes @contact_person_name in email body' do
+      expect(mail).to match_email_body(owner.name)
+    end
+
+    it 'includes @contact_person_phone in email body' do
+      expect(mail).to match_email_body(owner.phone)
+    end
+
+    it 'includes @ja_contact_name in email body' do
+      expect(mail).to match_email_body(ja_contact.name)
+    end
+
+    it 'includes @ja_contact_phone in email body' do
+      expect(mail).to match_email_body(ja_contact.phone)
+    end
+
+    it 'includes @ja_contact_email in email body' do
+      expect(mail).to match_email_body(ja_contact.email)
+    end
+
+    it 'includes job user url in email' do
+      url = FrontendRouter.draw(
+        :job_user,
         job_id: job.id,
         job_user_id: job_user.id
       )
