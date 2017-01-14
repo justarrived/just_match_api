@@ -33,7 +33,7 @@
       </tr>
       <tr>
         <td colspan="2"><strong><%= I18n.t('mailer.applicant_accepted.address_title') %></strong></td>
-        <td><%= link_to @job_address, GoogleMapsUrl.build(@job_address) %></td>
+        <td><%= address_to @job_address %></td>
       </tr>
     </table>
 

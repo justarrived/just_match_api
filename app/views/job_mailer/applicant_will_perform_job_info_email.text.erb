@@ -1,0 +1,15 @@
+<%= I18n.t(
+  'mailer.applicant_will_perform_job_info.body',
+  name: @user_name,
+  job_name: @job_name,
+  address: @address,
+  job_start_date: @job_start_date,
+  contact_person_name: @contact_person_name,
+  contact_person_phone: @contact_person_phone,
+  ja_contact_name: @ja_contact_name,
+  ja_contact_phone: @ja_contact_phone,
+  ja_contact_email: @ja_contact_email,
+  job_user_url: @job_user_url
+) %>
+
+<%= I18n.t('mailer.signoff') %>

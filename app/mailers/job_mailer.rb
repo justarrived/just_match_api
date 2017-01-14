@@ -96,6 +96,32 @@ class JobMailer < ApplicationMailer
     mail(to: owner.contact_email, subject: subject)
   end
 
+  def applicant_will_perform_job_info_email(job_user:)
+    user = job_user.user
+    job = job_user.job
+    contact = job.company_contact || job.owner
+    ja_contact = job.just_arrived_contact
+
+    @user_name = user.name
+    @job_name = job.name
+    @address = job.address
+    @job_start_date = job.job_date
+    @contact_person_name = contact&.name
+    @contact_person_phone = contact&.phone
+    @ja_contact_name = ja_contact&.name
+    @ja_contact_phone = ja_contact&.phone
+    @ja_contact_email = ja_contact&.email
+
+    @job_user_url = FrontendRouter.draw(
+      :job_user,
+      job_id: job.id,
+      job_user_id: job_user.id
+    )
+
+    subject = I18n.t('mailer.applicant_will_perform_job_info.subject')
+    mail(to: user.contact_email, subject: subject)
+  end
+
   def applicant_rejected_email(job_user:)
     user = job_user.user
     job = job_user.job

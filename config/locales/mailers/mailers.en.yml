@@ -10,6 +10,24 @@ en:
       explaination: The accepted candidate %{name} for your job %{job_name} has not confirmed within the accepted time frame. Please chose the same or another candidate for your job.
     applicant_rejected:
       subject: Another candidate has been chosen
+    applicant_will_perform_job_info:
+      subject: Congrats on your job!
+      body: |
+        Congrats %{name} on getting the job “%{job_name}”!
+
+        The job is on %{address}, on %{job_start_date}
+
+        Contact person: %{contact_person_name}, %{contact_person_phone}
+
+        You will find more info about the job at %{job_user_url}.
+
+        Make sure that you’re on time (!) and work the hours that’s agreed upon. If the company asks if you can work more than what’s agreed, you may say no. You may of course also say yes, and will be paid for it.
+
+        Your contact person at Just Arrived for this job is %{ja_contact_name} call him/her at %{ja_contact_phone} if you have any questions, or email him/her at %{ja_contact_email}.
+
+        About the salary:
+        An invoice will be activated 2-5 days after the job finishes. After this it will take up to 10 days for you to receive your salary, which means, depending on weekends a total of maximum three weeks after the job’s end date.
+        (If you have provided all the info about your bank account etc. correctly.)
     applicant_will_perform:
       subject: Congrats! The candidate will perform your job
       congrats_line: Congrats!
