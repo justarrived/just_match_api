@@ -13,6 +13,7 @@ en:
         subject: 'Admin notice: Failed to activate Frilans Finans invoice'
         notice: Failed to create a Frilans Finans invoice for %{id}
   errors:
+    bad_json_format: "There was a problem in the JSON you submitted: %{error_class}"
     rate_limit:
       details: Throttle limit reached. Retry later.
     bank_account:
@@ -106,6 +107,20 @@ en:
     job_match: Job match
     new_applicant_job_info: Job apply info
     applicant_will_perform_job_info: Job confirmation info
+  user_image:
+    categories:
+      profile: Profile
+      profile_description: Profile picture
+      swedish_id: Swedish ID
+      swedish_id_description: Picture of your Swedish identification.
+      work_permit: Work permit
+      work_permit_description: Picture of your work permit.
+      lma_card: LMA-card
+      lma_card_description: Picture of your LMA-card for asylum seekers.
+      residence_permit: Residence permit
+      residence_permit_description: Picture of your residence permit
+      skatteverket_certificate: Skatteverket certificate
+      skatteverket_certificate_description: Picture of your Skatteverket certificate
   texter:
     magic_login_link:
       login_line: Just Arrived magic login link %{url}

@@ -50,6 +50,15 @@ module Api
           end
         end
 
+        api :GET, '/users/images/categories', 'Show all possible user image categories'
+        description 'Returns a list of all possible user image categories.'
+        example JSON.pretty_generate(UserImageCategoriesSerializer.serializeble_resource(key_transform: :underscore).to_h) # rubocop:disable Metrics/LineLength
+        def categories
+          authorize(User)
+          resource = UserImageCategoriesSerializer.serializeble_resource(key_transform: key_transform_header) # rubocop:disable Metrics/LineLength
+          render json: resource
+        end
+
         private
 
         def respond_with_invalid_image_content_type

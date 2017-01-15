@@ -65,6 +65,14 @@ class UserPolicy < ApplicationPolicy
     true
   end
 
+  def email_suggestion?
+    true
+  end
+
+  def categories?
+    true
+  end
+
   def present_attributes(collection: false)
     return ATTRIBUTES if no_user?
 
