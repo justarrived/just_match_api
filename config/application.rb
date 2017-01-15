@@ -18,6 +18,7 @@ require 'action_view/railtie' # Needed for Rails mailers
 # require 'sprockets/railtie'
 # require "rails/test_unit/railtie"
 
+require_relative '../lib/middleware/catch_json_parse_errors'
 require_relative 'i18n_fallback'
 
 Bundler.require(*Rails.groups)
@@ -48,6 +49,7 @@ module JustMatch
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
 
+    config.middleware.insert_before Rack::Head, CatchJsonParseErrors
     config.middleware.use Rack::Attack
 
     config.active_job.queue_adapter = :sidekiq
