@@ -25,6 +25,8 @@ module Index
 
     def languages(scope = Language)
       @languages ||= begin
+        # We need to delete the :name attribute, otherwise we're gonna try to query
+        # a name column which doesn't exist
         query = filter_params.delete(:name)
         scope = filter_languages(scope, query) if query
         prepare_records(scope)
