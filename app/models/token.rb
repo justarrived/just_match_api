@@ -11,8 +11,11 @@ class Token < ApplicationRecord
   validates :token, uniqueness: true
   validates :expires_at, presence: true
 
-  scope :expired, -> { where('expires_at < ?', Time.zone.now) }
-  scope :not_expired, -> { where('expires_at > ?', Time.zone.now) }
+  scope :expires_before, ->(datetime) { where('expires_at < ?', datetime) }
+  scope :expires_after, ->(datetime) { where('expires_at > ?', datetime) }
+  scope :expired, -> { expires_before(Time.zone.now) }
+  scope :not_expired, -> { expires_after(Time.zone.now) }
+  scope :ready_for_deletion, -> { expires_before(6.months.ago) }
 
   def expired?
     expires_at < Time.zone.now

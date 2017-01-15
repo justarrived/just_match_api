@@ -2,7 +2,7 @@
 module Sweepers
   class TokenSweeper
     def self.destroy_expired_tokens(scope = Token)
-      scope.expired.find_each(batch_size: 1000, &:destroy!)
+      scope.ready_for_deletion.find_each(batch_size: 1000, &:destroy!)
     end
   end
 end
