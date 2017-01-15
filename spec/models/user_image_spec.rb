@@ -14,6 +14,18 @@ RSpec.describe UserImage, type: :model do
       less_than(described_class::IMAGE_MAX_MB_SIZE.megabytes)
   end
 
+  described_class::CATEGORIES.each do |name, _value|
+    it "has field name translation for user image category: #{name}" do
+      key = "user_image.categories.#{name}"
+      expect(I18n.t(key)).not_to include('translation missing')
+    end
+
+    it "has description translation for user image category: #{name}" do
+      key = "user_image.categories.#{name}_description"
+      expect(I18n.t(key)).not_to include('translation missing')
+    end
+  end
+
   describe '#generate_one_time_token' do
     let(:user_image) { FactoryGirl.build(:user_image) }
 

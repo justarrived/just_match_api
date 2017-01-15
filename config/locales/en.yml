@@ -103,6 +103,20 @@ en:
     job_cancelled: Job cancelled
     new_chat_message: New chat message
     new_job_comment: New job comment
+  user_image:
+    categories:
+      profile: Profile
+      profile_description: Profile picture
+      swedish_id: Swedish ID
+      swedish_id_description: Picture of your Swedish identification.
+      work_permit: Work permit
+      work_permit_description: Picture of your work permit.
+      lma_card: LMA-card
+      lma_card_description: Picture of your LMA-card for asylum seekers.
+      residence_permit: Residence permit
+      residence_permit_description: Picture of your residence permit
+      skatteverket_certificate: Skatteverket certificate
+      skatteverket_certificate_description: Picture of your Skatteverket certificate
   texter:
     magic_login_link:
       login_line: Just Arrived magic login link %{url}

@@ -91,6 +91,20 @@ sv:
       temporary_residence_work_description: 'Tidsbegränsat uppehållstillstånd'
       student_visa: Student visa
       student_visa_description: Du har ett svenskt student visum
+  user_image:
+    categories:
+      profile: Profil
+      profile_description: Profilbild
+      swedish_id: Svenskt ID
+      swedish_id_description: Bild på ditt Svenska ID.
+      work_permit: Arbetstillstånd
+      work_permit_description: Bild på ditt arbetstillstånd.
+      lma_card: LMA-kort
+      lma_card_description: Bild på ditt LMA-kort för asylsökande.
+      residence_permit: Uppehållstillstånd
+      residence_permit_description: Bild på ditt uppehållstillstånd
+      skatteverket_certificate: Skatteverket certificat
+      skatteverket_certificate_description: Bild på ditt Skatteverket certificat
   notifications:
     accepted_applicant_confirmation_overdue: Den accepterade användarens konfirmationsperiod har gått ut
     accepted_applicant_withdrawn: Den accepterade användaren har dragit tillbaka sin ansökan

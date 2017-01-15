@@ -69,6 +69,11 @@ Rails.application.routes.draw do
           resources :change_password, path: 'change-password', module: :users, only: [:create]
 
           post :images
+          resources :user_images, module: :users, path: :images, only: [] do
+            collection do
+              get :categories
+            end
+          end
 
           get :notifications
           get :statuses
