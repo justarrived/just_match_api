@@ -5,6 +5,7 @@ class User < ApplicationRecord
   include SkillMatchable
 
   MIN_PASSWORD_LENGTH = 6
+  MAX_PASSWORD_LENGTH = 50
   ONE_TIME_TOKEN_VALID_FOR_HOURS = 18
 
   LOCATE_BY = {
@@ -371,7 +372,9 @@ class User < ApplicationRecord
     return false if password.blank?
     return false unless password.is_a?(String)
 
-    password.length >= 6
+    # BCrypt implementations will allow for at least 50 chars, but after that its not
+    # guaranteed, see https://security.stackexchange.com/questions/39849/does-bcrypt-have-a-maximum-password-length
+    password.length >= MIN_PASSWORD_LENGTH && password.length <= MAX_PASSWORD_LENGTH
   end
 
   def country_name

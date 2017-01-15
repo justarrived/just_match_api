@@ -67,7 +67,7 @@ sv:
     user:
       invalid_image_content_type: ogilltig filtyp
       wrong_password: fel lösenord
-      password_length: lösenordet måste vara minst %{count} tecken
+      password_length: lösenordet måste vara minst %{min_length} tecken och inte längre än %{max_length}
       must_be_available_locale: ditt språk stöds tyvärr inte
       must_be_valid_phone_number_format: måste vara ett giltigt telefonnummer
       must_be_swedish_phone_number: måste vara ett giltigt svenskt telefonnummer (+46)

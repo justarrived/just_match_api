@@ -120,8 +120,11 @@ RSpec.describe Api::V1::Users::ChangePasswordController, type: :controller do
         it 'returns with error message' do
           post :create, params: invalid_attributes
           parsed_json = JSON.parse(response.body)
-          min_length = User::MIN_PASSWORD_LENGTH
-          message = I18n.t('errors.user.password_length', count: min_length)
+          message = I18n.t(
+            'errors.user.password_length',
+            min_length: User::MIN_PASSWORD_LENGTH,
+            max_length: User::MAX_PASSWORD_LENGTH
+          )
           expect(parsed_json['errors'].first['detail']).to eq(message)
         end
       end
