@@ -5,7 +5,10 @@ class UserImage < ApplicationRecord
   CATEGORIES = {
     profile: 1,
     swedish_id: 2,
-    work_permit: 3
+    work_permit: 3,
+    lma_card: 4,
+    residence_permit: 5,
+    skatteverket_certificate: 6
   }.freeze
 
   belongs_to :user, optional: true
