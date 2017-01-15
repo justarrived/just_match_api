@@ -3,8 +3,16 @@ require 'rails_helper'
 
 RSpec.describe FrilansFinans::UserWrapper do
   describe '#attributes' do
+    let(:account_clearing_number) { '8000-2' }
+    let(:account_number) { '0000000000' }
+
     it 'returns the correct attributes' do
-      user = FactoryGirl.build(:user, ssn: '890101-0101')
+      user = FactoryGirl.build(
+        :user,
+        ssn: '890101-0101',
+        account_clearing_number: account_clearing_number,
+        account_number: account_number
+      )
       result = described_class.attributes(user)
       expected = {
         user: {
@@ -16,7 +24,9 @@ RSpec.describe FrilansFinans::UserWrapper do
           cellphone: user.phone,
           first_name: user.first_name,
           last_name: user.last_name,
-          social_security_number: '8901010101'.to_i
+          social_security_number: '8901010101'.to_i,
+          account_clearing_number: account_clearing_number,
+          account_number: account_number
         }
       }
       expect(result).to eq(expected)

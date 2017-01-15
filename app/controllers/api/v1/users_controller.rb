@@ -98,6 +98,8 @@ module Api
         if @user.save
           login_user(@user)
 
+          sync_ff_user(@user)
+
           @user.set_translation(user_params).tap do |result|
             EnqueueCheapTranslation.call(result)
           end
@@ -180,6 +182,8 @@ module Api
           end
 
           @user.reload
+
+          sync_ff_user(@user)
 
           language_ids = jsonapi_params[:language_ids]
           SetUserLanguagesService.call(user: @user, language_ids_param: language_ids)
@@ -326,6 +330,12 @@ module Api
         errors.add(status: 422, detail: message)
 
         render json: errors, status: :unprocessable_entity
+      end
+
+      def sync_ff_user(user)
+        if AppConfig.frilans_finans_active?
+          SyncFrilansFinansUserJob.perform_later(user: user)
+        end
       end
 
       def set_user
