@@ -2,8 +2,12 @@
 module Index
   class JobsIndex < BaseIndex
     # rubocop:disable Metrics/LineLength
+    FILTER_MATCH_TYPES = {
+      name: { translated: :contains },
+      description: { translated: :contains }
+    }.freeze
     TRANSFORMABLE_FILTERS = TRANSFORMABLE_FILTERS.merge(job_date: :date_range).freeze
-    ALLOWED_FILTERS = %i(id hours created_at job_date verified filled featured job_user.user_id).freeze
+    ALLOWED_FILTERS = %i(id name description hours created_at job_date verified filled featured job_user.user_id).freeze
     SORTABLE_FIELDS = %i(hours job_date name verified filled featured created_at updated_at).freeze
     # rubocop:enable Metrics/LineLength
 
