@@ -3,6 +3,14 @@
 HEAD
 -----------
 
+v0.12 - 2017-01-15
+-----------
+
+- Tweak Sidekiq concurrency config (will hopefully resolve the `Redis::ConnectionError`s we're getting)
+- Revert :hocho: rack-timeout gem
+- Only delete really (6 months) old tokens
+
+
 v0.11 - 2017-01-15
 -----------
 - _API_: Add `#name` and `#translated_text` attributes to language serializer
