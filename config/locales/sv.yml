@@ -13,6 +13,7 @@ sv:
         subject: 'Admin notis: Aktivering av Frilans Finans Faktura misslyckades'
         notice: Misslyckades skapa Frilans Finans faktura för %{id}
   errors:
+    bad_json_format: "Det finns ett problem i det JSON-dokument du skickade: %{error_class}"
     rate_limit:
       details: Gränsvärde nått. Var god försök lite senare.
     bank_account:

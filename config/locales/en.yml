@@ -13,6 +13,7 @@ en:
         subject: 'Admin notice: Failed to activate Frilans Finans invoice'
         notice: Failed to create a Frilans Finans invoice for %{id}
   errors:
+    bad_json_format: "There was a problem in the JSON you submitted: %{error_class}"
     rate_limit:
       details: Throttle limit reached. Retry later.
     bank_account:
