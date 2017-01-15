@@ -67,7 +67,7 @@ en:
     user:
       invalid_image_content_type: invalid content type for image
       wrong_password: wrong password
-      password_length: password must have at least %{count} characters
+      password_length: password must have at least %{min_length} characters and no more than %{max_length}
       must_be_available_locale: must be a supported language
       must_be_valid_phone_number_format: must be a valid phone number
       must_be_swedish_phone_number: must be a Swedish phone number (+46)

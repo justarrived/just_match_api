@@ -71,8 +71,11 @@ module Api
         end
 
         def json_api_password_error
-          min_length = User::MIN_PASSWORD_LENGTH
-          message = I18n.t('errors.user.password_length', count: min_length)
+          message = I18n.t(
+            'errors.user.password_length',
+            min_length: User::MIN_PASSWORD_LENGTH,
+            max_length: User::MAX_PASSWORD_LENGTH
+          )
           errors = JsonApiErrors.new
           errors.add(detail: message, attribute: :password)
           errors

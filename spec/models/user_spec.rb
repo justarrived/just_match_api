@@ -220,6 +220,10 @@ RSpec.describe User, type: :model do
       expect(User.valid_password_format?('12345')).to eq(false)
     end
 
+    it 'returns false if password is longer than 50 in length' do
+      expect(User.valid_password_format?((1..51).to_a.join(''))).to eq(false)
+    end
+
     it 'returns false if password is *not* a string' do
       expect(User.valid_password_format?(%w(1 2 3 4 5 6))).to eq(false)
       expect(User.valid_password_format?(a: 2)).to eq(false)
