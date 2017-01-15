@@ -103,6 +103,9 @@ en:
     new_chat_message: New chat message
     new_job_comment: New job comment
     applicant_rejected: Someone else got the job
+    job_match: Job match
+    new_applicant_job_info: Job apply info
+    applicant_will_perform_job_info: Job confirmation info
   texter:
     magic_login_link:
       login_line: Just Arrived magic login link %{url}

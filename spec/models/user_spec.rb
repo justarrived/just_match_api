@@ -376,13 +376,19 @@ RSpec.describe User, type: :model do
           new_chat_message
           new_job_comment
           applicant_rejected
+          job_match
+          new_applicant_job_info
+          applicant_will_perform_job_info
         )
         expect(User::NOTIFICATIONS).to eq(expected)
       end
 
       it 'has corresponding notifier klass for each item' do
-        # applicant_rejected lies under applicant_will_perform's notifier
-        ignore = %w(applicant_rejected)
+        # these notifications are sent in other notifiers
+        ignore = %w(
+          applicant_rejected job_match new_applicant_job_info
+          applicant_will_perform_job_info
+        )
         (User::NOTIFICATIONS - ignore).each do |notification|
           expect { "#{notification.camelize}Notifier".constantize }.to_not raise_error
         end
