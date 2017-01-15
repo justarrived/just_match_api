@@ -9,8 +9,8 @@ RSpec.describe Api::V1::Users::FrilansFinansController, type: :controller do
         user_id: user.to_param,
         data: {
           attributes: {
-            account_clearing_number: 'account_clearing_number',
-            account_number: 'account_number',
+            account_clearing_number: '8000-2',
+            account_number: '0000000000',
             iban: 'SE35 5000 0000 0549 1000 0003  ',
             bic: 'SWEDSESS'
           }
@@ -57,8 +57,8 @@ RSpec.describe Api::V1::Users::FrilansFinansController, type: :controller do
 
       it 'sets User#account_clearing_number and User#account_number' do
         post :create, params: valid_params, headers: valid_session
-        expect(assigns(:user).account_clearing_number).to eq('account_clearing_number')
-        expect(assigns(:user).account_number).to eq('account_number')
+        expect(assigns(:user).account_clearing_number).to eq('8000-2')
+        expect(assigns(:user).account_number).to eq('0000000000')
       end
 
       context 'frilans_finans_id already set' do
