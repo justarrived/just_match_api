@@ -7,6 +7,16 @@ class LanguageSerializer < ApplicationSerializer
 
   attributes ATTRIBUTES
 
+  attribute :name do
+    object.name_for(I18n.locale)
+  end
+
+  attribute :translated_text do
+    {
+      name: object.name_for(I18n.locale)
+    }
+  end
+
   link(:self) { api_v1_language_url(object) }
 end
 

@@ -13,6 +13,10 @@ class Language < ApplicationRecord
   scope :ltr_languages, -> { where(direction: :ltr) }
   scope :machine_translation_languages, -> { system_languages.where(machine_translation: true) } # rubocop:disable Metrics/LineLength
 
+  def name_for(locale)
+    public_send(:"#{locale}_name")
+  end
+
   def name
     en_name
   end
