@@ -4,7 +4,7 @@ class SyncFrilansFinansUserService
     id = user.frilans_finans_id
     action = id.nil? ? :create : :update
 
-    attributes = FrilansFinans::UserWrapper.attribute(user, action: action)
+    attributes = FrilansFinans::UserWrapper.attributes(user, action: action)
 
     arguments = { attributes: attributes }
     arguments[:id] = id if id
