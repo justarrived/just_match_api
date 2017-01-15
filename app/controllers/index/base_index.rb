@@ -46,33 +46,41 @@ module Index
       filtered_records
     end
 
-    def current_size
-      # #to_unsafe_h is needed otherwise query params wont be included
-      full_params = params.to_unsafe_h
-      page_size = SafeDig.dig(full_params, 'page', 'size')
-      per_page = (page_size || PER_PAGE).to_i
-      [per_page, self.class::MAX_PER_PAGE].min
-    end
-
-    def current_page
-      page_number = SafeDig.dig(params.to_unsafe_h, 'page', 'number')
-      (page_number || 1).to_i
-    end
-
     def filter_records(records)
       Queries::Filter.filter(records, filter_params, self.class::FILTER_MATCH_TYPES)
     end
 
+    def current_size
+      @current_size ||= begin
+        # #to_unsafe_h is needed otherwise query params wont be included
+        full_params = params.to_unsafe_h
+        page_size = SafeDig.dig(full_params, 'page', 'size')
+        per_page = (page_size || PER_PAGE).to_i
+        [per_page, self.class::MAX_PER_PAGE].min
+      end
+    end
+
+    def current_page
+      @page_number ||= begin
+        page_number = SafeDig.dig(params.to_unsafe_h, 'page', 'number')
+        (page_number || 1).to_i
+      end
+    end
+
     def sort_params
-      sortable_fields = self.class::SORTABLE_FIELDS
-      default_sorting = self.class::DEFAULT_SORTING
-      JsonApiSortParams.build(params[:sort], sortable_fields, default_sorting)
+      @sort_params ||= begin
+        sortable_fields = self.class::SORTABLE_FIELDS
+        default_sorting = self.class::DEFAULT_SORTING
+        JsonApiSortParams.build(params[:sort], sortable_fields, default_sorting)
+      end
     end
 
     def filter_params
-      filterable_fields = self.class::ALLOWED_FILTERS
-      transformable = self.class::TRANSFORMABLE_FILTERS
-      JsonApiFilterParams.build(params[:filter], filterable_fields, transformable)
+      @filter_params ||= begin
+        filterable_fields = self.class::ALLOWED_FILTERS
+        transformable = self.class::TRANSFORMABLE_FILTERS
+        JsonApiFilterParams.build(params[:filter], filterable_fields, transformable)
+      end
     end
   end
 end
