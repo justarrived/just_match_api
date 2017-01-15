@@ -106,6 +106,10 @@ class AppConfig
 
   # Application Server
 
+  def self.rack_timeout
+    Integer(env.fetch('RACK_TIMEOUT', 15)) # seconds
+  end
+
   def self.db_pool
     env['DB_POOL']
   end
