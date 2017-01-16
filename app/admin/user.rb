@@ -4,8 +4,41 @@ ActiveAdmin.register User do
 
   batch_action :destroy, false
 
+  batch_action :send_communication_template_to, form: lambda {
+    {
+      type: %w[email sms both],
+      template_id: CommunicationTemplate.to_form_array,
+      job_id: Job.to_form_array(include_blank: true)
+    }
+  } do |ids, inputs|
+    type = inputs['type']
+    job = Job.with_translations.find_by(id: inputs['job_id'])
+    template = CommunicationTemplate.with_translations.find(inputs['template_id'])
+
+    data = {}
+    if job
+      job.attributes.symbolize_keys.each { |key, value| data[:"job_#{key}"] = value }
+      data[:job_name] = job.name
+      data[:job_description] = job.description
+    end
+
+    response = MessageUsersFromTemplate.call(
+      type: type,
+      users: User.where(id: ids),
+      template: template,
+      data: data
+    )
+
+    notice = response[:message]
+    if response[:success]
+      redirect_to collection_path, notice: notice
+    else
+      redirect_to collection_path, alert: notice
+    end
+  end
+
   batch_action :send_message_to, form: {
-    type: %w[sms email both],
+    type: %w[email sms both],
     subject:  :text,
     message:  :textarea
   } do |ids, inputs|

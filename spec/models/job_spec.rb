@@ -6,6 +6,36 @@ RSpec.describe Job, type: :model do
     describe '#matches_user'
   end
 
+  describe '#to_form_array' do
+    context 'with include blank false' do
+      it 'returns empty array if no skills' do
+        job_array = described_class.to_form_array(include_blank: false)
+        expect(job_array).to eq([])
+      end
+
+      it 'returns skill array' do
+        job = FactoryGirl.create(:job_with_translation)
+        job_array = described_class.to_form_array(include_blank: false)
+        expect(job_array).to eq([[job.name, job.id]])
+      end
+    end
+
+    context 'with include blank' do
+      let(:label) { I18n.t('admin.form.no_job_chosen') }
+
+      it 'returns empty array if no jobs' do
+        job_array = described_class.to_form_array(include_blank: true)
+        expect(job_array).to eq([[label, nil]])
+      end
+
+      it 'returns job array' do
+        skill = FactoryGirl.create(:job_with_translation)
+        job_array = described_class.to_form_array(include_blank: true)
+        expect(job_array).to eq([[label, nil], [skill.name, skill.id]])
+      end
+    end
+  end
+
   describe '#invoice_company_frilans_finans_id' do
     let(:company) { FactoryGirl.build(:company, frilans_finans_id: 7373) }
     let(:owner) { FactoryGirl.build(:user, company: company) }

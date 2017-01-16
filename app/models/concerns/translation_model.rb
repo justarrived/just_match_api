@@ -5,10 +5,14 @@ module TranslationModel
   included do
     belongs_to :language
 
-    validates :locale, length: { minimum: 2, maximum: 2 }, allow_blank: false
+    validates :language, presence: true
+    unless Rails.env.test? # We need to generate locales in tests..
+      validates :locale, length: { minimum: 2, maximum: 2 }, allow_blank: false
+    end
     validate :validate_locale_eql_language
 
     def validate_locale_eql_language
+      return if language.nil?
       return if language.lang_code == locale
 
       errors.add(:locale, I18n.t('admin.translation.locale_language_missmatch'))

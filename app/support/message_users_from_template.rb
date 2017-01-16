@@ -1,25 +1,25 @@
 # frozen_string_literal: true
-class MessageUsers
-  def self.call(type:, users:, template:, subject: nil, data: {})
-    new(type, users, template, subject, data).call
+class MessageUsersFromTemplate
+  def self.call(type:, users:, template:, data: {})
+    new(type, users, template, data).call
   end
 
-  def initialize(type, users, template, subject, data)
+  def initialize(type, users, template, data)
     @type = type
     @users = users
     @template = template
-    @subject = subject
     @data = data
   end
 
   def call
     @users.each do |user|
       I18n.with_locale(user.locale) do
+        translation = @template.find_translation(locale: user.locale)
         response = MessageUser.call(
           type: @type,
           user: user,
-          template: @template,
-          subject: @subject,
+          template: translation.body,
+          subject: translation.subject,
           data: @data
         )
         return response unless response[:success]

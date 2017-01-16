@@ -12,6 +12,8 @@ en:
     form:
       no_tag_chosen: 'No tag chosen'
       no_skill_chosen: 'No skill chosen'
+      no_template_chosen: 'No template chosen'
+      no_job_chosen: 'No job chosen'
     filter:
       near_address: "Near address (add 'km: XX' for distance)"
     recent_users:

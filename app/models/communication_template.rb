@@ -2,11 +2,20 @@
 class CommunicationTemplate < ApplicationRecord
   belongs_to :language
 
+  validates :subject, presence: true
+  validates :body, presence: true
   validates :language, uniqueness: { scope: :category }
   validates :category, uniqueness: { scope: :language }
 
   include Translatable
   translates :subject, :body
+
+  def self.to_form_array(include_blank: false)
+    form_array = order(:category).pluck(:category, :id)
+    return form_array unless include_blank
+
+    [[I18n.t('admin.form.no_template_chosen'), nil]] + form_array
+  end
 
   def display_name
     "##{id} #{category}"
