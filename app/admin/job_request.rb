@@ -32,6 +32,70 @@ ActiveAdmin.register JobRequest do
     actions
   end
 
+  show do |job_request|
+    attributes_table do
+      row :short_name
+      row :responsible
+      row :company_name
+      row :company_org_no
+      row :company_phone
+      row :contact_person
+      row :company_address
+      row :company_email
+      row :job_specification
+      row :requirements
+      row :hourly_pay
+      row :job_scope
+      row :job_at_date
+      row :language_requirements
+      row :requirements
+      row :suitable_candidates
+      row :comment
+      row :draft_sent
+      row :signed_by_customer
+      row :cancelled
+      row :finished
+    end
+
+    panel('Copy-pasta') do
+      company_detail = lambda do |field, fallback|
+        if field.blank?
+          fallback.blank? ? '-' : fallback
+        else
+          field
+        end
+      end
+
+      company = job_request.company
+      company_email = company_detail.call(job_request.company_email, company&.email)
+      company_name = company_detail.call(job_request.company_name, company&.name)
+      company_org_no = company_detail.call(job_request.company_org_no, company&.cin)
+      company_phone = company_detail.call(job_request.company_phone, company&.phone)
+      contact_person = company_detail.call(job_request.contact_string, company&.users&.first&.name) # rubocop:disable Metrics/LineLength
+      company_address = company_detail.call(job_request.company_address, company&.address)
+
+      div do
+        h3 JobRequest.human_attribute_name(:short_name)
+        div do
+          simple_format [
+            %w(Org-nummer Telefon),
+            [company_org_no, company_phone],
+            %w(Företagsnamn Kontaktperson),
+            [company_name, contact_person],
+            %w(Företagsadress Epost),
+            [company_address, company_email],
+            ['Jobbspecifikation'],
+            [job_request.job_specification],
+            %w(Krav),
+            [job_request.requirements],
+            %w(Pris Omfattning Datum),
+            [job_request.hourly_pay, job_request.job_scope, job_request.job_at_date]
+          ].map { |row| row.join("\t") }.join("\n")
+        end
+      end
+    end
+  end
+
   form do |f|
     f.semantic_errors
 
@@ -43,6 +107,7 @@ ActiveAdmin.register JobRequest do
 
     f.inputs 'Company details' do
       f.input :company, hint: 'You can leave this blank and instead fill in the below fields'
+      f.input :contact_string, hint: 'Contact person name'
       f.input :company_name
       f.input :company_org_no, hint: 'Company organisation number'
       f.input :company_email, hint: 'Email for company contact person'
@@ -75,25 +140,30 @@ ActiveAdmin.register JobRequest do
 
   permit_params do
     [
-      :cancelled,
-      :comment,
-      :company_email,
       :company_name,
-      :company_org_no,
-      :company_phone,
-      :company,
-      :draft_sent,
-      :finished,
-      :hourly_pay,
-      :job_at_date,
+      :contact_string,
+      :assignment,
       :job_scope,
       :job_specification,
       :language_requirements,
-      :requirements,
+      :job_at_date,
       :responsible,
+      :suitable_candidates,
+      :comment,
+      :created_at,
+      :updated_at,
       :short_name,
+      :finished,
+      :cancelled,
+      :draft_sent,
       :signed_by_customer,
-      :suitable_candidates
+      :requirements,
+      :hourly_pay,
+      :company_org_no,
+      :company_email,
+      :company_phone,
+      :company_id,
+      :company_address
     ]
   end
 end

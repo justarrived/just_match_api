@@ -27,6 +27,12 @@ class AppConfig
       compact
   end
 
+  def self.new_job_request_email_recipients
+    env.fetch('NEW_JOB_REQUEST_EMAIL_RECIPIENTS', '').split(',').
+      map { |name| name.strip.downcase }.
+      compact
+  end
+
   def self.managed_email_username
     env['MANAGED_EMAIL_USERNAME']
   end

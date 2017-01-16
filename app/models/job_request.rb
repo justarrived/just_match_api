@@ -4,6 +4,12 @@ class JobRequest < ApplicationRecord
 
   scope :finished, -> { where(finished: true) }
   scope :pending, -> { where(finished: false) }
+
+  after_create :send_created_notice
+
+  def send_created_notice
+    NewJobRequestNotifier.call(job_request: self)
+  end
 end
 
 # == Schema Information
@@ -34,6 +40,7 @@ end
 #  company_email         :string
 #  company_phone         :string
 #  company_id            :integer
+#  company_address       :string
 #
 # Indexes
 #

@@ -9,5 +9,7 @@ class AddJobRequestFieldsToJobRequests < ActiveRecord::Migration[5.0]
     add_column :job_requests, :company_org_no, :string
     add_column :job_requests, :company_email, :string
     add_column :job_requests, :company_phone, :string
+    add_column :job_requests, :company_address, :string
+    add_reference :job_requests, :company, foreign_key: true
   end
 end

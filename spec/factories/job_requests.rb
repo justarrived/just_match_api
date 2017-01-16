@@ -42,6 +42,7 @@ end
 #  company_email         :string
 #  company_phone         :string
 #  company_id            :integer
+#  company_address       :string
 #
 # Indexes
 #
