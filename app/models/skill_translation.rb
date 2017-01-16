@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 class SkillTranslation < ApplicationRecord
   belongs_to :skill
-  belongs_to :language
 
   include TranslationModel
 end
