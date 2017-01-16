@@ -5,6 +5,15 @@ module TranslationModel
   included do
     belongs_to :language
 
+    validates :locale, length: { minimum: 2, maximum: 2 }, allow_blank: false
+    validate :validate_locale_eql_language
+
+    def validate_locale_eql_language
+      return if language.lang_code == locale
+
+      errors.add(:locale, I18n.t('admin.translation.locale_language_missmatch'))
+    end
+
     def translates_model_meta
       # Find the first model that includes the Translatable module,
       # thats the model thats being translated
