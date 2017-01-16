@@ -75,7 +75,6 @@ ActiveAdmin.register JobRequest do
       company_address = company_detail.call(job_request.company_address, company&.address)
 
       div do
-        h3 JobRequest.human_attribute_name(:short_name)
         div do
           simple_format [
             %w(Org-nummer Telefon),
