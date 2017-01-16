@@ -5,6 +5,7 @@ class User < ApplicationRecord
   include SkillMatchable
 
   MIN_PASSWORD_LENGTH = 6
+  MAX_PASSWORD_LENGTH = 50
   ONE_TIME_TOKEN_VALID_FOR_HOURS = 18
 
   LOCATE_BY = {
@@ -25,7 +26,7 @@ class User < ApplicationRecord
 
   attr_accessor :password
 
-  after_validation :set_normalized_phone, :set_normalized_ssn, :set_normalized_email
+  after_validation :set_normalized_phone, :set_normalized_ssn, :set_normalized_email, :set_normalized_bank_account # rubocop:disable Metrics/LineLength
 
   before_save :encrypt_password
 
@@ -67,7 +68,7 @@ class User < ApplicationRecord
   validates :phone, length: { minimum: 9 }, uniqueness: true, allow_blank: false
   validates :street, length: { minimum: 5 }, allow_blank: true
   validates :zip, length: { minimum: 5 }, allow_blank: true
-  validates :password, length: { minimum: MIN_PASSWORD_LENGTH }, allow_blank: false, on: :create # rubocop:disable Metrics/LineLength
+  validates :password, length: { minimum: MIN_PASSWORD_LENGTH, maximum: MAX_PASSWORD_LENGTH }, allow_blank: false, on: :create # rubocop:disable Metrics/LineLength
   validates :ssn, uniqueness: true, allow_blank: true
   validates :frilans_finans_id, uniqueness: true, allow_nil: true
   validates :country_of_origin, inclusion: { in: ISO3166::Country.translations.keys }, allow_blank: true # rubocop:disable Metrics/LineLength
@@ -77,6 +78,7 @@ class User < ApplicationRecord
   validate :validate_format_of_phone_number
   validate :validate_swedish_phone_number
   validate :validate_swedish_ssn
+  validate :validate_swedish_bank_account
   validate :validate_arrival_date_in_past
 
   scope :admins, -> { where(admin: true) }
@@ -288,6 +290,15 @@ class User < ApplicationRecord
     self.email = EmailAddress.normalize(email)
   end
 
+  def set_normalized_bank_account
+    full_account = [account_clearing_number, account_number].join
+    account = SwedishBankAccount.new(full_account)
+    return unless account.valid?
+
+    self.account_clearing_number = account.clearing_number
+    self.account_number = account.serial_number
+  end
+
   # NOTE: This method has unintuitive side effects.. if the banned attribute is
   #   just set to true all associated auth_tokens will immediately be destroyed
   #   We should probably convert this to #banned! which also saves the user
@@ -365,7 +376,9 @@ class User < ApplicationRecord
     return false if password.blank?
     return false unless password.is_a?(String)
 
-    password.length >= 6
+    # BCrypt implementations will allow for at least 50 chars, but after that its not
+    # guaranteed, see https://security.stackexchange.com/questions/39849/does-bcrypt-have-a-maximum-password-length
+    password.length >= MIN_PASSWORD_LENGTH && password.length <= MAX_PASSWORD_LENGTH
   end
 
   def country_name
@@ -409,6 +422,26 @@ class User < ApplicationRecord
 
     error_message = I18n.t('errors.user.must_be_swedish_ssn')
     errors.add(:ssn, error_message)
+  end
+
+  def validate_swedish_bank_account
+    return if account_clearing_number.blank?
+    return if account_number.blank?
+
+    full_account = [account_clearing_number, account_number].join
+    field_map = {
+      clearing_number: :account_clearing_number,
+      serial_number: :account_number,
+      account: :account
+    }
+    SwedishBankAccount.new(full_account).tap do |account|
+      account.errors_by_field do |field, error_types|
+        error_types.each do |type|
+          message = I18n.t("errors.bank_account.#{type}")
+          errors.add(field_map[field], message)
+        end
+      end
+    end
   end
 
   def validate_arrived_at_date

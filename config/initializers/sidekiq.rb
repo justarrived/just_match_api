@@ -8,7 +8,7 @@ if Rails.env.production?
   redis_timeout = AppConfig.redis_timeout
 
   Sidekiq.configure_server do |config|
-    config.redis = { url: redis_url, network_timeout: redis_timeout, size: 20 }
+    config.redis = { url: redis_url, network_timeout: redis_timeout }
   end
 
   Sidekiq.configure_client do |config|

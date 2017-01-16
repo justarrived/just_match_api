@@ -3,6 +3,27 @@
 HEAD
 -----------
 
+v0.12 - 2017-01-15
+-----------
+
+- Tweak Sidekiq concurrency config (will hopefully resolve the `Redis::ConnectionError`s we're getting)
+- Revert :hocho: rack-timeout gem
+- Only delete really (6 months) old tokens
+
+
+v0.11 - 2017-01-15
+-----------
+- _API_: Add `#name` and `#translated_text` attributes to language serializer
+- Set max password length to 50
+- :hocho: rack-timeout gem
+- Validate and normalize User bank account details
+- _API_: Add `/users/images/categories` endpoint.
+- _API_: Add Rack middleware for rendering JSON:API compliant responses for JSON parse errors
+- _API_: Add multilingual filter support
+- _API_: Add `/users/email-suggestion` endpoint
+- Ruby 2.4
+- Catch `Redis::ConnectionError` in notifiers
+
 v0.10 - 2017-01-10
 -----------
 - _Admin_: Add Job company & Just Arrived contact

@@ -76,6 +76,15 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe '#set_normalized_bank_account' do
+    it 'normalizes bank account' do
+      user = User.new(account_clearing_number: ' 8000-2 ', account_number: '000 00000 00')
+      user.validate
+      expect(user.account_clearing_number).to eq('8000-2')
+      expect(user.account_number).to eq('0000000000')
+    end
+  end
+
   describe 'geocodable' do
     let(:user) { FactoryGirl.create(:user) }
 
@@ -218,6 +227,10 @@ RSpec.describe User, type: :model do
 
     it 'returns false if password is at less than 6 in length' do
       expect(User.valid_password_format?('12345')).to eq(false)
+    end
+
+    it 'returns false if password is longer than 50 in length' do
+      expect(User.valid_password_format?((1..51).to_a.join(''))).to eq(false)
     end
 
     it 'returns false if password is *not* a string' do
@@ -538,6 +551,32 @@ RSpec.describe User, type: :model do
 
       message = user.errors.messages[:phone]
       expect(message || []).not_to include(error_message)
+    end
+  end
+
+  describe '#validate_swedish_bank_account' do
+    it 'adds *no* error if bank account is valid' do
+      user = FactoryGirl.build(
+        :user,
+        account_clearing_number: '8000-2',
+        account_number: '0000000000'
+      )
+      user.validate
+
+      expect(user.errors.messages[:account_number]).to be_empty
+      expect(user.errors.messages[:account_clearing_number]).to be_empty
+    end
+
+    it 'adds error if bank account is invalid' do
+      user = FactoryGirl.build(
+        :user,
+        account_clearing_number: '0',
+        account_number: '8'
+      )
+      user.validate
+
+      message = user.errors.messages[:account_clearing_number]
+      expect(message || []).not_to be_empty
     end
   end
 
