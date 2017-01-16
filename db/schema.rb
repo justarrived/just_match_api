@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170110171331) do
+ActiveRecord::Schema.define(version: 20170116180404) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -117,6 +117,28 @@ ActiveRecord::Schema.define(version: 20170110171331) do
     t.boolean  "hidden",           default: false
     t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id", using: :btree
     t.index ["language_id"], name: "index_comments_on_language_id", using: :btree
+  end
+
+  create_table "communication_template_translations", force: :cascade do |t|
+    t.string   "subject"
+    t.text     "body"
+    t.integer  "language_id"
+    t.string   "locale"
+    t.integer  "communication_template_id"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.index ["communication_template_id"], name: "index_comm_template_translations_on_comm_template_id", using: :btree
+    t.index ["language_id"], name: "index_communication_template_translations_on_language_id", using: :btree
+  end
+
+  create_table "communication_templates", force: :cascade do |t|
+    t.integer  "language_id"
+    t.string   "category"
+    t.string   "subject"
+    t.text     "body"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["language_id"], name: "index_communication_templates_on_language_id", using: :btree
   end
 
   create_table "companies", force: :cascade do |t|
@@ -256,6 +278,17 @@ ActiveRecord::Schema.define(version: 20170110171331) do
     t.datetime "updated_at",                            null: false
     t.string   "short_name"
     t.boolean  "finished",              default: false
+    t.boolean  "cancelled",             default: false
+    t.boolean  "draft_sent",            default: false
+    t.boolean  "signed_by_customer",    default: false
+    t.string   "requirements"
+    t.string   "hourly_pay"
+    t.string   "company_org_no"
+    t.string   "company_email"
+    t.string   "company_phone"
+    t.integer  "company_id"
+    t.string   "company_address"
+    t.index ["company_id"], name: "index_job_requests_on_company_id", using: :btree
   end
 
   create_table "job_skills", force: :cascade do |t|
@@ -582,6 +615,8 @@ ActiveRecord::Schema.define(version: 20170110171331) do
   add_foreign_key "comment_translations", "languages"
   add_foreign_key "comments", "languages"
   add_foreign_key "comments", "users", column: "owner_user_id", name: "comments_owner_user_id_fk"
+  add_foreign_key "communication_template_translations", "languages"
+  add_foreign_key "communication_templates", "languages"
   add_foreign_key "company_images", "companies"
   add_foreign_key "faq_translations", "faqs"
   add_foreign_key "faq_translations", "languages"
@@ -589,6 +624,7 @@ ActiveRecord::Schema.define(version: 20170110171331) do
   add_foreign_key "frilans_finans_invoices", "job_users"
   add_foreign_key "invoices", "frilans_finans_invoices"
   add_foreign_key "invoices", "job_users"
+  add_foreign_key "job_requests", "companies"
   add_foreign_key "job_skills", "jobs"
   add_foreign_key "job_skills", "skills"
   add_foreign_key "job_translations", "jobs"
