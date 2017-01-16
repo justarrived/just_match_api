@@ -2,6 +2,8 @@
 class CommunicationTemplateTranslation < ApplicationRecord
   belongs_to :language
   belongs_to :communication_template
+
+  include TranslationModel
 end
 
 # == Schema Information

@@ -105,7 +105,7 @@ The code follows most Rails conventions. If you've worked with Rails before the 
   - Translation model
     + includes `TranslationModel` module
   - Defines the translated columns with the `translates` macro
-    + Defines `set_translation` instance methods on the model
+    + That macro will defines a `set_translation` instance method on the model
   - There are a few helper services, plus one `ActiveJob` class to do machine translations
     + `MachineTranslationsService` takes a translation and creates translations for to all eligible locales
     + `MachineTranslationService` takes a translation and a language for it to be translated to
