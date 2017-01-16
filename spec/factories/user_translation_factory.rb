@@ -6,6 +6,7 @@ FactoryGirl.define do
     job_experience 'MyText'
     education 'MyText'
     competence_text 'MyText'
+    association :language
     association :user
   end
 end

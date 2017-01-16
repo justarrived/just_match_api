@@ -5,11 +5,11 @@ module TranslationModel
   included do
     belongs_to :language
 
-    validates :language, presence: true
     unless Rails.env.test? # We need to generate locales in tests..
+      validates :language, presence: true
       validates :locale, length: { minimum: 2, maximum: 2 }, allow_blank: false
+      validate :validate_locale_eql_language
     end
-    validate :validate_locale_eql_language
 
     def validate_locale_eql_language
       return if language.nil?

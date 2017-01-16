@@ -3,9 +3,9 @@ FactoryGirl.define do
   factory :communication_template_translation do
     subject 'MyString'
     body 'MyText'
-    language nil
     locale 'MyString'
-    communication_template nil
+    association :communication_template
+    association :language
   end
 end
 

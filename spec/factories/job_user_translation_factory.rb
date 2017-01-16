@@ -3,7 +3,8 @@ FactoryGirl.define do
   factory :job_user_translation do
     locale 'MyString'
     apply_message 'MyText'
-    job_user nil
+    association :job_user
+    association :language
   end
 end
 
