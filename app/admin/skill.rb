@@ -2,6 +2,8 @@
 ActiveAdmin.register Skill do
   menu parent: 'Settings'
 
+  include AdminHelpers::MachineTranslation::Actions
+
   after_save do |skill|
     skill.set_translation(name: permitted_params.dig(:skill, :name))
   end
