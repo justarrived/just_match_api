@@ -10,8 +10,7 @@ class MagicLoginLinkNotifier < BaseNotifier
 
     notify do
       UserMailer.
-        magic_login_link_email(user: user).
-        deliver_later
+        magic_login_link_email(user: user)
     end
   end
 end

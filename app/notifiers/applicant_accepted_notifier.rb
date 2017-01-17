@@ -7,14 +7,12 @@ class ApplicantAcceptedNotifier < BaseNotifier
     locale = user.locale
     notify(locale: locale) do
       JobTexter.
-        applicant_accepted_text(job_user: job_user).
-        deliver_later
+        applicant_accepted_text(job_user: job_user)
     end
 
     notify(locale: locale) do
       JobMailer.
-        applicant_accepted_email(job_user: job_user, owner: owner).
-        deliver_later
+        applicant_accepted_email(job_user: job_user, owner: owner)
     end
   end
 end
