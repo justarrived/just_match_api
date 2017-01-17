@@ -98,8 +98,6 @@ module Api
         if @user.save
           login_user(@user)
 
-          sync_ff_user(@user)
-
           @user.set_translation(user_params).tap do |result|
             EnqueueCheapTranslation.call(result)
           end
@@ -121,6 +119,7 @@ module Api
           SetUserSkillsService.call(user: @user, skill_ids_param: skill_ids)
 
           UserWelcomeNotifier.call(user: @user) if @user.candidate?
+          sync_ff_user(@user)
 
           api_render(@user, status: :created)
         else
@@ -183,14 +182,13 @@ module Api
 
           @user.reload
 
-          sync_ff_user(@user)
-
           language_ids = jsonapi_params[:language_ids]
           SetUserLanguagesService.call(user: @user, language_ids_param: language_ids)
           skill_ids = jsonapi_params[:skill_ids]
           SetUserSkillsService.call(user: @user, skill_ids_param: skill_ids)
 
           @user.profile_image_token = jsonapi_params[:user_image_one_time_token]
+          sync_ff_user(@user)
 
           api_render(@user)
         else
