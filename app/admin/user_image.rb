@@ -14,6 +14,10 @@ ActiveAdmin.register UserImage do
     actions
   end
 
+  permit_params do
+    [:user_id, :category]
+  end
+
   controller do
     def scoped_collection
       super.includes(:user)
