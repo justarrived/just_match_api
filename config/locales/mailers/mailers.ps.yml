@@ -12,12 +12,6 @@ ps:
       subject: مبارک مو شه! یو کارونکی به ستاسې دنده ترسره کړي.
       congrats_line: مبارک مو شه!
       details_line: "%{name} تایید کړي چې دوی به ستاسې دنده ترسره کړي %{job_name}."
-    applicant_accepted:
-      accepted_line: تاسې د یوې دندې لپاره منل شوي یاست!
-      congrats_line: مبارک مو شه %{name}!
-      contact_line: د نورو معلوماتو لپاره د %{email} سره اړیکه ونیسئ.
-      job_line: دنده '%{name}' ده او ستاسې سیمه کې موقعیت لري.
-      subject: مبارک مو شه! تاسې یوه دنده ترلاسه کړې!
     changed_password:
       subject: ستاسې د Just Arrived رمز بدل شوی
       body_header: سلام %{name}، ستاسې د Just Arrived رمز بدل شوی دی. که دا تاسې نه وئ، نو مهرباني وکړئ د Just Arrived سره په help@justarrived.se اړیکه ونیسئ
@@ -33,16 +27,10 @@ ps:
       job_line: ترسره شوې دنده '%{name}' وه.
       performed_line: "%{name} تایید کړې چې دوی ستاسې لپاره یوه دنده ترسره کړې ده."
       subject: مبارک مو شه! ستاسې لخوا ځړل شوې دنده ترسره شوې.
-    invoice_created:
-      congrats_line: مبارک مو شه %{name}!
-      contact_line: که تاسې کومې نهایی پوښتنې لرئ تاسې کولی شئ د %{email} سره اړیکه ونیسئ.
-      job_line: 'هغه دنده چې تاسې ترسره کړئ: ''%{name}''.'
-      performed_line: "%{name} تایید کړې چې تاسې دنده ترسره کړې ده."
-      subject: مبارک مو شه! ستاسې ترسره شوې دندنه منل شوې.
     new_applicant:
       applicant_line: کارونکی '%{name}' دی او ستاسې سیمه کې ژوند کوي.
       congrats_line: مبارک مو شه %{name}!
-      contact_line: که تاسې کومې پوښتنې لرئ، تاسې کولی شئ دوی سره په %{email} او %{phone} اړیکه ونیسئ.
+      contact_line: "که تاسې کومې پوښتنې لرئ، تاسې کولی شئ دوی سره په %{email} او %{phone} اړیکه ونیسئ."
       job_line: تاسې ستاسې د دندې لپاره یو نوی غوښتنلیک لرئ'%{name}'.
       subject: مبارک مو شه! تاسې یو نوی غوښتنلیک ترلاسه کړی دی.
     reset_password:
@@ -50,6 +38,4 @@ ps:
       body_header: 'سلام %{name}، تاسې ستاسې د رمز د بیاتنظیم غوښتنه کړې. مهرباني وکړئ ستاسې د نوي رمز دننه کولو لپاره د نوي لینک څخه لیدنه وکړئ:'
     welcome:
       subject: Just Arrived ته ښه راغلاست!
-      body_header: Just Arrived %{name} ته ښه راغلاست!
-      body_line: د شراکت څخه مو مننه. موږ هیله لرو چې تاسې د خدمت څخه خوند واخلئ!
-    signoff: ښه ورځ ولرئ!
+    signoff: "ښه ورځ ولرئ!"

@@ -12,12 +12,6 @@ ti:
       subject: ዮሃና! ተጠቃማይ ነቲ ናትካ ስራሕ ክፍጽሞ ኢዩ፡፡
       congrats_line: ዮሃና!
       details_line: "%{name} ነቲ ስራሕ %{job_name} ክፍጽምዎ ምዃኖም ኣረጋጊጾም፡፡"
-    applicant_accepted:
-      accepted_line: ንስራሕ ቅቡል ኮይንካ ኣለኻ!
-      congrats_line: ዮሃና %{name}!
-      contact_line: ንዝያዳ ሓበሬታ ን %{email} ርኸብ፡፡
-      job_line: እቲ ስራሕ ‘%{name}’ ኮይኑ ኣብ ከባቢኻ ይርከብ፡፡
-      subject: ዮሃና! ስራሕ ረኺብካ!
     changed_password:
       subject: እዚ ናይ Just Arrived መእተዊ-ኮድ ተቐዪሩ ኣሎ፡፡
       body_header: ሄይ %{name}, እታ ናይ Just Arrived መእተዊ-ኮድ ተቐይራ ኣላ፡፡ እንተደኣ እዚ ሰብ ንስኻ ዘይኮይንካ በዚ ዝስዕብ ኣድራሻ ምስ Just Arrived ተራኸብ፡ help@justarrived.se
@@ -33,16 +27,10 @@ ti:
       job_line: እቲ ክፍጸም ዝነበሮ ስራሕ ‘%{name}’ ኢዩ ነይሩ፡፡
       performed_line: "%{name} ስራሕ ከምዝሰሩሑልካ ኣረጋጊጾም ኣለዉ፡፡"
       subject: ዮሃና! እታ ዘውጻእካያ/ዝጠቃዕካያ ስራሕ ተፈጺማ’ላ፡፡
-    invoice_created:
-      congrats_line: ዮሃና %{name}!
-      contact_line: እንተደኣ ናይ መወዳእታ ሕቶታት ኣለካ ምስ %{email} ክትራኸብ ትኽእል፡፡
-      job_line: 'እቲ ዝፈጸምካዮ ስራሕ: ‘%{name}’.'
-      performed_line: "%{name} ነቲ ስራሕ ከምዝፈጸምካዮ ኣረጋጊጹ፡፡"
-      subject: ዮሃና! እቲ ዝፈጸምካዮ ስራሕ ቅቡል ኮይኑ’ሎ፡፡
     new_applicant:
       applicant_line: እቲ ተጠቃማይ ‘%{name}’ ኮይኑ ኣብ ከባቢኻ ይነብር፡፡
       congrats_line: ዮሃና %{name}!
-      contact_line: እንተደኣ ዝኾነ ሕቶታት ኣለካ ምስ %{email} ከምኡ’ውን %{phone} ክትራኸብ ትኽእል፡፡
+      contact_line: "እንተደኣ ዝኾነ ሕቶታት ኣለካ ምስ %{email} ከምኡ’ውን %{phone} ክትራኸብ ትኽእል፡፡"
       job_line: ነቲ ናትካ ስራሕ ‘%{name}’ሓድሽ ዘመልከተ ኣለካ፡፡
       subject: ዮሃና! ሓድሽ ዘመልከተ ኣለካ፡፡
     reset_password:
@@ -50,6 +38,4 @@ ti:
       body_header: 'ሄይ %{name}, መእተዊ-ኮድካ ክምለስልካ ሓቲትካ ኣለኻ፡፡ ናብዚ ጥብቆ ብምእታው/ብምብጻሕ ሓዲሽ መእተዊ-ኮድ ኣስፍር፥'
     welcome:
       subject: ናብ Just Arrived እንቋዕ ብደሓን መጻእኩም!
-      body_header: ናብ Just Arrived %{name} እንቋዕ ብደሓን መጻእኩም!
-      body_line: ንስለ ምምላእካ (ሳይን ኣፕ ምግባርካ) ነመስግን፡፡ ነዚ ኣገልግሎት ክትፈትዎ ዘለና ምንዮት ንገልጽ!
-    signoff: ሰናይ መዓልቲ!
+    signoff: "ሰናይ መዓልቲ!"
