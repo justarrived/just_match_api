@@ -14,9 +14,9 @@ RSpec.describe Job, type: :model do
       end
 
       it 'returns skill array' do
-        job = FactoryGirl.create(:job_with_translation)
+        job = FactoryGirl.create(:job_with_translation, name: 'Job name')
         job_array = described_class.to_form_array(include_blank: false)
-        expect(job_array).to eq([[job.name, job.id]])
+        expect(job_array).to eq([["##{job.id} Job name", job.id]])
       end
     end
 
@@ -29,9 +29,9 @@ RSpec.describe Job, type: :model do
       end
 
       it 'returns job array' do
-        skill = FactoryGirl.create(:job_with_translation)
+        job = FactoryGirl.create(:job_with_translation, name: 'Job name')
         job_array = described_class.to_form_array(include_blank: true)
-        expect(job_array).to eq([[label, nil], [skill.name, skill.id]])
+        expect(job_array).to eq([[label, nil], ["##{job.id} Job name", job.id]])
       end
     end
   end
