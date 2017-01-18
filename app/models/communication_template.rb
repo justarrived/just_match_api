@@ -2,6 +2,7 @@
 class CommunicationTemplate < ApplicationRecord
   belongs_to :language
 
+  validates :language, presence: true
   validates :subject, presence: true
   validates :body, presence: true
   validates :language, uniqueness: { scope: :category }

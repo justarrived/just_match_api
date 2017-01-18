@@ -4,6 +4,21 @@ ActiveAdmin.register CommunicationTemplate do
 
   include AdminHelpers::MachineTranslation::Actions
 
+  form do |f|
+    f.semantic_errors
+
+    f.inputs 'Details' do
+      f.input :language
+      f.input :category, hint: 'You need a unique category name'
+      f.input :subject, hint: 'Subject line of template you (can use variables here..)'
+      f.input :body, hint: 'Body of template (you can use variables here..)'
+    end
+
+    content_tag(:p, 'WaTmAn')
+
+    f.actions
+  end
+
   after_save do |template|
     template.set_translation(
       name: permitted_params.dig(:communication_template, :name),
