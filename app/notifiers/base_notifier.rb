@@ -1,11 +1,15 @@
 # frozen_string_literal: true
 class BaseNotifier
   def self.notify(locale: I18n.locale)
-    with_locale(locale) { yield }
-    true
+    with_locale(locale) { deliver(yield, locale) }
+  end
+
+  def self.deliver(mailer, locale)
+    mailer.deliver_later
   rescue Redis::ConnectionError => e
     ErrorNotifier.send(e, context: { locale: locale })
-    false
+    # Retry the block but skip Redis and deliver it synchronously instead
+    mailer.deliver_now
   end
 
   def self.ignored?(user)

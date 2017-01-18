@@ -5,8 +5,7 @@ class JobUserPerformedNotifier < BaseNotifier
 
     notify(locale: owner.locale) do
       JobMailer.
-        job_user_performed_email(job_user: job_user, owner: owner).
-        deliver_later
+        job_user_performed_email(job_user: job_user, owner: owner)
     end
   end
 end

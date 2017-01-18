@@ -3,9 +3,15 @@
 HEAD
 -----------
 
+v0.13 - 2017-01-16
+-----------
+- Sync user to Frilans Finans on update & change
+- Add max password length validation to user
+- Revamp `JobRequest`
+
+
 v0.12 - 2017-01-15
 -----------
-
 - Tweak Sidekiq concurrency config (will hopefully resolve the `Redis::ConnectionError`s we're getting)
 - Revert :hocho: rack-timeout gem
 - Only delete really (6 months) old tokens

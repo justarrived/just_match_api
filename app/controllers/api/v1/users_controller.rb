@@ -119,6 +119,7 @@ module Api
           SetUserSkillsService.call(user: @user, skill_ids_param: skill_ids)
 
           UserWelcomeNotifier.call(user: @user) if @user.candidate?
+          sync_ff_user(@user)
 
           api_render(@user, status: :created)
         else
@@ -187,6 +188,7 @@ module Api
           SetUserSkillsService.call(user: @user, skill_ids_param: skill_ids)
 
           @user.profile_image_token = jsonapi_params[:user_image_one_time_token]
+          sync_ff_user(@user)
 
           api_render(@user)
         else
@@ -326,6 +328,12 @@ module Api
         errors.add(status: 422, detail: message)
 
         render json: errors, status: :unprocessable_entity
+      end
+
+      def sync_ff_user(user)
+        if AppConfig.frilans_finans_active?
+          SyncFrilansFinansUserJob.perform_later(user: user)
+        end
       end
 
       def set_user

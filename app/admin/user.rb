@@ -550,6 +550,7 @@ ActiveAdmin.register User do
       competence_text: permitted_params.dig(:user, :competence_text)
     }
     user.set_translation(translation_params)
+    SyncFrilansFinansUserJob.perform_later(user: user)
   end
 
   permit_params do

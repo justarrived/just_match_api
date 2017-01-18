@@ -39,12 +39,14 @@ class MessageUser
   def send_email(email, subject, message)
     return unless send_email?
 
-    ActionMailer::Base.mail(
-      from: ApplicationMailer::NO_REPLY_EMAIL,
-      to: email,
-      subject: subject,
-      body: message
-    ).deliver_later
+    BaseNotifier.notify do
+      ActionMailer::Base.mail(
+        from: ApplicationMailer::NO_REPLY_EMAIL,
+        to: email,
+        subject: subject,
+        body: message
+      )
+    end
   end
 
   def send_sms?

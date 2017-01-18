@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h3><strong>Short name:</strong> <%= @short_name %></h3>
+    <p><strong>Company name:</strong> <%= @company_name %></p>
+    <p><strong>Comment:</strong> <%= @comment %></p>
+    <p><strong>Responsible:</strong> <%= @responsible %></p>
+    <p><strong>Job at date:</strong> <%= @job_at_date %></p>
+    <p><strong>Job scope:</strong> <%= @job_scope %></p>
+    <p><strong>Requirements:</strong> <%= @requirements %></p>
+    <p><strong>Job specification:</strong> <%= @job_specification %></p>
+
+    <p>
+      <%= link_to 'View job request', admin_job_request_url(@job_request_id) %>
+    </p>
+
+    <p><%= I18n.t('mailer.signoff') %></p>
+  </body>
+</html>

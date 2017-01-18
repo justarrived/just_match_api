@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170116110527) do
+ActiveRecord::Schema.define(version: 20170116180404) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -278,6 +278,17 @@ ActiveRecord::Schema.define(version: 20170116110527) do
     t.datetime "updated_at",                            null: false
     t.string   "short_name"
     t.boolean  "finished",              default: false
+    t.boolean  "cancelled",             default: false
+    t.boolean  "draft_sent",            default: false
+    t.boolean  "signed_by_customer",    default: false
+    t.string   "requirements"
+    t.string   "hourly_pay"
+    t.string   "company_org_no"
+    t.string   "company_email"
+    t.string   "company_phone"
+    t.integer  "company_id"
+    t.string   "company_address"
+    t.index ["company_id"], name: "index_job_requests_on_company_id", using: :btree
   end
 
   create_table "job_skills", force: :cascade do |t|
@@ -613,6 +624,7 @@ ActiveRecord::Schema.define(version: 20170116110527) do
   add_foreign_key "frilans_finans_invoices", "job_users"
   add_foreign_key "invoices", "frilans_finans_invoices"
   add_foreign_key "invoices", "job_users"
+  add_foreign_key "job_requests", "companies"
   add_foreign_key "job_skills", "jobs"
   add_foreign_key "job_skills", "skills"
   add_foreign_key "job_translations", "jobs"

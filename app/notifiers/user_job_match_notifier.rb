@@ -5,8 +5,7 @@ class UserJobMatchNotifier < BaseNotifier
 
     notify(locale: user.locale) do
       JobMailer.
-        job_match_email(owner: owner, job: job, user: user).
-        deliver_later
+        job_match_email(owner: owner, job: job, user: user)
     end
   end
 end
