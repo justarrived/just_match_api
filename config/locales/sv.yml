@@ -87,8 +87,10 @@ sv:
       asylum_seeker_description: Asylsökande
       permanent_residence: Permanent uppehållstillstånd
       permanent_residence_description: Permanent uppehållstillstånd
-      temporary_residence_work: Tidsbegränsat uppehållstillstånd
-      temporary_residence_work_description: 'Tidsbegränsat uppehållstillstånd'
+      temporary_residence: Tidsbegränsat uppehållstillstånd
+      temporary_residence_description: 'Tidsbegränsat uppehållstillstånd'
+      eu_citizen: EU-medborgare
+      eu_citizen_description: Du har permanent uppehållstillstånd i ett land som är med i EU
       student_visa: Student visa
       student_visa_description: Du har ett svenskt student visum
   user_image:
