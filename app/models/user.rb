@@ -1,4 +1,3 @@
-
 # frozen_string_literal: true
 class User < ApplicationRecord
   include Geocodable
@@ -16,7 +15,8 @@ class User < ApplicationRecord
     asylum_seeker: 1,
     permanent_residence: 2,
     temporary_residence_work: 3,
-    student_visa: 4
+    student_visa: 4,
+    eu_citizen: 5
   }.freeze
 
   AT_UND = {
