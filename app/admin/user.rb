@@ -174,6 +174,11 @@ ActiveAdmin.register User do
         h3 I18n.t('admin.user.show.average_score', score: user.average_score || '-')
 
         h3 I18n.t('admin.user.show.verified', verified: user.verified)
+
+        h4 I18n.t('admin.user.show.interview_comment')
+        div do
+          content_tag(:p, user.interview_comment)
+        end
       end
     end
 

@@ -114,6 +114,7 @@ en:
         status_flags: Status flags
         candidate_status: Candidate status
         misc: Admin details
+        interview_comment: Interview comment
     ff_remote_sync:
       msg_multiple: Synced successfully.
       msg: Synced successfully.
