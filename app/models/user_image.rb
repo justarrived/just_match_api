@@ -4,11 +4,13 @@ class UserImage < ApplicationRecord
   ONE_TIME_TOKEN_VALID_FOR_HOURS = 10
   CATEGORIES = {
     profile: 1,
-    swedish_id: 2,
-    work_permit: 3,
-    lma_card: 4,
-    residence_permit: 5,
-    skatteverket_certificate: 6
+    personal_id: 2,
+    work_permit_front: 3,
+    work_permit_back: 4,
+    lma_card: 5,
+    residence_permit_front: 6,
+    residence_permit_back: 7,
+    skatteverket_certificate: 8
   }.freeze
 
   belongs_to :user, optional: true
