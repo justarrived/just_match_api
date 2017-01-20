@@ -109,14 +109,18 @@ en:
     categories:
       profile: Profile
       profile_description: Profile picture
-      swedish_id: Swedish ID
-      swedish_id_description: Picture of your Swedish identification.
-      work_permit: Work permit
-      work_permit_description: Picture of your work permit.
+      personal_id: Personal ID
+      personal_id_description: Picture of your personal identification.
+      work_permit_front: Work permit (front side)
+      work_permit_front_description: Picture of the front side of your work permit.
+      work_permit_back: Work permit (back side)
+      work_permit_back_description: Picture of the back side of your work permit.
       lma_card: LMA-card
       lma_card_description: Picture of your LMA-card for asylum seekers.
-      residence_permit: Residence permit
-      residence_permit_description: Picture of your residence permit
+      residence_permit_front: Residence permit (front side)
+      residence_permit_front_description: Picture of the front side your residence permit
+      residence_permit_back: Residence permit (back side)
+      residence_permit_back_description: Picture of the back side your residence permit
       skatteverket_certificate: Skatteverket certificate
       skatteverket_certificate_description: Picture of your Skatteverket certificate
   texter:
