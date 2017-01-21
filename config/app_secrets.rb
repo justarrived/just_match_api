@@ -14,6 +14,10 @@ class AppSecrets
     @env = AppEnv.new
   end
 
+  def self.incoming_email_key
+    env['INCOMING_EMAIL_KEY']
+  end
+
   def self.incoming_sms_key
     env['INCOMING_SMS_KEY']
   end

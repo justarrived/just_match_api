@@ -125,6 +125,10 @@ class User < ApplicationRecord
     new_job_comment
   ).freeze
 
+  def self.main_support_user
+    find_by(email: AppConfig.support_email) || admins.first
+  end
+
   def self.ransackable_scopes(_auth_object = nil)
     [:by_near_address]
   end
