@@ -55,6 +55,7 @@ ActiveAdmin.register JobRequest do
       row :signed_by_customer
       row :cancelled
       row :finished
+      row :created_at { datetime_ago_in_words(job_request.created_at) }
     end
 
     panel('Copy-pasta') do

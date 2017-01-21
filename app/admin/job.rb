@@ -194,8 +194,8 @@ ActiveAdmin.register Job do
       row :zip_latitude
       row :zip_longitude
 
-      row :created_at
-      row :updated_at
+      row :created_at { datetime_ago_in_words(job.created_at) }
+      row :updated_at { datetime_ago_in_words(job.updated_at) }
     end
     active_admin_comments
   end

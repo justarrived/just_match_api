@@ -302,8 +302,8 @@ ActiveAdmin.register User do
       row :zip_latitude
       row :zip_longitude
 
-      row :created_at
-      row :updated_at
+      row :created_at { datetime_ago_in_words(user.created_at) }
+      row :updated_at { datetime_ago_in_words(user.updated_at) }
     end
 
     active_admin_comments

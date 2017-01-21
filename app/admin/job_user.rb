@@ -55,8 +55,8 @@ ActiveAdmin.register JobUser do
       row :apply_message
       row :language
 
-      row :created_at
-      row :updated_at
+      row :created_at { datetime_ago_in_words(job_user.created_at) }
+      row :updated_at { datetime_ago_in_words(job_user.updated_at) }
     end
     active_admin_comments
   end
