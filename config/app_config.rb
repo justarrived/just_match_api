@@ -33,6 +33,10 @@ class AppConfig
       compact
   end
 
+  def self.support_email
+    env['DEFAULT_SUPPORT_EMAIL']
+  end
+
   def self.managed_email_username
     env['MANAGED_EMAIL_USERNAME']
   end

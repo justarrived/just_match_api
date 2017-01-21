@@ -14,6 +14,10 @@ class AppSecrets
     @env = AppEnv.new
   end
 
+  def self.incoming_sms_key
+    env['INCOMING_SMS_KEY']
+  end
+
   def self.skylight_authentication
     env['SKYLIGHT_AUTHENTICATION']
   end

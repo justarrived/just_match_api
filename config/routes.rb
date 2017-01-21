@@ -115,6 +115,12 @@ Rails.application.routes.draw do
         end
       end
 
+      resources :sms, only: [] do
+        collection do
+          post :receive
+        end
+      end
+
       post :contacts, to: 'contacts#create'
       get :countries, to: 'countries#index'
     end
