@@ -3,7 +3,11 @@ module Sweepers
   class FrilansFinansInvoiceSweeper
     def self.create_frilans_finans(scope = FrilansFinansInvoice)
       scope.needs_frilans_finans_id.find_each(batch_size: 1000) do |ff_invoice|
-        CreateFrilansFinansInvoiceService.create(ff_invoice: ff_invoice)
+        begin
+          CreateFrilansFinansInvoiceService.create(ff_invoice: ff_invoice)
+        rescue User::MissingFrilansFinansIdError => e
+          ErrorNotifier.send(e, context: { frilans_finans_invoice_id: ff_invoice.id })
+        end
       end
     end
 
