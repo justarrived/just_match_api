@@ -16,6 +16,8 @@ module Index
         include_scopes = [:language, :company, :category, :hourly_pay]
         include_scopes << user_include_scopes(user_key: :owner)
 
+        include_scopes << :job_users if current_user.company? || current_user.admin?
+
         scope = filter_job_user_jobs(scope, filter_params[:'job_user.user_id'])
 
         prepare_records(scope.with_translations.includes(*include_scopes))
