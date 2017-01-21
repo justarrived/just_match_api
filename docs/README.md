@@ -119,3 +119,8 @@ The code follows most Rails conventions. If you've worked with Rails before the 
   - Uses [Transifex](https://www.transifex.com/justarrived/justmatch-api/) to translate.
     + Configuration in `.tx/config`
     + Push/pull translations with [Transifex CLI](http://docs.transifex.com/client/)
+
+* __Receiving SMS__
+  - Configure a HTTP POST Hook in the Twilio Console
+    + Add the route: `POST https://api.justarrived.se/api/v1/sms/receive?ja_KEY=$JA_KEY`, replace `$JA_KEY` with something secret.
+  - The SMS from number will be looked up and if there is a match a message will be added to the chat between that user and our "support user" or admin.
