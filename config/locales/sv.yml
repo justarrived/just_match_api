@@ -97,14 +97,18 @@ sv:
     categories:
       profile: Profil
       profile_description: Profilbild
-      swedish_id: Svenskt ID
-      swedish_id_description: Bild på ditt Svenska ID.
-      work_permit: Arbetstillstånd
-      work_permit_description: Bild på ditt arbetstillstånd.
+      personal_id: Svenskt ID
+      personal_id_description: Bild på ditt Svenska ID.
+      work_permit_front: Arbetstillstånd (framsidan)
+      work_permit_front_description: Bild på framsidan av ditt arbetstillstånd.
+      work_permit_back: Arbetstillstånd (baksidan)
+      work_permit_back_description: Bild på baksidan av ditt arbetstillstånd.
       lma_card: LMA-kort
       lma_card_description: Bild på ditt LMA-kort för asylsökande.
-      residence_permit: Uppehållstillstånd
-      residence_permit_description: Bild på ditt uppehållstillstånd
+      residence_permit_front: Uppehållstillstånd (framsidan)
+      residence_permit_front_description: Bild på framsidan av ditt uppehållstillstånd
+      residence_permit_back: Uppehållstillstånd (baksidan)
+      residence_permit_back_description: Bild på baksidan av ditt uppehållstillstånd
       skatteverket_certificate: Skatteverket certificat
       skatteverket_certificate_description: Bild på ditt Skatteverket certificat
   notifications:
