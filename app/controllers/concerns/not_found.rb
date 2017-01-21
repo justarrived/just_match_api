@@ -2,7 +2,7 @@
 module NotFound
   NOT_FOUND_CODE = :not_found
 
-  def self.add(errors)
+  def self.add(errors = JsonApiErrors.new)
     errors.tap do |errs|
       errs.add(
         status: 404,
