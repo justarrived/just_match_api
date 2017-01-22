@@ -67,6 +67,9 @@ en:
         general: General
         frilans_finans: Frilans Finans
         dates: Dates
+    chat:
+      form:
+        messages_title: Messages
     user:
       primary_language: Primary language %{lang}
       name: Name
