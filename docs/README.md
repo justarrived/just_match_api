@@ -124,3 +124,12 @@ The code follows most Rails conventions. If you've worked with Rails before the 
   - Configure a HTTP POST Hook in the Twilio Console
     + Add the route: `POST https://api.justarrived.se/api/v1/sms/receive?ja_KEY=$JA_KEY`, replace `$JA_KEY` with something secret.
   - The SMS from number will be looked up and if there is a match a message will be added to the chat between that user and our "support user" or admin.
+
+* __Receiving Email__
+  - See Sendgrids docs https://sendgrid.com/docs/API_Reference/Webhooks/parse.html
+  - Basically you need to
+    1. Setup some CNAME records pointing to Sendgrids
+    2. Setup and MX record for a subdomain that Sendgrid will "handle", i.e if you setup `email.example.com`, Sendgrid will handle all emails sent to that subdomain
+    3. Configure their "Parse" HTTP POST Hook
+    4. Add the route: `POST https://api.justarrived.se/api/v1/email/receive?ja_KEY=$JA_KEY`, replace `$JA_KEY` with something secret.
+  - The email from address will be looked up and if there is a match a message will be added to the chat between that user and our "support user" or admin.

@@ -9,8 +9,6 @@ ActiveAdmin.register Chat do
   filter :created_at
 
   index do
-    selectable_column
-
     column :id
     column(:users) do |chat|
       safe_join(
