@@ -3,6 +3,8 @@ class User < ApplicationRecord
   include Geocodable
   include SkillMatchable
 
+  class MissingFrilansFinansIdError < RuntimeError; end
+
   MIN_PASSWORD_LENGTH = 6
   MAX_PASSWORD_LENGTH = 50
   ONE_TIME_TOKEN_VALID_FOR_HOURS = 18
@@ -257,7 +259,9 @@ class User < ApplicationRecord
   end
 
   def frilans_finans_id!
-    frilans_finans_id || fail("User ##{id} has no Frilans Finans id!")
+    frilans_finans_id || begin
+      fail(MissingFrilansFinansIdError, "User ##{id} has no Frilans Finans id!")
+    end
   end
 
   def primary_role
