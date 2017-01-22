@@ -22,7 +22,7 @@ bin/rails db:create db:schema:load
 
 export LINT_FACTORY=true
 export RUBOCOP=false
-export CHECK_DB_INDEXES=false
+export CHECK_DB_INDEXES=true
 export CHECK_DB_UNIQ_INDEXES=false
 if [[ $CIRCLE_CI == 'true' ]]; then
   script/test -r rspec_junit_formatter --format RspecJunitFormatter -o $CIRCLE_TEST_REPORTS/rspec/junit.xml spec
