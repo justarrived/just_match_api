@@ -16,6 +16,17 @@ ActiveAdmin.register Message do
     actions
   end
 
+  show do
+    attributes_table do
+      row :id
+      row :author
+      row :chat
+      row :body { |chat| simple_format(chat.body) }
+      row :updated_at { |chat| datetime_ago_in_words(chat.updated_at) }
+      row :created_at { |chat| datetime_ago_in_words(chat.created_at) }
+    end
+  end
+
   include AdminHelpers::MachineTranslation::Actions
 
   after_save do |message|
