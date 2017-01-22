@@ -11,8 +11,9 @@ module Api
       error code: 401, desc: 'Unauthorized'
       error code: 422, desc: 'Unprocessable entity'
       param :ja_key, String, desc: 'Auth key (can be an URL param)', required: true
-      param :From, String, desc: 'To SMS address', required: true
-      param :Body, String, desc: 'Email body', required: true
+      param :To, String, desc: 'To phone number', required: true
+      param :From, String, desc: 'From phone number', required: true
+      param :Body, String, desc: 'SMS body', required: true
       def receive
         message_body = params['Body']
         from_number = params['From']
