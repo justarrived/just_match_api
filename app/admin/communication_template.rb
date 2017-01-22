@@ -7,14 +7,18 @@ ActiveAdmin.register CommunicationTemplate do
   form do |f|
     f.semantic_errors
 
-    f.inputs 'Details' do
+    f.inputs I18n.t('admin.communication_template.form.details') do
       f.input :language
-      f.input :category, hint: 'You need a unique category name'
-      f.input :subject, hint: 'Subject line of template you (can use variables here..)'
-      f.input :body, hint: 'Body of template (you can use variables here..)'
+      f.input :category, hint: I18n.t('admin.communication_template.form.category_hint')
+      f.input :subject, hint: I18n.t('admin.communication_template.form.subject_hint')
+      f.input :body, hint: I18n.t('admin.communication_template.form.body_hint')
     end
 
-    content_tag(:p, 'WaTmAn')
+    span do
+      user_variables = User.attribute_names.map { |name| "${user_#{name}}" }.join(', ')
+      job_variables = Job.attribute_names.map { |name| "${job_#{name}}" }.join(', ')
+      "Available variables: #{user_variables}, #{job_variables}."
+    end
 
     f.actions
   end
