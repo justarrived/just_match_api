@@ -47,7 +47,7 @@ ActiveAdmin.register Message do
 
   controller do
     def scoped_collection
-      super.with_translations
+      super.with_translations.includes(:author, :chat)
     end
   end
 end
