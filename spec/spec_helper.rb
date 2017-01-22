@@ -1,6 +1,8 @@
 # frozen_string_literal: true
-require 'simplecov'
-SimpleCov.start 'rails'
+if ENV.fetch('CODECLIMATE_REPO_TOKEN', false) || ENV.fetch('COVERAGE', false)
+  require 'simplecov'
+  SimpleCov.start 'rails'
+end
 
 require 'webmock/rspec'
 require 'frilans_finans_api/test_helper'
