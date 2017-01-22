@@ -1,8 +1,31 @@
 # frozen_string_literal: true
 ActiveAdmin.register Chat do
-  menu parent: 'Misc'
+  menu parent: 'Chats'
 
   batch_action :destroy, false
+
+  filter :users
+  filter :updated_at
+  filter :created_at
+
+  index do
+    selectable_column
+
+    column :id
+    column(:users) do |chat|
+      safe_join(
+        chat.users.map do |user|
+          user_query_param = AdminHelpers::Link.query(:chat_users_user_id, user.id)
+          link_to(user.display_name, admin_chats_path + user_query_param)
+        end,
+        ', '
+      )
+    end
+    column(:message_count) { |chat| chat.messages.length }
+    column :updated_at
+
+    actions
+  end
 
   form do |f|
     f.semantic_errors
@@ -51,6 +74,10 @@ ActiveAdmin.register Chat do
   end
 
   controller do
+    def scoped_collection
+      super.includes(:users, :messages)
+    end
+
     def update_resource(chat, params_array)
       chat_params = params_array.first
 

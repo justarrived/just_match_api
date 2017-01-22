@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 ActiveAdmin.register Message do
-  menu parent: 'Misc'
+  menu parent: 'Chats'
 
   batch_action :destroy, false
 
