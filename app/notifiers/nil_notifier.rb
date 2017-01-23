@@ -1,5 +1,4 @@
 # frozen_string_literal: true
 class NilNotifier
-  def self.call(**_args)
-  end
+  def self.call(**_args); end
 end

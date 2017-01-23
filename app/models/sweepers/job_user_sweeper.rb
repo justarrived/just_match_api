@@ -13,7 +13,7 @@ module Sweepers
           )
         end
       ensure
-        overdue_job_users.update_all(accepted: false, accepted_at: nil)
+        overdue_job_users.update_all(accepted: false, accepted_at: nil) # rubocop:disable Rails/SkipsModelValidations, Metrics/LineLength
       end
       # NOTE: The returned JobUsers here will not have updated
       # accepted & accepted_at attriubutes, must be reloaded by the callee
