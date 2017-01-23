@@ -2,7 +2,7 @@
 class Doxxer
   BASE_URL = AppConfig.app_base_url
   EXAMPLE_OUTPUT_PATH = 'examples'
-  DOC_PATH = "#{Rails.root}/#{EXAMPLE_OUTPUT_PATH}"
+  DOC_PATH = Rails.root.join(EXAMPLE_OUTPUT_PATH).to_s
   RESPONSE_PATH = "#{DOC_PATH}/responses"
 
   RELEVANT_DOC_MODELS = [

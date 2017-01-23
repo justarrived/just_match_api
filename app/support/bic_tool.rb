@@ -13,7 +13,7 @@ class BICTool
     @bic = bic_number.to_s.delete(' ').upcase
 
     @errors = []
-    @errors << :bad_format unless @bic.match(REGEX)
+    @errors << :bad_format unless @bic.match?(REGEX)
 
     @country_code = nil
     if @errors.empty?

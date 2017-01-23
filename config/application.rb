@@ -76,7 +76,7 @@ module JustMatch
       storage: :fog,
       fog_credentials: {
         provider: 'Local',
-        local_root: "#{Rails.root}/public"
+        local_root: Rails.root.join('public').to_s
       },
       fog_directory: '',
       fog_host: 'localhost'

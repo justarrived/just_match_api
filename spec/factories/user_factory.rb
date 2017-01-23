@@ -8,7 +8,7 @@ FactoryGirl.define do
     end
     password '1234567890'
     sequence :phone do |n|
-      "+4673#{50_000_00 + n}"
+      "+4673#{5_000_000 + n}"
     end
     description 'Watman ' * 2
     street 'Bankgatan 14C'

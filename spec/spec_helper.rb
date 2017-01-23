@@ -7,7 +7,9 @@ end
 require 'webmock/rspec'
 require 'frilans_finans_api/test_helper'
 
-Dir[Rails.root.join('spec/spec_support/spec_helpers/**/*.rb')].each { |f| require f }
+Dir[
+  Rails.root.join('spec', 'spec_support', 'spec_helpers', '**', '*.rb')
+].each { |f| require f }
 
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|

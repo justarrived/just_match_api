@@ -7,7 +7,7 @@ module TestImageFileReader
   end
 
   def self.image_file
-    test_file_name = "#{Rails.root}/spec/spec_support/data/1x1.jpg"
+    test_file_name = Rails.root.join('spec', 'spec_support', 'data', '1x1.jpg').to_s
     Rack::Test::UploadedFile.new(test_file_name, 'image/png')
   end
 end
