@@ -105,6 +105,7 @@ en:
     job_cancelled: Job cancelled
     new_chat_message: New chat message
     new_job_comment: New job comment
+    failed_to_activate_invoice: Failed to activate invoice
   user_image:
     categories:
       profile: Profile

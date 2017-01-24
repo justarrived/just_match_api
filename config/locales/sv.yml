@@ -123,6 +123,7 @@ sv:
     job_cancelled: Jobb avbrutet
     new_chat_message: Nytt chattmeddelande
     new_job_comment: Ny jobbkommentar
+    failed_to_activate_invoice: Misslyckades att aktivera en faktura
   texter:
     magic_login_link:
       login_line: Just Arrived magisk login länk %{url}

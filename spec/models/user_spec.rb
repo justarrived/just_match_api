@@ -390,7 +390,7 @@ RSpec.describe User, type: :model do
 
   describe 'notifications' do
     context 'constant' do
-      it 'has the correct elements' do
+      it 'has the correct elements in the correct order' do
         expected = %w(
           accepted_applicant_confirmation_overdue
           accepted_applicant_withdrawn
@@ -403,6 +403,7 @@ RSpec.describe User, type: :model do
           user_job_match
           new_chat_message
           new_job_comment
+          failed_to_activate_invoice
         )
         expect(User::NOTIFICATIONS).to eq(expected)
       end
