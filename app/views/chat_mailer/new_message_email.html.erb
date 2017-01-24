@@ -7,7 +7,7 @@
 
     <p><%= I18n.t('mailer.new_chat_message.received_from_line', name: @author_name) %></p>
 
-    <blockquote><%= @message_body %></blockquote>
+    <blockquote><%= simple_format @message_body %></blockquote>
 
     <p><%= I18n.t('mailer.new_chat_message.view_chat_line', url: "<a href=\"#{@chat_url}\">#{@chat_url}</a>").html_safe %></p>
 

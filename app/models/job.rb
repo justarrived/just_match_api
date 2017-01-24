@@ -106,6 +106,16 @@ class Job < ApplicationRecord
       where('jobs.owner_user_id = :user OR job_users.user_id = :user', user: user)
   end
 
+  def self.to_form_array(include_blank: false)
+    form_array = with_translations.
+                 order(id: :desc).
+                 map { |job| [job.display_name, job.id] }
+
+    return form_array unless include_blank
+
+    [[I18n.t('admin.form.no_job_chosen'), nil]] + form_array
+  end
+
   def address
     full_street_address # From the Geocodable module
   end

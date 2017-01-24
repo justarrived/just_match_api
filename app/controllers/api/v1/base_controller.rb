@@ -244,8 +244,7 @@ module Api
         return if promo_code == api_promo_code_header
 
         status = 401 # unauthorized
-        errors = PromoCodeOrLoginRequired.add(JsonApiErrors.new)
-        render json: errors, status: status
+        render json: PromoCodeOrLoginRequired.add, status: status
       end
 
       protected
@@ -278,16 +277,13 @@ module Api
       end
 
       def record_not_found
-        errors = NotFound.add(JsonApiErrors.new)
-
-        render json: errors, status: :not_found
+        render json: NotFound.add, status: :not_found
       end
 
       def require_user
         return if logged_in?
 
-        errors = LoginRequired.add(JsonApiErrors.new)
-        render json: errors, status: :unauthorized
+        render json: LoginRequired.add, status: :unauthorized
       end
 
       def user_forbidden
@@ -306,10 +302,8 @@ module Api
       end
 
       def expired_token
-        errors = TokenExpired.add(JsonApiErrors.new)
-
         status = 401 # unauthorized
-        render json: errors.to_json, status: status
+        render json: TokenExpired.add.to_json, status: status
       end
 
       def current_user

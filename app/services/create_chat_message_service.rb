@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class CreateChatMessageService
-  SEND_IF_NO_MESSAGE_IN_HOURS = 6
+  SEND_IF_NO_MESSAGE_IN_HOURS = 1
 
   def self.create(chat:, author:, body:, language_id:)
     last_chat_message = chat.messages.last
