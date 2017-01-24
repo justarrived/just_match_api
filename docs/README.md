@@ -126,6 +126,7 @@ The code follows most Rails conventions. If you've worked with Rails before the 
   - The SMS from number will be looked up and if there is a match a message will be added to the chat between that user and our "support user" or admin.
 
 * __Receiving Email__
+  - The env variable `DEFAULT_SUPPORT_EMAIL` should match the email of the "support user"
   - See Sendgrids docs https://sendgrid.com/docs/API_Reference/Webhooks/parse.html
   - Basically you need to
     1. Setup some CNAME records pointing to Sendgrids
