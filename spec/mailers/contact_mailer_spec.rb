@@ -16,11 +16,11 @@ RSpec.describe ContactMailer, type: :mailer do
     end
 
     it 'renders the receiver email' do
-      expect(mail.to).to eql(['support@email.justarrived.se'])
+      expect(mail.to).to eql(['no-reply@justarrived.se'])
     end
 
     it 'renders the sender email' do
-      expect(mail.from).to eql(['support@email.justarrived.se'])
+      expect(mail.from).to eql(['no-reply@justarrived.se'])
     end
 
     it 'renders body' do
