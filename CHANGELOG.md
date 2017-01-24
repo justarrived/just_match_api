@@ -3,6 +3,12 @@
 HEAD
 -----------
 
+
+v0.15 - 2017-01-24
+-----------
+- Allow users to ignore `failed_to_activate_invoice` notifications
+
+
 v0.14 - 2017-01-24
 -----------
 - _API_: :hocho: N+1 SQL-query for `/api/v1/jobs` when logged in as admin or company user
