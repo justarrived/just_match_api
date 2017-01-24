@@ -3,6 +3,19 @@
 HEAD
 -----------
 
+v0.16 - 2017-01-24
+-----------
+- Add `ReceivedEmail` & `ReceivedText` model
+- Send mails from no-reply by default in user mailer
+- Admin: Update chat edit view
+- Admin: Update `message`/`chat` views
+- Update support email
+- Admin: Prettier datetimes
+- Add support for receiving emails from Sendgrid
+- Support incoming SMS from Twilio
+- Admin: Send communication templates from admin
+- Add language relation to `SkillTranslation` model
+- Add `CommunicationTemplateTranslation` and `CommunicationTemplate` models
 
 v0.15 - 2017-01-24
 -----------
