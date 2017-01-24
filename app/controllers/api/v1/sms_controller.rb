@@ -3,6 +3,7 @@ module Api
   module V1
     class SmsController < BaseController
       before_action :authorize_sender
+      before_action :require_promo_code, only: []
       after_action :verify_authorized, only: []
 
       api :POST, '/sms/receive', 'Receive SMS'
