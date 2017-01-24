@@ -9,7 +9,7 @@ Apipie.configure do |config|
   config.validate                = false # Validate params against the doc spec
   config.markup                  = Apipie::Markup::Markdown.new
   config.api_routes              = Rails.application.routes
-  config.api_controllers_matcher = "#{Rails.root}/app/controllers/api/**/*.rb"
+  config.api_controllers_matcher = Rails.root.join('app', 'controllers', 'api', '**', '*.rb').to_s # rubocop:disable Metrics/LineLength
   config.app_info['1.0'] = <<-EOS
     Welcome to the JustMatch API v1. The API is everything you need for building a
     well functioning client.

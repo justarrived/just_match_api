@@ -126,9 +126,6 @@ Style/TrailingCommaInLiteral:
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#no-trailing-array-commas
   Enabled: true
   EnforcedStyleForMultiline: no_comma
-  SupportedStyles:
-  - comma
-  - no_comma
 Metrics/AbcSize:
   Description: A calculated magnitude based on number of assignments, branches, and
     conditions.

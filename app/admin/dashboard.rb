@@ -7,7 +7,7 @@ ActiveAdmin.register_page 'Dashboard' do
       column do
         panel(link_to(I18n.t('admin.recent_job_users.title'), admin_job_users_path)) do
           scope = JobUser.order(created_at: :desc).
-                  includes(:user, job: [:translations]).
+                  includes(:user, job: [:translations, :language]).
                   limit(20)
 
           table_for(scope) do

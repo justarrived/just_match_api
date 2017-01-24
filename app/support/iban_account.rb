@@ -21,7 +21,7 @@ class IBANAccount
 
     @iban = IBANTools::IBAN.new(number)
     @errors = @iban.validation_errors.map { |error| ERRORS_MAP.fetch(error) }
-    @errors << :bad_format unless number.match(REGEX)
+    @errors << :bad_format unless number.match?(REGEX)
   end
 
   def valid?

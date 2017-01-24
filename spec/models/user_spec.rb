@@ -104,6 +104,21 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe '#frilans_finans_id!' do
+    it 'returns frilans_finans_id if one is set' do
+      id = 7
+      user = FactoryGirl.build(:user, frilans_finans_id: id)
+      expect(user.frilans_finans_id!).to eq(id)
+    end
+
+    it 'returns frilans_finans_id if one is set' do
+      user = FactoryGirl.build(:user, frilans_finans_id: nil)
+      expect do
+        user.frilans_finans_id!
+      end.to raise_error(User::MissingFrilansFinansIdError)
+    end
+  end
+
   describe '#reset!' do
     it 'resets all personal user attributes' do
       user = FactoryGirl.create(:user)
@@ -375,7 +390,7 @@ RSpec.describe User, type: :model do
 
   describe 'notifications' do
     context 'constant' do
-      it 'has the correct elements' do
+      it 'has the correct elements in the correct order' do
         expected = %w(
           accepted_applicant_confirmation_overdue
           accepted_applicant_withdrawn
@@ -388,6 +403,7 @@ RSpec.describe User, type: :model do
           user_job_match
           new_chat_message
           new_job_comment
+          failed_to_activate_invoice
         )
         expect(User::NOTIFICATIONS).to eq(expected)
       end

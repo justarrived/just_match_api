@@ -1,11 +1,15 @@
 # frozen_string_literal: true
-require 'simplecov'
-SimpleCov.start 'rails'
+if ENV.fetch('CODECLIMATE_REPO_TOKEN', false) || ENV.fetch('COVERAGE', false)
+  require 'simplecov'
+  SimpleCov.start 'rails'
+end
 
 require 'webmock/rspec'
 require 'frilans_finans_api/test_helper'
 
-Dir[Rails.root.join('spec/spec_support/spec_helpers/**/*.rb')].each { |f| require f }
+Dir[
+  Rails.root.join('spec', 'spec_support', 'spec_helpers', '**', '*.rb')
+].each { |f| require f }
 
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|

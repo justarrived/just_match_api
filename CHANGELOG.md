@@ -3,6 +3,17 @@
 HEAD
 -----------
 
+v0.14 - 2017-01-24
+-----------
+- _API_: :hocho: N+1 SQL-query for `/api/v1/jobs` when logged in as admin or company user
+- _Admin:_ :hocho: N+1 SQL-queries for some dashboards
+- _I18n_: Add missing strings for `UserImage::CATEGORIES` and `User::STATUSES`
+- Upgrade `sidekiq` 4.2.8 => 4.2.9, which resolves the problems we've had with `Redis::ConnectionError`
+- Additional `UserImage::CATEGORIES`
+- Additional `User::STATUSES`
+- Sync retry sending of notification if the connection to Redis is down
+- _API_: Sync with Frilans Finans after user create/update
+
 v0.13 - 2017-01-16
 -----------
 - Sync user to Frilans Finans on update & change

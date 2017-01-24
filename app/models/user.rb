@@ -1,8 +1,9 @@
-
 # frozen_string_literal: true
 class User < ApplicationRecord
   include Geocodable
   include SkillMatchable
+
+  class MissingFrilansFinansIdError < RuntimeError; end
 
   MIN_PASSWORD_LENGTH = 6
   MAX_PASSWORD_LENGTH = 50
@@ -15,8 +16,9 @@ class User < ApplicationRecord
   STATUSES = {
     asylum_seeker: 1,
     permanent_residence: 2,
-    temporary_residence_work: 3,
-    student_visa: 4
+    temporary_residence: 3,
+    student_visa: 4,
+    eu_citizen: 5
   }.freeze
 
   AT_UND = {
@@ -123,6 +125,7 @@ class User < ApplicationRecord
     user_job_match
     new_chat_message
     new_job_comment
+    failed_to_activate_invoice
   ).freeze
 
   def self.main_support_user
@@ -261,7 +264,9 @@ class User < ApplicationRecord
   end
 
   def frilans_finans_id!
-    frilans_finans_id || fail("User ##{id} has no Frilans Finans id!")
+    frilans_finans_id || begin
+      fail(MissingFrilansFinansIdError, "User ##{id} has no Frilans Finans id!")
+    end
   end
 
   def primary_role
