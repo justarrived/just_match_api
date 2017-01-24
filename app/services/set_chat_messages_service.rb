@@ -5,13 +5,22 @@ module SetChatMessagesService
 
     chat_messages_params = normalize_message_ids(message_ids_param)
     chat_messages_params.map do |attrs|
-      message = Message.find_or_initialize_by(chat: chat, id: attrs[:id])
-      message.language_id = attrs[:language_id]
-      message.author_id = attrs[:author_id]
-      message.body = attrs[:body]
-      message.set_translation(body: attrs[:body]) if message.save
-      message
-    end
+      # Don't bother changing records that already have been saved
+      next unless attrs[:id].blank?
+
+      Message.new.tap do |m|
+        m.chat = chat
+        m.language_id = attrs[:language_id]
+        m.author_id = attrs[:author_id]
+        m.body = attrs[:body]
+        if m.save!
+          m.set_translation(body: attrs[:body])
+          author = m.author
+          MachineTranslationsJob.perform_later(m.original_translation)
+          NewChatMessageNotifier.call(chat: chat, message: m, author: author)
+        end
+      end
+    end.compact
   end
 
   def self.normalize_message_ids(message_ids_param)

@@ -28,12 +28,25 @@ ActiveAdmin.register Chat do
   form do |f|
     f.semantic_errors
     f.inputs I18n.t('admin.chat.form.messages_title') do
-      f.has_many :messages, allow_destroy: true, new_record: true do |ff|
-        ff.semantic_errors(*ff.object&.errors&.keys)
+      f.has_many :messages, allow_destroy: false, new_record: true do |ff|
+        message = ff.object
+        if message.persisted?
+          attributes_table_for message do
+            row :id { link_to(message.display_name, admin_message_path(message)) }
+            row :language { message.language }
+            row :from do
+              link_to(message.author.display_name, admin_user_path(message.author))
+            end
+            row :created_at { datetime_ago_in_words(message.created_at) }
+            row :body { simple_format(message.body) }
+          end
+        else
+          ff.semantic_errors(*message&.errors&.keys)
 
-        ff.input :author, as: :select, collection: f.object.users
-        ff.input :language, as: :select, collection: Language.system_languages.order(:en_name) # rubocop:disable Metrics/LineLength
-        ff.input :body, as: :text
+          ff.input :author, as: :select, collection: f.object.users
+          ff.input :language, as: :select, collection: Language.system_languages.order(:en_name) # rubocop:disable Metrics/LineLength
+          ff.input :body, as: :text
+        end
       end
     end
 
