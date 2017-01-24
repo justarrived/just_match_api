@@ -22,7 +22,7 @@ RSpec.describe UserMailer, type: :mailer do
     end
 
     it 'renders the sender email' do
-      expect(mail.from).to eql(['support@email.justarrived.se'])
+      expect(mail.from).to eql(['no-reply@justarrived.se'])
     end
 
     it 'includes @user_name in email body' do
@@ -58,7 +58,7 @@ RSpec.describe UserMailer, type: :mailer do
     end
 
     it 'renders the sender email' do
-      expect(mail.from).to eql(['support@email.justarrived.se'])
+      expect(mail.from).to eql(['no-reply@justarrived.se'])
     end
 
     it 'includes @user_name in email body' do
@@ -89,7 +89,7 @@ RSpec.describe UserMailer, type: :mailer do
     end
 
     it 'renders the sender email' do
-      expect(mail.from).to eql(['support@email.justarrived.se'])
+      expect(mail.from).to eql(['no-reply@justarrived.se'])
     end
 
     it 'includes @user_name in email body' do
@@ -108,6 +108,10 @@ RSpec.describe UserMailer, type: :mailer do
     it 'renders the subject' do
       subject = I18n.t('mailer.magic_login_link.subject')
       expect(mail.subject).to eql(subject)
+    end
+
+    it 'renders the sender email' do
+      expect(mail.from).to eql(['no-reply@justarrived.se'])
     end
 
     it 'includes users reset password url' do

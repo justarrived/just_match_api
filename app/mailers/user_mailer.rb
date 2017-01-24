@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 class UserMailer < ApplicationMailer
+  default from: NO_REPLY_EMAIL
+
   def welcome_email(user:)
     @user_name = user.name
 
