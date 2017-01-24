@@ -44,7 +44,7 @@ class MessageUser
 
     BaseNotifier.notify do
       ActionMailer::Base.mail(
-        from: ApplicationMailer::NO_REPLY_EMAIL,
+        from: ApplicationMailer::DEFAULT_SUPPORT_EMAIL,
         to: email,
         subject: subject,
         body: message
