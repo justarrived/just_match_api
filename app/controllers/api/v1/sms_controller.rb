@@ -15,15 +15,18 @@ module Api
       param :From, String, desc: 'From phone number', required: true
       param :Body, String, desc: 'SMS body', required: true
       def receive
-        message_body = params['Body']
+        body = params['Body']
         from_number = params['From']
+        to_number = params['To']
 
         user = User.includes(:language).find_by(phone: from_number)
         support_user = User.main_support_user
 
         if user && support_user
-          create_chat_message(author: user, receiver: support_user, body: message_body)
+          create_chat_message(author: user, receiver: support_user, body: body)
         end
+
+        ReceivedText.create(from_number: from_number, to_number: to_number, body: body)
 
         head :no_content
       end

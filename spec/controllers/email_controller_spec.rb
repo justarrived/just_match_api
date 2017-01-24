@@ -25,6 +25,17 @@ RSpec.describe Api::V1::EmailController, type: :controller do
       expect(response.status).to eq(204)
     end
 
+    it 'creates message' do
+      allow(AppSecrets).to receive(:incoming_email_key).and_return(ja_key)
+      FactoryGirl.create(:admin_user)
+      FactoryGirl.create(:user, email: email)
+
+      expect do
+        post :receive, params: params
+      end.to change(ReceivedEmail, :count).by(1)
+      expect(response.status).to eq(204)
+    end
+
     it 'returns 204 if no user found' do
       allow(AppSecrets).to receive(:incoming_email_key).and_return(ja_key)
       post :receive, params: params

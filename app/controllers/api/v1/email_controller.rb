@@ -17,8 +17,10 @@ module Api
       param :text, String, desc: 'Email body', required: true
       def receive
         from = params[:from]
+        to = params[:to]
         subject = params[:subject]
         raw_text = params[:text]
+        html_body = params[:html]
 
         from_email = EmailAddress.normalize(from)
 
@@ -31,6 +33,14 @@ module Api
 
           create_chat_message(author: user, receiver: support_user, body: body)
         end
+
+        ReceivedEmail.create(
+          from_address: from,
+          to_address: to,
+          subject: subject,
+          text_body: raw_text,
+          html_body: html_body
+        )
 
         head :no_content
       end
