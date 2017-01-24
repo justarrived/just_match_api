@@ -2,7 +2,7 @@
 module TokenExpired
   TOKEN_EXPIRED_CODE = :token_expired
 
-  def self.add(errors)
+  def self.add(errors = JsonApiErrors.new)
     errors.tap do |errs|
       errs.add(
         status: 401,

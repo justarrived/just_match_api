@@ -4,22 +4,67 @@ ActiveAdmin.register User do
 
   batch_action :destroy, false
 
-  batch_action :send_message_to, form: {
-    type: %w[sms email both],
-    subject:  :text,
-    message:  :textarea
+  batch_action :send_communication_template_to, form: lambda {
+    {
+      type: %w[email sms both],
+      template_id: CommunicationTemplate.to_form_array,
+      job_id: Job.to_form_array(include_blank: true)
+    }
+  } do |ids, inputs|
+    type = inputs['type']
+    job = Job.with_translations.find_by(id: inputs['job_id'])
+    template = CommunicationTemplate.with_translations.find(inputs['template_id'])
+
+    data = {}
+    if job
+      job.attributes.symbolize_keys.each { |key, value| data[:"job_#{key}"] = value }
+      data[:job_name] = job.name
+      data[:job_description] = job.description
+    end
+
+    support_user = User.main_support_user
+    response = MessageUsersFromTemplate.call(
+      type: type,
+      users: User.where(id: ids),
+      template: template,
+      data: data
+    ) do |user, body, language_id|
+      chat = Chat.find_or_create_private_chat([support_user, user])
+      chat.create_message(author: support_user, body: body, language_id: language_id)
+    end
+
+    notice = response[:message]
+    if response[:success]
+      redirect_to collection_path, notice: notice
+    else
+      redirect_to collection_path, alert: notice
+    end
+  end
+
+  batch_action :send_message_to, form: lambda {
+    {
+      type: %w[email sms both],
+      language_id: Language.system_languages.to_form_array,
+      subject:  :text,
+      message:  :textarea
+    }
   } do |ids, inputs|
     template = inputs['message']
     type = inputs['type']
     subject = inputs['subject']
+    language_id = inputs['language_id']
 
     users = User.where(id: ids)
+    support_user = User.main_support_user
     response = MessageUsers.call(
       type: type,
       users: users,
       template: template,
       subject: subject
-    )
+    ) do |user, body|
+      chat = Chat.find_or_create_private_chat([support_user, user])
+      chat.create_message(author: support_user, body: body, language_id: language_id)
+    end
     notice = response[:message]
 
     if response[:success]
@@ -274,8 +319,8 @@ ActiveAdmin.register User do
       row :zip_latitude
       row :zip_longitude
 
-      row :created_at
-      row :updated_at
+      row :created_at { datetime_ago_in_words(user.created_at) }
+      row :updated_at { datetime_ago_in_words(user.updated_at) }
     end
 
     active_admin_comments
@@ -315,7 +360,7 @@ ActiveAdmin.register User do
         f.has_many :user_languages, allow_destroy: false, new_record: true do |ff|
           ff.semantic_errors(*ff.object.errors.keys)
 
-          ff.input :language, as: :select, collection: Language.order(:en_name)
+          ff.input :language, as: :select, collection: Language.system_languages.order(:en_name) # rubocop:disable Metrics/LineLength
           ff.input :proficiency, as: :select, collection: UserLanguage::PROFICIENCY_RANGE
           ff.input :proficiency_by_admin, as: :select, collection: UserLanguage::PROFICIENCY_RANGE # rubocop:disable Metrics/LineLength
         end

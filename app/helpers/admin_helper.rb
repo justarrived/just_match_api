@@ -1,5 +1,11 @@
 # frozen_string_literal: true
 module AdminHelper
+  def datetime_ago_in_words(datetime)
+    created_at = datetime.strftime('%A at %H:%M, %B %d, %Y')
+    time_ago_in_words = distance_of_time_in_words(Time.zone.now, datetime)
+    "#{time_ago_in_words} ago on #{created_at}"
+  end
+
   def user_profile_image(user:, size: :medium)
     user.user_images.
       where(user: user, category: 'profile').

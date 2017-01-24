@@ -2,7 +2,7 @@
 module PromoCodeOrLoginRequired
   PROMO_CODE_OR_LOGIN_REQUIRED_CODE = :promo_code_or_login_required
 
-  def self.add(errors)
+  def self.add(errors = JsonApiErrors.new)
     errors.tap do |errs|
       errs.add(
         status: 401,

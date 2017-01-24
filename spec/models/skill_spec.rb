@@ -10,7 +10,7 @@ RSpec.describe Skill, type: :model do
     end
   end
 
-  describe '#form_array' do
+  describe '#to_form_array' do
     context 'with include blank false' do
       it 'returns empty array if no skills' do
         skill_array = described_class.to_form_array(include_blank: false)

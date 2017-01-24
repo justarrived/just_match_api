@@ -59,7 +59,9 @@ class Doxxer
 
   def self.generate_response_examples
     # Write "global" error response examples
-    [InvalidCredentials, LoginRequired, NotFound, TokenExpired].each do |error_klass|
+    [
+      InvalidCredentials, LoginRequired, NotFound, TokenExpired, Unauthorized
+    ].each do |error_klass|
       _write_general_response_error(error_klass)
     end
 

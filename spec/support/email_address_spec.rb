@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe EmailAddress do
   describe '#normalize' do
@@ -9,7 +9,9 @@ RSpec.describe EmailAddress do
       ' test@example.com   ',
       'test@example.com ',
       '  tEsT@EXample.COM ',
-      '  TEST@EXAMPLE.cOM '
+      '  TEST@EXAMPLE.cOM ',
+      ' Test Gu <test@EXAMPLE.cOM> ',
+      ' Test <TEST@EXAMPLE.cOM> (my test ad)'
     ].each do |email|
       it "normalizes '#{email}' to 'test@example.com'" do
         expect(described_class.normalize(email)).to eq('test@example.com')
@@ -17,14 +19,14 @@ RSpec.describe EmailAddress do
     end
 
     [
-      ['    ', ''],
+      ['    ', nil],
       ['+46735000000  ', '+46735000000'],
       ['+467350000AA  ', '+467350000aa'],
       ['TEST@  ', 'test@']
     ].each do |value_pair|
       value, expected = value_pair
 
-      it 'works well for non-valid email' do
+      it "works well for non-valid email: '#{value}'" do
         expect(described_class.normalize(value)).to eq(expected)
       end
     end

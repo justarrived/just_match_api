@@ -105,7 +105,7 @@ The code follows most Rails conventions. If you've worked with Rails before the 
   - Translation model
     + includes `TranslationModel` module
   - Defines the translated columns with the `translates` macro
-    + Defines `set_translation` instance methods on the model
+    + That macro defines an instance method `set_translation` on the model
   - There are a few helper services, plus one `ActiveJob` class to do machine translations
     + `MachineTranslationsService` takes a translation and creates translations for to all eligible locales
     + `MachineTranslationService` takes a translation and a language for it to be translated to
@@ -119,3 +119,18 @@ The code follows most Rails conventions. If you've worked with Rails before the 
   - Uses [Transifex](https://www.transifex.com/justarrived/justmatch-api/) to translate.
     + Configuration in `.tx/config`
     + Push/pull translations with [Transifex CLI](http://docs.transifex.com/client/)
+
+* __Receiving SMS__
+  - Configure a HTTP POST Hook in the Twilio Console
+    + Add the route: `POST https://api.justarrived.se/api/v1/sms/receive?ja_KEY=$JA_KEY`, replace `$JA_KEY` with something secret.
+  - The SMS from number will be looked up and if there is a match a message will be added to the chat between that user and our "support user" or admin.
+
+* __Receiving Email__
+  - The env variable `DEFAULT_SUPPORT_EMAIL` should match the email of the "support user"
+  - See Sendgrids docs https://sendgrid.com/docs/API_Reference/Webhooks/parse.html
+  - Basically you need to
+    1. Setup some CNAME records pointing to Sendgrids
+    2. Setup and MX record for a subdomain that Sendgrid will "handle", i.e if you setup `email.example.com`, Sendgrid will handle all emails sent to that subdomain
+    3. Configure their "Parse" HTTP POST Hook
+    4. Add the route: `POST https://api.justarrived.se/api/v1/email/receive?ja_KEY=$JA_KEY`, replace `$JA_KEY` with something secret.
+  - The email from address will be looked up and if there is a match a message will be added to the chat between that user and our "support user" or admin.

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170116180404) do
+ActiveRecord::Schema.define(version: 20170124123717) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -429,6 +429,24 @@ ActiveRecord::Schema.define(version: 20170116180404) do
     t.index ["job_id", "to_user_id"], name: "index_ratings_on_job_id_and_to_user_id", unique: true, using: :btree
   end
 
+  create_table "received_emails", force: :cascade do |t|
+    t.string   "from_address"
+    t.string   "to_address"
+    t.string   "subject"
+    t.text     "text_body"
+    t.text     "html_body"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  create_table "received_texts", force: :cascade do |t|
+    t.string   "from_number"
+    t.string   "to_number"
+    t.string   "body"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "skill_translations", force: :cascade do |t|
     t.string   "name"
     t.string   "locale"
@@ -615,6 +633,7 @@ ActiveRecord::Schema.define(version: 20170116180404) do
   add_foreign_key "comment_translations", "languages"
   add_foreign_key "comments", "languages"
   add_foreign_key "comments", "users", column: "owner_user_id", name: "comments_owner_user_id_fk"
+  add_foreign_key "communication_template_translations", "communication_templates", name: "communication_template_translations_communication_template_id_f"
   add_foreign_key "communication_template_translations", "languages"
   add_foreign_key "communication_templates", "languages"
   add_foreign_key "company_images", "companies"

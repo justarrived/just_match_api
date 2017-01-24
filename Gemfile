@@ -50,6 +50,8 @@ gem 'uglifier', '~> 3.0' # Needed for activeadmin assets compilation
 gem 'frilans_finans_api', path: 'lib/frilans_finans_api' # Interact with Frilans Finans API
 
 # NOTIFICATIONS
+gem 'email_reply_parser', '~> 0.5' # Parse reply emails
+gem 'mail', '~> 2.6' # General email functionality
 gem 'twilio-ruby', '~> 4.11' # Send SMS notifications
 
 # GEO/LOCALE/LANGUAGE UTILS
