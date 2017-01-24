@@ -22,12 +22,16 @@ ActiveAdmin.register User do
       data[:job_description] = job.description
     end
 
+    support_user = User.main_support_user
     response = MessageUsersFromTemplate.call(
       type: type,
       users: User.where(id: ids),
       template: template,
       data: data
-    )
+    ) do |user, body, language_id|
+      chat = Chat.find_or_create_private_chat([support_user, user])
+      chat.create_message(author: support_user, body: body, language_id: language_id)
+    end
 
     notice = response[:message]
     if response[:success]
@@ -37,22 +41,30 @@ ActiveAdmin.register User do
     end
   end
 
-  batch_action :send_message_to, form: {
-    type: %w[email sms both],
-    subject:  :text,
-    message:  :textarea
+  batch_action :send_message_to, form: lambda {
+    {
+      type: %w[email sms both],
+      language_id: Language.system_languages.to_form_array,
+      subject:  :text,
+      message:  :textarea
+    }
   } do |ids, inputs|
     template = inputs['message']
     type = inputs['type']
     subject = inputs['subject']
+    language_id = inputs['language_id']
 
     users = User.where(id: ids)
+    support_user = User.main_support_user
     response = MessageUsers.call(
       type: type,
       users: users,
       template: template,
       subject: subject
-    )
+    ) do |user, body|
+      chat = Chat.find_or_create_private_chat([support_user, user])
+      chat.create_message(author: support_user, body: body, language_id: language_id)
+    end
     notice = response[:message]
 
     if response[:success]

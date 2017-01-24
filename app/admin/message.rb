@@ -11,6 +11,7 @@ ActiveAdmin.register Message do
     column :original_body
     column :author
     column :chat
+    column :language
     column :created_at
 
     actions
@@ -47,7 +48,7 @@ ActiveAdmin.register Message do
 
   controller do
     def scoped_collection
-      super.with_translations.includes(:author, :chat)
+      super.with_translations.includes(:author, :chat, :language)
     end
   end
 end

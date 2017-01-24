@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 class MessageUser
   def self.call(type:, user:, template:, subject: nil, data: {})
-    new(type, user, template, subject, data).call
+    new(type, user, template, subject, data).call do |formatted_subject, message|
+      yield(formatted_subject, message) if block_given?
+    end
   end
 
   def initialize(type, user, template, subject, data)
@@ -19,6 +21,7 @@ class MessageUser
     begin
       message = @template % attributes
       subject = @subject % attributes
+      yield(subject, message) if block_given?
     rescue KeyError => e
       return { success: false, message: "Error: '#{e.message}'" }
     end

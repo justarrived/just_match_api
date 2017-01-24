@@ -1,15 +1,16 @@
 # frozen_string_literal: true
 class MessageUsers
-  def self.call(type:, users:, template:, subject: nil, data: {})
-    new(type, users, template, subject, data).call
+  def self.call(type:, users:, template:, subject: nil, data: {}, &block)
+    new(type, users, template, subject, data, &block).call
   end
 
-  def initialize(type, users, template, subject, data)
+  def initialize(type, users, template, subject, data, &block)
     @type = type
     @users = users
     @template = template
     @subject = subject
     @data = data
+    @block = block
   end
 
   def call
@@ -21,7 +22,9 @@ class MessageUsers
           template: @template,
           subject: @subject,
           data: @data
-        )
+        ) do |subject, message|
+          @block&.call(user, [subject, message].join("\n\n"))
+        end
         return response unless response[:success]
       end
     end
