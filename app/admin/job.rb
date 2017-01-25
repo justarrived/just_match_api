@@ -166,7 +166,7 @@ ActiveAdmin.register Job do
       row :short_description
       row :street
       row :zip
-      row :description
+      row :description { |job| simple_format(job.description) }
     end
 
     h3 I18n.t('admin.job.show.status_flags')

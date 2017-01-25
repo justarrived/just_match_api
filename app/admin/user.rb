@@ -222,7 +222,7 @@ ActiveAdmin.register User do
 
         h4 I18n.t('admin.user.show.interview_comment')
         div do
-          content_tag(:p, user.interview_comment)
+          content_tag(:p, simple_format(user.interview_comment))
         end
       end
     end
