@@ -113,6 +113,7 @@ end
 #  next_of_kin_name                 :string
 #  next_of_kin_phone                :string
 #  arbetsformedlingen_registered_at :date
+#  city                             :string
 #
 # Indexes
 #

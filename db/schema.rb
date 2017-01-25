@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170124123717) do
+ActiveRecord::Schema.define(version: 20170125231941) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -615,6 +615,7 @@ ActiveRecord::Schema.define(version: 20170124123717) do
     t.string   "next_of_kin_name"
     t.string   "next_of_kin_phone"
     t.date     "arbetsformedlingen_registered_at"
+    t.string   "city"
     t.index ["company_id"], name: "index_users_on_company_id", using: :btree
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["frilans_finans_id"], name: "index_users_on_frilans_finans_id", unique: true, using: :btree
