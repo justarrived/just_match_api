@@ -6,7 +6,8 @@ module Geocodable
     end
 
     def full_street_address
-      [street, zip, country].join(', ')
+      city = send(:city) if respond_to?(:city)
+      [street, zip, city, country].reject(&:blank?).join(', ')
     end
 
     def validate_geocoding
