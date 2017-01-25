@@ -3,6 +3,15 @@
 HEAD
 -----------
 
+v0.17 - 2017-01-25
+-----------
+- `Admin:`
+  + Pretty print FF log requests/responses
+  + Add gross amount to job show view
+  + Add Token#expires_at to permitted params
+- _API_: Add support for filtering companies by name and including their users
+- Update `MessageUser` from email to use the default support email
+
 v0.16 - 2017-01-24
 -----------
 - Add `ReceivedEmail` & `ReceivedText` model
