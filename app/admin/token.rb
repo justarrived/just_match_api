@@ -14,6 +14,6 @@ ActiveAdmin.register Token do
   end
 
   permit_params do
-    [:user_id]
+    [:user_id, :expires_at]
   end
 end
