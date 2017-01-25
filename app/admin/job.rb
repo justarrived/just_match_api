@@ -160,6 +160,7 @@ ActiveAdmin.register Job do
       row :filled
       row :name
       row :hours
+      row :gross_amount { |job| "#{job.gross_amount} SEK" }
       row :job_date
       row :job_end_date
       row :hourly_pay
