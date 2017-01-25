@@ -1,5 +1,14 @@
 # frozen_string_literal: true
 module AdminHelper
+  def safe_pretty_print_json(json_string)
+    content_tag :pre, begin
+      hash = JSON.parse(json_string)
+      JSON.pretty_generate(hash)
+    rescue JSON::ParserError => _e
+      json_string
+    end
+  end
+
   def datetime_ago_in_words(datetime)
     created_at = datetime.strftime('%A at %H:%M, %B %d, %Y')
     time_ago_in_words = distance_of_time_in_words(Time.zone.now, datetime)
