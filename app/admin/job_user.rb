@@ -35,27 +35,112 @@ ActiveAdmin.register JobUser do
   end
 
   show do
-    attributes_table do
-      row :id
-      row :frilans_finans_invoice
-      row :invoice
-      row :user
-      row :average_user_score do
-        job_user.user.average_score
+    # TODO: Add support chat link
+    if !job_user.will_perform
+      attributes_table do
+        row :status { I18n.t('admin.user.show.rejected') }
+        row :job_name { |job_user| job_user.job.name }
+        row :user
       end
-      row :job
+    elsif job_user.job.ended?
+      attributes_table do
+        row :job_name { |job_user| job_user.job.name }
+        row :frilans_finans_invoice
+        row :invoice_status do |job_user|
+          job_user.frilans_finans_invoice&.ff_payment_status_name
+        end
+        row :invoice
+        row :user
+        row :job
+        row :job_gross_amount { |job_user| job_user.job.gross_amount }
+        row :company
+        row :owner
+        row :company_contact
 
-      row :accepted
-      row :will_perform
-      row :performed
-      row :accepted_at
+        row :created_at { datetime_ago_in_words(job_user.created_at) }
+        row :updated_at { datetime_ago_in_words(job_user.updated_at) }
+      end
+    else
+      user = job_user.user
 
-      row :apply_message
-      row :language
+      columns do
+        column do
+          panel I18n.t('admin.job_user.show.user_details') do
+            h3 link_to("#{user.name} #{"(#{user.city})" if user.city}", admin_user_path(user)) # rubocop:disable Metrics/LineLength
 
-      row :created_at { datetime_ago_in_words(job_user.created_at) }
-      row :updated_at { datetime_ago_in_words(job_user.updated_at) }
+            h3 I18n.t('admin.user.show.tags')
+            div do
+              content_tag(:p, user_tag_badges(user: user))
+            end
+
+            unless user.jobs.ongoing.empty?
+              h3 I18n.t('admin.user.show.ongoing_jobs')
+              ul do
+                user.jobs.ongoing.each do |job|
+                  li "#{job.job_date.to_date} to #{job.job_end_date.to_date}: #{job.name}"
+                end
+              end
+            end
+
+            unless user.jobs.future.empty?
+              h3 I18n.t('admin.user.show.future_jobs')
+              ul do
+                user.jobs.future.each do |job|
+                  li "#{job.job_date.to_date} to #{job.job_end_date.to_date}: #{job.name}"
+                end
+              end
+            end
+          end
+        end
+
+        column do
+          panel I18n.t('admin.job_user.show.match_details') do
+            table_for(job_user) do
+              column :average_score { user.average_score || '-' }
+              column :verified { status_tag(user.verified) }
+              column :accepted
+              column :will_perform
+              column :performed
+            end
+            content_tag(:p) do
+              I18n.t(
+                'admin.job_user.show.created_at',
+                date: datetime_ago_in_words(job_user.created_at)
+              )
+            end
+            content_tag(:p, simple_format(job_user.apply_message)) if job_user.apply_message # rubocop:disable Metrics/LineLength
+
+            h3 I18n.t('admin.user.show.skills')
+            div do
+              content_tag(:p, user_skills_badges(user_skills: user.user_skills))
+            end
+
+            h3 I18n.t('admin.user.show.languages')
+            div do
+              content_tag(:p, user_languages_badges(user_languages: user.user_languages))
+            end
+
+            unless user.interview_comment.blank?
+              h3 I18n.t('admin.user.show.interview_comment')
+              div do
+                content_tag(:p, simple_format(user.interview_comment))
+              end
+            end
+          end
+        end
+      end
+
+      panel I18n.t('admin.job_user.show.job_details') do
+        table_for(job_user.job) do
+          column :name
+          column :job_date
+          column :job_end_date
+          column :hours
+          column :gross_amount
+        end
+      end
     end
+
     active_admin_comments
   end
 

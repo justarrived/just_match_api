@@ -48,6 +48,11 @@ en:
       post_btn: Machine Translate
     job_user:
       apply_message: Apply message
+      show:
+        user_details: User details
+        match_details: Match details
+        job_details: Job details
+        created_at: Created at %{date}
     job:
       google_calendar_link: Google Calendar
       name: Name
@@ -124,6 +129,9 @@ en:
         candidate_status: Candidate status
         misc: Admin details
         interview_comment: Interview comment
+        ongoing_jobs: Ongoing jobs
+        future_jobs: Future jobs
+        rejected: Rejected
     ff_remote_sync:
       msg_multiple: Synced successfully.
       msg: Synced successfully.

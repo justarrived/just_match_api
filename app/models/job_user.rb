@@ -6,6 +6,9 @@ class JobUser < ApplicationRecord
   belongs_to :job
   belongs_to :language, optional: true
 
+  has_one :company_contact, through: :job
+  has_one :owner, through: :job
+  has_one :company, through: :job
   has_one :invoice
   has_one :frilans_finans_invoice
 
@@ -63,6 +66,8 @@ class JobUser < ApplicationRecord
 
     return 'Will perform' if will_perform
     return 'Accepted' if accepted
+
+    asd
 
     'Applied'
   end

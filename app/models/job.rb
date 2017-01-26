@@ -72,6 +72,8 @@ class Job < ApplicationRecord
     today = Time.zone.today
     active_between(today.beginning_of_day, today.end_of_day)
   }
+  scope :passed, -> { where('job_end_date < ?', Time.zone.now) }
+  scope :future, -> { where('job_end_date > ?', Time.zone.now) }
 
   include Translatable
   translates :name, :short_description, :description

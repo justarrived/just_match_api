@@ -16,6 +16,10 @@ class Chat < ApplicationRecord
     max: MAX_USERS
   )
 
+  def self.find_support_chat(user)
+    find_private_chat([User.main_support_user, user])
+  end
+
   def self.find_or_create_private_chat(users)
     find_private_chat(users) || create_private_chat(users)
   end

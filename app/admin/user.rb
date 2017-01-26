@@ -223,6 +223,24 @@ ActiveAdmin.register User do
 
         h3 I18n.t('admin.user.show.verified', verified: user.verified)
 
+        unless user.jobs.ongoing.empty?
+          h3 I18n.t('admin.user.show.ongoing_jobs')
+          ul do
+            user.jobs.ongoing.each do |job|
+              li "#{job.job_date.to_date} to #{job.job_end_date.to_date}: #{job.name}"
+            end
+          end
+        end
+
+        unless user.jobs.future.empty?
+          h3 I18n.t('admin.user.show.future_jobs')
+          ul do
+            user.jobs.future.each do |job|
+              li "#{job.job_date.to_date} to #{job.job_end_date.to_date}: #{job.name}"
+            end
+          end
+        end
+
         h4 I18n.t('admin.user.show.interview_comment')
         div do
           content_tag(:p, simple_format(user.interview_comment))
