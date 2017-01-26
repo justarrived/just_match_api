@@ -45,7 +45,7 @@ module FrilansFinansApi
       end
 
       def self._format_name(status_int, name, with_id)
-        return name if name.nil?
+        return nil if name.nil?
         return "##{status_int} " + name if with_id
         name
       end

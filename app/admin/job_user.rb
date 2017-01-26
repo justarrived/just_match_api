@@ -27,11 +27,9 @@ ActiveAdmin.register JobUser do
     column :id
     column :user
     column :job
-    column :accepted
-    column :will_perform
-    column :performed
-    column :frilans_finans_invoice
-    column :updated_at
+    column :job_start_date { |job_user| job_user.job.job_date }
+    column :user_city { |job_user| job_user.user.city }
+    column :status, &:current_status
 
     actions
   end

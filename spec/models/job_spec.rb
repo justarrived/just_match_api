@@ -6,6 +6,18 @@ RSpec.describe Job, type: :model do
     describe '#matches_user'
   end
 
+  describe '#ended?' do
+    it 'returns false if job end date is in the future' do
+      job = FactoryGirl.build(:job, job_end_date: 1.minute.from_now)
+      expect(job.ended?).to eq(false)
+    end
+
+    it 'returns true if job end date is in the passed' do
+      job = FactoryGirl.build(:job, job_end_date: 1.minute.ago)
+      expect(job.ended?).to eq(true)
+    end
+  end
+
   describe '#to_form_array' do
     context 'with include blank false' do
       it 'returns empty array if no skills' do

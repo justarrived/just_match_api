@@ -51,6 +51,22 @@ class JobUser < ApplicationRecord
     "##{id} Job User"
   end
 
+  def current_status
+    if job.ended?
+      return 'Rejected' unless will_perform
+
+      ff_status = frilans_finans_invoice&.ff_payment_status_name
+      return ff_status if ff_status
+
+      return 'Not pre-reported!'
+    end
+
+    return 'Will perform' if will_perform
+    return 'Accepted' if accepted
+
+    'Applied'
+  end
+
   def applicant_confirmation_overdue?
     return false if accepted_at.nil? || will_perform
 
