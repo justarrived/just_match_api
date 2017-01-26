@@ -12,6 +12,7 @@ FactoryGirl.define do
     end
     description 'Watman ' * 2
     street 'Bankgatan 14C'
+    city 'Lund'
     zip '223 52'
     sequence :frilans_finans_id do |n|
       n
@@ -142,6 +143,7 @@ end
 #  next_of_kin_name                 :string
 #  next_of_kin_phone                :string
 #  arbetsformedlingen_registered_at :date
+#  city                             :string
 #
 # Indexes
 #

@@ -62,6 +62,7 @@ module Api
           param :phone, String, desc: 'Phone', required: true
           param :street, String, desc: 'Street'
           param :zip, String, desc: 'Zip code'
+          param :city, String, desc: 'City'
           param :ssn, String, desc: 'Social Security Number (10 characters)'
           param :ignored_notifications, Array, of: 'ignored notifications', desc: "List of ignored notifications. Any of: #{User::NOTIFICATIONS.map { |n| "`#{n}`" }.join(', ')}"
           param :company_id, Integer, desc: 'Company id for user'
@@ -145,6 +146,7 @@ module Api
           param :phone, String, desc: 'Phone'
           param :street, String, desc: 'Street'
           param :zip, String, desc: 'Zip code'
+          param :city, String, desc: 'City'
           param :ssn, String, desc: 'Social Security Number (10 characters)'
           param :ignored_notifications, Array, of: 'ignored notifications', desc: "List of ignored notifications. Any of: #{User::NOTIFICATIONS.map { |n| "`#{n}`" }.join(', ')}"
           param :language_id, Integer, desc: 'Primary language id for user'
@@ -347,7 +349,7 @@ module Api
       def user_params
         whitelist = [
           :first_name, :last_name, :email, :phone, :description, :job_experience,
-          :education, :ssn, :street, :zip, :language_id, :company_id,
+          :education, :ssn, :street, :city, :zip, :language_id, :company_id,
           :competence_text, :current_status, :at_und, :arrived_at, :country_of_origin,
           :account_clearing_number, :account_number, :skype_username,
           ignored_notifications: []

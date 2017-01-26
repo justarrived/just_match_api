@@ -5,9 +5,9 @@ class UserSerializer < ApplicationSerializer
   EXTRA_ATTRIBUTES = %i(ignored_notifications primary_role).freeze
   attributes [
     :id, :email, :phone, :description, :created_at, :updated_at, :latitude, :longitude,
-    :language_id, :anonymized, :password_hash, :password_salt, :admin, :street, :zip,
-    :zip_latitude, :zip_longitude, :first_name, :last_name, :ssn, :company_id, :banned,
-    :one_time_token, :one_time_token_expires_at,
+    :language_id, :anonymized, :password_hash, :password_salt, :admin, :street, :city,
+    :zip, :zip_latitude, :zip_longitude, :first_name, :last_name, :ssn, :company_id,
+    :banned, :one_time_token, :one_time_token_expires_at,
     :ignored_notifications_mask, :frilans_finans_id, :frilans_finans_payment_details,
     :current_status, :at_und, :arrived_at, :country_of_origin, :managed, :verified,
     :account_clearing_number, :account_number
@@ -131,6 +131,7 @@ end
 #  next_of_kin_name                 :string
 #  next_of_kin_phone                :string
 #  arbetsformedlingen_registered_at :date
+#  city                             :string
 #
 # Indexes
 #

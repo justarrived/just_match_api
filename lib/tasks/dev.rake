@@ -38,8 +38,8 @@ namespace :dev do
   end
 
   SEED_ADDRESSES = [
-    { street: "Stora Nygatan #{Random.rand(1..40)}", zip: '21137' },
-    { street: "Wollmar Yxkullsgatan #{Random.rand(1..40)}", zip: '11850' }
+    { street: "Stora Nygatan #{Random.rand(1..40)}", city: 'Malmö', zip: '21137' },
+    { street: "Wollmar Yxkullsgatan #{Random.rand(1..40)}", city: 'Stockholm', zip: '11850' } # rubocop:disable Metrics/LineLength
   ].freeze
 
   task seed: :environment do

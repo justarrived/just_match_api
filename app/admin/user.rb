@@ -192,6 +192,7 @@ ActiveAdmin.register User do
     column :id
     column :name
     column :email
+    column :city
     column :managed if params[:scope] == 'company_users'
     column(:tags) { |user| user_tag_badges(user: user) }
 
@@ -201,6 +202,8 @@ ActiveAdmin.register User do
   show do |user|
     if user.candidate?
       panel I18n.t('admin.user.show.candidate_summary') do
+        h3 I18n.t('admin.user.show.city', city: user.city) unless user.city.blank?
+
         h3 I18n.t('admin.user.show.tags')
         div do
           content_tag(:p, user_tag_badges(user: user))
@@ -239,6 +242,7 @@ ActiveAdmin.register User do
       row :phone
       row :skype_username
       row :street
+      row :city
       row :zip
       row :ssn
     end
@@ -339,6 +343,7 @@ ActiveAdmin.register User do
         f.input :phone
         f.input :ssn
         f.input :street
+        f.input :city
         f.input :zip
         f.input :skype_username
         f.input :description
@@ -410,6 +415,7 @@ ActiveAdmin.register User do
         f.input :phone
         f.input :ssn
         f.input :street
+        f.input :city
         f.input :zip
         f.input :skype_username
       end
