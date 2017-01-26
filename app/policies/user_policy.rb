@@ -16,7 +16,7 @@ class UserPolicy < ApplicationPolicy
   ].freeze
 
   ACCEPTED_APPLICANT_ATTRIBUTES = ATTRIBUTES + [
-    :phone, :street, :latitude, :longitude, :email, :last_name
+    :phone, :street, :city, :latitude, :longitude, :email, :last_name
   ].freeze
 
   SELF_ATTRIBUTES = (ATTRIBUTES + ACCEPTED_APPLICANT_ATTRIBUTES + [

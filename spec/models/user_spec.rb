@@ -89,18 +89,13 @@ RSpec.describe User, type: :model do
     let(:user) { FactoryGirl.create(:user) }
 
     it 'geocodes by exact address' do
-      expect(user.latitude).to eq(55.6997802)
-      expect(user.longitude).to eq(13.1953695)
+      expect(user.latitude).to eq(40.7143528)
+      expect(user.longitude).to eq(-74.0059731)
     end
 
     it 'geocodes by zip' do
-      expect(user.zip_latitude).to eq(55.6987817)
-      expect(user.zip_longitude).to eq(13.1975525)
-    end
-
-    it 'zip lat/long is different from lat/long' do
-      expect(user.zip_latitude).not_to eq(user.latitude)
-      expect(user.zip_longitude).not_to eq(user.longitude)
+      expect(user.zip_latitude).to eq(40.7143528)
+      expect(user.zip_longitude).to eq(-74.0059731)
     end
   end
 
