@@ -14,7 +14,11 @@
       "fa_af_name": null,
       "ku_name": null,
       "ti_name": null,
-      "ps_name": null
+      "ps_name": null,
+      "name": null,
+      "translated_text": {
+        "name": null
+      }
     },
     "links": {
       "self": "https://api.justarrived.se/api/v1/languages/1"
