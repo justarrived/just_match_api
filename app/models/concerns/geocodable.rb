@@ -5,9 +5,21 @@ module Geocodable
       'Sverige'
     end
 
-    def full_street_address
+    def area_address_parts
       city = send(:city) if respond_to?(:city)
-      [street, zip, city, country].reject(&:blank?).join(', ')
+      [zip, city, country].reject(&:blank?)
+    end
+
+    def full_street_address_parts
+      [street].reject(&:blank?) + area_address_parts
+    end
+
+    def area_address
+      area_address_parts.join(', ')
+    end
+
+    def full_street_address
+      full_street_address_parts.join(', ')
     end
 
     def validate_geocoding
@@ -21,7 +33,7 @@ module Geocodable
     end
 
     def geocode_zip
-      zip_coordinates = Geo.best_coordinates("#{zip}, #{country}")
+      zip_coordinates = Geo.best_coordinates(area_address)
 
       self.zip_latitude = zip_coordinates.latitude
       self.zip_longitude = zip_coordinates.longitude
