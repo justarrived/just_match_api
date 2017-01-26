@@ -17,6 +17,9 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :jobs, param: :job_id, only: [:index, :show, :create, :update] do
+        collection do
+          get :locations, to: 'jobs#locations'
+        end
         member do
           get :matching_users, path: 'matching-users'
           resources :job_comments, module: :jobs, path: :comments, only: [:index, :show, :create, :update, :destroy]
