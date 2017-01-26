@@ -116,7 +116,6 @@ en:
           hint: Warning this will reset the password
       show:
         verified: 'Verified: %{verified}'
-        contact: Contact
         tags: Tags
         skills: Skills
         city: City %{city}

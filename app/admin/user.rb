@@ -200,69 +200,74 @@ ActiveAdmin.register User do
   end
 
   show do |user|
-    if user.candidate?
-      panel I18n.t('admin.user.show.candidate_summary') do
-        h3 I18n.t('admin.user.show.city', city: user.city) unless user.city.blank?
+    columns do
+      column do
+        attributes_table do
+          row :image do
+            profile_image = user_profile_image(user: user, size: :small)
 
-        h3 I18n.t('admin.user.show.tags')
-        div do
-          content_tag(:p, user_tag_badges(user: user))
+            image_tag(profile_image) if profile_image
+          end
+          row :name
+          row :email
+          row :phone
+          row :skype_username
+          row :street
+          row :city
+          row :zip
+          row :ssn
         end
+      end
 
-        h3 I18n.t('admin.user.show.skills')
-        div do
-          content_tag(:p, user_skills_badges(user_skills: user.user_skills))
-        end
+      if user.candidate?
+        column do
+          panel I18n.t('admin.user.show.candidate_summary') do
+            h3 I18n.t('admin.user.show.city', city: user.city) unless user.city.blank?
 
-        h3 I18n.t('admin.user.show.languages')
-        div do
-          content_tag(:p, user_languages_badges(user_languages: user.user_languages))
-        end
+            h3 I18n.t('admin.user.show.tags')
+            div do
+              content_tag(:p, user_tag_badges(user: user))
+            end
 
-        h3 I18n.t('admin.user.show.average_score', score: user.average_score || '-')
+            h3 I18n.t('admin.user.show.skills')
+            div do
+              content_tag(:p, user_skills_badges(user_skills: user.user_skills))
+            end
 
-        h3 I18n.t('admin.user.show.verified', verified: user.verified)
+            h3 I18n.t('admin.user.show.languages')
+            div do
+              content_tag(:p, user_languages_badges(user_languages: user.user_languages))
+            end
 
-        unless user.jobs.ongoing.empty?
-          h3 I18n.t('admin.user.show.ongoing_jobs')
-          ul do
-            user.jobs.ongoing.each do |job|
-              li "#{job.job_date.to_date} to #{job.job_end_date.to_date}: #{job.name}"
+            h3 I18n.t('admin.user.show.average_score', score: user.average_score || '-')
+
+            h3 I18n.t('admin.user.show.verified', verified: user.verified)
+
+            unless user.jobs.ongoing.empty?
+              h3 I18n.t('admin.user.show.ongoing_jobs')
+              ul do
+                user.jobs.ongoing.each do |job|
+                  li "#{job.job_date.to_date} to #{job.job_end_date.to_date}: #{job.name}"
+                end
+              end
+            end
+
+            unless user.jobs.future.empty?
+              h3 I18n.t('admin.user.show.future_jobs')
+              ul do
+                user.jobs.future.each do |job|
+                  li "#{job.job_date.to_date} to #{job.job_end_date.to_date}: #{job.name}"
+                end
+              end
+            end
+
+            h4 I18n.t('admin.user.show.interview_comment')
+            div do
+              content_tag(:p, simple_format(user.interview_comment))
             end
           end
         end
-
-        unless user.jobs.future.empty?
-          h3 I18n.t('admin.user.show.future_jobs')
-          ul do
-            user.jobs.future.each do |job|
-              li "#{job.job_date.to_date} to #{job.job_end_date.to_date}: #{job.name}"
-            end
-          end
-        end
-
-        h4 I18n.t('admin.user.show.interview_comment')
-        div do
-          content_tag(:p, simple_format(user.interview_comment))
-        end
       end
-    end
-
-    h3 I18n.t('admin.user.show.contact')
-    attributes_table do
-      row :image do
-        profile_image = user_profile_image(user: user, size: :small)
-
-        image_tag(profile_image) if profile_image
-      end
-      row :name
-      row :email
-      row :phone
-      row :skype_username
-      row :street
-      row :city
-      row :zip
-      row :ssn
     end
 
     if user.candidate?
