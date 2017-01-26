@@ -3,6 +3,15 @@
 HEAD
 -----------
 
+v0.18 - 2017-01-26
+-----------
+- User city field added to
+  + _DB_: `User#field`
+  + API
+  + Admin
+  + Added optional support for city to `Geocodable` module
+- Regenerate API doc examples
+
 v0.17 - 2017-01-25
 -----------
 - `Admin:`
