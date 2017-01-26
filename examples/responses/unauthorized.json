@@ -1,0 +1,9 @@
+{
+  "errors": [
+    {
+      "status": 401,
+      "detail": "You are not authorized to perform this action.",
+      "code": "unauthorized"
+    }
+  ]
+}
