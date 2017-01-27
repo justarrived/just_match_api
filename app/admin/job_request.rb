@@ -22,11 +22,10 @@ ActiveAdmin.register JobRequest do
 
   index do
     selectable_column
-
-    column :finished
+    column :status, &:current_status_name
     column :company_name
     column :responsible
-    column :contact_string
+    column :requirements
     column :language_requirements
     column :job_at_date
     column :created_at

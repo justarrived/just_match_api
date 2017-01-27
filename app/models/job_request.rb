@@ -8,6 +8,14 @@ class JobRequest < ApplicationRecord
 
   after_create :send_created_notice
 
+  def current_status_name
+    return 'Cancelled' if cancelled
+    return 'Finished' if finished
+    return 'Signed by customer' if signed_by_customer
+    return 'Draft sent' if draft_sent
+    'New'
+  end
+
   def send_created_notice
     NewJobRequestNotifier.call(job_request: self)
   end
