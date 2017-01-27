@@ -311,21 +311,28 @@ ActiveAdmin.register User do
         end
       end
 
-      h3 I18n.t('admin.user.show.payment')
-      attributes_table do
-        row :frilans_finans_payment_details
-        row :account_clearing_number
-        row :account_number
-      end
     end
 
-    h3 I18n.t('admin.user.show.status_flags')
-    attributes_table do
-      row :admin
-      row :managed
-      row :anonymized
-      row :banned
-      row :verified
+    columns do
+      column do
+        h3 I18n.t('admin.user.show.status_flags')
+        attributes_table do
+          row :admin
+          row :managed
+          row :anonymized
+          row :banned
+          row :verified
+        end
+      end
+
+      column do
+        h3 I18n.t('admin.user.show.payment')
+        attributes_table do
+          row :account_clearing_number
+          row :account_number
+          row :frilans_finans_payment_details
+        end
+      end
     end
 
     support_chat = Chat.find_support_chat(user)
