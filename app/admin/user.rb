@@ -328,6 +328,12 @@ ActiveAdmin.register User do
       row :verified
     end
 
+    support_chat = Chat.find_support_chat(user)
+    if support_chat
+      locals = { support_chat: support_chat }
+      render partial: 'admin/chats/latest_messages', locals: locals
+    end
+
     h3 I18n.t('admin.user.show.misc')
     attributes_table do
       row :ignored_notifications do

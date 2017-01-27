@@ -74,6 +74,8 @@ en:
         frilans_finans: Frilans Finans
         dates: Dates
     chat:
+      name: Chat
+      support_chat: Support chat
       form:
         messages_title: Messages
     user:
