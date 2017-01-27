@@ -217,6 +217,11 @@ ActiveAdmin.register User do
           row :zip
           row :ssn
         end
+
+        h4 I18n.t('admin.user.show.interview_comment')
+        div do
+          content_tag(:p, simple_format(user.interview_comment))
+        end
       end
 
       if user.candidate?
@@ -261,11 +266,6 @@ ActiveAdmin.register User do
                 column :start { |job| european_date(job.job_date) }
                 column :end { |job| european_date(job.job_end_date) }
               end
-            end
-
-            h4 I18n.t('admin.user.show.interview_comment')
-            div do
-              content_tag(:p, simple_format(user.interview_comment))
             end
           end
         end
@@ -396,7 +396,6 @@ ActiveAdmin.register User do
           ff.semantic_errors(*ff.object.errors.keys)
 
           ff.input :skill, as: :select, collection: Skill.with_translations
-          ff.input :proficiency, as: :select, collection: UserSkill::PROFICIENCY_RANGE
           ff.input :proficiency_by_admin, as: :select, collection: UserSkill::PROFICIENCY_RANGE # rubocop:disable Metrics/LineLength
         end
 
@@ -404,7 +403,6 @@ ActiveAdmin.register User do
           ff.semantic_errors(*ff.object.errors.keys)
 
           ff.input :language, as: :select, collection: Language.order(:en_name)
-          ff.input :proficiency, as: :select, collection: UserLanguage::PROFICIENCY_RANGE
           ff.input :proficiency_by_admin, as: :select, collection: UserLanguage::PROFICIENCY_RANGE # rubocop:disable Metrics/LineLength
         end
 

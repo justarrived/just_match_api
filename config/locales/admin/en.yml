@@ -120,7 +120,7 @@ en:
         verified: 'Verified: %{verified}'
         tags: Tags
         skills: Skills
-        city: City %{city}
+        city: 'City: %{city}'
         candidate_summary: Candidate summary
         languages: Languages
         average_score: 'Avg. score: %{score}'
