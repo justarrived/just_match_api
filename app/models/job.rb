@@ -122,6 +122,10 @@ class Job < ApplicationRecord
     job_end_date < Time.zone.now
   end
 
+  def started?
+    job_date > Time.zone.now
+  end
+
   def address
     full_street_address # From the Geocodable module
   end

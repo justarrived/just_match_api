@@ -36,7 +36,7 @@ ActiveAdmin.register JobUser do
 
   show do
     # TODO: Add support chat link
-    if !job_user.will_perform
+    if job_user.job.started? && !job_user.will_perform || job_user.job.accepted_job_user != job_user # rubocop:disable Metrics/LineLength
       attributes_table do
         row :status { I18n.t('admin.user.show.rejected') }
         row :job_name { |job_user| job_user.job.name }
@@ -75,19 +75,21 @@ ActiveAdmin.register JobUser do
 
             unless user.jobs.ongoing.empty?
               h3 I18n.t('admin.user.show.ongoing_jobs')
-              ul do
-                user.jobs.ongoing.each do |job|
-                  li "#{job.job_date.to_date} to #{job.job_end_date.to_date}: #{job.name}"
-                end
+              table_for(user.jobs.ongoing) do
+                column :name
+                column :hours
+                column :start { |job| european_date(job.job_date) }
+                column :end { |job| european_date(job.job_end_date) }
               end
             end
 
             unless user.jobs.future.empty?
               h3 I18n.t('admin.user.show.future_jobs')
-              ul do
-                user.jobs.future.each do |job|
-                  li "#{job.job_date.to_date} to #{job.job_end_date.to_date}: #{job.name}"
-                end
+              table_for(user.jobs.future) do
+                column :name
+                column :hours
+                column :start { |job| european_date(job.job_date) }
+                column :end { |job| european_date(job.job_end_date) }
               end
             end
           end

@@ -15,6 +15,10 @@ module AdminHelper
     "#{time_ago_in_words} ago on #{created_at}"
   end
 
+  def european_date(datetime)
+    datetime.strftime('%Y-%m-%d')
+  end
+
   def user_profile_image(user:, size: :medium)
     user.user_images.
       where(user: user, category: 'profile').

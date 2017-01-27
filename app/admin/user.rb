@@ -245,19 +245,21 @@ ActiveAdmin.register User do
 
             unless user.jobs.ongoing.empty?
               h3 I18n.t('admin.user.show.ongoing_jobs')
-              ul do
-                user.jobs.ongoing.each do |job|
-                  li "#{job.job_date.to_date} to #{job.job_end_date.to_date}: #{job.name}"
-                end
+              table_for(user.jobs.ongoing) do
+                column :name
+                column :hours
+                column :start { |job| european_date(job.job_date) }
+                column :end { |job| european_date(job.job_end_date) }
               end
             end
 
             unless user.jobs.future.empty?
               h3 I18n.t('admin.user.show.future_jobs')
-              ul do
-                user.jobs.future.each do |job|
-                  li "#{job.job_date.to_date} to #{job.job_end_date.to_date}: #{job.name}"
-                end
+              table_for(user.jobs.future) do
+                column :name
+                column :hours
+                column :start { |job| european_date(job.job_date) }
+                column :end { |job| european_date(job.job_end_date) }
               end
             end
 

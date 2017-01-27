@@ -67,8 +67,6 @@ class JobUser < ApplicationRecord
     return 'Will perform' if will_perform
     return 'Accepted' if accepted
 
-    asd
-
     'Applied'
   end
 
