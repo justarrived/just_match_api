@@ -9,6 +9,10 @@ class JobUserSerializer < ApplicationSerializer
 
   link(:self) { api_v1_job_user_url(object.job_id, object) if object.job_id }
 
+  attribute :job_ended do
+    object.job.ended?
+  end
+
   attribute :apply_message do
     object.original_apply_message
   end
