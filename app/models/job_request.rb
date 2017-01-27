@@ -4,6 +4,7 @@ class JobRequest < ApplicationRecord
 
   scope :finished, -> { where(finished: true) }
   scope :pending, -> { where(finished: false) }
+  scope :last_30_days, -> { where('created_at > ?', 30.days.ago) }
 
   after_create :send_created_notice
 

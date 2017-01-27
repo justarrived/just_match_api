@@ -5,8 +5,10 @@ ActiveAdmin.register JobRequest do
   scope :all, default: true
   scope :pending
   scope :finished
+  scope :last_30_days
 
   filter :company_name
+  filter :created_at
   filter :contact_string
   filter :assignment
   filter :job_scope
