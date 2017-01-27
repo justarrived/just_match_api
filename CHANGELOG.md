@@ -3,6 +3,11 @@
 HEAD
 -----------
 
+v0.20 - 2017-01-27
+-----------
+- _Admin_: Update job request view
+- _API_: Add `job_ended` attribute to job user endpoint
+
 v0.19 - 2017-01-27
 -----------
 - _Admin_:
