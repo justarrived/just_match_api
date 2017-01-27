@@ -396,7 +396,7 @@ ActiveAdmin.register User do
         f.has_many :user_languages, allow_destroy: false, new_record: true do |ff|
           ff.semantic_errors(*ff.object.errors.keys)
 
-          ff.input :language, as: :select, collection: Language.system_languages.order(:en_name) # rubocop:disable Metrics/LineLength
+          ff.input :language, as: :select, collection: Language.order(:en_name)
           ff.input :proficiency, as: :select, collection: UserLanguage::PROFICIENCY_RANGE
           ff.input :proficiency_by_admin, as: :select, collection: UserLanguage::PROFICIENCY_RANGE # rubocop:disable Metrics/LineLength
         end
