@@ -72,6 +72,8 @@ class Job < ApplicationRecord
     today = Time.zone.today
     active_between(today.beginning_of_day, today.end_of_day)
   }
+  scope :passed, -> { where('job_end_date < ?', Time.zone.now) }
+  scope :future, -> { where('job_end_date > ?', Time.zone.now) }
 
   include Translatable
   translates :name, :short_description, :description
@@ -114,6 +116,14 @@ class Job < ApplicationRecord
     return form_array unless include_blank
 
     [[I18n.t('admin.form.no_job_chosen'), nil]] + form_array
+  end
+
+  def ended?
+    job_end_date < Time.zone.now
+  end
+
+  def started?
+    job_date > Time.zone.now
   end
 
   def address

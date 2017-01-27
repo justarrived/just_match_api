@@ -200,51 +200,76 @@ ActiveAdmin.register User do
   end
 
   show do |user|
-    if user.candidate?
-      panel I18n.t('admin.user.show.candidate_summary') do
-        h3 I18n.t('admin.user.show.city', city: user.city) unless user.city.blank?
+    columns do
+      column do
+        attributes_table do
+          row :image do
+            profile_image = user_profile_image(user: user, size: :small)
 
-        h3 I18n.t('admin.user.show.tags')
-        div do
-          content_tag(:p, user_tag_badges(user: user))
-        end
-
-        h3 I18n.t('admin.user.show.skills')
-        div do
-          content_tag(:p, user_skills_badges(user_skills: user.user_skills))
-        end
-
-        h3 I18n.t('admin.user.show.languages')
-        div do
-          content_tag(:p, user_languages_badges(user_languages: user.user_languages))
-        end
-
-        h3 I18n.t('admin.user.show.average_score', score: user.average_score || '-')
-
-        h3 I18n.t('admin.user.show.verified', verified: user.verified)
-
-        h4 I18n.t('admin.user.show.interview_comment')
-        div do
-          content_tag(:p, simple_format(user.interview_comment))
+            image_tag(profile_image) if profile_image
+          end
+          row :name
+          row :email
+          row :phone
+          row :skype_username
+          row :street
+          row :city
+          row :zip
+          row :ssn
         end
       end
-    end
 
-    h3 I18n.t('admin.user.show.contact')
-    attributes_table do
-      row :image do
-        profile_image = user_profile_image(user: user, size: :small)
+      if user.candidate?
+        column do
+          panel I18n.t('admin.user.show.candidate_summary') do
+            h3 I18n.t('admin.user.show.city', city: user.city) unless user.city.blank?
 
-        image_tag(profile_image) if profile_image
+            h3 I18n.t('admin.user.show.tags')
+            div do
+              content_tag(:p, user_tag_badges(user: user))
+            end
+
+            h3 I18n.t('admin.user.show.skills')
+            div do
+              content_tag(:p, user_skills_badges(user_skills: user.user_skills))
+            end
+
+            h3 I18n.t('admin.user.show.languages')
+            div do
+              content_tag(:p, user_languages_badges(user_languages: user.user_languages))
+            end
+
+            h3 I18n.t('admin.user.show.average_score', score: user.average_score || '-')
+
+            h3 I18n.t('admin.user.show.verified', verified: user.verified)
+
+            unless user.jobs.ongoing.empty?
+              h3 I18n.t('admin.user.show.ongoing_jobs')
+              table_for(user.jobs.ongoing) do
+                column :name
+                column :hours
+                column :start { |job| european_date(job.job_date) }
+                column :end { |job| european_date(job.job_end_date) }
+              end
+            end
+
+            unless user.jobs.future.empty?
+              h3 I18n.t('admin.user.show.future_jobs')
+              table_for(user.jobs.future) do
+                column :name
+                column :hours
+                column :start { |job| european_date(job.job_date) }
+                column :end { |job| european_date(job.job_end_date) }
+              end
+            end
+
+            h4 I18n.t('admin.user.show.interview_comment')
+            div do
+              content_tag(:p, simple_format(user.interview_comment))
+            end
+          end
+        end
       end
-      row :name
-      row :email
-      row :phone
-      row :skype_username
-      row :street
-      row :city
-      row :zip
-      row :ssn
     end
 
     if user.candidate?
@@ -301,6 +326,12 @@ ActiveAdmin.register User do
       row :anonymized
       row :banned
       row :verified
+    end
+
+    support_chat = Chat.find_support_chat(user)
+    if support_chat
+      locals = { support_chat: support_chat }
+      render partial: 'admin/chats/latest_messages', locals: locals
     end
 
     h3 I18n.t('admin.user.show.misc')
@@ -365,7 +396,7 @@ ActiveAdmin.register User do
         f.has_many :user_languages, allow_destroy: false, new_record: true do |ff|
           ff.semantic_errors(*ff.object.errors.keys)
 
-          ff.input :language, as: :select, collection: Language.system_languages.order(:en_name) # rubocop:disable Metrics/LineLength
+          ff.input :language, as: :select, collection: Language.order(:en_name)
           ff.input :proficiency, as: :select, collection: UserLanguage::PROFICIENCY_RANGE
           ff.input :proficiency_by_admin, as: :select, collection: UserLanguage::PROFICIENCY_RANGE # rubocop:disable Metrics/LineLength
         end

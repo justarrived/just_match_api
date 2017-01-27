@@ -1,0 +1,18 @@
+# frozen_string_literal: true
+attributes_table do
+  row :job_name { |job_user| job_user.job.name }
+  row :frilans_finans_invoice
+  row :invoice_status do |job_user|
+    job_user.frilans_finans_invoice&.ff_payment_status_name
+  end
+  row :invoice
+  row :user
+  row :job
+  row :job_gross_amount { |job_user| job_user.job.gross_amount }
+  row :company
+  row :owner
+  row :company_contact
+
+  row :created_at { datetime_ago_in_words(job_user.created_at) }
+  row :updated_at { datetime_ago_in_words(job_user.updated_at) }
+end
