@@ -3,6 +3,16 @@
 HEAD
 -----------
 
+v0.19 - 2017-01-27
+-----------
+- _Admin_:
+  + Allow any language to `User#user_languages` selection
+  + Update job_user/user views & extract code to partials
+  + Improve job user show view
+  + Update user show view
+  + Revamp job user index & show view
+  + Update job user index view
+
 v0.18 - 2017-01-26
 -----------
 - User city field added to
