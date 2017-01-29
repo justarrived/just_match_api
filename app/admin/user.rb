@@ -685,7 +685,9 @@ ActiveAdmin.register User do
       User.includes(
         user_skills: [:skill],
         user_languages: [:language],
-        user_interests: [:interest]
+        user_interests: [:interest],
+        interests: [:translations, :language],
+        skills: [:translations, :language]
       ).
         where(id: params[:id]).
         first!

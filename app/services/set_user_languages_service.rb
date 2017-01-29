@@ -6,7 +6,7 @@ module SetUserLanguagesService
     user_languages_params = normalize_language_ids(language_ids_param)
     user.user_languages = user_languages_params.map do |attrs|
       UserLanguage.find_or_initialize_by(user: user, language_id: attrs[:id]).tap do |ul|
-        ul.proficiency = attrs[:proficiency]
+        ul.proficiency = attrs[:proficiency] unless attrs[:proficiency].blank?
 
         unless attrs[:proficiency_by_admin].blank?
           ul.proficiency_by_admin = attrs[:proficiency_by_admin]

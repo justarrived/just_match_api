@@ -6,8 +6,7 @@ class ApplicantAcceptedNotifier < BaseNotifier
 
     locale = user.locale
     notify(locale: locale) do
-      JobTexter.
-        applicant_accepted_text(job_user: job_user)
+      JobTexter.applicant_accepted_text(job_user: job_user) if user.phone?
     end
 
     notify(locale: locale) do
