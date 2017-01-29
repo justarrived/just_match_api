@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 module Import
   class UsersFromSheet
-    # TODO: Fix before commit
-    #   - Don't require `User#phone`
     def self.call
       csv_string = File.read('tmp/validation-mapping.csv')
       csv = HoneyFormat::CSV.new(csv_string)
