@@ -6,11 +6,8 @@ module SetUserInterestsService
     user_interests_params = normalize_interest_ids(interest_ids_param)
     user.user_interests = user_interests_params.map do |attrs|
       UserInterest.find_or_initialize_by(user: user, interest_id: attrs[:id]).tap do |us|
-        us.level = attrs[:level]
-
-        unless attrs[:level_by_admin].blank?
-          us.level_by_admin = attrs[:level_by_admin]
-        end
+        us.level = attrs[:level] unless attrs[:level].blank?
+        us.level_by_admin = attrs[:level_by_admin] unless attrs[:level_by_admin].blank?
       end
     end
   end
