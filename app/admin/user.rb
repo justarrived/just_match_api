@@ -223,7 +223,17 @@ ActiveAdmin.register User do
 
         h4 I18n.t('admin.user.show.interview_comment')
         div do
-          content_tag(:p, simple_format(user.interview_comment))
+          simple_format(user.interview_comment)
+        end
+
+        div do
+          content_tag(:p) do
+            strong(
+              [
+                user.interviewed_at&.to_date, user.interviewed_by&.name
+              ].compact.join(', ')
+            )
+          end
         end
       end
 
