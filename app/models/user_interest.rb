@@ -4,6 +4,17 @@ class UserInterest < ApplicationRecord
 
   belongs_to :user
   belongs_to :interest
+
+  validates :interest, presence: true
+  validates :user, presence: true
+  validates :interest, uniqueness: { scope: :user }
+  validates :user, uniqueness: { scope: :interest }
+
+  scope :visible, -> { joins(:interest).where(interests: { internal: false }) }
+
+  def touched_by_admin?
+    !level_by_admin.nil?
+  end
 end
 
 # == Schema Information

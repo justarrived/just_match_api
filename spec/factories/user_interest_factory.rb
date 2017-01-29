@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 FactoryGirl.define do
   factory :user_interest do
-    user nil
-    interest nil
+    association :user
+    association :interest
     level 1
     level_by_admin 1
   end

@@ -4,7 +4,7 @@ class CreateInterests < ActiveRecord::Migration[5.0]
     create_table :interests do |t|
       t.string :name
       t.belongs_to :language, foreign_key: true
-      t.boolean :internal
+      t.boolean :internal, default: false
 
       t.timestamps
     end

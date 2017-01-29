@@ -5,6 +5,8 @@ class Interest < ApplicationRecord
 
   belongs_to :language
 
+  scope :visible, -> { where(internal: false) }
+
   include Translatable
   translates :name
 
