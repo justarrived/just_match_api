@@ -119,8 +119,11 @@ module Import
         next if value.nil? || value.empty?
 
         skill_name = format_skill_name(column_name)
-        skill = Skill.find_or_create_by(name: skill_name, language: en_language)
-        skill.set_translation(name: skill_name)
+        skill = SkillTranslation.find_by(name: skill_name)&.skill
+        if skill.nil?
+          skill = Skill.create(name: skill_name, language: en_language)
+          skill.set_translation(name: skill_name)
+        end
 
         user_skill = UserSkill.find_or_initialize_by(user: user, skill: skill)
         user_skill.proficiency_by_admin = value
