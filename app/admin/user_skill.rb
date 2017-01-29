@@ -2,6 +2,12 @@
 ActiveAdmin.register UserSkill do
   menu parent: 'Users'
 
+  filter :skill, collection: -> { Skill.with_translations }
+  filter :proficiency
+  filter :proficiency_by_admin
+  filter :updated_at
+  filter :created_at
+
   index do
     selectable_column
 
@@ -28,7 +34,7 @@ ActiveAdmin.register UserSkill do
 
   controller do
     def scoped_collection
-      super.includes(:user, :skill)
+      super.includes(:user, skill: [:translations, :language])
     end
   end
 end

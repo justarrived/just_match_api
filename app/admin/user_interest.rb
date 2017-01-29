@@ -2,6 +2,12 @@
 ActiveAdmin.register UserInterest do
   menu parent: 'Users'
 
+  filter :interest, collection: -> { Interest.with_translations }
+  filter :level
+  filter :level_by_admin
+  filter :updated_at
+  filter :created_at
+
   index do
     selectable_column
 
@@ -28,7 +34,7 @@ ActiveAdmin.register UserInterest do
 
   controller do
     def scoped_collection
-      super.includes(:user, :interest)
+      super.includes(:user, interest: [:translations, :language])
     end
   end
 end
