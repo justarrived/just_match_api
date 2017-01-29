@@ -1,13 +1,11 @@
 # frozen_string_literal: true
 module Import
   class UsersFromSheet
-    def self.call
-      csv_string = File.read('tmp/validation-mapping.csv')
+    def self.call(path = 'tmp/validation-mapping.csv')
+      csv_string = File.read(path)
       csv = HoneyFormat::CSV.new(csv_string)
 
-      csv.rows.each do |user|
-        process_user(user)
-      end
+      csv.rows.each { |user| process_user(user) }
     end
 
     def self.process_user(data)

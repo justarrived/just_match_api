@@ -168,6 +168,7 @@ ActiveAdmin.register User do
   filter :tags
   filter :skills, collection: -> { Skill.with_translations }
   filter :interests, collection: -> { Interest.with_translations }
+  filter :interviewed_by, collection: -> { User.admins }
   filter :language
   filter :company
   filter :frilans_finans_id
