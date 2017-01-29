@@ -1,7 +1,15 @@
-# JustMatch API - Changelog
+# JustMatch API - Change Log
 
 HEAD
 -----------
+
+v0.21 - 2017-01-29
+-----------
+* Add `Interest` & `UserInterest`
+  + API
+  + Admin
+  + Docs
+* _Admin_: Update user show view
 
 v0.20 - 2017-01-27
 -----------
