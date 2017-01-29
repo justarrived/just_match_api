@@ -167,6 +167,7 @@ ActiveAdmin.register User do
   filter :ssn
   filter :tags
   filter :skills, collection: -> { Skill.with_translations }
+  filter :interests, collection: -> { Interest.with_translations }
   filter :language
   filter :company
   filter :frilans_finans_id
@@ -180,6 +181,8 @@ ActiveAdmin.register User do
   # rubocop:disable Metrics/LineLength
   filter :user_skills_proficiency_gteq, as: :select, collection: [nil, nil] + UserSkill::PROFICIENCY_RANGE.to_a
   filter :user_skills_proficiency_by_admin_gteq, as: :select, collection: [nil, nil] + UserSkill::PROFICIENCY_RANGE.to_a
+  filter :user_interests_level_gteq, as: :select, collection: [nil, nil] + UserInterest::LEVEL_RANGE.to_a
+  filter :user_interests_level_by_admin_gteq, as: :select, collection: [nil, nil] + UserInterest::LEVEL_RANGE.to_a
   filter :translations_description_cont, as: :string, label: I18n.t('admin.user.description')
   filter :translations_education_cont, as: :string, label: I18n.t('admin.user.education')
   filter :translations_competence_text_cont, as: :string, label: I18n.t('admin.user.competence_text')
@@ -237,6 +240,11 @@ ActiveAdmin.register User do
             h3 I18n.t('admin.user.show.skills')
             div do
               content_tag(:p, user_skills_badges(user_skills: user.user_skills))
+            end
+
+            h3 I18n.t('admin.user.show.interests')
+            div do
+              content_tag(:p, user_interests_badges(user_interests: user.user_interests))
             end
 
             h3 I18n.t('admin.user.show.languages')
@@ -390,6 +398,13 @@ ActiveAdmin.register User do
       f.inputs I18n.t('admin.user.form.competences') do
         f.has_many :user_tags, allow_destroy: true, new_record: true do |ff|
           ff.input :tag, as: :select, collection: Tag.all
+        end
+
+        f.has_many :user_interests, allow_destroy: false, new_record: true do |ff|
+          ff.semantic_errors(*ff.object.errors.keys)
+
+          ff.input :interest, as: :select, collection: Interest.with_translations
+          ff.input :level_by_admin, as: :select, collection: UserInterest::LEVEL_RANGE
         end
 
         f.has_many :user_skills, allow_destroy: false, new_record: true do |ff|
@@ -619,6 +634,7 @@ ActiveAdmin.register User do
       :language_ids, :skill_ids, ignored_notifications: [],
                                  user_skills_attributes: [:skill_id, :proficiency, :proficiency_by_admin], # rubocop:disable Metrics/LineLength
                                  user_languages_attributes: [:language_id, :proficiency, :proficiency_by_admin], # rubocop:disable Metrics/LineLength
+                                 user_interests_attributes: [:interest_id, :level, :level_by_admin], # rubocop:disable Metrics/LineLength
                                  user_tags_attributes: [:id, :tag_id, :_destroy]
     ]
     UserPolicy::SELF_ATTRIBUTES + extras
@@ -631,6 +647,16 @@ ActiveAdmin.register User do
 
     def update_resource(user, params_array)
       user_params = params_array.first
+
+      user_interests_attrs = user_params.delete(:user_interests_attributes)
+      interest_ids_param = (user_interests_attrs || {}).map do |_index, attrs|
+        {
+          id: attrs[:interest_id],
+          level: attrs[:level],
+          level_by_admin: attrs[:level_by_admin]
+        }
+      end
+      SetUserInterestsService.call(user: user, interest_ids_param: interest_ids_param)
 
       user_skills_attrs = user_params.delete(:user_skills_attributes)
       skill_ids_param = (user_skills_attrs || {}).map do |_index, attrs|
@@ -656,7 +682,11 @@ ActiveAdmin.register User do
     end
 
     def find_resource
-      User.includes(user_skills: [:skill], user_languages: [:language]).
+      User.includes(
+        user_skills: [:skill],
+        user_languages: [:language],
+        user_interests: [:interest]
+      ).
         where(id: params[:id]).
         first!
     end

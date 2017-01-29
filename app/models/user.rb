@@ -111,7 +111,7 @@ class User < ApplicationRecord
   translates :description, :job_experience, :education, :competence_text
 
   # NOTE: This is necessary for nested activeadmin has_many form
-  accepts_nested_attributes_for :user_skills, :user_languages
+  accepts_nested_attributes_for :user_skills, :user_languages, :user_interests
   accepts_nested_attributes_for :user_tags, allow_destroy: true
 
   # Don't change the order or remove any items in the array,

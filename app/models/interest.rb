@@ -17,6 +17,10 @@ class Interest < ApplicationRecord
 
     [[I18n.t('admin.form.no_interest_chosen'), nil]] + form_array
   end
+
+  def display_name
+    "##{id} #{name}"
+  end
 end
 
 # == Schema Information

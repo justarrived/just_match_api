@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 class UserInterest < ApplicationRecord
+  LEVEL_RANGE = 1..5
+
   belongs_to :user
   belongs_to :interest
 end

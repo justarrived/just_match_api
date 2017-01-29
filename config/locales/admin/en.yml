@@ -118,6 +118,7 @@ en:
         password:
           hint: Warning this will reset the password
       show:
+        interests: Interests
         verified: 'Verified: %{verified}'
         tags: Tags
         skills: Skills
