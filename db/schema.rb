@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170125231941) do
+ActiveRecord::Schema.define(version: 20170129123255) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -251,6 +251,26 @@ ActiveRecord::Schema.define(version: 20170125231941) do
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
     t.integer  "gross_salary"
+  end
+
+  create_table "interest_translations", force: :cascade do |t|
+    t.string   "name"
+    t.string   "locale"
+    t.integer  "language_id"
+    t.integer  "interest_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["interest_id"], name: "index_interest_translations_on_interest_id", using: :btree
+    t.index ["language_id"], name: "index_interest_translations_on_language_id", using: :btree
+  end
+
+  create_table "interests", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "language_id"
+    t.boolean  "internal"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["language_id"], name: "index_interests_on_language_id", using: :btree
   end
 
   create_table "invoices", force: :cascade do |t|
@@ -523,6 +543,17 @@ ActiveRecord::Schema.define(version: 20170125231941) do
     t.index ["user_id"], name: "index_user_images_on_user_id", using: :btree
   end
 
+  create_table "user_interests", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "interest_id"
+    t.integer  "level"
+    t.integer  "level_by_admin"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["interest_id"], name: "index_user_interests_on_interest_id", using: :btree
+    t.index ["user_id"], name: "index_user_interests_on_user_id", using: :btree
+  end
+
   create_table "user_languages", force: :cascade do |t|
     t.integer  "language_id"
     t.integer  "user_id"
@@ -642,6 +673,9 @@ ActiveRecord::Schema.define(version: 20170125231941) do
   add_foreign_key "faq_translations", "languages"
   add_foreign_key "faqs", "languages"
   add_foreign_key "frilans_finans_invoices", "job_users"
+  add_foreign_key "interest_translations", "interests"
+  add_foreign_key "interest_translations", "languages"
+  add_foreign_key "interests", "languages"
   add_foreign_key "invoices", "frilans_finans_invoices"
   add_foreign_key "invoices", "job_users"
   add_foreign_key "job_requests", "companies"
@@ -677,6 +711,8 @@ ActiveRecord::Schema.define(version: 20170125231941) do
   add_foreign_key "terms_agreements", "frilans_finans_terms"
   add_foreign_key "tokens", "users"
   add_foreign_key "user_images", "users"
+  add_foreign_key "user_interests", "interests"
+  add_foreign_key "user_interests", "users"
   add_foreign_key "user_languages", "languages"
   add_foreign_key "user_languages", "users"
   add_foreign_key "user_skills", "skills"
