@@ -1,0 +1,18 @@
+{
+  "errors": [
+    {
+      "status": 422,
+      "source": {
+        "pointer": "/data/attributes/interest"
+      },
+      "detail": "can't be blank"
+    },
+    {
+      "status": 422,
+      "source": {
+        "pointer": "/data/attributes/user"
+      },
+      "detail": "can't be blank"
+    }
+  ]
+}

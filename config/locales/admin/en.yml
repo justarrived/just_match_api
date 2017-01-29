@@ -15,6 +15,7 @@ en:
       no_template_chosen: 'No template chosen'
       no_job_chosen: 'No job chosen'
       no_language_chosen: 'No language chosen'
+      no_interest_chosen: 'No interest chosen'
     filter:
       near_address: "Near address (add 'km: XX' for distance)"
     recent_users:
@@ -117,6 +118,7 @@ en:
         password:
           hint: Warning this will reset the password
       show:
+        interests: Interests
         verified: 'Verified: %{verified}'
         tags: Tags
         skills: Skills

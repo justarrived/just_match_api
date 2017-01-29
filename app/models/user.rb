@@ -43,6 +43,9 @@ class User < ApplicationRecord
   has_many :user_skills
   has_many :skills, through: :user_skills
 
+  has_many :user_interests
+  has_many :interests, through: :user_interests
+
   has_many :owned_jobs, class_name: 'Job', foreign_key: 'owner_user_id'
 
   has_many :job_users
@@ -108,7 +111,7 @@ class User < ApplicationRecord
   translates :description, :job_experience, :education, :competence_text
 
   # NOTE: This is necessary for nested activeadmin has_many form
-  accepts_nested_attributes_for :user_skills, :user_languages
+  accepts_nested_attributes_for :user_skills, :user_languages, :user_interests
   accepts_nested_attributes_for :user_tags, allow_destroy: true
 
   # Don't change the order or remove any items in the array,

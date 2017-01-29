@@ -1,0 +1,30 @@
+{
+  "data": [
+    {
+      "id": "1",
+      "type": "interests",
+      "attributes": {
+        "name": null,
+        "language_id": 39,
+        "translated_text": {
+          "name": null,
+          "language_id": null
+        }
+      },
+      "relationships": {
+        "language": {
+          "data": {
+            "id": "39",
+            "type": "languages"
+          }
+        }
+      },
+      "links": {
+        "self": "https://api.justarrived.se/api/v1/interests/1"
+      }
+    }
+  ],
+  "meta": {
+    "total": 1
+  }
+}

@@ -101,6 +101,34 @@ module AdminHelper
     )
   end
 
+  def user_interests_badges(user_interests:)
+    links = user_interests.map do |user_interest|
+      interest_badge(interest: user_interest.interest, user_interest: user_interest)
+    end
+
+    safe_join(links, ' ')
+  end
+
+  def interest_badge(interest:, user_interest: nil)
+    name = interest.name
+    if user_interest
+      level = user_interest.level || '-'
+      level_by_admin = user_interest.level_by_admin || '-'
+      html_parts = [
+        name,
+        nbsp_html,
+        "(#{level}/#{level_by_admin})"
+      ]
+      name = safe_join(html_parts, ' ')
+    end
+
+    link_to(
+      name,
+      admin_users_path + AdminHelpers::Link.query(:user_interests_interest_id, interest.id), # rubocop:disable Metrics/LineLength
+      class: 'user-badge-tag-link'
+    )
+  end
+
   def colored_badge_tag(name, color)
     content_tag(
       :span,

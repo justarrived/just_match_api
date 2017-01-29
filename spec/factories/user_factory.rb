@@ -71,6 +71,17 @@ FactoryGirl.define do
       end
     end
 
+    factory :user_with_interests do
+      transient do
+        interests_count 5
+      end
+
+      after(:create) do |user, evaluator|
+        interests = create_list(:interest, evaluator.interests_count)
+        user.interests = interests
+      end
+    end
+
     factory :user_with_languages do
       transient do
         languages_count 5

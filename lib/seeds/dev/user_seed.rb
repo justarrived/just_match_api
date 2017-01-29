@@ -3,7 +3,7 @@ require 'seeds/base_seed'
 
 module Dev
   class UserSeed < BaseSeed
-    def self.call(languages:, skills:, addresses:, companies:, tags:)
+    def self.call(languages:, skills:, addresses:, companies:, tags:, interests:)
       max_users = max_count_opt('MAX_USERS', 50)
       max_company_users = max_count_opt('MAX_COMPANY_USERS', 5)
 
@@ -11,7 +11,7 @@ module Dev
 
       system_languages = languages.system_languages
 
-      log_seed(User, UserSkill, UserLanguage) do
+      log_seed(User, UserSkill, UserLanguage, UserInterest) do
         log 'Creating Admin user'
         create_user(
           email: 'admin@example.com',
@@ -25,7 +25,8 @@ module Dev
           user = create_user(
             address: addresses.sample,
             language: system_languages.sample,
-            tags: tags
+            tags: tags,
+            interests: interests
           )
           user.skills << skills.sample if skills.any?
           user.languages << languages.sample
@@ -52,7 +53,7 @@ module Dev
       end
     end
 
-    def self.create_user(address:, language:, email: nil, admin: false, company: nil, tags: nil) # rubocop:disable Metrics/LineLength
+    def self.create_user(address:, language:, email: nil, admin: false, company: nil, tags: nil, interests: nil) # rubocop:disable Metrics/LineLength
       email_address = email || "#{SecureGenerator.token(length: 4)}@example.com"
       user = User.find_or_initialize_by(email: email_address)
 
@@ -77,6 +78,17 @@ module Dev
       if tags
         UserTag.safe_create(tag: tags.sample, user: user)
         UserTag.safe_create(tag: tags.sample, user: user) if Random.rand(2) == 1
+      end
+
+      if interests
+        UserInterest.
+          find_or_initialize_by(user: user, interest: interests.sample).
+          tap do |user_interest|
+
+          user_interest.level = Random.rand(5) + 1
+          user_interest.level_by_admin = Random.rand(5) + 1
+          user_interest.save
+        end
       end
       user
     end
