@@ -9,6 +9,7 @@
       "performed": false,
       "will_perform_confirmation_by": null,
       "language_id": 17,
+      "job_ended": false,
       "apply_message": null,
       "translated_text": {
         "apply_message": null,
