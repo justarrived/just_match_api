@@ -26,7 +26,7 @@ class MessageUser
       return { success: false, message: "Error: '#{e.message}'" }
     end
 
-    send_sms(@user.phone, message)
+    send_sms(@user.phone, message) if @user.phone?
     send_email(@user.email, subject, message)
 
     { success: true, message: 'Sending message to user.' }

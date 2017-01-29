@@ -59,7 +59,7 @@ module Api
           param :education, String, desc: 'Education'
           param :competence_text, String, desc: 'Competences'
           param :email, String, desc: 'Email', required: true
-          param :phone, String, desc: 'Phone', required: true
+          param :phone, String, desc: 'Phone'
           param :street, String, desc: 'Street'
           param :zip, String, desc: 'Zip code'
           param :city, String, desc: 'City'

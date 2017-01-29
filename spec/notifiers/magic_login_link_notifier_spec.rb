@@ -7,7 +7,7 @@ RSpec.describe MagicLoginLinkNotifier, type: :mailer do
     allow(UserMailer).to receive(:magic_login_link_email).and_return(mock)
     allow(UserTexter).to receive(:magic_login_link_text).and_return(mock)
   end
-  let(:user) { nil }
+  let(:user) { mock_model User, phone?: true }
 
   it 'calls user mailer' do
     described_class.call(user: user)
