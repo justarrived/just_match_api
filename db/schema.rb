@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170129123255) do
+ActiveRecord::Schema.define(version: 20170129162026) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -647,6 +647,8 @@ ActiveRecord::Schema.define(version: 20170129123255) do
     t.string   "next_of_kin_phone"
     t.date     "arbetsformedlingen_registered_at"
     t.string   "city"
+    t.integer  "interviewed_by_user_id"
+    t.datetime "interviewed_at"
     t.index ["company_id"], name: "index_users_on_company_id", using: :btree
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["frilans_finans_id"], name: "index_users_on_frilans_finans_id", unique: true, using: :btree
@@ -723,4 +725,5 @@ ActiveRecord::Schema.define(version: 20170129123255) do
   add_foreign_key "user_translations", "users"
   add_foreign_key "users", "companies"
   add_foreign_key "users", "languages"
+  add_foreign_key "users", "users", column: "interviewed_by_user_id", name: "users_interviewed_by_user_id_fk"
 end

@@ -34,6 +34,7 @@ class User < ApplicationRecord
 
   belongs_to :language
   belongs_to :company, optional: true
+  belongs_to :interviewed_by, optional: true, class_name: 'User', foreign_key: 'interviewed_by_user_id' # rubocop:disable Metrics/LineLength
 
   has_many :user_tags
   has_many :tags, through: :user_tags
@@ -410,6 +411,7 @@ class User < ApplicationRecord
   end
 
   def validate_format_of_phone_number
+    return if phone.blank?
     return if PhoneNumber.valid?(phone)
 
     error_message = I18n.t('errors.user.must_be_valid_phone_number_format')
@@ -417,6 +419,7 @@ class User < ApplicationRecord
   end
 
   def validate_swedish_phone_number
+    return if phone.blank?
     return if PhoneNumber.swedish_number?(phone)
 
     error_message = I18n.t('errors.user.must_be_swedish_phone_number')
@@ -519,6 +522,8 @@ end
 #  next_of_kin_phone                :string
 #  arbetsformedlingen_registered_at :date
 #  city                             :string
+#  interviewed_by_user_id           :integer
+#  interviewed_at                   :datetime
 #
 # Indexes
 #
@@ -530,6 +535,7 @@ end
 #
 # Foreign Keys
 #
-#  fk_rails_45f4f12508  (language_id => languages.id)
-#  fk_rails_7682a3bdfe  (company_id => companies.id)
+#  fk_rails_45f4f12508              (language_id => languages.id)
+#  fk_rails_7682a3bdfe              (company_id => companies.id)
+#  users_interviewed_by_user_id_fk  (interviewed_by_user_id => users.id)
 #
