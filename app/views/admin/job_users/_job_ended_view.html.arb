@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-attributes_table do
+attributes_table_for(job_user) do
   row :job_name { |job_user| job_user.job.name }
   row :frilans_finans_invoice
   row :invoice_status do |job_user|
