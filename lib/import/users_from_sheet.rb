@@ -12,7 +12,7 @@ module Import
       user_id = data.user_id&.strip
       email = data.email&.strip&.downcase
       # Don't bother if we can't identify the user
-      return if (user_id.nil? || user_id.empty?) && (email.nil? || email.empty?)
+      return if (user_id.nil? || user_id.empty? || user_id == '-') && (email.nil? || email.empty?) # rubocop:disable Metrics/LineLength
 
       en_language = Language.find_by(lang_code: :en)
 
