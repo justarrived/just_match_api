@@ -155,6 +155,8 @@ end
 #  next_of_kin_phone                :string
 #  arbetsformedlingen_registered_at :date
 #  city                             :string
+#  interviewed_by_user_id           :integer
+#  interviewed_at                   :datetime
 #
 # Indexes
 #
@@ -166,6 +168,7 @@ end
 #
 # Foreign Keys
 #
-#  fk_rails_45f4f12508  (language_id => languages.id)
-#  fk_rails_7682a3bdfe  (company_id => companies.id)
+#  fk_rails_45f4f12508              (language_id => languages.id)
+#  fk_rails_7682a3bdfe              (company_id => companies.id)
+#  users_interviewed_by_user_id_fk  (interviewed_by_user_id => users.id)
 #

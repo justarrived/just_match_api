@@ -59,7 +59,7 @@ RSpec.describe CreateFrilansFinansInvoiceService do
   end
 
   context 'no company frilans finans id' do
-    let(:user_ff_id) { 3 }
+    let(:user_ff_id) { 173 }
     let(:company) { FactoryGirl.create(:company, frilans_finans_id: nil) }
 
     it 'calls missing company frilans finans id notifier' do

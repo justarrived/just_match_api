@@ -8,7 +8,7 @@ FactoryGirl.define do
     association :language
   end
 end
-
+# rubocop:disable Metrics/LineLength
 # == Schema Information
 #
 # Table name: communication_template_translations

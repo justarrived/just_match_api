@@ -168,6 +168,7 @@ ActiveAdmin.register User do
   filter :tags
   filter :skills, collection: -> { Skill.with_translations }
   filter :interests, collection: -> { Interest.with_translations }
+  filter :interviewed_by, collection: -> { User.admins }
   filter :language
   filter :company
   filter :frilans_finans_id
@@ -223,7 +224,17 @@ ActiveAdmin.register User do
 
         h4 I18n.t('admin.user.show.interview_comment')
         div do
-          content_tag(:p, simple_format(user.interview_comment))
+          simple_format(user.interview_comment)
+        end
+
+        div do
+          content_tag(:p) do
+            strong(
+              [
+                user.interviewed_at&.to_date, user.interviewed_by&.name
+              ].compact.join(', ')
+            )
+          end
         end
       end
 
@@ -685,7 +696,9 @@ ActiveAdmin.register User do
       User.includes(
         user_skills: [:skill],
         user_languages: [:language],
-        user_interests: [:interest]
+        user_interests: [:interest],
+        interests: [:translations, :language],
+        skills: [:translations, :language]
       ).
         where(id: params[:id]).
         first!
