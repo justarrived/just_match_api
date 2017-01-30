@@ -3,13 +3,22 @@
 HEAD
 -----------
 
+v0.22 - 2017-01-30
+-----------
+- Update min `Skill#name` length to 1
+- Add `User#interviewed_by` & `User#interviewed_at`
+- _Import_: Add `users_from_sheet.rb` data importer
+- Make `User#phone` optional
+- _Admin_: :hocho: N+1 SQL-queries for user skills & interests :rocket:
+- Make sure to not override user set values for user: languages, skills & interests
+
 v0.21 - 2017-01-29
 -----------
-* Add `Interest` & `UserInterest`
+- Add `Interest` & `UserInterest`
   + API
   + Admin
   + Docs
-* _Admin_: Update user show view
+- _Admin_: Update user show view
 
 v0.20 - 2017-01-27
 -----------
