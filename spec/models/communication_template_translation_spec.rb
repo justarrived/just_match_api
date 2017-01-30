@@ -3,7 +3,7 @@ require 'rails_helper'
 
 RSpec.describe CommunicationTemplateTranslation, type: :model do
 end
-
+# rubocop:disable Metrics/LineLength
 # == Schema Information
 #
 # Table name: communication_template_translations
