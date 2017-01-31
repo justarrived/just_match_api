@@ -14,8 +14,18 @@ ActiveAdmin.register UserImage do
     actions
   end
 
+  form do |f|
+    f.inputs do
+      f.input :user
+      f.input :category
+      f.input :image, required: true, as: :file
+    end
+
+    f.actions
+  end
+
   permit_params do
-    [:user_id, :category]
+    [:user_id, :category, :image]
   end
 
   controller do
