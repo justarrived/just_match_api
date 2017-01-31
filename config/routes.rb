@@ -58,6 +58,7 @@ Rails.application.routes.draw do
           resources :frilans_finans, path: 'frilans-finans', module: :users, only: [:create]
           resources :user_images, module: :users, path: :images, only: [:show, :create]
           resources :ratings, module: :users, path: :ratings, only: [:index]
+          resources :user_documents, module: :users, path: :documents, only: [:create]
         end
 
         collection do
@@ -128,6 +129,8 @@ Rails.application.routes.draw do
           post :receive
         end
       end
+
+      resources :documents, only: [:create]
 
       post :contacts, to: 'contacts#create'
       get :countries, to: 'countries#index'

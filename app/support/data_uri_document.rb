@@ -1,22 +1,22 @@
 # frozen_string_literal: true
-class DataUriImage
+class DataUriDocument
   attr_reader :content_type
 
   def initialize(data_uri)
     @valid_data_uri = true
-    @image = Paperclip.io_adapters.for(data_uri)
-    @content_type = @image.content_type
+    @document = Paperclip.io_adapters.for(data_uri)
+    @content_type = @document.content_type
   rescue Paperclip::AdapterRegistry::NoHandlerError => _e
     @valid_data_uri = false
   end
 
-  def image
+  def document
     return unless valid?
 
-    content_type = @image.content_type
-    @image.original_filename = ImageContentTypeHelper.original_filename(content_type)
+    content_type = @document.content_type
+    @document.original_filename = DocumentContentTypeHelper.original_filename(content_type) # rubocop:disable Metrics/LineLength
 
-    @image
+    @document
   end
 
   def valid?
@@ -28,6 +28,6 @@ class DataUriImage
   end
 
   def valid_content_type?
-    ImageContentTypeHelper.valid?(@content_type)
+    DocumentContentTypeHelper.valid?(@content_type)
   end
 end
