@@ -67,7 +67,7 @@ en:
       wrong_email_or_phone_or_password: wrong email, phone or password
     user:
       invalid_image_content_type: invalid content type for image
-      invalid_document_content_type: invalid content type %{type} for document
+      invalid_document_content_type: invalid content type %{type}
       wrong_password: wrong password
       password_length: password must have at least %{min_length} characters and no more than %{max_length}
       must_be_available_locale: must be a supported language

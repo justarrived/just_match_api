@@ -96,6 +96,7 @@ ignore_unused:
 - 'activerecord.errors.*' # Automatically generated
 - 'errors.*' # Errors are often automatically generated
 - 'faq.*' # The FAQ is read from an initialiser
+- 'user_document.categories.*'
 # - '{devise,kaminari,will_paginate}.*'
 # - 'simple_form.{yes,no}'
 # - 'simple_form.{placeholders,hints,labels}.*'
