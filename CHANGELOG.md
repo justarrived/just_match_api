@@ -3,6 +3,10 @@
 HEAD
 -----------
 
+v0.24 - 2017-01-31
+-----------
+- _Admin_: Support user & company image uploads
+
 v0.23 - 2017-01-31
 -----------
 - _Admin_: Remove `User#company` filter from index view
