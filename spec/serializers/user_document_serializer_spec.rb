@@ -3,7 +3,7 @@ require 'rails_helper'
 
 RSpec.describe UserDocumentSerializer, type: :serializer do
   context 'Individual Resource Representation' do
-    let(:resource) { FactoryGirl.build(:document) }
+    let(:resource) { FactoryGirl.build(:user_document) }
     let(:serialization) { JsonApiSerializer.serialize(resource) }
 
     subject do

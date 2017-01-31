@@ -18,13 +18,11 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::Users::DocumentsController, type: :controller do
   describe 'POST #create' do
-    let(:category) { Document::CATEGORIES.keys.last }
     let(:valid_params) do
       {
         data: {
           attributes: {
-            document: TestDocumentFileReader.document,
-            category: category
+            document: TestDocumentFileReader.document
           }
         }
       }
@@ -43,12 +41,6 @@ RSpec.describe Api::V1::Users::DocumentsController, type: :controller do
       it 'returns 201 accepted status' do
         post :create, params: valid_params
         expect(response.status).to eq(201)
-      end
-
-      it 'assigns the document category' do
-        post :create, params: valid_params
-        document = assigns(:document)
-        expect(document.category).to eq(category.to_s)
       end
     end
 
