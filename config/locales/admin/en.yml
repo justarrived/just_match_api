@@ -47,6 +47,12 @@ en:
       queued_msg: Machine translation queued successfully.
       queued_msg_multiple: Machine translations queued successfully.
       post_btn: Machine Translate
+    job_request:
+      batch:
+        draft_sent: Marked as draft sent
+        signed_by_customer: Marked as signed by customer
+        cancelled: Marked as cancelled
+        finished: Marked as finished
     job_user:
       apply_message: Apply message
       show:

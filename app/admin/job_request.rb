@@ -2,6 +2,30 @@
 ActiveAdmin.register JobRequest do
   menu priority: 10
 
+  batch_action :draft_sent, confirm: I18n.t('admin.batch_action_confirm') do |ids|
+    collection.where(id: ids).map { |u| u.update(draft_sent: true) }
+
+    redirect_to collection_path, notice: I18n.t('admin.job_request.batch.draft_sent')
+  end
+
+  batch_action :signed_by_customer, confirm: I18n.t('admin.batch_action_confirm') do |ids|
+    collection.where(id: ids).map { |u| u.update(signed_by_customer: true) }
+
+    redirect_to collection_path, notice: I18n.t('admin.job_request.batch.signed_by_customer') # rubocop:disable Metrics/LineLength
+  end
+
+  batch_action :cancelled, confirm: I18n.t('admin.batch_action_confirm') do |ids|
+    collection.where(id: ids).map { |u| u.update(cancelled: true) }
+
+    redirect_to collection_path, notice: I18n.t('admin.job_request.batch.cancelled')
+  end
+
+  batch_action :finished, confirm: I18n.t('admin.batch_action_confirm') do |ids|
+    collection.where(id: ids).map { |u| u.update(finished: true) }
+
+    redirect_to collection_path, notice: I18n.t('admin.job_request.batch.finished')
+  end
+
   scope :all, default: true
   scope :pending
   scope :finished
@@ -66,7 +90,7 @@ ActiveAdmin.register JobRequest do
         else
           field
         end
-      end
+    end
 
       company = job_request.company
       company_email = company_detail.call(job_request.company_email, company&.email)
