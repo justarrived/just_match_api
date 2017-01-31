@@ -12,6 +12,8 @@ class UserDocument < ApplicationRecord
   validates :category, presence: true
   validates :user, presence: true, uniqueness: { scope: :document }
   validates :document, presence: true, uniqueness: { scope: :user }
+
+  delegate :url, to: :document
 end
 
 # == Schema Information

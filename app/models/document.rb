@@ -10,6 +10,9 @@ class Document < ApplicationRecord
 
   ONE_TIME_TOKEN_VALID_FOR_HOURS = 10
 
+  has_many :user_documents
+  has_many :users, through: :user_documents
+
   before_create :generate_one_time_token
 
   scope :valid_one_time_tokens, lambda {
@@ -29,6 +32,8 @@ class Document < ApplicationRecord
   def self.find_by_one_time_token(token)
     valid_one_time_tokens.find_by(one_time_token: token)
   end
+
+  delegate :url, to: :document
 
   def generate_one_time_token
     self.one_time_token_expires_at = Time.zone.now + ONE_TIME_TOKEN_VALID_FOR_HOURS.hours

@@ -7,6 +7,8 @@ en:
     job_user_name: Job User
     time_ago: '%{time} ago'
     time_from_now: '%{time} from now'
+    download: Download
+    upload: Upload
     translation:
       locale_language_missmatch: the provided locale must be the same as the language locale
     form:
