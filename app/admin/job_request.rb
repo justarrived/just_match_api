@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 ActiveAdmin.register JobRequest do
-  menu parent: 'Misc'
+  menu priority: 10
 
   scope :all, default: true
   scope :pending
@@ -94,6 +94,8 @@ ActiveAdmin.register JobRequest do
           ].map { |row| row.join("\t") }.join("\n")
         end
       end
+
+      active_admin_comments
     end
   end
 
