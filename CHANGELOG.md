@@ -3,6 +3,8 @@
 HEAD
 -----------
 
+v0.25 - 2017-02-01
+-----------
 - _Feature_: Document upload
   + _API_:
     * `POST /api/v1/documents`
