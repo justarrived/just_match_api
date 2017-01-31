@@ -15,18 +15,6 @@ RSpec.describe Document, type: :model do
       less_than(described_class::DOCUMENT_MAX_MB_SIZE.megabytes)
   end
 
-  described_class::CATEGORIES.each do |name, _value|
-    it "has field name translation for document category: #{name}" do
-      key = "document.categories.#{name}"
-      expect(I18n.t(key)).not_to include('translation missing')
-    end
-
-    it "has description translation for document category: #{name}" do
-      key = "document.categories.#{name}_description"
-      expect(I18n.t(key)).not_to include('translation missing')
-    end
-  end
-
   describe '#generate_one_time_token' do
     let(:document) { FactoryGirl.build(:document) }
 
@@ -78,7 +66,6 @@ end
 # Table name: documents
 #
 #  id                        :integer          not null, primary key
-#  category                  :integer
 #  one_time_token            :string
 #  one_time_token_expires_at :datetime
 #  created_at                :datetime         not null

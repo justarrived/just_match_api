@@ -9,7 +9,6 @@ module Api
       error code: 422, desc: 'Unprocessable entity'
       param :data, Hash, desc: 'Top level key', required: true do
         param :attributes, Hash, desc: 'Document attributes', required: true do
-          param :category, Document::CATEGORIES.keys, desc: 'Document category', required: true # rubocop:disable Metrics/LineLength
           param :document, String, desc: 'Document data (data uri)', required: true
         end
       end
@@ -21,10 +20,7 @@ module Api
           return
         end
 
-        @document = Document.create(
-          document: data_document.document,
-          category: document_params[:category]
-        )
+        @document = Document.create(document: data_document.document)
 
         if @document.valid?
           api_render(@document, status: :created)
@@ -44,7 +40,7 @@ module Api
       end
 
       def document_params
-        jsonapi_params.permit(:category, :document)
+        jsonapi_params.permit(:document)
       end
     end
   end

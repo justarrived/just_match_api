@@ -10,10 +10,6 @@ RSpec.describe DocumentSerializer, type: :serializer do
       JSON.parse(serialization.to_json)
     end
 
-    it 'has category-name' do
-      expect(subject).to have_jsonapi_attribute('category-name', 'cv')
-    end
-
     it 'has document-url' do
       value = resource.document.url
       expect(subject).to have_jsonapi_attribute('document-url', value)
@@ -32,3 +28,18 @@ RSpec.describe DocumentSerializer, type: :serializer do
     end
   end
 end
+
+# == Schema Information
+#
+# Table name: documents
+#
+#  id                        :integer          not null, primary key
+#  one_time_token            :string
+#  one_time_token_expires_at :datetime
+#  created_at                :datetime         not null
+#  updated_at                :datetime         not null
+#  document_file_name        :string
+#  document_content_type     :string
+#  document_file_size        :integer
+#  document_updated_at       :datetime
+#

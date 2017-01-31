@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170131105440) do
+ActiveRecord::Schema.define(version: 20170131151920) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -188,7 +188,6 @@ ActiveRecord::Schema.define(version: 20170131105440) do
   end
 
   create_table "documents", force: :cascade do |t|
-    t.integer  "category"
     t.string   "one_time_token"
     t.datetime "one_time_token_expires_at"
     t.datetime "created_at",                null: false
@@ -541,6 +540,16 @@ ActiveRecord::Schema.define(version: 20170131105440) do
     t.index ["user_id"], name: "index_tokens_on_user_id", using: :btree
   end
 
+  create_table "user_documents", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "document_id"
+    t.integer  "category"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["document_id"], name: "index_user_documents_on_document_id", using: :btree
+    t.index ["user_id"], name: "index_user_documents_on_user_id", using: :btree
+  end
+
   create_table "user_images", force: :cascade do |t|
     t.datetime "one_time_token_expires_at"
     t.string   "one_time_token"
@@ -724,6 +733,8 @@ ActiveRecord::Schema.define(version: 20170131105440) do
   add_foreign_key "terms_agreement_consents", "users"
   add_foreign_key "terms_agreements", "frilans_finans_terms"
   add_foreign_key "tokens", "users"
+  add_foreign_key "user_documents", "documents"
+  add_foreign_key "user_documents", "users"
   add_foreign_key "user_images", "users"
   add_foreign_key "user_interests", "interests"
   add_foreign_key "user_interests", "users"

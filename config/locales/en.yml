@@ -108,7 +108,7 @@ en:
     new_chat_message: New chat message
     new_job_comment: New job comment
     failed_to_activate_invoice: Failed to activate invoice
-  document:
+  user_document:
     categories:
       cv: CV
       cv_description: Your CV (Curriculum Vitae)

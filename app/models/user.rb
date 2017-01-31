@@ -36,6 +36,9 @@ class User < ApplicationRecord
   belongs_to :company, optional: true
   belongs_to :interviewed_by, optional: true, class_name: 'User', foreign_key: 'interviewed_by_user_id' # rubocop:disable Metrics/LineLength
 
+  has_many :user_documents
+  has_many :documents, through: :user_documents
+
   has_many :user_tags
   has_many :tags, through: :user_tags
 

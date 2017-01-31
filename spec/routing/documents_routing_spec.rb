@@ -1,4 +1,19 @@
 # frozen_string_literal: true
+# == Schema Information
+#
+# Table name: documents
+#
+#  id                        :integer          not null, primary key
+#  one_time_token            :string
+#  one_time_token_expires_at :datetime
+#  created_at                :datetime         not null
+#  updated_at                :datetime         not null
+#  document_file_name        :string
+#  document_content_type     :string
+#  document_file_size        :integer
+#  document_updated_at       :datetime
+#
+
 require 'rails_helper'
 
 RSpec.describe Api::V1::DocumentsController, type: :routing do
