@@ -3,6 +3,15 @@
 HEAD
 -----------
 
+v0.23 - 2017-01-31
+-----------
+- _Admin_: Remove `User#company` filter from index view
+  + Custom company show page
+  + Revamp users filter
+  + Add batch actions to JobRequest
+  + Add JobRequest to nav and add comments to show page
+  + Re-direct to index path on job request update
+
 v0.22 - 2017-01-30
 -----------
 - Update min `Skill#name` length to 1
