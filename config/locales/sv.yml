@@ -66,6 +66,7 @@ sv:
       banned: en administratör har blockerat dig eftersom du inte följt Användarvillkoren. Vad god kontakta help@justarrived.
       wrong_email_or_phone_or_password: fel email, telefonnummer eller lösenord
     user:
+      invalid_document_content_type: ogilltig filtyp %{type}
       invalid_image_content_type: ogilltig filtyp
       wrong_password: fel lösenord
       password_length: lösenordet måste vara minst %{min_length} tecken och inte längre än %{max_length}
@@ -94,6 +95,10 @@ sv:
       eu_citizen_description: Du har permanent uppehållstillstånd i ett land som är med i EU
       student_visa: Student visa
       student_visa_description: Du har ett svenskt student visum
+  user_document:
+    categories:
+      cv: CV
+      cv_description: Ditt CV (Curriculum Vitae)
   user_image:
     categories:
       profile: Profil

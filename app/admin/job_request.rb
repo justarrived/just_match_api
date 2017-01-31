@@ -90,7 +90,7 @@ ActiveAdmin.register JobRequest do
         else
           field
         end
-    end
+      end
 
       company = job_request.company
       company_email = company_detail.call(job_request.company_email, company&.email)

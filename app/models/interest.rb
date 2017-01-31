@@ -32,7 +32,7 @@ end
 #  id          :integer          not null, primary key
 #  name        :string
 #  language_id :integer
-#  internal    :boolean          default(FALSE)
+#  internal    :boolean
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #
