@@ -10,8 +10,8 @@ class UserDocument < ApplicationRecord
   enum category: CATEGORIES
 
   validates :category, presence: true
-  validates :user, presence: true
-  validates :document, presence: true
+  validates :user, presence: true, uniqueness: { scope: :document }
+  validates :document, presence: true, uniqueness: { scope: :user }
 end
 
 # == Schema Information
