@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170129162026) do
+ActiveRecord::Schema.define(version: 20170131105440) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -185,6 +185,18 @@ ActiveRecord::Schema.define(version: 20170129162026) do
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
     t.index ["frilans_finans_id"], name: "index_currencies_on_frilans_finans_id", unique: true, using: :btree
+  end
+
+  create_table "documents", force: :cascade do |t|
+    t.integer  "category"
+    t.string   "one_time_token"
+    t.datetime "one_time_token_expires_at"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.string   "document_file_name"
+    t.string   "document_content_type"
+    t.integer  "document_file_size"
+    t.datetime "document_updated_at"
   end
 
   create_table "faq_translations", force: :cascade do |t|

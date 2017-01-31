@@ -129,6 +129,8 @@ Rails.application.routes.draw do
         end
       end
 
+      resources :documents, only: [:create]
+
       post :contacts, to: 'contacts#create'
       get :countries, to: 'countries#index'
     end

@@ -67,6 +67,7 @@ en:
       wrong_email_or_phone_or_password: wrong email, phone or password
     user:
       invalid_image_content_type: invalid content type for image
+      invalid_document_content_type: invalid content type %{type} for document
       wrong_password: wrong password
       password_length: password must have at least %{min_length} characters and no more than %{max_length}
       must_be_available_locale: must be a supported language
@@ -107,6 +108,10 @@ en:
     new_chat_message: New chat message
     new_job_comment: New job comment
     failed_to_activate_invoice: Failed to activate invoice
+  document:
+    categories:
+      cv: CV
+      cv_description: Your CV (Curriculum Vitae)
   user_image:
     categories:
       profile: Profile
