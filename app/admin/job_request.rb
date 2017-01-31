@@ -167,4 +167,15 @@ ActiveAdmin.register JobRequest do
       :company_address
     ]
   end
+
+  controller do
+    def update(*_args)
+      super do |_format|
+        if resource.valid?
+          redirect_to collection_url
+          return
+        end
+      end
+    end
+  end
 end
