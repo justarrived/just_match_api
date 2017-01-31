@@ -161,34 +161,33 @@ ActiveAdmin.register User do
 
   filter :by_near_address, label: I18n.t('admin.filter.near_address'), as: :string
   filter :first_name_or_last_name_cont, as: :string, label: I18n.t('admin.user.name')
-  filter :email
-  filter :verified
-  filter :phone
-  filter :ssn
+  filter :interview_comment
   filter :tags
-  filter :skills, collection: -> { Skill.with_translations }
-  filter :interests, collection: -> { Interest.with_translations }
-  filter :interviewed_by, collection: -> { User.admins }
-  filter :language
-  filter :company
-  filter :frilans_finans_id
-  filter :job_experience
-  filter :education
-  filter :competence_text
-  filter :admin
-  filter :anonymized
-  filter :managed
-  filter :created_at
   # rubocop:disable Metrics/LineLength
+  filter :skills, collection: -> { Skill.with_translations }
   filter :user_skills_proficiency_gteq, as: :select, collection: [nil, nil] + UserSkill::PROFICIENCY_RANGE.to_a
   filter :user_skills_proficiency_by_admin_gteq, as: :select, collection: [nil, nil] + UserSkill::PROFICIENCY_RANGE.to_a
+
+  filter :interests, collection: -> { Interest.with_translations }
   filter :user_interests_level_gteq, as: :select, collection: [nil, nil] + UserInterest::LEVEL_RANGE.to_a
   filter :user_interests_level_by_admin_gteq, as: :select, collection: [nil, nil] + UserInterest::LEVEL_RANGE.to_a
+
+  filter :languages, collection: -> { Language.order(:en_name) }
+  filter :user_languages_proficiency_gteq, as: :select, collection: [nil, nil] + UserLanguage::PROFICIENCY_RANGE.to_a
+  filter :user_languages_proficiency_by_admin_gteq, as: :select, collection: [nil, nil] + UserLanguage::PROFICIENCY_RANGE.to_a
+
+  filter :created_at
+
   filter :translations_description_cont, as: :string, label: I18n.t('admin.user.description')
   filter :translations_education_cont, as: :string, label: I18n.t('admin.user.education')
   filter :translations_competence_text_cont, as: :string, label: I18n.t('admin.user.competence_text')
   filter :translations_job_experience_cont, as: :string, label: I18n.t('admin.user.job_experience')
   # rubocop:enable Metrics/LineLength
+  filter :email
+  filter :phone
+  filter :frilans_finans_id
+  filter :ssn
+  filter :company
 
   index do
     selectable_column
