@@ -187,7 +187,6 @@ ActiveAdmin.register User do
   filter :phone
   filter :frilans_finans_id
   filter :ssn
-  filter :company
 
   index do
     selectable_column
