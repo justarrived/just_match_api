@@ -3,6 +3,12 @@
 HEAD
 -----------
 
+- _Feature_: Document upload
+  + _API_:
+    * `POST /api/v1/documents`
+    * `POST /api/v1/user:/documents`
+  + _Admin:_ Support for managing documents and user documents
+
 v0.24 - 2017-01-31
 -----------
 - _Admin_: Support user & company image uploads
