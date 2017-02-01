@@ -5,7 +5,10 @@ ActiveAdmin.register Document do
   index do
     selectable_column
 
-    column :url { |doc| link_to(I18n.t('admin.download'), doc.url) }
+    column :id
+    column :url do |doc|
+      download_link_to(url: doc.url, file_name: doc.document_file_name)
+    end
     column :document_content_type
     column :document_file_size { |doc| number_to_human_size(doc.document_file_size) }
     column :created_at
@@ -18,7 +21,9 @@ ActiveAdmin.register Document do
       user = doc.users.last
       user_doc = doc.user_documents.last
 
-      row :document_url { link_to(I18n.t('admin.download'), doc.url) }
+      row :document_url do
+        download_link_to(url: doc.url, file_name: doc.document_file_name)
+      end
       row :category { user_doc&.category }
       row :user do
         link_to(user.display_name, admin_user_path(user)) if user

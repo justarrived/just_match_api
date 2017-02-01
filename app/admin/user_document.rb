@@ -5,9 +5,13 @@ ActiveAdmin.register UserDocument do
   index do
     selectable_column
 
+    column :id
+
     column :category
     column :user
-    column :url { |user_doc| link_to(I18n.t('admin.download'), user_doc.url) }
+    column :url do |user_doc|
+      download_link_to(url: user_doc.url, file_name: user_doc.document_file_name)
+    end
     column :created_at
 
     actions
@@ -18,7 +22,9 @@ ActiveAdmin.register UserDocument do
       row :user
       row :category
       row :document
-      row :document_url { |user_doc| link_to(I18n.t('admin.download'), user_doc.url) }
+      row :document_url do |user_doc|
+        download_link_to(url: user_doc.url, file_name: user_doc.document_file_name)
+      end
       row :created_at { |user_doc| datetime_ago_in_words(user_doc.created_at) }
     end
 

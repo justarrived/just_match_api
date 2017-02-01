@@ -15,6 +15,10 @@ module AdminHelper
     "#{time_ago_in_words} ago on #{created_at}"
   end
 
+  def download_link_to(url:, file_name:)
+    link_to(I18n.t('admin.download'), url, download: file_name)
+  end
+
   def european_date(datetime)
     datetime.strftime('%Y-%m-%d')
   end

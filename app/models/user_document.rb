@@ -14,6 +14,7 @@ class UserDocument < ApplicationRecord
   validates :document, presence: true, uniqueness: { scope: :user }
 
   delegate :url, to: :document
+  delegate :document_file_name, to: :document
 end
 
 # == Schema Information
