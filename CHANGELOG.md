@@ -3,6 +3,11 @@
 HEAD
 -----------
 
+v0.26 - 2017-02-01
+-----------
+* _Admin_: Improve `Document` & `UserDocument` views
+* _Hotfix_: Register docx MIME type
+
 v0.25 - 2017-02-01
 -----------
 - _Feature_: Document upload
