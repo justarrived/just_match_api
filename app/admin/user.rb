@@ -334,11 +334,13 @@ ActiveAdmin.register User do
       column do
         h3 I18n.t('admin.user.show.status_flags')
         attributes_table do
+          row :super_admin
           row :admin
           row :managed
           row :anonymized
           row :banned
           row :verified
+          row :just_arrived_staffing
         end
       end
 
@@ -447,9 +449,11 @@ ActiveAdmin.register User do
       f.inputs I18n.t('admin.user.form.status_flags') do
         f.input :verified
         f.input :admin
+        f.input :super_admin
         f.input :anonymized
         f.input :banned, hint: I18n.t('admin.user.form.banned.hint')
         f.input :managed, hint: I18n.t('admin.user.form.managed.hint')
+        f.input :just_arrived_staffing, hint: I18n.t('admin.user.form.just_arrived_staffing.hint') # rubocop:disable Metrics/LineLength
       end
 
       f.inputs I18n.t('admin.user.form.payment_attributes') do
@@ -639,14 +643,18 @@ ActiveAdmin.register User do
   permit_params do
     extras = [
       :password, :language_id, :company_id, :managed, :frilans_finans_payment_details,
-      :verified, :interview_comment, :banned,
-      :language_ids, :skill_ids, ignored_notifications: [],
-                                 user_skills_attributes: [:skill_id, :proficiency, :proficiency_by_admin], # rubocop:disable Metrics/LineLength
-                                 user_languages_attributes: [:language_id, :proficiency, :proficiency_by_admin], # rubocop:disable Metrics/LineLength
-                                 user_interests_attributes: [:interest_id, :level, :level_by_admin], # rubocop:disable Metrics/LineLength
-                                 user_tags_attributes: [:id, :tag_id, :_destroy]
+      :verified, :interview_comment, :banned, :just_arrived_staffing,
+      :language_ids, :skill_ids, ignored_notifications: []
     ]
-    UserPolicy::SELF_ATTRIBUTES + extras
+    extras << :super_admin if authenticated_admin_user.super_admin?
+
+    relations = [
+      user_skills_attributes: [:skill_id, :proficiency, :proficiency_by_admin],
+      user_languages_attributes: [:language_id, :proficiency, :proficiency_by_admin],
+      user_interests_attributes: [:interest_id, :level, :level_by_admin],
+      user_tags_attributes: [:id, :tag_id, :_destroy]
+    ]
+    UserPolicy::SELF_ATTRIBUTES + extras + relations
   end
 
   controller do

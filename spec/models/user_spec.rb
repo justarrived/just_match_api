@@ -689,6 +689,8 @@ end
 #  city                             :string
 #  interviewed_by_user_id           :integer
 #  interviewed_at                   :datetime
+#  just_arrived_staffing            :boolean          default(FALSE)
+#  super_admin                      :boolean          default(FALSE)
 #
 # Indexes
 #

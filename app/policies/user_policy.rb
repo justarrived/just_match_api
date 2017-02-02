@@ -24,7 +24,7 @@ class UserPolicy < ApplicationPolicy
     :frilans_finans_payment_details, :ssn, :current_status, :at_und, :arrived_at,
     :country_of_origin, :auth_token, :account_clearing_number, :account_number,
     :skype_username, :next_of_kin_name, :next_of_kin_phone,
-    :arbetsformedlingen_registered_at
+    :arbetsformedlingen_registered_at, :just_arrived_staffing
   ]).freeze
 
   attr_reader :accepted_applicant
