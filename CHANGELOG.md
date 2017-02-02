@@ -3,6 +3,14 @@
 HEAD
 -----------
 
+v0.27 - 2017-02-02
+-----------
+- _Admin_: Restrict certain dashboards to super admins
+- Add `User#just_arrived_staffing` field
+- Add `User#super_admin` field
+- Fixed bug where certain document content types were not allowed
+- Narrow `User::needs_frilans_finans_id` query to only include users with a phone number (since thats required to create a user in Frilans Finans system)
+
 v0.26 - 2017-02-01
 -----------
 * _Admin_: Improve `Document` & `UserDocument` views
