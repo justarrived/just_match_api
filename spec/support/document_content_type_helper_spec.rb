@@ -3,7 +3,12 @@
 require 'spec_helper'
 
 RSpec.describe DocumentContentTypeHelper do
-  valid_content_types = %w(application/msword application/pdf)
+  valid_content_types = %w(
+    application/pdf
+    application/msword
+    application/zip
+    application/vnd.openxmlformats-officedocument.wordprocessingml.document
+  )
   invalid_content_types = %w(
     image/jpeg image/png image/gif
     video/mp4 test exe application/json application/octet-stream
@@ -36,8 +41,17 @@ RSpec.describe DocumentContentTypeHelper do
   end
 
   describe '::file_extension' do
-    it 'returns correct file extension for valid content type' do
-      expect(described_class.file_extension('application/msword')).to eq('.doc')
+    [
+      ['application/pdf', '.pdf'],
+      ['application/msword', '.doc'],
+      ['application/zip', '.docx'],
+      ['application/vnd.openxmlformats-officedocument.wordprocessingml.document', '.docx']
+    ].each do |test_data|
+      content_type, expected_extension = test_data
+
+      it "returns correct file extension for #{content_type} content type" do
+        expect(described_class.file_extension(content_type)).to eq(expected_extension)
+      end
     end
 
     invalid_content_types.each do |content_type|

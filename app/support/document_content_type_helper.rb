@@ -3,6 +3,7 @@ class DocumentContentTypeHelper
   CONTENT_TYPES_MAP = {
     'application/pdf' => 'pdf',
     'application/msword' => 'doc',
+    'application/zip' => 'docx',
     'application/vnd.openxmlformats-officedocument.wordprocessingml.document' => 'docx'
   }.freeze
   ALLOWED_DOCUMENT_CONTENT_TYPES = CONTENT_TYPES_MAP.keys.dup.freeze

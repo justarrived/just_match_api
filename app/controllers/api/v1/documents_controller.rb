@@ -15,6 +15,7 @@ module Api
       example Doxxer.read_example(Document, method: :create)
       def create
         data_document = DataUriDocument.new(document_params[:document])
+
         unless data_document.valid?
           respond_with_invalid_document_content_type(data_document.content_type)
           return
