@@ -60,6 +60,7 @@ module Api
           param :competence_text, String, desc: 'Competences'
           param :email, String, desc: 'Email', required: true
           param :phone, String, desc: 'Phone'
+          param :password, String, desc: 'Password'
           param :street, String, desc: 'Street'
           param :zip, String, desc: 'Zip code'
           param :city, String, desc: 'City'
