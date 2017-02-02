@@ -256,7 +256,11 @@ class User < ApplicationRecord
   end
 
   def admin?
-    admin
+    admin || super_admin
+  end
+
+  def super_admin?
+    super_admin
   end
 
   def company?

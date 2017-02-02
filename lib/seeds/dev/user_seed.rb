@@ -66,7 +66,9 @@ module Dev
         language: language,
         password: '12345678',
         admin: admin,
-        company: company
+        super_admin: admin,
+        company: company,
+        just_arrived_staffing: company && Random.rand(10) == 9 ? true : false
       )
       user.save
       user.set_translation(

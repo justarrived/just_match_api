@@ -5,7 +5,7 @@ ActiveAdmin.setup do |config|
   # Set the title that is displayed on the main layout
   # for each of the active admin pages.
   #
-  config.site_title = 'Just Match'
+  config.site_title = 'JustMatch'
 
   # Set the link url for the title. For example, to take
   # users to your main site. Defaults to no link.
@@ -226,11 +226,11 @@ ActiveAdmin.setup do |config|
     admin.build_menu :default do |menu|
       menu.add label: 'Jobs', priority: 2
       menu.add label: 'Users', priority: 3
-      menu.add label: 'Invoices', priority: 4
-      menu.add label: 'Translations', priority: 6
+      menu.add label: 'Invoices', priority: 4, if: proc { current_active_admin_user.super_admin? }
+      menu.add label: 'Translations', priority: 6, if: proc { current_active_admin_user.super_admin? }
       menu.add label: 'Settings', priority: 7
       menu.add label: 'Misc', priority: 8
-      menu.add label: 'Frilans Finans', priority: 9
+      menu.add label: 'Frilans Finans', priority: 9, if: proc { current_active_admin_user.super_admin? }
     end
   end
 
