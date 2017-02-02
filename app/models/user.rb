@@ -100,7 +100,10 @@ class User < ApplicationRecord
   }
   scope :frilans_finans_users, -> { where.not(frilans_finans_id: nil) }
   scope :needs_frilans_finans_id, lambda {
-    not_anonymized.regular_users.where(frilans_finans_id: nil)
+    not_anonymized.
+      regular_users.
+      where(frilans_finans_id: nil).
+      where.not(phone: [nil, ''])
   }
   scope :anonymized, -> { where(anonymized: true) }
   scope :not_anonymized, -> { where(anonymized: false) }
