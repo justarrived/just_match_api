@@ -4,6 +4,29 @@ ActiveAdmin.register CommunicationTemplate do
 
   include AdminHelpers::MachineTranslation::Actions
 
+  index do
+    selectable_column
+
+    column :id
+    column :category
+    column :subject
+    column :body { |c_template| simple_format(c_template.body) }
+
+    actions
+  end
+
+  show do
+    attributes_table do
+      row :id
+      row :language
+      row :category
+      row :subject
+      row :body do |c_template|
+        simple_format(c_template.body)
+      end
+    end
+  end
+
   form do |f|
     f.semantic_errors
 
