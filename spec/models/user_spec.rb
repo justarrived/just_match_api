@@ -580,6 +580,17 @@ RSpec.describe User, type: :model do
       message = user.errors.messages[:account_clearing_number]
       expect(message || []).not_to be_empty
     end
+
+    it 'adds error if bank account is invalid (only one field set)' do
+      user = FactoryGirl.build(
+        :user,
+        account_clearing_number: '0'
+      )
+      user.validate
+
+      message = user.errors.messages[:account_clearing_number]
+      expect(message || []).not_to be_empty
+    end
   end
 
   describe '#validate_arrived_at_date' do
