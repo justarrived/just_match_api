@@ -26,6 +26,18 @@ ActiveAdmin.register JobRequest do
     redirect_to collection_path, notice: I18n.t('admin.job_request.batch.finished')
   end
 
+  member_action :clone, method: :get do
+    base_job = JobRequest.find(params[:id])
+    @job_request = base_job.dup
+
+    render :new, layout: false
+  end
+
+  action_item :clone, only: :show do
+    path = clone_admin_job_request_path(id: job_request.id)
+    link_to(I18n.t('admin.job_request.clone'), path)
+  end
+
   scope :all, default: true
   scope :pending
   scope :finished

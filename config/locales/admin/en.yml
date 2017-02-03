@@ -50,6 +50,7 @@ en:
       queued_msg_multiple: Machine translations queued successfully.
       post_btn: Machine Translate
     job_request:
+      clone: Clone
       batch:
         draft_sent: Marked as draft sent
         signed_by_customer: Marked as signed by customer
