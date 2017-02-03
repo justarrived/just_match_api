@@ -3,6 +3,14 @@
 HEAD
 -----------
 
+v0.28 - 2017-02-03
+-----------
+- _Admin_:
+  + Update CommunicationTemplate index & show view
+  + Add clone action button to job request
+  + :hocho: crash when creating a new user from admin
+- _Docs_: Add user password to API docs
+
 v0.27 - 2017-02-02
 -----------
 - _Admin_: Restrict certain dashboards to super admins
