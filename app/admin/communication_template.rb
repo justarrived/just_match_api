@@ -10,7 +10,6 @@ ActiveAdmin.register CommunicationTemplate do
     column :id
     column :category
     column :subject
-    column :body { |c_template| simple_format(c_template.body) }
 
     actions
   end
