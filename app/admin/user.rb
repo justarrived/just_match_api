@@ -630,14 +630,16 @@ ActiveAdmin.register User do
   end
 
   after_save do |user|
-    translation_params = {
-      description: permitted_params.dig(:user, :description),
-      job_experience: permitted_params.dig(:user, :job_experience),
-      education: permitted_params.dig(:user, :education),
-      competence_text: permitted_params.dig(:user, :competence_text)
-    }
-    user.set_translation(translation_params)
-    SyncFrilansFinansUserJob.perform_later(user: user)
+    if user.persisted?
+      translation_params = {
+        description: permitted_params.dig(:user, :description),
+        job_experience: permitted_params.dig(:user, :job_experience),
+        education: permitted_params.dig(:user, :education),
+        competence_text: permitted_params.dig(:user, :competence_text)
+      }
+      user.set_translation(translation_params)
+      SyncFrilansFinansUserJob.perform_later(user: user)
+    end
   end
 
   permit_params do
