@@ -109,9 +109,10 @@ class Job < ApplicationRecord
   end
 
   def self.to_form_array(include_blank: false)
+    # TODO: Figure out why &.display_name is needed
     form_array = with_translations.
                  order(id: :desc).
-                 map { |job| [job.display_name, job.id] }
+                 map { |job| [job&.display_name, job&.id] }
 
     return form_array unless include_blank
 
