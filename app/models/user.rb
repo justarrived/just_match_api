@@ -450,8 +450,7 @@ class User < ApplicationRecord
   end
 
   def validate_swedish_bank_account
-    return if account_clearing_number.blank?
-    return if account_number.blank?
+    return if account_clearing_number.blank? && account_number.blank?
 
     full_account = [account_clearing_number, account_number].join
     field_map = {
@@ -462,8 +461,7 @@ class User < ApplicationRecord
     SwedishBankAccount.new(full_account).tap do |account|
       account.errors_by_field do |field, error_types|
         error_types.each do |type|
-          message = I18n.t("errors.bank_account.#{type}")
-          errors.add(field_map[field], message)
+          errors.add(field_map[field], I18n.t("errors.bank_account.#{type}"))
         end
       end
     end
