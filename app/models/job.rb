@@ -119,6 +119,10 @@ class Job < ApplicationRecord
     [[I18n.t('admin.form.no_job_chosen'), nil]] + form_array
   end
 
+  def profession_title
+    category&.name
+  end
+
   def ended?
     job_end_date < Time.zone.now
   end
@@ -138,7 +142,7 @@ class Job < ApplicationRecord
 
   def invoice_specification
     <<-JOB_SPECIFICATION
-#{name} (ID: ##{id}) - #{category.name}
+#{name} (ID: ##{id}) - #{profession_title}
 
 Period: #{job_date.to_date} - #{job_end_date.to_date}
 Total hours: #{hours}

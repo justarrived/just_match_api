@@ -47,16 +47,19 @@ RSpec.describe CreateFrilansFinansInvoiceService do
         }
       }
 
-      stub_request(:patch, "#{base_uri}/users/#{user_ff_id}").
-        with(headers: headers, body: /{"profession_title":"Category /).
+      stub_request(:get, "#{base_uri}/users/#{user_ff_id}").
+        with(headers: headers).
         to_return(status: 200, body: JSON.dump(ff_user_body), headers: {})
 
       described_class.create(ff_invoice: ff_invoice, express_payment: express_payment)
     end
   end
 
-  it 'creates an invoice' do
-    expect { subject }.to change(FrilansFinansInvoice, :count).by(1)
+  context 'creates' do
+    let(:user_ff_id) { 321_123 }
+    it 'one invoice' do
+      expect { subject }.to change(FrilansFinansInvoice, :count).by(1)
+    end
   end
 
   context 'no company frilans finans id' do
