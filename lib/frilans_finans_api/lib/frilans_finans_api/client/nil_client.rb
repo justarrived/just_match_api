@@ -20,6 +20,7 @@ module FrilansFinansApi
     alias_method :user, :currencies
     alias_method :create_user, :currencies
     alias_method :create_company, :currencies
+    alias_method :create_employment_certificate, :currencies
     alias_method :create_invoice, :currencies
     alias_method :update_invoice, :currencies
     alias_method :update_user, :currencies

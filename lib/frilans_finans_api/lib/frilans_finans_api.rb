@@ -8,6 +8,7 @@ require 'frilans_finans_api/client/terms'
 
 require 'frilans_finans_api/models/company'
 require 'frilans_finans_api/models/currency'
+require 'frilans_finans_api/models/employment_certificate'
 require 'frilans_finans_api/models/invoice'
 require 'frilans_finans_api/models/profession'
 require 'frilans_finans_api/models/salary'

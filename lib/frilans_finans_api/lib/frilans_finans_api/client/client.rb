@@ -47,6 +47,10 @@ module FrilansFinansApi
       request.post(uri: '/companies', body: build_attributes(attributes))
     end
 
+    def create_employment_certificate(attributes: {})
+      request.post(uri: '/employment-certificate', body: build_attributes(attributes))
+    end
+
     def create_invoice(attributes: {})
       request.post(uri: '/invoices', body: build_attributes(attributes))
     end
