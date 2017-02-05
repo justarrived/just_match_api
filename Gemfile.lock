@@ -562,6 +562,8 @@ GEM
       connection_pool (~> 2.2, >= 2.2.0)
       rack-protection (>= 1.5.0)
       redis (~> 3.2, >= 3.2.1)
+    sidekiq-statistic (1.2.0)
+      sidekiq (>= 3.3.4, < 5)
     signet (0.7.3)
       addressable (~> 2.3)
       faraday (~> 0.9)
@@ -692,6 +694,7 @@ DEPENDENCIES
   rspec_junit_formatter (~> 0.2)
   rubocop (~> 0.46)
   sidekiq (~> 4.2)
+  sidekiq-statistic (~> 1.2)
   simplecov (~> 0.11)
   skylight (~> 1.0)
   spring (~> 2.0)
@@ -708,4 +711,4 @@ RUBY VERSION
    ruby 2.4.0p0
 
 BUNDLED WITH
-   1.13.7
+   1.14.3
