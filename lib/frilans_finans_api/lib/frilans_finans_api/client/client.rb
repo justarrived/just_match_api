@@ -14,21 +14,21 @@ module FrilansFinansApi
     end
 
     def currencies(page: 1)
-      request.get(uri: '/currencies', query: { page: page })
+      request.get(uri: '/currencies', query: build_query(page: page))
     end
 
     def professions(page: 1)
-      request.get(uri: '/professions', query: { page: page })
+      request.get(uri: '/professions', query: build_query(page: page))
     end
 
     def salaries(invoice_id:, page: 1)
-      request.get(uri: "/invoices/#{invoice_id}/salaries", query: { page: page })
+      request.get(uri: "/invoices/#{invoice_id}/salaries", query: build_query(page: page))
     end
 
     def taxes(page: 1, only_standard: false)
       filter = {}
       filter = { filter: { standard: 1 } } if only_standard
-      request.get(uri: '/taxes', query: { page: page }.merge(filter))
+      request.get(uri: '/taxes', query: build_query(page: page).merge(filter))
     end
 
     def invoice(id:)
@@ -57,6 +57,12 @@ module FrilansFinansApi
 
     def update_user(id:, attributes: {})
       request.patch(uri: "/users/#{id}", body: attributes)
+    end
+
+    private
+
+    def build_query(page:)
+      { page: { number: page } }
     end
   end
 end

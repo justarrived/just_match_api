@@ -16,7 +16,7 @@ RSpec.describe FrilansFinansApi::Client do
   describe '#professions' do
     subject do
       json = fixture_client.read(:professions)
-      url = "#{base_uri}/professions?page=1"
+      url = "#{base_uri}/professions?page[number]=1"
 
       stub_request(:get, url).
         with(default_headers).
@@ -35,7 +35,7 @@ RSpec.describe FrilansFinansApi::Client do
     let(:invoice_id) { 1 }
     subject do
       json = fixture_client.read(:salaries)
-      url = "#{base_uri}/invoices/#{invoice_id}/salaries?page=1"
+      url = "#{base_uri}/invoices/#{invoice_id}/salaries?page[number]=1"
 
       stub_request(:get, url).
         with(default_headers).
@@ -53,7 +53,7 @@ RSpec.describe FrilansFinansApi::Client do
   describe '#currencies' do
     subject do
       json = fixture_client.read(:currencies)
-      url = "#{base_uri}/currencies?page=1"
+      url = "#{base_uri}/currencies?page[number]=1"
 
       stub_request(:get, url).
         with(default_headers).
@@ -78,7 +78,7 @@ RSpec.describe FrilansFinansApi::Client do
 
     it 'returns taxes array' do
       json = fixture_client.read(:taxes)
-      url = "#{base_uri}/taxes?page=1"
+      url = "#{base_uri}/taxes?page[number]=1"
 
       stub_request(:get, url).
         with(default_headers).
@@ -91,7 +91,7 @@ RSpec.describe FrilansFinansApi::Client do
     # The real test here is actually the request stub rather than the assertion
     it 'can add filter param' do
       json = fixture_client.read(:taxes)
-      url = "#{base_uri}/taxes?filter[standard]=1&page=1"
+      url = "#{base_uri}/taxes?filter[standard]=1&page[number]=1"
 
       stub_request(:get, url).
         with(default_headers).
