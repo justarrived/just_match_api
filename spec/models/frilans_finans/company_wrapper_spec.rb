@@ -8,15 +8,13 @@ RSpec.describe FrilansFinans::CompanyWrapper do
       company = FactoryGirl.build(:company)
       result = described_class.attributes(company: company, user: user)
       expected = {
-        company: {
-          name: company.name,
-          country: company.country_name.upcase,
-          street: company.street,
-          city: company.city,
-          zip: company.zip,
-          send_to_email: company.billing_email,
-          user_id: user.frilans_finans_id
-        }
+        name: company.name,
+        country: company.country_name.upcase,
+        street: company.street,
+        city: company.city,
+        zip: company.zip,
+        send_to_email: company.billing_email,
+        user_id: user.frilans_finans_id
       }
       expect(result).to eq(expected)
     end

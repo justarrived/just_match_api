@@ -10,15 +10,14 @@ module FrilansFinans
       )
 
       {
-        invoice: {
-          invoiceuser: invoice_users_data,
-          invoicedate: invoice_dates(job: job)
-        }.merge!(invoice_data(job: job, user: user, tax: tax, pre_report: pre_report))
-      }
+        invoiceuser: invoice_users_data,
+        invoicedate: invoice_dates(job: job)
+      }.merge!(invoice_data(job: job, user: user, tax: tax, pre_report: pre_report))
     end
 
     def self.invoice_data(job:, user:, tax:, pre_report:)
       {
+        remote_id: job.id,
         currency_id: Currency.default_currency&.frilans_finans_id,
         specification: job.invoice_specification,
         amount: job.invoice_amount,
@@ -45,11 +44,9 @@ module FrilansFinans
         user_id: user.frilans_finans_id,
         total: job.invoice_amount,
         taxkey_id: taxkey_id,
-        allowance: 0,
-        travel: 0,
-        save_vacation_pay: 0,
-        save_itp: 0,
-        express_payment: express_payment ? 1 : 0
+        save_vacation_pay: false,
+        save_itp: false,
+        express_payment: express_payment
       }]
     end
 
