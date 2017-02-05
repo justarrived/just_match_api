@@ -1,7 +1,7 @@
 {
   "data": [
     {
-      "type": "company",
+      "type": "companies",
       "id": "1",
       "attributes": {
         "name": "ACME AB",
@@ -21,7 +21,7 @@
       }
     },
     {
-      "type": "company",
+      "type": "companies",
       "id": "2",
       "attributes": {
         "name": "Acme 1 AB",

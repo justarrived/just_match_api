@@ -1,6 +1,6 @@
 {
   "data": {
-    "type": "company",
+    "type": "companies",
     "id": "1",
     "attributes": {
       "name": "Acme",

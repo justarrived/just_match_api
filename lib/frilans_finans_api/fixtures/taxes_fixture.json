@@ -1,7 +1,7 @@
 {
   "data": [
     {
-      "type": "tax",
+      "type": "taxes",
       "id": "0",
       "attributes": {
         "standard": 0,
@@ -12,7 +12,7 @@
       }
     },
     {
-      "type": "tax",
+      "type": "taxes",
       "id": "1",
       "attributes": {
         "standard": 0,
@@ -23,7 +23,7 @@
       }
     },
     {
-      "type": "tax",
+      "type": "taxes",
       "id": "2",
       "attributes": {
         "standard": 0,
@@ -34,7 +34,7 @@
       }
     },
     {
-      "type": "tax",
+      "type": "taxes",
       "id": "3",
       "attributes": {
         "standard": 1,

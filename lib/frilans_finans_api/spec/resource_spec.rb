@@ -10,7 +10,7 @@ RSpec.describe FrilansFinansApi::Resource do
   subject { described_class.new(data) }
 
   it 'can return #type' do
-    expect(subject.type).to eq('profession')
+    expect(subject.type).to eq('professions')
   end
 
   it 'can return #id' do

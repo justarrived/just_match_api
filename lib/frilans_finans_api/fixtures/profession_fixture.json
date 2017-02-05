@@ -1,6 +1,6 @@
 {
   "data":  {
-    "type": "profession",
+    "type": "professions",
     "id": "1",
     "attributes": {
       "title": "Test profession",

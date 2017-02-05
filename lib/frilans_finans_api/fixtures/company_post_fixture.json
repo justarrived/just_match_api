@@ -1,6 +1,6 @@
 {
   "data": {
-    "type": "company",
+    "type": "companies",
     "attributes": {
       "name": "Acme",
       "street": "Dag Hammarskjölds väg 13",
