@@ -14,7 +14,7 @@ module Api
           name 'User messages'
           short 'API for managing user messages'
           description '
-            Here you can find the documentation for inteteracting with user messages.
+            Here you can find the documentation for interacting with user messages.
           '
           formats [:json]
         end

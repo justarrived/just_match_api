@@ -11,7 +11,7 @@ module Api
           name 'Ratings'
           short 'API for managing job ratings'
           description '
-            Here you can find the documentation for inteteracting with ratings.
+            Here you can find the documentation for interacting with ratings.
           '
           formats [:json]
         end

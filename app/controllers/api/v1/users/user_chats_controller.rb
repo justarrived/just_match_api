@@ -15,7 +15,7 @@ module Api
           name 'User chats'
           short 'API for managing chats'
           description '
-            Here you can find the documentation for inteteracting with user chats.
+            Here you can find the documentation for interacting with user chats.
           '
           formats [:json]
         end

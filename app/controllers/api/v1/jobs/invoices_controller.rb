@@ -10,7 +10,7 @@ module Api
           short 'API for managing invoices'
           name 'Invoices'
           description '
-            Here you can find the documentation for inteteracting with invoices.
+            Here you can find the documentation for interacting with invoices.
           '
           formats [:json]
           api_versions '1.0'
