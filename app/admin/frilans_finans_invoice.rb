@@ -48,6 +48,20 @@ ActiveAdmin.register FrilansFinansInvoice do
     link_to title, path, method: :post
   end
 
+  member_action :send_employment_certificate, method: :post do
+    ff_invoice = resource
+    attributes = { invoice_ids: [ff_invoice.frilans_finans_id] }
+    FrilansFinansApi::EmploymentCertificate.create(attributes: attributes)
+    message = I18n.t('admin.send_employment_certificate.msg')
+    redirect_to(resource_path(resource), notice: message)
+  end
+
+  action_item :view, only: :show, if: proc { resource.frilans_finans_id } do
+    title = I18n.t('admin.send_employment_certificate.post_btn')
+    path = send_employment_certificate_admin_frilans_finans_invoice_path(resource)
+    link_to title, path, method: :post
+  end
+
   index do
     selectable_column
 
