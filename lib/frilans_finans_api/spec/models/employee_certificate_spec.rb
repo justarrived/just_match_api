@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'spec_helper'
 
-RSpec.describe FrilansFinansApi::EmployeeCertificate do
+RSpec.describe FrilansFinansApi::EmploymentCertificate do
   let(:default_headers) { FrilansFinansApi::Client::HEADERS }
   let(:base_url) { 'https://frilansfinans.se/api' }
   let(:client) { FrilansFinansApi::FixtureClient.new }
