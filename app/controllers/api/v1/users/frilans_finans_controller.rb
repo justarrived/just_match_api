@@ -94,7 +94,9 @@ module Api
 
             user.frilans_finans_payment_details = true
             user.save!
-            SyncFrilansFinansUserJob.perform_later(user: user)
+            if AppConfig.frilans_finans_active?
+              SyncFrilansFinansUserJob.perform_later(user: user)
+            end
           end
 
           render json: {}, status: :ok
