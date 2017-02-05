@@ -20,6 +20,7 @@ gem 'rack-timeout', '~> 0.4' # Kill requests that run for too long
 
 # BACKGROUND JOBS
 gem 'sidekiq', '~> 4.2' # Background worker (Redis-backed)
+gem 'sidekiq-statistic', '~> 1.2'
 
 # MONITORING
 gem 'airbrake', '~> 5.6' # Error catcher and reporter
