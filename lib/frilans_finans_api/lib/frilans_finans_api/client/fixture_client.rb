@@ -44,7 +44,7 @@ module FrilansFinansApi
       mock_response(read(:company))
     end
 
-    def create_employment_certificate(**args)
+    def create_employment_certificate(**_args)
       mock_response('{}')
     end
 
