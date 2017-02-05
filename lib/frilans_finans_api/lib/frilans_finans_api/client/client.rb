@@ -40,26 +40,30 @@ module FrilansFinansApi
     end
 
     def create_user(attributes: {})
-      request.post(uri: '/users', body: attributes)
+      request.post(uri: '/users', body: build_attributes(attributes))
     end
 
     def create_company(attributes: {})
-      request.post(uri: '/companies', body: attributes)
+      request.post(uri: '/companies', body: build_attributes(attributes))
     end
 
     def create_invoice(attributes: {})
-      request.post(uri: '/invoices', body: attributes)
+      request.post(uri: '/invoices', body: build_attributes(attributes))
     end
 
     def update_invoice(id:, attributes: {})
-      request.patch(uri: "/invoices/#{id}", body: attributes)
+      request.patch(uri: "/invoices/#{id}", body: build_attributes(attributes))
     end
 
     def update_user(id:, attributes: {})
-      request.patch(uri: "/users/#{id}", body: attributes)
+      request.patch(uri: "/users/#{id}", body: build_attributes(attributes))
     end
 
     private
+
+    def build_attributes(attributes)
+      { data: { attributes: attributes } }
+    end
 
     def build_query(page:)
       { page: { number: page } }
