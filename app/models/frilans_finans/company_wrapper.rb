@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 module FrilansFinans
   module CompanyWrapper
-    def self.attributes(company:, user:)
+    def self.attributes(company:)
       {
         name: company.name,
         country: company.country_name.upcase,
@@ -9,7 +9,7 @@ module FrilansFinans
         city: company.city,
         zip: company.zip,
         send_to_email: company.billing_email,
-        user_id: user.frilans_finans_id # TODO: Figure out which is the best user_id to user here...
+        user_id: AppConfig.frilans_finans_company_creator_user_id
       }
     end
   end
