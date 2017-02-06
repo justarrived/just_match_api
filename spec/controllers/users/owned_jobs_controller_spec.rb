@@ -2,7 +2,7 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::Users::OwnedJobsController, type: :controller do
-  let(:user) { FactoryGirl.create(:user) }
+  let(:user) { FactoryGirl.create(:company_user) }
 
   let(:valid_session) do
     allow_any_instance_of(described_class).

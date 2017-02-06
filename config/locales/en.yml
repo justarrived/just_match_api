@@ -50,6 +50,7 @@ en:
       job_end_date_after_job_date: must be after job date
       hours_lower_bound: must be at least %{min_hours} hour(s) per day
       hours_upper_bound: can't be more than %{max_hours} hours per day
+      owner_must_belong_to_company: owner must belong to a company
     job_user:
       not_owner_of_job: can't be both job owner and job applicant
       multiple_applicants: can't accept multiple applicants

@@ -46,6 +46,7 @@ class Job < ApplicationRecord
   validate :validate_job_end_date_after_job_date
   validate :validate_hourly_pay_active
   validate :validate_within_allowed_hours
+  validate :validate_owner_belongs_to_company
 
   validate :validate_job_date_in_future, unless: -> { Rails.configuration.x.validate_job_date_in_future_inactive } # rubocop:disable Metrics/LineLength
 
@@ -300,6 +301,13 @@ Address: #{company.address}
       message = I18n.t('errors.job.hours_upper_bound', max_hours: MAX_HOURS_PER_DAY)
       errors.add(:hours, message)
     end
+  end
+
+  def validate_owner_belongs_to_company
+    return if owner.nil?
+    return if owner.company?
+
+    errors.add(:owner, I18n.t('errors.job.owner_must_belong_to_company'))
   end
 end
 

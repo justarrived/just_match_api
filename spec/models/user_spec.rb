@@ -141,7 +141,7 @@ RSpec.describe User, type: :model do
   end
 
   describe '#accepted_applicant_for_owner?' do
-    let(:owner) { FactoryGirl.create(:user) }
+    let(:owner) { FactoryGirl.create(:company_user) }
     let(:user) { FactoryGirl.create(:user) }
 
     let(:job) { FactoryGirl.create(:job, owner: owner) }
