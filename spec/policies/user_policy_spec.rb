@@ -72,7 +72,7 @@ RSpec.describe UserPolicy do
 
     let(:language) { Language.find_or_create_by!(lang_code: 'en') }
 
-    let(:owner) { FactoryGirl.build(:user, language: language) }
+    let(:owner) { FactoryGirl.build(:company_user, language: language) }
     let(:user) { FactoryGirl.build(:user, language: language) }
     let(:admin) { FactoryGirl.build(:admin_user) }
 

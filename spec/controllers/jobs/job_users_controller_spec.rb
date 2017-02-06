@@ -11,7 +11,7 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
   end
 
   let(:valid_session) do
-    user = FactoryGirl.create(:user_with_tokens)
+    user = FactoryGirl.create(:user_with_tokens, company: FactoryGirl.create(:company))
     allow_any_instance_of(described_class).
       to(receive(:current_user).
       and_return(user))
@@ -65,7 +65,7 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
     context 'with valid params' do
       it 'creates a new JobUser' do
         user = FactoryGirl.create(:user)
-        user1 = FactoryGirl.create(:user)
+        user1 = FactoryGirl.create(:company_user)
         job = FactoryGirl.create(:job, owner: user1)
         params = { job_id: job.to_param, user: { id: user.to_param } }
         expect do
@@ -75,7 +75,7 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
 
       it 'assigns a newly created user_user as @job_user' do
         user = FactoryGirl.create(:user)
-        user1 = FactoryGirl.create(:user)
+        user1 = FactoryGirl.create(:company_user)
         job = FactoryGirl.create(:job, owner: user1)
         params = { job_id: job.to_param, user: { id: user.to_param } }
         post :create, params: params, headers: valid_session
@@ -89,7 +89,7 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
 
         it 'creates a apply message' do
           user = FactoryGirl.create(:user)
-          user1 = FactoryGirl.create(:user)
+          user1 = FactoryGirl.create(:company_user)
           job = FactoryGirl.create(:job, owner: user1)
           params = {
             job_id: job.to_param,
@@ -113,7 +113,7 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
 
       it 'returns created status' do
         user = FactoryGirl.create(:user)
-        user1 = FactoryGirl.create(:user)
+        user1 = FactoryGirl.create(:company_user)
         job = FactoryGirl.create(:job, owner: user1)
         params = { job_id: job.to_param, user: { id: user.to_param } }
         post :create, params: params, headers: valid_session
@@ -122,7 +122,7 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
 
       it 'notifies owner when a a new JobUser is created' do
         user = FactoryGirl.create(:user)
-        user1 = FactoryGirl.create(:user)
+        user1 = FactoryGirl.create(:company_user)
         job = FactoryGirl.create(:job, owner: user1)
         params = { job_id: job.to_param, user: { id: user.to_param } }
         allow(NewApplicantNotifier).to receive(:call)
@@ -241,7 +241,7 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
         context '#will_perform changed to true' do
           let(:user) { FactoryGirl.create(:user) }
           let(:job) { FactoryGirl.create(:job, owner: owner) }
-          let(:owner) { FactoryGirl.create(:user) }
+          let(:owner) { FactoryGirl.create(:company_user) }
           let(:job_user) { FactoryGirl.create(:job_user_accepted, job: job, user: user) }
 
           # Set the job_user as the logged in user

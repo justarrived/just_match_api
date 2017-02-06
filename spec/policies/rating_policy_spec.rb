@@ -8,7 +8,7 @@ RSpec.describe RatingPolicy do
 
   let(:admin) { FactoryGirl.build(:admin_user) }
   let(:user) { FactoryGirl.build(:user) }
-  let(:job_owner) { FactoryGirl.build(:user) }
+  let(:job_owner) { FactoryGirl.build(:company_user) }
   let(:job) { FactoryGirl.build(:job, owner: job_owner) }
   let(:policy) { described_class.new(policy_context, nil) }
 
