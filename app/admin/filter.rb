@@ -152,18 +152,5 @@ ActiveAdmin.register Filter do
       )
       super
     end
-
-    # def find_resource
-    #   Filter.includes(
-    #     skill_filters: [:skill],
-    #     language_filters: [:language],
-    #     interest_filters: [:interest],
-    #     languages: [:language],
-    #     interests: [:translations, :language],
-    #     skills: [:translations, :language]
-    #   ).
-    #     where(id: params[:id]).
-    #     first!
-    # end
   end
 end
