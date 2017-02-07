@@ -1,14 +1,38 @@
 # frozen_string_literal: true
 module Queries
   class FilterUserTraits
-    def self.call(filter:, scope: User)
-      skill_filters = filter.skill_filters
-      language_filters = filter.language_filters
-      interest_filters = filter.interest_filters
-      scope = scope.joins(by_skill_filters_sql(skill_filters)) unless skill_filters.empty?
-      scope = scope.joins(by_language_filters_sql(language_filters)) unless language_filters.empty? # rubocop:disable Metrics/LineLength
-      scope = scope.joins(by_interest_filters_sql(interest_filters)) unless interest_filters.empty? # rubocop:disable Metrics/LineLength
+    def self.by_filter(filter, scope: User)
+      by(
+        scope: scope,
+        skill_filters: filter.skill_filters,
+        language_filters: filter.language_filters,
+        interest_filters: filter.interest_filters
+      )
+    end
+
+    def self.by(scope: User, skill_filters: [], language_filters: [], interest_filters: []) # rubocop:disable Metrics/LineLength
+      scope = by_skill_filters(scope, skill_filters)
+      scope = by_language_filters(scope, language_filters)
+      scope = by_interest_filters(scope, interest_filters)
       scope.distinct
+    end
+
+    def self.by_skill_filters(scope, skill_filters)
+      return scope if skill_filters.empty?
+
+      scope.joins(by_skill_filters_sql(skill_filters))
+    end
+
+    def self.by_language_filters(scope, language_filters)
+      return scope if language_filters.empty?
+
+      scope.joins(by_language_filters_sql(language_filters))
+    end
+
+    def self.by_interest_filters(scope, interest_filters)
+      return scope if interest_filters.empty?
+
+      scope.joins(by_interest_filters_sql(interest_filters))
     end
 
     def self.by_skill_filters_sql(skill_filters)

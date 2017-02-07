@@ -2,7 +2,7 @@
 require 'rails_helper'
 
 RSpec.describe Queries::FilterUserTraits do
-  describe '::call' do
+  describe '::by_filter' do
     it 'returns matching users' do
       filter = FactoryGirl.create(:filter)
       user1 = FactoryGirl.create(:user)
@@ -38,7 +38,7 @@ RSpec.describe Queries::FilterUserTraits do
       FactoryGirl.create(:skill_filter, skill: skill1, filter: filter, proficiency: 2, proficiency_by_admin: 2)
       FactoryGirl.create(:skill_filter, skill: skill2, filter: filter, proficiency: 3, proficiency_by_admin: 3)
 
-      result1 = described_class.call(filter: filter)
+      result1 = described_class.by_filter(filter)
       expect(result1).to include(user1)
       expect(result1).to include(user2)
       expect(result1).to include(user4)
@@ -47,7 +47,7 @@ RSpec.describe Queries::FilterUserTraits do
       # Create language filter
       FactoryGirl.create(:language_filter, language: language, filter: filter, proficiency: 3, proficiency_by_admin: 3)
 
-      result2 = described_class.call(filter: filter)
+      result2 = described_class.by_filter(filter)
       expect(result2).to include(user1)
       expect(result2).not_to include(user2)
       expect(result2).not_to include(user3)
@@ -57,7 +57,7 @@ RSpec.describe Queries::FilterUserTraits do
       FactoryGirl.create(:interest_filter, interest: interest1, filter: filter, level: 3, level_by_admin: 3)
       FactoryGirl.create(:interest_filter, interest: interest2, filter: filter, level: 2, level_by_admin: 3)
 
-      result3 = described_class.call(filter: filter)
+      result3 = described_class.by_filter(filter)
       expect(result3).to include(user1)
       expect(result3).not_to include(user2)
       expect(result3).not_to include(user3)
