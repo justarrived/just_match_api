@@ -7,8 +7,10 @@ RSpec.describe FrilansFinans::UserWrapper do
     let(:account_number) { '0000000000' }
 
     it 'returns the correct attributes' do
+      id = 73
       user = FactoryGirl.build(
         :user,
+        id: 73,
         ssn: '890101-0101',
         account_clearing_number: account_clearing_number,
         account_number: account_number,
@@ -30,7 +32,7 @@ RSpec.describe FrilansFinans::UserWrapper do
         notification_language: 'EN',
         receive_email_notifications: false,
         receive_sms_notificiations: false,
-        remote_id: nil,
+        remote_id: id.to_s,
         show_name_in_network: false
       }
       expect(result).to eq(expected)
