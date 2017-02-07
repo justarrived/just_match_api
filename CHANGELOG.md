@@ -3,6 +3,22 @@
 HEAD
 -----------
 
+v1.0 - 2017-02-08 :tada:
+-----------
+- Filter
+  + Admin
+  + Query model `Queries::UserTraits`
+  + Adds models
+    * `Filter`
+    * `FilterUser`
+    * `LanguageFilter`
+    * `SkillFilter`
+    * `InterestFilter`
+- Revamped emails
+- Validate job owner belongs to company
+- Update gems: rack-cors, puma, geocoder, faker, aws-sdk and airbrake
+- Add gem: sidekiq-statistic
+
 v0.28 - 2017-02-03
 -----------
 - _Admin_:
