@@ -10,6 +10,11 @@ class Filter < ApplicationRecord
 
   has_many :interest_filters
   has_many :interests, through: :interest_filters
+
+  # NOTE: This is necessary for nested activeadmin has_many form
+  accepts_nested_attributes_for :interest_filters, allow_destroy: true
+  accepts_nested_attributes_for :skill_filters, allow_destroy: true
+  accepts_nested_attributes_for :language_filters, allow_destroy: true
 end
 
 # == Schema Information

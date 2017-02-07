@@ -3,7 +3,6 @@ FactoryGirl.define do
   factory :interest_filter do
     association :filter
     association :interest
-    filter nil
     level 1
     level_by_admin 1
   end

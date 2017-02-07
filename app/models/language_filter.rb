@@ -10,6 +10,7 @@ end
 #
 #  id                   :integer          not null, primary key
 #  filter_id            :integer
+#  language_id          :integer
 #  proficiency          :integer
 #  proficiency_by_admin :integer
 #  created_at           :datetime         not null
@@ -17,7 +18,8 @@ end
 #
 # Indexes
 #
-#  index_language_filters_on_filter_id  (filter_id)
+#  index_language_filters_on_filter_id    (filter_id)
+#  index_language_filters_on_language_id  (language_id)
 #
 # Foreign Keys
 #

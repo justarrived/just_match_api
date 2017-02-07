@@ -426,11 +426,13 @@ ActiveRecord::Schema.define(version: 20170202111816) do
 
   create_table "language_filters", force: :cascade do |t|
     t.integer  "filter_id"
+    t.integer  "language_id"
     t.integer  "proficiency"
     t.integer  "proficiency_by_admin"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
     t.index ["filter_id"], name: "index_language_filters_on_filter_id", using: :btree
+    t.index ["language_id"], name: "index_language_filters_on_language_id", using: :btree
   end
 
   create_table "languages", force: :cascade do |t|
@@ -506,11 +508,13 @@ ActiveRecord::Schema.define(version: 20170202111816) do
 
   create_table "skill_filters", force: :cascade do |t|
     t.integer  "filter_id"
+    t.integer  "skill_id"
     t.integer  "proficiency"
     t.integer  "proficiency_by_admin"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
     t.index ["filter_id"], name: "index_skill_filters_on_filter_id", using: :btree
+    t.index ["skill_id"], name: "index_skill_filters_on_skill_id", using: :btree
   end
 
   create_table "skill_translations", force: :cascade do |t|
