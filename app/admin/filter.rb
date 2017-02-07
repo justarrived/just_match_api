@@ -24,9 +24,9 @@ ActiveAdmin.register Filter do
   end
 
   filter :name
-  filter :skills { |skill| skill.with_translations.name }
-  filter :languages { |language| language.with_translations.name }
-  filter :interests { |interest| interest.with_translations.name }
+  filter :skills, collection: -> { Skill.with_translations }
+  filter :languages
+  filter :interests, collection: -> { Interest.with_translations }
   filter :created_at
   filter :updated_at
 
@@ -114,10 +114,6 @@ ActiveAdmin.register Filter do
   end
 
   controller do
-    def scoped_collection
-      super
-    end
-
     def update_resource(filter, params_array)
       filter_params = params_array.first
 
