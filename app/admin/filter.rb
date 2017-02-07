@@ -23,6 +23,13 @@ ActiveAdmin.register Filter do
     link_to title, path, method: :post
   end
 
+  filter :name
+  filter :skills { |skill| skill.with_translations.name }
+  filter :languages { |language| language.with_translations.name }
+  filter :interests { |interest| interest.with_translations.name }
+  filter :created_at
+  filter :updated_at
+
   show do
     badge_name = lambda do |name, value, value_by_admin|
       simple_badge_tag("#{name} (#{value || '-'}/#{value_by_admin || '-'})")
@@ -54,7 +61,11 @@ ActiveAdmin.register Filter do
       end
 
       row :matching_user_count do |filter|
-        Queries::UserTraits.by_filter(filter).count
+        count = Queries::UserTraits.by_filter(filter).count
+        title = I18n.t('admin.filter_user.view_users', count: count)
+        path = update_users_admin_filter_path(resource)
+
+        simple_badge_tag(link_to(title, path, method: :post))
       end
     end
 
