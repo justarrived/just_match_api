@@ -33,8 +33,7 @@ class ApplicantWillPerformNotifier < BaseNotifier
   def self.owner_email(job_user:, owner:)
     notify(user: owner, locale: owner.locale) do
       JobMailer.
-        applicant_will_perform_email(job_user: job_user, owner: owner).
-        deliver_later
+        applicant_will_perform_email(job_user: job_user, owner: owner)
     end
   end
 end

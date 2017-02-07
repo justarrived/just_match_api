@@ -27,37 +27,32 @@ ActiveAdmin.register JobUser do
     column :id
     column :user
     column :job
-    column :accepted
-    column :will_perform
-    column :performed
-    column :frilans_finans_invoice
-    column :updated_at
+    column :job_start_date { |job_user| job_user.job.job_date }
+    column :user_city { |job_user| job_user.user.city }
+    column :status, &:current_status
 
     actions
   end
 
   show do
-    attributes_table do
-      row :id
-      row :frilans_finans_invoice
-      row :invoice
-      row :user
-      row :average_user_score do
-        job_user.user.average_score
+    if job_user.job.started? && !job_user.will_perform || job_user.job.accepted_job_user != job_user # rubocop:disable Metrics/LineLength
+      attributes_table do
+        row :status { I18n.t('admin.user.show.rejected') }
+        row :job_name { |job_user| job_user.job.name }
+        row :user
       end
-      row :job
-
-      row :accepted
-      row :will_perform
-      row :performed
-      row :accepted_at
-
-      row :apply_message
-      row :language
-
-      row :created_at
-      row :updated_at
+    elsif job_user.job.ended?
+      render partial: 'job_ended_view', locals: { job_user: job_user }
+    else
+      render partial: 'show', locals: { job_user: job_user }
     end
+
+    support_chat = Chat.find_support_chat(job_user.user)
+    if support_chat
+      locals = { support_chat: support_chat }
+      render partial: 'admin/chats/latest_messages', locals: locals
+    end
+
     active_admin_comments
   end
 

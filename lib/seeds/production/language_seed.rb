@@ -10,7 +10,7 @@ class LanguageSeed < BaseSeed
     log_seed(Language) do
       available_locales = I18n.available_locales.map(&:to_s)
 
-      csv_string = File.read("#{Rails.root}/data/languages.csv")
+      csv_string = File.read(Rails.root.join('data', 'languages.csv').to_s)
       csv = HoneyFormat::CSV.new(csv_string)
 
       csv.rows.each do |language|

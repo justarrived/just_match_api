@@ -1,11 +1,139 @@
-# JustMatch API - Changelog
+# JustMatch API - Change Log
 
 HEAD
 -----------
 
+v0.28 - 2017-02-03
+-----------
+- _Admin_:
+  + Update CommunicationTemplate index & show view
+  + Add clone action button to job request
+  + :hocho: crash when creating a new user from admin
+- _Docs_: Add user password to API docs
+
+v0.27 - 2017-02-02
+-----------
+- _Admin_: Restrict certain dashboards to super admins
+- Add `User#just_arrived_staffing` field
+- Add `User#super_admin` field
+- Fixed bug where certain document content types were not allowed
+- Narrow `User::needs_frilans_finans_id` query to only include users with a phone number (since thats required to create a user in Frilans Finans system)
+
+v0.26 - 2017-02-01
+-----------
+* _Admin_: Improve `Document` & `UserDocument` views
+* _Hotfix_: Register docx MIME type
+
+v0.25 - 2017-02-01
+-----------
+- _Feature_: Document upload
+  + _API_:
+    * `POST /api/v1/documents`
+    * `POST /api/v1/user:/documents`
+  + _Admin:_ Support for managing documents and user documents
+
+v0.24 - 2017-01-31
+-----------
+- _Admin_: Support user & company image uploads
+
+v0.23 - 2017-01-31
+-----------
+- _Admin_: Remove `User#company` filter from index view
+  + Custom company show page
+  + Revamp users filter
+  + Add batch actions to JobRequest
+  + Add JobRequest to nav and add comments to show page
+  + Re-direct to index path on job request update
+
+v0.22 - 2017-01-30
+-----------
+- Update min `Skill#name` length to 1
+- Add `User#interviewed_by` & `User#interviewed_at`
+- _Import_: Add `users_from_sheet.rb` data importer
+- Make `User#phone` optional
+- _Admin_: :hocho: N+1 SQL-queries for user skills & interests :rocket:
+- Make sure to not override user set values for user: languages, skills & interests
+
+v0.21 - 2017-01-29
+-----------
+- Add `Interest` & `UserInterest`
+  + API
+  + Admin
+  + Docs
+- _Admin_: Update user show view
+
+v0.20 - 2017-01-27
+-----------
+- _Admin_: Update job request view
+- _API_: Add `job_ended` attribute to job user endpoint
+
+v0.19 - 2017-01-27
+-----------
+- _Admin_:
+  + Allow any language to `User#user_languages` selection
+  + Update job_user/user views & extract code to partials
+  + Improve job user show view
+  + Update user show view
+  + Revamp job user index & show view
+  + Update job user index view
+
+v0.18 - 2017-01-26
+-----------
+- User city field added to
+  + _DB_: `User#field`
+  + API
+  + Admin
+  + Added optional support for city to `Geocodable` module
+- Regenerate API doc examples
+
+v0.17 - 2017-01-25
+-----------
+- `Admin:`
+  + Pretty print FF log requests/responses
+  + Add gross amount to job show view
+  + Add Token#expires_at to permitted params
+- _API_: Add support for filtering companies by name and including their users
+- Update `MessageUser` from email to use the default support email
+
+v0.16 - 2017-01-24
+-----------
+- Add `ReceivedEmail` & `ReceivedText` model
+- Send mails from no-reply by default in user mailer
+- Admin: Update chat edit view
+- Admin: Update `message`/`chat` views
+- Update support email
+- Admin: Prettier datetimes
+- Add support for receiving emails from Sendgrid
+- Support incoming SMS from Twilio
+- Admin: Send communication templates from admin
+- Add language relation to `SkillTranslation` model
+- Add `CommunicationTemplateTranslation` and `CommunicationTemplate` models
+
+v0.15 - 2017-01-24
+-----------
+- Allow users to ignore `failed_to_activate_invoice` notifications
+
+
+v0.14 - 2017-01-24
+-----------
+- _API_: :hocho: N+1 SQL-query for `/api/v1/jobs` when logged in as admin or company user
+- _Admin:_ :hocho: N+1 SQL-queries for some dashboards
+- _I18n_: Add missing strings for `UserImage::CATEGORIES` and `User::STATUSES`
+- Upgrade `sidekiq` 4.2.8 => 4.2.9, which resolves the problems we've had with `Redis::ConnectionError`
+- Additional `UserImage::CATEGORIES`
+- Additional `User::STATUSES`
+- Sync retry sending of notification if the connection to Redis is down
+- _API_: Sync with Frilans Finans after user create/update
+
+v0.13 - 2017-01-16
+-----------
+- Sync user to Frilans Finans on update & change
+- Add max password length validation to user
+- Revamp `JobRequest`
+
+
 v0.12 - 2017-01-15
 -----------
-
 - Tweak Sidekiq concurrency config (will hopefully resolve the `Redis::ConnectionError`s we're getting)
 - Revert :hocho: rack-timeout gem
 - Only delete really (6 months) old tokens

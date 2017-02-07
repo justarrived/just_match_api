@@ -6,6 +6,48 @@ RSpec.describe Job, type: :model do
     describe '#matches_user'
   end
 
+  describe '#ended?' do
+    it 'returns false if job end date is in the future' do
+      job = FactoryGirl.build(:job, job_end_date: 1.minute.from_now)
+      expect(job.ended?).to eq(false)
+    end
+
+    it 'returns true if job end date is in the passed' do
+      job = FactoryGirl.build(:job, job_end_date: 1.minute.ago)
+      expect(job.ended?).to eq(true)
+    end
+  end
+
+  describe '#to_form_array' do
+    context 'with include blank false' do
+      it 'returns empty array if no skills' do
+        job_array = described_class.to_form_array(include_blank: false)
+        expect(job_array).to eq([])
+      end
+
+      it 'returns skill array' do
+        job = FactoryGirl.create(:job_with_translation, name: 'Job name')
+        job_array = described_class.to_form_array(include_blank: false)
+        expect(job_array).to eq([["##{job.id} Job name", job.id]])
+      end
+    end
+
+    context 'with include blank' do
+      let(:label) { I18n.t('admin.form.no_job_chosen') }
+
+      it 'returns empty array if no jobs' do
+        job_array = described_class.to_form_array(include_blank: true)
+        expect(job_array).to eq([[label, nil]])
+      end
+
+      it 'returns job array' do
+        job = FactoryGirl.create(:job_with_translation, name: 'Job name')
+        job_array = described_class.to_form_array(include_blank: true)
+        expect(job_array).to eq([[label, nil], ["##{job.id} Job name", job.id]])
+      end
+    end
+  end
+
   describe '#invoice_company_frilans_finans_id' do
     let(:company) { FactoryGirl.build(:company, frilans_finans_id: 7373) }
     let(:owner) { FactoryGirl.build(:user, company: company) }
@@ -112,7 +154,7 @@ RSpec.describe Job, type: :model do
   end
 
   describe '#owner?' do
-    let(:user) { FactoryGirl.build(:user) }
+    let(:user) { FactoryGirl.build(:company_user) }
     let(:job) { FactoryGirl.build(:job, owner: user) }
 
     it 'returns true if user is owner' do
@@ -142,7 +184,7 @@ RSpec.describe Job, type: :model do
 
     it 'returns accepted user if no job user' do
       applicant = FactoryGirl.create(:user)
-      owner = FactoryGirl.create(:user)
+      owner = FactoryGirl.create(:company_user)
       job = FactoryGirl.create(:job, owner: owner)
 
       job.create_applicant!(applicant)
@@ -161,7 +203,7 @@ RSpec.describe Job, type: :model do
 
     it 'returns true if user is the accepted user' do
       applicant = FactoryGirl.create(:user)
-      owner = FactoryGirl.create(:user)
+      owner = FactoryGirl.create(:company_user)
       job = FactoryGirl.create(:job, owner: owner)
 
       job.create_applicant!(applicant)
@@ -408,6 +450,24 @@ RSpec.describe Job, type: :model do
         job.validate
         expect(job.errors.messages[:hours]).to include(max_hours_error_message)
       end
+    end
+  end
+
+  describe '#validate_owner_belongs_to_company' do
+    it 'adds error if owner does *not* belong to a company' do
+      owner = FactoryGirl.build(:user, company: nil)
+      job = FactoryGirl.build(:job, owner: owner)
+      job.validate
+      message = I18n.t('errors.job.owner_must_belong_to_company')
+      expect(job.errors.messages[:owner]).to include(message)
+    end
+
+    it 'adds no error if the owner belongs to a company' do
+      owner = FactoryGirl.build(:company_user)
+      job = FactoryGirl.build(:job, owner: owner)
+      job.validate
+      message = I18n.t('errors.job.owner_must_belong_to_company')
+      expect(job.errors.messages[:owner] || []).not_to include(message)
     end
   end
 end

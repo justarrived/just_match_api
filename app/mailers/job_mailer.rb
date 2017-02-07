@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 class JobMailer < ApplicationMailer
+  default from: DEFAULT_SUPPORT_EMAIL
+
   def job_match_email(job:, user:, owner:)
     @user_name = user.name
     @owner_email = owner.contact_email

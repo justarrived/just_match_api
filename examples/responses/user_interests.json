@@ -1,0 +1,28 @@
+{
+  "data": [
+    {
+      "id": "",
+      "type": "user_interests",
+      "attributes": {
+        "level": 1
+      },
+      "relationships": {
+        "user": {
+          "data": {
+            "id": "38",
+            "type": "users"
+          }
+        },
+        "interest": {
+          "data": {
+            "id": "2",
+            "type": "interests"
+          }
+        }
+      }
+    }
+  ],
+  "meta": {
+    "total": 1
+  }
+}

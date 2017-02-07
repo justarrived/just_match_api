@@ -7,8 +7,7 @@ class ContactNotifier < BaseNotifier
 
     notify do
       ContactMailer.
-        contact_email(name: name, email: email, body: body).
-        deliver_later
+        contact_email(name: name, email: email, body: body)
     end
   end
 end

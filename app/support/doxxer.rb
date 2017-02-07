@@ -2,13 +2,13 @@
 class Doxxer
   BASE_URL = AppConfig.app_base_url
   EXAMPLE_OUTPUT_PATH = 'examples'
-  DOC_PATH = "#{Rails.root}/#{EXAMPLE_OUTPUT_PATH}"
+  DOC_PATH = Rails.root.join(EXAMPLE_OUTPUT_PATH).to_s
   RESPONSE_PATH = "#{DOC_PATH}/responses"
 
   RELEVANT_DOC_MODELS = [
     Chat, Comment, Job, User, Message, Language, UserLanguage, Skill, Rating, JobUser,
     JobSkill, UserSkill, Category, HourlyPay, Invoice, Faq, UserImage, Company,
-    CompanyImage, TermsAgreement, TermsAgreementConsent
+    CompanyImage, TermsAgreement, TermsAgreementConsent, Interest, UserInterest, Document
   ].freeze
 
   def self.read_example(model_klass, plural: false, method: nil, meta: {})
@@ -59,7 +59,9 @@ class Doxxer
 
   def self.generate_response_examples
     # Write "global" error response examples
-    [InvalidCredentials, LoginRequired, NotFound, TokenExpired].each do |error_klass|
+    [
+      InvalidCredentials, LoginRequired, NotFound, TokenExpired, Unauthorized
+    ].each do |error_klass|
       _write_general_response_error(error_klass)
     end
 

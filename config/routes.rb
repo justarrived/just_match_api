@@ -53,10 +53,12 @@ Rails.application.routes.draw do
           resources :user_jobs, path: :jobs, module: :users, only: [:index]
           resources :owned_jobs, path: 'owned-jobs', module: :users, only: [:index]
           resources :user_skills, param: :user_skill_id, module: :users, path: :skills, only: [:index, :show, :create, :destroy]
+          resources :user_interests, param: :user_interest_id, module: :users, path: :interests, only: [:index, :show, :create, :destroy]
           resources :user_languages, param: :user_language_id, module: :users, path: :languages, only: [:index, :show, :create, :destroy]
           resources :frilans_finans, path: 'frilans-finans', module: :users, only: [:create]
           resources :user_images, module: :users, path: :images, only: [:show, :create]
           resources :ratings, module: :users, path: :ratings, only: [:index]
+          resources :user_documents, module: :users, path: :documents, only: [:create]
         end
 
         collection do
@@ -102,6 +104,7 @@ Rails.application.routes.draw do
       resources :terms_agreement_consents, path: 'terms-consents', only: [:create]
       resources :languages, only: [:index, :show, :create, :update, :destroy]
       resources :skills, only: [:index, :show, :create, :update, :destroy]
+      resources :interests, only: [:index, :show]
       resources :categories, only: [:index, :show]
       resources :hourly_pays, path: 'hourly-pays', only: [:index, :show] do
         collection do
@@ -114,6 +117,20 @@ Rails.application.routes.draw do
           post :validate
         end
       end
+
+      resources :sms, only: [] do
+        collection do
+          post :receive
+        end
+      end
+
+      resources :email, only: [] do
+        collection do
+          post :receive
+        end
+      end
+
+      resources :documents, only: [:create]
 
       post :contacts, to: 'contacts#create'
       get :countries, to: 'countries#index'

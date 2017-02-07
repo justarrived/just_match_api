@@ -13,7 +13,9 @@ require 'pundit/rspec'
 require 'sidekiq/testing'
 Sidekiq::Testing.fake!
 
-Dir[Rails.root.join('spec/spec_support/rails_helpers/**/*.rb')].each { |f| require f }
+Dir[
+  Rails.root.join('spec', 'spec_support', 'rails_helpers', '**', '*.rb')
+].each { |f| require f }
 
 SMSClient.client = FakeSMS
 
@@ -51,7 +53,7 @@ RSpec.configure do |config|
   end
 
   config.after(:suite) do
-    FileUtils.rm_rf(Dir["#{Rails.root}/spec/test_files/"])
+    FileUtils.rm_rf(Dir[Rails.root.join('spec', 'test_files').to_s])
 
     RubocopRunner.run
     CheckDBIndexesRunner.run

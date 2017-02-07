@@ -3,6 +3,7 @@ require 'seeds/dev/chat_seed'
 require 'seeds/dev/company_seed'
 require 'seeds/dev/faq_seed'
 require 'seeds/dev/frilans_finans_term_seed'
+require 'seeds/dev/interest_seed'
 require 'seeds/dev/invoice_seed'
 require 'seeds/dev/job_seed'
 require 'seeds/dev/job_user_seed'
@@ -38,8 +39,8 @@ namespace :dev do
   end
 
   SEED_ADDRESSES = [
-    { street: "Stora Nygatan #{Random.rand(1..40)}", zip: '21137' },
-    { street: "Wollmar Yxkullsgatan #{Random.rand(1..40)}", zip: '11850' }
+    { street: "Stora Nygatan #{Random.rand(1..40)}", city: 'Malmö', zip: '21137' },
+    { street: "Wollmar Yxkullsgatan #{Random.rand(1..40)}", city: 'Stockholm', zip: '11850' } # rubocop:disable Metrics/LineLength
   ].freeze
 
   task seed: :environment do
@@ -60,6 +61,10 @@ namespace :dev do
       Dev::SkillSeed.call
     end
 
+    task interests: :environment do
+      Dev::InterestSeed.call
+    end
+
     task tags: :environment do
       Dev::TagSeed.call
     end
@@ -78,12 +83,14 @@ namespace :dev do
       skills = Skill.all
       companies = Company.all
       tags = Tag.all
+      interests = Interest.all
       Dev::UserSeed.call(
         languages: languages,
         skills: skills,
         addresses: SEED_ADDRESSES,
         companies: companies,
-        tags: tags
+        tags: tags,
+        interests: interests
       )
     end
 

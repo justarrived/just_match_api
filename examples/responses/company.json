@@ -17,6 +17,14 @@
         "data": [
 
         ]
+      },
+      "users": {
+        "data": [
+          {
+            "id": "2",
+            "type": "users"
+          }
+        ]
       }
     },
     "links": {

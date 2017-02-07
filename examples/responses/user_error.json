@@ -55,6 +55,13 @@
         "pointer": "/data/attributes/password"
       },
       "detail": "is too short (minimum is 6 characters)"
+    },
+    {
+      "status": 422,
+      "source": {
+        "pointer": "/data/attributes/password"
+      },
+      "detail": "is too long (maximum is 50 characters)"
     }
   ]
 }

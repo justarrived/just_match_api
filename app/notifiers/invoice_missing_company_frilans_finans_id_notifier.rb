@@ -5,8 +5,7 @@ class InvoiceMissingCompanyFrilansFinansIdNotifier < BaseNotifier
       mailer_args = { user: user, ff_invoice: ff_invoice, job: job }
       notify(user: user) do
         AdminMailer.
-          invoice_missing_company_frilans_finans_id_email(**mailer_args).
-          deliver_later
+          invoice_missing_company_frilans_finans_id_email(**mailer_args)
       end
     end
   end

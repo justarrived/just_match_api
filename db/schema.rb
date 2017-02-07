@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170110171331) do
+ActiveRecord::Schema.define(version: 20170202095134) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -119,6 +119,28 @@ ActiveRecord::Schema.define(version: 20170110171331) do
     t.index ["language_id"], name: "index_comments_on_language_id", using: :btree
   end
 
+  create_table "communication_template_translations", force: :cascade do |t|
+    t.string   "subject"
+    t.text     "body"
+    t.integer  "language_id"
+    t.string   "locale"
+    t.integer  "communication_template_id"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.index ["communication_template_id"], name: "index_comm_template_translations_on_comm_template_id", using: :btree
+    t.index ["language_id"], name: "index_communication_template_translations_on_language_id", using: :btree
+  end
+
+  create_table "communication_templates", force: :cascade do |t|
+    t.integer  "language_id"
+    t.string   "category"
+    t.string   "subject"
+    t.text     "body"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["language_id"], name: "index_communication_templates_on_language_id", using: :btree
+  end
+
   create_table "companies", force: :cascade do |t|
     t.string   "name"
     t.string   "cin"
@@ -163,6 +185,17 @@ ActiveRecord::Schema.define(version: 20170110171331) do
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
     t.index ["frilans_finans_id"], name: "index_currencies_on_frilans_finans_id", unique: true, using: :btree
+  end
+
+  create_table "documents", force: :cascade do |t|
+    t.string   "one_time_token"
+    t.datetime "one_time_token_expires_at"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.string   "document_file_name"
+    t.string   "document_content_type"
+    t.integer  "document_file_size"
+    t.datetime "document_updated_at"
   end
 
   create_table "faq_translations", force: :cascade do |t|
@@ -231,6 +264,26 @@ ActiveRecord::Schema.define(version: 20170110171331) do
     t.integer  "gross_salary"
   end
 
+  create_table "interest_translations", force: :cascade do |t|
+    t.string   "name"
+    t.string   "locale"
+    t.integer  "language_id"
+    t.integer  "interest_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["interest_id"], name: "index_interest_translations_on_interest_id", using: :btree
+    t.index ["language_id"], name: "index_interest_translations_on_language_id", using: :btree
+  end
+
+  create_table "interests", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "language_id"
+    t.boolean  "internal"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["language_id"], name: "index_interests_on_language_id", using: :btree
+  end
+
   create_table "invoices", force: :cascade do |t|
     t.integer  "job_user_id"
     t.datetime "created_at",                null: false
@@ -256,6 +309,17 @@ ActiveRecord::Schema.define(version: 20170110171331) do
     t.datetime "updated_at",                            null: false
     t.string   "short_name"
     t.boolean  "finished",              default: false
+    t.boolean  "cancelled",             default: false
+    t.boolean  "draft_sent",            default: false
+    t.boolean  "signed_by_customer",    default: false
+    t.string   "requirements"
+    t.string   "hourly_pay"
+    t.string   "company_org_no"
+    t.string   "company_email"
+    t.string   "company_phone"
+    t.integer  "company_id"
+    t.string   "company_address"
+    t.index ["company_id"], name: "index_job_requests_on_company_id", using: :btree
   end
 
   create_table "job_skills", force: :cascade do |t|
@@ -396,6 +460,24 @@ ActiveRecord::Schema.define(version: 20170110171331) do
     t.index ["job_id", "to_user_id"], name: "index_ratings_on_job_id_and_to_user_id", unique: true, using: :btree
   end
 
+  create_table "received_emails", force: :cascade do |t|
+    t.string   "from_address"
+    t.string   "to_address"
+    t.string   "subject"
+    t.text     "text_body"
+    t.text     "html_body"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  create_table "received_texts", force: :cascade do |t|
+    t.string   "from_number"
+    t.string   "to_number"
+    t.string   "body"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "skill_translations", force: :cascade do |t|
     t.string   "name"
     t.string   "locale"
@@ -458,6 +540,16 @@ ActiveRecord::Schema.define(version: 20170110171331) do
     t.index ["user_id"], name: "index_tokens_on_user_id", using: :btree
   end
 
+  create_table "user_documents", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "document_id"
+    t.integer  "category"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["document_id"], name: "index_user_documents_on_document_id", using: :btree
+    t.index ["user_id"], name: "index_user_documents_on_user_id", using: :btree
+  end
+
   create_table "user_images", force: :cascade do |t|
     t.datetime "one_time_token_expires_at"
     t.string   "one_time_token"
@@ -470,6 +562,17 @@ ActiveRecord::Schema.define(version: 20170110171331) do
     t.datetime "image_updated_at"
     t.integer  "category"
     t.index ["user_id"], name: "index_user_images_on_user_id", using: :btree
+  end
+
+  create_table "user_interests", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "interest_id"
+    t.integer  "level"
+    t.integer  "level_by_admin"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["interest_id"], name: "index_user_interests_on_interest_id", using: :btree
+    t.index ["user_id"], name: "index_user_interests_on_user_id", using: :btree
   end
 
   create_table "user_languages", force: :cascade do |t|
@@ -564,6 +667,11 @@ ActiveRecord::Schema.define(version: 20170110171331) do
     t.string   "next_of_kin_name"
     t.string   "next_of_kin_phone"
     t.date     "arbetsformedlingen_registered_at"
+    t.string   "city"
+    t.integer  "interviewed_by_user_id"
+    t.datetime "interviewed_at"
+    t.boolean  "just_arrived_staffing",            default: false
+    t.boolean  "super_admin",                      default: false
     t.index ["company_id"], name: "index_users_on_company_id", using: :btree
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["frilans_finans_id"], name: "index_users_on_frilans_finans_id", unique: true, using: :btree
@@ -582,13 +690,20 @@ ActiveRecord::Schema.define(version: 20170110171331) do
   add_foreign_key "comment_translations", "languages"
   add_foreign_key "comments", "languages"
   add_foreign_key "comments", "users", column: "owner_user_id", name: "comments_owner_user_id_fk"
+  add_foreign_key "communication_template_translations", "communication_templates", name: "communication_template_translations_communication_template_id_f"
+  add_foreign_key "communication_template_translations", "languages"
+  add_foreign_key "communication_templates", "languages"
   add_foreign_key "company_images", "companies"
   add_foreign_key "faq_translations", "faqs"
   add_foreign_key "faq_translations", "languages"
   add_foreign_key "faqs", "languages"
   add_foreign_key "frilans_finans_invoices", "job_users"
+  add_foreign_key "interest_translations", "interests"
+  add_foreign_key "interest_translations", "languages"
+  add_foreign_key "interests", "languages"
   add_foreign_key "invoices", "frilans_finans_invoices"
   add_foreign_key "invoices", "job_users"
+  add_foreign_key "job_requests", "companies"
   add_foreign_key "job_skills", "jobs"
   add_foreign_key "job_skills", "skills"
   add_foreign_key "job_translations", "jobs"
@@ -620,7 +735,11 @@ ActiveRecord::Schema.define(version: 20170110171331) do
   add_foreign_key "terms_agreement_consents", "users"
   add_foreign_key "terms_agreements", "frilans_finans_terms"
   add_foreign_key "tokens", "users"
+  add_foreign_key "user_documents", "documents"
+  add_foreign_key "user_documents", "users"
   add_foreign_key "user_images", "users"
+  add_foreign_key "user_interests", "interests"
+  add_foreign_key "user_interests", "users"
   add_foreign_key "user_languages", "languages"
   add_foreign_key "user_languages", "users"
   add_foreign_key "user_skills", "skills"
@@ -631,4 +750,5 @@ ActiveRecord::Schema.define(version: 20170110171331) do
   add_foreign_key "user_translations", "users"
   add_foreign_key "users", "companies"
   add_foreign_key "users", "languages"
+  add_foreign_key "users", "users", column: "interviewed_by_user_id", name: "users_interviewed_by_user_id_fk"
 end

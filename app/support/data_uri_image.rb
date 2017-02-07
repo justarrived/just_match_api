@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 class DataUriImage
+  attr_reader :content_type
+
   def initialize(data_uri)
     @valid_data_uri = true
     @image = Paperclip.io_adapters.for(data_uri)

@@ -89,18 +89,28 @@ RSpec.describe User, type: :model do
     let(:user) { FactoryGirl.create(:user) }
 
     it 'geocodes by exact address' do
-      expect(user.latitude).to eq(55.6997802)
-      expect(user.longitude).to eq(13.1953695)
+      expect(user.latitude).to eq(40.7143528)
+      expect(user.longitude).to eq(-74.0059731)
     end
 
     it 'geocodes by zip' do
-      expect(user.zip_latitude).to eq(55.6987817)
-      expect(user.zip_longitude).to eq(13.1975525)
+      expect(user.zip_latitude).to eq(40.7143528)
+      expect(user.zip_longitude).to eq(-74.0059731)
+    end
+  end
+
+  describe '#frilans_finans_id!' do
+    it 'returns frilans_finans_id if one is set' do
+      id = 7
+      user = FactoryGirl.build(:user, frilans_finans_id: id)
+      expect(user.frilans_finans_id!).to eq(id)
     end
 
-    it 'zip lat/long is different from lat/long' do
-      expect(user.zip_latitude).not_to eq(user.latitude)
-      expect(user.zip_longitude).not_to eq(user.longitude)
+    it 'returns frilans_finans_id if one is set' do
+      user = FactoryGirl.build(:user, frilans_finans_id: nil)
+      expect do
+        user.frilans_finans_id!
+      end.to raise_error(User::MissingFrilansFinansIdError)
     end
   end
 
@@ -131,7 +141,7 @@ RSpec.describe User, type: :model do
   end
 
   describe '#accepted_applicant_for_owner?' do
-    let(:owner) { FactoryGirl.create(:user) }
+    let(:owner) { FactoryGirl.create(:company_user) }
     let(:user) { FactoryGirl.create(:user) }
 
     let(:job) { FactoryGirl.create(:job, owner: owner) }
@@ -375,7 +385,7 @@ RSpec.describe User, type: :model do
 
   describe 'notifications' do
     context 'constant' do
-      it 'has the correct elements' do
+      it 'has the correct elements in the correct order' do
         expected = %w(
           accepted_applicant_confirmation_overdue
           accepted_applicant_withdrawn
@@ -392,6 +402,7 @@ RSpec.describe User, type: :model do
           job_match
           new_applicant_job_info
           applicant_will_perform_job_info
+          failed_to_activate_invoice
         )
         expect(User::NOTIFICATIONS).to eq(expected)
       end
@@ -578,6 +589,17 @@ RSpec.describe User, type: :model do
       message = user.errors.messages[:account_clearing_number]
       expect(message || []).not_to be_empty
     end
+
+    it 'adds error if bank account is invalid (only one field set)' do
+      user = FactoryGirl.build(
+        :user,
+        account_clearing_number: '0'
+      )
+      user.validate
+
+      message = user.errors.messages[:account_clearing_number]
+      expect(message || []).not_to be_empty
+    end
   end
 
   describe '#validate_arrived_at_date' do
@@ -684,6 +706,11 @@ end
 #  next_of_kin_name                 :string
 #  next_of_kin_phone                :string
 #  arbetsformedlingen_registered_at :date
+#  city                             :string
+#  interviewed_by_user_id           :integer
+#  interviewed_at                   :datetime
+#  just_arrived_staffing            :boolean          default(FALSE)
+#  super_admin                      :boolean          default(FALSE)
 #
 # Indexes
 #
@@ -695,6 +722,7 @@ end
 #
 # Foreign Keys
 #
-#  fk_rails_45f4f12508  (language_id => languages.id)
-#  fk_rails_7682a3bdfe  (company_id => companies.id)
+#  fk_rails_45f4f12508              (language_id => languages.id)
+#  fk_rails_7682a3bdfe              (company_id => companies.id)
+#  users_interviewed_by_user_id_fk  (interviewed_by_user_id => users.id)
 #

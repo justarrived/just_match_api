@@ -160,13 +160,14 @@ ActiveAdmin.register Job do
       row :filled
       row :name
       row :hours
+      row :gross_amount { |job| "#{job.gross_amount} SEK" }
       row :job_date
       row :job_end_date
       row :hourly_pay
       row :short_description
       row :street
       row :zip
-      row :description
+      row :description { |job| simple_format(job.description) }
     end
 
     h3 I18n.t('admin.job.show.status_flags')
@@ -194,8 +195,8 @@ ActiveAdmin.register Job do
       row :zip_latitude
       row :zip_longitude
 
-      row :created_at
-      row :updated_at
+      row :created_at { datetime_ago_in_words(job.created_at) }
+      row :updated_at { datetime_ago_in_words(job.updated_at) }
     end
     active_admin_comments
   end

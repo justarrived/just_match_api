@@ -6,6 +6,7 @@ class CompanySerializer < ApplicationSerializer
   link(:self) { api_v1_company_url(object) }
 
   has_many :company_images
+  has_many :users, if: -> { scope[:current_user]&.admin? }
 end
 
 # == Schema Information

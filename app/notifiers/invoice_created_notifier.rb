@@ -5,8 +5,7 @@ class InvoiceCreatedNotifier < BaseNotifier
 
     notify(user: user, locale: user.locale) do
       InvoiceMailer.
-        invoice_created_email(user: user, job: job, owner: owner).
-        deliver_later
+        invoice_created_email(user: user, job: job, owner: owner)
     end
   end
 end

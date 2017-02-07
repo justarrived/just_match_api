@@ -9,6 +9,6 @@ class AddBillingEmailDataCompany < ActiveRecord::Migration[5.0]
   end
 
   def down
-    Company.update_all(billing_email: nil)
+    Company.update_all(billing_email: nil) # rubocop:disable Rails/SkipsModelValidations
   end
 end

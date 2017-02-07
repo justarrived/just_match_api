@@ -7,9 +7,17 @@ en:
     job_user_name: Job User
     time_ago: '%{time} ago'
     time_from_now: '%{time} from now'
+    download: Download
+    upload: Upload
+    translation:
+      locale_language_missmatch: the provided locale must be the same as the language locale
     form:
       no_tag_chosen: 'No tag chosen'
       no_skill_chosen: 'No skill chosen'
+      no_template_chosen: 'No template chosen'
+      no_job_chosen: 'No job chosen'
+      no_language_chosen: 'No language chosen'
+      no_interest_chosen: 'No interest chosen'
     filter:
       near_address: "Near address (add 'km: XX' for distance)"
     recent_users:
@@ -41,8 +49,20 @@ en:
       queued_msg: Machine translation queued successfully.
       queued_msg_multiple: Machine translations queued successfully.
       post_btn: Machine Translate
+    job_request:
+      clone: Clone
+      batch:
+        draft_sent: Marked as draft sent
+        signed_by_customer: Marked as signed by customer
+        cancelled: Marked as cancelled
+        finished: Marked as finished
     job_user:
       apply_message: Apply message
+      show:
+        user_details: User details
+        match_details: Match details
+        job_details: Job details
+        created_at: Created at %{date}
     job:
       google_calendar_link: Google Calendar
       name: Name
@@ -63,6 +83,11 @@ en:
         general: General
         frilans_finans: Frilans Finans
         dates: Dates
+    chat:
+      name: Chat
+      support_chat: Support chat
+      form:
+        messages_title: Messages
     user:
       primary_language: Primary language %{lang}
       name: Name
@@ -102,10 +127,11 @@ en:
         password:
           hint: Warning this will reset the password
       show:
+        interests: Interests
         verified: 'Verified: %{verified}'
-        contact: Contact
         tags: Tags
         skills: Skills
+        city: 'City: %{city}'
         candidate_summary: Candidate summary
         languages: Languages
         average_score: 'Avg. score: %{score}'
@@ -114,10 +140,20 @@ en:
         status_flags: Status flags
         candidate_status: Candidate status
         misc: Admin details
+        interview_comment: Interview comment
+        ongoing_jobs: Ongoing jobs
+        future_jobs: Future jobs
+        rejected: Rejected
     ff_remote_sync:
       msg_multiple: Synced successfully.
       msg: Synced successfully.
       post_btn: Sync with Frilans Finans
+    communication_template:
+      form:
+        details: Details
+        category_hint: 'You need a unique category name'
+        subject_hint: 'Subject line of template you (can use variables here..)'
+        body_hint: 'Body of template (you can use variables here..)'
     counts:
       applications: Has %{count} applications
       applicants: Has %{count} applicants

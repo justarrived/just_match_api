@@ -1,5 +1,28 @@
 # frozen_string_literal: true
 module AdminHelper
+  def safe_pretty_print_json(json_string)
+    content_tag :pre, begin
+      hash = JSON.parse(json_string)
+      JSON.pretty_generate(hash)
+    rescue JSON::ParserError => _e
+      json_string
+    end
+  end
+
+  def datetime_ago_in_words(datetime)
+    created_at = datetime.strftime('%A at %H:%M, %B %d, %Y')
+    time_ago_in_words = distance_of_time_in_words(Time.zone.now, datetime)
+    "#{time_ago_in_words} ago on #{created_at}"
+  end
+
+  def download_link_to(url:, file_name:)
+    link_to(I18n.t('admin.download'), url, download: file_name)
+  end
+
+  def european_date(datetime)
+    datetime.strftime('%Y-%m-%d')
+  end
+
   def user_profile_image(user:, size: :medium)
     user.user_images.
       where(user: user, category: 'profile').
@@ -78,6 +101,34 @@ module AdminHelper
     link_to(
       name,
       admin_users_path + AdminHelpers::Link.query(:user_languages_language_id, language.id), # rubocop:disable Metrics/LineLength
+      class: 'user-badge-tag-link'
+    )
+  end
+
+  def user_interests_badges(user_interests:)
+    links = user_interests.map do |user_interest|
+      interest_badge(interest: user_interest.interest, user_interest: user_interest)
+    end
+
+    safe_join(links, ' ')
+  end
+
+  def interest_badge(interest:, user_interest: nil)
+    name = interest.name
+    if user_interest
+      level = user_interest.level || '-'
+      level_by_admin = user_interest.level_by_admin || '-'
+      html_parts = [
+        name,
+        nbsp_html,
+        "(#{level}/#{level_by_admin})"
+      ]
+      name = safe_join(html_parts, ' ')
+    end
+
+    link_to(
+      name,
+      admin_users_path + AdminHelpers::Link.query(:user_interests_interest_id, interest.id), # rubocop:disable Metrics/LineLength
       class: 'user-badge-tag-link'
     )
   end

@@ -5,6 +5,9 @@ class Chat < ApplicationRecord
   has_many :user_images, through: :users
   has_many :messages, dependent: :destroy
 
+  # NOTE: This is necessary for nested activeadmin has_many form
+  accepts_nested_attributes_for :messages
+
   MIN_USERS = 2
   MAX_USERS = 2
   NUMBER_OF_USERS_ERR_MSG = I18n.t(
@@ -12,6 +15,10 @@ class Chat < ApplicationRecord
     min: MIN_USERS,
     max: MAX_USERS
   )
+
+  def self.find_support_chat(user)
+    find_private_chat([User.main_support_user, user])
+  end
 
   def self.find_or_create_private_chat(users)
     find_private_chat(users) || create_private_chat(users)

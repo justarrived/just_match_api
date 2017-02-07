@@ -3,8 +3,8 @@ FactoryGirl.define do
   factory :skill_translation do
     name 'MyString'
     locale 'MyString'
-    language nil
-    skill nil
+    association :language
+    association :skill
   end
 end
 

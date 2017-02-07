@@ -12,6 +12,8 @@ module Api
         api_versions '1.0'
       end
 
+      ALLOWED_INCLUDES = %w(language).freeze
+
       api :GET, '/skills', 'List skills'
       description 'Returns a list of skills.'
       ApipieDocHelper.params(self, Index::SkillsIndex)

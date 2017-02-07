@@ -59,9 +59,11 @@ module Api
           param :education, String, desc: 'Education'
           param :competence_text, String, desc: 'Competences'
           param :email, String, desc: 'Email', required: true
-          param :phone, String, desc: 'Phone', required: true
+          param :phone, String, desc: 'Phone'
+          param :password, String, desc: 'Password'
           param :street, String, desc: 'Street'
           param :zip, String, desc: 'Zip code'
+          param :city, String, desc: 'City'
           param :ssn, String, desc: 'Social Security Number (10 characters)'
           param :ignored_notifications, Array, of: 'ignored notifications', desc: "List of ignored notifications. Any of: #{User::NOTIFICATIONS.map { |n| "`#{n}`" }.join(', ')}"
           param :company_id, Integer, desc: 'Company id for user'
@@ -98,8 +100,6 @@ module Api
         if @user.save
           login_user(@user)
 
-          sync_ff_user(@user)
-
           @user.set_translation(user_params).tap do |result|
             EnqueueCheapTranslation.call(result)
           end
@@ -121,6 +121,7 @@ module Api
           SetUserSkillsService.call(user: @user, skill_ids_param: skill_ids)
 
           UserWelcomeNotifier.call(user: @user) if @user.candidate?
+          sync_ff_user(@user)
 
           api_render(@user, status: :created)
         else
@@ -146,6 +147,7 @@ module Api
           param :phone, String, desc: 'Phone'
           param :street, String, desc: 'Street'
           param :zip, String, desc: 'Zip code'
+          param :city, String, desc: 'City'
           param :ssn, String, desc: 'Social Security Number (10 characters)'
           param :ignored_notifications, Array, of: 'ignored notifications', desc: "List of ignored notifications. Any of: #{User::NOTIFICATIONS.map { |n| "`#{n}`" }.join(', ')}"
           param :language_id, Integer, desc: 'Primary language id for user'
@@ -183,14 +185,13 @@ module Api
 
           @user.reload
 
-          sync_ff_user(@user)
-
           language_ids = jsonapi_params[:language_ids]
           SetUserLanguagesService.call(user: @user, language_ids_param: language_ids)
           skill_ids = jsonapi_params[:skill_ids]
           SetUserSkillsService.call(user: @user, skill_ids_param: skill_ids)
 
           @user.profile_image_token = jsonapi_params[:user_image_one_time_token]
+          sync_ff_user(@user)
 
           api_render(@user)
         else
@@ -349,7 +350,7 @@ module Api
       def user_params
         whitelist = [
           :first_name, :last_name, :email, :phone, :description, :job_experience,
-          :education, :ssn, :street, :zip, :language_id, :company_id,
+          :education, :ssn, :street, :city, :zip, :language_id, :company_id,
           :competence_text, :current_status, :at_und, :arrived_at, :country_of_origin,
           :account_clearing_number, :account_number, :skype_username,
           ignored_notifications: []

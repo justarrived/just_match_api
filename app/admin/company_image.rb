@@ -13,6 +13,19 @@ ActiveAdmin.register CompanyImage do
     actions
   end
 
+  form do |f|
+    f.inputs do
+      f.input :company
+      f.input :image, required: true, as: :file
+    end
+
+    f.actions
+  end
+
+  permit_params do
+    [:company_id, :image]
+  end
+
   controller do
     def scoped_collection
       super.includes(:company)

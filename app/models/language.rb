@@ -13,6 +13,13 @@ class Language < ApplicationRecord
   scope :ltr_languages, -> { where(direction: :ltr) }
   scope :machine_translation_languages, -> { system_languages.where(machine_translation: true) } # rubocop:disable Metrics/LineLength
 
+  def self.to_form_array(include_blank: false)
+    form_array = order(:en_name).pluck(:en_name, :id)
+    return form_array unless include_blank
+
+    [[I18n.t('admin.form.no_language_chosen'), nil]] + form_array
+  end
+
   def name_for(locale)
     public_send(:"#{locale}_name")
   end

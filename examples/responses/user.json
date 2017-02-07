@@ -22,6 +22,7 @@
       },
       "phone": "+46735000007",
       "street": "Bankgatan 14C",
+      "city": "Lund",
       "latitude": null,
       "longitude": null,
       "email": "person7@example.com",
@@ -31,8 +32,8 @@
       "admin": false,
       "anonymized": false,
       "ignored_notifications": [
-        "new_chat_message",
-        "new_job_comment"
+        "new_job_comment",
+        "failed_to_activate_invoice"
       ],
       "frilans_finans_payment_details": false,
       "ssn": "8901010000",

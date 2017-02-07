@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 class InvoiceMailer < ApplicationMailer
+  default from: DEFAULT_SUPPORT_EMAIL
+
   def invoice_created_email(user:, job:, owner:)
     @user_name = user.name
     @owner_name = owner.name

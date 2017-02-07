@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class SyncFrilansFinansUserJob
+class SyncFrilansFinansUserJob < ApplicationJob
   def perform(user:)
     SyncFrilansFinansUserService.call(user: user)
   end

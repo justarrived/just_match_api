@@ -4,7 +4,7 @@ class Message < ApplicationRecord
   belongs_to :author, class_name: 'User', foreign_key: 'author_id'
   belongs_to :language
 
-  validates :body, presence: true
+  validates :body, presence: true, on: :create
   validates :chat, presence: true
   validates :author, presence: true
   validates :language, presence: true

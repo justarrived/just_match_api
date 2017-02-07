@@ -13,6 +13,7 @@ en:
         subject: 'Admin notice: Failed to activate Frilans Finans invoice'
         notice: Failed to create a Frilans Finans invoice for %{id}
   errors:
+    unauthorized: You are not authorized to perform this action.
     bad_json_format: "There was a problem in the JSON you submitted: %{error_class}"
     rate_limit:
       details: Throttle limit reached. Retry later.
@@ -49,6 +50,7 @@ en:
       job_end_date_after_job_date: must be after job date
       hours_lower_bound: must be at least %{min_hours} hour(s) per day
       hours_upper_bound: can't be more than %{max_hours} hours per day
+      owner_must_belong_to_company: owner must belong to a company
     job_user:
       not_owner_of_job: can't be both job owner and job applicant
       multiple_applicants: can't accept multiple applicants
@@ -66,6 +68,7 @@ en:
       wrong_email_or_phone_or_password: wrong email, phone or password
     user:
       invalid_image_content_type: invalid content type for image
+      invalid_document_content_type: invalid content type %{type}
       wrong_password: wrong password
       password_length: password must have at least %{min_length} characters and no more than %{max_length}
       must_be_available_locale: must be a supported language
@@ -87,8 +90,10 @@ en:
       asylum_seeker_description: Asylum seeker
       permanent_residence: Permanent residence
       permanent_residence_description: Permanent residence
-      temporary_residence_work: Temporary residence for work
-      temporary_residence_work_description: 'Also called "tidsbegränsat uppehållstillstånd"'
+      temporary_residence: Temporary residence
+      temporary_residence_description: 'Also called "tidsbegränsat uppehållstillstånd"'
+      eu_citizen: EU Citizen
+      eu_citizen_description: You are a citizen of a country that is a member of the EU
       student_visa: Student visa
       student_visa_description: You have a Swedish student visa
   notifications:
@@ -107,18 +112,27 @@ en:
     job_match: Job match
     new_applicant_job_info: Job apply info
     applicant_will_perform_job_info: Job confirmation info
+    failed_to_activate_invoice: Failed to activate invoice
+  user_document:
+    categories:
+      cv: CV
+      cv_description: Your CV (Curriculum Vitae)
   user_image:
     categories:
       profile: Profile
       profile_description: Profile picture
-      swedish_id: Swedish ID
-      swedish_id_description: Picture of your Swedish identification.
-      work_permit: Work permit
-      work_permit_description: Picture of your work permit.
+      personal_id: Personal ID
+      personal_id_description: Picture of your personal identification.
+      work_permit_front: Work permit (front side)
+      work_permit_front_description: Picture of the front side of your work permit.
+      work_permit_back: Work permit (back side)
+      work_permit_back_description: Picture of the back side of your work permit.
       lma_card: LMA-card
       lma_card_description: Picture of your LMA-card for asylum seekers.
-      residence_permit: Residence permit
-      residence_permit_description: Picture of your residence permit
+      residence_permit_front: Residence permit (front side)
+      residence_permit_front_description: Picture of the front side your residence permit
+      residence_permit_back: Residence permit (back side)
+      residence_permit_back_description: Picture of the back side your residence permit
       skatteverket_certificate: Skatteverket certificate
       skatteverket_certificate_description: Picture of your Skatteverket certificate
   texter:

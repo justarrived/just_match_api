@@ -1,7 +1,24 @@
 # frozen_string_literal: true
 class JobRequest < ApplicationRecord
+  belongs_to :company, optional: true
+
   scope :finished, -> { where(finished: true) }
   scope :pending, -> { where(finished: false) }
+  scope :last_30_days, -> { where('created_at > ?', 30.days.ago) }
+
+  after_create :send_created_notice
+
+  def current_status_name
+    return 'Cancelled' if cancelled
+    return 'Finished' if finished
+    return 'Signed by customer' if signed_by_customer
+    return 'Draft sent' if draft_sent
+    'New'
+  end
+
+  def send_created_notice
+    NewJobRequestNotifier.call(job_request: self)
+  end
 end
 
 # == Schema Information
@@ -23,4 +40,22 @@ end
 #  updated_at            :datetime         not null
 #  short_name            :string
 #  finished              :boolean          default(FALSE)
+#  cancelled             :boolean          default(FALSE)
+#  draft_sent            :boolean          default(FALSE)
+#  signed_by_customer    :boolean          default(FALSE)
+#  requirements          :string
+#  hourly_pay            :string
+#  company_org_no        :string
+#  company_email         :string
+#  company_phone         :string
+#  company_id            :integer
+#  company_address       :string
+#
+# Indexes
+#
+#  index_job_requests_on_company_id  (company_id)
+#
+# Foreign Keys
+#
+#  fk_rails_53030c1fe0  (company_id => companies.id)
 #

@@ -10,7 +10,7 @@ class NewChatMessageNotifier < BaseNotifier
           chat: chat,
           message: message,
           author: author
-        ).deliver_later
+        )
       end
     end
   end

@@ -20,6 +20,7 @@ gem 'rack-timeout', '~> 0.4' # Kill requests that run for too long
 
 # BACKGROUND JOBS
 gem 'sidekiq', '~> 4.2' # Background worker (Redis-backed)
+gem 'sidekiq-statistic', '~> 1.2'
 
 # MONITORING
 gem 'airbrake', '~> 5.6' # Error catcher and reporter
@@ -50,6 +51,8 @@ gem 'uglifier', '~> 3.0' # Needed for activeadmin assets compilation
 gem 'frilans_finans_api', path: 'lib/frilans_finans_api' # Interact with Frilans Finans API
 
 # NOTIFICATIONS
+gem 'email_reply_parser', '~> 0.5' # Parse reply emails
+gem 'mail', '~> 2.6' # General email functionality
 gem 'twilio-ruby', '~> 4.11' # Send SMS notifications
 
 # GEO/LOCALE/LANGUAGE UTILS

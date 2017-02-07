@@ -5,7 +5,7 @@ RSpec.describe Api::V1::Jobs::ConfirmationsController, type: :controller do
   context '#create' do
     let(:user) { FactoryGirl.create(:user) }
     let(:job) { FactoryGirl.create(:job, owner: owner) }
-    let(:owner) { FactoryGirl.create(:user) }
+    let(:owner) { FactoryGirl.create(:company_user) }
     let(:job_user) { FactoryGirl.create(:job_user_accepted, job: job, user: user) }
 
     # Set the job_user as the logged in user

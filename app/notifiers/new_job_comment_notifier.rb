@@ -6,8 +6,7 @@ class NewJobCommentNotifier < BaseNotifier
 
     notify(user: owner, locale: owner.locale) do
       JobMailer.
-        new_job_comment_email(comment: comment, job: job).
-        deliver_later
+        new_job_comment_email(comment: comment, job: job)
     end
   end
 end

@@ -12,7 +12,7 @@ module Api
         api_versions '1.0'
       end
 
-      ALLOWED_INCLUDES = %w(company_images).freeze
+      ALLOWED_INCLUDES = %w(company_images users).freeze
 
       api :GET, '/companies', 'List companies'
       description 'Returns a list of companies.'

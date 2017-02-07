@@ -1,57 +1,35 @@
 # frozen_string_literal: true
 class MessageUsers
-  def self.call(type:, users:, template:, subject: nil)
-    new(type, users, template, subject).call
+  def self.call(type:, users:, template:, subject: nil, data: {}, &block)
+    new(type, users, template, subject, data, &block).call
   end
 
-  def initialize(type, users, template, subject)
+  def initialize(type, users, template, subject, data, &block)
     @type = type
     @users = users
     @template = template
     @subject = subject
+    @data = data
+    @block = block
   end
 
   def call
     @users.each do |user|
-      attributes = user.attributes.symbolize_keys
-      begin
-        message = @template % attributes
-        subject = @subject % attributes
-      rescue KeyError => e
-        return { success: false, message: "Unknown key: '#{e.message}'" }
+      I18n.with_locale(user.locale) do
+        response = MessageUser.call(
+          type: @type,
+          user: user,
+          template: @template,
+          subject: @subject,
+          data: @data
+        ) do |subject, message|
+          @block&.call(user, [subject, message].join("\n\n"))
+        end
+        return response unless response[:success]
       end
-
-      send_sms(user.phone, message)
-      send_email(user.email, subject, message)
     end
 
     { success: true, message: "Sending #{type_name} to #{@users.length} user(s)." }
-  end
-
-  def send_sms(phone, message)
-    return unless send_sms? && phone
-
-    from = AppSecrets.twilio_number
-    TexterJob.perform_later(from: from, to: phone, body: message)
-  end
-
-  def send_email(email, subject, message)
-    return unless send_email?
-
-    ActionMailer::Base.mail(
-      from: ApplicationMailer::NO_REPLY_EMAIL,
-      to: email,
-      subject: subject,
-      body: message
-    ).deliver_later
-  end
-
-  def send_sms?
-    @type == 'sms' || @type == 'both'
-  end
-
-  def send_email?
-    @type == 'email' || @type == 'both'
   end
 
   def type_name
