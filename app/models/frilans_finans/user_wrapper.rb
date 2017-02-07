@@ -4,7 +4,7 @@ module FrilansFinans
     def self.attributes(user)
       attrs = {
         email: user.email,
-        remote_id: user.id,
+        remote_id: user.id.to_s,
         street: user.street || '',
         city: user.city || '',
         zip: user.zip || '',

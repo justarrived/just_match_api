@@ -19,7 +19,7 @@ class CreateFrilansFinansInvoiceService
       express_payment: express_payment
     )
     # Idempotent invoice request http://developers.frilansfinans.xyz/#idempotent-requests
-    ff_invoice_attributes[:remote_id] = ff_invoice.id
+    ff_invoice_attributes[:remote_id] = ff_invoice.id.to_s
     ff_invoice_remote = FrilansFinansApi::Invoice.create(
       attributes: ff_invoice_attributes,
       client: client
