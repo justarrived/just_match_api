@@ -61,6 +61,7 @@ ar:
       banned: 'الإداري منعك من الدخول لأنك لم تحترم شروط الاستعمال رجاءً اتصل ب: help@justarrived'
       wrong_email_or_phone_or_password: خطأ في البريد الإلكتروني أو الهاتف أو كلمة السر
     user:
+      invalid_document_content_type: نوع محتوى الصورة %{type}
       must_be_valid_phone_number_format: يجب أن يكون رقم هاتف فعال
       must_be_swedish_phone_number: يجب أن يكون رقم هاتف سويدي ( +٤٦ )
       arrived_at_must_be_in_past: يجب أن يكون في الماضي
@@ -81,3 +82,9 @@ ar:
     user_job_match: عمل جديد مطابق
     job_cancelled: الوظيفة ألغيت
     new_chat_message: رسالة محادثة جديدة
+    new_job_comment: تعليق جديد على وظيفة
+    applicant_rejected: حصل شخص آخر على الفرصة هذه المرة
+    job_match: عمل جديد مطابق
+  texter:
+    magic_login_link:
+      login_line: لتسجيل الدخول الى JustArrived استخدم الرابط التالي %{url}
