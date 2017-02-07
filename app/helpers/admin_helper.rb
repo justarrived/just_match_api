@@ -133,13 +133,11 @@ module AdminHelper
     )
   end
 
-  def colored_badge_tag(name, color)
-    content_tag(
-      :span,
-      name,
-      class: 'user-badge-tag-link',
-      style: "background-color: #{color}"
-    )
+  def simple_badge_tag(name, color: nil)
+    options = { class: 'user-badge-tag-link' }
+    options[:style] = "background-color: #{color}" if color
+
+    content_tag(:span, name, options)
   end
 
   def nbsp_html

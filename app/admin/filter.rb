@@ -2,6 +2,44 @@
 ActiveAdmin.register Filter do
   menu parent: 'Filters'
 
+  show do
+    badge_name = lambda do |name, value, value_by_admin|
+      simple_badge_tag("#{name} (#{value || '-'}/#{value_by_admin || '-'})")
+    end
+
+    attributes_table do
+      row :id
+      row :name
+      row :updated_at { |filter| datetime_ago_in_words(filter.updated_at) }
+      row :created_at { |filter| datetime_ago_in_words(filter.created_at) }
+      row :skills do |filter|
+        skill_filters = filter.skill_filters.includes(skill: [:language, :translations])
+        badges = skill_filters.map do |sf|
+          badge_name.call(sf.skill.name, sf.proficiency, sf.proficiency_by_admin)
+        end
+        safe_join(badges, '')
+      end
+      row :languages do |filter|
+        badges = filter.language_filters.includes(:language).map do |lf|
+          badge_name.call(lf.language.name, lf.proficiency, lf.proficiency_by_admin)
+        end
+        safe_join(badges, '')
+      end
+      row :interests do |filter|
+        badges = filter.interest_filters.includes(:interest).map do |inf|
+          badge_name.call(inf.interest.name, inf.level, inf.level_by_admin)
+        end
+        safe_join(badges, '')
+      end
+
+      row :matching_user_count do |filter|
+        Queries::UserTraits.by_filter(filter).count
+      end
+    end
+
+    active_admin_comments
+  end
+
   form do |f|
     f.inputs do
       f.input :name
@@ -35,7 +73,12 @@ ActiveAdmin.register Filter do
   end
 
   permit_params do
-    [:name]
+    [
+      :name,
+      skill_filters_attributes: [:skill_id, :proficiency, :proficiency_by_admin],
+      language_filters_attributes: [:language_id, :proficiency, :proficiency_by_admin],
+      interest_filters_attributes: [:interest_id, :level, :level_by_admin]
+    ]
   end
 
   controller do
@@ -76,7 +119,7 @@ ActiveAdmin.register Filter do
           proficiency_by_admin: attrs[:proficiency_by_admin]
         }
       end
-      SetInterestFiltersService.call(
+      SetLanguageFiltersService.call(
         filter: filter, language_ids_param: language_ids_param
       )
       super
