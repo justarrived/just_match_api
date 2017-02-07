@@ -133,6 +133,7 @@ en:
         verified: 'Verified: %{verified}'
         tags: Tags
         skills: Skills
+        filters: In filters
         city: 'City: %{city}'
         candidate_summary: Candidate summary
         languages: Languages

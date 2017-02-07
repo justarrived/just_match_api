@@ -6,7 +6,6 @@ ActiveAdmin.register Filter do
     filter = resource
     message = I18n.t('admin.filter_user.update_users_notice')
     SetFilterUsersJob.perform_now(filter: filter)
-    # SetFilterUsersService.call(filter: filter)
     path = admin_filter_users_path + AdminHelpers::Link.query(:filter_id, filter.id) # rubocop:disable Metrics/LineLength
     redirect_to(path, notice: message)
   end

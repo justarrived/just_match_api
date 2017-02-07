@@ -2,6 +2,9 @@
 class Filter < ApplicationRecord
   validates :name, presence: true
 
+  has_many :filter_users
+  has_many :users, through: :filter_users
+
   has_many :skill_filters
   has_many :skills, through: :skill_filters
 
