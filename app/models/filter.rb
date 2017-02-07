@@ -15,6 +15,10 @@ class Filter < ApplicationRecord
   accepts_nested_attributes_for :interest_filters, allow_destroy: true
   accepts_nested_attributes_for :skill_filters, allow_destroy: true
   accepts_nested_attributes_for :language_filters, allow_destroy: true
+
+  def display_name
+    "##{id} #{name}"
+  end
 end
 
 # == Schema Information

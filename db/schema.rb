@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170202111816) do
+ActiveRecord::Schema.define(version: 20170207214156) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -217,6 +217,15 @@ ActiveRecord::Schema.define(version: 20170202111816) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.index ["language_id"], name: "index_faqs_on_language_id", using: :btree
+  end
+
+  create_table "filter_users", force: :cascade do |t|
+    t.integer  "filter_id"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["filter_id"], name: "index_filter_users_on_filter_id", using: :btree
+    t.index ["user_id"], name: "index_filter_users_on_user_id", using: :btree
   end
 
   create_table "filters", force: :cascade do |t|
@@ -736,6 +745,8 @@ ActiveRecord::Schema.define(version: 20170202111816) do
   add_foreign_key "faq_translations", "faqs"
   add_foreign_key "faq_translations", "languages"
   add_foreign_key "faqs", "languages"
+  add_foreign_key "filter_users", "filters"
+  add_foreign_key "filter_users", "users"
   add_foreign_key "frilans_finans_invoices", "job_users"
   add_foreign_key "interest_filters", "filters"
   add_foreign_key "interest_filters", "interests"

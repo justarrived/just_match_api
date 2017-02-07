@@ -14,6 +14,7 @@ end
 #
 #  id                   :integer          not null, primary key
 #  filter_id            :integer
+#  skill_id             :integer
 #  proficiency          :integer
 #  proficiency_by_admin :integer
 #  created_at           :datetime         not null
@@ -22,6 +23,7 @@ end
 # Indexes
 #
 #  index_skill_filters_on_filter_id  (filter_id)
+#  index_skill_filters_on_skill_id   (skill_id)
 #
 # Foreign Keys
 #

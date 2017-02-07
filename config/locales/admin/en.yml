@@ -18,6 +18,9 @@ en:
       no_job_chosen: 'No job chosen'
       no_language_chosen: 'No language chosen'
       no_interest_chosen: 'No interest chosen'
+    filter_user:
+      update_users_notice: User result is being updated (~1500 hits/sec).
+      update_users_btn: Refresh search
     filter:
       near_address: "Near address (add 'km: XX' for distance)"
     recent_users:

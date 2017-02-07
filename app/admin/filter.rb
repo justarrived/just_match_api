@@ -2,6 +2,21 @@
 ActiveAdmin.register Filter do
   menu parent: 'Filters'
 
+  member_action :update_users, method: :post do
+    filter = resource
+    message = I18n.t('admin.filter_user.update_users_notice')
+    SetFilterUsersJob.perform_now(filter: filter)
+    # SetFilterUsersService.call(filter: filter)
+    path = admin_filter_users_path + AdminHelpers::Link.query(:filter_id, filter.id) # rubocop:disable Metrics/LineLength
+    redirect_to(path, notice: message)
+  end
+
+  action_item :view, only: :show do
+    title = I18n.t('admin.filter_user.update_users_btn')
+    path = update_users_admin_filter_path(resource)
+    link_to title, path, method: :post
+  end
+
   show do
     badge_name = lambda do |name, value, value_by_admin|
       simple_badge_tag("#{name} (#{value || '-'}/#{value_by_admin || '-'})")
