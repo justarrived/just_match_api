@@ -5,11 +5,34 @@ RSpec.describe JobMailer, type: :mailer do
   let(:user) do
     tel = '+46735000000'
     mail = 'user@example.com'
-    mock_model(User, name: 'User', contact_email: mail, phone: tel)
+    mock_model(User, first_name: 'User', name: 'User', contact_email: mail, phone: tel)
   end
-  let(:owner) { mock_model User, name: 'Owner', contact_email: 'owner@example.com' }
-  let(:job) { mock_model Job, name: 'Job name', address: 'Sveavägen 1' }
+  let(:ja_contact) do
+    tel = '+46735000000'
+    mail = 'user@example.com'
+    mock_model(User, first_name: 'User', name: 'User', email: mail, phone: tel)
+  end
+  let(:owner) do
+    tel = '+46735000000'
+    mock_model User, name: 'Owner', contact_email: 'owner@example.com', phone: tel
+  end
   let(:job_user) { mock_model JobUser, user: user, job: job, id: 37 }
+  let(:job) do
+    mock_model(
+      Job,
+      name: 'Job name',
+      address: 'Sveavägen 1',
+      job_date: 1.day.ago,
+      job_end_date: 2.days.ago,
+      company_contact: owner,
+      just_arrived_contact: ja_contact,
+      hours: 2,
+      gross_amount: 200,
+      hourly_gross_salary: 100,
+      google_calendar_template_url: 'http://google.calendar.example.com',
+      hourly_pay: mock_model(HourlyPay, gross_salary: 100)
+    )
+  end
 
   describe '#job_match_email' do
     let(:mail) do
@@ -138,6 +161,37 @@ RSpec.describe JobMailer, type: :mailer do
     end
   end
 
+  describe '#new_applicant_job_info_email' do
+    let(:mail) do
+      described_class.new_applicant_job_info_email(job_user: job_user)
+    end
+
+    it 'has both text and html part' do
+      expect(mail).to be_multipart_email(true)
+    end
+
+    it 'renders the subject' do
+      subject = I18n.t('mailer.new_applicant_job_info.subject')
+      expect(mail.subject).to eql(subject)
+    end
+
+    it 'renders the receiver email' do
+      expect(mail.to).to eql([user.contact_email])
+    end
+
+    it 'renders the sender email' do
+      expect(mail.from).to eql(['support@email.justarrived.se'])
+    end
+
+    it 'includes @user_name in email body' do
+      expect(mail).to match_email_body(user.name)
+    end
+
+    it 'includes @job_name in email body' do
+      expect(mail).to match_email_body(job.name)
+    end
+  end
+
   describe '#applicant_accepted_email' do
     let(:mail) do
       described_class.applicant_accepted_email(job_user: job_user, owner: owner)
@@ -161,15 +215,31 @@ RSpec.describe JobMailer, type: :mailer do
     end
 
     it 'includes @user_name in email body' do
-      expect(mail).to match_email_body(user.name)
+      expect(mail).to match_email_body(user.first_name)
     end
 
-    it 'includes @owner_email in email body' do
-      expect(mail).to match_email_body(owner.contact_email)
+    it 'includes @confirmation_time_hours in email body' do
+      expect(mail).to match_email_body(JobUser::MAX_CONFIRMATION_TIME_HOURS.to_s)
     end
 
-    it 'includes @job_name in email body' do
-      expect(mail).to match_email_body(job.name)
+    it 'includes @confirmation_time_hours in email body' do
+      expect(mail).to match_email_body(JobUser::MAX_CONFIRMATION_TIME_HOURS.to_s)
+    end
+
+    it 'includes @total_hours in email body' do
+      expect(mail).to match_email_body(job.hours.to_s)
+    end
+
+    it 'includes @hourly_gross_salary in email body' do
+      expect(mail).to match_email_body(job.hourly_gross_salary.to_s)
+    end
+
+    it 'includes @total_salary in email body' do
+      expect(mail).to match_email_body(job.gross_amount.to_s)
+    end
+
+    it 'includes @job_address in email body' do
+      expect(mail).to match_email_body(job.address)
     end
 
     it 'includes job user url in email' do
@@ -223,6 +293,97 @@ RSpec.describe JobMailer, type: :mailer do
         job_user_id: job_user.id
       )
       expect(mail).to match_email_body(url)
+    end
+  end
+
+  describe '#applicant_will_perform_job_info_email' do
+    let(:mail) do
+      described_class.applicant_will_perform_job_info_email(job_user: job_user, owner: owner) # rubocop:disable Metrics/LineLength
+    end
+
+    it 'has both text and html part' do
+      expect(mail).to be_multipart_email(true)
+    end
+
+    it 'renders the subject' do
+      subject = I18n.t('mailer.applicant_will_perform_job_info.subject')
+      expect(mail.subject).to eql(subject)
+    end
+
+    it 'renders the receiver email' do
+      expect(mail.to).to eql([user.contact_email])
+    end
+
+    it 'renders the sender email' do
+      expect(mail.from).to eql(['support@email.justarrived.se'])
+    end
+
+    it 'includes @user_name in email body' do
+      expect(mail).to match_email_body(user.name)
+    end
+
+    it 'includes @job_name in email body' do
+      expect(mail).to match_email_body(job.name)
+    end
+
+    it 'includes @address in email body' do
+      expect(mail).to match_email_body(job.address)
+    end
+
+    it 'includes @contact_person_name in email body' do
+      expect(mail).to match_email_body(owner.name)
+    end
+
+    it 'includes @contact_person_phone in email body' do
+      expect(mail).to match_email_body(owner.phone)
+    end
+
+    it 'includes @ja_contact_name in email body' do
+      expect(mail).to match_email_body(ja_contact.name)
+    end
+
+    it 'includes @ja_contact_phone in email body' do
+      expect(mail).to match_email_body(ja_contact.phone)
+    end
+
+    it 'includes @ja_contact_email in email body' do
+      expect(mail).to match_email_body(ja_contact.email)
+    end
+
+    it 'includes job user url in email' do
+      url = FrontendRouter.draw(
+        :job_user,
+        job_id: job.id,
+        job_user_id: job_user.id
+      )
+      expect(mail).to match_email_body(url)
+    end
+  end
+
+  describe '#applicant_rejected_email' do
+    let(:mail) do
+      described_class.applicant_rejected_email(job_user: job_user)
+    end
+
+    it 'has both text and html part' do
+      expect(mail).to be_multipart_email(true)
+    end
+
+    it 'renders the subject' do
+      subject = I18n.t('mailer.applicant_rejected.subject')
+      expect(mail.subject).to eql(subject)
+    end
+
+    it 'renders the receiver email' do
+      expect(mail.to).to eql([job_user.user.contact_email])
+    end
+
+    it 'renders the sender email' do
+      expect(mail.from).to eql(['support@email.justarrived.se'])
+    end
+
+    it 'includes @job_name in email body' do
+      expect(mail).to match_email_body(job.name)
     end
   end
 

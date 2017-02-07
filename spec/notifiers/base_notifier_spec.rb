@@ -19,6 +19,18 @@ RSpec.describe BaseNotifier do
       expect(I18n.locale).to eq(start_locale)
     end
 
+    context 'ignored notification' do
+      it 'does *not* yield to block if notification is ignored' do
+        fake_user_klass = Class.new do
+          def ignored_notification?(_); true; end
+        end
+
+        expect do
+          described_class.notify(user: fake_user_klass.new) { fail('Error') }
+        end.not_to raise_error
+      end
+    end
+
     context 'Redis connection error' do
       let(:error_mailer) do
         Class.new do

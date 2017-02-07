@@ -190,6 +190,7 @@ Address: #{company.address}
 
   # [DEPRECATED] please use #gross_amount instead
   def amount
+    ActiveSupport::Deprecation.warn('User#amount has been depreceted, please use User#gross_salary instead') # rubocop:disable Metrics/LineLength
     gross_amount
   end
 
@@ -241,6 +242,10 @@ Address: #{company.address}
 
   def applicants
     job_users
+  end
+
+  def hourly_gross_salary
+    hourly_pay.gross_salary
   end
 
   def started?

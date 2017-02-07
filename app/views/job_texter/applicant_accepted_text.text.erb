@@ -1,8 +1,8 @@
-<%= I18n.t('mailer.applicant_accepted.congrats_line', name: @user_name) %>
-
-<%= I18n.t('mailer.applicant_accepted.accepted_line') %>
-<%= I18n.t('mailer.applicant_accepted.job_line', name: @job_name, address: @job_address) %>
-
-<%= @job_user_url %>
+<%= I18n.t(
+  'mailer.applicant_accepted.sms',
+  confirmation_time_hours: @confirmation_time_hours,
+  job_name: @job_name,
+  job_user_url: @job_user_url
+) %>
 
 <%= I18n.t('mailer.signoff') %>

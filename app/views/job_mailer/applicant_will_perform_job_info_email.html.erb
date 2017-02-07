@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <%= simple_format I18n.t(
+      'mailer.applicant_will_perform_job_info.body',
+      name: @user_name,
+      job_name: @job_name,
+      address: address_to(@address),
+      job_start_date: @job_start_date,
+      contact_person_name: @contact_person_name,
+      contact_person_phone: phone_to(@contact_person_phone),
+      ja_contact_name: @ja_contact_name,
+      ja_contact_phone: phone_to(@ja_contact_phone),
+      ja_contact_email: mail_to(@ja_contact_email),
+      job_user_url: link_to(@job_user_url, @job_user_url)
+    ).html_safe %>
+
+    <p><%= I18n.t('mailer.signoff') %></p>
+  </body>
+</html>

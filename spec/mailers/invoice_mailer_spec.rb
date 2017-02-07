@@ -32,8 +32,8 @@ RSpec.describe InvoiceMailer, type: :mailer do
       expect(mail).to match_email_body(user.name)
     end
 
-    it 'includes @owner_name in email body' do
-      expect(mail).to match_email_body(owner.name)
+    it 'includes @payslip_explain_url in email body' do
+      expect(mail).to match_email_body(AppConfig.payslip_explain_url)
     end
 
     it 'includes @job_name in email body' do

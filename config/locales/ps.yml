@@ -35,10 +35,6 @@ ps:
       user_allowed_to_rate: باید د دندې مالک وي یا منل شوی کارونکی
     user_session:
       banned: یوه مدیر تاسې بلاک کړي یاست ځکه چې تاسې د کارونکي شرایط ندي تعقیب کړي. مهرباني وکړئ د help@justarrived سره اړیکه ونیسئ.
-      wrong_email_or_phone_or_password: غلط بریښنالیک یا رمز
-    user:
-      password_length: رمز باید لږترلږه %{count} توری وي
-      must_be_available_locale: ستاسې ژبه بدبختانه نده ملاتړ شوې
     validators:
       after_true: '%{field} باید صحیح وي'
       unrevertable: '%{field} بیرته نشي زیرمه کیدی'

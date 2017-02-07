@@ -4,4 +4,5 @@ class ApplicationMailer < ActionMailer::Base
   DEFAULT_SUPPORT_EMAIL = 'Just Arrived <support@email.justarrived.se>'
   DEFAULT_EMAIL = NO_REPLY_EMAIL
   default from: DEFAULT_EMAIL
+  helper :mailer
 end

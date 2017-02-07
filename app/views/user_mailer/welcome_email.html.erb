@@ -4,12 +4,13 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h3><%= I18n.t('mailer.welcome.body_header', name: @user_name) %></h3>
-    <p><%= I18n.t('mailer.welcome.body_line') %></p>
-
-    <p><a href="<%= @login_url %>"><%= @login_url %></a></p>
-
-    <p><a href="<%= @faqs_url %>"><%= @faqs_url %></a></p>
+    <%= simple_format I18n.t(
+      'mailer.welcome.body',
+      user_name: @user_name,
+      faq_url:  link_to(@faqs_url, @faqs_url),
+      login_url: link_to(@login_url, @login_url),
+      cv_template_url: link_to(@cv_template_url, @cv_template_url)
+    ).html_safe %>
 
     <p><%= I18n.t('mailer.signoff') %></p>
   </body>

@@ -37,10 +37,6 @@ fa:
       user_allowed_to_rate: باید فرد دارای کار یا متقاضی تأیید شده، باشد
     user_session:
       banned: یک "ادمین" شما را بخاطر عدم رعایت شرایط قرارداد یا عدم رعایت مقررات رفتاری تحریم کرده است. لطفاً با ایمیل help@justarrived.se تماس بگیرید تا این مشکل رفع شود
-      wrong_email_or_phone_or_password: ایمیل یا گذر واژه اشتباه است
-    user:
-      password_length: گذر واژه باید دارای حداقل %{count} کاراکتر باشد
-      must_be_available_locale: باید یک زبان موجود در سیستم باشد
     validators:
       after_true: '%{field} باید صحیح باشد'
       unrevertable: نمی توان بازگشت %{field}
