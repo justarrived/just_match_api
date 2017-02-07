@@ -15,8 +15,7 @@ class ApplicantWillPerformNotifier < BaseNotifier
 
       notify(user: job_user.user, name: :applicant_rejected) do
         JobMailer.
-          applicant_rejected_email(job_user: job_user).
-          deliver_later
+          applicant_rejected_email(job_user: job_user)
       end
     end
   end
@@ -25,8 +24,7 @@ class ApplicantWillPerformNotifier < BaseNotifier
     user = job_user.user
     notify(user: user, locale: user.locale) do
       JobMailer.
-        applicant_will_perform_job_info_email(job_user: job_user, owner: owner).
-        deliver_later
+        applicant_will_perform_job_info_email(job_user: job_user, owner: owner)
     end
   end
 

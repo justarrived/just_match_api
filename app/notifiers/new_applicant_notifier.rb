@@ -8,9 +8,7 @@ class NewApplicantNotifier < BaseNotifier
 
     user = job_user.user
     notify(user: user, locale: user.locale) do
-      JobMailer.
-        new_applicant_job_info_email(job_user: job_user).
-        deliver_later
+      JobMailer.new_applicant_job_info_email(job_user: job_user)
     end
   end
 end
