@@ -265,6 +265,17 @@ ActiveAdmin.register User do
 
             h3 I18n.t('admin.user.show.verified', verified: user.verified)
 
+            h3 I18n.t('admin.user.show.filters')
+            div do
+              content_tag(:p) do
+                filter_links = user.filters.map do |filter|
+                  path = admin_filter_users_path + AdminHelpers::Link.query(:filter_id, filter.id) # rubocop:disable Metrics/LineLength
+                  simple_badge_tag(link_to(filter.name, path))
+                end
+                safe_join(filter_links, '')
+              end
+            end
+
             unless user.jobs.ongoing.empty?
               h3 I18n.t('admin.user.show.ongoing_jobs')
               table_for(user.jobs.ongoing) do
