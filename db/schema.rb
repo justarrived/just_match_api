@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170207214156) do
+ActiveRecord::Schema.define(version: 20170207231824) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -304,9 +304,9 @@ ActiveRecord::Schema.define(version: 20170207214156) do
   create_table "interests", force: :cascade do |t|
     t.string   "name"
     t.integer  "language_id"
-    t.boolean  "internal"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.boolean  "internal",    default: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.index ["language_id"], name: "index_interests_on_language_id", using: :btree
   end
 
@@ -343,8 +343,8 @@ ActiveRecord::Schema.define(version: 20170207214156) do
     t.string   "company_org_no"
     t.string   "company_email"
     t.string   "company_phone"
-    t.integer  "company_id"
     t.string   "company_address"
+    t.integer  "company_id"
     t.index ["company_id"], name: "index_job_requests_on_company_id", using: :btree
   end
 
@@ -772,6 +772,7 @@ ActiveRecord::Schema.define(version: 20170207214156) do
   add_foreign_key "jobs", "users", column: "just_arrived_contact_user_id", name: "jobs_just_arrived_contact_user_id_fk"
   add_foreign_key "jobs", "users", column: "owner_user_id", name: "jobs_owner_user_id_fk"
   add_foreign_key "language_filters", "filters"
+  add_foreign_key "language_filters", "languages", name: "language_filters_language_id_fk"
   add_foreign_key "message_translations", "languages"
   add_foreign_key "message_translations", "messages"
   add_foreign_key "messages", "chats"
@@ -781,6 +782,7 @@ ActiveRecord::Schema.define(version: 20170207214156) do
   add_foreign_key "ratings", "users", column: "from_user_id", name: "ratings_from_user_id_fk"
   add_foreign_key "ratings", "users", column: "to_user_id", name: "ratings_to_user_id_fk"
   add_foreign_key "skill_filters", "filters"
+  add_foreign_key "skill_filters", "skills", name: "skill_filters_skill_id_fk"
   add_foreign_key "skill_translations", "languages"
   add_foreign_key "skill_translations", "skills"
   add_foreign_key "skills", "languages"
