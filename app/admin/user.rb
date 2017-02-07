@@ -354,7 +354,8 @@ ActiveAdmin.register User do
       end
     end
 
-    support_chat = Chat.find_support_chat(user)
+    support_chat = Chat.includes(messages: [:translations, :author, :language]).
+                   find_support_chat(user)
     if support_chat
       locals = { support_chat: support_chat }
       render partial: 'admin/chats/latest_messages', locals: locals
