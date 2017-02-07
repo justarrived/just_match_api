@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
-RSpec.describe Queries::FilterUserTraits do
+RSpec.describe Queries::UserTraits do
   describe '::by_filter' do
     it 'returns matching users' do
       filter = FactoryGirl.create(:filter)
