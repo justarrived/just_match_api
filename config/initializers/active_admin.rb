@@ -228,10 +228,9 @@ ActiveAdmin.setup do |config|
       menu.add label: 'Users', priority: 3
       menu.add label: 'Filters', priority: 4
       # rubocop:disable Metrics/LineLength
-      menu.add label: 'Invoices', priority: 6, if: proc { current_active_admin_user.super_admin? }
-      menu.add label: 'Settings', priority: 8, if: proc { current_active_admin_user.super_admin? }
-      menu.add label: 'Misc', priority: 9, if: proc { current_active_admin_user.super_admin? }
-      menu.add label: 'Frilans Finans', priority: 10, if: proc { current_active_admin_user.super_admin? }
+      menu.add label: 'Invoices', priority: 8, if: proc { current_active_admin_user.super_admin? }
+      menu.add label: 'Settings', priority: 9, if: proc { current_active_admin_user.super_admin? }
+      menu.add label: 'Misc', priority: 10, if: proc { current_active_admin_user.super_admin? }
       # rubocop:enable Metrics/LineLength
     end
   end
