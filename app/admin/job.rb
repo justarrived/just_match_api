@@ -80,7 +80,9 @@ ActiveAdmin.register Job do
       description: permitted_params.dig(:job, :description),
       short_description: permitted_params.dig(:job, :short_description)
     }
-    job.set_translation(translation_params)
+    job.set_translation(translation_params).tap do |result|
+      EnqueueCheapTranslation.call(result)
+    end
   end
 
   action_item :view, only: :show do
