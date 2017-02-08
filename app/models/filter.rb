@@ -2,16 +2,16 @@
 class Filter < ApplicationRecord
   validates :name, presence: true
 
-  has_many :filter_users
+  has_many :filter_users, dependent: :destroy
   has_many :users, through: :filter_users
 
-  has_many :skill_filters
+  has_many :skill_filters, dependent: :destroy
   has_many :skills, through: :skill_filters
 
-  has_many :language_filters
+  has_many :language_filters, dependent: :destroy
   has_many :languages, through: :language_filters
 
-  has_many :interest_filters
+  has_many :interest_filters, dependent: :destroy
   has_many :interests, through: :interest_filters
 
   # NOTE: This is necessary for nested activeadmin has_many form

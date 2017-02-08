@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 ActiveAdmin.register FilterUser do
-  menu parent: 'Filters'
+  menu parent: 'Filters', priority: 2
 
   filter :filter
   filter :created_at
