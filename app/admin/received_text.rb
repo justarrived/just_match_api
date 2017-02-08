@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 ActiveAdmin.register ReceivedText do
-  menu parent: 'Misc'
+  menu parent: 'Misc', priority: 4
 
   index do
     column :from_number

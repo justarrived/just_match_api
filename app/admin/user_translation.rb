@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 ActiveAdmin.register UserTranslation do
-  menu parent: 'Translations'
+  menu parent: 'Misc'
 
   filter :user
   filter :language, collection: -> { Language.system_languages.order(:en_name) }

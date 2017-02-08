@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 ActiveAdmin.register CompanyImage do
-  menu parent: 'Misc'
+  menu parent: 'Misc', priority: 3
 
   index do
     selectable_column
