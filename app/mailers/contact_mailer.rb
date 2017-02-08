@@ -4,6 +4,6 @@ class ContactMailer < ApplicationMailer
     @subject = ['Mail from', name, email].join(' ')
     @body = body
 
-    mail(to: DEFAULT_EMAIL, subject: @subject)
+    mail(to: 'support@justarrived.se', subject: @subject)
   end
 end
