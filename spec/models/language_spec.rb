@@ -9,7 +9,7 @@ RSpec.describe Language, type: :model do
     end
 
     it 'returns English fallback name for locale if name does not exist in that locale' do
-      lang = FactoryGirl.build(:language, sv_name: nil, en_name: 'English')
+      lang = FactoryGirl.build(:language, sv_name: '', en_name: 'English')
       expect(lang.name_for(:sv)).to eq('English')
     end
 
