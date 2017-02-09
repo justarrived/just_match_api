@@ -3,6 +3,18 @@
 HEAD
 -----------
 
+v1.1 - 2017-02-09
+-----------
+- Update frontend routes
+- Don't crash if job can't be updated in confirmations controller
+- Update contact mailer recipient
+- _Admin_:
+  + Update nav+menu
+  + Remove Frilans Finans from menu navigation
+  + Enqueue translations on job save
+  + Re-structure admin menu navigation
+
+
 v1.0 - 2017-02-08 :tada:
 -----------
 - Filter
