@@ -21,7 +21,7 @@ class Language < ApplicationRecord
   end
 
   def name_for(locale)
-    public_send(:"#{locale}_name")
+    public_send(:"#{locale}_name") || en_name || local_name
   end
 
   def name
