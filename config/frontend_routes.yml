@@ -1,12 +1,12 @@
 routes:
-  base_url: 'https://app.justarrived.se/#/'
-  reset_password: 'reset_password/%{token}'
-  login: 'user/signin'
+  base_url: 'https://app.justarrived.se/'
+  reset_password: 'reset-password/%{token}'
+  login: 'login'
   magic_login_link: 'user/magic-login/%{token}'
-  job: 'jobs/%{id}'
-  jobs: 'jobs'
+  job: 'job/%{id}'
+  jobs: 'jobs/1' # 1 is the page number (and is needed, will 404 otherwise)
   faqs: 'faq'
   job_user_for_company: 'company/job/%{job_id}/candidate/%{job_user_id}'
   job_users: 'company/job/%{job_id}/candidates'
-  job_user: 'arriver/job/%{job_id}'
+  job_user: 'job/%{job_id}'
   chat: 'chat/%{id}'

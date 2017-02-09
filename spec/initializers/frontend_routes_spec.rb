@@ -3,7 +3,7 @@ require 'rails_helper'
 
 RSpec.describe FrontendRoutesReader do
   subject { described_class.new }
-  let(:base_url) { 'https://app.justarrived.se/#/' }
+  let(:base_url) { 'https://app.justarrived.se/' }
 
   it 'can read routes file' do
     expect(subject.routes).to be_a(Hash)
@@ -19,7 +19,7 @@ RSpec.describe FrontendRoutesReader do
 
   it 'returns login route' do
     result = subject.draw(:login)
-    expected = "#{base_url}user/signin"
+    expected = "#{base_url}login"
     expect(result).to eq(expected)
   end
 
@@ -38,13 +38,13 @@ RSpec.describe FrontendRoutesReader do
 
   it 'returns route for a single job' do
     result = subject.draw(:job, id: 1)
-    expected = "#{base_url}jobs/1"
+    expected = "#{base_url}job/1"
     expect(result).to eq(expected)
   end
 
   it 'returns route for jobs' do
     result = subject.draw(:jobs)
-    expected = "#{base_url}jobs"
+    expected = "#{base_url}jobs/1"
     expect(result).to eq(expected)
   end
 
@@ -62,14 +62,14 @@ RSpec.describe FrontendRoutesReader do
 
   it 'returns route for a job user' do
     result = subject.draw(:job_user, job_id: 1)
-    expected = "#{base_url}arriver/job/1"
+    expected = "#{base_url}job/1"
     expect(result).to eq(expected)
   end
 
   it 'returns reset password route' do
     token = 'asd'
     result = subject.draw(:reset_password, token: token)
-    expected = "#{base_url}reset_password/#{token}"
+    expected = "#{base_url}reset-password/#{token}"
     expect(result).to eq(expected)
   end
 end
