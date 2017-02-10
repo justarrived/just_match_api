@@ -29,7 +29,7 @@ module Api
           authorize(UserSkill)
 
           user_skills_index = Index::UserSkillsIndex.new(self)
-          @user_skills = user_skills_index.user_skills(@user.user_skills)
+          @user_skills = user_skills_index.user_skills(@user.user_skills.visible)
 
           api_render(@user_skills, total: user_skills_index.count)
         end
