@@ -3,6 +3,19 @@
 HEAD
 -----------
 
+v1.2 - 2017-02-11
+-----------
+
+- Allow deletion of user traits unless an admin has touched them
+- Scope user skills/interests/languages to the ones with a value set by the user
+- Only return user interests with level
+- Only return user languages with proficiency
+- Only return user skills with proficiency
+- Update Language#name_for to check not only for nil but blank?
+- _API_: Sort languages on name
+- `Language#name_for` locale fallback
+
+
 v1.1 - 2017-02-09
 -----------
 - Update frontend routes
