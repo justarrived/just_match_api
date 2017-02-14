@@ -3,6 +3,16 @@
 HEAD
 -----------
 
+- _Update gems_:
+  + `airbrake`
+  + `aws-sdk`
+  + `blazer`
+  + `geocoder`
+  + `rails-i18n`
+  + `kaminari`
+  + `activeadmin`
+  + `inherited_resources`
+
 v1.3 - 2017-02-14
 -----------
 - `User#gender`
