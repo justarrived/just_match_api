@@ -641,15 +641,27 @@ ActiveAdmin.register User do
     image_tag(profile_image, class: 'sidebar-image') if profile_image
   end
 
+  SET_USER_TRANSLATION = lambda do |user, permitted_params|
+    return unless user.persisted? && user.valid?
+
+    translation_params = {
+      description: permitted_params.dig(:user, :description),
+      job_experience: permitted_params.dig(:user, :job_experience),
+      education: permitted_params.dig(:user, :education),
+      competence_text: permitted_params.dig(:user, :competence_text)
+    }
+    user.set_translation(translation_params).tap do |result|
+      EnqueueCheapTranslation.call(result)
+    end
+  end
+
+  after_create do |user|
+    SET_USER_TRANSLATION.call(user, permitted_params)
+  end
+
   after_save do |user|
-    if user.persisted?
-      translation_params = {
-        description: permitted_params.dig(:user, :description),
-        job_experience: permitted_params.dig(:user, :job_experience),
-        education: permitted_params.dig(:user, :education),
-        competence_text: permitted_params.dig(:user, :competence_text)
-      }
-      user.set_translation(translation_params)
+    if user.persisted? && user.valid?
+      SET_USER_TRANSLATION.call(user, permitted_params)
       SyncFrilansFinansUserJob.perform_later(user: user)
     end
   end

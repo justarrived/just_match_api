@@ -45,12 +45,24 @@ ActiveAdmin.register CommunicationTemplate do
     f.actions
   end
 
-  after_save do |template|
+  SET_TEMPLATE_TRANSLATION = lambda do |template, permitted_params|
+    return unless template.persisted? && template.valid?
+
     template.set_translation(
       name: permitted_params.dig(:communication_template, :name),
       subject: permitted_params.dig(:communication_template, :subject),
       body: permitted_params.dig(:communication_template, :body)
-    )
+    ).tap do |result|
+      EnqueueCheapTranslation.call(result)
+    end
+  end
+
+  after_create do |template|
+    SET_TEMPLATE_TRANSLATION.call(template, permitted_params)
+  end
+
+  after_save do |template|
+    SET_TEMPLATE_TRANSLATION.call(template, permitted_params)
   end
 
   permit_params do
