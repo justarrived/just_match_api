@@ -3,9 +3,16 @@
 HEAD
 -----------
 
+v1.3 - 2017-02-14
+-----------
+- `User#gender`
+  - Add to permitted params & expose in API
+  - Add User#gender field to DB
+- :hocho: test failures for user interests/languages/skills controller
+- _Admin_: Improved translations & machine translations
+
 v1.2 - 2017-02-11
 -----------
-
 - Allow deletion of user traits unless an admin has touched them
 - Scope user skills/interests/languages to the ones with a value set by the user
 - Only return user interests with level
