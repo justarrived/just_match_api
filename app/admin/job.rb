@@ -74,7 +74,7 @@ ActiveAdmin.register Job do
 
   include AdminHelpers::MachineTranslation::Actions
 
-  after_save do |job|
+  SET_JOB_TRANSLATION = lambda do |job, permitted_params|
     translation_params = {
       name: permitted_params.dig(:job, :name),
       description: permitted_params.dig(:job, :description),
@@ -83,6 +83,14 @@ ActiveAdmin.register Job do
     job.set_translation(translation_params).tap do |result|
       EnqueueCheapTranslation.call(result)
     end
+  end
+
+  after_create do |job|
+    SET_JOB_TRANSLATION.call(job, permitted_params) if job.valid?
+  end
+
+  after_save do |job|
+    SET_JOB_TRANSLATION.call(job, permitted_params) if job.persisted? && job.valid?
   end
 
   action_item :view, only: :show do
