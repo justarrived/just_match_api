@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170207231824) do
+ActiveRecord::Schema.define(version: 20170214093037) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -304,9 +304,9 @@ ActiveRecord::Schema.define(version: 20170207231824) do
   create_table "interests", force: :cascade do |t|
     t.string   "name"
     t.integer  "language_id"
-    t.boolean  "internal",    default: false
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.boolean  "internal"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
     t.index ["language_id"], name: "index_interests_on_language_id", using: :btree
   end
 
@@ -343,8 +343,8 @@ ActiveRecord::Schema.define(version: 20170207231824) do
     t.string   "company_org_no"
     t.string   "company_email"
     t.string   "company_phone"
-    t.string   "company_address"
     t.integer  "company_id"
+    t.string   "company_address"
     t.index ["company_id"], name: "index_job_requests_on_company_id", using: :btree
   end
 
@@ -720,6 +720,7 @@ ActiveRecord::Schema.define(version: 20170207231824) do
     t.datetime "interviewed_at"
     t.boolean  "just_arrived_staffing",            default: false
     t.boolean  "super_admin",                      default: false
+    t.integer  "gender"
     t.index ["company_id"], name: "index_users_on_company_id", using: :btree
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["frilans_finans_id"], name: "index_users_on_frilans_finans_id", unique: true, using: :btree

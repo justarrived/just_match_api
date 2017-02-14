@@ -136,6 +136,7 @@ end
 #  interviewed_at                   :datetime
 #  just_arrived_staffing            :boolean          default(FALSE)
 #  super_admin                      :boolean          default(FALSE)
+#  gender                           :integer
 #
 # Indexes
 #

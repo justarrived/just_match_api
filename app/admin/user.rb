@@ -408,6 +408,7 @@ ActiveAdmin.register User do
         f.input :password, hint: I18n.t('admin.user.form.password.hint')
         f.input :first_name
         f.input :last_name
+        f.input :gender
         f.input :language, hint: I18n.t('admin.user.form.language.hint')
         f.input :phone
         f.input :ssn
@@ -485,6 +486,7 @@ ActiveAdmin.register User do
         f.input :password
         f.input :first_name
         f.input :last_name
+        f.input :gender
         f.input :language
         f.input :company
         f.input :managed, hint: I18n.t('admin.user.form.managed.hint')

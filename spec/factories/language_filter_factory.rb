@@ -27,5 +27,6 @@ end
 #
 # Foreign Keys
 #
-#  fk_rails_39bd0771e8  (filter_id => filters.id)
+#  fk_rails_39bd0771e8              (filter_id => filters.id)
+#  language_filters_language_id_fk  (language_id => languages.id)
 #

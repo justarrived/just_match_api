@@ -26,6 +26,12 @@ class User < ApplicationRecord
     no: 2
   }.freeze
 
+  GENDER = {
+    female: 1,
+    male: 2,
+    other: 3
+  }.freeze
+
   attr_accessor :password
 
   after_validation :set_normalized_phone, :set_normalized_ssn, :set_normalized_email, :set_normalized_bank_account # rubocop:disable Metrics/LineLength
@@ -112,10 +118,11 @@ class User < ApplicationRecord
   scope :not_anonymized, -> { where(anonymized: false) }
   scope :verified, -> { where(verified: true) }
 
-  # NOTE: Figure out a good way to validate :current_status and :at_und
+  # NOTE: Figure out a good way to validate :current_status, :at_und and :gender
   #       see https://github.com/rails/rails/issues/13971
   enum current_status: STATUSES
   enum at_und: AT_UND
+  enum gender: GENDER
 
   include Translatable
   translates :description, :job_experience, :education, :competence_text
@@ -545,6 +552,7 @@ end
 #  interviewed_at                   :datetime
 #  just_arrived_staffing            :boolean          default(FALSE)
 #  super_admin                      :boolean          default(FALSE)
+#  gender                           :integer
 #
 # Indexes
 #
