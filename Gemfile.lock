@@ -19,9 +19,10 @@ GIT
 
 GIT
   remote: https://github.com/activeadmin/inherited_resources
-  revision: f04e0422213fb9e585c252db312c79e33399c8cc
+  revision: 4434f0ae72f790cf371728838c927c338100555d
+  ref: 4434f0ae72f790cf371728838c927c338100555d
   specs:
-    inherited_resources (1.7.0)
+    inherited_resources (1.6.0)
       actionpack (>= 3.2, < 5.1)
       has_scope (~> 0.6)
       railties (>= 3.2, < 5.1)
@@ -395,9 +396,18 @@ GEM
     jsonapi-parser (0.1.1.beta3)
     jsonapi-renderer (0.1.1.beta1)
     jwt (1.5.6)
-    kaminari (0.17.0)
-      actionpack (>= 3.0.0)
-      activesupport (>= 3.0.0)
+    kaminari (1.0.1)
+      activesupport (>= 4.1.0)
+      kaminari-actionview (= 1.0.1)
+      kaminari-activerecord (= 1.0.1)
+      kaminari-core (= 1.0.1)
+    kaminari-actionview (1.0.1)
+      actionview
+      kaminari-core (= 1.0.1)
+    kaminari-activerecord (1.0.1)
+      activerecord
+      kaminari-core (= 1.0.1)
+    kaminari-core (1.0.1)
     launchy (2.4.3)
       addressable (~> 2.3)
     letter_opener (1.4.1)
@@ -670,7 +680,7 @@ DEPENDENCIES
   immigrant (~> 0.3)
   inherited_resources!
   json_api_helpers!
-  kaminari (~> 0.17)
+  kaminari (~> 1.0)
   letter_opener (~> 1.4)
   listen (~> 3.1)
   mail (~> 2.6)
