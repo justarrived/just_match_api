@@ -38,7 +38,7 @@ ActiveAdmin.register FrilansFinansApiLog do
       row :params do |log|
         content_tag :pre, begin
           hash = JSON.parse(log.params)
-          hash['body'] = JSON.parse(hash['body'])
+          hash['body'] = JSON.parse(hash['body'] || '{}')
           JSON.pretty_generate(hash)
         rescue JSON::ParserError => _e
           log.params
