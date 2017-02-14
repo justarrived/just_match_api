@@ -4,8 +4,18 @@ ActiveAdmin.register Skill do
 
   include AdminHelpers::MachineTranslation::Actions
 
-  after_save do |skill|
+  SET_SKILL_TRANSLATION = lambda do |skill, permitted_params|
     skill.set_translation(name: permitted_params.dig(:skill, :name))
+  end
+
+  after_create do |skill|
+    SET_SKILL_TRANSLATION.call(skill, permitted_params).tap do |result|
+      EnqueueCheapTranslation.call(result)
+    end
+  end
+
+  after_save do |skill|
+    SET_SKILL_TRANSLATION.call(skill, permitted_params)
   end
 
   permit_params do

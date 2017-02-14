@@ -127,11 +127,21 @@ ActiveAdmin.register JobUser do
     end
   end
 
-  after_save do |job_user|
+  SET_JOB_USER_TRANSLATION = lambda do |job_user, permitted_params|
+    return unless job_user.persisted? && job_user.valid?
+
     translation_params = {
       name: permitted_params.dig(:job_user, :apply_message)
     }
     job_user.set_translation(translation_params)
+  end
+
+  after_create do |job_user|
+    SET_JOB_USER_TRANSLATION.call(job_user, permitted_params)
+  end
+
+  after_save do |job_user|
+    SET_JOB_USER_TRANSLATION.call(job_user, permitted_params)
   end
 
   sidebar :app, only: [:show, :edit] do
