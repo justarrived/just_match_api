@@ -506,11 +506,6 @@ ActiveAdmin.register User do
 
   include AdminHelpers::MachineTranslation::Actions
 
-  action_item :view, only: :show do
-    title = I18n.t('admin.user.sync_ff_bank_account')
-    link_to title, sync_ff_bank_account_admin_user_path(user), method: :patch
-  end
-
   sidebar :relations, only: [:show, :edit] do
     user_query = AdminHelpers::Link.query(:user_id, user.id)
     from_user_query = AdminHelpers::Link.query(:from_user_id, user.id)
