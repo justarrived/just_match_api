@@ -74,10 +74,6 @@ class AppSecrets
     env['GOOGLE_MAPS_API_TOKEN']
   end
 
-  def self.frilans_finans_base_uri
-    env['FRILANS_FINANS_BASE_URI']
-  end
-
   def self.frilans_finans_client_id
     env['FRILANS_FINANS_CLIENT_ID']
   end

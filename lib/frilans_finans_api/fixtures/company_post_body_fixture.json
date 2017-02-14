@@ -1,9 +1,13 @@
 {
   "access_token": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-  "name": "Acme",
-  "street": "Dag Hammarskjölds väg 13",
-  "zip": "75237",
-  "city": "UPPSALA",
-  "country": "SWEDEN",
-  "user_id": 1
+  "data": {
+    "attributes": {
+      "name": "Acme",
+      "street": "Dag Hammarskjölds väg 13",
+      "zip": "75237",
+      "city": "UPPSALA",
+      "country": "SWEDEN",
+      "user_id": 1
+    }
+  }
 }

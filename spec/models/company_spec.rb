@@ -2,17 +2,6 @@
 require 'rails_helper'
 
 RSpec.describe Company, type: :model do
-  describe '#find_frilans_finans_user' do
-    let(:company) { FactoryGirl.build(:company) }
-
-    it 'returns first user that has frilans finans id' do
-      FactoryGirl.create(:user, company: company, frilans_finans_id: nil)
-      FactoryGirl.create(:user, company: company, frilans_finans_id: 10)
-      FactoryGirl.create(:user, company: company, frilans_finans_id: 11)
-      expect(company.find_frilans_finans_user.frilans_finans_id).to eq(10)
-    end
-  end
-
   describe '#address' do
     let(:company) { FactoryGirl.build(:company, street: '1', zip: '1', city: '1') }
 

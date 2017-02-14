@@ -16,7 +16,7 @@ RSpec.describe FrilansFinansApi::Client do
   describe '#professions' do
     subject do
       json = fixture_client.read(:professions)
-      url = "#{base_uri}/professions?page=1"
+      url = "#{base_uri}/professions?page[number]=1"
 
       stub_request(:get, url).
         with(default_headers).
@@ -35,7 +35,7 @@ RSpec.describe FrilansFinansApi::Client do
     let(:invoice_id) { 1 }
     subject do
       json = fixture_client.read(:salaries)
-      url = "#{base_uri}/invoices/#{invoice_id}/salaries?page=1"
+      url = "#{base_uri}/invoices/#{invoice_id}/salaries?page[number]=1"
 
       stub_request(:get, url).
         with(default_headers).
@@ -53,7 +53,7 @@ RSpec.describe FrilansFinansApi::Client do
   describe '#currencies' do
     subject do
       json = fixture_client.read(:currencies)
-      url = "#{base_uri}/currencies?page=1"
+      url = "#{base_uri}/currencies?page[number]=1"
 
       stub_request(:get, url).
         with(default_headers).
@@ -78,7 +78,7 @@ RSpec.describe FrilansFinansApi::Client do
 
     it 'returns taxes array' do
       json = fixture_client.read(:taxes)
-      url = "#{base_uri}/taxes?page=1"
+      url = "#{base_uri}/taxes?page[number]=1"
 
       stub_request(:get, url).
         with(default_headers).
@@ -91,7 +91,7 @@ RSpec.describe FrilansFinansApi::Client do
     # The real test here is actually the request stub rather than the assertion
     it 'can add filter param' do
       json = fixture_client.read(:taxes)
-      url = "#{base_uri}/taxes?filter[standard]=1&page=1"
+      url = "#{base_uri}/taxes?filter[standard]=1&page[number]=1"
 
       stub_request(:get, url).
         with(default_headers).
@@ -107,7 +107,7 @@ RSpec.describe FrilansFinansApi::Client do
       json = fixture_client.read(:user)
       url = "#{base_uri}/users"
 
-      body = { first_name: 'Jacob' }.to_json
+      body = { data: { attributes: { first_name: 'Jacob' } } }.to_json
 
       stub_request(:post, url).
         with(default_headers.merge(body: body)).
@@ -132,7 +132,7 @@ RSpec.describe FrilansFinansApi::Client do
       json = fixture_client.read(:company)
       url = "#{base_uri}/companies"
 
-      body = { name: 'Acme' }.to_json
+      body = { data: { attributes: { name: 'Acme' } } }.to_json
 
       stub_request(:post, url).
         with(default_headers.merge(body: body)).
@@ -157,7 +157,7 @@ RSpec.describe FrilansFinansApi::Client do
       json = fixture_client .read(:invoice)
       url = "#{base_uri}/invoices"
 
-      body = {}.to_json
+      body = { data: { attributes: {} } }.to_json
 
       stub_request(:post, url).
         with(default_headers.merge(body: body)).
@@ -202,7 +202,7 @@ RSpec.describe FrilansFinansApi::Client do
       json = fixture_client.read(:user)
       url = "#{base_uri}/users/#{user_id}"
 
-      body = { first_name: 'Jacob' }.to_json
+      body = { data: { attributes: { first_name: 'Jacob' } } }.to_json
 
       stub_request(:patch, url).
         with(default_headers.merge(body: body)).
@@ -228,7 +228,7 @@ RSpec.describe FrilansFinansApi::Client do
       json = fixture_client .read(:invoice)
       url = "#{base_uri}/invoices/#{invoice_id}"
 
-      body = { pre_report: 1 }.to_json
+      body = { data: { attributes: { pre_report: 1 } } }.to_json
 
       stub_request(:patch, url).
         with(default_headers.merge(body: body)).

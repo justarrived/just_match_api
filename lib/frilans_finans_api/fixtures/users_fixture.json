@@ -1,10 +1,10 @@
 {
   "data": [
     {
-      "type": "user",
+      "type": "users",
       "id": "1",
       "attributes": {
-        "email": "old_account_with_plain_password@example.com",
+        "email": "account@example.com",
         "co": "",
         "street": "Dag Hammarskjölds väg 13",
         "zip": "752 37",

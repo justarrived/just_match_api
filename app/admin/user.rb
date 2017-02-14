@@ -506,27 +506,6 @@ ActiveAdmin.register User do
 
   include AdminHelpers::MachineTranslation::Actions
 
-  member_action :sync_ff_bank_account, method: :patch do
-    user = User.find(params[:id])
-
-    if user.frilans_finans_id.nil?
-      notice = I18n.t('admin.user.missing_ff_id')
-      redirect_to(admin_user_path(user), alert: notice)
-      return
-    end
-
-    unless user.bank_account_details?
-      notice = I18n.t('admin.user.missing_account_details')
-      redirect_to(admin_user_path(user), alert: notice)
-      return
-    end
-
-    SyncFFUserAccountDetailsService.call(user: user)
-
-    notice = I18n.t('admin.user.account_details_synced')
-    redirect_to(admin_user_path(user), notice: notice)
-  end
-
   action_item :view, only: :show do
     title = I18n.t('admin.user.sync_ff_bank_account')
     link_to title, sync_ff_bank_account_admin_user_path(user), method: :patch
@@ -664,8 +643,8 @@ ActiveAdmin.register User do
   end
 
   after_save do |user|
-    if user.persisted? && user.valid?
-      SET_USER_TRANSLATION.call(user, permitted_params)
+    SET_USER_TRANSLATION.call(user, permitted_params)
+    if AppConfig.frilans_finans_active? && user.persisted? && user.valid?
       SyncFrilansFinansUserJob.perform_later(user: user)
     end
   end

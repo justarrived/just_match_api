@@ -1,7 +1,7 @@
 {
   "data": [
     {
-      "type": "profession",
+      "type": "professions",
       "id": "1",
       "attributes": {
         "title": "3D-designer",
@@ -14,7 +14,7 @@
       }
     },
     {
-      "type": "profession",
+      "type": "professions",
       "id": "2",
       "attributes": {
         "title": "3D-grafiker",
@@ -27,7 +27,7 @@
       }
     },
     {
-      "type": "profession",
+      "type": "professions",
       "id": "3",
       "attributes": {
         "title": "3D-visualiserare",
@@ -40,7 +40,7 @@
       }
     },
     {
-      "type": "profession",
+      "type": "professions",
       "id": "4",
       "attributes": {
         "title": "Abonnemangsförsäljare",
@@ -53,7 +53,7 @@
       }
     },
     {
-      "type": "profession",
+      "type": "professions",
       "id": "5",
       "attributes": {
         "title": "Abonnemangskontorist",
@@ -66,7 +66,7 @@
       }
     },
     {
-      "type": "profession",
+      "type": "professions",
       "id": "6",
       "attributes": {
         "title": "Abonnentingenjör, vatten och avlopp",
@@ -79,7 +79,7 @@
       }
     },
     {
-      "type": "profession",
+      "type": "professions",
       "id": "7",
       "attributes": {
         "title": "Abonnentman",
@@ -92,7 +92,7 @@
       }
     },
     {
-      "type": "profession",
+      "type": "professions",
       "id": "8",
       "attributes": {
         "title": "Account manager",
@@ -105,7 +105,7 @@
       }
     },
     {
-      "type": "profession",
+      "type": "professions",
       "id": "9",
       "attributes": {
         "title": "Accounting controller",
@@ -118,7 +118,7 @@
       }
     },
     {
-      "type": "profession",
+      "type": "professions",
       "id": "10",
       "attributes": {
         "title": "Ackompanjatör, klassisk musik",

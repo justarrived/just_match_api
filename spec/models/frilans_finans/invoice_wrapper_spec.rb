@@ -18,11 +18,9 @@ RSpec.describe FrilansFinans::InvoiceWrapper do
       )
 
       expected = {
-        invoice: {
-          a: 1,
-          invoicedate: {},
-          invoiceuser: {}
-        }
+        a: 1,
+        invoicedate: {},
+        invoiceuser: {}
       }
       expect(result).to eq(expected)
     end
@@ -88,11 +86,9 @@ RSpec.describe FrilansFinans::InvoiceWrapper do
         user_id: user.frilans_finans_id,
         total: 7000.0,
         taxkey_id: taxkey_id,
-        allowance: 0,
-        travel: 0,
-        save_vacation_pay: 0,
-        save_itp: 0,
-        express_payment: 0
+        save_vacation_pay: false,
+        save_itp: false,
+        express_payment: false
       }]
 
       expect(invoice_users_result).to eq(expected)
@@ -106,11 +102,9 @@ RSpec.describe FrilansFinans::InvoiceWrapper do
           user_id: user.frilans_finans_id,
           total: 7000.0,
           taxkey_id: taxkey_id,
-          allowance: 0,
-          travel: 0,
-          save_vacation_pay: 0,
-          save_itp: 0,
-          express_payment: 1
+          save_vacation_pay: false,
+          save_itp: false,
+          express_payment: true
         }]
 
         expect(invoice_users_result).to eq(expected)

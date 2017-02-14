@@ -1,7 +1,7 @@
 {
   "data": [
     {
-      "type": "invoice",
+      "type": "invoices",
       "id": "1",
       "attributes": {
         "specification": "One invoice to rule them all",
@@ -49,7 +49,7 @@
       }
     },
     {
-      "type": "invoice",
+      "type": "invoices",
       "id": "2",
       "attributes": {
         "specification": "A pre-reported invoice to rule them all",

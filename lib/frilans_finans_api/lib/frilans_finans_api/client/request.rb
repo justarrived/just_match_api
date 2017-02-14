@@ -7,10 +7,9 @@ module FrilansFinansApi
       'User-Agent' => 'FrilansFinansAPI - Ruby client'
     }.freeze
 
-    # NOTE: In Frilans Finans API v2, add this header:
-    #       'Accept' => 'application/vnd.api.v2+json'
     HEADERS = {
-      'Content-Type' => 'application/json'
+      'Content-Type' => 'application/json',
+      'Accept' => 'application/vnd.api.v2+json'
     }.merge!(USER_AGENT).freeze
 
     GRANT_TYPE = 'client_credentials'

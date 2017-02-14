@@ -1,5 +1,9 @@
 {
     "access_token": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-    "first_name": "Jacob",
-    "last_name": "Burenstam"
+    "data": {
+        "attributes": {
+          "first_name": "Jacob",
+          "last_name": "Burenstam"
+        }
+    }
 }

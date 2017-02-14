@@ -88,23 +88,15 @@ module Api
             return
           end
 
-          if @user.frilans_finans_id.nil?
-            complete_params = user_params.merge(ff_user_params)
-            document = FrilansFinansApi::User.create(attributes: complete_params)
-            @user.frilans_finans_id = document.resource.id
-          else
-            id = @user.frilans_finans_id!
-            # On update Frilans Finans don't want the attribute to be nested under a
-            # user key (unlike create)
-            FrilansFinansApi::User.update(id: id, attributes: ff_user_params)
-          end
-
           @user.tap do |user|
             user.account_clearing_number = jsonapi_params[:account_clearing_number]
             user.account_number = jsonapi_params[:account_number]
 
             user.frilans_finans_payment_details = true
             user.save!
+            if AppConfig.frilans_finans_active?
+              SyncFrilansFinansUserJob.perform_later(user: user)
+            end
           end
 
           render json: {}, status: :ok
@@ -114,10 +106,6 @@ module Api
 
         def set_user
           @user = User.find(params[:user_id])
-        end
-
-        def user_params
-          FrilansFinans::UserWrapper.attributes(@user)
         end
 
         def ff_user_params

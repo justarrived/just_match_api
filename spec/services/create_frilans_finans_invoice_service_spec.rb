@@ -18,7 +18,7 @@ RSpec.describe CreateFrilansFinansInvoiceService do
   let(:frilans_api_klass) { FrilansFinansApi::Invoice }
   let(:ff_document_mock) { OpenStruct.new(resource: OpenStruct.new(id: user_ff_id)) }
   let(:ff_nil_document_mock) { OpenStruct.new(resource: OpenStruct.new(id: nil)) }
-  let(:invoice_request_body) { /^\{"invoice":*/ }
+  let(:invoice_request_body) { /^\{"data":*/ }
   let(:express_payment) { false }
 
   subject do
@@ -26,7 +26,8 @@ RSpec.describe CreateFrilansFinansInvoiceService do
       headers = {
         'Authorization' => 'Bearer xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
         'User-Agent' => 'FrilansFinansAPI - Ruby client',
-        'Content-Type' => 'application/json'
+        'Content-Type' => 'application/json',
+        'Accept' => 'application/vnd.api.v2+json'
       }
 
       invoice_body = "{ \"data\": { \"id\": \"#{user_ff_id}\" } }"
@@ -35,7 +36,7 @@ RSpec.describe CreateFrilansFinansInvoiceService do
              headers: headers).
         to_return(status: 200, body: invoice_body, headers: {})
 
-      stub_request(:get, "#{base_uri}/taxes?filter%5Bstandard%5D=1&page=1").
+      stub_request(:get, "#{base_uri}/taxes?filter%5Bstandard%5D=1&page%5Bnumber%5D=1").
         with(headers: headers).
         to_return(status: 200, body: '{ "data": { "id": "3" } }', headers: {})
 
@@ -46,16 +47,19 @@ RSpec.describe CreateFrilansFinansInvoiceService do
         }
       }
 
-      stub_request(:patch, "#{base_uri}/users/#{user_ff_id}").
-        with(headers: headers, body: /^\{"profession_title":"Category /).
+      stub_request(:get, "#{base_uri}/users/#{user_ff_id}").
+        with(headers: headers).
         to_return(status: 200, body: JSON.dump(ff_user_body), headers: {})
 
       described_class.create(ff_invoice: ff_invoice, express_payment: express_payment)
     end
   end
 
-  it 'creates an invoice' do
-    expect { subject }.to change(FrilansFinansInvoice, :count).by(1)
+  context 'creates' do
+    let(:user_ff_id) { 321_123 }
+    it 'one invoice' do
+      expect { subject }.to change(FrilansFinansInvoice, :count).by(1)
+    end
   end
 
   context 'no company frilans finans id' do

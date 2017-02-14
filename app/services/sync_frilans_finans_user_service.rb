@@ -2,12 +2,12 @@
 class SyncFrilansFinansUserService
   def self.call(user:)
     id = user.frilans_finans_id
-    action = id.nil? ? :create : :update
+    attributes = FrilansFinans::UserWrapper.attributes(user)
 
-    attributes = FrilansFinans::UserWrapper.attributes(user, action: action)
-
-    arguments = { attributes: attributes }
-    arguments[:id] = id if id
-    FrilansFinansApi::User.public_send(action, **arguments)
+    if id
+      FrilansFinansApi::User.update(id: id, attributes: attributes)
+    else
+      FrilansFinansApi::User.create(attributes: attributes)
+    end
   end
 end

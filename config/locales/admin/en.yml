@@ -149,6 +149,9 @@ en:
         ongoing_jobs: Ongoing jobs
         future_jobs: Future jobs
         rejected: Rejected
+    send_employment_certificate:
+      post_btn: Send employment certificate
+      msg: Request for employment certificate sent. The user will receive an email from Frilans Finans.
     ff_remote_sync:
       msg_multiple: Synced successfully.
       msg: Synced successfully.

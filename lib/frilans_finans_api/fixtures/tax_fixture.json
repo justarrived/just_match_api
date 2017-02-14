@@ -1,6 +1,6 @@
 {
   "data": {
-    "type": "tax",
+    "type": "taxes",
     "id": "1",
     "attributes": {
       "standard": 0,

@@ -1,40 +1,39 @@
 # frozen_string_literal: true
 module FrilansFinans
   module UserWrapper
-    def self.attributes(user, action: :create)
-      # NOTE: FFAPIv2: Wrap in data/attributes instead of user
+    def self.attributes(user)
       attrs = {
-        user: {
-          email: user.email,
-          street: user.street || '',
-          city: '',
-          zip: user.zip || '',
-          country: user.country_name.upcase,
-          cellphone: user.phone,
-          first_name: user.first_name,
-          last_name: user.last_name
-        }
+        email: user.email,
+        remote_id: user.id.to_s,
+        street: user.street || '',
+        city: user.city || '',
+        zip: user.zip || '',
+        country: user.country_name.upcase,
+        cellphone: user.phone,
+        first_name: user.first_name,
+        last_name: user.last_name,
+        show_name_in_network: false,
+        receive_sms_notificiations: false,
+        receive_email_notifications: false,
+        notification_language: notification_language(user.language)
       }
 
       ssn = user.ssn
-      # rubocop:disable Metrics/LineLength
-      # Company users doesn't need to have ssn set
-      attrs[:user][:social_security_number] = format_ssn(ssn) unless ssn.blank?
-      attrs[:user][:account_clearing_number] = user.account_clearing_number unless user.account_clearing_number.blank?
-      attrs[:user][:account_number] = user.account_number unless user.account_number.blank?
-      # rubocop:enable Metrics/LineLength
 
-      # On update Frilans Finans don't want the attribute to be nested under a
-      # user key (unlike create)
-      return attrs[:user] if action == :update
+      attrs[:social_security_number] = format_ssn(ssn) unless ssn.blank?
+      attrs[:account_clearing_number] = user.account_clearing_number unless user.account_clearing_number.blank? # rubocop:disable Metrics/LineLength
+      attrs[:account_number] = user.account_number unless user.account_number.blank?
+
       attrs
     end
 
+    def self.notification_language(language)
+      return 'SE' if language.lang_code == 'sv'
+      'EN'
+    end
+
     def self.format_ssn(ssn)
-      # Frilans Finans wants the social security number as an integer
-      # We store the ssn on the format YYMMDD-XXXX, so we need to remove '-'
-      # NOTE: FFAPIv2: ssn should be a string!
-      ssn.delete('-').to_i
+      ssn.delete('-')
     end
   end
 end

@@ -1,6 +1,6 @@
 {
   "data": {
-    "type": "user",
+    "type": "users",
     "id": "1",
     "attributes": {
       "first_name": "Jacob",

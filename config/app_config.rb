@@ -73,6 +73,14 @@ class AppConfig
     env.fetch('MAX_RECORDS_PER_PAGE', 1000)
   end
 
+  def self.frilans_finans_company_creator_user_id
+    env['FRILANS_FINANS_COMPANY_CREATOR_USER_ID']
+  end
+
+  def self.frilans_finans_base_uri
+    env['FRILANS_FINANS_BASE_URI']
+  end
+
   def self.frilans_finans_active?
     truthy?(env['FRILANS_FINANS_ACTIVE'])
   end
