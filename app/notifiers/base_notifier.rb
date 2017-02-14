@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 class BaseNotifier
-  def self.notify(locale: I18n.locale)
-    with_locale(locale) { deliver(yield, locale) }
+  def self.notify(user: nil, locale: I18n.locale, name: nil)
+    with_locale(locale) { deliver(yield, locale) unless ignored?(user, name) }
+    true
   end
 
   def self.deliver(mailer, locale)
@@ -12,8 +13,10 @@ class BaseNotifier
     mailer.deliver_now
   end
 
-  def self.ignored?(user)
-    user.ignored_notification?(underscored_name) || globally_ignored?(underscored_name)
+  def self.ignored?(user, notification_name = nil)
+    name = (notification_name || underscored_name).to_s
+
+    user&.ignored_notification?(name) || globally_ignored?(name)
   end
 
   def self.globally_ignored?(notification_name)

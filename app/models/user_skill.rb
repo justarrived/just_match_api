@@ -10,7 +10,8 @@ class UserSkill < ApplicationRecord
   validates :skill, uniqueness: { scope: :user }
   validates :user, uniqueness: { scope: :skill }
 
-  scope :visible, -> { joins(:skill).where(skills: { internal: false }) }
+  scope :visible, -> { with_proficiency.joins(:skill).where(skills: { internal: false }) }
+  scope :with_proficiency, -> { where.not(proficiency: nil) }
 
   def self.safe_create(skill:, user:, proficiency_by_admin: nil)
     return find_or_create_by(user: user, skill: skill) if proficiency_by_admin.blank?

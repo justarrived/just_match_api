@@ -9,6 +9,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       data: {
         attributes: {
           skill_ids: [{ id: FactoryGirl.create(:skill).id, proficiency: 4 }],
+          interest_ids: [{ id: FactoryGirl.create(:interest).id, level: 4 }],
           email: 'someone@example.com',
           first_name: 'Some user',
           last_name: 'name',
@@ -104,6 +105,12 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         expect do
           post :create, params: valid_attributes
         end.to change(UserLanguage, :count).by(1)
+      end
+
+      it 'creates a new User with user interests' do
+        expect do
+          post :create, params: valid_attributes
+        end.to change(UserInterest, :count).by(1)
       end
 
       it 'assigns a newly created user as @user' do
@@ -313,6 +320,30 @@ RSpec.describe Api::V1::UsersController, type: :controller do
           user_language = assigns(:user).user_languages.first
           expect(user_language.language.id).to eq(language_id)
           expect(user_language.proficiency).to eq(lang_proficiency)
+        end
+      end
+
+      context 'with user interests' do
+        let(:user) { User.find_by_auth_token(valid_session[:token]) }
+        let(:interest) { FactoryGirl.create(:interest) }
+        let(:interest_id) { interest.id }
+        let(:new_attributes) do
+          {
+            data: {
+              attributes: {
+                interest_ids: [{ id: interest_id, level: 3 }]
+              }
+            }
+          }
+        end
+
+        it 'creates from interest list of ids and levels' do
+          params = { user_id: user.to_param }.merge(new_attributes)
+          put :update, params: params, headers: valid_session
+
+          user_interest = assigns(:user).user_interests.first
+          expect(user_interest.interest.id).to eq(interest_id)
+          expect(user_interest.level).to eq(3)
         end
       end
     end

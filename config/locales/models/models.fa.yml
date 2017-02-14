@@ -150,7 +150,6 @@ fa:
       user:
         admin: مدیر سایت
         anonymized: ناشناس شده
-        auth_token: کد تأیید اعتبار
         banned: ممنوع
         chat_users: کاربران چت
         chats: چت

@@ -12,7 +12,7 @@ module Api
           short 'API for user ratings'
           name 'User ratings'
           description '
-            Here you can find the documentation for inteteracting with user ratings.
+            Here you can find the documentation for interacting with user ratings.
           '
           formats [:json]
           api_versions '1.0'

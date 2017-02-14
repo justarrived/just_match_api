@@ -36,6 +36,9 @@ class User < ApplicationRecord
   belongs_to :company, optional: true
   belongs_to :interviewed_by, optional: true, class_name: 'User', foreign_key: 'interviewed_by_user_id' # rubocop:disable Metrics/LineLength
 
+  has_many :filter_users
+  has_many :filters, through: :filter_users
+
   has_many :user_documents
   has_many :documents, through: :user_documents
 
@@ -135,6 +138,10 @@ class User < ApplicationRecord
     user_job_match
     new_chat_message
     new_job_comment
+    applicant_rejected
+    job_match
+    new_applicant_job_info
+    applicant_will_perform_job_info
     failed_to_activate_invoice
   ).freeze
 

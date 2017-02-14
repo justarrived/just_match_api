@@ -10,6 +10,9 @@ class UserLanguage < ApplicationRecord
   validates :proficiency, numericality: { only_integer: true }, inclusion: PROFICIENCY_RANGE, allow_nil: true # rubocop:disable Metrics/LineLength
   validates :proficiency_by_admin, numericality: { only_integer: true }, inclusion: PROFICIENCY_RANGE, allow_nil: true # rubocop:disable Metrics/LineLength
 
+  scope :visible, -> { with_proficiency }
+  scope :with_proficiency, -> { where.not(proficiency: nil) }
+
   delegate :lang_code, to: :language
   delegate :direction, to: :language
   delegate :system_language, to: :language

@@ -16,7 +16,7 @@ RSpec.describe ContactMailer, type: :mailer do
     end
 
     it 'renders the receiver email' do
-      expect(mail.to).to eql(['no-reply@justarrived.se'])
+      expect(mail.to).to eql(['support@justarrived.se'])
     end
 
     it 'renders the sender email' do

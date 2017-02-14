@@ -5,7 +5,7 @@ ActiveAdmin.register Tag do
   index do
     column :name
     column :color do |tag|
-      colored_badge_tag(tag.color, tag.color)
+      simple_badge_tag(tag.color, color: tag.color)
     end
 
     actions

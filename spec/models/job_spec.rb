@@ -154,7 +154,7 @@ RSpec.describe Job, type: :model do
   end
 
   describe '#owner?' do
-    let(:user) { FactoryGirl.build(:user) }
+    let(:user) { FactoryGirl.build(:company_user) }
     let(:job) { FactoryGirl.build(:job, owner: user) }
 
     it 'returns true if user is owner' do
@@ -184,7 +184,7 @@ RSpec.describe Job, type: :model do
 
     it 'returns accepted user if no job user' do
       applicant = FactoryGirl.create(:user)
-      owner = FactoryGirl.create(:user)
+      owner = FactoryGirl.create(:company_user)
       job = FactoryGirl.create(:job, owner: owner)
 
       job.create_applicant!(applicant)
@@ -203,7 +203,7 @@ RSpec.describe Job, type: :model do
 
     it 'returns true if user is the accepted user' do
       applicant = FactoryGirl.create(:user)
-      owner = FactoryGirl.create(:user)
+      owner = FactoryGirl.create(:company_user)
       job = FactoryGirl.create(:job, owner: owner)
 
       job.create_applicant!(applicant)
@@ -450,6 +450,24 @@ RSpec.describe Job, type: :model do
         job.validate
         expect(job.errors.messages[:hours]).to include(max_hours_error_message)
       end
+    end
+  end
+
+  describe '#validate_owner_belongs_to_company' do
+    it 'adds error if owner does *not* belong to a company' do
+      owner = FactoryGirl.build(:user, company: nil)
+      job = FactoryGirl.build(:job, owner: owner)
+      job.validate
+      message = I18n.t('errors.job.owner_must_belong_to_company')
+      expect(job.errors.messages[:owner]).to include(message)
+    end
+
+    it 'adds no error if the owner belongs to a company' do
+      owner = FactoryGirl.build(:company_user)
+      job = FactoryGirl.build(:job, owner: owner)
+      job.validate
+      message = I18n.t('errors.job.owner_must_belong_to_company')
+      expect(job.errors.messages[:owner] || []).not_to include(message)
     end
   end
 end

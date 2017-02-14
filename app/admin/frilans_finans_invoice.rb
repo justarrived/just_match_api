@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 ActiveAdmin.register FrilansFinansInvoice do
-  menu parent: 'Invoices'
+  menu parent: 'Jobs', if: proc { current_active_admin_user.super_admin? }
 
   batch_action :destroy, false
 

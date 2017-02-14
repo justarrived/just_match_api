@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 ActiveAdmin.register Document do
-  menu parent: 'Misc'
+  menu parent: 'Users'
 
   index do
     selectable_column

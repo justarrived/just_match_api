@@ -150,7 +150,6 @@ ti:
       user:
         admin: ምምሕዳር
         anonymized: ዘይግሉጽ ወይ ሕቡእ (ኣኖኒሞስ)
-        auth_token: Auth token (ኣውቶማቲክ ቶከን)
         banned: ክልኩል
         chat_users: ተጠቃሚ ናይ ቻት
         chats: የዕልል (ቻት ይገብር)

@@ -150,7 +150,6 @@ ps:
       user:
         admin: اداره
         anonymized: مستعار
-        auth_token: د تایید ټوکن
         banned: منع شوی
         chat_users: د غږیدو کارونکي
         chats: غږیدل

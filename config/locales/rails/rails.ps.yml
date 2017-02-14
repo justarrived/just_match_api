@@ -27,6 +27,7 @@ ps:
       not_an_integer: باید یو صحیح عدد وي
       odd: باید اوډ وي
       taken: دمخه کارول شوی
+      model_invalid: 'یوه خطا پیښ شوې: %{errors}'
       too_long:
         one: خورا اوږد دی (اعظمي یې 1 توری دی)
         other: خورا اوږد دی (اعظمي یې %{count}  توری دی)

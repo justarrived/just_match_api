@@ -3,10 +3,11 @@ class UserMailer < ApplicationMailer
   default from: NO_REPLY_EMAIL
 
   def welcome_email(user:)
-    @user_name = user.name
+    @user_name = user.first_name
 
     @faqs_url = FrontendRouter.draw(:faqs)
     @login_url = FrontendRouter.draw(:login)
+    @cv_template_url = AppConfig.cv_template_url
 
     mail(to: user.contact_email, subject: I18n.t('mailer.welcome.subject'))
   end
@@ -15,6 +16,7 @@ class UserMailer < ApplicationMailer
     @user_name = user.first_name
     token = user.one_time_token
     @reset_password_url = FrontendRouter.draw(:reset_password, token: token)
+    @support_email = AppConfig.support_email
 
     subject = I18n.t('mailer.reset_password.subject')
     mail(to: user.contact_email, subject: subject)

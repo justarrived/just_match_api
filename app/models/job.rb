@@ -46,6 +46,7 @@ class Job < ApplicationRecord
   validate :validate_job_end_date_after_job_date
   validate :validate_hourly_pay_active
   validate :validate_within_allowed_hours
+  validate :validate_owner_belongs_to_company
 
   validate :validate_job_date_in_future, unless: -> { Rails.configuration.x.validate_job_date_in_future_inactive } # rubocop:disable Metrics/LineLength
 
@@ -109,10 +110,9 @@ class Job < ApplicationRecord
   end
 
   def self.to_form_array(include_blank: false)
-    # TODO: Figure out why &.display_name is needed
     form_array = with_translations.
                  order(id: :desc).
-                 map { |job| [job&.display_name, job&.id] }
+                 map { |job| [job.display_name, job.id] }
 
     return form_array unless include_blank
 
@@ -194,6 +194,7 @@ Address: #{company.address}
 
   # [DEPRECATED] please use #gross_amount instead
   def amount
+    ActiveSupport::Deprecation.warn('User#amount has been depreceted, please use User#gross_salary instead') # rubocop:disable Metrics/LineLength
     gross_amount
   end
 
@@ -245,6 +246,10 @@ Address: #{company.address}
 
   def applicants
     job_users
+  end
+
+  def hourly_gross_salary
+    hourly_pay.gross_salary
   end
 
   def started?
@@ -305,6 +310,13 @@ Address: #{company.address}
       message = I18n.t('errors.job.hours_upper_bound', max_hours: MAX_HOURS_PER_DAY)
       errors.add(:hours, message)
     end
+  end
+
+  def validate_owner_belongs_to_company
+    return if owner.nil?
+    return if owner.company?
+
+    errors.add(:owner, I18n.t('errors.job.owner_must_belong_to_company'))
   end
 end
 

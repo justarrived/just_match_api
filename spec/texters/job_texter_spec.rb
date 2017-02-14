@@ -14,11 +14,11 @@ RSpec.describe JobTexter do
     end
     let(:last_message_body) { FakeSMS.messages.last.body }
 
-    it 'renders the users last name' do
-      expect(last_message_body).to match(last_name)
+    it 'renders the job name' do
+      expect(last_message_body).to match(job_name)
     end
 
-    it 'renders the job name' do
+    it 'renders the max confirmation time' do
       expect(last_message_body).to match(job_name)
     end
 

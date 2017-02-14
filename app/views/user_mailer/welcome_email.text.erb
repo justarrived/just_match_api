@@ -1,8 +1,2 @@
-<%= I18n.t('mailer.welcome.body_header', name: @user_name) %>
-<%= I18n.t('mailer.welcome.body_line') %>
-
-<%= @login_url %>
-
-<%= @faqs_url %>
-
+<%= I18n.t('mailer.welcome.body', user_name: @user_name, faq_url: @faqs_url, login_url: @login_url, cv_template_url: @cv_template_url) %>
 <%= I18n.t('mailer.signoff') %>

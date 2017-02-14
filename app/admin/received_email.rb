@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 ActiveAdmin.register ReceivedEmail do
-  menu parent: 'Misc'
+  menu parent: 'Misc', priority: 5
 
   index do
     column :from_address

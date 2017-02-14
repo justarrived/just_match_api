@@ -29,7 +29,8 @@ module Api
           authorize(UserInterest)
 
           user_interests_index = Index::UserInterestsIndex.new(self)
-          @user_interests = user_interests_index.user_interests(@user.user_interests)
+          scope = @user.user_interests.visible
+          @user_interests = user_interests_index.user_interests(scope)
 
           api_render(@user_interests, total: user_interests_index.count)
         end

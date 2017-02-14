@@ -5,7 +5,7 @@ class ContactMailerPreview < ActionMailer::Preview
     ContactMailer.contact_email(
       name: 'Watman',
       email: 'watman@example.com',
-      body: 'Something, something darkside'
+      body: "Something, something darkside.. \n Something, something complete.."
     )
   end
 end

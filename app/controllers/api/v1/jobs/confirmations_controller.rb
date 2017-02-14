@@ -28,7 +28,7 @@ module Api
           @job_user.will_perform = true
 
           if @job_user.save
-            @job.fill_position!
+            @job.fill_position
             # Frilans Finans wants invoices to be pre-reported
             FrilansFinansInvoice.create!(job_user: @job_user)
 

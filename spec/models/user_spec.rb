@@ -141,7 +141,7 @@ RSpec.describe User, type: :model do
   end
 
   describe '#accepted_applicant_for_owner?' do
-    let(:owner) { FactoryGirl.create(:user) }
+    let(:owner) { FactoryGirl.create(:company_user) }
     let(:user) { FactoryGirl.create(:user) }
 
     let(:job) { FactoryGirl.create(:job, owner: owner) }
@@ -398,13 +398,22 @@ RSpec.describe User, type: :model do
           user_job_match
           new_chat_message
           new_job_comment
+          applicant_rejected
+          job_match
+          new_applicant_job_info
+          applicant_will_perform_job_info
           failed_to_activate_invoice
         )
         expect(User::NOTIFICATIONS).to eq(expected)
       end
 
       it 'has corresponding notifier klass for each item' do
-        User::NOTIFICATIONS.each do |notification|
+        # these notifications are sent in other notifiers
+        ignore = %w(
+          applicant_rejected job_match new_applicant_job_info
+          applicant_will_perform_job_info
+        )
+        (User::NOTIFICATIONS - ignore).each do |notification|
           expect { "#{notification.camelize}Notifier".constantize }.to_not raise_error
         end
       end

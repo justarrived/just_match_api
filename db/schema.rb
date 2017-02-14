@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170202095134) do
+ActiveRecord::Schema.define(version: 20170207231824) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -219,6 +219,21 @@ ActiveRecord::Schema.define(version: 20170202095134) do
     t.index ["language_id"], name: "index_faqs_on_language_id", using: :btree
   end
 
+  create_table "filter_users", force: :cascade do |t|
+    t.integer  "filter_id"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["filter_id"], name: "index_filter_users_on_filter_id", using: :btree
+    t.index ["user_id"], name: "index_filter_users_on_user_id", using: :btree
+  end
+
+  create_table "filters", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "frilans_finans_api_logs", force: :cascade do |t|
     t.integer  "status"
     t.string   "status_name"
@@ -264,6 +279,17 @@ ActiveRecord::Schema.define(version: 20170202095134) do
     t.integer  "gross_salary"
   end
 
+  create_table "interest_filters", force: :cascade do |t|
+    t.integer  "filter_id"
+    t.integer  "interest_id"
+    t.integer  "level"
+    t.integer  "level_by_admin"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["filter_id"], name: "index_interest_filters_on_filter_id", using: :btree
+    t.index ["interest_id"], name: "index_interest_filters_on_interest_id", using: :btree
+  end
+
   create_table "interest_translations", force: :cascade do |t|
     t.string   "name"
     t.string   "locale"
@@ -278,9 +304,9 @@ ActiveRecord::Schema.define(version: 20170202095134) do
   create_table "interests", force: :cascade do |t|
     t.string   "name"
     t.integer  "language_id"
-    t.boolean  "internal"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.boolean  "internal",    default: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.index ["language_id"], name: "index_interests_on_language_id", using: :btree
   end
 
@@ -317,8 +343,8 @@ ActiveRecord::Schema.define(version: 20170202095134) do
     t.string   "company_org_no"
     t.string   "company_email"
     t.string   "company_phone"
-    t.integer  "company_id"
     t.string   "company_address"
+    t.integer  "company_id"
     t.index ["company_id"], name: "index_job_requests_on_company_id", using: :btree
   end
 
@@ -407,6 +433,17 @@ ActiveRecord::Schema.define(version: 20170202095134) do
     t.index ["language_id"], name: "index_jobs_on_language_id", using: :btree
   end
 
+  create_table "language_filters", force: :cascade do |t|
+    t.integer  "filter_id"
+    t.integer  "language_id"
+    t.integer  "proficiency"
+    t.integer  "proficiency_by_admin"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.index ["filter_id"], name: "index_language_filters_on_filter_id", using: :btree
+    t.index ["language_id"], name: "index_language_filters_on_language_id", using: :btree
+  end
+
   create_table "languages", force: :cascade do |t|
     t.string   "lang_code"
     t.datetime "created_at",                          null: false
@@ -476,6 +513,17 @@ ActiveRecord::Schema.define(version: 20170202095134) do
     t.string   "body"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+  end
+
+  create_table "skill_filters", force: :cascade do |t|
+    t.integer  "filter_id"
+    t.integer  "skill_id"
+    t.integer  "proficiency"
+    t.integer  "proficiency_by_admin"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.index ["filter_id"], name: "index_skill_filters_on_filter_id", using: :btree
+    t.index ["skill_id"], name: "index_skill_filters_on_skill_id", using: :btree
   end
 
   create_table "skill_translations", force: :cascade do |t|
@@ -697,7 +745,11 @@ ActiveRecord::Schema.define(version: 20170202095134) do
   add_foreign_key "faq_translations", "faqs"
   add_foreign_key "faq_translations", "languages"
   add_foreign_key "faqs", "languages"
+  add_foreign_key "filter_users", "filters"
+  add_foreign_key "filter_users", "users"
   add_foreign_key "frilans_finans_invoices", "job_users"
+  add_foreign_key "interest_filters", "filters"
+  add_foreign_key "interest_filters", "interests"
   add_foreign_key "interest_translations", "interests"
   add_foreign_key "interest_translations", "languages"
   add_foreign_key "interests", "languages"
@@ -719,6 +771,8 @@ ActiveRecord::Schema.define(version: 20170202095134) do
   add_foreign_key "jobs", "users", column: "company_contact_user_id", name: "jobs_company_contact_user_id_fk"
   add_foreign_key "jobs", "users", column: "just_arrived_contact_user_id", name: "jobs_just_arrived_contact_user_id_fk"
   add_foreign_key "jobs", "users", column: "owner_user_id", name: "jobs_owner_user_id_fk"
+  add_foreign_key "language_filters", "filters"
+  add_foreign_key "language_filters", "languages", name: "language_filters_language_id_fk"
   add_foreign_key "message_translations", "languages"
   add_foreign_key "message_translations", "messages"
   add_foreign_key "messages", "chats"
@@ -727,6 +781,8 @@ ActiveRecord::Schema.define(version: 20170202095134) do
   add_foreign_key "ratings", "jobs", name: "ratings_job_id_fk"
   add_foreign_key "ratings", "users", column: "from_user_id", name: "ratings_from_user_id_fk"
   add_foreign_key "ratings", "users", column: "to_user_id", name: "ratings_to_user_id_fk"
+  add_foreign_key "skill_filters", "filters"
+  add_foreign_key "skill_filters", "skills", name: "skill_filters_skill_id_fk"
   add_foreign_key "skill_translations", "languages"
   add_foreign_key "skill_translations", "skills"
   add_foreign_key "skills", "languages"

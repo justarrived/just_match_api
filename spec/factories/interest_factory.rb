@@ -27,7 +27,7 @@ end
 #  id          :integer          not null, primary key
 #  name        :string
 #  language_id :integer
-#  internal    :boolean
+#  internal    :boolean          default(FALSE)
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #

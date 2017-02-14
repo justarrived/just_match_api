@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 ActiveAdmin.register JobTranslation do
-  menu parent: 'Translations'
+  menu parent: 'Misc'
 
   filter :job, collection: -> { Job.with_translations }
   filter :language, collection: -> { Language.system_languages.order(:en_name) }

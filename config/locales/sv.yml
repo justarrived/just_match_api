@@ -14,7 +14,7 @@ sv:
         notice: Misslyckades skapa Frilans Finans faktura för %{id}
   errors:
     unauthorized: Du har inte behörighet att utföra den här åtgärden.
-    bad_json_format: "Det finns ett problem i det JSON-dokument du skickade: %{error_class}"
+    bad_json_format: "Det fanns problem i det JSON du skickade in: %{error_class}"
     rate_limit:
       details: Gränsvärde nått. Var god försök lite senare.
     bank_account:
@@ -36,7 +36,7 @@ sv:
     general:
       protocol_missing: Protocol prefix saknas http:// eller https://
       must_be_valid_date: måste vara ett giltigt datum
-      blank_if_field: kan inte lämnas blank om %{field} är satt
+      blank_if_field: kan inte vara tom om %{field} är tom
     chat:
       number_of_users: en chat måste bestå av minst %{min} och %{max} antal användare
     invoice:
@@ -50,6 +50,7 @@ sv:
       job_end_date_after_job_date: måste vara efter jobb datum
       hours_lower_bound: måste minst vara %{min_hours} timmar per dag
       hours_upper_bound: kan inte vara fler än %{max_hours} timmar per dag
+      owner_must_belong_to_company: ägaren måste tillhöra ett företag
     job_user:
       not_owner_of_job: kan inte både vara jobb ägare och jobb sökare
       multiple_applicants: kan inte acceptera flera användare
@@ -66,11 +67,11 @@ sv:
       banned: en administratör har blockerat dig eftersom du inte följt Användarvillkoren. Vad god kontakta help@justarrived.
       wrong_email_or_phone_or_password: fel email, telefonnummer eller lösenord
     user:
-      invalid_document_content_type: ogilltig filtyp %{type}
-      invalid_image_content_type: ogilltig filtyp
+      invalid_image_content_type: ogilltigt bildformat
+      invalid_document_content_type: ogilltigt bildformat %{type}
       wrong_password: fel lösenord
-      password_length: lösenordet måste vara minst %{min_length} tecken och inte längre än %{max_length}
-      must_be_available_locale: ditt språk stöds tyvärr inte
+      password_length: lösenord måste vara minst %{min_length} tecken och inte mer än %{max_length}
+      must_be_available_locale: must be a supported language
       must_be_valid_phone_number_format: måste vara ett giltigt telefonnummer
       must_be_swedish_phone_number: måste vara ett giltigt svenskt telefonnummer (+46)
       must_be_swedish_ssn: måste vara ett giltigt svenskt person- eller samordningsnummer
@@ -79,7 +80,7 @@ sv:
       after_true: '%{field} måste vara sant'
       unrevertable: kan inte återställa %{field}
   invalid_credentials: Fel referenser.
-  promo_code_required: Promo kod eller inloggings krävs.
+  promo_code_required: Promo kod eller inlogging krävs.
   not_logged_in_error: Måste vara inloggad.
   record_not_found: Posten existerar inte.
   token_expired_error: Din token har upphört att gälla.
@@ -92,31 +93,9 @@ sv:
       temporary_residence: Tidsbegränsat uppehållstillstånd
       temporary_residence_description: 'Tidsbegränsat uppehållstillstånd'
       eu_citizen: EU-medborgare
-      eu_citizen_description: Du har permanent uppehållstillstånd i ett land som är med i EU
+      eu_citizen_description: Du är medborgare i ett land som är med i EU
       student_visa: Student visa
-      student_visa_description: Du har ett svenskt student visum
-  user_document:
-    categories:
-      cv: CV
-      cv_description: Ditt CV (Curriculum Vitae)
-  user_image:
-    categories:
-      profile: Profil
-      profile_description: Profilbild
-      personal_id: Svenskt ID
-      personal_id_description: Bild på ditt Svenska ID.
-      work_permit_front: Arbetstillstånd (framsidan)
-      work_permit_front_description: Bild på framsidan av ditt arbetstillstånd.
-      work_permit_back: Arbetstillstånd (baksidan)
-      work_permit_back_description: Bild på baksidan av ditt arbetstillstånd.
-      lma_card: LMA-kort
-      lma_card_description: Bild på ditt LMA-kort för asylsökande.
-      residence_permit_front: Uppehållstillstånd (framsidan)
-      residence_permit_front_description: Bild på framsidan av ditt uppehållstillstånd
-      residence_permit_back: Uppehållstillstånd (baksidan)
-      residence_permit_back_description: Bild på baksidan av ditt uppehållstillstånd
-      skatteverket_certificate: Skatteverket certificat
-      skatteverket_certificate_description: Bild på ditt Skatteverket certificat
+      student_visa_description: Du har ett svenskt studentvisum
   notifications:
     accepted_applicant_confirmation_overdue: Den accepterade användarens konfirmationsperiod har gått ut
     accepted_applicant_withdrawn: Den accepterade användaren har dragit tillbaka sin ansökan
@@ -128,8 +107,34 @@ sv:
     user_job_match: Ny jobb matchning
     job_cancelled: Jobb avbrutet
     new_chat_message: Nytt chattmeddelande
-    new_job_comment: Ny jobbkommentar
-    failed_to_activate_invoice: Misslyckades att aktivera en faktura
+    new_job_comment: Ny jobb kommentar
+    applicant_rejected: Någon annan fick jobbet
+    job_match: Jobbmatch
+    new_applicant_job_info: Information om jobbansökan
+    applicant_will_perform_job_info: Information om jobbkonfirmering
+    failed_to_activate_invoice: Aktivering av fakturan misslyckades
+  user_document:
+    categories:
+      cv: CV
+      cv_description: Ditt CV (Curriculum Vitae)
+  user_image:
+    categories:
+      profile: Profi
+      profile_description: Profilbild
+      personal_id: Personligt ID
+      personal_id_description: Bild på ditt svenska ID.
+      work_permit_front: Arbetstillstånd (framsida)
+      work_permit_front_description: Bild på framsidan av ditt arbetstillstånd
+      work_permit_back: Arbetstillstånd (framsida)
+      work_permit_back_description: Bild på baksidan av ditt arbetstillstånd.
+      lma_card: LMA-kort
+      lma_card_description: Bild på ditt LMA-kort för asylsökande
+      residence_permit_front: Uppehållstillstånd (framsida)
+      residence_permit_front_description: Bild på framsidan av ditt upplehållstillstånd
+      residence_permit_back: Uppehållstillstånd (baksida)
+      residence_permit_back_description: Bild på baksidan av ditt upplehållstillstånd
+      skatteverket_certificate: Certifikat Skatteverket
+      skatteverket_certificate_description: Bild på ditt certifikat från Skatteverket
   texter:
     magic_login_link:
       login_line: Just Arrived magisk login länk %{url}

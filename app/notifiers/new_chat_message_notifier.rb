@@ -3,9 +3,8 @@ class NewChatMessageNotifier < BaseNotifier
   def self.call(chat:, message:, author:)
     chat.users.each do |user|
       next if user == author
-      next if ignored?(user)
 
-      notify(locale: user.locale) do
+      notify(user: user, locale: user.locale) do
         ChatMailer.new_message_email(
           user: user,
           chat: chat,

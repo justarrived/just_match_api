@@ -265,6 +265,17 @@ ActiveAdmin.register User do
 
             h3 I18n.t('admin.user.show.verified', verified: user.verified)
 
+            h3 I18n.t('admin.user.show.filters')
+            div do
+              content_tag(:p) do
+                filter_links = user.filters.map do |filter|
+                  path = admin_filter_users_path + AdminHelpers::Link.query(:filter_id, filter.id) # rubocop:disable Metrics/LineLength
+                  simple_badge_tag(link_to(filter.name, path))
+                end
+                safe_join(filter_links, '')
+              end
+            end
+
             unless user.jobs.ongoing.empty?
               h3 I18n.t('admin.user.show.ongoing_jobs')
               table_for(user.jobs.ongoing) do
@@ -354,7 +365,8 @@ ActiveAdmin.register User do
       end
     end
 
-    support_chat = Chat.find_support_chat(user)
+    support_chat = Chat.includes(messages: [:translations, :author, :language]).
+                   find_support_chat(user)
     if support_chat
       locals = { support_chat: support_chat }
       render partial: 'admin/chats/latest_messages', locals: locals
@@ -608,18 +620,28 @@ ActiveAdmin.register User do
     image_tag(profile_image, class: 'sidebar-image') if profile_image
   end
 
+  SET_USER_TRANSLATION = lambda do |user, permitted_params|
+    return unless user.persisted? && user.valid?
+
+    translation_params = {
+      description: permitted_params.dig(:user, :description),
+      job_experience: permitted_params.dig(:user, :job_experience),
+      education: permitted_params.dig(:user, :education),
+      competence_text: permitted_params.dig(:user, :competence_text)
+    }
+    user.set_translation(translation_params).tap do |result|
+      EnqueueCheapTranslation.call(result)
+    end
+  end
+
+  after_create do |user|
+    SET_USER_TRANSLATION.call(user, permitted_params)
+  end
+
   after_save do |user|
-    if user.persisted?
-      translation_params = {
-        description: permitted_params.dig(:user, :description),
-        job_experience: permitted_params.dig(:user, :job_experience),
-        education: permitted_params.dig(:user, :education),
-        competence_text: permitted_params.dig(:user, :competence_text)
-      }
-      user.set_translation(translation_params)
-      if AppConfig.frilans_finans_active?
-        SyncFrilansFinansUserJob.perform_later(user: user)
-      end
+    SET_USER_TRANSLATION.call(user, permitted_params)
+    if AppConfig.frilans_finans_active? && user.persisted? && user.valid?
+      SyncFrilansFinansUserJob.perform_later(user: user)
     end
   end
 

@@ -3,6 +3,47 @@
 HEAD
 -----------
 
+v1.2 - 2017-02-11
+-----------
+
+- Allow deletion of user traits unless an admin has touched them
+- Scope user skills/interests/languages to the ones with a value set by the user
+- Only return user interests with level
+- Only return user languages with proficiency
+- Only return user skills with proficiency
+- Update Language#name_for to check not only for nil but blank?
+- _API_: Sort languages on name
+- `Language#name_for` locale fallback
+
+
+v1.1 - 2017-02-09
+-----------
+- Update frontend routes
+- Don't crash if job can't be updated in confirmations controller
+- Update contact mailer recipient
+- _Admin_:
+  + Update nav+menu
+  + Remove Frilans Finans from menu navigation
+  + Enqueue translations on job save
+  + Re-structure admin menu navigation
+
+
+v1.0 - 2017-02-08 :tada:
+-----------
+- Filter
+  + Admin
+  + Query model `Queries::UserTraits`
+  + Adds models
+    * `Filter`
+    * `FilterUser`
+    * `LanguageFilter`
+    * `SkillFilter`
+    * `InterestFilter`
+- Revamped emails
+- Validate job owner belongs to company
+- Update gems: rack-cors, puma, geocoder, faker, aws-sdk and airbrake
+- Add gem: sidekiq-statistic
+
 v0.28 - 2017-02-03
 -----------
 - _Admin_:

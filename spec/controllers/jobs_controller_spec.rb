@@ -14,7 +14,7 @@ RSpec.describe Api::V1::JobsController, type: :controller do
           language_id: FactoryGirl.create(:language).id,
           hourly_pay_id: FactoryGirl.create(:hourly_pay).id,
           category_id: FactoryGirl.create(:category).id,
-          owner_user_id: FactoryGirl.create(:user).id,
+          owner_user_id: FactoryGirl.create(:company_user).id,
           street: 'Stora Nygatan 36',
           zip: '211 37',
           job_date: 1.day.from_now,
@@ -33,7 +33,7 @@ RSpec.describe Api::V1::JobsController, type: :controller do
   end
 
   let(:valid_session) do
-    user = FactoryGirl.create(:user_with_tokens)
+    user = FactoryGirl.create(:user_with_tokens, company: FactoryGirl.create(:company))
     allow_any_instance_of(described_class).
       to(receive(:current_user).
       and_return(user))
@@ -209,7 +209,7 @@ RSpec.describe Api::V1::JobsController, type: :controller do
 
         it 'returns forbidden status' do
           FactoryGirl.create(:user)
-          user1 = FactoryGirl.create(:user)
+          user1 = FactoryGirl.create(:company_user)
           user2 = FactoryGirl.create(:user)
           job = FactoryGirl.create(:job, owner: user1)
           FactoryGirl.create(:job_user, user: user2, job: job)

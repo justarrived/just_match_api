@@ -2,7 +2,7 @@
 require 'rails_helper'
 
 RSpec.describe UserMailer, type: :mailer do
-  let(:user) { mock_model User, name: 'User', contact_email: 'user@example.com' }
+  let(:user) { mock_model User, first_name: 'User', name: 'User', contact_email: 'user@example.com' } # rubocop:disable Metrics/LineLength
   let(:owner) { mock_model User, name: 'Owner', contact_email: 'owner@example.com' }
   let(:job) { mock_model Job, name: 'Job name' }
 
@@ -26,7 +26,7 @@ RSpec.describe UserMailer, type: :mailer do
     end
 
     it 'includes @user_name in email body' do
-      expect(mail).to match_email_body(user.name)
+      expect(mail).to match_email_body(user.first_name)
     end
 
     it 'includes login url in email' do

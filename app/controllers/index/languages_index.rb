@@ -29,6 +29,7 @@ module Index
         # a name column which doesn't exist
         query = filter_params.delete(:name)
         scope = filter_languages(scope, query) if query
+        scope = scope.order("#{I18n.locale}_name", :en_name)
         prepare_records(scope)
       end
     end

@@ -27,6 +27,7 @@ ti:
       not_an_integer: ናይ ግድን ምሉእ-ቁጽሪ ክኸውን ኣለዎ
       odd: ናይ ግድን ናብ ክልተ ዘይምቀል (ኦድ ቁጽር) ክኸውን ኣለዎ
       taken: ድሮ ኣብ ጠቕሚ ኣሎ
+      model_invalid: 'ግጉይ ኣጀማምራ: %{errors}'
       too_long:
         one: ኣዝዩ ነዊሑ (እንተነወሐደ 1 ኣሃዝ)
         other: ኣዝዩ ነዊሑ (እንተነወሐደ %{count} ኣሃዝ)

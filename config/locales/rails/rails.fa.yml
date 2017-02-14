@@ -27,6 +27,7 @@ fa:
       not_an_integer: عدد صحیح نیست
       odd: باید فرد باشد
       taken: پیشتر گرفته شده
+      model_invalid: 'نامعتبر است %{errors}'
       too_long:
         other: بیش از حد طولانی است (حداکثر %{count} کاراکتر)
       too_short:

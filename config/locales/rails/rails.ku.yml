@@ -27,6 +27,7 @@ ku:
       not_an_integer: divê hejmara temam be
       odd: divê kit be
       taken: aniha jî tê bi kar anîn
+      model_invalid: 'Şaşîyek peyda bû: %{errors}'
       too_long:
         one: zêde dirêj e (hedê herî zêde 1 nîşan e)
         other: zêde dirêj e (hedê herî zêde %{count} nîşan e/in)
