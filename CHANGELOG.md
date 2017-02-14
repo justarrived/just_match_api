@@ -3,6 +3,30 @@
 HEAD
 -----------
 
+v1.4 - 2017-02-14
+-----------
+* Fallback on original translation if nothing better is found
+* _API_: `/users/genders` endpoint
+* _Admin_:
+  + Replace bad template prefix
+  + Fix nil pointer in `FrilansFinansLog` show page
+  + Add `User#gender` to show page & filter
+* Frilans Finans API V2
+  + Frilans Finans API v2 compatibility
+  + Send `remote_id` as a string to Frilans Finans API
+  + Don't update `User#profession_title` @ FF API.
+  + :lipstick: and :hocho: dead test file
+  + Refactor `SyncFrilansFinansUserService` :lipstick:
+  + Don't sync with Frilans Finans API unless configured to be active
+  + _Admin_: Add ability to send employment certificate via Frilans Finans to user
+  + Move FF invoice remote id from job id => FF invoice id
+  + FrilansFinansApi: Implement EmploymentCertificate request
+  + Grab Frilans Finans company resouce creator id from environment config
+  + Update Frilans Finans API fixtures
+  + Remove redundant user account sync code
+  + Refactor FF controller to use Sync FF job
+  + Wrap attributes in data.attributes
+  + Update page query param name
 - _Update gems_:
   + `airbrake`
   + `aws-sdk`
