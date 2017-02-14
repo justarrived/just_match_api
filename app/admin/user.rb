@@ -177,6 +177,7 @@ ActiveAdmin.register User do
   filter :user_languages_proficiency_by_admin_gteq, as: :select, collection: [nil, nil] + UserLanguage::PROFICIENCY_RANGE.to_a
 
   filter :created_at
+  filter :gender
 
   filter :translations_description_cont, as: :string, label: I18n.t('admin.user.description')
   filter :translations_education_cont, as: :string, label: I18n.t('admin.user.education')
@@ -214,6 +215,7 @@ ActiveAdmin.register User do
           row :email
           row :phone
           row :skype_username
+          row :gender
           row :street
           row :city
           row :zip
