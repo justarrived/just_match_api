@@ -96,6 +96,10 @@ sv:
       eu_citizen_description: Du är medborgare i ett land som är med i EU
       student_visa: Student visa
       student_visa_description: Du har ett svenskt studentvisum
+    genders:
+      female: Kvinna
+      male: Man
+      other: Annat
   notifications:
     accepted_applicant_confirmation_overdue: Den accepterade användarens konfirmationsperiod har gått ut
     accepted_applicant_withdrawn: Den accepterade användaren har dragit tillbaka sin ansökan
