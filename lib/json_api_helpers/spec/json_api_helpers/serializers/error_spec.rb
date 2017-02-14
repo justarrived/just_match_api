@@ -13,6 +13,19 @@ RSpec.describe JsonApiHelpers::Serializers::Error do
     ).to_h
   end
 
+  it '#detail' do
+    detail = 'too short'
+    expect(described_class.new(status: 422, detail: detail).detail).to eq(detail)
+  end
+
+  it '#code' do
+    expect(described_class.new(status: 422, code: :wat, detail: '').code).to eq(:wat)
+  end
+
+  it '#status' do
+    expect(described_class.new(status: 422, detail: '').status).to eq(422)
+  end
+
   it 'returns correct status' do
     expect(subject[:status]).to eq(422)
   end
