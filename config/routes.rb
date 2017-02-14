@@ -79,6 +79,7 @@ Rails.application.routes.draw do
 
           get :notifications
           get :statuses
+          get :genders
           get :email_suggestion, path: 'email-suggestion'
           post :email_suggestion, path: 'email-suggestion'
         end

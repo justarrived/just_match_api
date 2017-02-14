@@ -54,6 +54,11 @@ RSpec.describe Api::V1::UsersController, type: :routing do
       expect(get: path).to route_to('api/v1/users#statuses')
     end
 
+    it 'routes to #genders' do
+      path = '/api/v1/users/genders'
+      expect(get: path).to route_to('api/v1/users#genders')
+    end
+
     it 'routes to GET #email_suggestion' do
       path = '/api/v1/users/email-suggestion'
       expect(get: path).to route_to('api/v1/users#email_suggestion')

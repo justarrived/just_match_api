@@ -67,6 +67,10 @@ class UserPolicy < ApplicationPolicy
     true
   end
 
+  def genders?
+    true
+  end
+
   def email_suggestion?
     true
   end

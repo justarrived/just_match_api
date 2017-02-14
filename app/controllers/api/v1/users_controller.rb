@@ -296,6 +296,17 @@ module Api
         render json: resource
       end
 
+      api :GET, '/users/genders', 'Show all possible user genders'
+      description 'Returns a list of all possible user genders.'
+      example JSON.pretty_generate(UserGendersSerializer.serializeble_resource.to_h)
+      def genders
+        authorize(User)
+
+        resource = UserGendersSerializer.serializeble_resource # rubocop:disable Metrics/LineLength
+
+        render json: resource
+      end
+
       api :POST, '/users/email-suggestion', 'Suggest email'
       description 'Returns suggestions for common misstakes when inputting an email address.' # rubocop:disable Metrics/LineLength
       error code: 400, desc: 'Bad request'

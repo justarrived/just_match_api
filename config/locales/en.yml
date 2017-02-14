@@ -96,6 +96,10 @@ en:
       eu_citizen_description: You are a citizen of a country that is a member of the EU
       student_visa: Student visa
       student_visa_description: You have a Swedish student visa
+    genders:
+      female: Female
+      male: Male
+      other: Other
   notifications:
     accepted_applicant_confirmation_overdue: Accepted applicants confirmation is overdue
     accepted_applicant_withdrawn: Accepted applicant has withdrawn
