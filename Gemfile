@@ -27,7 +27,7 @@ gem 'airbrake', '~> 5.6' # Error catcher and reporter
 gem 'skylight', '~> 1.0' # Performance monitoring
 
 # PAGINATION
-gem 'kaminari', '~> 0.17' # Easy pagination
+gem 'kaminari', '~> 1.0' # Easy pagination
 
 # JSON
 gem 'active_model_serializers', '~> 0.10' # Serialize models to JSON
@@ -44,7 +44,7 @@ gem 'pundit', '~> 1.1' # Authorization policies
 gem 'activeadmin', git: 'https://github.com/activeadmin/activeadmin' # Admin interface
 gem 'blazer', '~> 1.7' # Explore data with SQL
 gem 'chosen-rails', '~> 1.5' # Needed for autocomplete select input for activeadmin
-gem 'inherited_resources', git: 'https://github.com/activeadmin/inherited_resources' # activeadmin Rails 5
+gem 'inherited_resources', git: 'https://github.com/activeadmin/inherited_resources', ref: '4434f0ae72f790cf371728838c927c338100555d' # activeadmin Rails 5
 gem 'uglifier', '~> 3.0' # Needed for activeadmin assets compilation
 
 # Invoices
