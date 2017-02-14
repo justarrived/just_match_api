@@ -37,8 +37,8 @@ ActiveAdmin.register CommunicationTemplate do
     end
 
     span do
-      user_variables = User.attribute_names.map { |name| "${user_#{name}}" }.join(', ')
-      job_variables = Job.attribute_names.map { |name| "${job_#{name}}" }.join(', ')
+      user_variables = User.attribute_names.map { |name| "%{user_#{name}}" }.join(', ')
+      job_variables = Job.attribute_names.map { |name| "%{job_#{name}}" }.join(', ')
       "Available variables: #{user_variables}, #{job_variables}."
     end
 
