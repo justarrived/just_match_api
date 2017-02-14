@@ -81,8 +81,11 @@ module Translatable
 
             return nil unless fallback
 
-            # NOTE: Consider fallback on original translation if nothing else is found
-            prioritised_texts.detect { |translation| !translation.nil? }
+            fallback_translation = prioritised_texts.detect do |translation|
+              !translation.nil?
+            end
+
+            fallback_translation || translations.first # fallback or original translation
           end
         end
 
