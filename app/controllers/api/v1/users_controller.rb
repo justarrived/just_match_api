@@ -83,6 +83,7 @@ module Api
           param :user_image_one_time_tokens, Array, of: 'UserImage one time tokens', desc: 'User image one time tokens'
           param :current_status, User::STATUSES.keys, desc: 'Current status'
           param :at_und, User::AT_UND.keys, desc: 'AT-UND status'
+          param :gender, User::GENDER.keys, desc: 'Gender'
           param :arrived_at, String, desc: 'Arrived at date'
           param :country_of_origin, String, desc: 'Country of origin (alpha-2 code)'
           param :skype_username, String, desc: 'Skype username'
@@ -173,6 +174,7 @@ module Api
           param :user_image_one_time_token, String, desc: '_DEPRECATED_ User image one time token'
           param :current_status, User::STATUSES.keys, desc: 'Current status'
           param :at_und, User::AT_UND.keys, desc: 'AT-UND status'
+          param :gender, User::GENDER.keys, desc: 'Gender'
           param :arrived_at, String, desc: 'Arrived at date'
           param :country_of_origin, String, desc: 'Country of origin'
           param :skype_username, String, desc: 'Skype username'
@@ -364,7 +366,7 @@ module Api
           :first_name, :last_name, :email, :phone, :description, :job_experience,
           :education, :ssn, :street, :city, :zip, :language_id, :company_id,
           :competence_text, :current_status, :at_und, :arrived_at, :country_of_origin,
-          :account_clearing_number, :account_number, :skype_username,
+          :account_clearing_number, :account_number, :skype_username, :gender,
           ignored_notifications: []
         ]
         jsonapi_params.permit(*whitelist)
