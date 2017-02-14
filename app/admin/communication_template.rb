@@ -52,9 +52,7 @@ ActiveAdmin.register CommunicationTemplate do
       name: permitted_params.dig(:communication_template, :name),
       subject: permitted_params.dig(:communication_template, :subject),
       body: permitted_params.dig(:communication_template, :body)
-    ).tap do |result|
-      EnqueueCheapTranslation.call(result)
-    end
+    )
   end
 
   after_create do |template|
