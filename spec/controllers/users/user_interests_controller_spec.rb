@@ -21,6 +21,7 @@ RSpec.describe Api::V1::Users::UserInterestsController, type: :controller do
   describe 'GET #index' do
     it 'assigns all user interests as @interests' do
       user = FactoryGirl.create(:user_with_interests, interests_count: 2)
+      user.user_interests.first.update(level: 3)
       user.user_interests.last.interest.update(internal: true)
 
       allow_any_instance_of(described_class).

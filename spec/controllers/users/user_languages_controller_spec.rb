@@ -23,6 +23,7 @@ RSpec.describe Api::V1::Users::UserLanguagesController, type: :controller do
   describe 'GET #index' do
     it 'assigns all user languages as @languages' do
       user = FactoryGirl.create(:user_with_languages, languages_count: 1)
+      user.user_languages.first.update(proficiency: 3)
 
       allow_any_instance_of(described_class).
         to(receive(:current_user).
