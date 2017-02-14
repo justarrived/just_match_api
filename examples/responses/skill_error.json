@@ -5,7 +5,7 @@
       "source": {
         "pointer": "/data/attributes/name"
       },
-      "detail": "is too short (minimum is 3 characters)"
+      "detail": "is too short (minimum is 1 character)"
     },
     {
       "status": 422,

@@ -1,1 +1,11 @@
-{}
+{
+  "errors": [
+    {
+      "status": 422,
+      "source": {
+        "pointer": "/data/attributes/document"
+      },
+      "detail": "can't be blank"
+    }
+  ]
+}

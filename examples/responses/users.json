@@ -21,6 +21,7 @@
           "competence_text": null,
           "language_id": null
         },
+        "gender": null,
         "phone": "+46735000008",
         "street": "Bankgatan 14C",
         "city": "Lund",
@@ -33,7 +34,7 @@
         "admin": false,
         "anonymized": false,
         "ignored_notifications": [
-          "new_job_comment",
+          "applicant_will_perform_job_info",
           "failed_to_activate_invoice"
         ],
         "frilans_finans_payment_details": false,
@@ -43,7 +44,8 @@
         "arrived_at": "2015-03-11",
         "country_of_origin": "SE",
         "account_clearing_number": null,
-        "account_number": null
+        "account_number": null,
+        "just_arrived_staffing": false
       },
       "relationships": {
         "company": {

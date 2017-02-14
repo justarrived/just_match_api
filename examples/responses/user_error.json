@@ -31,27 +31,6 @@
     {
       "status": 422,
       "source": {
-        "pointer": "/data/attributes/phone"
-      },
-      "detail": "is too short (minimum is 9 characters)"
-    },
-    {
-      "status": 422,
-      "source": {
-        "pointer": "/data/attributes/phone"
-      },
-      "detail": "must be a valid phone number"
-    },
-    {
-      "status": 422,
-      "source": {
-        "pointer": "/data/attributes/phone"
-      },
-      "detail": "must be a Swedish phone number (+46)"
-    },
-    {
-      "status": 422,
-      "source": {
         "pointer": "/data/attributes/password"
       },
       "detail": "is too short (minimum is 6 characters)"
