@@ -28,8 +28,8 @@ module FrilansFinans
     end
 
     def self.notification_language(language)
-      return 'SE' if language.lang_code == 'sv'
-      'EN'
+      return 'sv' if language.lang_code == 'sv'
+      'en'
     end
 
     def self.format_ssn(ssn)
