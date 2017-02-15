@@ -9,7 +9,7 @@ RSpec.describe Api::V1::EmailController, type: :controller do
       'ja_key' => ja_key,
       'from' => email,
       'subject' => 'Email subject',
-      'body' => 'Something, somthing darkside...'
+      'text' => 'Something, somthing darkside...'
     }
   end
 
@@ -22,6 +22,19 @@ RSpec.describe Api::V1::EmailController, type: :controller do
       expect do
         post :receive, params: params
       end.to change(Message, :count).by(1)
+      expect(response.status).to eq(204)
+    end
+
+    it 'can handle invalid UTF-8 bytes by replacing weird characters' do
+      allow(AppSecrets).to receive(:incoming_email_key).and_return(ja_key)
+      FactoryGirl.create(:admin_user)
+      FactoryGirl.create(:user, email: email)
+      bad_utf8_params = params.merge(text: "Watman \xBF")
+
+      expect do
+        post :receive, params: bad_utf8_params
+      end.to change(ReceivedEmail, :count).by(1)
+      expect(ReceivedEmail.last.text_body).to include('�')
       expect(response.status).to eq(204)
     end
 
