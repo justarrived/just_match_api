@@ -130,6 +130,8 @@ en:
           hint: If checked the user will not be able to login and will see a message that they have been banned.
         password:
           hint: Warning this will reset the password
+        just_arrived_staffing:
+          hint: Check this if this user is hired by Just Arrived Bemaning AB
       show:
         interests: Interests
         verified: 'Verified: %{verified}'
