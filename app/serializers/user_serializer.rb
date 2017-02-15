@@ -15,28 +15,28 @@ class UserSerializer < ApplicationSerializer
 
   link(:self) { api_v1_user_url(object) }
 
-  attribute :description do
-    object.original_description
-  end
+  attribute :description { object.original_description }
+  attribute :description_html { text_to_html(object.original_description) }
 
-  attribute :job_experience do
-    object.original_job_experience
-  end
+  attribute :job_experience { object.original_job_experience }
+  attribute :job_experience_html { text_to_html(object.original_job_experience) }
 
-  attribute :education do
-    object.original_education
-  end
+  attribute :education { object.original_education }
+  attribute :education_html { text_to_html(object.original_education) }
 
-  attribute :competence_text do
-    object.original_competence_text
-  end
+  attribute :competence_text { object.original_competence_text }
+  attribute :competence_text_html { text_to_html(object.original_competence_text) }
 
   attribute :translated_text do
     {
       description: object.translated_description,
+      description_html: text_to_html(object.description),
       job_experience: object.translated_job_experience,
+      job_experience_html: text_to_html(object.job_experience),
       education: object.translated_education,
+      education_html: text_to_html(object.education),
       competence_text: object.translated_competence_text,
+      competence_text_html: text_to_html(object.competence_text),
       language_id: object.translated_language_id
     }
   end
