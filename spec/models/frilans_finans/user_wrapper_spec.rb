@@ -29,7 +29,7 @@ RSpec.describe FrilansFinans::UserWrapper do
         social_security_number: '8901010101',
         account_clearing_number: account_clearing_number,
         account_number: account_number,
-        notification_language: 'EN',
+        notification_language: 'en',
         receive_email_notifications: false,
         receive_sms_notificiations: false,
         remote_id: id.to_s,
@@ -76,12 +76,12 @@ RSpec.describe FrilansFinans::UserWrapper do
   describe '::notification_language' do
     it 'returns SE if language is Swedish' do
       sv_lang = FactoryGirl.build(:language, lang_code: 'sv')
-      expect(described_class.notification_language(sv_lang)).to eq('SE')
+      expect(described_class.notification_language(sv_lang)).to eq('sv')
     end
 
     it 'returns EN for non-Swedish languages' do
       lang = FactoryGirl.build(:language)
-      expect(described_class.notification_language(lang)).to eq('EN')
+      expect(described_class.notification_language(lang)).to eq('en')
     end
   end
 end
