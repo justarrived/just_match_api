@@ -3,6 +3,15 @@
 HEAD
 -----------
 
+v1.5 - 2017-02-15
+-----------
+ * _Frilans Finans_: Update user notification language value format
+ * Normalize user fields before validation
+ * Don't force SSL on the app level (we're doing it through other means..)
+ * Don't translate `CommunicationTemplates` automatically
+ * _API_: Return custom error message if token provided but not found
+
+
 v1.4 - 2017-02-14
 -----------
 * Fallback on original translation if nothing better is found
