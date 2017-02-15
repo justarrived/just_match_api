@@ -2,6 +2,8 @@
 module JsonApiHelpers
   module Serializers
     class Error
+      attr_reader :status, :detail, :code
+
       def initialize(detail:, status: 422, code: nil, pointer: nil, attribute: nil, key_transform: JsonApiHelpers.default_key_transform) # rubocop:disable Metrics/LineLength
         @status = status
         @detail = detail

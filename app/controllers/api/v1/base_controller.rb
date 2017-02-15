@@ -198,6 +198,7 @@ module Api
         api_base_url '/api/v1'
       end
 
+      NoSuchTokenError = Class.new(ArgumentError)
       ExpiredTokenError = Class.new(ArgumentError)
 
       before_action :authenticate_user_token!
@@ -215,6 +216,7 @@ module Api
       rescue_from Pundit::NotAuthorizedError, with: :user_forbidden
       rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
       rescue_from ExpiredTokenError, with: :expired_token
+      rescue_from NoSuchTokenError, with: :no_such_token
 
       def jsonapi_params
         @_deserialized_params ||= JsonApiDeserializer.parse(params)
@@ -306,6 +308,11 @@ module Api
         render json: TokenExpired.add.to_json, status: status
       end
 
+      def no_such_token
+        status = 401 # unauthorized
+        render json: NoSuchToken.add.to_json, status: status
+      end
+
       def current_user
         @_current_user ||= User.new
       end
@@ -363,8 +370,10 @@ module Api
 
       def authenticate_user_token!
         authenticate_with_http_token do |auth_token, _options|
-          token = Token.includes(:user).find_by(token: auth_token)
-          return if token.nil?
+          return if auth_token.blank?
+
+          token = Token.find_by(token: auth_token)
+          return raise NoSuchTokenError if token.nil?
           return raise ExpiredTokenError if token.expired?
 
           user = token.user
