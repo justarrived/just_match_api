@@ -35,13 +35,7 @@ ActiveAdmin.register JobUser do
   end
 
   show do
-    if job_user.job.started? && !job_user.will_perform || job_user.job.accepted_job_user != job_user # rubocop:disable Metrics/LineLength
-      attributes_table do
-        row :status { I18n.t('admin.user.show.rejected') }
-        row :job_name { |job_user| job_user.job.name }
-        row :user
-      end
-    elsif job_user.job.ended?
+    if job_user.job.ended?
       render partial: 'job_ended_view', locals: { job_user: job_user }
     else
       render partial: 'show', locals: { job_user: job_user }
