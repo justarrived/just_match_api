@@ -373,7 +373,7 @@ module Api
           return if auth_token.blank?
 
           token = Token.find_by(token: auth_token)
-          return raise NoSuchTokenError if token.nil?
+          # return raise NoSuchTokenError if token.nil?
           return raise ExpiredTokenError if token.expired?
 
           user = token.user
