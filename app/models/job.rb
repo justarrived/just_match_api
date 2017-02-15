@@ -192,12 +192,6 @@ Address: #{company.address}
     hourly_pay.net_salary * hours
   end
 
-  # [DEPRECATED] please use #gross_amount instead
-  def amount
-    ActiveSupport::Deprecation.warn('User#amount has been depreceted, please use User#gross_salary instead') # rubocop:disable Metrics/LineLength
-    gross_amount
-  end
-
   def invoice_amount
     hourly_pay.invoice_rate * hours
   end
