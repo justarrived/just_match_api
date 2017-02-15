@@ -42,7 +42,15 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe '#normalize_phone' do
+  it 'normalizes phone before validation (so unique checks work properly)' do
+    phone = '073 5000 000'
+    FactoryGirl.create(:user, phone: phone)
+    user = User.new(phone: phone)
+    user.validate
+    expect(user.errors[:phone]).to eq(['has already been taken'])
+  end
+
+  describe '#set_normalize_phone' do
     it 'normalizes phone number without country prefix' do
       user = User.new(phone: '073 5000 000')
       user.validate

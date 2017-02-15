@@ -34,7 +34,7 @@ class User < ApplicationRecord
 
   attr_accessor :password
 
-  after_validation :set_normalized_phone, :set_normalized_ssn, :set_normalized_email, :set_normalized_bank_account # rubocop:disable Metrics/LineLength
+  before_validation :set_normalized_fields
 
   before_save :encrypt_password
 
@@ -313,6 +313,13 @@ class User < ApplicationRecord
 
   def auth_token
     auth_tokens.last&.token
+  end
+
+  def set_normalized_fields
+    set_normalized_phone
+    set_normalized_ssn
+    set_normalized_email
+    set_normalized_bank_account
   end
 
   def set_normalized_phone
