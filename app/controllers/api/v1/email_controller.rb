@@ -20,7 +20,7 @@ module Api
         from = params[:from]
         to = params[:to]
         subject = params[:subject]
-        raw_text = params[:text]
+        raw_text = params[:text]&.encode('UTF-8', invalid: :replace)
         html_body = params[:html]
 
         from_email = EmailAddress.normalize(from)
