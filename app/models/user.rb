@@ -10,7 +10,7 @@ class User < ApplicationRecord
   ONE_TIME_TOKEN_VALID_FOR_HOURS = 18
 
   LOCATE_BY = {
-    address: { lat: :latitude, long: :longitude }
+    address: { lat: :latitude, long: :longitude }.freeze
   }.freeze
 
   STATUSES = {
