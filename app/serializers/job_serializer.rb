@@ -4,11 +4,15 @@ class JobSerializer < ApplicationSerializer
     :id, :job_date, :hours, :created_at, :updated_at, :owner_user_id,
     :latitude, :longitude, :language_id, :street, :zip, :zip_latitude, :zip_longitude,
     :hidden, :category_id, :hourly_pay_id, :verified, :job_end_date, :cancelled, :filled,
-    :featured, :upcoming, :amount, :invoice_amount, :language_id, :gross_amount,
-    :net_amount
+    :featured, :upcoming, :language_id, :gross_amount, :net_amount
   ]
 
   link(:self) { api_v1_job_url(object) }
+
+  attribute :amount do
+    ActiveSupport::Deprecation.warn('#amount has been depreceted, use #gross_amount')
+    object.gross_amount
+  end
 
   attribute :name do
     object.original_name
@@ -22,11 +26,16 @@ class JobSerializer < ApplicationSerializer
     object.original_description
   end
 
+  attribute :description_html do
+    text_to_html(object.original_description)
+  end
+
   attribute :translated_text do
     {
       name: object.translated_name,
       short_description: object.translated_short_description,
       description: object.translated_description,
+      description_html: text_to_html(object.translated_description),
       language_id: object.translated_language_id
     }
   end

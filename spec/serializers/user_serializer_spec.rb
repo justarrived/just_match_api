@@ -3,14 +3,17 @@ require 'rails_helper'
 
 RSpec.describe UserSerializer, type: :serializer do
   context 'Individual Resource Representation' do
-    let(:resource) { FactoryGirl.build(:user, id: '1') }
+    let(:resource) { FactoryGirl.build(:user, id: '1', description: nil) }
     let(:serialization) { JsonApiSerializer.serialize(resource) }
 
     subject do
       JSON.parse(serialization.to_json)
     end
 
-    ignored = %i(id description competence_text translated_text)
+    ignored = %i(
+      id description competence_text competence_text_html translated_text description_html
+      education_html job_experience_html
+    )
     (UserPolicy::ATTRIBUTES - ignored).each do |attribute|
       it "has #{attribute.to_s.humanize.downcase}" do
         dashed_attribute = attribute.to_s.dasherize
@@ -23,9 +26,13 @@ RSpec.describe UserSerializer, type: :serializer do
       dashed_attribute = 'translated_text'.dasherize
       value = {
         'description' => nil,
-        'education' => nil,
+        'description_html'.dasherize => nil,
         'job_experience'.dasherize => nil,
+        'job_experience_html'.dasherize => nil,
+        'education' => nil,
+        'education_html'.dasherize => nil,
         'competence_text'.dasherize => nil,
+        'competence_text_html'.dasherize => nil,
         'language_id'.dasherize => nil
       }
       expect(subject).to have_jsonapi_attribute(dashed_attribute, value)
