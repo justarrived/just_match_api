@@ -1,8 +1,8 @@
 # frozen_string_literal: true
-class ValueFormatter
+class StringFormatter
   include ActionView::Helpers::TextHelper # needed for #simple_format
 
-  def text_to_html(string)
+  def to_html(string)
     return if string.blank?
 
     simple_format(string)

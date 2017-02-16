@@ -27,7 +27,7 @@ class JobSerializer < ApplicationSerializer
   end
 
   attribute :description_html do
-    text_to_html(object.original_description)
+    to_html(object.original_description)
   end
 
   attribute :translated_text do
@@ -35,9 +35,17 @@ class JobSerializer < ApplicationSerializer
       name: object.translated_name,
       short_description: object.translated_short_description,
       description: object.translated_description,
-      description_html: text_to_html(object.translated_description),
+      description_html: to_html(object.translated_description),
       language_id: object.translated_language_id
     }
+  end
+
+  attribute :gross_amount_formatted do
+    to_unit(object.gross_amount, object.currency)
+  end
+
+  attribute :net_amount_formatted do
+    to_unit(object.net_amount, object.currency)
   end
 
   has_many :job_users do

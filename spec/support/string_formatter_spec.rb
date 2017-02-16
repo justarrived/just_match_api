@@ -2,8 +2,8 @@
 
 require 'rails_helper'
 
-RSpec.describe ValueFormatter do
-  describe '#text_to_html' do
+RSpec.describe StringFormatter do
+  describe '#to_html' do
     [
       ['', nil],
       ['   ', nil],
@@ -14,7 +14,7 @@ RSpec.describe ValueFormatter do
       argument, expected = values
 
       it "returns correct value for #{argument}" do
-        expect(described_class.new.text_to_html(argument)).to eq(expected)
+        expect(described_class.new.to_html(argument)).to eq(expected)
       end
     end
   end

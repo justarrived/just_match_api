@@ -1,6 +1,8 @@
 en:
   api_documentation:
     title: API documentation | JustMatch API
+  units:
+    currency_per_hour: '%{currency}/hour'
   admin:
     mailer:
       invoice_missing_company_frilans_finans_id:
