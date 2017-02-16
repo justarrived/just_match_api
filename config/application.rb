@@ -19,7 +19,7 @@ require 'action_view/railtie' # Needed for Rails mailers
 # require "rails/test_unit/railtie"
 
 require_relative '../lib/middleware/catch_json_parse_errors'
-require_relative 'i18n_fallback'
+require_relative '../lib/i18n/i18n_meta'
 
 Bundler.require(*Rails.groups)
 
@@ -37,7 +37,7 @@ module JustMatch
     # fa_AF - Dari / Persian (Afghanistan) [partial Rails translation locally]
     # ps    - Pashto [partial Rails translation locally]
     config.i18n.available_locales = [:en, :sv, :ar, :fa, :ku, :ti, :fa_AF, :ps]
-    config.i18n.fallbacks = I18nFallback.to_h
+    config.i18n.fallbacks = I18nMeta.fallbacks_hash
     config.i18n.load_path += Dir[
       Rails.root.join('config', 'locales', '**', '*.{rb,yml}')
     ]

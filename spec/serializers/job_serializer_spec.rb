@@ -10,7 +10,10 @@ RSpec.describe JobSerializer, type: :serializer do
       JSON.parse(serialization.to_json)
     end
 
-    ignore_fields = %i(id translated_text name description short_description amount)
+    ignore_fields = %i(
+      id translated_text name description short_description amount gross_amount_formatted
+      net_amount_formatted
+    )
     (JobPolicy::ATTRIBUTES - ignore_fields).each do |attribute|
       it "has #{attribute.to_s.humanize.downcase}" do
         dashed_attribute = attribute.to_s.dasherize
@@ -29,6 +32,16 @@ RSpec.describe JobSerializer, type: :serializer do
         'language_id'.dasherize => nil
       }
       expect(subject).to have_jsonapi_attribute(dashed_attribute, value)
+    end
+
+    it 'has net_amount_formatted' do
+      dashed_attribute = 'net_amount_formatted'.dasherize
+      expect(subject).to have_jsonapi_attribute(dashed_attribute, '2,100 SEK')
+    end
+
+    it 'has gross_amount_formatted' do
+      dashed_attribute = 'gross_amount_formatted'.dasherize
+      expect(subject).to have_jsonapi_attribute(dashed_attribute, '3,000 SEK')
     end
 
     %w(owner company language category hourly-pay).each do |relationship|

@@ -83,6 +83,8 @@ class Job < ApplicationRecord
     [:by_near_address]
   end
 
+  delegate :currency, to: :hourly_pay
+
   # This will return an Array and not an ActiveRecord::Relation
   def self.non_hired
     sql = <<-SQL

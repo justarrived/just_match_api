@@ -14,6 +14,10 @@ class HourlyPay < ApplicationRecord
     "##{id} Gross salary #{gross_salary} SEK"
   end
 
+  def unit
+    I18n.t('units.currency_per_hour', currency: currency)
+  end
+
   def net_salary
     PayCalculator.net_salary(gross_salary)
   end

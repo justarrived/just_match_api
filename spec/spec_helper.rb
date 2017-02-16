@@ -7,6 +7,9 @@ end
 require 'webmock/rspec'
 require 'frilans_finans_api/test_helper'
 
+# Allow I18nMeta to receive unknown locales in tests
+I18nMeta.strict = false
+
 Dir[
   Rails.root.join('spec', 'spec_support', 'spec_helpers', '**', '*.rb')
 ].each { |f| require f }
