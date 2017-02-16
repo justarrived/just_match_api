@@ -3,6 +3,18 @@
 HEAD
 -----------
 
+
+v1.6 - 2017-02-16
+----------
+* _API_: Force UTF-8 encoding and replace invalid character
+* _Admin_: Add missing admin I18n string
+* Just return if no token found in authenticate method
+* Don't raise `NoSuchTokenError` on existing, but wrong, token since that doesn't allow a user with an existing token to login again
+* Add User & job HTML text field to users serializer
+* Remove duplicated method from `AppConfig`
+* _Admin_: Discard job user rejected view
+
+
 v1.5 - 2017-02-15
 -----------
  * _Frilans Finans_: Update user notification language value format
