@@ -7,4 +7,8 @@ class ValueFormatter
 
     simple_format(string)
   end
+
+  def force_utf8(string)
+    string&.encode('UTF-8', invalid: :replace)
+  end
 end
