@@ -17,7 +17,7 @@ module Api
       param :subject, String, desc: 'Email subject', required: true
       param :text, String, desc: 'Email body', required: true
       def receive
-        value_formatter = ValueFormatter.new
+        value_formatter = StringFormatter.new
 
         from = params[:from]
         to = params[:to]

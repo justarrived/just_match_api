@@ -10,6 +10,12 @@ RSpec.describe HourlyPay, type: :model do
     end
   end
 
+  describe '#unit' do
+    it 'returns the unit' do
+      expect(hourly_pay.unit).to eq('SEK/h')
+    end
+  end
+
   describe '#net_salary' do
     it 'returns the correct net salary' do
       expect(hourly_pay.net_salary).to eq(70)
