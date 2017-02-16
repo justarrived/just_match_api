@@ -17,11 +17,13 @@ module Api
       param :subject, String, desc: 'Email subject', required: true
       param :text, String, desc: 'Email body', required: true
       def receive
+        value_formatter = ValueFormatter.new
+
         from = params[:from]
         to = params[:to]
         subject = params[:subject]
-        raw_text = params[:text]&.encode('UTF-8', invalid: :replace)
-        html_body = params[:html]
+        raw_text = value_formatter.force_utf8(params[:text])
+        html_body = value_formatter.force_utf8(params[:html])
 
         from_email = EmailAddress.normalize(from)
 
