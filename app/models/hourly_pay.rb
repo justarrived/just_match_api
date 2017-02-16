@@ -15,7 +15,7 @@ class HourlyPay < ApplicationRecord
   end
 
   def unit
-    "#{currency}/h"
+    I18n.t('units.currency_per_hour', currency: currency)
   end
 
   def net_salary

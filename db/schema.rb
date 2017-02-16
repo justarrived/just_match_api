@@ -304,9 +304,9 @@ ActiveRecord::Schema.define(version: 20170214093037) do
   create_table "interests", force: :cascade do |t|
     t.string   "name"
     t.integer  "language_id"
-    t.boolean  "internal"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.boolean  "internal",    default: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.index ["language_id"], name: "index_interests_on_language_id", using: :btree
   end
 
@@ -343,8 +343,8 @@ ActiveRecord::Schema.define(version: 20170214093037) do
     t.string   "company_org_no"
     t.string   "company_email"
     t.string   "company_phone"
-    t.integer  "company_id"
     t.string   "company_address"
+    t.integer  "company_id"
     t.index ["company_id"], name: "index_job_requests_on_company_id", using: :btree
   end
 

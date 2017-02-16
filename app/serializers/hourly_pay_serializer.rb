@@ -8,11 +8,11 @@ class HourlyPaySerializer < ApplicationSerializer
   attributes ATTRIBUTES
 
   attribute :gross_salary_formatted do
-    to_currency(object.gross_salary, unit: object.unit)
+    to_unit(object.gross_salary, object.unit)
   end
 
   attribute :net_salary_formatted do
-    to_currency(object.net_salary, unit: object.unit)
+    to_unit(object.net_salary, object.unit)
   end
 
   link(:self) { api_v1_hourly_pay_url(object) }

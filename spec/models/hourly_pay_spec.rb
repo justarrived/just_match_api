@@ -11,8 +11,11 @@ RSpec.describe HourlyPay, type: :model do
   end
 
   describe '#unit' do
-    it 'returns the unit' do
-      expect(hourly_pay.unit).to eq('SEK/h')
+    it 'returns the unit in correct local' do
+      expect(hourly_pay.unit).to eq('SEK/hour')
+      I18n.with_locale(:sv) do
+        expect(hourly_pay.unit).to eq('SEK/timme')
+      end
     end
   end
 

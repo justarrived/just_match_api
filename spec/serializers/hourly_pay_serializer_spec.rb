@@ -25,7 +25,7 @@ RSpec.describe HourlyPaySerializer, type: :serializer do
 
     it 'has gross_salary_formatted' do
       dashed_attribute = 'gross_salary_formatted'.dasherize
-      expect(subject).to have_jsonapi_attribute(dashed_attribute, '100 SEK/h')
+      expect(subject).to have_jsonapi_attribute(dashed_attribute, '100 SEK/hour')
     end
 
     it 'is valid jsonapi format' do

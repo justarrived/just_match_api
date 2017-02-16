@@ -41,11 +41,11 @@ class JobSerializer < ApplicationSerializer
   end
 
   attribute :gross_amount_formatted do
-    to_currency(object.gross_amount, unit: object.hourly_pay.currency)
+    to_unit(object.gross_amount, object.currency)
   end
 
   attribute :net_amount_formatted do
-    to_currency(object.net_amount, unit: object.hourly_pay.currency)
+    to_unit(object.net_amount, object.currency)
   end
 
   has_many :job_users do
