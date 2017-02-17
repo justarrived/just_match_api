@@ -8,7 +8,9 @@
       "rate_excluding_vat": 140.0,
       "rate_including_vat": 175.0,
       "active": true,
-      "currency": "SEK"
+      "currency": "SEK",
+      "gross_salary_formatted": "100 SEK/hour",
+      "net_salary_formatted": "70 SEK/hour"
     },
     "links": {
       "self": "https://api.justarrived.se/api/v1/hourly-pays/1"

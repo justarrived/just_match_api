@@ -25,13 +25,15 @@
         "name": null,
         "short_description": null,
         "description": null,
+        "description_html": null,
         "language_id": null
       },
       "amount": 3000.0,
-      "invoice_amount": 4200.0,
       "language_id": 6,
       "gross_amount": 3000.0,
-      "net_amount": 2100.0
+      "net_amount": 2100.0,
+      "gross_amount_formatted": "3,000 SEK",
+      "net_amount_formatted": "2,100 SEK"
     },
     "relationships": {
       "job_users": {
