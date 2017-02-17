@@ -3,6 +3,12 @@
 HEAD
 -----------
 
+v1.7.1 - 2017-02-17
+----------
+
+* _FrilansFinansApi_: Add `FrilansFinansApi::User::index` method
+
+
 v1.7 - 2017-02-17
 ----------
 * _API_: Only return visible user languages and user skills
