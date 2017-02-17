@@ -25,6 +25,10 @@ module FrilansFinansApi
       request.get(uri: "/invoices/#{invoice_id}/salaries", query: build_query(page: page))
     end
 
+    def users(page: 1)
+      request.get(uri: '/users', query: build_query(page: page))
+    end
+
     def taxes(page: 1, only_standard: false)
       filter = {}
       filter = { filter: { standard: 1 } } if only_standard

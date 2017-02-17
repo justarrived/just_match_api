@@ -16,6 +16,7 @@ module FrilansFinansApi
     alias_method :professions, :currencies
     alias_method :salaries, :currencies
     alias_method :taxes, :currencies
+    alias_method :users, :currencies
     alias_method :invoice, :currencies
     alias_method :user, :currencies
     alias_method :create_user, :currencies
