@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 module FrilansFinansApi
   class User
+    include Walker
+
     def self.create(attributes:, client: FrilansFinansApi.client_klass.new)
       response = client.create_user(attributes: attributes)
       Document.new(response)
@@ -8,6 +10,11 @@ module FrilansFinansApi
 
     def self.update(id:, attributes:, client: FrilansFinansApi.client_klass.new)
       response = client.update_user(id: id, attributes: attributes)
+      Document.new(response)
+    end
+
+    def self.index(page: 1, client: FrilansFinansApi.client_klass.new)
+      response = client.users(page: page)
       Document.new(response)
     end
 
