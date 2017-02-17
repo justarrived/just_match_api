@@ -3,6 +3,11 @@
 HEAD
 -----------
 
+v1.7 - 2017-02-17
+----------
+* _API_: Only return visible user languages and user skills
+* `ValueFormatter` => `StringFormatter`. Add `NumberFormatter` and return prettified numbers in Hourly Pay & Job endpoints
+
 
 v1.6 - 2017-02-16
 ----------
