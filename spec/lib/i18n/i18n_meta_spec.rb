@@ -3,6 +3,12 @@ require 'spec_helper'
 require 'i18n/i18n_meta'
 
 RSpec.describe I18nMeta do
+  describe '::meta' do
+    it 'returns default meta data for unknown locale' do
+      expect(described_class.meta(:wat)).to eq(direction: :ltr, fallbacks: %w(en))
+    end
+  end
+
   describe '::direction' do
     it 'returns the direction of the locale' do
       expect(described_class.direction(:ar)).to eq(:rtl)
