@@ -57,6 +57,8 @@ class UserSerializer < ApplicationSerializer
 
   has_many :user_languages do
     link(:related) { api_v1_user_languages_url(object.id) }
+
+    object.user_languages.visible
   end
 
   has_many :chats, unless: :collection_serializer? do
@@ -69,6 +71,8 @@ class UserSerializer < ApplicationSerializer
 
   has_many :user_skills, unless: :collection_serializer? do
     link(:related) { api_v1_user_skills_url(object.id) }
+
+    object.user_skills.visible
   end
 
   def attributes(_)
