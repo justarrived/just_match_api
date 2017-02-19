@@ -3,23 +3,27 @@ module Wgtrm
   class ImportResumes
     UserMap = Struct.new(:user, :slug)
 
+    def self.perform
+      new.perform
+    end
+
     def initialize(glob_path: 'tmp/wgrtm-resumes/*')
       @paths = Dir[glob_path]
-      @user_map = User.all.map do |user|
-        UserMap.new(user.id, to_slug(user.name))
+      @user_map = ::User.all.map do |user|
+        UserMap.new(user, to_slug(user.name))
       end
     end
 
-    def commit
-      @commit ||= begin
-        @paths.map do |path|
-          file = File.open(path, 'rb')
-          file_name = Pathname.new(file).basename.to_s
+    def perform
+      @perform ||= @paths.map do |path|
+        file = File.open(path, 'rb')
+        file_name = Pathname.new(file).basename.to_s
 
-          user = @user_map.detect { |map| file_name.include?(map.slug) }&.user
-          next if user.nil?
+        user = @user_map.detect { |map| file_name.include?(map.slug) }&.user
+        next if user.nil?
 
-          document = Document.create!(document: file)
+        document = Document.create(document: file)
+        if document.valid?
           UserDocument.create!(user: user, document: document, category: :cv)
         end
       end
