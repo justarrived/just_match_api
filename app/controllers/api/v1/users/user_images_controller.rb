@@ -52,7 +52,29 @@ module Api
 
         api :GET, '/users/images/categories', 'Show all possible user image categories'
         description 'Returns a list of all possible user image categories.'
-        example JSON.pretty_generate(UserImageCategoriesSerializer.serializeble_resource(key_transform: :underscore).to_h) # rubocop:disable Metrics/LineLength
+        example '# Example response
+{
+  "data": [
+    {
+      "id": "profile",
+      "type": "user_image_categories",
+      "attributes": {
+        "name": "Profile",
+        "description": "Profile picture",
+        "language_id": 54,
+        "translated_text": {
+          "name": "Profile",
+          "description": "Profile picture",
+          "language_id": 54
+        }
+      }
+    }
+  ],
+  "meta": {
+    "total": 1
+  }
+}
+'
         def categories
           authorize(User)
           resource = UserImageCategoriesSerializer.serializeble_resource(key_transform: key_transform_header) # rubocop:disable Metrics/LineLength

@@ -1,11 +1,6 @@
 # frozen_string_literal: true
 class Document < ApplicationRecord
-  CONTENT_TYPES = %w(
-    application/pdf
-    application/msword
-    application/zip
-    application/vnd.openxmlformats-officedocument.wordprocessingml.document
-  ).freeze
+  CONTENT_TYPES = DocumentContentTypeHelper::CONTENT_TYPES_MAP.keys.freeze
   DOCUMENT_MAX_MB_SIZE = 8
 
   ONE_TIME_TOKEN_VALID_FOR_HOURS = 10

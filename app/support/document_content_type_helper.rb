@@ -4,6 +4,10 @@ class DocumentContentTypeHelper
     'application/pdf' => 'pdf',
     'application/msword' => 'doc',
     'application/zip' => 'docx',
+    'application/x-ole-storage' => 'doc',
+    'application/vnd.oasis.opendocument.text' => 'odt',
+    'text/plain' => 'txt',
+    'application/rtf' => 'rtf',
     'application/vnd.openxmlformats-officedocument.wordprocessingml.document' => 'docx'
   }.freeze
   ALLOWED_DOCUMENT_CONTENT_TYPES = CONTENT_TYPES_MAP.keys.dup.freeze
