@@ -19,7 +19,37 @@ module Api
       # rubocop:disable Metrics/LineLength
       param 'filter[name]', String, 'Filter resource by *name* [jsonapi.org spec](http://jsonapi.org/format/#fetching-filtering)'
       param 'filter[country_code]', String, 'Filter resource by *country_code* [jsonapi.org spec](http://jsonapi.org/format/#fetching-filtering)'
-      example JSON.pretty_generate(CountriesSerializer.serializeble_resource(key_transform: :underscore).to_h)
+      example '# Example response
+{
+  "data": [
+    {
+      "id": "AF",
+      "type": "countries",
+      "attributes": {
+        "country_code": "AF",
+        "name": "Afghanistan",
+        "local_name": "افغانستان",
+        "language_id": 54,
+        "en_name": "Afghanistan",
+        "sv_name": "Afghanistan",
+        "ar_name": "أفغانستان",
+        "fa_name": "افغانستان",
+        "ku_name": "Efxanistan",
+        "ti_name": "Afghanistan",
+        "fa_af_name": "افغانستان",
+        "ps_name": "افغانستان",
+        "translated_text": {
+          "name": "Afghanistan",
+          "language_id": 54
+        }
+      }
+    }
+  ],
+  "meta": {
+    "total": 1
+  }
+}
+'
       # rubocop:enable Metrics/LineLength
       def index
         filter = JsonApiFilterParams.build(params[:filter], %i(name country_code))
