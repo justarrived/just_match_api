@@ -28,7 +28,7 @@ module Wgtrm
         next if @ignore_emails.include?(email)
         phone = wgtrm_user.phone
 
-        # will return nil if there is an existing user alread
+        # will return nil if there is an existing user already
         user = find_or_initialize_user(email, phone) || next
         import = ImportUser.commit(user, wgtrm_user)
 
@@ -44,9 +44,7 @@ module Wgtrm
       user = ::User.find_by(email: email)
       user_by_phone = ::User.find_by(phone: phone)
 
-      if user.nil? && user_by_phone
-        user = user_by_phone
-      end
+      user = user_by_phone if user.nil? && user_by_phone
 
       user ||= ::User.new.tap do |u|
         u.email = email

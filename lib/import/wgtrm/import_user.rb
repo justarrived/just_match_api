@@ -8,8 +8,8 @@ module Wgtrm
     end
 
     def initialize(user, wgtrm_user)
-      @user = user             || fail('User can *not* be nil')
-      @wgtrm_user = wgtrm_user || fail('Wgtrm User can *not* be nil')
+      @user = user             || raise(ArgumentError, 'User can *not* be nil')
+      @wgtrm_user = wgtrm_user || raise(ArgumentError, 'Wgtrm User can *not* be nil')
 
       @user_languages = nil
       @user_tags      = nil
@@ -77,14 +77,12 @@ module Wgtrm
     def conditionally_set_default_users_language
       return true if @user.created_at > 1.day.ago
       sys_langs = %w(en sv ar)
-      lang = nil
       @user_languages.each do |ul|
         language = ul.language
-        lang = language if ul.proficiency == 5 && sys_langs.include?(language.lang_code)
-      end
-      if lang
-        @user.language = lang
+        next if ul.proficiency != 5 || !sys_langs.include?(language.lang_code)
+        @user.language = language
         @user.save!
+        return true
       end
       true
     end
