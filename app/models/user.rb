@@ -81,7 +81,7 @@ class User < ApplicationRecord
 
   validates :language, presence: true
   validates :email, presence: true, uniqueness: true
-  validates :first_name, length: { minimum: 2 }, allow_blank: false
+  validates :first_name, length: { minimum: 1 }, allow_blank: false
   validates :last_name, length: { minimum: 2 }, allow_blank: false
   validates :phone, length: { minimum: 9 }, uniqueness: true, allow_blank: true
   validates :street, length: { minimum: 5 }, allow_blank: true
