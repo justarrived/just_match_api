@@ -3,9 +3,34 @@
 HEAD
 -----------
 
+
+v1.8 - 2017-02-19
+----------
+* Docs:
+  - Update user images categories action
+  - Update countries index action
+  - Update user error API response example
+* Add support for additional doc types: .odt, .txt, .rtf and another .doc variant
+* Wgtrm import of `User` -> `UserLanguage`, `UserInterest`, `UserTag`, `UserDocument`:
+  - Import users from CSV with find-or-create strategy
+    + Phone
+    + Email
+    + Country of origin
+    + Name
+    + Residence (city)
+    + Interests
+    + Languages (with proficiency)
+    + Tags
+    + Resumes
+* Update gems: `apipie-rails`, `aws-sdk` and `countries`
+* Decrease minimum `User#first_name` length from `2` to `1`
+* _Admin_:
+  - Improved `UserLanguage` index view
+  - Add user documents side bar to job user & user show+edit views
+
+
 v1.7.1 - 2017-02-17
 ----------
-
 * _FrilansFinansApi_: Add `FrilansFinansApi::User::index` method
 
 
