@@ -121,6 +121,24 @@ ActiveAdmin.register JobUser do
     end
   end
 
+  sidebar :documents, only: [:show, :edit] do
+    user = job_user.user
+    ul do
+      user.user_documents.
+        includes(:document).
+        order(created_at: :desc).
+        limit(50).
+        each do |user_document|
+        doc = user_document.document
+        li download_link_to(
+          title: "##{doc.id} #{user_document.category}",
+          url: doc.url,
+          file_name: doc.document_file_name
+        )
+      end
+    end
+  end
+
   SET_JOB_USER_TRANSLATION = lambda do |job_user, permitted_params|
     return unless job_user.persisted? && job_user.valid?
 

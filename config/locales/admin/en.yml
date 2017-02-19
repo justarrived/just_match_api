@@ -165,6 +165,7 @@ en:
         subject_hint: 'Subject line of template you (can use variables here..)'
         body_hint: 'Body of template (you can use variables here..)'
     counts:
+      documents: Has %{count} documents
       applications: Has %{count} applications
       applicants: Has %{count} applicants
       comments: Has %{count} comments
