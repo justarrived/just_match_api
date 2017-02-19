@@ -28,7 +28,9 @@ module Wgtrm
       @user.first_name        ||= @wgtrm_user.first_name
       @user.last_name         ||= @wgtrm_user.last_name
       @user.language          ||= ::Language.find_by(lang_code: :en)
-      @user.country_of_origin ||= @wgtrm_user.country_of_origin
+
+      @user.city              = @wgtrm_user.residence if @user.city.blank?
+      @user.country_of_origin = @wgtrm_user.country_of_origin if @user.country_of_origin.blank? # rubocop:disable Metrics/LineLength
 
       @user.save!
       @user
