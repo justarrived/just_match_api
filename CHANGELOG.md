@@ -3,6 +3,7 @@
 HEAD
 -----------
 
+* Admin: Remove user filter and limit job filter to latest 200 jobs
 
 v1.8 - 2017-02-19
 ----------
