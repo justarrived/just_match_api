@@ -3,7 +3,17 @@
 HEAD
 -----------
 
-* Admin: Remove user filter and limit job filter to latest 200 jobs
+
+v1.9 - 2017-02-19
+----------
+* _Admin_:
+  - Slim down dashboard filter options for:
+    + user documents
+    + user image
+    + user language
+    + user tag
+  - Remove user filter and limit job filter to latest 200 jobs
+
 
 v1.8 - 2017-02-19
 ----------
