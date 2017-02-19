@@ -2,6 +2,11 @@
 ActiveAdmin.register UserLanguage do
   menu parent: 'Users'
 
+  filter :language
+  filter :proficiency
+  filter :proficiency_by_admin
+  filter :created_at
+
   index do
     selectable_column
 

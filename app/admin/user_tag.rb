@@ -2,6 +2,9 @@
 ActiveAdmin.register UserTag do
   menu parent: 'Users'
 
+  filter :tag
+  filter :created_at
+
   index do
     selectable_column
 

@@ -2,6 +2,9 @@
 ActiveAdmin.register UserDocument do
   menu parent: 'Users'
 
+  filter :category
+  filter :created_at
+
   index do
     selectable_column
 
