@@ -10,8 +10,7 @@ ActiveAdmin.register JobUser do
   scope :verified
 
   filter :user_verified_eq, as: :boolean, label: I18n.t('admin.user.verified')
-  filter :user
-  filter :job, collection: -> { Job.with_translations }
+  filter :job, collection: -> { Job.with_translations.last(200) }
   filter :frilans_finans_invoice
   filter :invoice
   filter :accepted
