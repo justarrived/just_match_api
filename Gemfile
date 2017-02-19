@@ -42,7 +42,7 @@ gem 'pundit', '~> 1.1' # Authorization policies
 
 # ADMIN
 gem 'activeadmin', git: 'https://github.com/activeadmin/activeadmin' # Admin interface
-gem 'blazer', '~> 1.7' # Explore data with SQL
+gem 'blazer', git: 'https://github.com/buren/blazer', branch: 'root-false' # '~> 1.7' # Explore data with SQL
 gem 'chosen-rails', '~> 1.5' # Needed for autocomplete select input for activeadmin
 gem 'inherited_resources', git: 'https://github.com/activeadmin/inherited_resources', ref: '4434f0ae72f790cf371728838c927c338100555d' # activeadmin Rails 5
 gem 'uglifier', '~> 3.0' # Needed for activeadmin assets compilation
