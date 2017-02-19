@@ -22,24 +22,57 @@ module Wgtrm
       'Indonesia' => 'Indonesian'
     }.freeze
 
+    WGTRM_COUNTRY_MAP = {
+      'Russia'              => 'Russian Federation',
+      'Syria'               => 'Syrian Arab Republic',
+      'Venezuela'           => 'Venezuela, Bolivarian Republic of',
+      'Palestine'           => 'Palestine, State of',
+      'Iran'                => 'Iran, Islamic Republic of',
+      'Tanzania'            => 'Tanzania, United Republic of',
+      'United States (USA)' => 'United States',
+      'Kyrgyz Republic'     => 'Kyrgyzstan',
+      'Macedonia'           => 'Macedonia, Republic of'
+    }.freeze
+
     attr_reader :row
 
     def initialize(row_struct)
       @row = row_struct
+
+      name_parts = @row.name.split(' ').map(&:strip)
+      # Remove titles such as MD etc
+      name_parts.shift if TITLES.include?(name_parts.first)
+
+      @name = name_parts.join(' ')
     end
 
     delegate :name, to: :row
     delegate :email, to: :row
     delegate :residence, to: :row
-    delegate :country_of_origin, to: :row
     delegate :level_of_study, to: :row
     delegate :study_major, to: :row
     delegate :latest_university, to: :row
     delegate :field_of_study, to: :row
     delegate :graduation_date, to: :row
 
+    TITLES = %w(m M Md MD Mr MR mr MRS mrs Mrs).freeze
+
+    def first_name
+      @name.split(' ').first.titleize
+    end
+
+    def last_name
+      @name.split(' ')[1..-1].join(' ').titleize
+    end
+
     def phone
       row.mobile_phone
+    end
+
+    def country_of_origin
+      name = row.country_of_origin
+      mapped_name = WGTRM_COUNTRY_MAP.fetch(name, name)
+      ISO3166::Country.translations.invert[mapped_name]
     end
 
     def languages

@@ -25,13 +25,10 @@ module Wgtrm
     end
 
     def set_user_attributes
-      name_parts = @wgtrm_user.name.split(' ')
-      first_name = name_parts.first
-      last_name = name_parts.last
-
-      @user.first_name ||= first_name
-      @user.last_name  ||= last_name
-      @user.language   ||= ::Language.find_by(lang_code: :en)
+      @user.first_name        ||= @wgtrm_user.first_name
+      @user.last_name         ||= @wgtrm_user.last_name
+      @user.language          ||= ::Language.find_by(lang_code: :en)
+      @user.country_of_origin ||= @wgtrm_user.country_of_origin
 
       @user.save!
       @user
