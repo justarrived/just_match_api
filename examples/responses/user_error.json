@@ -19,7 +19,7 @@
       "source": {
         "pointer": "/data/attributes/first_name"
       },
-      "detail": "is too short (minimum is 2 characters)"
+      "detail": "is too short (minimum is 1 character)"
     },
     {
       "status": 422,
