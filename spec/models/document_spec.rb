@@ -7,7 +7,7 @@ RSpec.describe Document, type: :model do
   it do
     should validate_attachment_content_type(:document).
       allowing('application/msword').
-      rejecting('text/plain', 'text/xml', 'application/exe')
+      rejecting('application/octet-stream', 'text/xml', 'application/exe')
   end
 
   it do
