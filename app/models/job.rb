@@ -41,7 +41,7 @@ class Job < ApplicationRecord
   validates :job_date, presence: true
   validates :job_end_date, presence: true
   validates :owner, presence: true
-  validates :hours, numericality: { greater_than_or_equal_to: MIN_TOTAL_HOURS }, allow_blank: false # rubocop:disable Metrics/LineLength
+  validates :hours, numericality: { greater_than_or_equal_to: MIN_TOTAL_HOURS }, presence: true # rubocop:disable Metrics/LineLength
 
   validate :validate_job_end_date_after_job_date
   validate :validate_hourly_pay_active

@@ -144,6 +144,10 @@ ActiveAdmin.register Job do
     end
   end
 
+  form do |f|
+    render partial: 'admin/jobs/form', locals: { f: f }
+  end
+
   sidebar :app, only: [:show, :edit] do
     ul do
       # rubocop:disable Metrics/LineLength
