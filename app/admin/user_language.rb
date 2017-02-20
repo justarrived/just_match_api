@@ -2,7 +2,7 @@
 ActiveAdmin.register UserLanguage do
   menu parent: 'Users'
 
-  filter :language
+  filter :language, collection: -> { Language.order(:en_name) }
   filter :proficiency
   filter :proficiency_by_admin
   filter :created_at

@@ -41,7 +41,7 @@ class Job < ApplicationRecord
   validates :job_date, presence: true
   validates :job_end_date, presence: true
   validates :owner, presence: true
-  validates :hours, numericality: { greater_than_or_equal_to: MIN_TOTAL_HOURS }, allow_blank: false # rubocop:disable Metrics/LineLength
+  validates :hours, numericality: { greater_than_or_equal_to: MIN_TOTAL_HOURS }, presence: true # rubocop:disable Metrics/LineLength
 
   validate :validate_job_end_date_after_job_date
   validate :validate_hourly_pay_active
@@ -72,6 +72,10 @@ class Job < ApplicationRecord
   scope :ongoing, lambda {
     today = Time.zone.today
     active_between(today.beginning_of_day, today.end_of_day)
+  }
+  scope :order_by_name, lambda { |direction: :asc|
+    dir = direction.to_s == 'desc' ? 'DESC' : 'ASC'
+    order("job_translations.name #{dir}")
   }
   scope :passed, -> { where('job_end_date < ?', Time.zone.now) }
   scope :future, -> { where('job_end_date > ?', Time.zone.now) }

@@ -1,0 +1,10 @@
+ul do
+  user_documents.each do |user_document|
+    doc = user_document.document
+    li download_link_to(
+      title: "##{doc.id} #{user_document.category}",
+      url: doc.url,
+      file_name: doc.document_file_name
+    )
+  end
+end

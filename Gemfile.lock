@@ -82,6 +82,8 @@ GEM
       erubis (~> 2.7.0)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.0.2)
+    active_admin_datetimepicker (0.3.0)
+      xdan-datetimepicker-rails (~> 2.5.1)
     active_model_serializers (0.10.4)
       actionpack (>= 4.1, < 6)
       activemodel (>= 4.1, < 6)
@@ -639,6 +641,9 @@ GEM
     websocket-driver (0.6.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
+    xdan-datetimepicker-rails (2.5.4)
+      jquery-rails
+      rails (>= 3.2.16)
     xml-simple (1.1.5)
     yagni_json_encoder (0.0.2)
       activesupport (>= 4.1.0)
@@ -648,6 +653,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_admin_datetimepicker (~> 0.3)
   active_model_serializers (~> 0.10)
   activeadmin!
   airbrake (~> 5.6)

@@ -2,7 +2,7 @@
 ActiveAdmin.register UserSkill do
   menu parent: 'Users'
 
-  filter :skill, collection: -> { Skill.with_translations }
+  filter :skill, collection: -> { Skill.with_translations.order_by_name }
   filter :proficiency
   filter :proficiency_by_admin
   filter :updated_at

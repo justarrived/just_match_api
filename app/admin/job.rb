@@ -41,7 +41,7 @@ ActiveAdmin.register Job do
   # Filterable attributes on the index screen
   filter :by_near_address, label: I18n.t('admin.filter.near_address'), as: :string
   filter :translations_name_cont, as: :string, label: I18n.t('admin.job.name')
-  filter :company
+  filter :company, collection: -> { Company.order(:name) }
   filter :job_date
   filter :job_end_date
   filter :created_at
@@ -50,7 +50,7 @@ ActiveAdmin.register Job do
   filter :upcoming
   filter :cancelled
   filter :hidden
-  filter :skills, collection: -> { Skill.with_translations }
+  filter :skills, collection: -> { Skill.with_translations.order_by_name }
   filter :hourly_pay
   filter :translations_description_cont, as: :string, label: I18n.t('admin.job.description') # rubocop:disable Metrics/LineLength
   filter :translations_short_description_cont, as: :string, label: I18n.t('admin.job.short_description') # rubocop:disable Metrics/LineLength
@@ -120,36 +120,20 @@ ActiveAdmin.register Job do
   end
 
   sidebar :relations, only: [:show, :edit] do
-    job_query = AdminHelpers::Link.query(:job_id, job.id)
+    render partial: 'admin/jobs/relations_list', locals: { job: job }
+  end
 
-    ul do
-      li link_to job.company.display_name, admin_company_path(job.company)
-      li link_to job.owner.display_name, admin_user_path(job.owner)
-    end
-
-    ul do
-      li(
-        link_to(
-          I18n.t('admin.counts.applicants', count: job.job_users.count),
-          admin_job_users_path + job_query
-        )
-      )
-      li(
-        link_to(
-          I18n.t('admin.counts.translations', count: job.translations.count),
-          admin_job_translations_path + job_query
-        )
-      )
-      li I18n.t('admin.counts.comments', count: job.comments.count)
-    end
+  form do |f|
+    render partial: 'admin/jobs/form', locals: { f: f }
   end
 
   sidebar :app, only: [:show, :edit] do
     ul do
-      # rubocop:disable Metrics/LineLength
-      li link_to I18n.t('admin.view_in_app.view'), FrontendRouter.draw(:job, id: job.id), target: '_blank'
-      li link_to I18n.t('admin.view_in_app.candidates'), FrontendRouter.draw(:job_users, job_id: job.id), target: '_blank'
-      # rubocop:enable Metrics/LineLength
+      li link_to(
+        I18n.t('admin.view_in_app.job'),
+        FrontendRouter.draw(:job, id: job.id),
+        target: '_blank'
+      )
     end
   end
 
@@ -224,6 +208,11 @@ ActiveAdmin.register Job do
   controller do
     def scoped_collection
       super.with_translations
+    end
+
+    def apply_filtering(chain)
+      @search = chain.ransack(params[:q] || {})
+      @search.result(distinct: true)
     end
   end
 end
