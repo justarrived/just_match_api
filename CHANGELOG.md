@@ -3,6 +3,23 @@
 HEAD
 -----------
 
+v1.10 - 2017-02-20
+----------
+* _Admin_:
+  - Dashboard filter item order
+  - Distinct job search
+  - Add user & job name search to job user dashboard
+  - Add hired users to job show page sidebar
+  - Add link to job on job user show page
+  - Add messaging batch actions to job users view
+  - Move a few user sidebars to their own template files
+  - Move user form implementation to its own file
+  - Extract template locales from user show
+  - Move user show implementation to its own file
+  - Custom job form
+* Depend on GitHub ankane/blazer for `blazer` gem
+* Add `active_admin_datetimepicker` gem for nice datetime picker UI in admin
+
 
 v1.9 - 2017-02-19
 ----------
