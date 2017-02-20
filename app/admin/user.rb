@@ -215,101 +215,12 @@ ActiveAdmin.register User do
   include AdminHelpers::MachineTranslation::Actions
 
   sidebar :relations, only: [:show, :edit] do
-    user_query = AdminHelpers::Link.query(:user_id, user.id)
-    from_user_query = AdminHelpers::Link.query(:from_user_id, user.id)
-    to_user_query = AdminHelpers::Link.query(:to_user_id, user.id)
-    owner_user_query = AdminHelpers::Link.query(:owner_user_id, user.id)
-
-    ul do
-      if user.company?
-        li(
-          link_to(user.company.display_name, admin_company_path(user.company))
-        )
-      end
-      li(
-        link_to(
-          I18n.t('admin.user.primary_language', lang: user.language.display_name),
-          admin_language_path(user.language)
-        )
-      )
-    end
-
-    ul do
-      if user.company?
-        li(
-          link_to(
-            I18n.t('admin.counts.owned_jobs', count: user.owned_jobs.count),
-            admin_jobs_path + owner_user_query
-          )
-        )
-      else
-        li(
-          link_to(
-            I18n.t('admin.counts.applications', count: user.job_users.count),
-            admin_job_users_path + user_query
-          )
-        )
-      end
-      li(
-        link_to(
-          I18n.t('admin.counts.documents', count: user.documents.count),
-          admin_user_documents_path + user_query
-        )
-      )
-      li(
-        link_to(
-          I18n.t('admin.counts.translations', count: user.translations.count),
-          admin_user_translations_path + user_query
-        )
-      )
-      li(
-        link_to(
-          I18n.t('admin.counts.sessions', count: user.auth_tokens.count),
-          admin_tokens_path + user_query
-        )
-      )
-      li(
-        link_to(
-          I18n.t('admin.counts.chats', count: user.chats.count),
-          admin_chats_path + user_query
-        )
-      )
-      li(
-        link_to(
-          I18n.t('admin.counts.written_messages', count: user.messages.count),
-          admin_messages_path + user_query
-        )
-      )
-      li(
-        link_to(
-          I18n.t('admin.counts.images', count: user.user_images.count),
-          admin_user_images_path + user_query
-        )
-      )
-      li(
-        link_to(
-          I18n.t('admin.counts.received_ratings', count: user.received_ratings.count),
-          admin_ratings_path + to_user_query
-        )
-      )
-      li(
-        link_to(
-          I18n.t('admin.counts.given_ratings', count: user.given_ratings.count),
-          admin_ratings_path + from_user_query
-        )
-      )
-      li I18n.t('admin.counts.written_comments', count: user.written_comments.count)
-    end
+    render partial: 'admin/users/relations_list', locals: { user: user }
   end
 
   sidebar :latest_applications, only: [:show, :edit], if: proc { !user.company? } do
     ul do
-      user.job_users.
-        order(created_at: :desc).
-        includes(job: [:translations]).
-        limit(50).
-        each do |job_user|
-
+      user.job_users.includes(job: [:translations]).recent(50).each do |job_user|
         li link_to("##{job_user.id} " + job_user.job.name, admin_job_user_path(job_user))
       end
     end
@@ -334,20 +245,10 @@ ActiveAdmin.register User do
   end
 
   sidebar :documents, only: [:show, :edit] do
-    ul do
-      user.user_documents.
-        includes(:document).
-        order(created_at: :desc).
-        limit(50).
-        each do |user_document|
-        doc = user_document.document
-        li download_link_to(
-          title: "##{doc.id} #{user_document.category}",
-          url: doc.url,
-          file_name: doc.document_file_name
-        )
-      end
-    end
+    user_documents = user.user_documents.recent(50).includes(:document)
+
+    locals = { user_documents: user_documents }
+    render partial: 'admin/users/documents_list', locals: locals
   end
 
   SET_USER_TRANSLATION = lambda do |user, permitted_params|

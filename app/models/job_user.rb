@@ -32,6 +32,7 @@ class JobUser < ApplicationRecord
 
   before_validation :accepted_at_setter
 
+  # scope :recent, ->(count) { order(created_at: :desc).limit(count) }
   scope :accepted, -> { where(accepted: true) }
   scope :will_perform, -> { where(will_perform: true) }
   scope :unconfirmed, -> { accepted.where(will_perform: false) }
