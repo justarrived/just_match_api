@@ -72,7 +72,7 @@ end
 
 panel I18n.t('admin.job_user.show.job_details') do
   table_for(job_user.job) do
-    column :name
+    column :name { |job| link_to(job.name, admin_job_path(job)) }
     column :job_date
     column :job_end_date
     column :hours
