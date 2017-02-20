@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 columns do
   column do
-    panel('User details') do
+    panel(I18n.t('admin.user.show.basic_info_title')) do
       attributes_table_for(user) do
         row :image do
           profile_image = user_profile_image(user: user, size: :small)
@@ -168,11 +168,8 @@ columns do
   end
 end
 
-support_chat = Chat.includes(messages: [:translations, :author, :language]).
-               find_support_chat(user)
 if support_chat
-  locals = { support_chat: support_chat }
-  render partial: 'admin/chats/latest_messages', locals: locals
+  render partial: 'admin/chats/latest_messages', locals: { support_chat: support_chat }
 end
 
 panel I18n.t('admin.user.show.misc') do
