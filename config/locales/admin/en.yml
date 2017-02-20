@@ -48,6 +48,7 @@ en:
     view_in_app:
       view: View in app
       candidates: View candidates in app
+      job: View job in app
     confirm_dialog_title: Are you sure?
     machine_translate:
       queued_msg: Machine translation queued successfully.

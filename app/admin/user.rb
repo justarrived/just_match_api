@@ -12,26 +12,19 @@ ActiveAdmin.register User do
     }
   } do |ids, inputs|
     type = inputs['type']
-    job = Job.with_translations.find_by(id: inputs['job_id'])
-    template = CommunicationTemplate.with_translations.find(inputs['template_id'])
+    job_id = inputs['job_id']
+    template_id = inputs['template_id']
 
-    data = {}
-    if job
-      job.attributes.symbolize_keys.each { |key, value| data[:"job_#{key}"] = value }
-      data[:job_name] = job.name
-      data[:job_description] = job.description
-    end
+    users = User.where(id: ids)
+    job = Job.with_translations.find_by(id: job_id)
+    template = CommunicationTemplate.with_translations.find(template_id)
 
-    support_user = User.main_support_user
-    response = MessageUsersFromTemplate.call(
-      type: type,
-      users: User.where(id: ids),
-      template: template,
-      data: data
-    ) do |user, body, language_id|
-      chat = Chat.find_or_create_private_chat([support_user, user])
-      chat.create_message(author: support_user, body: body, language_id: language_id)
-    end
+    response = SendAdminCommunicationTemplate.call(
+      users: users,
+      job: job,
+      communcation_template: template,
+      type: type
+    )
 
     notice = response[:message]
     if response[:success]
@@ -49,22 +42,13 @@ ActiveAdmin.register User do
       message:  :textarea
     }
   } do |ids, inputs|
-    template = inputs['message']
-    type = inputs['type']
-    subject = inputs['subject']
-    language_id = inputs['language_id']
-
-    users = User.where(id: ids)
-    support_user = User.main_support_user
-    response = MessageUsers.call(
-      type: type,
-      users: users,
-      template: template,
-      subject: subject
-    ) do |user, body|
-      chat = Chat.find_or_create_private_chat([support_user, user])
-      chat.create_message(author: support_user, body: body, language_id: language_id)
-    end
+    response = SendAdminMessage.call(
+      users: User.where(id: ids),
+      type: inputs['type'],
+      subject: inputs['subject'],
+      template: inputs['message'],
+      language_id: inputs['language_id']
+    )
     notice = response[:message]
 
     if response[:success]

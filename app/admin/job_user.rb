@@ -3,6 +3,59 @@ ActiveAdmin.register JobUser do
   menu parent: 'Jobs', priority: 2
 
   batch_action :destroy, false
+  batch_action :send_communication_template_to, form: lambda {
+    {
+      type: %w[email sms both],
+      template_id: CommunicationTemplate.to_form_array,
+      job_id: Job.to_form_array(include_blank: true)
+    }
+  } do |ids, inputs|
+    type = inputs['type']
+    job_id = inputs['job_id']
+    template_id = inputs['template_id']
+
+    users = JobUser.where(id: ids).includes(:user).map(&:user)
+    job = Job.with_translations.find_by(id: job_id)
+    template = CommunicationTemplate.with_translations.find(template_id)
+
+    response = SendAdminCommunicationTemplate.call(
+      users: users,
+      job: job,
+      communcation_template: template,
+      type: type
+    )
+
+    notice = response[:message]
+    if response[:success]
+      redirect_to collection_path, notice: notice
+    else
+      redirect_to collection_path, alert: notice
+    end
+  end
+
+  batch_action :send_message_to, form: lambda {
+    {
+      type: %w[email sms both],
+      language_id: Language.system_languages.to_form_array,
+      subject:  :text,
+      message:  :textarea
+    }
+  } do |ids, inputs|
+    response = SendAdminMessage.call(
+      users: JobUser.where(id: ids).includes(:user).map(&:user),
+      type: inputs['type'],
+      subject: inputs['subject'],
+      template: inputs['message'],
+      language_id: inputs['language_id']
+    )
+    notice = response[:message]
+
+    if response[:success]
+      redirect_to collection_path, notice: notice
+    else
+      redirect_to collection_path, alert: notice
+    end
+  end
 
   scope :all, default: true
   scope :accepted
@@ -51,91 +104,25 @@ ActiveAdmin.register JobUser do
 
   include AdminHelpers::MachineTranslation::Actions
 
-  sidebar :user_information, only: [:show, :edit] do
+  sidebar :relations, only: [:show, :edit] do
+    render partial: 'admin/users/relations_list', locals: { user: job_user.user }
+  end
+
+  sidebar :latest_applications, only: [:show, :edit] do
     user = job_user.user
-
-    user_query = AdminHelpers::Link.query(:user_id, user.id)
-    from_user_query = AdminHelpers::Link.query(:from_user_id, user.id)
-    to_user_query = AdminHelpers::Link.query(:to_user_id, user.id)
-
     ul do
-      li(
-        link_to(
-          I18n.t('admin.user.primary_language', lang: user.language.display_name),
-          admin_language_path(user.language)
-        )
-      )
-    end
-
-    ul do
-      li(
-        link_to(
-          I18n.t('admin.counts.applications', count: user.job_users.count),
-          admin_job_users_path + user_query
-        )
-      )
-      li(
-        link_to(
-          I18n.t('admin.counts.translations', count: user.translations.count),
-          admin_user_translations_path + user_query
-        )
-      )
-      li(
-        link_to(
-          I18n.t('admin.counts.sessions', count: user.auth_tokens.count),
-          admin_tokens_path + user_query
-        )
-      )
-      li(
-        link_to(
-          I18n.t('admin.counts.chats', count: user.chats.count),
-          admin_chats_path + user_query
-        )
-      )
-      li(
-        link_to(
-          I18n.t('admin.counts.written_messages', count: user.messages.count),
-          admin_messages_path + user_query
-        )
-      )
-      li(
-        link_to(
-          I18n.t('admin.counts.images', count: user.user_images.count),
-          admin_user_images_path + user_query
-        )
-      )
-      li(
-        link_to(
-          I18n.t('admin.counts.received_ratings', count: user.received_ratings.count),
-          admin_ratings_path + to_user_query
-        )
-      )
-      li(
-        link_to(
-          I18n.t('admin.counts.given_ratings', count: user.given_ratings.count),
-          admin_ratings_path + from_user_query
-        )
-      )
-      li I18n.t('admin.counts.written_comments', count: user.written_comments.count)
+      user.job_users.includes(job: [:translations]).recent(50).each do |job_user|
+        li link_to("##{job_user.id} " + job_user.job.name, admin_job_user_path(job_user))
+      end
     end
   end
 
   sidebar :documents, only: [:show, :edit] do
     user = job_user.user
-    ul do
-      user.user_documents.
-        includes(:document).
-        order(created_at: :desc).
-        limit(50).
-        each do |user_document|
-        doc = user_document.document
-        li download_link_to(
-          title: "##{doc.id} #{user_document.category}",
-          url: doc.url,
-          file_name: doc.document_file_name
-        )
-      end
-    end
+    user_documents = user.user_documents.recent(50).includes(:document)
+
+    locals = { user_documents: user_documents }
+    render partial: 'admin/users/documents_list', locals: locals
   end
 
   SET_JOB_USER_TRANSLATION = lambda do |job_user, permitted_params|
@@ -159,12 +146,8 @@ ActiveAdmin.register JobUser do
     ul do
       li(
         link_to(
-          I18n.t('admin.view_in_app.candidates'),
-          FrontendRouter.draw(
-            :job_user_for_company,
-            job_id: job_user.job_id,
-            job_user_id: job_user.id
-          ),
+          I18n.t('admin.view_in_app.job'),
+          FrontendRouter.draw(:job, id: job_user.job_id),
           target: '_blank'
         )
       )
