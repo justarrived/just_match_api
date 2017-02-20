@@ -66,9 +66,9 @@ ActiveAdmin.register JobUser do
   filter :user_last_name_cont, as: :string, label: I18n.t('admin.user.last_name')
   filter :job_translations_name_cont, as: :string, label: I18n.t('admin.job.name_search')
   filter :user_verified_eq, as: :boolean, label: I18n.t('admin.user.verified')
-  filter :job, collection: -> { Job.with_translations.last(200) }
-  filter :frilans_finans_invoice
-  filter :invoice
+  filter :job, collection: -> { Job.with_translations.order_by_name.limit(200) }
+  filter :frilans_finans_invoice, collection: -> { FrilansFinansInvoice.order(id: :desc) }
+  filter :invoice, collection: -> { Invoice.order(id: :desc) }
   filter :accepted
   filter :will_perform
   filter :performed

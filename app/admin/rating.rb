@@ -7,9 +7,7 @@ ActiveAdmin.register Rating do
   scope :all, default: true
 
   filter :score
-  filter :from_user
-  filter :to_user
-  filter :job, collection: -> { Job.with_translations }
+  filter :job, collection: -> { Job.with_translations.recent(200) }
   filter :created_at
 
   index do

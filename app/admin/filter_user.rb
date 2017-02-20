@@ -2,7 +2,7 @@
 ActiveAdmin.register FilterUser do
   menu parent: 'Filters', priority: 2
 
-  filter :filter
+  filter :filter, collection: -> { Filter.order(:name) }
   filter :created_at
 
   index do

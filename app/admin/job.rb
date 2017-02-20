@@ -41,7 +41,7 @@ ActiveAdmin.register Job do
   # Filterable attributes on the index screen
   filter :by_near_address, label: I18n.t('admin.filter.near_address'), as: :string
   filter :translations_name_cont, as: :string, label: I18n.t('admin.job.name')
-  filter :company
+  filter :company, collection: -> { Company.order(:name) }
   filter :job_date
   filter :job_end_date
   filter :created_at
@@ -50,7 +50,7 @@ ActiveAdmin.register Job do
   filter :upcoming
   filter :cancelled
   filter :hidden
-  filter :skills, collection: -> { Skill.with_translations }
+  filter :skills, collection: -> { Skill.with_translations.order_by_name }
   filter :hourly_pay
   filter :translations_description_cont, as: :string, label: I18n.t('admin.job.description') # rubocop:disable Metrics/LineLength
   filter :translations_short_description_cont, as: :string, label: I18n.t('admin.job.short_description') # rubocop:disable Metrics/LineLength

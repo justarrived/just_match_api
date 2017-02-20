@@ -73,6 +73,10 @@ class Job < ApplicationRecord
     today = Time.zone.today
     active_between(today.beginning_of_day, today.end_of_day)
   }
+  scope :order_by_name, lambda { |direction: :asc|
+    dir = direction.to_s == 'desc' ? 'DESC' : 'ASC'
+    order("job_translations.name #{dir}")
+  }
   scope :passed, -> { where('job_end_date < ?', Time.zone.now) }
   scope :future, -> { where('job_end_date > ?', Time.zone.now) }
 

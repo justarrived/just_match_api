@@ -146,13 +146,13 @@ ActiveAdmin.register User do
   filter :by_near_address, label: I18n.t('admin.filter.near_address'), as: :string
   filter :first_name_or_last_name_cont, as: :string, label: I18n.t('admin.user.name')
   filter :interview_comment
-  filter :tags
+  filter :tags, collection: -> { Tag.order(:name) }
   # rubocop:disable Metrics/LineLength
-  filter :skills, collection: -> { Skill.with_translations }
+  filter :skills, collection: -> { Skill.with_translations.order_by_name }
   filter :user_skills_proficiency_gteq, as: :select, collection: [nil, nil] + UserSkill::PROFICIENCY_RANGE.to_a
   filter :user_skills_proficiency_by_admin_gteq, as: :select, collection: [nil, nil] + UserSkill::PROFICIENCY_RANGE.to_a
 
-  filter :interests, collection: -> { Interest.with_translations }
+  filter :interests, collection: -> { Interest.with_translations.order_by_name }
   filter :user_interests_level_gteq, as: :select, collection: [nil, nil] + UserInterest::LEVEL_RANGE.to_a
   filter :user_interests_level_by_admin_gteq, as: :select, collection: [nil, nil] + UserInterest::LEVEL_RANGE.to_a
 
