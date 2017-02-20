@@ -29,9 +29,8 @@ GIT
       responders
 
 GIT
-  remote: https://github.com/buren/blazer
-  revision: 952b7c99d21d864831011e10a07900518d5e4d66
-  branch: root-false
+  remote: https://github.com/ankane/blazer
+  revision: ea60b7cd858205868db438966cd1449b8fd6e05d
   specs:
     blazer (1.7.8)
       chartkick
