@@ -72,6 +72,7 @@ en:
     job:
       google_calendar_link: Google Calendar
       name: Name
+      name_search: Job name
       description: Description
       short_description: Short Description
       filled_selected: Selected jobs have been marked as filled.
@@ -115,6 +116,8 @@ en:
     user:
       primary_language: Primary language %{lang}
       name: Name
+      first_name: First name
+      last_name: Last name
       phone: Phone
       email: Email
       company: Company
