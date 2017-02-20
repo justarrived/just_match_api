@@ -456,7 +456,7 @@ ActiveAdmin.register User do
       f.inputs I18n.t('admin.user.form.immigration_status') do
         f.input :current_status
         f.input :at_und
-        f.input :arrived_at
+        f.input :arrived_at, as: :datepicker
         f.input :country_of_origin
         f.input :arbetsformedlingen_registered_at
       end
