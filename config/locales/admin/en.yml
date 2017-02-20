@@ -1,5 +1,6 @@
 en:
   admin:
+    hired_suffix: '(hired)'
     batch_action_confirm: Are you sure?
     verified_selected: Verified selected.
     job_name: Job
