@@ -209,5 +209,10 @@ ActiveAdmin.register Job do
     def scoped_collection
       super.with_translations
     end
+
+    def apply_filtering(chain)
+      @search = chain.ransack(params[:q] || {})
+      @search.result(distinct: true)
+    end
   end
 end
