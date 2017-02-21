@@ -135,13 +135,15 @@
     }
   ],
   "meta": {
-    "pagination": {
-      "total": 7,
-      "count": 7,
-      "per_page": 25,
-      "current_page": 1,
-      "total_pages": 1,
-      "links": []
+    "meta": {
+      "pagination": {
+        "page": {
+          "size": 25,
+          "number": 1,
+          "items": 25
+        },
+        "items": 7,
+        "pages": 1
+      }
     }
-  }
 }
