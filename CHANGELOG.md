@@ -4,6 +4,11 @@ HEAD
 -----------
 
 
+v1.15 - 2017-02-22
+----------
+_API_: Rename `HourlyPay#*_with_currency` => `*_with_unit`
+
+
 v1.14 - 2017-02-22
 ----------
 * _API_: Change `*_formatted` keys => `*_with_currency` & add `*_delimited` to job & hourly pay numbers
