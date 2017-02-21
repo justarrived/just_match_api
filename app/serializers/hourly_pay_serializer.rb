@@ -15,11 +15,11 @@ class HourlyPaySerializer < ApplicationSerializer
     to_delimited(object.net_salary)
   end
 
-  attribute :gross_salary_with_currency do
+  attribute :gross_salary_with_unit do
     to_unit(object.gross_salary, object.unit)
   end
 
-  attribute :net_salary_with_currency do
+  attribute :net_salary_with_unit do
     to_unit(object.net_salary, object.unit)
   end
 

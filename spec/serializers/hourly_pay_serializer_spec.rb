@@ -13,7 +13,7 @@ RSpec.describe HourlyPaySerializer, type: :serializer do
     # float values causes problems (of course..), igore them
     ignore_values = %i(
       net_salary rate_excluding_vat rate_including_vat
-      gross_salary_with_currency net_salary_with_currency
+      gross_salary_with_unit net_salary_with_unit
       gross_salary_delimited net_salary_delimited
     )
     (described_class::ATTRIBUTES - ignore_values).each do |attribute|
@@ -24,8 +24,8 @@ RSpec.describe HourlyPaySerializer, type: :serializer do
       end
     end
 
-    it 'has gross_salary_with_currency' do
-      dashed_attribute = 'gross_salary_with_currency'.dasherize
+    it 'has gross_salary_with_unit' do
+      dashed_attribute = 'gross_salary_with_unit'.dasherize
       expect(subject).to have_jsonapi_attribute(dashed_attribute, '100 SEK/hour')
     end
 
