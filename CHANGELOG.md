@@ -3,6 +3,12 @@
 HEAD
 -----------
 
+v1.11 - 2017-02-21
+----------
+* Don't validate `User#arrived_at` for blank strings
+* Update `puma` gem 3.6 => 3.7
+
+
 v1.10 - 2017-02-20
 ----------
 * _Admin_:
