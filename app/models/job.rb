@@ -51,7 +51,8 @@ class Job < ApplicationRecord
 
   validate :validate_job_date_in_future, unless: -> { Rails.configuration.x.validate_job_date_in_future_inactive } # rubocop:disable Metrics/LineLength
 
-  scope :visible, -> { where(hidden: false) }
+  scope :unarchived, -> { where('job_end_date > ?', 2.months.ago) }
+  scope :visible, -> { unarchived.where(hidden: false) }
   scope :cancelled, -> { where(cancelled: true) }
   scope :uncancelled, -> { where(cancelled: false) }
   scope :filled, -> { where(filled: true) }
