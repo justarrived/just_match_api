@@ -10,18 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170214093037) do
+ActiveRecord::Schema.define(version: 20170221163046) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "pg_stat_statements"
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
     t.text     "body"
     t.string   "resource_id",   null: false
     t.string   "resource_type", null: false
-    t.string   "author_type"
     t.integer  "author_id"
+    t.string   "author_type"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id", using: :btree
@@ -108,8 +109,8 @@ ActiveRecord::Schema.define(version: 20170214093037) do
 
   create_table "comments", force: :cascade do |t|
     t.text     "body"
-    t.string   "commentable_type"
     t.integer  "commentable_id"
+    t.string   "commentable_type"
     t.integer  "owner_user_id"
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
@@ -428,6 +429,7 @@ ActiveRecord::Schema.define(version: 20170214093037) do
     t.boolean  "upcoming",                     default: false
     t.integer  "company_contact_user_id"
     t.integer  "just_arrived_contact_user_id"
+    t.string   "city"
     t.index ["category_id"], name: "index_jobs_on_category_id", using: :btree
     t.index ["hourly_pay_id"], name: "index_jobs_on_hourly_pay_id", using: :btree
     t.index ["language_id"], name: "index_jobs_on_language_id", using: :btree
