@@ -490,6 +490,14 @@ RSpec.describe User, type: :model do
       expect(message).to include(error_message)
     end
 
+    it 'adds *no* error if arrived at is a blank string' do
+      user = FactoryGirl.build(:user, arrived_at: ' ')
+      user.validate_arrival_date_in_past
+
+      message = user.errors.messages[:arrived_at]
+      expect(message).not_to include(error_message)
+    end
+
     it 'adds *no* error if arrived_at is in the past' do
       user = FactoryGirl.build(:user, arrived_at: 2.days.ago.to_date)
       user.validate
@@ -619,6 +627,14 @@ RSpec.describe User, type: :model do
 
       message = user.errors.messages[:arrived_at]
       expect(message).to include(error_message)
+    end
+
+    it 'adds *no* error if arrived at is a blank string' do
+      user = FactoryGirl.build(:user, arrived_at: ' ')
+      user.validate_arrived_at_date
+
+      message = user.errors.messages[:arrived_at]
+      expect(message).not_to include(error_message)
     end
 
     it 'adds *no* error if arrived at is a valid date' do
