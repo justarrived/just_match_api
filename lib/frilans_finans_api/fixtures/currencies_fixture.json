@@ -135,15 +135,14 @@
     }
   ],
   "meta": {
-    "meta": {
-      "pagination": {
-        "page": {
-          "size": 25,
-          "number": 1,
-          "items": 25
-        },
-        "items": 7,
-        "pages": 1
-      }
+    "pagination": {
+      "page": {
+        "size": 25,
+        "number": 1,
+        "items": 25
+      },
+      "items": 7,
+      "pages": 1
     }
+  }
 }
