@@ -21,6 +21,7 @@ end
 
 f.inputs(I18n.t('admin.job.form.address_section_title')) do
   f.input :street
+  f.input :city
   f.input :zip
 end
 

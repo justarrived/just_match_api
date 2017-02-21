@@ -4,7 +4,7 @@ class JobSerializer < ApplicationSerializer
     :id, :job_date, :hours, :created_at, :updated_at, :owner_user_id,
     :latitude, :longitude, :language_id, :street, :zip, :zip_latitude, :zip_longitude,
     :hidden, :category_id, :hourly_pay_id, :verified, :job_end_date, :cancelled, :filled,
-    :featured, :upcoming, :language_id, :gross_amount, :net_amount
+    :featured, :upcoming, :language_id, :gross_amount, :net_amount, :city
   ]
 
   link(:self) { api_v1_job_url(object) }

@@ -16,6 +16,7 @@ RSpec.describe Api::V1::JobsController, type: :controller do
           category_id: FactoryGirl.create(:category).id,
           owner_user_id: FactoryGirl.create(:company_user).id,
           street: 'Stora Nygatan 36',
+          city: 'Malmö',
           zip: '211 37',
           job_date: 1.day.from_now,
           job_end_date: 2.days.from_now
