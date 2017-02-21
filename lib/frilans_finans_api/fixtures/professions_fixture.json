@@ -131,6 +131,11 @@
       }
     }
   ],
+  "links": {
+    "first": "https://frilansfinans.se/api/professions",
+    "next": "https://frilansfinans.se/api/professions?page%5Bnumber%5D=2",
+    "last": "https://frilansfinans.se/api/professions?page%5Bnumber%5D=38"
+  },
   "meta": {
     "pagination": {
       "page": {
