@@ -41,27 +41,27 @@ module FrilansFinansApi
     end
 
     def next_page_link
-      json.dig('meta', 'pagination', 'links', 'next')
+      json.dig('links', 'next')
     end
 
     def current_page
-      json.dig('meta', 'pagination', 'current_page')
+      json.dig('meta', 'pagination', 'page', 'number')
     end
 
     def per_page
-      json.dig('meta', 'pagination', 'per_page')
+      json.dig('meta', 'pagination', 'page', 'size')
     end
 
     def total_pages
-      json.dig('meta', 'pagination', 'total_pages')
+      json.dig('meta', 'pagination', 'pages')
     end
 
     def total
-      json.dig('meta', 'pagination', 'total')
+      json.dig('meta', 'pagination', 'items')
     end
 
     def count
-      json.dig('meta', 'pagination', 'count')
+      json.dig('meta', 'pagination', 'items')
     end
 
     def error_status?
