@@ -162,6 +162,7 @@ ActiveAdmin.register Job do
       row :hourly_pay
       row :short_description
       row :street
+      row :city
       row :zip
       row :description { |job| simple_format(job.description) }
     end
