@@ -3,6 +3,12 @@
 HEAD
 -----------
 
+
+v1.14 - 2017-02-22
+----------
+* _API_: Change `*_formatted` keys => `*_with_currency` & add `*_delimited` to job & hourly pay numbers
+
+
 v1.13 - 2017-02-22
 ----------
 * _API_: Add `Job::unarchived` scope and include the scope under `Job::visible`
