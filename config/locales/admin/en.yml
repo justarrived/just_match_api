@@ -80,6 +80,7 @@ en:
       hidden_selected: Selected jobs have been marked as hidden.
       clone: Clone
       show:
+        title: Job detail
         general: General
         status_flags: Status flags
         relations: Relations
