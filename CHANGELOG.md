@@ -3,6 +3,10 @@
 HEAD
 -----------
 
+v1.13 - 2017-02-22
+----------
+* _API_: Add `Job::unarchived` scope and include the scope under `Job::visible`
+* _Admin_: Accept and notify job users batch action
 
 v1.12 - 2017-02-22
 ----------
