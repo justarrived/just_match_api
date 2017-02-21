@@ -3,6 +3,19 @@
 HEAD
 -----------
 
+
+v1.12 - 2017-02-22
+----------
+* _Admin_:
+  - Move job show view to its own template
+  - Update document dashboard filters
+* `Job#city` column:
+  - Expose in API
+  - Add to admin
+* _FrilansFinansApi_:
+  - Update links & meta parsing
+  - Update meta-keys for all index fixtures
+
 v1.11 - 2017-02-21
 ----------
 * Don't validate `User#arrived_at` for blank strings
