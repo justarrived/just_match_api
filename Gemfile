@@ -6,7 +6,7 @@ ruby '2.4.0'
 gem 'rails', '5.0.1' # Ruby on Rails MVC framework
 
 # SERVER
-gem 'puma', '~> 3.6' # App server
+gem 'puma', '~> 3.7' # App server
 
 # STORAGE
 gem 'aws-sdk', '~> 2.6' # Upload images to AWS S3
