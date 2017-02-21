@@ -99,12 +99,13 @@
   ],
   "meta": {
     "pagination": {
-      "total": 2,
-      "count": 2,
-      "per_page": 25,
-      "current_page": 1,
-      "total_pages": 1,
-      "links": []
+      "page": {
+        "size": 25,
+        "number": 1,
+        "items": 25
+      },
+      "items": 2,
+      "pages": 1
     }
   }
 }
