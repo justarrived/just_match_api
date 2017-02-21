@@ -64,6 +64,10 @@ en:
         finished: Marked as finished
     job_user:
       apply_message: Apply message
+      batch_action:
+        accepted:
+          success_msg: 'Successfully accepted %{success_count} user(s), ignored %{ignore_count} user(s) that were already accepted.'
+          fail_msg: 'Failed to accept %{fail_count} user(s): job users IDs: %{fail_ids}. Successfully accepted %{success_count} user(s), ignored %{ignore_count} user(s) that were already accepted.'
       show:
         user_details: User details
         match_details: Match details
@@ -80,6 +84,7 @@ en:
       hidden_selected: Selected jobs have been marked as hidden.
       clone: Clone
       show:
+        title: Job detail
         general: General
         status_flags: Status flags
         relations: Relations

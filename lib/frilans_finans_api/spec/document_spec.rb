@@ -64,7 +64,7 @@ RSpec.describe FrilansFinansApi::Document do
     end
 
     it 'can return #next_page_link' do
-      expected = 'https://frilansfinans.se/api/professions?page=2'
+      expected = 'https://frilansfinans.se/api/professions?page%5Bnumber%5D=2'
       expect(subject.next_page_link).to eq(expected)
     end
 
@@ -73,7 +73,7 @@ RSpec.describe FrilansFinansApi::Document do
     end
 
     it 'can return #per_page' do
-      expect(subject.per_page).to eq(10)
+      expect(subject.per_page).to eq(25)
     end
 
     it 'can return #total_pages' do
@@ -85,7 +85,7 @@ RSpec.describe FrilansFinansApi::Document do
     end
 
     it 'can return #count' do
-      expect(subject.count).to eq(10)
+      expect(subject.count).to eq(1066)
     end
 
     it 'can return #resources' do

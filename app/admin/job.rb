@@ -150,51 +150,7 @@ ActiveAdmin.register Job do
   end
 
   show do
-    h3 I18n.t('admin.job.show.general')
-    attributes_table do
-      row :id
-      row :filled
-      row :name
-      row :hours
-      row :gross_amount { |job| "#{job.gross_amount} SEK" }
-      row :job_date
-      row :job_end_date
-      row :hourly_pay
-      row :short_description
-      row :street
-      row :zip
-      row :description { |job| simple_format(job.description) }
-    end
-
-    h3 I18n.t('admin.job.show.status_flags')
-    attributes_table do
-      row :featured
-      row :verified
-      row :upcoming
-      row :cancelled
-      row :hidden
-    end
-
-    h3 I18n.t('admin.job.show.relations')
-    attributes_table do
-      row :owner
-      row :company_contact
-      row :just_arrived_contact
-      row :category
-      row :language
-    end
-
-    h3 I18n.t('admin.job.show.misc')
-    attributes_table do
-      row :latitude
-      row :longitude
-      row :zip_latitude
-      row :zip_longitude
-
-      row :created_at { datetime_ago_in_words(job.created_at) }
-      row :updated_at { datetime_ago_in_words(job.updated_at) }
-    end
-    active_admin_comments
+    render partial: 'admin/jobs/show', locals: { job: job }
   end
 
   permit_params do

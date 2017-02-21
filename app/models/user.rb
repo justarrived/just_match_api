@@ -430,7 +430,7 @@ class User < ApplicationRecord
   end
 
   def validate_arrival_date_in_past
-    return if arrived_at.nil? || arrived_at <= Time.zone.today
+    return if arrived_at.blank? || arrived_at <= Time.zone.today
 
     error_message = I18n.t('errors.user.arrived_at_must_be_in_past')
     errors.add(:arrived_at, error_message)
@@ -490,8 +490,8 @@ class User < ApplicationRecord
 
   def validate_arrived_at_date
     arrived_at_before_cast = read_attribute_before_type_cast(:arrived_at)
-    return if arrived_at_before_cast.nil?
-    return unless arrived_at.nil?
+    return if arrived_at_before_cast.blank?
+    return unless arrived_at.blank?
 
     error_message = I18n.t('errors.general.must_be_valid_date')
     errors.add(:arrived_at, error_message)

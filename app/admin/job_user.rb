@@ -3,6 +3,46 @@ ActiveAdmin.register JobUser do
   menu parent: 'Jobs', priority: 2
 
   batch_action :destroy, false
+  batch_action :accept_and_notify_user do |ids|
+    job_users = JobUser.where(id: ids)
+    success_count = 0
+    ignore_count = 0
+    fail_ids = []
+
+    job_users.each do |job_user|
+      if job_user.accepted
+        ignore_count += 1
+        next
+      end
+
+      if job_user.update(accepted: true)
+        owner = job_user.job.owner
+        success_count += 1
+        ApplicantAcceptedNotifier.call(job_user: job_user, owner: owner)
+      else
+        fail_ids << job_user.id
+      end
+    end
+
+    if fail_ids.empty?
+      notice = I18n.t(
+        'admin.job_user.batch_action.accepted.success_msg',
+        success_count: success_count,
+        ignore_count: ignore_count
+      )
+      redirect_to collection_path, notice: notice
+    else
+      notice = I18n.t(
+        'admin.job_user.batch_action.accepted.fail_msg',
+        fail_count: fail_ids.length,
+        fail_ids: fail_ids.join(', '),
+        success_count: success_count,
+        ignore_count: ignore_count
+      )
+      redirect_to collection_path, alert: notice
+    end
+  end
+
   batch_action :send_communication_template_to, form: lambda {
     {
       type: %w[email sms both],

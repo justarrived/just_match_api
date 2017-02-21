@@ -11,19 +11,19 @@ class JobPolicy < ApplicationPolicy
     :longitude, :street, :zip, :zip_latitude, :zip_longitude, :verified, :job_end_date,
     :filled, :short_description, :featured, :upcoming, :translated_text, :amount,
     :language_id, :gross_amount, :net_amount, :gross_amount_formatted,
-    :net_amount_formatted
+    :net_amount_formatted, :city
   ].freeze
 
   ATTRIBUTES = [
     :id, :description, :job_date, :hours, :name, :created_at, :updated_at, :zip,
     :zip_latitude, :zip_longitude, :verified, :job_end_date, :filled, :short_description,
     :featured, :upcoming, :street, :amount, :translated_text, :language_id, :gross_amount,
-    :net_amount, :gross_amount_formatted, :net_amount_formatted
+    :net_amount, :gross_amount_formatted, :net_amount_formatted, :city
   ].freeze
 
   OWNER_ATTRIBUTES = [
     :description, :job_date, :street, :zip, :name, :hours, :job_end_date, :cancelled,
-    :filled, :short_description, :featured, :upcoming, :language_id, :category_id,
+    :city, :filled, :short_description, :featured, :upcoming, :language_id, :category_id,
     :hourly_pay_id, skill_ids: []
   ].freeze
 

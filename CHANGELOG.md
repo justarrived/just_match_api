@@ -3,6 +3,29 @@
 HEAD
 -----------
 
+v1.13 - 2017-02-22
+----------
+* _API_: Add `Job::unarchived` scope and include the scope under `Job::visible`
+* _Admin_: Accept and notify job users batch action
+
+v1.12 - 2017-02-22
+----------
+* _Admin_:
+  - Move job show view to its own template
+  - Update document dashboard filters
+* `Job#city` column:
+  - Expose in API
+  - Add to admin
+* _FrilansFinansApi_:
+  - Update links & meta parsing
+  - Update meta-keys for all index fixtures
+
+v1.11 - 2017-02-21
+----------
+* Don't validate `User#arrived_at` for blank strings
+* Update `puma` gem 3.6 => 3.7
+
+
 v1.10 - 2017-02-20
 ----------
 * _Admin_:

@@ -36,7 +36,8 @@ class Job < ApplicationRecord
   validates :category, presence: true
   validates :name, presence: true, on: :create # Virtual attribute
   validates :description, presence: true, on: :create # Virtual attribute
-  validates :street, length: { minimum: 5 }, allow_blank: false
+  validates :street, length: { minimum: 3 }, allow_blank: false
+  validates :city, length: { minimum: 2 }, allow_blank: true
   validates :zip, length: { minimum: 5 }, allow_blank: false
   validates :job_date, presence: true
   validates :job_end_date, presence: true
@@ -50,7 +51,8 @@ class Job < ApplicationRecord
 
   validate :validate_job_date_in_future, unless: -> { Rails.configuration.x.validate_job_date_in_future_inactive } # rubocop:disable Metrics/LineLength
 
-  scope :visible, -> { where(hidden: false) }
+  scope :unarchived, -> { where('job_end_date > ?', 2.months.ago) }
+  scope :visible, -> { unarchived.where(hidden: false) }
   scope :cancelled, -> { where(cancelled: true) }
   scope :uncancelled, -> { where(cancelled: false) }
   scope :filled, -> { where(filled: true) }
@@ -351,6 +353,7 @@ end
 #  upcoming                     :boolean          default(FALSE)
 #  company_contact_user_id      :integer
 #  just_arrived_contact_user_id :integer
+#  city                         :string
 #
 # Indexes
 #

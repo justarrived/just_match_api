@@ -1,0 +1,52 @@
+# frozen_string_literal: true
+panel(I18n.t('admin.job.show.general')) do
+  attributes_table_for(job) do
+    row :id
+    row :filled
+    row :name
+    row :hours
+    row :gross_amount { |job| "#{job.gross_amount} SEK" }
+    row :job_date
+    row :job_end_date
+    row :hourly_pay
+    row :short_description
+    row :street
+    row :city
+    row :zip
+    row :description { |job| simple_format(job.description) }
+  end
+end
+
+panel(I18n.t('admin.job.show.status_flags')) do
+  attributes_table_for(job) do
+    row :featured
+    row :verified
+    row :upcoming
+    row :cancelled
+    row :hidden
+  end
+end
+
+panel(I18n.t('admin.job.show.relations')) do
+  attributes_table_for(job) do
+    row :owner
+    row :company_contact
+    row :just_arrived_contact
+    row :category
+    row :language
+  end
+end
+
+panel(I18n.t('admin.job.show.misc')) do
+  attributes_table_for(job) do
+    row :latitude
+    row :longitude
+    row :zip_latitude
+    row :zip_longitude
+
+    row :created_at { datetime_ago_in_words(job.created_at) }
+    row :updated_at { datetime_ago_in_words(job.updated_at) }
+  end
+end
+
+active_admin_comments_for(job)

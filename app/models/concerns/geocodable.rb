@@ -6,7 +6,6 @@ module Geocodable
     end
 
     def area_address_parts
-      city = send(:city) if respond_to?(:city)
       [zip, city, country].reject(&:blank?)
     end
 
