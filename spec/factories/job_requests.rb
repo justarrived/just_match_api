@@ -41,8 +41,10 @@ end
 #  company_org_no        :string
 #  company_email         :string
 #  company_phone         :string
-#  company_id            :integer
 #  company_address       :string
+#  company_id            :integer
+#  delivery_user_id      :integer
+#  sales_user_id         :integer
 #
 # Indexes
 #

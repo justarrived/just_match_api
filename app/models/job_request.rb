@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 class JobRequest < ApplicationRecord
   belongs_to :company, optional: true
+  belongs_to :delivery_user, optional: true, class_name: 'User', foreign_key: 'delivery_user_id' # rubocop:disable Metrics/LineLength
+  belongs_to :sales_user, optional: true, class_name: 'User', foreign_key: 'sales_user_id'
 
   scope :finished, -> { where(finished: true) }
   scope :pending, -> { where(finished: false) }
@@ -48,8 +50,10 @@ end
 #  company_org_no        :string
 #  company_email         :string
 #  company_phone         :string
-#  company_id            :integer
 #  company_address       :string
+#  company_id            :integer
+#  delivery_user_id      :integer
+#  sales_user_id         :integer
 #
 # Indexes
 #

@@ -99,6 +99,9 @@ class User < ApplicationRecord
   validate :validate_swedish_bank_account
   validate :validate_arrival_date_in_past
 
+  scope :sales_users, -> { admins }
+  scope :delivery_users, -> { super_admins }
+  scope :super_admins, -> { where(super_admin: true) }
   scope :admins, -> { where(admin: true) }
   scope :company_users, -> { where.not(company: nil) }
   scope :regular_users, -> { where(company: nil) }

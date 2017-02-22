@@ -45,6 +45,7 @@ ActiveAdmin.register JobRequest do
 
   filter :company_name
   filter :created_at
+  filter :sales_user, collection: -> { User.sales_users }
   filter :contact_string
   filter :assignment
   filter :job_scope
@@ -60,7 +61,8 @@ ActiveAdmin.register JobRequest do
     selectable_column
     column :status, &:current_status_name
     column :company_name
-    column :responsible
+    column :sales_user { |job_request| job_request.sales_user&.first_name }
+    column :delivery_user { |job_request| job_request.delivery_user&.first_name }
     column :requirements
     column :language_requirements
     column :job_at_date
@@ -141,7 +143,8 @@ ActiveAdmin.register JobRequest do
     # rubocop:disable Metrics/LineLength
     f.inputs 'Basic' do
       f.input :short_name, hint: 'For example "The IKEA-job"..'
-      f.input :responsible, hint: 'Responsible person @ Sales department'
+      f.input :sales_user, as: :select, collection: User.sales_users, hint: 'Responsible person @ Sales department'
+      f.input :delivery_user, as: :select, collection: User.delivery_users, hint: 'Responsible person @ Delivery department'
     end
 
     f.inputs 'Company details' do
@@ -207,6 +210,10 @@ ActiveAdmin.register JobRequest do
   end
 
   controller do
+    def scoped_collection
+      super.includes(:sales_user, :delivery_user)
+    end
+
     def update(*_args)
       super do |_format|
         if resource.valid?

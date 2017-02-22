@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170221163046) do
+ActiveRecord::Schema.define(version: 20170222082739) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -346,6 +346,8 @@ ActiveRecord::Schema.define(version: 20170221163046) do
     t.string   "company_phone"
     t.string   "company_address"
     t.integer  "company_id"
+    t.integer  "delivery_user_id"
+    t.integer  "sales_user_id"
     t.index ["company_id"], name: "index_job_requests_on_company_id", using: :btree
   end
 
