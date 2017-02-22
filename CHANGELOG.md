@@ -3,23 +3,32 @@
 HEAD
 -----------
 
+v1.16 - 2017-02-23
+----------
+* Add `JobRequest#sales_user` and `JobRequest#delivery_user` columns
+* Update user admin seed
+* _Admin_: Sort chat index by updated_at. Closes #912
+* Update gems:
+  - `aws-sdk` gem
+* Update dev gems: `consistency_fail`, `dotenv-rails`, `i18n-tasks`, `immigrant` and `simplecov`
 
-v1.15 - 2017-02-22
+
+v1.15 - 2017-02-21
 ----------
 _API_: Rename `HourlyPay#*_with_currency` => `*_with_unit`
 
 
-v1.14 - 2017-02-22
+v1.14 - 2017-02-21
 ----------
 * _API_: Change `*_formatted` keys => `*_with_currency` & add `*_delimited` to job & hourly pay numbers
 
 
-v1.13 - 2017-02-22
+v1.13 - 2017-02-21
 ----------
 * _API_: Add `Job::unarchived` scope and include the scope under `Job::visible`
 * _Admin_: Accept and notify job users batch action
 
-v1.12 - 2017-02-22
+v1.12 - 2017-02-21
 ----------
 * _Admin_:
   - Move job show view to its own template
