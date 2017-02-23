@@ -17,6 +17,27 @@ ActiveAdmin.register UserImage do
     actions
   end
 
+  show do
+    attributes_table do
+      row :id
+      row :user
+      row :user_image do |user_image|
+        image_tag(user_image.image.url(:large))
+      end
+      row :created_at
+      row :updated_at
+      row :image_file_name
+      row :image_content_type
+      row :image_file_size do |user_image|
+        number_to_human_size(user_image.image_file_size)
+      end
+      row :image_updated_at
+      row :category
+    end
+
+    active_admin_comments
+  end
+
   form do |f|
     f.inputs do
       f.input :user
