@@ -11,7 +11,8 @@ class JobPolicy < ApplicationPolicy
     :longitude, :street, :zip, :zip_latitude, :zip_longitude, :verified, :job_end_date,
     :filled, :short_description, :featured, :upcoming, :translated_text, :amount,
     :language_id, :gross_amount, :net_amount, :gross_amount_with_currency, :currency,
-    :net_amount_with_currency, :city, :gross_amount_delimited, :net_amount_delimited
+    :net_amount_with_currency, :city, :gross_amount_delimited, :net_amount_delimited,
+    :full_street_address
   ].freeze
 
   ATTRIBUTES = [
@@ -19,14 +20,14 @@ class JobPolicy < ApplicationPolicy
     :zip_latitude, :zip_longitude, :verified, :job_end_date, :filled, :short_description,
     :featured, :upcoming, :street, :amount, :translated_text, :language_id, :gross_amount,
     :net_amount, :gross_amount_with_currency, :net_amount_with_currency, :city, :currency,
-    :gross_amount_delimited, :net_amount_delimited
+    :gross_amount_delimited, :net_amount_delimited, :full_street_address
   ].freeze
 
   OWNER_ATTRIBUTES = [
     :description, :job_date, :street, :zip, :name, :hours, :job_end_date, :cancelled,
     :city, :filled, :short_description, :featured, :upcoming, :currency,
-    :gross_amount_delimited, :net_amount_delimited, :language_id, :category_id,
-    :hourly_pay_id, skill_ids: []
+    :gross_amount_delimited, :net_amount_delimited, :full_street_address, :language_id,
+    :category_id, :hourly_pay_id, skill_ids: []
   ].freeze
 
   def index?
