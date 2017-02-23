@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170222082739) do
+ActiveRecord::Schema.define(version: 20170223074649) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -761,6 +761,8 @@ ActiveRecord::Schema.define(version: 20170222082739) do
   add_foreign_key "invoices", "frilans_finans_invoices"
   add_foreign_key "invoices", "job_users"
   add_foreign_key "job_requests", "companies"
+  add_foreign_key "job_requests", "users", column: "delivery_user_id", name: "job_requests_delivery_user_id_fk"
+  add_foreign_key "job_requests", "users", column: "sales_user_id", name: "job_requests_sales_user_id_fk"
   add_foreign_key "job_skills", "jobs"
   add_foreign_key "job_skills", "skills"
   add_foreign_key "job_translations", "jobs"
