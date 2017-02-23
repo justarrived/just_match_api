@@ -3,7 +3,14 @@
 HEAD
 -----------
 
-v1.16 - 2017-02-23
+v1.17 - 2017-02-23
+----------
+* Update gems: `aws-sdk` and `codeclimate-test-reporter`
+* Generate migration for missing user keys for JobRequest
+* Add sales and delivery use to job request permitted params
+
+
+v1.16 - 2017-02-22
 ----------
 * Add `JobRequest#sales_user` and `JobRequest#delivery_user` columns
 * Update user admin seed
