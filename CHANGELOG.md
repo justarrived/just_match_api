@@ -3,6 +3,12 @@
 HEAD
 -----------
 
+v1.18 - 2017-02-23
+----------
+* _Admin_:
+  - Display large image on UserImage page
+  - Display large image on CompanyImage page
+
 v1.17 - 2017-02-23
 ----------
 * Update gems: `aws-sdk` and `codeclimate-test-reporter`
