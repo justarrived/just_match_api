@@ -1,1 +1,24 @@
-{}
+{
+  "data": {
+    "id": "1",
+    "type": "user_documents",
+    "attributes": {
+      "category": "cv",
+      "category_name": "cv"
+    },
+    "relationships": {
+      "user": {
+        "data": {
+          "id": "39",
+          "type": "users"
+        }
+      },
+      "document": {
+        "data": {
+          "id": "1",
+          "type": "documents"
+        }
+      }
+    }
+  }
+}

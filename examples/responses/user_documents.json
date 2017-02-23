@@ -1,0 +1,29 @@
+{
+  "data": [
+    {
+      "id": "1",
+      "type": "user_documents",
+      "attributes": {
+        "category": "cv",
+        "category_name": "cv"
+      },
+      "relationships": {
+        "user": {
+          "data": {
+            "id": "40",
+            "type": "users"
+          }
+        },
+        "document": {
+          "data": {
+            "id": "2",
+            "type": "documents"
+          }
+        }
+      }
+    }
+  ],
+  "meta": {
+    "total": 1
+  }
+}

@@ -8,7 +8,8 @@ class Doxxer
   RELEVANT_DOC_MODELS = [
     Chat, Comment, Job, User, Message, Language, UserLanguage, Skill, Rating, JobUser,
     JobSkill, UserSkill, Category, HourlyPay, Invoice, Faq, UserImage, Company,
-    CompanyImage, TermsAgreement, TermsAgreementConsent, Interest, UserInterest, Document
+    CompanyImage, TermsAgreement, TermsAgreementConsent, Interest, UserInterest, Document,
+    UserDocument
   ].freeze
 
   def self.read_example(model_klass, plural: false, method: nil, meta: {})
