@@ -190,6 +190,8 @@ ActiveAdmin.register JobRequest do
       :language_requirements,
       :job_at_date,
       :responsible,
+      :sales_user,
+      :delivery_user,
       :suitable_candidates,
       :comment,
       :created_at,
