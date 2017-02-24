@@ -74,7 +74,8 @@ ActiveAdmin.register JobRequest do
   show do |job_request|
     attributes_table do
       row :short_name
-      row :responsible
+      row :sales_user
+      row :delivery_user
       row :company_name
       row :company_org_no
       row :company_phone
@@ -190,8 +191,8 @@ ActiveAdmin.register JobRequest do
       :language_requirements,
       :job_at_date,
       :responsible,
-      :sales_user,
-      :delivery_user,
+      :sales_user_id,
+      :delivery_user_id,
       :suitable_candidates,
       :comment,
       :created_at,
