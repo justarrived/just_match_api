@@ -3,6 +3,11 @@
 HEAD
 -----------
 
+v1.19 - 2017-02-24
+----------
+* _Admin_:
+  - Added sales and delivery user to permitted params in job request form
+
 v1.18 - 2017-02-23
 ----------
 * _Admin_:
