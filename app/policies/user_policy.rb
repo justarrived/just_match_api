@@ -49,6 +49,7 @@ class UserPolicy < ApplicationPolicy
   alias_method :frilans_finans?, :show?
   alias_method :chats?, :show?
   alias_method :create_document?, :show?
+  alias_method :index_document?, :show?
 
   def jobs?
     admin_or_self? || company_user?
