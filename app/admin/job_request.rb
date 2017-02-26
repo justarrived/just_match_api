@@ -46,6 +46,7 @@ ActiveAdmin.register JobRequest do
   filter :company_name
   filter :created_at
   filter :sales_user, collection: -> { User.sales_users }
+  filter :delivery_user, collection: -> { User.delivery_users }
   filter :contact_string
   filter :assignment
   filter :job_scope
