@@ -17,7 +17,7 @@ module Api
           authorize_index(@user)
 
           user_documents_index = Index::UserDocumentsIndex.new(self)
-          @user_documents = user_documents_index.user_documents
+          @user_documents = user_documents_index.user_documents(@user.user_documents)
 
           api_render(@user_documents)
         end
