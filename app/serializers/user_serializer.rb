@@ -61,6 +61,12 @@ class UserSerializer < ApplicationSerializer
     object.user_languages.visible
   end
 
+  has_many :user_documents, unless: :collection_serializer? do
+    link(:related) { api_v1_user_documents_url(object.id) }
+
+    object.user_documents
+  end
+
   has_many :chats, unless: :collection_serializer? do
     link(:related) { api_v1_user_chats_url(object.id) }
   end
