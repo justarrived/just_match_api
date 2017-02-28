@@ -20,7 +20,8 @@ RSpec.describe Api::V1::UsersController, type: :controller do
           street: 'Stora Nygatan 36',
           zip: '211 37',
           password: (1..8).to_a.join,
-          ssn: '8901010101'
+          ssn: '8901010101',
+          consent: true
         }
       }
     }
@@ -135,6 +136,16 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         allow(UserWelcomeNotifier).to receive(:call)
         post :create, params: valid_attributes
         expect(UserWelcomeNotifier).to have_received(:call)
+      end
+
+      context 'without consent' do
+        it 'can *not* create user' do
+          attributes = valid_attributes.dup
+          attributes[:data][:attributes][:consent] = false
+
+          post :create, params: attributes
+          expect(assigns(:user)).not_to be_persisted
+        end
       end
 
       context 'user image token [DEPRECATED version]' do

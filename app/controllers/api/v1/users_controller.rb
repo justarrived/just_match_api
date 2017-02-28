@@ -57,6 +57,7 @@ module Api
           # rubocop:disable Metrics/LineLength
           param :first_name, String, desc: 'First name', required: true
           param :last_name, String, desc: 'Last name', required: true
+          param :consent, [true], desc: 'Terms of agreement consent', required: true
           param :description, String, desc: 'Description'
           param :job_experience, String, desc: 'Job experience'
           param :education, String, desc: 'Education'
@@ -102,10 +103,13 @@ module Api
       def create
         @user = User.new(user_params)
         @user.password = jsonapi_params[:password]
+        terms_consent = [true, 'true'].include?(jsonapi_params[:consent])
 
         authorize(@user)
+        @user.validate
 
-        if @user.save
+        if terms_consent && @user.valid?
+          @user.save
           login_user(@user)
 
           @user.set_translation(user_params).tap do |result|
@@ -135,6 +139,11 @@ module Api
 
           api_render(@user, status: :created)
         else
+          unless terms_consent
+            consent_error = I18n.t('errors.user.must_consent_to_terms_of_agreement')
+            @user.errors.add(:consent, consent_error)
+          end
+
           api_render_errors(@user)
         end
       end

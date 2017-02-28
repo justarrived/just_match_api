@@ -20,9 +20,9 @@ en:
     rate_limit:
       details: Throttle limit reached. Retry later.
     bank_account:
-      too_short: is too short
-      too_long: is too long
-      invalid_characters: invalid characters
+      too_short: clearing plus account number is too short
+      too_long: clearing plus account number is too long
+      invalid_characters: clearing plus account number contains invalid characters
       bad_checksum: bad checksum
       unknown_clearing_number: unknown clearing number
       iban:
@@ -69,6 +69,7 @@ en:
       banned: an admin has banned you for not following the Terms of Agreement or the Code of Conduct. Please contact help@justarrived.se, to resolve this issue.
       wrong_email_or_phone_or_password: wrong email, phone or password
     user:
+      must_consent_to_terms_of_agreement: you must consent to our terms of agreement
       invalid_image_content_type: invalid content type for image
       invalid_document_content_type: invalid content type %{type}
       wrong_password: wrong password
