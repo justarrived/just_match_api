@@ -3,16 +3,23 @@
 HEAD
 -----------
 
+v1.20 - 2017-02-25
+----------
+* _API_: Remove `Job::unarchived` scope and remove from `Job::visible` scope
+
+
 v1.19 - 2017-02-24
 ----------
 * _Admin_:
   - Added sales and delivery user to permitted params in job request form
+
 
 v1.18 - 2017-02-23
 ----------
 * _Admin_:
   - Display large image on UserImage page
   - Display large image on CompanyImage page
+
 
 v1.17 - 2017-02-23
 ----------
