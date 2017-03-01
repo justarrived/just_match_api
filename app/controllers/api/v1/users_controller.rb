@@ -108,7 +108,7 @@ module Api
         authorize(@user)
         @user.validate
 
-        if terms_consent && @user.valid?
+        if @user.valid?
           @user.save
           login_user(@user)
 
