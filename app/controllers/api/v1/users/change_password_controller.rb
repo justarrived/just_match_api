@@ -9,7 +9,7 @@ module Api
         before_action :set_user
 
         NoSuchResetPasswordToken = Class.new(StandardError)
-        rescue_from NoSuchResetPasswordToken, with: :respond_with_no_such_reset_token_error
+        rescue_from NoSuchResetPasswordToken, with: :respond_with_no_such_reset_token_error # rubocop:disable Metrics/LineLength
 
         # rubocop:disable Metrics/LineLength
         api :POST, '/users/change-password/', 'Change password'
