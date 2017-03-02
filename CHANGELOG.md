@@ -3,6 +3,17 @@
 HEAD
 -----------
 
+
+v1.21 - 2017-03-02
+----------
+* _API_:
+  - Update change password error responses
+  - Temporary don't require consent when creating a new user
+* Fix test failure for create Frilans Finans invoice
+* Update `Geocodable` to ignore char casing on search and increase default search range to 50km (from 20km)
+* Update the users `profession_title` @ Frilans Finans when creating an invoice
+
+
 v1.20 - 2017-02-25
 ----------
 * _API_: Remove `Job::unarchived` scope and remove from `Job::visible` scope
