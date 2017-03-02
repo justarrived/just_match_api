@@ -69,6 +69,7 @@ en:
       banned: an admin has banned you for not following the Terms of Agreement or the Code of Conduct. Please contact help@justarrived.se, to resolve this issue.
       wrong_email_or_phone_or_password: wrong email, phone or password
     user:
+      no_such_reset_token_error: expired link, please goto the "forgot password" and try again
       must_consent_to_terms_of_agreement: you must consent to our terms of agreement
       invalid_image_content_type: invalid content type for image
       invalid_document_content_type: invalid content type %{type}

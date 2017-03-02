@@ -178,7 +178,7 @@ module Api
                 ]
               }
 
-          In rare cases `source/pointer` can point to a "vritual" attribute.
+          In rare cases `source/pointer` can point to a "virtual" attribute.
           For example `clearing_number` and `account_number` can have specific errors, but they can also have an error that is due to the combination of the two.
           In this case called `account` (this should be documented under each specific resource that can have errors like this).
 
