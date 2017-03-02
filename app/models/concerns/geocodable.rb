@@ -56,8 +56,8 @@ module Geocodable
       after_validation :validate_geocoding
 
       scope :by_near_address, lambda { |query|
-        area, distance = query.split('km:')
-        km = distance&.strip&.to_f || 20
+        area, distance = query.downcase.split('km:')
+        km = distance&.strip&.to_f || 50
 
         near(area, km, units: :km)
       }
