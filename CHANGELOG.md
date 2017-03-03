@@ -4,6 +4,12 @@ HEAD
 -----------
 
 
+v1.22 - 2017-03-03
+----------
+
+* Increase request limit to allow 100 requests per 10 seconds
+
+
 v1.21 - 2017-03-02
 ----------
 * _API_:
