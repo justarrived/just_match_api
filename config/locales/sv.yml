@@ -54,6 +54,7 @@ sv:
       hours_upper_bound: kan inte vara fler än %{max_hours} timmar per dag
       owner_must_belong_to_company: ägaren måste tillhöra ett företag
     job_user:
+      forbidden_applicant_user: inte tillåten att söka det här jobbet
       not_owner_of_job: kan inte både vara jobb ägare och jobb sökare
       multiple_applicants: kan inte acceptera flera användare
       will_perform_true_on_delete: kan inte dra tillbaka ansökan efter konfirmering

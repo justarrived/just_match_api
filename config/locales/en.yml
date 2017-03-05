@@ -54,6 +54,7 @@ en:
       hours_upper_bound: can't be more than %{max_hours} hours per day
       owner_must_belong_to_company: owner must belong to a company
     job_user:
+      forbidden_applicant_user: not allowed to apply for this job
       not_owner_of_job: can't be both job owner and job applicant
       multiple_applicants: can't accept multiple applicants
       will_perform_true_on_delete: can't withdraw application when confirmed

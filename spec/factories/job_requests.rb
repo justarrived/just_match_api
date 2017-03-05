@@ -52,5 +52,7 @@ end
 #
 # Foreign Keys
 #
-#  fk_rails_53030c1fe0  (company_id => companies.id)
+#  fk_rails_53030c1fe0               (company_id => companies.id)
+#  job_requests_delivery_user_id_fk  (delivery_user_id => users.id)
+#  job_requests_sales_user_id_fk     (sales_user_id => users.id)
 #

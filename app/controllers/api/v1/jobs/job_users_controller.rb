@@ -48,7 +48,7 @@ module Api
           authorize(JobUser)
 
           job_users_index = Index::JobUsersIndex.new(self)
-          job_users_scope = job_users_index_scope(@job.job_users)
+          job_users_scope = job_users_index_scope(policy_scope(@job.job_users))
 
           @job_users = job_users_index.job_users(job_users_scope)
 
@@ -74,6 +74,7 @@ module Api
         error code: 422, desc: 'Unprocessable entity'
         param :data, Hash, desc: 'Top level key', required: true do
           param :attributes, Hash, desc: 'Job user attributes', required: true do
+            param :user_id, Integer, desc: 'User id of the applicant', required: true
             param :apply_message, String, desc: 'Apply message'
             param :language_id, Integer, desc: 'Language id of the text content (required if apply message is present)' # rubocop:disable Metrics/LineLength
           end
@@ -82,20 +83,31 @@ module Api
         def create
           authorize(JobUser)
 
-          @job_user = JobUser.new
-          # NOTE: Not very RESTful to set user from current_user
-          @job_user.user = current_user
-          @job_user.job = @job
+          user_id = jsonapi_params[:user_id].to_i
+          if user_id.zero?
+            user = current_user
+            ActiveSupport::Deprecation.warn('Not explicitly setting the user id as part of the payload has been deprecated please set a user id.') # rubocop:disable Metrics/LineLength
+          elsif user_id == current_user.id
+            user = current_user
+          elsif current_user.admin?
+            user = User.find_by(id: user_id)
+          else
+            errors = JsonApiErrors.new
+            message = I18n.t('errors.job_user.forbidden_applicant_user')
+            errors.add(attribute: :user, status: 403, detail: message)
 
-          @job_user.apply_message = job_user_attributes[:apply_message]
-          @job_user.language = Language.find_by(id: job_user_attributes[:language_id])
+            render json: errors, status: :forbidden
+            return
+          end
 
-          if @job_user.save
-            @job_user.set_translation(job_user_attributes).tap do |result|
-              EnqueueCheapTranslation.call(result)
-            end
+          @job_user = CreateJobApplicationService.call(
+            job: @job,
+            user: user,
+            attributes: job_user_attributes,
+            notify_users: [@job.owner]
+          )
 
-            NewApplicantNotifier.call(job_user: @job_user, owner: @job.owner)
+          if @job_user.valid?
             api_render(@job_user, status: :created)
           else
             api_render_errors(@job_user)
@@ -149,19 +161,12 @@ module Api
         def destroy
           authorize(@job_user)
 
-          if @job_user.will_perform
-            message = I18n.t('errors.job_user.will_perform_true_on_delete')
-            @job_user.errors.add(:will_perform, message)
-            api_render_errors(@job_user)
+          response = WithdrawJobApplicationService.call(
+            job_user: @job_user, job_owner: @job.owner
+          )
+          if response.errors
+            render json: response.errors, status: :unprocessable_entity
           else
-            if @job_user.accepted
-              AcceptedApplicantWithdrawnNotifier.call(
-                job_user: @job_user,
-                owner: @job.owner
-              )
-            end
-
-            @job_user.destroy
             head :no_content
           end
         end

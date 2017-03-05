@@ -20,7 +20,8 @@ module Api
         def index
           authorize_index(@user)
 
-          job_user_scope = job_user_index_scope(JobUser.where(user: @user))
+          base_scope = policy_scope(JobUser).where(user: @user)
+          job_user_scope = job_user_index_scope(base_scope)
 
           job_users_index = Index::JobUsersIndex.new(self)
           @job_users = job_users_index.job_users(job_user_scope)
