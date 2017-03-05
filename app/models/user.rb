@@ -160,7 +160,7 @@ class User < ApplicationRecord
   end
 
   def self.ransackable_scopes(_auth_object = nil)
-    [:by_near_address]
+    [:near_address]
   end
 
   def self.find_by_one_time_token(token)
