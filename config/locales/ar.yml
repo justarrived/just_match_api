@@ -14,9 +14,6 @@ ar:
         notice: تعذر انشاء فاتورة Frilans Finans
   errors:
     bank_account:
-      too_short: قصير جداً
-      too_long: طويل جداً
-      invalid_characters: أحرف خاطئة
       bad_checksum: تدقيق المجموع سيء
       unknown_clearing_number: رقم التخليص غير معروف
       iban:
@@ -62,8 +59,11 @@ ar:
       wrong_email_or_phone_or_password: خطأ في البريد الإلكتروني أو الهاتف أو كلمة السر
     user:
       invalid_document_content_type: نوع محتوى الصورة %{type}
+      wrong_password: كلمة سرّ خاطئة
+      must_be_available_locale: لغتك غير مدعومة للأسف
       must_be_valid_phone_number_format: يجب أن يكون رقم هاتف فعال
       must_be_swedish_phone_number: يجب أن يكون رقم هاتف سويدي ( +٤٦ )
+      must_be_swedish_ssn: يجب أن يكون رقم الضمان الاجتماعي السويدي صحيح
       arrived_at_must_be_in_past: يجب أن يكون في الماضي
     validators:
       after_true: '%{field} يجب أن يكون حقيقي'

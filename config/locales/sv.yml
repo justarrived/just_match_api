@@ -2,7 +2,7 @@ sv:
   api_documentation:
     title: API dokumentation | JustMatch API
   units:
-    currency_per_hour: '%{currency}/timme'
+    currency_per_hour: '%{currency}/timmen'
   admin:
     mailer:
       invoice_missing_company_frilans_finans_id:
@@ -20,9 +20,9 @@ sv:
     rate_limit:
       details: Gränsvärde nått. Var god försök lite senare.
     bank_account:
-      too_short: är för kort
-      too_long: är för lång
-      invalid_characters: ogiltiga tecken
+      too_short: clearing plus kontonumret är för långt
+      too_long: clearing plus kontonumret är för långt
+      invalid_characters: clearing plus kontonumret innehåller otillåtna tecken
       bad_checksum: fel checksumma
       unknown_clearing_number: okänt clearing nummer
       iban:
@@ -70,7 +70,7 @@ sv:
       banned: en administratör har blockerat dig eftersom du inte följt Användarvillkoren. Vad god kontakta help@justarrived.
       wrong_email_or_phone_or_password: fel email, telefonnummer eller lösenord
     user:
-      no_such_reset_token_error: länken är inte längre gilltig, gå till "glömt lösenord" och testa igen
+      no_such_reset_token_error: länken är inte längre giltig, gå till "glömt lösenord" och testa igen
       must_consent_to_terms_of_agreement: du måste godkänna våra villkor
       invalid_image_content_type: ogilltigt bildformat
       invalid_document_content_type: ogilltigt bildformat %{type}
