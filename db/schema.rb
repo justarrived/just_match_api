@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170223074649) do
+ActiveRecord::Schema.define(version: 20170305124210) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -389,14 +389,15 @@ ActiveRecord::Schema.define(version: 20170223074649) do
   create_table "job_users", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "job_id"
-    t.boolean  "accepted",      default: false
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
-    t.boolean  "will_perform",  default: false
+    t.boolean  "accepted",              default: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.boolean  "will_perform",          default: false
     t.datetime "accepted_at"
-    t.boolean  "performed",     default: false
+    t.boolean  "performed",             default: false
     t.text     "apply_message"
     t.integer  "language_id"
+    t.boolean  "application_withdrawn", default: false
     t.index ["job_id", "user_id"], name: "index_job_users_on_job_id_and_user_id", unique: true, using: :btree
     t.index ["job_id"], name: "index_job_users_on_job_id", using: :btree
     t.index ["language_id"], name: "index_job_users_on_language_id", using: :btree
