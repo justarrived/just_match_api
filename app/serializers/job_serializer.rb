@@ -10,8 +10,8 @@ class JobSerializer < ApplicationSerializer
 
   link(:self) { api_v1_job_url(object) }
 
-  # ActiveSupport::Deprecation.warn('#amount has been depreceted, use #gross_amount')
   attribute :amount do
+    ActiveSupport::Deprecation.warn('#amount has been depreceted, use #gross_amount')
     object.gross_amount
   end
 
