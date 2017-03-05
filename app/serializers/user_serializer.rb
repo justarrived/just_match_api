@@ -10,11 +10,13 @@ class UserSerializer < ApplicationSerializer
     :company_id, :one_time_token, :one_time_token_expires_at, :just_arrived_staffing,
     :ignored_notifications_mask, :frilans_finans_id, :frilans_finans_payment_details,
     :current_status, :at_und, :arrived_at, :country_of_origin, :managed, :verified,
-    :account_clearing_number, :account_number, :gender, :full_street_address
+    :account_clearing_number, :account_number, :gender, :full_street_address,
+    :support_chat_activated
   ] + EXTRA_ATTRIBUTES
 
   link(:self) { api_v1_user_url(object) }
 
+  attribute :support_chat_activated { object.support_chat_activated? }
   attribute :description { object.original_description }
   attribute :description_html { to_html(object.original_description) }
 
