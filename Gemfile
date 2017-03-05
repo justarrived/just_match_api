@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 
 ruby '2.4.0'
 
-gem 'rails', '5.0.1' # Ruby on Rails MVC framework
+gem 'rails', '5.0.2' # Ruby on Rails MVC framework
 
 # SERVER
 gem 'lograge', '~> 0.4' # Less verbose Rails log in production
