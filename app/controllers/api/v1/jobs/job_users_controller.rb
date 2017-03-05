@@ -48,7 +48,7 @@ module Api
           authorize(JobUser)
 
           job_users_index = Index::JobUsersIndex.new(self)
-          job_users_scope = job_users_index_scope(@job.job_users)
+          job_users_scope = job_users_index_scope(policy_scope(@job.job_users))
 
           @job_users = job_users_index.job_users(job_users_scope)
 
