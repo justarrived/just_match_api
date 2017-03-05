@@ -97,10 +97,12 @@ ActiveAdmin.register JobUser do
     end
   end
 
-  scope :all, default: true
+  scope :all
+  scope :visible, default: true
   scope :accepted
   scope :will_perform
   scope :verified
+  scope :withdrawn
 
   filter :user_first_name_cont, as: :string, label: I18n.t('admin.user.first_name')
   filter :user_last_name_cont, as: :string, label: I18n.t('admin.user.last_name')
@@ -112,6 +114,8 @@ ActiveAdmin.register JobUser do
   filter :accepted
   filter :will_perform
   filter :performed
+  filter :shortlisted
+  filter :application_withdrawn
   filter :updated_at
   filter :created_at
   filter :translations_apply_message_cont, as: :string, label: I18n.t('admin.job_user.apply_message') # rubocop:disable Metrics/LineLength
@@ -198,7 +202,10 @@ ActiveAdmin.register JobUser do
   end
 
   permit_params do
-    [:user_id, :job_id, :accepted, :will_perform, :performed, :apply_message]
+    [
+      :user_id, :job_id, :accepted, :will_perform, :performed, :apply_message,
+      :application_withdrawn, :shortlisted
+    ]
   end
 
   controller do
