@@ -11,7 +11,8 @@ RSpec.describe JobPolicy do
       :description, :job_date, :street, :zip, :name, :hours, :job_end_date,
       :cancelled, :city, :filled, :short_description, :featured, :upcoming,
       :currency, :gross_amount_delimited, :net_amount_delimited, :full_street_address,
-      :description_html, :language_id, :category_id, :hourly_pay_id, { skill_ids: [] }
+      :staffing_job, :description_html,
+      :language_id, :category_id, :hourly_pay_id, { skill_ids: [] }
     ]
   end
   let(:admin_params) { owner_params }
