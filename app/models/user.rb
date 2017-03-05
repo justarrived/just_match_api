@@ -224,6 +224,10 @@ class User < ApplicationRecord
     jobs.any?
   end
 
+  def support_chat_activated?
+    verified || super_admin || admin || just_arrived_staffing
+  end
+
   def bank_account_details?
     return false if account_clearing_number.blank?
     return false if account_number.blank?
