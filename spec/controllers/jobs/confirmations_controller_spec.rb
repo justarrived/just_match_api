@@ -33,7 +33,7 @@ RSpec.describe Api::V1::Jobs::ConfirmationsController, type: :controller do
 
     it 'fills job position' do
       post :create, params: params, headers: valid_session
-      expect(assigns(:job).position_filled?).to eq(true)
+      expect(assigns(:job).reload.position_filled?).to eq(true)
     end
 
     it 'creates frilans finans invoice' do

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class CreateJobApplicationService
-  def self.call(job:, user:, attributes:, notify_users: [])
+  def self.call(job:, user:, attributes:, job_owner:)
     job_user = JobUser.find_or_initialize_by(user: user, job: job)
     job_user.application_withdrawn = false
     job_user.apply_message = attributes[:apply_message]
@@ -11,9 +11,7 @@ class CreateJobApplicationService
         EnqueueCheapTranslation.call(result)
       end
 
-      notify_users.each do |owner|
-        NewApplicantNotifier.call(job_user: job_user, owner: owner)
-      end
+      NewApplicantNotifier.call(job_user: job_user, owner: job_owner)
     end
 
     job_user

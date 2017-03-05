@@ -41,6 +41,8 @@ en:
       blank_if_field: can't be blank if %{field} is present
     chat:
       number_of_users: a chat must consist of between %{min}-%{max} number of users
+    frilans_finans_invoice:
+      job_is_frilans_finans_job: job must be a Frilans Finans job
     invoice:
       job_started: job start time must be in the passed before an invoice can be created
       job_user_accepted: user must be the accepted applicant before an invoice can be created
