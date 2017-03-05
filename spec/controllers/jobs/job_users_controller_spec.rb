@@ -339,20 +339,6 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
     end
 
     context 'allowed' do
-      it 'destroys the requested job_user' do
-        job = FactoryGirl.create(:job_with_users, users_count: 1)
-        user = job.users.first
-        job_user = job.job_users.first
-        allow_any_instance_of(described_class).
-          to(receive(:current_user).
-          and_return(user))
-        session = { token: user.auth_token }
-        params = { job_id: job.to_param, job_user_id: job_user.to_param }
-        expect do
-          delete :destroy, params: params, headers: session
-        end.to change(JobUser, :count).by(-1)
-      end
-
       it 'can *not* be destroyed if JobUser#will_perform is true' do
         job = FactoryGirl.create(:job_with_users, users_count: 1)
         user = job.users.first

@@ -149,19 +149,12 @@ module Api
         def destroy
           authorize(@job_user)
 
-          if @job_user.will_perform
-            message = I18n.t('errors.job_user.will_perform_true_on_delete')
-            @job_user.errors.add(:will_perform, message)
-            api_render_errors(@job_user)
+          response = WithdrawJobApplicationService.call(
+            job_user: @job_user, job_owner: @job.owner
+          )
+          if response.errors
+            render json: response.errors, status: :unprocessable_entity
           else
-            if @job_user.accepted
-              AcceptedApplicantWithdrawnNotifier.call(
-                job_user: @job_user,
-                owner: @job.owner
-              )
-            end
-
-            @job_user.destroy
             head :no_content
           end
         end
