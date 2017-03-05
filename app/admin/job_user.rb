@@ -198,7 +198,10 @@ ActiveAdmin.register JobUser do
   end
 
   permit_params do
-    [:user_id, :job_id, :accepted, :will_perform, :performed, :apply_message]
+    [
+      :user_id, :job_id, :accepted, :will_perform, :performed, :apply_message,
+      :application_withdrawn, :shortlisted
+    ]
   end
 
   controller do

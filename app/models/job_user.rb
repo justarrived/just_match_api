@@ -65,8 +65,10 @@ class JobUser < ApplicationRecord
       return 'Not pre-reported!'
     end
 
+    return 'Withdrawn' if application_withdrawn
     return 'Will perform' if will_perform
     return 'Accepted' if accepted
+    return 'Shortlisted' if shortlisted
 
     'Applied'
   end
@@ -168,6 +170,7 @@ end
 #  apply_message         :text
 #  language_id           :integer
 #  application_withdrawn :boolean          default(FALSE)
+#  shortlisted           :boolean          default(FALSE)
 #
 # Indexes
 #

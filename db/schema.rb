@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170305124210) do
+ActiveRecord::Schema.define(version: 20170305142530) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -398,6 +398,7 @@ ActiveRecord::Schema.define(version: 20170305124210) do
     t.text     "apply_message"
     t.integer  "language_id"
     t.boolean  "application_withdrawn", default: false
+    t.boolean  "shortlisted",           default: false
     t.index ["job_id", "user_id"], name: "index_job_users_on_job_id_and_user_id", unique: true, using: :btree
     t.index ["job_id"], name: "index_job_users_on_job_id", using: :btree
     t.index ["language_id"], name: "index_job_users_on_language_id", using: :btree
