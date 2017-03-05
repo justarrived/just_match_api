@@ -143,7 +143,7 @@ ActiveAdmin.register User do
   scope :managed_users
   scope :verified
 
-  filter :by_near_address, label: I18n.t('admin.filter.near_address'), as: :string
+  filter :near_address, label: I18n.t('admin.filter.near_address'), as: :string
   filter :first_name_or_last_name_cont, as: :string, label: I18n.t('admin.user.name')
   filter :interview_comment
   filter :tags, collection: -> { Tag.order(:name) }

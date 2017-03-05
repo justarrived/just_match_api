@@ -85,7 +85,7 @@ class Job < ApplicationRecord
   translates :name, :short_description, :description
 
   def self.ransackable_scopes(_auth_object = nil)
-    [:by_near_address]
+    [:near_address]
   end
 
   delegate :currency, to: :hourly_pay
