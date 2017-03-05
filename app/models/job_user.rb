@@ -32,6 +32,7 @@ class JobUser < ApplicationRecord
 
   before_validation :accepted_at_setter
 
+  scope :shortlisted, -> { where(shortlisted: true) }
   scope :withdrawn, -> { where(application_withdrawn: true) }
   scope :visible, -> { where(application_withdrawn: false) }
   scope :accepted, -> { where(accepted: true) }

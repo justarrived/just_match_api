@@ -99,6 +99,7 @@ ActiveAdmin.register JobUser do
 
   scope :all
   scope :visible, default: true
+  scope :shortlisted
   scope :accepted
   scope :will_perform
   scope :verified
@@ -127,7 +128,9 @@ ActiveAdmin.register JobUser do
     column :user
     column :job
     column :job_start_date { |job_user| job_user.job.job_date }
-    column :user_city { |job_user| job_user.user.city }
+    column :city do |job_user|
+      "U: #{job_user.user.city}, J: #{job_user.job.city}"
+    end
     column :status, &:current_status
 
     actions
