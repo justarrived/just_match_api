@@ -2,16 +2,17 @@
 class SignJobUserService
   def self.call(job_user:, job_owner:)
     job_user.will_perform = true
+    return job_user unless job_user.save
 
-    if job_user.save
-      job_user.job.fill_position
+    job = job_user.job
+    job.fill_position
 
-      # TODO: Only create this is its a Frilans Finans job
+    if job.frilans_finans_job?
       # Frilans Finans wants invoices to be pre-reported
       FrilansFinansInvoice.create!(job_user: job_user)
-
-      ApplicantWillPerformNotifier.call(job_user: job_user, owner: job_owner)
     end
+
+    ApplicantWillPerformNotifier.call(job_user: job_user, owner: job_owner)
 
     job_user
   end

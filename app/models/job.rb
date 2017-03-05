@@ -130,6 +130,10 @@ class Job < ApplicationRecord
     category&.name
   end
 
+  def frilans_finans_job?
+    !staffing_job && !direct_recruitment_job
+  end
+
   def ended?
     job_end_date < Time.zone.now
   end
@@ -354,6 +358,7 @@ end
 #  just_arrived_contact_user_id :integer
 #  city                         :string
 #  staffing_job                 :boolean          default(FALSE)
+#  direct_recruitment_job       :boolean          default(FALSE)
 #
 # Indexes
 #
