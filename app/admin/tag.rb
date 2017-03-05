@@ -3,10 +3,13 @@ ActiveAdmin.register Tag do
   menu parent: 'Settings'
 
   index do
-    column :name
-    column :color do |tag|
-      simple_badge_tag(tag.color, color: tag.color)
+    selectable_column
+
+    column :id
+    column :name do |tag|
+      user_tag_badge(tag: tag)
     end
+    column :updated_at
 
     actions
   end
