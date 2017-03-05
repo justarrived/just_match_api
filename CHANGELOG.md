@@ -4,9 +4,38 @@ HEAD
 -----------
 
 
+v1.23 - 2017-03-05
+----------
+* Extract `SignJobUserService` from `jobs/ConfirmationsController`
+* Adds `Job#staffing_job` boolean (default: false) field
+* Adds `Job#direct_recruitment_job` boolean (default: false) field
+* Only create `FrilansFinansInvoice`s for jobs that has *not* `staffing_job` or `direct_recruitment_job` set to true
+* _API_: Expose `Job#staffing_job` and `Job#direct_recruitment_job` to API and allow sort & filter
+* Add Ebert config `ebert.yml`
+* `Geocodable#by_near_address` => `#near_address` and add `#near_coordinates` method
+* _Admin_:
+  - Add shortlisted scope and more informative city column
+  - Replace Job#featured with #city on index page
+  - Link to users with skills/tags from their respective index page. Closes #939
+* _API_:
+  - Add `#body_html` variant for comment & message serializers
+  - Add `Job#decription_html` to allowed attributes
+  - Add `User#support_chat_activated` feature toggle
+  - Allow a user that has withdrawn the job application to re-apply
+  - Don't delete job user, set `#application_withdrawn` instead
+  - Extract create job application service and allow passing user_id as POST param
+* _DB_:
+  - Add JobUser#application_withdrawn column (default: false)
+  - Add JobUser#shortlisted. Admin: JobUser show/index update
+* _Docs_:
+  - Regenerate API response examples
+* :hocho: dead Rails config option
+* Pull translations from Transifex
+* Add `lograge` gem for a less verbose production log
+
+
 v1.22 - 2017-03-03
 ----------
-
 * Increase request limit to allow 100 requests per 10 seconds
 
 
