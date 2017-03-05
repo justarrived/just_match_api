@@ -8,9 +8,14 @@ class CommentSerializer < ApplicationSerializer
     object.original_body
   end
 
+  attribute :body_html do
+    to_html(object.original_body)
+  end
+
   attribute :translated_text do
     {
       body: object.translated_body,
+      body_html: to_html(object.translated_body),
       language_id: object.translated_language_id
     }
   end

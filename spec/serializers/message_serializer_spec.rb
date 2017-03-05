@@ -18,9 +18,18 @@ RSpec.describe MessageSerializer, type: :serializer do
       end
     end
 
+    it 'has body_html' do
+      dashed_attribute = 'body_html'.dasherize
+      expect(subject).to have_jsonapi_attribute(dashed_attribute, nil)
+    end
+
     it 'has translated_text' do
       dashed_attribute = 'translated_text'.dasherize
-      value = { 'body' => nil, 'language_id'.dasherize => nil }
+      value = {
+        'body' => nil,
+        'body_html'.dasherize => nil,
+        'language_id'.dasherize => nil
+      }
       expect(subject).to have_jsonapi_attribute(dashed_attribute, value)
     end
 

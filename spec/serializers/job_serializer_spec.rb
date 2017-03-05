@@ -13,7 +13,7 @@ RSpec.describe JobSerializer, type: :serializer do
     ignore_fields = %i(
       id translated_text name description short_description amount
       gross_amount_with_currency net_amount_with_currency
-      gross_amount_delimited net_amount_delimited
+      gross_amount_delimited net_amount_delimited description_html
     )
     (JobPolicy::ATTRIBUTES - ignore_fields).each do |attribute|
       it "has #{attribute.to_s.humanize.downcase}" do
