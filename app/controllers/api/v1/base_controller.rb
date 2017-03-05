@@ -218,6 +218,11 @@ module Api
       rescue_from ExpiredTokenError, with: :expired_token
       rescue_from NoSuchTokenError, with: :no_such_token
 
+      def append_info_to_payload(payload)
+        super
+        payload[:user_id] = current_user.id
+      end
+
       def jsonapi_params
         @_deserialized_params ||= JsonApiDeserializer.parse(params)
       end
