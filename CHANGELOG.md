@@ -4,6 +4,11 @@ HEAD
 -----------
 
 
+v1.24 - 2017-03-05
+----------
+* Update `rails` from 5.0.1 => 5.0.2
+* Update gems: `airbrake`, `aws-sdk` and `uglifier`
+
 v1.23 - 2017-03-05
 ----------
 * Extract `SignJobUserService` from `jobs/ConfirmationsController`
