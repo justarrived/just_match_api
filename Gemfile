@@ -6,6 +6,7 @@ ruby '2.4.0'
 gem 'rails', '5.0.1' # Ruby on Rails MVC framework
 
 # SERVER
+gem 'lograge', '~> 0.4' # Less verbose Rails log in production
 gem 'puma', '~> 3.7' # App server
 
 # STORAGE
