@@ -104,7 +104,7 @@ module Api
             job: @job,
             user: user,
             attributes: job_user_attributes,
-            notify_users: [@job.owner]
+            job_owner: @job.owner
           )
 
           if @job_user.valid?
