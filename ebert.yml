@@ -39,3 +39,4 @@ exclude_paths:
 - script
 - spec
 - vendor
+- app/admin
