@@ -37,7 +37,8 @@
         "currency": "SEK",
         "gross_amount_delimited": "3,000",
         "net_amount_delimited": "2,100",
-        "full_street_address": "Bankgatan 14C, 223 52, Sverige"
+        "full_street_address": "Bankgatan 14C, 223 52, Sverige",
+        "description_html": null
       },
       "relationships": {
         "job_users": {
