@@ -41,6 +41,8 @@ sv:
       blank_if_field: kan inte vara tom om %{field} är tom
     chat:
       number_of_users: en chat måste bestå av minst %{min} och %{max} antal användare
+    frilans_finans_invoice:
+      job_is_frilans_finans_job: jobbet måste vara ett Frilans Finans jobb
     invoice:
       job_started: jobbets starttid kan inte vara i framtiden när en faktura ska skapas
       job_user_accepted: användaren måste vara accepterat innan en faktura kan bli skapad
