@@ -33,7 +33,6 @@ ActiveAdmin.register CompanyImage do
     active_admin_comments
   end
 
-
   form do |f|
     f.inputs do
       f.input :company
