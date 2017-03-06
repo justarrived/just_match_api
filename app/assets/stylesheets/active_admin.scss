@@ -27,6 +27,25 @@ $skinTablePadding: 10px !default;
 @import 'chosen';
 @import 'active_admin_datetimepicker';
 
+// ACTIVEADMIN THEME OVERRIDES
+#wrapper .flashes .flash_notice {
+  background-color: #0069d2;
+  border-bottom-color: #005ebd;
+}
+
+#wrapper .flashes .flash_warning,
+#wrapper .flashes .flash_alert {
+  background-color: #ed6926;
+  border-bottom-color: #ed6926;
+}
+
+#wrapper .flashes .flash_error {
+  background-color: #e03f00;
+  border-bottom-color: #e03f00;
+}
+
+
+// CUSTOM STYLES
 .user-badge-tag-link {
   background-color: #a9a9a9;
   border-radius: 4px;
