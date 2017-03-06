@@ -2,6 +2,7 @@
 ActiveAdmin.register JobUser do
   menu parent: 'Jobs', priority: 2
 
+  actions :all, except: [:destroy]
   batch_action :destroy, false
   batch_action :accept_and_notify_user do |ids|
     job_users = JobUser.where(id: ids)

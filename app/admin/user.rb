@@ -2,6 +2,7 @@
 ActiveAdmin.register User do
   menu parent: 'Users', priority: 1
 
+  actions :all, except: [:destroy]
   batch_action :destroy, false
 
   batch_action :send_communication_template_to, form: lambda {

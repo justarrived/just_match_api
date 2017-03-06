@@ -2,6 +2,7 @@
 ActiveAdmin.register Job do
   menu parent: 'Jobs', priority: 1
 
+  actions :all, except: [:destroy]
   batch_action :destroy, false
 
   batch_action :filled, confirm: I18n.t('admin.batch_action_confirm') do |ids|
