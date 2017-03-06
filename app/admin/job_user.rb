@@ -43,6 +43,16 @@ ActiveAdmin.register JobUser do
     end
   end
 
+  batch_action :shortlist, confirm: I18n.t('admin.job_user.batch_action.shortlist.confirm') do |ids| # rubocop:disable Metrics/LineLength
+    job_users = collection.where(id: ids)
+    job_users.map { |job_user| job_user.update(shortlisted: true) }
+
+    notice = I18n.t(
+      'admin.job_user.batch_action.shortlist.success', count: job_users.length
+    )
+    redirect_to collection_path, notice: notice
+  end
+
   batch_action :send_communication_template_to, form: lambda {
     {
       type: %w[email sms both],
