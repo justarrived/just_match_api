@@ -100,6 +100,8 @@ en:
         owner_hint: 'Job owner @ client company'
         company_contact_hint: 'Job contact @ client company, if blank owner will be used instead'
         just_arrived_contact_hint: 'The responsible user @ Just Arrived'
+        staffing_job: Staffing job
+        direct_recruitment_job: Direct recruitment
         category_hint: 'This field is only used for insurance purposes'
         hidden_hint: 'If checked the job will not be returned to clients'
         verified_hint: 'If checked an admin has verified the job'
