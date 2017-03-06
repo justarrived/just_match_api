@@ -25,6 +25,19 @@ $skinTablePadding: 10px !default;
 @import 'chosen';
 @import 'active_admin_datetimepicker';
 
+// START: ACTIVEADMIN
+#site_title_image {
+  max-height: 21px;
+  margin-top: 11px;
+}
+
+.panel > h3 > a {
+  color: #fff;
+  font-weight: bold;
+  text-decoration: none;
+}
+// START: ACTIVEADMIN
+
 // START: ACTIVEADMIN THEME OVERRIDES
 #wrapper .flashes .flash_notice {
   background-color: #0069d2;
