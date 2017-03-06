@@ -19,9 +19,6 @@ $skinTablePadding: 10px !default;
 
 @import 'wigu/active_admin_theme';
 
-// Overriding any non-variable SASS must be done after the fact.
-.status_tag { background: #0069d2; }
-
 @import 'chosen';
 @import 'active_admin_datetimepicker';
 
@@ -35,10 +32,29 @@ $skinTablePadding: 10px !default;
   color: #fff;
   font-weight: bold;
   text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
+
 // START: ACTIVEADMIN
+.status_tag {
+  background: #0069d2;
+}
+
+.status_tag.warn,
+.status_tag.warning,
+.status_tag.orange {
+  background: #e2c100;
+}
+// END: ACTIVEADMIN
 
 // START: ACTIVEADMIN THEME OVERRIDES
+#wrapper table.index_table td {
+  vertical-align: middle;
+}
+
 #wrapper .flashes .flash_notice {
   background-color: #0069d2;
   border-bottom-color: #005ebd;
