@@ -3,6 +3,20 @@
 HEAD
 -----------
 
+v1.26 - 2017-03-07
+----------
+* _Blazer_:
+  - Add Linked & Smart columns
+  - Set PostgreSQL timeout to 14 sec
+* _Admin_:
+  - Remove destroy action from user, job user and job resources
+  - Panel header links hover, middle align table rows, custom status colors
+  - Just Arrived menu logo
+  - Add job user shortlist batch action. Closes #953
+  - Custom border and status_tag color
+  - Custom flash colors
+
+
 v1.25 - 2017-03-06
 ----------
 * _Admin_:
