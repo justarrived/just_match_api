@@ -3,6 +3,12 @@
 HEAD
 -----------
 
+v1.25 - 2017-03-06
+----------
+* _Admin_:
+  - Set chosen-selects to 100% width
+  - Add Job `staffing_job` & `direct_recruitment_job` job form
+* New `activeadmin` theme using the gem `active_admin_theme`
 
 v1.24 - 2017-03-05
 ----------
