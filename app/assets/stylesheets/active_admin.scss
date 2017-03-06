@@ -14,20 +14,18 @@
 $skinMainFirstColor: #222531 !default;
 $skinMainSecondColor: #d10072 !default;
 $skinBorderRadius: 4px !default;
-$skinBorderWindowColor: #e6e9ee !default;
+$skinBorderWindowColor: #e0edfa !default;
 $skinTablePadding: 10px !default;
 
 @import 'wigu/active_admin_theme';
 
 // Overriding any non-variable SASS must be done after the fact.
-// For example, to change the default status-tag color:
-//
-//   .status_tag { background: #6090DB; }
+.status_tag { background: #0069d2; }
 
 @import 'chosen';
 @import 'active_admin_datetimepicker';
 
-// ACTIVEADMIN THEME OVERRIDES
+// START: ACTIVEADMIN THEME OVERRIDES
 #wrapper .flashes .flash_notice {
   background-color: #0069d2;
   border-bottom-color: #005ebd;
@@ -43,7 +41,7 @@ $skinTablePadding: 10px !default;
   background-color: #e03f00;
   border-bottom-color: #e03f00;
 }
-
+// END: ACTIVEADMIN THEME OVERRIDES
 
 // CUSTOM STYLES
 .user-badge-tag-link {
