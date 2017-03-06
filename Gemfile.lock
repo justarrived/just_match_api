@@ -84,6 +84,7 @@ GEM
       rails-html-sanitizer (~> 1.0, >= 1.0.3)
     active_admin_datetimepicker (0.3.0)
       xdan-datetimepicker-rails (~> 2.5.1)
+    active_admin_theme (1.0.3)
     active_model_serializers (0.10.4)
       actionpack (>= 4.1, < 6)
       activemodel (>= 4.1, < 6)
@@ -658,6 +659,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_admin_datetimepicker (~> 0.3)
+  active_admin_theme (~> 1.0)
   active_model_serializers (~> 0.10)
   activeadmin!
   airbrake (~> 5.6)
