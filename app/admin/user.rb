@@ -157,6 +157,7 @@ ActiveAdmin.register User do
   filter :user_interests_level_gteq, as: :select, collection: [nil, nil] + UserInterest::LEVEL_RANGE.to_a
   filter :user_interests_level_by_admin_gteq, as: :select, collection: [nil, nil] + UserInterest::LEVEL_RANGE.to_a
 
+  filter :language, collection: -> { Language.system_languages.order(:en_name) }, label: 'Primary language'
   filter :languages, collection: -> { Language.order(:en_name) }
   filter :user_languages_proficiency_gteq, as: :select, collection: [nil, nil] + UserLanguage::PROFICIENCY_RANGE.to_a
   filter :user_languages_proficiency_by_admin_gteq, as: :select, collection: [nil, nil] + UserLanguage::PROFICIENCY_RANGE.to_a

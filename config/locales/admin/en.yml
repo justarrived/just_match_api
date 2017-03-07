@@ -223,3 +223,8 @@ en:
       labels:
         add_and_remove_user_tag: 'Add/Remove User Tag To/From'
         add_user_skill: 'Add User Skill To'
+
+    filters:
+      predicates:
+        gteq_datetime: after
+        lteq_datetime: before
