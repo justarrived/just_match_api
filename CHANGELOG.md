@@ -3,6 +3,15 @@
 HEAD
 -----------
 
+v1.27 - 2017-03-07
+----------
+* Additional Blazer configuration
+* _Admin_:
+  - Add primary language to user filters & add missing admin I18n keys
+  - Remove duplicate entry from blazer config
+  - Reverse order of chat messages on user show page
+
+
 v1.26 - 2017-03-07
 ----------
 * _Blazer_:
