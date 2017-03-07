@@ -61,7 +61,6 @@ data_sources:
       delivery_by_user_id:          "SELECT id, (first_name || ' ' || last_name) as name FROM users WHERE id IN {value}"
       from_user_id:                 "SELECT id, (first_name || ' ' || last_name) as name FROM users WHERE id IN {value}"
       interviewed_by_user_id:       "SELECT id, (first_name || ' ' || last_name) as name FROM users WHERE id IN {value}"
-      job_user_id:                  "SELECT id, (first_name || ' ' || last_name) as name FROM users WHERE id IN {value}"
       just_arrived_contact_user_id: "SELECT id, (first_name || ' ' || last_name) as name FROM users WHERE id IN {value}"
       owner_user_id:                "SELECT id, (first_name || ' ' || last_name) as name FROM users WHERE id IN {value}"
       sales_by_user_id:             "SELECT id, (first_name || ' ' || last_name) as name FROM users WHERE id IN {value}"
