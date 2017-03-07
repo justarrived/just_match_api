@@ -20,7 +20,19 @@ data_sources:
     use_transaction: true
 
     smart_variables:
-      # zone_id: "SELECT id, name FROM zones ORDER BY name ASC"
+      language_id: "SELECT id, en_name FROM languages ORDER BY en_name ASC"
+      company_id: "SELECT id, name FROM companies ORDER BY name ASC"
+      # user_id variations
+      user_id:                      "SELECT id, (first_name || '' || last_name) as name FROM users ORDER BY name ASC"
+      author_id:                    "SELECT id, (first_name || '' || last_name) as name FROM users ORDER BY name ASC"
+      company_contact_user_id:      "SELECT id, (first_name || '' || last_name) as name FROM users ORDER BY name ASC"
+      delivery_by_user_id:          "SELECT id, (first_name || '' || last_name) as name FROM users ORDER BY name ASC"
+      from_user_id:                 "SELECT id, (first_name || '' || last_name) as name FROM users ORDER BY name ASC"
+      interviewed_by_user_id:       "SELECT id, (first_name || '' || last_name) as name FROM users ORDER BY name ASC"
+      just_arrived_contact_user_id: "SELECT id, (first_name || '' || last_name) as name FROM users ORDER BY name ASC"
+      owner_user_id:                "SELECT id, (first_name || '' || last_name) as name FROM users ORDER BY name ASC"
+      sales_by_user_id:             "SELECT id, (first_name || '' || last_name) as name FROM users ORDER BY name ASC"
+      to_user_id:                   "SELECT id, (first_name || '' || last_name) as name FROM users ORDER BY name ASC"
 
     linked_columns:
       chat_id: "/admin/chats/{value}"
@@ -75,10 +87,10 @@ time_zone: 'Stockholm'
 before_action: :authenticate_admin
 
 # class name of the user model
-# user_class: User
+user_class: User
 
 # method name for the user model
-# user_name: name
+user_name: name
 
 # email to send checks from
-# from_email: blazer@example.org
+from_email: insights@email.justarrived.se
