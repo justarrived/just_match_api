@@ -13,7 +13,7 @@ engines:
   fixme:
     enabled: true
   eslint:
-    enabled: true
+    enabled: false
   rubocop:
     enabled: true
   brakeman:
@@ -21,7 +21,7 @@ engines:
   scss-lint:
     enabled: true
   coffeelint:
-    enabled: true
+    enabled: false
   duplication:
     config:
       languages:
