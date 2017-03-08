@@ -40,7 +40,7 @@ ActiveAdmin.register_page 'Dashboard' do
       column do
         panel link_to(I18n.t('admin.recent_ff_invoices.title'), admin_frilans_finans_invoices_path) do # rubocop:disable Metrics/LineLength
           scope = FrilansFinansInvoice.order(created_at: :desc).
-                  includes(:job_user, :user, job: [:translations]).
+                  includes(:job_user, :user, job: [:translations, :language]).
                   limit(20)
 
           table_for(scope) do
