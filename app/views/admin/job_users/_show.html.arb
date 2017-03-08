@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 user = job_user.user
 
+# TODO: Add inteview comment
+
 h1 job_user.current_status
 columns do
   column do
@@ -11,6 +13,17 @@ columns do
       div do
         content_tag(:p, user_tag_badges(user: user))
       end
+
+      h3 I18n.t('admin.user.show.interview_comment')
+      div do
+        if user.interview_comment.blank?
+          content_tag(:em, I18n.t('admin.user.show.no_interview_comment_explain'))
+        else
+          simple_format(user.interview_comment)
+        end
+      end
+
+      br
 
       unless user.jobs.ongoing.empty?
         h3 I18n.t('admin.user.show.ongoing_jobs')
