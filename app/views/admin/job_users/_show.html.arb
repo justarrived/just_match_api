@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 user = job_user.user
 
-# TODO: Add inteview comment
-
 h1 job_user.current_status
 columns do
   column do

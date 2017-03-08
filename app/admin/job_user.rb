@@ -154,8 +154,6 @@ ActiveAdmin.register JobUser do
       job_user.created_at.strftime('%Y-%m-%d')
     end
     column :status, &:current_status
-
-    actions
   end
 
   show do
