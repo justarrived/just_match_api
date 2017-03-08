@@ -61,16 +61,23 @@ ActiveAdmin.register Job do
     selectable_column
 
     column :id
-    column :original_name
-    column :job_date
-    column :job_end_date
+    column :applicants, sortable: 'job_users_count', &:job_users_count
+    column :original_name do |job|
+      link_to(job.original_name, admin_job_path(job))
+    end
+    column :job_date do |job|
+      job.job_date.strftime('%Y-%m-%d')
+    end
+    column :job_end_date do |job|
+      job.job_end_date.strftime('%Y-%m-%d')
+    end
     column :hours
     column :city
     column :filled
-    column :upcoming
-    column :hidden
-
-    actions
+    column :recruiter do |job|
+      contact = job.just_arrived_contact
+      link_to(contact.first_name, admin_user_path(contact)) if contact
+    end
   end
 
   include AdminHelpers::MachineTranslation::Actions
@@ -164,7 +171,11 @@ ActiveAdmin.register Job do
 
   controller do
     def scoped_collection
-      super.with_translations
+      super.with_translations.
+        includes(:just_arrived_contact).
+        joins(:job_users).
+        select('jobs.*, count(job_users.id) as job_users_count').
+        group('jobs.id, job_users.job_id')
     end
 
     def apply_filtering(chain)
