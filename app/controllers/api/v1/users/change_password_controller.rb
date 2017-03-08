@@ -68,7 +68,7 @@ module Api
         def wrong_password_error
           message = I18n.t('errors.user.wrong_password')
           errors = JsonApiErrors.new
-          errors.add(detail: message, attribute: :password)
+          errors.add(detail: message, attribute: :old_password)
           errors
         end
 
