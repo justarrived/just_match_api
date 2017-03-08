@@ -117,3 +117,16 @@ $skinTablePadding: 10px !default;
 .sidebar-image {
   max-width: 100%;
 }
+
+
+// Index styling
+
+.table-column-icon {
+  max-width: 12px;
+  margin-right: 5px;
+}
+
+.col .table-column-icon-link {
+  color: #222531;
+  text-decoration: none;
+}

@@ -184,6 +184,7 @@ en:
         candidate_status: Candidate status
         misc: Admin details
         interview_comment: Interview comment
+        no_interview_comment_explain: No interview has been conducted.
         ongoing_jobs: Ongoing jobs
         future_jobs: Future jobs
         rejected: Rejected

@@ -120,7 +120,7 @@ ActiveAdmin.register JobUser do
   filter :user_last_name_cont, as: :string, label: I18n.t('admin.user.last_name')
   filter :job_translations_name_cont, as: :string, label: I18n.t('admin.job.name_search')
   filter :user_verified_eq, as: :boolean, label: I18n.t('admin.user.verified')
-  filter :job, collection: -> { Job.with_translations.order_by_name.limit(200) }
+  filter :job, collection: -> { Job.with_translations.order_by_name.limit(1000) }
   filter :frilans_finans_invoice, collection: -> { FrilansFinansInvoice.order(id: :desc) }
   filter :invoice, collection: -> { Invoice.order(id: :desc) }
   filter :accepted
@@ -135,16 +135,25 @@ ActiveAdmin.register JobUser do
   index do
     selectable_column
 
-    column :id
-    column :user
-    column :job
-    column :job_start_date { |job_user| job_user.job.job_date }
-    column :city do |job_user|
-      "U: #{job_user.user.city}, J: #{job_user.job.city}"
+    column :id { |job_user| link_to(job_user.id, admin_job_user_path(job_user)) }
+    column :job_id do |job_user|
+      job = job_user.job
+      link_to(job.id, admin_job_path(job))
+    end
+    column :user do |job_user|
+      user = job_user.user
+      link_to(user.name, admin_user_path(user))
+    end
+    column :job_city, sortable: 'jobs.city' do |job_user|
+      job_user.job.city
+    end
+    column :user_city, sortable: 'users.city' do |job_user|
+      job_user.user.city
+    end
+    column :applied_at, sortable: 'job_users.created_at' do |job_user|
+      job_user.created_at.strftime('%Y-%m-%d')
     end
     column :status, &:current_status
-
-    actions
   end
 
   show do
