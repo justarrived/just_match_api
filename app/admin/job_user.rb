@@ -54,7 +54,7 @@ ActiveAdmin.register JobUser do
     redirect_to collection_path, notice: notice
   end
 
-  batch_action :reject, confirm: I18n.t('admin.job_user.batch_action.reject.confirm') do |ids| # rubocop:disable Metrics/LineLength
+  batch_action :reject_and_notify, confirm: I18n.t('admin.job_user.batch_action.reject.confirm') do |ids| # rubocop:disable Metrics/LineLength
     job_users = collection.where(id: ids)
     job_users.map do |job_user|
       unless job_user.rejected
