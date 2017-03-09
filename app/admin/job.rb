@@ -180,7 +180,7 @@ ActiveAdmin.register Job do
     def scoped_collection
       super.with_translations.
         includes(:just_arrived_contact).
-        joins(:job_users).
+        left_joins(:job_users).
         select('jobs.*, count(job_users.id) as job_users_count').
         group('jobs.id, job_users.job_id')
     end
