@@ -71,6 +71,7 @@ class JobUser < ApplicationRecord
     return 'Withdrawn' if application_withdrawn
     return 'Will perform' if will_perform
     return 'Accepted' if accepted
+    return 'Rejected' if rejected
     return 'Shortlisted' if shortlisted
 
     'Applied'
