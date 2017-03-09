@@ -3,6 +3,19 @@
 HEAD
 -----------
 
+v1.28 - 2017-03-09
+----------
+* Ignore codecoverage of `app/admin/` files
+* Rename `ebert.yml` => `.ebert.yml`
+* Disable Ebert eslint & scss lint
+* _API_: Return wrong old password under correct attribute name for change password controller
+* _Admin_:
+  - Remove actions from job user index page
+  - :hocho: N+1 query on dashboard
+  - Improve job & job user index pages
+  - Improve job admin index listing with more relevant table columns
+
+
 v1.27 - 2017-03-07
 ----------
 * Additional Blazer configuration

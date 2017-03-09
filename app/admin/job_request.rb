@@ -166,7 +166,7 @@ ActiveAdmin.register JobRequest do
       f.input :language_requirements, hint: 'The language level required to perform the job, i.e "Fluent", "Basic understanding" etc..'
       f.input :requirements, hint: 'The requirements in order to be able to perform the job'
       f.input :suitable_candidates, hint: 'General note about what candidates might be suitable' if job_request.persisted?
-      f.input :comment, hint: 'Anything that might not have been said above'
+      f.input :comment, label: 'Special requirements / Comment', hint: 'Anything that might not have been said above'
     end
 
     if job_request.persisted?
