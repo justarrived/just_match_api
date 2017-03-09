@@ -2,8 +2,8 @@
 require 'rails_helper'
 
 RSpec.describe JobUser, type: :model do
-  it 'has MAX_CONFIRMATION_TIME_HOURS constant that is 18' do
-    expect(JobUser::MAX_CONFIRMATION_TIME_HOURS).to eq(18)
+  it 'has MAX_CONFIRMATION_TIME_HOURS constant that is 24' do
+    expect(JobUser::MAX_CONFIRMATION_TIME_HOURS).to eq(24)
   end
 
   describe '#applicant_confirmation_overdue?' do
