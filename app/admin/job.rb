@@ -42,6 +42,7 @@ ActiveAdmin.register Job do
   filter :company, collection: -> { Company.order(:name) }
   filter :job_date
   filter :job_end_date
+  filter :just_arrived_contact_user, collection: -> { User.delivery_users }
   filter :created_at
   filter :featured
   filter :filled
