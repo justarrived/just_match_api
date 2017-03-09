@@ -3,6 +3,11 @@
 HEAD
 -----------
 
+v1.29 - 2017-03-09
+----------
+ * _Admin_: Left join jobs instead of join to keep jobs that does not have any applicants
+
+
 v1.28 - 2017-03-09
 ----------
 * Ignore codecoverage of `app/admin/` files
