@@ -70,6 +70,11 @@ en:
           success:
             one: Successfully shortlisted one job user.
             other: Successfully shortlisted %{count} job users.
+        reject:
+          confirm: Are you sure you want to reject these users?
+          success:
+            one: Successfully rejected one job user.
+            other: Successfully rejected %{count} job users.
         accepted:
           success_msg: 'Successfully accepted %{success_count} user(s), ignored %{ignore_count} user(s) that were already accepted.'
           fail_msg: 'Failed to accept %{fail_count} user(s): job users IDs: %{fail_ids}. Successfully accepted %{success_count} user(s), ignored %{ignore_count} user(s) that were already accepted.'

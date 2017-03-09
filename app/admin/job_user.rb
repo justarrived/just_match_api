@@ -54,6 +54,21 @@ ActiveAdmin.register JobUser do
     redirect_to collection_path, notice: notice
   end
 
+  batch_action :reject, confirm: I18n.t('admin.job_user.batch_action.reject.confirm') do |ids| # rubocop:disable Metrics/LineLength
+    job_users = collection.where(id: ids)
+    job_users.map do |job_user|
+      unless job_user.rejected
+        job_user.update(rejected: true)
+        JobMailer.applicant_rejected_email(job_user: job_user).deliver_later
+      end
+    end
+
+    notice = I18n.t(
+      'admin.job_user.batch_action.reject.success', count: job_users.length
+    )
+    redirect_to collection_path, notice: notice
+  end
+
   batch_action :send_communication_template_to, form: lambda {
     {
       type: %w[email sms both],
@@ -227,7 +242,7 @@ ActiveAdmin.register JobUser do
   permit_params do
     [
       :user_id, :job_id, :accepted, :will_perform, :performed, :apply_message,
-      :application_withdrawn, :shortlisted
+      :application_withdrawn, :shortlisted, :rejected
     ]
   end
 
