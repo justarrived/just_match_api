@@ -372,6 +372,7 @@ end
 #  language_id           :integer
 #  application_withdrawn :boolean          default(FALSE)
 #  shortlisted           :boolean          default(FALSE)
+#  rejected              :boolean          default(FALSE)
 #
 # Indexes
 #

@@ -8,7 +8,7 @@ class ApplicantWillPerformNotifier < BaseNotifier
   end
 
   def self.rejected_emails(confirmed_job_user:)
-    job_users = confirmed_job_user.job.job_users.includes(:user)
+    job_users = confirmed_job_user.job.job_users.unrejected.includes(:user)
 
     job_users.each do |job_user|
       next if job_user == confirmed_job_user

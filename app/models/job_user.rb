@@ -32,6 +32,7 @@ class JobUser < ApplicationRecord
 
   before_validation :accepted_at_setter
 
+  scope :unrejected, -> { where(rejected: false) }
   scope :shortlisted, -> { where(shortlisted: true) }
   scope :withdrawn, -> { where(application_withdrawn: true) }
   scope :visible, -> { where(application_withdrawn: false) }
@@ -173,6 +174,7 @@ end
 #  language_id           :integer
 #  application_withdrawn :boolean          default(FALSE)
 #  shortlisted           :boolean          default(FALSE)
+#  rejected              :boolean          default(FALSE)
 #
 # Indexes
 #
