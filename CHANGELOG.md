@@ -3,6 +3,16 @@
 HEAD
 -----------
 
+v1.30 - 2017-03-10
+----------
+* _Admin_:
+  - Update job user batch action name
+  - Add just_arrived_contact_user filter to jobs page
+* Update `JobUser#current_status` to handle `#rejected`
+* Add `JobUser#rejected` boolean field (default: false) & send early rejection emails
+* Increase `JobUser` max confirmation time to 24 hours (from 18)
+
+
 v1.29 - 2017-03-09
 ----------
  * _Admin_: Left join jobs instead of join to keep jobs that does not have any applicants
