@@ -6,7 +6,6 @@ RSpec.describe Api::V1::JobsController, type: :controller do
     {
       data: {
         attributes: {
-          skill_ids: [FactoryGirl.create(:skill).id],
           hours: 2,
           name: 'Some job name',
           short_description: 'Short description',

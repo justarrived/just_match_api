@@ -29,6 +29,17 @@ f.inputs(I18n.t('admin.job.form.frilans_finans_section_title')) do
   f.input :category, hint: I18n.t('admin.job.form.category_hint')
 end
 
+if job.persisted?
+  f.inputs(I18n.t('admin.job.form.skills_title')) do
+    f.has_many :job_skills, allow_destroy: false, new_record: true do |ff|
+      ff.semantic_errors(*ff.object.errors.keys)
+
+      ff.input :skill, as: :select, collection: Skill.with_translations
+      ff.input :proficiency, as: :select, collection: JobSkill::PROFICIENCY_RANGE
+    end
+  end
+end
+
 f.inputs(I18n.t('admin.job.form.status_section_title')) do
   f.input :staffing_job, hint: I18n.t('admin.job.form.hidden_hint')
   f.input :direct_recruitment_job, hint: I18n.t('admin.job.form.hidden_hint')

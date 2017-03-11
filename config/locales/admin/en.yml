@@ -119,6 +119,7 @@ en:
         cancelled_hint: 'If checked the job is deemed cancelled'
         filled_hint: 'If checked it marks that the job has a hired user'
         featured_hint: 'If checked it will be displayed on our start page etc'
+        skills_title: Job skills
     frilans_finans_invoice:
       not_paid: Not paid
       show:

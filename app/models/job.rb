@@ -84,6 +84,9 @@ class Job < ApplicationRecord
   include Translatable
   translates :name, :short_description, :description
 
+  # NOTE: This is necessary for nested activeadmin has_many form
+  accepts_nested_attributes_for :job_skills
+
   def self.ransackable_scopes(_auth_object = nil)
     [:near_address]
   end
