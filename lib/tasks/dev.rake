@@ -38,6 +38,14 @@ namespace :dev do
     puts "#{total_first_part}#{counts.sum}"
   end
 
+  task anonymize_database: :environment do
+    fail('Can *not* anonymize database in production env!') if Rails.env.production?
+
+    Invoice.destroy_all
+    FrilansFinansInvoice.destroy_all
+    User.find_each(batch_size: 500).map(&:reset!)
+  end
+
   SEED_ADDRESSES = [
     { street: "Stora Nygatan #{Random.rand(1..40)}", city: 'Malmö', zip: '21137' },
     { street: "Wollmar Yxkullsgatan #{Random.rand(1..40)}", city: 'Stockholm', zip: '11850' } # rubocop:disable Metrics/LineLength
