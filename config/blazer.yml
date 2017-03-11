@@ -66,6 +66,7 @@ data_sources:
       message_id: "SELECT messages.id as id, left(message_translations.body, 150) as name FROM messages WHERE id IN {value} INNER JOIN message_translations ON message_translations.message_id = messages.id AND message_translations.locale = 'en'"
       rating_id: "SELECT id,((SELECT '#' || id || ' ' || first_name FROM users WHERE id = from_user_id LIMIT 1)|| ' gave ' || score || ' to ' || (SELECT '#' || id || ' ' || first_name FROM users WHERE id = to_user_id LIMIT 1)) AS name FROM ratings"
       language_id: "SELECT id, en_name FROM languages WHERE id IN {value}"
+      skill_id: SELECT skills.id AS id, left(skill_translations.name, 150) AS name FROM skills INNER JOIN skill_translations ON skill_translations.skill_id = skills.id AND skill_translations.locale = 'en'
       # user_id variations
       user_id:                      "SELECT id, (first_name || ' ' || last_name) as name FROM users WHERE id IN {value}"
       author_id:                    "SELECT id, (first_name || ' ' || last_name) as name FROM users WHERE id IN {value}"
