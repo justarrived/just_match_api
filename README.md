@@ -91,7 +91,7 @@ $ script/docs
 
 __Internal documentation and configuration__
 
-In [docs/README.md](docs/README.md) you'll find how the app is put together.
+In [docs/README.md](docs/README.md) you'll find additional documentation.
 
 ## Deploy
 

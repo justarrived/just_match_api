@@ -134,9 +134,9 @@ RSpec.describe User, type: :model do
       expect(user.email).not_to eq(old_email)
       expect(user.phone).to be_nil
       expect(user.description).to eq('This user has been deleted.')
-      expect(user.street).to eq('Stockholm')
+      expect(user.street).to be_nil
       expect(user.zip).to eq(old_zip)
-      expect(user.ssn).to eq('0000000000')
+      expect(user.ssn).to be_nil
     end
 
     it 'does *not* reset frilans_finans_id' do

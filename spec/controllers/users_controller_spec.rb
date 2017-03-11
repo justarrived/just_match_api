@@ -383,7 +383,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       it 'destroys the requested user' do
         delete :destroy, params: { user_id: user.to_param }, headers: valid_session
         user.reload
-        expect(user.name).to eq('Ghost user')
+        expect(user.name).to eq('Ghost User')
       end
 
       it 'returns no content status' do
