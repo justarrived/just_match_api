@@ -3,6 +3,25 @@
 HEAD
 -----------
 
+v1.31 - 2017-03-11
+----------
+* Add `skill_id` blazer smart column
+* Add `dev:db:heroku_import` task
+* Add `dev:anonymize_database` task
+* Add database docs
+* :hocho: users controller test failure
+* Add `dev:anonymize_database` task
+* Update `User#reset!`
+* Gem updates
+  - `aws-sdk`
+  - `countries`
+  - `puma`
+  - `redis-activesupport`
+  - `skylight`
+  - `uglifier`
+  - `active_model_serializers`
+
+
 v1.30 - 2017-03-10
 ----------
 * _Admin_:
