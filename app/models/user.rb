@@ -399,9 +399,8 @@ class User < ApplicationRecord
       email: "ghost+#{SecureGenerator.token(length: 64)}@example.com",
       phone: nil,
       description: 'This user has been deleted.',
-      street: 'Stockholm',
-      ssn: '0000000000',
-      password: SecureGenerator.token
+      street: nil,
+      ssn: nil
     )
   end
 
