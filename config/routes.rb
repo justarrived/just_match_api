@@ -5,6 +5,7 @@ Sidekiq::Web.use Rack::Auth::Basic do |username, password|
   User.find_by_credentials(email_or_phone: username, password: password)
 end
 
+# rubocop:disable Metrics/LineLength
 Rails.application.routes.draw do
   ActiveAdmin.routes(self)
 
@@ -80,8 +81,6 @@ Rails.application.routes.draw do
           get :notifications
           get :statuses
           get :genders
-          get :email_suggestion, path: 'email-suggestion'
-          post :email_suggestion, path: 'email-suggestion'
         end
       end
 
@@ -135,6 +134,10 @@ Rails.application.routes.draw do
 
       post :contacts, to: 'contacts#create'
       get :countries, to: 'countries#index'
+
+      get :email_suggestion, to: 'email_suggestions#suggest', path: 'email-suggestion'
+      post :email_suggestion, to: 'email_suggestions#suggest', path: 'email-suggestion'
     end
   end
 end
+# rubocop:enable Metrics/LineLength

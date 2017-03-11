@@ -529,18 +529,6 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       end
     end
   end
-
-  describe 'GET #email_suggestion' do
-    it 'correct response body' do
-      params = {
-        data: {
-          attributes: { email: 'buren@example.co' }
-        }
-      }
-      get :email_suggestion, params: params
-      expect(response.body).to include('buren@example.com')
-    end
-  end
 end
 
 # == Schema Information
