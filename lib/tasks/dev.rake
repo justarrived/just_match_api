@@ -41,9 +41,34 @@ namespace :dev do
   task anonymize_database: :environment do
     fail('Can *not* anonymize database in production env!') if Rails.env.production?
 
+    print "Destroying #{Invoice.count} invoices.."
     Invoice.destroy_all
+    puts 'destroyed!'
+    print "Destroying #{FrilansFinansInvoice.count} Frilans Finans Invoices.."
     FrilansFinansInvoice.destroy_all
-    User.find_each(batch_size: 500).map(&:reset!)
+    puts 'destoryed!'
+    print 'Setting all user passwords to "12345678"..'
+    User.update_all( # rubocop:disable Rails/SkipsModelValidations
+      password_salt: '$2a$10$G5.OPRLyRAh.gWYsY6lhaO',
+      password_hash: '$2a$10$G5.OPRLyRAh.gWYsY6lhaOWIRMicGMdU7DCDR3UTbnLTOufAqYZeG'
+    )
+    puts 'done!'
+    print "Anonymizing #{User.count} users..."
+    User.find_each(batch_size: 500).each(&:reset!)
+    puts 'anonymized!'
+    print 'Set admin user email to admin@example.com..'
+    User.admins.first&.update(email: 'admin@example.com')
+    puts 'done!'
+    print "Anonymizing #{Company.count} companies..."
+    Company.find_each(batch_size: 500).each do |company|
+      company.name = Faker::Company.name
+      company.cin = Faker::Company.swedish_organisation_number
+      company.email = "#{SecureGenerator.token(length: 32)}@example.com"
+      company.website = nil
+      company.street = Faker::Address.street_address
+      company.save(validate: false)
+    end
+    puts 'anonymized!'
   end
 
   SEED_ADDRESSES = [
