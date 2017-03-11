@@ -395,12 +395,11 @@ class User < ApplicationRecord
     assign_attributes(
       anonymized: true,
       first_name: 'Ghost',
-      last_name: 'user',
+      last_name: 'User',
       email: "ghost+#{SecureGenerator.token(length: 64)}@example.com",
       phone: nil,
       description: 'This user has been deleted.',
       street: 'Stockholm',
-      zip: '11120',
       ssn: '0000000000',
       password: SecureGenerator.token
     )
