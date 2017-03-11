@@ -141,6 +141,18 @@ The code follows most Rails conventions. If you've worked with Rails before the 
 
 ## Database
 
+__Setup dev database from Heroku app__
+
+```
+$ bin/rails dev:db:heroku_import[heroku-app-name]
+```
+
+if you're using `zsh` you have to escape `[` and `]`, [more info](https://robots.thoughtbot.com/how-to-use-arguments-in-a-rake-task).
+
+```
+$ bin/rails dev:db:heroku_import\[heroku-app-name\]
+```
+
 __Restore database command__
 
 ```

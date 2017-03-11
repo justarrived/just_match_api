@@ -38,6 +38,24 @@ namespace :dev do
     puts "#{total_first_part}#{counts.sum}"
   end
 
+  namespace :db do
+    desc 'Download latest database dump from Heroku, import and anonymize it'
+    task :heroku_import, [:heroku_app_name] => [:environment] do |_t, args|
+      heroku_app_name = args[:heroku_app_name]
+      if heroku_app_name.nil? || heroku_app_name.empty?
+        puts 'Example'
+        puts '  $ bin/rails dev:production_data_to_dev["your_heroku_app_name"]'
+        fail('You must provide a Heroku app name')
+      end
+      system("heroku pg:backups:download --app=#{heroku_app_name}")
+      Rake::Task['db:drop'].execute
+      Rake::Task['db:create'].execute
+      system('pg_restore --no-owner -d just_match_development latest.dump')
+      Rake::Task['dev:anonymize_database'].execute
+    end
+  end
+
+  desc 'Anonymize the database'
   task anonymize_database: :environment do
     fail('Can *not* anonymize database in production env!') if Rails.env.production?
 
