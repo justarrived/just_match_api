@@ -32,8 +32,14 @@
       "language_id": 6,
       "gross_amount": 3000.0,
       "net_amount": 2100.0,
-      "gross_amount_formatted": "3,000 SEK",
-      "net_amount_formatted": "2,100 SEK"
+      "gross_amount_with_currency": "3,000 SEK",
+      "currency": "SEK",
+      "net_amount_with_currency": "2,100 SEK",
+      "city": null,
+      "gross_amount_delimited": "3,000",
+      "net_amount_delimited": "2,100",
+      "full_street_address": "Bankgatan 14C, 223 52, Sverige",
+      "description_html": null
     },
     "relationships": {
       "job_users": {

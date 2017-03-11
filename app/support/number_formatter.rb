@@ -2,6 +2,13 @@
 class NumberFormatter
   include ActionView::Helpers::NumberHelper
 
+  def to_delimited(number, locale: I18n.locale, precision: 0)
+    number_with_delimiter(
+      number.round(precision),
+      locale: locale
+    )
+  end
+
   def to_unit(number, unit, locale: I18n.locale, precision: 0)
     return if number.blank?
 

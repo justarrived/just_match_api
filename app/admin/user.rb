@@ -2,6 +2,7 @@
 ActiveAdmin.register User do
   menu parent: 'Users', priority: 1
 
+  actions :all, except: [:destroy]
   batch_action :destroy, false
 
   batch_action :send_communication_template_to, form: lambda {
@@ -143,7 +144,7 @@ ActiveAdmin.register User do
   scope :managed_users
   scope :verified
 
-  filter :by_near_address, label: I18n.t('admin.filter.near_address'), as: :string
+  filter :near_address, label: I18n.t('admin.filter.near_address'), as: :string
   filter :first_name_or_last_name_cont, as: :string, label: I18n.t('admin.user.name')
   filter :interview_comment
   filter :tags, collection: -> { Tag.order(:name) }
@@ -156,6 +157,7 @@ ActiveAdmin.register User do
   filter :user_interests_level_gteq, as: :select, collection: [nil, nil] + UserInterest::LEVEL_RANGE.to_a
   filter :user_interests_level_by_admin_gteq, as: :select, collection: [nil, nil] + UserInterest::LEVEL_RANGE.to_a
 
+  filter :language, collection: -> { Language.system_languages.order(:en_name) }, label: 'Primary language'
   filter :languages, collection: -> { Language.order(:en_name) }
   filter :user_languages_proficiency_gteq, as: :select, collection: [nil, nil] + UserLanguage::PROFICIENCY_RANGE.to_a
   filter :user_languages_proficiency_by_admin_gteq, as: :select, collection: [nil, nil] + UserLanguage::PROFICIENCY_RANGE.to_a

@@ -2,16 +2,24 @@
 class HourlyPaySerializer < ApplicationSerializer
   ATTRIBUTES = [
     :gross_salary, :net_salary, :rate_excluding_vat, :rate_including_vat, :active,
-    :currency
+    :currency, :unit
   ].freeze
 
   attributes ATTRIBUTES
 
-  attribute :gross_salary_formatted do
+  attribute :gross_salary_delimited do
+    to_delimited(object.gross_salary)
+  end
+
+  attribute :net_salary_delimited do
+    to_delimited(object.net_salary)
+  end
+
+  attribute :gross_salary_with_unit do
     to_unit(object.gross_salary, object.unit)
   end
 
-  attribute :net_salary_formatted do
+  attribute :net_salary_with_unit do
     to_unit(object.net_salary, object.unit)
   end
 

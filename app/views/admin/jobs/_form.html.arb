@@ -14,7 +14,7 @@ f.inputs(I18n.t('admin.job.form.detail_section_title')) do
 end
 
 f.inputs(I18n.t('admin.job.form.admin_users_section_title')) do
-  f.input :owner, hint: I18n.t('admin.job.form.owner_hint')
+  f.input :owner, collection: User.company_users, hint: I18n.t('admin.job.form.owner_hint') # rubocop:disable Metrics/LineLength
   f.input :company_contact, hint: I18n.t('admin.job.form.company_contact_hint')
   f.input :just_arrived_contact, hint: I18n.t('admin.job.form.just_arrived_contact_hint')
 end
@@ -30,6 +30,8 @@ f.inputs(I18n.t('admin.job.form.frilans_finans_section_title')) do
 end
 
 f.inputs(I18n.t('admin.job.form.status_section_title')) do
+  f.input :staffing_job, hint: I18n.t('admin.job.form.hidden_hint')
+  f.input :direct_recruitment_job, hint: I18n.t('admin.job.form.hidden_hint')
   f.input :hidden, hint: I18n.t('admin.job.form.hidden_hint')
   f.input :verified, hint: I18n.t('admin.job.form.verified_hint')
   f.input :upcoming, hint: I18n.t('admin.job.form.upcoming_hint')

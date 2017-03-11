@@ -3,8 +3,24 @@ module Api
   module V1
     module Users
       class UserDocumentsController < BaseController
-        before_action :set_user, only: [:create]
-        after_action :verify_authorized, except: [:create]
+        before_action :set_user, only: [:index, :create]
+        after_action :verify_authorized, except: [:create, :index]
+
+        ALLOWED_INCLUDES = %w(document).freeze
+
+        api :GET, '/users/:user_id/documents', 'Show user documents'
+        description 'Returns list of user documents if the user is allowed.'
+        error code: 404, desc: 'Not found'
+        ApipieDocHelper.params(self, Index::UserDocumentsIndex)
+        example Doxxer.read_example(UserDocument, plural: true)
+        def index
+          authorize_index(@user)
+
+          user_documents_index = Index::UserDocumentsIndex.new(self)
+          @user_documents = user_documents_index.user_documents(@user.user_documents)
+
+          api_render(@user_documents)
+        end
 
         api :POST, '/users/:user_id/documents/', 'User documents'
         description 'Creates a user document'
@@ -44,6 +60,10 @@ module Api
 
         def authorize_create(user)
           raise Pundit::NotAuthorizedError unless policy(user).create_document?
+        end
+
+        def authorize_index(user)
+          raise Pundit::NotAuthorizedError unless policy(user).index_document?
         end
       end
     end

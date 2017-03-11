@@ -178,7 +178,7 @@ module Api
                 ]
               }
 
-          In rare cases `source/pointer` can point to a "vritual" attribute.
+          In rare cases `source/pointer` can point to a "virtual" attribute.
           For example `clearing_number` and `account_number` can have specific errors, but they can also have an error that is due to the combination of the two.
           In this case called `account` (this should be documented under each specific resource that can have errors like this).
 
@@ -217,6 +217,11 @@ module Api
       rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
       rescue_from ExpiredTokenError, with: :expired_token
       rescue_from NoSuchTokenError, with: :no_such_token
+
+      def append_info_to_payload(payload)
+        super
+        payload[:user_id] = current_user.id
+      end
 
       def jsonapi_params
         @_deserialized_params ||= JsonApiDeserializer.parse(params)

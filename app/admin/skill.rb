@@ -4,6 +4,17 @@ ActiveAdmin.register Skill do
 
   include AdminHelpers::MachineTranslation::Actions
 
+  index do
+    selectable_column
+
+    column :id
+    column :internal
+    column :name { |skill| skill_badge(skill: skill) }
+    column :updated_at
+
+    actions
+  end
+
   SET_SKILL_TRANSLATION = lambda do |skill, permitted_params|
     skill.set_translation(name: permitted_params.dig(:skill, :name))
   end

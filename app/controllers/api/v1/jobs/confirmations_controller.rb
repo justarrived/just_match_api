@@ -25,15 +25,8 @@ module Api
         error code: 422, desc: 'Unprocessable entity'
         example Doxxer.read_example(JobUser, method: :update)
         def create
-          @job_user.will_perform = true
-
-          if @job_user.save
-            @job.fill_position
-            # Frilans Finans wants invoices to be pre-reported
-            FrilansFinansInvoice.create!(job_user: @job_user)
-
-            ApplicantWillPerformNotifier.call(job_user: @job_user, owner: @job.owner)
-
+          @job_user = SignJobUserService.call(job_user: @job_user, job_owner: @job.owner)
+          if @job_user.valid?
             api_render(@job_user)
           else
             api_render_errors(@job_user)

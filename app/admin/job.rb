@@ -2,6 +2,7 @@
 ActiveAdmin.register Job do
   menu parent: 'Jobs', priority: 1
 
+  actions :all, except: [:destroy]
   batch_action :destroy, false
 
   batch_action :filled, confirm: I18n.t('admin.batch_action_confirm') do |ids|
@@ -31,19 +32,17 @@ ActiveAdmin.register Job do
   # Create sections on the index screen
   scope :all, default: true
   scope :ongoing
-  scope :featured
-  scope :visible
-  scope :uncancelled
-  scope :cancelled
-  scope :filled
   scope :unfilled
+  scope :filled
+  scope :cancelled
 
   # Filterable attributes on the index screen
-  filter :by_near_address, label: I18n.t('admin.filter.near_address'), as: :string
+  filter :near_address, label: I18n.t('admin.filter.near_address'), as: :string
   filter :translations_name_cont, as: :string, label: I18n.t('admin.job.name')
   filter :company, collection: -> { Company.order(:name) }
   filter :job_date
   filter :job_end_date
+  filter :just_arrived_contact_user, collection: -> { User.delivery_users }
   filter :created_at
   filter :featured
   filter :filled
@@ -59,17 +58,34 @@ ActiveAdmin.register Job do
   index do
     selectable_column
 
-    column :id
-    column :original_name
-    column :job_date
-    column :job_end_date
-    column :hours
-    column :featured
-    column :filled
-    column :upcoming
-    column :hidden
+    column :id { |job| link_to(job.id, admin_job_path(job)) }
+    column :applicants, sortable: 'job_users_count' do |job|
+      user_icon = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAllBMVEUAAAAiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTF/Cx8WAAAAMXRSTlMAAgMEBQYHCAkKFhcwMTIzODo8b3B0d3h5fJSXoKKjpqqtubzDz9HT2t7g6Onz9ff9NenHaAAAAKJJREFUGBllwYkWQkAABdBHi1SiRSvRSii9//+5zkzOnBlzL5Qgqetkjj43p5Q5MOXsZDAsqMyhS6kk0DVUaugaKjV0ZyoJdCGVAIYLOzlM7oVS7kIz3JSxE56bJl04cbkeoDOuSBaRB3hRQfI1wt+JPUdIPi0+hBUtSwgHWnYQ7rTcIFS0lBA+tLwhPGl5QNjTsoUwadnTepBm1y813+sUwA9NtT5hdtOe/QAAAABJRU5ErkJggg==' # rubocop:disable Metrics/LineLength
 
-    actions
+      column_content = safe_join([
+                                   image_tag(user_icon, class: 'table-column-icon'),
+                                   job.job_users_count
+                                 ])
+      link_path = admin_job_users_path + AdminHelpers::Link.query(:job_id, job.id)
+
+      link_to(column_content, link_path, class: 'table-column-icon-link')
+    end
+    column :original_name do |job|
+      link_to(job.original_name, admin_job_path(job))
+    end
+    column :job_date do |job|
+      job.job_date.strftime('%Y-%m-%d')
+    end
+    column :job_end_date do |job|
+      job.job_end_date.strftime('%Y-%m-%d')
+    end
+    column :hours
+    column :city
+    column :filled
+    column :recruiter do |job|
+      contact = job.just_arrived_contact
+      link_to(contact.first_name, admin_user_path(contact)) if contact
+    end
   end
 
   include AdminHelpers::MachineTranslation::Actions
@@ -163,7 +179,11 @@ ActiveAdmin.register Job do
 
   controller do
     def scoped_collection
-      super.with_translations
+      super.with_translations.
+        includes(:just_arrived_contact).
+        left_joins(:job_users).
+        select('jobs.*, count(job_users.id) as job_users_count').
+        group('jobs.id, job_users.job_id')
     end
 
     def apply_filtering(chain)

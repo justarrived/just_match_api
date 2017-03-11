@@ -4,7 +4,8 @@ class JobSerializer < ApplicationSerializer
     :id, :job_date, :hours, :created_at, :updated_at, :owner_user_id,
     :latitude, :longitude, :language_id, :street, :zip, :zip_latitude, :zip_longitude,
     :hidden, :category_id, :hourly_pay_id, :verified, :job_end_date, :cancelled, :filled,
-    :featured, :upcoming, :language_id, :gross_amount, :net_amount, :city
+    :featured, :upcoming, :language_id, :gross_amount, :net_amount, :city, :currency,
+    :full_street_address, :staffing_job, :direct_recruitment_job
   ]
 
   link(:self) { api_v1_job_url(object) }
@@ -40,11 +41,19 @@ class JobSerializer < ApplicationSerializer
     }
   end
 
-  attribute :gross_amount_formatted do
+  attribute :gross_amount_delimited do
+    to_delimited(object.gross_amount)
+  end
+
+  attribute :net_amount_delimited do
+    to_delimited(object.net_amount)
+  end
+
+  attribute :gross_amount_with_currency do
     to_unit(object.gross_amount, object.currency)
   end
 
-  attribute :net_amount_formatted do
+  attribute :net_amount_with_currency do
     to_unit(object.net_amount, object.currency)
   end
 
@@ -150,6 +159,8 @@ end
 #  company_contact_user_id      :integer
 #  just_arrived_contact_user_id :integer
 #  city                         :string
+#  staffing_job                 :boolean          default(FALSE)
+#  direct_recruitment_job       :boolean          default(FALSE)
 #
 # Indexes
 #

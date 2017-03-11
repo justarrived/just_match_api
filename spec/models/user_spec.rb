@@ -126,15 +126,16 @@ RSpec.describe User, type: :model do
     it 'resets all personal user attributes' do
       user = FactoryGirl.create(:user)
       old_email = user.email
+      old_zip = user.zip
 
       user.reset!
 
-      expect(user.name).to eq('Ghost user')
+      expect(user.name).to eq('Ghost User')
       expect(user.email).not_to eq(old_email)
       expect(user.phone).to be_nil
       expect(user.description).to eq('This user has been deleted.')
       expect(user.street).to eq('Stockholm')
-      expect(user.zip).to eq('11120')
+      expect(user.zip).to eq(old_zip)
       expect(user.ssn).to eq('0000000000')
     end
 

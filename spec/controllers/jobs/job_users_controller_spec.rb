@@ -83,6 +83,25 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
         expect(assigns(:job_user)).to be_persisted
       end
 
+      it 'forbidden if user tries to apply as someone else' do
+        user = FactoryGirl.create(:user)
+        user1 = FactoryGirl.create(:company_user)
+        job = FactoryGirl.create(:job, owner: user1)
+        params = {
+          job_id: job.to_param,
+          user: { id: user.to_param },
+          data: {
+            attributes: { user_id: 730_007 }
+          }
+        }
+        post :create, params: params, headers: valid_session
+        expect(response.status).to eq(403)
+        parsed_body = JSON.parse(response.body)
+        error = parsed_body['errors'].first
+        expect(error['status']).to eq(403)
+        expect(error['detail']).to eq(I18n.t('errors.job_user.forbidden_applicant_user'))
+      end
+
       context 'with apply message' do
         let(:language) { FactoryGirl.create(:language) }
         let(:apply_message) { 'Something something, darkside..' }
@@ -339,20 +358,6 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
     end
 
     context 'allowed' do
-      it 'destroys the requested job_user' do
-        job = FactoryGirl.create(:job_with_users, users_count: 1)
-        user = job.users.first
-        job_user = job.job_users.first
-        allow_any_instance_of(described_class).
-          to(receive(:current_user).
-          and_return(user))
-        session = { token: user.auth_token }
-        params = { job_id: job.to_param, job_user_id: job_user.to_param }
-        expect do
-          delete :destroy, params: params, headers: session
-        end.to change(JobUser, :count).by(-1)
-      end
-
       it 'can *not* be destroyed if JobUser#will_perform is true' do
         job = FactoryGirl.create(:job_with_users, users_count: 1)
         user = job.users.first

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170221163046) do
+ActiveRecord::Schema.define(version: 20170309150317) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -346,6 +346,8 @@ ActiveRecord::Schema.define(version: 20170221163046) do
     t.string   "company_phone"
     t.string   "company_address"
     t.integer  "company_id"
+    t.integer  "delivery_user_id"
+    t.integer  "sales_user_id"
     t.index ["company_id"], name: "index_job_requests_on_company_id", using: :btree
   end
 
@@ -387,14 +389,17 @@ ActiveRecord::Schema.define(version: 20170221163046) do
   create_table "job_users", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "job_id"
-    t.boolean  "accepted",      default: false
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
-    t.boolean  "will_perform",  default: false
+    t.boolean  "accepted",              default: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.boolean  "will_perform",          default: false
     t.datetime "accepted_at"
-    t.boolean  "performed",     default: false
+    t.boolean  "performed",             default: false
     t.text     "apply_message"
     t.integer  "language_id"
+    t.boolean  "application_withdrawn", default: false
+    t.boolean  "shortlisted",           default: false
+    t.boolean  "rejected",              default: false
     t.index ["job_id", "user_id"], name: "index_job_users_on_job_id_and_user_id", unique: true, using: :btree
     t.index ["job_id"], name: "index_job_users_on_job_id", using: :btree
     t.index ["language_id"], name: "index_job_users_on_language_id", using: :btree
@@ -430,6 +435,8 @@ ActiveRecord::Schema.define(version: 20170221163046) do
     t.integer  "company_contact_user_id"
     t.integer  "just_arrived_contact_user_id"
     t.string   "city"
+    t.boolean  "staffing_job",                 default: false
+    t.boolean  "direct_recruitment_job",       default: false
     t.index ["category_id"], name: "index_jobs_on_category_id", using: :btree
     t.index ["hourly_pay_id"], name: "index_jobs_on_hourly_pay_id", using: :btree
     t.index ["language_id"], name: "index_jobs_on_language_id", using: :btree
@@ -759,6 +766,8 @@ ActiveRecord::Schema.define(version: 20170221163046) do
   add_foreign_key "invoices", "frilans_finans_invoices"
   add_foreign_key "invoices", "job_users"
   add_foreign_key "job_requests", "companies"
+  add_foreign_key "job_requests", "users", column: "delivery_user_id", name: "job_requests_delivery_user_id_fk"
+  add_foreign_key "job_requests", "users", column: "sales_user_id", name: "job_requests_sales_user_id_fk"
   add_foreign_key "job_skills", "jobs"
   add_foreign_key "job_skills", "skills"
   add_foreign_key "job_translations", "jobs"

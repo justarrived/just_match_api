@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 ActiveAdmin.register Chat do
-  menu parent: 'Chats'
+  menu parent: 'Chats', url: -> { admin_chats_path(order: 'updated_at_desc') }
 
   batch_action :destroy, false
 
@@ -20,7 +20,9 @@ ActiveAdmin.register Chat do
       )
     end
     column(:message_count) { |chat| chat.messages.length }
-    column :updated_at
+    column(:last_message_at, sortable: :updated_at) do |chat|
+      distance_of_time_in_words(Time.zone.now, chat.updated_at) + ' ago'
+    end
 
     actions
   end

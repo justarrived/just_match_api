@@ -84,7 +84,7 @@ class User < ApplicationRecord
   validates :first_name, length: { minimum: 1 }, allow_blank: false
   validates :last_name, length: { minimum: 2 }, allow_blank: false
   validates :phone, length: { minimum: 9 }, uniqueness: true, allow_blank: true
-  validates :street, length: { minimum: 5 }, allow_blank: true
+  validates :street, length: { minimum: 2 }, allow_blank: true
   validates :zip, length: { minimum: 5 }, allow_blank: true
   validates :password, length: { minimum: MIN_PASSWORD_LENGTH, maximum: MAX_PASSWORD_LENGTH }, allow_blank: false, on: :create # rubocop:disable Metrics/LineLength
   validates :ssn, uniqueness: true, allow_blank: true
@@ -99,6 +99,9 @@ class User < ApplicationRecord
   validate :validate_swedish_bank_account
   validate :validate_arrival_date_in_past
 
+  scope :sales_users, -> { admins }
+  scope :delivery_users, -> { super_admins }
+  scope :super_admins, -> { where(super_admin: true) }
   scope :admins, -> { where(admin: true) }
   scope :company_users, -> { where.not(company: nil) }
   scope :regular_users, -> { where(company: nil) }
@@ -157,7 +160,7 @@ class User < ApplicationRecord
   end
 
   def self.ransackable_scopes(_auth_object = nil)
-    [:by_near_address]
+    [:near_address]
   end
 
   def self.find_by_one_time_token(token)
@@ -219,6 +222,10 @@ class User < ApplicationRecord
   def self.accepted_applicant_for_owner?(owner:, user:)
     jobs = owner.owned_jobs & JobUser.accepted_jobs_for(user)
     jobs.any?
+  end
+
+  def support_chat_activated?
+    verified || super_admin || admin || just_arrived_staffing
   end
 
   def bank_account_details?
@@ -388,12 +395,11 @@ class User < ApplicationRecord
     assign_attributes(
       anonymized: true,
       first_name: 'Ghost',
-      last_name: 'user',
+      last_name: 'User',
       email: "ghost+#{SecureGenerator.token(length: 64)}@example.com",
       phone: nil,
       description: 'This user has been deleted.',
       street: 'Stockholm',
-      zip: '11120',
       ssn: '0000000000',
       password: SecureGenerator.token
     )

@@ -36,6 +36,7 @@
       "longitude": null,
       "email": "person7@example.com",
       "last_name": "Doe",
+      "name": "Jane Doe",
       "created_at": "2016-02-10 01:01:01 +0100",
       "updated_at": "2016-02-12 01:01:01 +0100",
       "admin": false,
@@ -52,6 +53,7 @@
       "country_of_origin": "SE",
       "account_clearing_number": null,
       "account_number": null,
+      "full_street_address": "Bankgatan 14C, 223 52, Lund, Sverige",
       "just_arrived_staffing": false
     },
     "relationships": {
@@ -80,6 +82,14 @@
         ],
         "links": {
           "related": "https://api.justarrived.se/api/v1/users/1/languages"
+        }
+      },
+      "user_documents": {
+        "data": [
+
+        ],
+        "links": {
+          "related": "https://api.justarrived.se/api/v1/users/1/documents"
         }
       },
       "chats": {

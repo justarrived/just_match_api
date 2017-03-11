@@ -3,9 +3,10 @@ source 'https://rubygems.org'
 
 ruby '2.4.0'
 
-gem 'rails', '5.0.1' # Ruby on Rails MVC framework
+gem 'rails', '5.0.2' # Ruby on Rails MVC framework
 
 # SERVER
+gem 'lograge', '~> 0.4' # Less verbose Rails log in production
 gem 'puma', '~> 3.7' # App server
 
 # STORAGE
@@ -43,6 +44,7 @@ gem 'pundit', '~> 1.1' # Authorization policies
 # ADMIN
 gem 'activeadmin', git: 'https://github.com/activeadmin/activeadmin' # Admin interface
 gem 'active_admin_datetimepicker', '~> 0.3' # Datetime picker for activeadmin
+gem 'active_admin_theme', '~> 1.0' # activeadmin theme
 gem 'blazer', git: 'https://github.com/ankane/blazer' # '~> 1.7' # Explore data with SQL
 gem 'chosen-rails', '~> 1.5' # Needed for autocomplete select input for activeadmin
 gem 'inherited_resources', git: 'https://github.com/activeadmin/inherited_resources', ref: '4434f0ae72f790cf371728838c927c338100555d' # activeadmin Rails 5
@@ -82,7 +84,7 @@ gem 'honey_format', '~> 0.2' # Simple CSV reading
 
 # DEVELOPMENT/TEST/DOCS
 group :development, :test, :docs do
-  gem 'bullet', '~> 5.0'
+  gem 'bullet', '~> 5.5'
   gem 'byebug', '~> 9.0'
   gem 'consistency_fail', '~> 0.3'
   gem 'dotenv-rails', '~> 2.1'

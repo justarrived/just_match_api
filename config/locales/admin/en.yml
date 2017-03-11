@@ -65,6 +65,16 @@ en:
     job_user:
       apply_message: Apply message
       batch_action:
+        shortlist:
+          confirm: Are you sure you want to shortlist these users?
+          success:
+            one: Successfully shortlisted one job user.
+            other: Successfully shortlisted %{count} job users.
+        reject:
+          confirm: Are you sure you want to reject these users?
+          success:
+            one: Successfully rejected one job user.
+            other: Successfully rejected %{count} job users.
         accepted:
           success_msg: 'Successfully accepted %{success_count} user(s), ignored %{ignore_count} user(s) that were already accepted.'
           fail_msg: 'Failed to accept %{fail_count} user(s): job users IDs: %{fail_ids}. Successfully accepted %{success_count} user(s), ignored %{ignore_count} user(s) that were already accepted.'
@@ -100,6 +110,8 @@ en:
         owner_hint: 'Job owner @ client company'
         company_contact_hint: 'Job contact @ client company, if blank owner will be used instead'
         just_arrived_contact_hint: 'The responsible user @ Just Arrived'
+        staffing_job: Staffing job
+        direct_recruitment_job: Direct recruitment
         category_hint: 'This field is only used for insurance purposes'
         hidden_hint: 'If checked the job will not be returned to clients'
         verified_hint: 'If checked an admin has verified the job'
@@ -177,6 +189,7 @@ en:
         candidate_status: Candidate status
         misc: Admin details
         interview_comment: Interview comment
+        no_interview_comment_explain: No interview has been conducted.
         ongoing_jobs: Ongoing jobs
         future_jobs: Future jobs
         rejected: Rejected
@@ -216,3 +229,8 @@ en:
       labels:
         add_and_remove_user_tag: 'Add/Remove User Tag To/From'
         add_user_skill: 'Add User Skill To'
+
+    filters:
+      predicates:
+        gteq_datetime: after
+        lteq_datetime: before

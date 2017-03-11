@@ -58,7 +58,7 @@ Rails.application.routes.draw do
           resources :frilans_finans, path: 'frilans-finans', module: :users, only: [:create]
           resources :user_images, module: :users, path: :images, only: [:show, :create]
           resources :ratings, module: :users, path: :ratings, only: [:index]
-          resources :user_documents, module: :users, path: :documents, only: [:create]
+          resources :user_documents, module: :users, path: :documents, only: [:index, :create]
         end
 
         collection do

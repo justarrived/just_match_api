@@ -16,6 +16,7 @@ module Dev
         create_user(
           email: 'admin@example.com',
           admin: true,
+          super_admin: true,
           address: addresses.sample,
           language: system_languages.sample
         )

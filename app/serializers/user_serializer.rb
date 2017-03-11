@@ -6,15 +6,17 @@ class UserSerializer < ApplicationSerializer
   attributes [
     :id, :email, :phone, :description, :created_at, :updated_at, :latitude, :longitude,
     :language_id, :anonymized, :password_hash, :password_salt, :admin, :street, :city,
-    :zip, :zip_latitude, :zip_longitude, :first_name, :last_name, :ssn, :company_id,
-    :banned, :one_time_token, :one_time_token_expires_at, :just_arrived_staffing,
+    :zip, :zip_latitude, :zip_longitude, :first_name, :last_name, :name, :ssn, :banned,
+    :company_id, :one_time_token, :one_time_token_expires_at, :just_arrived_staffing,
     :ignored_notifications_mask, :frilans_finans_id, :frilans_finans_payment_details,
     :current_status, :at_und, :arrived_at, :country_of_origin, :managed, :verified,
-    :account_clearing_number, :account_number, :gender
+    :account_clearing_number, :account_number, :gender, :full_street_address,
+    :support_chat_activated
   ] + EXTRA_ATTRIBUTES
 
   link(:self) { api_v1_user_url(object) }
 
+  attribute :support_chat_activated { object.support_chat_activated? }
   attribute :description { object.original_description }
   attribute :description_html { to_html(object.original_description) }
 
@@ -59,6 +61,12 @@ class UserSerializer < ApplicationSerializer
     link(:related) { api_v1_user_languages_url(object.id) }
 
     object.user_languages.visible
+  end
+
+  has_many :user_documents, unless: :collection_serializer? do
+    link(:related) { api_v1_user_documents_url(object.id) }
+
+    object.user_documents
   end
 
   has_many :chats, unless: :collection_serializer? do

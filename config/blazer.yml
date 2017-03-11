@@ -6,8 +6,8 @@ data_sources:
 
     # statement timeout, in seconds
     # applies to PostgreSQL only
-    # none by default
-    # timeout: 15
+    # Set timeout to 14 seconds, since Rack::Timeout is set to 15
+    timeout: 14
 
     # time to cache results, in minutes
     # can greatly improve speed
@@ -17,16 +17,66 @@ data_sources:
     # wrap queries in a transaction for safety
     # not necessary if you use a read-only user
     # true by default
-    # use_transaction: false
+    use_transaction: true
 
     smart_variables:
-      # zone_id: "SELECT id, name FROM zones ORDER BY name ASC"
+      language_id: "SELECT id, en_name FROM languages ORDER BY en_name ASC"
+      company_id: "SELECT id, name FROM companies ORDER BY name ASC"
+      # user_id variations
+      user_id:                      "SELECT id, (first_name || '' || last_name) as name FROM users ORDER BY name ASC"
+      author_id:                    "SELECT id, (first_name || '' || last_name) as name FROM users ORDER BY name ASC"
+      company_contact_user_id:      "SELECT id, (first_name || '' || last_name) as name FROM users ORDER BY name ASC"
+      delivery_by_user_id:          "SELECT id, (first_name || '' || last_name) as name FROM users ORDER BY name ASC"
+      from_user_id:                 "SELECT id, (first_name || '' || last_name) as name FROM users ORDER BY name ASC"
+      interviewed_by_user_id:       "SELECT id, (first_name || '' || last_name) as name FROM users ORDER BY name ASC"
+      just_arrived_contact_user_id: "SELECT id, (first_name || '' || last_name) as name FROM users ORDER BY name ASC"
+      owner_user_id:                "SELECT id, (first_name || '' || last_name) as name FROM users ORDER BY name ASC"
+      sales_by_user_id:             "SELECT id, (first_name || '' || last_name) as name FROM users ORDER BY name ASC"
+      to_user_id:                   "SELECT id, (first_name || '' || last_name) as name FROM users ORDER BY name ASC"
 
     linked_columns:
-      # user_id: "/admin/users/{value}"
+      chat_id: "/admin/chats/{value}"
+      frilans_finans_invoice_id: "/admin/frilans_finans_invoices/{value}"
+      interest_id: "/admin/interests/{value}"
+      invoice_id: "/admin/invoices/{value}"
+      job_id: "/admin/jobs/{value}"
+      language_id: "/admin/languages/{value}"
+      message_id: "/admin/messages/{value}"
+      rating_id: "/admin/ratings/{value}"
+      skill_id: "/admin/skills/{value}"
+      user_id: "/admin/users/{value}"
+      user_interest_id: "/admin/user_interests/{value}"
+      user_language_id: "/admin/user_languages/{value}"
+      user_skill_id: "/admin/user_skills/{value}"
+      # user_id variations
+      author_id: "/admin/users/{value}"
+      company_contact_user_id: "/admin/users/{value}"
+      delivery_by_user_id: "/admin/users/{value}"
+      from_user_id: "/admin/users/{value}"
+      interviewed_by_user_id: "/admin/users/{value}"
+      job_user_id: "/admin/job_users/{value}"
+      just_arrived_contact_user_id: "/admin/users/{value}"
+      owner_user_id: "/admin/users/{value}"
+      sales_by_user_id: "/admin/users/{value}"
+      to_user_id: "/admin/users/{value}"
 
     smart_columns:
-      # user_id: "SELECT id, name FROM users WHERE id IN {value}"
+      job_id: "SELECT jobs.id as id, left(job_translations.name, 150) as name FROM jobs INNER JOIN job_translations ON job_translations.job_id = jobs.id AND job_translations.locale = 'en'"
+      job_user_id: "SELECT job_users.id as id, (users.first_name || ' ' || users.last_name) as name FROM job_users WHERE id IN {value} INNER JOIN users ON job_users.user_id = users.id"
+      message_id: "SELECT messages.id as id, left(message_translations.body, 150) as name FROM messages WHERE id IN {value} INNER JOIN message_translations ON message_translations.message_id = messages.id AND message_translations.locale = 'en'"
+      rating_id: "SELECT id,((SELECT '#' || id || ' ' || first_name FROM users WHERE id = from_user_id LIMIT 1)|| ' gave ' || score || ' to ' || (SELECT '#' || id || ' ' || first_name FROM users WHERE id = to_user_id LIMIT 1)) AS name FROM ratings"
+      language_id: "SELECT id, en_name FROM languages WHERE id IN {value}"
+      # user_id variations
+      user_id:                      "SELECT id, (first_name || ' ' || last_name) as name FROM users WHERE id IN {value}"
+      author_id:                    "SELECT id, (first_name || ' ' || last_name) as name FROM users WHERE id IN {value}"
+      company_contact_user_id:      "SELECT id, (first_name || ' ' || last_name) as name FROM users WHERE id IN {value}"
+      delivery_by_user_id:          "SELECT id, (first_name || ' ' || last_name) as name FROM users WHERE id IN {value}"
+      from_user_id:                 "SELECT id, (first_name || ' ' || last_name) as name FROM users WHERE id IN {value}"
+      interviewed_by_user_id:       "SELECT id, (first_name || ' ' || last_name) as name FROM users WHERE id IN {value}"
+      just_arrived_contact_user_id: "SELECT id, (first_name || ' ' || last_name) as name FROM users WHERE id IN {value}"
+      owner_user_id:                "SELECT id, (first_name || ' ' || last_name) as name FROM users WHERE id IN {value}"
+      sales_by_user_id:             "SELECT id, (first_name || ' ' || last_name) as name FROM users WHERE id IN {value}"
+      to_user_id:                   "SELECT id, (first_name || ' ' || last_name) as name FROM users WHERE id IN {value}"
 
 # create audits
 audit: true
@@ -37,10 +87,10 @@ time_zone: 'Stockholm'
 before_action: :authenticate_admin
 
 # class name of the user model
-# user_class: User
+user_class: User
 
 # method name for the user model
-# user_name: name
+user_name: name
 
 # email to send checks from
-# from_email: blazer@example.org
+from_email: insights@email.justarrived.se

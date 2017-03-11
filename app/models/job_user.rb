@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class JobUser < ApplicationRecord
-  MAX_CONFIRMATION_TIME_HOURS = 18
+  MAX_CONFIRMATION_TIME_HOURS = 24
 
   belongs_to :user
   belongs_to :job
@@ -32,7 +32,10 @@ class JobUser < ApplicationRecord
 
   before_validation :accepted_at_setter
 
-  # scope :recent, ->(count) { order(created_at: :desc).limit(count) }
+  scope :unrejected, -> { where(rejected: false) }
+  scope :shortlisted, -> { where(shortlisted: true) }
+  scope :withdrawn, -> { where(application_withdrawn: true) }
+  scope :visible, -> { where(application_withdrawn: false) }
   scope :accepted, -> { where(accepted: true) }
   scope :will_perform, -> { where(will_perform: true) }
   scope :unconfirmed, -> { accepted.where(will_perform: false) }
@@ -65,8 +68,11 @@ class JobUser < ApplicationRecord
       return 'Not pre-reported!'
     end
 
+    return 'Withdrawn' if application_withdrawn
     return 'Will perform' if will_perform
     return 'Accepted' if accepted
+    return 'Rejected' if rejected
+    return 'Shortlisted' if shortlisted
 
     'Applied'
   end
@@ -156,17 +162,20 @@ end
 #
 # Table name: job_users
 #
-#  id            :integer          not null, primary key
-#  user_id       :integer
-#  job_id        :integer
-#  accepted      :boolean          default(FALSE)
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  will_perform  :boolean          default(FALSE)
-#  accepted_at   :datetime
-#  performed     :boolean          default(FALSE)
-#  apply_message :text
-#  language_id   :integer
+#  id                    :integer          not null, primary key
+#  user_id               :integer
+#  job_id                :integer
+#  accepted              :boolean          default(FALSE)
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#  will_perform          :boolean          default(FALSE)
+#  accepted_at           :datetime
+#  performed             :boolean          default(FALSE)
+#  apply_message         :text
+#  language_id           :integer
+#  application_withdrawn :boolean          default(FALSE)
+#  shortlisted           :boolean          default(FALSE)
+#  rejected              :boolean          default(FALSE)
 #
 # Indexes
 #

@@ -104,10 +104,10 @@ RSpec.describe Api::V1::Users::ChangePasswordController, type: :controller do
       end
 
       context 'with invalid one_time_token' do
-        it 'returns 404 not found with correct errors body' do
+        it 'returns 422 not found with correct errors body' do
           post :create, params: invalid_attributes_token
-          expect(response.status).to eq(404)
-          expect(JSON.parse(response.body)['errors'].first['status']).to eq(404)
+          expect(response.status).to eq(422)
+          expect(JSON.parse(response.body)['errors'].first['status']).to eq(422)
         end
       end
 

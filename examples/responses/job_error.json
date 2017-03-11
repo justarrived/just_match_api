@@ -40,7 +40,7 @@
       "source": {
         "pointer": "/data/attributes/street"
       },
-      "detail": "is too short (minimum is 5 characters)"
+      "detail": "is too short (minimum is 3 characters)"
     },
     {
       "status": 422,
@@ -76,6 +76,13 @@
         "pointer": "/data/attributes/hours"
       },
       "detail": "is not a number"
+    },
+    {
+      "status": 422,
+      "source": {
+        "pointer": "/data/attributes/hours"
+      },
+      "detail": "can't be blank"
     }
   ]
 }

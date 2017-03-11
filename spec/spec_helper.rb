@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 if ENV.fetch('CODECLIMATE_REPO_TOKEN', false) || ENV.fetch('COVERAGE', false)
   require 'simplecov'
-  SimpleCov.start 'rails'
+  SimpleCov.start 'rails' do
+    add_filter '/app/admin/'
+  end
 end
 
 require 'webmock/rspec'

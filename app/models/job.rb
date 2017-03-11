@@ -51,8 +51,7 @@ class Job < ApplicationRecord
 
   validate :validate_job_date_in_future, unless: -> { Rails.configuration.x.validate_job_date_in_future_inactive } # rubocop:disable Metrics/LineLength
 
-  scope :unarchived, -> { where('job_end_date > ?', 2.months.ago) }
-  scope :visible, -> { unarchived.where(hidden: false) }
+  scope :visible, -> { where(hidden: false) }
   scope :cancelled, -> { where(cancelled: true) }
   scope :uncancelled, -> { where(cancelled: false) }
   scope :filled, -> { where(filled: true) }
@@ -86,7 +85,7 @@ class Job < ApplicationRecord
   translates :name, :short_description, :description
 
   def self.ransackable_scopes(_auth_object = nil)
-    [:by_near_address]
+    [:near_address]
   end
 
   delegate :currency, to: :hourly_pay
@@ -129,6 +128,10 @@ class Job < ApplicationRecord
 
   def profession_title
     category&.name
+  end
+
+  def frilans_finans_job?
+    !staffing_job && !direct_recruitment_job
   end
 
   def ended?
@@ -354,6 +357,8 @@ end
 #  company_contact_user_id      :integer
 #  just_arrived_contact_user_id :integer
 #  city                         :string
+#  staffing_job                 :boolean          default(FALSE)
+#  direct_recruitment_job       :boolean          default(FALSE)
 #
 # Indexes
 #

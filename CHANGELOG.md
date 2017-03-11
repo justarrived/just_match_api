@@ -3,12 +3,165 @@
 HEAD
 -----------
 
-v1.13 - 2017-02-22
+v1.30 - 2017-03-10
+----------
+* _Admin_:
+  - Update job user batch action name
+  - Add just_arrived_contact_user filter to jobs page
+* Update `JobUser#current_status` to handle `#rejected`
+* Add `JobUser#rejected` boolean field (default: false) & send early rejection emails
+* Increase `JobUser` max confirmation time to 24 hours (from 18)
+
+
+v1.29 - 2017-03-09
+----------
+ * _Admin_: Left join jobs instead of join to keep jobs that does not have any applicants
+
+
+v1.28 - 2017-03-09
+----------
+* Ignore codecoverage of `app/admin/` files
+* Rename `ebert.yml` => `.ebert.yml`
+* Disable Ebert eslint & scss lint
+* _API_: Return wrong old password under correct attribute name for change password controller
+* _Admin_:
+  - Remove actions from job user index page
+  - :hocho: N+1 query on dashboard
+  - Improve job & job user index pages
+  - Improve job admin index listing with more relevant table columns
+
+
+v1.27 - 2017-03-07
+----------
+* Additional Blazer configuration
+* _Admin_:
+  - Add primary language to user filters & add missing admin I18n keys
+  - Remove duplicate entry from blazer config
+  - Reverse order of chat messages on user show page
+
+
+v1.26 - 2017-03-07
+----------
+* _Blazer_:
+  - Add Linked & Smart columns
+  - Set PostgreSQL timeout to 14 sec
+* _Admin_:
+  - Remove destroy action from user, job user and job resources
+  - Panel header links hover, middle align table rows, custom status colors
+  - Just Arrived menu logo
+  - Add job user shortlist batch action. Closes #953
+  - Custom border and status_tag color
+  - Custom flash colors
+
+
+v1.25 - 2017-03-06
+----------
+* _Admin_:
+  - Set chosen-selects to 100% width
+  - Add Job `staffing_job` & `direct_recruitment_job` job form
+* New `activeadmin` theme using the gem `active_admin_theme`
+
+v1.24 - 2017-03-05
+----------
+* Update `rails` from 5.0.1 => 5.0.2
+* Update gems: `airbrake`, `aws-sdk` and `uglifier`
+
+v1.23 - 2017-03-05
+----------
+* Extract `SignJobUserService` from `jobs/ConfirmationsController`
+* Adds `Job#staffing_job` boolean (default: false) field
+* Adds `Job#direct_recruitment_job` boolean (default: false) field
+* Only create `FrilansFinansInvoice`s for jobs that has *not* `staffing_job` or `direct_recruitment_job` set to true
+* _API_: Expose `Job#staffing_job` and `Job#direct_recruitment_job` to API and allow sort & filter
+* Add Ebert config `ebert.yml`
+* `Geocodable#by_near_address` => `#near_address` and add `#near_coordinates` method
+* _Admin_:
+  - Add shortlisted scope and more informative city column
+  - Replace Job#featured with #city on index page
+  - Link to users with skills/tags from their respective index page. Closes #939
+* _API_:
+  - Add `#body_html` variant for comment & message serializers
+  - Add `Job#decription_html` to allowed attributes
+  - Add `User#support_chat_activated` feature toggle
+  - Allow a user that has withdrawn the job application to re-apply
+  - Don't delete job user, set `#application_withdrawn` instead
+  - Extract create job application service and allow passing user_id as POST param
+* _DB_:
+  - Add JobUser#application_withdrawn column (default: false)
+  - Add JobUser#shortlisted. Admin: JobUser show/index update
+* _Docs_:
+  - Regenerate API response examples
+* :hocho: dead Rails config option
+* Pull translations from Transifex
+* Add `lograge` gem for a less verbose production log
+
+
+v1.22 - 2017-03-03
+----------
+* Increase request limit to allow 100 requests per 10 seconds
+
+
+v1.21 - 2017-03-02
+----------
+* _API_:
+  - Update change password error responses
+  - Temporary don't require consent when creating a new user
+* Fix test failure for create Frilans Finans invoice
+* Update `Geocodable` to ignore char casing on search and increase default search range to 50km (from 20km)
+* Update the users `profession_title` @ Frilans Finans when creating an invoice
+
+
+v1.20 - 2017-02-25
+----------
+* _API_: Remove `Job::unarchived` scope and remove from `Job::visible` scope
+
+
+v1.19 - 2017-02-24
+----------
+* _Admin_:
+  - Added sales and delivery user to permitted params in job request form
+
+
+v1.18 - 2017-02-23
+----------
+* _Admin_:
+  - Display large image on UserImage page
+  - Display large image on CompanyImage page
+
+
+v1.17 - 2017-02-23
+----------
+* Update gems: `aws-sdk` and `codeclimate-test-reporter`
+* Generate migration for missing user keys for JobRequest
+* Add sales and delivery use to job request permitted params
+
+
+v1.16 - 2017-02-22
+----------
+* Add `JobRequest#sales_user` and `JobRequest#delivery_user` columns
+* Update user admin seed
+* _Admin_: Sort chat index by updated_at. Closes #912
+* Update gems:
+  - `aws-sdk` gem
+* Update dev gems: `consistency_fail`, `dotenv-rails`, `i18n-tasks`, `immigrant` and `simplecov`
+
+
+v1.15 - 2017-02-21
+----------
+_API_: Rename `HourlyPay#*_with_currency` => `*_with_unit`
+
+
+v1.14 - 2017-02-21
+----------
+* _API_: Change `*_formatted` keys => `*_with_currency` & add `*_delimited` to job & hourly pay numbers
+
+
+v1.13 - 2017-02-21
 ----------
 * _API_: Add `Job::unarchived` scope and include the scope under `Job::visible`
 * _Admin_: Accept and notify job users batch action
 
-v1.12 - 2017-02-22
+v1.12 - 2017-02-21
 ----------
 * _Admin_:
   - Move job show view to its own template

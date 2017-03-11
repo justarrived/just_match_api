@@ -1,0 +1,30 @@
+{
+  "data": [
+    {
+      "id": "1",
+      "type": "user_documents",
+      "attributes": {
+        "category": "cv",
+        "created_at": "2016-02-10 01:01:01 +0100",
+        "category_name": "cv"
+      },
+      "relationships": {
+        "user": {
+          "data": {
+            "id": "40",
+            "type": "users"
+          }
+        },
+        "document": {
+          "data": {
+            "id": "2",
+            "type": "documents"
+          }
+        }
+      }
+    }
+  ],
+  "meta": {
+    "total": 1
+  }
+}

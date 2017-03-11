@@ -2,6 +2,7 @@
 ActiveAdmin.register JobUser do
   menu parent: 'Jobs', priority: 2
 
+  actions :all, except: [:destroy]
   batch_action :destroy, false
   batch_action :accept_and_notify_user do |ids|
     job_users = JobUser.where(id: ids)
@@ -41,6 +42,31 @@ ActiveAdmin.register JobUser do
       )
       redirect_to collection_path, alert: notice
     end
+  end
+
+  batch_action :shortlist, confirm: I18n.t('admin.job_user.batch_action.shortlist.confirm') do |ids| # rubocop:disable Metrics/LineLength
+    job_users = collection.where(id: ids)
+    job_users.map { |job_user| job_user.update(shortlisted: true) }
+
+    notice = I18n.t(
+      'admin.job_user.batch_action.shortlist.success', count: job_users.length
+    )
+    redirect_to collection_path, notice: notice
+  end
+
+  batch_action :reject_and_notify, confirm: I18n.t('admin.job_user.batch_action.reject.confirm') do |ids| # rubocop:disable Metrics/LineLength
+    job_users = collection.where(id: ids)
+    job_users.map do |job_user|
+      unless job_user.rejected
+        job_user.update(rejected: true)
+        JobMailer.applicant_rejected_email(job_user: job_user).deliver_later
+      end
+    end
+
+    notice = I18n.t(
+      'admin.job_user.batch_action.reject.success', count: job_users.length
+    )
+    redirect_to collection_path, notice: notice
   end
 
   batch_action :send_communication_template_to, form: lambda {
@@ -97,21 +123,26 @@ ActiveAdmin.register JobUser do
     end
   end
 
-  scope :all, default: true
+  scope :all
+  scope :visible, default: true
+  scope :shortlisted
   scope :accepted
   scope :will_perform
   scope :verified
+  scope :withdrawn
 
   filter :user_first_name_cont, as: :string, label: I18n.t('admin.user.first_name')
   filter :user_last_name_cont, as: :string, label: I18n.t('admin.user.last_name')
   filter :job_translations_name_cont, as: :string, label: I18n.t('admin.job.name_search')
   filter :user_verified_eq, as: :boolean, label: I18n.t('admin.user.verified')
-  filter :job, collection: -> { Job.with_translations.order_by_name.limit(200) }
+  filter :job, collection: -> { Job.with_translations.order_by_name.limit(1000) }
   filter :frilans_finans_invoice, collection: -> { FrilansFinansInvoice.order(id: :desc) }
   filter :invoice, collection: -> { Invoice.order(id: :desc) }
   filter :accepted
   filter :will_perform
   filter :performed
+  filter :shortlisted
+  filter :application_withdrawn
   filter :updated_at
   filter :created_at
   filter :translations_apply_message_cont, as: :string, label: I18n.t('admin.job_user.apply_message') # rubocop:disable Metrics/LineLength
@@ -119,14 +150,25 @@ ActiveAdmin.register JobUser do
   index do
     selectable_column
 
-    column :id
-    column :user
-    column :job
-    column :job_start_date { |job_user| job_user.job.job_date }
-    column :user_city { |job_user| job_user.user.city }
+    column :id { |job_user| link_to(job_user.id, admin_job_user_path(job_user)) }
+    column :job_id do |job_user|
+      job = job_user.job
+      link_to(job.id, admin_job_path(job))
+    end
+    column :user do |job_user|
+      user = job_user.user
+      link_to(user.name, admin_user_path(user))
+    end
+    column :job_city, sortable: 'jobs.city' do |job_user|
+      job_user.job.city
+    end
+    column :user_city, sortable: 'users.city' do |job_user|
+      job_user.user.city
+    end
+    column :applied_at, sortable: 'job_users.created_at' do |job_user|
+      job_user.created_at.strftime('%Y-%m-%d')
+    end
     column :status, &:current_status
-
-    actions
   end
 
   show do
@@ -198,7 +240,10 @@ ActiveAdmin.register JobUser do
   end
 
   permit_params do
-    [:user_id, :job_id, :accepted, :will_perform, :performed, :apply_message]
+    [
+      :user_id, :job_id, :accepted, :will_perform, :performed, :apply_message,
+      :application_withdrawn, :shortlisted, :rejected
+    ]
   end
 
   controller do

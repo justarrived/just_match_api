@@ -18,15 +18,15 @@ class UserPolicy < ApplicationPolicy
   ].freeze
 
   ACCEPTED_APPLICANT_ATTRIBUTES = ATTRIBUTES + [
-    :phone, :street, :city, :latitude, :longitude, :email, :last_name
+    :phone, :street, :city, :latitude, :longitude, :email, :last_name, :name
   ].freeze
 
   SELF_ATTRIBUTES = (ATTRIBUTES + ACCEPTED_APPLICANT_ATTRIBUTES + [
     :created_at, :updated_at, :admin, :anonymized, :ignored_notifications,
     :frilans_finans_payment_details, :ssn, :current_status, :at_und, :arrived_at,
     :country_of_origin, :auth_token, :account_clearing_number, :account_number,
-    :skype_username, :next_of_kin_name, :next_of_kin_phone,
-    :arbetsformedlingen_registered_at, :just_arrived_staffing
+    :skype_username, :next_of_kin_name, :next_of_kin_phone, :full_street_address,
+    :arbetsformedlingen_registered_at, :just_arrived_staffing, :support_chat_activated
   ]).freeze
 
   attr_reader :accepted_applicant
@@ -49,6 +49,7 @@ class UserPolicy < ApplicationPolicy
   alias_method :frilans_finans?, :show?
   alias_method :chats?, :show?
   alias_method :create_document?, :show?
+  alias_method :index_document?, :show?
 
   def jobs?
     admin_or_self? || company_user?

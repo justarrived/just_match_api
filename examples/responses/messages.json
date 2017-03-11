@@ -7,8 +7,10 @@
         "created_at": "2016-02-10 01:01:01 +0100",
         "language_id": 9,
         "body": null,
+        "body_html": null,
         "translated_text": {
           "body": null,
+          "body_html": null,
           "language_id": null
         }
       },
