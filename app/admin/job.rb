@@ -172,7 +172,8 @@ ActiveAdmin.register Job do
   permit_params do
     extras = [
       :cancelled, :language_id, :hourly_pay_id, :category_id, :owner_user_id, :hidden,
-      :company_contact_user_id, :just_arrived_contact_user_id
+      :company_contact_user_id, :just_arrived_contact_user_id,
+      job_skills_attributes: [:skill_id, :proficiency]
     ]
     JobPolicy::FULL_ATTRIBUTES + extras
   end
@@ -180,10 +181,24 @@ ActiveAdmin.register Job do
   controller do
     def scoped_collection
       super.with_translations.
-        includes(:just_arrived_contact).
+        includes(:just_arrived_contact, skills: [:translations, :language]).
         left_joins(:job_users).
         select('jobs.*, count(job_users.id) as job_users_count').
         group('jobs.id, job_users.job_id')
+    end
+
+    def update_resource(job, params_array)
+      job_params = params_array.first
+
+      job_skills_attrs = job_params.delete(:job_skills_attributes)
+      skill_ids_param = (job_skills_attrs || {}).map do |_index, attrs|
+        {
+          id: attrs[:skill_id],
+          proficiency: attrs[:proficiency],
+          proficiency_by_admin: attrs[:proficiency_by_admin]
+        }
+      end
+      SetJobSkillsService.call(job: job, skill_ids_param: skill_ids_param)
     end
 
     def apply_filtering(chain)
