@@ -2,7 +2,10 @@
 
 Developer guide for JustMatch Api.
 
-## High level
+* [High level components](#high-level-components)
+* [Database](#database)
+
+## High level components
 
 The code follows most Rails conventions. If you've worked with Rails before the project should be easy to navigate.
 
@@ -134,3 +137,34 @@ The code follows most Rails conventions. If you've worked with Rails before the 
     3. Configure their "Parse" HTTP POST Hook
     4. Add the route: `POST https://api.justarrived.se/api/v1/email/receive?ja_KEY=$JA_KEY`, replace `$JA_KEY` with something secret.
   - The email from address will be looked up and if there is a match a message will be added to the chat between that user and our "support user" or admin.
+
+
+## Database
+
+__Restore database command__
+
+```
+$ pg_restore --no-owner -d <db_name> <path_to_db_data_dump>
+```
+
+__Setup database from Heroku for development use__
+
+Download database dump from Heroku
+```
+$ heroku pg:backups:download --app=<heroku_application_name>
+```
+
+Import database to development database
+```
+# Reset the database to make sure the database dump is imported cleanly
+$ rails db:drop db:create
+$ pg_restore --no-owner -d just_match_development latest.dump
+```
+
+Anonymize database
+
+```
+$ rails dev:anonymize_database
+```
+
+The database is now safe for development use and you can login as admin with username `admin@example.com` and password `12345678`.
