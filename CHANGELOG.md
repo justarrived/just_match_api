@@ -3,6 +3,14 @@
 HEAD
 -----------
 
+v1.32 - 2017-03-11
+----------
+* :hocho: test failure in jobs controller
+* Update `JobSkill`s
+* Extract email-suggestion to its own controller & better predictions from `EmailSuggestion`
+* Set custom Mailchecker domains and TLDs
+
+
 v1.31 - 2017-03-11
 ----------
 * Add `skill_id` blazer smart column
