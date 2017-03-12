@@ -38,4 +38,11 @@
   job_user_url: link_to(@job_user_url, @job_user_url)
 ) %>
 
+<%= render(
+  'mailer_partials/action_button',
+  url: @job_user_url,
+  title: I18n.t('mailer.applicant_accepted.accept_cta'),
+  align: I18nMeta.align(I18n.locale)
+) %>
+
 <p><%= I18n.t('mailer.signoff') %></p>
