@@ -11,7 +11,10 @@ class CreateJobApplicationService
         EnqueueCheapTranslation.call(result)
       end
 
-      NewApplicantNotifier.call(job_user: job_user, owner: job_owner)
+      missing_skills = job.skills - user.skills
+      NewApplicantNotifier.call(
+        job_user: job_user, owner: job_owner, skills: missing_skills
+      )
     end
 
     job_user
