@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
-  </head>
-  <body>
-    <h3><%= I18n.t('mailer.accepted_applicant_withdrawn.title') %></h3>
-    <p><%= I18n.t('mailer.accepted_applicant_withdrawn.explaination', name: @user_name, job_name: @job_name) %></p>
+<h3><%= I18n.t('mailer.accepted_applicant_withdrawn.title') %></h3>
+<p><%= I18n.t('mailer.accepted_applicant_withdrawn.explaination', name: @user_name, job_name: @job_name) %></p>
 
-    <p><%= I18n.t('mailer.signoff') %></p>
-  </body>
-</html>
+<p><%= I18n.t('mailer.signoff') %></p>

@@ -1,16 +1,8 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
-  </head>
-  <body>
-    <p>
-      <%= I18n.t(
-        'mailer.magic_login_link.login_line',
-        url: "<a href=\"#{@magic_login_url}\">#{@magic_login_url}</a>"
-      ).html_safe %>
-    </p>
+<p>
+  <%= I18n.t(
+    'mailer.magic_login_link.login_line',
+    url: "<a href=\"#{@magic_login_url}\">#{@magic_login_url}</a>"
+  ).html_safe %>
+</p>
 
-    <p><%= I18n.t('mailer.signoff') %></p>
-  </body>
-</html>
+<p><%= I18n.t('mailer.signoff') %></p>

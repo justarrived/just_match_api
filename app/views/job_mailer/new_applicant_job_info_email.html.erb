@@ -1,25 +1,17 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
-  </head>
-  <body>
-    <%= simple_format I18n.t(
-      'mailer.new_applicant_job_info.body',
-      name: @user_name,
-      job_name: @job_name
-    ).html_safe %>
+<%= simple_format I18n.t(
+  'mailer.new_applicant_job_info.body',
+  name: @user_name,
+  job_name: @job_name
+).html_safe %>
 
-    <%= simple_format I18n.t(
-      'mailer.new_applicant_job_info.body_skill_fillout_notice',
-      skill_names: @skill_names.map { |s| content_tag(:em, s) }.to_sentence
-    ).html_safe unless @skill_names.empty? %>
+<%= simple_format I18n.t(
+  'mailer.new_applicant_job_info.body_skill_fillout_notice',
+  skill_names: @skill_names.map { |s| content_tag(:em, s) }.to_sentence
+).html_safe unless @skill_names.empty? %>
 
-    <%= simple_format I18n.t(
-      'mailer.new_applicant_job_info.body_edit_profile',
-      url: link_to(@user_edit_url, @user_edit_url)
-    ).html_safe %>
+<%= simple_format I18n.t(
+  'mailer.new_applicant_job_info.body_edit_profile',
+  url: link_to(@user_edit_url, @user_edit_url)
+).html_safe %>
 
-    <p><%= I18n.t('mailer.signoff') %></p>
-  </body>
-</html>
+<p><%= I18n.t('mailer.signoff') %></p>
