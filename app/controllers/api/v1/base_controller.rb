@@ -226,6 +226,7 @@ module Api
 
       def track_event(label, properties = {})
         merged_properities = properties.merge(
+          locale: I18n.locale,
           origin: request.origin,
           referer: request.referer,
           remote_ip: request.remote_ip,
@@ -354,7 +355,7 @@ module Api
         render json: NoSuchToken.add.to_json, status: status
       end
 
-      def login_user(user, true_user)
+      def login_user(user, true_user = nil)
         @_true_user = true_user || user
         @_current_user = user
       end
