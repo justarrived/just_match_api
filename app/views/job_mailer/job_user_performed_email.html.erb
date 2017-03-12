@@ -1,16 +1,9 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
-  </head>
-  <body>
-    <h3><%= I18n.t('mailer.job_performed.congrats_line', name: @owner_name) %></h3>
-    <h4><%= I18n.t('mailer.job_performed.performed_line', name: @user_name) %></h4>
-    <p><%= I18n.t('mailer.job_performed.job_line', name: @job_name) %></p>
-    <p><%= I18n.t('mailer.job_performed.contact_line', email: mail_to(@user_email)).html_safe %></p>
 
-    <p><a href="<%= @job_user_url %>"><%= @job_user_url %></a></p>
+<h3><%= I18n.t('mailer.job_performed.congrats_line', name: @owner_name) %></h3>
+<h4><%= I18n.t('mailer.job_performed.performed_line', name: @user_name) %></h4>
+<p><%= I18n.t('mailer.job_performed.job_line', name: @job_name) %></p>
+<p><%= I18n.t('mailer.job_performed.contact_line', email: mail_to(@user_email)).html_safe %></p>
 
-    <p><%= I18n.t('mailer.signoff') %></p>
-  </body>
-</html>
+<p><a href="<%= @job_user_url %>"><%= @job_user_url %></a></p>
+
+<p><%= I18n.t('mailer.signoff') %></p>

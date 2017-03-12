@@ -1,17 +1,7 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
-  </head>
-  <body>
-    <%= simple_format I18n.t(
-      'mailer.invoice_created.body',
-      name: @user_name,
-      job_name: @job_name,
-      payslip_explain_url: link_to(@payslip_explain_url, @payslip_explain_url),
-      support_email: mail_to(@support_email, @support_email)
-    ) %>
-
-    <p><%= I18n.t('mailer.signoff') %></p>
-  </body>
-</html>
+<%= simple_format I18n.t(
+  'mailer.invoice_created.body',
+  name: @user_name,
+  job_name: @job_name,
+  payslip_explain_url: link_to(@payslip_explain_url, @payslip_explain_url),
+  support_email: mail_to(@support_email, @support_email)
+) %>

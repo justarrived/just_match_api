@@ -1,17 +1,10 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
-  </head>
-  <body>
-    <p><%= I18n.t('mailer.new_job_comment.body') %></p>
 
-    <a href="<%= @job_url %>"><%= @job_url %></a>
+<p><%= I18n.t('mailer.new_job_comment.body') %></p>
 
-    <blockquote cite="<%= @job_url %>">
-      <%= @comment_body %>
-    </blockquote>
+<a href="<%= @job_url %>"><%= @job_url %></a>
 
-    <p><%= I18n.t('mailer.signoff') %></p>
-  </body>
-</html>
+<blockquote cite="<%= @job_url %>">
+  <%= @comment_body %>
+</blockquote>
+
+<p><%= I18n.t('mailer.signoff') %></p>
