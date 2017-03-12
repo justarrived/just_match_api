@@ -223,6 +223,14 @@ module Api
         payload[:user_id] = current_user.id
       end
 
+      def track_event(label, properties = {})
+        analytics.track(label, properties)
+      end
+
+      def analytics
+        @_ahoy ||= Ahoy::Tracker.new(controller: self, api: true)
+      end
+
       def jsonapi_params
         @_deserialized_params ||= JsonApiDeserializer.parse(params)
       end
@@ -252,6 +260,14 @@ module Api
 
         status = 401 # unauthorized
         render json: PromoCodeOrLoginRequired.add, status: status
+      end
+
+      def current_user
+        @_current_user ||= User.new
+      end
+
+      def true_user
+        @_true_user ||= User.new
       end
 
       protected
@@ -318,11 +334,8 @@ module Api
         render json: NoSuchToken.add.to_json, status: status
       end
 
-      def current_user
-        @_current_user ||= User.new
-      end
-
-      def login_user(user)
+      def login_user(user, true_user)
+        @_true_user = true_user || user
         @_current_user = user
       end
 
@@ -385,10 +398,11 @@ module Api
           user = token.user
 
           if user.admin? && !act_as_user_header.blank?
+            true_user = user
             user = User.find(act_as_user_header)
           end
 
-          return login_user(user)
+          return login_user(user, true_user)
         end
       end
     end

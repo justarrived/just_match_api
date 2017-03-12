@@ -9,6 +9,9 @@ gem 'rails', '5.0.2' # Ruby on Rails MVC framework
 gem 'lograge', '~> 0.4' # Less verbose Rails log in production
 gem 'puma', '~> 3.7' # App server
 
+# Analytics
+gem 'ahoy_matey', '~> 1.5.4'
+
 # STORAGE
 gem 'aws-sdk', '~> 2.6' # Upload images to AWS S3
 gem 'pg', '~> 0.15' # Use postgresql as the database for Active Record
