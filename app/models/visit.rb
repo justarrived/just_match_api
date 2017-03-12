@@ -41,3 +41,7 @@ end
 #  index_visits_on_user_id      (user_id)
 #  index_visits_on_visit_token  (visit_token) UNIQUE
 #
+# Foreign Keys
+#
+#  visits_user_id_fk  (user_id => users.id)
+#

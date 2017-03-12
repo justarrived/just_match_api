@@ -27,3 +27,8 @@ end
 #  index_ahoy_events_on_user_id_and_name   (user_id,name)
 #  index_ahoy_events_on_visit_id_and_name  (visit_id,name)
 #
+# Foreign Keys
+#
+#  ahoy_events_user_id_fk   (user_id => users.id)
+#  ahoy_events_visit_id_fk  (visit_id => visits.id)
+#

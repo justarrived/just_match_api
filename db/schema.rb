@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170312162714) do
+ActiveRecord::Schema.define(version: 20170312183424) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -795,6 +795,8 @@ ActiveRecord::Schema.define(version: 20170312162714) do
     t.index ["visit_token"], name: "index_visits_on_visit_token", unique: true, using: :btree
   end
 
+  add_foreign_key "ahoy_events", "users", name: "ahoy_events_user_id_fk"
+  add_foreign_key "ahoy_events", "visits", name: "ahoy_events_visit_id_fk"
   add_foreign_key "blazer_audits", "blazer_queries", column: "query_id", name: "blazer_audits_query_id_fk"
   add_foreign_key "blazer_checks", "blazer_queries", column: "query_id", name: "blazer_checks_query_id_fk"
   add_foreign_key "blazer_dashboard_queries", "blazer_dashboards", column: "dashboard_id", name: "blazer_dashboard_queries_dashboard_id_fk"
@@ -879,4 +881,5 @@ ActiveRecord::Schema.define(version: 20170312162714) do
   add_foreign_key "users", "companies"
   add_foreign_key "users", "languages"
   add_foreign_key "users", "users", column: "interviewed_by_user_id", name: "users_interviewed_by_user_id_fk"
+  add_foreign_key "visits", "users", name: "visits_user_id_fk"
 end
