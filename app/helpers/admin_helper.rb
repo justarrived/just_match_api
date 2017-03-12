@@ -56,6 +56,35 @@ module AdminHelper
     safe_join(links, ' ')
   end
 
+  def job_skills_badges(job_skills:)
+    links = job_skills.map do |job_skill|
+      job_skill_badge(skill: job_skill.skill, job_skill: job_skill)
+    end
+
+    safe_join(links, ' ')
+  end
+
+  def job_skill_badge(skill:, job_skill: nil)
+    name = skill.name
+    if job_skill
+      proficiency = job_skill.proficiency || '-'
+      proficiency_by_admin = job_skill.proficiency_by_admin || '-'
+      html_parts = [
+        name,
+        nbsp_html,
+        "(#{proficiency}/#{proficiency_by_admin})"
+      ]
+      name = safe_join(html_parts, ' ')
+    end
+
+    link_to(
+      name,
+      admin_users_path + AdminHelpers::Link.query(:job_skills_skill_id, skill.id),
+      class: 'user-badge-skill-link',
+      style: "border-color: #{skill.color}"
+    )
+  end
+
   def skill_badge(skill:, user_skill: nil)
     name = skill.name
     if user_skill

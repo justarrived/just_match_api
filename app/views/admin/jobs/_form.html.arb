@@ -36,6 +36,7 @@ if job.persisted?
 
       ff.input :skill, as: :select, collection: Skill.with_translations
       ff.input :proficiency, as: :select, collection: JobSkill::PROFICIENCY_RANGE
+      ff.input :proficiency_by_admin, as: :select, collection: JobSkill::PROFICIENCY_RANGE
     end
   end
 end

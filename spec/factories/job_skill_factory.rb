@@ -16,12 +16,13 @@ end
 #
 # Table name: job_skills
 #
-#  id          :integer          not null, primary key
-#  job_id      :integer
-#  skill_id    :integer
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  proficiency :integer
+#  id                   :integer          not null, primary key
+#  job_id               :integer
+#  skill_id             :integer
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
+#  proficiency          :integer
+#  proficiency_by_admin :integer
 #
 # Indexes
 #

@@ -7,6 +7,10 @@ module SetJobSkillsService
     job_skills = job_skills_params.map do |attrs|
       JobSkill.find_or_initialize_by(job: job, skill_id: attrs[:id]).tap do |job_skill|
         job_skill.proficiency = attrs[:proficiency] unless attrs[:proficiency].blank?
+
+        unless attrs[:proficiency_by_admin].blank?
+          job_skill.proficiency_by_admin = attrs[:proficiency_by_admin]
+        end
       end
     end
     job_skills.each(&:save)

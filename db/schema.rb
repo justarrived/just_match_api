@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170311203720) do
+ActiveRecord::Schema.define(version: 20170312102249) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -354,9 +354,10 @@ ActiveRecord::Schema.define(version: 20170311203720) do
   create_table "job_skills", force: :cascade do |t|
     t.integer  "job_id"
     t.integer  "skill_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
     t.integer  "proficiency"
+    t.integer  "proficiency_by_admin"
     t.index ["job_id", "skill_id"], name: "index_job_skills_on_job_id_and_skill_id", unique: true, using: :btree
     t.index ["job_id"], name: "index_job_skills_on_job_id", using: :btree
     t.index ["skill_id", "job_id"], name: "index_job_skills_on_skill_id_and_job_id", unique: true, using: :btree
