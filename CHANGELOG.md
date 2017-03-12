@@ -3,6 +3,13 @@
 HEAD
 -----------
 
+v1.33 - 2017-03-12
+----------
+* Add missing skill section to application email body
+* Add ability for admins to send "ask for information emails" connected to a job, from the job user admin view
+* Add ask for info notifier & add missing skills list to new applicant info email
+
+
 v1.32 - 2017-03-11
 ----------
 * :hocho: test failure in jobs controller
