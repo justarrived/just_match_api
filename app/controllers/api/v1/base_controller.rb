@@ -333,18 +333,13 @@ module Api
         status = nil
         errors = JsonApiErrors.new
 
-        label = nil
         if logged_in?
           status = 403 # forbidden
           InvalidCredentials.add(errors)
-          label = 'Invalid credentials'
         else
           status = 401 # unauthorized
           LoginRequired.add(errors)
-          label = 'Unauthorized'
         end
-
-        track_event(label)
 
         render json: errors, status: status
       end
