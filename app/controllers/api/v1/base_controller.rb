@@ -211,6 +211,7 @@ module Api
       # Needed for #authenticate_with_http_token
       include ActionController::HttpAuthentication::Token::ControllerMethods
 
+      after_action :track_request
       after_action :verify_authorized
 
       rescue_from Pundit::NotAuthorizedError, with: :user_forbidden
@@ -224,7 +225,18 @@ module Api
       end
 
       def track_event(label, properties = {})
-        analytics.track(label, properties)
+        merged_properities = properties.merge(
+          origin: request.origin,
+          referer: request.referer,
+          remote_ip: request.remote_ip,
+          content_type: request.content_type,
+          url: request.url,
+          path: request.path,
+          query: request.query_string,
+          true_user_id: true_user.id,
+          current_user_id: current_user.id
+        )
+        analytics.track(label, merged_properities)
       end
 
       def analytics
@@ -272,6 +284,14 @@ module Api
 
       protected
 
+      def track_request
+        properties = {
+          response_status: response.status,
+          response_message: response.message
+        }
+        track_event("#{params[:controller]}##{params[:action]}", properties)
+      end
+
       def api_render_errors(model)
         errors = {
           errors: JsonApiErrorSerializer.serialize(model, key_transform: key_transform_header) # rubocop:disable Metrics/LineLength
@@ -313,13 +333,18 @@ module Api
         status = nil
         errors = JsonApiErrors.new
 
+        label = nil
         if logged_in?
           status = 403 # forbidden
           InvalidCredentials.add(errors)
+          label = 'Invalid credentials'
         else
           status = 401 # unauthorized
           LoginRequired.add(errors)
+          label = 'Unauthorized'
         end
+
+        track_event(label)
 
         render json: errors, status: status
       end
