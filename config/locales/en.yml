@@ -84,6 +84,7 @@ en:
       must_be_swedish_ssn: must be a valid Swedish social security number or coordination number
       arrived_at_must_be_in_past: must be in the past
     validators:
+      email: 'must look like an email address'
       after_true: '%{field} must be true'
       unrevertable: can't revert %{field}
   invalid_credentials: Invalid credentials.
