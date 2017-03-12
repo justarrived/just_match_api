@@ -63,6 +63,9 @@ end
 #  just_arrived_staffing            :boolean          default(FALSE)
 #  super_admin                      :boolean          default(FALSE)
 #  gender                           :integer
+#  presentation_profile             :text
+#  presentation_personality         :text
+#  presentation_availability        :text
 #
 # Indexes
 #

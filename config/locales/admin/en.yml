@@ -164,6 +164,7 @@ en:
         immigration_status: Immigration status
         status_flags: Status flags
         payment_attributes: Payment attributes
+        presentation_inputs: Customer presentation
         misc: Misc
         create_user: Create user
         language:

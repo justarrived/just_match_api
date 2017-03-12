@@ -266,6 +266,7 @@ ActiveAdmin.register User do
     extras = [
       :password, :language_id, :company_id, :managed, :frilans_finans_payment_details,
       :verified, :interview_comment, :banned, :just_arrived_staffing,
+      :presentation_profile, :presentation_personality, :presentation_availability,
       :language_ids, :skill_ids, ignored_notifications: []
     ]
     extras << :super_admin if authenticated_admin_user.super_admin?
