@@ -135,6 +135,8 @@ class JobMailer < ApplicationMailer
     @job_name = job.name
     @support_email = AppConfig.support_email
 
+    @jobs_url = FrontendRouter.draw(:jobs)
+
     subject = I18n.t('mailer.applicant_rejected.subject')
     mail(to: @user_email, subject: subject)
   end

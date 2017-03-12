@@ -169,6 +169,7 @@ en:
 
         Login to the app and get started: %{login_url}.
     applicant_rejected:
+      find_jobs_cta: Find more jobs
       subject: Someone else got the chance this time
       body: |
         Hi %{user_name},
