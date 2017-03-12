@@ -84,6 +84,7 @@ sv:
       must_be_swedish_ssn: måste vara ett giltigt svenskt person- eller samordningsnummer
       arrived_at_must_be_in_past: måste vara i det förflutna
     validators:
+      email: 'måste se ut som en e-postadress'
       after_true: '%{field} måste vara sant'
       unrevertable: kan inte återställa %{field}
   invalid_credentials: Fel referenser.

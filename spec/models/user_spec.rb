@@ -460,6 +460,24 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe 'validate email address format' do
+    it 'adds error if language is not in available locale' do
+      user = FactoryGirl.build(:user, email: 'buren@')
+      user.validate
+
+      message = user.errors.messages[:email]
+      expect(message).to include(I18n.t('errors.validators.email'))
+    end
+
+    it 'adds *no* error if language is not in available locale' do
+      user = FactoryGirl.build(:user, email: 'watman@example.com')
+      user.validate
+
+      message = user.errors.messages[:email]
+      expect(message || []).not_to include(I18n.t('errors.validators.email'))
+    end
+  end
+
   describe '#validate_language_id_in_available_locale' do
     it 'adds error if language is not in available locale' do
       language = FactoryGirl.create(:language, lang_code: 'aa')
