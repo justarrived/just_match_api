@@ -49,6 +49,19 @@ if job.persisted?
   end
 
   f.actions
+
+  f.inputs(I18n.t('admin.job.form.languages_title')) do
+    f.has_many :job_languages, allow_destroy: false, new_record: true do |ff|
+      ff.semantic_errors(*ff.object.errors.keys)
+
+      ff.input :language, as: :select, collection: Language.all
+      ff.input :proficiency, as: :select, collection: JobLanguage::PROFICIENCY_RANGE
+      ff.input :proficiency_by_admin, as: :select, collection: JobLanguage::PROFICIENCY_RANGE # rubocop:disable Metrics/LineLength
+    end
+    em I18n.t('admin.job.form.languages_hint')
+  end
+
+  f.actions
 end
 
 f.inputs(I18n.t('admin.job.form.status_section_title')) do

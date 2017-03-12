@@ -55,6 +55,24 @@ module AdminHelper
     safe_join(links, ' ')
   end
 
+  def job_languages_badges(job_languages:)
+    links = job_languages.map do |job_language|
+      job_language_badge(language: job_language.language, job_language: job_language)
+    end
+
+    safe_join(links, ' ')
+  end
+
+  def job_language_badge(language:, job_language: nil)
+    path = AdminHelpers::Link.query(:job_languages_language_id, language.id)
+    simple_link_badge_tag(
+      language.name,
+      admin_users_path + path,
+      value: job_language&.proficiency,
+      value_by_admin: job_language&.proficiency_by_admin
+    )
+  end
+
   def job_skills_badges(job_skills:)
     links = job_skills.map do |job_skill|
       job_skill_badge(skill: job_skill.skill, job_skill: job_skill)

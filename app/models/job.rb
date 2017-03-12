@@ -26,6 +26,9 @@ class Job < ApplicationRecord
   has_many :job_skills
   has_many :skills, through: :job_skills
 
+  has_many :job_languages
+  has_many :languages, through: :job_languages
+
   has_many :job_users
   has_many :users, through: :job_users
 
@@ -85,7 +88,7 @@ class Job < ApplicationRecord
   translates :name, :short_description, :description
 
   # NOTE: This is necessary for nested activeadmin has_many form
-  accepts_nested_attributes_for :job_skills
+  accepts_nested_attributes_for :job_skills, :job_languages
 
   def self.ransackable_scopes(_auth_object = nil)
     [:near_address]

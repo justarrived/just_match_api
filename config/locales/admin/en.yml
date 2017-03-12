@@ -123,6 +123,8 @@ en:
         filled_hint: 'If checked it marks that the job has a hired user'
         featured_hint: 'If checked it will be displayed on our start page etc'
         skills_title: Job skills
+        languages_title: Job languages
+        languages_hint: Languages that the applicant should know
     frilans_finans_invoice:
       not_paid: Not paid
       show:
