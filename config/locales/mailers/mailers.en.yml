@@ -123,6 +123,7 @@ en:
       body_skill_fillout_notice: |
         In order for us to match you with a job we want to know a little bit more about your skills in: %{skill_names}.
       body_edit_profile: Edit your profile here %{url}.
+      body_edit_profile_cta: Edit your profile
     new_applicant:
       applicant_line: The candidate is %{name}.
       congrats_line: Hi %{name}!

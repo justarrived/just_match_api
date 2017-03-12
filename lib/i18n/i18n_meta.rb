@@ -19,7 +19,7 @@ class I18nMeta
     meta(locale).fetch(:direction)
   end
 
-  def self.text_align(locale)
+  def self.align(locale)
     direction = direction(locale)
     case direction
     when :ltr then 'left'
