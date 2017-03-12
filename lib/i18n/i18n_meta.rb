@@ -19,6 +19,16 @@ class I18nMeta
     meta(locale).fetch(:direction)
   end
 
+  def self.align(locale)
+    direction = direction(locale)
+    case direction
+    when :ltr then 'left'
+    when :rtl then 'right'
+    else
+      fail "Unknown direction: '#{direction}'"
+    end
+  end
+
   def self.ltr?(locale)
     direction(locale) == :ltr
   end

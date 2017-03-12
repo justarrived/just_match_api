@@ -1,8 +1,13 @@
-<p>
-  <%= I18n.t(
-    'mailer.magic_login_link.login_line',
-    url: "<a href=\"#{@magic_login_url}\">#{@magic_login_url}</a>"
-  ).html_safe %>
-</p>
+<%= I18n.t('mailer.magic_login_link.login_line') %>
+
+<br />
+<br />
+<%= render(
+  'mailer_partials/action_button',
+  url: @magic_login_url,
+  title: I18n.t('mailer.magic_login_link.login_cta'),
+  align: I18nMeta.align(I18n.locale)
+) %>
+
 
 <p><%= I18n.t('mailer.signoff') %></p>

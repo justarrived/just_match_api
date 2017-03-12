@@ -1,4 +1,3 @@
-
 <%= simple_format I18n.t(
   'mailer.welcome.body',
   user_name: @user_name,
@@ -6,5 +5,13 @@
   login_url: link_to(@login_url, @login_url),
   cv_template_url: link_to(@cv_template_url, @cv_template_url)
 ).html_safe %>
+
+<%= render(
+  'mailer_partials/action_button',
+  url: @login_url,
+  title: I18n.t('mailer.welcome.login_cta'),
+  align: I18nMeta.align(I18n.locale)
+) %>
+
 
 <p><%= I18n.t('mailer.signoff') %></p>

@@ -9,9 +9,11 @@
   skill_names: @skill_names.map { |s| content_tag(:em, s) }.to_sentence
 ).html_safe unless @skill_names.empty? %>
 
-<%= simple_format I18n.t(
-  'mailer.new_applicant_job_info.body_edit_profile',
-  url: link_to(@user_edit_url, @user_edit_url)
-).html_safe %>
+<%= render(
+  'mailer_partials/action_button',
+  url: @user_edit_url,
+  title: I18n.t('mailer.new_applicant_job_info.body_edit_profile_cta'),
+  align: I18nMeta.align(I18n.locale)
+) %>
 
 <p><%= I18n.t('mailer.signoff') %></p>

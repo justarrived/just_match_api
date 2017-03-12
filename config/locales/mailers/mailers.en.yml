@@ -34,6 +34,7 @@ en:
       details_line: "%{name} will perform your job %{job_name}."
       explaination: You can contact %{name} on %{phone} or %{email} if you want to provide more information or details about the job.
     applicant_accepted:
+      accept_cta: Take the job
       subject: Congrats you've received a new job offer! Please confirm the job.
       job_name_title: 'The job:'
       when_title: 'When:'
@@ -63,6 +64,7 @@ en:
         Where:        %{address}
 
     job_ask_for_information:
+      update_profile_cta: Update your profile
       subject: Complete your job application
       body: |
         Hi %{user_name}!
@@ -78,6 +80,7 @@ en:
     job_cancelled:
       subject: A job you have applied for has been cancelled
       body: The job %{job_name} has unfortunately been cancelled, click the link below to find more jobs.
+      find_jobs_cta: Find more jobs
     job_match:
       accepted_line: You've got a new job match!
       congrats_line: Congrats %{name}!
@@ -106,7 +109,8 @@ en:
         Remember, your experience is important to us!
     magic_login_link:
       subject: Magic sign-in link
-      login_line: To login to Just Arrived use the link %{url}
+      login_line: Click the button below to login at Just Arrived
+      login_cta: Login at Just Arrived
     new_applicant_job_info:
       subject: You applied for a job
       body: |
@@ -123,6 +127,7 @@ en:
       body_skill_fillout_notice: |
         In order for us to match you with a job we want to know a little bit more about your skills in: %{skill_names}.
       body_edit_profile: Edit your profile here %{url}.
+      body_edit_profile_cta: Edit your profile
     new_applicant:
       applicant_line: The candidate is %{name}.
       congrats_line: Hi %{name}!
@@ -142,6 +147,7 @@ en:
       body_header: 'Hi %{name}, you requested a password reset for your account at Just Arrived. Please visit this link to enter your new password:'
       body_end: If you have trouble resetting your password contact us on %{support_email}.
     welcome:
+      login_cta: Login and get started
       subject: Welcome to Just Arrived!
       body: |
         Hi %{user_name}!
@@ -163,6 +169,7 @@ en:
 
         Login to the app and get started: %{login_url}.
     applicant_rejected:
+      find_jobs_cta: Find more jobs
       subject: Someone else got the chance this time
       body: |
         Hi %{user_name},

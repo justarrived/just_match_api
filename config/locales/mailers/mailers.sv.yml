@@ -32,6 +32,7 @@ sv:
       details_line: "%{name} har konfirmerat ditt och kommer utföra %{job_name}."
       explaination: Du kan kontakta %{name} på %{phone} eller %{email} om du vill ge ytterligare information eller detaljer om jobbet.
     applicant_accepted:
+      accept_cta: Ta jobbet
       subject: Grattis, du har fått ett nytt jobberbjudande! Vänligen bekräfta jobbet.
       job_name_title: 'Jobb:'
       when_title: 'Period'
@@ -60,6 +61,7 @@ sv:
         Total lön: %{total_salary} kr/h före skatt
         Var: %{address}
     job_ask_for_information:
+      update_profile_cta: Uppdatera din profil
       subject: Gör färdigt din ansökan
       body: |
         Hej %{user_name}!
@@ -75,6 +77,7 @@ sv:
     job_cancelled:
       subject: 'Ett uppdrag du har sökt har avbrutits  '
       body: Jobbet %{job_name}  har avbrutits
+      find_jobs_cta: Hitta fler jobb
     job_match:
       accepted_line: Du har fått en ny jobbmatchning!
       congrats_line: Grattis %{name}!
@@ -103,7 +106,8 @@ sv:
         Kom ihåg att din upplevelse är viktig för oss!
     magic_login_link:
       subject: Magisk login-länk
-      login_line: Logga in på Just Arrived här %{url}
+      login_line: Klicka på knappen nedan för att logga in på Just Arrived
+      login_cta: Logga in på Just Arrived
     new_applicant_job_info:
       subject: Du har sökt ett jobb
       body: |
@@ -120,6 +124,7 @@ sv:
       body_skill_fillout_notice: |
         För att kunna matcha dig med ett jobb, behöver vi veta lite mer om dina kunskaper inom %{skill_names}
       body_edit_profile: Uppdatera din profil här %{url}
+      body_edit_profile_cta: Uppdatera din profil
     new_applicant:
       applicant_line: Kandidaten är %{name} och bor i närheten av där uppdraget ska utföras.
       congrats_line: Grattis %{name}!
@@ -139,6 +144,7 @@ sv:
       body_header: 'Hej %{name}, du har begärt en återställning av ditt lösenord. Var god besök länken för att ange ditt nya lösenord:'
       body_end: Om du har problem med att återställa ditt lösenord, kontakta oss på %{support_email}
     welcome:
+      login_cta: Logga in och kom igång
       subject: Välkommen till Just Arrived!
       body: |
         Hej %{user_name}!
@@ -160,6 +166,7 @@ sv:
 
         Logga in på tjänsten och kom igång: %{login_url}.
     applicant_rejected:
+      find_jobs_cta: Hitta fler jobb
       subject: Någon annan fick chansen den här gången
       body: |
         Hej %{user_name},
