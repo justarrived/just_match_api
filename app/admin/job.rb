@@ -173,7 +173,8 @@ ActiveAdmin.register Job do
     extras = [
       :cancelled, :language_id, :hourly_pay_id, :category_id, :owner_user_id, :hidden,
       :company_contact_user_id, :just_arrived_contact_user_id,
-      job_skills_attributes: [:skill_id, :proficiency]
+      job_skills_attributes: [:skill_id, :proficiency, :proficiency_by_admin],
+      job_languages_attributes: [:language_id, :proficiency, :proficiency_by_admin]
     ]
     JobPolicy::FULL_ATTRIBUTES + extras
   end
@@ -199,6 +200,16 @@ ActiveAdmin.register Job do
         }
       end
       SetJobSkillsService.call(job: job, skill_ids_param: skill_ids_param)
+
+      job_languages_attrs = job_params.delete(:job_languages_attributes)
+      language_ids_param = (job_languages_attrs || {}).map do |_index, attrs|
+        {
+          id: attrs[:language_id],
+          proficiency: attrs[:proficiency],
+          proficiency_by_admin: attrs[:proficiency_by_admin]
+        }
+      end
+      SetJobLanguagesService.call(job: job, language_ids_param: language_ids_param)
     end
 
     def apply_filtering(chain)
