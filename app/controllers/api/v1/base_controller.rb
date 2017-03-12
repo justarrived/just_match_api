@@ -211,6 +211,7 @@ module Api
       # Needed for #authenticate_with_http_token
       include ActionController::HttpAuthentication::Token::ControllerMethods
 
+      after_action :track_request
       after_action :verify_authorized
 
       rescue_from Pundit::NotAuthorizedError, with: :user_forbidden
@@ -221,6 +222,30 @@ module Api
       def append_info_to_payload(payload)
         super
         payload[:user_id] = current_user.id
+      end
+
+      def track_event(label, properties = {})
+        analytics.track(label, default_event_properties.merge!(properties))
+      end
+
+      def default_event_properties
+        {
+          locale: I18n.locale,
+          user_agent: request.user_agent,
+          origin: request.origin,
+          referer: request.referer,
+          remote_ip: request.remote_ip,
+          content_type: request.content_type,
+          url: request.url,
+          path: request.path,
+          query: request.query_string,
+          true_user_id: true_user.id,
+          current_user_id: current_user.id
+        }
+      end
+
+      def analytics
+        @_ahoy ||= Ahoy::Tracker.new(controller: self, api: true)
       end
 
       def jsonapi_params
@@ -254,7 +279,23 @@ module Api
         render json: PromoCodeOrLoginRequired.add, status: status
       end
 
+      def current_user
+        @_current_user ||= User.new
+      end
+
+      def true_user
+        @_true_user ||= User.new
+      end
+
       protected
+
+      def track_request
+        properties = {
+          response_status: response.status,
+          response_message: response.message
+        }
+        track_event("#{params[:controller]}##{params[:action]}", properties)
+      end
 
       def api_render_errors(model)
         errors = {
@@ -318,11 +359,8 @@ module Api
         render json: NoSuchToken.add.to_json, status: status
       end
 
-      def current_user
-        @_current_user ||= User.new
-      end
-
-      def login_user(user)
+      def login_user(user, true_user = nil)
+        @_true_user = true_user || user
         @_current_user = user
       end
 
@@ -385,10 +423,11 @@ module Api
           user = token.user
 
           if user.admin? && !act_as_user_header.blank?
+            true_user = user
             user = User.find(act_as_user_header)
           end
 
-          return login_user(user)
+          return login_user(user, true_user)
         end
       end
     end
