@@ -225,8 +225,13 @@ module Api
       end
 
       def track_event(label, properties = {})
-        merged_properities = properties.merge(
+        analytics.track(label, default_event_properties.merge!(properties))
+      end
+
+      def default_event_properties
+        {
           locale: I18n.locale,
+          user_agent: request.user_agent,
           origin: request.origin,
           referer: request.referer,
           remote_ip: request.remote_ip,
@@ -236,8 +241,7 @@ module Api
           query: request.query_string,
           true_user_id: true_user.id,
           current_user_id: current_user.id
-        )
-        analytics.track(label, merged_properities)
+        }
       end
 
       def analytics
