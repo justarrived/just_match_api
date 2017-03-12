@@ -59,6 +59,16 @@ sv:
         Lön: %{hourly_gross_salary} kr/h före skatt
         Total lön: %{total_salary} kr/h före skatt
         Var: %{address}
+    job_ask_for_information:
+      subject: Gör färdigt din ansökan
+      body: |
+        Hej %{user_name}!
+
+        Vi försöker matcha dig med ett jobb och vill skulle vilja veta lite mer om dina färdigheter inom:
+
+        %{skill_names}.
+
+        Var god gå till %{user_edit_url} och uppdatera din profil med informationen ovan. Det kommer öka dina chanser att bli matchad till ett job.
     changed_password:
       subject: Ditt Just Arrived lösenord har blivit ändrat
       body_header: Hej %{name}, ditt Just Arrived lösenord har blivit ändrat. Om det här inte var du, var god kontakta Just Arrived på help@justarrived.se
@@ -107,10 +117,13 @@ sv:
         Vi har många användare och ansökningar till våra jobb, så bli inte nedslagen om någon annan får jobbet den här gången. Nästa gång kan det vara du!
 
         Din bästa chans att få ett jobb är att logga in ofta, söka jobb ofta, och se till att din profil är uppdaterad! Vi är övertygade om att du kommer få ett jobb som passar din profil snart!
+      body_skill_fillout_notice: |
+        För att kunna matcha dig med ett jobb, behöver vi veta lite mer om dina kunskaper inom %{skill_names}
+      body_edit_profile: Uppdatera din profil här %{url}
     new_applicant:
       applicant_line: Kandidaten är %{name} och bor i närheten av där uppdraget ska utföras.
       congrats_line: Grattis %{name}!
-      contact_line: "Kolla kandidaternas profile:"
+      contact_line: "Du kan förhandsgranska %{name} profil under Mina uppdrag. Du kan också kontakta %{name} direkt på %{email} eller %{phone}."
       job_line: Du har en ny ansökning till ditt jobb '%{name}'.
       subject: Grattis! Du har en fått en ny ansökan.
     new_chat_message:
