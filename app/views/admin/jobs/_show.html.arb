@@ -14,7 +14,7 @@ panel(I18n.t('admin.job.show.general')) do
     row :city
     row :zip
     row :description { |job| simple_format(job.description) }
-    row :skills { |job| skills_badges(skills: job.skills) }
+    row :skills { |job| job_skills_badges(job_skills: job.job_skills) }
   end
 end
 
