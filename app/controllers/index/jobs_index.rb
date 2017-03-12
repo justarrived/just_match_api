@@ -17,7 +17,10 @@ module Index
 
     def jobs(scope = Job)
       @jobs ||= begin
-        include_scopes = [:language, :company, :category, :hourly_pay]
+        include_scopes = [
+          :language, :company, :category, :hourly_pay, :job_skills, :job_languages
+        ]
+
         include_scopes << user_include_scopes(user_key: :owner)
 
         include_scopes << :job_users if current_user.company? || current_user.admin?

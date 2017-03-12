@@ -59,7 +59,9 @@ RSpec.describe JobSerializer, type: :serializer do
       expect(subject).to have_jsonapi_attribute('currency', 'SEK')
     end
 
-    %w(owner company language category hourly-pay).each do |relationship|
+    %w(
+      owner company language category hourly-pay job-languages job-skills
+    ).each do |relationship|
       it "has #{relationship} relationship" do
         expect(subject).to have_jsonapi_relationship(relationship)
       end

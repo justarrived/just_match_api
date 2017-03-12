@@ -73,6 +73,9 @@ class JobSerializer < ApplicationSerializer
     object.comments.visible
   end
 
+  has_many :job_languages, unless: :collection_serializer?
+  has_many :job_skills, unless: :collection_serializer?
+
   has_one :owner do
     owner_object = if object.upcoming
                      object.owner.anonymize
