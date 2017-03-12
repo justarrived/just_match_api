@@ -1,9 +1,10 @@
+# frozen_string_literal: true
 FactoryGirl.define do
   factory :job_language do
-    job nil
-    language nil
+    association :job
+    association :language
     proficiency 1
-    proficiency_by_admin "MyString"
+    proficiency_by_admin 1
   end
 end
 
