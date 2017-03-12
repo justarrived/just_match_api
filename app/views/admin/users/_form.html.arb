@@ -73,6 +73,12 @@ if user.persisted?
     f.input :account_number
   end
 
+  f.input I18n.t('admin.user.form.presentation_inputs') do
+    f.input :presentation_profile
+    f.input :presentation_personality
+    f.input :presentation_availability
+  end
+
   f.inputs I18n.t('admin.user.form.misc') do
     f.input :company
     f.input :next_of_kin_name
