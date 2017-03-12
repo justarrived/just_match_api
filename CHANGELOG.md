@@ -3,6 +3,24 @@
 HEAD
 -----------
 
+v1.34 - 2017-03-12
+----------
+* Pull translations from Transifex
+* Create custom email address validator
+* _Admin_:
+  - Add additional action buttons to job form
+  - User form
+  - Refactor `AdminHelper`
+  - Add job skills badges
+  - Improve chosen selects
+* Add user fields
+  - `presentation_profile`
+  - `presentation_personality`
+  - `presentation_availability`
+* Add `JobSkill#proficiency_by_admin`
+* Extract mailer default layout
+
+
 v1.33 - 2017-03-12
 ----------
 * Add missing skill section to application email body
