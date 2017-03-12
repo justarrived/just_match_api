@@ -162,8 +162,9 @@ RSpec.describe JobMailer, type: :mailer do
   end
 
   describe '#new_applicant_job_info_email' do
+    let(:skill) { FactoryGirl.create(:skill) }
     let(:mail) do
-      described_class.new_applicant_job_info_email(job_user: job_user)
+      described_class.new_applicant_job_info_email(job_user: job_user, skills: [skill])
     end
 
     it 'has both text and html part' do
@@ -189,6 +190,10 @@ RSpec.describe JobMailer, type: :mailer do
 
     it 'includes @job_name in email body' do
       expect(mail).to match_email_body(job.name)
+    end
+
+    it 'includes skill names in email body' do
+      expect(mail).to match_email_body(skill.name)
     end
   end
 

@@ -110,7 +110,7 @@ sv:
     new_applicant:
       applicant_line: Kandidaten är %{name} och bor i närheten av där uppdraget ska utföras.
       congrats_line: Grattis %{name}!
-      contact_line: "Du kan förhandsgranska %{name} profil under Mina uppdrag. Du kan också kontakta %{name} direkt på %{email} eller %{phone}."
+      contact_line: "Kolla kandidaternas profile:"
       job_line: Du har en ny ansökning till ditt jobb '%{name}'.
       subject: Grattis! Du har en fått en ny ansökan.
     new_chat_message:
