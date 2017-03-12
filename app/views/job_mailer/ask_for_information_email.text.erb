@@ -1,0 +1,9 @@
+<%= I18n.t(
+  'mailer.job_ask_for_information.body',
+  user_name: @user_name,
+  job_name: @job_name,
+  skill_names: @skill_names.to_sentence,
+  user_edit_url: @user_edit_url
+) %>
+
+<%= I18n.t('mailer.signoff') %>

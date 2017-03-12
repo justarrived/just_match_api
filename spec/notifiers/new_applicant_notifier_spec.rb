@@ -6,6 +6,7 @@ RSpec.describe NewApplicantNotifier, type: :mailer do
   let(:job) { mock_model Job, owner: owner }
   let(:job_user) { mock_model JobUser, job: job, user: user }
   let(:user) { FactoryGirl.build(:user) }
+  let(:skills) { [FactoryGirl.build(:skill)] }
   let(:owner) { FactoryGirl.build(:user) }
 
   before(:each) do
@@ -14,7 +15,7 @@ RSpec.describe NewApplicantNotifier, type: :mailer do
   end
 
   it 'sends new_applicant_email mail' do
-    mailer_args = { job_user: job_user, owner: owner }
+    mailer_args = { job_user: job_user, owner: owner, skills: skills }
     NewApplicantNotifier.call(**mailer_args)
     expect(JobMailer).to have_received(:new_applicant_email).with(mailer_args)
   end

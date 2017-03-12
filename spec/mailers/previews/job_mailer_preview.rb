@@ -14,7 +14,11 @@ class JobMailerPreview < ActionMailer::Preview
   end
 
   def new_applicant_job_info_email
-    JobMailer.new_applicant_job_info_email(job_user: job_user)
+    JobMailer.new_applicant_job_info_email(job_user: job_user, skills: skills)
+  end
+
+  def ask_for_information_email
+    JobMailer.ask_for_information_email(job: job, user: user, skills: skills)
   end
 
   def applicant_accepted_email
@@ -60,6 +64,10 @@ class JobMailerPreview < ActionMailer::Preview
 
   def user
     job_user.user
+  end
+
+  def skills
+    Skill.last(2)
   end
 
   def owner

@@ -44,6 +44,16 @@ ActiveAdmin.register JobUser do
     end
   end
 
+  batch_action :ask_for_job_information, confirm: I18n.t('admin.job_user.batch_action.ask_for_job_information.confirm') do |ids| # rubocop:disable Metrics/LineLength
+    job_users = collection.where(id: ids)
+    job_users.each do |job_user|
+      AskForJobInformationJob.perform_later(job_user)
+    end
+
+    notice = I18n.t('admin.job_user.batch_action.ask_for_job_information.success')
+    redirect_to collection_path, notice: notice
+  end
+
   batch_action :shortlist, confirm: I18n.t('admin.job_user.batch_action.shortlist.confirm') do |ids| # rubocop:disable Metrics/LineLength
     job_users = collection.where(id: ids)
     job_users.map { |job_user| job_user.update(shortlisted: true) }

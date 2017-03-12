@@ -30,10 +30,13 @@ class JobMailer < ApplicationMailer
     mail(to: owner.contact_email, subject: subject)
   end
 
-  def new_applicant_job_info_email(job_user:)
+  def new_applicant_job_info_email(job_user:, skills:)
     user = job_user.user
     @user_name = user.first_name
     @job_name = job_user.job.name
+
+    @skill_names = skills.map(&:name)
+    @user_edit_url = FrontendRouter.draw(:user_edit, id: user.id)
 
     subject = I18n.t('mailer.new_applicant_job_info.subject')
     mail(to: user.contact_email, subject: subject)
@@ -174,5 +177,16 @@ class JobMailer < ApplicationMailer
 
     subject = I18n.t('mailer.new_job_comment.subject')
     mail(to: owner.contact_email, subject: subject)
+  end
+
+  def ask_for_information_email(job:, user:, skills:)
+    @job_name = job.name
+    @user_name = user.name
+
+    @skill_names = skills.map(&:name)
+    @user_edit_url = FrontendRouter.draw(:user_edit, id: user.id)
+
+    subject = I18n.t('mailer.job_ask_for_information.subject')
+    mail(to: user.contact_email, subject: subject)
   end
 end

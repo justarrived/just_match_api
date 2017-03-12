@@ -4,4 +4,14 @@
   job_name: @job_name
 ) %>
 
+<%= I18n.t(
+  'mailer.new_applicant_job_info.body_skill_fillout_notice',
+  skill_names: @skill_names.to_sentence
+) unless @skill_names.empty? %>
+
+<%= I18n.t(
+  'mailer.new_applicant_job_info.body_edit_profile',
+  url: @user_edit_url
+) %>
+
 <%= I18n.t('mailer.signoff') %>
