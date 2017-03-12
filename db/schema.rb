@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170312114013) do
+ActiveRecord::Schema.define(version: 20170312153409) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -319,6 +319,17 @@ ActiveRecord::Schema.define(version: 20170312114013) do
     t.index ["frilans_finans_invoice_id"], name: "index_invoices_on_frilans_finans_invoice_id", using: :btree
     t.index ["job_user_id"], name: "index_invoices_on_job_user_id", using: :btree
     t.index ["job_user_id"], name: "index_invoices_on_job_user_id_uniq", unique: true, using: :btree
+  end
+
+  create_table "job_languages", force: :cascade do |t|
+    t.integer  "job_id"
+    t.integer  "language_id"
+    t.integer  "proficiency"
+    t.integer  "proficiency_by_admin"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.index ["job_id"], name: "index_job_languages_on_job_id", using: :btree
+    t.index ["language_id"], name: "index_job_languages_on_language_id", using: :btree
   end
 
   create_table "job_requests", force: :cascade do |t|
@@ -770,6 +781,8 @@ ActiveRecord::Schema.define(version: 20170312114013) do
   add_foreign_key "interests", "languages"
   add_foreign_key "invoices", "frilans_finans_invoices"
   add_foreign_key "invoices", "job_users"
+  add_foreign_key "job_languages", "jobs"
+  add_foreign_key "job_languages", "languages"
   add_foreign_key "job_requests", "companies"
   add_foreign_key "job_requests", "users", column: "delivery_user_id", name: "job_requests_delivery_user_id_fk"
   add_foreign_key "job_requests", "users", column: "sales_user_id", name: "job_requests_sales_user_id_fk"
