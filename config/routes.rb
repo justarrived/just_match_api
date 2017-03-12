@@ -4,8 +4,6 @@ require 'sidekiq/web'
 Sidekiq::Web.use Rack::Auth::Basic do |username, password|
   User.find_by_credentials(email_or_phone: username, password: password)
 end
-
-# rubocop:disable Metrics/LineLength
 Rails.application.routes.draw do
   ActiveAdmin.routes(self)
 
@@ -140,4 +138,3 @@ Rails.application.routes.draw do
     end
   end
 end
-# rubocop:enable Metrics/LineLength
