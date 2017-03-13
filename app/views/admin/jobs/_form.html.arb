@@ -58,7 +58,6 @@ if job.persisted?
       ff.input :proficiency, as: :select, collection: JobLanguage::PROFICIENCY_RANGE
       ff.input :proficiency_by_admin, as: :select, collection: JobLanguage::PROFICIENCY_RANGE # rubocop:disable Metrics/LineLength
     end
-    em I18n.t('admin.job.form.languages_hint')
   end
 
   f.actions
