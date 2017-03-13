@@ -3,6 +3,31 @@
 HEAD
 -----------
 
+v1.35 - 2017-03-13
+----------
+* _API_: Expose JobLanguage & JobSkill
+* _Admin_:
+  - Admin: Add missing call to super in job admin update
+  - Add support for setting job languages
+  - :hocho: dead form hint
+* _DB_: Generate missing foreign keys for ahoy DB tables
+* Pretty emails
+  - HTML emails
+  - Improve HTML emails rtl direction support
+  - Add cta button to job rejection email
+  - Add action buttons to the most important emails
+* Update gem
+  - `pg` 0.19 => 0.20
+  - Update `uglifier` gem
+* Request analytics
+  - Add ahoy gem, configuration and controller setup
+  - Add automatic request tracking to each request
+* _Bug_:
+  - :hocho: Bug for blazer `user_id` smart variables
+* Create `JobLanguage` model
+* Pull translations from Transifex
+
+
 v1.34 - 2017-03-12
 ----------
 * Pull translations from Transifex
