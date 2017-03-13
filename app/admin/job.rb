@@ -210,6 +210,7 @@ ActiveAdmin.register Job do
         }
       end
       SetJobLanguagesService.call(job: job, language_ids_param: language_ids_param)
+      super
     end
 
     def apply_filtering(chain)
