@@ -237,6 +237,7 @@ module Api
           remote_ip: request.remote_ip,
           content_type: request.content_type,
           url: request.url,
+          verb: request.method,
           path: request.path,
           query: request.query_string,
           true_user_id: true_user.id,
@@ -290,9 +291,15 @@ module Api
       protected
 
       def track_request
+        response_error_body = {}
+        # If there is validation errors, then add that to the event, so we can check
+        # what the most common validation errors are (and then fix the client UX)
+        response_error_body = JSON.parse(response.body) if response.status == 422
+
         properties = {
           response_status: response.status,
-          response_message: response.message
+          response_message: response.message,
+          response_error_json: response_error_body
         }
         track_event("#{params[:controller]}##{params[:action]}", properties)
       end
