@@ -20,6 +20,7 @@ module Api
       ALLOWED_INCLUDES = %w(
         user_languages user_languages.language language languages company user_images
         user_skills skills user_skills.skill user_documents user_documents.document
+        user_interests user_interests.interest interests
       ).freeze
 
       api :GET, '/users', 'List users'
