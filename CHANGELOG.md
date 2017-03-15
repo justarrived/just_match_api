@@ -3,6 +3,12 @@
 HEAD
 -----------
 
+
+v1.36 - 2017-03-15
+----------
+* Add verb to default tracking props and include error response on 422 response status. Closes #992
+
+
 v1.35 - 2017-03-13
 ----------
 * _API_: Expose JobLanguage & JobSkill
