@@ -3,6 +3,15 @@
 HEAD
 -----------
 
+v1.37 - 2017-03-16
+----------
+* _Gem updates_:
+  - `aws-sdk`
+  - `puma`
+  - `codeclimate-test-reporter`
+  - `fog`
+  - `simplecov`
+
 
 v1.36 - 2017-03-15
 ----------
