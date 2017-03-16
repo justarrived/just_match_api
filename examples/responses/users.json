@@ -55,7 +55,8 @@
         "account_clearing_number": null,
         "account_number": null,
         "full_street_address": "Bankgatan 14C, 223 52, Lund, Sverige",
-        "just_arrived_staffing": false
+        "just_arrived_staffing": false,
+        "support_chat_activated": false
       },
       "relationships": {
         "company": {
