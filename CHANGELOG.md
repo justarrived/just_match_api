@@ -3,6 +3,12 @@
 HEAD
 -----------
 
+v1.38 - 2017-03-17
+----------
+* Add `cf_reqmote_ip` &  `cf_up_remote_contry_code` to track_request payload
+* Docs: Update API docs examples
+
+
 v1.37 - 2017-03-16
 ----------
 * _Gem updates_:
