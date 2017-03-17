@@ -8,7 +8,7 @@ if user.persisted?
     f.input :first_name
     f.input :last_name
     f.input :gender
-    f.input :language, hint: I18n.t('admin.user.form.language.hint')
+    f.input :language, hint: I18n.t('admin.user.form.language.hint'), collection: Language.system_languages.order(:en_name) # rubocop:disable Metrics/LineLength
     f.input :phone
     f.input :ssn
     f.input :street

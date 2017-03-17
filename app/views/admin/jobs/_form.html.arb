@@ -7,7 +7,7 @@ f.inputs(I18n.t('admin.job.form.detail_section_title')) do
   f.input :hourly_pay, hint: I18n.t('admin.job.form.hourly_pay_hint')
   f.input :hours
 
-  f.input :language, hint: I18n.t('admin.job.form.language_hint')
+  f.input :language, hint: I18n.t('admin.job.form.language_hint'), collection: Language.system_languages.order(:en_name) # rubocop:disable Metrics/LineLength
   f.input :name
   f.input :short_description
   f.input :description
