@@ -21,7 +21,7 @@ RSpec.describe GoogleTranslate do
   describe '#translate' do
     it 'translanslates the given text' do
       result = subject.translate(text, from: :en, to: :sv, api_key: 'xxx')
-      expect(result).to eq(translated_text)
+      expect(result.text).to eq(translated_text)
     end
   end
 
@@ -29,7 +29,7 @@ RSpec.describe GoogleTranslate do
     it 'produces the same result as #translate' do
       translate_result = subject.translate(text, from: :en, to: :sv, api_key: 'xxx')
       t_result = subject.t(text, from: :en, to: :sv)
-      expect(t_result).to eq(translate_result)
+      expect(t_result.text).to eq(translate_result.text)
     end
   end
 end

@@ -23,6 +23,10 @@ class Language < ApplicationRecord
     [[I18n.t('admin.form.no_language_chosen'), nil]] + form_array
   end
 
+  def self.find_by_locale(locale)
+    find_by(lang_code: locale)
+  end
+
   def name_for(locale)
     translated_name = public_send(:"#{locale}_name")
     return translated_name unless translated_name.blank?

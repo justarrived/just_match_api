@@ -28,7 +28,6 @@ class JobUser < ApplicationRecord
   validate :validate_single_accepted_applicant
   validate :validate_applicant_not_owner_of_job
   validate :validate_job_started_before_performed
-  validate :validate_language_presence_if_apply_message
 
   before_validation :accepted_at_setter
 
@@ -144,17 +143,6 @@ class JobUser < ApplicationRecord
 
     message = I18n.t('errors.job_user.performed_before_job_started')
     errors.add(:performed, message)
-  end
-
-  def validate_language_presence_if_apply_message
-    # NOTE: apply_message might be fetched from the translations relationship causing
-    #       a SQL-query
-    return if apply_message.blank?
-    return unless language.nil?
-
-    field = self.class.human_attribute_name(:apply_message)
-    message = I18n.t('errors.general.blank_if_field', field: field)
-    errors.add(:language, message)
   end
 end
 

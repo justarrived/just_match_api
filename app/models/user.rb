@@ -296,6 +296,9 @@ class User < ApplicationRecord
     !phone.blank?
   end
 
+  # TODO: This shouldn't depend only on #language, we should add another field,
+  #       so that the user can chose what language we cummunicate with them independently
+  #       from the language they use when filling out their profile
   def locale
     return I18n.default_locale.to_s if language.nil?
 

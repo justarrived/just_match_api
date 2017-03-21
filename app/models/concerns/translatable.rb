@@ -10,9 +10,7 @@ module Translatable
     scope :with_translations, -> { includes(:language, :translations) }
 
     def original_translation
-      return if language.nil?
-
-      translations.find_by(locale: language.lang_code)
+      translations.find_by(locale: language&.lang_code)
     end
   end
 
@@ -25,9 +23,15 @@ module Translatable
 
       @translated_fields = attr_names.map(&:to_s)
 
-      define_method(:set_translation) do |t_hash, language = self.language|
+      define_method(:set_translation) do |t_hash, language = nil|
         attributes = t_hash.slice(*attribute_names).to_h
 
+        # NOTE: We can't/shouldn't do this always, since a user might have Arabic as their
+        #       language, but write their work experience in Swedish
+        #       We should however allow #language to be specified _explicitly_
+        # language ||= self.language
+
+        # NOTE: When the language is unknown, it will be nil
         translation = translations.find_or_initialize_by(language: language)
         translation.locale = language&.lang_code
         translation.assign_attributes(attributes)
@@ -97,7 +101,7 @@ module Translatable
 
         define_method(original_text_method_name) do
           locale = language&.lang_code
-          translation = find_translation(locale: locale, fallback: false)
+          translation = find_translation(locale: locale)
 
           translation&.public_send(attribute_name)
         end
