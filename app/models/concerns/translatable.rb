@@ -24,6 +24,7 @@ module Translatable
       @translated_fields = attr_names.map(&:to_s)
 
       define_method(:set_translation) do |t_hash, language = nil|
+        # Only grab the translated attributes
         attributes = t_hash.slice(*attribute_names).to_h
 
         # NOTE: We can't/shouldn't do this always, since a user might have Arabic as their

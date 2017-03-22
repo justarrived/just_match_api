@@ -19,14 +19,12 @@ ActiveAdmin.register Skill do
     skill.set_translation(name: permitted_params.dig(:skill, :name))
   end
 
-  after_create do |skill|
-    SET_SKILL_TRANSLATION.call(skill, permitted_params).tap do |result|
-      EnqueueCheapTranslation.call(result)
-    end
-  end
-
   after_save do |skill|
-    SET_SKILL_TRANSLATION.call(skill, permitted_params)
+    if skill.persisted?
+      SET_SKILL_TRANSLATION.call(skill, permitted_params).tap do |result|
+        EnqueueCheapTranslation.call(result)
+      end
+    end
   end
 
   permit_params do

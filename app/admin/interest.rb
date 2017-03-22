@@ -10,12 +10,8 @@ ActiveAdmin.register Interest do
     interest.set_translation(name: permitted_params.dig(:interest, :name))
   end
 
-  after_create do |interest|
-    SET_INTEREST_TRANSLATION.call(interest, permitted_params)
-  end
-
   after_save do |interest|
-    SET_INTEREST_TRANSLATION.call(interest, permitted_params)
+    SET_INTEREST_TRANSLATION.call(interest, permitted_params) if interest.persisted?
   end
 
   permit_params do

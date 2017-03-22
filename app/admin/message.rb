@@ -39,14 +39,12 @@ ActiveAdmin.register Message do
     message.set_translation(translation_params)
   end
 
-  after_create do |message|
-    SET_MESSAGE_TRANSLATION.call(message, permitted_params).tap do |result|
-      EnqueueCheapTranslation.call(result)
-    end
-  end
-
   after_save do |message|
-    SET_MESSAGE_TRANSLATION.call(message, permitted_params)
+    if message.persisted?
+      SET_MESSAGE_TRANSLATION.call(message, permitted_params).tap do |result|
+        EnqueueCheapTranslation.call(result)
+      end
+    end
   end
 
   permit_params do

@@ -14,12 +14,8 @@ ActiveAdmin.register Faq do
     faq.set_translation(translation_params)
   end
 
-  after_create do |faq|
-    SET_FAQ_TRANSLATION.call(faq, permitted_params)
-  end
-
   after_save do |faq|
-    SET_FAQ_TRANSLATION.call(faq, permitted_params)
+    SET_FAQ_TRANSLATION.call(faq, permitted_params) if faq.persisted?
   end
 
   permit_params do

@@ -6,6 +6,11 @@ module MachineTranslationService
   TranslateAttributesResult = Struct.new(:source_locale, :attributes)
 
   def self.call(translation:, language:, ignore_attributes: [])
+    # TODO: Not sure why this is needed, probably wrong somewhere else
+    #       so this early return should (probably) be removed
+    # NOTE: This _might_ be legit, since #translation can be updated between calling this method
+    return if translation.locale == language.locale
+
     translated_result = remote_translate_attributes(
       attributes: translation.translation_attributes,
       from_locale: translation.locale,
@@ -13,6 +18,10 @@ module MachineTranslationService
       ignore_attributes: ignore_attributes
     )
 
+    # NOTE: Doing the update like this is a bit awkward, since each language that should
+    #       be translated will potentially update the, source language...
+    #       The end result will be the same, though it seems weird to update the source
+    #       multiple times
     source_locale = translated_result.source_locale
     source_language = Language.find_by_locale(source_locale)
     unless source_language == translation.language && source_locale == translation.locale

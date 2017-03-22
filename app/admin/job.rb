@@ -103,12 +103,8 @@ ActiveAdmin.register Job do
     end
   end
 
-  after_create do |job|
-    SET_JOB_TRANSLATION.call(job, permitted_params)
-  end
-
   after_save do |job|
-    SET_JOB_TRANSLATION.call(job, permitted_params)
+    SET_JOB_TRANSLATION.call(job, permitted_params) if job.persisted?
   end
 
   action_item :view, only: :show do
