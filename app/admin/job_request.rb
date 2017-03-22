@@ -47,6 +47,10 @@ ActiveAdmin.register JobRequest do
   filter :created_at
   filter :sales_user, collection: -> { User.sales_users }
   filter :delivery_user, collection: -> { User.delivery_users }
+  filter :draft_sent
+  filter :signed_by_customer
+  filter :cancelled
+  filter :finished
   filter :contact_string
   filter :assignment
   filter :job_scope
@@ -56,7 +60,6 @@ ActiveAdmin.register JobRequest do
   filter :responsible
   filter :suitable_candidates
   filter :comment
-  filter :finished
 
   index do
     selectable_column
