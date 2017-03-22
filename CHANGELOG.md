@@ -3,6 +3,14 @@
 HEAD
 -----------
 
+
+v1.39 - 2017-03-22
+----------
+* _Admin_:
+  - Update `JobRequest` filter options
+  - Scope `#language` to `system_languages` for `Job` & `User`
+
+
 v1.38 - 2017-03-17
 ----------
 * Add `cf_reqmote_ip` &  `cf_up_remote_contry_code` to track_request payload
