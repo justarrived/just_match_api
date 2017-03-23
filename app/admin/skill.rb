@@ -22,7 +22,7 @@ ActiveAdmin.register Skill do
   after_save do |skill|
     if skill.persisted?
       SET_SKILL_TRANSLATION.call(skill, permitted_params).tap do |result|
-        EnqueueCheapTranslation.call(result)
+        ProcessTranslationJob.perform_later(translation: result.translation)
       end
     end
   end

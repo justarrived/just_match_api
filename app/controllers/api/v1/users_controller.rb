@@ -115,7 +115,7 @@ module Api
           login_user(@user)
 
           @user.set_translation(user_params).tap do |result|
-            EnqueueCheapTranslation.call(result)
+            ProcessTranslationJob.perform_later(translation: result.translation)
           end
 
           image_tokens = jsonapi_params[:user_image_one_time_tokens]
@@ -206,7 +206,7 @@ module Api
 
         if @user.update(user_params)
           @user.set_translation(user_params).tap do |result|
-            EnqueueCheapTranslation.call(result)
+            ProcessTranslationJob.perform_later(translation: result.translation)
           end
 
           @user.reload

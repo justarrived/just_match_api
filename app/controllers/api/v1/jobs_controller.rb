@@ -75,7 +75,7 @@ module Api
 
         if @job.save
           @job.set_translation(job_attributes).tap do |result|
-            EnqueueCheapTranslation.call(result)
+            ProcessTranslationJob.perform_later(translation: result.translation)
           end
 
           @job.skills = Skill.where(id: jsonapi_params[:skill_ids])
@@ -135,7 +135,7 @@ module Api
 
         if @job.save
           @job.set_translation(job_attributes).tap do |result|
-            EnqueueCheapTranslation.call(result)
+            ProcessTranslationJob.perform_later(translation: result.translation)
           end
 
           @job.reload

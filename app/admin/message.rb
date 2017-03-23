@@ -42,7 +42,7 @@ ActiveAdmin.register Message do
   after_save do |message|
     if message.persisted?
       SET_MESSAGE_TRANSLATION.call(message, permitted_params).tap do |result|
-        EnqueueCheapTranslation.call(result)
+        ProcessTranslationJob.perform_later(translation: result.translation)
       end
     end
   end

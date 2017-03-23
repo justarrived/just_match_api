@@ -37,7 +37,7 @@ RSpec.describe GoogleTranslate do
   describe '#detect' do
     let(:google_translate_detection_mock) do
       Class.new(Struct.new(:key)) do
-        def self.detection(*_args)
+        def self.detect(*_args)
           Struct.new(:text, :confidence, :language).new('Hej', 0.46, 'sv')
         end
       end
@@ -51,7 +51,7 @@ RSpec.describe GoogleTranslate do
 
     it 'detects the source language' do
       result = subject.detect(text)
-      expect(result.text).to eq(translated_text)
+      expect(result.language).to eq('sv')
     end
   end
 end

@@ -247,7 +247,7 @@ ActiveAdmin.register User do
       competence_text: permitted_params.dig(:user, :competence_text)
     }
     user.set_translation(translation_params).tap do |result|
-      EnqueueCheapTranslation.call(result)
+      ProcessTranslationJob.perform_later(translation: result.translation)
     end
   end
 

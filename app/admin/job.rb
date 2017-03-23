@@ -98,13 +98,14 @@ ActiveAdmin.register Job do
       description: permitted_params.dig(:job, :description),
       short_description: permitted_params.dig(:job, :short_description)
     }
-    job.set_translation(translation_params).tap do |result|
-      EnqueueCheapTranslation.call(result)
+    language = Language.find_by(id: permitted_params.dig(:job, :language_id))
+    job.set_translation(translation_params, language).tap do |result|
+      ProcessTranslationJob.perform_later(translation: result.translation)
     end
   end
 
   after_save do |job|
-    SET_JOB_TRANSLATION.call(job, permitted_params) if job.persisted?
+    SET_JOB_TRANSLATION.call(job, permitted_params)
   end
 
   action_item :view, only: :show do
