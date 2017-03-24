@@ -80,7 +80,7 @@ class User < ApplicationRecord
   has_many :given_ratings, class_name: 'Rating', foreign_key: 'from_user_id'
   has_many :received_ratings, class_name: 'Rating', foreign_key: 'to_user_id'
 
-  validates :language, presence: true
+  validates :system_language, presence: true
   validates :email, presence: true, uniqueness: true, email: true
   validates :first_name, length: { minimum: 1 }, allow_blank: false
   validates :last_name, length: { minimum: 2 }, allow_blank: false
