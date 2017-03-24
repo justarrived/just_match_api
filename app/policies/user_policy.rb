@@ -14,7 +14,7 @@ class UserPolicy < ApplicationPolicy
     :id, :first_name, :description, :description_html, :education, :education_html,
     :job_experience, :job_experience_html, :competence_text, :competence_text_html,
     :language_id, :zip, :zip_latitude, :zip_longitude, :primary_role, :translated_text,
-    :gender
+    :gender, :system_language_id
   ].freeze
 
   ACCEPTED_APPLICANT_ATTRIBUTES = ATTRIBUTES + [

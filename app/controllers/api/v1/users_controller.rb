@@ -73,7 +73,8 @@ module Api
           param :ssn, String, desc: 'Social Security Number (10 characters)'
           param :ignored_notifications, Array, of: 'ignored notifications', desc: "List of ignored notifications. Any of: #{User::NOTIFICATIONS.map { |n| "`#{n}`" }.join(', ')}"
           param :company_id, Integer, desc: 'Company id for user'
-          param :language_id, Integer, desc: 'Primary language id for user', required: true
+          param :system_language_id, Integer, desc: 'System language id for user (SMS/emails etc will be sent in this language)', required: true
+          param :language_id, Integer, desc: 'Language id for the text fields'
           param :language_ids, Array, of: Hash, desc: 'Languages that the user knows', required: true do
             param :id, Integer, desc: 'Language id', required: true
             param :proficiency, UserLanguage::PROFICIENCY_RANGE.to_a, desc: 'Language proficiency'
@@ -171,7 +172,8 @@ module Api
           param :city, String, desc: 'City'
           param :ssn, String, desc: 'Social Security Number (10 characters)'
           param :ignored_notifications, Array, of: 'ignored notifications', desc: "List of ignored notifications. Any of: #{User::NOTIFICATIONS.map { |n| "`#{n}`" }.join(', ')}"
-          param :language_id, Integer, desc: 'Primary language id for user'
+          param :system_language_id, Integer, desc: 'System language id for user (SMS/emails etc will be sent in this language)'
+          param :language_id, Integer, desc: 'Language id for the text fields'
           param :language_ids, Array, of: Hash, desc: 'Languages that the user knows (if specified this will completely replace the users languages)' do
             param :id, Integer, desc: 'Language id', required: true
             param :proficiency, UserLanguage::PROFICIENCY_RANGE.to_a, desc: 'Language proficiency'
@@ -351,7 +353,7 @@ module Api
           :education, :ssn, :street, :city, :zip, :language_id, :company_id,
           :competence_text, :current_status, :at_und, :arrived_at, :country_of_origin,
           :account_clearing_number, :account_number, :skype_username, :gender,
-          ignored_notifications: []
+          :system_language_id, ignored_notifications: []
         ]
         jsonapi_params.permit(*whitelist)
       end
