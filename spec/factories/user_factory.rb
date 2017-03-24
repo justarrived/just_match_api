@@ -43,7 +43,9 @@ FactoryGirl.define do
     before(:create) do |user, _evaluator|
       # Unless explicitly given a language add a default, valid, one
       if user.language.nil?
-        user.language = Language.find_or_create_by!(lang_code: 'en')
+        language = Language.find_or_create_by!(lang_code: 'en')
+        user.language = language
+        user.system_language = language
       end
     end
 

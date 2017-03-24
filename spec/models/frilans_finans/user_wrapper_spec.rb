@@ -14,7 +14,7 @@ RSpec.describe FrilansFinans::UserWrapper do
         ssn: '890101-0101',
         account_clearing_number: account_clearing_number,
         account_number: account_number,
-        language: FactoryGirl.build(:language)
+        system_language: FactoryGirl.build(:language)
       )
       result = described_class.attributes(user)
       expected = {
@@ -40,7 +40,9 @@ RSpec.describe FrilansFinans::UserWrapper do
 
     context 'when ssn is nil' do
       it 'returns no social_security_number key' do
-        user = FactoryGirl.build(:user, ssn: nil, language: FactoryGirl.build(:language))
+        user = FactoryGirl.build(
+          :user, ssn: nil, system_language: FactoryGirl.build(:language)
+        )
         result = described_class.attributes(user)
         expect(result.key?(:social_security_number)).to eq(false)
       end
@@ -48,20 +50,26 @@ RSpec.describe FrilansFinans::UserWrapper do
 
     context 'when ssn is blank string' do
       it 'returns no social_security_number key' do
-        user = FactoryGirl.build(:user, ssn: ' ', language: FactoryGirl.build(:language))
+        user = FactoryGirl.build(
+          :user, ssn: ' ', system_language: FactoryGirl.build(:language)
+        )
         result = described_class.attributes(user)
         expect(result.key?(:social_security_number)).to eq(false)
       end
     end
 
     it 'returns the empty street string if no street present' do
-      user = FactoryGirl.build(:user, street: nil, language: FactoryGirl.build(:language))
+      user = FactoryGirl.build(
+        :user, street: nil, system_language: FactoryGirl.build(:language)
+      )
       result = described_class.attributes(user)
       expect(result[:street]).to eq('')
     end
 
     it 'returns the empty zip string if no zip present' do
-      user = FactoryGirl.build(:user, zip: nil, language: FactoryGirl.build(:language))
+      user = FactoryGirl.build(
+        :user, zip: nil, system_language: FactoryGirl.build(:language)
+      )
       result = described_class.attributes(user)
       expect(result[:zip]).to eq('')
     end

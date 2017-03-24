@@ -175,7 +175,7 @@ RSpec.describe User, type: :model do
     it 'returns correct locale for user that has a language' do
       lang_code = 'wa'
       language = FactoryGirl.build(:language, lang_code: lang_code)
-      user = FactoryGirl.build(:user, language: language)
+      user = FactoryGirl.build(:user, system_language: language)
       expect(user.locale).to eq(lang_code)
     end
   end

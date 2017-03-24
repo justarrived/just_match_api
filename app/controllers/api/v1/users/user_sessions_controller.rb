@@ -54,7 +54,7 @@ module Api
             auth_token = token.token
             attributes = {
               user_id: user.id,
-              locale: user.language.lang_code,
+              locale: user.locale,
               auth_token: auth_token,
               expires_at: token.expires_at
             }
