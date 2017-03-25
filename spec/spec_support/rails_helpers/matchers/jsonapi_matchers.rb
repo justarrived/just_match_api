@@ -14,13 +14,14 @@ RSpec::Matchers.define :be_jsonapi_response_for do |model|
   end
 end
 
-RSpec::Matchers.define :have_jsonapi_errors_for do |pointer|
+RSpec::Matchers.define :have_jsonapi_attribute_error_for do |expected_attribute|
   match do |actual|
     parsed_actual = JSON.parse(actual)
     errors = parsed_actual['errors']
     return false if errors.empty?
     errors.any? do |error|
-      error.dig('source', 'pointer') == pointer
+      attribute = error.dig('source', 'pointer').split('data/attributes/').last
+      attribute == expected_attribute.to_s
     end
   end
 end

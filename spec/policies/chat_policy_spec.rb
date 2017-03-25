@@ -41,8 +41,8 @@ RSpec.describe ChatPolicy do
 
     let(:language) { Language.find_or_create_by!(lang_code: 'en') }
 
-    let(:user) { FactoryGirl.build(:user, language: language) }
-    let(:a_user) { FactoryGirl.build(:user, language: language) }
+    let(:user) { FactoryGirl.build(:user, system_language: language) }
+    let(:a_user) { FactoryGirl.build(:user, system_language: language) }
     let(:chat_with_users) { FactoryGirl.create(:chat, users: [user, a_user]) }
 
     it 'returns true for index' do

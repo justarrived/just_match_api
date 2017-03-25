@@ -175,7 +175,7 @@ RSpec.describe User, type: :model do
     it 'returns correct locale for user that has a language' do
       lang_code = 'wa'
       language = FactoryGirl.build(:language, lang_code: lang_code)
-      user = FactoryGirl.build(:user, language: language)
+      user = FactoryGirl.build(:user, system_language: language)
       expect(user.locale).to eq(lang_code)
     end
   end
@@ -481,19 +481,19 @@ RSpec.describe User, type: :model do
   describe '#validate_language_id_in_available_locale' do
     it 'adds error if language is not in available locale' do
       language = FactoryGirl.create(:language, lang_code: 'aa')
-      user = FactoryGirl.build(:user, language: language)
+      user = FactoryGirl.build(:user, system_language: language)
       user.validate
 
-      message = user.errors.messages[:language_id]
+      message = user.errors.messages[:system_language_id]
       expect(message).to include(I18n.t('errors.user.must_be_available_locale'))
     end
 
     it 'adds *no* error if language is not in available locale' do
       language = FactoryGirl.create(:language, lang_code: 'en')
-      user = FactoryGirl.build(:user, language: language)
+      user = FactoryGirl.build(:user, system_language: language)
       user.validate
 
-      message = user.errors.messages[:language_id]
+      message = user.errors.messages[:system_language_id]
       expect(message || []).not_to include(I18n.t('errors.user.must_be_available_locale'))
     end
   end
@@ -758,14 +758,16 @@ end
 #  presentation_profile             :text
 #  presentation_personality         :text
 #  presentation_availability        :text
+#  system_language_id               :integer
 #
 # Indexes
 #
-#  index_users_on_company_id         (company_id)
-#  index_users_on_email              (email) UNIQUE
-#  index_users_on_frilans_finans_id  (frilans_finans_id) UNIQUE
-#  index_users_on_language_id        (language_id)
-#  index_users_on_one_time_token     (one_time_token) UNIQUE
+#  index_users_on_company_id          (company_id)
+#  index_users_on_email               (email) UNIQUE
+#  index_users_on_frilans_finans_id   (frilans_finans_id) UNIQUE
+#  index_users_on_language_id         (language_id)
+#  index_users_on_one_time_token      (one_time_token) UNIQUE
+#  index_users_on_system_language_id  (system_language_id)
 #
 # Foreign Keys
 #

@@ -73,7 +73,8 @@ module Api
           param :ssn, String, desc: 'Social Security Number (10 characters)'
           param :ignored_notifications, Array, of: 'ignored notifications', desc: "List of ignored notifications. Any of: #{User::NOTIFICATIONS.map { |n| "`#{n}`" }.join(', ')}"
           param :company_id, Integer, desc: 'Company id for user'
-          param :language_id, Integer, desc: 'Primary language id for user', required: true
+          param :system_language_id, Integer, desc: 'System language id for user (SMS/emails etc will be sent in this language)', required: true
+          param :language_id, Integer, desc: 'Language id for the text fields'
           param :language_ids, Array, of: Hash, desc: 'Languages that the user knows', required: true do
             param :id, Integer, desc: 'Language id', required: true
             param :proficiency, UserLanguage::PROFICIENCY_RANGE.to_a, desc: 'Language proficiency'
@@ -106,11 +107,19 @@ module Api
         @user = User.new(user_params)
         @user.password = jsonapi_params[:password]
         terms_consent = [true, 'true'].include?(jsonapi_params[:consent])
+        language_defined = true
+
+        if jsonapi_params[:system_language_id].blank? && jsonapi_params[:language_id].blank? # rubocop:disable Metrics/LineLength
+          language_defined = false
+        elsif jsonapi_params[:system_language_id].blank?
+          ActiveSupport::Deprecation.warn('Setting #system_language from #language is deprecated and will be removed soon.') # rubocop:disable Metrics/LineLength
+          @user.system_language_id = jsonapi_params[:language_id]
+        end
 
         authorize(@user)
         @user.validate
 
-        if terms_consent && @user.valid?
+        if terms_consent && language_defined && @user.valid?
           @user.save
           login_user(@user)
 
@@ -146,6 +155,11 @@ module Api
             @user.errors.add(:consent, consent_error)
           end
 
+          unless language_defined
+            # When the clients have moved to using #system_language this can be removed
+            @user.errors.add(:language, I18n.t('errors.messages.blank'))
+          end
+
           api_render_errors(@user)
         end
       end
@@ -171,7 +185,8 @@ module Api
           param :city, String, desc: 'City'
           param :ssn, String, desc: 'Social Security Number (10 characters)'
           param :ignored_notifications, Array, of: 'ignored notifications', desc: "List of ignored notifications. Any of: #{User::NOTIFICATIONS.map { |n| "`#{n}`" }.join(', ')}"
-          param :language_id, Integer, desc: 'Primary language id for user'
+          param :system_language_id, Integer, desc: 'System language id for user (SMS/emails etc will be sent in this language)'
+          param :language_id, Integer, desc: 'Language id for the text fields'
           param :language_ids, Array, of: Hash, desc: 'Languages that the user knows (if specified this will completely replace the users languages)' do
             param :id, Integer, desc: 'Language id', required: true
             param :proficiency, UserLanguage::PROFICIENCY_RANGE.to_a, desc: 'Language proficiency'
@@ -203,6 +218,12 @@ module Api
       example Doxxer.read_example(User, method: :update)
       def update
         authorize(@user)
+
+        unless jsonapi_params[:language_id].blank?
+          ActiveSupport::Deprecation.warn('Setting #system_language from #language is deprecated and will be removed soon.') # rubocop:disable Metrics/LineLength
+          # NOTE: This is just temporary until the client app is updated
+          @user.system_language_id = jsonapi_params[:language_id]
+        end
 
         if @user.update(user_params)
           @user.set_translation(user_params).tap do |result|
@@ -351,7 +372,7 @@ module Api
           :education, :ssn, :street, :city, :zip, :language_id, :company_id,
           :competence_text, :current_status, :at_und, :arrived_at, :country_of_origin,
           :account_clearing_number, :account_number, :skype_username, :gender,
-          ignored_notifications: []
+          :system_language_id, ignored_notifications: []
         ]
         jsonapi_params.permit(*whitelist)
       end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170312183424) do
+ActiveRecord::Schema.define(version: 20170324074411) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -757,11 +757,13 @@ ActiveRecord::Schema.define(version: 20170312183424) do
     t.text     "presentation_profile"
     t.text     "presentation_personality"
     t.text     "presentation_availability"
+    t.integer  "system_language_id"
     t.index ["company_id"], name: "index_users_on_company_id", using: :btree
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["frilans_finans_id"], name: "index_users_on_frilans_finans_id", unique: true, using: :btree
     t.index ["language_id"], name: "index_users_on_language_id", using: :btree
     t.index ["one_time_token"], name: "index_users_on_one_time_token", unique: true, using: :btree
+    t.index ["system_language_id"], name: "index_users_on_system_language_id", using: :btree
   end
 
   create_table "visits", force: :cascade do |t|

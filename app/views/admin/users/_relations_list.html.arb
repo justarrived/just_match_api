@@ -12,8 +12,8 @@ ul do
   end
   li(
     link_to(
-      I18n.t('admin.user.primary_language', lang: user.language.display_name),
-      admin_language_path(user.language)
+      I18n.t('admin.user.system_language_link', lang: user.system_language.display_name),
+      admin_language_path(user.system_language)
     )
   )
 end

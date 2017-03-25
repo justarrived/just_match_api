@@ -138,6 +138,26 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         expect(UserWelcomeNotifier).to have_received(:call)
       end
 
+      context 'with system_language' do
+        it 'sets system_language and language independently from each other' do
+          lang_id = Language.find_or_create_by!(lang_code: 'sv').id
+          attrs = valid_attributes.dup
+          attrs[:data][:attributes][:system_language_id] = lang_id
+          post :create, params: attrs, headers: {}
+          expect(assigns(:user).system_language_id).to eq(lang_id)
+        end
+      end
+
+      context 'with neither system_language or language' do
+        it 'returns errors for both fields' do
+          attrs = valid_attributes.dup
+          attrs[:data][:attributes][:language_id] = nil
+          post :create, params: attrs, headers: {}
+          expect(response.body).to have_jsonapi_attribute_error_for(:language)
+          expect(response.body).to have_jsonapi_attribute_error_for(:'system-language')
+        end
+      end
+
       context 'without consent' do
         it 'can *not* create user' do
           attributes = valid_attributes.dup
@@ -587,14 +607,16 @@ end
 #  presentation_profile             :text
 #  presentation_personality         :text
 #  presentation_availability        :text
+#  system_language_id               :integer
 #
 # Indexes
 #
-#  index_users_on_company_id         (company_id)
-#  index_users_on_email              (email) UNIQUE
-#  index_users_on_frilans_finans_id  (frilans_finans_id) UNIQUE
-#  index_users_on_language_id        (language_id)
-#  index_users_on_one_time_token     (one_time_token) UNIQUE
+#  index_users_on_company_id          (company_id)
+#  index_users_on_email               (email) UNIQUE
+#  index_users_on_frilans_finans_id   (frilans_finans_id) UNIQUE
+#  index_users_on_language_id         (language_id)
+#  index_users_on_one_time_token      (one_time_token) UNIQUE
+#  index_users_on_system_language_id  (system_language_id)
 #
 # Foreign Keys
 #

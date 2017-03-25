@@ -62,7 +62,7 @@ module Api
           chat: chat,
           author: author,
           body: body,
-          language_id: author.language&.id
+          language_id: author.system_language&.id
         )
       end
     end

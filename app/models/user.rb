@@ -38,6 +38,7 @@ class User < ApplicationRecord
 
   before_save :encrypt_password
 
+  belongs_to :system_language, class_name: 'Language', foreign_key: 'system_language_id'
   belongs_to :language
   belongs_to :company, optional: true
   belongs_to :interviewed_by, optional: true, class_name: 'User', foreign_key: 'interviewed_by_user_id' # rubocop:disable Metrics/LineLength
@@ -79,7 +80,7 @@ class User < ApplicationRecord
   has_many :given_ratings, class_name: 'Rating', foreign_key: 'from_user_id'
   has_many :received_ratings, class_name: 'Rating', foreign_key: 'to_user_id'
 
-  validates :language, presence: true
+  validates :system_language, presence: true
   validates :email, presence: true, uniqueness: true, email: true
   validates :first_name, length: { minimum: 1 }, allow_blank: false
   validates :last_name, length: { minimum: 2 }, allow_blank: false
@@ -297,9 +298,9 @@ class User < ApplicationRecord
   end
 
   def locale
-    return I18n.default_locale.to_s if language.nil?
+    return I18n.default_locale.to_s if system_language.nil?
 
-    language.lang_code
+    system_language.lang_code
   end
 
   def frilans_finans_id!
@@ -442,11 +443,11 @@ class User < ApplicationRecord
   end
 
   def validate_language_id_in_available_locale
-    language = Language.find_by(id: language_id)
-    return if language.nil?
+    return unless system_language_id_changed?
+    return if system_language_id.blank?
 
-    unless I18n.available_locales.map(&:to_s).include?(language.lang_code)
-      errors.add(:language_id, I18n.t('errors.user.must_be_available_locale'))
+    unless I18n.available_locales.map(&:to_s).include?(system_language.lang_code)
+      errors.add(:system_language_id, I18n.t('errors.user.must_be_available_locale'))
     end
   end
 
@@ -568,14 +569,16 @@ end
 #  presentation_profile             :text
 #  presentation_personality         :text
 #  presentation_availability        :text
+#  system_language_id               :integer
 #
 # Indexes
 #
-#  index_users_on_company_id         (company_id)
-#  index_users_on_email              (email) UNIQUE
-#  index_users_on_frilans_finans_id  (frilans_finans_id) UNIQUE
-#  index_users_on_language_id        (language_id)
-#  index_users_on_one_time_token     (one_time_token) UNIQUE
+#  index_users_on_company_id          (company_id)
+#  index_users_on_email               (email) UNIQUE
+#  index_users_on_frilans_finans_id   (frilans_finans_id) UNIQUE
+#  index_users_on_language_id         (language_id)
+#  index_users_on_one_time_token      (one_time_token) UNIQUE
+#  index_users_on_system_language_id  (system_language_id)
 #
 # Foreign Keys
 #
