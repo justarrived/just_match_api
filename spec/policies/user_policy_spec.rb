@@ -80,8 +80,8 @@ RSpec.describe UserPolicy do
 
     let(:language) { Language.find_or_create_by!(lang_code: 'en') }
 
-    let(:owner) { FactoryGirl.build(:company_user, language: language) }
-    let(:user) { FactoryGirl.build(:user, language: language) }
+    let(:owner) { FactoryGirl.build(:company_user, system_language: language) }
+    let(:user) { FactoryGirl.build(:user, system_language: language) }
     let(:admin) { FactoryGirl.build(:admin_user) }
 
     let(:job) { FactoryGirl.create(:job, owner: owner) }
