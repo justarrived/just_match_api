@@ -138,6 +138,16 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         expect(UserWelcomeNotifier).to have_received(:call)
       end
 
+      context 'with system_language' do
+        it 'sets system_language and language independently from each other' do
+          lang_id = Language.find_or_create_by!(lang_code: 'sv').id
+          attrs = valid_attributes.dup
+          attrs[:data][:attributes][:system_language_id] = lang_id
+          post :create, params: attrs, headers: {}
+          expect(assigns(:user).system_language_id).to eq(lang_id)
+        end
+      end
+
       context 'without consent' do
         it 'can *not* create user' do
           attributes = valid_attributes.dup

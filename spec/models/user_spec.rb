@@ -484,7 +484,7 @@ RSpec.describe User, type: :model do
       user = FactoryGirl.build(:user, language: language)
       user.validate
 
-      message = user.errors.messages[:language_id]
+      message = user.errors.messages[:system_language_id]
       expect(message).to include(I18n.t('errors.user.must_be_available_locale'))
     end
 
@@ -493,7 +493,7 @@ RSpec.describe User, type: :model do
       user = FactoryGirl.build(:user, language: language)
       user.validate
 
-      message = user.errors.messages[:language_id]
+      message = user.errors.messages[:system_language_id]
       expect(message || []).not_to include(I18n.t('errors.user.must_be_available_locale'))
     end
   end

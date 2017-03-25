@@ -444,10 +444,10 @@ class User < ApplicationRecord
 
   def validate_language_id_in_available_locale
     language = Language.find_by(id: language_id)
-    return if language.nil?
+    return if system_language.nil?
 
     unless I18n.available_locales.map(&:to_s).include?(language.lang_code)
-      errors.add(:language_id, I18n.t('errors.user.must_be_available_locale'))
+      errors.add(:system_language_id, I18n.t('errors.user.must_be_available_locale'))
     end
   end
 

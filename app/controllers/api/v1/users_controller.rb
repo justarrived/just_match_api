@@ -108,6 +108,13 @@ module Api
         @user.password = jsonapi_params[:password]
         terms_consent = [true, 'true'].include?(jsonapi_params[:consent])
 
+        if jsonapi_params[:system_language_id].blank? && jsonapi_params[:language_id].blank? # rubocop:disable Metrics/LineLength
+          @user.errors.add(:language, I18n.t('errors.messages.blank'))
+        elsif jsonapi_params[:system_language_id].blank?
+          ActiveSupport::Deprecation.warn('Setting #system_language from #language is deprecated and will be removed soon.') # rubocop:disable Metrics/LineLength
+          @user.system_language_id = jsonapi_params[:language_id]
+        end
+
         authorize(@user)
         @user.validate
 
@@ -205,6 +212,12 @@ module Api
       example Doxxer.read_example(User, method: :update)
       def update
         authorize(@user)
+
+        unless jsonapi_params[:language_id].blank?
+          ActiveSupport::Deprecation.warn('Setting #system_language from #language is deprecated and will be removed soon.') # rubocop:disable Metrics/LineLength
+          # NOTE: This is just temporary until the client app is updated
+          @user.system_language_id = jsonapi_params[:language_id]
+        end
 
         if @user.update(user_params)
           @user.set_translation(user_params).tap do |result|

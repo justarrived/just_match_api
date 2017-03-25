@@ -182,6 +182,7 @@ panel I18n.t('admin.user.show.misc') do
     row :frilans_finans_id
 
     row :company
+    row :system_language
     row :language
 
     row :contact_email
