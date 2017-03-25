@@ -5,6 +5,7 @@ class EmailValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
     value_changed = record.public_send("#{attribute}_changed?")
     return unless value_changed
+    return if value.nil?
     return if value.match?(EMAIL_REGEX)
 
     message = options.fetch(:message) { I18n.t('errors.validators.email') }
