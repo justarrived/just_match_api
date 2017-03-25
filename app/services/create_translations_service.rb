@@ -1,4 +1,6 @@
 # frozen_string_literal: true
+require 'i18n/google_translate'
+
 class CreateTranslationsService
   def self.call(translation:, from:, languages: nil)
     source_translation_locale = translation.language&.lang_code
