@@ -481,7 +481,7 @@ RSpec.describe User, type: :model do
   describe '#validate_language_id_in_available_locale' do
     it 'adds error if language is not in available locale' do
       language = FactoryGirl.create(:language, lang_code: 'aa')
-      user = FactoryGirl.build(:user, language: language)
+      user = FactoryGirl.build(:user, system_language: language)
       user.validate
 
       message = user.errors.messages[:system_language_id]
@@ -490,7 +490,7 @@ RSpec.describe User, type: :model do
 
     it 'adds *no* error if language is not in available locale' do
       language = FactoryGirl.create(:language, lang_code: 'en')
-      user = FactoryGirl.build(:user, language: language)
+      user = FactoryGirl.build(:user, system_language: language)
       user.validate
 
       message = user.errors.messages[:system_language_id]
