@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
-RSpec.describe MachineTranslationService do
+RSpec.describe CreateTranslationsService do
   let(:translation) { FactoryGirl.build(:job_translation) }
   let(:job) { translation.job }
   let(:name) { 'Hej' }
@@ -17,7 +17,7 @@ RSpec.describe MachineTranslationService do
     it 'creates translation' do
       allow(GoogleTranslate).to receive(:translate).and_return(google_translate_mock)
 
-      result = described_class.call(translation: translation, language: language)
+      result = described_class.call(translation: translation, from: language.lang_code)
 
       translated_translation = result.translation
       expect(result.changed_fields).to eq(%w(name short_description description))
@@ -38,7 +38,7 @@ RSpec.describe MachineTranslationService do
       it 'updates source translation to detected locale' do
         allow(GoogleTranslate).to receive(:translate).and_return(google_translate_mock)
         translation.update(language: nil, locale: nil)
-        result = described_class.call(translation: translation, language: language)
+        result = described_class.call(translation: translation, from: language.lang_code)
 
         translated_translation = result.translation
         expect(result.changed_fields).to eq(%w(name short_description description))
@@ -51,16 +51,15 @@ RSpec.describe MachineTranslationService do
     end
   end
 
-  describe '#remote_translate_attributes' do
+  describe '#translate_attributes' do
     let(:from_locale) { :en }
 
     subject do
       allow(GoogleTranslate).to receive(:translate).and_return(google_translate_mock)
-      described_class.remote_translate_attributes(
-        attributes: attributes,
-        from_locale: from_locale,
-        to_locale: to_locale,
-        ignore_attributes: ignore_attributes
+      described_class.translate_attributes(
+        attributes,
+        from: from_locale,
+        to: to_locale
       )
     end
     let(:attributes) { { name: 'Hello' } }
