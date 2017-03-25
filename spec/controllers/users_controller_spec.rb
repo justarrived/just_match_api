@@ -148,6 +148,16 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         end
       end
 
+      context 'with neither system_language or language' do
+        it 'returns errors for both fields' do
+          attrs = valid_attributes.dup
+          attrs[:data][:attributes][:language_id] = nil
+          post :create, params: attrs, headers: {}
+          expect(response.body).to have_jsonapi_attribute_error_for(:language)
+          expect(response.body).to have_jsonapi_attribute_error_for(:'system-language')
+        end
+      end
+
       context 'without consent' do
         it 'can *not* create user' do
           attributes = valid_attributes.dup
