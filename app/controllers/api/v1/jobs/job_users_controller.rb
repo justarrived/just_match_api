@@ -36,7 +36,7 @@ module Api
           api_versions '1.0'
         end
 
-        ALLOWED_INCLUDES = %w(job job.hourly_pay user user.user_images user.language user.languages).freeze # rubocop:disable Metrics/LineLength
+        ALLOWED_INCLUDES = %w(job job.hourly_pay user user.user_images user.system_language user.language user.languages).freeze # rubocop:disable Metrics/LineLength
 
         api :GET, '/jobs/:job_id/users', 'Show job users'
         description 'Returns list of job users if the user is allowed.'

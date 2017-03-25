@@ -10,21 +10,19 @@ end
 #
 #  id                   :integer          not null, primary key
 #  job_id               :integer
-#  language_id             :integer
-#  created_at           :datetime         not null
-#  updated_at           :datetime         not null
+#  language_id          :integer
 #  proficiency          :integer
 #  proficiency_by_admin :integer
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
 #
 # Indexes
 #
-#  index_job_languages_on_job_id               (job_id)
-#  index_job_languages_on_job_id_and_language_id  (job_id,language_id) UNIQUE
-#  index_job_languages_on_language_id             (language_id)
-#  index_job_languages_on_language_id_and_job_id  (language_id,job_id) UNIQUE
+#  index_job_languages_on_job_id       (job_id)
+#  index_job_languages_on_language_id  (language_id)
 #
 # Foreign Keys
 #
-#  fk_rails_514cd69e1b  (language_id => languages.id)
-#  fk_rails_94b0ff3621  (job_id => jobs.id)
+#  fk_rails_291eb8392f  (language_id => languages.id)
+#  fk_rails_adf9e1cd09  (job_id => jobs.id)
 #

@@ -3,6 +3,24 @@
 HEAD
 -----------
 
+v1.40 - 2017-03-25
+----------
+* _API_: Backward compatible errors response for User#language
+* Fix User#system_language validation
+* Correctly handle nil values in EmailValidator
+* Validate presence of User#system_language and remove #language presence validation
+* Add User#system_language and refactor all uses of User#language => #system_language
+* Add User#language to #system_language data migration. Update user validator. Backwards compatibility
+* checkpoint
+
+
+v1.39 - 2017-03-22
+----------
+* _Admin_:
+  - Update `JobRequest` filter options
+  - Scope `#language` to `system_languages` for `Job` & `User`
+
+
 v1.38 - 2017-03-17
 ----------
 * Add `cf_reqmote_ip` &  `cf_up_remote_contry_code` to track_request payload

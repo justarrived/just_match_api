@@ -64,7 +64,7 @@ module Dev
         phone: Faker::PhoneNumber.cell_phone,
         street: address[:street],
         zip: address[:zip],
-        language: language,
+        system_language: language,
         password: '12345678',
         admin: admin,
         super_admin: admin,

@@ -117,14 +117,16 @@ end
 #  presentation_profile             :text
 #  presentation_personality         :text
 #  presentation_availability        :text
+#  system_language_id               :integer
 #
 # Indexes
 #
-#  index_users_on_company_id         (company_id)
-#  index_users_on_email              (email) UNIQUE
-#  index_users_on_frilans_finans_id  (frilans_finans_id) UNIQUE
-#  index_users_on_language_id        (language_id)
-#  index_users_on_one_time_token     (one_time_token) UNIQUE
+#  index_users_on_company_id          (company_id)
+#  index_users_on_email               (email) UNIQUE
+#  index_users_on_frilans_finans_id   (frilans_finans_id) UNIQUE
+#  index_users_on_language_id         (language_id)
+#  index_users_on_one_time_token      (one_time_token) UNIQUE
+#  index_users_on_system_language_id  (system_language_id)
 #
 # Foreign Keys
 #

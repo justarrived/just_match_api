@@ -15,7 +15,7 @@ module FrilansFinans
         show_name_in_network: false,
         receive_sms_notificiations: false,
         receive_email_notifications: false,
-        notification_language: notification_language(user.language)
+        notification_language: notification_language(user.system_language)
       }
 
       ssn = user.ssn
