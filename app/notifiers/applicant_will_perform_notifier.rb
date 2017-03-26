@@ -13,25 +13,22 @@ class ApplicantWillPerformNotifier < BaseNotifier
     job_users.each do |job_user|
       next if job_user == confirmed_job_user
 
-      notify(user: job_user.user, name: :applicant_rejected) do
-        JobMailer.
-          applicant_rejected_email(job_user: job_user)
-      end
+      envelope = JobMailer.
+                 applicant_rejected_email(job_user: job_user)
+      notify(envelope, user: job_user.user, name: :applicant_rejected)
     end
   end
 
   def self.user_email(job_user:, owner:)
     user = job_user.user
-    notify(user: user, locale: user.locale) do
-      JobMailer.
-        applicant_will_perform_job_info_email(job_user: job_user, owner: owner)
-    end
+    envelope = JobMailer.
+               applicant_will_perform_job_info_email(job_user: job_user, owner: owner)
+    notify(envelope, user: user, locale: user.locale)
   end
 
   def self.owner_email(job_user:, owner:)
-    notify(user: owner, locale: owner.locale) do
-      JobMailer.
-        applicant_will_perform_email(job_user: job_user, owner: owner)
-    end
+    envelope = JobMailer.
+               applicant_will_perform_email(job_user: job_user, owner: owner)
+    notify(envelope, user: owner, locale: owner.locale)
   end
 end

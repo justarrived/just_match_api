@@ -2,10 +2,8 @@
 class JobCancelledNotifier < BaseNotifier
   def self.call(job:)
     job.users.each do |user|
-      notify(user: user, locale: user.locale) do
-        JobMailer.
-          job_cancelled_email(user: user, job: job)
-      end
+      envelope = JobMailer.job_cancelled_email(user: user, job: job)
+      notify(envelope, user: user, locale: user.locale)
     end
   end
 end

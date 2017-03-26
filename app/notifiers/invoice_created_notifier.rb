@@ -3,9 +3,7 @@ class InvoiceCreatedNotifier < BaseNotifier
   def self.call(job:, user:)
     owner = job.owner
 
-    notify(user: user, locale: user.locale) do
-      InvoiceMailer.
-        invoice_created_email(user: user, job: job, owner: owner)
-    end
+    envelope = InvoiceMailer.invoice_created_email(user: user, job: job, owner: owner)
+    notify(envelope, user: user, locale: user.locale)
   end
 end

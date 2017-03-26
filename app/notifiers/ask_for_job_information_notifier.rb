@@ -7,9 +7,8 @@ class AskForJobInformationNotifier < BaseNotifier
 
     return if missing_skills.empty?
 
-    notify(user: user, locale: user.locale) do
-      JobMailer.
-        ask_for_information_email(user: user, job: job, skills: missing_skills)
-    end
+    envelope = JobMailer.
+               ask_for_information_email(user: user, job: job, skills: missing_skills)
+    notify(envelope, user: user, locale: user.locale)
   end
 end
