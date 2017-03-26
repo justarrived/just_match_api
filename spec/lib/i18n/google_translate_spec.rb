@@ -10,7 +10,7 @@ RSpec.describe GoogleTranslate do
     let(:google_translate_mock) do
       Class.new(Struct.new(:key)) do
         def self.translate(*_args)
-          Struct.new(:text).new('Hej')
+          OpenStruct.new(text: 'Hej')
         end
       end
     end
