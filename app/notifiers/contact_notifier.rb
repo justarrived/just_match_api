@@ -5,9 +5,7 @@ class ContactNotifier < BaseNotifier
     email = contact.email
     body = contact.body
 
-    notify do
-      ContactMailer.
-        contact_email(name: name, email: email, body: body)
-    end
+    envelope = ContactMailer.contact_email(name: name, email: email, body: body)
+    dispatch(envelope)
   end
 end
