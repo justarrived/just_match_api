@@ -23,7 +23,10 @@ ActiveAdmin.register Skill do
 
   after_save do |skill|
     SET_SKILL_TRANSLATION.call(skill, permitted_params).tap do |result|
-      ProcessTranslationJob.perform_later(translation: result.translation)
+      ProcessTranslationJob.perform_later(
+        translation: result.translation,
+        changed: result.changed_fields
+      )
     end
   end
 

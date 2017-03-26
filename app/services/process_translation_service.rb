@@ -2,7 +2,7 @@
 require 'i18n/detect_language'
 
 class ProcessTranslationService
-  def self.call(translation:)
+  def self.call(translation:, changed: nil)
     text = translation.
            translation_attributes.
            values.
@@ -17,6 +17,10 @@ class ProcessTranslationService
       from = detection.source_override || detection.source
     end
 
-    CreateTranslationsJob.perform_later(translation: translation, from: from)
+    CreateTranslationsJob.perform_later(
+      translation: translation,
+      from: from,
+      changed: changed
+    )
   end
 end

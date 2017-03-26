@@ -65,7 +65,10 @@ module Api
 
         if @comment.save
           @comment.set_translation(comment_params).tap do |result|
-            ProcessTranslationJob.perform_later(translation: result.translation)
+            ProcessTranslationJob.perform_later(
+              translation: result.translation,
+              changed: result.changed_fields
+            )
           end
 
           api_render(@comment, status: :created)
@@ -90,7 +93,10 @@ module Api
 
         if @comment.valid?
           @comment.set_translation(body: comment_params[:body]).tap do |result|
-            ProcessTranslationJob.perform_later(translation: result.translation)
+            ProcessTranslationJob.perform_later(
+              translation: result.translation,
+              changed: result.changed_fields
+            )
           end
 
           # NOTE: This is here because of the problem the Translatable has with
