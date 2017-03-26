@@ -1,10 +1,15 @@
 # frozen_string_literal: true
 require 'google/cloud/translate'
 
+require 'i18n/google_translate/detection'
+require 'i18n/google_translate/query'
+require 'i18n/google_translate/translation'
+
 module GoogleTranslate
-  def self.translate(text, to:, from: nil, api_key: nil)
+  def self.translate(text, to:, from: nil, type: :html, api_key: nil)
     translator = build_translator(api_key: api_key)
-    translator.translate(text, from: from, to: to)
+    query = Query.new(text, type: type)
+    Translation.new(translator.translate(query.to_s, from: from, to: to), type: type)
   end
 
   def self.t(*args)
@@ -13,7 +18,7 @@ module GoogleTranslate
 
   def self.detect(text, api_key: nil)
     detector = build_translator(api_key: api_key)
-    detector.detect(text)
+    Detection.new(detector.detect(text))
   end
 
   def self.build_translator(api_key:)

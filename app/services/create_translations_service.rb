@@ -44,7 +44,7 @@ class CreateTranslationsService
   def self.translate_attributes(attributes, from:, to:)
     translated_attributes = {}
     attributes.each do |name, text|
-      translation = GoogleTranslate.translate(text, from: from, to: to)
+      translation = GoogleTranslate.translate(text, from: from, to: to, type: :plain)
       translated_attributes[name] = translation.text
     end
     translated_attributes
