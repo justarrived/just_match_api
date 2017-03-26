@@ -6,6 +6,6 @@ class AcceptedApplicantConfirmationOverdueNotifier < BaseNotifier
       owner: owner
     )
 
-    notify(envelope, user: owner, locale: owner.locale)
+    dispatch(envelope, user: owner, locale: owner.locale)
   end
 end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class BaseNotifier
-  def self.notify(envelope, user: nil, locale: I18n.locale, name: nil)
+  def self.dispatch(envelope, user: nil, locale: I18n.locale, name: nil)
     with_locale(locale) do
       DeliverNotification.call(envelope, locale) unless ignored?(user, name)
     end

@@ -4,6 +4,6 @@ class AcceptedApplicantWithdrawnNotifier < BaseNotifier
     envelope = JobMailer.
                accepted_applicant_withdrawn_email(job_user: job_user, owner: owner)
 
-    notify(envelope, user: owner, locale: owner.locale)
+    dispatch(envelope, user: owner, locale: owner.locale)
   end
 end

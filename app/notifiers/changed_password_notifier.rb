@@ -2,6 +2,6 @@
 class ChangedPasswordNotifier < BaseNotifier
   def self.call(user:)
     envelope = UserMailer.changed_password_email(user: user)
-    notify(envelope)
+    dispatch(envelope)
   end
 end

@@ -10,7 +10,7 @@ class NewChatMessageNotifier < BaseNotifier
         message: message,
         author: author
       )
-      notify(envelope, user: user, locale: user.locale)
+      dispatch(envelope, user: user, locale: user.locale)
     end
   end
 end

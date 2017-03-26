@@ -4,7 +4,7 @@ class FailedToActivateInvoiceNotifier < BaseNotifier
     User.admins.each do |user|
       mailer_args = { user: user, ff_invoice: ff_invoice }
       envelope = AdminMailer.failed_to_activate_invoice_email(**mailer_args)
-      notify(envelope, user: user)
+      dispatch(envelope, user: user)
     end
   end
 end

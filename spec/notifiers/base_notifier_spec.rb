@@ -18,7 +18,7 @@ RSpec.describe BaseNotifier do
     expect(subject.underscored_name).to eq('base')
   end
 
-  describe '#notify' do
+  describe '#dispatch' do
     context 'ignored notification' do
       it 'does *not* yield to block if notification is ignored' do
         fake_user_klass = Class.new do
@@ -26,7 +26,7 @@ RSpec.describe BaseNotifier do
         end
 
         expect do
-          described_class.notify(error_mailer, user: fake_user_klass.new)
+          described_class.dispatch(error_mailer, user: fake_user_klass.new)
         end.not_to raise_error
       end
     end
@@ -34,13 +34,13 @@ RSpec.describe BaseNotifier do
     context 'Redis connection error' do
       it 'sends error notification' do
         allow(ErrorNotifier).to receive(:send).and_return(nil)
-        described_class.notify(error_mailer)
+        described_class.dispatch(error_mailer)
         expect(ErrorNotifier).to have_received(:send).once
       end
 
       it 're-sends with #deliver_now' do
         allow(error_mailer).to receive(:deliver_now).and_return(nil)
-        described_class.notify(error_mailer)
+        described_class.dispatch(error_mailer)
         expect(error_mailer).to have_received(:deliver_now).once
       end
     end

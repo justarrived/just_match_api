@@ -15,7 +15,7 @@ class ApplicantWillPerformNotifier < BaseNotifier
 
       envelope = JobMailer.
                  applicant_rejected_email(job_user: job_user)
-      notify(envelope, user: job_user.user, name: :applicant_rejected)
+      dispatch(envelope, user: job_user.user, name: :applicant_rejected)
     end
   end
 
@@ -23,12 +23,12 @@ class ApplicantWillPerformNotifier < BaseNotifier
     user = job_user.user
     envelope = JobMailer.
                applicant_will_perform_job_info_email(job_user: job_user, owner: owner)
-    notify(envelope, user: user, locale: user.locale)
+    dispatch(envelope, user: user, locale: user.locale)
   end
 
   def self.owner_email(job_user:, owner:)
     envelope = JobMailer.
                applicant_will_perform_email(job_user: job_user, owner: owner)
-    notify(envelope, user: owner, locale: owner.locale)
+    dispatch(envelope, user: owner, locale: owner.locale)
   end
 end

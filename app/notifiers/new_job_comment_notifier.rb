@@ -5,6 +5,6 @@ class NewJobCommentNotifier < BaseNotifier
     return if owner == comment.owner
 
     envelope = JobMailer.new_job_comment_email(comment: comment, job: job)
-    notify(envelope, user: owner, locale: owner.locale)
+    dispatch(envelope, user: owner, locale: owner.locale)
   end
 end

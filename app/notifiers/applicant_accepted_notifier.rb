@@ -6,12 +6,12 @@ class ApplicantAcceptedNotifier < BaseNotifier
 
     if user.phone?
       envelope = JobTexter.applicant_accepted_text(job_user: job_user)
-      notify(envelope, user: user, locale: locale)
+      dispatch(envelope, user: user, locale: locale)
     end
 
     envelope = JobMailer.
                applicant_accepted_email(job_user: job_user, owner: owner)
 
-    notify(envelope, user: user, locale: locale)
+    dispatch(envelope, user: user, locale: locale)
   end
 end

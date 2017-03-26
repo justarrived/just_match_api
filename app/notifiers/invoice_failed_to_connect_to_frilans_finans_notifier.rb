@@ -5,7 +5,7 @@ class InvoiceFailedToConnectToFrilansFinansNotifier < BaseNotifier
       mailer_args = { user: user, ff_invoice: ff_invoice }
       envelope = AdminMailer.
                  invoice_failed_to_connect_to_frilans_finans_email(**mailer_args)
-      notify(envelope, user: user)
+      dispatch(envelope, user: user)
     end
   end
 end

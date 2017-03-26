@@ -9,6 +9,6 @@ class AskForJobInformationNotifier < BaseNotifier
 
     envelope = JobMailer.
                ask_for_information_email(user: user, job: job, skills: missing_skills)
-    notify(envelope, user: user, locale: user.locale)
+    dispatch(envelope, user: user, locale: user.locale)
   end
 end

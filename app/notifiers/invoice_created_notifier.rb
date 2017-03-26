@@ -4,6 +4,6 @@ class InvoiceCreatedNotifier < BaseNotifier
     owner = job.owner
 
     envelope = InvoiceMailer.invoice_created_email(user: user, job: job, owner: owner)
-    notify(envelope, user: user, locale: user.locale)
+    dispatch(envelope, user: user, locale: user.locale)
   end
 end

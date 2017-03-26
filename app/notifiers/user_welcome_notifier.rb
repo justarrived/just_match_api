@@ -2,6 +2,6 @@
 class UserWelcomeNotifier < BaseNotifier
   def self.call(user:)
     envelope = UserMailer.welcome_email(user: user)
-    notify(envelope)
+    dispatch(envelope)
   end
 end

@@ -2,6 +2,6 @@
 class ResetPasswordNotifier < BaseNotifier
   def self.call(user:)
     envelope = UserMailer.reset_password_email(user: user)
-    notify(envelope)
+    dispatch(envelope)
   end
 end

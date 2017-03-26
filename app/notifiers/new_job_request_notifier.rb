@@ -4,7 +4,7 @@ class NewJobRequestNotifier < BaseNotifier
     AppConfig.new_job_request_email_recipients.each do |email|
       envelope = JobRequestMailer.
                  new_job_request_email(job_request: job_request, recipient_email: email)
-      notify(envelope)
+      dispatch(envelope)
     end
   end
 end
