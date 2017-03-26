@@ -3,9 +3,9 @@ require 'i18n/google_translate'
 
 class CreateTranslationsService
   def self.call(translation:, from:, changed: nil, languages: nil)
-    source_translation_locale = translation.language&.lang_code
+    source_translation_locale = translation.language&.locale
 
-    (languages || Language.machine_translation_languages).each do |language|
+    (languages || Language.machine_translation_languages).map do |language|
       # NOTE: If the language has been explicitly set on the source translation, then
       # don't create an additional translation for that language
       next if source_translation_locale == language.locale
@@ -15,8 +15,7 @@ class CreateTranslationsService
       if from == language.locale
         # Language has been detected, skip sending that to Google Translate and
         # create it from source instead
-        set_translation(translation, attributes, language)
-        next
+        next set_translation(translation, attributes, language)
       end
 
       translated_attributes = translate_attributes(
@@ -26,13 +25,14 @@ class CreateTranslationsService
       )
 
       set_translation(translation, translated_attributes, language)
-    end
+    end.compact
   end
 
   def self.attributes_for_translation(translation, changed)
+    attributes = translation.translation_attributes
     # If changed is nil then all fields will be translated
-    updated_fields = changed || translation.translated_fields
-    translation.translation_attributes.slice(*updated_fields)
+    return attributes unless changed
+    attributes.slice(*changed)
   end
 
   def self.set_translation(translation, attributes, language)
