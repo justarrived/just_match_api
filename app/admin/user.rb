@@ -252,11 +252,9 @@ ActiveAdmin.register User do
   end
 
   after_save do |user|
-    if user.persisted?
-      SET_USER_TRANSLATION.call(user, permitted_params)
-      if AppConfig.frilans_finans_active? && user.valid?
-        SyncFrilansFinansUserJob.perform_later(user: user)
-      end
+    SET_USER_TRANSLATION.call(user, permitted_params)
+    if AppConfig.frilans_finans_active? && user.valid?
+      SyncFrilansFinansUserJob.perform_later(user: user)
     end
   end
 

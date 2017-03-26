@@ -11,7 +11,7 @@ ActiveAdmin.register Interest do
   end
 
   after_save do |interest|
-    SET_INTEREST_TRANSLATION.call(interest, permitted_params) if interest.persisted?
+    SET_INTEREST_TRANSLATION.call(interest, permitted_params)
   end
 
   permit_params do

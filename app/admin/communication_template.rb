@@ -56,7 +56,7 @@ ActiveAdmin.register CommunicationTemplate do
   end
 
   after_save do |template|
-    SET_TEMPLATE_TRANSLATION.call(template, permitted_params) if template.persited?
+    SET_TEMPLATE_TRANSLATION.call(template, permitted_params)
   end
 
   permit_params do

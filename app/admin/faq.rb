@@ -15,7 +15,7 @@ ActiveAdmin.register Faq do
   end
 
   after_save do |faq|
-    SET_FAQ_TRANSLATION.call(faq, permitted_params) if faq.persisted?
+    SET_FAQ_TRANSLATION.call(faq, permitted_params)
   end
 
   permit_params do
