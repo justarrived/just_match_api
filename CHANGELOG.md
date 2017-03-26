@@ -3,6 +3,11 @@
 HEAD
 -----------
 
+v1.41 - 2017-03-26
+----------
+* Add missing index to `User#system_language`
+
+
 v1.40 - 2017-03-25
 ----------
 * _API_: Backward compatible errors response for User#language
