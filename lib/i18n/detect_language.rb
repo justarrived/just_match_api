@@ -4,7 +4,7 @@ require 'i18n/google_translate'
 module DetectLanguage
   LanguageDetectionResult = Struct.new(:text, :confidence, :source, :source_override)
 
-  MIN_CONFIDENCE_LEVEL_FOR_TRANSLATIONS = 0.50
+  CONFIDENCE_THRESHOLD = 0.50
 
   def self.call(text)
     detection = GoogleTranslate.detect(text)
@@ -21,6 +21,6 @@ module DetectLanguage
   end
 
   def self.within_confidence_level?(confidence)
-    confidence > MIN_CONFIDENCE_LEVEL_FOR_TRANSLATIONS
+    confidence > CONFIDENCE_THRESHOLD
   end
 end
