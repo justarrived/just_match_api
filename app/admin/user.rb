@@ -237,7 +237,7 @@ ActiveAdmin.register User do
     render partial: 'admin/users/documents_list', locals: locals
   end
 
-  SET_USER_TRANSLATION = lambda do |user, permitted_params|
+  set_user_translation = lambda do |user, permitted_params|
     return unless user.persisted? && user.valid?
 
     translation_params = {
@@ -255,7 +255,7 @@ ActiveAdmin.register User do
   end
 
   after_save do |user|
-    SET_USER_TRANSLATION.call(user, permitted_params)
+    set_user_translation.call(user, permitted_params)
     if AppConfig.frilans_finans_active? && user.valid?
       SyncFrilansFinansUserJob.perform_later(user: user)
     end

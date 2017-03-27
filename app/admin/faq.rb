@@ -4,7 +4,7 @@ ActiveAdmin.register Faq do
 
   include AdminHelpers::MachineTranslation::Actions
 
-  SET_FAQ_TRANSLATION = lambda do |faq, permitted_params|
+  set_faq_translation = lambda do |faq, permitted_params|
     return unless faq.persisted? && faq.valid?
 
     translation_params = {
@@ -15,7 +15,7 @@ ActiveAdmin.register Faq do
   end
 
   after_save do |faq|
-    SET_FAQ_TRANSLATION.call(faq, permitted_params)
+    set_faq_translation.call(faq, permitted_params)
   end
 
   permit_params do

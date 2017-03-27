@@ -4,14 +4,14 @@ ActiveAdmin.register Interest do
 
   include AdminHelpers::MachineTranslation::Actions
 
-  SET_INTEREST_TRANSLATION = lambda do |interest, permitted_params|
+  set_interest_translation = lambda do |interest, permitted_params|
     return unless interest.persisted? && interest.valid?
 
     interest.set_translation(name: permitted_params.dig(:interest, :name))
   end
 
   after_save do |interest|
-    SET_INTEREST_TRANSLATION.call(interest, permitted_params)
+    set_interest_translation.call(interest, permitted_params)
   end
 
   permit_params do

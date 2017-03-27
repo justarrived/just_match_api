@@ -90,7 +90,7 @@ ActiveAdmin.register Job do
 
   include AdminHelpers::MachineTranslation::Actions
 
-  SET_JOB_TRANSLATION = lambda do |job, permitted_params|
+  set_job_translation = lambda do |job, permitted_params|
     return unless job.persisted? && job.valid?
 
     translation_params = {
@@ -108,7 +108,7 @@ ActiveAdmin.register Job do
   end
 
   after_save do |job|
-    SET_JOB_TRANSLATION.call(job, permitted_params)
+    set_job_translation.call(job, permitted_params)
   end
 
   action_item :view, only: :show do

@@ -15,14 +15,14 @@ ActiveAdmin.register Skill do
     actions
   end
 
-  SET_SKILL_TRANSLATION = lambda do |skill, permitted_params|
+  set_skill_translation = lambda do |skill, permitted_params|
     return unless skill.persisted? && skill.valid?
 
     skill.set_translation(name: permitted_params.dig(:skill, :name))
   end
 
   after_save do |skill|
-    SET_SKILL_TRANSLATION.call(skill, permitted_params).tap do |result|
+    set_skill_translation.call(skill, permitted_params).tap do |result|
       ProcessTranslationJob.perform_later(
         translation: result.translation,
         changed: result.changed_fields

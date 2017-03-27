@@ -45,7 +45,7 @@ ActiveAdmin.register CommunicationTemplate do
     f.actions
   end
 
-  SET_TEMPLATE_TRANSLATION = lambda do |template, permitted_params|
+  set_template_translation = lambda do |template, permitted_params|
     return unless template.persisted? && template.valid?
 
     template.set_translation(
@@ -56,7 +56,7 @@ ActiveAdmin.register CommunicationTemplate do
   end
 
   after_save do |template|
-    SET_TEMPLATE_TRANSLATION.call(template, permitted_params)
+    set_template_translation.call(template, permitted_params)
   end
 
   permit_params do
