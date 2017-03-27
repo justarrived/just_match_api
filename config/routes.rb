@@ -1,11 +1,10 @@
 # frozen_string_literal: true
 require 'sidekiq/web'
 
+Sidekiq::Web.set :session_secret, Rails.application.secrets[:secret_key_base]
 Sidekiq::Web.use Rack::Auth::Basic do |username, password|
   User.find_by_credentials(email_or_phone: username, password: password)
 end
-Sidekiq::Web.set :session_secret, Rails.application.secrets[:secret_key_base]
-
 Rails.application.routes.draw do
   ActiveAdmin.routes(self)
 
