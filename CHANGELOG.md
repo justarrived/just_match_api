@@ -3,6 +3,19 @@
 HEAD
 -----------
 
+v1.42 - 2017-03-27
+----------
+* _Admin_:
+  - Remove redundant checks for translated models
+  - Don't define constants in dynamic context
+* _Translation backend upgrade_:
+  - Add support for plain text newlines in Google Translate
+  - Replace `MachineTranslationsJob` => `ProcessTranslationJob` and update docs
+  - Add `DetectLanguage` module
+    + Min confidence threshold for translation set to 50%
+  - Rename `BaseNotifier#notify` => `#dispatch`
+
+
 v1.41 - 2017-03-26
 ----------
 * Add missing index to `User#system_language`
