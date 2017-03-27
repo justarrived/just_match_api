@@ -237,7 +237,7 @@ ActiveAdmin.register User do
     render partial: 'admin/users/documents_list', locals: locals
   end
 
-  SET_USER_TRANSLATION = lambda do |user, permitted_params|
+  set_user_translation = lambda do |user, permitted_params|
     return unless user.persisted? && user.valid?
 
     translation_params = {
@@ -247,17 +247,16 @@ ActiveAdmin.register User do
       competence_text: permitted_params.dig(:user, :competence_text)
     }
     user.set_translation(translation_params).tap do |result|
-      EnqueueCheapTranslation.call(result)
+      ProcessTranslationJob.perform_later(
+        translation: result.translation,
+        changed: result.changed_fields
+      )
     end
   end
 
-  after_create do |user|
-    SET_USER_TRANSLATION.call(user, permitted_params)
-  end
-
   after_save do |user|
-    SET_USER_TRANSLATION.call(user, permitted_params)
-    if AppConfig.frilans_finans_active? && user.persisted? && user.valid?
+    set_user_translation.call(user, permitted_params)
+    if AppConfig.frilans_finans_active? && user.valid?
       SyncFrilansFinansUserJob.perform_later(user: user)
     end
   end

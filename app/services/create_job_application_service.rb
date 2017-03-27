@@ -8,7 +8,10 @@ class CreateJobApplicationService
 
     if job_user.save
       job_user.set_translation(attributes).tap do |result|
-        EnqueueCheapTranslation.call(result)
+        ProcessTranslationJob.perform_later(
+          translation: result.translation,
+          changed: result.changed_fields
+        )
       end
 
       missing_skills = job.skills - user.skills

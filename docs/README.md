@@ -109,11 +109,12 @@ The code follows most Rails conventions. If you've worked with Rails before the 
     + includes `TranslationModel` module
   - Defines the translated columns with the `translates` macro
     + That macro defines an instance method `set_translation` on the model
-  - There are a few helper services, plus one `ActiveJob` class to do machine translations
-    + `MachineTranslationsService` takes a translation and creates translations for to all eligible locales
-    + `MachineTranslationService` takes a translation and a language for it to be translated to
-    + `MachineTranslationsJob` background job for `MachineTranslationsService`
+  - There are a few helper services, and corresponding `ActiveJob` classes to process translations
+    + `ProcessTranslationService` takes a translation and creates translations for to all eligible locales
+    + `CreateTranslationService` takes a translation and a language for it to be translated to
+    + Both `ProcessTranslationService` and `CreateTranslationService` have corresponding background jobs `ProcessTranslationJob` and `CreateTranslationJob`
   - Uses Google Translate under the hood
+  - Translations will only be created if the detected source language is over a certain threshold
 
 * __Static Translations__
   - Uses `rails-i18n`

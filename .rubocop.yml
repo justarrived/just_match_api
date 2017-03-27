@@ -1,3 +1,6 @@
 inherit_from: .ruby-style-guide.yml
 AllCops:
   UseCache: true
+  Exclude:
+    - 'tmp/*.rb'
+    - 'db/schema.rb'

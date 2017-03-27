@@ -12,7 +12,7 @@ class Job < ApplicationRecord
   MIN_HOURS_PER_DAY = 0.5
   MAX_HOURS_PER_DAY = 12
 
-  belongs_to :language
+  belongs_to :language, optional: true
   belongs_to :category
   belongs_to :hourly_pay
   belongs_to :owner, class_name: 'User', foreign_key: 'owner_user_id'
@@ -34,7 +34,6 @@ class Job < ApplicationRecord
 
   has_many :comments, as: :commentable
 
-  validates :language, presence: true
   validates :hourly_pay, presence: true
   validates :category, presence: true
   validates :name, presence: true, on: :create # Virtual attribute

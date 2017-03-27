@@ -3,7 +3,7 @@ class Interest < ApplicationRecord
   has_many :user_interests
   has_many :users, through: :user_interests
 
-  belongs_to :language
+  belongs_to :language, optional: true
 
   scope :order_by_name, lambda { |direction: :asc|
     dir = direction.to_s == 'desc' ? 'DESC' : 'ASC'

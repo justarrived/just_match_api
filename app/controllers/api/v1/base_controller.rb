@@ -201,10 +201,10 @@ module Api
       NoSuchTokenError = Class.new(ArgumentError)
       ExpiredTokenError = Class.new(ArgumentError)
 
+      before_action :set_json_api_helper_default_key_transform_header
       before_action :authenticate_user_token!
       before_action :require_promo_code
       before_action :set_locale
-      before_action :set_json_api_helper_default_key_transform_header
 
       ALLOWED_INCLUDES = [].freeze
 
@@ -383,7 +383,7 @@ module Api
 
       def set_locale
         locale_header = api_locale_header
-        if locale_header.nil?
+        if locale_header.blank?
           I18n.locale = current_user.locale
           return
         end
