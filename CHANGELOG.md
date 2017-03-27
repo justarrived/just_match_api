@@ -3,6 +3,12 @@
 HEAD
 -----------
 
+v1.42.1 - 2017-03-27
+----------
+* Set the correct session cookie key for Sidekiq
+* Remove `Comment#body` presence validation, since it does not really work with virtual attributes
+
+
 v1.42 - 2017-03-27
 ----------
 * _Admin_:
