@@ -11,7 +11,7 @@ class UserSerializer < ApplicationSerializer
     :ignored_notifications_mask, :frilans_finans_id, :frilans_finans_payment_details,
     :current_status, :at_und, :arrived_at, :country_of_origin, :managed, :verified,
     :account_clearing_number, :account_number, :gender, :full_street_address,
-    :support_chat_activated, :system_language_id
+    :support_chat_activated
   ] + EXTRA_ATTRIBUTES
 
   link(:self) { api_v1_user_url(object) }

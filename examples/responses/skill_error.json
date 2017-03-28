@@ -6,13 +6,6 @@
         "pointer": "/data/attributes/name"
       },
       "detail": "is too short (minimum is 1 character)"
-    },
-    {
-      "status": 422,
-      "source": {
-        "pointer": "/data/attributes/language"
-      },
-      "detail": "can't be blank"
     }
   ]
 }

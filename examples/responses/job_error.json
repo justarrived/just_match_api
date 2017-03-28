@@ -3,13 +3,6 @@
     {
       "status": 422,
       "source": {
-        "pointer": "/data/attributes/language"
-      },
-      "detail": "can't be blank"
-    },
-    {
-      "status": 422,
-      "source": {
         "pointer": "/data/attributes/hourly_pay"
       },
       "detail": "can't be blank"
