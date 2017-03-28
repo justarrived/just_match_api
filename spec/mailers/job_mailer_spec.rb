@@ -161,42 +161,6 @@ RSpec.describe JobMailer, type: :mailer do
     end
   end
 
-  describe '#new_applicant_job_info_email' do
-    let(:skill) { FactoryGirl.create(:skill) }
-    let(:mail) do
-      described_class.new_applicant_job_info_email(job_user: job_user, skills: [skill])
-    end
-
-    it 'has both text and html part' do
-      expect(mail).to be_multipart_email(true)
-    end
-
-    it 'renders the subject' do
-      subject = I18n.t('mailer.new_applicant_job_info.subject')
-      expect(mail.subject).to eql(subject)
-    end
-
-    it 'renders the receiver email' do
-      expect(mail.to).to eql([user.contact_email])
-    end
-
-    it 'renders the sender email' do
-      expect(mail.from).to eql(['support@email.justarrived.se'])
-    end
-
-    it 'includes @user_name in email body' do
-      expect(mail).to match_email_body(user.name)
-    end
-
-    it 'includes @job_name in email body' do
-      expect(mail).to match_email_body(job.name)
-    end
-
-    it 'includes skill names in email body' do
-      expect(mail).to match_email_body(skill.name)
-    end
-  end
-
   describe '#applicant_accepted_email' do
     let(:mail) do
       described_class.applicant_accepted_email(job_user: job_user, owner: owner)

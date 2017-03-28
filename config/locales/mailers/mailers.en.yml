@@ -124,8 +124,7 @@ en:
         We have a lot of users and applications for our jobs, so don’t be discouraged if someone else gets the chance this time. Next time it might be you!
 
         Your best chance to get any job is to login often, apply often, and make sure that your profile is updated! We are convinced that you will get a job that suits your profile soon!
-      body_skill_fillout_notice: |
-        In order for us to match you with a job we want to know a little bit more about your skills in: %{skill_names}.
+      body_fillout_notice: 'In order for us to match you with a job we want to know a little bit more about your skills in:'
       body_edit_profile: Edit your profile here %{url}.
       body_edit_profile_cta: Edit your profile
     new_applicant:
