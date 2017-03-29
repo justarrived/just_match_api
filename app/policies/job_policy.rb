@@ -40,7 +40,7 @@ class JobPolicy < ApplicationPolicy
   alias_method :google?, :show?
 
   def create?
-    company_user?
+    company_user? || AppConfig.allow_regular_users_to_create_jobs?
   end
 
   def update?
