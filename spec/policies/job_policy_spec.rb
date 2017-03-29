@@ -38,6 +38,11 @@ RSpec.describe JobPolicy do
       expect(subject.create?).to eq(false)
     end
 
+    it '#create? returns true if ENV-config is set' do
+      allow(AppConfig).to receive(:allow_regular_users_to_create_jobs?).and_return(true)
+      expect(subject.create?).to eq(true)
+    end
+
     it '#update? returns false' do
       expect(subject.update?).to eq(false)
     end
