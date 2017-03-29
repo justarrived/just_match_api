@@ -4,10 +4,14 @@
   job_name: @job_name
 ) %>
 
-<%= I18n.t(
-  'mailer.new_applicant_job_info.body_skill_fillout_notice',
-  skill_names: @skill_names.to_sentence
-) unless @skill_names.empty? %>
+<% unless @competence_names.empty? %>
+<%= I18n.t('mailer.new_applicant_job_info.body_fillout_notice') %>
+
+  <% @competence_names.each do |name| %>
+  <%= name %>
+  <% end %>
+<% end %>
+
 
 <%= I18n.t(
   'mailer.new_applicant_job_info.body_edit_profile',

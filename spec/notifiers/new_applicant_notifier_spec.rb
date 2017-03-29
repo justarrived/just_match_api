@@ -7,21 +7,26 @@ RSpec.describe NewApplicantNotifier, type: :mailer do
   let(:job_user) { mock_model JobUser, job: job, user: user }
   let(:user) { FactoryGirl.build(:user) }
   let(:skills) { [FactoryGirl.build(:skill)] }
+  let(:languages) { [FactoryGirl.build(:language)] }
   let(:owner) { FactoryGirl.build(:user) }
 
   before(:each) do
     allow(JobMailer).to receive(:new_applicant_email).and_return(mailer)
-    allow(JobMailer).to receive(:new_applicant_job_info_email).and_return(mailer)
+    allow(JobUserMailer).to receive(:new_applicant_job_info_email).and_return(mailer)
   end
 
   it 'sends new_applicant_email mail' do
-    NewApplicantNotifier.call(job_user: job_user, owner: owner, skills: skills)
+    NewApplicantNotifier.call(
+      job_user: job_user, owner: owner, skills: skills, languages: languages
+    )
     expect(JobMailer).to have_received(:new_applicant_email).with(job_user: job_user, owner: owner) # rubocop:disable Metrics/LineLength
   end
 
   it 'sends new_applicant_job_info_email mail' do
-    mailer_args = { job_user: job_user, owner: owner, skills: skills }
+    mailer_args = {
+      job_user: job_user, owner: owner, skills: skills, languages: languages
+    }
     NewApplicantNotifier.call(**mailer_args)
-    expect(JobMailer).to have_received(:new_applicant_job_info_email).with(job_user: job_user, skills: skills) # rubocop:disable Metrics/LineLength
+    expect(JobUserMailer).to have_received(:new_applicant_job_info_email).with(job_user: job_user, skills: skills, languages: languages) # rubocop:disable Metrics/LineLength
   end
 end

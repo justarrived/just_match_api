@@ -121,8 +121,7 @@ sv:
         Vi har många användare och ansökningar till våra jobb, så bli inte nedslagen om någon annan får jobbet den här gången. Nästa gång kan det vara du!
 
         Din bästa chans att få ett jobb är att logga in ofta, söka jobb ofta, och se till att din profil är uppdaterad! Vi är övertygade om att du kommer få ett jobb som passar din profil snart!
-      body_skill_fillout_notice: |
-        För att kunna matcha dig med ett jobb, behöver vi veta lite mer om dina kunskaper inom %{skill_names}
+      body_fillout_notice: 'För att kunna matcha dig med ett jobb, behöver vi veta lite mer om dina kunskaper inom:'
       body_edit_profile: Uppdatera din profil här %{url}
       body_edit_profile_cta: Uppdatera din profil
     new_applicant:

@@ -4,10 +4,14 @@
   job_name: @job_name
 ).html_safe %>
 
-<%= simple_format I18n.t(
-  'mailer.new_applicant_job_info.body_skill_fillout_notice',
-  skill_names: @skill_names.map { |s| content_tag(:em, s) }.to_sentence
-).html_safe unless @skill_names.empty? %>
+<% unless @competence_names.empty? %>
+  <%= simple_format I18n.t('mailer.new_applicant_job_info.body_fillout_notice') %>
+  <ul>
+    <% @competence_names.each do |name| %>
+      <li><%= name %></li>
+    <% end %>
+  </ul>
+<% end %>
 
 <%= render(
   'mailer_partials/action_button',
