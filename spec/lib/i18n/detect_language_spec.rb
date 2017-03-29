@@ -4,9 +4,9 @@ require 'spec_helper'
 require 'i18n/detect_language'
 
 RSpec.describe DetectLanguage do
-  describe '#call' do
+  describe '::call' do
     let(:detection_mock) do
-      Struct.new(:text, :language, :confidence).new('Hej', 'da', 0)
+      Struct.new(:text, :language, :confidence, :valid?).new('Hej', 'da', 0, true)
     end
 
     it 'retruns detection result' do
@@ -20,27 +20,31 @@ RSpec.describe DetectLanguage do
   end
 
   describe '#source_override' do
+    subject { described_class.new('Hej') }
+
     it 'overrides certain locales if within override confidence threshold' do
-      expect(described_class.source_override('da', 0.10)).to eq('sv')
+      expect(subject.source_override('da', 0.10)).to eq('sv')
     end
 
     it 'does *not* override locale if not within override confidence threshold' do
-      expect(described_class.source_override('da', 0.90)).to be_nil
+      expect(subject.source_override('da', 0.90)).to be_nil
     end
 
     it 'does *not* override locale if locale has no override mapping' do
-      expect(described_class.source_override('en', 0.10)).to be_nil
+      expect(subject.source_override('en', 0.10)).to be_nil
     end
   end
 
   describe '#within_override_confidence_threshold?' do
+    subject { described_class.new('Hej') }
+
     it 'returns true when confidence is sufficiently low for an override' do
-      result = described_class.within_override_confidence_threshold?(0.10)
+      result = subject.within_override_confidence_threshold?(0.10)
       expect(result).to eq(true)
     end
 
     it 'returns false when confidence is too great for an override' do
-      result = described_class.within_override_confidence_threshold?(0.80)
+      result = subject.within_override_confidence_threshold?(0.80)
       expect(result).to eq(false)
     end
   end
