@@ -3,6 +3,13 @@
 HEAD
 -----------
 
+
+v1.43.1 - 2017-03-29
+----------
+* Reset translation attribute if blank in `CreateTranslationService`
+* Don't crash if text passed to `GoogleTranslate::Query` is nil
+
+
 v1.43 - 2017-03-29
 ----------
 * Don't process translation if blank OR the written language is 'undetermined'
