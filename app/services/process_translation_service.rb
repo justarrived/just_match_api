@@ -10,10 +10,13 @@ class ProcessTranslationService
            values.
            join("\n\n")
 
+    return if text.blank?
+
     from = translation.language&.locale
 
     if from.nil?
       detection = DetectLanguage.call(text)
+      return unless detection.valid? # Return if we "detect" an undetermined language, etc
       return unless within_confidence_level?(detection.confidence)
 
       from = detection.source_override || detection.source
