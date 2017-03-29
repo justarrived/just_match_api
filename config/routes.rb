@@ -20,7 +20,7 @@ Rails.application.routes.draw do
       resources :jobs, param: :job_id, only: [:index, :show, :create, :update] do
         member do
           get :matching_users, path: 'matching-users'
-          resources :job_comments, module: :jobs, path: :comments, only: [:index, :show, :create, :update, :destroy]
+          resources :job_comments, module: :jobs, path: :comments, only: [:index, :show, :create, :destroy]
           resources :job_skills, param: :job_skill_id, module: :jobs, path: :skills, only: [:index, :show, :create, :destroy]
           resources :job_users, param: :job_user_id, module: :jobs, path: :users, only: [:index, :show, :create, :update, :destroy] do
             member do
