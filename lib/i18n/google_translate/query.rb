@@ -10,6 +10,7 @@ module GoogleTranslate
 
     def to_s
       return @text unless type == :plain
+      return @text if @text.nil?
 
       # NOTE: Google treats the text as HTML and therefore doesn't preserve newlines
       replacement = '<br>'
