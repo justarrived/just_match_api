@@ -3,6 +3,20 @@
 HEAD
 -----------
 
+v1.43 - 2017-03-29
+----------
+* Don't process translation if blank OR the written language is 'undetermined'
+* Refactor DetectLanguage
+* _Docs_:
+  - Regenerate API doc examples
+  - Update API docs for user create
+* Validate presence of `Comment#body` on create
+* Remove `PATCH jobs/:id/comments/:comment_id` action
+* Drop `User#system_language_id` from User serializer
+* Update syntax for setting side session secret
+* Set `sidekiq` session secret and domain
+
+
 v1.42.1 - 2017-03-27
 ----------
 * Set the correct session cookie key for Sidekiq
