@@ -7,6 +7,7 @@ class Comment < ApplicationRecord
   validates :owner_user_id, presence: true
   validates :commentable_id, presence: true
   validates :commentable_type, presence: true
+  validates :body, presence: true, on: :create
 
   scope :visible, -> { where(hidden: false) }
 
