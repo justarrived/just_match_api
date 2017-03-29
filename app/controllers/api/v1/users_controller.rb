@@ -75,7 +75,7 @@ module Api
           param :company_id, Integer, desc: 'Company id for user'
           param :system_language_id, Integer, desc: 'System language id for user (SMS/emails etc will be sent in this language)', required: true
           param :language_id, Integer, desc: 'Language id for the text fields'
-          param :language_ids, Array, of: Hash, desc: 'Languages that the user knows', required: true do
+          param :language_ids, Array, of: Hash, desc: 'Languages that the user knows' do
             param :id, Integer, desc: 'Language id', required: true
             param :proficiency, UserLanguage::PROFICIENCY_RANGE.to_a, desc: 'Language proficiency'
           end
