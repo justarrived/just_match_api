@@ -17,7 +17,7 @@ module Api
         {
           "data": {
             "id": "c67f8be62d3d4e722a00cd68e5970c2a",
-            "type": "form",
+            "type": "missing_user_traits",
             "attributes": {
               "city": {},
               "skill-ids": { "ids": [1, 2] },
