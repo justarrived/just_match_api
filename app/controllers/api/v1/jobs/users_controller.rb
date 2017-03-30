@@ -12,6 +12,20 @@ module Api
         api :GET, '/jobs/:job_id/users/:user_id/missing-traits', 'Show missing user traits' # rubocop:disable Metrics/LineLength
         description 'Returns list of missing user traits.'
         error code: 404, desc: 'Not found'
+        example <<-JSON_EXAMPLE
+        # Response example
+        {
+          "data": {
+            "id": "c67f8be62d3d4e722a00cd68e5970c2a",
+            "type": "form",
+            "attributes": {
+              "city": {},
+              "skill-ids": { "ids": [1, 2] },
+              "language-ids": { "ids":[5, 6] }
+            }
+          }
+        }
+        JSON_EXAMPLE
         def missing_traits
           trait_queries = Queries::UserTraitsForJob
           missing_skills = trait_queries.missing_skills(job: @job, user: @user)
