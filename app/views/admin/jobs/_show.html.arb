@@ -39,6 +39,18 @@ panel(I18n.t('admin.job.show.relations')) do
   end
 end
 
+panel I18n.t('admin.job.show.comments.title') do
+  job_comments.last(5).reverse_each do |comment|
+    h4 comment.owner.name
+    div { simple_format(comment.body) }
+    em datetime_ago_in_words(comment.created_at)
+    hr
+    br
+  end
+
+  h4 link_to(I18n.t('admin.job.show.comments.open_in_app'), frontend_app_job_path)
+end
+
 panel(I18n.t('admin.job.show.misc')) do
   attributes_table_for(job) do
     row :latitude

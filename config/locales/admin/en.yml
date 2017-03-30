@@ -106,6 +106,9 @@ en:
         status_flags: Status flags
         relations: Relations
         misc: Misc
+        comments:
+          title: Job comments
+          open_in_app: Answer
       form:
         detail_section_title: Details
         admin_users_section_title: Admin users

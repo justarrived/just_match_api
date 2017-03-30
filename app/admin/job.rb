@@ -158,7 +158,13 @@ ActiveAdmin.register Job do
   end
 
   show do
-    render partial: 'admin/jobs/show', locals: { job: job }
+    job_comments = job.comments.with_translations.includes(:owner)
+    locals = {
+      job: job,
+      job_comments: job_comments,
+      frontend_app_job_path: FrontendRouter.draw(:job, id: job.id)
+    }
+    render partial: 'admin/jobs/show', locals: locals
   end
 
   permit_params do
