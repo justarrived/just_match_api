@@ -3,6 +3,17 @@
 HEAD
 -----------
 
+v1.44 - 2017-03-30
+----------
+* Admin:
+  - Refactor and update dashboard
+  - Language scopes :lipstick:
+* Update gems: ahoy_matey aws-sdk sidekiq uglifier
+* Update dev gems (includes new security fix for nokogiri)
+* Add `AhoyEvenetSweeper` that can delete events older than X and add rake task
+* Allow setting that regular users are allowed to create jobs from ENV-var
+* Extract `JobMailer#new_applicant_job_info_email` to `JobUserMailer` and add missing job-languages to email
+
 
 v1.43.1 - 2017-03-29
 ----------
