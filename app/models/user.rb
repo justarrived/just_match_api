@@ -100,6 +100,7 @@ class User < ApplicationRecord
   validate :validate_swedish_bank_account
   validate :validate_arrival_date_in_past
 
+  scope :scope_for, ->(user) { user.admin? ? all : user.where(id: user&.id) }
   scope :sales_users, -> { admins }
   scope :delivery_users, -> { super_admins }
   scope :super_admins, -> { where(super_admin: true) }
