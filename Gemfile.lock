@@ -1,4 +1,11 @@
 GIT
+  remote: https://github.com/activeadmin-plugins/active_admin_filters_visibility
+  revision: b851bdcb4955161948325112a5bca336db8398fc
+  specs:
+    active_admin_filters_visibility (1.2.0)
+      activeadmin
+
+GIT
   remote: https://github.com/activeadmin-plugins/active_admin_scoped_collection_actions
   revision: 9658a711614825c3ce437702c64dd0e41e339c83
   specs:
@@ -686,6 +693,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_admin_datetimepicker (~> 0.3)
+  active_admin_filters_visibility!
   active_admin_scoped_collection_actions!
   active_admin_theme (~> 1.0)
   active_model_serializers (~> 0.10)
