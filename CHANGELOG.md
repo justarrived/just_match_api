@@ -3,6 +3,16 @@
 HEAD
 -----------
 
+v1.45 - 2017-03-30
+----------
+* _Admin_:
+  - Add comment resource
+  - Convert most job batch actions to `scoped_collection_action`
+  - Add `activeadmin` plugin: `active_admin_scoped_collection_actions`
+  - Add admin comments namespace
+* Update frontend router user edit path
+
+
 v1.44 - 2017-03-30
 ----------
 * Admin:
