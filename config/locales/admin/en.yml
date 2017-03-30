@@ -1,5 +1,7 @@
 en:
   admin:
+    yes: Yes
+    no: No
     hired_suffix: '(hired)'
     batch_action_confirm: Are you sure?
     verified_selected: Verified selected.
@@ -10,6 +12,8 @@ en:
     time_from_now: '%{time} from now'
     download: Download
     upload: Upload
+    comment:
+      commentable_type_header: Type
     translation:
       locale_language_missmatch: the provided locale must be the same as the language locale
     form:
@@ -87,14 +91,14 @@ en:
         job_details: Job details
         created_at: Created at %{date}
     job:
+      batch_action:
+        update:
+          title: Update selected or all jobs
       google_calendar_link: Google Calendar
       name: Name
       name_search: Job name
       description: Description
       short_description: Short Description
-      filled_selected: Selected jobs have been marked as filled.
-      upcoming_selected: Selected jobs have been marked as upcoming.
-      hidden_selected: Selected jobs have been marked as hidden.
       clone: Clone
       show:
         title: Job detail

@@ -1,33 +1,27 @@
 # frozen_string_literal: true
 ActiveAdmin.register Job do
+  config.scoped_collection_actions_if = -> { true }
+
   menu parent: 'Jobs', priority: 1
 
   actions :all, except: [:destroy]
   batch_action :destroy, false
 
-  batch_action :filled, confirm: I18n.t('admin.batch_action_confirm') do |ids|
-    collection.where(id: ids).map { |j| j.update(filled: true) }
-
-    redirect_to collection_path, notice: I18n.t('admin.job.filled_selected')
-  end
-
-  batch_action :upcoming, confirm: I18n.t('admin.batch_action_confirm') do |ids|
-    collection.where(id: ids).map { |j| j.update(upcoming: true) }
-
-    redirect_to collection_path, notice: I18n.t('admin.job.upcoming_selected')
-  end
-
-  batch_action :hidden, confirm: I18n.t('admin.batch_action_confirm') do |ids|
-    collection.where(id: ids).map { |j| j.update(hidden: true) }
-
-    redirect_to collection_path, notice: I18n.t('admin.job.hidden_selected')
-  end
-
-  batch_action :verify, confirm: I18n.t('admin.batch_action_confirm') do |ids|
-    collection.where(id: ids).map { |j| j.update(verified: true) }
-
-    redirect_to collection_path, notice: I18n.t('admin.verified_selected')
-  end
+  scoped_collection_action :update_status_flags, title: I18n.t('admin.job.batch_action.update.title'), form: lambda { # rubocop:disable Metrics/LineLength
+    yes_no = [[I18n.t('admin.yes'), 't'], [I18n.t('admin.no'), 'f']]
+    {
+      hidden: yes_no,
+      featured: yes_no,
+      staffing_job: yes_no,
+      direct_rectuitment_job: yes_no,
+      filled: yes_no,
+      cancelled: yes_no,
+      upcoming: yes_no,
+      just_arrived_contact_user_id: User.delivery_users.map do |user|
+        [user.name, user.id]
+      end
+    }
+  }
 
   # Create sections on the index screen
   scope :all, default: true
