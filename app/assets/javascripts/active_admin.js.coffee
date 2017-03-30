@@ -2,6 +2,8 @@
 #= require active_admin/base
 #= require chosen-jquery
 #= require active_admin_datetimepicker
+#= require active_admin_scoped_collection_actions
+
 
 # In forms
 $ ->

@@ -1,4 +1,10 @@
 GIT
+  remote: https://github.com/activeadmin-plugins/active_admin_scoped_collection_actions
+  revision: 9658a711614825c3ce437702c64dd0e41e339c83
+  specs:
+    active_admin_scoped_collection_actions (0.2.0)
+
+GIT
   remote: https://github.com/activeadmin/activeadmin
   revision: 7ff122d580835d70cfc424bc251e70ab0ec51b3d
   specs:
@@ -680,6 +686,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_admin_datetimepicker (~> 0.3)
+  active_admin_scoped_collection_actions!
   active_admin_theme (~> 1.0)
   active_model_serializers (~> 0.10)
   activeadmin!

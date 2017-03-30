@@ -11,6 +11,8 @@
 @import 'active_admin/mixins';
 @import 'active_admin/base';
 
+@import 'active_admin_scoped_collection_actions';
+
 $skinMainFirstColor: #222531 !default;
 $skinMainSecondColor: #d10072 !default;
 $skinBorderRadius: 4px !default;
