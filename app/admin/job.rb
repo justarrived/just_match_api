@@ -60,10 +60,8 @@ ActiveAdmin.register Job do
 
     column :id { |job| link_to(job.id, admin_job_path(job)) }
     column :applicants, sortable: 'job_users_count' do |job|
-      user_icon = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAllBMVEUAAAAiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTF/Cx8WAAAAMXRSTlMAAgMEBQYHCAkKFhcwMTIzODo8b3B0d3h5fJSXoKKjpqqtubzDz9HT2t7g6Onz9ff9NenHaAAAAKJJREFUGBllwYkWQkAABdBHi1SiRSvRSii9//+5zkzOnBlzL5Qgqetkjj43p5Q5MOXsZDAsqMyhS6kk0DVUaugaKjV0ZyoJdCGVAIYLOzlM7oVS7kIz3JSxE56bJl04cbkeoDOuSBaRB3hRQfI1wt+JPUdIPi0+hBUtSwgHWnYQ7rTcIFS0lBA+tLwhPGl5QNjTsoUwadnTepBm1y813+sUwA9NtT5hdtOe/QAAAABJRU5ErkJggg==' # rubocop:disable Metrics/LineLength
-
       column_content = safe_join([
-                                   image_tag(user_icon, class: 'table-column-icon'),
+                                   user_icon_png(html_class: 'table-column-icon'),
                                    job.job_users_count
                                  ])
       link_path = admin_job_users_path + AdminHelpers::Link.query(:job_id, job.id)

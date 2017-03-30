@@ -9,6 +9,12 @@ module AdminHelper
     end
   end
 
+  def user_icon_png(html_class: '')
+    user_icon = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAllBMVEUAAAAiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTF/Cx8WAAAAMXRSTlMAAgMEBQYHCAkKFhcwMTIzODo8b3B0d3h5fJSXoKKjpqqtubzDz9HT2t7g6Onz9ff9NenHaAAAAKJJREFUGBllwYkWQkAABdBHi1SiRSvRSii9//+5zkzOnBlzL5Qgqetkjj43p5Q5MOXsZDAsqMyhS6kk0DVUaugaKjV0ZyoJdCGVAIYLOzlM7oVS7kIz3JSxE56bJl04cbkeoDOuSBaRB3hRQfI1wt+JPUdIPi0+hBUtSwgHWnYQ7rTcIFS0lBA+tLwhPGl5QNjTsoUwadnTepBm1y813+sUwA9NtT5hdtOe/QAAAABJRU5ErkJggg==' # rubocop:disable Metrics/LineLength
+
+    image_tag(user_icon, class: html_class)
+  end
+
   def datetime_ago_in_words(datetime)
     created_at = datetime.strftime('%A at %H:%M, %B %d, %Y')
     time_ago_in_words = distance_of_time_in_words(Time.zone.now, datetime)

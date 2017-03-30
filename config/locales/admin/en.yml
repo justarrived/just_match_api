@@ -28,7 +28,7 @@ en:
     recent_users:
       title: Recent users
     recent_jobs:
-      title: Recent jobs
+      title: Your recent jobs
       name: Name
       filled: Filled
       start_date: Start date
