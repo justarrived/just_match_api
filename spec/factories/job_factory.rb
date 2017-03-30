@@ -56,6 +56,20 @@ FactoryGirl.define do
       end
     end
 
+    factory :job_with_traits do
+      transient do
+        skills_count 2
+        languages_count 2
+      end
+
+      after(:create) do |job, evaluator|
+        skills = create_list(:skill, evaluator.skills_count)
+        job.skills = skills
+        languages = create_list(:language, evaluator.languages_count)
+        job.languages = languages
+      end
+    end
+
     factory :job_with_skills do
       transient do
         skills_count 1
@@ -64,6 +78,17 @@ FactoryGirl.define do
       after(:create) do |job, evaluator|
         skills = create_list(:skill, evaluator.skills_count)
         job.skills = skills
+      end
+    end
+
+    factory :job_with_languages do
+      transient do
+        languages_count 1
+      end
+
+      after(:create) do |job, evaluator|
+        languages = create_list(:language, evaluator.languages_count)
+        job.languages = languages
       end
     end
 

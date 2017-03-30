@@ -36,6 +36,11 @@ Rails.application.routes.draw do
             end
           end
           resources :ratings, module: :jobs, path: :ratings, only: [:create]
+          resources :users, param: :user_id, module: :jobs, only: [] do
+            member do
+              get :missing_traits, path: 'missing-traits'
+            end
+          end
         end
       end
 
