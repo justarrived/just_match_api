@@ -12,6 +12,8 @@ en:
     time_from_now: '%{time} from now'
     download: Download
     upload: Upload
+    comment:
+      commentable_type_header: Type
     translation:
       locale_language_missmatch: the provided locale must be the same as the language locale
     form:
