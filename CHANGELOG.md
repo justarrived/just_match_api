@@ -3,6 +3,11 @@
 HEAD
 -----------
 
+v1.47 - 2017-03-30
+----------
+* _Admin_: Add latest 5 comments to job show page
+
+
 v1.46 - 2017-03-30
 ----------
 * _Admin_: Add `activeadmin` plugin `active_admin_filters_visibility` for per user sorting & hiding filters
