@@ -9,5 +9,5 @@ routes:
   job_user_for_company: 'company/job/%{job_id}/candidate/%{job_user_id}'
   job_users: 'company/job/%{job_id}/candidates'
   job_user: 'job/%{job_id}'
-  user_edit: 'users/%{id}'
+  user_edit: 'user'
   chat: 'chat/%{id}'
