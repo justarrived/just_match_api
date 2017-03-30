@@ -3,6 +3,11 @@
 HEAD
 -----------
 
+v1.46 - 2017-03-30
+----------
+* _Admin_: Add `activeadmin` plugin `active_admin_filters_visibility` for per user sorting & hiding filters
+
+
 v1.45 - 2017-03-30
 ----------
 * _Admin_:
