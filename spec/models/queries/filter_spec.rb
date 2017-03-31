@@ -48,6 +48,20 @@ RSpec.describe Queries::Filter do
         expect(result).to eq([skill, skill1])
       end
     end
+
+    context 'filter_type: translated' do
+      subject { described_class }
+
+      it 'returns correct results' do
+        skill = FactoryGirl.create(:skill)
+        skill1 = FactoryGirl.create(:skill)
+        FactoryGirl.create(:skill)
+
+        filter = { id: :in_list }
+        result = subject.filter(Skill, { id: [skill.id, skill1.id].join(',') }, filter)
+        expect(result).to eq([skill, skill1])
+      end
+    end
   end
 
   describe '#extract_like_query' do

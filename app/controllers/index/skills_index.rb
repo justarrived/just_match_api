@@ -2,6 +2,7 @@
 module Index
   class SkillsIndex < BaseIndex
     FILTER_MATCH_TYPES = {
+      id: :in_list,
       name: { translated: :starts_with }
     }.freeze
     ALLOWED_FILTERS = %i(id name).freeze

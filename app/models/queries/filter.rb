@@ -10,6 +10,8 @@ module Queries
         filter_type = filter_types[field_name]
         if filter_type.is_a?(Hash) && filter_type[:translated]
           records = filter_translated_records(records, field_name, value, filter_type[:translated]) # rubocop:disable Metrics/LineLength
+        elsif filter_type == :in_list
+          records = records.where(field_name => value&.split(','))
         elsif filter_type
           records = filter_records(records, field_name, value, filter_type)
         else
