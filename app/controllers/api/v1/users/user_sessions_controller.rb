@@ -76,7 +76,8 @@ module Api
         def destroy
           token = Token.find_by(token: params[:id])
           if token
-            token.destroy!
+            token.expires_at = Time.zone.now
+            token.save!
 
             head :no_content
           else
