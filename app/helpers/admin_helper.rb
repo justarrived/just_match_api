@@ -15,6 +15,12 @@ module AdminHelper
     image_tag(user_icon, class: html_class)
   end
 
+  def envelope_icon_png(html_class: '')
+    envelope_icon = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAMAAAAolt3jAAAAXVBMVEUAAAD///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////9RKvvlAAAAHnRSTlMAAQMIDxASEx4hJjc4XWFoa210mJutsMXHzs/V3P3SjJ/LAAAAWUlEQVQIHQXBCULCQAAAsZRLLKdFBYWd/z+TBADgOqqqalyMCQBDewA+0/MDYPdKm78jcPjfJqvbMjEt3ysJp5/1+veMBPP9MUMCgAwAGL5GVVWNKwAAAPAG8x4GrqYZWpwAAAAASUVORK5CYII=' # rubocop:disable Metrics/LineLength
+    style = 'max-width: 12px;vertical-align: middle; margin-right: 5px;'
+    image_tag(envelope_icon, class: html_class, style: style)
+  end
+
   def datetime_ago_in_words(datetime)
     created_at = datetime.strftime('%A at %H:%M, %B %d, %Y')
     time_ago_in_words = distance_of_time_in_words(Time.zone.now, datetime)

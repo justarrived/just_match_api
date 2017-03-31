@@ -62,6 +62,31 @@ ActiveAdmin.register FrilansFinansInvoice do
     link_to title, path, method: :post
   end
 
+  member_action :create_invoice, method: :post do
+    ff_invoice = resource
+    job_user = ff_invoice.job_user
+    invoice = Invoice.new(job_user: job_user, frilans_finans_invoice: ff_invoice)
+
+    if invoice.save
+      message = I18n.t('admin.create_invoice.success_msg')
+      InvoiceCreatedNotifier.call(job: job_user.job, user: job_user.user)
+      redirect_to(resource_path(resource), notice: message)
+    else
+      message = invoice.errors.full_messages.join(".\n")
+      redirect_to(resource_path(resource), alert: message)
+    end
+  end
+
+  action_item :view, only: :show do
+    title = safe_join([
+                        envelope_icon_png(html_class: 'btn-icon'),
+                        I18n.t('admin.create_invoice.post_btn')
+                      ])
+
+    path = create_invoice_admin_frilans_finans_invoice_path(resource)
+    link_to title, path, method: :post
+  end
+
   index do
     selectable_column
 

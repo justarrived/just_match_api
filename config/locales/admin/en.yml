@@ -12,6 +12,9 @@ en:
     time_from_now: '%{time} from now'
     download: Download
     upload: Upload
+    create_invoice:
+      success_msg: Successfully created invoice. Invoice will be activated at Frilans Finans soon.
+      post_btn: Activate invoice
     comment:
       commentable_type_header: Type
     translation:
