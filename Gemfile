@@ -27,7 +27,7 @@ gem 'sidekiq', '~> 4.2' # Background worker (Redis-backed)
 gem 'sidekiq-statistic', '~> 1.2'
 
 # MONITORING
-gem 'airbrake', '~> 5.6' # Error catcher and reporter
+gem 'airbrake', '~> 6.0' # Error catcher and reporter
 gem 'skylight', '~> 1.0' # Performance monitoring
 
 # PAGINATION
@@ -123,7 +123,7 @@ group :test, :docs do
   gem 'fuubar', '~> 2.2'
   gem 'rails-controller-testing'
   gem 'rspec-activemodel-mocks', '~> 1.0'
-  gem 'simplecov', '~> 0.14', require: false
+  gem 'simplecov', '~> 0.13', require: false
   gem 'timecop', '~> 0.8'
   gem 'webmock', '~> 2.0'
 end
