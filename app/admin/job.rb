@@ -8,7 +8,7 @@ ActiveAdmin.register Job do
   batch_action :destroy, false
 
   scoped_collection_action :update_status_flags, title: I18n.t('admin.job.batch_action.update.title'), form: lambda { # rubocop:disable Metrics/LineLength
-    yes_no = [[I18n.t('admin.yes'), 't'], [I18n.t('admin.no'), 'f']]
+    yes_no = [[I18n.t('admin.yes_answer'), 't'], [I18n.t('admin.no_answer'), 'f']]
     {
       hidden: yes_no,
       featured: yes_no,

@@ -1,7 +1,7 @@
 en:
   admin:
-    yes: Yes
-    no: No
+    yes_answer: Yes
+    no_answer: No
     hired_suffix: '(hired)'
     batch_action_confirm: Are you sure?
     verified_selected: Verified selected.
