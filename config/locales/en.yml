@@ -56,6 +56,8 @@ en:
       hours_upper_bound: can't be more than %{max_hours} hours per day
       owner_must_belong_to_company: owner must belong to a company
     job_user:
+      terms_agreement_consent_required: you must accept the terms of agreement to apply for this job
+      terms_agreement_not_found: no such terms agreement
       forbidden_applicant_user: not allowed to apply for this job
       not_owner_of_job: can't be both job owner and job applicant
       multiple_applicants: can't accept multiple applicants

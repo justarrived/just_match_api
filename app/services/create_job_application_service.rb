@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class CreateJobApplicationService
-  def self.call(job:, user:, attributes:, job_owner:)
+  def self.call(job:, user:, attributes:, job_owner:, terms_agreement:)
     job_user = JobUser.find_or_initialize_by(user: user, job: job)
     job_user.application_withdrawn = false
     job_user.apply_message = attributes[:apply_message]
@@ -13,6 +13,12 @@ class CreateJobApplicationService
           changed: result.changed_fields
         )
       end
+
+      TermsAgreementConsent.create!(
+        terms_agreement: terms_agreement,
+        user: user,
+        job: job
+      )
 
       missing_skills = job.skills - user.skills
       missing_languages = job.languages - user.languages
