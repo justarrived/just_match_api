@@ -92,13 +92,13 @@ group :development, :test, :docs do
   gem 'bullet', '~> 5.5'
   gem 'byebug', '~> 9.0'
   gem 'consistency_fail', '~> 0.3'
-  gem 'dotenv-rails', '~> 2.1'
-  gem 'factory_girl_rails', '~> 4.0'
-  gem 'fog', '~> 1.38' # Cloud services gem, in production the aws-sdk gem is used
+  gem 'dotenv-rails', '~> 2.2'
+  gem 'factory_girl_rails', '~> 4.8'
+  gem 'fog', '~> 1.40' # Cloud services gem, in production the aws-sdk gem is used
   gem 'immigrant', '~> 0.3'
   gem 'rspec-rails', '~> 3.5'
   gem 'rspec_junit_formatter', '~> 0.2'
-  gem 'rubocop', '~> 0.46', require: false
+  gem 'rubocop', '~> 0.48', require: false
 end
 
 group :development do
@@ -114,16 +114,16 @@ group :development do
   gem 'spring', '~> 2.0'
   gem 'spring-commands-rspec', '~> 1.0'
   gem 'stackprof', '~> 0.2'
-  gem 'web-console', '~> 3.3'
+  gem 'web-console', '~> 3.5'
 end
 
 group :test, :docs do
   gem 'codeclimate-test-reporter', '~> 1.0', require: false
   gem 'database_cleaner', '~> 1.5'
-  gem 'fuubar', '~> 2.1'
+  gem 'fuubar', '~> 2.2'
   gem 'rails-controller-testing'
   gem 'rspec-activemodel-mocks', '~> 1.0'
-  gem 'simplecov', '~> 0.11', require: false
+  gem 'simplecov', '~> 0.14', require: false
   gem 'timecop', '~> 0.8'
   gem 'webmock', '~> 2.0'
 end
