@@ -190,9 +190,10 @@ RSpec.describe Api::V1::Users::UserSessionsController, type: :controller do
         user = FactoryGirl.create(:user, email: 'someone@example.com')
         token = user.create_auth_token
         auth_token = token.token
+        expect(user.auth_tokens.first.expired?).to eq(false)
         delete :destroy, params: { id: auth_token }
         user.reload
-        expect(user.auth_tokens).not_to include(token)
+        expect(user.auth_tokens.first.expired?).to eq(true)
       end
     end
 
