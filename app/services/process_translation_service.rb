@@ -24,6 +24,7 @@ class ProcessTranslationService
 
   def self.detect_locale(text)
     detection = DetectLanguage.call(text)
+    track_detection(detection)
     return unless detection.valid? # Return if we "detect" an undetermined language, etc
     return unless within_confidence_level?(detection.confidence)
 
@@ -32,5 +33,9 @@ class ProcessTranslationService
 
   def self.within_confidence_level?(confidence)
     confidence > CONFIDENCE_THRESHOLD
+  end
+
+  def self.track_detection(detection)
+    Analytics.track(:google_translate_detection, data: detection.to_h)
   end
 end

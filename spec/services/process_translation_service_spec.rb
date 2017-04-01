@@ -51,6 +51,22 @@ RSpec.describe ProcessTranslationService do
       allow(DetectLanguage).to receive(:call).and_return(detection)
       expect(described_class.detect_locale('Hej')).to be_nil
     end
+
+    it 'creates track event' do
+      detection = detection_struct.new('en', 'en', 0.1, false)
+      allow(DetectLanguage).to receive(:call).and_return(detection)
+      expect do
+        described_class.detect_locale('Hej')
+      end.to change(Ahoy::Event, :count).by(1)
+    end
+  end
+
+  describe '::track_detection' do
+    it 'creates detection event' do
+      expect do
+        described_class.track_detection(name: 'Name', text: 'text')
+      end.to change(Ahoy::Event, :count).by(1)
+    end
   end
 
   describe '::within_confidence_level?' do
