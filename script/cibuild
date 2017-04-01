@@ -20,6 +20,7 @@ script/bootstrap
 
 bin/rails db:create db:schema:load
 
+export DISABLE_SPRING=1
 export LINT_FACTORY=true
 export RUBOCOP=false
 export CHECK_DB_INDEXES=true
