@@ -101,6 +101,7 @@ module Api
       error code: 403, desc: 'Forbidden'
       error code: 404, desc: 'Not found'
       error code: 422, desc: 'Unprocessable entity'
+      ApipieDocHelper.params(self)
       param :data, Hash, desc: 'Top level key', required: true do
         param :attributes, Hash, desc: 'Job attributes', required: true do
           param :name, String, desc: 'Name'

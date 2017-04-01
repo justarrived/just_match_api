@@ -20,6 +20,7 @@ module Api
         api :POST, '/users/:user_id/images/', 'User images'
         description 'Creates a user image'
         error code: 422, desc: 'Unprocessable entity'
+        ApipieDocHelper.params(self)
         param :data, Hash, desc: 'Top level key', required: true do
           param :attributes, Hash, desc: 'User image attributes', required: true do
             param :category, UserImage::CATEGORIES.keys, desc: 'User image category', required: true # rubocop:disable Metrics/LineLength

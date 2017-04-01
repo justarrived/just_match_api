@@ -23,6 +23,7 @@ module Api
         error code: 400, desc: 'Bad request'
         error code: 404, desc: 'Not found'
         error code: 422, desc: 'Unprocessable entity'
+        ApipieDocHelper.params(self)
         param :data, Hash, desc: 'Top level key', required: true do
           param :attributes, Hash, desc: 'Rating attributes', required: true do
             param :score, Rating::SCORE_RANGE.to_a, desc: 'Rating score', required: true

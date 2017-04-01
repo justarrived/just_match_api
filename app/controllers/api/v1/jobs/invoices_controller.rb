@@ -21,6 +21,7 @@ module Api
         error code: 400, desc: 'Bad request'
         error code: 404, desc: 'Not found'
         error code: 422, desc: 'Unprocessable entity'
+        ApipieDocHelper.params(self)
         example Doxxer.read_example(Invoice, method: :create)
         def create
           job_user = JobUser.find(params[:job_user_id])

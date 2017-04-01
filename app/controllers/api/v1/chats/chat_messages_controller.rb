@@ -38,13 +38,13 @@ module Api
         error code: 400, desc: 'Bad request'
         error code: 404, desc: 'Not found'
         error code: 422, desc: 'Unprocessable entity'
+        ApipieDocHelper.params(self)
         param :data, Hash, desc: 'Top level key', required: true do
           param :attributes, Hash, desc: 'Message attributes', required: true do
             param :body, String, desc: 'Message body', required: true
             param :language_id, Integer, desc: 'Language id', required: true
           end
         end
-        ApipieDocHelper.params(self)
         example Doxxer.read_example(Message, method: :create)
         def create
           @message = CreateChatMessageService.create(
