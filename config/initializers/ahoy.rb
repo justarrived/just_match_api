@@ -9,3 +9,4 @@ module Ahoy
 end
 
 Ahoy.api_only = true
+Ahoy.geocode = :async
