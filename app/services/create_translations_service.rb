@@ -32,7 +32,7 @@ class CreateTranslationsService
     attributes = translation.translation_attributes
     # If changed is nil then all fields will be translated
     return attributes unless changed
-    attributes.slice(*changed)
+    attributes.slice(*changed.map(&:to_s))
   end
 
   def self.set_translation(translation, attributes, language)
@@ -42,15 +42,16 @@ class CreateTranslationsService
   end
 
   def self.translate_attributes(attributes, from:, to:)
-    translated_attributes = {}
-    attributes.each do |name, text|
-      if text.blank?
-        translated_attributes[name] = nil
-        next
-      end
-      translation = GoogleTranslate.translate(text, from: from, to: to, type: :plain)
-      translated_attributes[name] = translation.text
+    attributes.inject({}) do |translated, values|
+      name, text = values
+      translated[name] = translate_text(text, from: from, to: to)
+      translated
     end
-    translated_attributes
+  end
+
+  def self.translate_text(text, from:, to:)
+    return if text.blank?
+    translation = GoogleTranslate.translate(text, from: from, to: to, type: :plain)
+    translation.text
   end
 end
