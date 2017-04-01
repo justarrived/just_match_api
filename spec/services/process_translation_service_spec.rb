@@ -34,22 +34,42 @@ RSpec.describe ProcessTranslationService do
   end
 
   describe '::detect_locale' do
+    let(:translation) { FactoryGirl.build(:message_translation) }
+
     it 'returns detected locale if it can be determined' do
       detection = detection_struct.new('en', 'en', 1, true)
       allow(DetectLanguage).to receive(:call).and_return(detection)
-      expect(described_class.detect_locale('Hej')).to eq('en')
+      expect(described_class.detect_locale('Hej', translation)).to eq('en')
     end
 
     it 'returns nil if locale is not over confidence threshold' do
       detection = detection_struct.new('en', 'en', 0.1, true)
       allow(DetectLanguage).to receive(:call).and_return(detection)
-      expect(described_class.detect_locale('Hej')).to eq(nil)
+      expect(described_class.detect_locale('Hej', translation)).to eq(nil)
     end
 
     it 'returns nil if no locale could be determined' do
       detection = detection_struct.new('en', 'en', 0.1, false)
       allow(DetectLanguage).to receive(:call).and_return(detection)
-      expect(described_class.detect_locale('Hej')).to be_nil
+      expect(described_class.detect_locale('Hej', translation)).to be_nil
+    end
+
+    it 'creates track event' do
+      detection = detection_struct.new('en', 'en', 0.1, false)
+      allow(DetectLanguage).to receive(:call).and_return(detection)
+      expect do
+        described_class.detect_locale('Hej', translation)
+      end.to change(Ahoy::Event, :count).by(1)
+    end
+  end
+
+  describe '::track_detection' do
+    let(:translation) { FactoryGirl.build(:message_translation) }
+
+    it 'creates detection event' do
+      expect do
+        described_class.track_detection({ name: 'Name', text: 'text' }, translation)
+      end.to change(Ahoy::Event, :count).by(1)
     end
   end
 

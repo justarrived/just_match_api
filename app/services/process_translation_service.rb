@@ -12,7 +12,7 @@ class ProcessTranslationService
 
     return if text.blank?
 
-    from = translation.language&.locale || detect_locale(text)
+    from = translation.language&.locale || detect_locale(text, translation)
     return if from.nil?
 
     CreateTranslationsJob.perform_later(
@@ -22,8 +22,9 @@ class ProcessTranslationService
     )
   end
 
-  def self.detect_locale(text)
+  def self.detect_locale(text, translation)
     detection = DetectLanguage.call(text)
+    track_detection(detection, translation)
     return unless detection.valid? # Return if we "detect" an undetermined language, etc
     return unless within_confidence_level?(detection.confidence)
 
@@ -32,5 +33,12 @@ class ProcessTranslationService
 
   def self.within_confidence_level?(confidence)
     confidence > CONFIDENCE_THRESHOLD
+  end
+
+  def self.track_detection(detection, translation)
+    data = detection.to_h
+    data.delete(:text) # The text can be sensitive and/or too long so don't store it
+    data[:translation] = translation&.display_name
+    Analytics.track(:google_translate_detection, data: data)
   end
 end
