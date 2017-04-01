@@ -225,7 +225,8 @@ module Api
       end
 
       def track_event(label, properties = {})
-        analytics.track(label, default_event_properties.merge!(properties))
+        data = default_event_properties.merge!(properties)
+        analytics.track(label, data: data)
       end
 
       def default_event_properties
@@ -248,7 +249,7 @@ module Api
       end
 
       def analytics
-        @_ahoy ||= Ahoy::Tracker.new(controller: self, api: true)
+        @_ahoy ||= Analytics.new(controller: self)
       end
 
       def jsonapi_params
