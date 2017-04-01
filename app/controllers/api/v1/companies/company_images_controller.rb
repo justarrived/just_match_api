@@ -8,6 +8,7 @@ module Api
         api :POST, '/companies/images/', 'Company images'
         description 'Creates a user image'
         error code: 422, desc: 'Unprocessable entity'
+        ApipieDocHelper.params(self)
         param :data, Hash, desc: 'Top level key', required: true do
           param :attributes, Hash, desc: 'User image attributes', required: true do
             param :image, String, desc: 'Image (data uri, data/image)', required: true

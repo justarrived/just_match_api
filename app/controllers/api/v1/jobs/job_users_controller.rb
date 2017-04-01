@@ -72,6 +72,7 @@ module Api
         error code: 400, desc: 'Bad request'
         error code: 404, desc: 'Not found'
         error code: 422, desc: 'Unprocessable entity'
+        ApipieDocHelper.params(self)
         param :data, Hash, desc: 'Top level key', required: true do
           param :attributes, Hash, desc: 'Job user attributes', required: true do
             param :user_id, Integer, desc: 'User id of the applicant', required: true
@@ -120,6 +121,7 @@ module Api
         error code: 401, desc: 'Unauthorized'
         error code: 404, desc: 'Not found'
         error code: 422, desc: 'Unprocessable entity'
+        ApipieDocHelper.params(self)
         param :data, Hash, desc: 'Top level key', required: true do
           param :attributes, Hash, desc: 'Job user attributes', required: true do
             param :accepted, [true], desc: '_DEPRECATED_: User accepted for job'

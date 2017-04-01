@@ -52,6 +52,7 @@ module Api
           * Min #{Chat::MIN_USERS} users per chat.
           * Max #{Chat::MAX_USERS} users per chat.
         "
+        ApipieDocHelper.params(self)
         param :data, Hash, desc: 'Top level key', required: true do
           param :attributes, Hash, desc: 'Chat attributes', required: true do
             # rubocop:disable Metrics/LineLength
