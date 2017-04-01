@@ -9,13 +9,14 @@ module GoogleTranslate
       @origin = translation.origin
       @from = translation.from
       @detected = translation.detected?
-      @type = type
+      @type = type.to_s.downcase
     end
 
     def text
-      return @text unless type == :plain
+      return @text unless type == 'plain'
 
-      @text.gsub(/<br>/, "\n")
+      CGI.unescapeHTML(@text).
+        gsub(/<br>/, "\n")
     end
 
     def language
