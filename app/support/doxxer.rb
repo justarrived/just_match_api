@@ -123,7 +123,7 @@ class Doxxer
     if plural
       paged_model = Kaminari.paginate_array(model).page(1)
       model_hash[:meta] = {
-        total: 1,
+        total: paged_model.length,
         current_page: paged_model.current_page,
         total_pages: paged_model.total_pages
       }
