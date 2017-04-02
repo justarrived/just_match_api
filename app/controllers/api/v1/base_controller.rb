@@ -422,23 +422,31 @@ module Api
       private
 
       def authenticate_user_token!
+        # First try to grab the token from the Authorization header
         authenticate_with_http_token do |auth_token, _options|
-          return if auth_token.blank?
-
-          token = Token.find_by(token: auth_token)
-          return if token.nil?
-          # return raise NoSuchTokenError if token.nil?
-          return raise ExpiredTokenError if token.expired?
-
-          user = token.user
-
-          if user.admin? && !act_as_user_header.blank?
-            true_user = user
-            user = User.find(act_as_user_header)
-          end
-
-          return login_user(user, true_user)
+          return login_user_from_token(auth_token)
         end
+
+        # Secondly, if no Authorization header is set try to grab it from the URL
+        login_user_from_token(params[:auth_token]) unless logged_in?
+      end
+
+      def login_user_from_token(auth_token)
+        return if auth_token.blank?
+
+        token = Token.find_by(token: auth_token)
+        return if token.nil?
+        # return raise NoSuchTokenError if token.nil?
+        return raise ExpiredTokenError if token.expired?
+
+        user = token.user
+
+        if user.admin? && act_as_user_header.present?
+          true_user = user
+          user = User.find(act_as_user_header)
+        end
+
+        login_user(user, true_user)
       end
     end
   end
