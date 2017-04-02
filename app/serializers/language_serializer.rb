@@ -11,9 +11,16 @@ class LanguageSerializer < ApplicationSerializer
     object.name_for(I18n.locale)
   end
 
+  has_one :language do |serializer| # rubocop:disable Style/SymbolProc
+    serializer.current_language
+  end
+
+  attribute :language_id { current_language_id }
+
   attribute :translated_text do
     {
-      name: object.name_for(I18n.locale)
+      name: object.name_for(I18n.locale),
+      language_id: current_language_id
     }
   end
 
