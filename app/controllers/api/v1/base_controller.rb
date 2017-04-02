@@ -29,7 +29,7 @@ module Api
 
           __Authorization__
 
-          `Authorization: Token token=XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX`
+          `Authorization: Token token=XXXYYYZZZ`
 
           __Promo code (not always active)__
 
@@ -38,6 +38,21 @@ module Api
           __Admin__
 
           `X-API-ACT-AS-USER` an admin can "act as" a user by sending this header.
+
+          ---
+
+          ### Authorization
+
+          There are two was of passing an authorization token, in HTTP-header or as an URL-paramter. The preferred method is HTTP-header.
+
+          Pass the authorization token in HTTP-header:
+
+          `Authorization: Token token=XXXYYYZZZ`
+
+          Pass the authorization token as an URL-paramter, `auth_token`:
+
+          `https://api.justarrived.se/api/v1/users/1?auth_token=XXXYYYZZZ`
+
 
           ---
 
