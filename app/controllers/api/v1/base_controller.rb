@@ -53,6 +53,30 @@ module Api
 
           `https://api.justarrived.se/api/v1/users/1?auth_token=XXXYYYZZZ`
 
+          ---
+
+          ## HTTP Codes
+
+          ### Success
+
+          Status      | Description           |
+          ------------|:----------------------|
+          200         | OK                    |
+          201         | Created               |
+          202         | Accepted              |
+          204         | No content            |
+
+          ### Error
+
+          Status      | Description           |
+          ------------|:----------------------|
+          400         | Bad Request           |
+          401         | Unauthorized          |
+          403         | Forbidden             |
+          404         | Not found             |
+          422         | Unprocessable entity  |
+          429         | Rate limited          |
+          500         | Internal server error |
 
           ---
 
