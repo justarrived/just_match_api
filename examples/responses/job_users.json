@@ -31,6 +31,15 @@
             "type": "jobs"
           }
         },
+        "language": {
+          "data": {
+            "id": "19",
+            "type": "languages"
+          },
+          "links": {
+            "self": "https://api.justarrived.se/api/v1/languages/19"
+          }
+        },
         "invoice": {
           "data": null
         }

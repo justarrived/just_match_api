@@ -24,7 +24,7 @@ RSpec.describe JobUserSerializer, type: :serializer do
       expect(subject).to have_jsonapi_attribute(dashed_attribute, value)
     end
 
-    %w(job user).each do |relationship|
+    %w(job user language).each do |relationship|
       it "has #{relationship} relationship" do
         expect(subject).to have_jsonapi_relationship(relationship)
       end
