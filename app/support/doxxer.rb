@@ -120,7 +120,14 @@ class Doxxer
     model_hash = serialized_model.serializable_hash
 
     # Merge meta attributes for plural examples
-    model_hash[:meta] = { total: 1 } if plural
+    if plural
+      paged_model = Kaminari.paginate_array(model).page(1)
+      model_hash[:meta] = {
+        total: 1,
+        current_page: paged_model.current_page,
+        total_pages: paged_model.total_pages
+      }
+    end
 
     JSON.pretty_generate(model_hash)
   end
