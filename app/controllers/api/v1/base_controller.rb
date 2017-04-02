@@ -306,6 +306,10 @@ module Api
         @_true_user ||= User.new
       end
 
+      def current_language
+        @_current_language ||= Language.find_by_locale(I18n.locale)
+      end
+
       protected
 
       def track_request
@@ -342,6 +346,7 @@ module Api
           included: included_resources,
           fields: fields_params.to_h,
           current_user: current_user,
+          current_language: current_language,
           meta: meta,
           request: request
         )

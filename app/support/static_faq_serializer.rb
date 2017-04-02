@@ -8,10 +8,14 @@ class StaticFAQSerializer
 
       next unless selected_category?(filter, attrs.fetch(:category))
 
+      relationships = JsonApiRelationships.new
+      relationships.add(relation: 'language', type: 'languages', id: language_id)
+
       faqs_data << JsonApiData.new(
         id: index,
         type: :faqs,
         attributes: build_attributes(attrs, language_id),
+        relationships: relationships,
         key_transform: key_transform
       )
     end
