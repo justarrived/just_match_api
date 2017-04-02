@@ -39,6 +39,7 @@ Rails.application.routes.draw do
           resources :users, param: :user_id, module: :jobs, only: [] do
             member do
               get :missing_traits, path: 'missing-traits'
+              get :job_user, path: 'job-user'
             end
           end
         end
