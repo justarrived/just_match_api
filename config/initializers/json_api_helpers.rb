@@ -4,6 +4,7 @@
 JsonApiErrors = JsonApiHelpers::Serializers::Errors
 JsonApiData = JsonApiHelpers::Serializers::Data
 JsonApiDatum = JsonApiHelpers::Serializers::Datum
+JsonApiRelationships = JsonApiHelpers::Serializers::Relationships
 
 JsonApiErrorSerializer = JsonApiHelpers::Serializers::ModelError
 JsonApiSerializer = JsonApiHelpers::Serializers::Model
