@@ -4,7 +4,7 @@ require 'json_api_helpers/action_dispatch_request_wrapper'
 module JsonApiHelpers
   module Serializers
     class Model
-      attr_reader :serializer, :included, :fields, :current_user, :model_scope, :meta, :request, :key_transform # rubocop:disable Metrics/LineLength
+      attr_reader :serializer, :included, :fields, :current_user, :current_language, :model_scope, :meta, :request, :key_transform # rubocop:disable Metrics/LineLength
 
       def self.serialize(*args)
         new(*args).serialize
@@ -12,12 +12,13 @@ module JsonApiHelpers
 
       # private
 
-      def initialize(model_scope, included: [], fields: {}, current_user: nil, meta: {}, request: nil, key_transform: JsonApiHelpers.default_key_transform) # rubocop:disable Metrics/LineLength
+      def initialize(model_scope, included: [], fields: {}, current_user: nil, current_language: nil, meta: {}, request: nil, key_transform: JsonApiHelpers.default_key_transform) # rubocop:disable Metrics/LineLength
         @model_scope = model_scope
         @included = included
         @fields = fields
         @meta = meta
         @current_user = current_user
+        @current_language = current_language
         @key_transform = key_transform
         # NOTE: ActiveModel::Serializer#serializer_for is from active_model_serializers
         @serializer = ActiveModel::Serializer.serializer_for(model_scope)
@@ -25,7 +26,13 @@ module JsonApiHelpers
       end
 
       def serializer_instance
-        serializer_options = { scope: { current_user: current_user } }
+        serializer_options = {
+          scope: {
+            current_user: current_user,
+            current_language: current_language,
+            current_language_id: current_language&.id
+          }
+        }
 
         if @model_scope.respond_to?(:to_ary)
           serializer_options[:each_serializer] = serializer
