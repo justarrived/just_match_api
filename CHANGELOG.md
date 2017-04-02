@@ -3,6 +3,17 @@
 HEAD
 -----------
 
+v1.49 - 2017-04-02
+----------
+* _Docs_:
+  - Regenerate API doc examples
+  - Add current_page & total_pages meta-keys to API examples
+  - Update authorization methods section
+* API:
+  - Add `GET /jobs/:job_id/users/:user_id/job-user`
+  - Allow defining the auth token as an URL-param `auth_token`
+
+
 v1.48 - 2017-04-02
 ----------
 * _Admin_:
