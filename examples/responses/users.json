@@ -96,6 +96,8 @@
     }
   ],
   "meta": {
-    "total": 1
+    "total": 1,
+    "current_page": 1,
+    "total_pages": 1
   }
 }
