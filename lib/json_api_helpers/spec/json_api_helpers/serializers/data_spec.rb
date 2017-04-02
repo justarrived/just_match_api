@@ -38,4 +38,21 @@ RSpec.describe JsonApiHelpers::Serializers::Data do
       expect(subject.dig('data', 'attributes', 'test_key')).to eq(3)
     end
   end
+
+  context 'with relationships' do
+    it 'returns correct relationships' do
+      relationships = {
+        test_relation: {
+          data: {
+            id: '1',
+            type: 'test_relations'
+          }
+        }
+      }
+      data = described_class.new(id: '1', type: 'test_type', relationships: relationships)
+
+      result = data.to_h.dig(:data, :relationships, :'test-relation', :data)
+      expect(result).to eq(id: '1', type: 'test_relations')
+    end
+  end
 end
