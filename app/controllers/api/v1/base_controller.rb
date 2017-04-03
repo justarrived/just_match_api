@@ -59,24 +59,24 @@ module Api
 
           ### Success
 
-          Status      | Description           |
-          ------------|:----------------------|
-          200         | OK                    |
-          201         | Created               |
-          202         | Accepted              |
-          204         | No content            |
+          Status      | Name                  | Comment
+          ------------|:----------------------|:----------------------------------------------------------------------------------------|
+          200         | OK                    | Everything went well.                                                                   |
+          201         | Created               | Resource created.                                                                       |
+          202         | Accepted              | All good, but we're gonna keep working. For example when a password reset is requested. |
+          204         | No content            | We got nothing to say, but everythings seems fine. |
 
           ### Error
 
-          Status      | Description           |
-          ------------|:----------------------|
-          400         | Bad Request           |
-          401         | Unauthorized          |
-          403         | Forbidden             |
-          404         | Not found             |
-          422         | Unprocessable entity  |
-          429         | Rate limited          |
-          500         | Internal server error |
+          Status      | Name                  | Comment
+          ------------|:----------------------|:--------------------------------------------------------------------------------------------------|
+          400         | Bad Request           | Bad JSON format etc, essentially its your fault.                                                  |
+          401         | Unauthorized          | Please login.. To see if your authorized.                                                         |
+          403         | Forbidden             | We know who you are, but you're not allowed to do this.                                           |
+          404         | Not found             | Couldn't find that resource, its either been removed, or you, the client, have sent the wrong ID. |
+          422         | Unprocessable entity  | Validation error, typically forms, please check the data sent/prompt the user to fix them.        |
+          429         | Rate limited          | Slow down a bit, you're making too many requests in too little time                               |
+          500         | Internal server error | The server screwed up, but don't worry we're on it.                                               |
 
           ---
 
