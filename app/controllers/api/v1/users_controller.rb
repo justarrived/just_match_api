@@ -54,6 +54,7 @@ module Api
       description 'Creates and returns a new user.'
       error code: 400, desc: 'Bad request'
       error code: 422, desc: 'Unprocessable entity'
+      ApipieDocHelper.params(self)
       param :data, Hash, desc: 'Top level key', required: true do
         param :attributes, Hash, desc: 'User attributes', required: true do
           # rubocop:disable Metrics/LineLength
@@ -172,6 +173,7 @@ module Api
       error code: 400, desc: 'Bad request'
       error code: 422, desc: 'Unprocessable entity'
       error code: 401, desc: 'Unauthorized'
+      ApipieDocHelper.params(self)
       param :data, Hash, desc: 'Top level key', required: true do
         param :attributes, Hash, desc: 'User attributes', required: true do
           # rubocop:disable Metrics/LineLength

@@ -23,6 +23,7 @@ module Api
         error code: 401, desc: 'Unauthorized'
         error code: 404, desc: 'Not found'
         error code: 422, desc: 'Unprocessable entity'
+        ApipieDocHelper.params(self)
         example Doxxer.read_example(JobUser, method: :update)
         def create
           @job_user = SignJobUserService.call(job_user: @job_user, job_owner: @job.owner)

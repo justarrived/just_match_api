@@ -3,6 +3,49 @@
 HEAD
 -----------
 
+v1.49 - 2017-04-02
+----------
+* _Docs_:
+  - Regenerate API doc examples
+  - Add current_page & total_pages meta-keys to API examples
+  - Update authorization methods section
+* API:
+  - Add `GET /jobs/:job_id/users/:user_id/job-user`
+  - Allow defining the auth token as an URL-param `auth_token`
+
+
+v1.48 - 2017-04-02
+----------
+* _Admin_:
+  - Add support for activating a `FrilansFinansInvoice` (and creating an `Invoice`)
+  - Update i18n
+* _API_:
+  - Add support for filtering skills & languages on multiple ids
+  - Add support for returning all the missing traits for a user given a job
+  - Refactor `/missing-traits` action by extracting a serializer
+  - Set token expired instead of deleting it and don't automatically cleanup old tokens
+  - Don't strip splitted attributes in `Queries::Filter`
+  - Add support to `Queries::Filter` to filter on lists
+  - Add `JobUser#language` to serializer
+* _Docs_:
+  - Add `include` & `fields` params to `POST`/`PATCH` actions
+  - Add `jobs/:id/users/:id/missing-traits` API docs
+  - Update `/missing-traits` API doc example
+* _Update gems_:
+  - `aws-sdk`
+  - `uglifier`
+  - `airbrake`, 5.* => 6.0
+* Don't assume that controller is defined in custom Ahoy store
+* Enhance Google Translate detection event tracking
+* Async geocoding for Ahoy
+* Disable spring in `script/cibuild` to make coverage reliable
+* Refactor and test `CreateTranslationService`, `ProcessTranslationService`
+* Refactor API base controller to use new `Analytics` class
+* Add `Analytics` class to unify event tracking
+* Track translation detection event
+* _Bugfixes_:
+  - Properly unescape HTML from Google Translate
+
 v1.47 - 2017-03-30
 ----------
 * _Admin_: Add latest 5 comments to job show page

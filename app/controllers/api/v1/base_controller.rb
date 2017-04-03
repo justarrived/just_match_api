@@ -29,7 +29,7 @@ module Api
 
           __Authorization__
 
-          `Authorization: Token token=XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX`
+          `Authorization: Token token=XXXYYYZZZ`
 
           __Promo code (not always active)__
 
@@ -38,6 +38,21 @@ module Api
           __Admin__
 
           `X-API-ACT-AS-USER` an admin can "act as" a user by sending this header.
+
+          ---
+
+          ### Authorization
+
+          There are two was of passing an authorization token, in HTTP-header or as an URL-paramter. The preferred method is HTTP-header.
+
+          Pass the authorization token in HTTP-header:
+
+          `Authorization: Token token=XXXYYYZZZ`
+
+          Pass the authorization token as an URL-paramter, `auth_token`:
+
+          `https://api.justarrived.se/api/v1/users/1?auth_token=XXXYYYZZZ`
+
 
           ---
 
@@ -225,7 +240,8 @@ module Api
       end
 
       def track_event(label, properties = {})
-        analytics.track(label, default_event_properties.merge!(properties))
+        data = default_event_properties.merge!(properties)
+        analytics.track(label, data: data)
       end
 
       def default_event_properties
@@ -248,7 +264,7 @@ module Api
       end
 
       def analytics
-        @_ahoy ||= Ahoy::Tracker.new(controller: self, api: true)
+        @_ahoy ||= Analytics.new(controller: self)
       end
 
       def jsonapi_params
@@ -290,6 +306,10 @@ module Api
         @_true_user ||= User.new
       end
 
+      def current_language
+        @_current_language ||= Language.find_by_locale(I18n.locale)
+      end
+
       protected
 
       def track_request
@@ -326,6 +346,7 @@ module Api
           included: included_resources,
           fields: fields_params.to_h,
           current_user: current_user,
+          current_language: current_language,
           meta: meta,
           request: request
         )
@@ -421,23 +442,31 @@ module Api
       private
 
       def authenticate_user_token!
+        # First try to grab the token from the Authorization header
         authenticate_with_http_token do |auth_token, _options|
-          return if auth_token.blank?
-
-          token = Token.find_by(token: auth_token)
-          return if token.nil?
-          # return raise NoSuchTokenError if token.nil?
-          return raise ExpiredTokenError if token.expired?
-
-          user = token.user
-
-          if user.admin? && !act_as_user_header.blank?
-            true_user = user
-            user = User.find(act_as_user_header)
-          end
-
-          return login_user(user, true_user)
+          return login_user_from_token(auth_token)
         end
+
+        # Secondly, if no Authorization header is set try to grab it from the URL
+        login_user_from_token(params[:auth_token]) unless logged_in?
+      end
+
+      def login_user_from_token(auth_token)
+        return if auth_token.blank?
+
+        token = Token.find_by(token: auth_token)
+        return if token.nil?
+        # return raise NoSuchTokenError if token.nil?
+        return raise ExpiredTokenError if token.expired?
+
+        user = token.user
+
+        if user.admin? && act_as_user_header.present?
+          true_user = user
+          user = User.find(act_as_user_header)
+        end
+
+        login_user(user, true_user)
       end
     end
   end

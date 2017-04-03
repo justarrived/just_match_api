@@ -59,7 +59,7 @@ class JobSerializer < ApplicationSerializer
 
   has_many :job_users do
     # Only disclose job users to the job owner
-    user = scope[:current_user]
+    user = scope.fetch(:current_user)
     if user && (user.id == object.owner_user_id || user.admin)
       object.job_users
     else
@@ -126,7 +126,7 @@ class JobSerializer < ApplicationSerializer
   private
 
   def policy
-    @_job_policy ||= JobPolicy.new(scope[:current_user], object)
+    @_job_policy ||= JobPolicy.new(scope.fetch(:current_user), object)
   end
 end
 

@@ -98,7 +98,7 @@ class UserSerializer < ApplicationSerializer
   private
 
   def policy
-    @_user_policy ||= UserPolicy.new(scope[:current_user], object)
+    @_user_policy ||= UserPolicy.new(scope.fetch(:current_user), object)
   end
 end
 

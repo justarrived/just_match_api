@@ -50,6 +50,7 @@ module Api
         error code: 404, desc: 'Not found'
         error code: 422, desc: 'Unprocessable entity'
         error code: 401, desc: 'Unauthorized'
+        ApipieDocHelper.params(self)
         param :data, Hash, desc: 'Top level key', required: true do
           param :attributes, Hash, desc: 'User language attributes', required: true do
             param :id, Integer, desc: 'Language id', required: true

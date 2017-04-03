@@ -41,6 +41,7 @@ module Api
       api :POST, '/companies/', 'Create company'
       description 'Creates and returns a company.'
       error code: 422, desc: 'Unprocessable entity'
+      ApipieDocHelper.params(self)
       param :data, Hash, desc: 'Top level key', required: true do
         param :attributes, Hash, desc: 'Company attributes', required: true do
           param :name, String, desc: 'Name of the company', required: true

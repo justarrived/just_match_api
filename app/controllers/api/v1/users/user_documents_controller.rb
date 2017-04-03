@@ -25,6 +25,7 @@ module Api
         api :POST, '/users/:user_id/documents/', 'User documents'
         description 'Creates a user document'
         error code: 422, desc: 'Unprocessable entity'
+        ApipieDocHelper.params(self)
         param :data, Hash, desc: 'Top level key', required: true do
           param :attributes, Hash, desc: 'User document attributes', required: true do
             # rubocop:disable Metrics/LineLength

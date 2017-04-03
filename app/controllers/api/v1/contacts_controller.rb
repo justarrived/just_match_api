@@ -15,6 +15,7 @@ module Api
       api :POST, '/contacts/', 'Create contact notification'
       description 'Send contact notification.'
       error code: 422, desc: 'Unprocessable entity'
+      ApipieDocHelper.params(self)
       param :data, Hash, desc: 'Top level key', required: true do
         param :attributes, Hash, desc: 'Contact attributes', required: true do
           param :name, String, desc: 'Name', required: true

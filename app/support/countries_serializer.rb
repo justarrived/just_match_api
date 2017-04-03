@@ -34,10 +34,14 @@ class CountriesSerializer
         language_id: language_id
       }
 
+      relationships = JsonApiRelationships.new
+      relationships.add(relation: 'language', type: 'languages', id: language_id)
+
       countries_data << JsonApiData.new(
         id: country_code,
         type: :countries,
         attributes: attributes,
+        relationships: relationships,
         key_transform: key_transform
       )
     end
