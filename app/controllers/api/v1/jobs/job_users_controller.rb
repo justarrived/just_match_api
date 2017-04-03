@@ -77,8 +77,6 @@ module Api
         param :data, Hash, desc: 'Top level key', required: true do
           param :attributes, Hash, desc: 'Job user attributes', required: true do
             param :user_id, Integer, desc: 'User id of the applicant', required: true
-            param :terms_agreement_id, Integer, desc: 'Terms agreement id (latest should be fetched from /api/v1/terms-agreements/current)', required: true
-            param :consent, [true], desc: 'User consent of the terms', required: true
             param :apply_message, String, desc: 'Apply message'
             param :language_id, Integer, desc: 'Language id of the text content (required if apply message is present)'
           end
@@ -105,24 +103,11 @@ module Api
             return
           end
 
-          terms_id = jsonapi_params[:terms_agreement_id]
-          terms_agreement = TermsAgreement.find_by(id: terms_id)
-          if terms_agreement.nil?
-            respond_with_terms_agreement_not_found
-            return
-          end
-
-          unless [true, 'true'].include?(jsonapi_params[:consent])
-            respond_with_terms_agreement_consent_required
-            return
-          end
-
           @job_user = CreateJobApplicationService.call(
             job: @job,
             user: user,
             attributes: job_user_attributes,
-            job_owner: @job.owner,
-            terms_agreement: terms_agreement
+            job_owner: @job.owner
           )
 
           if @job_user.valid?
@@ -285,22 +270,6 @@ module Api
           end
 
           base_scope
-        end
-
-        def respond_with_terms_agreement_not_found
-          errors = JsonApiErrors.new
-          message = I18n.t('errors.job_user.terms_agreement_not_found')
-          errors.add(attribute: :terms_agreement, status: 404, detail: message)
-
-          render json: errors, status: :unprocessable_entity
-        end
-
-        def respond_with_terms_agreement_consent_required
-          errors = JsonApiErrors.new
-          message = I18n.t('errors.job_user.terms_agreement_consent_required')
-          errors.add(attribute: :terms_agreement, status: 422, detail: message)
-
-          render json: errors, status: :unprocessable_entity
         end
       end
     end

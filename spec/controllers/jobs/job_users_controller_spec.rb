@@ -63,35 +63,24 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
 
   describe 'POST #create' do
     context 'with valid params' do
-      let(:user) { FactoryGirl.create(:user) }
-      let(:job_owner) { FactoryGirl.create(:company_user) }
-      let(:job) { FactoryGirl.create(:job, owner: job_owner) }
-      let(:terms_agreement) { FactoryGirl.create(:terms_agreement) }
-      let(:consent) { true }
-
-      let(:valid_params) do
-        {
-          job_id: job.to_param,
-          user: { id: user.to_param },
-          data: {
-            attributes: {
-              terms_agreement_id: terms_agreement.id,
-              consent: consent
-            }
-          }
-        }
-      end
-
       it 'creates a new JobUser' do
+        user = FactoryGirl.create(:user)
+        user1 = FactoryGirl.create(:company_user)
+        job = FactoryGirl.create(:job, owner: user1)
+        params = { job_id: job.to_param, user: { id: user.to_param } }
         expect do
-          post :create, params: valid_params, headers: valid_session
+          post :create, params: params, headers: valid_session
         end.to change(JobUser, :count).by(1)
       end
 
-      it 'creates a TermsAgreementConsent' do
-        expect do
-          post :create, params: valid_params, headers: valid_session
-        end.to change(TermsAgreementConsent, :count).by(1)
+      it 'assigns a newly created user_user as @job_user' do
+        user = FactoryGirl.create(:user)
+        user1 = FactoryGirl.create(:company_user)
+        job = FactoryGirl.create(:job, owner: user1)
+        params = { job_id: job.to_param, user: { id: user.to_param } }
+        post :create, params: params, headers: valid_session
+        expect(assigns(:job_user)).to be_a(JobUser)
+        expect(assigns(:job_user)).to be_persisted
       end
 
       it 'forbidden if user tries to apply as someone else' do
@@ -113,39 +102,9 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
         expect(error['detail']).to eq(I18n.t('errors.job_user.forbidden_applicant_user'))
       end
 
-      context 'with consent false' do
-        let(:consent) { false }
-
-        it 'returns error if consent is not true' do
-          post :create, params: valid_params, headers: valid_session
-          expect(response.status).to eq(422)
-          error_message = I18n.t('errors.job_user.terms_agreement_consent_required')
-          parsed_body = JSON.parse(response.body)
-          error = parsed_body['errors'].first
-          expect(error['status']).to eq(422)
-          expect(error['detail']).to eq(error_message)
-        end
-      end
-
-      context 'with unknown terms agreement ID' do
-        let(:terms_agreement) { TermsAgreement.new }
-
-        it 'returns error if consent is not true' do
-          post :create, params: valid_params, headers: valid_session
-          expect(response.status).to eq(422)
-          error_message = I18n.t('errors.job_user.terms_agreement_not_found')
-          parsed_body = JSON.parse(response.body)
-          error = parsed_body['errors'].first
-          expect(error['status']).to eq(404)
-          expect(error['detail']).to eq(error_message)
-        end
-      end
-
       context 'with apply message' do
         let(:language) { FactoryGirl.create(:language) }
         let(:apply_message) { 'Something something, darkside..' }
-        let(:terms_agreement) { FactoryGirl.create(:terms_agreement) }
-        let(:consent) { true }
 
         it 'creates a apply message' do
           user = FactoryGirl.create(:user)
@@ -157,9 +116,7 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
             data: {
               attributes: {
                 apply_message: apply_message,
-                language_id: language.id,
-                terms_agreement_id: terms_agreement.id,
-                consent: true
+                language_id: language.id
               }
             }
           }
@@ -177,15 +134,7 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
         user = FactoryGirl.create(:user)
         user1 = FactoryGirl.create(:company_user)
         job = FactoryGirl.create(:job, owner: user1)
-        params = {
-          job_id: job.to_param, user: { id: user.to_param },
-          data: {
-            attributes: {
-              terms_agreement_id: terms_agreement.id,
-              consent: true
-            }
-          }
-        }
+        params = { job_id: job.to_param, user: { id: user.to_param } }
         post :create, params: params, headers: valid_session
         expect(response.status).to eq(201)
       end
@@ -194,15 +143,7 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
         user = FactoryGirl.create(:user)
         user1 = FactoryGirl.create(:company_user)
         job = FactoryGirl.create(:job, owner: user1)
-        params = {
-          job_id: job.to_param, user: { id: user.to_param },
-          data: {
-            attributes: {
-              terms_agreement_id: terms_agreement.id,
-              consent: true
-            }
-          }
-        }
+        params = { job_id: job.to_param, user: { id: user.to_param } }
         allow(NewApplicantNotifier).to receive(:call)
         post :create, params: params, headers: valid_session
         expect(NewApplicantNotifier).to have_received(:call)
@@ -210,21 +151,9 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
     end
 
     context 'with invalid params' do
-      let(:terms_agreement) { FactoryGirl.create(:terms_agreement) }
-      let(:consent) { true }
-
       it 'assigns a newly created but unsaved job_user as @job_user' do
         job = FactoryGirl.create(:job, owner: user)
-        params = {
-          job_id: job.to_param, user: {},
-          data: {
-            attributes: {
-              terms_agreement_id: terms_agreement.id,
-              consent: true
-            }
-          }
-        }
-        post :create, params: params, headers: valid_session
+        post :create, params: { job_id: job.to_param, user: {} }, headers: valid_session
         expect(assigns(:job_user)).to be_a_new(JobUser)
       end
 

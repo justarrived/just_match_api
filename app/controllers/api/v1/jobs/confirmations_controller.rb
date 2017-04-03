@@ -23,10 +23,35 @@ module Api
         error code: 401, desc: 'Unauthorized'
         error code: 404, desc: 'Not found'
         error code: 422, desc: 'Unprocessable entity'
+        # rubocop:disable Metrics/LineLength
+        param :data, Hash, desc: 'Top level key', required: true do
+          param :attributes, Hash, desc: 'Job user attributes', required: true do
+            param :terms_agreement_id, Integer, desc: 'Terms agreement id (latest should be fetched from /api/v1/terms-agreements/current)', required: true
+            param :consent, [true], desc: 'User consent of the terms', required: true
+          end
+        end
+        # rubocop:enable Metrics/LineLength
         ApipieDocHelper.params(self)
         example Doxxer.read_example(JobUser, method: :update)
         def create
-          @job_user = SignJobUserService.call(job_user: @job_user, job_owner: @job.owner)
+          terms_id = jsonapi_params[:terms_agreement_id]
+          terms_agreement = TermsAgreement.find_by(id: terms_id)
+          if terms_agreement.nil?
+            respond_with_terms_agreement_not_found
+            return
+          end
+
+          unless [true, 'true'].include?(jsonapi_params[:consent])
+            respond_with_terms_agreement_consent_required
+            return
+          end
+
+          @job_user = SignJobUserService.call(
+            job_user: @job_user,
+            job_owner: @job.owner,
+            terms_agreement: terms_agreement
+          )
+
           if @job_user.valid?
             api_render(@job_user)
           else
@@ -54,6 +79,22 @@ module Api
           unless policy.permitted_attributes.include?(:will_perform)
             raise Pundit::NotAuthorizedError
           end
+        end
+
+        def respond_with_terms_agreement_not_found
+          errors = JsonApiErrors.new
+          message = I18n.t('errors.job_user.terms_agreement_not_found')
+          errors.add(attribute: :terms_agreement, status: 404, detail: message)
+
+          render json: errors, status: :unprocessable_entity
+        end
+
+        def respond_with_terms_agreement_consent_required
+          errors = JsonApiErrors.new
+          message = I18n.t('errors.job_user.terms_agreement_consent_required')
+          errors.add(attribute: :terms_agreement, status: 422, detail: message)
+
+          render json: errors, status: :unprocessable_entity
         end
       end
     end
