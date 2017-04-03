@@ -93,6 +93,8 @@ sv:
   record_not_found: Posten existerar inte.
   token_expired_error: Din token har upphört att gälla.
   user:
+    missing_skills_trait: lägg till alla kompetenser ovan för att söka det här jobbet
+    missing_languages_trait: lägg till alla språk ovan för att söka det här jobbet
     statuses:
       asylum_seeker: Asylsökande
       asylum_seeker_description: Asylsökande

@@ -16,12 +16,19 @@ RSpec.describe Api::V1::Jobs::UsersController do
       it 'returns the missing traits' do
         get :missing_traits, params: { job_id: job.id, user_id: admin_user.id }
 
-        skill_ids = job.skills.map(&:id)
-        language_ids = job.languages.map(&:id)
+        skill_hash = {
+          'ids' => job.skills.map(&:id),
+          'hint' => I18n.t('user.missing_skills_trait')
+        }
+
+        language_hash = {
+          'ids' => job.languages.map(&:id),
+          'hint' => I18n.t('user.missing_languages_trait')
+        }
 
         expect(response.body).to be_jsonapi_attribute('city', {})
-        expect(response.body).to be_jsonapi_attribute('skill-ids', 'ids' => skill_ids)
-        expect(response.body).to be_jsonapi_attribute('language-ids', 'ids' => language_ids) # rubocop:disable Metrics/LineLength
+        expect(response.body).to be_jsonapi_attribute('skill-ids', skill_hash)
+        expect(response.body).to be_jsonapi_attribute('language-ids', language_hash)
       end
     end
   end
