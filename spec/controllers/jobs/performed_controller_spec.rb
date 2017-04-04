@@ -4,9 +4,6 @@ require 'rails_helper'
 RSpec.describe Api::V1::Jobs::PerformedController, type: :controller do
   # Set the job_user as the logged in user
   let(:valid_session) do
-    allow_any_instance_of(described_class).
-      to(receive(:current_user).
-      and_return(user))
     { token: user.auth_token }
   end
 
@@ -15,7 +12,11 @@ RSpec.describe Api::V1::Jobs::PerformedController, type: :controller do
   let(:owner) { FactoryGirl.create(:user) }
   let(:job_user) { FactoryGirl.create(:job_user_will_perform, job: job, user: user) }
 
-  it 'updates the requested job' do
+  it 'updates the requested job user' do
+    allow_any_instance_of(described_class).
+      to(receive(:current_user).
+      and_return(user))
+
     params = {
       job_id: job.to_param,
       job_user_id: job_user.to_param
