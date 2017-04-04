@@ -20,7 +20,8 @@ RSpec.describe Api::V1::UsersController, type: :controller do
           street: 'Stora Nygatan 36',
           zip: '211 37',
           password: (1..8).to_a.join,
-          ssn: '8901010101'
+          ssn: '8901010101',
+          consent: true
         }
       }
     }
@@ -135,6 +136,36 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         allow(UserWelcomeNotifier).to receive(:call)
         post :create, params: valid_attributes
         expect(UserWelcomeNotifier).to have_received(:call)
+      end
+
+      context 'with system_language' do
+        it 'sets system_language and language independently from each other' do
+          lang_id = Language.find_or_create_by!(lang_code: 'sv').id
+          attrs = valid_attributes.dup
+          attrs[:data][:attributes][:system_language_id] = lang_id
+          post :create, params: attrs, headers: {}
+          expect(assigns(:user).system_language_id).to eq(lang_id)
+        end
+      end
+
+      context 'with neither system_language or language' do
+        it 'returns errors for both fields' do
+          attrs = valid_attributes.dup
+          attrs[:data][:attributes][:language_id] = nil
+          post :create, params: attrs, headers: {}
+          expect(response.body).to have_jsonapi_attribute_error_for(:language)
+          expect(response.body).to have_jsonapi_attribute_error_for(:'system-language')
+        end
+      end
+
+      context 'without consent' do
+        it 'can *not* create user' do
+          attributes = valid_attributes.dup
+          attributes[:data][:attributes][:consent] = false
+
+          post :create, params: attributes
+          expect(assigns(:user)).not_to be_persisted
+        end
       end
 
       context 'user image token [DEPRECATED version]' do
@@ -372,7 +403,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       it 'destroys the requested user' do
         delete :destroy, params: { user_id: user.to_param }, headers: valid_session
         user.reload
-        expect(user.name).to eq('Ghost user')
+        expect(user.name).to eq('Ghost User')
       end
 
       it 'returns no content status' do
@@ -518,18 +549,6 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       end
     end
   end
-
-  describe 'GET #email_suggestion' do
-    it 'correct response body' do
-      params = {
-        data: {
-          attributes: { email: 'buren@example.co' }
-        }
-      }
-      get :email_suggestion, params: params
-      expect(response.body).to include('buren@example.com')
-    end
-  end
 end
 
 # == Schema Information
@@ -585,14 +604,19 @@ end
 #  just_arrived_staffing            :boolean          default(FALSE)
 #  super_admin                      :boolean          default(FALSE)
 #  gender                           :integer
+#  presentation_profile             :text
+#  presentation_personality         :text
+#  presentation_availability        :text
+#  system_language_id               :integer
 #
 # Indexes
 #
-#  index_users_on_company_id         (company_id)
-#  index_users_on_email              (email) UNIQUE
-#  index_users_on_frilans_finans_id  (frilans_finans_id) UNIQUE
-#  index_users_on_language_id        (language_id)
-#  index_users_on_one_time_token     (one_time_token) UNIQUE
+#  index_users_on_company_id          (company_id)
+#  index_users_on_email               (email) UNIQUE
+#  index_users_on_frilans_finans_id   (frilans_finans_id) UNIQUE
+#  index_users_on_language_id         (language_id)
+#  index_users_on_one_time_token      (one_time_token) UNIQUE
+#  index_users_on_system_language_id  (system_language_id)
 #
 # Foreign Keys
 #

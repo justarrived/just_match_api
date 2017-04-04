@@ -8,53 +8,132 @@
 // $sidebar-width: 242px;
 
 // Active Admin's got SASS!
-@import "active_admin/mixins";
-@import "active_admin/base";
+@import 'active_admin/mixins';
+@import 'active_admin/base';
 
-// Overriding any non-variable SASS must be done after the fact.
-// For example, to change the default status-tag color:
-//
-//   .status_tag { background: #6090DB; }
+@import 'active_admin_scoped_collection_actions';
 
-@import "chosen";
+$skinMainFirstColor: #222531 !default;
+$skinMainSecondColor: #d10072 !default;
+$skinBorderRadius: 4px !default;
+$skinBorderWindowColor: #e0edfa !default;
+$skinTablePadding: 10px !default;
 
+@import 'wigu/active_admin_theme';
+
+@import 'chosen';
+@import 'active_admin_datetimepicker';
+
+// START: ACTIVEADMIN
+#site_title_image {
+  max-height: 21px;
+  margin-top: 11px;
+}
+
+.panel > h3 > a {
+  color: #fff;
+  font-weight: bold;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+// START: ACTIVEADMIN
+.status_tag {
+  background: #0069d2;
+}
+
+.status_tag.warn,
+.status_tag.warning,
+.status_tag.orange {
+  background: #e2c100;
+}
+// END: ACTIVEADMIN
+
+// START: ACTIVEADMIN THEME OVERRIDES
+#wrapper table.index_table td {
+  vertical-align: middle;
+}
+
+#wrapper .flashes .flash_notice {
+  background-color: #0069d2;
+  border-bottom-color: #005ebd;
+}
+
+#wrapper .flashes .flash_warning,
+#wrapper .flashes .flash_alert {
+  background-color: #ed6926;
+  border-bottom-color: #ed6926;
+}
+
+#wrapper .flashes .flash_error {
+  background-color: #e03f00;
+  border-bottom-color: #e03f00;
+}
+// END: ACTIVEADMIN THEME OVERRIDES
+
+// CUSTOM STYLES
 .user-badge-tag-link {
-  padding: 5px;
-  border-radius: 4px;
   background-color: #a9a9a9;
+  border-radius: 4px;
   color: #fff !important;
+  display: inline-block;
+  margin-bottom: 4px;
+  margin: 0 2px;
+  padding: 5px;
   text-decoration: none !important;
+
   table & {
     display: inline;
   }
-  & a {
+
+  a {
     color: #fff;
     text-decoration: none;
   }
-  display: inline-block;
-  margin: 0 2px;
-  margin-bottom: 4px;
 }
 
 .user-badge-skill-link {
-  display: inline-block;
-  table & {
-    display: inline;
-  }
-  & a {
-    color: #fff;
-    text-decoration: none;
-  }
-  margin: 0 2px;
-  margin-bottom: 4px;
-  padding: 5px;
+  background-color: #fff;
   border-radius: 4px;
   border: 3px solid #a9a9a9;
   color: #101010 !important;
-  background-color: #fff;
+  display: inline-block;
+  margin-bottom: 4px;
+  margin: 0 2px;
+  padding: 5px;
   text-decoration: none !important;
+
+  table & {
+    display: inline;
+  }
+
+  a {
+    color: #fff;
+    text-decoration: none;
+  }
 }
 
 .sidebar-image {
   max-width: 100%;
+}
+
+.btn-icon {
+  max-width: 12px;
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+// Index styling
+
+.table-column-icon {
+  max-width: 12px;
+  margin-right: 5px;
+}
+
+.col .table-column-icon-link {
+  color: #222531;
+  text-decoration: none;
 }

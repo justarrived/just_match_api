@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 class Faq < ApplicationRecord
-  belongs_to :language
-
-  validates :language, presence: true
+  belongs_to :language, optional: true
 
   include Translatable
   translates :question, :answer

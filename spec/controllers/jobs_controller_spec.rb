@@ -6,7 +6,6 @@ RSpec.describe Api::V1::JobsController, type: :controller do
     {
       data: {
         attributes: {
-          skill_ids: [FactoryGirl.create(:skill).id],
           hours: 2,
           name: 'Some job name',
           short_description: 'Short description',
@@ -16,6 +15,7 @@ RSpec.describe Api::V1::JobsController, type: :controller do
           category_id: FactoryGirl.create(:category).id,
           owner_user_id: FactoryGirl.create(:company_user).id,
           street: 'Stora Nygatan 36',
+          city: 'Malmö',
           zip: '211 37',
           job_date: 1.day.from_now,
           job_end_date: 2.days.from_now
@@ -321,6 +321,9 @@ end
 #  upcoming                     :boolean          default(FALSE)
 #  company_contact_user_id      :integer
 #  just_arrived_contact_user_id :integer
+#  city                         :string
+#  staffing_job                 :boolean          default(FALSE)
+#  direct_recruitment_job       :boolean          default(FALSE)
 #
 # Indexes
 #

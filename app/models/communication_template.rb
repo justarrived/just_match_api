@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 class CommunicationTemplate < ApplicationRecord
-  belongs_to :language
+  belongs_to :language, optional: true
 
-  validates :language, presence: true
   validates :subject, presence: true
   validates :body, presence: true
   validates :language, uniqueness: { scope: :category }

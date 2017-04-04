@@ -12,7 +12,7 @@ class Job < ApplicationRecord
   MIN_HOURS_PER_DAY = 0.5
   MAX_HOURS_PER_DAY = 12
 
-  belongs_to :language
+  belongs_to :language, optional: true
   belongs_to :category
   belongs_to :hourly_pay
   belongs_to :owner, class_name: 'User', foreign_key: 'owner_user_id'
@@ -26,22 +26,25 @@ class Job < ApplicationRecord
   has_many :job_skills
   has_many :skills, through: :job_skills
 
+  has_many :job_languages
+  has_many :languages, through: :job_languages
+
   has_many :job_users
   has_many :users, through: :job_users
 
   has_many :comments, as: :commentable
 
-  validates :language, presence: true
   validates :hourly_pay, presence: true
   validates :category, presence: true
   validates :name, presence: true, on: :create # Virtual attribute
   validates :description, presence: true, on: :create # Virtual attribute
-  validates :street, length: { minimum: 5 }, allow_blank: false
+  validates :street, length: { minimum: 3 }, allow_blank: false
+  validates :city, length: { minimum: 2 }, allow_blank: true
   validates :zip, length: { minimum: 5 }, allow_blank: false
   validates :job_date, presence: true
   validates :job_end_date, presence: true
   validates :owner, presence: true
-  validates :hours, numericality: { greater_than_or_equal_to: MIN_TOTAL_HOURS }, allow_blank: false # rubocop:disable Metrics/LineLength
+  validates :hours, numericality: { greater_than_or_equal_to: MIN_TOTAL_HOURS }, presence: true # rubocop:disable Metrics/LineLength
 
   validate :validate_job_end_date_after_job_date
   validate :validate_hourly_pay_active
@@ -73,14 +76,21 @@ class Job < ApplicationRecord
     today = Time.zone.today
     active_between(today.beginning_of_day, today.end_of_day)
   }
+  scope :order_by_name, lambda { |direction: :asc|
+    dir = direction.to_s == 'desc' ? 'DESC' : 'ASC'
+    order("job_translations.name #{dir}")
+  }
   scope :passed, -> { where('job_end_date < ?', Time.zone.now) }
   scope :future, -> { where('job_end_date > ?', Time.zone.now) }
 
   include Translatable
   translates :name, :short_description, :description
 
+  # NOTE: This is necessary for nested activeadmin has_many form
+  accepts_nested_attributes_for :job_skills, :job_languages
+
   def self.ransackable_scopes(_auth_object = nil)
-    [:by_near_address]
+    [:near_address]
   end
 
   delegate :currency, to: :hourly_pay
@@ -123,6 +133,10 @@ class Job < ApplicationRecord
 
   def profession_title
     category&.name
+  end
+
+  def frilans_finans_job?
+    !staffing_job && !direct_recruitment_job
   end
 
   def ended?
@@ -347,6 +361,9 @@ end
 #  upcoming                     :boolean          default(FALSE)
 #  company_contact_user_id      :integer
 #  just_arrived_contact_user_id :integer
+#  city                         :string
+#  staffing_job                 :boolean          default(FALSE)
+#  direct_recruitment_job       :boolean          default(FALSE)
 #
 # Indexes
 #

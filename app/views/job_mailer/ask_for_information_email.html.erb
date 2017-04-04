@@ -1,0 +1,16 @@
+<%= simple_format I18n.t(
+  'mailer.job_ask_for_information.body',
+  user_name: @user_name,
+  job_name: @job_name,
+  skill_names: @skill_names.map { |s| content_tag(:em, s) }.to_sentence,
+  user_edit_url: link_to(@user_edit_url, @user_edit_url)
+).html_safe %>
+
+<%= render(
+  'mailer_partials/action_button',
+  url: @user_edit_url,
+  title: I18n.t('mailer.job_ask_for_information.update_profile_cta'),
+  align: I18nMeta.align(I18n.locale)
+) %>
+
+<p><%= I18n.t('mailer.signoff') %></p>

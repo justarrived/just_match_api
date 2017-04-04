@@ -38,6 +38,7 @@ class User < ApplicationRecord
 
   before_save :encrypt_password
 
+  belongs_to :system_language, class_name: 'Language', foreign_key: 'system_language_id'
   belongs_to :language
   belongs_to :company, optional: true
   belongs_to :interviewed_by, optional: true, class_name: 'User', foreign_key: 'interviewed_by_user_id' # rubocop:disable Metrics/LineLength
@@ -79,12 +80,12 @@ class User < ApplicationRecord
   has_many :given_ratings, class_name: 'Rating', foreign_key: 'from_user_id'
   has_many :received_ratings, class_name: 'Rating', foreign_key: 'to_user_id'
 
-  validates :language, presence: true
-  validates :email, presence: true, uniqueness: true
+  validates :system_language, presence: true
+  validates :email, presence: true, uniqueness: true, email: true
   validates :first_name, length: { minimum: 1 }, allow_blank: false
   validates :last_name, length: { minimum: 2 }, allow_blank: false
   validates :phone, length: { minimum: 9 }, uniqueness: true, allow_blank: true
-  validates :street, length: { minimum: 5 }, allow_blank: true
+  validates :street, length: { minimum: 2 }, allow_blank: true
   validates :zip, length: { minimum: 5 }, allow_blank: true
   validates :password, length: { minimum: MIN_PASSWORD_LENGTH, maximum: MAX_PASSWORD_LENGTH }, allow_blank: false, on: :create # rubocop:disable Metrics/LineLength
   validates :ssn, uniqueness: true, allow_blank: true
@@ -99,6 +100,10 @@ class User < ApplicationRecord
   validate :validate_swedish_bank_account
   validate :validate_arrival_date_in_past
 
+  scope :scope_for, ->(user) { user.admin? ? all : where(id: user&.id) }
+  scope :sales_users, -> { admins }
+  scope :delivery_users, -> { super_admins }
+  scope :super_admins, -> { where(super_admin: true) }
   scope :admins, -> { where(admin: true) }
   scope :company_users, -> { where.not(company: nil) }
   scope :regular_users, -> { where(company: nil) }
@@ -157,7 +162,7 @@ class User < ApplicationRecord
   end
 
   def self.ransackable_scopes(_auth_object = nil)
-    [:by_near_address]
+    [:near_address]
   end
 
   def self.find_by_one_time_token(token)
@@ -219,6 +224,10 @@ class User < ApplicationRecord
   def self.accepted_applicant_for_owner?(owner:, user:)
     jobs = owner.owned_jobs & JobUser.accepted_jobs_for(user)
     jobs.any?
+  end
+
+  def support_chat_activated?
+    verified || super_admin || admin || just_arrived_staffing
   end
 
   def bank_account_details?
@@ -290,9 +299,9 @@ class User < ApplicationRecord
   end
 
   def locale
-    return I18n.default_locale.to_s if language.nil?
+    return I18n.default_locale.to_s if system_language.nil?
 
-    language.lang_code
+    system_language.lang_code
   end
 
   def frilans_finans_id!
@@ -388,14 +397,12 @@ class User < ApplicationRecord
     assign_attributes(
       anonymized: true,
       first_name: 'Ghost',
-      last_name: 'user',
+      last_name: 'User',
       email: "ghost+#{SecureGenerator.token(length: 64)}@example.com",
       phone: nil,
       description: 'This user has been deleted.',
-      street: 'Stockholm',
-      zip: '11120',
-      ssn: '0000000000',
-      password: SecureGenerator.token
+      street: nil,
+      ssn: nil
     )
   end
 
@@ -430,18 +437,18 @@ class User < ApplicationRecord
   end
 
   def validate_arrival_date_in_past
-    return if arrived_at.nil? || arrived_at <= Time.zone.today
+    return if arrived_at.blank? || arrived_at <= Time.zone.today
 
     error_message = I18n.t('errors.user.arrived_at_must_be_in_past')
     errors.add(:arrived_at, error_message)
   end
 
   def validate_language_id_in_available_locale
-    language = Language.find_by(id: language_id)
-    return if language.nil?
+    return unless system_language_id_changed?
+    return if system_language_id.blank?
 
-    unless I18n.available_locales.map(&:to_s).include?(language.lang_code)
-      errors.add(:language_id, I18n.t('errors.user.must_be_available_locale'))
+    unless I18n.available_locales.map(&:to_s).include?(system_language.lang_code)
+      errors.add(:system_language_id, I18n.t('errors.user.must_be_available_locale'))
     end
   end
 
@@ -490,8 +497,8 @@ class User < ApplicationRecord
 
   def validate_arrived_at_date
     arrived_at_before_cast = read_attribute_before_type_cast(:arrived_at)
-    return if arrived_at_before_cast.nil?
-    return unless arrived_at.nil?
+    return if arrived_at_before_cast.blank?
+    return unless arrived_at.blank?
 
     error_message = I18n.t('errors.general.must_be_valid_date')
     errors.add(:arrived_at, error_message)
@@ -560,18 +567,24 @@ end
 #  just_arrived_staffing            :boolean          default(FALSE)
 #  super_admin                      :boolean          default(FALSE)
 #  gender                           :integer
+#  presentation_profile             :text
+#  presentation_personality         :text
+#  presentation_availability        :text
+#  system_language_id               :integer
 #
 # Indexes
 #
-#  index_users_on_company_id         (company_id)
-#  index_users_on_email              (email) UNIQUE
-#  index_users_on_frilans_finans_id  (frilans_finans_id) UNIQUE
-#  index_users_on_language_id        (language_id)
-#  index_users_on_one_time_token     (one_time_token) UNIQUE
+#  index_users_on_company_id          (company_id)
+#  index_users_on_email               (email) UNIQUE
+#  index_users_on_frilans_finans_id   (frilans_finans_id) UNIQUE
+#  index_users_on_language_id         (language_id)
+#  index_users_on_one_time_token      (one_time_token) UNIQUE
+#  index_users_on_system_language_id  (system_language_id)
 #
 # Foreign Keys
 #
 #  fk_rails_45f4f12508              (language_id => languages.id)
 #  fk_rails_7682a3bdfe              (company_id => companies.id)
 #  users_interviewed_by_user_id_fk  (interviewed_by_user_id => users.id)
+#  users_system_language_id_fk      (system_language_id => languages.id)
 #

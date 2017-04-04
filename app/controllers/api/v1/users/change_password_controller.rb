@@ -8,6 +8,9 @@ module Api
         before_action :require_promo_code, except: [:create]
         before_action :set_user
 
+        NoSuchResetPasswordToken = Class.new(StandardError)
+        rescue_from NoSuchResetPasswordToken, with: :respond_with_no_such_reset_token_error # rubocop:disable Metrics/LineLength
+
         # rubocop:disable Metrics/LineLength
         api :POST, '/users/change-password/', 'Change password'
         description 'Change password for user, use one time token if the user is not logged in'
@@ -22,8 +25,7 @@ module Api
         end
         # rubocop:enable Metrics/LineLength
         example '# Response example
-{}
-'
+{}'
         def create
           new_password = jsonapi_params[:password]
           old_password = jsonapi_params[:old_password]
@@ -58,7 +60,7 @@ module Api
                   else
                     token = jsonapi_params[:one_time_token]
                     token_user = User.find_by_one_time_token(token)
-                    raise ActiveRecord::RecordNotFound if token_user.nil?
+                    raise NoSuchResetPasswordToken if token_user.nil?
                     token_user
                   end
         end
@@ -66,8 +68,16 @@ module Api
         def wrong_password_error
           message = I18n.t('errors.user.wrong_password')
           errors = JsonApiErrors.new
-          errors.add(detail: message, attribute: :password)
+          errors.add(detail: message, attribute: :old_password)
           errors
+        end
+
+        def respond_with_no_such_reset_token_error
+          message = I18n.t('errors.user.no_such_reset_token_error')
+          errors = JsonApiErrors.new
+          errors.add(detail: message, attribute: :one_time_token)
+
+          render json: errors, status: :unprocessable_entity
         end
 
         def json_api_password_error

@@ -2,13 +2,12 @@
 class Comment < ApplicationRecord
   belongs_to :commentable, polymorphic: true
   belongs_to :owner, class_name: 'User', foreign_key: 'owner_user_id'
-  belongs_to :language
+  belongs_to :language, optional: true
 
   validates :owner_user_id, presence: true
   validates :commentable_id, presence: true
   validates :commentable_type, presence: true
-  validates :language, presence: true
-  validates :body, presence: true # Virtual attribute
+  validates :body, presence: true, on: :create
 
   scope :visible, -> { where(hidden: false) }
 

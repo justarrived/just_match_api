@@ -11,8 +11,9 @@ RSpec.describe JobSerializer, type: :serializer do
     end
 
     ignore_fields = %i(
-      id translated_text name description short_description amount gross_amount_formatted
-      net_amount_formatted
+      id translated_text name description short_description amount
+      gross_amount_with_currency net_amount_with_currency
+      gross_amount_delimited net_amount_delimited description_html
     )
     (JobPolicy::ATTRIBUTES - ignore_fields).each do |attribute|
       it "has #{attribute.to_s.humanize.downcase}" do
@@ -34,17 +35,33 @@ RSpec.describe JobSerializer, type: :serializer do
       expect(subject).to have_jsonapi_attribute(dashed_attribute, value)
     end
 
-    it 'has net_amount_formatted' do
-      dashed_attribute = 'net_amount_formatted'.dasherize
+    it 'has net_amount_with_currency' do
+      dashed_attribute = 'net_amount_with_currency'.dasherize
       expect(subject).to have_jsonapi_attribute(dashed_attribute, '2,100 SEK')
     end
 
-    it 'has gross_amount_formatted' do
-      dashed_attribute = 'gross_amount_formatted'.dasherize
+    it 'has gross_amount_with_currency' do
+      dashed_attribute = 'gross_amount_with_currency'.dasherize
       expect(subject).to have_jsonapi_attribute(dashed_attribute, '3,000 SEK')
     end
 
-    %w(owner company language category hourly-pay).each do |relationship|
+    it 'has net_amount_delimited' do
+      dashed_attribute = 'net_amount_delimited'.dasherize
+      expect(subject).to have_jsonapi_attribute(dashed_attribute, '2,100')
+    end
+
+    it 'has gross_amount_delimited' do
+      dashed_attribute = 'gross_amount_delimited'.dasherize
+      expect(subject).to have_jsonapi_attribute(dashed_attribute, '3,000')
+    end
+
+    it 'has currency' do
+      expect(subject).to have_jsonapi_attribute('currency', 'SEK')
+    end
+
+    %w(
+      owner company language category hourly-pay job-languages job-skills
+    ).each do |relationship|
       it "has #{relationship} relationship" do
         expect(subject).to have_jsonapi_relationship(relationship)
       end
@@ -87,6 +104,9 @@ end
 #  upcoming                     :boolean          default(FALSE)
 #  company_contact_user_id      :integer
 #  just_arrived_contact_user_id :integer
+#  city                         :string
+#  staffing_job                 :boolean          default(FALSE)
+#  direct_recruitment_job       :boolean          default(FALSE)
 #
 # Indexes
 #

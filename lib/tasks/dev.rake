@@ -38,6 +38,57 @@ namespace :dev do
     puts "#{total_first_part}#{counts.sum}"
   end
 
+  namespace :db do
+    desc 'Download latest database dump from Heroku, import and anonymize it'
+    task :heroku_import, [:heroku_app_name] => [:environment] do |_t, args|
+      heroku_app_name = args[:heroku_app_name]
+      if heroku_app_name.nil? || heroku_app_name.empty?
+        puts 'Example'
+        puts '  $ bin/rails dev:production_data_to_dev["your_heroku_app_name"]'
+        fail('You must provide a Heroku app name')
+      end
+      system("heroku pg:backups:download --app=#{heroku_app_name}")
+      Rake::Task['db:drop'].execute
+      Rake::Task['db:create'].execute
+      system('pg_restore --no-owner -d just_match_development latest.dump')
+      Rake::Task['dev:anonymize_database'].execute
+    end
+  end
+
+  desc 'Anonymize the database'
+  task anonymize_database: :environment do
+    fail('Can *not* anonymize database in production env!') if Rails.env.production?
+
+    print "Destroying #{Invoice.count} invoices.."
+    Invoice.destroy_all
+    puts 'destroyed!'
+    print "Destroying #{FrilansFinansInvoice.count} Frilans Finans Invoices.."
+    FrilansFinansInvoice.destroy_all
+    puts 'destoryed!'
+    print 'Setting all user passwords to "12345678"..'
+    User.update_all( # rubocop:disable Rails/SkipsModelValidations
+      password_salt: '$2a$10$G5.OPRLyRAh.gWYsY6lhaO',
+      password_hash: '$2a$10$G5.OPRLyRAh.gWYsY6lhaOWIRMicGMdU7DCDR3UTbnLTOufAqYZeG'
+    )
+    puts 'done!'
+    print "Anonymizing #{User.count} users..."
+    User.find_each(batch_size: 500).each(&:reset!)
+    puts 'anonymized!'
+    print 'Set admin user email to admin@example.com..'
+    User.admins.first&.update(email: 'admin@example.com')
+    puts 'done!'
+    print "Anonymizing #{Company.count} companies..."
+    Company.find_each(batch_size: 500).each do |company|
+      company.name = Faker::Company.name
+      company.cin = Faker::Company.swedish_organisation_number
+      company.email = "#{SecureGenerator.token(length: 32)}@example.com"
+      company.website = nil
+      company.street = Faker::Address.street_address
+      company.save(validate: false)
+    end
+    puts 'anonymized!'
+  end
+
   SEED_ADDRESSES = [
     { street: "Stora Nygatan #{Random.rand(1..40)}", city: 'Malmö', zip: '21137' },
     { street: "Wollmar Yxkullsgatan #{Random.rand(1..40)}", city: 'Stockholm', zip: '11850' } # rubocop:disable Metrics/LineLength

@@ -1,13 +1,15 @@
 # frozen_string_literal: true
 require 'active_support/core_ext/hash/keys'
+require 'json_api_helpers/serializers/relationships'
 
 module JsonApiHelpers
   module Serializers
     class Data
-      def initialize(id:, type:, attributes: {}, key_transform: JsonApiHelpers.default_key_transform) # rubocop:disable Metrics/LineLength
+      def initialize(id:, type:, attributes: {}, relationships: nil, key_transform: JsonApiHelpers.default_key_transform) # rubocop:disable Metrics/LineLength
         @id = id
         @type = type
         @attributes = attributes
+        @relationships = relationships
         @key_transform = key_transform
       end
 
@@ -17,6 +19,13 @@ module JsonApiHelpers
           type: KeyTransform.call(@type.to_s, key_transform: @key_transform),
           attributes: KeyTransform.call(@attributes, key_transform: @key_transform)
         }
+
+        if @relationships
+          data[:relationships] = KeyTransform.call(
+            @relationships.to_h,
+            key_transform: @key_transform
+          )
+        end
 
         if shallow
           data

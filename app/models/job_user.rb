@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class JobUser < ApplicationRecord
-  MAX_CONFIRMATION_TIME_HOURS = 18
+  MAX_CONFIRMATION_TIME_HOURS = 24
 
   belongs_to :user
   belongs_to :job
@@ -28,10 +28,13 @@ class JobUser < ApplicationRecord
   validate :validate_single_accepted_applicant
   validate :validate_applicant_not_owner_of_job
   validate :validate_job_started_before_performed
-  validate :validate_language_presence_if_apply_message
 
   before_validation :accepted_at_setter
 
+  scope :unrejected, -> { where(rejected: false) }
+  scope :shortlisted, -> { where(shortlisted: true) }
+  scope :withdrawn, -> { where(application_withdrawn: true) }
+  scope :visible, -> { where(application_withdrawn: false) }
   scope :accepted, -> { where(accepted: true) }
   scope :will_perform, -> { where(will_perform: true) }
   scope :unconfirmed, -> { accepted.where(will_perform: false) }
@@ -64,8 +67,11 @@ class JobUser < ApplicationRecord
       return 'Not pre-reported!'
     end
 
+    return 'Withdrawn' if application_withdrawn
     return 'Will perform' if will_perform
     return 'Accepted' if accepted
+    return 'Rejected' if rejected
+    return 'Shortlisted' if shortlisted
 
     'Applied'
   end
@@ -138,34 +144,26 @@ class JobUser < ApplicationRecord
     message = I18n.t('errors.job_user.performed_before_job_started')
     errors.add(:performed, message)
   end
-
-  def validate_language_presence_if_apply_message
-    # NOTE: apply_message might be fetched from the translations relationship causing
-    #       a SQL-query
-    return if apply_message.blank?
-    return unless language.nil?
-
-    field = self.class.human_attribute_name(:apply_message)
-    message = I18n.t('errors.general.blank_if_field', field: field)
-    errors.add(:language, message)
-  end
 end
 
 # == Schema Information
 #
 # Table name: job_users
 #
-#  id            :integer          not null, primary key
-#  user_id       :integer
-#  job_id        :integer
-#  accepted      :boolean          default(FALSE)
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  will_perform  :boolean          default(FALSE)
-#  accepted_at   :datetime
-#  performed     :boolean          default(FALSE)
-#  apply_message :text
-#  language_id   :integer
+#  id                    :integer          not null, primary key
+#  user_id               :integer
+#  job_id                :integer
+#  accepted              :boolean          default(FALSE)
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#  will_perform          :boolean          default(FALSE)
+#  accepted_at           :datetime
+#  performed             :boolean          default(FALSE)
+#  apply_message         :text
+#  language_id           :integer
+#  application_withdrawn :boolean          default(FALSE)
+#  shortlisted           :boolean          default(FALSE)
+#  rejected              :boolean          default(FALSE)
 #
 # Indexes
 #

@@ -10,21 +10,26 @@ class JobPolicy < ApplicationPolicy
     :id, :description, :job_date, :hours, :name, :created_at, :updated_at, :latitude,
     :longitude, :street, :zip, :zip_latitude, :zip_longitude, :verified, :job_end_date,
     :filled, :short_description, :featured, :upcoming, :translated_text, :amount,
-    :language_id, :gross_amount, :net_amount, :gross_amount_formatted,
-    :net_amount_formatted
+    :language_id, :gross_amount, :net_amount, :gross_amount_with_currency, :currency,
+    :net_amount_with_currency, :city, :gross_amount_delimited, :net_amount_delimited,
+    :full_street_address, :description_html, :staffing_job, :direct_recruitment_job
   ].freeze
 
   ATTRIBUTES = [
     :id, :description, :job_date, :hours, :name, :created_at, :updated_at, :zip,
     :zip_latitude, :zip_longitude, :verified, :job_end_date, :filled, :short_description,
     :featured, :upcoming, :street, :amount, :translated_text, :language_id, :gross_amount,
-    :net_amount, :gross_amount_formatted, :net_amount_formatted
+    :net_amount, :gross_amount_with_currency, :net_amount_with_currency, :city, :currency,
+    :gross_amount_delimited, :net_amount_delimited, :full_street_address, :staffing_job,
+    :description_html, :direct_recruitment_job
   ].freeze
 
   OWNER_ATTRIBUTES = [
     :description, :job_date, :street, :zip, :name, :hours, :job_end_date, :cancelled,
-    :filled, :short_description, :featured, :upcoming, :language_id, :category_id,
-    :hourly_pay_id, skill_ids: []
+    :city, :filled, :short_description, :featured, :upcoming, :currency,
+    :gross_amount_delimited, :net_amount_delimited, :full_street_address, :staffing_job,
+    :description_html, :direct_recruitment_job,
+    :language_id, :category_id, :hourly_pay_id, skill_ids: []
   ].freeze
 
   def index?
@@ -35,7 +40,7 @@ class JobPolicy < ApplicationPolicy
   alias_method :google?, :show?
 
   def create?
-    company_user?
+    company_user? || AppConfig.allow_regular_users_to_create_jobs?
   end
 
   def update?

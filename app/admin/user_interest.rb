@@ -2,7 +2,7 @@
 ActiveAdmin.register UserInterest do
   menu parent: 'Users'
 
-  filter :interest, collection: -> { Interest.with_translations }
+  filter :interest, collection: -> { Interest.with_translations.order_by_name }
   filter :level
   filter :level_by_admin
   filter :updated_at

@@ -58,16 +58,6 @@ RSpec.describe Api::V1::UsersController, type: :routing do
       path = '/api/v1/users/genders'
       expect(get: path).to route_to('api/v1/users#genders')
     end
-
-    it 'routes to GET #email_suggestion' do
-      path = '/api/v1/users/email-suggestion'
-      expect(get: path).to route_to('api/v1/users#email_suggestion')
-    end
-
-    it 'routes to POST #email_suggestion' do
-      path = '/api/v1/users/email-suggestion'
-      expect(post: path).to route_to('api/v1/users#email_suggestion')
-    end
   end
 end
 
@@ -124,14 +114,19 @@ end
 #  just_arrived_staffing            :boolean          default(FALSE)
 #  super_admin                      :boolean          default(FALSE)
 #  gender                           :integer
+#  presentation_profile             :text
+#  presentation_personality         :text
+#  presentation_availability        :text
+#  system_language_id               :integer
 #
 # Indexes
 #
-#  index_users_on_company_id         (company_id)
-#  index_users_on_email              (email) UNIQUE
-#  index_users_on_frilans_finans_id  (frilans_finans_id) UNIQUE
-#  index_users_on_language_id        (language_id)
-#  index_users_on_one_time_token     (one_time_token) UNIQUE
+#  index_users_on_company_id          (company_id)
+#  index_users_on_email               (email) UNIQUE
+#  index_users_on_frilans_finans_id   (frilans_finans_id) UNIQUE
+#  index_users_on_language_id         (language_id)
+#  index_users_on_one_time_token      (one_time_token) UNIQUE
+#  index_users_on_system_language_id  (system_language_id)
 #
 # Foreign Keys
 #

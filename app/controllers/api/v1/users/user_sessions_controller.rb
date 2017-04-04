@@ -47,13 +47,14 @@ module Api
                  end
 
           if user
+            login_user(user)
             return respond_with_banned if user.banned
 
             token = user.create_auth_token
             auth_token = token.token
             attributes = {
               user_id: user.id,
-              locale: user.language.lang_code,
+              locale: user.locale,
               auth_token: auth_token,
               expires_at: token.expires_at
             }
@@ -75,7 +76,8 @@ module Api
         def destroy
           token = Token.find_by(token: params[:id])
           if token
-            token.destroy!
+            token.expires_at = Time.zone.now
+            token.save!
 
             head :no_content
           else

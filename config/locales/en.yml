@@ -20,9 +20,9 @@ en:
     rate_limit:
       details: Throttle limit reached. Retry later.
     bank_account:
-      too_short: is too short
-      too_long: is too long
-      invalid_characters: invalid characters
+      too_short: clearing plus account number is too short
+      too_long: clearing plus account number is too long
+      invalid_characters: clearing plus account number contains invalid characters
       bad_checksum: bad checksum
       unknown_clearing_number: unknown clearing number
       iban:
@@ -41,6 +41,8 @@ en:
       blank_if_field: can't be blank if %{field} is present
     chat:
       number_of_users: a chat must consist of between %{min}-%{max} number of users
+    frilans_finans_invoice:
+      job_is_frilans_finans_job: job must be a Frilans Finans job
     invoice:
       job_started: job start time must be in the passed before an invoice can be created
       job_user_accepted: user must be the accepted applicant before an invoice can be created
@@ -54,6 +56,7 @@ en:
       hours_upper_bound: can't be more than %{max_hours} hours per day
       owner_must_belong_to_company: owner must belong to a company
     job_user:
+      forbidden_applicant_user: not allowed to apply for this job
       not_owner_of_job: can't be both job owner and job applicant
       multiple_applicants: can't accept multiple applicants
       will_perform_true_on_delete: can't withdraw application when confirmed
@@ -69,6 +72,8 @@ en:
       banned: an admin has banned you for not following the Terms of Agreement or the Code of Conduct. Please contact help@justarrived.se, to resolve this issue.
       wrong_email_or_phone_or_password: wrong email, phone or password
     user:
+      no_such_reset_token_error: expired link, please goto the "forgot password" and try again
+      must_consent_to_terms_of_agreement: you must consent to our terms of agreement
       invalid_image_content_type: invalid content type for image
       invalid_document_content_type: invalid content type %{type}
       wrong_password: wrong password
@@ -79,6 +84,7 @@ en:
       must_be_swedish_ssn: must be a valid Swedish social security number or coordination number
       arrived_at_must_be_in_past: must be in the past
     validators:
+      email: 'must look like an email address'
       after_true: '%{field} must be true'
       unrevertable: can't revert %{field}
   invalid_credentials: Invalid credentials.
@@ -87,6 +93,8 @@ en:
   record_not_found: Record does not exist.
   token_expired_error: Your token has expired.
   user:
+    missing_skills_trait: please add all of the above skills to apply for this job
+    missing_languages_trait: please add all of the above languages to apply for this job
     statuses:
       asylum_seeker: Asylum seeker
       asylum_seeker_description: Asylum seeker

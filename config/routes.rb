@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 require 'sidekiq/web'
 
+Sidekiq::Web.set :sessions, domain: 'all'
+Sidekiq::Web.session_secret = Rails.application.secrets[:secret_key_base]
 Sidekiq::Web.use Rack::Auth::Basic do |username, password|
   User.find_by_credentials(email_or_phone: username, password: password)
 end
-
 Rails.application.routes.draw do
   ActiveAdmin.routes(self)
 
@@ -19,7 +20,7 @@ Rails.application.routes.draw do
       resources :jobs, param: :job_id, only: [:index, :show, :create, :update] do
         member do
           get :matching_users, path: 'matching-users'
-          resources :job_comments, module: :jobs, path: :comments, only: [:index, :show, :create, :update, :destroy]
+          resources :job_comments, module: :jobs, path: :comments, only: [:index, :show, :create, :destroy]
           resources :job_skills, param: :job_skill_id, module: :jobs, path: :skills, only: [:index, :show, :create, :destroy]
           resources :job_users, param: :job_user_id, module: :jobs, path: :users, only: [:index, :show, :create, :update, :destroy] do
             member do
@@ -35,6 +36,12 @@ Rails.application.routes.draw do
             end
           end
           resources :ratings, module: :jobs, path: :ratings, only: [:create]
+          resources :users, param: :user_id, module: :jobs, only: [] do
+            member do
+              get :missing_traits, path: 'missing-traits'
+              get :job_user, path: 'job-user'
+            end
+          end
         end
       end
 
@@ -58,7 +65,7 @@ Rails.application.routes.draw do
           resources :frilans_finans, path: 'frilans-finans', module: :users, only: [:create]
           resources :user_images, module: :users, path: :images, only: [:show, :create]
           resources :ratings, module: :users, path: :ratings, only: [:index]
-          resources :user_documents, module: :users, path: :documents, only: [:create]
+          resources :user_documents, module: :users, path: :documents, only: [:index, :create]
         end
 
         collection do
@@ -80,8 +87,6 @@ Rails.application.routes.draw do
           get :notifications
           get :statuses
           get :genders
-          get :email_suggestion, path: 'email-suggestion'
-          post :email_suggestion, path: 'email-suggestion'
         end
       end
 
@@ -135,6 +140,9 @@ Rails.application.routes.draw do
 
       post :contacts, to: 'contacts#create'
       get :countries, to: 'countries#index'
+
+      get :email_suggestion, to: 'email_suggestions#suggest', path: 'email-suggestion'
+      post :email_suggestion, to: 'email_suggestions#suggest', path: 'email-suggestion'
     end
   end
 end

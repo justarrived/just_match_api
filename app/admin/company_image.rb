@@ -13,6 +13,26 @@ ActiveAdmin.register CompanyImage do
     actions
   end
 
+  show do
+    attributes_table do
+      row :id
+      row :company
+      row :company_image do |company_image|
+        image_tag(company_image.image.url(:large))
+      end
+      row :created_at
+      row :updated_at
+      row :image_file_name
+      row :image_content_type
+      row :image_file_size do |company_image|
+        number_to_human_size(company_image.image_file_size)
+      end
+      row :image_updated_at
+    end
+
+    active_admin_comments
+  end
+
   form do |f|
     f.inputs do
       f.input :company

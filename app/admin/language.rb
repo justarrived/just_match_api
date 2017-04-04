@@ -4,7 +4,6 @@ ActiveAdmin.register Language do
 
   scope :all
   scope :system_languages, default: true
-  scope :non_system_languages
   scope :rtl_languages
   scope :ltr_languages
   scope :machine_translation_languages

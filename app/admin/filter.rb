@@ -24,9 +24,9 @@ ActiveAdmin.register Filter do
   end
 
   filter :name
-  filter :skills, collection: -> { Skill.with_translations }
-  filter :languages
-  filter :interests, collection: -> { Interest.with_translations }
+  filter :skills, collection: -> { Skill.with_translations.order_by_name }
+  filter :languages, collection: -> { Language.order(:en_name) }
+  filter :interests, collection: -> { Interest.with_translations.order_by_name }
   filter :created_at
   filter :updated_at
 

@@ -2,12 +2,11 @@
 class Message < ApplicationRecord
   belongs_to :chat, touch: true
   belongs_to :author, class_name: 'User', foreign_key: 'author_id'
-  belongs_to :language
+  belongs_to :language, optional: true
 
   validates :body, presence: true, on: :create
   validates :chat, presence: true
   validates :author, presence: true
-  validates :language, presence: true
 
   include Translatable
   translates :body

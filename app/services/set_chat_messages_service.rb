@@ -16,7 +16,7 @@ module SetChatMessagesService
         if m.save!
           m.set_translation(body: attrs[:body])
           author = m.author
-          MachineTranslationsJob.perform_later(m.original_translation)
+          ProcessTranslationJob.perform_later(translation: m.original_translation)
           NewChatMessageNotifier.call(chat: chat, message: m, author: author)
         end
       end

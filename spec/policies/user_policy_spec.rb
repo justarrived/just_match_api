@@ -19,6 +19,14 @@ RSpec.describe UserPolicy do
       expect(subject.show?).to eq(false)
     end
 
+    it 'returns false for create_document' do
+      expect(subject.create_document?).to eq(false)
+    end
+
+    it 'returns false for index_document' do
+      expect(subject.index_document?).to eq(false)
+    end
+
     it 'returns true for create' do
       expect(subject.create?).to eq(true)
     end
@@ -72,8 +80,8 @@ RSpec.describe UserPolicy do
 
     let(:language) { Language.find_or_create_by!(lang_code: 'en') }
 
-    let(:owner) { FactoryGirl.build(:company_user, language: language) }
-    let(:user) { FactoryGirl.build(:user, language: language) }
+    let(:owner) { FactoryGirl.build(:company_user, system_language: language) }
+    let(:user) { FactoryGirl.build(:user, system_language: language) }
     let(:admin) { FactoryGirl.build(:admin_user) }
 
     let(:job) { FactoryGirl.create(:job, owner: owner) }
@@ -129,6 +137,14 @@ RSpec.describe UserPolicy do
       expect(subject.show?).to eq(true)
     end
 
+    it 'returns true for create_document' do
+      expect(subject.create_document?).to eq(true)
+    end
+
+    it 'returns true for index_document' do
+      expect(subject.index_document?).to eq(true)
+    end
+
     it 'returns true for update' do
       expect(subject.update?).to eq(true)
     end
@@ -170,6 +186,14 @@ RSpec.describe UserPolicy do
 
     it 'returns true for show' do
       expect(subject.show?).to eq(true)
+    end
+
+    it 'returns true for create_document' do
+      expect(subject.create_document?).to eq(true)
+    end
+
+    it 'returns true for index_document' do
+      expect(subject.index_document?).to eq(true)
     end
 
     it 'returns update for update' do

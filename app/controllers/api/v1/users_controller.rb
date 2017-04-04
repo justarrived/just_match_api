@@ -1,4 +1,6 @@
 # frozen_string_literal: true
+require 'email_suggestion'
+
 module Api
   module V1
     class UsersController < BaseController
@@ -15,7 +17,10 @@ module Api
         api_versions '1.0'
       end
 
-      ALLOWED_INCLUDES = %w(user_languages user_languages.language language languages company user_images user_skills skills user_skills.skill).freeze # rubocop:disable Metrics/LineLength
+      ALLOWED_INCLUDES = %w(
+        user_languages user_languages.language language languages company user_images
+        user_skills skills user_skills.skill user_documents user_documents.document
+      ).freeze
 
       api :GET, '/users', 'List users'
       description 'Returns a list of users if the user is allowed.'
@@ -49,11 +54,13 @@ module Api
       description 'Creates and returns a new user.'
       error code: 400, desc: 'Bad request'
       error code: 422, desc: 'Unprocessable entity'
+      ApipieDocHelper.params(self)
       param :data, Hash, desc: 'Top level key', required: true do
         param :attributes, Hash, desc: 'User attributes', required: true do
           # rubocop:disable Metrics/LineLength
           param :first_name, String, desc: 'First name', required: true
           param :last_name, String, desc: 'Last name', required: true
+          param :consent, [true], desc: 'Terms of agreement consent', required: true
           param :description, String, desc: 'Description'
           param :job_experience, String, desc: 'Job experience'
           param :education, String, desc: 'Education'
@@ -67,8 +74,9 @@ module Api
           param :ssn, String, desc: 'Social Security Number (10 characters)'
           param :ignored_notifications, Array, of: 'ignored notifications', desc: "List of ignored notifications. Any of: #{User::NOTIFICATIONS.map { |n| "`#{n}`" }.join(', ')}"
           param :company_id, Integer, desc: 'Company id for user'
-          param :language_id, Integer, desc: 'Primary language id for user', required: true
-          param :language_ids, Array, of: Hash, desc: 'Languages that the user knows', required: true do
+          param :system_language_id, Integer, desc: 'System language id for user (SMS/emails etc will be sent in this language)', required: true
+          param :language_id, Integer, desc: 'Language id for the text fields'
+          param :language_ids, Array, of: Hash, desc: 'Languages that the user knows' do
             param :id, Integer, desc: 'Language id', required: true
             param :proficiency, UserLanguage::PROFICIENCY_RANGE.to_a, desc: 'Language proficiency'
           end
@@ -99,14 +107,28 @@ module Api
       def create
         @user = User.new(user_params)
         @user.password = jsonapi_params[:password]
+        terms_consent = [true, 'true'].include?(jsonapi_params[:consent])
+        language_defined = true
+
+        if jsonapi_params[:system_language_id].blank? && jsonapi_params[:language_id].blank? # rubocop:disable Metrics/LineLength
+          language_defined = false
+        elsif jsonapi_params[:system_language_id].blank?
+          ActiveSupport::Deprecation.warn('Setting #system_language from #language is deprecated and will be removed soon.') # rubocop:disable Metrics/LineLength
+          @user.system_language_id = jsonapi_params[:language_id]
+        end
 
         authorize(@user)
+        @user.validate
 
-        if @user.save
+        if terms_consent && language_defined && @user.valid?
+          @user.save
           login_user(@user)
 
           @user.set_translation(user_params).tap do |result|
-            EnqueueCheapTranslation.call(result)
+            ProcessTranslationJob.perform_later(
+              translation: result.translation,
+              changed: result.changed_fields
+            )
           end
 
           image_tokens = jsonapi_params[:user_image_one_time_tokens]
@@ -132,6 +154,16 @@ module Api
 
           api_render(@user, status: :created)
         else
+          unless terms_consent
+            consent_error = I18n.t('errors.user.must_consent_to_terms_of_agreement')
+            @user.errors.add(:consent, consent_error)
+          end
+
+          unless language_defined
+            # When the clients have moved to using #system_language this can be removed
+            @user.errors.add(:language, I18n.t('errors.messages.blank'))
+          end
+
           api_render_errors(@user)
         end
       end
@@ -141,6 +173,7 @@ module Api
       error code: 400, desc: 'Bad request'
       error code: 422, desc: 'Unprocessable entity'
       error code: 401, desc: 'Unauthorized'
+      ApipieDocHelper.params(self)
       param :data, Hash, desc: 'Top level key', required: true do
         param :attributes, Hash, desc: 'User attributes', required: true do
           # rubocop:disable Metrics/LineLength
@@ -157,7 +190,8 @@ module Api
           param :city, String, desc: 'City'
           param :ssn, String, desc: 'Social Security Number (10 characters)'
           param :ignored_notifications, Array, of: 'ignored notifications', desc: "List of ignored notifications. Any of: #{User::NOTIFICATIONS.map { |n| "`#{n}`" }.join(', ')}"
-          param :language_id, Integer, desc: 'Primary language id for user'
+          param :system_language_id, Integer, desc: 'System language id for user (SMS/emails etc will be sent in this language)'
+          param :language_id, Integer, desc: 'Language id for the text fields'
           param :language_ids, Array, of: Hash, desc: 'Languages that the user knows (if specified this will completely replace the users languages)' do
             param :id, Integer, desc: 'Language id', required: true
             param :proficiency, UserLanguage::PROFICIENCY_RANGE.to_a, desc: 'Language proficiency'
@@ -190,9 +224,18 @@ module Api
       def update
         authorize(@user)
 
+        unless jsonapi_params[:language_id].blank?
+          ActiveSupport::Deprecation.warn('Setting #system_language from #language is deprecated and will be removed soon.') # rubocop:disable Metrics/LineLength
+          # NOTE: This is just temporary until the client app is updated
+          @user.system_language_id = jsonapi_params[:language_id]
+        end
+
         if @user.update(user_params)
           @user.set_translation(user_params).tap do |result|
-            EnqueueCheapTranslation.call(result)
+            ProcessTranslationJob.perform_later(
+              translation: result.translation,
+              changed: result.changed_fields
+            )
           end
 
           @user.reload
@@ -307,47 +350,6 @@ module Api
         render json: resource
       end
 
-      api :POST, '/users/email-suggestion', 'Suggest email'
-      description 'Returns suggestions for common misstakes when inputting an email address.' # rubocop:disable Metrics/LineLength
-      error code: 400, desc: 'Bad request'
-      param :data, Hash, desc: 'Top level key', required: true do
-        param :attributes, Hash, desc: 'User attributes', required: true do
-          param :email, String, desc: 'Email address', required: true
-        end
-      end
-      example <<-JSON_EXAMPLE
-# Response example
-#{JSON.pretty_generate(JsonApiData.new(
-  id: SecureGenerator.token,
-  type: :email_suggestions,
-  attributes: {
-    address: 'buren',
-    domain: 'example.com',
-    full: 'buren@example.com'
-  },
-  key_transform: :underscore
-).to_h)}
-      JSON_EXAMPLE
-      def email_suggestion
-        authorize(User)
-        attributes = {}
-
-        email = jsonapi_params[:email]
-        unless email.blank?
-          suggestion = EmailSuggestion.call(email)
-          attributes = suggestion unless suggestion.empty?
-        end
-
-        response = JsonApiData.new(
-          id: SecureGenerator.token,
-          type: :email_suggestions,
-          attributes: attributes,
-          key_transform: key_transform_header
-        )
-
-        render json: response, status: :ok
-      end
-
       private
 
       def respond_with_invalid_image_content_type
@@ -378,7 +380,7 @@ module Api
           :education, :ssn, :street, :city, :zip, :language_id, :company_id,
           :competence_text, :current_status, :at_und, :arrived_at, :country_of_origin,
           :account_clearing_number, :account_number, :skype_username, :gender,
-          ignored_notifications: []
+          :system_language_id, ignored_notifications: []
         ]
         jsonapi_params.permit(*whitelist)
       end

@@ -3,22 +3,7 @@ module TranslationModel
   extend ActiveSupport::Concern
 
   included do
-    belongs_to :language
-
-    # NOTE: The below commented lines aren't working, we should investigate the root
-    # cause of this issue, since we'd really like to validate these fields...
-    # unless Rails.env.test? # We need to generate locales in tests..
-    #   validates :language, presence: true
-    #   validates :locale, length: { minimum: 2, maximum: 2 }, allow_blank: false
-    #   validate :validate_locale_eql_language
-    # end
-    #
-    # def validate_locale_eql_language
-    #   return if language.nil?
-    #   return if language.lang_code == locale
-    #
-    #   errors.add(:locale, I18n.t('admin.translation.locale_language_missmatch'))
-    # end
+    belongs_to :language, optional: true
 
     def translates_model_meta
       # Find the first model that includes the Translatable module,

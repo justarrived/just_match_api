@@ -37,6 +37,7 @@
         "longitude": null,
         "email": "person8@example.com",
         "last_name": "Doe",
+        "name": "Jane Doe",
         "created_at": "2016-02-10 01:01:01 +0100",
         "updated_at": "2016-02-12 01:01:01 +0100",
         "admin": false,
@@ -53,13 +54,18 @@
         "country_of_origin": "SE",
         "account_clearing_number": null,
         "account_number": null,
-        "just_arrived_staffing": false
+        "full_street_address": "Bankgatan 14C, 223 52, Lund, Sverige",
+        "just_arrived_staffing": false,
+        "support_chat_activated": false
       },
       "relationships": {
         "company": {
           "data": null
         },
         "language": {
+          "data": null
+        },
+        "system_language": {
           "data": null
         },
         "user_images": {
@@ -90,6 +96,8 @@
     }
   ],
   "meta": {
-    "total": 1
+    "total": 1,
+    "current_page": 1,
+    "total_pages": 1
   }
 }

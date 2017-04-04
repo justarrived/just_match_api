@@ -3,6 +3,434 @@
 HEAD
 -----------
 
+v1.49 - 2017-04-02
+----------
+* _Docs_:
+  - Regenerate API doc examples
+  - Add current_page & total_pages meta-keys to API examples
+  - Update authorization methods section
+* API:
+  - Add `GET /jobs/:job_id/users/:user_id/job-user`
+  - Allow defining the auth token as an URL-param `auth_token`
+
+
+v1.48 - 2017-04-02
+----------
+* _Admin_:
+  - Add support for activating a `FrilansFinansInvoice` (and creating an `Invoice`)
+  - Update i18n
+* _API_:
+  - Add support for filtering skills & languages on multiple ids
+  - Add support for returning all the missing traits for a user given a job
+  - Refactor `/missing-traits` action by extracting a serializer
+  - Set token expired instead of deleting it and don't automatically cleanup old tokens
+  - Don't strip splitted attributes in `Queries::Filter`
+  - Add support to `Queries::Filter` to filter on lists
+  - Add `JobUser#language` to serializer
+* _Docs_:
+  - Add `include` & `fields` params to `POST`/`PATCH` actions
+  - Add `jobs/:id/users/:id/missing-traits` API docs
+  - Update `/missing-traits` API doc example
+* _Update gems_:
+  - `aws-sdk`
+  - `uglifier`
+  - `airbrake`, 5.* => 6.0
+* Don't assume that controller is defined in custom Ahoy store
+* Enhance Google Translate detection event tracking
+* Async geocoding for Ahoy
+* Disable spring in `script/cibuild` to make coverage reliable
+* Refactor and test `CreateTranslationService`, `ProcessTranslationService`
+* Refactor API base controller to use new `Analytics` class
+* Add `Analytics` class to unify event tracking
+* Track translation detection event
+* _Bugfixes_:
+  - Properly unescape HTML from Google Translate
+
+v1.47 - 2017-03-30
+----------
+* _Admin_: Add latest 5 comments to job show page
+
+
+v1.46 - 2017-03-30
+----------
+* _Admin_: Add `activeadmin` plugin `active_admin_filters_visibility` for per user sorting & hiding filters
+
+
+v1.45 - 2017-03-30
+----------
+* _Admin_:
+  - Add comment resource
+  - Convert most job batch actions to `scoped_collection_action`
+  - Add `activeadmin` plugin: `active_admin_scoped_collection_actions`
+  - Add admin comments namespace
+* Update frontend router user edit path
+
+
+v1.44 - 2017-03-30
+----------
+* Admin:
+  - Refactor and update dashboard
+  - Language scopes :lipstick:
+* Update gems: ahoy_matey aws-sdk sidekiq uglifier
+* Update dev gems (includes new security fix for nokogiri)
+* Add `AhoyEvenetSweeper` that can delete events older than X and add rake task
+* Allow setting that regular users are allowed to create jobs from ENV-var
+* Extract `JobMailer#new_applicant_job_info_email` to `JobUserMailer` and add missing job-languages to email
+
+
+v1.43.1 - 2017-03-29
+----------
+* Reset translation attribute if blank in `CreateTranslationService`
+* Don't crash if text passed to `GoogleTranslate::Query` is nil
+
+
+v1.43 - 2017-03-29
+----------
+* Don't process translation if blank OR the written language is 'undetermined'
+* Refactor DetectLanguage
+* _Docs_:
+  - Regenerate API doc examples
+  - Update API docs for user create
+* Validate presence of `Comment#body` on create
+* Remove `PATCH jobs/:id/comments/:comment_id` action
+* Drop `User#system_language_id` from User serializer
+* Update syntax for setting side session secret
+* Set `sidekiq` session secret and domain
+
+
+v1.42.1 - 2017-03-27
+----------
+* Set the correct session cookie key for Sidekiq
+* Remove `Comment#body` presence validation, since it does not really work with virtual attributes
+
+
+v1.42 - 2017-03-27
+----------
+* _Admin_:
+  - Remove redundant checks for translated models
+  - Don't define constants in dynamic context
+* _Translation backend upgrade_:
+  - Add support for plain text newlines in Google Translate
+  - Replace `MachineTranslationsJob` => `ProcessTranslationJob` and update docs
+  - Add `DetectLanguage` module
+    + Min confidence threshold for translation set to 50%
+  - Rename `BaseNotifier#notify` => `#dispatch`
+
+
+v1.41 - 2017-03-26
+----------
+* Add missing index to `User#system_language`
+
+
+v1.40 - 2017-03-25
+----------
+* _API_: Backward compatible errors response for User#language
+* Fix User#system_language validation
+* Correctly handle nil values in EmailValidator
+* Validate presence of User#system_language and remove #language presence validation
+* Add User#system_language and refactor all uses of User#language => #system_language
+* Add User#language to #system_language data migration. Update user validator. Backwards compatibility
+* checkpoint
+
+
+v1.39 - 2017-03-22
+----------
+* _Admin_:
+  - Update `JobRequest` filter options
+  - Scope `#language` to `system_languages` for `Job` & `User`
+
+
+v1.38 - 2017-03-17
+----------
+* Add `cf_reqmote_ip` &  `cf_up_remote_contry_code` to track_request payload
+* Docs: Update API docs examples
+
+
+v1.37 - 2017-03-16
+----------
+* _Gem updates_:
+  - `aws-sdk`
+  - `puma`
+  - `codeclimate-test-reporter`
+  - `fog`
+  - `simplecov`
+
+
+v1.36 - 2017-03-15
+----------
+* Add verb to default tracking props and include error response on 422 response status. Closes #992
+
+
+v1.35 - 2017-03-13
+----------
+* _API_: Expose JobLanguage & JobSkill
+* _Admin_:
+  - Admin: Add missing call to super in job admin update
+  - Add support for setting job languages
+  - :hocho: dead form hint
+* _DB_: Generate missing foreign keys for ahoy DB tables
+* Pretty emails
+  - HTML emails
+  - Improve HTML emails rtl direction support
+  - Add cta button to job rejection email
+  - Add action buttons to the most important emails
+* Update gem
+  - `pg` 0.19 => 0.20
+  - Update `uglifier` gem
+* Request analytics
+  - Add ahoy gem, configuration and controller setup
+  - Add automatic request tracking to each request
+* _Bug_:
+  - :hocho: Bug for blazer `user_id` smart variables
+* Create `JobLanguage` model
+* Pull translations from Transifex
+
+
+v1.34 - 2017-03-12
+----------
+* Pull translations from Transifex
+* Create custom email address validator
+* _Admin_:
+  - Add additional action buttons to job form
+  - User form
+  - Refactor `AdminHelper`
+  - Add job skills badges
+  - Improve chosen selects
+* Add user fields
+  - `presentation_profile`
+  - `presentation_personality`
+  - `presentation_availability`
+* Add `JobSkill#proficiency_by_admin`
+* Extract mailer default layout
+
+
+v1.33 - 2017-03-12
+----------
+* Add missing skill section to application email body
+* Add ability for admins to send "ask for information emails" connected to a job, from the job user admin view
+* Add ask for info notifier & add missing skills list to new applicant info email
+
+
+v1.32 - 2017-03-11
+----------
+* :hocho: test failure in jobs controller
+* Update `JobSkill`s
+* Extract email-suggestion to its own controller & better predictions from `EmailSuggestion`
+* Set custom Mailchecker domains and TLDs
+
+
+v1.31 - 2017-03-11
+----------
+* Add `skill_id` blazer smart column
+* Add `dev:db:heroku_import` task
+* Add `dev:anonymize_database` task
+* Add database docs
+* :hocho: users controller test failure
+* Add `dev:anonymize_database` task
+* Update `User#reset!`
+* Gem updates
+  - `aws-sdk`
+  - `countries`
+  - `puma`
+  - `redis-activesupport`
+  - `skylight`
+  - `uglifier`
+  - `active_model_serializers`
+
+
+v1.30 - 2017-03-10
+----------
+* _Admin_:
+  - Update job user batch action name
+  - Add just_arrived_contact_user filter to jobs page
+* Update `JobUser#current_status` to handle `#rejected`
+* Add `JobUser#rejected` boolean field (default: false) & send early rejection emails
+* Increase `JobUser` max confirmation time to 24 hours (from 18)
+
+
+v1.29 - 2017-03-09
+----------
+ * _Admin_: Left join jobs instead of join to keep jobs that does not have any applicants
+
+
+v1.28 - 2017-03-09
+----------
+* Ignore codecoverage of `app/admin/` files
+* Rename `ebert.yml` => `.ebert.yml`
+* Disable Ebert eslint & scss lint
+* _API_: Return wrong old password under correct attribute name for change password controller
+* _Admin_:
+  - Remove actions from job user index page
+  - :hocho: N+1 query on dashboard
+  - Improve job & job user index pages
+  - Improve job admin index listing with more relevant table columns
+
+
+v1.27 - 2017-03-07
+----------
+* Additional Blazer configuration
+* _Admin_:
+  - Add primary language to user filters & add missing admin I18n keys
+  - Remove duplicate entry from blazer config
+  - Reverse order of chat messages on user show page
+
+
+v1.26 - 2017-03-07
+----------
+* _Blazer_:
+  - Add Linked & Smart columns
+  - Set PostgreSQL timeout to 14 sec
+* _Admin_:
+  - Remove destroy action from user, job user and job resources
+  - Panel header links hover, middle align table rows, custom status colors
+  - Just Arrived menu logo
+  - Add job user shortlist batch action. Closes #953
+  - Custom border and status_tag color
+  - Custom flash colors
+
+
+v1.25 - 2017-03-06
+----------
+* _Admin_:
+  - Set chosen-selects to 100% width
+  - Add Job `staffing_job` & `direct_recruitment_job` job form
+* New `activeadmin` theme using the gem `active_admin_theme`
+
+v1.24 - 2017-03-05
+----------
+* Update `rails` from 5.0.1 => 5.0.2
+* Update gems: `airbrake`, `aws-sdk` and `uglifier`
+
+v1.23 - 2017-03-05
+----------
+* Extract `SignJobUserService` from `jobs/ConfirmationsController`
+* Adds `Job#staffing_job` boolean (default: false) field
+* Adds `Job#direct_recruitment_job` boolean (default: false) field
+* Only create `FrilansFinansInvoice`s for jobs that has *not* `staffing_job` or `direct_recruitment_job` set to true
+* _API_: Expose `Job#staffing_job` and `Job#direct_recruitment_job` to API and allow sort & filter
+* Add Ebert config `ebert.yml`
+* `Geocodable#by_near_address` => `#near_address` and add `#near_coordinates` method
+* _Admin_:
+  - Add shortlisted scope and more informative city column
+  - Replace Job#featured with #city on index page
+  - Link to users with skills/tags from their respective index page. Closes #939
+* _API_:
+  - Add `#body_html` variant for comment & message serializers
+  - Add `Job#decription_html` to allowed attributes
+  - Add `User#support_chat_activated` feature toggle
+  - Allow a user that has withdrawn the job application to re-apply
+  - Don't delete job user, set `#application_withdrawn` instead
+  - Extract create job application service and allow passing user_id as POST param
+* _DB_:
+  - Add JobUser#application_withdrawn column (default: false)
+  - Add JobUser#shortlisted. Admin: JobUser show/index update
+* _Docs_:
+  - Regenerate API response examples
+* :hocho: dead Rails config option
+* Pull translations from Transifex
+* Add `lograge` gem for a less verbose production log
+
+
+v1.22 - 2017-03-03
+----------
+* Increase request limit to allow 100 requests per 10 seconds
+
+
+v1.21 - 2017-03-02
+----------
+* _API_:
+  - Update change password error responses
+  - Temporary don't require consent when creating a new user
+* Fix test failure for create Frilans Finans invoice
+* Update `Geocodable` to ignore char casing on search and increase default search range to 50km (from 20km)
+* Update the users `profession_title` @ Frilans Finans when creating an invoice
+
+
+v1.20 - 2017-02-25
+----------
+* _API_: Remove `Job::unarchived` scope and remove from `Job::visible` scope
+
+
+v1.19 - 2017-02-24
+----------
+* _Admin_:
+  - Added sales and delivery user to permitted params in job request form
+
+
+v1.18 - 2017-02-23
+----------
+* _Admin_:
+  - Display large image on UserImage page
+  - Display large image on CompanyImage page
+
+
+v1.17 - 2017-02-23
+----------
+* Update gems: `aws-sdk` and `codeclimate-test-reporter`
+* Generate migration for missing user keys for JobRequest
+* Add sales and delivery use to job request permitted params
+
+
+v1.16 - 2017-02-22
+----------
+* Add `JobRequest#sales_user` and `JobRequest#delivery_user` columns
+* Update user admin seed
+* _Admin_: Sort chat index by updated_at. Closes #912
+* Update gems:
+  - `aws-sdk` gem
+* Update dev gems: `consistency_fail`, `dotenv-rails`, `i18n-tasks`, `immigrant` and `simplecov`
+
+
+v1.15 - 2017-02-21
+----------
+_API_: Rename `HourlyPay#*_with_currency` => `*_with_unit`
+
+
+v1.14 - 2017-02-21
+----------
+* _API_: Change `*_formatted` keys => `*_with_currency` & add `*_delimited` to job & hourly pay numbers
+
+
+v1.13 - 2017-02-21
+----------
+* _API_: Add `Job::unarchived` scope and include the scope under `Job::visible`
+* _Admin_: Accept and notify job users batch action
+
+v1.12 - 2017-02-21
+----------
+* _Admin_:
+  - Move job show view to its own template
+  - Update document dashboard filters
+* `Job#city` column:
+  - Expose in API
+  - Add to admin
+* _FrilansFinansApi_:
+  - Update links & meta parsing
+  - Update meta-keys for all index fixtures
+
+v1.11 - 2017-02-21
+----------
+* Don't validate `User#arrived_at` for blank strings
+* Update `puma` gem 3.6 => 3.7
+
+
+v1.10 - 2017-02-20
+----------
+* _Admin_:
+  - Dashboard filter item order
+  - Distinct job search
+  - Add user & job name search to job user dashboard
+  - Add hired users to job show page sidebar
+  - Add link to job on job user show page
+  - Add messaging batch actions to job users view
+  - Move a few user sidebars to their own template files
+  - Move user form implementation to its own file
+  - Extract template locales from user show
+  - Move user show implementation to its own file
+  - Custom job form
+* Depend on GitHub ankane/blazer for `blazer` gem
+* Add `active_admin_datetimepicker` gem for nice datetime picker UI in admin
+
 
 v1.9 - 2017-02-19
 ----------

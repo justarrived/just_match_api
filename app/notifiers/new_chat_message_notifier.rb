@@ -4,14 +4,13 @@ class NewChatMessageNotifier < BaseNotifier
     chat.users.each do |user|
       next if user == author
 
-      notify(user: user, locale: user.locale) do
-        ChatMailer.new_message_email(
-          user: user,
-          chat: chat,
-          message: message,
-          author: author
-        )
-      end
+      envelope = ChatMailer.new_message_email(
+        user: user,
+        chat: chat,
+        message: message,
+        author: author
+      )
+      dispatch(envelope, user: user, locale: user.locale)
     end
   end
 end

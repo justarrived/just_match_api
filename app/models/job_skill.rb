@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 class JobSkill < ApplicationRecord
+  PROFICIENCY_RANGE = 1..5
+
   belongs_to :job
   belongs_to :skill
 
@@ -11,11 +13,13 @@ end
 #
 # Table name: job_skills
 #
-#  id         :integer          not null, primary key
-#  job_id     :integer
-#  skill_id   :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id                   :integer          not null, primary key
+#  job_id               :integer
+#  skill_id             :integer
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
+#  proficiency          :integer
+#  proficiency_by_admin :integer
 #
 # Indexes
 #

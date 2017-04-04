@@ -5,4 +5,5 @@ class ApplicationMailer < ActionMailer::Base
   DEFAULT_EMAIL = NO_REPLY_EMAIL
   default from: DEFAULT_EMAIL
   helper :mailer
+  layout 'layouts_mailer/default'
 end

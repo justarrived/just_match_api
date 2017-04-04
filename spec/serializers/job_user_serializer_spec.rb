@@ -24,7 +24,7 @@ RSpec.describe JobUserSerializer, type: :serializer do
       expect(subject).to have_jsonapi_attribute(dashed_attribute, value)
     end
 
-    %w(job user).each do |relationship|
+    %w(job user language).each do |relationship|
       it "has #{relationship} relationship" do
         expect(subject).to have_jsonapi_relationship(relationship)
       end
@@ -40,17 +40,20 @@ end
 #
 # Table name: job_users
 #
-#  id            :integer          not null, primary key
-#  user_id       :integer
-#  job_id        :integer
-#  accepted      :boolean          default(FALSE)
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  will_perform  :boolean          default(FALSE)
-#  accepted_at   :datetime
-#  performed     :boolean          default(FALSE)
-#  apply_message :text
-#  language_id   :integer
+#  id                    :integer          not null, primary key
+#  user_id               :integer
+#  job_id                :integer
+#  accepted              :boolean          default(FALSE)
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#  will_perform          :boolean          default(FALSE)
+#  accepted_at           :datetime
+#  performed             :boolean          default(FALSE)
+#  apply_message         :text
+#  language_id           :integer
+#  application_withdrawn :boolean          default(FALSE)
+#  shortlisted           :boolean          default(FALSE)
+#  rejected              :boolean          default(FALSE)
 #
 # Indexes
 #

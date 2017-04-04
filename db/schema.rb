@@ -10,23 +10,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170214093037) do
+ActiveRecord::Schema.define(version: 20170326150631) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "pg_stat_statements"
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
     t.text     "body"
     t.string   "resource_id",   null: false
     t.string   "resource_type", null: false
-    t.string   "author_type"
     t.integer  "author_id"
+    t.string   "author_type"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id", using: :btree
     t.index ["namespace"], name: "index_active_admin_comments_on_namespace", using: :btree
     t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id", using: :btree
+  end
+
+  create_table "ahoy_events", force: :cascade do |t|
+    t.integer  "visit_id"
+    t.integer  "user_id"
+    t.string   "name"
+    t.jsonb    "properties"
+    t.datetime "time"
+    t.index ["name", "time"], name: "index_ahoy_events_on_name_and_time", using: :btree
+    t.index ["user_id", "name"], name: "index_ahoy_events_on_user_id_and_name", using: :btree
+    t.index ["visit_id", "name"], name: "index_ahoy_events_on_visit_id_and_name", using: :btree
   end
 
   create_table "blazer_audits", force: :cascade do |t|
@@ -108,8 +120,8 @@ ActiveRecord::Schema.define(version: 20170214093037) do
 
   create_table "comments", force: :cascade do |t|
     t.text     "body"
-    t.string   "commentable_type"
     t.integer  "commentable_id"
+    t.string   "commentable_type"
     t.integer  "owner_user_id"
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
@@ -320,6 +332,17 @@ ActiveRecord::Schema.define(version: 20170214093037) do
     t.index ["job_user_id"], name: "index_invoices_on_job_user_id_uniq", unique: true, using: :btree
   end
 
+  create_table "job_languages", force: :cascade do |t|
+    t.integer  "job_id"
+    t.integer  "language_id"
+    t.integer  "proficiency"
+    t.integer  "proficiency_by_admin"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.index ["job_id"], name: "index_job_languages_on_job_id", using: :btree
+    t.index ["language_id"], name: "index_job_languages_on_language_id", using: :btree
+  end
+
   create_table "job_requests", force: :cascade do |t|
     t.string   "company_name"
     t.string   "contact_string"
@@ -345,14 +368,18 @@ ActiveRecord::Schema.define(version: 20170214093037) do
     t.string   "company_phone"
     t.string   "company_address"
     t.integer  "company_id"
+    t.integer  "delivery_user_id"
+    t.integer  "sales_user_id"
     t.index ["company_id"], name: "index_job_requests_on_company_id", using: :btree
   end
 
   create_table "job_skills", force: :cascade do |t|
     t.integer  "job_id"
     t.integer  "skill_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.integer  "proficiency"
+    t.integer  "proficiency_by_admin"
     t.index ["job_id", "skill_id"], name: "index_job_skills_on_job_id_and_skill_id", unique: true, using: :btree
     t.index ["job_id"], name: "index_job_skills_on_job_id", using: :btree
     t.index ["skill_id", "job_id"], name: "index_job_skills_on_skill_id_and_job_id", unique: true, using: :btree
@@ -386,14 +413,17 @@ ActiveRecord::Schema.define(version: 20170214093037) do
   create_table "job_users", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "job_id"
-    t.boolean  "accepted",      default: false
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
-    t.boolean  "will_perform",  default: false
+    t.boolean  "accepted",              default: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.boolean  "will_perform",          default: false
     t.datetime "accepted_at"
-    t.boolean  "performed",     default: false
+    t.boolean  "performed",             default: false
     t.text     "apply_message"
     t.integer  "language_id"
+    t.boolean  "application_withdrawn", default: false
+    t.boolean  "shortlisted",           default: false
+    t.boolean  "rejected",              default: false
     t.index ["job_id", "user_id"], name: "index_job_users_on_job_id_and_user_id", unique: true, using: :btree
     t.index ["job_id"], name: "index_job_users_on_job_id", using: :btree
     t.index ["language_id"], name: "index_job_users_on_language_id", using: :btree
@@ -428,6 +458,9 @@ ActiveRecord::Schema.define(version: 20170214093037) do
     t.boolean  "upcoming",                     default: false
     t.integer  "company_contact_user_id"
     t.integer  "just_arrived_contact_user_id"
+    t.string   "city"
+    t.boolean  "staffing_job",                 default: false
+    t.boolean  "direct_recruitment_job",       default: false
     t.index ["category_id"], name: "index_jobs_on_category_id", using: :btree
     t.index ["hourly_pay_id"], name: "index_jobs_on_hourly_pay_id", using: :btree
     t.index ["language_id"], name: "index_jobs_on_language_id", using: :btree
@@ -721,13 +754,51 @@ ActiveRecord::Schema.define(version: 20170214093037) do
     t.boolean  "just_arrived_staffing",            default: false
     t.boolean  "super_admin",                      default: false
     t.integer  "gender"
+    t.text     "presentation_profile"
+    t.text     "presentation_personality"
+    t.text     "presentation_availability"
+    t.integer  "system_language_id"
     t.index ["company_id"], name: "index_users_on_company_id", using: :btree
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["frilans_finans_id"], name: "index_users_on_frilans_finans_id", unique: true, using: :btree
     t.index ["language_id"], name: "index_users_on_language_id", using: :btree
     t.index ["one_time_token"], name: "index_users_on_one_time_token", unique: true, using: :btree
+    t.index ["system_language_id"], name: "index_users_on_system_language_id", using: :btree
   end
 
+  create_table "visits", force: :cascade do |t|
+    t.string   "visit_token"
+    t.string   "visitor_token"
+    t.string   "ip"
+    t.text     "user_agent"
+    t.text     "referrer"
+    t.text     "landing_page"
+    t.integer  "user_id"
+    t.string   "referring_domain"
+    t.string   "search_keyword"
+    t.string   "browser"
+    t.string   "os"
+    t.string   "device_type"
+    t.integer  "screen_height"
+    t.integer  "screen_width"
+    t.string   "country"
+    t.string   "region"
+    t.string   "city"
+    t.string   "postal_code"
+    t.decimal  "latitude"
+    t.decimal  "longitude"
+    t.string   "utm_source"
+    t.string   "utm_medium"
+    t.string   "utm_term"
+    t.string   "utm_content"
+    t.string   "utm_campaign"
+    t.datetime "started_at"
+    t.index ["user_id"], name: "index_visits_on_user_id", using: :btree
+    t.index ["visit_token"], name: "index_visits_on_visit_token", unique: true, using: :btree
+  end
+
+  add_foreign_key "ahoy_events", "users", name: "ahoy_events_user_id_fk"
+  add_foreign_key "ahoy_events", "visits", name: "ahoy_events_visit_id_fk"
   add_foreign_key "blazer_audits", "blazer_queries", column: "query_id", name: "blazer_audits_query_id_fk"
   add_foreign_key "blazer_checks", "blazer_queries", column: "query_id", name: "blazer_checks_query_id_fk"
   add_foreign_key "blazer_dashboard_queries", "blazer_dashboards", column: "dashboard_id", name: "blazer_dashboard_queries_dashboard_id_fk"
@@ -756,7 +827,11 @@ ActiveRecord::Schema.define(version: 20170214093037) do
   add_foreign_key "interests", "languages"
   add_foreign_key "invoices", "frilans_finans_invoices"
   add_foreign_key "invoices", "job_users"
+  add_foreign_key "job_languages", "jobs"
+  add_foreign_key "job_languages", "languages"
   add_foreign_key "job_requests", "companies"
+  add_foreign_key "job_requests", "users", column: "delivery_user_id", name: "job_requests_delivery_user_id_fk"
+  add_foreign_key "job_requests", "users", column: "sales_user_id", name: "job_requests_sales_user_id_fk"
   add_foreign_key "job_skills", "jobs"
   add_foreign_key "job_skills", "skills"
   add_foreign_key "job_translations", "jobs"
@@ -807,5 +882,7 @@ ActiveRecord::Schema.define(version: 20170214093037) do
   add_foreign_key "user_translations", "users"
   add_foreign_key "users", "companies"
   add_foreign_key "users", "languages"
+  add_foreign_key "users", "languages", column: "system_language_id", name: "users_system_language_id_fk"
   add_foreign_key "users", "users", column: "interviewed_by_user_id", name: "users_interviewed_by_user_id_fk"
+  add_foreign_key "visits", "users", name: "visits_user_id_fk"
 end

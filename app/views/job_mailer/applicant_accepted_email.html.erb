@@ -1,48 +1,48 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
-  </head>
-  <body>
-    <%= simple_format I18n.t(
-      'mailer.applicant_accepted.body_start',
-      user_name: @user_name,
-      job_name: @job_name
-    ).html_safe %>
 
-    <table>
-      <tr>
-        <td colspan="2"><strong><%= I18n.t('mailer.applicant_accepted.job_name_title') %></strong></td>
-        <td><%= @job_name %></td>
-      </tr>
-      <tr>
-        <td colspan="2"><strong><%= I18n.t('mailer.applicant_accepted.when_title') %></strong></td>
-        <td><%= @job_start_date %> - <%= @job_end_date %> <%= link_to(I18n.t('mailer.google_calendar_link_name'), @google_calendar_url) %></td>
-      </tr>
-      <tr>
-        <td colspan="2"><strong><%= I18n.t('mailer.applicant_accepted.hours_title') %></strong></td>
-        <td><%= @total_hours %></td>
-      </tr>
-      <tr>
-        <td colspan="2"><strong><%= I18n.t('mailer.applicant_accepted.hourly_gross_salary_title') %></strong></td>
-        <td><%= @hourly_gross_salary %> <%= I18n.t('mailer.applicant_accepted.hourly_gross_salary_unit') %></td>
-      </tr>
-      <tr>
-        <td colspan="2"><strong><%= I18n.t('mailer.applicant_accepted.total_gross_salary_title') %></strong></td>
-        <td><%= @total_salary %> <%= I18n.t('mailer.applicant_accepted.total_gross_salary_unit') %></td>
-      </tr>
-      <tr>
-        <td colspan="2"><strong><%= I18n.t('mailer.applicant_accepted.address_title') %></strong></td>
-        <td><%= address_to @job_address %></td>
-      </tr>
-    </table>
+<%= simple_format I18n.t(
+  'mailer.applicant_accepted.body_start',
+  user_name: @user_name,
+  job_name: @job_name
+).html_safe %>
 
-    <%= simple_format I18n.t(
-      'mailer.applicant_accepted.body_end',
-      confirmation_time_hours: @confirmation_time_hours,
-      job_user_url: link_to(@job_user_url, @job_user_url)
-    ) %>
+<table>
+  <tr>
+    <td colspan="2"><strong><%= I18n.t('mailer.applicant_accepted.job_name_title') %></strong></td>
+    <td><%= @job_name %></td>
+  </tr>
+  <tr>
+    <td colspan="2"><strong><%= I18n.t('mailer.applicant_accepted.when_title') %></strong></td>
+    <td><%= @job_start_date %> - <%= @job_end_date %> <%= link_to(I18n.t('mailer.google_calendar_link_name'), @google_calendar_url) %></td>
+  </tr>
+  <tr>
+    <td colspan="2"><strong><%= I18n.t('mailer.applicant_accepted.hours_title') %></strong></td>
+    <td><%= @total_hours %></td>
+  </tr>
+  <tr>
+    <td colspan="2"><strong><%= I18n.t('mailer.applicant_accepted.hourly_gross_salary_title') %></strong></td>
+    <td><%= @hourly_gross_salary %> <%= I18n.t('mailer.applicant_accepted.hourly_gross_salary_unit') %></td>
+  </tr>
+  <tr>
+    <td colspan="2"><strong><%= I18n.t('mailer.applicant_accepted.total_gross_salary_title') %></strong></td>
+    <td><%= @total_salary %> <%= I18n.t('mailer.applicant_accepted.total_gross_salary_unit') %></td>
+  </tr>
+  <tr>
+    <td colspan="2"><strong><%= I18n.t('mailer.applicant_accepted.address_title') %></strong></td>
+    <td><%= address_to @job_address %></td>
+  </tr>
+</table>
 
-    <p><%= I18n.t('mailer.signoff') %></p>
-  </body>
-</html>
+<%= simple_format I18n.t(
+  'mailer.applicant_accepted.body_end',
+  confirmation_time_hours: @confirmation_time_hours,
+  job_user_url: link_to(@job_user_url, @job_user_url)
+) %>
+
+<%= render(
+  'mailer_partials/action_button',
+  url: @job_user_url,
+  title: I18n.t('mailer.applicant_accepted.accept_cta'),
+  align: I18nMeta.align(I18n.locale)
+) %>
+
+<p><%= I18n.t('mailer.signoff') %></p>

@@ -1,0 +1,77 @@
+# frozen_string_literal: true
+f.semantic_errors
+
+f.inputs(I18n.t('admin.job.form.detail_section_title')) do
+  f.input :job_date, as: :date_time_picker
+  f.input :job_end_date, as: :date_time_picker
+  f.input :hourly_pay, hint: I18n.t('admin.job.form.hourly_pay_hint')
+  f.input :hours
+
+  f.input :language, hint: I18n.t('admin.job.form.language_hint'), collection: Language.system_languages.order(:en_name) # rubocop:disable Metrics/LineLength
+  f.input :name
+  f.input :short_description
+  f.input :description
+end
+
+f.actions
+
+f.inputs(I18n.t('admin.job.form.admin_users_section_title')) do
+  f.input :owner, collection: User.company_users, hint: I18n.t('admin.job.form.owner_hint') # rubocop:disable Metrics/LineLength
+  f.input :company_contact, hint: I18n.t('admin.job.form.company_contact_hint')
+  f.input :just_arrived_contact, hint: I18n.t('admin.job.form.just_arrived_contact_hint')
+end
+
+f.actions
+
+f.inputs(I18n.t('admin.job.form.address_section_title')) do
+  f.input :street
+  f.input :city
+  f.input :zip
+end
+
+f.actions
+
+f.inputs(I18n.t('admin.job.form.frilans_finans_section_title')) do
+  f.input :category, hint: I18n.t('admin.job.form.category_hint')
+end
+
+f.actions
+
+if job.persisted?
+  f.inputs(I18n.t('admin.job.form.skills_title')) do
+    f.has_many :job_skills, allow_destroy: false, new_record: true do |ff|
+      ff.semantic_errors(*ff.object.errors.keys)
+
+      ff.input :skill, as: :select, collection: Skill.with_translations
+      ff.input :proficiency, as: :select, collection: JobSkill::PROFICIENCY_RANGE
+      ff.input :proficiency_by_admin, as: :select, collection: JobSkill::PROFICIENCY_RANGE
+    end
+  end
+
+  f.actions
+
+  f.inputs(I18n.t('admin.job.form.languages_title')) do
+    f.has_many :job_languages, allow_destroy: false, new_record: true do |ff|
+      ff.semantic_errors(*ff.object.errors.keys)
+
+      ff.input :language, as: :select, collection: Language.all
+      ff.input :proficiency, as: :select, collection: JobLanguage::PROFICIENCY_RANGE
+      ff.input :proficiency_by_admin, as: :select, collection: JobLanguage::PROFICIENCY_RANGE # rubocop:disable Metrics/LineLength
+    end
+  end
+
+  f.actions
+end
+
+f.inputs(I18n.t('admin.job.form.status_section_title')) do
+  f.input :staffing_job, hint: I18n.t('admin.job.form.hidden_hint')
+  f.input :direct_recruitment_job, hint: I18n.t('admin.job.form.hidden_hint')
+  f.input :hidden, hint: I18n.t('admin.job.form.hidden_hint')
+  f.input :verified, hint: I18n.t('admin.job.form.verified_hint')
+  f.input :upcoming, hint: I18n.t('admin.job.form.upcoming_hint')
+  f.input :cancelled, hint: I18n.t('admin.job.form.cancelled_hint')
+  f.input :filled, hint: I18n.t('admin.job.form.filled_hint')
+  f.input :featured, hint: I18n.t('admin.job.form.featured_hint')
+end
+
+f.actions

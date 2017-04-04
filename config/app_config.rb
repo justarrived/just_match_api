@@ -28,6 +28,10 @@ class AppConfig
 
   # Application settings
 
+  def self.allow_regular_users_to_create_jobs?
+    truthy?(env['ALLOW_REGULAR_USERS_TO_CREATE_JOBS'])
+  end
+
   def self.globally_ignored_notifications
     (env['GLOBALLY_IGNORED_NOTIFICATIONS'] || '').
       split(',').

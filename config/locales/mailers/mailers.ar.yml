@@ -95,7 +95,6 @@ ar:
         تذكر، خبرتك مهمة لنا!
     magic_login_link:
       subject: رابط تسجيل الدخول السحري
-      login_line: لتسجيل الدخول الى JustArrived استخدم الرابط التالي %{url}
     new_applicant_job_info:
       subject: تقدمت بطلب لوظيفة
       body: |

@@ -9,7 +9,9 @@ RSpec.describe JobPolicy do
   let(:owner_params) do
     [
       :description, :job_date, :street, :zip, :name, :hours, :job_end_date,
-      :cancelled, :filled, :short_description, :featured, :upcoming,
+      :cancelled, :city, :filled, :short_description, :featured, :upcoming,
+      :currency, :gross_amount_delimited, :net_amount_delimited, :full_street_address,
+      :staffing_job, :description_html, :direct_recruitment_job,
       :language_id, :category_id, :hourly_pay_id, { skill_ids: [] }
     ]
   end
@@ -34,6 +36,11 @@ RSpec.describe JobPolicy do
 
     it '#create? returns false' do
       expect(subject.create?).to eq(false)
+    end
+
+    it '#create? returns true if ENV-config is set' do
+      allow(AppConfig).to receive(:allow_regular_users_to_create_jobs?).and_return(true)
+      expect(subject.create?).to eq(true)
     end
 
     it '#update? returns false' do

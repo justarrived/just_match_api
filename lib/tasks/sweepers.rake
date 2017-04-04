@@ -17,13 +17,18 @@ namespace :sweepers do
       destroy_company_image_orphans
       destroy_user_image_orphans
       destroy_terms_agreement_orphans
-      destroy_expired_tokens
     ).each do |task|
       Rake::Task["sweepers:cleanup:#{task}"].execute
     end
   end
 
   namespace :cleanup do
+    task destroy_week_old_events: :environment do |task_name|
+      wrap_sweeper_task(task_name) do
+        Sweepers::AhoyEventSweeper.destroy_old(before_date: 7.days.ago)
+      end
+    end
+
     task destroy_company_image_orphans: :environment do |task_name|
       wrap_sweeper_task(task_name) { Sweepers::CompanyImageSweeper.destroy_orphans }
     end

@@ -16,6 +16,7 @@ module Dev
         create_user(
           email: 'admin@example.com',
           admin: true,
+          super_admin: true,
           address: addresses.sample,
           language: system_languages.sample
         )
@@ -63,7 +64,7 @@ module Dev
         phone: Faker::PhoneNumber.cell_phone,
         street: address[:street],
         zip: address[:zip],
-        language: language,
+        system_language: language,
         password: '12345678',
         admin: admin,
         super_admin: admin,

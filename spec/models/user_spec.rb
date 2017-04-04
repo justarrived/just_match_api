@@ -126,16 +126,17 @@ RSpec.describe User, type: :model do
     it 'resets all personal user attributes' do
       user = FactoryGirl.create(:user)
       old_email = user.email
+      old_zip = user.zip
 
       user.reset!
 
-      expect(user.name).to eq('Ghost user')
+      expect(user.name).to eq('Ghost User')
       expect(user.email).not_to eq(old_email)
       expect(user.phone).to be_nil
       expect(user.description).to eq('This user has been deleted.')
-      expect(user.street).to eq('Stockholm')
-      expect(user.zip).to eq('11120')
-      expect(user.ssn).to eq('0000000000')
+      expect(user.street).to be_nil
+      expect(user.zip).to eq(old_zip)
+      expect(user.ssn).to be_nil
     end
 
     it 'does *not* reset frilans_finans_id' do
@@ -174,7 +175,7 @@ RSpec.describe User, type: :model do
     it 'returns correct locale for user that has a language' do
       lang_code = 'wa'
       language = FactoryGirl.build(:language, lang_code: lang_code)
-      user = FactoryGirl.build(:user, language: language)
+      user = FactoryGirl.build(:user, system_language: language)
       expect(user.locale).to eq(lang_code)
     end
   end
@@ -459,22 +460,40 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe 'validate email address format' do
+    it 'adds error if language is not in available locale' do
+      user = FactoryGirl.build(:user, email: 'buren@')
+      user.validate
+
+      message = user.errors.messages[:email]
+      expect(message).to include(I18n.t('errors.validators.email'))
+    end
+
+    it 'adds *no* error if language is not in available locale' do
+      user = FactoryGirl.build(:user, email: 'watman@example.com')
+      user.validate
+
+      message = user.errors.messages[:email]
+      expect(message || []).not_to include(I18n.t('errors.validators.email'))
+    end
+  end
+
   describe '#validate_language_id_in_available_locale' do
     it 'adds error if language is not in available locale' do
       language = FactoryGirl.create(:language, lang_code: 'aa')
-      user = FactoryGirl.build(:user, language: language)
+      user = FactoryGirl.build(:user, system_language: language)
       user.validate
 
-      message = user.errors.messages[:language_id]
+      message = user.errors.messages[:system_language_id]
       expect(message).to include(I18n.t('errors.user.must_be_available_locale'))
     end
 
     it 'adds *no* error if language is not in available locale' do
       language = FactoryGirl.create(:language, lang_code: 'en')
-      user = FactoryGirl.build(:user, language: language)
+      user = FactoryGirl.build(:user, system_language: language)
       user.validate
 
-      message = user.errors.messages[:language_id]
+      message = user.errors.messages[:system_language_id]
       expect(message || []).not_to include(I18n.t('errors.user.must_be_available_locale'))
     end
   end
@@ -488,6 +507,14 @@ RSpec.describe User, type: :model do
 
       message = user.errors.messages[:arrived_at]
       expect(message).to include(error_message)
+    end
+
+    it 'adds *no* error if arrived at is a blank string' do
+      user = FactoryGirl.build(:user, arrived_at: ' ')
+      user.validate_arrival_date_in_past
+
+      message = user.errors.messages[:arrived_at]
+      expect(message).not_to include(error_message)
     end
 
     it 'adds *no* error if arrived_at is in the past' do
@@ -621,6 +648,14 @@ RSpec.describe User, type: :model do
       expect(message).to include(error_message)
     end
 
+    it 'adds *no* error if arrived at is a blank string' do
+      user = FactoryGirl.build(:user, arrived_at: ' ')
+      user.validate_arrived_at_date
+
+      message = user.errors.messages[:arrived_at]
+      expect(message).not_to include(error_message)
+    end
+
     it 'adds *no* error if arrived at is a valid date' do
       user = FactoryGirl.build(:user, arrived_at: '2016-01-01')
       user.validate_arrived_at_date
@@ -720,14 +755,19 @@ end
 #  just_arrived_staffing            :boolean          default(FALSE)
 #  super_admin                      :boolean          default(FALSE)
 #  gender                           :integer
+#  presentation_profile             :text
+#  presentation_personality         :text
+#  presentation_availability        :text
+#  system_language_id               :integer
 #
 # Indexes
 #
-#  index_users_on_company_id         (company_id)
-#  index_users_on_email              (email) UNIQUE
-#  index_users_on_frilans_finans_id  (frilans_finans_id) UNIQUE
-#  index_users_on_language_id        (language_id)
-#  index_users_on_one_time_token     (one_time_token) UNIQUE
+#  index_users_on_company_id          (company_id)
+#  index_users_on_email               (email) UNIQUE
+#  index_users_on_frilans_finans_id   (frilans_finans_id) UNIQUE
+#  index_users_on_language_id         (language_id)
+#  index_users_on_one_time_token      (one_time_token) UNIQUE
+#  index_users_on_system_language_id  (system_language_id)
 #
 # Foreign Keys
 #

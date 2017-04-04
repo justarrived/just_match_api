@@ -1,0 +1,34 @@
+# frozen_string_literal: true
+job_query = AdminHelpers::Link.query(:job_id, job.id)
+hired_job_users = job.job_users.includes(:user).will_perform
+
+ul do
+  li link_to job.company.display_name, admin_company_path(job.company)
+  li link_to job.owner.display_name, admin_user_path(job.owner)
+end
+
+ul do
+  li(
+    link_to(
+      I18n.t('admin.counts.applicants', count: job.job_users.count),
+      admin_job_users_path + job_query
+    )
+  )
+  li(
+    link_to(
+      I18n.t('admin.counts.translations', count: job.translations.count),
+      admin_job_translations_path + job_query
+    )
+  )
+  li I18n.t('admin.counts.comments', count: job.comments.count)
+
+  hr
+
+  hired_job_users.each do |job_user|
+    parts = [
+      link_to(job_user.user.name, admin_job_user_path(job_user)),
+      I18n.t('admin.hired_suffix')
+    ]
+    li safe_join(parts, ' ')
+  end
+end

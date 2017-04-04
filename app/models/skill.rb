@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class Skill < ApplicationRecord
-  belongs_to :language
+  belongs_to :language, optional: true
 
   has_many :job_skills
   has_many :jobs, through: :job_skills
@@ -9,8 +9,11 @@ class Skill < ApplicationRecord
   has_many :users, through: :user_skills
 
   validates :name, uniqueness: true, length: { minimum: 1 }, allow_blank: false, on: :create # rubocop:disable Metrics/LineLength
-  validates :language, presence: true
 
+  scope :order_by_name, lambda { |direction: :asc|
+    dir = direction.to_s == 'desc' ? 'DESC' : 'ASC'
+    order("skill_translations.name #{dir}")
+  }
   scope :visible, -> { where(internal: false) }
 
   include Translatable

@@ -45,6 +45,12 @@ ActiveAdmin.register JobRequest do
 
   filter :company_name
   filter :created_at
+  filter :sales_user, collection: -> { User.sales_users }
+  filter :delivery_user, collection: -> { User.delivery_users }
+  filter :draft_sent
+  filter :signed_by_customer
+  filter :cancelled
+  filter :finished
   filter :contact_string
   filter :assignment
   filter :job_scope
@@ -54,13 +60,13 @@ ActiveAdmin.register JobRequest do
   filter :responsible
   filter :suitable_candidates
   filter :comment
-  filter :finished
 
   index do
     selectable_column
     column :status, &:current_status_name
     column :company_name
-    column :responsible
+    column :sales_user { |job_request| job_request.sales_user&.first_name }
+    column :delivery_user { |job_request| job_request.delivery_user&.first_name }
     column :requirements
     column :language_requirements
     column :job_at_date
@@ -72,7 +78,8 @@ ActiveAdmin.register JobRequest do
   show do |job_request|
     attributes_table do
       row :short_name
-      row :responsible
+      row :sales_user
+      row :delivery_user
       row :company_name
       row :company_org_no
       row :company_phone
@@ -141,7 +148,8 @@ ActiveAdmin.register JobRequest do
     # rubocop:disable Metrics/LineLength
     f.inputs 'Basic' do
       f.input :short_name, hint: 'For example "The IKEA-job"..'
-      f.input :responsible, hint: 'Responsible person @ Sales department'
+      f.input :sales_user, as: :select, collection: User.sales_users, hint: 'Responsible person @ Sales department'
+      f.input :delivery_user, as: :select, collection: User.delivery_users, hint: 'Responsible person @ Delivery department'
     end
 
     f.inputs 'Company details' do
@@ -161,7 +169,7 @@ ActiveAdmin.register JobRequest do
       f.input :language_requirements, hint: 'The language level required to perform the job, i.e "Fluent", "Basic understanding" etc..'
       f.input :requirements, hint: 'The requirements in order to be able to perform the job'
       f.input :suitable_candidates, hint: 'General note about what candidates might be suitable' if job_request.persisted?
-      f.input :comment, hint: 'Anything that might not have been said above'
+      f.input :comment, label: 'Special requirements / Comment', hint: 'Anything that might not have been said above'
     end
 
     if job_request.persisted?
@@ -187,6 +195,8 @@ ActiveAdmin.register JobRequest do
       :language_requirements,
       :job_at_date,
       :responsible,
+      :sales_user_id,
+      :delivery_user_id,
       :suitable_candidates,
       :comment,
       :created_at,
@@ -207,6 +217,10 @@ ActiveAdmin.register JobRequest do
   end
 
   controller do
+    def scoped_collection
+      super.includes(:sales_user, :delivery_user)
+    end
+
     def update(*_args)
       super do |_format|
         if resource.valid?

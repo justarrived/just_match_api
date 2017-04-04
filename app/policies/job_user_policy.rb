@@ -1,5 +1,11 @@
 # frozen_string_literal: true
 class JobUserPolicy < ApplicationPolicy
+  class Scope < Scope
+    def resolve
+      scope.visible
+    end
+  end
+
   Context = Struct.new(:current_user, :job_context, :user_record)
 
   JOB_OWNER_ATTRIBUTES = [:accepted].freeze
@@ -30,6 +36,14 @@ class JobUserPolicy < ApplicationPolicy
   alias_method :update?, :show?
 
   def destroy?
+    admin? || job_user?
+  end
+
+  def accepted?
+    admin? || job_owner?
+  end
+
+  def confirmation?
     admin? || job_user?
   end
 

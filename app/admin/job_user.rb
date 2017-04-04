@@ -2,20 +2,157 @@
 ActiveAdmin.register JobUser do
   menu parent: 'Jobs', priority: 2
 
+  actions :all, except: [:destroy]
   batch_action :destroy, false
+  batch_action :accept_and_notify_user do |ids|
+    job_users = JobUser.where(id: ids)
+    success_count = 0
+    ignore_count = 0
+    fail_ids = []
 
-  scope :all, default: true
+    job_users.each do |job_user|
+      if job_user.accepted
+        ignore_count += 1
+        next
+      end
+
+      if job_user.update(accepted: true)
+        owner = job_user.job.owner
+        success_count += 1
+        ApplicantAcceptedNotifier.call(job_user: job_user, owner: owner)
+      else
+        fail_ids << job_user.id
+      end
+    end
+
+    if fail_ids.empty?
+      notice = I18n.t(
+        'admin.job_user.batch_action.accepted.success_msg',
+        success_count: success_count,
+        ignore_count: ignore_count
+      )
+      redirect_to collection_path, notice: notice
+    else
+      notice = I18n.t(
+        'admin.job_user.batch_action.accepted.fail_msg',
+        fail_count: fail_ids.length,
+        fail_ids: fail_ids.join(', '),
+        success_count: success_count,
+        ignore_count: ignore_count
+      )
+      redirect_to collection_path, alert: notice
+    end
+  end
+
+  batch_action :ask_for_job_information, confirm: I18n.t('admin.job_user.batch_action.ask_for_job_information.confirm') do |ids| # rubocop:disable Metrics/LineLength
+    job_users = collection.where(id: ids)
+    job_users.each do |job_user|
+      AskForJobInformationJob.perform_later(job_user)
+    end
+
+    notice = I18n.t('admin.job_user.batch_action.ask_for_job_information.success')
+    redirect_to collection_path, notice: notice
+  end
+
+  batch_action :shortlist, confirm: I18n.t('admin.job_user.batch_action.shortlist.confirm') do |ids| # rubocop:disable Metrics/LineLength
+    job_users = collection.where(id: ids)
+    job_users.map { |job_user| job_user.update(shortlisted: true) }
+
+    notice = I18n.t(
+      'admin.job_user.batch_action.shortlist.success', count: job_users.length
+    )
+    redirect_to collection_path, notice: notice
+  end
+
+  batch_action :reject_and_notify, confirm: I18n.t('admin.job_user.batch_action.reject.confirm') do |ids| # rubocop:disable Metrics/LineLength
+    job_users = collection.where(id: ids)
+    job_users.map do |job_user|
+      unless job_user.rejected
+        job_user.update(rejected: true)
+        JobMailer.applicant_rejected_email(job_user: job_user).deliver_later
+      end
+    end
+
+    notice = I18n.t(
+      'admin.job_user.batch_action.reject.success', count: job_users.length
+    )
+    redirect_to collection_path, notice: notice
+  end
+
+  batch_action :send_communication_template_to, form: lambda {
+    {
+      type: %w[email sms both],
+      template_id: CommunicationTemplate.to_form_array,
+      job_id: Job.to_form_array(include_blank: true)
+    }
+  } do |ids, inputs|
+    type = inputs['type']
+    job_id = inputs['job_id']
+    template_id = inputs['template_id']
+
+    users = JobUser.where(id: ids).includes(:user).map(&:user)
+    job = Job.with_translations.find_by(id: job_id)
+    template = CommunicationTemplate.with_translations.find(template_id)
+
+    response = SendAdminCommunicationTemplate.call(
+      users: users,
+      job: job,
+      communcation_template: template,
+      type: type
+    )
+
+    notice = response[:message]
+    if response[:success]
+      redirect_to collection_path, notice: notice
+    else
+      redirect_to collection_path, alert: notice
+    end
+  end
+
+  batch_action :send_message_to, form: lambda {
+    {
+      type: %w[email sms both],
+      language_id: Language.system_languages.to_form_array,
+      subject:  :text,
+      message:  :textarea
+    }
+  } do |ids, inputs|
+    response = SendAdminMessage.call(
+      users: JobUser.where(id: ids).includes(:user).map(&:user),
+      type: inputs['type'],
+      subject: inputs['subject'],
+      template: inputs['message'],
+      language_id: inputs['language_id']
+    )
+    notice = response[:message]
+
+    if response[:success]
+      redirect_to collection_path, notice: notice
+    else
+      redirect_to collection_path, alert: notice
+    end
+  end
+
+  scope :all
+  scope :visible, default: true
+  scope :shortlisted
   scope :accepted
   scope :will_perform
   scope :verified
+  scope :withdrawn
 
+  filter :user_first_name_cont, as: :string, label: I18n.t('admin.user.first_name')
+  filter :user_last_name_cont, as: :string, label: I18n.t('admin.user.last_name')
+  filter :job_translations_name_cont, as: :string, label: I18n.t('admin.job.name_search')
   filter :user_verified_eq, as: :boolean, label: I18n.t('admin.user.verified')
-  filter :job, collection: -> { Job.with_translations.last(200) }
-  filter :frilans_finans_invoice
-  filter :invoice
+  filter :job, collection: -> { Job.with_translations.order_by_name.limit(1000) }
+  filter :frilans_finans_invoice, collection: -> { FrilansFinansInvoice.order(id: :desc) }
+  filter :invoice, collection: -> { Invoice.order(id: :desc) }
   filter :accepted
   filter :will_perform
   filter :performed
+  filter :shortlisted
+  filter :application_withdrawn
   filter :updated_at
   filter :created_at
   filter :translations_apply_message_cont, as: :string, label: I18n.t('admin.job_user.apply_message') # rubocop:disable Metrics/LineLength
@@ -23,14 +160,25 @@ ActiveAdmin.register JobUser do
   index do
     selectable_column
 
-    column :id
-    column :user
-    column :job
-    column :job_start_date { |job_user| job_user.job.job_date }
-    column :user_city { |job_user| job_user.user.city }
+    column :id { |job_user| link_to(job_user.id, admin_job_user_path(job_user)) }
+    column :job_id do |job_user|
+      job = job_user.job
+      link_to(job.id, admin_job_path(job))
+    end
+    column :user do |job_user|
+      user = job_user.user
+      link_to(user.name, admin_user_path(user))
+    end
+    column :job_city, sortable: 'jobs.city' do |job_user|
+      job_user.job.city
+    end
+    column :user_city, sortable: 'users.city' do |job_user|
+      job_user.user.city
+    end
+    column :applied_at, sortable: 'job_users.created_at' do |job_user|
+      job_user.created_at.strftime('%Y-%m-%d')
+    end
     column :status, &:current_status
-
-    actions
   end
 
   show do
@@ -51,94 +199,28 @@ ActiveAdmin.register JobUser do
 
   include AdminHelpers::MachineTranslation::Actions
 
-  sidebar :user_information, only: [:show, :edit] do
+  sidebar :relations, only: [:show, :edit] do
+    render partial: 'admin/users/relations_list', locals: { user: job_user.user }
+  end
+
+  sidebar :latest_applications, only: [:show, :edit] do
     user = job_user.user
-
-    user_query = AdminHelpers::Link.query(:user_id, user.id)
-    from_user_query = AdminHelpers::Link.query(:from_user_id, user.id)
-    to_user_query = AdminHelpers::Link.query(:to_user_id, user.id)
-
     ul do
-      li(
-        link_to(
-          I18n.t('admin.user.primary_language', lang: user.language.display_name),
-          admin_language_path(user.language)
-        )
-      )
-    end
-
-    ul do
-      li(
-        link_to(
-          I18n.t('admin.counts.applications', count: user.job_users.count),
-          admin_job_users_path + user_query
-        )
-      )
-      li(
-        link_to(
-          I18n.t('admin.counts.translations', count: user.translations.count),
-          admin_user_translations_path + user_query
-        )
-      )
-      li(
-        link_to(
-          I18n.t('admin.counts.sessions', count: user.auth_tokens.count),
-          admin_tokens_path + user_query
-        )
-      )
-      li(
-        link_to(
-          I18n.t('admin.counts.chats', count: user.chats.count),
-          admin_chats_path + user_query
-        )
-      )
-      li(
-        link_to(
-          I18n.t('admin.counts.written_messages', count: user.messages.count),
-          admin_messages_path + user_query
-        )
-      )
-      li(
-        link_to(
-          I18n.t('admin.counts.images', count: user.user_images.count),
-          admin_user_images_path + user_query
-        )
-      )
-      li(
-        link_to(
-          I18n.t('admin.counts.received_ratings', count: user.received_ratings.count),
-          admin_ratings_path + to_user_query
-        )
-      )
-      li(
-        link_to(
-          I18n.t('admin.counts.given_ratings', count: user.given_ratings.count),
-          admin_ratings_path + from_user_query
-        )
-      )
-      li I18n.t('admin.counts.written_comments', count: user.written_comments.count)
+      user.job_users.includes(job: [:translations]).recent(50).each do |job_user|
+        li link_to("##{job_user.id} " + job_user.job.name, admin_job_user_path(job_user))
+      end
     end
   end
 
   sidebar :documents, only: [:show, :edit] do
     user = job_user.user
-    ul do
-      user.user_documents.
-        includes(:document).
-        order(created_at: :desc).
-        limit(50).
-        each do |user_document|
-        doc = user_document.document
-        li download_link_to(
-          title: "##{doc.id} #{user_document.category}",
-          url: doc.url,
-          file_name: doc.document_file_name
-        )
-      end
-    end
+    user_documents = user.user_documents.recent(50).includes(:document)
+
+    locals = { user_documents: user_documents }
+    render partial: 'admin/users/documents_list', locals: locals
   end
 
-  SET_JOB_USER_TRANSLATION = lambda do |job_user, permitted_params|
+  set_job_user_translation = lambda do |job_user, permitted_params|
     return unless job_user.persisted? && job_user.valid?
 
     translation_params = {
@@ -147,24 +229,16 @@ ActiveAdmin.register JobUser do
     job_user.set_translation(translation_params)
   end
 
-  after_create do |job_user|
-    SET_JOB_USER_TRANSLATION.call(job_user, permitted_params)
-  end
-
   after_save do |job_user|
-    SET_JOB_USER_TRANSLATION.call(job_user, permitted_params)
+    set_job_user_translation.call(job_user, permitted_params)
   end
 
   sidebar :app, only: [:show, :edit] do
     ul do
       li(
         link_to(
-          I18n.t('admin.view_in_app.candidates'),
-          FrontendRouter.draw(
-            :job_user_for_company,
-            job_id: job_user.job_id,
-            job_user_id: job_user.id
-          ),
+          I18n.t('admin.view_in_app.job'),
+          FrontendRouter.draw(:job, id: job_user.job_id),
           target: '_blank'
         )
       )
@@ -172,7 +246,10 @@ ActiveAdmin.register JobUser do
   end
 
   permit_params do
-    [:user_id, :job_id, :accepted, :will_perform, :performed, :apply_message]
+    [
+      :user_id, :job_id, :accepted, :will_perform, :performed, :apply_message,
+      :application_withdrawn, :shortlisted, :rejected
+    ]
   end
 
   controller do

@@ -1,17 +1,17 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
-  </head>
-  <body>
-    <%= simple_format I18n.t(
-      'mailer.welcome.body',
-      user_name: @user_name,
-      faq_url:  link_to(@faqs_url, @faqs_url),
-      login_url: link_to(@login_url, @login_url),
-      cv_template_url: link_to(@cv_template_url, @cv_template_url)
-    ).html_safe %>
+<%= simple_format I18n.t(
+  'mailer.welcome.body',
+  user_name: @user_name,
+  faq_url:  link_to(@faqs_url, @faqs_url),
+  login_url: link_to(@login_url, @login_url),
+  cv_template_url: link_to(@cv_template_url, @cv_template_url)
+).html_safe %>
 
-    <p><%= I18n.t('mailer.signoff') %></p>
-  </body>
-</html>
+<%= render(
+  'mailer_partials/action_button',
+  url: @login_url,
+  title: I18n.t('mailer.welcome.login_cta'),
+  align: I18nMeta.align(I18n.locale)
+) %>
+
+
+<p><%= I18n.t('mailer.signoff') %></p>

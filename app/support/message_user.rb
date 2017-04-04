@@ -42,14 +42,13 @@ class MessageUser
   def send_email(email, subject, message)
     return unless send_email?
 
-    BaseNotifier.notify do
-      ActionMailer::Base.mail(
-        from: ApplicationMailer::DEFAULT_SUPPORT_EMAIL,
-        to: email,
-        subject: subject,
-        body: message
-      )
-    end
+    envelope = ActionMailer::Base.mail(
+      from: ApplicationMailer::DEFAULT_SUPPORT_EMAIL,
+      to: email,
+      subject: subject,
+      body: message
+    )
+    BaseNotifier.dispatch(envelope)
   end
 
   def send_sms?

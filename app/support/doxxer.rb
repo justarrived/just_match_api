@@ -8,7 +8,8 @@ class Doxxer
   RELEVANT_DOC_MODELS = [
     Chat, Comment, Job, User, Message, Language, UserLanguage, Skill, Rating, JobUser,
     JobSkill, UserSkill, Category, HourlyPay, Invoice, Faq, UserImage, Company,
-    CompanyImage, TermsAgreement, TermsAgreementConsent, Interest, UserInterest, Document
+    CompanyImage, TermsAgreement, TermsAgreementConsent, Interest, UserInterest, Document,
+    UserDocument
   ].freeze
 
   def self.read_example(model_klass, plural: false, method: nil, meta: {})
@@ -119,7 +120,14 @@ class Doxxer
     model_hash = serialized_model.serializable_hash
 
     # Merge meta attributes for plural examples
-    model_hash[:meta] = { total: 1 } if plural
+    if plural
+      paged_model = Kaminari.paginate_array(model).page(1)
+      model_hash[:meta] = {
+        total: paged_model.length,
+        current_page: paged_model.current_page,
+        total_pages: paged_model.total_pages
+      }
+    end
 
     JSON.pretty_generate(model_hash)
   end

@@ -30,7 +30,7 @@ ActiveAdmin.register Message do
 
   include AdminHelpers::MachineTranslation::Actions
 
-  SET_MESSAGE_TRANSLATION = lambda do |message, permitted_params|
+  set_message_translation = lambda do |message, permitted_params|
     return unless message.persisted? && message.valid?
 
     translation_params = {
@@ -39,14 +39,13 @@ ActiveAdmin.register Message do
     message.set_translation(translation_params)
   end
 
-  after_create do |message|
-    SET_MESSAGE_TRANSLATION.call(message, permitted_params).tap do |result|
-      EnqueueCheapTranslation.call(result)
-    end
-  end
-
   after_save do |message|
-    SET_MESSAGE_TRANSLATION.call(message, permitted_params)
+    set_message_translation.call(message, permitted_params).tap do |result|
+      ProcessTranslationJob.perform_later(
+        translation: result.translation,
+        changed: result.changed_fields
+      )
+    end
   end
 
   permit_params do

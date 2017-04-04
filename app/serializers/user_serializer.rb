@@ -6,15 +6,17 @@ class UserSerializer < ApplicationSerializer
   attributes [
     :id, :email, :phone, :description, :created_at, :updated_at, :latitude, :longitude,
     :language_id, :anonymized, :password_hash, :password_salt, :admin, :street, :city,
-    :zip, :zip_latitude, :zip_longitude, :first_name, :last_name, :ssn, :company_id,
-    :banned, :one_time_token, :one_time_token_expires_at, :just_arrived_staffing,
+    :zip, :zip_latitude, :zip_longitude, :first_name, :last_name, :name, :ssn, :banned,
+    :company_id, :one_time_token, :one_time_token_expires_at, :just_arrived_staffing,
     :ignored_notifications_mask, :frilans_finans_id, :frilans_finans_payment_details,
     :current_status, :at_und, :arrived_at, :country_of_origin, :managed, :verified,
-    :account_clearing_number, :account_number, :gender
+    :account_clearing_number, :account_number, :gender, :full_street_address,
+    :support_chat_activated
   ] + EXTRA_ATTRIBUTES
 
   link(:self) { api_v1_user_url(object) }
 
+  attribute :support_chat_activated { object.support_chat_activated? }
   attribute :description { object.original_description }
   attribute :description_html { to_html(object.original_description) }
 
@@ -49,6 +51,12 @@ class UserSerializer < ApplicationSerializer
     link(:self) { api_v1_language_url(object.language_id) if object.language_id }
   end
 
+  has_one :system_language do
+    link(:self) do
+      api_v1_language_url(object.system_language_id) if object.system_language_id
+    end
+  end
+
   has_many :user_images
 
   has_many :languages do
@@ -59,6 +67,12 @@ class UserSerializer < ApplicationSerializer
     link(:related) { api_v1_user_languages_url(object.id) }
 
     object.user_languages.visible
+  end
+
+  has_many :user_documents, unless: :collection_serializer? do
+    link(:related) { api_v1_user_documents_url(object.id) }
+
+    object.user_documents
   end
 
   has_many :chats, unless: :collection_serializer? do
@@ -84,7 +98,7 @@ class UserSerializer < ApplicationSerializer
   private
 
   def policy
-    @_user_policy ||= UserPolicy.new(scope[:current_user], object)
+    @_user_policy ||= UserPolicy.new(scope.fetch(:current_user), object)
   end
 end
 
@@ -141,14 +155,19 @@ end
 #  just_arrived_staffing            :boolean          default(FALSE)
 #  super_admin                      :boolean          default(FALSE)
 #  gender                           :integer
+#  presentation_profile             :text
+#  presentation_personality         :text
+#  presentation_availability        :text
+#  system_language_id               :integer
 #
 # Indexes
 #
-#  index_users_on_company_id         (company_id)
-#  index_users_on_email              (email) UNIQUE
-#  index_users_on_frilans_finans_id  (frilans_finans_id) UNIQUE
-#  index_users_on_language_id        (language_id)
-#  index_users_on_one_time_token     (one_time_token) UNIQUE
+#  index_users_on_company_id          (company_id)
+#  index_users_on_email               (email) UNIQUE
+#  index_users_on_frilans_finans_id   (frilans_finans_id) UNIQUE
+#  index_users_on_language_id         (language_id)
+#  index_users_on_one_time_token      (one_time_token) UNIQUE
+#  index_users_on_system_language_id  (system_language_id)
 #
 # Foreign Keys
 #

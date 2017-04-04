@@ -1,5 +1,8 @@
 en:
   admin:
+    yes_answer: Yes
+    no_answer: No
+    hired_suffix: '(hired)'
     batch_action_confirm: Are you sure?
     verified_selected: Verified selected.
     job_name: Job
@@ -9,6 +12,11 @@ en:
     time_from_now: '%{time} from now'
     download: Download
     upload: Upload
+    create_invoice:
+      success_msg: Successfully created invoice. Invoice will be activated at Frilans Finans soon.
+      post_btn: Activate invoice
+    comment:
+      commentable_type_header: Type
     translation:
       locale_language_missmatch: the provided locale must be the same as the language locale
     form:
@@ -27,7 +35,7 @@ en:
     recent_users:
       title: Recent users
     recent_jobs:
-      title: Recent jobs
+      title: Your recent jobs
       name: Name
       filled: Filled
       start_date: Start date
@@ -48,6 +56,7 @@ en:
     view_in_app:
       view: View in app
       candidates: View candidates in app
+      job: View job in app
     confirm_dialog_title: Are you sure?
     machine_translate:
       queued_msg: Machine translation queued successfully.
@@ -62,25 +71,69 @@ en:
         finished: Marked as finished
     job_user:
       apply_message: Apply message
+      batch_action:
+        ask_for_job_information:
+          confirm: Are you sure you want to notify all users that are missing job skills to fill those out?
+          success: Notified all users with missing skills.
+        shortlist:
+          confirm: Are you sure you want to shortlist these users?
+          success:
+            one: Successfully shortlisted one job user.
+            other: Successfully shortlisted %{count} job users.
+        reject:
+          confirm: Are you sure you want to reject these users?
+          success:
+            one: Successfully rejected one job user.
+            other: Successfully rejected %{count} job users.
+        accepted:
+          success_msg: 'Successfully accepted %{success_count} user(s), ignored %{ignore_count} user(s) that were already accepted.'
+          fail_msg: 'Failed to accept %{fail_count} user(s): job users IDs: %{fail_ids}. Successfully accepted %{success_count} user(s), ignored %{ignore_count} user(s) that were already accepted.'
       show:
         user_details: User details
         match_details: Match details
         job_details: Job details
         created_at: Created at %{date}
     job:
+      batch_action:
+        update:
+          title: Update selected or all jobs
       google_calendar_link: Google Calendar
       name: Name
+      name_search: Job name
       description: Description
       short_description: Short Description
-      filled_selected: Selected jobs have been marked as filled.
-      upcoming_selected: Selected jobs have been marked as upcoming.
-      hidden_selected: Selected jobs have been marked as hidden.
       clone: Clone
       show:
+        title: Job detail
         general: General
         status_flags: Status flags
         relations: Relations
         misc: Misc
+        comments:
+          title: Job comments
+          open_in_app: Answer
+      form:
+        detail_section_title: Details
+        admin_users_section_title: Admin users
+        address_section_title: Address
+        frilans_finans_section_title: Frilans Finans
+        status_section_title: Status
+        hourly_pay_hint: 'The hourly pay, you can add more Hourly Pays if you want under "Settings"'
+        language_hint: 'Language that the job information is written in'
+        owner_hint: 'Job owner @ client company'
+        company_contact_hint: 'Job contact @ client company, if blank owner will be used instead'
+        just_arrived_contact_hint: 'The responsible user @ Just Arrived'
+        staffing_job: Staffing job
+        direct_recruitment_job: Direct recruitment
+        category_hint: 'This field is only used for insurance purposes'
+        hidden_hint: 'If checked the job will not be returned to clients'
+        verified_hint: 'If checked an admin has verified the job'
+        upcoming_hint: 'If checked certain job info will not be returned to clients'
+        cancelled_hint: 'If checked the job is deemed cancelled'
+        filled_hint: 'If checked it marks that the job has a hired user'
+        featured_hint: 'If checked it will be displayed on our start page etc'
+        skills_title: Job skills
+        languages_title: Job languages
     frilans_finans_invoice:
       not_paid: Not paid
       show:
@@ -93,8 +146,11 @@ en:
       form:
         messages_title: Messages
     user:
-      primary_language: Primary language %{lang}
+      system_language_link: System language %{lang}
+      system_language: System language
       name: Name
+      first_name: First name
+      last_name: Last name
       phone: Phone
       email: Email
       company: Company
@@ -120,6 +176,7 @@ en:
         immigration_status: Immigration status
         status_flags: Status flags
         payment_attributes: Payment attributes
+        presentation_inputs: Customer presentation
         misc: Misc
         create_user: Create user
         language:
@@ -139,6 +196,7 @@ en:
         skills: Skills
         filters: In filters
         city: 'City: %{city}'
+        basic_info_title: Basic information
         candidate_summary: Candidate summary
         languages: Languages
         average_score: 'Avg. score: %{score}'
@@ -148,6 +206,7 @@ en:
         candidate_status: Candidate status
         misc: Admin details
         interview_comment: Interview comment
+        no_interview_comment_explain: No interview has been conducted.
         ongoing_jobs: Ongoing jobs
         future_jobs: Future jobs
         rejected: Rejected
@@ -187,3 +246,8 @@ en:
       labels:
         add_and_remove_user_tag: 'Add/Remove User Tag To/From'
         add_user_skill: 'Add User Skill To'
+
+    filters:
+      predicates:
+        gteq_datetime: after
+        lteq_datetime: before

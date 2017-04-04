@@ -18,6 +18,8 @@ doc/
 NOTES.md
 .env
 dump.rdb
+latest.dump
+latest.dump.*
 erd.pdf
 
 public/spec

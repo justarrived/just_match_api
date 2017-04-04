@@ -2,6 +2,7 @@
 ActiveAdmin.register User do
   menu parent: 'Users', priority: 1
 
+  actions :all, except: [:destroy]
   batch_action :destroy, false
 
   batch_action :send_communication_template_to, form: lambda {
@@ -12,26 +13,19 @@ ActiveAdmin.register User do
     }
   } do |ids, inputs|
     type = inputs['type']
-    job = Job.with_translations.find_by(id: inputs['job_id'])
-    template = CommunicationTemplate.with_translations.find(inputs['template_id'])
+    job_id = inputs['job_id']
+    template_id = inputs['template_id']
 
-    data = {}
-    if job
-      job.attributes.symbolize_keys.each { |key, value| data[:"job_#{key}"] = value }
-      data[:job_name] = job.name
-      data[:job_description] = job.description
-    end
+    users = User.where(id: ids)
+    job = Job.with_translations.find_by(id: job_id)
+    template = CommunicationTemplate.with_translations.find(template_id)
 
-    support_user = User.main_support_user
-    response = MessageUsersFromTemplate.call(
-      type: type,
-      users: User.where(id: ids),
-      template: template,
-      data: data
-    ) do |user, body, language_id|
-      chat = Chat.find_or_create_private_chat([support_user, user])
-      chat.create_message(author: support_user, body: body, language_id: language_id)
-    end
+    response = SendAdminCommunicationTemplate.call(
+      users: users,
+      job: job,
+      communcation_template: template,
+      type: type
+    )
 
     notice = response[:message]
     if response[:success]
@@ -49,22 +43,13 @@ ActiveAdmin.register User do
       message:  :textarea
     }
   } do |ids, inputs|
-    template = inputs['message']
-    type = inputs['type']
-    subject = inputs['subject']
-    language_id = inputs['language_id']
-
-    users = User.where(id: ids)
-    support_user = User.main_support_user
-    response = MessageUsers.call(
-      type: type,
-      users: users,
-      template: template,
-      subject: subject
-    ) do |user, body|
-      chat = Chat.find_or_create_private_chat([support_user, user])
-      chat.create_message(author: support_user, body: body, language_id: language_id)
-    end
+    response = SendAdminMessage.call(
+      users: User.where(id: ids),
+      type: inputs['type'],
+      subject: inputs['subject'],
+      template: inputs['message'],
+      language_id: inputs['language_id']
+    )
     notice = response[:message]
 
     if response[:success]
@@ -159,19 +144,20 @@ ActiveAdmin.register User do
   scope :managed_users
   scope :verified
 
-  filter :by_near_address, label: I18n.t('admin.filter.near_address'), as: :string
+  filter :near_address, label: I18n.t('admin.filter.near_address'), as: :string
   filter :first_name_or_last_name_cont, as: :string, label: I18n.t('admin.user.name')
   filter :interview_comment
-  filter :tags
+  filter :tags, collection: -> { Tag.order(:name) }
   # rubocop:disable Metrics/LineLength
-  filter :skills, collection: -> { Skill.with_translations }
+  filter :skills, collection: -> { Skill.with_translations.order_by_name }
   filter :user_skills_proficiency_gteq, as: :select, collection: [nil, nil] + UserSkill::PROFICIENCY_RANGE.to_a
   filter :user_skills_proficiency_by_admin_gteq, as: :select, collection: [nil, nil] + UserSkill::PROFICIENCY_RANGE.to_a
 
-  filter :interests, collection: -> { Interest.with_translations }
+  filter :interests, collection: -> { Interest.with_translations.order_by_name }
   filter :user_interests_level_gteq, as: :select, collection: [nil, nil] + UserInterest::LEVEL_RANGE.to_a
   filter :user_interests_level_by_admin_gteq, as: :select, collection: [nil, nil] + UserInterest::LEVEL_RANGE.to_a
 
+  filter :system_language, collection: -> { Language.system_languages.order(:en_name) }, label: I18n.t('admin.user.system_language')
   filter :languages, collection: -> { Language.order(:en_name) }
   filter :user_languages_proficiency_gteq, as: :select, collection: [nil, nil] + UserLanguage::PROFICIENCY_RANGE.to_a
   filter :user_languages_proficiency_by_admin_gteq, as: :select, collection: [nil, nil] + UserLanguage::PROFICIENCY_RANGE.to_a
@@ -203,405 +189,24 @@ ActiveAdmin.register User do
   end
 
   show do |user|
-    columns do
-      column do
-        attributes_table do
-          row :image do
-            profile_image = user_profile_image(user: user, size: :small)
-
-            image_tag(profile_image) if profile_image
-          end
-          row :name
-          row :email
-          row :phone
-          row :skype_username
-          row :gender
-          row :street
-          row :city
-          row :zip
-          row :ssn
-        end
-
-        h4 I18n.t('admin.user.show.interview_comment')
-        div do
-          simple_format(user.interview_comment)
-        end
-
-        div do
-          content_tag(:p) do
-            strong(
-              [
-                user.interviewed_at&.to_date, user.interviewed_by&.name
-              ].compact.join(', ')
-            )
-          end
-        end
-      end
-
-      if user.candidate?
-        column do
-          panel I18n.t('admin.user.show.candidate_summary') do
-            h3 I18n.t('admin.user.show.city', city: user.city) unless user.city.blank?
-
-            h3 I18n.t('admin.user.show.tags')
-            div do
-              content_tag(:p, user_tag_badges(user: user))
-            end
-
-            h3 I18n.t('admin.user.show.skills')
-            div do
-              content_tag(:p, user_skills_badges(user_skills: user.user_skills))
-            end
-
-            h3 I18n.t('admin.user.show.interests')
-            div do
-              content_tag(:p, user_interests_badges(user_interests: user.user_interests))
-            end
-
-            h3 I18n.t('admin.user.show.languages')
-            div do
-              content_tag(:p, user_languages_badges(user_languages: user.user_languages))
-            end
-
-            h3 I18n.t('admin.user.show.average_score', score: user.average_score || '-')
-
-            h3 I18n.t('admin.user.show.verified', verified: user.verified)
-
-            h3 I18n.t('admin.user.show.filters')
-            div do
-              content_tag(:p) do
-                filter_links = user.filters.map do |filter|
-                  path = admin_filter_users_path + AdminHelpers::Link.query(:filter_id, filter.id) # rubocop:disable Metrics/LineLength
-                  simple_badge_tag(link_to(filter.name, path))
-                end
-                safe_join(filter_links, '')
-              end
-            end
-
-            unless user.jobs.ongoing.empty?
-              h3 I18n.t('admin.user.show.ongoing_jobs')
-              table_for(user.jobs.ongoing) do
-                column :name
-                column :hours
-                column :start { |job| european_date(job.job_date) }
-                column :end { |job| european_date(job.job_end_date) }
-              end
-            end
-
-            unless user.jobs.future.empty?
-              h3 I18n.t('admin.user.show.future_jobs')
-              table_for(user.jobs.future) do
-                column :name
-                column :hours
-                column :start { |job| european_date(job.job_date) }
-                column :end { |job| european_date(job.job_end_date) }
-              end
-            end
-          end
-        end
-      end
-    end
-
-    if user.candidate?
-      h3 I18n.t('admin.user.show.candidate_status')
-      attributes_table do
-        row :current_status
-        row :at_und
-        row :arrived_at
-        row :country_of_origin
-      end
-
-      panel(I18n.t('admin.user.show.profile')) do
-        div do
-          h3 User.human_attribute_name(:description)
-          div do
-            simple_format(user.description)
-          end
-        end
-
-        div do
-          h3 User.human_attribute_name(:job_experience)
-          div do
-            simple_format(user.job_experience)
-          end
-        end
-
-        div do
-          h3 User.human_attribute_name(:competence_text)
-          div do
-            simple_format(user.competence_text)
-          end
-        end
-
-        div do
-          h3 User.human_attribute_name(:education)
-          div do
-            simple_format(user.education)
-          end
-        end
-      end
-
-    end
-
-    columns do
-      column do
-        h3 I18n.t('admin.user.show.status_flags')
-        attributes_table do
-          row :super_admin
-          row :admin
-          row :managed
-          row :anonymized
-          row :banned
-          row :verified
-          row :just_arrived_staffing
-        end
-      end
-
-      column do
-        h3 I18n.t('admin.user.show.payment')
-        attributes_table do
-          row :account_clearing_number
-          row :account_number
-          row :frilans_finans_payment_details
-        end
-      end
-    end
-
     support_chat = Chat.includes(messages: [:translations, :author, :language]).
                    find_support_chat(user)
-    if support_chat
-      locals = { support_chat: support_chat }
-      render partial: 'admin/chats/latest_messages', locals: locals
-    end
-
-    h3 I18n.t('admin.user.show.misc')
-    attributes_table do
-      row :ignored_notifications do
-        user.ignored_notifications.join(', ')
-      end
-
-      row :id
-      row :frilans_finans_id
-
-      row :company
-      row :language
-
-      row :contact_email
-      row :primary_role
-
-      row :latitude
-      row :longitude
-      row :zip_latitude
-      row :zip_longitude
-
-      row :created_at { datetime_ago_in_words(user.created_at) }
-      row :updated_at { datetime_ago_in_words(user.updated_at) }
-    end
-
-    active_admin_comments
+    render partial: 'admin/users/show', locals: { support_chat: support_chat }
   end
 
   form do |f|
-    f.semantic_errors
-
-    if user.persisted?
-      f.inputs I18n.t('admin.user.form.details') do
-        f.input :email
-        f.input :password, hint: I18n.t('admin.user.form.password.hint')
-        f.input :first_name
-        f.input :last_name
-        f.input :gender
-        f.input :language, hint: I18n.t('admin.user.form.language.hint')
-        f.input :phone
-        f.input :ssn
-        f.input :street
-        f.input :city
-        f.input :zip
-        f.input :skype_username
-        f.input :description
-      end
-
-      f.inputs I18n.t('admin.user.form.competences') do
-        f.has_many :user_tags, allow_destroy: true, new_record: true do |ff|
-          ff.input :tag, as: :select, collection: Tag.all
-        end
-
-        f.has_many :user_interests, allow_destroy: false, new_record: true do |ff|
-          ff.semantic_errors(*ff.object.errors.keys)
-
-          ff.input :interest, as: :select, collection: Interest.with_translations
-          ff.input :level_by_admin, as: :select, collection: UserInterest::LEVEL_RANGE
-        end
-
-        f.has_many :user_skills, allow_destroy: false, new_record: true do |ff|
-          ff.semantic_errors(*ff.object.errors.keys)
-
-          ff.input :skill, as: :select, collection: Skill.with_translations
-          ff.input :proficiency_by_admin, as: :select, collection: UserSkill::PROFICIENCY_RANGE # rubocop:disable Metrics/LineLength
-        end
-
-        f.has_many :user_languages, allow_destroy: false, new_record: true do |ff|
-          ff.semantic_errors(*ff.object.errors.keys)
-
-          ff.input :language, as: :select, collection: Language.order(:en_name)
-          ff.input :proficiency_by_admin, as: :select, collection: UserLanguage::PROFICIENCY_RANGE # rubocop:disable Metrics/LineLength
-        end
-
-        f.input :interview_comment
-        f.input :job_experience
-        f.input :education
-        f.input :competence_text
-      end
-
-      f.inputs I18n.t('admin.user.form.immigration_status') do
-        f.input :current_status
-        f.input :at_und
-        f.input :arrived_at
-        f.input :country_of_origin
-        f.input :arbetsformedlingen_registered_at
-      end
-
-      f.inputs I18n.t('admin.user.form.status_flags') do
-        f.input :verified
-        f.input :admin
-        f.input :super_admin
-        f.input :anonymized
-        f.input :banned, hint: I18n.t('admin.user.form.banned.hint')
-        f.input :managed, hint: I18n.t('admin.user.form.managed.hint')
-        f.input :just_arrived_staffing, hint: I18n.t('admin.user.form.just_arrived_staffing.hint') # rubocop:disable Metrics/LineLength
-      end
-
-      f.inputs I18n.t('admin.user.form.payment_attributes') do
-        f.input :account_clearing_number
-        f.input :account_number
-      end
-
-      f.inputs I18n.t('admin.user.form.misc') do
-        f.input :company
-        f.input :next_of_kin_name
-        f.input :next_of_kin_phone
-        f.input :ignored_notifications, as: :select, collection: User::NOTIFICATIONS, multiple: true # rubocop:disable Metrics/LineLength
-      end
-    else
-      f.inputs I18n.t('admin.user.form.create_user') do
-        f.input :email
-        f.input :password
-        f.input :first_name
-        f.input :last_name
-        f.input :gender
-        f.input :language
-        f.input :company
-        f.input :managed, hint: I18n.t('admin.user.form.managed.hint')
-        f.input :phone
-        f.input :ssn
-        f.input :street
-        f.input :city
-        f.input :zip
-        f.input :skype_username
-      end
-    end
-
-    f.actions
+    render partial: 'admin/users/form', locals: { f: f }
   end
 
   include AdminHelpers::MachineTranslation::Actions
 
   sidebar :relations, only: [:show, :edit] do
-    user_query = AdminHelpers::Link.query(:user_id, user.id)
-    from_user_query = AdminHelpers::Link.query(:from_user_id, user.id)
-    to_user_query = AdminHelpers::Link.query(:to_user_id, user.id)
-    owner_user_query = AdminHelpers::Link.query(:owner_user_id, user.id)
-
-    ul do
-      if user.company?
-        li(
-          link_to(user.company.display_name, admin_company_path(user.company))
-        )
-      end
-      li(
-        link_to(
-          I18n.t('admin.user.primary_language', lang: user.language.display_name),
-          admin_language_path(user.language)
-        )
-      )
-    end
-
-    ul do
-      if user.company?
-        li(
-          link_to(
-            I18n.t('admin.counts.owned_jobs', count: user.owned_jobs.count),
-            admin_jobs_path + owner_user_query
-          )
-        )
-      else
-        li(
-          link_to(
-            I18n.t('admin.counts.applications', count: user.job_users.count),
-            admin_job_users_path + user_query
-          )
-        )
-      end
-      li(
-        link_to(
-          I18n.t('admin.counts.documents', count: user.documents.count),
-          admin_user_documents_path + user_query
-        )
-      )
-      li(
-        link_to(
-          I18n.t('admin.counts.translations', count: user.translations.count),
-          admin_user_translations_path + user_query
-        )
-      )
-      li(
-        link_to(
-          I18n.t('admin.counts.sessions', count: user.auth_tokens.count),
-          admin_tokens_path + user_query
-        )
-      )
-      li(
-        link_to(
-          I18n.t('admin.counts.chats', count: user.chats.count),
-          admin_chats_path + user_query
-        )
-      )
-      li(
-        link_to(
-          I18n.t('admin.counts.written_messages', count: user.messages.count),
-          admin_messages_path + user_query
-        )
-      )
-      li(
-        link_to(
-          I18n.t('admin.counts.images', count: user.user_images.count),
-          admin_user_images_path + user_query
-        )
-      )
-      li(
-        link_to(
-          I18n.t('admin.counts.received_ratings', count: user.received_ratings.count),
-          admin_ratings_path + to_user_query
-        )
-      )
-      li(
-        link_to(
-          I18n.t('admin.counts.given_ratings', count: user.given_ratings.count),
-          admin_ratings_path + from_user_query
-        )
-      )
-      li I18n.t('admin.counts.written_comments', count: user.written_comments.count)
-    end
+    render partial: 'admin/users/relations_list', locals: { user: user }
   end
 
   sidebar :latest_applications, only: [:show, :edit], if: proc { !user.company? } do
     ul do
-      user.job_users.
-        order(created_at: :desc).
-        includes(job: [:translations]).
-        limit(50).
-        each do |job_user|
-
+      user.job_users.includes(job: [:translations]).recent(50).each do |job_user|
         li link_to("##{job_user.id} " + job_user.job.name, admin_job_user_path(job_user))
       end
     end
@@ -626,23 +231,13 @@ ActiveAdmin.register User do
   end
 
   sidebar :documents, only: [:show, :edit] do
-    ul do
-      user.user_documents.
-        includes(:document).
-        order(created_at: :desc).
-        limit(50).
-        each do |user_document|
-        doc = user_document.document
-        li download_link_to(
-          title: "##{doc.id} #{user_document.category}",
-          url: doc.url,
-          file_name: doc.document_file_name
-        )
-      end
-    end
+    user_documents = user.user_documents.recent(50).includes(:document)
+
+    locals = { user_documents: user_documents }
+    render partial: 'admin/users/documents_list', locals: locals
   end
 
-  SET_USER_TRANSLATION = lambda do |user, permitted_params|
+  set_user_translation = lambda do |user, permitted_params|
     return unless user.persisted? && user.valid?
 
     translation_params = {
@@ -652,17 +247,16 @@ ActiveAdmin.register User do
       competence_text: permitted_params.dig(:user, :competence_text)
     }
     user.set_translation(translation_params).tap do |result|
-      EnqueueCheapTranslation.call(result)
+      ProcessTranslationJob.perform_later(
+        translation: result.translation,
+        changed: result.changed_fields
+      )
     end
   end
 
-  after_create do |user|
-    SET_USER_TRANSLATION.call(user, permitted_params)
-  end
-
   after_save do |user|
-    SET_USER_TRANSLATION.call(user, permitted_params)
-    if AppConfig.frilans_finans_active? && user.persisted? && user.valid?
+    set_user_translation.call(user, permitted_params)
+    if AppConfig.frilans_finans_active? && user.valid?
       SyncFrilansFinansUserJob.perform_later(user: user)
     end
   end
@@ -671,6 +265,7 @@ ActiveAdmin.register User do
     extras = [
       :password, :language_id, :company_id, :managed, :frilans_finans_payment_details,
       :verified, :interview_comment, :banned, :just_arrived_staffing,
+      :presentation_profile, :presentation_personality, :presentation_availability,
       :language_ids, :skill_ids, ignored_notifications: []
     ]
     extras << :super_admin if authenticated_admin_user.super_admin?

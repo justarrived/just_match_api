@@ -1,0 +1,23 @@
+<%= simple_format I18n.t(
+  'mailer.new_applicant_job_info.body',
+  name: @user_name,
+  job_name: @job_name
+).html_safe %>
+
+<% unless @competence_names.empty? %>
+  <%= simple_format I18n.t('mailer.new_applicant_job_info.body_fillout_notice') %>
+  <ul>
+    <% @competence_names.each do |name| %>
+      <li><%= name %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= render(
+  'mailer_partials/action_button',
+  url: @user_edit_url,
+  title: I18n.t('mailer.new_applicant_job_info.body_edit_profile_cta'),
+  align: I18nMeta.align(I18n.locale)
+) %>
+
+<p><%= I18n.t('mailer.signoff') %></p>

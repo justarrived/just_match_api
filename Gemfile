@@ -3,13 +3,17 @@ source 'https://rubygems.org'
 
 ruby '2.4.0'
 
-gem 'rails', '5.0.1' # Ruby on Rails MVC framework
+gem 'rails', '5.0.2' # Ruby on Rails MVC framework
 
 # SERVER
-gem 'puma', '~> 3.6' # App server
+gem 'lograge', '~> 0.4' # Less verbose Rails log in production
+gem 'puma', '~> 3.7' # App server
+
+# Analytics
+gem 'ahoy_matey', '~> 1.5.4'
 
 # STORAGE
-gem 'aws-sdk', '~> 2.6' # Upload images to AWS S3
+gem 'aws-sdk', '~> 2.9' # Upload images to AWS S3
 gem 'pg', '~> 0.15' # Use postgresql as the database for Active Record
 gem 'redis-activesupport', '~> 5.0' # To use Redis as the cache store for rack-attack
 
@@ -23,7 +27,7 @@ gem 'sidekiq', '~> 4.2' # Background worker (Redis-backed)
 gem 'sidekiq-statistic', '~> 1.2'
 
 # MONITORING
-gem 'airbrake', '~> 5.6' # Error catcher and reporter
+gem 'airbrake', '~> 6.0' # Error catcher and reporter
 gem 'skylight', '~> 1.0' # Performance monitoring
 
 # PAGINATION
@@ -41,8 +45,12 @@ gem 'bcrypt', '~> 3.1.7', require: true # Encrypt passwords
 gem 'pundit', '~> 1.1' # Authorization policies
 
 # ADMIN
+gem 'active_admin_datetimepicker', '~> 0.3' # Datetime picker for activeadmin
+gem 'active_admin_filters_visibility', git: 'https://github.com/activeadmin-plugins/active_admin_filters_visibility'
+gem 'active_admin_scoped_collection_actions', git: 'https://github.com/activeadmin-plugins/active_admin_scoped_collection_actions'
+gem 'active_admin_theme', '~> 1.0' # activeadmin theme
 gem 'activeadmin', git: 'https://github.com/activeadmin/activeadmin' # Admin interface
-gem 'blazer', '~> 1.7' # Explore data with SQL
+gem 'blazer', git: 'https://github.com/ankane/blazer' # '~> 1.7' # Explore data with SQL
 gem 'chosen-rails', '~> 1.5' # Needed for autocomplete select input for activeadmin
 gem 'inherited_resources', git: 'https://github.com/activeadmin/inherited_resources', ref: '4434f0ae72f790cf371728838c927c338100555d' # activeadmin Rails 5
 gem 'uglifier', '~> 3.0' # Needed for activeadmin assets compilation
@@ -81,16 +89,16 @@ gem 'honey_format', '~> 0.2' # Simple CSV reading
 
 # DEVELOPMENT/TEST/DOCS
 group :development, :test, :docs do
-  gem 'bullet', '~> 5.0'
+  gem 'bullet', '~> 5.5'
   gem 'byebug', '~> 9.0'
   gem 'consistency_fail', '~> 0.3'
-  gem 'dotenv-rails', '~> 2.1'
-  gem 'factory_girl_rails', '~> 4.0'
-  gem 'fog', '~> 1.38' # Cloud services gem, in production the aws-sdk gem is used
+  gem 'dotenv-rails', '~> 2.2'
+  gem 'factory_girl_rails', '~> 4.8'
+  gem 'fog', '~> 1.40' # Cloud services gem, in production the aws-sdk gem is used
   gem 'immigrant', '~> 0.3'
   gem 'rspec-rails', '~> 3.5'
   gem 'rspec_junit_formatter', '~> 0.2'
-  gem 'rubocop', '~> 0.46', require: false
+  gem 'rubocop', '~> 0.48', require: false
 end
 
 group :development do
@@ -106,16 +114,16 @@ group :development do
   gem 'spring', '~> 2.0'
   gem 'spring-commands-rspec', '~> 1.0'
   gem 'stackprof', '~> 0.2'
-  gem 'web-console', '~> 3.3'
+  gem 'web-console', '~> 3.5'
 end
 
 group :test, :docs do
   gem 'codeclimate-test-reporter', '~> 1.0', require: false
   gem 'database_cleaner', '~> 1.5'
-  gem 'fuubar', '~> 2.1'
+  gem 'fuubar', '~> 2.2'
   gem 'rails-controller-testing'
   gem 'rspec-activemodel-mocks', '~> 1.0'
-  gem 'simplecov', '~> 0.11', require: false
+  gem 'simplecov', '~> 0.13', require: false
   gem 'timecop', '~> 0.8'
   gem 'webmock', '~> 2.0'
 end

@@ -7,7 +7,9 @@ module AdminHelpers
           confirm_msg = I18n.t('admin.confirm_dialog_title')
           batch_action :machine_translate, confirm: confirm_msg do |ids|
             collection.where(id: ids).find_each(batch_size: 1000).each do |model|
-              MachineTranslationsJob.perform_later(model.original_translation)
+              ProcessTranslationJob.perform_later(
+                translation: model.original_translation
+              )
             end
 
             message = I18n.t('admin.machine_translate.queued_msg_multiple')
@@ -15,7 +17,9 @@ module AdminHelpers
           end
 
           member_action :machine_translate, method: :post do
-            MachineTranslationsJob.perform_later(resource.original_translation)
+            ProcessTranslationJob.perform_later(
+              translation: resource.original_translation
+            )
             message = I18n.t('admin.machine_translate.queued_msg')
             redirect_to(resource_path(resource), notice: message)
           end

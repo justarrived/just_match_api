@@ -4,6 +4,9 @@ class Language < ApplicationRecord
   has_many :users, through: :user_languages
 
   has_many :jobs
+  has_many :jobs, through: :job_languages
+
+  has_many :jobs
 
   validates :lang_code, uniqueness: true, presence: true
 
@@ -18,6 +21,10 @@ class Language < ApplicationRecord
     return form_array unless include_blank
 
     [[I18n.t('admin.form.no_language_chosen'), nil]] + form_array
+  end
+
+  def self.find_by_locale(locale)
+    find_by(lang_code: locale)
   end
 
   def name_for(locale)

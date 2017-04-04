@@ -6,6 +6,7 @@ module Index
       en_name sv_name ar_name fa_name fa_af_name ku_name ti_name ps_name
     ).freeze
     FILTER_MATCH_TYPES = {
+      id: :in_list,
       name: :starts_with,
       en_name: :starts_with,
       sv_name: :starts_with,
@@ -20,7 +21,7 @@ module Index
       created_at lang_code direction system_language
     ) + LOCALE_FIELD_NAMES).freeze
     ALLOWED_FILTERS = (%i(
-      lang_code direction system_language name
+      id lang_code direction system_language name
     ) + LOCALE_FIELD_NAMES).freeze
 
     def languages(scope = Language)

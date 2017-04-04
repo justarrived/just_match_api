@@ -9,6 +9,18 @@ module AdminHelper
     end
   end
 
+  def user_icon_png(html_class: '')
+    user_icon = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAllBMVEUAAAAiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTF/Cx8WAAAAMXRSTlMAAgMEBQYHCAkKFhcwMTIzODo8b3B0d3h5fJSXoKKjpqqtubzDz9HT2t7g6Onz9ff9NenHaAAAAKJJREFUGBllwYkWQkAABdBHi1SiRSvRSii9//+5zkzOnBlzL5Qgqetkjj43p5Q5MOXsZDAsqMyhS6kk0DVUaugaKjV0ZyoJdCGVAIYLOzlM7oVS7kIz3JSxE56bJl04cbkeoDOuSBaRB3hRQfI1wt+JPUdIPi0+hBUtSwgHWnYQ7rTcIFS0lBA+tLwhPGl5QNjTsoUwadnTepBm1y813+sUwA9NtT5hdtOe/QAAAABJRU5ErkJggg==' # rubocop:disable Metrics/LineLength
+
+    image_tag(user_icon, class: html_class)
+  end
+
+  def envelope_icon_png(html_class: '')
+    envelope_icon = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAMAAAAolt3jAAAAXVBMVEUAAAD///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////9RKvvlAAAAHnRSTlMAAQMIDxASEx4hJjc4XWFoa210mJutsMXHzs/V3P3SjJ/LAAAAWUlEQVQIHQXBCULCQAAAsZRLLKdFBYWd/z+TBADgOqqqalyMCQBDewA+0/MDYPdKm78jcPjfJqvbMjEt3ysJp5/1+veMBPP9MUMCgAwAGL5GVVWNKwAAAPAG8x4GrqYZWpwAAAAASUVORK5CYII=' # rubocop:disable Metrics/LineLength
+    style = 'max-width: 12px;vertical-align: middle; margin-right: 5px;'
+    image_tag(envelope_icon, class: html_class, style: style)
+  end
+
   def datetime_ago_in_words(datetime)
     created_at = datetime.strftime('%A at %H:%M, %B %d, %Y')
     time_ago_in_words = distance_of_time_in_words(Time.zone.now, datetime)
@@ -35,11 +47,10 @@ module AdminHelper
   end
 
   def user_tag_badge(tag:)
-    link_to(
+    simple_link_badge_tag(
       tag.name,
       admin_users_path + AdminHelpers::Link.query(:user_tags_tag_id, tag.id),
-      class: 'user-badge-tag-link',
-      style: "background-color: #{tag.color}"
+      color: tag.color
     )
   end
 
@@ -56,24 +67,51 @@ module AdminHelper
     safe_join(links, ' ')
   end
 
-  def skill_badge(skill:, user_skill: nil)
-    name = skill.name
-    if user_skill
-      proficiency = user_skill.proficiency || '-'
-      proficiency_by_admin = user_skill.proficiency_by_admin || '-'
-      html_parts = [
-        name,
-        nbsp_html,
-        "(#{proficiency}/#{proficiency_by_admin})"
-      ]
-      name = safe_join(html_parts, ' ')
+  def job_languages_badges(job_languages:)
+    links = job_languages.map do |job_language|
+      job_language_badge(language: job_language.language, job_language: job_language)
     end
 
-    link_to(
-      name,
-      admin_users_path + AdminHelpers::Link.query(:user_skills_skill_id, skill.id),
-      class: 'user-badge-skill-link',
-      style: "border-color: #{skill.color}"
+    safe_join(links, ' ')
+  end
+
+  def job_language_badge(language:, job_language: nil)
+    path = AdminHelpers::Link.query(:job_languages_language_id, language.id)
+    simple_link_badge_tag(
+      language.name,
+      admin_users_path + path,
+      value: job_language&.proficiency,
+      value_by_admin: job_language&.proficiency_by_admin
+    )
+  end
+
+  def job_skills_badges(job_skills:)
+    links = job_skills.map do |job_skill|
+      job_skill_badge(skill: job_skill.skill, job_skill: job_skill)
+    end
+
+    safe_join(links, ' ')
+  end
+
+  def job_skill_badge(skill:, job_skill: nil)
+    path = AdminHelpers::Link.query(:job_skills_skill_id, skill.id)
+    simple_link_badge_tag(
+      skill.name,
+      admin_users_path + path,
+      color: skill.color,
+      value: job_skill&.proficiency,
+      value_by_admin: job_skill&.proficiency_by_admin
+    )
+  end
+
+  def skill_badge(skill:, user_skill: nil)
+    path = AdminHelpers::Link.query(:user_skills_skill_id, skill.id)
+    simple_link_badge_tag(
+      skill.name,
+      admin_users_path + path,
+      color: skill.color,
+      value: user_skill&.proficiency,
+      value_by_admin: user_skill&.proficiency_by_admin
     )
   end
 
@@ -86,22 +124,12 @@ module AdminHelper
   end
 
   def language_badge(language:, user_language: nil)
-    name = language.name
-    if user_language
-      proficiency = user_language.proficiency || '-'
-      proficiency_by_admin = user_language.proficiency_by_admin || '-'
-      html_parts = [
-        name,
-        nbsp_html,
-        "(#{proficiency}/#{proficiency_by_admin})"
-      ]
-      name = safe_join(html_parts, ' ')
-    end
-
-    link_to(
-      name,
-      admin_users_path + AdminHelpers::Link.query(:user_languages_language_id, language.id), # rubocop:disable Metrics/LineLength
-      class: 'user-badge-tag-link'
+    path = AdminHelpers::Link.query(:user_languages_language_id, language.id)
+    simple_link_badge_tag(
+      language.name,
+      admin_users_path + path,
+      value: user_language&.proficiency,
+      value_by_admin: user_language&.proficiency_by_admin
     )
   end
 
@@ -114,22 +142,31 @@ module AdminHelper
   end
 
   def interest_badge(interest:, user_interest: nil)
-    name = interest.name
-    if user_interest
-      level = user_interest.level || '-'
-      level_by_admin = user_interest.level_by_admin || '-'
+    path = AdminHelpers::Link.query(:user_interests_interest_id, interest.id)
+    simple_link_badge_tag(
+      interest.name,
+      admin_users_path + path,
+      value: user_interest&.level,
+      value_by_admin: user_interest&.level_by_admin
+    )
+  end
+
+  def simple_link_badge_tag(name, link_to_path, color: '#e7e7e7', value: nil, value_by_admin: nil) # rubocop:disable Metrics/LineLength
+    full_name = name
+    if value || value_by_admin
       html_parts = [
         name,
         nbsp_html,
-        "(#{level}/#{level_by_admin})"
+        "(#{value || '-'}/#{value_by_admin || '-'})"
       ]
-      name = safe_join(html_parts, ' ')
+      full_name = safe_join(html_parts, ' ')
     end
 
     link_to(
-      name,
-      admin_users_path + AdminHelpers::Link.query(:user_interests_interest_id, interest.id), # rubocop:disable Metrics/LineLength
-      class: 'user-badge-tag-link'
+      full_name,
+      link_to_path,
+      class: 'user-badge-tag-link',
+      style: "border-color: #{color}"
     )
   end
 

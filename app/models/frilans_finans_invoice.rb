@@ -11,7 +11,12 @@ class FrilansFinansInvoice < ApplicationRecord
   validates :job_user, presence: true
   validates :frilans_finans_id, uniqueness: true, allow_nil: true
 
-  scope :needs_frilans_finans_id, -> { where(frilans_finans_id: nil) }
+  scope :needs_frilans_finans_id, lambda {
+    joins(:job).
+      where('jobs.staffing_job = ?', false).
+      where('jobs.direct_recruitment_job = ?', false).
+      where(frilans_finans_id: nil)
+  }
   scope :has_frilans_finans_id, -> { where.not(frilans_finans_id: nil) }
   scope :activated, -> { where(activated: true) }
   scope :pre_report, -> { where(activated: false) }
@@ -25,6 +30,7 @@ class FrilansFinansInvoice < ApplicationRecord
   }
 
   validate :validates_job_user_will_perform, on: :create
+  validate :validate_job_frilans_finans_job
 
   FFInvoiceStatuses = FrilansFinansApi::Statuses::Invoice
 
@@ -56,6 +62,13 @@ class FrilansFinansInvoice < ApplicationRecord
 
   def ff_approval_status_name(with_id: false)
     FFInvoiceStatuses.approval_status(ff_approval_status, with_id: with_id)
+  end
+
+  def validate_job_frilans_finans_job
+    return if job&.frilans_finans_job?
+
+    message = I18n.t('errors.frilans_finans_invoice.job_is_frilans_finans_job')
+    errors.add(:job, message)
   end
 
   def validates_job_user_will_perform

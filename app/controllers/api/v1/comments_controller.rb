@@ -47,6 +47,7 @@ module Api
       error code: 400, desc: 'Bad request'
       error code: 404, desc: 'Not found'
       error code: 422, desc: 'Unprocessable entity'
+      ApipieDocHelper.params(self)
       param :data, Hash, desc: 'Top level key', required: true do
         param :attributes, Hash, desc: 'Comment attributes', required: true do
           param :body, String, desc: 'Body of the comment', required: true
@@ -65,7 +66,10 @@ module Api
 
         if @comment.save
           @comment.set_translation(comment_params).tap do |result|
-            EnqueueCheapTranslation.call(result)
+            ProcessTranslationJob.perform_later(
+              translation: result.translation,
+              changed: result.changed_fields
+            )
           end
 
           api_render(@comment, status: :created)
@@ -78,6 +82,7 @@ module Api
       description 'Updates and returns the comment if the user is allowed.'
       error code: 404, desc: 'Not found'
       error code: 422, desc: 'Unprocessable entity'
+      ApipieDocHelper.params(self)
       param :data, Hash, desc: 'Top level key', required: true do
         param :attributes, Hash, desc: 'Comment attributes', required: true do
           param :body, String, desc: 'Body of the comment'
@@ -90,7 +95,10 @@ module Api
 
         if @comment.valid?
           @comment.set_translation(body: comment_params[:body]).tap do |result|
-            EnqueueCheapTranslation.call(result)
+            ProcessTranslationJob.perform_later(
+              translation: result.translation,
+              changed: result.changed_fields
+            )
           end
 
           # NOTE: This is here because of the problem the Translatable has with

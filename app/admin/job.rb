@@ -1,56 +1,49 @@
 # frozen_string_literal: true
 ActiveAdmin.register Job do
+  config.scoped_collection_actions_if = -> { true }
+
   menu parent: 'Jobs', priority: 1
 
+  actions :all, except: [:destroy]
   batch_action :destroy, false
 
-  batch_action :filled, confirm: I18n.t('admin.batch_action_confirm') do |ids|
-    collection.where(id: ids).map { |j| j.update(filled: true) }
-
-    redirect_to collection_path, notice: I18n.t('admin.job.filled_selected')
-  end
-
-  batch_action :upcoming, confirm: I18n.t('admin.batch_action_confirm') do |ids|
-    collection.where(id: ids).map { |j| j.update(upcoming: true) }
-
-    redirect_to collection_path, notice: I18n.t('admin.job.upcoming_selected')
-  end
-
-  batch_action :hidden, confirm: I18n.t('admin.batch_action_confirm') do |ids|
-    collection.where(id: ids).map { |j| j.update(hidden: true) }
-
-    redirect_to collection_path, notice: I18n.t('admin.job.hidden_selected')
-  end
-
-  batch_action :verify, confirm: I18n.t('admin.batch_action_confirm') do |ids|
-    collection.where(id: ids).map { |j| j.update(verified: true) }
-
-    redirect_to collection_path, notice: I18n.t('admin.verified_selected')
-  end
+  scoped_collection_action :update_status_flags, title: I18n.t('admin.job.batch_action.update.title'), form: lambda { # rubocop:disable Metrics/LineLength
+    yes_no = [[I18n.t('admin.yes_answer'), 't'], [I18n.t('admin.no_answer'), 'f']]
+    {
+      hidden: yes_no,
+      featured: yes_no,
+      staffing_job: yes_no,
+      direct_rectuitment_job: yes_no,
+      filled: yes_no,
+      cancelled: yes_no,
+      upcoming: yes_no,
+      just_arrived_contact_user_id: User.delivery_users.map do |user|
+        [user.name, user.id]
+      end
+    }
+  }
 
   # Create sections on the index screen
   scope :all, default: true
   scope :ongoing
-  scope :featured
-  scope :visible
-  scope :uncancelled
-  scope :cancelled
-  scope :filled
   scope :unfilled
+  scope :filled
+  scope :cancelled
 
   # Filterable attributes on the index screen
-  filter :by_near_address, label: I18n.t('admin.filter.near_address'), as: :string
+  filter :near_address, label: I18n.t('admin.filter.near_address'), as: :string
   filter :translations_name_cont, as: :string, label: I18n.t('admin.job.name')
-  filter :company
+  filter :company, collection: -> { Company.order(:name) }
   filter :job_date
   filter :job_end_date
+  filter :just_arrived_contact_user, collection: -> { User.delivery_users }
   filter :created_at
   filter :featured
   filter :filled
   filter :upcoming
   filter :cancelled
   filter :hidden
-  filter :skills, collection: -> { Skill.with_translations }
+  filter :skills, collection: -> { Skill.with_translations.order_by_name }
   filter :hourly_pay
   filter :translations_description_cont, as: :string, label: I18n.t('admin.job.description') # rubocop:disable Metrics/LineLength
   filter :translations_short_description_cont, as: :string, label: I18n.t('admin.job.short_description') # rubocop:disable Metrics/LineLength
@@ -59,22 +52,37 @@ ActiveAdmin.register Job do
   index do
     selectable_column
 
-    column :id
-    column :original_name
-    column :job_date
-    column :job_end_date
-    column :hours
-    column :featured
-    column :filled
-    column :upcoming
-    column :hidden
+    column :id { |job| link_to(job.id, admin_job_path(job)) }
+    column :applicants, sortable: 'job_users_count' do |job|
+      column_content = safe_join([
+                                   user_icon_png(html_class: 'table-column-icon'),
+                                   job.job_users_count
+                                 ])
+      link_path = admin_job_users_path + AdminHelpers::Link.query(:job_id, job.id)
 
-    actions
+      link_to(column_content, link_path, class: 'table-column-icon-link')
+    end
+    column :original_name do |job|
+      link_to(job.original_name, admin_job_path(job))
+    end
+    column :job_date do |job|
+      job.job_date.strftime('%Y-%m-%d')
+    end
+    column :job_end_date do |job|
+      job.job_end_date.strftime('%Y-%m-%d')
+    end
+    column :hours
+    column :city
+    column :filled
+    column :recruiter do |job|
+      contact = job.just_arrived_contact
+      link_to(contact.first_name, admin_user_path(contact)) if contact
+    end
   end
 
   include AdminHelpers::MachineTranslation::Actions
 
-  SET_JOB_TRANSLATION = lambda do |job, permitted_params|
+  set_job_translation = lambda do |job, permitted_params|
     return unless job.persisted? && job.valid?
 
     translation_params = {
@@ -82,17 +90,17 @@ ActiveAdmin.register Job do
       description: permitted_params.dig(:job, :description),
       short_description: permitted_params.dig(:job, :short_description)
     }
-    job.set_translation(translation_params).tap do |result|
-      EnqueueCheapTranslation.call(result)
+    language = Language.find_by(id: permitted_params.dig(:job, :language_id))
+    job.set_translation(translation_params, language).tap do |result|
+      ProcessTranslationJob.perform_later(
+        translation: result.translation,
+        changed: result.changed_fields
+      )
     end
   end
 
-  after_create do |job|
-    SET_JOB_TRANSLATION.call(job, permitted_params)
-  end
-
   after_save do |job|
-    SET_JOB_TRANSLATION.call(job, permitted_params)
+    set_job_translation.call(job, permitted_params)
   end
 
   action_item :view, only: :show do
@@ -120,36 +128,20 @@ ActiveAdmin.register Job do
   end
 
   sidebar :relations, only: [:show, :edit] do
-    job_query = AdminHelpers::Link.query(:job_id, job.id)
+    render partial: 'admin/jobs/relations_list', locals: { job: job }
+  end
 
-    ul do
-      li link_to job.company.display_name, admin_company_path(job.company)
-      li link_to job.owner.display_name, admin_user_path(job.owner)
-    end
-
-    ul do
-      li(
-        link_to(
-          I18n.t('admin.counts.applicants', count: job.job_users.count),
-          admin_job_users_path + job_query
-        )
-      )
-      li(
-        link_to(
-          I18n.t('admin.counts.translations', count: job.translations.count),
-          admin_job_translations_path + job_query
-        )
-      )
-      li I18n.t('admin.counts.comments', count: job.comments.count)
-    end
+  form do |f|
+    render partial: 'admin/jobs/form', locals: { f: f }
   end
 
   sidebar :app, only: [:show, :edit] do
     ul do
-      # rubocop:disable Metrics/LineLength
-      li link_to I18n.t('admin.view_in_app.view'), FrontendRouter.draw(:job, id: job.id), target: '_blank'
-      li link_to I18n.t('admin.view_in_app.candidates'), FrontendRouter.draw(:job_users, job_id: job.id), target: '_blank'
-      # rubocop:enable Metrics/LineLength
+      li link_to(
+        I18n.t('admin.view_in_app.job'),
+        FrontendRouter.draw(:job, id: job.id),
+        target: '_blank'
+      )
     end
   end
 
@@ -166,64 +158,62 @@ ActiveAdmin.register Job do
   end
 
   show do
-    h3 I18n.t('admin.job.show.general')
-    attributes_table do
-      row :id
-      row :filled
-      row :name
-      row :hours
-      row :gross_amount { |job| "#{job.gross_amount} SEK" }
-      row :job_date
-      row :job_end_date
-      row :hourly_pay
-      row :short_description
-      row :street
-      row :zip
-      row :description { |job| simple_format(job.description) }
-    end
-
-    h3 I18n.t('admin.job.show.status_flags')
-    attributes_table do
-      row :featured
-      row :verified
-      row :upcoming
-      row :cancelled
-      row :hidden
-    end
-
-    h3 I18n.t('admin.job.show.relations')
-    attributes_table do
-      row :owner
-      row :company_contact
-      row :just_arrived_contact
-      row :category
-      row :language
-    end
-
-    h3 I18n.t('admin.job.show.misc')
-    attributes_table do
-      row :latitude
-      row :longitude
-      row :zip_latitude
-      row :zip_longitude
-
-      row :created_at { datetime_ago_in_words(job.created_at) }
-      row :updated_at { datetime_ago_in_words(job.updated_at) }
-    end
-    active_admin_comments
+    job_comments = job.comments.with_translations.includes(:owner)
+    locals = {
+      job: job,
+      job_comments: job_comments,
+      frontend_app_job_path: FrontendRouter.draw(:job, id: job.id)
+    }
+    render partial: 'admin/jobs/show', locals: locals
   end
 
   permit_params do
     extras = [
       :cancelled, :language_id, :hourly_pay_id, :category_id, :owner_user_id, :hidden,
-      :company_contact_user_id, :just_arrived_contact_user_id
+      :company_contact_user_id, :just_arrived_contact_user_id,
+      job_skills_attributes: [:skill_id, :proficiency, :proficiency_by_admin],
+      job_languages_attributes: [:language_id, :proficiency, :proficiency_by_admin]
     ]
     JobPolicy::FULL_ATTRIBUTES + extras
   end
 
   controller do
     def scoped_collection
-      super.with_translations
+      super.with_translations.
+        includes(:just_arrived_contact, skills: [:translations, :language]).
+        left_joins(:job_users).
+        select('jobs.*, count(job_users.id) as job_users_count').
+        group('jobs.id, job_users.job_id')
+    end
+
+    def update_resource(job, params_array)
+      job_params = params_array.first
+
+      job_skills_attrs = job_params.delete(:job_skills_attributes)
+      skill_ids_param = (job_skills_attrs || {}).map do |_index, attrs|
+        {
+          id: attrs[:skill_id],
+          proficiency: attrs[:proficiency],
+          proficiency_by_admin: attrs[:proficiency_by_admin]
+        }
+      end
+      SetJobSkillsService.call(job: job, skill_ids_param: skill_ids_param)
+
+      job_languages_attrs = job_params.delete(:job_languages_attributes)
+      language_ids_param = (job_languages_attrs || {}).map do |_index, attrs|
+        {
+          id: attrs[:language_id],
+          proficiency: attrs[:proficiency],
+          proficiency_by_admin: attrs[:proficiency_by_admin]
+        }
+      end
+      SetJobLanguagesService.call(job: job, language_ids_param: language_ids_param)
+      super
+    end
+
+    def apply_filtering(chain)
+      @search = chain.ransack(params[:q] || {})
+      @search.result(distinct: true)
     end
   end
 end

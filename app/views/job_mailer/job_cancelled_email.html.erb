@@ -1,13 +1,10 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
-  </head>
-  <body>
-    <p><%= I18n.t('mailer.job_cancelled.body', job_name: @job_name) %></p>
+<p><%= I18n.t('mailer.job_cancelled.body', job_name: @job_name) %></p>
 
-    <p><a href="<%= @jobs_url %>"><%= @jobs_url %></a></p>
+<%= render(
+  'mailer_partials/action_button',
+  url: @jobs_url,
+  title: I18n.t('mailer.job_cancelled.find_jobs_cta'),
+  align: I18nMeta.align(I18n.locale)
+) %>
 
-    <p><%= I18n.t('mailer.signoff') %></p>
-  </body>
-</html>
+<p><%= I18n.t('mailer.signoff') %></p>

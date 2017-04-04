@@ -20,6 +20,8 @@ script/bootstrap
 
 bin/rails db:create db:schema:load
 
+export RAILS_EAGER_LOAD_IN_TEST=true
+export DISABLE_SPRING=1
 export LINT_FACTORY=true
 export RUBOCOP=false
 export CHECK_DB_INDEXES=true

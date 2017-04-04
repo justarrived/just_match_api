@@ -2,7 +2,10 @@
 
 Developer guide for JustMatch Api.
 
-## High level
+* [High level components](#high-level-components)
+* [Database](#database)
+
+## High level components
 
 The code follows most Rails conventions. If you've worked with Rails before the project should be easy to navigate.
 
@@ -106,11 +109,12 @@ The code follows most Rails conventions. If you've worked with Rails before the 
     + includes `TranslationModel` module
   - Defines the translated columns with the `translates` macro
     + That macro defines an instance method `set_translation` on the model
-  - There are a few helper services, plus one `ActiveJob` class to do machine translations
-    + `MachineTranslationsService` takes a translation and creates translations for to all eligible locales
-    + `MachineTranslationService` takes a translation and a language for it to be translated to
-    + `MachineTranslationsJob` background job for `MachineTranslationsService`
+  - There are a few helper services, and corresponding `ActiveJob` classes to process translations
+    + `ProcessTranslationService` takes a translation and creates translations for to all eligible locales
+    + `CreateTranslationService` takes a translation and a language for it to be translated to
+    + Both `ProcessTranslationService` and `CreateTranslationService` have corresponding background jobs `ProcessTranslationJob` and `CreateTranslationJob`
   - Uses Google Translate under the hood
+  - Translations will only be created if the detected source language is over a certain threshold
 
 * __Static Translations__
   - Uses `rails-i18n`
@@ -134,3 +138,46 @@ The code follows most Rails conventions. If you've worked with Rails before the 
     3. Configure their "Parse" HTTP POST Hook
     4. Add the route: `POST https://api.justarrived.se/api/v1/email/receive?ja_KEY=$JA_KEY`, replace `$JA_KEY` with something secret.
   - The email from address will be looked up and if there is a match a message will be added to the chat between that user and our "support user" or admin.
+
+
+## Database
+
+__Setup dev database from Heroku app__
+
+```
+$ bin/rails dev:db:heroku_import[heroku-app-name]
+```
+
+if you're using `zsh` you have to escape `[` and `]`, [more info](https://robots.thoughtbot.com/how-to-use-arguments-in-a-rake-task).
+
+```
+$ bin/rails dev:db:heroku_import\[heroku-app-name\]
+```
+
+__Restore database command__
+
+```
+$ pg_restore --no-owner -d <db_name> <path_to_db_data_dump>
+```
+
+__Setup database from Heroku for development use__
+
+Download database dump from Heroku
+```
+$ heroku pg:backups:download --app=<heroku_application_name>
+```
+
+Import database to development database
+```
+# Reset the database to make sure the database dump is imported cleanly
+$ rails db:drop db:create
+$ pg_restore --no-owner -d just_match_development latest.dump
+```
+
+Anonymize database
+
+```
+$ rails dev:anonymize_database
+```
+
+The database is now safe for development use and you can login as admin with username `admin@example.com` and password `12345678`.

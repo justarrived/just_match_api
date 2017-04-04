@@ -1,0 +1,66 @@
+# frozen_string_literal: true
+panel(I18n.t('admin.job.show.general')) do
+  attributes_table_for(job) do
+    row :id
+    row :filled
+    row :name
+    row :hours
+    row :gross_amount { |job| "#{job.gross_amount} SEK" }
+    row :job_date
+    row :job_end_date
+    row :hourly_pay
+    row :short_description
+    row :street
+    row :city
+    row :zip
+    row :description { |job| simple_format(job.description) }
+    row :skills { |job| job_skills_badges(job_skills: job.job_skills) }
+    row :languages { |job| job_languages_badges(job_languages: job.job_languages) }
+  end
+end
+
+panel(I18n.t('admin.job.show.status_flags')) do
+  attributes_table_for(job) do
+    row :featured
+    row :verified
+    row :upcoming
+    row :cancelled
+    row :hidden
+  end
+end
+
+panel(I18n.t('admin.job.show.relations')) do
+  attributes_table_for(job) do
+    row :owner
+    row :company_contact
+    row :just_arrived_contact
+    row :category
+    row :language
+  end
+end
+
+panel I18n.t('admin.job.show.comments.title') do
+  job_comments.last(5).reverse_each do |comment|
+    h4 comment.owner.name
+    div { simple_format(comment.body) }
+    em datetime_ago_in_words(comment.created_at)
+    hr
+    br
+  end
+
+  h4 link_to(I18n.t('admin.job.show.comments.open_in_app'), frontend_app_job_path)
+end
+
+panel(I18n.t('admin.job.show.misc')) do
+  attributes_table_for(job) do
+    row :latitude
+    row :longitude
+    row :zip_latitude
+    row :zip_longitude
+
+    row :created_at { datetime_ago_in_words(job.created_at) }
+    row :updated_at { datetime_ago_in_words(job.updated_at) }
+  end
+end
+
+active_admin_comments_for(job)

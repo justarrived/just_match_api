@@ -3,8 +3,8 @@ require 'rails_helper'
 
 RSpec.describe Rating, type: :model do
   let(:language) { Language.find_or_create_by!(lang_code: 'en') }
-  let(:from_user) { FactoryGirl.build(:user, language: language) }
-  let(:to_user) { FactoryGirl.build(:user, language: language) }
+  let(:from_user) { FactoryGirl.build(:user, system_language: language) }
+  let(:to_user) { FactoryGirl.build(:user, system_language: language) }
   let(:job) { FactoryGirl.build(:job) }
 
   subject do

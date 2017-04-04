@@ -14,8 +14,7 @@ module Api
         before_action :require_user
         before_action :set_job
         before_action :set_job_user
-
-        after_action :verify_authorized, except: %i(create)
+        before_action :set_user
 
         api :POST, '/jobs/:job_id/users/:job_user_id/confirmations', 'Confirm job'
         description 'Confirm performance of a job.'
@@ -23,17 +22,13 @@ module Api
         error code: 401, desc: 'Unauthorized'
         error code: 404, desc: 'Not found'
         error code: 422, desc: 'Unprocessable entity'
+        ApipieDocHelper.params(self)
         example Doxxer.read_example(JobUser, method: :update)
         def create
-          @job_user.will_perform = true
+          authorize(@job_user, :confirmation?)
 
-          if @job_user.save
-            @job.fill_position
-            # Frilans Finans wants invoices to be pre-reported
-            FrilansFinansInvoice.create!(job_user: @job_user)
-
-            ApplicantWillPerformNotifier.call(job_user: @job_user, owner: @job.owner)
-
+          @job_user = SignJobUserService.call(job_user: @job_user, job_owner: @job.owner)
+          if @job_user.valid?
             api_render(@job_user)
           else
             api_render_errors(@job_user)
@@ -54,12 +49,8 @@ module Api
           @job_user = @job.job_users.find(params[:job_user_id])
         end
 
-        def authorize_create(job_user)
-          policy = JobUserPolicy.new(current_user, job_user)
-
-          unless policy.permitted_attributes.include?(:will_perform)
-            raise Pundit::NotAuthorizedError
-          end
+        def pundit_user
+          JobUserPolicy::Context.new(current_user, @job, @user)
         end
       end
     end

@@ -34,8 +34,12 @@ class JobUserSerializer < ApplicationSerializer
     end
   end
 
-  belongs_to :user
-  belongs_to :job
+  has_one :user
+  has_one :job
+
+  has_one :language do
+    link(:self) { api_v1_language_url(object.language_id) if object.language_id }
+  end
 
   has_one :invoice
 end
@@ -44,17 +48,20 @@ end
 #
 # Table name: job_users
 #
-#  id            :integer          not null, primary key
-#  user_id       :integer
-#  job_id        :integer
-#  accepted      :boolean          default(FALSE)
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  will_perform  :boolean          default(FALSE)
-#  accepted_at   :datetime
-#  performed     :boolean          default(FALSE)
-#  apply_message :text
-#  language_id   :integer
+#  id                    :integer          not null, primary key
+#  user_id               :integer
+#  job_id                :integer
+#  accepted              :boolean          default(FALSE)
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#  will_perform          :boolean          default(FALSE)
+#  accepted_at           :datetime
+#  performed             :boolean          default(FALSE)
+#  apply_message         :text
+#  language_id           :integer
+#  application_withdrawn :boolean          default(FALSE)
+#  shortlisted           :boolean          default(FALSE)
+#  rejected              :boolean          default(FALSE)
 #
 # Indexes
 #

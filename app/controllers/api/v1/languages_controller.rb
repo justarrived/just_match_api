@@ -45,6 +45,7 @@ module Api
       error code: 400, desc: 'Bad request'
       error code: 401, desc: 'Unauthorized'
       error code: 422, desc: 'Unprocessable entity'
+      ApipieDocHelper.params(self)
       param :data, Hash, desc: 'Top level key', required: true do
         param :attributes, Hash, desc: 'Language attributes', required: true do
           param :lang_code, String, desc: 'Language code', required: true
@@ -68,6 +69,7 @@ module Api
       error code: 400, desc: 'Bad request'
       error code: 401, desc: 'Unauthorized'
       error code: 422, desc: 'Unprocessable entity'
+      ApipieDocHelper.params(self)
       param :data, Hash, desc: 'Top level key', required: true do
         param :attributes, Hash, desc: 'Language attributes', required: true do
           param :lang_code, String, desc: 'Name'

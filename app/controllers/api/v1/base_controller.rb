@@ -29,7 +29,7 @@ module Api
 
           __Authorization__
 
-          `Authorization: Token token=XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX`
+          `Authorization: Token token=XXXYYYZZZ`
 
           __Promo code (not always active)__
 
@@ -38,6 +38,45 @@ module Api
           __Admin__
 
           `X-API-ACT-AS-USER` an admin can "act as" a user by sending this header.
+
+          ---
+
+          ### Authorization
+
+          There are two was of passing an authorization token, in HTTP-header or as an URL-paramter. The preferred method is HTTP-header.
+
+          Pass the authorization token in HTTP-header:
+
+          `Authorization: Token token=XXXYYYZZZ`
+
+          Pass the authorization token as an URL-paramter, `auth_token`:
+
+          `https://api.justarrived.se/api/v1/users/1?auth_token=XXXYYYZZZ`
+
+          ---
+
+          ## HTTP Codes
+
+          ### Success
+
+          Status      | Name                  | Comment
+          ------------|:----------------------|:----------------------------------------------------------------------------------------|
+          200         | OK                    | Everything went well.                                                                   |
+          201         | Created               | Resource created.                                                                       |
+          202         | Accepted              | All good, but we're gonna keep working. For example when a password reset is requested. |
+          204         | No content            | We got nothing to say, but everythings seems fine. |
+
+          ### Error
+
+          Status      | Name                  | Comment
+          ------------|:----------------------|:--------------------------------------------------------------------------------------------------|
+          400         | Bad Request           | Bad JSON format etc, essentially its your fault.                                                  |
+          401         | Unauthorized          | Please login.. To see if your authorized.                                                         |
+          403         | Forbidden             | We know who you are, but you're not allowed to do this.                                           |
+          404         | Not found             | Couldn't find that resource, its either been removed, or you, the client, have sent the wrong ID. |
+          422         | Unprocessable entity  | Validation error, typically forms, please check the data sent/prompt the user to fix them.        |
+          429         | Rate limited          | Slow down a bit, you're making too many requests in too little time                               |
+          500         | Internal server error | The server screwed up, but don't worry we're on it.                                               |
 
           ---
 
@@ -178,7 +217,7 @@ module Api
                 ]
               }
 
-          In rare cases `source/pointer` can point to a "vritual" attribute.
+          In rare cases `source/pointer` can point to a "virtual" attribute.
           For example `clearing_number` and `account_number` can have specific errors, but they can also have an error that is due to the combination of the two.
           In this case called `account` (this should be documented under each specific resource that can have errors like this).
 
@@ -201,22 +240,56 @@ module Api
       NoSuchTokenError = Class.new(ArgumentError)
       ExpiredTokenError = Class.new(ArgumentError)
 
+      before_action :set_json_api_helper_default_key_transform_header
       before_action :authenticate_user_token!
       before_action :require_promo_code
       before_action :set_locale
-      before_action :set_json_api_helper_default_key_transform_header
 
       ALLOWED_INCLUDES = [].freeze
 
       # Needed for #authenticate_with_http_token
       include ActionController::HttpAuthentication::Token::ControllerMethods
 
+      after_action :track_request
       after_action :verify_authorized
 
       rescue_from Pundit::NotAuthorizedError, with: :user_forbidden
       rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
       rescue_from ExpiredTokenError, with: :expired_token
       rescue_from NoSuchTokenError, with: :no_such_token
+
+      def append_info_to_payload(payload)
+        super
+        payload[:user_id] = current_user.id
+      end
+
+      def track_event(label, properties = {})
+        data = default_event_properties.merge!(properties)
+        analytics.track(label, data: data)
+      end
+
+      def default_event_properties
+        {
+          locale: I18n.locale,
+          user_agent: request.user_agent,
+          origin: request.origin,
+          referer: request.referer,
+          remote_ip: request.remote_ip,
+          cf_remote_ip: request.headers['CF-Connecting-IP'],
+          cf_ip_country_code: request.headers['CF-IPCountry'],
+          content_type: request.content_type,
+          url: request.url,
+          verb: request.method,
+          path: request.path,
+          query: request.query_string,
+          true_user_id: true_user.id,
+          current_user_id: current_user.id
+        }
+      end
+
+      def analytics
+        @_ahoy ||= Analytics.new(controller: self)
+      end
 
       def jsonapi_params
         @_deserialized_params ||= JsonApiDeserializer.parse(params)
@@ -249,7 +322,33 @@ module Api
         render json: PromoCodeOrLoginRequired.add, status: status
       end
 
+      def current_user
+        @_current_user ||= User.new
+      end
+
+      def true_user
+        @_true_user ||= User.new
+      end
+
+      def current_language
+        @_current_language ||= Language.find_by_locale(I18n.locale)
+      end
+
       protected
+
+      def track_request
+        response_error_body = {}
+        # If there is validation errors, then add that to the event, so we can check
+        # what the most common validation errors are (and then fix the client UX)
+        response_error_body = JSON.parse(response.body) if response.status == 422
+
+        properties = {
+          response_status: response.status,
+          response_message: response.message,
+          response_error_json: response_error_body
+        }
+        track_event("#{params[:controller]}##{params[:action]}", properties)
+      end
 
       def api_render_errors(model)
         errors = {
@@ -271,6 +370,7 @@ module Api
           included: included_resources,
           fields: fields_params.to_h,
           current_user: current_user,
+          current_language: current_language,
           meta: meta,
           request: request
         )
@@ -313,11 +413,8 @@ module Api
         render json: NoSuchToken.add.to_json, status: status
       end
 
-      def current_user
-        @_current_user ||= User.new
-      end
-
-      def login_user(user)
+      def login_user(user, true_user = nil)
+        @_true_user = true_user || user
         @_current_user = user
       end
 
@@ -331,7 +428,7 @@ module Api
 
       def set_locale
         locale_header = api_locale_header
-        if locale_header.nil?
+        if locale_header.blank?
           I18n.locale = current_user.locale
           return
         end
@@ -369,22 +466,31 @@ module Api
       private
 
       def authenticate_user_token!
+        # First try to grab the token from the Authorization header
         authenticate_with_http_token do |auth_token, _options|
-          return if auth_token.blank?
-
-          token = Token.find_by(token: auth_token)
-          return if token.nil?
-          # return raise NoSuchTokenError if token.nil?
-          return raise ExpiredTokenError if token.expired?
-
-          user = token.user
-
-          if user.admin? && !act_as_user_header.blank?
-            user = User.find(act_as_user_header)
-          end
-
-          return login_user(user)
+          return login_user_from_token(auth_token)
         end
+
+        # Secondly, if no Authorization header is set try to grab it from the URL
+        login_user_from_token(params[:auth_token]) unless logged_in?
+      end
+
+      def login_user_from_token(auth_token)
+        return if auth_token.blank?
+
+        token = Token.find_by(token: auth_token)
+        return if token.nil?
+        # return raise NoSuchTokenError if token.nil?
+        return raise ExpiredTokenError if token.expired?
+
+        user = token.user
+
+        if user.admin? && act_as_user_header.present?
+          true_user = user
+          user = User.find(act_as_user_header)
+        end
+
+        login_user(user, true_user)
       end
     end
   end

@@ -13,7 +13,10 @@ module Api
         api_versions '1.0'
       end
 
-      ALLOWED_INCLUDES = %w(owner company company.company_images language category hourly_pay comments).freeze # rubocop:disable Metrics/LineLength
+      ALLOWED_INCLUDES = %w(
+        owner company company.company_images language category hourly_pay comments
+        job_languages job_languages.language job_skills job_skills.skill
+      ).freeze
 
       api :GET, '/jobs', 'List jobs'
       description 'Returns a list of jobs.'
@@ -72,7 +75,10 @@ module Api
 
         if @job.save
           @job.set_translation(job_attributes).tap do |result|
-            EnqueueCheapTranslation.call(result)
+            ProcessTranslationJob.perform_later(
+              translation: result.translation,
+              changed: result.changed_fields
+            )
           end
 
           @job.skills = Skill.where(id: jsonapi_params[:skill_ids])
@@ -95,6 +101,7 @@ module Api
       error code: 403, desc: 'Forbidden'
       error code: 404, desc: 'Not found'
       error code: 422, desc: 'Unprocessable entity'
+      ApipieDocHelper.params(self)
       param :data, Hash, desc: 'Top level key', required: true do
         param :attributes, Hash, desc: 'Job attributes', required: true do
           param :name, String, desc: 'Name'
@@ -132,7 +139,10 @@ module Api
 
         if @job.save
           @job.set_translation(job_attributes).tap do |result|
-            EnqueueCheapTranslation.call(result)
+            ProcessTranslationJob.perform_later(
+              translation: result.translation,
+              changed: result.changed_fields
+            )
           end
 
           @job.reload
@@ -158,7 +168,19 @@ module Api
       private
 
       def set_job
-        @job = policy_scope(Job).find(params[:job_id])
+        scope = policy_scope(Job)
+
+        if included_resource?(:job_languages) || included_resource?('job_languages.language') # rubocop:disable Metrics/LineLength
+          scope = scope.includes(job_languages: [:language, :job])
+        end
+
+        if included_resource?(:job_skills) || included_resource?('job_skills.skill')
+          scope = scope.includes(
+            job_skills: [{ skill: [:translations, :language] }, :job]
+          )
+        end
+
+        @job = scope.find(params[:job_id])
       end
 
       def job_policy

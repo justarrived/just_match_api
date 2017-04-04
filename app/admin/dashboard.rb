@@ -5,33 +5,52 @@ ActiveAdmin.register_page 'Dashboard' do
   content title: proc { I18n.t('active_admin.dashboard') } do
     columns do
       column do
-        panel(link_to(I18n.t('admin.recent_job_users.title'), admin_job_users_path)) do
-          scope = JobUser.order(created_at: :desc).
-                  includes(:user, job: [:translations, :language]).
+        panel link_to(I18n.t('admin.recent_jobs.title'), admin_jobs_path) do
+          scope = Job.with_translations.
+                  includes(:hourly_pay).
+                  where(just_arrived_contact: authenticated_admin).
+                  left_joins(:job_users).
+                  select('jobs.*, count(job_users.id) as job_users_count').
+                  group('jobs.id, job_users.job_id').
+                  order(created_at: :desc).
                   limit(20)
 
           table_for(scope) do
-            column(I18n.t('admin.recent_job_users.accepted')) do |job_user|
-              status_tag(job_user.accepted)
+            column(:applicants) do |job|
+              column_content = safe_join([
+                                           user_icon_png(html_class: 'table-column-icon'),
+                                           job.job_users_count
+                                         ])
+              column_content
             end
 
-            column(I18n.t('admin.recent_job_users.will_perform')) do |job_user|
-              status_tag(job_user.will_perform)
+            column(I18n.t('admin.recent_jobs.name')) do |job|
+              link_to(truncate(job.display_name), admin_job_path(job))
             end
 
-            column(I18n.t('admin.recent_job_users.id')) do |job_user|
-              link_to("##{job_user.id}", admin_job_user_path(job_user))
+            column(I18n.t('admin.recent_jobs.hours')) do |job|
+              job.hours.round(0)
             end
 
-            column(I18n.t('admin.recent_job_users.job')) do |job_user|
-              link_to(
-                truncate(job_user.job.display_name),
-                admin_job_path(job_user.job)
-              )
+            column(I18n.t('admin.recent_jobs.hourly_pay')) do |job|
+              job.hourly_pay.gross_salary
             end
 
-            column(I18n.t('admin.recent_job_users.user')) do |job_user|
-              link_to(job_user.user.name, admin_user_path(job_user.user))
+            column(I18n.t('admin.recent_jobs.start_date')) do |job|
+              now_time = Time.now.utc
+              job_date = job.job_date
+
+              time_in_words = distance_of_time_in_words(now_time, job_date)
+
+              if now_time > job_date
+                I18n.t('admin.time_ago', time: time_in_words)
+              else
+                I18n.t('admin.time_from_now', time: time_in_words)
+              end
+            end
+
+            column(I18n.t('admin.recent_jobs.filled')) do |job|
+              status_tag(job.filled)
             end
           end
         end
@@ -40,7 +59,7 @@ ActiveAdmin.register_page 'Dashboard' do
       column do
         panel link_to(I18n.t('admin.recent_ff_invoices.title'), admin_frilans_finans_invoices_path) do # rubocop:disable Metrics/LineLength
           scope = FrilansFinansInvoice.order(created_at: :desc).
-                  includes(:job_user, :user, job: [:translations]).
+                  includes(:job_user, :user, job: [:translations, :language]).
                   limit(20)
 
           table_for(scope) do
@@ -111,40 +130,33 @@ ActiveAdmin.register_page 'Dashboard' do
       end
 
       column do
-        panel link_to(I18n.t('admin.recent_jobs.title'), admin_jobs_path) do
-          scope = Job.with_translations.
-                  includes(:hourly_pay).
-                  order(created_at: :desc).
+        panel(link_to(I18n.t('admin.recent_job_users.title'), admin_job_users_path)) do
+          scope = JobUser.order(created_at: :desc).
+                  includes(:user, job: [:translations, :language]).
                   limit(20)
 
           table_for(scope) do
-            column(I18n.t('admin.recent_jobs.filled')) do |job|
-              status_tag(job.filled)
+            column(I18n.t('admin.recent_job_users.accepted')) do |job_user|
+              status_tag(job_user.accepted)
             end
 
-            column(I18n.t('admin.recent_jobs.hours')) do |job|
-              job.hours.round(0)
+            column(I18n.t('admin.recent_job_users.will_perform')) do |job_user|
+              status_tag(job_user.will_perform)
             end
 
-            column(I18n.t('admin.recent_jobs.hourly_pay')) do |job|
-              job.hourly_pay.gross_salary
+            column(I18n.t('admin.recent_job_users.id')) do |job_user|
+              link_to("##{job_user.id}", admin_job_user_path(job_user))
             end
 
-            column(I18n.t('admin.recent_jobs.name')) do |job|
-              link_to(truncate(job.display_name), admin_job_path(job))
+            column(I18n.t('admin.recent_job_users.job')) do |job_user|
+              link_to(
+                truncate(job_user.job.display_name),
+                admin_job_path(job_user.job)
+              )
             end
 
-            column(I18n.t('admin.recent_jobs.start_date')) do |job|
-              now_time = Time.now.utc
-              job_date = job.job_date
-
-              time_in_words = distance_of_time_in_words(now_time, job_date)
-
-              if now_time > job_date
-                I18n.t('admin.time_ago', time: time_in_words)
-              else
-                I18n.t('admin.time_from_now', time: time_in_words)
-              end
+            column(I18n.t('admin.recent_job_users.user')) do |job_user|
+              link_to(job_user.user.name, admin_user_path(job_user.user))
             end
           end
         end
