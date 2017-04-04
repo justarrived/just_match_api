@@ -18,7 +18,7 @@ module Index
       ps_name: :starts_with
     }.freeze
     SORTABLE_FIELDS = (%i(
-      created_at lang_code direction system_language
+      created_at lang_code direction system_language name
     ) + LOCALE_FIELD_NAMES).freeze
     ALLOWED_FILTERS = (%i(
       id lang_code direction system_language name
