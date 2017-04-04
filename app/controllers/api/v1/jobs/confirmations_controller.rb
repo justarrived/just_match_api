@@ -53,7 +53,6 @@ module Api
             terms_agreement: terms_agreement
           )
 
-          @job_user = SignJobUserService.call(job_user: @job_user, job_owner: @job.owner)
           if @job_user.valid?
             api_render(@job_user)
           else
