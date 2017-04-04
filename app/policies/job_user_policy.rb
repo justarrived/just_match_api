@@ -39,6 +39,14 @@ class JobUserPolicy < ApplicationPolicy
     admin? || job_user?
   end
 
+  def accepted?
+    admin? || job_owner?
+  end
+
+  def confirmation?
+    admin? || job_user?
+  end
+
   def permitted_attributes
     return [] if no_user?
     return ADMIN_ATTRIBUTES if admin?

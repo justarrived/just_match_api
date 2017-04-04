@@ -15,8 +15,6 @@ module Api
         before_action :set_job
         before_action :set_job_user
 
-        after_action :verify_authorized, except: %i(create)
-
         api :POST, '/jobs/:job_id/users/:job_user_id/acceptances', 'Accept user for job'
         description 'Accept user for job'
         error code: 400, desc: 'Bad request'
@@ -26,6 +24,8 @@ module Api
         ApipieDocHelper.params(self)
         example Doxxer.read_example(JobUser, method: :update)
         def create
+          authorize(@job_user, :accepted?)
+
           @job_user.accepted = true
 
           if @job_user.save
@@ -51,12 +51,8 @@ module Api
           @job_user = @job.job_users.find(params[:job_user_id])
         end
 
-        def authorize_create(job_user)
-          policy = JobUserPolicy.new(current_user, job_user)
-
-          unless policy.permitted_attributes.include?(:accepted)
-            raise Pundit::NotAuthorizedError
-          end
+        def pundit_user
+          JobUserPolicy::Context.new(current_user, @job, @user)
         end
       end
     end
