@@ -5,6 +5,13 @@ HEAD
 
 v1.50 - 2017-04-04
 ----------
+* _API_:
+  - Expose User#interests in User serializer and only return visible skills
+  - Add `Language#name` to `/languages` sortable fields
+
+
+v1.50 - 2017-04-04
+----------
 * _Security_:
   - :lock: Properly authorize job user actions
 * _Feature_:
