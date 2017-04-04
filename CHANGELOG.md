@@ -3,6 +3,35 @@
 HEAD
 -----------
 
+v1.50 - 2017-04-04
+----------
+* _Security_:
+  - :lock: Properly authorize job user actions
+* _Feature_:
+  - Force users to consent to terms of agreement when applying for a job
+* _Admin_:
+  - Fix job collection actions
+* _API_:
+  - Add hint to skills and languages in /missing-traits response
+  - Move the terms consent requirement from application to signing
+  - Add language relation to /languages endpoint
+    + Add language relation to /users/images/categories endpoint
+  - Add language relation to /users/statuses endpoint
+  - Add language relation to /users/gender endpoint
+  - Add language relation to /faqs endpoint
+  - Add language relation to countries endpoint
+* _Enhancement_:
+  - Add `BaseController#current_language` and pass it to serializer scope
+  - Add current_language to serializer scope and refactor
+  - Add support for relations in `JsonApiHelpers` gem
+  - Add missing I18n string to `sv.yml`
+* _Test_:
+  - Eager load in test configuration option, set to true in `script/cibuild`
+* _Docs_:
+  - Update /missing-traits API example
+  - Add API HTTP status code
+
+
 v1.49 - 2017-04-02
 ----------
 * _Docs_:
