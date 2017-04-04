@@ -14,6 +14,7 @@ module Api
         before_action :require_user
         before_action :set_job
         before_action :set_job_user
+        before_action :set_user
 
         after_action :verify_authorized, except: %i(create)
 
@@ -26,6 +27,8 @@ module Api
         ApipieDocHelper.params(self)
         example Doxxer.read_example(JobUser, method: :update)
         def create
+          authorize(@job_user, :performed?)
+
           @job_user.performed = true
 
           if @job_user.save
@@ -51,12 +54,8 @@ module Api
           @job_user = @job.job_users.find(params[:job_user_id])
         end
 
-        def authorize_create(job_user)
-          policy = JobUserPolicy.new(current_user, job_user)
-
-          unless policy.permitted_attributes.include?(:performed)
-            raise Pundit::NotAuthorizedError
-          end
+        def pundit_user
+          JobUserPolicy::Context.new(current_user, @job, @user)
         end
 
         def performed_notifer_klass
