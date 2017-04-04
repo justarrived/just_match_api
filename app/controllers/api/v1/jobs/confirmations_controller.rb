@@ -14,8 +14,7 @@ module Api
         before_action :require_user
         before_action :set_job
         before_action :set_job_user
-
-        after_action :verify_authorized, except: %i(create)
+        before_action :set_user
 
         api :POST, '/jobs/:job_id/users/:job_user_id/confirmations', 'Confirm job'
         description 'Confirm performance of a job.'
@@ -26,6 +25,8 @@ module Api
         ApipieDocHelper.params(self)
         example Doxxer.read_example(JobUser, method: :update)
         def create
+          authorize(@job_user, :confirmation?)
+
           @job_user = SignJobUserService.call(job_user: @job_user, job_owner: @job.owner)
           if @job_user.valid?
             api_render(@job_user)
@@ -48,12 +49,8 @@ module Api
           @job_user = @job.job_users.find(params[:job_user_id])
         end
 
-        def authorize_create(job_user)
-          policy = JobUserPolicy.new(current_user, job_user)
-
-          unless policy.permitted_attributes.include?(:will_perform)
-            raise Pundit::NotAuthorizedError
-          end
+        def pundit_user
+          JobUserPolicy::Context.new(current_user, @job, @user)
         end
       end
     end
