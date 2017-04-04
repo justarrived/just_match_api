@@ -56,6 +56,8 @@ en:
       hours_upper_bound: can't be more than %{max_hours} hours per day
       owner_must_belong_to_company: owner must belong to a company
     job_user:
+      terms_agreement_consent_required: you must accept the terms of agreement to apply for this job
+      terms_agreement_not_found: no such terms agreement
       forbidden_applicant_user: not allowed to apply for this job
       not_owner_of_job: can't be both job owner and job applicant
       multiple_applicants: can't accept multiple applicants
@@ -93,8 +95,8 @@ en:
   record_not_found: Record does not exist.
   token_expired_error: Your token has expired.
   user:
-    missing_skills_trait: please add all of the above skills to apply for this job
-    missing_languages_trait: please add all of the above languages to apply for this job
+    missing_skills_trait: above you can find some relevant skills for this job that you haven't added yet
+    missing_languages_trait: above you can find some relevant languages for this job that you haven't added yet
     statuses:
       asylum_seeker: Asylum seeker
       asylum_seeker_description: Asylum seeker

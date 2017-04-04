@@ -15,16 +15,16 @@ echo -e '\n== Running cibuild =='
 export RAILS_ENV=test
 export RAKE_ENV=test
 export RUN_NESTED_GEMS_SPECS=true
+export RAILS_EAGER_LOAD_IN_TEST=true
+export DISABLE_SPRING=1
 
 script/bootstrap
 
 bin/rails db:create db:schema:load
 
-export RAILS_EAGER_LOAD_IN_TEST=true
-export DISABLE_SPRING=1
 export LINT_FACTORY=true
 export RUBOCOP=false
-export CHECK_DB_INDEXES=true
+export CHECK_DB_INDEXES=false
 export CHECK_DB_UNIQ_INDEXES=false
 if [[ $CIRCLE_CI == 'true' ]]; then
   script/test -r rspec_junit_formatter --format RspecJunitFormatter -o $CIRCLE_TEST_REPORTS/rspec/junit.xml spec

@@ -56,6 +56,8 @@ sv:
       hours_upper_bound: kan inte vara fler än %{max_hours} timmar per dag
       owner_must_belong_to_company: ägaren måste tillhöra ett företag
     job_user:
+      terms_agreement_consent_required: du måste acceptera villkoren för att kunna söka jobbet
+      terms_agreement_not_found: kan inte hitta den versionen av villkoren
       forbidden_applicant_user: inte tillåten att söka det här jobbet
       not_owner_of_job: kan inte både vara jobb ägare och jobb sökare
       multiple_applicants: kan inte acceptera flera användare
@@ -93,8 +95,8 @@ sv:
   record_not_found: Posten existerar inte.
   token_expired_error: Din token har upphört att gälla.
   user:
-    missing_skills_trait: lägg till alla kompetenser ovan för att söka det här jobbet
-    missing_languages_trait: lägg till alla språk ovan för att söka det här jobbet
+    missing_skills_trait: ovan kan du hitta relvanta färdigheter för det här jobbet
+    missing_languages_trait: ovan kan du hitta relvanta språk för det här jobbet
     statuses:
       asylum_seeker: Asylsökande
       asylum_seeker_description: Asylsökande
