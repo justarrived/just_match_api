@@ -81,12 +81,26 @@ class UserSerializer < ApplicationSerializer
 
   has_many :skills, unless: :collection_serializer? do
     link(:related) { api_v1_user_skills_url(object.id) }
+
+    object.skills.visible
   end
 
   has_many :user_skills, unless: :collection_serializer? do
     link(:related) { api_v1_user_skills_url(object.id) }
 
     object.user_skills.visible
+  end
+
+  has_many :interests, unless: :collection_serializer? do
+    link(:related) { api_v1_user_interests_url(object.id) }
+
+    object.interests.visible
+  end
+
+  has_many :user_interests, unless: :collection_serializer? do
+    link(:related) { api_v1_user_interests_url(object.id) }
+
+    object.user_interests.visible
   end
 
   def attributes(_)
