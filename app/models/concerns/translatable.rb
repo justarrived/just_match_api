@@ -23,9 +23,9 @@ module Translatable
 
       @translated_fields = attr_names.map(&:to_s)
 
-      define_method(:set_translation) do |t_hash, language = nil|
+      define_method(:set_translation) do |params, language = nil|
         # Only grab the translated attributes
-        attributes = t_hash.with_indifferent_access.slice(*attribute_names).to_h
+        attributes = params.to_h.with_indifferent_access.slice(*attribute_names)
 
         # NOTE: When the language is unknown, it will be nil
         translation = translations.find_or_initialize_by(language: language)

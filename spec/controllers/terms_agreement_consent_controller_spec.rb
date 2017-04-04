@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
-RSpec.describe Api::V1::Jobs::TermsAgreementConsentsController, type: :controller do
+RSpec.describe Api::V1::TermsAgreementConsentsController, type: :controller do
   let(:user) { FactoryGirl.create(:user) }
   let(:job) { FactoryGirl.create(:job) }
   let(:terms) { FactoryGirl.create(:terms_agreement) }

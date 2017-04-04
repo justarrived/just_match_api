@@ -22,8 +22,14 @@ module Api
             "type": "missing_user_traits",
             "attributes": {
               "city": {},
-              "skill-ids": { "ids": [1, 2] },
-              "language-ids": { "ids":[5, 6] }
+              "skill-ids": {
+                "ids": [1, 2],
+                "hint": "please add the missing skills"
+              },
+              "language-ids": {
+                "ids":[5, 6],
+                "hint": "please add the missing languages"
+              }
             }
           }
         }
