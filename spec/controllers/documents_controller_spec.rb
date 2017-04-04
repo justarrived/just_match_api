@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
-RSpec.describe Api::V1::Users::DocumentsController, type: :controller do
+RSpec.describe Api::V1::DocumentsController, type: :controller do
   describe 'POST #create' do
     let(:valid_params) do
       {
