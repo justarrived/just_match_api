@@ -129,6 +129,8 @@ class User < ApplicationRecord
   enum at_und: AT_UND
   enum gender: GENDER
 
+  attr_reader :consent
+
   include Translatable
   translates :description, :job_experience, :education, :competence_text
 
