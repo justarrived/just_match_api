@@ -3,6 +3,10 @@ if ENV.fetch('CODECLIMATE_REPO_TOKEN', false) || ENV.fetch('COVERAGE', false)
   require 'simplecov'
   SimpleCov.start 'rails' do
     add_filter '/app/admin/'
+    add_filter '/lib/seeds/dev/'
+    add_filter '/lib/migrate_data/'
+    add_filter '/lib/import/'
+    add_filter '/lib/reports/'
   end
 end
 
