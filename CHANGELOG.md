@@ -3,6 +3,24 @@
 HEAD
 -----------
 
+v1.51 - 2017-04-05
+----------
+* _API_:
+  - Return `meta/type`, `meta/value`, `meta/contain` keys in error objects
+  - Add user_interests and interests to allowed includes in users controller
+  - :lock: Add user check for performed controller
+* `Docs`:
+  - Update API error object section
+* `JsonApiHelpers`:
+  * Add support for Rails 5 error details and add meta data to model error-objects
+* _Test_:
+  - Don't run 'Check DB Indicies' test runner in script/cibuild
+  - Admin controller specs
+* _Gem updates_:
+  - `google-cloud-translate`
+* _Misc_:
+  - Update I18n
+
 v1.50 - 2017-04-04
 ----------
 * _API_:
