@@ -48,7 +48,7 @@ module JsonApiHelpers
 
       def self.error_message_for(model_errors, field, error)
         model_errors.generate_message(
-          field, error.fetch(:error), count: error[:count]
+          field, error_type_for(error.fetch(:error)), count: error[:count]
         )
       end
 
