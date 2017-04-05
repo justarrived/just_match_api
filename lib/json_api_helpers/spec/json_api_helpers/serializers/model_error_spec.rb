@@ -1,5 +1,6 @@
 
 # frozen_string_literal: true
+
 require 'spec_helper'
 require 'active_model'
 
@@ -42,5 +43,12 @@ RSpec.describe JsonApiHelpers::Serializers::ModelError do
 
   it 'returns correct meta hash for presence error' do
     expect(blank_error[:meta]).to eq(type: :blank)
+  end
+
+  it 'returns invalid as error type for unknown types' do
+    model = ExampleModel.new
+    model.errors.add(:name, 'watman error')
+    error = described_class.serialize(model).first
+    expect(error[:meta]).to eq(type: :invalid)
   end
 end
