@@ -60,7 +60,7 @@ columns do
           date: datetime_ago_in_words(job_user.created_at)
         )
       end
-      content_tag(:p, simple_format(job_user.apply_message)) if job_user.apply_message # rubocop:disable Metrics/LineLength
+      content_tag(:p, simple_format(job_user.apply_message)) if job_user.apply_message
 
       h3 I18n.t('admin.user.show.skills')
       div do
