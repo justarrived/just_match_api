@@ -258,8 +258,8 @@ module Api
                 ]
               }
 
-          As you can see above the API adds a `meta`-key under each error object. It should contain a `type` attribute and can contain a `count` attribute.
-          `type` is derivied from the error types found in `ActiveModel::Errors#detail` (added in Rails 5). All attribute errors with an unknown type will default to `invalid`.
+          As you can see above the API adds a `meta`-key under each error object. It should contain a `type` attribute and can contain a `count` and `value` attribute.
+          `type` is derivied from the error types found in `ActiveModel::Errors#details` (added in Rails 5). All attribute errors with an unknown type will default to `invalid`.
 
           List of available error types: #{JsonApiErrorSerializer::KNOWN_ERROR_TYPES.to_a.map { |t| "`#{t}`" }.to_sentence}.
 
