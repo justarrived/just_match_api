@@ -175,7 +175,10 @@ module Api
                     "source": {
                       "pointer": "/data/attributes/email"
                     },
-                    "detail": "has already been taken"
+                    "detail": "has already been taken",
+                    "meta": {
+                      "type": "taken"
+                    }
                   }
                 ]
               }
@@ -228,7 +231,11 @@ module Api
                     "source": {
                       "pointer": "/data/attributes/account"
                     },
-                    "detail": "is too short"
+                    "detail": "is too short",
+                    "meta": {
+                      "type": "too_short",
+                      "count": 4
+                    }
                   }
                 ]
               }

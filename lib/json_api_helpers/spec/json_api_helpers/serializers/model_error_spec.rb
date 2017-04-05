@@ -1,4 +1,6 @@
+
 # frozen_string_literal: true
+
 require 'spec_helper'
 require 'active_model'
 
@@ -7,29 +9,46 @@ RSpec.describe JsonApiHelpers::Serializers::ModelError do
     include ActiveModel::Model
 
     attr_accessor :name
-    validates :name, length: { minimum: 3 }
+    validates :name, length: { minimum: 3 }, presence: true
   end
 
   let(:model) { ExampleModel.new.tap(&:validate) }
-  subject { described_class.serialize(model) }
+  let(:errors) { described_class.serialize(model) }
+  let(:min_error) { errors.first }
+  let(:blank_error) { errors.last }
 
   it 'returns an array' do
-    expect(subject).to be_an(Array)
+    expect(errors).to be_an(Array)
   end
 
   it 'returns 422 unprocessable entity status' do
-    expect(subject.first[:status]).to eq(422)
+    expect(min_error[:status]).to eq(422)
   end
 
   it 'returns source key' do
-    expect(subject.first[:source]).to be_a(Hash)
+    expect(min_error[:source]).to be_a(Hash)
   end
 
   it 'returns the correct pointer under source key' do
-    expect(subject.first[:source][:pointer]).to eq('/data/attributes/name')
+    expect(min_error.dig(:source, :pointer)).to eq('/data/attributes/name')
   end
 
   it 'returns an array' do
-    expect(subject.first[:detail]).to eq('is too short (minimum is 3 characters)')
+    expect(min_error[:detail]).to eq('is too short (minimum is 3 characters)')
+  end
+
+  it 'returns correct meta hash for too short error' do
+    expect(min_error[:meta]).to eq(type: :too_short, count: 3)
+  end
+
+  it 'returns correct meta hash for presence error' do
+    expect(blank_error[:meta]).to eq(type: :blank)
+  end
+
+  it 'returns invalid as error type for unknown types' do
+    model = ExampleModel.new
+    model.errors.add(:name, 'watman error')
+    error = described_class.serialize(model).first
+    expect(error[:meta]).to eq(type: :invalid)
   end
 end
