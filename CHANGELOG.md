@@ -3,7 +3,7 @@
 HEAD
 -----------
 
-v1.51 - 2017-04-05
+v1.52 - 2017-04-05
 ----------
 * _API_:
   - Return `meta/type`, `meta/value`, `meta/contain` keys in error objects
@@ -21,7 +21,7 @@ v1.51 - 2017-04-05
 * _Misc_:
   - Update I18n
 
-v1.50 - 2017-04-04
+v1.51 - 2017-04-04
 ----------
 * _API_:
   - Expose User#interests in User serializer and only return visible skills
