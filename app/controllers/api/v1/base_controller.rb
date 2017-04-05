@@ -190,16 +190,34 @@ module Api
                   {
                     "status": 422,
                     "source": {
-                      "pointer": "/data/attributes/phone"
+                      "pointer": "/data/attributes/age"
                     },
-                    "detail": "must be a valid phone number"
+                    "detail": "must be a less than or equal to 123",
+                    "meta": {
+                      "type": "less_than_or_equal_to",
+                      "value": 200,
+                      "count": 123
+                    }
                   },
                   {
                     "status": 422,
                     "source": {
                       "pointer": "/data/attributes/phone"
                     },
-                    "detail": "must be a Swedish phone number (+46)"
+                    "detail": "must be a valid phone number",
+                    "meta": {
+                      "type": "invalid"
+                    }
+                  },
+                  {
+                    "status": 422,
+                    "source": {
+                      "pointer": "/data/attributes/phone"
+                    },
+                    "detail": "must be a Swedish phone number (+46)",
+                    "meta": {
+                      "type": "invalid"
+                    }
                   }
                 ]
               }
@@ -239,6 +257,11 @@ module Api
                   }
                 ]
               }
+
+          As you can see above the API adds a `meta`-key under each error object. It should contain a `type` attribute and can contain a `count` attribute.
+          `type` is derivied from the error types found in `ActiveModel::Errors#detail` (added in Rails 5). All attribute errors with an unknown type will default to `invalid`.
+
+          List of available error types: #{JsonApiErrorSerializer::KNOWN_ERROR_TYPES.to_a.map { |t| "`#{t}`" }.to_sentence}.
 
         DOCDESCRIPTION
         api_base_url '/api/v1'
