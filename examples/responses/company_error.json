@@ -5,49 +5,75 @@
       "source": {
         "pointer": "/data/attributes/name"
       },
-      "detail": "is too short (minimum is 2 characters)"
+      "detail": "is too short (minimum is 2 characters)",
+      "meta": {
+        "type": "too_short",
+        "count": 2
+      }
     },
     {
       "status": 422,
       "source": {
         "pointer": "/data/attributes/cin"
       },
-      "detail": "is the wrong length (should be 10 characters)"
+      "detail": "is the wrong length (should be 10 characters)",
+      "meta": {
+        "type": "wrong_length",
+        "count": 10
+      }
     },
     {
       "status": 422,
       "source": {
         "pointer": "/data/attributes/email"
       },
-      "detail": "can't be blank"
+      "detail": "can't be blank",
+      "meta": {
+        "type": "blank"
+      }
     },
     {
       "status": 422,
       "source": {
         "pointer": "/data/attributes/billing_email"
       },
-      "detail": "can't be blank"
+      "detail": "can't be blank",
+      "meta": {
+        "type": "blank"
+      }
     },
     {
       "status": 422,
       "source": {
         "pointer": "/data/attributes/street"
       },
-      "detail": "is too short (minimum is 5 characters)"
+      "detail": "is too short (minimum is 5 characters)",
+      "meta": {
+        "type": "too_short",
+        "count": 5
+      }
     },
     {
       "status": 422,
       "source": {
         "pointer": "/data/attributes/zip"
       },
-      "detail": "is too short (minimum is 5 characters)"
+      "detail": "is too short (minimum is 5 characters)",
+      "meta": {
+        "type": "too_short",
+        "count": 5
+      }
     },
     {
       "status": 422,
       "source": {
         "pointer": "/data/attributes/city"
       },
-      "detail": "is too short (minimum is 1 character)"
+      "detail": "is too short (minimum is 1 character)",
+      "meta": {
+        "type": "too_short",
+        "count": 1
+      }
     }
   ]
 }

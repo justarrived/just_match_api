@@ -5,21 +5,30 @@
       "source": {
         "pointer": "/data/attributes/category"
       },
-      "detail": "can't be blank"
+      "detail": "can't be blank",
+      "meta": {
+        "type": "blank"
+      }
     },
     {
       "status": 422,
       "source": {
         "pointer": "/data/attributes/user"
       },
-      "detail": "can't be blank"
+      "detail": "can't be blank",
+      "meta": {
+        "type": "blank"
+      }
     },
     {
       "status": 422,
       "source": {
         "pointer": "/data/attributes/document"
       },
-      "detail": "can't be blank"
+      "detail": "can't be blank",
+      "meta": {
+        "type": "blank"
+      }
     }
   ]
 }

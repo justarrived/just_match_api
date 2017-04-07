@@ -5,14 +5,20 @@
       "source": {
         "pointer": "/data/attributes/category"
       },
-      "detail": "can't be blank"
+      "detail": "can't be blank",
+      "meta": {
+        "type": "blank"
+      }
     },
     {
       "status": 422,
       "source": {
         "pointer": "/data/attributes/image"
       },
-      "detail": "can't be blank"
+      "detail": "can't be blank",
+      "meta": {
+        "type": "blank"
+      }
     }
   ]
 }

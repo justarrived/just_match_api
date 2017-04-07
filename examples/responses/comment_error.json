@@ -5,28 +5,40 @@
       "source": {
         "pointer": "/data/attributes/owner_user_id"
       },
-      "detail": "can't be blank"
+      "detail": "can't be blank",
+      "meta": {
+        "type": "blank"
+      }
     },
     {
       "status": 422,
       "source": {
         "pointer": "/data/attributes/commentable_id"
       },
-      "detail": "can't be blank"
+      "detail": "can't be blank",
+      "meta": {
+        "type": "blank"
+      }
     },
     {
       "status": 422,
       "source": {
         "pointer": "/data/attributes/commentable_type"
       },
-      "detail": "can't be blank"
+      "detail": "can't be blank",
+      "meta": {
+        "type": "blank"
+      }
     },
     {
       "status": 422,
       "source": {
         "pointer": "/data/attributes/body"
       },
-      "detail": "can't be blank"
+      "detail": "can't be blank",
+      "meta": {
+        "type": "blank"
+      }
     }
   ]
 }

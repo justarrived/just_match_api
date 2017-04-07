@@ -5,7 +5,10 @@
       "source": {
         "pointer": "/data/attributes/lang_code"
       },
-      "detail": "can't be blank"
+      "detail": "can't be blank",
+      "meta": {
+        "type": "blank"
+      }
     }
   ]
 }

@@ -5,77 +5,112 @@
       "source": {
         "pointer": "/data/attributes/hourly_pay"
       },
-      "detail": "can't be blank"
+      "detail": "can't be blank",
+      "meta": {
+        "type": "blank"
+      }
     },
     {
       "status": 422,
       "source": {
         "pointer": "/data/attributes/category"
       },
-      "detail": "can't be blank"
+      "detail": "can't be blank",
+      "meta": {
+        "type": "blank"
+      }
     },
     {
       "status": 422,
       "source": {
         "pointer": "/data/attributes/name"
       },
-      "detail": "can't be blank"
+      "detail": "can't be blank",
+      "meta": {
+        "type": "blank"
+      }
     },
     {
       "status": 422,
       "source": {
         "pointer": "/data/attributes/description"
       },
-      "detail": "can't be blank"
+      "detail": "can't be blank",
+      "meta": {
+        "type": "blank"
+      }
     },
     {
       "status": 422,
       "source": {
         "pointer": "/data/attributes/street"
       },
-      "detail": "is too short (minimum is 3 characters)"
+      "detail": "is too short (minimum is 3 characters)",
+      "meta": {
+        "type": "too_short",
+        "count": 3
+      }
     },
     {
       "status": 422,
       "source": {
         "pointer": "/data/attributes/zip"
       },
-      "detail": "is too short (minimum is 5 characters)"
+      "detail": "is too short (minimum is 5 characters)",
+      "meta": {
+        "type": "too_short",
+        "count": 5
+      }
     },
     {
       "status": 422,
       "source": {
         "pointer": "/data/attributes/job_date"
       },
-      "detail": "can't be blank"
+      "detail": "can't be blank",
+      "meta": {
+        "type": "blank"
+      }
     },
     {
       "status": 422,
       "source": {
         "pointer": "/data/attributes/job_end_date"
       },
-      "detail": "can't be blank"
+      "detail": "can't be blank",
+      "meta": {
+        "type": "blank"
+      }
     },
     {
       "status": 422,
       "source": {
         "pointer": "/data/attributes/owner"
       },
-      "detail": "can't be blank"
+      "detail": "can't be blank",
+      "meta": {
+        "type": "blank"
+      }
     },
     {
       "status": 422,
       "source": {
         "pointer": "/data/attributes/hours"
       },
-      "detail": "is not a number"
+      "detail": "is not a number",
+      "meta": {
+        "type": "not_a_number"
+      }
     },
     {
       "status": 422,
       "source": {
         "pointer": "/data/attributes/hours"
       },
-      "detail": "can't be blank"
+      "detail": "can't be blank",
+      "meta": {
+        "type": "blank"
+      }
     }
   ]
 }

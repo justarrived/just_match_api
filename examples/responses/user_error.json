@@ -5,42 +5,64 @@
       "source": {
         "pointer": "/data/attributes/system_language"
       },
-      "detail": "can't be blank"
+      "detail": "can't be blank",
+      "meta": {
+        "type": "blank"
+      }
     },
     {
       "status": 422,
       "source": {
         "pointer": "/data/attributes/email"
       },
-      "detail": "can't be blank"
+      "detail": "can't be blank",
+      "meta": {
+        "type": "blank"
+      }
     },
     {
       "status": 422,
       "source": {
         "pointer": "/data/attributes/first_name"
       },
-      "detail": "is too short (minimum is 1 character)"
+      "detail": "is too short (minimum is 1 character)",
+      "meta": {
+        "type": "too_short",
+        "count": 1
+      }
     },
     {
       "status": 422,
       "source": {
         "pointer": "/data/attributes/last_name"
       },
-      "detail": "is too short (minimum is 2 characters)"
+      "detail": "is too short (minimum is 2 characters)",
+      "meta": {
+        "type": "too_short",
+        "count": 2
+      }
     },
     {
       "status": 422,
       "source": {
         "pointer": "/data/attributes/password"
       },
-      "detail": "is too short (minimum is 6 characters)"
+      "detail": "is too short (minimum is 6 characters)",
+      "meta": {
+        "type": "too_short",
+        "count": 6
+      }
     },
     {
       "status": 422,
       "source": {
         "pointer": "/data/attributes/password"
       },
-      "detail": "is too long (maximum is 50 characters)"
+      "detail": "is too long (maximum is 50 characters)",
+      "meta": {
+        "type": "too_long",
+        "count": 50
+      }
     }
   ]
 }

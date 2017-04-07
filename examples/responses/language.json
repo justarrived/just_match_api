@@ -16,8 +16,15 @@
       "ti_name": null,
       "ps_name": null,
       "name": null,
+      "language_id": null,
       "translated_text": {
-        "name": null
+        "name": null,
+        "language_id": null
+      }
+    },
+    "relationships": {
+      "language": {
+        "data": null
       }
     },
     "links": {

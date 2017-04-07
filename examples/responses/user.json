@@ -119,6 +119,22 @@
         "links": {
           "related": "https://api.justarrived.se/api/v1/users/1/skills"
         }
+      },
+      "interests": {
+        "data": [
+
+        ],
+        "links": {
+          "related": "https://api.justarrived.se/api/v1/users/1/interests"
+        }
+      },
+      "user_interests": {
+        "data": [
+
+        ],
+        "links": {
+          "related": "https://api.justarrived.se/api/v1/users/1/interests"
+        }
       }
     },
     "links": {

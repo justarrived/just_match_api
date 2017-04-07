@@ -5,7 +5,11 @@
       "source": {
         "pointer": "/data/attributes/name"
       },
-      "detail": "is too short (minimum is 1 character)"
+      "detail": "is too short (minimum is 1 character)",
+      "meta": {
+        "type": "too_short",
+        "count": 1
+      }
     }
   ]
 }
