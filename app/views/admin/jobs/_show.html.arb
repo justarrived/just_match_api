@@ -26,6 +26,8 @@ panel(I18n.t('admin.job.show.status_flags')) do
     row :upcoming
     row :cancelled
     row :hidden
+    row :staffing_job
+    row :direct_rectuitment_job
   end
 end
 
