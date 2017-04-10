@@ -21,9 +21,11 @@ module Dev
 
           name = Faker::Name.name
           description = Faker::Hipster.paragraph(2)
+          short_description = Faker::Hipster.paragraph(1)
           job = Job.create!(
             name: name,
             description: description,
+            short_description: short_description,
             job_date: job_date,
             job_end_date: job_end_date,
             owner: users.sample,
@@ -34,7 +36,11 @@ module Dev
             category: categories.sample,
             hourly_pay: hourly_pays.sample
           )
-          job.set_translation(name: name, description: description)
+          job.set_translation(
+            name: name,
+            description: description,
+            short_description: short_description
+          )
 
           if [0, 1].sample.even?
             job_date_days = (6..13).to_a.sample
