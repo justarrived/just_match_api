@@ -49,7 +49,7 @@ class Job < ApplicationRecord
   validate :validate_job_end_date_after_job_date
   validate :validate_hourly_pay_active
   validate :validate_within_allowed_hours
-  validate :validate_owner_belongs_to_company
+  validate :validate_owner_belongs_to_company, unless: -> { AppConfig.allow_regular_users_to_create_jobs? } # rubocop:disable Metrics/LineLength
 
   validate :validate_job_date_in_future, unless: -> { Rails.configuration.x.validate_job_date_in_future_inactive } # rubocop:disable Metrics/LineLength
 

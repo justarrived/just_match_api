@@ -54,6 +54,7 @@ module Api
           param :name, String, desc: 'Name', required: true
           param :short_description, String, desc: 'Short description'
           param :description, String, desc: 'Description', required: true
+          param :owner_user_id, Integer, desc: "User id of the job owner (please note that if you try to set an owner you are not allowed to, the error will simple be: owner can't be blank)", required: true
           param :job_date, String, desc: 'Job start date', required: true
           param :job_end_date, String, desc: 'Job end date', required: true
           param :upcoming, [true, false], desc: 'Upcoming job (default false)'
@@ -70,8 +71,16 @@ module Api
         authorize(Job)
 
         @job = Job.new(job_attributes)
-        # NOTE: Not very RESTful to assume current_user
-        @job.owner_user_id = current_user.id
+
+        owner = nil
+        owner_id = jsonapi_params[:owner_id].to_i
+        if owner_id.zero?
+          owner = current_user
+          ActiveSupport::Deprecation.warn('Not explicitly setting the owner_id as part of the payload has been deprecated please set a owner_id.') # rubocop:disable Metrics/LineLength
+        else
+          owner = User.scope_for(current_user).find_by(id: jsonapi_params[:owner_user_id])
+        end
+        @job.owner = owner
 
         if @job.save
           @job.set_translation(job_attributes).tap do |result|
