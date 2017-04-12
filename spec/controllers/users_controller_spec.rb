@@ -138,6 +138,36 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         expect(UserWelcomeNotifier).to have_received(:call)
       end
 
+      context 'bank account' do
+        it 'can return validation error for bank account' do
+          attrs = valid_attributes.dup
+          attrs[:data][:attributes][:bank_account] = 'asdasdsa'
+          post :create, params: attrs, headers: {}
+          expect(response.body).to have_jsonapi_attribute_error('bank-account')
+        end
+
+        it 'can add bank account' do
+          attrs = valid_attributes.dup
+          attrs[:data][:attributes][:bank_account] = '000000000000'
+          allow_any_instance_of(BankTools::SE::Account).to receive(:errors).and_return([])
+          post :create, params: attrs, headers: {}
+          expect(response.body).to have_jsonapi_attribute('account-clearing-number', '0000') # rubocop:disable Metrics/LineLength
+          expect(response.body).to have_jsonapi_attribute('account-number', '000000')
+        end
+
+        context '_DEPRECATED_ attribute names' do
+          it 'can return validation error for bank account' do
+            attrs = valid_attributes.dup
+            attrs[:data][:attributes][:account_number] = 'asdasdsa'
+            attrs[:data][:attributes][:account_clearing_number] = 'asdasdsa'
+            post :create, params: attrs, headers: {}
+            expect(response.body).to have_jsonapi_attribute_error('account')
+            expect(response.body).to have_jsonapi_attribute_error('account-clearing-number') # rubocop:disable Metrics/LineLength
+            expect(response.body).to have_jsonapi_attribute_error('account-number')
+          end
+        end
+      end
+
       context 'with system_language' do
         it 'sets system_language and language independently from each other' do
           lang_id = Language.find_or_create_by!(lang_code: 'sv').id

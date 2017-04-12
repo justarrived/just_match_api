@@ -18,6 +18,17 @@ RSpec::Matchers.define :be_jsonapi_response_for do |dashed_model_name|
   end
 end
 
+RSpec::Matchers.define :have_jsonapi_attribute_error do |dashed_attribute_name|
+  match do |actual|
+    errors = JSON.parse(actual)['errors']
+    return false if errors.nil?
+
+    errors.map do |error|
+      error.dig(:source, :pointer) == "/data/attributes/#{dashed_attribute_name}"
+    end
+  end
+end
+
 # For testing serializers
 RSpec::Matchers.define :be_jsonapi_formatted do |dashed_model_name|
   match do |actual|
@@ -28,6 +39,7 @@ end
 # For testing serializer attributes
 RSpec::Matchers.define :have_jsonapi_attribute do |field, value|
   match do |actual|
+    actual = JSON.parse(actual) if actual.is_a?(String)
     # Format a datetime value correctly
     value = value.as_json if value.is_a?(ActiveSupport::TimeWithZone)
     # Symbols are strings in JSON..
