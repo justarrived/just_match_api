@@ -43,7 +43,7 @@ module Api
             'Param `email` is deprecated!',
             'Please use `email_or_phone` instead.'
           ].join(' ')
-          ActiveSupport::Deprecation.warn(message)
+          add_deprecation(message, 'email')
           jsonapi_params[:email]
         end
       end

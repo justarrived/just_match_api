@@ -148,11 +148,10 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
         it 'can add bank account' do
           attrs = valid_attributes.dup
-          attrs[:data][:attributes][:bank_account] = '000000000000'
-          allow_any_instance_of(BankTools::SE::Account).to receive(:errors).and_return([])
+          attrs[:data][:attributes][:bank_account] = '8000-2000 00000 00'
           post :create, params: attrs, headers: {}
-          expect(response.body).to have_jsonapi_attribute('account-clearing-number', '0000') # rubocop:disable Metrics/LineLength
-          expect(response.body).to have_jsonapi_attribute('account-number', '000000')
+          expect(response.body).to have_jsonapi_attribute('account-clearing-number', '8000-2') # rubocop:disable Metrics/LineLength
+          expect(response.body).to have_jsonapi_attribute('account-number', '0000000000')
         end
 
         context '_DEPRECATED_ attribute names' do

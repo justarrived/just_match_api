@@ -117,7 +117,7 @@ module Api
         if jsonapi_params[:system_language_id].blank? && jsonapi_params[:language_id].blank? # rubocop:disable Metrics/LineLength
           language_defined = false
         elsif jsonapi_params[:system_language_id].blank?
-          ActiveSupport::Deprecation.warn('Setting #system_language from #language is deprecated and will be removed soon.') # rubocop:disable Metrics/LineLength
+          add_deprecation('Setting #system_language from #language is deprecated and will be removed soon.') # rubocop:disable Metrics/LineLength
           @user.system_language_id = jsonapi_params[:language_id]
         end
 
@@ -142,7 +142,7 @@ module Api
             @user.set_images_by_tokens = image_tokens unless image_tokens.blank?
           else
             message = 'The param "user_image_one_time_token" has been deprecated please use "user_image_one_time_tokens" instead' # rubocop:disable Metrics/LineLength
-            ActiveSupport::Deprecation.warn(message)
+            add_deprecation(message)
             @user.profile_image_token = deprecated_param_value
           end
 
@@ -232,7 +232,7 @@ module Api
         check_for_deprecated_params
 
         unless jsonapi_params[:language_id].blank?
-          ActiveSupport::Deprecation.warn('Setting #system_language from #language is deprecated and will be removed soon.') # rubocop:disable Metrics/LineLength
+          add_deprecation('Setting #system_language from #language is deprecated and will be removed soon.') # rubocop:disable Metrics/LineLength
           # NOTE: This is just temporary until the client app is updated
           @user.system_language_id = jsonapi_params[:language_id]
         end
@@ -289,7 +289,7 @@ module Api
 
         if params[:image]
           @user_image = UserImage.new(image: params[:image])
-          ActiveSupport::Deprecation.warn('Using multipart to upload an image is deprecated and will soon be removed please consult the documentation at api.justarrived.se to see the new method.') # rubocop:disable Metrics/LineLength
+          add_deprecation('Using multipart to upload an image is deprecated and will soon be removed please consult the documentation at api.justarrived.se to see the new method.') # rubocop:disable Metrics/LineLength
         else
           data_image = DataUriImage.new(user_image_params[:image])
           unless data_image.valid?
@@ -301,7 +301,7 @@ module Api
         end
 
         @user_image.category = if user_image_params[:category].blank?
-                                 ActiveSupport::Deprecation.warn('Not setting an image category has been deprecated, please provide a "category" param.') # rubocop:disable Metrics/LineLength
+                                 add_deprecation('Not setting an image category has been deprecated, please provide a "category" param.') # rubocop:disable Metrics/LineLength
                                  @user_image.default_category
                                else
                                  user_image_params[:category]
@@ -375,11 +375,13 @@ module Api
 
       def check_for_deprecated_params
         if jsonapi_params[:account_clearing_number].present?
-          ActiveSupport::Deprecation.warn('Setting #account_clearing_number is deprecated, please use #bank_account instead') # rubocop:disable Metrics/LineLength
+          message = 'Setting #account_clearing_number is deprecated, please use #bank_account instead' # rubocop:disable Metrics/LineLength
+          add_deprecation(message, 'account_clearing_number')
         end
 
         if jsonapi_params[:account_number].present?
-          ActiveSupport::Deprecation.warn('Setting #account_number is deprecated, please use #bank_account instead') # rubocop:disable Metrics/LineLength
+          message = 'Setting #account_number is deprecated, please use #bank_account instead' # rubocop:disable Metrics/LineLength
+          add_deprecation(message, 'account_number')
         end
       end
 

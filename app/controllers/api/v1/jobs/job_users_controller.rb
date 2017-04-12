@@ -89,7 +89,7 @@ module Api
           user_id = jsonapi_params[:user_id].to_i
           if user_id.zero?
             user = current_user
-            ActiveSupport::Deprecation.warn('Not explicitly setting the user id as part of the payload has been deprecated please set a user id.') # rubocop:disable Metrics/LineLength
+            add_deprecation('Not explicitly setting the user id as part of the payload has been deprecated please set a user id.') # rubocop:disable Metrics/LineLength
           elsif user_id == current_user.id
             user = current_user
           elsif current_user.admin?
@@ -133,7 +133,7 @@ module Api
         end
         example Doxxer.read_example(JobUser, method: :update)
         def update
-          ActiveSupport::Deprecation.warn('This route has been deprecated.')
+          add_deprecation('This route has been deprecated.')
           authorize(@job_user)
 
           @job_user.assign_attributes(job_user_attributes)
@@ -230,21 +230,21 @@ module Api
                 'Setting JobUser#accepted using PATCH /jobs/:id/users',
                 'is deprecated, please use POST /jobs/:id/users/acceptances instead'
               ].join(' ')
-              ActiveSupport::Deprecation.warn(message)
+              add_deprecation(message)
               :accepted
             elsif job_user.send_will_perform_notice?
               message = [
                 'Setting JobUser#will_perform using PATCH /jobs/:id/users',
                 'is deprecated, please use POST /jobs/:id/users/confirmations instead'
               ].join(' ')
-              ActiveSupport::Deprecation.warn(message)
+              add_deprecation(message)
               :will_perform
             elsif job_user.send_performed_notice?
               message = [
                 'Setting JobUser#performed using PATCH /jobs/:id/users',
                 'is deprecated, please use POST /jobs/:id/users/performed instead'
               ].join(' ')
-              ActiveSupport::Deprecation.warn(message)
+              add_deprecation(message)
               :performed
             else
               :nothing

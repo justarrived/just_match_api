@@ -358,7 +358,7 @@ class User < ApplicationRecord
   end
 
   def set_normalized_bank_account
-    self.bank_account = @bank_account || [account_clearing_number, account_number].join
+    self.bank_account = bank_account || [account_clearing_number, account_number].join
   end
 
   # NOTE: This method has unintuitive side effects.. if the banned attribute is

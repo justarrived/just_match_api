@@ -5,10 +5,11 @@ require 'json_api_helpers/serializers/relationships'
 module JsonApiHelpers
   module Serializers
     class Data
-      def initialize(id:, type:, attributes: {}, relationships: nil, key_transform: JsonApiHelpers.default_key_transform) # rubocop:disable Metrics/LineLength
+      def initialize(id:, type:, attributes: {}, meta: {}, relationships: nil, key_transform: JsonApiHelpers.default_key_transform) # rubocop:disable Metrics/LineLength
         @id = id
         @type = type
         @attributes = attributes
+        @meta = meta
         @relationships = relationships
         @key_transform = key_transform
       end
@@ -30,7 +31,7 @@ module JsonApiHelpers
         if shallow
           data
         else
-          { data: data }
+          { data: data, meta: @meta }
         end
       end
 
