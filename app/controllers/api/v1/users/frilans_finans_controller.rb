@@ -73,7 +73,7 @@ module Api
 }
         JSON
         def create
-          ActiveSupport::Deprecation.warn('POST /users/:user_id/frilans-finans has been deprecated, please set User#account_number and User#account_clearing_number instead.') # rubocop:disable Metrics/LineLength
+          add_deprecation('POST /users/:user_id/frilans-finans has been deprecated, please set User#account_number and User#account_clearing_number instead.') # rubocop:disable Metrics/LineLength
 
           authorize_create(@user)
 

@@ -382,7 +382,8 @@ module Api
 
       def api_render_errors(model)
         errors = {
-          errors: JsonApiErrorSerializer.serialize(model, key_transform: key_transform_header) # rubocop:disable Metrics/LineLength
+          errors: JsonApiErrorSerializer.serialize(model, key_transform: key_transform_header), # rubocop:disable Metrics/LineLength
+          meta: deprecations_meta
         }
         render json: errors, status: :unprocessable_entity
       end
@@ -401,7 +402,7 @@ module Api
           fields: fields_params.to_h,
           current_user: current_user,
           current_language: current_language,
-          meta: meta,
+          meta: meta.merge(deprecations_meta),
           request: request
         )
 
@@ -494,6 +495,18 @@ module Api
       end
 
       private
+
+      def deprecations_meta
+        return {} if @deprecations.blank?
+        { deprecations: @deprecations }
+      end
+
+      def add_deprecation(message, attribute = nil)
+        ActiveSupport::Deprecation.warn(message)
+
+        @deprecations ||= []
+        @deprecations << { attribute: attribute, message: message }
+      end
 
       def authenticate_user_token!
         # First try to grab the token from the Authorization header

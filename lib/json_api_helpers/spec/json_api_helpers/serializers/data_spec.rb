@@ -7,6 +7,7 @@ RSpec.describe JsonApiHelpers::Serializers::Data do
   let(:id) { 1 }
   let(:type) { 'watman' }
   let(:attributes) { { 'test_key' => 3 } }
+  let(:meta) { { total: 1 } }
   let(:key_transform) { :dash }
 
   subject do
@@ -14,6 +15,7 @@ RSpec.describe JsonApiHelpers::Serializers::Data do
       id: id,
       type: type,
       attributes: attributes,
+      meta: meta,
       key_transform: key_transform
     ).to_json
     JSON.parse(json)
@@ -29,6 +31,12 @@ RSpec.describe JsonApiHelpers::Serializers::Data do
 
   it 'returns dasherized attributes' do
     expect(subject.dig('data', 'attributes', 'test-key')).to eq(3)
+  end
+
+  context 'with meta' do
+    it 'returns with meta key' do
+      expect(subject.dig('meta', 'total')).to eq(1)
+    end
   end
 
   context 'with key transform underscore' do

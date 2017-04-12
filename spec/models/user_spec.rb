@@ -84,6 +84,20 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe '#bank_account' do
+    it 'can set valid bank account' do
+      clearing = '8000-2'
+      number = '000 00000 00'
+      account = [clearing, number].join
+
+      user = User.new
+      user.bank_account = account
+
+      expect(user.account_clearing_number).to eq(clearing)
+      expect(user.account_number).to eq(number.delete(' '))
+    end
+  end
+
   describe '#set_normalized_bank_account' do
     it 'normalizes bank account' do
       user = User.new(account_clearing_number: ' 8000-2 ', account_number: '000 00000 00')

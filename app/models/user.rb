@@ -32,8 +32,6 @@ class User < ApplicationRecord
     other: 3
   }.freeze
 
-  attr_accessor :password
-
   before_validation :set_normalized_fields
 
   before_save :encrypt_password
@@ -129,7 +127,12 @@ class User < ApplicationRecord
   enum at_und: AT_UND
   enum gender: GENDER
 
-  attr_reader :consent
+  attr_accessor :password
+
+  attr_reader :consent, :bank_account
+  # This is needed until we deprecate the user of
+  # #account_number & #account_clearing_number
+  alias_method :account, :bank_account
 
   include Translatable
   translates :description, :job_experience, :education, :competence_text
@@ -345,13 +348,17 @@ class User < ApplicationRecord
     self.email = EmailAddress.normalize(email)
   end
 
-  def set_normalized_bank_account
-    full_account = [account_clearing_number, account_number].join
+  def bank_account=(full_account)
     account = SwedishBankAccount.new(full_account)
+    @bank_account = full_account
     return unless account.valid?
 
     self.account_clearing_number = account.clearing_number
     self.account_number = account.serial_number
+  end
+
+  def set_normalized_bank_account
+    self.bank_account = bank_account || [account_clearing_number, account_number].join
   end
 
   # NOTE: This method has unintuitive side effects.. if the banned attribute is
@@ -480,9 +487,11 @@ class User < ApplicationRecord
   end
 
   def validate_swedish_bank_account
-    return if account_clearing_number.blank? && account_number.blank?
+    return if [bank_account, account_clearing_number, account_number].all?(&:blank?)
 
-    full_account = [account_clearing_number, account_number].join
+    full_account = bank_account || [account_clearing_number, account_number].join
+    # NOTE: Remove the below line after the user of
+    # #account_clearing_number & #account_number is not used anymore
     field_map = {
       clearing_number: :account_clearing_number,
       serial_number: :account_number,
@@ -491,7 +500,11 @@ class User < ApplicationRecord
     SwedishBankAccount.new(full_account).tap do |account|
       account.errors_by_field do |field, error_types|
         error_types.each do |type|
+          # NOTE: Remove the below line after the user of
+          # #account_clearing_number & #account_number is not used anymore
           errors.add(field_map[field], I18n.t("errors.bank_account.#{type}"))
+
+          errors.add(:bank_account, I18n.t("errors.bank_account.#{type}"))
         end
       end
     end

@@ -62,7 +62,8 @@ module Api
               id: auth_token,
               type: :token,
               attributes: attributes,
-              key_transform: key_transform_header
+              key_transform: key_transform_header,
+              meta: deprecations_meta
             )
             render json: response, status: :created
           else
@@ -127,7 +128,7 @@ module Api
                                'Param `email` is deprecated!',
                                'Please use `email_or_phone` instead.'
                              ].join(' ')
-                             ActiveSupport::Deprecation.warn(message)
+                             add_deprecation(message, 'email')
                              jsonapi_params[:email]
                            else
                              jsonapi_params[:email_or_phone]
