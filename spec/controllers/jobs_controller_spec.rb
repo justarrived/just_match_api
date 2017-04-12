@@ -2,6 +2,8 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::JobsController, type: :controller do
+  let(:company) { FactoryGirl.create(:company) }
+  let(:owner) { FactoryGirl.create(:user, company: company) }
   let(:valid_attributes) do
     {
       data: {
@@ -13,7 +15,7 @@ RSpec.describe Api::V1::JobsController, type: :controller do
           language_id: FactoryGirl.create(:language).id,
           hourly_pay_id: FactoryGirl.create(:hourly_pay).id,
           category_id: FactoryGirl.create(:category).id,
-          owner_user_id: FactoryGirl.create(:company_user).id,
+          owner_user_id: owner.id,
           street: 'Stora Nygatan 36',
           city: 'Malmö',
           zip: '211 37',
@@ -89,16 +91,21 @@ RSpec.describe Api::V1::JobsController, type: :controller do
 
   describe 'POST #create' do
     let(:valid_session) do
-      company = FactoryGirl.create(:company)
-      user = FactoryGirl.create(:user, company: company)
       allow_any_instance_of(described_class).
         to(receive(:current_user).
-        and_return(user))
-      { token: user.auth_token }
+        and_return(owner))
+      { token: owner.auth_token }
     end
 
     context 'with valid params' do
       it 'creates a new Job' do
+        expect do
+          post :create, params: valid_attributes, headers: valid_session
+        end.to change(Job, :count).by(1)
+      end
+
+      it '[deprecated] creates a new Job without owner_id in payload ' do
+        valid_attributes[:data][:attributes][:owner_user_id] = nil
         expect do
           post :create, params: valid_attributes, headers: valid_session
         end.to change(Job, :count).by(1)
