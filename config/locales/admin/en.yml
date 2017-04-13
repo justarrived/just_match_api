@@ -135,6 +135,7 @@ en:
         skills_title: Job skills
         languages_title: Job languages
     frilans_finans_invoice:
+      activate_confirmation: Are you sure you want to activate this invoice and send a notification to the user?
       not_paid: Not paid
       show:
         general: General

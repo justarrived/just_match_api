@@ -59,10 +59,12 @@ ActiveAdmin.register FrilansFinansInvoice do
   action_item :view, only: :show, if: proc { resource.frilans_finans_id } do
     title = I18n.t('admin.send_employment_certificate.post_btn')
     path = send_employment_certificate_admin_frilans_finans_invoice_path(resource)
-    link_to title, path, method: :post
+    message = I18n.t('admin.frilans_finans_invoice.activate_confirmation')
+    link_to title, path, method: :post, data: { confirm: message }
   end
 
   member_action :create_invoice, method: :post do
+    asd
     ff_invoice = resource
     job_user = ff_invoice.job_user
     invoice = Invoice.new(job_user: job_user, frilans_finans_invoice: ff_invoice)
