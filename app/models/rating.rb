@@ -32,8 +32,8 @@ class Rating < ApplicationRecord
 
   def self.average_score(round: nil)
     score = average(:score)
-    score = score.round(round) if !score.nil? && round
-    score
+    score = score.round(round) if score.present? && round
+    score.to_f
   end
 
   def validate_comment_owned_by
