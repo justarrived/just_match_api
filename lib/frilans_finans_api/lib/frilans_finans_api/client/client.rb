@@ -25,7 +25,8 @@ module FrilansFinansApi
       request.get(uri: "/invoices/#{invoice_id}/salaries", query: build_query(page: page))
     end
 
-    def users(page: 1, filter: {})
+    def users(page: 1, email: nil)
+      filter = email ? { email: email } : {}
       request.get(uri: '/users', query: build_query(page: page, filter: filter))
     end
 

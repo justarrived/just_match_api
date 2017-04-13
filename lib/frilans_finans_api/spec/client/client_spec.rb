@@ -102,6 +102,36 @@ RSpec.describe FrilansFinansApi::Client do
     end
   end
 
+  describe '#users' do
+    subject { described_class.new }
+
+    it 'returns users array' do
+      json = fixture_client.read(:users)
+      url = "#{base_uri}/users?page[number]=1"
+
+      stub_request(:get, url).
+        with(default_headers).
+        to_return(status: 200, body: json, headers: {})
+
+      parsed_body = JSON.parse(subject.users.body)
+      expect(parsed_body['data']).to be_a(Array)
+    end
+
+    # The real test here is actually the request stub rather than the assertion
+    it 'can add filter param' do
+      email = 'test@example.com'
+      json = fixture_client.read(:users)
+      url = "#{base_uri}/users?filter[email]=#{email}&page[number]=1"
+
+      stub_request(:get, url).
+        with(default_headers).
+        to_return(status: 200, body: json, headers: {})
+
+      parsed_body = JSON.parse(subject.users(email: email).body)
+      expect(parsed_body['data']).to be_a(Array)
+    end
+  end
+
   describe '#create_user' do
     subject do
       json = fixture_client.read(:user)
