@@ -53,7 +53,7 @@ gem 'activeadmin', git: 'https://github.com/activeadmin/activeadmin' # Admin int
 gem 'blazer', git: 'https://github.com/ankane/blazer' # '~> 1.7' # Explore data with SQL
 gem 'chosen-rails', '~> 1.5' # Needed for autocomplete select input for activeadmin
 gem 'inherited_resources', git: 'https://github.com/activeadmin/inherited_resources', ref: '4434f0ae72f790cf371728838c927c338100555d' # activeadmin Rails 5
-gem 'uglifier', '~> 3.1' # Needed for activeadmin assets compilation
+gem 'uglifier', '~> 3.2' # Needed for activeadmin assets compilation
 
 # Invoices
 gem 'frilans_finans_api', path: 'lib/frilans_finans_api' # Interact with Frilans Finans API
