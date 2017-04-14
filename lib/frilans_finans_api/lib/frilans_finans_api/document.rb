@@ -65,7 +65,7 @@ module FrilansFinansApi
     end
 
     def error_status?
-      # Consider both 300, 400 and 500-statuses as errors
+      # Consider HTTP status 3XX, 4XX and 5XX as errors
       status >= 300
     end
   end

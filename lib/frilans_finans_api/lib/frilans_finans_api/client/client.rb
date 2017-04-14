@@ -25,14 +25,14 @@ module FrilansFinansApi
       request.get(uri: "/invoices/#{invoice_id}/salaries", query: build_query(page: page))
     end
 
-    def users(page: 1)
-      request.get(uri: '/users', query: build_query(page: page))
+    def users(page: 1, email: nil)
+      filter = email ? { email: email } : {}
+      request.get(uri: '/users', query: build_query(page: page, filter: filter))
     end
 
     def taxes(page: 1, only_standard: false)
-      filter = {}
-      filter = { filter: { standard: 1 } } if only_standard
-      request.get(uri: '/taxes', query: build_query(page: page).merge(filter))
+      filter = only_standard ? { standard: 1 } : {}
+      request.get(uri: '/taxes', query: build_query(page: page, filter: filter))
     end
 
     def invoice(id:)
@@ -73,8 +73,11 @@ module FrilansFinansApi
       { data: { attributes: attributes } }
     end
 
-    def build_query(page:)
-      { page: { number: page } }
+    def build_query(page:, filter: {})
+      {
+        page: { number: page },
+        filter: filter
+      }
     end
   end
 end

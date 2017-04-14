@@ -11,14 +11,18 @@ module FrilansFinansApi
         current_page = 1
         total_pages = 2
 
+        resources = []
+
         while total_pages >= current_page
           resource_index = index(page: current_page, client: client)
           total_pages = resource_index.total_pages
 
-          yield(resource_index)
+          yield(resource_index) if block_given?
+          resources += resource_index.resources
+
           current_page += 1
         end
-        nil
+        resources
       end
     end
   end

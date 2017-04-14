@@ -264,8 +264,8 @@ class User < ApplicationRecord
     self
   end
 
-  def average_score
-    received_ratings.average(:score)
+  def average_score(round: nil)
+    received_ratings.average_score(round: round)
   end
 
   delegate :count, to: :received_ratings, prefix: true
