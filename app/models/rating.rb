@@ -32,7 +32,8 @@ class Rating < ApplicationRecord
 
   def self.average_score(round: nil)
     score = average(:score)
-    score = score.round(round) if score.present? && round
+    return unless score
+    score = score.round(round) if round
     score.to_f
   end
 
