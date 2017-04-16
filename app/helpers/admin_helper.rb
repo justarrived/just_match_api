@@ -31,6 +31,10 @@ module AdminHelper
     link_to(title, url, download: file_name)
   end
 
+  def job_user_translations_path(job_user)
+    admin_job_user_translations_path + AdminHelpers::Link.query(:job_user_id, job_user.id)
+  end
+
   def european_date(datetime)
     datetime.strftime('%Y-%m-%d')
   end
