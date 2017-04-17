@@ -192,6 +192,11 @@ en:
           hint: Warning this will reset the password
         just_arrived_staffing:
           hint: Check this if this user is hired by Just Arrived Bemaning AB
+      find_ff_user:
+        find_button: Find and set from Frilans Finans
+        ff_id_present_msg: User already has a Frilans Finans ID (#%{id})
+        ff_id_found_msg: 'Frilans Finans ID found (#%{id}) and succesfully updated user.'
+        ff_id_not_found_msg: No Frilans Finans account could be found for this user.
       show:
         interests: Interests
         verified: 'Verified: %{verified}'

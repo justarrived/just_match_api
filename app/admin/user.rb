@@ -135,6 +135,38 @@ ActiveAdmin.register User do
     redirect_to collection_path, notice: I18n.t('admin.user.managed_selected')
   end
 
+  member_action :find_frilans_finans_user, method: :post do
+    user = resource
+
+    if user.frilans_finans_id.present?
+      notice = I18n.t(
+        'admin.user.find_ff_user.ff_id_present_msg', id: user.frilans_finans_id
+      )
+      redirect_to admin_user_path(user), alert: notice
+    else
+      remote_id = FindFrilansFinansUserIdService.call(email: user.email)
+
+      if remote_id.present?
+        user.frilans_finans_id = remote_id
+        user.save!
+
+        notice = I18n.t('admin.user.find_ff_user.ff_id_found_msg', id: remote_id)
+        redirect_to admin_user_path(user), notice: notice
+      else
+        notice = I18n.t('admin.user.find_ff_user.ff_id_not_found_msg')
+        redirect_to admin_user_path(user), alert: notice
+      end
+    end
+  end
+
+  action_item :find_frilans_finans_user, only: :show do
+    link_to(
+      I18n.t('admin.user.find_ff_user.find_button'),
+      find_frilans_finans_user_admin_user_path(id: user.id),
+      method: :post
+    )
+  end
+
   # Create sections on the index screen
   scope :all
   scope :admins
