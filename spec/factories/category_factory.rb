@@ -5,6 +5,7 @@ FactoryGirl.define do
       "Category #{n}"
     end
     insurance_status :insured
+    ssyk 431
 
     sequence :frilans_finans_id do |n|
       n

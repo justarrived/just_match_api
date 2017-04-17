@@ -12,6 +12,15 @@ en:
     time_from_now: '%{time} from now'
     download: Download
     upload: Upload
+    arbetsformedlingen_ad:
+      push:
+        button: Push
+        pushing_msg: 'Yay! Pushing to Arbetsförmedlingen lets hope for the best!'
+        validation_error_msg: 'Hrm.. Here are som validation errors you need to fix fist before we can push to Arbetsförmedlingen: %{errors}.'
+    arbetsformedlingen_ad_log:
+      name: Arbetsförmedlingen log
+      af_error_code_msg: "Arbetsförmedlingen error code: %{code}"
+      af_valid_msg: Valid
     create_invoice:
       success_msg: Successfully created invoice. Invoice will be activated at Frilans Finans soon.
       post_btn: Activate invoice

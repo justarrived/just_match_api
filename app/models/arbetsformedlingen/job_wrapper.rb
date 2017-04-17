@@ -2,8 +2,9 @@
 
 module Arbetsformedlingen
   class JobWrapper
-    def initialize(job:)
+    def initialize(job, published: false)
       @job = job
+      @published = published
       @company = job.company
       @af_models = {}
 
@@ -28,7 +29,7 @@ module Arbetsformedlingen
 
     private
 
-    attr_reader :job, :company
+    attr_reader :job, :company, :published
 
     def build_packet
       @af_models[:packet] ||= Arbetsformedlingen::Packet.new(
@@ -37,7 +38,7 @@ module Arbetsformedlingen
         position: build_position,
         attributes: {
           id: SecureGenerator.uuid,
-          active: true,
+          active: published,
           job_id: job.id,
           number_to_fill: job.number_to_fill,
           ssyk_id: job.ssyk
@@ -63,7 +64,14 @@ module Arbetsformedlingen
           application_method: build_application_method,
           attributes: {
             title: job.name,
-            purpose: job.description
+            purpose: job.description,
+            address: {
+              country_code: job.country_code,
+              zip: job.zip,
+              municipality: job.municipality,
+              street: job.street,
+              city: job.city
+            }
           }
         )
       end

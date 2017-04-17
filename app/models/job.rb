@@ -22,6 +22,7 @@ class Job < ApplicationRecord
   # rubocop:enable Metrics/LineLength
 
   has_one :company, through: :owner
+  has_one :arbetsformedlingen_ad
 
   has_many :job_skills
   has_many :skills, through: :job_skills
@@ -193,6 +194,14 @@ Address: #{company.address}
     return owner.company.frilans_finans_id if ff_id.nil?
 
     Integer(ff_id)
+  end
+
+  def country_code
+    'SE'
+  end
+
+  def company?
+    company.present?
   end
 
   def position_filled?

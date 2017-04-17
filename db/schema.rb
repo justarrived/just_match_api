@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170417112306) do
+ActiveRecord::Schema.define(version: 20170417133022) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,22 @@ ActiveRecord::Schema.define(version: 20170417112306) do
     t.index ["name", "time"], name: "index_ahoy_events_on_name_and_time", using: :btree
     t.index ["user_id", "name"], name: "index_ahoy_events_on_user_id_and_name", using: :btree
     t.index ["visit_id", "name"], name: "index_ahoy_events_on_visit_id_and_name", using: :btree
+  end
+
+  create_table "arbetsformedlingen_ad_logs", force: :cascade do |t|
+    t.integer  "arbetsformedlingen_ad_id"
+    t.json     "response"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.index ["arbetsformedlingen_ad_id"], name: "index_arbetsformedlingen_ad_logs_on_arbetsformedlingen_ad_id", using: :btree
+  end
+
+  create_table "arbetsformedlingen_ads", force: :cascade do |t|
+    t.integer  "job_id"
+    t.boolean  "published",  default: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.index ["job_id"], name: "index_arbetsformedlingen_ads_on_job_id", using: :btree
   end
 
   create_table "blazer_audits", force: :cascade do |t|
@@ -803,6 +819,8 @@ ActiveRecord::Schema.define(version: 20170417112306) do
 
   add_foreign_key "ahoy_events", "users", name: "ahoy_events_user_id_fk"
   add_foreign_key "ahoy_events", "visits", name: "ahoy_events_visit_id_fk"
+  add_foreign_key "arbetsformedlingen_ad_logs", "arbetsformedlingen_ads"
+  add_foreign_key "arbetsformedlingen_ads", "jobs"
   add_foreign_key "blazer_audits", "blazer_queries", column: "query_id", name: "blazer_audits_query_id_fk"
   add_foreign_key "blazer_checks", "blazer_queries", column: "query_id", name: "blazer_checks_query_id_fk"
   add_foreign_key "blazer_dashboard_queries", "blazer_dashboards", column: "dashboard_id", name: "blazer_dashboard_queries_dashboard_id_fk"

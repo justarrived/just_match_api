@@ -3,7 +3,9 @@ job_query = AdminHelpers::Link.query(:job_id, job.id)
 hired_job_users = job.job_users.includes(:user).will_perform
 
 ul do
-  li link_to job.company.display_name, admin_company_path(job.company)
+  if job.company?
+    li link_to job.company.display_name, admin_company_path(job.company)
+  end
   li link_to job.owner.display_name, admin_user_path(job.owner)
 end
 
