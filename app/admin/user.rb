@@ -159,7 +159,7 @@ ActiveAdmin.register User do
     end
   end
 
-  action_item :find_frilans_finans_user, only: :show do
+  action_item :find_frilans_finans_user, only: :show, if: proc { resource.frilans_finans_id.blank? } do # rubocop:disable Metrics/LineLength
     link_to(
       I18n.t('admin.user.find_ff_user.find_button'),
       find_frilans_finans_user_admin_user_path(id: user.id),
