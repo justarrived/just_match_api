@@ -152,6 +152,8 @@ end
 #  city                         :string
 #  staffing_job                 :boolean          default(FALSE)
 #  direct_recruitment_job       :boolean          default(FALSE)
+#  municipality                 :string
+#  number_to_fill               :integer          default(1)
 #
 # Indexes
 #

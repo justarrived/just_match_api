@@ -84,16 +84,13 @@ module Arbetsformedlingen
       )
     end
 
-    # TODO Implement this properly
+    # TODO Implement this properly (support for drivers_license and car options)
     def build_qualifications
       @qualifications ||= begin
         [
           Arbetsformedlingen::Qualification.new(
-            summary: 'A summary', # optional, but recommended field
             required: true,
-            experience: true,
-            drivers_license: 'B,C1',
-            car: true
+            experience: false
           )
         ]
       end

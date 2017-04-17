@@ -170,7 +170,8 @@ ActiveAdmin.register Job do
   permit_params do
     extras = [
       :cancelled, :language_id, :hourly_pay_id, :category_id, :owner_user_id, :hidden,
-      :company_contact_user_id, :just_arrived_contact_user_id,
+      :company_contact_user_id, :just_arrived_contact_user_id, :municipality,
+      :number_to_fill,
       job_skills_attributes: [:skill_id, :proficiency, :proficiency_by_admin],
       job_languages_attributes: [:language_id, :proficiency, :proficiency_by_admin]
     ]

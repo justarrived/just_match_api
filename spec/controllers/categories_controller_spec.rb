@@ -33,6 +33,7 @@ end
 #  updated_at        :datetime         not null
 #  frilans_finans_id :integer
 #  insurance_status  :integer
+#  ssyk              :integer
 #
 # Indexes
 #

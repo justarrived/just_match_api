@@ -340,6 +340,22 @@ RSpec.describe Job, type: :model do
     end
   end
 
+  describe 'validates that municipality is a valid Swedish municipality' do
+    it 'adds error if the municipality is not known' do
+      job = FactoryGirl.build(:job, municipality: 'watman')
+      job.validate
+      message = I18n.t('errors.validators.swedish_municipality')
+      expect(job.errors.messages[:municipality]).to include(message)
+    end
+
+    it 'adds *no* error if the municipality is known' do
+      job = FactoryGirl.build(:job, municipality: 'Stockholm')
+      job.validate
+      message = I18n.t('errors.validators.swedish_municipality')
+      expect(job.errors.messages[:municipality]).not_to include(message)
+    end
+  end
+
   describe '#validate_job_end_date_after_job_date' do
     it 'adds error if job end date is before job date' do
       attributes = { job_date: 2.days.from_now, job_end_date: 1.day.from_now }
@@ -523,6 +539,8 @@ end
 #  city                         :string
 #  staffing_job                 :boolean          default(FALSE)
 #  direct_recruitment_job       :boolean          default(FALSE)
+#  municipality                 :string
+#  number_to_fill               :integer          default(1)
 #
 # Indexes
 #

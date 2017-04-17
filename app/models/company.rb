@@ -14,6 +14,7 @@ class Company < ApplicationRecord
   validates :billing_email, presence: true
   validates :street, length: { minimum: 5 }, allow_blank: false
   validates :zip, length: { minimum: 5 }, allow_blank: false
+  validates :municipality, swedish_municipality: true
   validates :city, length: { minimum: 1 }, allow_blank: false
   validates :frilans_finans_id, uniqueness: true, allow_nil: true
 
@@ -54,11 +55,6 @@ class Company < ApplicationRecord
 
   def country_code
     'SE'
-  end
-
-  def municipality
-    # TODO: Implement!
-    city
   end
 
   def description
@@ -108,6 +104,7 @@ end
 #  city              :string
 #  phone             :string
 #  billing_email     :string
+#  municipality      :string
 #
 # Indexes
 #

@@ -92,6 +92,7 @@ en:
       email: 'must look like an email address'
       after_true: '%{field} must be true'
       unrevertable: can't revert %{field}
+      swedish_municipality: must be a known swedish municipality
   invalid_credentials: Invalid credentials.
   promo_code_required: Promo code or login required.
   not_logged_in_error: Must be logged in.

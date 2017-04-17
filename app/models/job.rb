@@ -41,10 +41,12 @@ class Job < ApplicationRecord
   validates :street, length: { minimum: 3 }, allow_blank: false
   validates :city, length: { minimum: 2 }, allow_blank: true
   validates :zip, length: { minimum: 5 }, allow_blank: false
+  validates :municipality, swedish_municipality: true
   validates :job_date, presence: true
   validates :job_end_date, presence: true
   validates :owner, presence: true
   validates :hours, numericality: { greater_than_or_equal_to: MIN_TOTAL_HOURS }, presence: true # rubocop:disable Metrics/LineLength
+  validates :number_to_fill, numericality: { greater_than_or_equal_to: 1 }
 
   validate :validate_job_end_date_after_job_date
   validate :validate_hourly_pay_active
@@ -134,11 +136,6 @@ class Job < ApplicationRecord
 
   def profession_title
     category&.name
-  end
-
-  def number_to_fill
-    # TODO: Implement! (Add DB column)
-    1
   end
 
   def schedule_summary
@@ -311,6 +308,14 @@ Address: #{company.address}
     errors.add(:job_date, I18n.t('errors.job.job_date_in_the_past'))
   end
 
+  def validate_swedish_municipality
+    return if municipality.blank?
+    return unless municipality_changed?
+    return if Arbetsformedlingen::MunicipalityCode.valid?(municipality)
+
+    errors.add(:municipality, I18n.t('errors.job.unknown_municipality'))
+  end
+
   def validate_job_end_date_after_job_date
     return if job_date.nil? || job_end_date.nil? || job_end_date >= job_date
 
@@ -381,6 +386,8 @@ end
 #  city                         :string
 #  staffing_job                 :boolean          default(FALSE)
 #  direct_recruitment_job       :boolean          default(FALSE)
+#  municipality                 :string
+#  number_to_fill               :integer          default(1)
 #
 # Indexes
 #

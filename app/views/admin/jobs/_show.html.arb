@@ -10,9 +10,11 @@ panel(I18n.t('admin.job.show.general')) do
     row :job_end_date
     row :hourly_pay
     row :short_description
+    row :number_to_fill
     row :street
     row :city
     row :zip
+    row :municipality
     row :description { |job| simple_format(job.description) }
     row :skills { |job| job_skills_badges(job_skills: job.job_skills) }
     row :languages { |job| job_languages_badges(job_languages: job.job_languages) }

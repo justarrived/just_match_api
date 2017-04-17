@@ -40,6 +40,7 @@ end
 #  city              :string
 #  phone             :string
 #  billing_email     :string
+#  municipality      :string
 #
 # Indexes
 #

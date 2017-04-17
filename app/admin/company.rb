@@ -68,6 +68,31 @@ ActiveAdmin.register Company do
     end
   end
 
+  form do |f|
+    f.semantic_errors
+
+    f.inputs I18n.t('admin.company.form.main_form_section_title') do
+      f.input :name
+      f.input :cin
+      f.input :frilans_finans_id
+      f.input :website
+      f.input :email
+      f.input :street
+      f.input :zip
+      f.input :city
+      f.input(
+        :municipality,
+        as: :select,
+        collection: Arbetsformedlingen::MunicipalityCode.to_form_array(name_only: true),
+        hint: I18n.t('admin.company.form.municipality_hint')
+      )
+      f.input :phone
+      f.input :billing_email
+    end
+
+    f.actions
+  end
+
   permit_params do
     [
       :name,
@@ -80,6 +105,7 @@ ActiveAdmin.register Company do
       :street,
       :zip,
       :city,
+      :municipality,
       :billing_email,
       :phone
     ]

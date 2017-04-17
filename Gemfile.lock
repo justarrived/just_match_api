@@ -52,7 +52,7 @@ GIT
 
 GIT
   remote: https://github.com/buren/arbetsformedlingen
-  revision: 8b025deb9d32e90d5f1d0c1c719cb9a7875450da
+  revision: d3bf7300234f4322032df7538eba57c5c921c3ef
   specs:
     arbetsformedlingen (0.1.0)
       builder (~> 3.2)
@@ -523,7 +523,7 @@ GEM
       i18n (>= 0.6.4, < 0.9)
       sixarm_ruby_unaccent (>= 1.1.1, < 2)
     multi_json (1.12.1)
-    multi_xml (0.5.5)
+    multi_xml (0.6.0)
     multipart-post (2.0.0)
     nio4r (2.0.0)
     nokogiri (1.7.1)
