@@ -2,7 +2,7 @@
 
 module Arbetsformedlingen
   class JobWrapper
-    def initialize(job, published: false)
+    def initialize(job, published:)
       @job = job
       @published = published
       @company = job.company
