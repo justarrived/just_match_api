@@ -3,6 +3,39 @@
 HEAD
 -----------
 
+
+v1.53 - 2017-04-16
+----------
+* _Admin_:
+  - :hocho: styling bug for skill and tag badges.
+  - Add confirmation popup to activate invoice action
+  - Add Job#staffing_job & #direct_recruitment_job to jobs show page
+  - Improve job application show view
+  - Update comment index view
+* _API_:
+  - Add meta/deprecations-key to API responses that has depcrecations
+  - Consolidate User `#account_clearing_number` & `#account_number` to `User#bank_account`
+  - RESTful jobs controller create
+* _FrilansFinansApi_:
+  - Update Document#error_status? comment
+  - Add filter support to query builder and refactor Client#taxes
+  - Add support for filtering users based on email
+  - Don't require passed block in Walker & return flat array of all fetched resources
+* _Enhancement_:
+  - Return float from `Rating::average_score`
+  - Also seed `Job#short_description`
+  - Filter some lib folder for coverage report
+* _Update gem_:
+  - `aws-sdk`
+  - `uglifier`
+  - `skylight`
+  - `yagni_json_encoder`
+  - `rubodop`
+  - `uglifier`
+* _Docs_:
+  - Regenerate API doc examples
+
+
 v1.52 - 2017-04-05
 ----------
 * _API_:

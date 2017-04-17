@@ -93,6 +93,8 @@ en:
         match_details: Match details
         job_details: Job details
         created_at: Created at %{date}
+        apply_message: Apply message
+        no_apply_message: No apply message.
     job:
       batch_action:
         update:
@@ -211,6 +213,8 @@ en:
         ongoing_jobs: Ongoing jobs
         future_jobs: Future jobs
         rejected: Rejected
+        no_skills_added: No languages added.
+        no_languages_added: No skills added.
     send_employment_certificate:
       post_btn: Send employment certificate
       msg: Request for employment certificate sent. The user will receive an email from Frilans Finans.

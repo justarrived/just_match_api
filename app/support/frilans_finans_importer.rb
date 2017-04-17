@@ -4,9 +4,11 @@ class FrilansFinansImporter
     FrilansFinansApi::Profession.walk(client: client) do |document|
       document.resources.each do |profession|
         id = profession.id
+        attributes = profession.attributes
         category_attributes = {
-          name: profession.attributes['title'],
-          insurance_status: profession.attributes['insurance_status_id']
+          name: attributes['title'],
+          insurance_status: attributes['insurance_status_id'],
+          ssyk: attributes['ssyk']
         }
 
         category = Category.find_or_initialize_by(frilans_finans_id: id)
