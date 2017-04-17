@@ -4,6 +4,7 @@ class ArbetsformedlingenAdLog < ApplicationRecord
   belongs_to :arbetsformedlingen_ad
 end
 
+# rubocop:disable Metrics/LineLength
 # == Schema Information
 #
 # Table name: arbetsformedlingen_ad_logs
