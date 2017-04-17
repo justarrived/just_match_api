@@ -51,18 +51,19 @@ GIT
       safely_block (>= 0.1.1)
 
 GIT
-  remote: https://github.com/mailcheck/mailcheck-ruby
-  revision: a64ef45e849748cd8eaad0afd0119abcf2ab143a
-  specs:
-    mailcheck (1.0.0)
-
-PATH
-  remote: ../../gems/arbetsformedlingen
+  remote: https://github.com/buren/arbetsformedlingen
+  revision: 8b025deb9d32e90d5f1d0c1c719cb9a7875450da
   specs:
     arbetsformedlingen (0.1.0)
       builder (~> 3.2)
       dry-validation (~> 0.10)
       httparty (~> 0.13)
+
+GIT
+  remote: https://github.com/mailcheck/mailcheck-ruby
+  revision: a64ef45e849748cd8eaad0afd0119abcf2ab143a
+  specs:
+    mailcheck (1.0.0)
 
 PATH
   remote: lib/frilans_finans_api
