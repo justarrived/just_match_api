@@ -317,14 +317,6 @@ Address: #{company.address}
     errors.add(:job_date, I18n.t('errors.job.job_date_in_the_past'))
   end
 
-  def validate_swedish_municipality
-    return if municipality.blank?
-    return unless municipality_changed?
-    return if Arbetsformedlingen::MunicipalityCode.valid?(municipality)
-
-    errors.add(:municipality, I18n.t('errors.job.unknown_municipality'))
-  end
-
   def validate_job_end_date_after_job_date
     return if job_date.nil? || job_end_date.nil? || job_end_date >= job_date
 

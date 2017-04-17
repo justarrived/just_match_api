@@ -8,7 +8,7 @@ RSpec.describe ArbetsformedlingenAd, type: :model do
       job = FactoryGirl.build(:job, category: FactoryGirl.build(:category, ssyk: nil))
       ad = FactoryGirl.build(:arbetsformedlingen_ad, job: job)
       ad.validate
-      expect(ad.errors.messages[:packet]).to include('ssyk must be filled')
+      expect(ad.errors.messages[:packet]).to include('category ssyk must be filled')
     end
 
     it 'adds *no* error if the job data is valid for Arbetsformedlingen' do

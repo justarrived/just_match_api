@@ -92,6 +92,7 @@ sv:
       email: 'måste se ut som en e-postadress'
       after_true: '%{field} måste vara sant'
       unrevertable: kan inte återställa %{field}
+      swedish_municipality: måste vara en svensk kommun
   invalid_credentials: Fel referenser.
   promo_code_required: Promo kod eller inlogging krävs.
   not_logged_in_error: Måste vara inloggad.
