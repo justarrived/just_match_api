@@ -14,6 +14,9 @@ sv:
       failed_to_activate_invoice:
         subject: 'Admin notis: Aktivering av Frilans Finans Faktura misslyckades'
         notice: Misslyckades skapa Frilans Finans faktura för %{id}
+  arbetsformedlingen:
+    application_method_description: Logga in eller registera dig och sök jobbet på %{application_url}
+    company_description: '%{name} har sitt kontor på %{address}. Du kan hitta deras hemsida på %{url}.'
   errors:
     unauthorized: Du har inte behörighet att utföra den här åtgärden.
     bad_json_format: "Det fanns problem i det JSON du skickade in: %{error_class}"

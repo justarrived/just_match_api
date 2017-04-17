@@ -58,12 +58,16 @@ class Company < ApplicationRecord
 
   def municipality
     # TODO: Implement!
-    fail(NotImplementedError)
+    city
   end
 
   def description
-    # TODO: Implement!
-    fail(NotImplementedError)
+    I18n.t(
+      'arbetsformedlingen.company_description',
+      name: name,
+      address: address,
+      url: website
+    )
   end
 
   def logo_image_token=(token)

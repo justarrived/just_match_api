@@ -94,6 +94,7 @@ class Job < ApplicationRecord
   end
 
   delegate :currency, to: :hourly_pay
+  delegate :ssyk, to: :category
 
   # This will return an Array and not an ActiveRecord::Relation
   def self.non_hired
@@ -138,11 +139,6 @@ class Job < ApplicationRecord
   def number_to_fill
     # TODO: Implement! (Add DB column)
     1
-  end
-
-  def ssyk_id
-    # category&.ssyk_id TODO: Implement Category#ssyk_id
-    fail(NotImplementedError)
   end
 
   def schedule_summary
