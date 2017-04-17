@@ -18,6 +18,10 @@ class HourlyPay < ApplicationRecord
     I18n.t('units.currency_per_hour', currency: currency)
   end
 
+  def gross_salary_with_unit
+    NumberFormatter.new.to_unit(gross_salary, unit)
+  end
+
   def net_salary
     PayCalculator.net_salary(gross_salary)
   end

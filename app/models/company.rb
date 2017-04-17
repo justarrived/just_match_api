@@ -52,6 +52,20 @@ class Company < ApplicationRecord
     'Sweden'
   end
 
+  def country_code
+    'SE'
+  end
+
+  def municipality
+    # TODO: Implement!
+    fail(NotImplementedError)
+  end
+
+  def description
+    # TODO: Implement!
+    fail(NotImplementedError)
+  end
+
   def logo_image_token=(token)
     return if token.blank?
 

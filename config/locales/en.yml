@@ -151,6 +151,9 @@ en:
       residence_permit_back_description: Picture of the back side your residence permit
       skatteverket_certificate: Skatteverket certificate
       skatteverket_certificate_description: Picture of your Skatteverket certificate
+  job:
+    salary_summary: Your salary will be fixed at %{hourly_gross_salary_with_unit}.
+    schedule_summary: Your first work day will be on %{start_date}.
   texter:
     magic_login_link:
       login_line: Just Arrived magic login link %{url}

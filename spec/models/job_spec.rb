@@ -470,6 +470,23 @@ RSpec.describe Job, type: :model do
       expect(job.errors.messages[:owner] || []).not_to include(message)
     end
   end
+
+  describe '#salary_summary' do
+    it 'returns salary summary that includes the gross hourly pay' do
+      I18n.with_locale(:sv) do
+        expect(FactoryGirl.build(:job).salary_summary).to include('100 SEK/timmen')
+      end
+    end
+  end
+
+  describe '#schedule_summary' do
+    it 'returns schedule summary that includes the job start date' do
+      I18n.with_locale(:sv) do
+        job = FactoryGirl.build(:job)
+        expect(job.schedule_summary).to include(job.job_date.to_date.to_s)
+      end
+    end
+  end
 end
 
 # == Schema Information

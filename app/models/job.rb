@@ -135,6 +135,27 @@ class Job < ApplicationRecord
     category&.name
   end
 
+  def number_to_fill
+    # TODO: Implement! (Add DB column)
+    1
+  end
+
+  def ssyk_id
+    # category&.ssyk_id TODO: Implement Category#ssyk_id
+    fail(NotImplementedError)
+  end
+
+  def schedule_summary
+    I18n.t('job.schedule_summary', start_date: job_date.to_date)
+  end
+
+  def salary_summary
+    I18n.t(
+      'job.salary_summary',
+      hourly_gross_salary_with_unit: hourly_pay.gross_salary_with_unit
+    )
+  end
+
   def frilans_finans_job?
     !staffing_job && !direct_recruitment_job
   end

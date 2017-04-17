@@ -5,4 +5,8 @@ module SecureGenerator
   def self.token(length: DEFAULT_TOKEN_LENGTH)
     SecureRandom.hex(length / 2)
   end
+
+  def self.uuid
+    SecureRandom.uuid
+  end
 end
