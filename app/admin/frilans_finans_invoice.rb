@@ -64,7 +64,6 @@ ActiveAdmin.register FrilansFinansInvoice do
   end
 
   member_action :create_invoice, method: :post do
-    asd
     ff_invoice = resource
     job_user = ff_invoice.job_user
     invoice = Invoice.new(job_user: job_user, frilans_finans_invoice: ff_invoice)
