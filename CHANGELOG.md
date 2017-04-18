@@ -3,6 +3,19 @@
 HEAD
 -----------
 
+v1.54 - 2017-04-18
+----------
+* _Admin_:
+  - Only show find FF user button when it makes sense
+  - Add ability to find and set a user @ FF from user show view
+  - Add link to job user translation on job user show view
+* _FrilansFinansApi_:
+  - Allow filtering of users by email
+* _Enhancement_:
+  - Add SSYK to `FrilansFinansImporter`
+* _DB_:
+  - Add `Category#ssyk` column
+
 
 v1.53 - 2017-04-16
 ----------
