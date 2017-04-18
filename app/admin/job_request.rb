@@ -159,6 +159,7 @@ ActiveAdmin.register JobRequest do
       f.input :company_org_no, hint: 'Company organisation number'
       f.input :company_email, hint: 'Email for company contact person'
       f.input :company_phone, hint: 'Phone for company contact person'
+      f.input :company_address, hint: 'Company address'
     end
 
     f.inputs 'Job details' do
