@@ -10,11 +10,6 @@ class JobSerializer < ApplicationSerializer
 
   link(:self) { api_v1_job_url(object) }
 
-  attribute :amount do
-    ActiveSupport::Deprecation.warn('#amount has been depreceted, use #gross_amount')
-    object.gross_amount
-  end
-
   attribute :name do
     object.original_name
   end
@@ -55,16 +50,6 @@ class JobSerializer < ApplicationSerializer
 
   attribute :net_amount_with_currency do
     to_unit(object.net_amount, object.currency)
-  end
-
-  has_many :job_users do
-    # Only disclose job users to the job owner
-    user = scope.fetch(:current_user)
-    if user && (user.id == object.owner_user_id || user.admin)
-      object.job_users
-    else
-      []
-    end
   end
 
   has_many :comments, unless: :collection_serializer? do
