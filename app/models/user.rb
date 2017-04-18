@@ -89,6 +89,7 @@ class User < ApplicationRecord
   validates :ssn, uniqueness: true, allow_blank: true
   validates :frilans_finans_id, uniqueness: true, allow_nil: true
   validates :country_of_origin, inclusion: { in: ISO3166::Country.translations.keys }, allow_blank: true # rubocop:disable Metrics/LineLength
+  validates :linkedin_url, linkedin: true
 
   validate :validate_arrived_at_date
   validate :validate_language_id_in_available_locale
