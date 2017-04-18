@@ -92,13 +92,13 @@ RSpec.describe Api::V1::Users::UserSkillsController, type: :controller do
           params = {
             user_id: user.to_param,
             data: {
-              attributes: { id: skill.to_param, proficiency: 7 }
+              attributes: { id: skill.to_param, proficiency: 5 }
             }
           }
           post :create, params: params, headers: valid_session
           expect(assigns(:user_skill)).to be_a(UserSkill)
           expect(assigns(:user_skill)).to be_persisted
-          expect(assigns(:user_skill).proficiency).to eq(7)
+          expect(assigns(:user_skill).proficiency).to eq(5)
         end
 
         it 'returns created status' do
@@ -166,7 +166,7 @@ RSpec.describe Api::V1::Users::UserSkillsController, type: :controller do
 
       it 'does *not* destroy the requested user_skill if touched by admin' do
         user_skill = user.user_skills.first
-        user_skill.update(proficiency_by_admin: 7)
+        user_skill.update(proficiency_by_admin: 5)
 
         expect do
           params = { user_id: user.to_param, user_skill_id: user_skill.to_param }
