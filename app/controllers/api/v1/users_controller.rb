@@ -102,6 +102,7 @@ module Api
           param :next_of_kin_name, String, desc: 'Next of kin name'
           param :next_of_kin_phone, String, desc: 'Next of kin phone'
           param :arbetsformedlingen_registered_at, Date, desc: 'Arbetsförmedlingen registered at'
+          param :linkedin_url, String, desc: 'Users LinkedIN URL'
           # rubocop:enable Metrics/LineLength
         end
       end
@@ -222,6 +223,7 @@ module Api
           param :next_of_kin_name, String, desc: 'Next of kin name'
           param :next_of_kin_phone, String, desc: 'Next of kin phone'
           param :arbetsformedlingen_registered_at, Date, desc: 'Arbetsförmedlingen registered at'
+          param :linkedin_url, String, desc: 'Users LinkedIN URL'
           # rubocop:enable Metrics/LineLength
         end
       end
@@ -399,7 +401,7 @@ module Api
           :education, :ssn, :street, :city, :zip, :language_id, :company_id,
           :competence_text, :current_status, :at_und, :arrived_at, :country_of_origin,
           :account_clearing_number, :account_number, :skype_username, :gender,
-          :bank_account,
+          :bank_account, :linkedin_url,
           :system_language_id, ignored_notifications: []
         ]
         jsonapi_params.permit(*whitelist)
