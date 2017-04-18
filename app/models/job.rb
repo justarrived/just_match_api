@@ -22,6 +22,7 @@ class Job < ApplicationRecord
   # rubocop:enable Metrics/LineLength
 
   has_one :company, through: :owner
+  has_one :job_request
 
   has_many :job_skills
   has_many :skills, through: :job_skills

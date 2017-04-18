@@ -35,14 +35,17 @@ end
 #  company_id            :integer
 #  delivery_user_id      :integer
 #  sales_user_id         :integer
+#  job_id                :integer
 #
 # Indexes
 #
 #  index_job_requests_on_company_id  (company_id)
+#  index_job_requests_on_job_id      (job_id)
 #
 # Foreign Keys
 #
 #  fk_rails_53030c1fe0               (company_id => companies.id)
+#  fk_rails_bb9ea76c8c               (job_id => jobs.id)
 #  job_requests_delivery_user_id_fk  (delivery_user_id => users.id)
 #  job_requests_sales_user_id_fk     (sales_user_id => users.id)
 #

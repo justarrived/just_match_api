@@ -77,6 +77,7 @@ ActiveAdmin.register JobRequest do
 
   show do |job_request|
     attributes_table do
+      row :job if job_request.job
       row :short_name
       row :sales_user
       row :delivery_user
@@ -147,6 +148,7 @@ ActiveAdmin.register JobRequest do
 
     # rubocop:disable Metrics/LineLength
     f.inputs 'Basic' do
+      f.input :job, hint: 'Job created based on this request'
       f.input :short_name, hint: 'For example "The IKEA-job"..'
       f.input :sales_user, as: :select, collection: User.sales_users, hint: 'Responsible person @ Sales department'
       f.input :delivery_user, as: :select, collection: User.delivery_users, hint: 'Responsible person @ Delivery department'
@@ -213,6 +215,7 @@ ActiveAdmin.register JobRequest do
       :company_email,
       :company_phone,
       :company_id,
+      :job_id,
       :company_address
     ]
   end
