@@ -51,6 +51,7 @@ class UserPolicy < ApplicationPolicy
   alias_method :chats?, :show?
   alias_method :create_document?, :show?
   alias_method :index_document?, :show?
+  alias_method :missing_traits?, :show?
 
   def jobs?
     admin_or_self? || company_user?

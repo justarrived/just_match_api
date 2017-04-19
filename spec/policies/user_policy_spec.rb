@@ -27,6 +27,10 @@ RSpec.describe UserPolicy do
       expect(subject.index_document?).to eq(false)
     end
 
+    it 'returns false for missing_traits' do
+      expect(subject.missing_traits?).to eq(false)
+    end
+
     it 'returns true for create' do
       expect(subject.create?).to eq(true)
     end
@@ -145,6 +149,10 @@ RSpec.describe UserPolicy do
       expect(subject.index_document?).to eq(true)
     end
 
+    it 'returns false for missing_traits' do
+      expect(subject.missing_traits?).to eq(true)
+    end
+
     it 'returns true for update' do
       expect(subject.update?).to eq(true)
     end
@@ -194,6 +202,10 @@ RSpec.describe UserPolicy do
 
     it 'returns true for index_document' do
       expect(subject.index_document?).to eq(true)
+    end
+
+    it 'returns false for missing_traits' do
+      expect(subject.missing_traits?).to eq(true)
     end
 
     it 'returns update for update' do
