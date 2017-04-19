@@ -33,7 +33,7 @@ module Arbetsformedlingen
 
     def build_packet
       @af_models[:packet] ||= Arbetsformedlingen::Packet.new(
-        publication: build_publication,
+        publication: build_publication(start_date: job.job_date),
         document: build_document,
         position: build_position,
         attributes: {
@@ -141,9 +141,9 @@ module Arbetsformedlingen
       )
     end
 
-    def build_publication
+    def build_publication(start_date:)
       @af_models[:publication] ||= Arbetsformedlingen::Publication.new(
-        publish_at_date: Time.zone.tomorrow,
+        publish_at_date: start_date,
         name: AppConfig.arbetsformedlingen_default_publisher_name,
         email: AppConfig.arbetsformedlingen_default_publisher_email
       )
