@@ -17,6 +17,7 @@ columns do
         row :city
         row :zip
         row :ssn
+        row :linkedin_url
       end
 
       h4 I18n.t('admin.user.show.interview_comment')
