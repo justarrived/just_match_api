@@ -98,6 +98,7 @@ en:
   user:
     missing_job_skills_trait: above you can find some relevant skills for this job that you haven't added yet
     missing_job_languages_trait: above you can find some relevant languages for this job that you haven't added yet
+    missing_languages_trait: we're interesting in knowing more about your language skills
     statuses:
       asylum_seeker: Asylum seeker
       asylum_seeker_description: Asylum seeker

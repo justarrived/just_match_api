@@ -10,30 +10,23 @@ module Api
 
         after_action :verify_authorized, except: %i(missing_traits job_user)
 
+        resource_description do
+          resource_id 'jobs'
+        end
+
         api :GET, '/jobs/:job_id/users/:user_id/missing-traits', 'Show missing user traits' # rubocop:disable Metrics/LineLength
         description 'Returns list of missing user traits.'
         error code: 401, desc: 'Unauthorized'
         error code: 404, desc: 'Not found'
-        example <<-JSON_EXAMPLE
-        # Response example
-        {
-          "data": {
-            "id": "c67f8be62d3d4e722a00cd68e5970c2a",
-            "type": "missing_user_traits",
-            "attributes": {
-              "city": {},
-              "skill-ids": {
-                "ids": [1, 2],
-                "hint": "please add the missing skills"
-              },
-              "language-ids": {
-                "ids":[5, 6],
-                "hint": "please add the missing languages"
-              }
-            }
-          }
-        }
-        JSON_EXAMPLE
+        example JSON.pretty_generate(
+          MissingUserTraitsSerializer.serialize(
+            user_attributes: %i(street city zip),
+            languages: [Struct.new(:id).new(1)],
+            languages_hint: 'any skill hint',
+            skills: [Struct.new(:id).new(1)],
+            skills_hint: 'any skill hint'
+          ).to_h
+        )
         def missing_traits
           missing = Queries::MissingUserTraits
           missing_skills = missing.skills(user: @user, skills: @job.skills)
@@ -46,7 +39,9 @@ module Api
           response = MissingUserTraitsSerializer.serialize(
             user_attributes: missing_user_attributes,
             skills: missing_skills,
+            skills_hint: I18n.t('user.missing_job_skills_trait'),
             languages: missing_languages,
+            languages_hint: I18n.t('user.missing_job_languages_trait'),
             key_transform: key_transform_header
           )
           render json: response

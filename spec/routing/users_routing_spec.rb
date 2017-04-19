@@ -58,6 +58,11 @@ RSpec.describe Api::V1::UsersController, type: :routing do
       path = '/api/v1/users/genders'
       expect(get: path).to route_to('api/v1/users#genders')
     end
+
+    it 'routes to #missing_traits' do
+      path = '/api/v1/users/1/missing-traits'
+      expect(get: path).to route_to('api/v1/users#missing_traits', user_id: '1')
+    end
   end
 end
 

@@ -66,6 +66,8 @@ Rails.application.routes.draw do
           resources :user_images, module: :users, path: :images, only: [:show, :create]
           resources :ratings, module: :users, path: :ratings, only: [:index]
           resources :user_documents, module: :users, path: :documents, only: [:index, :create]
+
+          get :missing_traits, path: 'missing-traits'
         end
 
         collection do
