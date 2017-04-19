@@ -29,6 +29,11 @@ FactoryGirl.define do
     end
     # association :language
 
+    trait :bank_account do
+      account_clearing_number '8000-2'
+      account_number '0000000000'
+    end
+
     factory :user_with_tokens do
       transient do
         tokens_count 1

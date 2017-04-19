@@ -6,12 +6,12 @@ RSpec.describe Queries::UserTraitsForJob do
   describe '#missing_user_attributes' do
     it 'with missing user attributes it returns a list of missing attribute names' do
       user = User.new
-      expected = %w(ssn street zip city phone)
+      expected = %w(ssn street zip city phone bank_account)
       expect(described_class.missing_user_attributes(user: user)).to include(*expected)
     end
 
     it 'with *no* missing user attributes it returns an empty list' do
-      user = FactoryGirl.build(:user)
+      user = FactoryGirl.build(:user, :bank_account)
       expect(described_class.missing_user_attributes(user: user)).to be_empty
     end
   end

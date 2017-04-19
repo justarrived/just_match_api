@@ -15,6 +15,19 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe '#virtual_attributes' do
+    it 'returns all virtual user attributes' do
+      expect(User.new.virtual_attributes).to eq('bank_account' => nil)
+    end
+  end
+
+  describe '#all_attributes' do
+    it 'returns user attributes and virtual user attributes' do
+      expect(User.new.all_attributes).to include('bank_account' => nil)
+      expect(User.new.all_attributes).to include('first_name' => nil)
+    end
+  end
+
   describe '#contact_email' do
     context 'not managed' do
       let(:user) { FactoryGirl.build(:user, managed: false) }

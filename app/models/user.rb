@@ -130,10 +130,7 @@ class User < ApplicationRecord
 
   attr_accessor :password
 
-  attr_reader :consent, :bank_account
-  # This is needed until we deprecate the user of
-  # #account_number & #account_clearing_number
-  alias_method :account, :bank_account
+  attr_reader :consent
 
   include Translatable
   translates :description, :job_experience, :education, :competence_text
@@ -234,6 +231,14 @@ class User < ApplicationRecord
 
   def support_chat_activated?
     verified || super_admin || admin || just_arrived_staffing
+  end
+
+  def all_attributes
+    attributes.merge(virtual_attributes)
+  end
+
+  def virtual_attributes
+    { 'bank_account' => bank_account }
   end
 
   def bank_account_details?
@@ -349,9 +354,17 @@ class User < ApplicationRecord
     self.email = EmailAddress.normalize(email)
   end
 
+  def bank_account
+    return unless bank_account_details?
+
+    account_clearing_number + account_number
+  end
+  # This is needed until we deprecate the user of
+  # #account_number & #account_clearing_number
+  alias_method :account, :bank_account
+
   def bank_account=(full_account)
     account = SwedishBankAccount.new(full_account)
-    @bank_account = full_account
     return unless account.valid?
 
     self.account_clearing_number = account.clearing_number
