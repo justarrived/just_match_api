@@ -18,12 +18,12 @@ RSpec.describe Api::V1::Jobs::UsersController do
 
         skill_hash = {
           'ids' => job.skills.map(&:id),
-          'hint' => I18n.t('user.missing_skills_trait')
+          'hint' => I18n.t('user.missing_job_skills_trait')
         }
 
         language_hash = {
           'ids' => job.languages.map(&:id),
-          'hint' => I18n.t('user.missing_languages_trait')
+          'hint' => I18n.t('user.missing_job_languages_trait')
         }
 
         expect(response.body).to be_jsonapi_attribute('city', {})

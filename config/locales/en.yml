@@ -96,8 +96,8 @@ en:
   record_not_found: Record does not exist.
   token_expired_error: Your token has expired.
   user:
-    missing_skills_trait: above you can find some relevant skills for this job that you haven't added yet
-    missing_languages_trait: above you can find some relevant languages for this job that you haven't added yet
+    missing_job_skills_trait: above you can find some relevant skills for this job that you haven't added yet
+    missing_job_languages_trait: above you can find some relevant languages for this job that you haven't added yet
     statuses:
       asylum_seeker: Asylum seeker
       asylum_seeker_description: Asylum seeker
