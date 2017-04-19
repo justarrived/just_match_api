@@ -109,6 +109,15 @@ RSpec.describe User, type: :model do
       expect(user.account_clearing_number).to eq(clearing)
       expect(user.account_number).to eq(number.delete(' '))
     end
+
+    it 'adds error for invalid bank account' do
+      user = User.new
+      user.bank_account = 'asd'
+
+      user.validate_swedish_bank_account
+
+      expect(user.errors.messages[:bank_account].length).not_to be_zero
+    end
   end
 
   describe '#set_normalized_bank_account' do

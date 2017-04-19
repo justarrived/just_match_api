@@ -355,6 +355,7 @@ class User < ApplicationRecord
   end
 
   def bank_account
+    return @bank_account if @bank_account
     return unless bank_account_details?
 
     account_clearing_number + account_number
@@ -365,7 +366,11 @@ class User < ApplicationRecord
 
   def bank_account=(full_account)
     account = SwedishBankAccount.new(full_account)
+    @bank_account = full_account # make sure the accessor has access to the "fresh" value
     return unless account.valid?
+
+    # make sure that the accessor can access the "cleaned" value
+    @bank_account = account.clearing_number + account.serial_number
 
     self.account_clearing_number = account.clearing_number
     self.account_number = account.serial_number
