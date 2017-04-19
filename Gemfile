@@ -80,7 +80,7 @@ gem 'fast_blank', '~> 1.0' # Re-implements #blank? in C
 gem 'yagni_json_encoder', '~> 1.0' # Make Rails use the OJ gem for JSON
 
 # DOCS
-gem 'apipie-rails', '~> 0.3' # Easy API documentation
+gem 'apipie-rails', '~> 0.5' # Easy API documentation
 gem 'maruku', '~> 0.7' # Needed for apipie-rails markdown support
 
 # UTILS
