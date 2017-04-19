@@ -103,6 +103,7 @@ module Api
           param :next_of_kin_phone, String, desc: 'Next of kin phone'
           param :arbetsformedlingen_registered_at, Date, desc: 'Arbetsförmedlingen registered at'
           param :linkedin_url, String, desc: 'Users LinkedIN URL'
+          param :facebook_url, String, desc: 'Users Facebook URL'
           # rubocop:enable Metrics/LineLength
         end
       end
@@ -224,6 +225,7 @@ module Api
           param :next_of_kin_phone, String, desc: 'Next of kin phone'
           param :arbetsformedlingen_registered_at, Date, desc: 'Arbetsförmedlingen registered at'
           param :linkedin_url, String, desc: 'Users LinkedIN URL'
+          param :facebook_url, String, desc: 'Users Facebook URL'
           # rubocop:enable Metrics/LineLength
         end
       end
