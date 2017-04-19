@@ -403,7 +403,7 @@ module Api
           :education, :ssn, :street, :city, :zip, :language_id, :company_id,
           :competence_text, :current_status, :at_und, :arrived_at, :country_of_origin,
           :account_clearing_number, :account_number, :skype_username, :gender,
-          :bank_account, :linkedin_url,
+          :bank_account, :linkedin_url, :facebook_url,
           :system_language_id, ignored_notifications: []
         ]
         jsonapi_params.permit(*whitelist)
