@@ -14,8 +14,9 @@ class CreateJobApplicationService
         )
       end
 
-      missing_skills = job.skills - user.skills
-      missing_languages = job.languages - user.languages
+      missing_traits = Queries::MissingUserTraits
+      missing_skills = missing_traits.skills(user: user, skills: job.skills)
+      missing_languages = missing_traits.languages(user: user, languages: job.languages)
       NewApplicantNotifier.call(
         job_user: job_user,
         owner: job_owner,

@@ -35,10 +35,13 @@ module Api
         }
         JSON_EXAMPLE
         def missing_traits
-          trait_queries = Queries::UserTraitsForJob
-          missing_skills = trait_queries.missing_skills(job: @job, user: @user)
-          missing_languages = trait_queries.missing_languages(job: @job, user: @user)
-          missing_user_attributes = trait_queries.missing_user_attributes(user: @user)
+          missing = Queries::MissingUserTraits
+          missing_skills = missing.skills(user: @user, skills: @job.skills)
+          missing_languages = missing.languages(user: @user, languages: @job.languages)
+          missing_user_attributes = missing.attributes(
+            user: @user,
+            attributes: %i(ssn street zip city phone)
+          )
 
           response = MissingUserTraitsSerializer.serialize(
             user_attributes: missing_user_attributes,

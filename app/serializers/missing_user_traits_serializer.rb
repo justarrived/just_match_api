@@ -6,14 +6,14 @@ class MissingUserTraitsSerializer
     if skills.any?
       attributes[:skill_ids] = {
         ids: skills.map(&:id),
-        hint: I18n.t('user.missing_skills_trait')
+        hint: I18n.t('user.missing_job_skills_trait')
       }
     end
 
     if languages.any?
       attributes[:language_ids] = {
         ids: languages.map(&:id),
-        hint: I18n.t('user.missing_languages_trait')
+        hint: I18n.t('user.missing_job_languages_trait')
       }
     end
 
