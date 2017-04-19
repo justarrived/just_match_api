@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170419145446) do
+ActiveRecord::Schema.define(version: 20170419185841) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -522,6 +522,18 @@ ActiveRecord::Schema.define(version: 20170419145446) do
     t.index ["language_id"], name: "index_messages_on_language_id", using: :btree
   end
 
+  create_table "orders", force: :cascade do |t|
+    t.integer  "job_request_id"
+    t.integer  "hourly_pay_id"
+    t.decimal  "invoice_hourly_pay_rate"
+    t.decimal  "hours"
+    t.boolean  "lost",                    default: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+    t.index ["hourly_pay_id"], name: "index_orders_on_hourly_pay_id", using: :btree
+    t.index ["job_request_id"], name: "index_orders_on_job_request_id", using: :btree
+  end
+
   create_table "ratings", force: :cascade do |t|
     t.integer  "from_user_id"
     t.integer  "to_user_id"
@@ -860,6 +872,8 @@ ActiveRecord::Schema.define(version: 20170419145446) do
   add_foreign_key "messages", "chats"
   add_foreign_key "messages", "languages"
   add_foreign_key "messages", "users", column: "author_id", name: "messages_author_id_fk"
+  add_foreign_key "orders", "hourly_pays"
+  add_foreign_key "orders", "job_requests"
   add_foreign_key "ratings", "jobs", name: "ratings_job_id_fk"
   add_foreign_key "ratings", "users", column: "from_user_id", name: "ratings_from_user_id_fk"
   add_foreign_key "ratings", "users", column: "to_user_id", name: "ratings_to_user_id_fk"
