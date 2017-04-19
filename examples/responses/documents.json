@@ -5,7 +5,7 @@
       "type": "documents",
       "attributes": {
         "one_time_token": "ea91a434-3381-480d-95fc-4e3efccc08b7",
-        "one_time_token_expires_at": "2016-02-11 01:01:01 +0100",
+        "one_time_token_expires_at": "2016-02-11T01:01:01.000+01:00",
         "document_url": "localhost//documents/documents/000/000/001/original/test.doc"
       }
     }

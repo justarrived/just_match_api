@@ -5,22 +5,21 @@
       "type": "jobs",
       "attributes": {
         "description": null,
-        "job_date": "2016-02-18 01:01:01 +0100",
+        "job_date": "2016-02-18T01:01:01.000+01:00",
         "hours": 30.0,
         "name": null,
-        "created_at": "2016-02-10 01:01:01 +0100",
-        "updated_at": "2016-02-12 01:01:01 +0100",
+        "created_at": "2016-02-10T01:01:01.000+01:00",
+        "updated_at": "2016-02-12T01:01:01.000+01:00",
         "zip": "223 52",
         "zip_latitude": 59.7117339,
         "zip_longitude": 18.4256286,
         "verified": false,
-        "job_end_date": "2016-02-20 01:01:01 +0100",
+        "job_end_date": "2016-02-20T01:01:01.000+01:00",
         "filled": false,
         "short_description": null,
         "featured": false,
         "upcoming": false,
         "street": "Bankgatan 14C",
-        "amount": 3000.0,
         "translated_text": {
           "name": null,
           "short_description": null,
@@ -43,11 +42,6 @@
         "direct_recruitment_job": false
       },
       "relationships": {
-        "job_users": {
-          "data": [
-
-          ]
-        },
         "owner": {
           "data": {
             "id": "6",
