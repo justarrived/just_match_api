@@ -9,21 +9,36 @@ class Order < ApplicationRecord
   validates :invoice_hourly_pay_rate, presence: true
   validates :hourly_pay_rate, presence: true, numericality: { greater_than_or_equal_to: 105 } # rubocop:disable Metrics/LineLength
 
-  scope :unfilled, (-> { joins(:jobs).where(jobs: { filled: false }) })
+  scope :unfilled, (-> { where(lost: false).joins(:jobs).where(jobs: { filled: false }) })
+
+  def filled_jobs
+    jobs.filled
+  end
+
+  def total_revenue
+    invoice_hourly_pay_rate * hours
+  end
+
+  def total_filled_revenue
+    filled_jobs.map { |job| job.hours * filled_invoice_hourly_pay_rate.to_i }.sum
+  end
 end
 
 # == Schema Information
 #
 # Table name: orders
 #
-#  id                      :integer          not null, primary key
-#  job_request_id          :integer
-#  invoice_hourly_pay_rate :decimal(, )
-#  hourly_pay_rate         :decimal(, )
-#  hours                   :decimal(, )
-#  lost                    :boolean          default(FALSE)
-#  created_at              :datetime         not null
-#  updated_at              :datetime         not null
+#  id                             :integer          not null, primary key
+#  job_request_id                 :integer
+#  invoice_hourly_pay_rate        :decimal(, )
+#  hourly_pay_rate                :decimal(, )
+#  hours                          :decimal(, )
+#  lost                           :boolean          default(FALSE)
+#  created_at                     :datetime         not null
+#  updated_at                     :datetime         not null
+#  filled_hourly_pay_rate         :decimal(, )
+#  filled_invoice_hourly_pay_rate :decimal(, )
+#  filled_hours                   :decimal(, )
 #
 # Indexes
 #

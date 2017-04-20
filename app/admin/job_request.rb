@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 ActiveAdmin.register JobRequest do
-  menu priority: 10
+  menu parent: 'Sales'
 
   batch_action :draft_sent, confirm: I18n.t('admin.batch_action_confirm') do |ids|
     collection.where(id: ids).map { |u| u.update(draft_sent: true) }

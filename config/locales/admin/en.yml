@@ -63,7 +63,7 @@ en:
       queued_msg_multiple: Machine translations queued successfully.
       post_btn: Machine Translate
     order:
-      job_requested_already_created: An order for this has already been created.
+      job_requested_already_created: An order for this has already been created. But don't worry you can find it below.
       create_job: Create job
     job_request:
       clone: Clone

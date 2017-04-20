@@ -1,11 +1,16 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register Order do
+  menu parent: 'Sales'
+
   filter :job_request_sales_user_id, as: :select, collection: -> { User.sales_users }
   filter :job_request_delivery_user_id, as: :select, collection: -> { User.delivery_users } # rubocop:disable Metrics/LineLength
   filter :invoice_hourly_pay_rate
   filter :hourly_pay_rate
   filter :hours
+  filter :filled_invoice_hourly_pay_rate
+  filter :filled_hourly_pay_rate
+  filter :filled_hours
   filter :created_at
   filter :updated_at
 
@@ -31,6 +36,19 @@ ActiveAdmin.register Order do
     end
   end
 
+  index do
+    selectable_column
+
+    column :order { |order| link_to(order.display_name, admin_order_path(order)) }
+    column :job_request
+    column :total_revenue
+    column :total_filled_revenue
+
+    column :lost
+
+    column :updated_at
+  end
+
   show do |order|
     attributes_table do
       row :job_request
@@ -43,9 +61,15 @@ ActiveAdmin.register Order do
           ', '
         )
       end
+      row :total_revenue
       row :invoice_hourly_pay_rate
       row :hourly_pay_rate
       row :hours
+      row :total_filled_revenue
+      row :filled_invoice_hourly_pay_rate
+      row :filled_hourly_pay_rate
+      row :filled_hours
+
       row :lost
       row :created_at
       row :updated_at
@@ -54,7 +78,33 @@ ActiveAdmin.register Order do
     active_admin_comments
   end
 
+  form do |f|
+    f.inputs do
+      f.input :job_request
+
+      f.input :invoice_hourly_pay_rate
+      f.input :hourly_pay_rate
+      f.input :hours
+
+      if f.object.persisted?
+        f.input :filled_invoice_hourly_pay_rate
+        f.input :filled_hourly_pay_rate
+        f.input :filled_hours
+      end
+
+      f.input :lost
+    end
+
+    f.actions
+  end
+
   permit_params do
     %i(invoice_hourly_pay_rate hours lost job_request_id hourly_pay_rate)
+  end
+
+  controller do
+    def scoped_collection
+      super.includes(:jobs)
+    end
   end
 end

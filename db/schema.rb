@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170420083012) do
+ActiveRecord::Schema.define(version: 20170420141411) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -546,9 +546,12 @@ ActiveRecord::Schema.define(version: 20170420083012) do
     t.decimal  "invoice_hourly_pay_rate"
     t.decimal  "hourly_pay_rate"
     t.decimal  "hours"
-    t.boolean  "lost",                    default: false
-    t.datetime "created_at",                              null: false
-    t.datetime "updated_at",                              null: false
+    t.boolean  "lost",                           default: false
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
+    t.decimal  "filled_hourly_pay_rate"
+    t.decimal  "filled_invoice_hourly_pay_rate"
+    t.decimal  "filled_hours"
     t.index ["job_request_id"], name: "index_orders_on_job_request_id", using: :btree
   end
 
