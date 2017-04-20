@@ -5,7 +5,6 @@ class Order < ApplicationRecord
 
   has_many :jobs
 
-  validates :job_request, uniqueness: true, presence: true
   validates :hours, presence: true, numericality: { greater_than_or_equal_to: 1 }
   validates :invoice_hourly_pay_rate, presence: true
   validates :hourly_pay_rate, presence: true, numericality: { greater_than_or_equal_to: 105 } # rubocop:disable Metrics/LineLength
