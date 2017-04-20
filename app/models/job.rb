@@ -12,6 +12,7 @@ class Job < ApplicationRecord
   MIN_HOURS_PER_DAY = 0.5
   MAX_HOURS_PER_DAY = 12
 
+  belongs_to :order, optional: true
   belongs_to :language, optional: true
   belongs_to :category
   belongs_to :hourly_pay
@@ -22,7 +23,6 @@ class Job < ApplicationRecord
   # rubocop:enable Metrics/LineLength
 
   has_one :company, through: :owner
-  has_one :job_request
 
   has_many :job_skills
   has_many :skills, through: :job_skills
@@ -367,18 +367,21 @@ end
 #  direct_recruitment_job       :boolean          default(FALSE)
 #  municipality                 :string
 #  number_to_fill               :integer          default(1)
+#  order_id                     :integer
 #
 # Indexes
 #
 #  index_jobs_on_category_id    (category_id)
 #  index_jobs_on_hourly_pay_id  (hourly_pay_id)
 #  index_jobs_on_language_id    (language_id)
+#  index_jobs_on_order_id       (order_id)
 #
 # Foreign Keys
 #
 #  fk_rails_1cf0b3b406                   (category_id => categories.id)
 #  fk_rails_70cb33aa57                   (language_id => languages.id)
 #  fk_rails_b144fc917d                   (hourly_pay_id => hourly_pays.id)
+#  fk_rails_ca13181750                   (order_id => orders.id)
 #  jobs_company_contact_user_id_fk       (company_contact_user_id => users.id)
 #  jobs_just_arrived_contact_user_id_fk  (just_arrived_contact_user_id => users.id)
 #  jobs_owner_user_id_fk                 (owner_user_id => users.id)

@@ -62,8 +62,13 @@ en:
       queued_msg: Machine translation queued successfully.
       queued_msg_multiple: Machine translations queued successfully.
       post_btn: Machine Translate
+    order:
+      job_requested_already_created: An order for this has already been created. But don't worry you can find it below.
+      create_job: Create job
     job_request:
       clone: Clone
+      create_order: Create order
+      show_order: Show order
       batch:
         draft_sent: Marked as draft sent
         signed_by_customer: Marked as signed by customer

@@ -4,7 +4,6 @@ panel(I18n.t('admin.job.show.general')) do
     row :id
     row :filled
     row :name
-    row :job_request
     row :hours
     row :gross_amount { |job| "#{job.gross_amount} SEK" }
     row :job_date

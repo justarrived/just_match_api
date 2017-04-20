@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170419145446) do
+ActiveRecord::Schema.define(version: 20170420141411) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,22 @@ ActiveRecord::Schema.define(version: 20170419145446) do
     t.index ["name", "time"], name: "index_ahoy_events_on_name_and_time", using: :btree
     t.index ["user_id", "name"], name: "index_ahoy_events_on_user_id_and_name", using: :btree
     t.index ["visit_id", "name"], name: "index_ahoy_events_on_visit_id_and_name", using: :btree
+  end
+
+  create_table "arbetsformedlingen_ad_logs", force: :cascade do |t|
+    t.integer  "arbetsformedlingen_ad_id"
+    t.json     "response"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.index ["arbetsformedlingen_ad_id"], name: "index_arbetsformedlingen_ad_logs_on_arbetsformedlingen_ad_id", using: :btree
+  end
+
+  create_table "arbetsformedlingen_ads", force: :cascade do |t|
+    t.integer  "job_id"
+    t.boolean  "published",  default: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.index ["job_id"], name: "index_arbetsformedlingen_ads_on_job_id", using: :btree
   end
 
   create_table "blazer_audits", force: :cascade do |t|
@@ -167,6 +183,7 @@ ActiveRecord::Schema.define(version: 20170419145446) do
     t.string   "city"
     t.string   "phone"
     t.string   "billing_email"
+    t.string   "municipality"
     t.index ["cin"], name: "index_companies_on_cin", unique: true, using: :btree
     t.index ["frilans_finans_id"], name: "index_companies_on_frilans_finans_id", unique: true, using: :btree
   end
@@ -371,9 +388,7 @@ ActiveRecord::Schema.define(version: 20170419145446) do
     t.integer  "company_id"
     t.integer  "delivery_user_id"
     t.integer  "sales_user_id"
-    t.integer  "job_id"
     t.index ["company_id"], name: "index_job_requests_on_company_id", using: :btree
-    t.index ["job_id"], name: "index_job_requests_on_job_id", using: :btree
   end
 
   create_table "job_skills", force: :cascade do |t|
@@ -464,9 +479,13 @@ ActiveRecord::Schema.define(version: 20170419145446) do
     t.string   "city"
     t.boolean  "staffing_job",                 default: false
     t.boolean  "direct_recruitment_job",       default: false
+    t.string   "municipality"
+    t.integer  "number_to_fill",               default: 1
+    t.integer  "order_id"
     t.index ["category_id"], name: "index_jobs_on_category_id", using: :btree
     t.index ["hourly_pay_id"], name: "index_jobs_on_hourly_pay_id", using: :btree
     t.index ["language_id"], name: "index_jobs_on_language_id", using: :btree
+    t.index ["order_id"], name: "index_jobs_on_order_id", using: :btree
   end
 
   create_table "language_filters", force: :cascade do |t|
@@ -520,6 +539,20 @@ ActiveRecord::Schema.define(version: 20170419145446) do
     t.datetime "updated_at",  null: false
     t.index ["chat_id"], name: "index_messages_on_chat_id", using: :btree
     t.index ["language_id"], name: "index_messages_on_language_id", using: :btree
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.integer  "job_request_id"
+    t.decimal  "invoice_hourly_pay_rate"
+    t.decimal  "hourly_pay_rate"
+    t.decimal  "hours"
+    t.boolean  "lost",                           default: false
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
+    t.decimal  "filled_hourly_pay_rate"
+    t.decimal  "filled_invoice_hourly_pay_rate"
+    t.decimal  "filled_hours"
+    t.index ["job_request_id"], name: "index_orders_on_job_request_id", using: :btree
   end
 
   create_table "ratings", force: :cascade do |t|
@@ -804,6 +837,8 @@ ActiveRecord::Schema.define(version: 20170419145446) do
 
   add_foreign_key "ahoy_events", "users", name: "ahoy_events_user_id_fk"
   add_foreign_key "ahoy_events", "visits", name: "ahoy_events_visit_id_fk"
+  add_foreign_key "arbetsformedlingen_ad_logs", "arbetsformedlingen_ads"
+  add_foreign_key "arbetsformedlingen_ads", "jobs"
   add_foreign_key "blazer_audits", "blazer_queries", column: "query_id", name: "blazer_audits_query_id_fk"
   add_foreign_key "blazer_checks", "blazer_queries", column: "query_id", name: "blazer_checks_query_id_fk"
   add_foreign_key "blazer_dashboard_queries", "blazer_dashboards", column: "dashboard_id", name: "blazer_dashboard_queries_dashboard_id_fk"
@@ -835,7 +870,6 @@ ActiveRecord::Schema.define(version: 20170419145446) do
   add_foreign_key "job_languages", "jobs"
   add_foreign_key "job_languages", "languages"
   add_foreign_key "job_requests", "companies"
-  add_foreign_key "job_requests", "jobs"
   add_foreign_key "job_requests", "users", column: "delivery_user_id", name: "job_requests_delivery_user_id_fk"
   add_foreign_key "job_requests", "users", column: "sales_user_id", name: "job_requests_sales_user_id_fk"
   add_foreign_key "job_skills", "jobs"
@@ -850,6 +884,7 @@ ActiveRecord::Schema.define(version: 20170419145446) do
   add_foreign_key "jobs", "categories"
   add_foreign_key "jobs", "hourly_pays"
   add_foreign_key "jobs", "languages"
+  add_foreign_key "jobs", "orders"
   add_foreign_key "jobs", "users", column: "company_contact_user_id", name: "jobs_company_contact_user_id_fk"
   add_foreign_key "jobs", "users", column: "just_arrived_contact_user_id", name: "jobs_just_arrived_contact_user_id_fk"
   add_foreign_key "jobs", "users", column: "owner_user_id", name: "jobs_owner_user_id_fk"
@@ -860,6 +895,7 @@ ActiveRecord::Schema.define(version: 20170419145446) do
   add_foreign_key "messages", "chats"
   add_foreign_key "messages", "languages"
   add_foreign_key "messages", "users", column: "author_id", name: "messages_author_id_fk"
+  add_foreign_key "orders", "job_requests"
   add_foreign_key "ratings", "jobs", name: "ratings_job_id_fk"
   add_foreign_key "ratings", "users", column: "from_user_id", name: "ratings_from_user_id_fk"
   add_foreign_key "ratings", "users", column: "to_user_id", name: "ratings_to_user_id_fk"
