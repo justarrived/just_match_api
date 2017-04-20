@@ -38,6 +38,15 @@ ActiveAdmin.register JobRequest do
     link_to(I18n.t('admin.job_request.clone'), path)
   end
 
+  action_item :create_order, only: :show, if: -> { !resource.order } do
+    path = create_order_with_job_request_admin_order_path(job_request_id: job_request.id)
+    link_to(I18n.t('admin.job_request.create_order'), path)
+  end
+
+  action_item :show_order, only: :show, if: -> { resource.order } do
+    link_to(I18n.t('admin.job_request.show_order'), admin_order_path(job_request.order))
+  end
+
   scope :all, default: true
   scope :pending
   scope :finished
@@ -77,7 +86,15 @@ ActiveAdmin.register JobRequest do
 
   show do |job_request|
     attributes_table do
-      row :job if job_request.job
+      if job_request.order
+        row :order
+        row :jobs do
+          job_links = job_request.order.jobs.with_translations.map do |job|
+            link_to job.display_name, admin_job_path(job)
+          end
+          safe_join(job_links, ', ')
+        end
+      end
       row :short_name
       row :sales_user
       row :delivery_user
@@ -148,7 +165,6 @@ ActiveAdmin.register JobRequest do
 
     # rubocop:disable Metrics/LineLength
     f.inputs 'Basic' do
-      f.input :job, hint: 'Job created based on this request'
       f.input :short_name, hint: 'For example "The IKEA-job"..'
       f.input :sales_user, as: :select, collection: User.sales_users, hint: 'Responsible person @ Sales department'
       f.input :delivery_user, as: :select, collection: User.delivery_users, hint: 'Responsible person @ Delivery department'
@@ -215,7 +231,6 @@ ActiveAdmin.register JobRequest do
       :company_email,
       :company_phone,
       :company_id,
-      :job_id,
       :company_address
     ]
   end
