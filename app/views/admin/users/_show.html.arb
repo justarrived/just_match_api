@@ -18,6 +18,7 @@ columns do
         row :zip
         row :ssn
         row :linkedin_url
+        row :facebook_url
       end
 
       h4 I18n.t('admin.user.show.interview_comment')
