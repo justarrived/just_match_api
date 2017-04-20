@@ -4,13 +4,13 @@ FactoryGirl.define do
   factory :order do
     association :job_request
 
-    hourly_pay_rate 9.98
-    invoice_hourly_pay_rate 9.99
-    hours 9.99
+    hourly_pay_rate 119.98
+    invoice_hourly_pay_rate 1119.99
+    hours 119.99
 
-    filled_hourly_pay_rate 8.98
-    filled_invoice_hourly_pay_rate 8.99
-    filled_hours 9.99
+    filled_hourly_pay_rate 181.98
+    filled_invoice_hourly_pay_rate 218.99
+    filled_hours 99.99
 
     lost false
   end
