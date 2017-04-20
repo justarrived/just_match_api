@@ -3,6 +3,44 @@
 HEAD
 -----------
 
+
+v1.55 - 2017-04-20
+----------
+* _API_:
+  - Add /users/:id/missing-traits. Closes #1082
+  - Add User#bank_account to user serializer
+  - Add User#facebook_url to permitted params
+  - Add User#facebook_url to user serializer
+  - Remove deprecated resources (amount & job-users) in Job serializer
+  - Remove redundant attributes from User language serializer. Closes #1008
+* _Admin_:
+  - Add `JobRequest#company_address` to form
+  - Add `linkedin_url` to user show page
+  - Fix user chat link on user show page
+  - Improve job request & order dashboards
+* _Feature_:
+  - Implement `job *-- order -- job_request`, to track orders
+* _Bugfix_:
+  - Fix broken User bank account validation
+* _Enhancement_:
+  - Don't notify already rejected job users
+  - Update min gem requirements in Gemfile
+  - Validate UserSkill proficiency range
+  - Refactor missing user traits
+  - Add `User#linkedin_url`
+  - Add `User#facebook_url`
+  - Move `app/support/*_validators` to `app/validators/`
+  - Create LinkedIN URL validator
+* _Update gem_:
+  - aws-sdk
+  - apipie-rails
+  - blazer
+  - inherited_resources
+  - development group gems
+* _Docs_:
+  - Regenerate API doc examples
+
+
 v1.54 - 2017-04-18
 ----------
 * _Admin_:
