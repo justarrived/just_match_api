@@ -132,6 +132,10 @@ class Job < ApplicationRecord
     [[I18n.t('admin.form.no_job_chosen'), nil]] + form_array
   end
 
+  def application_url
+    FrontendRouter.draw(:job, id: id)
+  end
+
   def profession_title
     category&.name
   end
