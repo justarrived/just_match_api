@@ -6,6 +6,14 @@ RSpec.describe Job, type: :model do
     describe '#matches_user'
   end
 
+  describe '#application_url' do
+    it 'returns the correct application URL' do
+      id = 7
+      job = Job.new(id: id)
+      expect(job.application_url).to eq(FrontendRouter.draw(:job, id: id))
+    end
+  end
+
   describe '#ended?' do
     it 'returns false if job end date is in the future' do
       job = FactoryGirl.build(:job, job_end_date: 1.minute.from_now)
