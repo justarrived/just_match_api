@@ -9,7 +9,11 @@ class Order < ApplicationRecord
   validates :invoice_hourly_pay_rate, presence: true
   validates :hourly_pay_rate, presence: true, numericality: { greater_than_or_equal_to: 105 } # rubocop:disable Metrics/LineLength
 
-  scope :unfilled, (-> { where(lost: false).joins(:jobs).where(jobs: { filled: false }) })
+  scope :unfilled, (lambda {
+    where(lost: false).
+      joins('LEFT OUTER JOIN jobs ON jobs.order_id = orders.id').
+      where('jobs.id IS NULL OR jobs.filled = false')
+  })
 
   def filled_jobs
     jobs.filled
@@ -20,7 +24,7 @@ class Order < ApplicationRecord
   end
 
   def total_filled_revenue
-    filled_jobs.map { |job| job.hours * filled_invoice_hourly_pay_rate.to_i }.sum
+    filled_jobs.map { |job| job.hours * filled_invoice_hourly_pay_rate.to_f }.sum
   end
 end
 

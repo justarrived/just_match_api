@@ -90,7 +90,8 @@ ActiveAdmin.register JobRequest do
         row :order
         row :jobs do
           job_links = job_request.order.jobs.with_translations.map do |job|
-            link_to job.display_name, admin_job_path(job)
+            name = "#{job.display_name} (#{job.filled ? 'filled' : 'unfilled'})"
+            link_to name, admin_job_path(job)
           end
           safe_join(job_links, ', ')
         end
