@@ -531,7 +531,11 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
   describe 'GET #missing_traits' do
     it 'returns the missing traits' do
+      Language.find_or_create_by(lang_code: :en)
+      sv = Language.find_or_create_by(lang_code: :sv)
+
       user = FactoryGirl.create(:user, city: nil)
+      user.languages = [sv]
       get :missing_traits, params: { user_id: user.to_param }, headers: valid_admin_session # rubocop:disable Metrics/LineLength
 
       language_hash = {

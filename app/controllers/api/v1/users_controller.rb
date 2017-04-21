@@ -374,15 +374,18 @@ module Api
       )
       def missing_traits
         authorize(@user)
+        missing_traits = Queries::MissingUserTraits
 
-        missing_attributes = Queries::MissingUserTraits.attributes(
+        missing_attributes = missing_traits.attributes(
           user: @user,
           attributes: %i(ssn street zip city phone)
         )
+        languages = Language.common_working_languages_for(country: :se)
+        missing_languages = missing_traits.languages(user: @user, languages: languages)
 
         response = MissingUserTraitsSerializer.serialize(
           user_attributes: missing_attributes,
-          languages: Language.common_working_languages_for(country: :se),
+          languages: missing_languages,
           languages_hint: I18n.t('user.missing_languages_trait')
         )
         render json: response
