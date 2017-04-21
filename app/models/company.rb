@@ -16,6 +16,7 @@ class Company < ApplicationRecord
   validates :zip, length: { minimum: 5 }, allow_blank: false
   validates :city, length: { minimum: 1 }, allow_blank: false
   validates :frilans_finans_id, uniqueness: true, allow_nil: true
+  validates :website, url: true
 
   # Virtual attributes for Frilans Finans
   attr_accessor :user_frilans_finans_id, :country_name
