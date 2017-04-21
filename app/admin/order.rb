@@ -23,17 +23,9 @@ ActiveAdmin.register Order do
   end
 
   member_action :create_order_with_job_request, method: :get do
-    job_request_id = params[:job_request_id]
+    @order = Order.new(job_request_id: params[:job_request_id])
 
-    @order = Order.find_by(job_request_id: job_request_id)
-    if @order
-      notice = I18n.t('admin.order.job_requested_already_created')
-      redirect_to admin_order_path(@order), alert: notice
-    else
-      @order = Order.new(job_request_id: job_request_id)
-
-      render :new, layout: false
-    end
+    render :new, layout: false
   end
 
   index do
