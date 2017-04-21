@@ -90,6 +90,7 @@ en:
       after_true: '%{field} must be true'
       unrevertable: can't revert %{field}
       linkedin_url: must be a LinkedIN URL
+      facebook_url: must be a Facebook URL
   invalid_credentials: Invalid credentials.
   promo_code_required: Promo code or login required.
   not_logged_in_error: Must be logged in.

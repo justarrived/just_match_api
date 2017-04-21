@@ -90,6 +90,7 @@ sv:
       after_true: '%{field} måste vara sant'
       unrevertable: kan inte återställa %{field}
       linkedin_url: måste vara en LinkedIN länk
+      facebook_url: måste vara en Facebook länk
   invalid_credentials: Fel referenser.
   promo_code_required: Promo kod eller inlogging krävs.
   not_logged_in_error: Måste vara inloggad.
