@@ -3,6 +3,14 @@
 HEAD
 -----------
 
+v1.57 - 2017-04-21
+----------
+* _API_:
+  - Only return actually missing languages for user missing traits
+  - Add `Job#application_url` to job serializer
+* _Enhancement_:
+  - Add facebook validator & improve linkedin validator
+
 
 v1.56 - 2017-04-21
 ----------
