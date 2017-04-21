@@ -4,6 +4,15 @@ HEAD
 -----------
 
 
+v1.56 - 2017-04-21
+----------
+* _Admin_:
+  - Order dashboard enhancements
+  - Add `User#facebook_url` to user show page
+* _Bugfix_:
+  - Misspelled method name in will perform notifier
+
+
 v1.55 - 2017-04-20
 ----------
 * _API_:
