@@ -46,8 +46,6 @@ Rails.application.configure do
 
   config.action_mailer.default_url_options = { host: 'localhost:3000' }
 
-  config.x.promo_code = nil
-
   config.active_job.queue_adapter = :test
 
   config.x.send_sms_notifications = false

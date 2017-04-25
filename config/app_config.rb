@@ -96,10 +96,6 @@ class AppConfig
       map(&:strip)
   end
 
-  def self.promo_code
-    env['PROMO_CODE']
-  end
-
   def self.send_sms_notifications?
     truthy?(env.fetch('SEND_SMS_NOTIFICATIONS', true))
   end

@@ -10,8 +10,6 @@ module Api
         api_versions '1.0'
       end
 
-      before_action :require_promo_code, except: [:index]
-
       api :GET, '/faqs', 'List FAQs'
       description 'Returns a list of FAQs. There are two possible values for `category`, `newcomer` and `company`' # rubocop:disable Metrics/LineLength
       # rubocop:disable Metrics/LineLength

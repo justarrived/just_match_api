@@ -13,8 +13,6 @@ module Api
           api_versions '1.0'
         end
 
-        before_action :require_promo_code, except: [:create, :magic_link]
-
         api :POST, '/users/sessions/', 'Get auth token'
         description 'Returns the Users auth token if the user is allowed.'
         error code: 401, desc: 'Unauthorized'

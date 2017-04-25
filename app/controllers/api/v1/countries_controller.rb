@@ -4,8 +4,6 @@ module Api
     class CountriesController < BaseController
       after_action :verify_authorized, except: [:index]
 
-      before_action :require_promo_code, except: [:index]
-
       resource_description do
         short 'API for countries'
         name 'Countries'
