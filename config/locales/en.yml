@@ -93,7 +93,6 @@ en:
       facebook_url: must be a Facebook URL
       url: must be an URL
   invalid_credentials: Invalid credentials.
-  promo_code_required: Promo code or login required.
   not_logged_in_error: Must be logged in.
   record_not_found: Record does not exist.
   token_expired_error: Your token has expired.

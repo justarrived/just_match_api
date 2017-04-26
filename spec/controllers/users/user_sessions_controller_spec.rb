@@ -73,21 +73,6 @@ RSpec.describe Api::V1::Users::UserSessionsController, type: :controller do
           jsonapi_params = JsonApiDeserializer.parse(json)
           expect(jsonapi_params['user_id']).not_to be_nil
         end
-
-        context 'promo code' do
-          before(:each) do
-            Rails.configuration.x.promo_code = 'test_promo_code'
-          end
-
-          after(:each) do
-            Rails.configuration.x.promo_code = nil
-          end
-
-          it 'lets the request pass even if there is a promo code' do
-            post :create, params: valid_attributes, headers: valid_session
-            expect(response.status).to eq(201)
-          end
-        end
       end
 
       context 'with phone given' do

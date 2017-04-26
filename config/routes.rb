@@ -120,11 +120,6 @@ Rails.application.routes.draw do
         end
       end
       resources :faqs, only: [:index]
-      resources :promo_codes, path: 'promo-codes', only: [] do
-        collection do
-          post :validate
-        end
-      end
 
       resources :sms, only: [] do
         collection do

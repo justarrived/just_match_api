@@ -93,7 +93,6 @@ sv:
       facebook_url: måste vara en Facebook länk
       url: måste vara en länk
   invalid_credentials: Fel referenser.
-  promo_code_required: Promo kod eller inlogging krävs.
   not_logged_in_error: Måste vara inloggad.
   record_not_found: Posten existerar inte.
   token_expired_error: Din token har upphört att gälla.

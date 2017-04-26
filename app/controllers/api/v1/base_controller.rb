@@ -31,10 +31,6 @@ module Api
 
           `Authorization: Token token=XXXYYYZZZ`
 
-          __Promo code (not always active)__
-
-          `X-API-PROMO-CODE: promocode` is used to specify the promo code, logged in users and logged in attemps are exempt.
-
           __Admin__
 
           `X-API-ACT-AS-USER` an admin can "act as" a user by sending this header.
@@ -272,7 +268,6 @@ module Api
 
       before_action :set_json_api_helper_default_key_transform_header
       before_action :authenticate_user_token!
-      before_action :require_promo_code
       before_action :set_locale
 
       ALLOWED_INCLUDES = [].freeze
@@ -339,17 +334,6 @@ module Api
 
       def included_resource?(resource_name)
         included_resources.include?(resource_name.to_s)
-      end
-
-      def require_promo_code
-        return if logged_in?
-
-        promo_code = Rails.configuration.x.promo_code
-        return if promo_code.nil? || promo_code == {} # Rails config can return nil & {}
-        return if promo_code == api_promo_code_header
-
-        status = 401 # unauthorized
-        render json: PromoCodeOrLoginRequired.add, status: status
       end
 
       def current_user
@@ -476,10 +460,6 @@ module Api
 
       def api_locale_header
         request.headers['X-API-LOCALE']
-      end
-
-      def api_promo_code_header
-        request.headers['X-API-PROMO-CODE']
       end
 
       def key_transform_header

@@ -2,8 +2,6 @@
 module Api
   module V1
     class HourlyPaysController < BaseController
-      before_action :require_promo_code, except: [:index, :calculate]
-
       resource_description do
         short 'API for hourly pays'
         name 'Hourly Pays'
