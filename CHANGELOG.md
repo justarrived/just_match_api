@@ -3,6 +3,27 @@
 HEAD
 -----------
 
+v1.58 - 2017-04-26
+----------
+* _Bugfix_:
+  - Custom error messages are returned correctly from the API
+* _Enhancement_:
+  - Update `User#bank_account` validation
+* _Gem updates_:
+  - active_admin_scoped_collection_actions
+  - skylight
+  - active_admin_datetimepicker
+  - aws-sdk
+  - faraday
+  - rainbow
+  - money
+  - fog-rackspace
+* Add URL validator and validate that Company#website is a valid URL
+* _Remove_:
+  * :hocho: Promo code
+  * Deprecated `User#account` method
+
+
 v1.57 - 2017-04-21
 ----------
 * _API_:
