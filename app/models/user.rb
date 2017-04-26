@@ -361,9 +361,6 @@ class User < ApplicationRecord
 
     account_clearing_number + account_number
   end
-  # This is needed until we deprecate the user of
-  # #account_number & #account_clearing_number
-  alias_method :account, :bank_account
 
   def bank_account=(full_account)
     account = SwedishBankAccount.new(full_account)
