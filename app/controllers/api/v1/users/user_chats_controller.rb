@@ -47,6 +47,18 @@ module Api
           api_render(@chat)
         end
 
+        api :GET, '/users/:user_id/chats/support-chat', 'Get user support chat.'
+        description 'Returns user support chat.'
+        ApipieDocHelper.params(self)
+        example Doxxer.read_example(Chat)
+        def support_chat
+          authorize(@user)
+
+          @chat = Chat.find_or_create_support_chat(@user)
+
+          api_render(@chat)
+        end
+
         private
 
         def set_user
