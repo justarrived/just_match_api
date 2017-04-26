@@ -222,7 +222,7 @@ ActiveAdmin.register User do
 
   show do |user|
     support_chat = Chat.includes(messages: [:translations, :author, :language]).
-                   find_support_chat(user)
+                   find_or_create_support_chat(user)
     render partial: 'admin/users/show', locals: { support_chat: support_chat }
   end
 

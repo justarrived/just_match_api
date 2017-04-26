@@ -49,6 +49,7 @@ class UserPolicy < ApplicationPolicy
   alias_method :matching_jobs?, :show?
   alias_method :frilans_finans?, :show?
   alias_method :chats?, :show?
+  alias_method :support_chat?, :show?
   alias_method :create_document?, :show?
   alias_method :index_document?, :show?
   alias_method :missing_traits?, :show?
