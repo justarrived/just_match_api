@@ -47,9 +47,10 @@ module JsonApiHelpers
       end
 
       def self.error_message_for(model_errors, field, error)
-        model_errors.generate_message(
-          field, error_type_for(error.fetch(:error)), count: error[:count]
-        )
+        message = error.fetch(:error)
+        return message if message.is_a?(String) # expects it to already be translated
+
+        model_errors.generate_message(field, message, count: error[:count])
       end
 
       def self.error_meta_for(error)

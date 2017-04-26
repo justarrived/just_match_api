@@ -10,6 +10,10 @@ RSpec.describe JsonApiHelpers::Serializers::ModelError do
 
     attr_accessor :name
     validates :name, length: { minimum: 3 }, presence: true
+
+    def add_custom_error
+      errors.add(:name, 'is not OK')
+    end
   end
 
   let(:model) { ExampleModel.new.tap(&:validate) }
@@ -33,8 +37,15 @@ RSpec.describe JsonApiHelpers::Serializers::ModelError do
     expect(min_error.dig(:source, :pointer)).to eq('/data/attributes/name')
   end
 
-  it 'returns an array' do
+  it 'returns the correct error detail' do
     expect(min_error[:detail]).to eq('is too short (minimum is 3 characters)')
+  end
+
+  it 'returns the correct error detail for a custom error' do
+    model = ExampleModel.new
+    model.add_custom_error
+    errors = described_class.serialize(model)
+    expect(errors.first[:detail]).to eq('is not OK')
   end
 
   it 'returns correct meta hash for too short error' do
