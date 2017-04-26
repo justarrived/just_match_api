@@ -3,7 +3,7 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::Chats::ChatMessagesController, type: :controller do
   before(:each) do
-    @chat_user = FactoryGirl.create(:chat_user)
+    @chat_user = FactoryGirl.create(:chat_user, user: FactoryGirl.create(:company_user))
   end
 
   let(:valid_attributes) do
@@ -31,7 +31,10 @@ RSpec.describe Api::V1::Chats::ChatMessagesController, type: :controller do
         chat = @chat_user.chat
         user = @chat_user.user
         FactoryGirl.create(:message, chat: chat, author: user)
-        { id: chat.to_param }
+        {
+          id: chat.to_param,
+          include: 'author,author.company'
+        }
       end
 
       it 'assigns all messages as @messages' do

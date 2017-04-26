@@ -19,7 +19,9 @@ module Api
           formats [:json]
         end
 
-        ALLOWED_INCLUDES = %w(author language).freeze
+        ALLOWED_INCLUDES = %w(
+          author author.user_images author.company author.company.company_images language
+        ).freeze
 
         api :GET, '/chats/:chat_id/messages', 'Get chat messages.'
         description 'Returns messages in chat.'
