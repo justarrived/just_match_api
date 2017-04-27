@@ -15,54 +15,6 @@ RSpec.describe Api::V1::SkillsController, type: :controller do
     end
   end
 
-  context 'promo code' do
-    before(:each) do
-      Rails.configuration.x.promo_code = 'test_promo_code'
-    end
-
-    after(:each) do
-      Rails.configuration.x.promo_code = nil
-    end
-
-    it 'lets the request pass if correct promo code' do
-      request.headers['X-API-PROMO-CODE'] = 'test_promo_code'
-      get :index
-      expect(response.status).to eq(200)
-    end
-
-    it 'lets the request pass if the user is logged in' do
-      user = FactoryGirl.create(:user)
-      allow_any_instance_of(described_class).
-        to(receive(:current_user).
-        and_return(user))
-
-      get :index
-      expect(response.status).to eq(200)
-    end
-
-    context 'incorrect promo code' do
-      it 'returns unauthorized status' do
-        request.headers['X-API-PROMO-CODE'] = 'wrong_promo_code'
-        get :index
-        expect(response.status).to eq(401)
-      end
-
-      it 'returns JSONAPI errors' do
-        request.headers['X-API-PROMO-CODE'] = 'wrong_promo_code'
-        get :index
-        jsonapi_error = JSON.parse(response.body)
-        expected = {
-          'errors' => [{
-            'status' => 401,
-            'code' => 'promo_code_or_login_required',
-            'detail' => I18n.t('promo_code_required')
-          }]
-        }
-        expect(jsonapi_error).to eq(expected)
-      end
-    end
-  end
-
   context 'record not found' do
     let(:non_existing_record) { 123_456_768 }
 

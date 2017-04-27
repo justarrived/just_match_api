@@ -7,14 +7,14 @@ gem 'rails', '5.0.2' # Ruby on Rails MVC framework
 
 # SERVER
 gem 'lograge', '~> 0.4' # Less verbose Rails log in production
-gem 'puma', '~> 3.7' # App server
+gem 'puma', '~> 3.8' # App server
 
 # Analytics
 gem 'ahoy_matey', '~> 1.5.4'
 
 # STORAGE
 gem 'aws-sdk', '~> 2.9' # Upload images to AWS S3
-gem 'pg', '~> 0.15' # Use postgresql as the database for Active Record
+gem 'pg', '~> 0.20' # Use postgresql as the database for Active Record
 gem 'redis-activesupport', '~> 5.0' # To use Redis as the cache store for rack-attack
 
 # RACK MIDDLEWARE
@@ -28,7 +28,7 @@ gem 'sidekiq-statistic', '~> 1.2'
 
 # MONITORING
 gem 'airbrake', '~> 6.0' # Error catcher and reporter
-gem 'skylight', '~> 1.1' # Performance monitoring
+gem 'skylight', '~> 1.2' # Performance monitoring
 
 # PAGINATION
 gem 'kaminari', '~> 1.0' # Easy pagination
@@ -41,7 +41,7 @@ gem 'json_api_helpers', path: 'lib/json_api_helpers' # JSON API helpers
 gem 'paperclip', '~> 5.1' # Image handler
 
 # SECURITY
-gem 'bcrypt', '~> 3.1.7', require: true # Encrypt passwords
+gem 'bcrypt', '~> 3.1.11', require: true # Encrypt passwords
 gem 'pundit', '~> 1.1' # Authorization policies
 
 # ADMIN
@@ -52,7 +52,7 @@ gem 'active_admin_theme', '~> 1.0' # activeadmin theme
 gem 'activeadmin', git: 'https://github.com/activeadmin/activeadmin' # Admin interface
 gem 'blazer', git: 'https://github.com/ankane/blazer' # '~> 1.7' # Explore data with SQL
 gem 'chosen-rails', '~> 1.5' # Needed for autocomplete select input for activeadmin
-gem 'inherited_resources', git: 'https://github.com/activeadmin/inherited_resources', ref: '4434f0ae72f790cf371728838c927c338100555d' # activeadmin Rails 5
+gem 'inherited_resources', '~> 1.7' # activeadmin Rails 5
 gem 'uglifier', '~> 3.2' # Needed for activeadmin assets compilation
 
 gem 'arbetsformedlingen', git: 'https://github.com/buren/arbetsformedlingen'
@@ -63,14 +63,14 @@ gem 'frilans_finans_api', path: 'lib/frilans_finans_api' # Interact with Frilans
 # NOTIFICATIONS
 gem 'email_reply_parser', '~> 0.5' # Parse reply emails
 gem 'mail', '~> 2.6' # General email functionality
-gem 'twilio-ruby', '~> 4.11' # Send SMS notifications
+gem 'twilio-ruby', '~> 4.13' # Send SMS notifications
 
 # GEO/LOCALE/LANGUAGE UTILS
 gem 'banktools-se', '~> 2.6' # Validate Swedish bank account
 gem 'countries', '~> 2.0', require: 'countries/global' # Country data in various locales
 gem 'geocoder', '~> 1.4' # Geocode resources
 gem 'global_phone', '~> 1.0' # Format cell phone numbers
-gem 'google-cloud-translate', '~> 0.22' # Translate with Google Translate API
+gem 'google-cloud-translate', '~> 0.23' # Translate with Google Translate API
 gem 'i18n_data', '~> 0.7' # Language and country names in various languages
 gem 'iban-tools', '~> 1.1' # Validate IBAN
 gem 'mailcheck', git: 'https://github.com/mailcheck/mailcheck-ruby' # Email suggestions for common email spelling misstakes
@@ -82,7 +82,7 @@ gem 'fast_blank', '~> 1.0' # Re-implements #blank? in C
 gem 'yagni_json_encoder', '~> 1.0' # Make Rails use the OJ gem for JSON
 
 # DOCS
-gem 'apipie-rails', '~> 0.3' # Easy API documentation
+gem 'apipie-rails', '~> 0.5' # Easy API documentation
 gem 'maruku', '~> 0.7' # Needed for apipie-rails markdown support
 
 # UTILS

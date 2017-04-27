@@ -4,6 +4,8 @@ class JobRequest < ApplicationRecord
   belongs_to :delivery_user, optional: true, class_name: 'User', foreign_key: 'delivery_user_id' # rubocop:disable Metrics/LineLength
   belongs_to :sales_user, optional: true, class_name: 'User', foreign_key: 'sales_user_id'
 
+  has_one :order
+
   scope :finished, -> { where(finished: true) }
   scope :pending, -> { where(finished: false) }
   scope :last_30_days, -> { where('created_at > ?', 30.days.ago) }

@@ -226,9 +226,10 @@ ActiveAdmin.setup do |config|
     admin.build_menu :default do |menu|
       menu.add label: 'Jobs', priority: 2
       menu.add label: 'Users', priority: 3
+      menu.add label: 'Sales', priority: 4
       # rubocop:disable Metrics/LineLength
-      menu.add label: 'Filters', priority: 4, if: proc { current_active_admin_user.super_admin? }
-      menu.add label: 'Chats', priority: 5, if: proc { current_active_admin_user.super_admin? }
+      menu.add label: 'Filters', priority: 5, if: proc { current_active_admin_user.super_admin? }
+      menu.add label: 'Chats', priority: 6, if: proc { current_active_admin_user.super_admin? }
       menu.add label: 'Settings', priority: 9, if: proc { current_active_admin_user.super_admin? }
       menu.add label: 'Misc', priority: 10, if: proc { current_active_admin_user.super_admin? }
       # rubocop:enable Metrics/LineLength

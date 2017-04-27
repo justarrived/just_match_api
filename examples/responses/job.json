@@ -4,11 +4,11 @@
     "type": "jobs",
     "attributes": {
       "description": null,
-      "job_date": "2016-02-18 01:01:01 +0100",
+      "job_date": "2016-02-18T01:01:01.000+01:00",
       "hours": 30.0,
       "name": null,
-      "created_at": "2016-02-10 01:01:01 +0100",
-      "updated_at": "2016-02-12 01:01:01 +0100",
+      "created_at": "2016-02-10T01:01:01.000+01:00",
+      "updated_at": "2016-02-12T01:01:01.000+01:00",
       "latitude": 59.3158558,
       "longitude": 18.0552976,
       "street": "Bankgatan 14C",
@@ -16,7 +16,7 @@
       "zip_latitude": 59.7117339,
       "zip_longitude": 18.4256286,
       "verified": false,
-      "job_end_date": "2016-02-20 01:01:01 +0100",
+      "job_end_date": "2016-02-20T01:01:01.000+01:00",
       "filled": false,
       "short_description": null,
       "featured": false,
@@ -28,7 +28,6 @@
         "description_html": null,
         "language_id": null
       },
-      "amount": 3000.0,
       "language_id": 6,
       "gross_amount": 3000.0,
       "net_amount": 2100.0,
@@ -44,28 +43,17 @@
       "direct_recruitment_job": false
     },
     "relationships": {
-      "job_users": {
-        "data": [
-
-        ]
-      },
       "comments": {
-        "data": [
-
-        ],
+        "data": [],
         "links": {
           "related": "https://api.justarrived.se/api/v1/jobs/1/comments"
         }
       },
       "job_languages": {
-        "data": [
-
-        ]
+        "data": []
       },
       "job_skills": {
-        "data": [
-
-        ]
+        "data": []
       },
       "owner": {
         "data": {

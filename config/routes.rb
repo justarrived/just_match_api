@@ -54,7 +54,11 @@ Rails.application.routes.draw do
       resources :users, param: :user_id, only: [:index, :show, :create, :update, :destroy] do
         member do
           resources :messages, module: :users, only: [:create, :index]
-          resources :user_chats, path: :chats, module: :users, only: [:index, :show]
+          resources :user_chats, path: :chats, module: :users, only: [:index, :show] do
+            collection do
+              get :support_chat, path: 'support-chat'
+            end
+          end
 
           get :matching_jobs, path: 'matching-jobs'
           resources :user_jobs, path: :jobs, module: :users, only: [:index]
@@ -66,6 +70,8 @@ Rails.application.routes.draw do
           resources :user_images, module: :users, path: :images, only: [:show, :create]
           resources :ratings, module: :users, path: :ratings, only: [:index]
           resources :user_documents, module: :users, path: :documents, only: [:index, :create]
+
+          get :missing_traits, path: 'missing-traits'
         end
 
         collection do
@@ -118,11 +124,6 @@ Rails.application.routes.draw do
         end
       end
       resources :faqs, only: [:index]
-      resources :promo_codes, path: 'promo-codes', only: [] do
-        collection do
-          post :validate
-        end
-      end
 
       resources :sms, only: [] do
         collection do

@@ -55,7 +55,7 @@ ul do
   li(
     link_to(
       I18n.t('admin.counts.chats', count: user.chats.count),
-      admin_chats_path + user_query
+      admin_chats_path + AdminHelpers::Link.query(:chat_users_user_id, user.id)
     )
   )
   li(

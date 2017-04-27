@@ -3,7 +3,7 @@ class AskForJobInformationNotifier < BaseNotifier
   def self.call(job_user:)
     job = job_user.job
     user = job_user.user
-    missing_skills = job.skills - user.skills
+    missing_skills = Queries::MissingUserTraits.skills(user: user, skills: job.skills)
 
     return if missing_skills.empty?
 

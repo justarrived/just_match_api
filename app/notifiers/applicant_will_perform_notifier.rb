@@ -12,6 +12,7 @@ class ApplicantWillPerformNotifier < BaseNotifier
 
     job_users.each do |job_user|
       next if job_user == confirmed_job_user
+      next if job_user.rejected
 
       envelope = JobMailer.
                  applicant_rejected_email(job_user: job_user)

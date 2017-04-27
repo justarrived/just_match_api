@@ -5,15 +5,10 @@ class JobSerializer < ApplicationSerializer
     :latitude, :longitude, :language_id, :street, :zip, :zip_latitude, :zip_longitude,
     :hidden, :category_id, :hourly_pay_id, :verified, :job_end_date, :cancelled, :filled,
     :featured, :upcoming, :language_id, :gross_amount, :net_amount, :city, :currency,
-    :full_street_address, :staffing_job, :direct_recruitment_job
+    :full_street_address, :staffing_job, :direct_recruitment_job, :application_url
   ]
 
   link(:self) { api_v1_job_url(object) }
-
-  attribute :amount do
-    ActiveSupport::Deprecation.warn('#amount has been depreceted, use #gross_amount')
-    object.gross_amount
-  end
 
   attribute :name do
     object.original_name
@@ -55,16 +50,6 @@ class JobSerializer < ApplicationSerializer
 
   attribute :net_amount_with_currency do
     to_unit(object.net_amount, object.currency)
-  end
-
-  has_many :job_users do
-    # Only disclose job users to the job owner
-    user = scope.fetch(:current_user)
-    if user && (user.id == object.owner_user_id || user.admin)
-      object.job_users
-    else
-      []
-    end
   end
 
   has_many :comments, unless: :collection_serializer? do
@@ -166,18 +151,21 @@ end
 #  direct_recruitment_job       :boolean          default(FALSE)
 #  municipality                 :string
 #  number_to_fill               :integer          default(1)
+#  order_id                     :integer
 #
 # Indexes
 #
 #  index_jobs_on_category_id    (category_id)
 #  index_jobs_on_hourly_pay_id  (hourly_pay_id)
 #  index_jobs_on_language_id    (language_id)
+#  index_jobs_on_order_id       (order_id)
 #
 # Foreign Keys
 #
 #  fk_rails_1cf0b3b406                   (category_id => categories.id)
 #  fk_rails_70cb33aa57                   (language_id => languages.id)
 #  fk_rails_b144fc917d                   (hourly_pay_id => hourly_pays.id)
+#  fk_rails_ca13181750                   (order_id => orders.id)
 #  jobs_company_contact_user_id_fk       (company_contact_user_id => users.id)
 #  jobs_just_arrived_contact_user_id_fk  (just_arrived_contact_user_id => users.id)
 #  jobs_owner_user_id_fk                 (owner_user_id => users.id)

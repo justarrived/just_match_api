@@ -3,6 +3,95 @@
 HEAD
 -----------
 
+v1.58 - 2017-04-26
+----------
+* _Bugfix_:
+  - Custom error messages are returned correctly from the API
+* _Enhancement_:
+  - Update `User#bank_account` validation
+* _Gem updates_:
+  - active_admin_scoped_collection_actions
+  - skylight
+  - active_admin_datetimepicker
+  - aws-sdk
+  - faraday
+  - rainbow
+  - money
+  - fog-rackspace
+* Add URL validator and validate that Company#website is a valid URL
+* _Remove_:
+  * :hocho: Promo code
+  * Deprecated `User#account` method
+
+
+v1.57 - 2017-04-21
+----------
+* _API_:
+  - Only return actually missing languages for user missing traits
+  - Add `Job#application_url` to job serializer
+* _Enhancement_:
+  - Add facebook validator & improve linkedin validator
+
+
+v1.56 - 2017-04-21
+----------
+* _Admin_:
+  - Order dashboard enhancements
+  - Add `User#facebook_url` to user show page
+* _Bugfix_:
+  - Misspelled method name in will perform notifier
+
+
+v1.55 - 2017-04-20
+----------
+* _API_:
+  - Add /users/:id/missing-traits. Closes #1082
+  - Add User#bank_account to user serializer
+  - Add User#facebook_url to permitted params
+  - Add User#facebook_url to user serializer
+  - Remove deprecated resources (amount & job-users) in Job serializer
+  - Remove redundant attributes from User language serializer. Closes #1008
+* _Admin_:
+  - Add `JobRequest#company_address` to form
+  - Add `linkedin_url` to user show page
+  - Fix user chat link on user show page
+  - Improve job request & order dashboards
+* _Feature_:
+  - Implement `job *-- order -- job_request`, to track orders
+* _Bugfix_:
+  - Fix broken User bank account validation
+* _Enhancement_:
+  - Don't notify already rejected job users
+  - Update min gem requirements in Gemfile
+  - Validate UserSkill proficiency range
+  - Refactor missing user traits
+  - Add `User#linkedin_url`
+  - Add `User#facebook_url`
+  - Move `app/support/*_validators` to `app/validators/`
+  - Create LinkedIN URL validator
+* _Update gem_:
+  - aws-sdk
+  - apipie-rails
+  - blazer
+  - inherited_resources
+  - development group gems
+* _Docs_:
+  - Regenerate API doc examples
+
+
+v1.54 - 2017-04-18
+----------
+* _Admin_:
+  - Only show find FF user button when it makes sense
+  - Add ability to find and set a user @ FF from user show view
+  - Add link to job user translation on job user show view
+* _FrilansFinansApi_:
+  - Allow filtering of users by email
+* _Enhancement_:
+  - Add SSYK to `FrilansFinansImporter`
+* _DB_:
+  - Add `Category#ssyk` column
+
 
 v1.53 - 2017-04-16
 ----------

@@ -1,20 +1,15 @@
 # frozen_string_literal: true
 class MissingUserTraitsSerializer
-  def self.serialize(user_attributes:, skills:, languages:, key_transform:)
+  def self.serialize(user_attributes:, skills: [], languages: [], skills_hint: nil, languages_hint: nil, key_transform: :unaltered) # rubocop:disable Metrics/LineLength
     attributes = {}
     user_attributes.each { |name| attributes[name] = {} }
+
     if skills.any?
-      attributes[:skill_ids] = {
-        ids: skills.map(&:id),
-        hint: I18n.t('user.missing_skills_trait')
-      }
+      attributes[:skill_ids] = { ids: skills.map(&:id), hint: skills_hint }
     end
 
     if languages.any?
-      attributes[:language_ids] = {
-        ids: languages.map(&:id),
-        hint: I18n.t('user.missing_languages_trait')
-      }
+      attributes[:language_ids] = { ids: languages.map(&:id), hint: languages_hint }
     end
 
     JsonApiData.new(

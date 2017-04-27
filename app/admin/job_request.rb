@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 ActiveAdmin.register JobRequest do
-  menu priority: 10
+  menu parent: 'Sales'
 
   batch_action :draft_sent, confirm: I18n.t('admin.batch_action_confirm') do |ids|
     collection.where(id: ids).map { |u| u.update(draft_sent: true) }
@@ -36,6 +36,15 @@ ActiveAdmin.register JobRequest do
   action_item :clone, only: :show do
     path = clone_admin_job_request_path(id: job_request.id)
     link_to(I18n.t('admin.job_request.clone'), path)
+  end
+
+  action_item :create_order, only: :show, if: -> { !resource.order } do
+    path = create_order_with_job_request_admin_order_path(job_request_id: job_request.id)
+    link_to(I18n.t('admin.job_request.create_order'), path)
+  end
+
+  action_item :show_order, only: :show, if: -> { resource.order } do
+    link_to(I18n.t('admin.job_request.show_order'), admin_order_path(job_request.order))
   end
 
   scope :all, default: true
@@ -77,6 +86,16 @@ ActiveAdmin.register JobRequest do
 
   show do |job_request|
     attributes_table do
+      if job_request.order
+        row :order
+        row :jobs do
+          job_links = job_request.order.jobs.with_translations.map do |job|
+            name = "#{job.display_name} (#{job.filled ? 'filled' : 'unfilled'})"
+            link_to name, admin_job_path(job)
+          end
+          safe_join(job_links, ', ')
+        end
+      end
       row :short_name
       row :sales_user
       row :delivery_user
@@ -159,6 +178,7 @@ ActiveAdmin.register JobRequest do
       f.input :company_org_no, hint: 'Company organisation number'
       f.input :company_email, hint: 'Email for company contact person'
       f.input :company_phone, hint: 'Phone for company contact person'
+      f.input :company_address, hint: 'Company address'
     end
 
     f.inputs 'Job details' do

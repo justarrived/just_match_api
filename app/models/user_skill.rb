@@ -9,6 +9,8 @@ class UserSkill < ApplicationRecord
   validates :user, presence: true
   validates :skill, uniqueness: { scope: :user }
   validates :user, uniqueness: { scope: :skill }
+  validates :proficiency, numericality: { only_integer: true }, inclusion: PROFICIENCY_RANGE, allow_nil: true # rubocop:disable Metrics/LineLength
+  validates :proficiency_by_admin, numericality: { only_integer: true }, inclusion: PROFICIENCY_RANGE, allow_nil: true # rubocop:disable Metrics/LineLength
 
   scope :visible, -> { with_proficiency.joins(:skill).where(skills: { internal: false }) }
   scope :with_proficiency, -> { where.not(proficiency: nil) }

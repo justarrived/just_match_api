@@ -15,9 +15,7 @@
       },
       "relationships": {
         "company_images": {
-          "data": [
-
-          ]
+          "data": []
         },
         "users": {
           "data": [

@@ -93,14 +93,17 @@ sv:
       after_true: '%{field} måste vara sant'
       unrevertable: kan inte återställa %{field}
       swedish_municipality: måste vara en svensk kommun
+      linkedin_url: måste vara en LinkedIN länk
+      facebook_url: måste vara en Facebook länk
+      url: måste vara en länk
   invalid_credentials: Fel referenser.
-  promo_code_required: Promo kod eller inlogging krävs.
   not_logged_in_error: Måste vara inloggad.
   record_not_found: Posten existerar inte.
   token_expired_error: Din token har upphört att gälla.
   user:
-    missing_skills_trait: ovan kan du hitta relvanta färdigheter för det här jobbet
-    missing_languages_trait: ovan kan du hitta relvanta språk för det här jobbet
+    missing_job_skills_trait: ovan kan du hitta relvanta färdigheter för det här jobbet
+    missing_job_languages_trait: ovan kan du hitta relvanta språk för det här jobbet
+    missing_languages_trait: här kan du lägga till några utvalda språkkunskaper som vi verkligen vill veta mer om
     statuses:
       asylum_seeker: Asylsökande
       asylum_seeker_description: Asylsökande

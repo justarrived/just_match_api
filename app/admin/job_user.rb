@@ -188,11 +188,9 @@ ActiveAdmin.register JobUser do
       render partial: 'show', locals: { job_user: job_user }
     end
 
-    support_chat = Chat.find_support_chat(job_user.user)
-    if support_chat
-      locals = { support_chat: support_chat }
-      render partial: 'admin/chats/latest_messages', locals: locals
-    end
+    support_chat = Chat.find_or_create_support_chat(job_user.user)
+    locals = { support_chat: support_chat }
+    render partial: 'admin/chats/latest_messages', locals: locals
 
     active_admin_comments
   end

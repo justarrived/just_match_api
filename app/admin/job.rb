@@ -103,6 +103,13 @@ ActiveAdmin.register Job do
     set_job_translation.call(job, permitted_params)
   end
 
+  member_action :create_job_with_order, method: :get do
+    order_id = params[:order_id]
+    @job = Job.new(order_id: order_id)
+
+    render :new, layout: false
+  end
+
   action_item :view, only: :show do
     title = I18n.t('admin.job.google_calendar_link')
     link_to title, resource.google_calendar_template_url
@@ -171,7 +178,7 @@ ActiveAdmin.register Job do
     extras = [
       :cancelled, :language_id, :hourly_pay_id, :category_id, :owner_user_id, :hidden,
       :company_contact_user_id, :just_arrived_contact_user_id, :municipality,
-      :number_to_fill,
+      :number_to_fill, :order_id,
       job_skills_attributes: [:skill_id, :proficiency, :proficiency_by_admin],
       job_languages_attributes: [:language_id, :proficiency, :proficiency_by_admin]
     ]

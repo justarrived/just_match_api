@@ -89,6 +89,8 @@ class User < ApplicationRecord
   validates :ssn, uniqueness: true, allow_blank: true
   validates :frilans_finans_id, uniqueness: true, allow_nil: true
   validates :country_of_origin, inclusion: { in: ISO3166::Country.translations.keys }, allow_blank: true # rubocop:disable Metrics/LineLength
+  validates :linkedin_url, linkedin: true
+  validates :facebook_url, facebook: true
 
   validate :validate_arrived_at_date
   validate :validate_language_id_in_available_locale
@@ -129,10 +131,7 @@ class User < ApplicationRecord
 
   attr_accessor :password
 
-  attr_reader :consent, :bank_account
-  # This is needed until we deprecate the user of
-  # #account_number & #account_clearing_number
-  alias_method :account, :bank_account
+  attr_reader :consent
 
   include Translatable
   translates :description, :job_experience, :education, :competence_text
@@ -233,6 +232,14 @@ class User < ApplicationRecord
 
   def support_chat_activated?
     verified || super_admin || admin || just_arrived_staffing
+  end
+
+  def all_attributes
+    attributes.merge(virtual_attributes)
+  end
+
+  def virtual_attributes
+    { 'bank_account' => bank_account }
   end
 
   def bank_account_details?
@@ -348,10 +355,20 @@ class User < ApplicationRecord
     self.email = EmailAddress.normalize(email)
   end
 
+  def bank_account
+    return @bank_account if @bank_account
+    return unless bank_account_details?
+
+    account_clearing_number + account_number
+  end
+
   def bank_account=(full_account)
     account = SwedishBankAccount.new(full_account)
-    @bank_account = full_account
+    @bank_account = full_account # make sure the accessor has access to the "fresh" value
     return unless account.valid?
+
+    # make sure that the accessor can access the "cleaned" value
+    @bank_account = account.clearing_number + account.serial_number
 
     self.account_clearing_number = account.clearing_number
     self.account_number = account.serial_number
@@ -487,23 +504,11 @@ class User < ApplicationRecord
   end
 
   def validate_swedish_bank_account
-    return if [bank_account, account_clearing_number, account_number].all?(&:blank?)
+    return if bank_account.blank?
 
-    full_account = bank_account || [account_clearing_number, account_number].join
-    # NOTE: Remove the below line after the user of
-    # #account_clearing_number & #account_number is not used anymore
-    field_map = {
-      clearing_number: :account_clearing_number,
-      serial_number: :account_number,
-      account: :account
-    }
-    SwedishBankAccount.new(full_account).tap do |account|
-      account.errors_by_field do |field, error_types|
+    SwedishBankAccount.new(bank_account).tap do |account|
+      account.errors_by_field do |_field, error_types|
         error_types.each do |type|
-          # NOTE: Remove the below line after the user of
-          # #account_clearing_number & #account_number is not used anymore
-          errors.add(field_map[field], I18n.t("errors.bank_account.#{type}"))
-
           errors.add(:bank_account, I18n.t("errors.bank_account.#{type}"))
         end
       end
@@ -586,6 +591,8 @@ end
 #  presentation_personality         :text
 #  presentation_availability        :text
 #  system_language_id               :integer
+#  linkedin_url                     :string
+#  facebook_url                     :string
 #
 # Indexes
 #

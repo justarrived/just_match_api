@@ -37,4 +37,19 @@ RSpec.describe Api::V1::Users::UserChatsController, type: :controller do
       end
     end
   end
+
+  describe 'GET #support_chat' do
+    context 'with valid params' do
+      let(:valid_params) do
+        { user_id: user.to_param }
+      end
+
+      it 'assigns chat as @chat' do
+        admin_user = FactoryGirl.create(:admin_user)
+        chat = FactoryGirl.create(:chat, users: [user, admin_user])
+        get :support_chat, params: valid_params, headers: valid_session
+        expect(assigns(:chat)).to eq(chat)
+      end
+    end
+  end
 end

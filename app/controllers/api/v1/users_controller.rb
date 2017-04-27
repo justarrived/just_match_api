@@ -4,10 +4,10 @@ require 'email_suggestion'
 module Api
   module V1
     class UsersController < BaseController
-      SET_USER_ACTIONS = [:show, :edit, :update, :destroy, :matching_jobs, :jobs].freeze
+      SET_USER_ACTIONS = [
+        :show, :edit, :update, :destroy, :matching_jobs, :jobs, :missing_traits
+      ].freeze
       before_action :set_user, only: SET_USER_ACTIONS
-
-      before_action :require_promo_code, except: [:statuses]
 
       resource_description do
         short 'API for managing users'
@@ -102,6 +102,8 @@ module Api
           param :next_of_kin_name, String, desc: 'Next of kin name'
           param :next_of_kin_phone, String, desc: 'Next of kin phone'
           param :arbetsformedlingen_registered_at, Date, desc: 'Arbetsförmedlingen registered at'
+          param :linkedin_url, String, desc: 'Users LinkedIN URL'
+          param :facebook_url, String, desc: 'Users Facebook URL'
           # rubocop:enable Metrics/LineLength
         end
       end
@@ -222,6 +224,8 @@ module Api
           param :next_of_kin_name, String, desc: 'Next of kin name'
           param :next_of_kin_phone, String, desc: 'Next of kin phone'
           param :arbetsformedlingen_registered_at, Date, desc: 'Arbetsförmedlingen registered at'
+          param :linkedin_url, String, desc: 'Users LinkedIN URL'
+          param :facebook_url, String, desc: 'Users Facebook URL'
           # rubocop:enable Metrics/LineLength
         end
       end
@@ -352,9 +356,37 @@ module Api
       def genders
         authorize(User)
 
-        resource = UserGendersSerializer.serializeble_resource # rubocop:disable Metrics/LineLength
+        resource = UserGendersSerializer.serializeble_resource
 
         render json: resource
+      end
+
+      api :GET, '/users/:id/missing-traits', 'Show all missing user traits'
+      description 'Returns a list of missing user traits.'
+      example JSON.pretty_generate(
+        MissingUserTraitsSerializer.serialize(
+          user_attributes: %i(street city zip),
+          languages: [Struct.new(:id).new(1)],
+          languages_hint: 'any language hint'
+        ).to_h
+      )
+      def missing_traits
+        authorize(@user)
+        missing_traits = Queries::MissingUserTraits
+
+        missing_attributes = missing_traits.attributes(
+          user: @user,
+          attributes: %i(ssn street zip city phone)
+        )
+        languages = Language.common_working_languages_for(country: :se)
+        missing_languages = missing_traits.languages(user: @user, languages: languages)
+
+        response = MissingUserTraitsSerializer.serialize(
+          user_attributes: missing_attributes,
+          languages: missing_languages,
+          languages_hint: I18n.t('user.missing_languages_trait')
+        )
+        render json: response
       end
 
       private
@@ -399,7 +431,7 @@ module Api
           :education, :ssn, :street, :city, :zip, :language_id, :company_id,
           :competence_text, :current_status, :at_und, :arrived_at, :country_of_origin,
           :account_clearing_number, :account_number, :skype_username, :gender,
-          :bank_account,
+          :bank_account, :linkedin_url, :facebook_url,
           :system_language_id, ignored_notifications: []
         ]
         jsonapi_params.permit(*whitelist)

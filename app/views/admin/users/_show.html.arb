@@ -17,6 +17,8 @@ columns do
         row :city
         row :zip
         row :ssn
+        row :linkedin_url
+        row :facebook_url
       end
 
       h4 I18n.t('admin.user.show.interview_comment')
@@ -168,9 +170,7 @@ columns do
   end
 end
 
-if support_chat
-  render partial: 'admin/chats/latest_messages', locals: { support_chat: support_chat }
-end
+render partial: 'admin/chats/latest_messages', locals: { support_chat: support_chat }
 
 panel I18n.t('admin.user.show.misc') do
   attributes_table_for(user) do

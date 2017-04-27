@@ -13,8 +13,8 @@ module FrilansFinansApi
       Document.new(response)
     end
 
-    def self.index(page: 1, client: FrilansFinansApi.client_klass.new)
-      response = client.users(page: page)
+    def self.index(page: 1, email: nil, client: FrilansFinansApi.client_klass.new)
+      response = client.users(page: page, email: email)
       Document.new(response)
     end
 

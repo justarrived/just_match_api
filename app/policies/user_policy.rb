@@ -14,7 +14,7 @@ class UserPolicy < ApplicationPolicy
     :id, :first_name, :description, :description_html, :education, :education_html,
     :job_experience, :job_experience_html, :competence_text, :competence_text_html,
     :language_id, :zip, :zip_latitude, :zip_longitude, :primary_role, :translated_text,
-    :gender, :system_language_id
+    :gender, :system_language_id, :linkedin_url, :facebook_url
   ].freeze
 
   ACCEPTED_APPLICANT_ATTRIBUTES = ATTRIBUTES + [
@@ -26,7 +26,8 @@ class UserPolicy < ApplicationPolicy
     :frilans_finans_payment_details, :ssn, :current_status, :at_und, :arrived_at,
     :country_of_origin, :auth_token, :account_clearing_number, :account_number,
     :skype_username, :next_of_kin_name, :next_of_kin_phone, :full_street_address,
-    :arbetsformedlingen_registered_at, :just_arrived_staffing, :support_chat_activated
+    :arbetsformedlingen_registered_at, :just_arrived_staffing, :support_chat_activated,
+    :bank_account
   ]).freeze
 
   attr_reader :accepted_applicant
@@ -48,8 +49,10 @@ class UserPolicy < ApplicationPolicy
   alias_method :matching_jobs?, :show?
   alias_method :frilans_finans?, :show?
   alias_method :chats?, :show?
+  alias_method :support_chat?, :show?
   alias_method :create_document?, :show?
   alias_method :index_document?, :show?
+  alias_method :missing_traits?, :show?
 
   def jobs?
     admin_or_self? || company_user?

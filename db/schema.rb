@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170417133022) do
+ActiveRecord::Schema.define(version: 20170420141411) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -481,9 +481,11 @@ ActiveRecord::Schema.define(version: 20170417133022) do
     t.boolean  "direct_recruitment_job",       default: false
     t.string   "municipality"
     t.integer  "number_to_fill",               default: 1
+    t.integer  "order_id"
     t.index ["category_id"], name: "index_jobs_on_category_id", using: :btree
     t.index ["hourly_pay_id"], name: "index_jobs_on_hourly_pay_id", using: :btree
     t.index ["language_id"], name: "index_jobs_on_language_id", using: :btree
+    t.index ["order_id"], name: "index_jobs_on_order_id", using: :btree
   end
 
   create_table "language_filters", force: :cascade do |t|
@@ -537,6 +539,20 @@ ActiveRecord::Schema.define(version: 20170417133022) do
     t.datetime "updated_at",  null: false
     t.index ["chat_id"], name: "index_messages_on_chat_id", using: :btree
     t.index ["language_id"], name: "index_messages_on_language_id", using: :btree
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.integer  "job_request_id"
+    t.decimal  "invoice_hourly_pay_rate"
+    t.decimal  "hourly_pay_rate"
+    t.decimal  "hours"
+    t.boolean  "lost",                           default: false
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
+    t.decimal  "filled_hourly_pay_rate"
+    t.decimal  "filled_invoice_hourly_pay_rate"
+    t.decimal  "filled_hours"
+    t.index ["job_request_id"], name: "index_orders_on_job_request_id", using: :btree
   end
 
   create_table "ratings", force: :cascade do |t|
@@ -778,6 +794,8 @@ ActiveRecord::Schema.define(version: 20170417133022) do
     t.text     "presentation_personality"
     t.text     "presentation_availability"
     t.integer  "system_language_id"
+    t.string   "linkedin_url"
+    t.string   "facebook_url"
     t.index ["company_id"], name: "index_users_on_company_id", using: :btree
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["frilans_finans_id"], name: "index_users_on_frilans_finans_id", unique: true, using: :btree
@@ -866,6 +884,7 @@ ActiveRecord::Schema.define(version: 20170417133022) do
   add_foreign_key "jobs", "categories"
   add_foreign_key "jobs", "hourly_pays"
   add_foreign_key "jobs", "languages"
+  add_foreign_key "jobs", "orders"
   add_foreign_key "jobs", "users", column: "company_contact_user_id", name: "jobs_company_contact_user_id_fk"
   add_foreign_key "jobs", "users", column: "just_arrived_contact_user_id", name: "jobs_just_arrived_contact_user_id_fk"
   add_foreign_key "jobs", "users", column: "owner_user_id", name: "jobs_owner_user_id_fk"
@@ -876,6 +895,7 @@ ActiveRecord::Schema.define(version: 20170417133022) do
   add_foreign_key "messages", "chats"
   add_foreign_key "messages", "languages"
   add_foreign_key "messages", "users", column: "author_id", name: "messages_author_id_fk"
+  add_foreign_key "orders", "job_requests"
   add_foreign_key "ratings", "jobs", name: "ratings_job_id_fk"
   add_foreign_key "ratings", "users", column: "from_user_id", name: "ratings_from_user_id_fk"
   add_foreign_key "ratings", "users", column: "to_user_id", name: "ratings_to_user_id_fk"

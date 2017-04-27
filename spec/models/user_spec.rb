@@ -15,6 +15,19 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe '#virtual_attributes' do
+    it 'returns all virtual user attributes' do
+      expect(User.new.virtual_attributes).to eq('bank_account' => nil)
+    end
+  end
+
+  describe '#all_attributes' do
+    it 'returns user attributes and virtual user attributes' do
+      expect(User.new.all_attributes).to include('bank_account' => nil)
+      expect(User.new.all_attributes).to include('first_name' => nil)
+    end
+  end
+
   describe '#contact_email' do
     context 'not managed' do
       let(:user) { FactoryGirl.build(:user, managed: false) }
@@ -623,8 +636,8 @@ RSpec.describe User, type: :model do
       )
       user.validate
 
-      expect(user.errors.messages[:account_number]).to be_empty
-      expect(user.errors.messages[:account_clearing_number]).to be_empty
+      expect(user.errors.messages[:bank_account]).to be_empty
+      expect(user.errors.messages[:bank_account]).to be_empty
     end
 
     it 'adds error if bank account is invalid' do
@@ -635,8 +648,17 @@ RSpec.describe User, type: :model do
       )
       user.validate
 
-      message = user.errors.messages[:account_clearing_number]
+      message = user.errors.messages[:bank_account]
       expect(message || []).not_to be_empty
+    end
+
+    it 'adds error for invalid bank account' do
+      user = User.new
+      user.bank_account = 'asd'
+
+      user.validate_swedish_bank_account
+
+      expect(user.errors.messages[:bank_account].length).not_to be_zero
     end
 
     it 'adds error if bank account is invalid (only one field set)' do
@@ -646,7 +668,7 @@ RSpec.describe User, type: :model do
       )
       user.validate
 
-      message = user.errors.messages[:account_clearing_number]
+      message = user.errors.messages[:bank_account]
       expect(message || []).not_to be_empty
     end
   end
@@ -773,6 +795,8 @@ end
 #  presentation_personality         :text
 #  presentation_availability        :text
 #  system_language_id               :integer
+#  linkedin_url                     :string
+#  facebook_url                     :string
 #
 # Indexes
 #

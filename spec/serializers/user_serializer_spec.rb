@@ -107,6 +107,8 @@ end
 #  presentation_personality         :text
 #  presentation_availability        :text
 #  system_language_id               :integer
+#  linkedin_url                     :string
+#  facebook_url                     :string
 #
 # Indexes
 #

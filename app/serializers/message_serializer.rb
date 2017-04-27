@@ -21,8 +21,24 @@ class MessageSerializer < ApplicationSerializer
   end
 
   has_one :chat
-  has_one :author
   has_one :language
+  has_one :author
+
+  has_one :company do
+    object.author.company
+  end
+
+  has_one :user_images do
+    object.author.user_images
+  end
+
+  has_many :company_images do
+    object.author.company&.company_images
+  end
+
+  has_many :company_images do
+    object.author.company&.company_images
+  end
 end
 
 # == Schema Information

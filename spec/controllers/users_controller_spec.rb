@@ -529,6 +529,25 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     end
   end
 
+  describe 'GET #missing_traits' do
+    it 'returns the missing traits' do
+      Language.find_or_create_by(lang_code: :en)
+      sv = Language.find_or_create_by(lang_code: :sv)
+
+      user = FactoryGirl.create(:user, city: nil)
+      user.languages = [sv]
+      get :missing_traits, params: { user_id: user.to_param }, headers: valid_admin_session # rubocop:disable Metrics/LineLength
+
+      language_hash = {
+        'ids' => Language.where(lang_code: :en).map(&:id),
+        'hint' => I18n.t('user.missing_languages_trait')
+      }
+
+      expect(response.body).to be_jsonapi_attribute('city', {})
+      expect(response.body).to be_jsonapi_attribute('language_ids', language_hash)
+    end
+  end
+
   describe 'GET #notifications' do
     it 'returns 200 status' do
       user = FactoryGirl.create(:user)
@@ -637,6 +656,8 @@ end
 #  presentation_personality         :text
 #  presentation_availability        :text
 #  system_language_id               :integer
+#  linkedin_url                     :string
+#  facebook_url                     :string
 #
 # Indexes
 #

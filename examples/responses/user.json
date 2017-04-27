@@ -29,6 +29,8 @@
         "language_id": null
       },
       "gender": null,
+      "linkedin_url": null,
+      "facebook_url": null,
       "phone": "+46735000007",
       "street": "Bankgatan 14C",
       "city": "Lund",
@@ -37,8 +39,8 @@
       "email": "person7@example.com",
       "last_name": "Doe",
       "name": "Jane Doe",
-      "created_at": "2016-02-10 01:01:01 +0100",
-      "updated_at": "2016-02-12 01:01:01 +0100",
+      "created_at": "2016-02-10T01:01:01.000+01:00",
+      "updated_at": "2016-02-12T01:01:01.000+01:00",
       "admin": false,
       "anonymized": false,
       "ignored_notifications": [
@@ -55,7 +57,8 @@
       "account_number": null,
       "full_street_address": "Bankgatan 14C, 223 52, Lund, Sverige",
       "just_arrived_staffing": false,
-      "support_chat_activated": false
+      "support_chat_activated": false,
+      "bank_account": null
     },
     "relationships": {
       "company": {
@@ -68,70 +71,52 @@
         "data": null
       },
       "user_images": {
-        "data": [
-
-        ]
+        "data": []
       },
       "languages": {
-        "data": [
-
-        ],
+        "data": [],
         "links": {
           "related": "https://api.justarrived.se/api/v1/users/1/languages"
         }
       },
       "user_languages": {
-        "data": [
-
-        ],
+        "data": [],
         "links": {
           "related": "https://api.justarrived.se/api/v1/users/1/languages"
         }
       },
       "user_documents": {
-        "data": [
-
-        ],
+        "data": [],
         "links": {
           "related": "https://api.justarrived.se/api/v1/users/1/documents"
         }
       },
       "chats": {
-        "data": [
-
-        ],
+        "data": [],
         "links": {
           "related": "https://api.justarrived.se/api/v1/users/1/chats"
         }
       },
       "skills": {
-        "data": [
-
-        ],
+        "data": [],
         "links": {
           "related": "https://api.justarrived.se/api/v1/users/1/skills"
         }
       },
       "user_skills": {
-        "data": [
-
-        ],
+        "data": [],
         "links": {
           "related": "https://api.justarrived.se/api/v1/users/1/skills"
         }
       },
       "interests": {
-        "data": [
-
-        ],
+        "data": [],
         "links": {
           "related": "https://api.justarrived.se/api/v1/users/1/interests"
         }
       },
       "user_interests": {
-        "data": [
-
-        ],
+        "data": [],
         "links": {
           "related": "https://api.justarrived.se/api/v1/users/1/interests"
         }

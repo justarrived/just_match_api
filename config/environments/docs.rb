@@ -46,8 +46,6 @@ Rails.application.configure do
 
   config.action_mailer.default_url_options = { host: 'api.justarrived.se' }
 
-  config.x.promo_code = nil
-
   config.active_job.queue_adapter = :test
 
   config.x.send_sms_notifications = false

@@ -5,11 +5,6 @@
   "website": "http://justarrived.se/",
   "keywords": ["Just Arrived", "Just Match API", "job matching", "Ruby", "Ruby on Rails"],
   "env": {
-    "PROMO_CODE": {
-      "description": "Promo Code for the API (if set all clients must provide this code OR be logged in)",
-      "value": "",
-      "required": false
-    },
     "SEND_SMS_NOTIFICATIONS": {
       "description": "Send SMS notifications",
       "value": "",
