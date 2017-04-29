@@ -75,16 +75,6 @@
     {
       "status": 422,
       "source": {
-        "pointer": "/data/attributes/job_end_date"
-      },
-      "detail": "can't be blank",
-      "meta": {
-        "type": "blank"
-      }
-    },
-    {
-      "status": 422,
-      "source": {
         "pointer": "/data/attributes/owner"
       },
       "detail": "can't be blank",

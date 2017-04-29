@@ -55,7 +55,7 @@
       "source": {
         "pointer": "/data/attributes/from_user"
       },
-      "detail": "is invalid",
+      "detail": "must be the job owner or the accepted applicant",
       "meta": {
         "type": "invalid"
       }
@@ -75,7 +75,7 @@
       "source": {
         "pointer": "/data/attributes/to_user"
       },
-      "detail": "is invalid",
+      "detail": "must be the job owner or the accepted applicant",
       "meta": {
         "type": "invalid"
       }

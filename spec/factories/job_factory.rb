@@ -6,6 +6,7 @@ FactoryGirl.define do
     description 'Watman' * 2
     street 'Bankgatan 14C'
     zip '223 52'
+    city 'Lund'
     municipality 'Lund'
     association :owner, factory: :company_user
     association :language
@@ -109,6 +110,8 @@ FactoryGirl.define do
       longitude 18.0552976
       zip_latitude 59.7117339
       zip_longitude 18.4256286
+      swedish_drivers_license 'A,B'
+
       created_at Time.new(2016, 2, 10, 1, 1, 1).utc
       updated_at Time.new(2016, 2, 12, 1, 1, 1).utc
       job_date Time.new(2016, 2, 18, 1, 1, 1).utc
