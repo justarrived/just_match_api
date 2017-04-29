@@ -152,6 +152,7 @@ end
 #  municipality                 :string
 #  number_to_fill               :integer          default(1)
 #  order_id                     :integer
+#  full_time                    :boolean          default(FALSE)
 #
 # Indexes
 #

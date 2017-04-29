@@ -178,7 +178,7 @@ ActiveAdmin.register Job do
     extras = [
       :cancelled, :language_id, :hourly_pay_id, :category_id, :owner_user_id, :hidden,
       :company_contact_user_id, :just_arrived_contact_user_id, :municipality,
-      :number_to_fill, :order_id,
+      :number_to_fill, :order_id, :full_time,
       job_skills_attributes: [:skill_id, :proficiency, :proficiency_by_admin],
       job_languages_attributes: [:language_id, :proficiency, :proficiency_by_admin]
     ]

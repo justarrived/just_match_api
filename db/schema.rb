@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170420141411) do
+ActiveRecord::Schema.define(version: 20170429100743) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -482,6 +482,7 @@ ActiveRecord::Schema.define(version: 20170420141411) do
     t.string   "municipality"
     t.integer  "number_to_fill",               default: 1
     t.integer  "order_id"
+    t.boolean  "full_time",                    default: false
     t.index ["category_id"], name: "index_jobs_on_category_id", using: :btree
     t.index ["hourly_pay_id"], name: "index_jobs_on_hourly_pay_id", using: :btree
     t.index ["language_id"], name: "index_jobs_on_language_id", using: :btree
