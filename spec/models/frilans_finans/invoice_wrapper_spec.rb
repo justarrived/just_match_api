@@ -32,7 +32,7 @@ RSpec.describe FrilansFinans::InvoiceWrapper do
     let(:ff_tax_id) { '3' }
     let(:company) { FactoryGirl.create(:company, frilans_finans_id: ff_company_id) }
     let(:owner) { FactoryGirl.create(:user, company: company) }
-    let(:job) { FactoryGirl.create(:job, owner: owner, hours: 50) }
+    let(:job) { FactoryGirl.create(:job, job_end_date: 2.weeks.from_now, owner: owner, hours: 50) }
     let(:tax) { Struct.new(:id).new(ff_tax_id) }
     let(:user) { FactoryGirl.build(:user, frilans_finans_id: ff_user_id) }
     let(:invoice_data) do
