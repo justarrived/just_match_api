@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'arbetsformedlingen/codes/drivers_license_code'
-
 class Job < ApplicationRecord
   include Geocodable
   include SkillMatchable

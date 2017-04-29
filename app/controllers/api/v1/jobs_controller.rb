@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'arbetsformedlingen/codes/drivers_license_code'
-
 module Api
   module V1
     class JobsController < BaseController
