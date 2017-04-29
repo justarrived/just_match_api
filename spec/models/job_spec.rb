@@ -143,7 +143,7 @@ RSpec.describe Job, type: :model do
   end
 
   describe 'geocodable' do
-    let(:job) { FactoryGirl.create(:job, street: 'Bankgatan 14C', zip: '223 52') }
+    let(:job) { FactoryGirl.create(:job, city: nil, street: 'Bankgatan 14C', zip: '223 52') }
 
     it 'geocodes by exact address' do
       expect(job.latitude).to eq(55.6997802)
