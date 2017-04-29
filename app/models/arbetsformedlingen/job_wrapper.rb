@@ -51,6 +51,7 @@ module Arbetsformedlingen
         salary = build_salary(currency: job.currency, summary: job.salary_summary)
 
         schedule = build_schedule(
+          full_time: job.full_time,
           start_date: job.job_date,
           end_date: job.job_end_date,
           summary: job.schedule_summary
@@ -126,9 +127,10 @@ module Arbetsformedlingen
       )
     end
 
-    def build_schedule(start_date:, end_date:, summary:)
+    def build_schedule(full_time:, start_date:, end_date:, summary:)
       @af_models[:schedule] ||= Arbetsformedlingen::Schedule.new(
         summary: summary,
+        full_time: full_time,
         start_date: start_date.to_date,
         end_date: end_date&.to_date
       )
