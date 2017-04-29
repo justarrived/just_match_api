@@ -551,6 +551,9 @@ end
 #  number_to_fill               :integer          default(1)
 #  order_id                     :integer
 #  full_time                    :boolean          default(FALSE)
+#  swedish_drivers_license      :string
+#  car_required                 :boolean          default(FALSE)
+#  salary_type                  :integer          default("fixed")
 #
 # Indexes
 #

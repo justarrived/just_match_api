@@ -96,6 +96,7 @@ en:
       linkedin_url: must be a LinkedIN URL
       facebook_url: must be a Facebook URL
       url: must be an URL
+      drivers_license: must consist of only valid drivers license codes
   invalid_credentials: Invalid credentials.
   not_logged_in_error: Must be logged in.
   record_not_found: Record does not exist.

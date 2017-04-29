@@ -1,4 +1,7 @@
 # frozen_string_literal: true
+
+require 'arbetsformedlingen/codes/drivers_license_code'
+
 class Job < ApplicationRecord
   include Geocodable
   include SkillMatchable
@@ -6,6 +9,12 @@ class Job < ApplicationRecord
   LOCATE_BY = {
     address: { lat: :latitude, long: :longitude },
     zip: { lat: :zip_latitude, long: :zip_longitude }
+  }.freeze
+
+  SALARY_TYPES = {
+    fixed: 1,
+    fixed_and_commission: 2,
+    commission: 3
   }.freeze
 
   MIN_TOTAL_HOURS = 2
@@ -36,6 +45,8 @@ class Job < ApplicationRecord
 
   has_many :comments, as: :commentable
 
+  before_validation :set_normalized_swedish_drivers_license
+
   validates :hourly_pay, presence: true
   validates :category, presence: true
   validates :name, presence: true, on: :create # Virtual attribute
@@ -44,6 +55,7 @@ class Job < ApplicationRecord
   validates :city, length: { minimum: 2 }, allow_blank: true
   validates :zip, length: { minimum: 5 }, allow_blank: false
   validates :municipality, swedish_municipality: true
+  validates :swedish_drivers_license, swedish_drivers_license: true
   validates :job_date, presence: true
   validates :owner, presence: true
   validates :hours, numericality: { greater_than_or_equal_to: MIN_TOTAL_HOURS }, presence: true # rubocop:disable Metrics/LineLength
@@ -85,6 +97,8 @@ class Job < ApplicationRecord
   }
   scope :passed, -> { where('job_end_date < ?', Time.zone.now) }
   scope :future, -> { where('job_end_date > ?', Time.zone.now) }
+
+  enum salary_type: SALARY_TYPES
 
   include Translatable
   translates :name, :short_description, :description
@@ -133,6 +147,11 @@ class Job < ApplicationRecord
     return form_array unless include_blank
 
     [[I18n.t('admin.form.no_job_chosen'), nil]] + form_array
+  end
+
+  def set_normalized_swedish_drivers_license
+    value = Arbetsformedlingen::DriversLicenseCode.normalize(swedish_drivers_license)
+    self.swedish_drivers_license = value
   end
 
   def application_url
@@ -397,6 +416,9 @@ end
 #  number_to_fill               :integer          default(1)
 #  order_id                     :integer
 #  full_time                    :boolean          default(FALSE)
+#  swedish_drivers_license      :string
+#  car_required                 :boolean          default(FALSE)
+#  salary_type                  :integer          default("fixed")
 #
 # Indexes
 #

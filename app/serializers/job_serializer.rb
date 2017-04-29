@@ -5,7 +5,8 @@ class JobSerializer < ApplicationSerializer
     :latitude, :longitude, :language_id, :street, :zip, :zip_latitude, :zip_longitude,
     :hidden, :category_id, :hourly_pay_id, :verified, :job_end_date, :cancelled, :filled,
     :featured, :upcoming, :language_id, :gross_amount, :net_amount, :city, :currency,
-    :full_street_address, :staffing_job, :direct_recruitment_job, :application_url
+    :full_street_address, :staffing_job, :direct_recruitment_job, :application_url,
+    :swedish_drivers_license, :car_required
   ]
 
   link(:self) { api_v1_job_url(object) }
@@ -153,6 +154,9 @@ end
 #  number_to_fill               :integer          default(1)
 #  order_id                     :integer
 #  full_time                    :boolean          default(FALSE)
+#  swedish_drivers_license      :string
+#  car_required                 :boolean          default(FALSE)
+#  salary_type                  :integer          default("fixed")
 #
 # Indexes
 #

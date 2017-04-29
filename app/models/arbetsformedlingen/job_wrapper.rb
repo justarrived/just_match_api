@@ -48,7 +48,11 @@ module Arbetsformedlingen
 
     def build_position
       @af_models[:position] ||= begin
-        salary = build_salary(currency: job.currency, summary: job.salary_summary)
+        salary = build_salary(
+          salary_type: job.salary_type,
+          currency: job.currency,
+          summary: job.salary_summary
+        )
 
         schedule = build_schedule(
           full_time: job.full_time,
@@ -99,7 +103,9 @@ module Arbetsformedlingen
         [
           Arbetsformedlingen::Qualification.new(
             required: true,
-            experience: false
+            experience: false,
+            drivers_license: job.swedish_drivers_license,
+            car: job.car_required
           )
         ]
       end
@@ -119,10 +125,10 @@ module Arbetsformedlingen
       end
     end
 
-    def build_salary(currency:, summary:)
+    def build_salary(salary_type:, currency:, summary:)
       @af_models[:salary] ||= Arbetsformedlingen::Salary.new(
         currency: currency,
-        type: :fixed, # :fixed, :fixed_and_commission, :commission
+        type: salary_type,
         summary: summary
       )
     end
