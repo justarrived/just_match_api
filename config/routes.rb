@@ -144,6 +144,12 @@ Rails.application.routes.draw do
 
       get :email_suggestion, to: 'email_suggestions#suggest', path: 'email-suggestion'
       post :email_suggestion, to: 'email_suggestions#suggest', path: 'email-suggestion'
+
+      namespace :partner_feeds, path: 'partner-feeds' do
+        namespace :jobs do
+          get :linkedin
+        end
+      end
     end
   end
 end

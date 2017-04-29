@@ -20,6 +20,11 @@
       "value": "api.justarrived.se",
       "required": false
     },
+    "LINKEDIN_SYNC_KEY": {
+      "description": "LinkedIN sync key (optional)",
+      "value": "",
+      "required": false
+    },
     "MANAGED_EMAIL_USERNAME": {
       "description": "Managed accounts received email username (optional) [support]",
       "value": "",
