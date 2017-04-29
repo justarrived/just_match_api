@@ -96,7 +96,7 @@ RSpec.describe Job, type: :model do
 
   describe '#invoice_specification' do
     let(:job_id) { 73_000_000 }
-    let(:job) { FactoryGirl.build(:job, id: job_id) }
+    let(:job) { FactoryGirl.build(:job, job_end_date: 2.weeks.from_now, id: job_id) }
 
     it 'returns with the correct content parts' do
       [
