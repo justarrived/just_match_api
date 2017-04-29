@@ -97,7 +97,6 @@ module Arbetsformedlingen
       )
     end
 
-    # TODO: Implement this properly (support for drivers_license and car options)
     def build_qualifications
       @qualifications ||= begin
         [
