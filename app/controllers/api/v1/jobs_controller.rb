@@ -55,7 +55,7 @@ module Api
           param :description, String, desc: 'Description', required: true
           param :owner_user_id, Integer, desc: "User id of the job owner (please note that if you try to set an owner you are not allowed to, the error will simple be: owner can't be blank)", required: true
           param :job_date, String, desc: 'Job start date', required: true
-          param :job_end_date, String, desc: 'Job end date', required: true
+          param :job_end_date, String, desc: 'Job end date'
           param :upcoming, [true, false], desc: 'Upcoming job (default false)'
           param :language_id, Integer, desc: 'Language id of the text content', required: true
           param :category_id, Integer, desc: 'Category id', required: true

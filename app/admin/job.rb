@@ -66,10 +66,10 @@ ActiveAdmin.register Job do
       link_to(job.original_name, admin_job_path(job))
     end
     column :job_date do |job|
-      job.job_date.strftime('%Y-%m-%d')
+      european_date(job.job_date)
     end
     column :job_end_date do |job|
-      job.job_end_date.strftime('%Y-%m-%d')
+      european_date(job.job_end_date)
     end
     column :hours
     column :city

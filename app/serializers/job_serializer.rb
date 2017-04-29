@@ -78,7 +78,7 @@ class JobSerializer < ApplicationSerializer
   has_one :company do
     # Anonymize the company if the job is upcoming
     company_object = if object.upcoming
-                       object.company.anonymize
+                       object.company&.anonymize
                      else
                        object.company
                      end

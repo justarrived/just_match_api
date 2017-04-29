@@ -17,6 +17,8 @@ class GoogleCalendarUrl
   end
 
   def self.format_datetime(date)
+    return unless date
+
     date.utc.iso8601.gsub(/\+|-|:|\.\d\d\d/, '')
   end
 

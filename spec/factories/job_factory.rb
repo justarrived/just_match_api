@@ -12,7 +12,6 @@ FactoryGirl.define do
     association :category
     association :hourly_pay
     job_date 1.week.from_now
-    job_end_date 2.weeks.from_now
     hours 30
 
     factory :job_with_translation do

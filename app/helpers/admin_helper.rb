@@ -36,7 +36,7 @@ module AdminHelper
   end
 
   def european_date(datetime)
-    datetime.strftime('%Y-%m-%d')
+    datetime&.strftime('%Y-%m-%d')
   end
 
   def user_profile_image(user:, size: :medium)

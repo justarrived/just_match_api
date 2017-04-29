@@ -45,7 +45,6 @@ class Job < ApplicationRecord
   validates :zip, length: { minimum: 5 }, allow_blank: false
   validates :municipality, swedish_municipality: true
   validates :job_date, presence: true
-  validates :job_end_date, presence: true
   validates :owner, presence: true
   validates :hours, numericality: { greater_than_or_equal_to: MIN_TOTAL_HOURS }, presence: true # rubocop:disable Metrics/LineLength
   validates :number_to_fill, numericality: { greater_than_or_equal_to: 1 }
@@ -160,6 +159,8 @@ class Job < ApplicationRecord
   end
 
   def ended?
+    return false unless job_end_date
+
     job_end_date < Time.zone.now
   end
 

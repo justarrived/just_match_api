@@ -63,6 +63,15 @@ RSpec.describe GoogleCalendarUrl do
 
       expect(query).to include("dates=#{dates}")
     end
+
+    it 'returns dates query param even when the end date is nil' do
+      uri = URI.parse(subject)
+      query = uri.query
+
+      dates = [start_time_iso8601, nil].join('/')
+
+      expect(query).to include("dates=#{dates}")
+    end
   end
 
   describe '#format_datetime' do
