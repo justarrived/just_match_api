@@ -118,6 +118,7 @@ module Api
       ApipieDocHelper.params(self)
       param :data, Hash, desc: 'Top level key', required: true do
         param :attributes, Hash, desc: 'Job attributes', required: true do
+          # rubocop:disable Metrics/LineLength
           param :name, String, desc: 'Name'
           param :short_description, String, desc: 'Short description'
           param :description, String, desc: 'Description'
@@ -132,6 +133,7 @@ module Api
           param :category_id, Integer, desc: 'Category id'
           param :hourly_pay_id, Integer, desc: 'Hourly pay id'
           param :owner_user_id, Integer, desc: 'User id for the job owner'
+          # rubocop:enable Metrics/LineLength
         end
       end
       example Doxxer.read_example(Job, method: :update)
