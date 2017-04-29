@@ -62,7 +62,7 @@ module Api
           param :upcoming, [true, false], desc: 'Upcoming job (default false)'
           param :full_time, [true, false], desc: 'Is the job full time (default false)'
           param :car_required, [true, false], desc: 'Car requried (default false)'
-          param :swedish_drivers_license, String, desc: "Swedish Drivers License (comma separated). Available values: #{Arbetsformedlingen::DriversLicenseCode::codes.join(', ')}"
+          param :swedish_drivers_license, String, desc: "Swedish Drivers License (comma separated). Available values: #{Arbetsformedlingen::DriversLicenseCode.codes.join(', ')}"
           param :language_id, Integer, desc: 'Language id of the text content', required: true
           param :category_id, Integer, desc: 'Category id', required: true
           param :hourly_pay_id, Integer, desc: 'Hourly pay id', required: true
@@ -129,7 +129,7 @@ module Api
           param :upcoming, [true, false], desc: 'Upcoming job (default false)'
           param :full_time, [true, false], desc: 'Is the job full time (default false)'
           param :car_required, [true, false], desc: 'Car requried (default false)'
-          param :swedish_drivers_license, String, desc: "Swedish Drivers License (comma separated). Available values: #{Arbetsformedlingen::DriversLicenseCode::codes.join(', ')}"
+          param :swedish_drivers_license, String, desc: "Swedish Drivers License (comma separated). Available values: #{Arbetsformedlingen::DriversLicenseCode.codes.join(', ')}"
           param :category_id, Integer, desc: 'Category id'
           param :hourly_pay_id, Integer, desc: 'Hourly pay id'
           param :owner_user_id, Integer, desc: 'User id for the job owner'
