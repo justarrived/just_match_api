@@ -12,7 +12,9 @@
   </tr>
   <tr>
     <td colspan="2"><strong><%= I18n.t('mailer.applicant_accepted.when_title') %></strong></td>
-    <td><%= @job_start_date %> - <%= @job_end_date %> <%= link_to(I18n.t('mailer.google_calendar_link_name'), @google_calendar_url) %></td>
+    <td>
+      <%= @job_start_date %> <% if @job_end_date %>- <%= @job_end_date %> <%= link_to(I18n.t('mailer.google_calendar_link_name'), @google_calendar_url) %><% end %>
+    </td>
   </tr>
   <tr>
     <td colspan="2"><strong><%= I18n.t('mailer.applicant_accepted.hours_title') %></strong></td>

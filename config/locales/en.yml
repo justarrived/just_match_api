@@ -14,6 +14,9 @@ en:
       failed_to_activate_invoice:
         subject: 'Admin notice: Failed to activate Frilans Finans invoice'
         notice: Failed to create a Frilans Finans invoice for %{id}
+  arbetsformedlingen:
+    application_method_description: Login in or register and apply for the job at %{application_url}
+    company_description: '%{name} is located at %{address}. You can find there website at %{url}.'
   errors:
     unauthorized: You are not authorized to perform this action.
     bad_json_format: "There was a problem in the JSON you submitted: %{error_class}"
@@ -89,9 +92,11 @@ en:
       email: 'must look like an email address'
       after_true: '%{field} must be true'
       unrevertable: can't revert %{field}
+      swedish_municipality: must be a known swedish municipality
       linkedin_url: must be a LinkedIN URL
       facebook_url: must be a Facebook URL
       url: must be an URL
+      drivers_license: must consist of only valid drivers license codes
   invalid_credentials: Invalid credentials.
   not_logged_in_error: Must be logged in.
   record_not_found: Record does not exist.
@@ -154,6 +159,9 @@ en:
       residence_permit_back_description: Picture of the back side your residence permit
       skatteverket_certificate: Skatteverket certificate
       skatteverket_certificate_description: Picture of your Skatteverket certificate
+  job:
+    salary_summary: Your salary will be fixed at %{hourly_gross_salary_with_unit}.
+    schedule_summary: Your first work day will be on %{start_date}.
   texter:
     magic_login_link:
       login_line: Just Arrived magic login link %{url}

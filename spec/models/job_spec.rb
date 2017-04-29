@@ -96,7 +96,7 @@ RSpec.describe Job, type: :model do
 
   describe '#invoice_specification' do
     let(:job_id) { 73_000_000 }
-    let(:job) { FactoryGirl.build(:job, id: job_id) }
+    let(:job) { FactoryGirl.build(:job, job_end_date: 2.weeks.from_now, id: job_id) }
 
     it 'returns with the correct content parts' do
       [
@@ -143,7 +143,7 @@ RSpec.describe Job, type: :model do
   end
 
   describe 'geocodable' do
-    let(:job) { FactoryGirl.create(:job, street: 'Bankgatan 14C', zip: '223 52') }
+    let(:job) { FactoryGirl.create(:job, city: nil, street: 'Bankgatan 14C', zip: '223 52') }
 
     it 'geocodes by exact address' do
       expect(job.latitude).to eq(55.6997802)
@@ -348,6 +348,22 @@ RSpec.describe Job, type: :model do
     end
   end
 
+  describe 'validates that municipality is a valid Swedish municipality' do
+    it 'adds error if the municipality is not known' do
+      job = FactoryGirl.build(:job, municipality: 'watman')
+      job.validate
+      message = I18n.t('errors.validators.swedish_municipality')
+      expect(job.errors.messages[:municipality]).to include(message)
+    end
+
+    it 'adds *no* error if the municipality is known' do
+      job = FactoryGirl.build(:job, municipality: 'Stockholm')
+      job.validate
+      message = I18n.t('errors.validators.swedish_municipality')
+      expect(job.errors.messages[:municipality]).not_to include(message)
+    end
+  end
+
   describe '#validate_job_end_date_after_job_date' do
     it 'adds error if job end date is before job date' do
       attributes = { job_date: 2.days.from_now, job_end_date: 1.day.from_now }
@@ -478,6 +494,23 @@ RSpec.describe Job, type: :model do
       expect(job.errors.messages[:owner] || []).not_to include(message)
     end
   end
+
+  describe '#salary_summary' do
+    it 'returns salary summary that includes the gross hourly pay' do
+      I18n.with_locale(:sv) do
+        expect(FactoryGirl.build(:job).salary_summary).to include('100 SEK/timmen')
+      end
+    end
+  end
+
+  describe '#schedule_summary' do
+    it 'returns schedule summary that includes the job start date' do
+      I18n.with_locale(:sv) do
+        job = FactoryGirl.build(:job)
+        expect(job.schedule_summary).to include(job.job_date.to_date.to_s)
+      end
+    end
+  end
 end
 
 # == Schema Information
@@ -517,6 +550,10 @@ end
 #  municipality                 :string
 #  number_to_fill               :integer          default(1)
 #  order_id                     :integer
+#  full_time                    :boolean          default(FALSE)
+#  swedish_drivers_license      :string
+#  car_required                 :boolean          default(FALSE)
+#  salary_type                  :integer          default("fixed")
 #
 # Indexes
 #

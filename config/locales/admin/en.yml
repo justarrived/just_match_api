@@ -12,6 +12,15 @@ en:
     time_from_now: '%{time} from now'
     download: Download
     upload: Upload
+    arbetsformedlingen_ad:
+      push:
+        button: Push
+        pushing_msg: 'Yay! Pushing to Arbetsförmedlingen lets hope for the best!'
+        validation_error_msg: 'Hrm.. Here are som validation errors you need to fix fist before we can push to Arbetsförmedlingen: %{errors}.'
+    arbetsformedlingen_ad_log:
+      name: Arbetsförmedlingen log
+      af_error_code_msg: "Arbetsförmedlingen error code: %{code}"
+      af_valid_msg: Valid
     create_invoice:
       success_msg: Successfully created invoice. Invoice will be activated at Frilans Finans soon.
       post_btn: Activate invoice
@@ -138,6 +147,7 @@ en:
         cancelled_hint: 'If checked the job is deemed cancelled'
         filled_hint: 'If checked it marks that the job has a hired user'
         featured_hint: 'If checked it will be displayed on our start page etc'
+        municipality_hint: 'Required if job is to be synced to Arbetsformedlingen'
         skills_title: Job skills
         languages_title: Job languages
     frilans_finans_invoice:
@@ -152,6 +162,10 @@ en:
       support_chat: Support chat
       form:
         messages_title: Messages
+    company:
+      form:
+        main_form_section_title: Attributes
+        municipality_hint: 'Required if job is to be synced to Arbetsformedlingen'
     user:
       system_language_link: System language %{lang}
       system_language: System language

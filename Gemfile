@@ -55,6 +55,8 @@ gem 'chosen-rails', '~> 1.5' # Needed for autocomplete select input for activead
 gem 'inherited_resources', '~> 1.7' # activeadmin Rails 5
 gem 'uglifier', '~> 3.2' # Needed for activeadmin assets compilation
 
+gem 'arbetsformedlingen', git: 'https://github.com/buren/arbetsformedlingen'
+
 # Invoices
 gem 'frilans_finans_api', path: 'lib/frilans_finans_api' # Interact with Frilans Finans API
 

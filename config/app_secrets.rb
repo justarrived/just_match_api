@@ -14,6 +14,14 @@ class AppSecrets
     @env = AppEnv.new
   end
 
+  def self.arbetsformedlingen_customer_id
+    env['ARBETSFORMEDLINGEN_CUSTOMER_ID']
+  end
+
+  def self.arbetsformedlingen_admin_email
+    env['ARBETSFORMEDLINGEN_ADMIN_EMAIL']
+  end
+
   def self.incoming_email_key
     env['INCOMING_EMAIL_KEY']
   end

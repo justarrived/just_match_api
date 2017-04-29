@@ -66,10 +66,10 @@ ActiveAdmin.register Job do
       link_to(job.original_name, admin_job_path(job))
     end
     column :job_date do |job|
-      job.job_date.strftime('%Y-%m-%d')
+      european_date(job.job_date)
     end
     column :job_end_date do |job|
-      job.job_end_date.strftime('%Y-%m-%d')
+      european_date(job.job_end_date)
     end
     column :hours
     column :city
@@ -177,7 +177,8 @@ ActiveAdmin.register Job do
   permit_params do
     extras = [
       :cancelled, :language_id, :hourly_pay_id, :category_id, :owner_user_id, :hidden,
-      :company_contact_user_id, :just_arrived_contact_user_id, :order_id,
+      :company_contact_user_id, :just_arrived_contact_user_id, :municipality,
+      :number_to_fill, :order_id, :full_time, :swedish_drivers_license, :car_required,
       job_skills_attributes: [:skill_id, :proficiency, :proficiency_by_admin],
       job_languages_attributes: [:language_id, :proficiency, :proficiency_by_admin]
     ]

@@ -26,6 +26,14 @@ class AppConfig
     'http://justarrived.se/assets/files/CV-template.docx'
   end
 
+  def self.arbetsformedlingen_default_publisher_email
+    env['ARBETSFORMEDLINGEN_DEFAULT_PUBLISHER_EMAIL']
+  end
+
+  def self.arbetsformedlingen_default_publisher_name
+    env['ARBETSFORMEDLINGEN_DEFAULT_PUBLISHER_NAME']
+  end
+
   # Application settings
 
   def self.allow_regular_users_to_create_jobs?

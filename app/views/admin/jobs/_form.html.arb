@@ -9,6 +9,8 @@ f.inputs(I18n.t('admin.job.form.detail_section_title')) do
   f.input :order
   f.input :job_date, as: :date_time_picker
   f.input :job_end_date, as: :date_time_picker
+  f.input :full_time
+  f.input :salary_type
   f.input :hourly_pay, hint: I18n.t('admin.job.form.hourly_pay_hint')
   f.input :hours
 
@@ -16,6 +18,9 @@ f.inputs(I18n.t('admin.job.form.detail_section_title')) do
   f.input :name
   f.input :short_description
   f.input :description
+  f.input :swedish_drivers_license, hint: Arbetsformedlingen::DriversLicenseCode.codes.join(', ')
+  f.input :car_required
+  f.input :number_to_fill
 end
 
 f.actions
@@ -32,6 +37,12 @@ f.inputs(I18n.t('admin.job.form.address_section_title')) do
   f.input :street
   f.input :city
   f.input :zip
+  f.input(
+    :municipality,
+    as: :select,
+    collection: Arbetsformedlingen::MunicipalityCode.to_form_array(name_only: true),
+    hint: I18n.t('admin.job.form.municipality_hint')
+  )
 end
 
 f.actions

@@ -14,6 +14,9 @@ sv:
       failed_to_activate_invoice:
         subject: 'Admin notis: Aktivering av Frilans Finans Faktura misslyckades'
         notice: Misslyckades skapa Frilans Finans faktura för %{id}
+  arbetsformedlingen:
+    application_method_description: Logga in eller registera dig och sök jobbet på %{application_url}
+    company_description: '%{name} har sitt kontor på %{address}. Du kan hitta deras hemsida på %{url}.'
   errors:
     unauthorized: Du har inte behörighet att utföra den här åtgärden.
     bad_json_format: "Det fanns problem i det JSON du skickade in: %{error_class}"
@@ -89,9 +92,11 @@ sv:
       email: 'måste se ut som en e-postadress'
       after_true: '%{field} måste vara sant'
       unrevertable: kan inte återställa %{field}
+      swedish_municipality: måste vara en svensk kommun
       linkedin_url: måste vara en LinkedIN länk
       facebook_url: måste vara en Facebook länk
       url: måste vara en länk
+      drivers_license: måste bestå av endast gilltiga körkorts typer
   invalid_credentials: Fel referenser.
   not_logged_in_error: Måste vara inloggad.
   record_not_found: Posten existerar inte.
@@ -154,6 +159,9 @@ sv:
       residence_permit_back_description: Bild på baksidan av ditt upplehållstillstånd
       skatteverket_certificate: Certifikat Skatteverket
       skatteverket_certificate_description: Bild på ditt certifikat från Skatteverket
+  job:
+    salary_summary: Du har fast lön på %{hourly_gross_salary_with_unit}.
+    schedule_summary: Din första arbetsdag kommer vara på %{start_date}.
   texter:
     magic_login_link:
       login_line: Just Arrived magisk login länk %{url}

@@ -20,17 +20,26 @@
           "type": "chats"
         }
       },
+      "language": {
+        "data": {
+          "id": "8",
+          "type": "languages"
+        }
+      },
       "author": {
         "data": {
           "id": "7",
           "type": "users"
         }
       },
-      "language": {
-        "data": {
-          "id": "8",
-          "type": "languages"
-        }
+      "company": {
+        "data": null
+      },
+      "user_images": {
+        "data": []
+      },
+      "company_images": {
+        "data": null
       }
     }
   }

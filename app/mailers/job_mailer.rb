@@ -57,7 +57,7 @@ class JobMailer < ApplicationMailer
     @owner_email = owner.contact_email
     @job_name = job.name
     @job_start_date = TimeZone.cest_time(job.job_date)
-    @job_end_date = TimeZone.cest_time(job.job_end_date)
+    @job_end_date = TimeZone.cest_time(job.job_end_date) if job.job_end_date
     @total_hours = job.hours
     @hourly_gross_salary = job.hourly_gross_salary
     @total_salary = job.gross_amount
