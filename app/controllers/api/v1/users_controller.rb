@@ -110,19 +110,11 @@ module Api
         @user = User.new(user_params)
         @user.password = jsonapi_params[:password]
         terms_consent = [true, 'true'].include?(jsonapi_params[:consent])
-        language_defined = true
-
-        if jsonapi_params[:system_language_id].blank? && jsonapi_params[:language_id].blank? # rubocop:disable Metrics/LineLength
-          language_defined = false
-        elsif jsonapi_params[:system_language_id].blank?
-          add_deprecation('Setting #system_language from #language is deprecated and will be removed soon.') # rubocop:disable Metrics/LineLength
-          @user.system_language_id = jsonapi_params[:language_id]
-        end
 
         authorize(@user)
         @user.validate
 
-        if terms_consent && language_defined && @user.valid?
+        if terms_consent && @user.valid?
           @user.save
           login_user(@user)
 
@@ -159,11 +151,6 @@ module Api
           unless terms_consent
             consent_error = I18n.t('errors.user.must_consent_to_terms_of_agreement')
             @user.errors.add(:consent, consent_error)
-          end
-
-          unless language_defined
-            # When the clients have moved to using #system_language this can be removed
-            @user.errors.add(:language, I18n.t('errors.messages.blank'))
           end
 
           api_render_errors(@user)

@@ -15,7 +15,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
           last_name: 'name',
           phone: '123456789',
           description: 'Some user description',
-          language_id: lang_id,
+          system_language_id: lang_id,
           language_ids: [{ id: lang_id, proficiency: lang_proficiency }],
           street: 'Stora Nygatan 36',
           zip: '211 37',
@@ -156,7 +156,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       end
 
       context 'with system_language' do
-        it 'sets system_language and language independently from each other' do
+        it 'sets system_language independently from each other' do
           lang_id = Language.find_or_create_by!(lang_code: 'sv').id
           attrs = valid_attributes.dup
           attrs[:data][:attributes][:system_language_id] = lang_id
@@ -165,14 +165,11 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         end
       end
 
-      context 'with neither system_language or language' do
-        it 'returns errors for both fields' do
-          attrs = valid_attributes.dup
-          attrs[:data][:attributes][:language_id] = nil
-          post :create, params: attrs, headers: {}
-          expect(response.body).to have_jsonapi_attribute_error_for(:language)
-          expect(response.body).to have_jsonapi_attribute_error_for(:'system-language')
-        end
+      it 'returns error for system_language' do
+        attrs = valid_attributes.dup
+        attrs[:data][:attributes][:system_language_id] = nil
+        post :create, params: attrs, headers: {}
+        expect(response.body).to have_jsonapi_attribute_error_for(:'system-language')
       end
 
       context 'without consent' do
@@ -226,7 +223,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       end
 
       context 'user languages' do
-        let(:language_id) { valid_attributes[:data][:attributes][:language_id] }
+        let(:language_id) { valid_attributes[:data][:attributes][:system_language_id] }
 
         it 'creates from deprecated language id list' do
           valid_attributes[:data][:attributes][:language_ids] = [language_id]
@@ -350,7 +347,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
       context 'with user languages' do
         let(:user) { User.find_by_auth_token(valid_session[:token]) }
-        let(:language_id) { valid_attributes[:data][:attributes][:language_id] }
+        let(:language_id) { valid_attributes[:data][:attributes][:system_language_id] }
         let(:new_attributes) do
           {
             data: {
