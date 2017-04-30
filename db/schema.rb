@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170429114947) do
+ActiveRecord::Schema.define(version: 20170430172914) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -545,6 +545,16 @@ ActiveRecord::Schema.define(version: 20170429114947) do
     t.index ["language_id"], name: "index_messages_on_language_id", using: :btree
   end
 
+  create_table "order_documents", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "document_id"
+    t.integer  "order_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["document_id"], name: "index_order_documents_on_document_id", using: :btree
+    t.index ["order_id"], name: "index_order_documents_on_order_id", using: :btree
+  end
+
   create_table "orders", force: :cascade do |t|
     t.integer  "job_request_id"
     t.decimal  "invoice_hourly_pay_rate"
@@ -899,6 +909,8 @@ ActiveRecord::Schema.define(version: 20170429114947) do
   add_foreign_key "messages", "chats"
   add_foreign_key "messages", "languages"
   add_foreign_key "messages", "users", column: "author_id", name: "messages_author_id_fk"
+  add_foreign_key "order_documents", "documents"
+  add_foreign_key "order_documents", "orders"
   add_foreign_key "orders", "job_requests"
   add_foreign_key "ratings", "jobs", name: "ratings_job_id_fk"
   add_foreign_key "ratings", "users", column: "from_user_id", name: "ratings_from_user_id_fk"

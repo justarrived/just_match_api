@@ -4,6 +4,8 @@ class Order < ApplicationRecord
   belongs_to :job_request
 
   has_many :jobs
+  has_many :order_documents
+  has_many :documents, through: :order_documents
 
   validates :hours, presence: true, numericality: { greater_than_or_equal_to: 1 }
   validates :invoice_hourly_pay_rate, presence: true

@@ -134,6 +134,37 @@ ActiveAdmin.register Job do
     link_to(I18n.t('admin.job.clone'), clone_admin_job_path(id: job.id))
   end
 
+  action_item :create_arbetsformedlingen_ad, only: :show, if: -> { !resource.arbetsformedlingen_ad } do # rubocop:disable Metrics/LineLength
+    link_to(
+      I18n.t('admin.job.create_arbetsformedlingen_ad'),
+      create_with_job_admin_arbetsformedlingen_ad_path(job_id: job.id)
+    )
+  end
+
+  member_action :cancel_and_notify, method: :post do
+    job = resource
+
+    if job.update(cancelled: true)
+      JobCancelledNotifier.call(job: job)
+      message = I18n.t('admin.job.cancelled_and_notitied_success')
+
+      redirect_to admin_job_path(job), notice: message
+    else
+      errors = job.errors.full_messages.join(', ')
+      message = I18n.t('admin.job.cancelled_and_notitied_failed', errors: errors)
+
+      redirect_to admin_job_path(job), alert: message
+    end
+  end
+
+  action_item :cancel_and_notify, only: :show, if: -> { !resource.cancelled } do
+    link_to(
+      safe_join([envelope_icon_png, I18n.t('admin.job.cancel_and_notify_btn')]),
+      cancel_and_notify_admin_job_path,
+      method: :post
+    )
+  end
+
   sidebar :relations, only: [:show, :edit] do
     render partial: 'admin/jobs/relations_list', locals: { job: job }
   end

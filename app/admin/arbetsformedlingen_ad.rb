@@ -48,6 +48,12 @@ ActiveAdmin.register ArbetsformedlingenAd do
     end
   end
 
+  member_action :create_with_job, method: :get do
+    @arbetsformedlingen_ad = ArbetsformedlingenAd.new(job_id: params[:job_id])
+
+    render :new, layout: false
+  end
+
   member_action :push_to_arbetsformedlingen, method: :post do
     ad = resource
 

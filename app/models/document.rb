@@ -8,6 +8,9 @@ class Document < ApplicationRecord
   has_many :user_documents
   has_many :users, through: :user_documents
 
+  has_many :order_documents
+  has_many :orders, through: :order_documents
+
   before_create :generate_one_time_token
 
   scope :valid_one_time_tokens, lambda {
