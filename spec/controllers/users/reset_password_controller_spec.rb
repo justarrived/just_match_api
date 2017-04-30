@@ -36,24 +36,6 @@ RSpec.describe Api::V1::Users::ResetPasswordController, type: :controller do
         post :create, params: valid_attributes
         expect(ResetPasswordNotifier).to have_received(:call)
       end
-
-      context 'with deprecated email param' do
-        let(:valid_attributes) do
-          {
-            data: {
-              attributes: {
-                email: user.email
-              }
-            }
-          }
-        end
-
-        it 'sends reset password email' do
-          allow(ResetPasswordNotifier).to receive(:call).with(user: user)
-          post :create, params: valid_attributes
-          expect(ResetPasswordNotifier).to have_received(:call)
-        end
-      end
     end
 
     context 'with invalid params' do
