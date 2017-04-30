@@ -153,18 +153,6 @@ RSpec.describe Api::V1::UsersController, type: :controller do
           expect(response.body).to have_jsonapi_attribute('account-clearing-number', '8000-2') # rubocop:disable Metrics/LineLength
           expect(response.body).to have_jsonapi_attribute('account-number', '0000000000')
         end
-
-        context '_DEPRECATED_ attribute names' do
-          it 'can return validation error for bank account' do
-            attrs = valid_attributes.dup
-            attrs[:data][:attributes][:account_number] = 'asdasdsa'
-            attrs[:data][:attributes][:account_clearing_number] = 'asdasdsa'
-            post :create, params: attrs, headers: {}
-            expect(response.body).to have_jsonapi_attribute_error('account')
-            expect(response.body).to have_jsonapi_attribute_error('account-clearing-number') # rubocop:disable Metrics/LineLength
-            expect(response.body).to have_jsonapi_attribute_error('account-number')
-          end
-        end
       end
 
       context 'with system_language' do

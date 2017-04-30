@@ -97,8 +97,6 @@ module Api
           param :country_of_origin, String, desc: 'Country of origin (alpha-2 code)'
           param :skype_username, String, desc: 'Skype username'
           param :bank_account, String, desc: 'User bank account number'
-          param :account_clearing_number, String, desc: '_DEPRECATED_ User account clearing number'
-          param :account_number, String, desc: '_DEPRECATED_ User account number'
           param :next_of_kin_name, String, desc: 'Next of kin name'
           param :next_of_kin_phone, String, desc: 'Next of kin phone'
           param :arbetsformedlingen_registered_at, Date, desc: 'Arbetsförmedlingen registered at'
@@ -113,8 +111,6 @@ module Api
         @user.password = jsonapi_params[:password]
         terms_consent = [true, 'true'].include?(jsonapi_params[:consent])
         language_defined = true
-
-        check_for_deprecated_params
 
         if jsonapi_params[:system_language_id].blank? && jsonapi_params[:language_id].blank? # rubocop:disable Metrics/LineLength
           language_defined = false
@@ -219,8 +215,6 @@ module Api
           param :country_of_origin, String, desc: 'Country of origin'
           param :skype_username, String, desc: 'Skype username'
           param :bank_account, String, desc: 'User bank account number'
-          param :account_clearing_number, String, desc: '_DEPRECATED_ User account clearing number'
-          param :account_number, String, desc: '_DEPRECATED_ User account number'
           param :next_of_kin_name, String, desc: 'Next of kin name'
           param :next_of_kin_phone, String, desc: 'Next of kin phone'
           param :arbetsformedlingen_registered_at, Date, desc: 'Arbetsförmedlingen registered at'
@@ -232,8 +226,6 @@ module Api
       example Doxxer.read_example(User, method: :update)
       def update
         authorize(@user)
-
-        check_for_deprecated_params
 
         unless jsonapi_params[:language_id].blank?
           add_deprecation('Setting #system_language from #language is deprecated and will be removed soon.') # rubocop:disable Metrics/LineLength
@@ -405,18 +397,6 @@ module Api
         end
       end
 
-      def check_for_deprecated_params
-        if jsonapi_params[:account_clearing_number].present?
-          message = 'Setting #account_clearing_number is deprecated, please use #bank_account instead' # rubocop:disable Metrics/LineLength
-          add_deprecation(message, 'account_clearing_number')
-        end
-
-        if jsonapi_params[:account_number].present?
-          message = 'Setting #account_number is deprecated, please use #bank_account instead' # rubocop:disable Metrics/LineLength
-          add_deprecation(message, 'account_number')
-        end
-      end
-
       def set_user
         @user = User.find(params[:user_id])
       end
@@ -430,8 +410,7 @@ module Api
           :first_name, :last_name, :email, :phone, :description, :job_experience,
           :education, :ssn, :street, :city, :zip, :language_id, :company_id,
           :competence_text, :current_status, :at_und, :arrived_at, :country_of_origin,
-          :account_clearing_number, :account_number, :skype_username, :gender,
-          :bank_account, :linkedin_url, :facebook_url,
+          :skype_username, :gender, :bank_account, :linkedin_url, :facebook_url,
           :system_language_id, ignored_notifications: []
         ]
         jsonapi_params.permit(*whitelist)
