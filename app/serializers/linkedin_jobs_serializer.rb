@@ -1,26 +1,37 @@
 # frozen_string_literal: true
 class LinkedinJobsSerializer
-  def self.attributes(jobs:)
+  def self.to_xml(jobs:)
     I18n.with_locale(:en) do
-      jobs.map do |job|
-        company = job.company
-        {
-          company: {
-            name: company.name,
-            id: company.cin,
-            country_code: 'SE',
-            postal_code: company.zip
-          },
-          job: {
-            title: job.name,
-            description: job.description,
-            location: job.full_street_address,
-            country_code: 'SE',
-            postal_code: job.zip,
-            application_url: FrontendRouter.draw(:job, id: job.id)
-          }
-        }
-      end
+      build_xml_document(jobs)
+    end
+  end
+
+  def self.build_xml_document(jobs)
+    builder = Builder::XmlMarkup.new(indent: 2)
+    builder.instruct! :xml, version: '1.0', encoding: 'UTF-8'
+
+    builder.source do |source_node|
+      source_node.publisherUrl('https://justarrived.se')
+      source_node.publisher('Just Arrived')
+      jobs.each { |job| build_job_xml(source_node, job) }
+    end
+    builder.target!
+  end
+
+  def self.build_job_xml(parent_node, job)
+    parent_node.job do |node|
+      node.company { |n| n.cdata!(job.company.name) }
+
+      node.partnerJobId { |n| n.cdata!(job.id.to_s) }
+      node.title { |n| n.cdata!(job.name.to_s) }
+      node.description { |n| n.cdata!(job.description.to_s) }
+
+      node.location(job.full_street_address)
+      node.city { |n| n.cdata!(job.city.to_s) }
+      node.countryCode { |n| n.cdata!(job.country_code) }
+      node.postalCode { |n| n.cdata!(job.zip.to_s) }
+
+      node.applyUrl { |n| n.cdata!(FrontendRouter.draw(:job, id: job.id)) }
     end
   end
 end

@@ -11,21 +11,29 @@ RSpec.describe Api::V1::PartnerFeeds::JobsController, type: :controller do
       request.content_type = 'application/json'
       get :linkedin, params: { auth_token: token }
 
-      json = JSON.parse(response.body)
-      first_job = json.first
+      xml = Nokogiri::XML.parse(response.body).css('source')
 
-      # Company data
-      expect(first_job.dig('company', 'name')).to eq(job.company.name)
-      expect(first_job.dig('company', 'id')).to eq(job.company.cin)
-      expect(first_job.dig('company', 'country_code')).to eq('SE')
-      expect(first_job.dig('company', 'postal_code')).to eq(job.company.zip)
+      publisher_url = xml.css('publisherUrl').text
+      expect(publisher_url).to eq('https://justarrived.se')
+
+      publisher = xml.css('publisher').text
+      expect(publisher).to eq('Just Arrived')
+
+      job_fragment = xml.css('job')
+
+      # Company dataå
+      expect(job_fragment.css('company').text.strip).to eq(job.company.name)
+      # Location data
+      expect(job_fragment.css('location').text.strip).to eq(job.full_street_address)
+      expect(job_fragment.css('city').text.strip).to eq(job.city)
+      expect(job_fragment.css('countryCode').text.strip).to eq('SE')
+      expect(job_fragment.css('postalCode').text.strip).to eq(job.zip)
       # Job data
-      expect(first_job.dig('job', 'title')).to eq(job.name)
-      expect(first_job.dig('job', 'description')).to eq(job.description)
-      expect(first_job.dig('job', 'location')).to eq(job.full_street_address)
-      expect(first_job.dig('job', 'country_code')).to eq('SE')
-      expect(first_job.dig('job', 'postal_code')).to eq(job.zip)
-      expect(first_job.dig('job', 'application_url')).to eq(FrontendRouter.draw(:job, id: job.id))
+      expect(job_fragment.css('title').text.strip).to eq(job.name)
+      expect(job_fragment.css('description').text.strip).to eq(job.description)
+
+      apply_url = FrontendRouter.draw(:job, id: job.id)
+      expect(job_fragment.css('applyUrl').text.strip).to eq(apply_url)
     end
 
     it 'returns 401 Unquthorized if an invalid key is passed' do
