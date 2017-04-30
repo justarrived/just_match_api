@@ -43,6 +43,15 @@ class JobUser < ApplicationRecord
     unconfirmed.where('accepted_at < ?', MAX_CONFIRMATION_TIME_HOURS.hours.ago)
   }
   scope :verified, -> { joins(:user).where('users.verified = ?', true) }
+  scope :not_pre_reported, lambda {
+    will_perform.
+    joins(:job).
+    where('jobs.job_date < ?', Time.zone.now).
+    where('jobs.direct_recruitment_job = ?', false).
+    where('jobs.staffing_job = ?', false).
+    left_joins(:frilans_finans_invoice).
+    where('frilans_finans_invoices.id IS NULL OR frilans_finans_invoices.ff_approval_status IS NULL') # rubocop:disable Metrics/LineLength
+  }
 
   include Translatable
   translates :apply_message
@@ -58,7 +67,7 @@ class JobUser < ApplicationRecord
   end
 
   def current_status
-    if job.ended?
+    if job.started?
       return 'Rejected' unless will_perform
 
       ff_status = frilans_finans_invoice&.ff_payment_status_name

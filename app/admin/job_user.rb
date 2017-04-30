@@ -140,6 +140,7 @@ ActiveAdmin.register JobUser do
   scope :will_perform
   scope :verified
   scope :withdrawn
+  scope :not_pre_reported
 
   filter :user_first_name_cont, as: :string, label: I18n.t('admin.user.first_name')
   filter :user_last_name_cont, as: :string, label: I18n.t('admin.user.last_name')

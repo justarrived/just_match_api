@@ -175,6 +175,10 @@ class Job < ApplicationRecord
     !staffing_job && !direct_recruitment_job
   end
 
+  def started?
+    job_date < Time.zone.now
+  end
+
   def ended?
     return false unless job_end_date
 
@@ -306,10 +310,6 @@ Address: #{company.address}
 
   def hourly_gross_salary
     hourly_pay.gross_salary
-  end
-
-  def started?
-    job_date < Time.zone.now
   end
 
   def workdays
