@@ -3,8 +3,8 @@
 FactoryGirl.define do
   factory :order_document do
     name 'MyString'
-    document nil
-    order nil
+    association :document
+    association :order
   end
 end
 
