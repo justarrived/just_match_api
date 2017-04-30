@@ -112,6 +112,7 @@ en:
       batch_action:
         update:
           title: Update selected or all jobs
+      create_arbetsformedlingen_ad: Create Arbetsförmedlingen Ad
       google_calendar_link: Google Calendar
       name: Name
       name_search: Job name

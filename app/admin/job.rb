@@ -134,6 +134,13 @@ ActiveAdmin.register Job do
     link_to(I18n.t('admin.job.clone'), clone_admin_job_path(id: job.id))
   end
 
+  action_item :create_arbetsformedlingen_ad, only: :show, if: -> { !resource.arbetsformedlingen_ad } do # rubocop:disable Metrics/LineLength
+    link_to(
+      I18n.t('admin.job.create_arbetsformedlingen_ad'),
+      create_with_job_admin_arbetsformedlingen_ad_path(job_id: job.id)
+    )
+  end
+
   sidebar :relations, only: [:show, :edit] do
     render partial: 'admin/jobs/relations_list', locals: { job: job }
   end
