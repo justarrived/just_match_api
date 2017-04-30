@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class JobUser < ApplicationRecord
   MAX_CONFIRMATION_TIME_HOURS = 24
 
@@ -45,12 +46,12 @@ class JobUser < ApplicationRecord
   scope :verified, -> { joins(:user).where('users.verified = ?', true) }
   scope :not_pre_reported, lambda {
     will_perform.
-    joins(:job).
-    where('jobs.job_date < ?', Time.zone.now).
-    where('jobs.direct_recruitment_job = ?', false).
-    where('jobs.staffing_job = ?', false).
-    left_joins(:frilans_finans_invoice).
-    where('frilans_finans_invoices.id IS NULL OR frilans_finans_invoices.ff_approval_status IS NULL') # rubocop:disable Metrics/LineLength
+      joins(:job).
+      where('jobs.job_date < ?', Time.zone.now).
+      where('jobs.direct_recruitment_job = ?', false).
+      where('jobs.staffing_job = ?', false).
+      left_joins(:frilans_finans_invoice).
+      where('frilans_finans_invoices.id IS NULL OR frilans_finans_invoices.ff_approval_status IS NULL') # rubocop:disable Metrics/LineLength
   }
 
   include Translatable
