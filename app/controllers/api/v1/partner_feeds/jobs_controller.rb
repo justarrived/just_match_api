@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Api
   module V1
     module PartnerFeeds
@@ -8,9 +9,9 @@ module Api
 
         def linkedin
           jobs = Job.with_translations.
-            includes(:company).
-            order(created_at: :desc).
-            limit(AppConfig.linkedin_job_records_feed_limit)
+                 includes(:company).
+                 order(created_at: :desc).
+                 limit(AppConfig.linkedin_job_records_feed_limit)
 
           attributes = LinkedinJobsSerializer.attributes(jobs: jobs)
           if json_content_type?
@@ -21,7 +22,6 @@ module Api
         end
 
         private
-
 
         def verify_linkedin_sync_key
           unauthorized! if params[:auth_token].blank?
