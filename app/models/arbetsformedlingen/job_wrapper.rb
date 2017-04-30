@@ -112,7 +112,7 @@ module Arbetsformedlingen
 
     def build_application_method
       @af_models[:application_method] ||= begin
-        application_url = "https://app.justarrived.se/job/#{job.id}"
+        application_url = FrontendRouter.draw(:job, id: job.id)
         Arbetsformedlingen::ApplicationMethod.new(
           external: true, # applications are not made through AF
           url: application_url,

@@ -7,7 +7,12 @@ module Api
         after_action :verify_authorized, except: [:linkedin]
 
         def linkedin
-          render json: {}
+          jobs = Job.with_translations.
+            includes(:company).
+            order(created_at: :desc).
+            limit(AppConfig.linkedin_job_records_feed_limit)
+
+          render json: LinkedinJobsSerializer.attributes(jobs: jobs).as_json
         end
 
         private

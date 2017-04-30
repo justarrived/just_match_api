@@ -25,6 +25,11 @@
       "value": "",
       "required": false
     },
+    "LINKEDIN_JOB_RECORDS_FEED_LIMIT": {
+      "description": "LinkedIN jobs feed max records limit (optional)",
+      "value": "",
+      "required": false
+    },
     "MANAGED_EMAIL_USERNAME": {
       "description": "Managed accounts received email username (optional) [support]",
       "value": "",
