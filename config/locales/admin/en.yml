@@ -186,6 +186,9 @@ en:
       account_details_synced: Synced bank account details to Frilans Finans.
       missing_ff_id: 'Can not sync: User is missing Frilans Finans ID.'
       sync_ff_bank_account: Sync bank account
+      push_ff_user_success: user pushed successfully to Frilans Finans (HTTP %{status})
+      push_ff_user_failed: user pushed to Frilans Finans failed (HTTP %{status})
+      push_frilans_finans_btn: Push to Frilans Finans
       batch_form:
         tag_added_notice: 'Added "%{name}".'
         tag_add_and_remove_not_uniq_notice: "You can't add and remove the same tag."

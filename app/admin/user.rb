@@ -167,6 +167,28 @@ ActiveAdmin.register User do
     )
   end
 
+  action_item :push_frilans_finans, only: :show do
+    link_to(
+      I18n.t('admin.user.push_frilans_finans_btn'),
+      push_frilans_finans_admin_user_path(id: user.id),
+      method: :post
+    )
+  end
+
+  member_action :push_frilans_finans, method: :post do
+    user = resource
+
+    document = SyncFrilansFinansUserService.call(user: user)
+    if document.error_status?
+      message = I18n.t('admin.user.push_ff_user_failed', status: document.status)
+      redirect_to admin_user_path(user), alert: message
+    else
+      message = I18n.t('admin.user.push_ff_user_success', status: document.status)
+      redirect_to admin_user_path(user), notice: message
+    end
+  end
+
+
   # Create sections on the index screen
   scope :all
   scope :admins
