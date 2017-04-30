@@ -126,15 +126,7 @@ module Api
           end
 
           image_tokens = jsonapi_params[:user_image_one_time_tokens]
-
-          deprecated_param_value = jsonapi_params[:user_image_one_time_token]
-          if deprecated_param_value.blank?
-            @user.set_images_by_tokens = image_tokens unless image_tokens.blank?
-          else
-            message = 'The param "user_image_one_time_token" has been deprecated please use "user_image_one_time_tokens" instead' # rubocop:disable Metrics/LineLength
-            add_deprecation(message)
-            @user.profile_image_token = deprecated_param_value
-          end
+          @user.set_images_by_tokens = image_tokens unless image_tokens.blank?
 
           SetUserTraitsService.call(
             user: @user,
@@ -194,7 +186,6 @@ module Api
             param :proficiency, UserInterest::LEVEL_RANGE.to_a, desc: 'Interest level'
           end
           param :company_id, Integer, desc: 'Company id for user'
-          param :user_image_one_time_token, String, desc: '_DEPRECATED_ User image one time token'
           param :current_status, User::STATUSES.keys, desc: 'Current status'
           param :at_und, User::AT_UND.keys, desc: 'AT-UND status'
           param :gender, User::GENDER.keys, desc: 'Gender'
@@ -213,12 +204,6 @@ module Api
       example Doxxer.read_example(User, method: :update)
       def update
         authorize(@user)
-
-        unless jsonapi_params[:language_id].blank?
-          add_deprecation('Setting #system_language from #language is deprecated and will be removed soon.') # rubocop:disable Metrics/LineLength
-          # NOTE: This is just temporary until the client app is updated
-          @user.system_language_id = jsonapi_params[:language_id]
-        end
 
         if @user.update(user_params)
           @user.set_translation(user_params).tap do |result|
@@ -270,25 +255,14 @@ module Api
       def images
         authorize(UserImage)
 
-        if params[:image]
-          @user_image = UserImage.new(image: params[:image])
-          add_deprecation('Using multipart to upload an image is deprecated and will soon be removed please consult the documentation at api.justarrived.se to see the new method.') # rubocop:disable Metrics/LineLength
-        else
-          data_image = DataUriImage.new(user_image_params[:image])
-          unless data_image.valid?
-            respond_with_invalid_image_content_type
-            return
-          end
-
-          @user_image = UserImage.new(image: data_image.image)
+        data_image = DataUriImage.new(user_image_params[:image])
+        unless data_image.valid?
+          respond_with_invalid_image_content_type
+          return
         end
 
-        @user_image.category = if user_image_params[:category].blank?
-                                 add_deprecation('Not setting an image category has been deprecated, please provide a "category" param.') # rubocop:disable Metrics/LineLength
-                                 @user_image.default_category
-                               else
-                                 user_image_params[:category]
-                               end
+        @user_image = UserImage.new(image: data_image.image)
+        @user_image.category = user_image_params[:category]
 
         if @user_image.save
           api_render(@user_image, status: :created)

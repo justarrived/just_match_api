@@ -182,26 +182,6 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         end
       end
 
-      context 'user image token [DEPRECATED version]' do
-        let(:user_image) { FactoryGirl.create(:user_image) }
-
-        it 'can add user image' do
-          token = user_image.one_time_token
-
-          valid_attributes[:data][:attributes][:user_image_one_time_token] = token
-
-          post :create, params: valid_attributes
-          expect(assigns(:user).user_images.first).to eq(user_image)
-        end
-
-        it 'does not create user image if invalid one time token' do
-          valid_attributes[:data][:attributes][:user_image_one_time_token] = 'token'
-
-          post :create, params: valid_attributes
-          expect(assigns(:user).user_images.first).to be_nil
-        end
-      end
-
       context 'user image tokens' do
         let(:user_image) { FactoryGirl.create(:user_image) }
 
@@ -224,16 +204,6 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
       context 'user languages' do
         let(:language_id) { valid_attributes[:data][:attributes][:system_language_id] }
-
-        it 'creates from deprecated language id list' do
-          valid_attributes[:data][:attributes][:language_ids] = [language_id]
-
-          post :create, params: valid_attributes
-
-          user_language = assigns(:user).user_languages.first
-          expect(user_language.language.id).to eq(language_id)
-          expect(user_language.proficiency).to be_nil
-        end
 
         it 'creates from language list of ids and proficiencies' do
           post :create, params: valid_attributes
@@ -476,25 +446,6 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         post :images, params: valid_attributes
         user_image = assigns(:user_image)
         expect(user_image.category).to eq(category.to_s)
-      end
-
-      it 'assigns the default user image category if none given' do
-        attrs = valid_attributes.dup
-        attrs[:data][:attributes][:category] = nil
-
-        post :images, params: attrs, headers: {}
-        user_image = assigns(:user_image)
-        expect(user_image.category).to eq(user_image.default_category)
-      end
-
-      context 'DEPRECATED' do
-        it 'assigns the default user image category if none given' do
-          attrs = { image: TestImageFileReader.image_file }
-
-          post :images, params: attrs, headers: {}
-          user_image = assigns(:user_image)
-          expect(user_image.category).to eq(user_image.default_category)
-        end
       end
     end
 

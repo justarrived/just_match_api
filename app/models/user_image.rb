@@ -61,10 +61,6 @@ class UserImage < ApplicationRecord
     valid_one_time_tokens.find_by(one_time_token: token)
   end
 
-  def default_category
-    'profile'
-  end
-
   def generate_one_time_token
     self.one_time_token_expires_at = Time.zone.now + ONE_TIME_TOKEN_VALID_FOR_HOURS.hours
     self.one_time_token = SecureGenerator.token
