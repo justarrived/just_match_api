@@ -12,7 +12,12 @@ module Api
             order(created_at: :desc).
             limit(AppConfig.linkedin_job_records_feed_limit)
 
-          render json: LinkedinJobsSerializer.attributes(jobs: jobs).as_json
+          attributes = LinkedinJobsSerializer.attributes(jobs: jobs)
+          if json_content_type?
+            render json: attributes.as_json
+          else
+            render xml: attributes.to_xml
+          end
         end
 
         private
@@ -23,6 +28,10 @@ module Api
           return if AppSecrets.linkedin_sync_key == params[:auth_token]
 
           unauthorized!
+        end
+
+        def json_content_type?
+          ['application/json', 'application/vnd.api+json'].include?(request.content_type)
         end
 
         def unauthorized!
