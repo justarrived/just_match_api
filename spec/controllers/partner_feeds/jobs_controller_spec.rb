@@ -7,7 +7,10 @@ RSpec.describe Api::V1::PartnerFeeds::JobsController, type: :controller do
       job = FactoryGirl.create(:job_with_translation, translation_locale: :en)
       token = 'nososecret'
       allow(AppSecrets).to receive(:linkedin_sync_key).and_return(token)
+
+      request.content_type = 'application/json'
       get :linkedin, params: { auth_token: token }
+
       json = JSON.parse(response.body)
       first_job = json.first
 
