@@ -69,6 +69,10 @@ class AppConfig
     env['INVOICE_COMPANY_FRILANS_FINANS_ID']
   end
 
+  def self.linkedin_job_records_feed_limit
+    Integer(env.fetch('LINKEDIN_JOB_RECORDS_FEED_LIMIT', 300))
+  end
+
   def self.default_records_per_page
     Integer(env.fetch('DEFAULT_RECORDS_PER_PAGE', 10))
   end

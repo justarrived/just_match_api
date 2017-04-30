@@ -265,6 +265,7 @@ module Api
 
       NoSuchTokenError = Class.new(ArgumentError)
       ExpiredTokenError = Class.new(ArgumentError)
+      InvalidAuthTokenError = Class.new(ArgumentError)
 
       before_action :set_json_api_helper_default_key_transform_header
       before_action :authenticate_user_token!
@@ -282,6 +283,7 @@ module Api
       rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
       rescue_from ExpiredTokenError, with: :expired_token
       rescue_from NoSuchTokenError, with: :no_such_token
+      rescue_from InvalidAuthTokenError, with: :invalid_auth_token
 
       def append_info_to_payload(payload)
         super
@@ -426,6 +428,11 @@ module Api
       def no_such_token
         status = 401 # unauthorized
         render json: NoSuchToken.add.to_json, status: status
+      end
+
+      def invalid_auth_token
+        status = 401 # unauthorized
+        render json: InvalidAuthToken.add.to_json, status: status
       end
 
       def login_user(user, true_user = nil)

@@ -16,13 +16,22 @@ FactoryGirl.define do
     hours 30
 
     factory :job_with_translation do
-      after(:create) do |job, _evaluator|
+      transient do
+        translation_locale nil
+      end
+
+      after(:create) do |job, evaluator|
         translation_attributes = {
           name: job.name,
           description: job.description,
           short_description: job.short_description
         }
-        job.set_translation(translation_attributes)
+        if evaluator.translation_locale
+          language = Language.find_or_create_by(lang_code: evaluator.translation_locale)
+          job.set_translation(translation_attributes, language)
+        else
+          job.set_translation(translation_attributes)
+        end
       end
     end
 

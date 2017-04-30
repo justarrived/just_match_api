@@ -98,6 +98,7 @@ sv:
       url: måste vara en länk
       drivers_license: måste bestå av endast gilltiga körkorts typer
   invalid_credentials: Fel referenser.
+  invalid_auth_token: Fel nyckel.
   not_logged_in_error: Måste vara inloggad.
   record_not_found: Posten existerar inte.
   token_expired_error: Din token har upphört att gälla.

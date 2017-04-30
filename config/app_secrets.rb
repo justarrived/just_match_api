@@ -14,6 +14,10 @@ class AppSecrets
     @env = AppEnv.new
   end
 
+  def self.linkedin_sync_key
+    env['LINKEDIN_SYNC_KEY']
+  end
+
   def self.arbetsformedlingen_customer_id
     env['ARBETSFORMEDLINGEN_CUSTOMER_ID']
   end
