@@ -4,7 +4,7 @@ class LinkedinJobsSerializer
     I18n.with_locale(:en) do
       jobs.map do |job|
         company = job.company
-        attributes = {
+        {
           company: {
             name: company.name,
             id: company.cin,
@@ -17,7 +17,7 @@ class LinkedinJobsSerializer
             location: job.full_street_address,
             country_code: 'SE',
             postal_code: job.zip,
-            application_url: FrontendRouter.draw(:job, id: job.id),
+            application_url: FrontendRouter.draw(:job, id: job.id)
           }
         }
       end
