@@ -22,22 +22,23 @@ module Api
         example <<-XML_EXAMPLE
         <?xml version="1.0" encoding="UTF-8"?>
         <source>
-            <publisherUrl>https://justarrived.se</publisherUrl>
-            <publisher>Just Arrived</publisher>
-            <job>
-                <company><![CDATA[Macejkovic, Lynch and Considine]]></company>
-                <partnerJobId><![CDATA[300]]></partnerJobId>
-                <title><![CDATA[Something something, title.]]></title>
-                <description><![CDATA[Something something, darkside.]]></description>
-                <location>Storta Nygatan 36, 21137, Stockholm, Sverige</location>
-                <city><![CDATA[Stockholm]]></city>
-                <countryCode><![CDATA[SE]]></countryCode>
-                <postalCode><![CDATA[21137]]></postalCode>
-                <applyUrl><![CDATA[https://app.justarrived.se/job/300]]></applyUrl>
-            </job>
-            <job>
-              ...
-            </job>
+          <publisherUrl>https://justarrived.se</publisherUrl>
+          <publisher>Just Arrived</publisher>
+          <job>
+              <company><![CDATA[Macejkovic, Lynch and Considine]]></company>
+              <partnerJobId><![CDATA[300]]></partnerJobId>
+              <title><![CDATA[Something something, title.]]></title>
+              <description><![CDATA[Something something, darkside.]]></description>
+              <location>Storta Nygatan 36, 21137, Stockholm, Sverige</location>
+              <city><![CDATA[Stockholm]]></city>
+              <countryCode><![CDATA[SE]]></countryCode>
+              <postalCode><![CDATA[21137]]></postalCode>
+              <applyUrl><![CDATA[https://app.justarrived.se/job/300]]></applyUrl>
+          </job>
+          <job>
+            ...
+          </job>
+        </source>
         XML_EXAMPLE
         def linkedin
           jobs = Job.with_translations.
