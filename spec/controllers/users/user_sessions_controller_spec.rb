@@ -29,15 +29,6 @@ RSpec.describe Api::V1::Users::UserSessionsController, type: :controller do
           FactoryGirl.create(:user, attrs)
         end
 
-        it 'should work with (deprecated) email param' do
-          attributes = valid_attributes.dup
-          attributes[:data][:attributes][:email] = email
-          attributes[:data][:attributes][:email_or_phone] = nil
-
-          post :create, params: attributes, headers: valid_session
-          expect(response.status).to eq(201)
-        end
-
         it 'should work with uppercase email address' do
           attributes = valid_attributes.dup
           attributes[:data][:attributes][:email_or_phone] = email.upcase
