@@ -3,7 +3,6 @@
 FactoryGirl.define do
   factory :order_document do
     name 'MyString'
-    category 1
     document nil
     order nil
   end
