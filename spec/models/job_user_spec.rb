@@ -89,38 +89,6 @@ RSpec.describe JobUser, type: :model do
     end
   end
 
-  describe '#send_accepted_notice?' do
-    let(:job_user) { described_class.new }
-
-    it 'returns true if notice should be sent' do
-      job_user.accepted = true
-      result = job_user.send_accepted_notice?
-      expect(result).to eq(true)
-    end
-
-    it 'returns false if notice should be sent' do
-      job_user.accepted = false
-      result = job_user.send_accepted_notice?
-      expect(result).to eq(false)
-    end
-  end
-
-  describe '#send_performed_notice?' do
-    it 'returns true if notice should be sent' do
-      job = described_class.new
-      job.performed = true
-      expected = job.send_performed_notice?
-      expect(expected).to eq(true)
-    end
-
-    it 'returns false if notice should be sent' do
-      job = described_class.new
-      job.performed = false
-      expected = job.send_performed_notice?
-      expect(expected).to eq(false)
-    end
-  end
-
   it 'validates uniqueness of {job|user} scope' do
     user = FactoryGirl.build(:user)
     job = FactoryGirl.build(:job)
@@ -156,32 +124,6 @@ RSpec.describe JobUser, type: :model do
     err_msg = I18n.t('errors.job_user.multiple_applicants')
     expected = job_user.errors.messages[:multiple_applicants]
     expect(expected || []).not_to include(err_msg)
-  end
-
-  describe '#send_will_perform_notice?' do
-    let(:job_user) { FactoryGirl.build(:job_user) }
-
-    it 'returns false when it should *not* send notice' do
-      expect(job_user.send_will_perform_notice?).to eq(false)
-    end
-
-    it 'returns true when it should send notice' do
-      job_user.will_perform = true
-      expect(job_user.send_will_perform_notice?).to eq(true)
-    end
-  end
-
-  describe '#send_accepted_notice?' do
-    let(:job_user) { FactoryGirl.build(:job_user) }
-
-    it 'returns false when it should *not* send notice' do
-      expect(job_user.send_accepted_notice?).to eq(false)
-    end
-
-    it 'returns true when it should send notice' do
-      job_user.accepted = true
-      expect(job_user.send_accepted_notice?).to eq(true)
-    end
   end
 
   describe 'validate will perform not reverted' do

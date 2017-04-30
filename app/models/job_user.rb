@@ -119,24 +119,6 @@ class JobUser < ApplicationRecord
     !invoice.nil?
   end
 
-  # NOTE: You need to call this __before__ the record is validated
-  #       otherwise it will always return false
-  def send_accepted_notice?
-    accepted_changed? && accepted
-  end
-
-  # NOTE: You need to call this __before__ the record is validated
-  #       otherwise it will always return false
-  def send_will_perform_notice?
-    will_perform_changed? && will_perform
-  end
-
-  # NOTE: You need to call this __before__ the record is validated
-  #       otherwise it will always return false
-  def send_performed_notice?
-    performed_changed? && performed
-  end
-
   def validate_job_started_before_performed
     return if job && job.started?
     return unless performed
