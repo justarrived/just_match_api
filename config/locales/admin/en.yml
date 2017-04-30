@@ -112,6 +112,9 @@ en:
       batch_action:
         update:
           title: Update selected or all jobs
+      cancel_and_notify_btn: Cancel and notify
+      cancelled_and_notitied_success: job cancelled successfully
+      cancelled_and_notitied_failed: job could not be cancelled %{errors}
       create_arbetsformedlingen_ad: Create Arbetsförmedlingen Ad
       google_calendar_link: Google Calendar
       name: Name
