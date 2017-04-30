@@ -222,7 +222,6 @@ module Api
             interest_ids_param: jsonapi_params[:interest_ids]
           )
 
-          @user.profile_image_token = jsonapi_params[:user_image_one_time_token]
           sync_ff_user(@user)
 
           api_render(@user)
