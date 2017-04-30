@@ -6,6 +6,8 @@ class ApplicationRecord < ActiveRecord::Base
   scope :between, lambda { |field, from, to|
     where("#{field} >= ? AND #{field} <= ?", from, to)
   }
+  scope :after, ->(field, datetime) { where("#{field} > ?", datetime) }
+  scope :before, ->(field, datetime) { where("#{field} < ?", datetime) }
 
   def self.belongs_to_models
     reflections.map do |_, ba|
