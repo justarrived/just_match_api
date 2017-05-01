@@ -26,8 +26,6 @@ class CountriesSerializer
         next unless with_en_name || with_local_name || with_locale_name
       end
 
-      attributes.merge!(deprecated_attributes(country))
-
       attributes[:name] = translated_name
       attributes[:translated_text] = {
         name: translated_name,
@@ -47,17 +45,6 @@ class CountriesSerializer
     end
 
     JsonApiDatum.new(countries_data)
-  end
-
-  def self.deprecated_attributes(country)
-    ActiveSupport::Deprecation.warn('#deprecated_attributes is deprecated and will be removed soon.') # rubocop:disable Metrics/LineLength
-    attributes = {}
-    I18n.available_locales.each do |locale|
-      # There is no translations for fa_AF, so fallback on fa
-      load_locale = (locale == :fa_AF ? :fa : locale).to_s
-      attributes[:"#{locale}_name"] = country.translations[load_locale]
-    end
-    attributes
   end
 
   def self.locale

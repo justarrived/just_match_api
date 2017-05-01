@@ -22,7 +22,7 @@ Rails.application.routes.draw do
           get :matching_users, path: 'matching-users'
           resources :job_comments, module: :jobs, path: :comments, only: [:index, :show, :create, :destroy]
           resources :job_skills, param: :job_skill_id, module: :jobs, path: :skills, only: [:index, :show, :create, :destroy]
-          resources :job_users, param: :job_user_id, module: :jobs, path: :users, only: [:index, :show, :create, :update, :destroy] do
+          resources :job_users, param: :job_user_id, module: :jobs, path: :users, only: [:index, :show, :create, :destroy] do
             member do
               resources :invoices, only: [:create]
               resources :confirmations, only: [:create]
@@ -66,7 +66,6 @@ Rails.application.routes.draw do
           resources :user_skills, param: :user_skill_id, module: :users, path: :skills, only: [:index, :show, :create, :destroy]
           resources :user_interests, param: :user_interest_id, module: :users, path: :interests, only: [:index, :show, :create, :destroy]
           resources :user_languages, param: :user_language_id, module: :users, path: :languages, only: [:index, :show, :create, :destroy]
-          resources :frilans_finans, path: 'frilans-finans', module: :users, only: [:create]
           resources :user_images, module: :users, path: :images, only: [:show, :create]
           resources :ratings, module: :users, path: :ratings, only: [:index]
           resources :user_documents, module: :users, path: :documents, only: [:index, :create]

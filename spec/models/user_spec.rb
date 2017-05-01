@@ -219,26 +219,6 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe '#profile_image_token=' do
-    let(:user) { FactoryGirl.create(:user) }
-    let(:user_image) { FactoryGirl.create(:user_image) }
-
-    it 'can set profile image from token' do
-      user.profile_image_token = user_image.one_time_token
-      expect(user.user_images.first).to eq(user_image)
-    end
-
-    it 'does not set token when such token is found' do
-      user.profile_image_token = 'invalid token'
-      expect(user.user_images.first).to be_nil
-    end
-
-    it 'does not set token when token is nil' do
-      user.profile_image_token = nil
-      expect(user.user_images.first).to be_nil
-    end
-  end
-
   describe '#add_image_by_token=' do
     let(:user) { FactoryGirl.create(:user) }
     let(:user_image) { FactoryGirl.create(:user_image) }

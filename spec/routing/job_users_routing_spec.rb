@@ -21,12 +21,6 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :routing do
       expect(post: path).to route_to(route_path, job_id: '1')
     end
 
-    it 'routes to #update' do
-      path = '/api/v1/jobs/1/users/1'
-      route_path = 'api/v1/jobs/job_users#update'
-      expect(put: path).to route_to(route_path, job_id: '1', job_user_id: '1')
-    end
-
     it 'routes to #destroy' do
       path = '/api/v1/jobs/1/users/1'
       route_path = 'api/v1/jobs/job_users#destroy'

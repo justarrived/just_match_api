@@ -97,8 +97,6 @@ module Api
           param :country_of_origin, String, desc: 'Country of origin (alpha-2 code)'
           param :skype_username, String, desc: 'Skype username'
           param :bank_account, String, desc: 'User bank account number'
-          param :account_clearing_number, String, desc: '_DEPRECATED_ User account clearing number'
-          param :account_number, String, desc: '_DEPRECATED_ User account number'
           param :next_of_kin_name, String, desc: 'Next of kin name'
           param :next_of_kin_phone, String, desc: 'Next of kin phone'
           param :arbetsformedlingen_registered_at, Date, desc: 'Arbetsförmedlingen registered at'
@@ -112,21 +110,11 @@ module Api
         @user = User.new(user_params)
         @user.password = jsonapi_params[:password]
         terms_consent = [true, 'true'].include?(jsonapi_params[:consent])
-        language_defined = true
-
-        check_for_deprecated_params
-
-        if jsonapi_params[:system_language_id].blank? && jsonapi_params[:language_id].blank? # rubocop:disable Metrics/LineLength
-          language_defined = false
-        elsif jsonapi_params[:system_language_id].blank?
-          add_deprecation('Setting #system_language from #language is deprecated and will be removed soon.') # rubocop:disable Metrics/LineLength
-          @user.system_language_id = jsonapi_params[:language_id]
-        end
 
         authorize(@user)
         @user.validate
 
-        if terms_consent && language_defined && @user.valid?
+        if terms_consent && @user.valid?
           @user.save
           login_user(@user)
 
@@ -138,15 +126,7 @@ module Api
           end
 
           image_tokens = jsonapi_params[:user_image_one_time_tokens]
-
-          deprecated_param_value = jsonapi_params[:user_image_one_time_token]
-          if deprecated_param_value.blank?
-            @user.set_images_by_tokens = image_tokens unless image_tokens.blank?
-          else
-            message = 'The param "user_image_one_time_token" has been deprecated please use "user_image_one_time_tokens" instead' # rubocop:disable Metrics/LineLength
-            add_deprecation(message)
-            @user.profile_image_token = deprecated_param_value
-          end
+          @user.set_images_by_tokens = image_tokens unless image_tokens.blank?
 
           SetUserTraitsService.call(
             user: @user,
@@ -163,11 +143,6 @@ module Api
           unless terms_consent
             consent_error = I18n.t('errors.user.must_consent_to_terms_of_agreement')
             @user.errors.add(:consent, consent_error)
-          end
-
-          unless language_defined
-            # When the clients have moved to using #system_language this can be removed
-            @user.errors.add(:language, I18n.t('errors.messages.blank'))
           end
 
           api_render_errors(@user)
@@ -211,7 +186,6 @@ module Api
             param :proficiency, UserInterest::LEVEL_RANGE.to_a, desc: 'Interest level'
           end
           param :company_id, Integer, desc: 'Company id for user'
-          param :user_image_one_time_token, String, desc: '_DEPRECATED_ User image one time token'
           param :current_status, User::STATUSES.keys, desc: 'Current status'
           param :at_und, User::AT_UND.keys, desc: 'AT-UND status'
           param :gender, User::GENDER.keys, desc: 'Gender'
@@ -219,8 +193,6 @@ module Api
           param :country_of_origin, String, desc: 'Country of origin'
           param :skype_username, String, desc: 'Skype username'
           param :bank_account, String, desc: 'User bank account number'
-          param :account_clearing_number, String, desc: '_DEPRECATED_ User account clearing number'
-          param :account_number, String, desc: '_DEPRECATED_ User account number'
           param :next_of_kin_name, String, desc: 'Next of kin name'
           param :next_of_kin_phone, String, desc: 'Next of kin phone'
           param :arbetsformedlingen_registered_at, Date, desc: 'Arbetsförmedlingen registered at'
@@ -232,14 +204,6 @@ module Api
       example Doxxer.read_example(User, method: :update)
       def update
         authorize(@user)
-
-        check_for_deprecated_params
-
-        unless jsonapi_params[:language_id].blank?
-          add_deprecation('Setting #system_language from #language is deprecated and will be removed soon.') # rubocop:disable Metrics/LineLength
-          # NOTE: This is just temporary until the client app is updated
-          @user.system_language_id = jsonapi_params[:language_id]
-        end
 
         if @user.update(user_params)
           @user.set_translation(user_params).tap do |result|
@@ -258,7 +222,6 @@ module Api
             interest_ids_param: jsonapi_params[:interest_ids]
           )
 
-          @user.profile_image_token = jsonapi_params[:user_image_one_time_token]
           sync_ff_user(@user)
 
           api_render(@user)
@@ -291,25 +254,14 @@ module Api
       def images
         authorize(UserImage)
 
-        if params[:image]
-          @user_image = UserImage.new(image: params[:image])
-          add_deprecation('Using multipart to upload an image is deprecated and will soon be removed please consult the documentation at api.justarrived.se to see the new method.') # rubocop:disable Metrics/LineLength
-        else
-          data_image = DataUriImage.new(user_image_params[:image])
-          unless data_image.valid?
-            respond_with_invalid_image_content_type
-            return
-          end
-
-          @user_image = UserImage.new(image: data_image.image)
+        data_image = DataUriImage.new(user_image_params[:image])
+        unless data_image.valid?
+          respond_with_invalid_image_content_type
+          return
         end
 
-        @user_image.category = if user_image_params[:category].blank?
-                                 add_deprecation('Not setting an image category has been deprecated, please provide a "category" param.') # rubocop:disable Metrics/LineLength
-                                 @user_image.default_category
-                               else
-                                 user_image_params[:category]
-                               end
+        @user_image = UserImage.new(image: data_image.image)
+        @user_image.category = user_image_params[:category]
 
         if @user_image.save
           api_render(@user_image, status: :created)
@@ -405,18 +357,6 @@ module Api
         end
       end
 
-      def check_for_deprecated_params
-        if jsonapi_params[:account_clearing_number].present?
-          message = 'Setting #account_clearing_number is deprecated, please use #bank_account instead' # rubocop:disable Metrics/LineLength
-          add_deprecation(message, 'account_clearing_number')
-        end
-
-        if jsonapi_params[:account_number].present?
-          message = 'Setting #account_number is deprecated, please use #bank_account instead' # rubocop:disable Metrics/LineLength
-          add_deprecation(message, 'account_number')
-        end
-      end
-
       def set_user
         @user = User.find(params[:user_id])
       end
@@ -430,8 +370,7 @@ module Api
           :first_name, :last_name, :email, :phone, :description, :job_experience,
           :education, :ssn, :street, :city, :zip, :language_id, :company_id,
           :competence_text, :current_status, :at_und, :arrived_at, :country_of_origin,
-          :account_clearing_number, :account_number, :skype_username, :gender,
-          :bank_account, :linkedin_url, :facebook_url,
+          :skype_username, :gender, :bank_account, :linkedin_url, :facebook_url,
           :system_language_id, ignored_notifications: []
         ]
         jsonapi_params.permit(*whitelist)

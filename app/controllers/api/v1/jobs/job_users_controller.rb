@@ -117,46 +117,6 @@ module Api
           end
         end
 
-        api :PATCH, '/jobs/:job_id/users/:job_user_id', '_DEPRECATED_: Update job user'
-        description 'Updates a job user if the user is allowed.'
-        error code: 400, desc: 'Bad request'
-        error code: 401, desc: 'Unauthorized'
-        error code: 404, desc: 'Not found'
-        error code: 422, desc: 'Unprocessable entity'
-        ApipieDocHelper.params(self)
-        param :data, Hash, desc: 'Top level key', required: true do
-          param :attributes, Hash, desc: 'Job user attributes', required: true do
-            param :accepted, [true], desc: '_DEPRECATED_: User accepted for job'
-            param :will_perform, [true], desc: '_DEPRECATED_: User will perform job'
-            param :performed, [true], desc: '_DEPRECATED_: Job has been performed by user'
-          end
-        end
-        example Doxxer.read_example(JobUser, method: :update)
-        def update
-          add_deprecation('This route has been deprecated.')
-          authorize(@job_user)
-
-          @job_user.assign_attributes(job_user_attributes)
-
-          # The event name needs to be set before save, otherwise it can't
-          # determine what has changed
-          set_event_name(@job_user)
-
-          if @job_user.save
-            update_notifier_klass.call(job_user: @job_user, owner: @job.owner)
-
-            on_event(:will_perform) do
-              @job.fill_position!
-              # Frilans Finans wants invoices to be pre-reported
-              FrilansFinansInvoice.create!(job_user: @job_user)
-            end
-
-            api_render(@job_user)
-          else
-            api_render_errors(@job_user)
-          end
-        end
-
         api :DELETE, '/jobs/:job_id/users/:job_user_id', 'Delete user user'
         description 'Deletes job user if the user is allowed. It can __not__ be removed if `#will_perform` is true.' # rubocop:disable Metrics/LineLength
         error code: 401, desc: 'Unauthorized'
@@ -198,58 +158,6 @@ module Api
 
         def pundit_user
           JobUserPolicy::Context.new(current_user, @job, @user)
-        end
-
-        # NOTE: #set_event_name must have been called before this method
-        def update_notifier_klass
-          case event_name
-          when :accepted then ApplicantAcceptedNotifier
-          when :will_perform then ApplicantWillPerformNotifier
-          when :performed then NilNotifier # JobUserPerformedNotifier
-          else
-            NilNotifier
-          end
-        end
-
-        # NOTE: #set_event_name must have been called before this method
-        def event_name
-          @_event_name
-        end
-
-        # NOTE: #set_event_name must have been called before this method
-        def on_event(name)
-          return unless event_name == name
-
-          yield
-        end
-
-        def set_event_name(job_user)
-          @_event_name ||= begin
-            if job_user.send_accepted_notice?
-              message = [
-                'Setting JobUser#accepted using PATCH /jobs/:id/users',
-                'is deprecated, please use POST /jobs/:id/users/acceptances instead'
-              ].join(' ')
-              add_deprecation(message)
-              :accepted
-            elsif job_user.send_will_perform_notice?
-              message = [
-                'Setting JobUser#will_perform using PATCH /jobs/:id/users',
-                'is deprecated, please use POST /jobs/:id/users/confirmations instead'
-              ].join(' ')
-              add_deprecation(message)
-              :will_perform
-            elsif job_user.send_performed_notice?
-              message = [
-                'Setting JobUser#performed using PATCH /jobs/:id/users',
-                'is deprecated, please use POST /jobs/:id/users/performed instead'
-              ].join(' ')
-              add_deprecation(message)
-              :performed
-            else
-              :nothing
-            end
-          end
         end
 
         def job_users_index_scope(base_scope)

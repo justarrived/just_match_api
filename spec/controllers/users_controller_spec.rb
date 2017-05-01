@@ -15,7 +15,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
           last_name: 'name',
           phone: '123456789',
           description: 'Some user description',
-          language_id: lang_id,
+          system_language_id: lang_id,
           language_ids: [{ id: lang_id, proficiency: lang_proficiency }],
           street: 'Stora Nygatan 36',
           zip: '211 37',
@@ -153,22 +153,10 @@ RSpec.describe Api::V1::UsersController, type: :controller do
           expect(response.body).to have_jsonapi_attribute('account-clearing-number', '8000-2') # rubocop:disable Metrics/LineLength
           expect(response.body).to have_jsonapi_attribute('account-number', '0000000000')
         end
-
-        context '_DEPRECATED_ attribute names' do
-          it 'can return validation error for bank account' do
-            attrs = valid_attributes.dup
-            attrs[:data][:attributes][:account_number] = 'asdasdsa'
-            attrs[:data][:attributes][:account_clearing_number] = 'asdasdsa'
-            post :create, params: attrs, headers: {}
-            expect(response.body).to have_jsonapi_attribute_error('account')
-            expect(response.body).to have_jsonapi_attribute_error('account-clearing-number') # rubocop:disable Metrics/LineLength
-            expect(response.body).to have_jsonapi_attribute_error('account-number')
-          end
-        end
       end
 
       context 'with system_language' do
-        it 'sets system_language and language independently from each other' do
+        it 'sets system_language independently from each other' do
           lang_id = Language.find_or_create_by!(lang_code: 'sv').id
           attrs = valid_attributes.dup
           attrs[:data][:attributes][:system_language_id] = lang_id
@@ -177,14 +165,11 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         end
       end
 
-      context 'with neither system_language or language' do
-        it 'returns errors for both fields' do
-          attrs = valid_attributes.dup
-          attrs[:data][:attributes][:language_id] = nil
-          post :create, params: attrs, headers: {}
-          expect(response.body).to have_jsonapi_attribute_error_for(:language)
-          expect(response.body).to have_jsonapi_attribute_error_for(:'system-language')
-        end
+      it 'returns error for system_language' do
+        attrs = valid_attributes.dup
+        attrs[:data][:attributes][:system_language_id] = nil
+        post :create, params: attrs, headers: {}
+        expect(response.body).to have_jsonapi_attribute_error_for(:'system-language')
       end
 
       context 'without consent' do
@@ -194,26 +179,6 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
           post :create, params: attributes
           expect(assigns(:user)).not_to be_persisted
-        end
-      end
-
-      context 'user image token [DEPRECATED version]' do
-        let(:user_image) { FactoryGirl.create(:user_image) }
-
-        it 'can add user image' do
-          token = user_image.one_time_token
-
-          valid_attributes[:data][:attributes][:user_image_one_time_token] = token
-
-          post :create, params: valid_attributes
-          expect(assigns(:user).user_images.first).to eq(user_image)
-        end
-
-        it 'does not create user image if invalid one time token' do
-          valid_attributes[:data][:attributes][:user_image_one_time_token] = 'token'
-
-          post :create, params: valid_attributes
-          expect(assigns(:user).user_images.first).to be_nil
         end
       end
 
@@ -238,17 +203,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       end
 
       context 'user languages' do
-        let(:language_id) { valid_attributes[:data][:attributes][:language_id] }
-
-        it 'creates from deprecated language id list' do
-          valid_attributes[:data][:attributes][:language_ids] = [language_id]
-
-          post :create, params: valid_attributes
-
-          user_language = assigns(:user).user_languages.first
-          expect(user_language.language.id).to eq(language_id)
-          expect(user_language.proficiency).to be_nil
-        end
+        let(:language_id) { valid_attributes[:data][:attributes][:system_language_id] }
 
         it 'creates from language list of ids and proficiencies' do
           post :create, params: valid_attributes
@@ -304,36 +259,6 @@ RSpec.describe Api::V1::UsersController, type: :controller do
           put :update, params: params, headers: valid_session
           expect(response.status).to eq(200)
         end
-
-        context 'user image' do
-          let(:user_image) { FactoryGirl.create(:user_image) }
-          let(:new_attributes) do
-            {
-              data: {
-                attributes: { user_image_one_time_token: user_image.one_time_token }
-              }
-            }
-          end
-
-          it 'can replace user image' do
-            user.user_images = [FactoryGirl.create(:user_image)]
-
-            params = { user_id: user.to_param }.merge(new_attributes)
-            user_image.one_time_token
-            post :update, params: params, headers: {}
-            expect(assigns(:user).user_images.first).to eq(user_image)
-          end
-
-          it 'does not replace user image if invalid one time token' do
-            first_user_image = FactoryGirl.create(:user_image)
-            user.user_images = [first_user_image]
-
-            params = { user_id: user.to_param }
-
-            post :update, params: params, headers: {}
-            expect(assigns(:user).user_images.first).to eq(first_user_image)
-          end
-        end
       end
 
       context 'unauthorized' do
@@ -362,7 +287,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
       context 'with user languages' do
         let(:user) { User.find_by_auth_token(valid_session[:token]) }
-        let(:language_id) { valid_attributes[:data][:attributes][:language_id] }
+        let(:language_id) { valid_attributes[:data][:attributes][:system_language_id] }
         let(:new_attributes) do
           {
             data: {
@@ -492,25 +417,6 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         user_image = assigns(:user_image)
         expect(user_image.category).to eq(category.to_s)
       end
-
-      it 'assigns the default user image category if none given' do
-        attrs = valid_attributes.dup
-        attrs[:data][:attributes][:category] = nil
-
-        post :images, params: attrs, headers: {}
-        user_image = assigns(:user_image)
-        expect(user_image.category).to eq(user_image.default_category)
-      end
-
-      context 'DEPRECATED' do
-        it 'assigns the default user image category if none given' do
-          attrs = { image: TestImageFileReader.image_file }
-
-          post :images, params: attrs, headers: {}
-          user_image = assigns(:user_image)
-          expect(user_image.category).to eq(user_image.default_category)
-        end
-      end
     end
 
     context 'with invalid params' do
@@ -586,8 +492,8 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       result = JSON.parse(response.body)['data']
       result.each do |json_object|
         id = json_object['id']
-        name = json_object.dig('attributes', 'en-name')
-        description = json_object.dig('attributes', 'en-description')
+        name = json_object.dig('attributes', 'name')
+        description = json_object.dig('attributes', 'description')
         type = json_object['type']
 
         expect(name).to eq(I18n.t("user.statuses.#{id}"))

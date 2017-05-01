@@ -19,7 +19,7 @@ module Api
 {}
 '
         def create
-          user = User.find_by_email_or_phone(email_or_phone)
+          user = User.find_by_email_or_phone(jsonapi_params[:email_or_phone])
 
           if user
             user.generate_one_time_token(valid_duration: RESET_TOKEN_VALID_DURATION.call)
@@ -30,20 +30,6 @@ module Api
           # Always render 202 accepted status, we don't want to increase the number of
           # places that exposes what emails are in the system
           render json: {}, status: :accepted
-        end
-
-        private
-
-        def email_or_phone
-          email_or_phone = jsonapi_params[:email_or_phone]
-          return email_or_phone unless email_or_phone.blank?
-
-          message = [
-            'Param `email` is deprecated!',
-            'Please use `email_or_phone` instead.'
-          ].join(' ')
-          add_deprecation(message, 'email')
-          jsonapi_params[:email]
         end
       end
     end

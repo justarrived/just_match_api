@@ -29,16 +29,8 @@ module SetUserLanguagesService
     language_ids_param.map do |language|
       if language.respond_to?(:permit)
         language.permit(:id, :proficiency)
-      elsif language.is_a?(Hash)
-        language
       else
-        message = [
-          'Passing languages as a list of integers is deprecated.',
-          'Please pass an array of objects, i.e [{ id: 1, proficiency: 1 }]'
-        ].join(' ')
-        ActiveSupport::Deprecation.warn(message)
-
-        { id: language, proficiency: nil }
+        language
       end
     end
   end
