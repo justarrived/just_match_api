@@ -15,6 +15,8 @@ The code follows most Rails conventions. If you've worked with Rails before the 
   - PostgreSQL 9.3
   - Redis 3
 
+* __PostgreSQL extensions__
+  + `unaccent`
 
 * __Environment variables__
   + Used to configure app

@@ -104,6 +104,14 @@ class Job < ApplicationRecord
   # NOTE: This is necessary for nested activeadmin has_many form
   accepts_nested_attributes_for :job_skills, :job_languages
 
+  ransacker :city, type: :string do
+    Arel.sql("unaccent(\"city\")")
+  end
+
+  ransacker :municipality, type: :string do
+    Arel.sql("unaccent(\"city\")")
+  end
+
   def self.ransackable_scopes(_auth_object = nil)
     [:near_address]
   end

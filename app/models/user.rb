@@ -161,6 +161,18 @@ class User < ApplicationRecord
     failed_to_activate_invoice
   ).freeze
 
+  ransacker :first_name, type: :string do
+    Arel.sql("unaccent(\"first_name\")")
+  end
+
+  ransacker :last_name, type: :string do
+    Arel.sql("unaccent(\"last_name\")")
+  end
+
+  ransacker :city, type: :string do
+    Arel.sql("unaccent(\"city\")")
+  end
+
   def self.main_support_user
     find_by(email: AppConfig.support_email) || admins.first
   end
