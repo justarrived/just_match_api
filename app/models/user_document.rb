@@ -15,6 +15,9 @@ class UserDocument < ApplicationRecord
 
   delegate :url, to: :document
   delegate :document_file_name, to: :document
+
+  # NOTE: This is necessary for nested activeadmin has_many form
+  accepts_nested_attributes_for :document
 end
 
 # == Schema Information

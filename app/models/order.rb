@@ -17,6 +17,9 @@ class Order < ApplicationRecord
       where('jobs.id IS NULL OR jobs.filled = false')
   })
 
+  # NOTE: This is necessary for nested activeadmin has_many form
+  accepts_nested_attributes_for :order_documents, :documents
+
   def filled_jobs
     jobs.filled
   end

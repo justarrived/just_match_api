@@ -53,6 +53,17 @@ ActiveAdmin.register Order do
           ', '
         )
       end
+      row :documents do
+        safe_join(
+          order.documents.order(created_at: :desc).map do |document|
+            link_to(
+              document.document_file_name,
+              download_link_to(url: document.url, file_name: document.document_file_name)
+            )
+          end,
+          ', '
+        )
+      end
       row :total_revenue
       row :invoice_hourly_pay_rate
       row :hourly_pay_rate
@@ -85,18 +96,46 @@ ActiveAdmin.register Order do
       end
 
       f.input :lost
+
+      f.has_many :order_documents, new_record: true do |ff|
+        ff.semantic_errors(*ff.object.errors.keys)
+
+        ff.inputs('Documents', for: [:document, ff.object.document || Document.new]) do |fff|
+          fff.input :document, required: true, as: :file
+        end
+      end
     end
 
     f.actions
   end
 
   permit_params do
-    %i(invoice_hourly_pay_rate hours lost job_request_id hourly_pay_rate)
+    [
+      :invoice_hourly_pay_rate,
+      :hours,
+      :lost,
+      :job_request_id,
+      :hourly_pay_rate,
+      :filled_invoice_hourly_pay_rate,
+      :filled_hourly_pay_rate,
+      :filled_hours,
+      order_documents_attributes: [:name, { document_attributes: [:id, :document] }]
+    ]
   end
 
   controller do
     def scoped_collection
       super.includes(:jobs)
+    end
+
+    def update_resource(order, params_array)
+      order_params = params_array.first
+      order_documents_attrs = order_params.delete(:order_documents_attributes)
+      document_ids_param = (order_documents_attrs.fetch(:document_attributes, {})).map do |_index, attrs|
+        { id: attrs[:id], document: attrs[:document] }
+      end
+      SetOrderDocumentsService.call(order: order, order_documents_param: order_documents_attrs)
+      super
     end
   end
 end
