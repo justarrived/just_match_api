@@ -9,7 +9,7 @@ class PushArbetsformedlingenAdService
     wrapper = Arbetsformedlingen::JobWrapper.new(ad.job, published: ad.published)
     return Result.new(wrapper.errors, nil) unless wrapper.valid?
 
-    response = Arbetsformedlingen.post(wrapper.to_xml)
+    response = Arbetsformedlingen.post(wrapper.packet)
 
     log = ArbetsformedlingenAdLog.create!(
       arbetsformedlingen_ad: ad,

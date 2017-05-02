@@ -2,6 +2,8 @@
 
 module Arbetsformedlingen
   class JobWrapper
+    attr_reader :packet
+
     def initialize(job, published:)
       @job = job
       @published = published
@@ -21,10 +23,6 @@ module Arbetsformedlingen
           [name, model.errors] if model.errors.any?
         end.compact.to_h
       end
-    end
-
-    def to_xml
-      @xml ||= Arbetsformedlingen::OutputBuilder.new(@packet).to_xml
     end
 
     private
