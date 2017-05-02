@@ -22,9 +22,19 @@ module Api
             param :one_time_token, String, desc: 'One time token (required if not logged in)'
           end
         end
-        # rubocop:enable Metrics/LineLength
         example '# Response example
 {}'
+        example "# Error example
+#{JSON.pretty_generate(
+  JsonApiErrors.new.add(
+    detail: I18n.t('errors.user.wrong_password'),
+    code: :wrong_password,
+    attribute: :old_password
+    )
+  )
+}
+"
+        # rubocop:enable Metrics/LineLength
         def create
           new_password = jsonapi_params[:password]
           old_password = jsonapi_params[:old_password]
@@ -65,10 +75,11 @@ module Api
         end
 
         def wrong_password_error
-          message = I18n.t('errors.user.wrong_password')
-          errors = JsonApiErrors.new
-          errors.add(detail: message, attribute: :old_password)
-          errors
+          JsonApiErrors.new.add(
+            detail: I18n.t('errors.user.wrong_password'),
+            code: :wrong_password,
+            attribute: :old_password
+          )
         end
 
         def respond_with_no_such_reset_token_error
