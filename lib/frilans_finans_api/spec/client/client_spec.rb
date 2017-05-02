@@ -10,7 +10,7 @@ RSpec.describe FrilansFinansApi::Client do
     headers['Authorization'] = "Bearer #{access_token}"
     { headers: headers }
   end
-  let(:base_uri) { FrilansFinansApi.base_uri }
+  let(:base_uri) { FrilansFinansApi.config.base_uri }
   let(:fixture_client) { FrilansFinansApi::FixtureClient.new }
 
   describe '#professions' do

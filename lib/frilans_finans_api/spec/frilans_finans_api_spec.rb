@@ -8,11 +8,11 @@ RSpec.describe FrilansFinansApi do
     expect(FrilansFinansApi::VERSION).not_to be_nil
   end
 
-  it 'has a default client' do
-    expect(FrilansFinansApi::DEFAULT_CLIENT_KLASS).not_to be_nil
-  end
+  describe '#config' do
+    after(:each) { described_class.reset_config }
 
-  it 'has a default client returned by #client_klass' do
-    expect(FrilansFinansApi.client_klass).not_to be_nil
+    it 'is present' do
+      expect(described_class.config).to be_a(described_class::Configuration)
+    end
   end
 end

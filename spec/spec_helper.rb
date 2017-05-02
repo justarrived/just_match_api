@@ -52,11 +52,13 @@ RSpec.configure do |config|
 end
 
 # Set test defaults
-FrilansFinansApi.client_klass = FrilansFinansApi::FixtureClient
-FrilansFinansApi.base_uri = 'https://example.com'
-FrilansFinansApi.client_id = '123456'
-FrilansFinansApi.client_secret = 'notsosecret'
-FrilansFinansApi.event_logger = FrilansFinansApi::NilEventLogger.new
+FrilansFinansApi.configure do |config|
+  config.client_klass = FrilansFinansApi::FixtureClient
+  config.base_uri = 'https://example.com'
+  config.client_id = '123456'
+  config.client_secret = 'notsosecret'
+  config.event_logger = FrilansFinansApi::NilEventLogger.new
+end
 
 # Only allow the tests to connect to localhost and  allow codeclimate
 # codeclimate (for test coverage reporting)

@@ -29,6 +29,12 @@ namespace :sweepers do
       end
     end
 
+    task destroy_week_old_frilans_finans_api_logs: :environment do |task_name|
+      wrap_sweeper_task(task_name) do
+        Sweepers::FrilansFinansApiLogSweeper.destroy_old(datetime: 7.days.ago)
+      end
+    end
+
     task destroy_company_image_orphans: :environment do |task_name|
       wrap_sweeper_task(task_name) { Sweepers::CompanyImageSweeper.destroy_orphans }
     end

@@ -4,21 +4,21 @@ module FrilansFinansApi
     module_function
 
     def isolate_frilans_finans_client(klass)
-      before_klass = FrilansFinansApi.client_klass
-      FrilansFinansApi.client_klass = klass
+      before_klass = FrilansFinansApi.config.client_klass
+      FrilansFinansApi.config.client_klass = klass
       result = yield(before_klass)
-      FrilansFinansApi.client_klass = before_klass
+      FrilansFinansApi.config.client_klass = before_klass
       result
     end
 
     def stub_frilans_finans_auth_request
       # Stub auth request
-      base_uri = FrilansFinansApi.base_uri
+      base_uri = FrilansFinansApi.config.base_uri
       headers = { 'User-Agent' => 'FrilansFinansAPI - Ruby client' }
       body = [
         'grant_type=client_credentials',
-        "client_id=#{FrilansFinansApi.client_id}",
-        "client_secret=#{FrilansFinansApi.client_secret}"
+        "client_id=#{FrilansFinansApi.config.client_id}",
+        "client_secret=#{FrilansFinansApi.config.client_secret}"
       ].join('&')
 
       response_body =  JSON.dump(
