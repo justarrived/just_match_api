@@ -17,6 +17,7 @@ namespace :sweepers do
       destroy_company_image_orphans
       destroy_user_image_orphans
       destroy_terms_agreement_orphans
+      destroy_week_old_frilans_finans_api_logs
     ).each do |task|
       Rake::Task["sweepers:cleanup:#{task}"].execute
     end
