@@ -3,6 +3,51 @@
 HEAD
 -----------
 
+
+v1.59 - 2017-05-02
+----------
+* _Feature_:
+  - Add OrderDocument model
+  - LinkedIN patner feed
+  - Arbetsformedlingen sync
+* _Remove_:
+  - :hocho: /users/:id/frilans-finans endpoint
+  - :hocho: deprecated attributes in Countries serializer
+  - :hocho: deprecated attributes in user statuses serialzier
+  - :hocho: deprecated bank account attributes for user
+  - :hocho: deprecated email param in reset password controller
+  - :hocho: deprecated email param in user sessions controller
+  - :hocho: deprecated job user methods & actions
+  - :hocho: deprecated user image & language_ids param
+  - :hocho: deprecated user#language_id param
+  - :hocho: Remove tests for :skull: code
+  - :hocho: test failures
+  - :hocho: test for dead code
+  - :hocho: `User#profile_image_token=`
+* _Enhancement_:
+  - Add `ApplicationRecord#{after|before}` methods
+  - Add `FrilansFinansApiLogSweeper` that delets old entries
+  - Set max document size to 20MB
+* Admin:
+  - Add cancel and notify action button to job show page
+  - Add create ArbetsformedlingenAd button to job show page
+  - Add JobUser::not_pre_reported scope
+  - Add push to Frilans Finans button to user show page
+  - Simpler order document upload
+  - Unaccent certain user & job fields
+* _API_:
+  - Add /partner-feeds/jobs/linkedin endpoint
+  - Implement /partner-feeds/jobs/linkedin route
+  - Support both JSON & XML in LinkedIn feed
+* _Doc_:
+  - Add API error doc example to change password. Closes #962
+  - Regenerate API doc examples
+* _DB_:
+  - Enable `unaccent` PostgreSQL extension
+* _Update gem_:
+  - arbetsformedlingen
+
+
 v1.58 - 2017-04-26
 ----------
 * _Bugfix_:
