@@ -8,8 +8,8 @@ module Rack
       '127.0.0.1' == req.ip || '::1' == req.ip
     end
 
-    # Allow 100 requests per 10 seconds
-    throttle('req/ip', limit: 100, period: 10.seconds, &:ip)
+    # Allow 500 requests per 10 seconds
+    throttle('req/ip', limit: 500, period: 10.seconds, &:ip)
 
     self.throttled_response = lambda { |env|
       retry_after = (env['rack.attack.match_data'] || {})[:period]
