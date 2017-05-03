@@ -40,6 +40,8 @@ module JsonApiHelpers
 
     def initialize
       @key_transform = :unaltered
+      @deserializer_klass = nil
+      @params_klass = nil
     end
 
     def key_transform=(key_transform)
@@ -50,11 +52,11 @@ module JsonApiHelpers
     end
 
     def deserializer_klass
-      @deserializer_klass || fail('deserializer_klass must be set, for example: ActiveModelSerializers::Deserialization') # rubocop:disable Metrics/LineLength
+      @deserializer_klass || fail('deserializer_klass must be set, e.g: ActiveModelSerializers::Deserialization') # rubocop:disable Metrics/LineLength
     end
 
     def params_klass
-      @params_klass || fail('params_klass must be set, for example: ActionController::Parameters') # rubocop:disable Metrics/LineLength
+      @params_klass || fail('params_klass must be set, e.g: ActionController::Parameters')
     end
 
     private
