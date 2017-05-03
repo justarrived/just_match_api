@@ -9,8 +9,6 @@ RSpec.describe FrilansFinansApi do
   end
 
   describe '#config' do
-    after(:each) { described_class.reset_config }
-
     it 'is present' do
       expect(described_class.config).to be_a(described_class::Configuration)
     end

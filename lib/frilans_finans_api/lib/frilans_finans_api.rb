@@ -35,10 +35,6 @@ module FrilansFinansApi
     block_given? ? yield(config) : config
   end
 
-  def self.reset_config
-    self.config = Configuration.new
-  end
-
   class Configuration
     attr_accessor :client_klass, :base_uri,
                   :logger, :event_logger, :base_uri
