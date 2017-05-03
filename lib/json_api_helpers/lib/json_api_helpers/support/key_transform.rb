@@ -8,7 +8,7 @@ module JsonApiHelpers
     module_function
 
     def call(object, key_transform: nil)
-      key_transform ||= JsonApiHelpers.default_key_transform
+      key_transform ||= JsonApiHelpers.config.key_transform
       public_send(key_transform, object)
     end
 

@@ -31,7 +31,7 @@ module JsonApiHelpers
                                     wrong_length
                                   )).freeze
 
-      def self.serialize(model, key_transform: JsonApiHelpers.default_key_transform)
+      def self.serialize(model, key_transform: JsonApiHelpers.config.key_transform)
         model.errors.details.flat_map do |field, errors|
           errors.map do |error|
             attribute_name = KeyTransform.call(field.to_s, key_transform: key_transform)
