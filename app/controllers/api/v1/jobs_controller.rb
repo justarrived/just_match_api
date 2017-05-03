@@ -172,7 +172,7 @@ module Api
         end
       end
 
-      api :GET, '/jobs/:job_id/matching_users', 'Show matching users for job'
+      api :GET, '/jobs/:job_id/matching-users', 'Show matching users for job'
       description 'Returns matching users for job if user is allowed.'
       error code: 401, desc: 'Unauthorized'
       error code: 404, desc: 'Not found'
