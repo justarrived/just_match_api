@@ -10,7 +10,7 @@ class CreateFrilansFinansInvoiceService
       return ff_invoice
     end
 
-    client = FrilansFinansApi.client_klass.new
+    client = FrilansFinansApi.config.client_klass.new
     ff_invoice_attributes = FrilansFinansInvoiceAttributesService.call(
       client: client,
       user: user,

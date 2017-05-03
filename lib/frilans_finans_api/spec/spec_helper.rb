@@ -7,10 +7,12 @@ require 'webmock/rspec'
 WebMock.disable_net_connect!
 
 # Set test defaults
-FrilansFinansApi.client_klass = FrilansFinansApi::FixtureClient
-FrilansFinansApi.base_uri = 'https://example.com'
-FrilansFinansApi.client_id = '123456'
-FrilansFinansApi.client_secret = 'notsosecret'
+FrilansFinansApi.configure do |config|
+  config.client_klass = FrilansFinansApi::FixtureClient
+  config.base_uri = 'https://example.com'
+  config.client_id = '123456'
+  config.client_secret = 'notsosecret'
+end
 
 RSpec.configure do |config|
   config.include FrilansFinansApi::TestHelper

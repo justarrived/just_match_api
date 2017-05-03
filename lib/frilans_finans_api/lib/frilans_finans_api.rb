@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'frilans_finans_api/version'
+
 require 'frilans_finans_api/client/fixture_client'
 require 'frilans_finans_api/client/nil_client'
 require 'frilans_finans_api/client/walker'
@@ -24,59 +26,36 @@ require 'frilans_finans_api/nil_logger'
 require 'frilans_finans_api/nil_event_logger'
 
 module FrilansFinansApi
-  DEFAULT_CLIENT_KLASS = Client
-  DEFAULT_BASE_URI = 'https://frilansfinans.se/api'
-
-  def self.client_klass
-    @client_klass ||= DEFAULT_CLIENT_KLASS
+  class << self
+    attr_accessor :config
   end
 
-  def self.client_klass=(klass)
-    @client_klass = klass
+  def self.configure
+    self.config ||= Configuration.new
+    block_given? ? yield(config) : config
   end
 
-  def self.client_id
-    @client_id || fail("#{name}.client_id must be set")
-  end
+  class Configuration
+    attr_accessor :client_klass, :base_uri,
+                  :logger, :event_logger, :base_uri
 
-  def self.client_id=(client_id)
-    @client_id = client_id
-  end
+    attr_writer :client_id, :client_secret
 
-  def self.client_secret
-    @client_secret || fail("#{name}.client_secret must be set")
-  end
+    def initialize
+      @client_klass = Client
+      @client_id = nil
+      @client_secret = nil
+      @base_uri = 'https://frilansfinans.se/api'
+      @logger = NilLogger.new
+      @event_logger = NilEventLogger.new
+    end
 
-  def self.client_secret=(client_secret)
-    @client_secret = client_secret
-  end
+    def client_id
+      @client_id || fail('#client_id must be set')
+    end
 
-  def self.base_uri
-    @base_uri ||= DEFAULT_BASE_URI
-  end
-
-  def self.base_uri=(uri)
-    @base_uri = uri
-  end
-
-  def self.logger
-    @logger ||= NilLogger.new
-  end
-
-  def self.logger=(logger)
-    @logger = logger
-  end
-
-  def self.event_logger
-    @event_logger ||= NilEventLogger.new
-  end
-
-  def self.event_logger=(logger)
-    @event_logger = logger
-  end
-
-  def self.reset_config
-    @client_klass = DEFAULT_CLIENT_KLASS
-    @base_uri = DEFAULT_BASE_URI
+    def client_secret
+      @client_secret || fail('#client_secret must be set')
+    end
   end
 end

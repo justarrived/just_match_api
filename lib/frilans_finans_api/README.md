@@ -21,10 +21,12 @@ Or install it yourself as:
 __Configure__
 
 ```ruby
-FrilansFinansApi.client_klass  = FrilansFinansApi::Client
-FrilansFinansApi.base_uri      = ENV.fetch('FRILANS_FINANS_BASE_URI')
-FrilansFinansApi.client_id     = ENV.fetch('FRILANS_FINANS_CLIENT_ID')
-FrilansFinansApi.client_secret = ENV.fetch('FRILANS_FINANS_CLIENT_SECRET')
+FrilansFinansApi.configure do |config|
+  config.client_klass  = FrilansFinansApi::Client
+  config.base_uri      = ENV.fetch('FRILANS_FINANS_BASE_URI')
+  config.client_id     = ENV.fetch('FRILANS_FINANS_CLIENT_ID')
+  config.client_secret = ENV.fetch('FRILANS_FINANS_CLIENT_SECRET')
+end
 ```
 
 ## Usage

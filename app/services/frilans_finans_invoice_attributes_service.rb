@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class FrilansFinansInvoiceAttributesService
-  def self.call(user:, job:, pre_report:, express_payment:, client: FrilansFinansApi.client_klass.new) # rubocop:disable Metrics/LineLength
+  def self.call(user:, job:, pre_report:, express_payment:, client: FrilansFinansApi.config.client_klass.new) # rubocop:disable Metrics/LineLength
     tax = FrilansFinansApi::Tax.index(only_standard: true, client: client).resource
     # We need to update the users profession title to match the jobs,
     # in order to please Frilans Finans

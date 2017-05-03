@@ -17,11 +17,11 @@ module FrilansFinansApi
     attr_reader :credentials, :base_uri, :access_token
 
     def initialize(base_uri: nil, client_id: nil, client_secret: nil)
-      @base_uri = base_uri || FrilansFinansApi.base_uri
+      @base_uri = base_uri || FrilansFinansApi.config.base_uri
       @credentials = {
         grant_type: GRANT_TYPE,
-        client_id: client_id || FrilansFinansApi.client_id,
-        client_secret: client_secret || FrilansFinansApi.client_secret
+        client_id: client_id || FrilansFinansApi.config.client_id,
+        client_secret: client_secret || FrilansFinansApi.config.client_secret
       }
       @access_token = nil
     end
@@ -133,12 +133,12 @@ module FrilansFinansApi
         "STATUS: #{status}",
         "BODY: #{body}"
       ].join(' ')
-      FrilansFinansApi.event_logger.request_event(params: json_params,
+      FrilansFinansApi.config.event_logger.request_event(params: json_params,
                                                   status: status,
                                                   verb: verb,
                                                   uri: uri,
                                                   body: body)
-      FrilansFinansApi.logger.info log_body
+      FrilansFinansApi.config.logger.info log_body
     end
   end
 end
