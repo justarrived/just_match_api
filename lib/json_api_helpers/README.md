@@ -22,14 +22,19 @@ Or install it yourself as:
 
 ## Usage
 
+:warning: You must configure `deserializer_klass` and `params_klass`, if you want to use the `Dersializer`.
+
 ```ruby
 require 'json_api_helpers'
 
 include JsonApiHelpers::Alias
 
-JsonApiHelpers.deserializer_klass = ActiveModelSerializers::Deserialization
-JsonApiHelpers.params_klass = ActionController::Parameters
-JsonApiHelpers.default_key_transform = :dash # camel, camel_lower, underscore, unaltered
+JsonApiHelpers.configure do |config|
+  config.deserializer_klass = ActiveModelSerializers::Deserialization
+  config.params_klass = ActionController::Parameters
+  # optional (unaltered is the default)
+  config.key_transform = :dash # camel, camel_lower, underscore, unaltered
+end
 
 # Error
 errors = JsonApiHelpers::Serializers::Errors.new

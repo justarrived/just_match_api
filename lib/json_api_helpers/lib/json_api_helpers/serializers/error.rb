@@ -4,10 +4,21 @@ module JsonApiHelpers
     class Error
       attr_reader :status, :detail, :code
 
-      def initialize(detail:, status: 422, code: nil, pointer: nil, attribute: nil, key_transform: JsonApiHelpers.default_key_transform) # rubocop:disable Metrics/LineLength
+      def initialize(
+        detail:,
+        status: 422,
+        code: nil,
+        pointer: nil,
+        attribute: nil,
+        key_transform: JsonApiHelpers.config.key_transform
+      )
         @status = status
         @detail = detail
-        @pointer = pointer(pointer: pointer, attribute: attribute, key_transform: key_transform) # rubocop:disable Metrics/LineLength
+        @pointer = pointer(
+          pointer: pointer,
+          attribute: attribute,
+          key_transform: key_transform
+        )
         @code = code
       end
 

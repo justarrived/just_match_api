@@ -11,7 +11,7 @@ RSpec.describe JsonApiHelpers::Serializers::Deserializer do
         }
       }
     }
-    JsonApiHelpers.params_klass.new(params_hash)
+    JsonApiHelpers.config.params_klass.new(params_hash)
   end
 
   it 'can deserialize params' do

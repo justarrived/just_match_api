@@ -5,7 +5,14 @@ require 'json_api_helpers/serializers/relationships'
 module JsonApiHelpers
   module Serializers
     class Data
-      def initialize(id:, type:, attributes: {}, meta: {}, relationships: nil, key_transform: JsonApiHelpers.default_key_transform) # rubocop:disable Metrics/LineLength
+      def initialize(
+        id:,
+        type:,
+        attributes: {},
+        meta: {},
+        relationships: nil,
+        key_transform: JsonApiHelpers.config.key_transform
+      )
         @id = id
         @type = type
         @attributes = attributes

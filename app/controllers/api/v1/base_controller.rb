@@ -462,7 +462,7 @@ module Api
       end
 
       def set_json_api_helper_default_key_transform_header
-        JsonApiHelpers.default_key_transform = key_transform_header
+        JsonApiHelpers.configure.key_transform = key_transform_header
       end
 
       def api_locale_header

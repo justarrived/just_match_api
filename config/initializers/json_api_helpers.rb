@@ -16,5 +16,8 @@ JsonApiSortParams = JsonApiHelpers::Params::Sort
 JsonApiFieldsParams = JsonApiHelpers::Params::Fields
 JsonApiIncludeParams = JsonApiHelpers::Params::Includes
 
-# Config
-JsonApiHelpers.default_key_transform = :dash
+JsonApiHelpers.configure do |config|
+  config.key_transform = :dash
+  config.deserializer_klass = ActiveModelSerializers::Deserialization
+  config.params_klass = ActionController::Parameters
+end
