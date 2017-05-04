@@ -100,9 +100,14 @@
       "value": "",
       "required": false
     },
+    "WELCOME_APP_ACTIVE": {
+      "description": "Welcome App integration active",
+      "value": "false",
+      "required": false
+    },
     "FRILANS_FINANS_ACTIVE": {
       "description": "Frilans Finans integration active",
-      "value": "true",
+      "value": "false",
       "required": false
     },
     "FRILANS_FINANS_BASE_URI": {

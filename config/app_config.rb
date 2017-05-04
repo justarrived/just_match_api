@@ -93,6 +93,10 @@ class AppConfig
     env['FRILANS_FINANS_BASE_URI']
   end
 
+  def self.welcome_app_active?
+    truthy?(env['WELCOME_APP_ACTIVE'])
+  end
+
   def self.frilans_finans_active?
     truthy?(env['FRILANS_FINANS_ACTIVE'])
   end

@@ -78,6 +78,12 @@ class CreateUserService
     UserWelcomeNotifier.call(user: user) if user.candidate?
   end
 
+  def update_welcome_app_status
+    if AppConfig.welcome_app_active?
+      UpdateUserWelcomeAppStatusJob.perform_later(user: user)
+    end
+  end
+
   def push_to_frilans_finans
     if AppConfig.frilans_finans_active?
       SyncFrilansFinansUserJob.perform_later(user: user)
