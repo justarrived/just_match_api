@@ -3,6 +3,17 @@
 HEAD
 -----------
 
+v1.60 - 2017-05-04
+----------
+* _API_:
+  - Raise the API request throttle limit from 100 request/10 seconds => 500 request/10 seconds
+* _Enhancement_:
+  - `welcome_app` gem
+  - Add proper configure class for `JsonApiHelpers`
+  - Proper configuration module for `FrilansFinansApi`
+  - Destroy week old frilans finans api logs sweeper task
+  - Remove FrilansFinansApi::reset_config method
+
 
 v1.59 - 2017-05-02
 ----------
