@@ -107,44 +107,23 @@ module Api
       end
       example Doxxer.read_example(User, method: :create)
       def create
-        @user = User.new(user_params)
-        @user.password = jsonapi_params[:password]
-        terms_consent = [true, 'true'].include?(jsonapi_params[:consent])
+        authorize(User)
 
-        authorize(@user)
-        @user.validate
+        @user = CreateUserService.call(
+          params: user_params,
+          password: jsonapi_params[:password],
+          consent: jsonapi_params[:consent],
+          language_ids: jsonapi_params[:language_ids],
+          skill_ids: jsonapi_params[:skill_ids],
+          interest_ids: jsonapi_params[:interest_ids],
+          image_tokens: jsonapi_params[:user_image_one_time_tokens]
+        )
 
-        if terms_consent && @user.valid?
-          @user.save
+        if @user.errors.empty?
           login_user(@user)
-
-          @user.set_translation(user_params).tap do |result|
-            ProcessTranslationJob.perform_later(
-              translation: result.translation,
-              changed: result.changed_fields
-            )
-          end
-
-          image_tokens = jsonapi_params[:user_image_one_time_tokens]
-          @user.set_images_by_tokens = image_tokens unless image_tokens.blank?
-
-          SetUserTraitsService.call(
-            user: @user,
-            language_ids_param: jsonapi_params[:language_ids],
-            skill_ids_param: jsonapi_params[:skill_ids],
-            interest_ids_param: jsonapi_params[:interest_ids]
-          )
-
-          UserWelcomeNotifier.call(user: @user) if @user.candidate?
-          sync_ff_user(@user)
 
           api_render(@user, status: :created)
         else
-          unless terms_consent
-            consent_error = I18n.t('errors.user.must_consent_to_terms_of_agreement')
-            @user.errors.add(:consent, consent_error)
-          end
-
           api_render_errors(@user)
         end
       end
