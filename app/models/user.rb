@@ -597,6 +597,8 @@ end
 #  system_language_id               :integer
 #  linkedin_url                     :string
 #  facebook_url                     :string
+#  has_welcome_app_account          :boolean          default(FALSE)
+#  welcome_app_last_checked_at      :datetime
 #
 # Indexes
 #
