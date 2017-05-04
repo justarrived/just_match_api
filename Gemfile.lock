@@ -66,6 +66,12 @@ PATH
     json_api_helpers (0.1.0)
       activesupport (>= 4.2)
 
+PATH
+  remote: lib/welcome_app
+  specs:
+    welcome_app (0.1.0)
+      httparty (~> 0.13)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -803,6 +809,7 @@ DEPENDENCIES
   uglifier (~> 3.2)
   web-console (~> 3.5)
   webmock (~> 2.0)
+  welcome_app!
   yagni_json_encoder (~> 1.0)
 
 RUBY VERSION

@@ -57,6 +57,8 @@ gem 'uglifier', '~> 3.2' # Needed for activeadmin assets compilation
 
 gem 'arbetsformedlingen', git: 'https://github.com/buren/arbetsformedlingen'
 
+gem 'welcome_app', path: 'lib/welcome_app' # Interact with WelcomeApp!
+
 # Invoices
 gem 'frilans_finans_api', path: 'lib/frilans_finans_api' # Interact with Frilans Finans API
 
