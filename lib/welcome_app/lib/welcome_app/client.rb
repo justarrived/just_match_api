@@ -4,9 +4,9 @@ require 'httparty'
 
 module WelcomeApp
   class Client
-    def user_exists?(email:)
+    def user_exist?(email:)
       result = HTTParty.get("#{base_uri}/user-exist", query: { email: email })
-      result == 'true'
+      result.body == 'true'
     end
 
     private
