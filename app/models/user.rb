@@ -122,6 +122,12 @@ class User < ApplicationRecord
   scope :anonymized, -> { where(anonymized: true) }
   scope :not_anonymized, -> { where(anonymized: false) }
   scope :verified, -> { where(verified: true) }
+  scope :needs_welcome_app_update, lambda {
+    scope = where(welcome_app_last_checked_at: nil).
+      or(before(:welcome_app_last_checked_at, 1.week.ago))
+
+    scope.where(has_welcome_app_account: false)
+  }
 
   # NOTE: Figure out a good way to validate :current_status, :at_und and :gender
   #       see https://github.com/rails/rails/issues/13971
