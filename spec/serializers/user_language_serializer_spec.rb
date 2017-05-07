@@ -3,7 +3,7 @@ require 'rails_helper'
 
 RSpec.describe UserLanguageSerializer, type: :serializer do
   context 'Individual Resource Representation' do
-    let(:resource) { FactoryGirl.build(:user_language) }
+    let(:resource) { FactoryGirl.build(:user_language, id: '1') }
     let(:serialization) { JsonApiSerializer.serialize(resource) }
 
     subject do

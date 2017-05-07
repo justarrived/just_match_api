@@ -3,7 +3,7 @@ require 'rails_helper'
 
 RSpec.describe ChatUserSerializer, type: :serializer do
   context 'Individual Resource Representation' do
-    let(:resource) { FactoryGirl.build(:chat_user) }
+    let(:resource) { FactoryGirl.build(:chat_user, id: '1') }
     let(:serialization) { JsonApiSerializer.serialize(resource) }
 
     subject do
