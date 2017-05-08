@@ -116,6 +116,7 @@ en:
       cancelled_and_notitied_success: job cancelled successfully
       cancelled_and_notitied_failed: job could not be cancelled %{errors}
       create_arbetsformedlingen_ad: Create Arbetsförmedlingen Ad
+      show_arbetsformedlingen_ad: Show Arbetsförmedlingen Ad
       google_calendar_link: Google Calendar
       name: Name
       name_search: Job name
@@ -128,10 +129,12 @@ en:
         status_flags: Status flags
         relations: Relations
         misc: Misc
+        partners_title: Publish partners
         comments:
           title: Job comments
           open_in_app: Answer
       form:
+        partners_section_title: Publish to partners
         detail_section_title: Details
         admin_users_section_title: Admin users
         address_section_title: Address
@@ -154,6 +157,8 @@ en:
         municipality_hint: 'Required if job is to be synced to Arbetsformedlingen'
         skills_title: Job skills
         languages_title: Job languages
+        publish_on_linkedin:
+          hint: If checked this job ad will be published on LinkedIN
     frilans_finans_invoice:
       activate_confirmation: Are you sure you want to activate this invoice and send a notification to the user?
       not_paid: Not paid

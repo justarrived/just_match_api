@@ -1,10 +1,6 @@
 # frozen_string_literal: true
 f.semantic_errors
 
-Rails.logger.info '#' * 30
-Rails.logger.info job.errors.full_messages
-Rails.logger.info '#' * 30
-
 f.inputs(I18n.t('admin.job.form.detail_section_title')) do
   f.input :order
   f.input :job_date, as: :date_time_picker
@@ -88,6 +84,22 @@ f.inputs(I18n.t('admin.job.form.status_section_title')) do
   f.input :cancelled, hint: I18n.t('admin.job.form.cancelled_hint')
   f.input :filled, hint: I18n.t('admin.job.form.filled_hint')
   f.input :featured, hint: I18n.t('admin.job.form.featured_hint')
+end
+
+f.inputs(I18n.t('admin.job.form.partners_section_title')) do
+  f.input :publish_on_linkedin, hint: I18n.t('admin.job.form.publish_on_linkedin.hint')
+
+  if af_ad = job.arbetsformedlingen_ad
+    f.li link_to(
+      I18n.t('admin.job.show_arbetsformedlingen_ad'),
+      admin_arbetsformedlingen_ad_path(af_ad)
+    )
+  else
+    f.li link_to(
+      I18n.t('admin.job.create_arbetsformedlingen_ad'),
+      create_with_job_admin_arbetsformedlingen_ad_path(job_id: job.id)
+    )
+  end
 end
 
 f.actions

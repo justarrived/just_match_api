@@ -95,6 +95,7 @@ class Job < ApplicationRecord
   }
   scope :passed, -> { where('job_end_date < ?', Time.zone.now) }
   scope :future, -> { where('job_end_date > ?', Time.zone.now) }
+  scope :linkedin_jobs, -> { where(publish_on_linkedin: true) }
 
   enum salary_type: SALARY_TYPES
 
@@ -425,6 +426,7 @@ end
 #  swedish_drivers_license      :string
 #  car_required                 :boolean          default(FALSE)
 #  salary_type                  :integer          default("fixed")
+#  publish_on_linkedin          :boolean          default(FALSE)
 #
 # Indexes
 #
