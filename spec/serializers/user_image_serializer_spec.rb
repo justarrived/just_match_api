@@ -3,7 +3,7 @@ require 'rails_helper'
 
 RSpec.describe UserImageSerializer, type: :serializer do
   context 'Individual Resource Representation' do
-    let(:resource) { FactoryGirl.build(:user_image) }
+    let(:resource) { FactoryGirl.build(:user_image, id: '1') }
     let(:serialization) { JsonApiSerializer.serialize(resource) }
 
     subject do
