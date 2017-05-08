@@ -21,7 +21,7 @@ RSpec.describe Api::V1::PartnerFeeds::JobsController, type: :controller do
 
       job_fragment = xml.css('job')
 
-      # Company dataå
+      # Company data
       expect(job_fragment.css('company').text.strip).to eq(job.company.name)
       # Location data
       expect(job_fragment.css('location').text.strip).to eq(job.full_street_address)
@@ -30,20 +30,21 @@ RSpec.describe Api::V1::PartnerFeeds::JobsController, type: :controller do
       expect(job_fragment.css('postalCode').text.strip).to eq(job.zip)
       # Job data
       expect(job_fragment.css('title').text.strip).to eq(job.name)
-      expect(job_fragment.css('description').text.strip).to eq(job.description)
+      expect(job_fragment.css('description').text).to include(job.description)
+      expect(job_fragment.css('description').text).to include('#welcometalent')
 
       apply_url = FrontendRouter.draw(:job, id: job.id)
       expect(job_fragment.css('applyUrl').text.strip).to eq(apply_url)
     end
 
     it 'returns 401 Unquthorized if an invalid key is passed' do
-      job = FactoryGirl.create(:job)
+      FactoryGirl.create(:job)
       get :linkedin, params: { auth_token: 'thewrongkey' }
       expect(response.status).to eq(401)
     end
 
     it 'returns 401 Unquthorized if an no key is passed' do
-      job = FactoryGirl.create(:job)
+      FactoryGirl.create(:job)
       get :linkedin
       expect(response.status).to eq(401)
     end

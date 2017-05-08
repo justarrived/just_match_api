@@ -28,7 +28,7 @@ module Api
               <company><![CDATA[Macejkovic, Lynch and Considine]]></company>
               <partnerJobId><![CDATA[300]]></partnerJobId>
               <title><![CDATA[Something something, title.]]></title>
-              <description><![CDATA[Something something, darkside.]]></description>
+              <description><![CDATA[Something, something. #welcometalent]]></description>
               <location>Storta Nygatan 36, 21137, Stockholm, Sverige</location>
               <city><![CDATA[Stockholm]]></city>
               <countryCode><![CDATA[SE]]></countryCode>

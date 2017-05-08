@@ -24,7 +24,9 @@ class LinkedinJobsSerializer
 
       node.partnerJobId { |n| n.cdata!(job.id.to_s) }
       node.title { |n| n.cdata!(job.name.to_s) }
-      node.description { |n| n.cdata!(job.description.to_s) }
+      node.description do |n|
+        n.cdata!("#{job.description}\n\n#{special_linkedin_hashtag}")
+      end
 
       node.location(job.full_street_address)
       node.city { |n| n.cdata!(job.city.to_s) }
@@ -33,5 +35,9 @@ class LinkedinJobsSerializer
 
       node.applyUrl { |n| n.cdata!(FrontendRouter.draw(:job, id: job.id)) }
     end
+  end
+
+  def self.special_linkedin_hashtag
+    '#welcometalent'
   end
 end
