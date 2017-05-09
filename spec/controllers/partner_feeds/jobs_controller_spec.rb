@@ -4,7 +4,11 @@ require 'rails_helper'
 RSpec.describe Api::V1::PartnerFeeds::JobsController, type: :controller do
   describe 'GET #linkedin' do
     it 'returns linkedin jobs' do
-      job = FactoryGirl.create(:job_with_translation, translation_locale: :en)
+      job = FactoryGirl.create(
+        :job_with_translation,
+        translation_locale: :en,
+        publish_on_linkedin: true
+      )
       token = 'nososecret'
       allow(AppSecrets).to receive(:linkedin_sync_key).and_return(token)
 

@@ -23,6 +23,13 @@ panel(I18n.t('admin.job.show.general')) do
   end
 end
 
+
+panel(I18n.t('admin.job.show.partners_title')) do
+  attributes_table_for(job) do
+    row :publish_on_linkedin
+  end
+end
+
 panel(I18n.t('admin.job.show.status_flags')) do
   attributes_table_for(job) do
     row :featured
