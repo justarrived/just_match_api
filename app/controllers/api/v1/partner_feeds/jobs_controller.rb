@@ -42,6 +42,7 @@ module Api
         XML_EXAMPLE
         def linkedin
           jobs = Job.with_translations.
+                 linkedin_jobs.
                  includes(:company).
                  order(created_at: :desc).
                  limit(AppConfig.linkedin_job_records_feed_limit)
