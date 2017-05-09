@@ -172,6 +172,7 @@ end
 #  car_required                 :boolean          default(FALSE)
 #  salary_type                  :integer          default("fixed")
 #  publish_on_linkedin          :boolean          default(FALSE)
+#  publish_on_blocketjobb       :boolean          default(FALSE)
 #
 # Indexes
 #

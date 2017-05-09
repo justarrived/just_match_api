@@ -88,6 +88,7 @@ end
 
 f.inputs(I18n.t('admin.job.form.partners_section_title')) do
   f.input :publish_on_linkedin, hint: I18n.t('admin.job.form.publish_on_linkedin.hint')
+  f.input :publish_on_blocketjobb, hint: I18n.t('admin.job.form.publish_on_blocketjobb.hint') # rubocop:disable Metrics/LineLength
 
   if af_ad = job.arbetsformedlingen_ad
     f.li link_to(

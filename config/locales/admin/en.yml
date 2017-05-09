@@ -159,6 +159,8 @@ en:
         languages_title: Job languages
         publish_on_linkedin:
           hint: If checked this job ad will be published on LinkedIN
+        publish_on_blocketjobb:
+          hint: If checked this job ad will be published on Blocketjobb (warning this will cost us quite a bit of money!)
     frilans_finans_invoice:
       activate_confirmation: Are you sure you want to activate this invoice and send a notification to the user?
       not_paid: Not paid
