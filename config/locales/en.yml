@@ -16,7 +16,7 @@ en:
         notice: Failed to create a Frilans Finans invoice for %{id}
   arbetsformedlingen:
     application_method_description: Login in or register and apply for the job at %{application_url}
-    company_description: '%{name} is located at %{address}. You can find there website at %{url}.'
+    company_description: '%{name} is located at %{address}. You can find their website at %{url}.'
   errors:
     unauthorized: You are not authorized to perform this action.
     bad_json_format: "There was a problem in the JSON you submitted: %{error_class}"

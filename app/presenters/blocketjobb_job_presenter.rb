@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class BlocketjobbJobPresenter
-  InvalidData = Class.new(StandardError)
   attr_reader :job, :company
 
   def initialize(job)

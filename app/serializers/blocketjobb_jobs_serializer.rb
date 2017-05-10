@@ -3,7 +3,7 @@
 class BlocketjobbJobsSerializer
   def self.to_xml(jobs:)
     I18n.with_locale(:en) do
-      build_xml_document(jobs)
+      build_xml_document(jobs).target!
     end
   end
 
@@ -16,7 +16,7 @@ class BlocketjobbJobsSerializer
         jobs.each { |job| append_ad_xml(ads_node, BlocketjobbJobPresenter.new(job)) }
       end
     end
-    builder.target!
+    builder
   end
 
   def self.append_ad_xml(parent_node, job_view)
