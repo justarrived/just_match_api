@@ -58,7 +58,7 @@ class Job < ApplicationRecord
   validates :owner, presence: true
   validates :hours, numericality: { greater_than_or_equal_to: MIN_TOTAL_HOURS }, presence: true # rubocop:disable Metrics/LineLength
   validates :number_to_fill, numericality: { greater_than_or_equal_to: 1 }
-  validates :blocketjobb_category, inclusion: BlocketjobbCategories.to_a, allow_nil: true # rubocop:disable Metrics/LineLength
+  validates :blocketjobb_category, inclusion: BlocketjobbCategories.to_a, allow_nil: true, if: :publish_on_blocketjobb # rubocop:disable Metrics/LineLength
 
   validate :validate_job_end_date_after_job_date
   validate :validate_last_application_at_on_publish_to_blocketjobb
