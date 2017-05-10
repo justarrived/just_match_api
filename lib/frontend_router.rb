@@ -20,7 +20,7 @@ class FrontendRouter
   end
 
   def url_with_utm_params(url, params)
-    utm_source = UtmUrlBuilder.default_utm_source || params[:utm_source]
+    utm_source = params[:utm_source] || UtmUrlBuilder.default_utm_source
     return url unless utm_source
 
     UtmUrlBuilder.build(
