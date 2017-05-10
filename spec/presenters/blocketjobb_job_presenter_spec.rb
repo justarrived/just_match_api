@@ -127,14 +127,6 @@ RSpec.describe BlocketjobbJobPresenter do
   end
 
   describe '#apply_date' do
-    it 'raises InvalidData error if #last_application_at is not set' do
-      job = FactoryGirl.create(:job_with_translation, last_application_at: nil)
-
-      expect do
-        described_class.new(job).apply_date
-      end.to raise_error(described_class::InvalidData)
-    end
-
     context 'last_application_at after 60 days from now' do
       it 'returns 60 days from now formatterd as a stirng: YYYY-MM-DD' do
         time = 80.days.from_now

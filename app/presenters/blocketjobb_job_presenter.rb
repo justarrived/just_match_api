@@ -7,8 +7,6 @@ class BlocketjobbJobPresenter
   def initialize(job)
     @job = job
     @company = job.company
-
-    raise(InvalidData, 'Company can *not* be blank!') unless @company
   end
 
   def external_ad_id
@@ -30,20 +28,16 @@ class BlocketjobbJobPresenter
   def apply_date
     # Mandatory, Ad end date, YYYY-MM-DD
     # (MAX 60 days into the future, MIN 2 days from NOW)
-    if job.last_application_at.blank?
-      message = 'Job#last_application_at must be set to publish to blocketjobb'
-      raise(InvalidData, message)
-    end
-
+    last_application_at = job.last_application_at
     min_last_application_date = 2.days.from_now
     max_last_application_date = 60.days.from_now
 
-    apply_before = if job.last_application_at > max_last_application_date
+    apply_before = if last_application_at > max_last_application_date
                      max_last_application_date
-                   elsif job.last_application_at < min_last_application_date
+                   elsif last_application_at < min_last_application_date
                      min_last_application_date
                    else
-                     job.last_application_at
+                     last_application_at
                    end
 
     to_yyyy_mm_dd(apply_before)
