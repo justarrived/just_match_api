@@ -147,6 +147,7 @@ Rails.application.routes.draw do
       namespace :partner_feeds, path: 'partner-feeds' do
         namespace :jobs do
           get :linkedin
+          get :blocketjobb
         end
       end
     end

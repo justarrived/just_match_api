@@ -395,6 +395,92 @@ RSpec.describe Job, type: :model do
     end
   end
 
+  describe '#validate_last_application_at_on_publish_to_blocketjobb' do
+    it 'adds error if last_application_at is not set and publish_on_blocketjobb is true' do # rubocop:disable Metrics/LineLength
+      job = FactoryGirl.build(
+        :job,
+        last_application_at: nil,
+        publish_on_blocketjobb: true
+      )
+      job.validate
+      message = I18n.t('errors.job.last_application_at_on_publish_to_blocketjobb')
+      expect(job.errors.messages[:last_application_at]).to include(message)
+    end
+
+    it 'adds *no* error if #last_application_at is set' do
+      job = FactoryGirl.build(
+        :job,
+        last_application_at: Date.tomorrow,
+        publish_on_blocketjobb: true
+      )
+      job.validate
+      message = I18n.t('errors.job.last_application_at_on_publish_to_blocketjobb')
+      expect(job.errors.messages[:last_application_at]).not_to include(message)
+    end
+  end
+
+  describe '#validate_municipality_presence_on_publish_to_blocketjobb' do
+    it 'adds error if municipality is not set and publish_on_blocketjobb is true' do
+      job = FactoryGirl.build(:job, municipality: nil, publish_on_blocketjobb: true)
+      job.validate
+      message = I18n.t('errors.job.municipality_presence_on_publish_to_blocketjobb')
+      expect(job.errors.messages[:municipality]).to include(message)
+    end
+
+    it 'adds *no* error if #municipality is set' do
+      job = FactoryGirl.build(
+        :job,
+        municipality: 'Stockholm',
+        publish_on_blocketjobb: true
+      )
+      job.validate
+      message = I18n.t('errors.job.municipality_presence_on_publish_to_blocketjobb')
+      expect(job.errors.messages[:municipality]).not_to include(message)
+    end
+  end
+
+  describe '#validate_blocketjobb_category_presence_on_publish_to_blocketjobb' do
+    it 'adds error if blocketjobb_category is not set and publish_on_blocketjobb is true' do # rubocop:disable Metrics/LineLength
+      job = FactoryGirl.build(
+        :job,
+        blocketjobb_category: nil,
+        publish_on_blocketjobb: true
+      )
+      job.validate
+      message = I18n.t('errors.job.blocketjobb_category_presence_on_publish_to_blocketjobb') # rubocop:disable Metrics/LineLength
+      expect(job.errors.messages[:blocketjobb_category]).to include(message)
+    end
+
+    it 'adds *no* error if #blocketjobb_category is set' do
+      job = FactoryGirl.build(
+        :job,
+        blocketjobb_category: 'Övrigt',
+        publish_on_blocketjobb: true
+      )
+      job.validate
+      message = I18n.t('errors.job.blocketjobb_category_presence_on_publish_to_blocketjobb') # rubocop:disable Metrics/LineLength
+      expect(job.errors.messages[:blocketjobb_category]).not_to include(message)
+    end
+  end
+
+  describe '#validate_company_presence_on_publish_to_blocketjobb' do
+    it 'adds error if company is not set (through owner) and publish_on_blocketjobb is true' do # rubocop:disable Metrics/LineLength
+      owner = FactoryGirl.build(:user)
+      job = FactoryGirl.build(:job, owner: owner, publish_on_blocketjobb: true)
+      job.validate
+      message = I18n.t('errors.job.company_presence_on_publish_to_blocketjobb')
+      expect(job.errors.messages[:company]).to include(message)
+    end
+
+    it 'adds *no* error if #company is set' do
+      owner = FactoryGirl.create(:company_user)
+      job = FactoryGirl.build(:job, owner: owner, publish_on_blocketjobb: true)
+      job.validate
+      message = I18n.t('errors.job.company_presence_on_publish_to_blocketjobb')
+      expect(job.errors.messages[:company]).not_to include(message)
+    end
+  end
+
   describe '#validate_hourly_rate_active' do
     it 'adds error if the hourly pay is *not* active' do
       hourly_pay = FactoryGirl.build(:inactive_hourly_pay)
@@ -556,6 +642,8 @@ end
 #  salary_type                  :integer          default("fixed")
 #  publish_on_linkedin          :boolean          default(FALSE)
 #  publish_on_blocketjobb       :boolean          default(FALSE)
+#  last_application_at          :datetime
+#  blocketjobb_category         :string
 #
 # Indexes
 #

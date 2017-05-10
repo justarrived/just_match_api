@@ -125,6 +125,7 @@ FactoryGirl.define do
       updated_at Time.new(2016, 2, 12, 1, 1, 1).utc
       job_date Time.new(2016, 2, 18, 1, 1, 1).utc
       job_end_date Time.new(2016, 2, 20, 1, 1, 1).utc
+      last_application_at Time.new(2016, 2, 17, 1, 1, 1).utc
       description 'Typewriter hashtag ennui brunch post-ironic food truck vinegar.'
     end
   end
@@ -173,6 +174,8 @@ end
 #  salary_type                  :integer          default("fixed")
 #  publish_on_linkedin          :boolean          default(FALSE)
 #  publish_on_blocketjobb       :boolean          default(FALSE)
+#  last_application_at          :datetime
+#  blocketjobb_category         :string
 #
 # Indexes
 #

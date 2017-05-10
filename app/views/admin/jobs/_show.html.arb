@@ -28,6 +28,7 @@ panel(I18n.t('admin.job.show.partners_title')) do
   attributes_table_for(job) do
     row :publish_on_linkedin
     row :publish_on_blocketjobb
+    row :blocketjobb_category if job.publish_on_blocketjobb
     row :arbetsformedlingen_ad
   end
 end

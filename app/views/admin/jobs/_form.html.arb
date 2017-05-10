@@ -5,6 +5,7 @@ f.inputs(I18n.t('admin.job.form.detail_section_title')) do
   f.input :order
   f.input :job_date, as: :date_time_picker
   f.input :job_end_date, as: :date_time_picker
+  f.input :last_application_at, as: :date_time_picker
   f.input :full_time
   f.input :salary_type
   f.input :hourly_pay, hint: I18n.t('admin.job.form.hourly_pay_hint')
@@ -89,6 +90,7 @@ end
 f.inputs(I18n.t('admin.job.form.partners_section_title')) do
   f.input :publish_on_linkedin, hint: I18n.t('admin.job.form.publish_on_linkedin.hint')
   f.input :publish_on_blocketjobb, hint: I18n.t('admin.job.form.publish_on_blocketjobb.hint') # rubocop:disable Metrics/LineLength
+  f.input :blocketjobb_category, collection: BlocketjobbCategories.to_form_array, hint: I18n.t('admin.job.form.blocketjobb_category.hint') # rubocop:disable Metrics/LineLength
 
   if af_ad = job.arbetsformedlingen_ad
     f.li link_to(
