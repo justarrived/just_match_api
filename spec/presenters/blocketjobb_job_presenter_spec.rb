@@ -15,7 +15,7 @@ RSpec.describe BlocketjobbJobPresenter do
     it 'returns the apply_url' do
       job = FactoryGirl.build(:job, id: '1')
 
-      url = FrontendRouter.draw(:job, id: '1')
+      url = 'https://app.justarrived.se/job/1?utm_source=blocketjobb&utm_medium=ad'
       expect(described_class.new(job).apply_url).to eq(url)
     end
   end
@@ -71,7 +71,7 @@ RSpec.describe BlocketjobbJobPresenter do
       owner = FactoryGirl.create(:company_user)
       job = FactoryGirl.build(:job, owner: owner)
 
-      expect(described_class.new(job).company_logo_url).to be_nil
+      expect(described_class.new(job).company_logo_url).to eq('')
     end
   end
 

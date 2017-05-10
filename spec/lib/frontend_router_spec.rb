@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-require 'frontend_routes'
+require 'frontend_router'
 
 RSpec.describe FrontendRouter do
   subject { described_class.new }

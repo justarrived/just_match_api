@@ -100,9 +100,13 @@ class BlocketjobbJobPresenter
     'JustMatch'
   end
 
-  # TODO: Build UTM-parameters
   def apply_url
-    FrontendRouter.draw(:job, id: job.to_param)
+    FrontendRouter.draw(
+      :job,
+      id: job.to_param,
+      utm_source: 'blocketjobb',
+      utm_medium: 'ad'
+    )
   end
 
   def publication_date
