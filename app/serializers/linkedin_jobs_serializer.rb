@@ -33,7 +33,17 @@ class LinkedinJobsSerializer
       node.countryCode { |n| n.cdata!(job.country_code) }
       node.postalCode { |n| n.cdata!(job.zip.to_s) }
 
-      node.applyUrl { |n| n.cdata!(FrontendRouter.draw(:job, id: job.to_param)) }
+      node.applyUrl do |n|
+        n.cdata!(
+          FrontendRouter.draw(
+            :job,
+            id: job.to_param,
+            utm_source: 'linkedin',
+            utm_medium: 'ad',
+            utm_campaign: 'welcometalent'
+          )
+        )
+      end
     end
   end
 

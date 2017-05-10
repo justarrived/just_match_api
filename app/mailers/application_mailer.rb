@@ -6,4 +6,6 @@ class ApplicationMailer < ActionMailer::Base
   default from: DEFAULT_EMAIL
   helper :mailer
   layout 'layouts_mailer/default'
+
+  include MailerHelper
 end

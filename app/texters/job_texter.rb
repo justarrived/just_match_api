@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class JobTexter < ApplicationTexter
   def self.applicant_accepted_text(job_user:)
     user = job_user.user
@@ -7,7 +8,12 @@ class JobTexter < ApplicationTexter
     @job_name = job.name
     @confirmation_time_hours = JobUser::MAX_CONFIRMATION_TIME_HOURS
 
-    @job_user_url = FrontendRouter.draw(:job_user, job_id: job.id)
+    @job_user_url = FrontendRouter.draw(
+      :job_user,
+      job_id: job.id,
+      utm_medium: UTM_TEXTER_MEDIUM,
+      utm_campaign: 'applicant_offer'
+    )
     text(to: user.phone, template: 'job_texter/applicant_accepted_text')
   end
 end
