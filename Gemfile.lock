@@ -505,7 +505,7 @@ GEM
       railties (>= 4, <= 5.1.0)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
-    mail (2.6.5)
+    mail (2.6.6.rc1)
       mime-types (>= 1.16, < 4)
     maruku (0.7.3)
     memoist (0.15.0)
@@ -778,7 +778,7 @@ DEPENDENCIES
   letter_opener (~> 1.4)
   listen (~> 3.1)
   lograge (~> 0.5)
-  mail (~> 2.6)
+  mail (= 2.6.6.rc1)
   mailcheck!
   maruku (~> 0.7)
   memory_profiler (~> 0.9)
