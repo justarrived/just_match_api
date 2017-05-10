@@ -3,7 +3,7 @@ FactoryGirl.define do
   factory :company_image do
     one_time_token 'ea91a434-3381-480d-95fc-4e3efccc08b7'
     one_time_token_expires_at Time.new(2016, 2, 11, 1, 1, 1).utc
-    association :company
+    company nil
 
     # Image attributes
     image_file_name { 'test.png' }

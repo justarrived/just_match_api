@@ -37,7 +37,7 @@ RSpec.describe Api::V1::PartnerFeeds::JobsController, type: :controller do
       expect(job_fragment.css('description').text).to include(job.description)
       expect(job_fragment.css('description').text).to include('#welcometalent')
 
-      apply_url = FrontendRouter.draw(:job, id: job.id)
+      apply_url = 'https://app.justarrived.se/job/1?utm_source=linkedin&utm_medium=ad&utm_campaign=welcometalent' # rubocop:disable Metrics/LineLength
       expect(job_fragment.css('applyUrl').text.strip).to eq(apply_url)
     end
 
