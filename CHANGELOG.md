@@ -4,6 +4,11 @@ HEAD
 -----------
 
 
+v1.62 - 2017-05-11
+----------
+* _Enhancement_:
+  - Allow blank `Job#blocketjobb_category` values unless published to Blocketjobb
+
 v1.61 - 2017-05-11
 ----------
 * _Features_:
