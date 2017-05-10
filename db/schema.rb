@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170508091636) do
+ActiveRecord::Schema.define(version: 20170510145555) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -488,6 +488,9 @@ ActiveRecord::Schema.define(version: 20170508091636) do
     t.boolean  "car_required",                 default: false
     t.integer  "salary_type",                  default: 1
     t.boolean  "publish_on_linkedin",          default: false
+    t.boolean  "publish_on_blocketjobb",       default: false
+    t.datetime "last_application_at"
+    t.string   "blocketjobb_category"
     t.index ["category_id"], name: "index_jobs_on_category_id", using: :btree
     t.index ["hourly_pay_id"], name: "index_jobs_on_hourly_pay_id", using: :btree
     t.index ["language_id"], name: "index_jobs_on_language_id", using: :btree

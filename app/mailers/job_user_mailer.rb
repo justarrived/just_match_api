@@ -11,7 +11,11 @@ class JobUserMailer < ApplicationMailer
     language_names = languages.map { |language| language.name_for(I18n.locale) }
     @competence_names = skill_names + language_names
 
-    @user_edit_url = FrontendRouter.draw(:user_edit, id: user.id)
+    @user_edit_url = frontend_mail_url(
+      :user_edit,
+      id: user.id,
+      utm_campaign: 'new_applicant_job_info'
+    )
 
     subject = I18n.t('mailer.new_applicant_job_info.subject')
     mail(to: user.contact_email, subject: subject)

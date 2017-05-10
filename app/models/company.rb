@@ -49,6 +49,7 @@ class Company < ApplicationRecord
   def address
     [street, zip, city, 'Sverige'].compact.join(', ')
   end
+  alias_method :full_street_address, :address
 
   def country_name
     'Sweden'
@@ -65,6 +66,10 @@ class Company < ApplicationRecord
       address: address,
       url: website
     )
+  end
+
+  def company_image_logo
+    company_images.last
   end
 
   def logo_image_token=(token)

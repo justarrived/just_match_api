@@ -4,8 +4,9 @@ module Api
   module V1
     module PartnerFeeds
       class JobsController < BaseController
-        before_action :verify_linkedin_sync_key
-        after_action :verify_authorized, except: [:linkedin]
+        before_action :verify_linkedin_sync_key, only: %i(linkedin)
+        before_action :verify_blocketjobb_sync_key, only: %i(blocketjobb)
+        after_action :verify_authorized, except: %i(linkedin blocketjobb)
 
         resource_description do
           resource_id 'PartnerFeeds'
@@ -50,11 +51,30 @@ module Api
           render xml: LinkedinJobsSerializer.to_xml(jobs: jobs)
         end
 
+        api :GET, '/partner-feeds/jobs/blocketjobb', 'List jobs for Blocketjobb feed'
+        description 'Returns a list of jobs for Blocketjobb to consume.'
+        param :auth_token, String, desc: 'Auth token', required: true
+        def blocketjobb
+          jobs = Job.with_translations.
+                 blocketjobb_jobs.
+                 includes(:company).
+                 order(created_at: :desc)
+
+          render xml: BlocketjobbJobsSerializer.to_xml(jobs: jobs)
+        end
+
         private
 
         def verify_linkedin_sync_key
           unauthorized! if params[:auth_token].blank?
           return if AppSecrets.linkedin_sync_key == params[:auth_token]
+
+          unauthorized!
+        end
+
+        def verify_blocketjobb_sync_key
+          unauthorized! if params[:auth_token].blank?
+          return if AppSecrets.blocketjobb_sync_key == params[:auth_token]
 
           unauthorized!
         end

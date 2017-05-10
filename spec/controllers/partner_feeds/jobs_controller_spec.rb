@@ -37,7 +37,7 @@ RSpec.describe Api::V1::PartnerFeeds::JobsController, type: :controller do
       expect(job_fragment.css('description').text).to include(job.description)
       expect(job_fragment.css('description').text).to include('#welcometalent')
 
-      apply_url = FrontendRouter.draw(:job, id: job.id)
+      apply_url = "https://app.justarrived.se/job/#{job.id}?utm_source=linkedin&utm_medium=ad&utm_campaign=welcometalent" # rubocop:disable Metrics/LineLength
       expect(job_fragment.css('applyUrl').text.strip).to eq(apply_url)
     end
 
@@ -50,6 +50,32 @@ RSpec.describe Api::V1::PartnerFeeds::JobsController, type: :controller do
     it 'returns 401 Unquthorized if an no key is passed' do
       FactoryGirl.create(:job)
       get :linkedin
+      expect(response.status).to eq(401)
+    end
+  end
+
+  describe 'GET #blocketjobb' do
+    it 'returns blocketjobb jobs' do
+      token = 'nososecret'
+      allow(AppSecrets).to receive(:blocketjobb_sync_key).and_return(token)
+
+      request.content_type = 'application/json'
+      get :blocketjobb, params: { auth_token: token }
+
+      FactoryGirl.create(:job)
+      get :blocketjobb, params: { auth_token: token }
+      expect(response.status).to eq(200)
+    end
+
+    it 'returns 401 Unquthorized if an invalid key is passed' do
+      FactoryGirl.create(:job)
+      get :blocketjobb, params: { auth_token: 'thewrongkey' }
+      expect(response.status).to eq(401)
+    end
+
+    it 'returns 401 Unquthorized if an no key is passed' do
+      FactoryGirl.create(:job)
+      get :blocketjobb
       expect(response.status).to eq(401)
     end
   end

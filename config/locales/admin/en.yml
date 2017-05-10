@@ -154,11 +154,15 @@ en:
         cancelled_hint: 'If checked the job is deemed cancelled'
         filled_hint: 'If checked it marks that the job has a hired user'
         featured_hint: 'If checked it will be displayed on our start page etc'
-        municipality_hint: 'Required if job is to be synced to Arbetsformedlingen'
+        municipality_hint: 'Required if job is to be synced to Arbetsformedlingen or Blocketjobb'
         skills_title: Job skills
         languages_title: Job languages
         publish_on_linkedin:
           hint: If checked this job ad will be published on LinkedIN
+        publish_on_blocketjobb:
+          hint: If checked this job ad will be published on Blocketjobb (warning this will cost us quite a bit of money!)
+        blocketjobb_category:
+          hint: If this jobb is to be published to Blocketjobb, you need to provide this value
     frilans_finans_invoice:
       activate_confirmation: Are you sure you want to activate this invoice and send a notification to the user?
       not_paid: Not paid

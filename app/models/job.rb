@@ -58,8 +58,13 @@ class Job < ApplicationRecord
   validates :owner, presence: true
   validates :hours, numericality: { greater_than_or_equal_to: MIN_TOTAL_HOURS }, presence: true # rubocop:disable Metrics/LineLength
   validates :number_to_fill, numericality: { greater_than_or_equal_to: 1 }
+  validates :blocketjobb_category, inclusion: BlocketjobbCategories.to_a, allow_nil: true # rubocop:disable Metrics/LineLength
 
   validate :validate_job_end_date_after_job_date
+  validate :validate_last_application_at_on_publish_to_blocketjobb
+  validate :validate_municipality_presence_on_publish_to_blocketjobb
+  validate :validate_blocketjobb_category_presence_on_publish_to_blocketjobb
+  validate :validate_company_presence_on_publish_to_blocketjobb
   validate :validate_hourly_pay_active
   validate :validate_within_allowed_hours
   validate :validate_owner_belongs_to_company, unless: -> { AppConfig.allow_regular_users_to_create_jobs? } # rubocop:disable Metrics/LineLength
@@ -96,6 +101,7 @@ class Job < ApplicationRecord
   scope :passed, -> { where('job_end_date < ?', Time.zone.now) }
   scope :future, -> { where('job_end_date > ?', Time.zone.now) }
   scope :linkedin_jobs, -> { where(publish_on_linkedin: true) }
+  scope :blocketjobb_jobs, -> { where(publish_on_blocketjobb: true) }
 
   enum salary_type: SALARY_TYPES
 
@@ -355,6 +361,38 @@ Address: #{company.address}
     errors.add(:job_end_date, I18n.t('errors.job.job_end_date_after_job_date'))
   end
 
+  def validate_last_application_at_on_publish_to_blocketjobb
+    return unless publish_on_blocketjobb
+    return if last_application_at.present?
+
+    message = I18n.t('errors.job.last_application_at_on_publish_to_blocketjobb')
+    errors.add(:last_application_at, message)
+  end
+
+  def validate_municipality_presence_on_publish_to_blocketjobb
+    return unless publish_on_blocketjobb
+    return if municipality.present?
+
+    message = I18n.t('errors.job.municipality_presence_on_publish_to_blocketjobb')
+    errors.add(:municipality, message)
+  end
+
+  def validate_blocketjobb_category_presence_on_publish_to_blocketjobb
+    return unless publish_on_blocketjobb
+    return if blocketjobb_category.present?
+
+    message = I18n.t('errors.job.blocketjobb_category_presence_on_publish_to_blocketjobb')
+    errors.add(:blocketjobb_category, message)
+  end
+
+  def validate_company_presence_on_publish_to_blocketjobb
+    return unless publish_on_blocketjobb
+    return if company.present?
+
+    message = I18n.t('errors.job.company_presence_on_publish_to_blocketjobb')
+    errors.add(:company, message)
+  end
+
   def validate_hourly_pay_active
     return if hourly_pay.nil? || hourly_pay.active
 
@@ -427,6 +465,9 @@ end
 #  car_required                 :boolean          default(FALSE)
 #  salary_type                  :integer          default("fixed")
 #  publish_on_linkedin          :boolean          default(FALSE)
+#  publish_on_blocketjobb       :boolean          default(FALSE)
+#  last_application_at          :datetime
+#  blocketjobb_category         :string
 #
 # Indexes
 #
