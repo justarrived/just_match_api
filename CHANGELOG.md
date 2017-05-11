@@ -4,6 +4,14 @@ HEAD
 -----------
 
 
+v1.63 - 2017-05-11
+----------
+* _Admin_:
+  - :hocho: job form bug when creating new jobs
+* _Enhancement_:
+  - FrontendRouter bugfix where default params always was used
+
+
 v1.62 - 2017-05-11
 ----------
 * _Enhancement_:
