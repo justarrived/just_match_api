@@ -97,7 +97,7 @@ f.inputs(I18n.t('admin.job.form.partners_section_title')) do
       I18n.t('admin.job.show_arbetsformedlingen_ad'),
       admin_arbetsformedlingen_ad_path(af_ad)
     )
-  else
+  elsif job.persisted?
     f.li link_to(
       I18n.t('admin.job.create_arbetsformedlingen_ad'),
       create_with_job_admin_arbetsformedlingen_ad_path(job_id: job.id)
