@@ -4,6 +4,11 @@ HEAD
 -----------
 
 
+v1.66 - 2017-05-12
+----------
+* Pull translations for Transifex
+
+
 v1.64 - 2017-05-12
 ----------
 * _Feature_:
