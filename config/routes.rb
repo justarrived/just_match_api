@@ -1,5 +1,7 @@
 # frozen_string_literal: true
+
 require 'sidekiq/web'
+require 'admin_subdomain'
 
 Sidekiq::Web.set :sessions, domain: 'all'
 Sidekiq::Web.session_secret = Rails.application.secrets[:secret_key_base]
@@ -7,10 +9,12 @@ Sidekiq::Web.use Rack::Auth::Basic do |username, password|
   User.find_by_credentials(email_or_phone: username, password: password)
 end
 Rails.application.routes.draw do
-  ActiveAdmin.routes(self)
+  constraints(AdminSubdomain) do
+    ActiveAdmin.routes(self)
+  end
 
   apipie
-  get '/', to: redirect('/api_docs')
+  root to: redirect('/api_docs')
 
   mount Blazer::Engine, at: 'insights'
   mount Sidekiq::Web, at: 'sidekiq'
@@ -147,6 +151,7 @@ Rails.application.routes.draw do
       namespace :partner_feeds, path: 'partner-feeds' do
         namespace :jobs do
           get :linkedin
+          get :blocketjobb
         end
       end
     end

@@ -3,7 +3,7 @@ require 'rails_helper'
 
 RSpec.describe UserInterestSerializer, type: :serializer do
   context 'Individual Resource Representation' do
-    let(:resource) { FactoryGirl.build(:user_interest) }
+    let(:resource) { FactoryGirl.build(:user_interest, id: '1') }
     let(:serialization) { JsonApiSerializer.serialize(resource) }
 
     subject do

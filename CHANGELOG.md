@@ -3,6 +3,45 @@
 HEAD
 -----------
 
+
+v1.63 - 2017-05-11
+----------
+* _Admin_:
+  - :hocho: job form bug when creating new jobs
+* _Enhancement_:
+  - FrontendRouter bugfix where default params always was used
+
+
+v1.62 - 2017-05-11
+----------
+* _Enhancement_:
+  - Allow blank `Job#blocketjobb_category` values unless published to Blocketjobb
+
+v1.61 - 2017-05-11
+----------
+* _Features_:
+  - Implement Blocketjobb feed
+  - Add UTM-tracking params to all outgoing URLs
+* _Admin_:
+  - Don't show create invoice btn in admin if invoice already is created
+* _DB_:
+  * Add `Job#publish_on_blocketjobb` boolean field (default: false)
+  * Add `Job#publish_on_linkedin` migration
+  * Add `Job#publish_to_linkedin` boolean field (default: false)
+* _Enhancement_:
+  - Add `UtmUrlBuilder` class and add UTM param support to `FrontendRouter`
+  - Add `welcome_app` gem (local gem under lib/ folder)
+* _Update gems_:
+  - active_model_serializers
+  - ahoy_matey
+  - aws-sdk
+  - lograge
+  - inherited_resources
+  - mail and skylight
+  - nokogiri
+  - mail (fixed Security advisory: https://github.com/mikel/mail/pull/1097)
+
+
 v1.60 - 2017-05-04
 ----------
 * _API_:

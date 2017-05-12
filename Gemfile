@@ -6,7 +6,7 @@ ruby '2.4.0'
 gem 'rails', '5.0.2' # Ruby on Rails MVC framework
 
 # SERVER
-gem 'lograge', '~> 0.4' # Less verbose Rails log in production
+gem 'lograge', '~> 0.5' # Less verbose Rails log in production
 gem 'puma', '~> 3.8' # App server
 
 # Analytics
@@ -64,7 +64,7 @@ gem 'frilans_finans_api', path: 'lib/frilans_finans_api' # Interact with Frilans
 
 # NOTIFICATIONS
 gem 'email_reply_parser', '~> 0.5' # Parse reply emails
-gem 'mail', '~> 2.6' # General email functionality
+gem 'mail', '2.6.6.rc1' # NOTE: We need to specify rc1 due to a security advisory, though we should update it as soon as a non-RC is published, General email functionality
 gem 'twilio-ruby', '~> 4.13' # Send SMS notifications
 
 # GEO/LOCALE/LANGUAGE UTILS

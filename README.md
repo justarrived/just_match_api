@@ -42,12 +42,13 @@ $ git clone git@github.com:justarrived/just_match_api.git
 $ cd just_arrived
 $ script/setup
 $ script/server
-# You can now open http://localhost:3000
+# You can now open http://lvh.me:3000
+# The admin UI is available at http://admin.lvh.me:3000
 ```
 
 You can generate some development seed data by running `rails dev:seed`.
 
-If you navigate to `http://localhost:3000` you'll find the API documentation.
+If you navigate to `http://lvh.me:3000` you'll find the API documentation (lvh.me is the same as using localhost:3000, though it supports subdomains etc).
 
 ## Tests
 
@@ -81,7 +82,7 @@ __Public JSON API documentation__
 The API documentation is generated right where the code for that particular endpoint is.
 That way the documentation is kept up to date.
 
-During development you can run find the documentation at `http://localhost:5000/`, as long as you have a started your server (you start it by running `script/server`).
+During development you can run find the documentation at `http://lvh.me:3000/api_docs`, as long as you have a started your server (you start it by running `script/server`).
 
 You can generate a static version of the API documentation with
 

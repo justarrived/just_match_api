@@ -16,7 +16,7 @@ en:
         notice: Failed to create a Frilans Finans invoice for %{id}
   arbetsformedlingen:
     application_method_description: Login in or register and apply for the job at %{application_url}
-    company_description: '%{name} is located at %{address}. You can find there website at %{url}.'
+    company_description: '%{name} is located at %{address}. You can find their website at %{url}.'
   errors:
     unauthorized: You are not authorized to perform this action.
     bad_json_format: "There was a problem in the JSON you submitted: %{error_class}"
@@ -55,6 +55,10 @@ en:
       hourly_pay_active: must be active
       update_not_allowed_when_accepted: job can't be updated as it has been accepted by the user
       job_end_date_after_job_date: must be after job date
+      last_application_at_on_publish_to_blocketjobb: last application at must be set if job is to be published to Blocketjobb
+      municipality_presence_on_publish_to_blocketjobb: municipality must be filled if job is to be published to Blocketjobb
+      blocketjobb_category_presence_on_publish_to_blocketjobb: blocketjobb category must be filled if job is to be published on Blocketjobb
+      company_presence_on_publish_to_blocketjobb: company must be filled (through the owner) if the job is to be published on Blocketjobb
       hours_lower_bound: must be at least %{min_hours} hour(s) per day
       hours_upper_bound: can't be more than %{max_hours} hours per day
       owner_must_belong_to_company: owner must belong to a company

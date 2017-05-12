@@ -7,7 +7,7 @@ module Dev
       max_users = max_count_opt('MAX_USERS', 50)
       max_company_users = max_count_opt('MAX_COMPANY_USERS', 5)
 
-      Faker::FrilansFinansApi.config.locale = 'sv'
+      Faker::Config.locale = 'sv'
 
       system_languages = languages.system_languages
 
@@ -16,7 +16,6 @@ module Dev
         create_user(
           email: 'admin@example.com',
           admin: true,
-          super_admin: true,
           address: addresses.sample,
           language: system_languages.sample
         )

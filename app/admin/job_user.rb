@@ -237,7 +237,7 @@ ActiveAdmin.register JobUser do
       li(
         link_to(
           I18n.t('admin.view_in_app.job'),
-          FrontendRouter.draw(:job, id: job_user.job_id),
+          FrontendRouter.draw(:job, id: job_user.job_id, utm_medium: UTM_ADMIN_MEDIUM),
           target: '_blank'
         )
       )

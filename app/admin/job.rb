@@ -177,7 +177,7 @@ ActiveAdmin.register Job do
     ul do
       li link_to(
         I18n.t('admin.view_in_app.job'),
-        FrontendRouter.draw(:job, id: job.id),
+        FrontendRouter.draw(:job, id: job.id, utm_medium: UTM_ADMIN_MEDIUM),
         target: '_blank'
       )
     end
@@ -197,10 +197,11 @@ ActiveAdmin.register Job do
 
   show do
     job_comments = job.comments.with_translations.includes(:owner)
+    url = FrontendRouter.draw(:job, id: job.id, utm_medium: UTM_ADMIN_MEDIUM)
     locals = {
       job: job,
       job_comments: job_comments,
-      frontend_app_job_path: FrontendRouter.draw(:job, id: job.id)
+      frontend_app_job_path: url
     }
     render partial: 'admin/jobs/show', locals: locals
   end
@@ -210,6 +211,7 @@ ActiveAdmin.register Job do
       :cancelled, :language_id, :hourly_pay_id, :category_id, :owner_user_id, :hidden,
       :company_contact_user_id, :just_arrived_contact_user_id, :municipality,
       :number_to_fill, :order_id, :full_time, :swedish_drivers_license, :car_required,
+      :publish_on_linkedin, :publish_on_blocketjobb, :blocketjobb_category,
       job_skills_attributes: [:skill_id, :proficiency, :proficiency_by_admin],
       job_languages_attributes: [:language_id, :proficiency, :proficiency_by_admin]
     ]

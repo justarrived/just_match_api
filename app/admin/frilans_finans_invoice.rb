@@ -78,7 +78,7 @@ ActiveAdmin.register FrilansFinansInvoice do
     end
   end
 
-  action_item :view, only: :show do
+  action_item :view, only: :show, if: -> { !resource.invoice } do
     title = safe_join([
                         envelope_icon_png(html_class: 'btn-icon'),
                         I18n.t('admin.create_invoice.post_btn')

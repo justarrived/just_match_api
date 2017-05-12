@@ -1,7 +1,10 @@
 # frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe FrontendRoutesReader do
+require 'frontend_router'
+
+RSpec.describe FrontendRouter do
   subject { described_class.new }
   let(:base_url) { 'https://app.justarrived.se/' }
 
@@ -14,6 +17,10 @@ RSpec.describe FrontendRoutesReader do
   end
 
   it 'returns route with base url' do
+    expect(subject.draw(:login)).to include(base_url)
+  end
+
+  it 'has ::build method' do
     expect(subject.draw(:login)).to include(base_url)
   end
 
@@ -72,12 +79,20 @@ RSpec.describe FrontendRoutesReader do
     expected = "#{base_url}reset-password/#{token}"
     expect(result).to eq(expected)
   end
-end
 
-RSpec.describe FrontendRouter do
-  subject { described_class }
+  it 'returns route with utm_source param' do
+    result = subject.draw(:login, utm_source: 'JustTesting', utm_term: 'mail')
+    expected = "#{base_url}login?utm_source=JustTesting&utm_term=mail"
+    expect(result).to eq(expected)
+  end
 
-  it 'is an instance of FrontendRoutesReader' do
-    expect(described_class).to be_a(FrontendRoutesReader)
+  it 'returns route with default UtmUrlBuilder utm_source' do
+    old_source = UtmUrlBuilder.default_utm_source
+    UtmUrlBuilder.default_utm_source = 'JustTesting'
+    result = subject.draw(:login)
+    UtmUrlBuilder.default_utm_source = old_source
+
+    expected = "#{base_url}login?utm_source=JustTesting"
+    expect(result).to eq(expected)
   end
 end

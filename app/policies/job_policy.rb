@@ -13,7 +13,7 @@ class JobPolicy < ApplicationPolicy
     :language_id, :gross_amount, :net_amount, :gross_amount_with_currency, :currency,
     :net_amount_with_currency, :city, :gross_amount_delimited, :net_amount_delimited,
     :full_street_address, :description_html, :staffing_job, :direct_recruitment_job,
-    :swedish_drivers_license, :car_required
+    :swedish_drivers_license, :car_required, :last_application_at
   ].freeze
 
   ATTRIBUTES = [
@@ -22,7 +22,8 @@ class JobPolicy < ApplicationPolicy
     :featured, :upcoming, :street, :amount, :translated_text, :language_id, :gross_amount,
     :net_amount, :gross_amount_with_currency, :net_amount_with_currency, :city, :currency,
     :gross_amount_delimited, :net_amount_delimited, :full_street_address, :staffing_job,
-    :description_html, :direct_recruitment_job, :swedish_drivers_license, :car_required
+    :description_html, :direct_recruitment_job, :swedish_drivers_license, :car_required,
+    :last_application_at
   ].freeze
 
   OWNER_ATTRIBUTES = [
@@ -30,7 +31,8 @@ class JobPolicy < ApplicationPolicy
     :city, :filled, :short_description, :featured, :upcoming, :currency,
     :gross_amount_delimited, :net_amount_delimited, :full_street_address, :staffing_job,
     :description_html, :direct_recruitment_job, :owner_user_id, :swedish_drivers_license,
-    :car_required, :language_id, :category_id, :hourly_pay_id, skill_ids: []
+    :car_required, :last_application_at, :language_id, :category_id, :hourly_pay_id,
+    skill_ids: []
   ].freeze
 
   def index?

@@ -22,16 +22,32 @@ class LinkedinJobsSerializer
     parent_node.job do |node|
       node.company { |n| n.cdata!(job.company.name) }
 
-      node.partnerJobId { |n| n.cdata!(job.id.to_s) }
+      node.partnerJobId { |n| n.cdata!(job.to_param) }
       node.title { |n| n.cdata!(job.name.to_s) }
-      node.description { |n| n.cdata!(job.description.to_s) }
+      node.description do |n|
+        n.cdata!("#{job.description}\n\n#{special_linkedin_hashtag}")
+      end
 
       node.location(job.full_street_address)
       node.city { |n| n.cdata!(job.city.to_s) }
       node.countryCode { |n| n.cdata!(job.country_code) }
       node.postalCode { |n| n.cdata!(job.zip.to_s) }
 
-      node.applyUrl { |n| n.cdata!(FrontendRouter.draw(:job, id: job.id)) }
+      node.applyUrl do |n|
+        n.cdata!(
+          FrontendRouter.draw(
+            :job,
+            id: job.to_param,
+            utm_source: 'linkedin',
+            utm_medium: 'ad',
+            utm_campaign: 'welcometalent'
+          )
+        )
+      end
     end
+  end
+
+  def self.special_linkedin_hashtag
+    '#welcometalent'
   end
 end

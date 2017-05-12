@@ -3,7 +3,7 @@ require 'rails_helper'
 
 RSpec.describe InvoiceSerializer, type: :serializer do
   context 'Individual Resource Representation' do
-    let(:resource) { FactoryGirl.build(:invoice) }
+    let(:resource) { FactoryGirl.build(:invoice, id: '1') }
     let(:serialization) { JsonApiSerializer.serialize(resource) }
 
     subject do

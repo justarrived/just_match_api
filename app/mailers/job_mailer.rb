@@ -7,7 +7,7 @@ class JobMailer < ApplicationMailer
     @owner_email = owner.contact_email
     @job_name = job.name
 
-    @job_url = FrontendRouter.draw(:job, id: job.id)
+    @job_url = frontend_mail_url(:job, id: job.id, utm_campaign: 'job_match')
 
     mail(to: user.contact_email, subject: I18n.t('mailer.job_match.subject'))
   end
@@ -20,10 +20,11 @@ class JobMailer < ApplicationMailer
     @job_name = job.name
     @user_email = user.contact_email
 
-    @job_user_url = FrontendRouter.draw(
+    @job_user_url = frontend_mail_url(
       :job_user_for_company,
       job_id: job.id,
-      job_user_id: job_user.id
+      job_user_id: job_user.id,
+      utm_campaign: 'job_user_performed'
     )
 
     subject = I18n.t('mailer.job_performed.subject')
@@ -40,10 +41,11 @@ class JobMailer < ApplicationMailer
     @job_name = job.name
     @owner_name = owner.name
 
-    @job_user_url = FrontendRouter.draw(
+    @job_user_url = frontend_mail_url(
       :job_user_for_company,
       job_id: job.id,
-      job_user_id: job_user.id
+      job_user_id: job_user.id,
+      utm_campaign: 'new_applicant'
     )
 
     subject = I18n.t('mailer.new_applicant.subject')
@@ -65,7 +67,11 @@ class JobMailer < ApplicationMailer
     @confirmation_time_hours = JobUser::MAX_CONFIRMATION_TIME_HOURS
     @google_calendar_url = job.google_calendar_template_url
 
-    @job_user_url = FrontendRouter.draw(:job_user, job_id: job.id)
+    @job_user_url = frontend_mail_url(
+      :job_user,
+      job_id: job.id,
+      utm_campaign: 'applicant_accepted'
+    )
 
     subject = I18n.t('mailer.applicant_accepted.subject')
     mail(to: user.contact_email, subject: subject)
@@ -79,10 +85,11 @@ class JobMailer < ApplicationMailer
     @user_phone = user.phone
     @job_name = job.name
 
-    @job_user_url = FrontendRouter.draw(
+    @job_user_url = frontend_mail_url(
       :job_user_for_company,
       job_id: job.id,
-      job_user_id: job_user.id
+      job_user_id: job_user.id,
+      utm_campaign: 'applicant_will_perform'
     )
 
     subject = I18n.t('mailer.applicant_will_perform.subject')
@@ -105,10 +112,11 @@ class JobMailer < ApplicationMailer
     @ja_contact_phone = ja_contact&.phone
     @ja_contact_email = ja_contact&.email
 
-    @job_user_url = FrontendRouter.draw(
+    @job_user_url = frontend_mail_url(
       :job_user,
       job_id: job.id,
-      job_user_id: job_user.id
+      job_user_id: job_user.id,
+      utm_campaign: 'applicant_will_perform_job_info'
     )
 
     subject = I18n.t('mailer.applicant_will_perform_job_info.subject')
@@ -123,7 +131,7 @@ class JobMailer < ApplicationMailer
     @job_name = job.name
     @support_email = AppConfig.support_email
 
-    @jobs_url = FrontendRouter.draw(:jobs)
+    @jobs_url = frontend_mail_url(:jobs, utm_campaign: 'applicant_rejected')
 
     subject = I18n.t('mailer.applicant_rejected.subject')
     mail(to: @user_email, subject: subject)
@@ -145,7 +153,11 @@ class JobMailer < ApplicationMailer
     @user_name = user.name
     @job_name = job.name
 
-    @job_users_url = FrontendRouter.draw(:job_users, job_id: job.id)
+    @job_users_url = frontend_mail_url(
+      :job_users,
+      job_id: job.id,
+      utm_campaign: 'accepted_applicant_confirmation_overdue'
+    )
 
     subject = I18n.t('mailer.accepted_applicant_confirmation_overdue.subject')
     mail(to: owner.contact_email, subject: subject)
@@ -154,7 +166,7 @@ class JobMailer < ApplicationMailer
   def job_cancelled_email(job:, user:)
     @job_name = job.name
 
-    @jobs_url = FrontendRouter.draw(:jobs)
+    @jobs_url = frontend_mail_url(:jobs, utm_campaign: 'job_cancelled')
 
     subject = I18n.t('mailer.job_cancelled.subject')
     mail(to: user.contact_email, subject: subject)
@@ -162,7 +174,7 @@ class JobMailer < ApplicationMailer
 
   def new_job_comment_email(comment:, job:)
     owner = job.owner
-    @job_url = FrontendRouter.draw(:job, id: job.id)
+    @job_url = frontend_mail_url(:job, id: job.id, utm_campaign: 'new_job_comment')
     @comment_body = comment.original_body
 
     subject = I18n.t('mailer.new_job_comment.subject')
@@ -174,7 +186,11 @@ class JobMailer < ApplicationMailer
     @user_name = user.name
 
     @skill_names = skills.map(&:name)
-    @user_edit_url = FrontendRouter.draw(:user_edit, id: user.id)
+    @user_edit_url = frontend_mail_url(
+      :user_edit,
+      id: user.id,
+      utm_campaign: 'ask_for_information'
+    )
 
     subject = I18n.t('mailer.job_ask_for_information.subject')
     mail(to: user.contact_email, subject: subject)

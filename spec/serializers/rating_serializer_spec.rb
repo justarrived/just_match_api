@@ -3,7 +3,7 @@ require 'rails_helper'
 
 RSpec.describe RatingSerializer, type: :serializer do
   context 'Individual Resource Representation' do
-    let(:resource) { FactoryGirl.build(:rating) }
+    let(:resource) { FactoryGirl.build(:rating, id: '1') }
     let(:serialization) { JsonApiSerializer.serialize(resource) }
 
     subject do
