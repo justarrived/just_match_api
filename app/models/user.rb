@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class User < ApplicationRecord
   include Geocodable
   include SkillMatchable
@@ -124,7 +125,7 @@ class User < ApplicationRecord
   scope :verified, -> { where(verified: true) }
   scope :needs_welcome_app_update, lambda {
     scope = where(welcome_app_last_checked_at: nil).
-      or(before(:welcome_app_last_checked_at, 1.week.ago))
+            or(before(:welcome_app_last_checked_at, 1.week.ago))
 
     scope.where(has_welcome_app_account: false)
   }
@@ -168,15 +169,15 @@ class User < ApplicationRecord
   ).freeze
 
   ransacker :first_name, type: :string do
-    Arel.sql("unaccent(\"first_name\")")
+    Arel.sql('unaccent("first_name")')
   end
 
   ransacker :last_name, type: :string do
-    Arel.sql("unaccent(\"last_name\")")
+    Arel.sql('unaccent("last_name")')
   end
 
   ransacker :city, type: :string do
-    Arel.sql("unaccent(\"city\")")
+    Arel.sql('unaccent("city")')
   end
 
   def self.main_support_user
@@ -325,7 +326,7 @@ class User < ApplicationRecord
   end
 
   def phone?
-    !phone.blank?
+    phone.present?
   end
 
   def locale
@@ -528,7 +529,7 @@ class User < ApplicationRecord
   def validate_arrived_at_date
     arrived_at_before_cast = read_attribute_before_type_cast(:arrived_at)
     return if arrived_at_before_cast.blank?
-    return unless arrived_at.blank?
+    return if arrived_at.present?
 
     error_message = I18n.t('errors.general.must_be_valid_date')
     errors.add(:arrived_at, error_message)
