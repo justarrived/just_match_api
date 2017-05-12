@@ -84,6 +84,8 @@ ku:
         rate: Notan/dereceyan bide
       invoice:
         job_user: Kar_bikarîner
+      frilans_finans_invoice:
+        job_user: Kar_bikarîner
       job:
         category: Kategorî
         comments: Têbînî
@@ -140,6 +142,8 @@ ku:
         job: Kar
         score: Kirin
         to_user: Ji bo bikarînerî
+      token:
+        user: Bikarîner
       skill:
         job_skills: Tecrîbeyên karî
         jobs: Kar

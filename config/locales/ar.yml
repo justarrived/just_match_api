@@ -1,6 +1,8 @@
 ar:
   api_documentation:
     title: API dokumentation | JustMatch API
+  units:
+    currency_per_hour: '%{currency}/ساعة'
   admin:
     mailer:
       invoice_missing_company_frilans_finans_id:
@@ -13,7 +15,14 @@ ar:
         subject: 'ملاحظة المشرف: تعذر تفعيل فاتورة Frilans Finans'
         notice: تعذر انشاء فاتورة Frilans Finans
   errors:
+    unauthorized: أنت غير مخول بتنفيذ هذا الإجراء.
+    bad_json_format: "حدثت مشكلة في JSON الذي أرسلته: %{error_class}"
+    rate_limit:
+      details: وصلت للحد الأقصى. أعد المحاولة لاحقا.
     bank_account:
+      too_short: المقاصة بالإضافة إلى رقم الحساب قصير جدا
+      too_long: المقاصة بالإضافة إلى رقم الحساب طويل جدا
+      invalid_characters: المقاصة بالإضافة إلى رقم الحساب يحتوي على أحرف غير صالحة
       bad_checksum: تدقيق المجموع سيء
       unknown_clearing_number: رقم التخليص غير معروف
       iban:
@@ -29,8 +38,11 @@ ar:
     general:
       protocol_missing: الخادم مفقود  http:// or https://
       must_be_valid_date: يجب أن يكون التاريخ صالح
+      blank_if_field: لا يمكن تركه فارغا إذا كان %{field} موجودا
     chat:
       number_of_users: الدردشة يجب ان تكون بين  %{min}-%{max}  وعدد من المستخدمين
+    frilans_finans_invoice:
+      job_is_frilans_finans_job: يجب أن تكون وظيفة Frilans Finans
     invoice:
       job_started: يجب قبول المستخدم قبل إنشاء الفاتورة
       job_user_accepted: يجب قبول المستخدم قبل إنشاء الفاتورة
@@ -42,7 +54,11 @@ ar:
       job_end_date_after_job_date: يجب أن يكون تاريخ لاحق للعمل
       hours_lower_bound: يجب أن يكون %{min_hours} ساعات في النهار
       hours_upper_bound: غير ممكن أن يكون عدة %{min_hours} ساعات في النهار
+      owner_must_belong_to_company: المالك يجب أن ينتمي إلى شركة
     job_user:
+      terms_agreement_consent_required: يجب عليك قبول شروط الاتفاق لتقديم طلب لهذه الوظيفة
+      terms_agreement_not_found: لا يوجد اتفاق شروط من هذا القبيل
+      forbidden_applicant_user: غير مسموح تقديم طلب لهذه الوظيفة
       not_owner_of_job: غير جائز أن يكون ربّ عمل وطالب عمل في نفس الوقت
       multiple_applicants: لا يستطيع قبول عدة مستخدمين
       will_perform_true_on_delete: غير ممكن سحب الطلب بعد التأكيد
@@ -58,19 +74,44 @@ ar:
       banned: 'الإداري منعك من الدخول لأنك لم تحترم شروط الاستعمال رجاءً اتصل ب: help@justarrived'
       wrong_email_or_phone_or_password: خطأ في البريد الإلكتروني أو الهاتف أو كلمة السر
     user:
+      no_such_reset_token_error: انتهت صلاحية الرابط، يرجى الذهاب الى "نسيت كلمة المرور" وحاول مرة أخرى
+      must_consent_to_terms_of_agreement: يجب أن توافق على شروط الإتفاقية
+      invalid_image_content_type: نوع محتوى الصورة غير صالح
       invalid_document_content_type: نوع محتوى الصورة %{type}
       wrong_password: كلمة سرّ خاطئة
+      password_length: يجب أن تحتوي كلمة المرور على %{min_length} من الأحرف على الأقل ولا تزيد عن %{max_length}
       must_be_available_locale: لغتك غير مدعومة للأسف
       must_be_valid_phone_number_format: يجب أن يكون رقم هاتف فعال
       must_be_swedish_phone_number: يجب أن يكون رقم هاتف سويدي ( +٤٦ )
       must_be_swedish_ssn: يجب أن يكون رقم الضمان الاجتماعي السويدي صحيح
       arrived_at_must_be_in_past: يجب أن يكون في الماضي
     validators:
+      email: 'يجب أن يكون عنوان البريد الإلكتروني صحيح '
       after_true: '%{field} يجب أن يكون حقيقي'
       unrevertable: غير ممكن إعادة تعيين %{field}
   invalid_credentials: مراجع خاطئة
+  promo_code_required: الرمز الترويجي أو تسجيل الدخول مطلوب.
   not_logged_in_error: يجب أن تكون داخلاً
   record_not_found: السجل غير موجود.
+  token_expired_error: انتهت صلاحية الرمز المميز.
+  user:
+    missing_skills_trait: أعلاه يمكنك أن تجد بعض المهارات ذات الصلة لهذه الوظيفة التي لم تضفها بعد
+    missing_languages_trait: أعلاه يمكنك أن تجد بعض اللغات ذات الصلة لهذه الوظيفة التي لم تضفها بعد
+    statuses:
+      asylum_seeker: طالب لجوء
+      asylum_seeker_description: طالب لجوء
+      permanent_residence: الإقامة الدائمة
+      permanent_residence_description: الإقامة الدائمة
+      temporary_residence: الإقامة المؤقتة
+      temporary_residence_description: 'تدعى أيضا "tidsbegränsat uppehållstillstånd"'
+      eu_citizen: مواطن أوروبي
+      eu_citizen_description: أنت مواطن في دولة تابعة للإتحاد الأوروبي
+      student_visa: تأشيرة طالب
+      student_visa_description: لديك تأشيرة طالب سويدية
+    genders:
+      female: أنثى
+      male: ذكر
+      other: أخرى
   notifications:
     accepted_applicant_confirmation_overdue: فترة التأكيد للمستخدم المقبول قد انتهت
     accepted_applicant_withdrawn: المستخدم المقبول سحب طلبه
@@ -85,6 +126,31 @@ ar:
     new_job_comment: تعليق جديد على وظيفة
     applicant_rejected: حصل شخص آخر على الفرصة هذه المرة
     job_match: عمل جديد مطابق
+    new_applicant_job_info: معلومات تقديم الوظيفة
+    applicant_will_perform_job_info: معلومات تأكيد الوظيفة
+    failed_to_activate_invoice: فشل في تفعيل فاتورة
+  user_document:
+    categories:
+      cv: السيرة الذاتية
+      cv_description: السي في (السيرة الذاتية)
+  user_image:
+    categories:
+      profile: الملف
+      profile_description: صورة الملف
+      personal_id: الرقم الشخصي
+      personal_id_description: صورة رقمك الشخصي
+      work_permit_front: تصريح العمل (الصورة الأمامية)
+      work_permit_front_description: الصورة من الأمام لتصريح العمل الخاص بك.
+      work_permit_back: تصريح العمل (الصورة الخلفية)
+      work_permit_back_description: الصورة من الخلف لتصريح العمل الخاص بك.
+      lma_card: بطاقة LMA
+      lma_card_description: صورة بطاقة LMA لطالبي اللجوء.
+      residence_permit_front: تصريح الإقامة (الصورة الأمامية)
+      residence_permit_front_description: الصورة من الأمام لتصريح الإقامة الخاص بك.
+      residence_permit_back: تصريح الإقامة (الصورة الخلفية)
+      residence_permit_back_description: الصورة من الخلف لتصريح الإقامة الخاص بك.
+      skatteverket_certificate: شهادة مصلحة الضرائب
+      skatteverket_certificate_description: صورة شهادة مصلحة الضرائب الخاصة بك
   texter:
     magic_login_link:
       login_line: لتسجيل الدخول الى JustArrived استخدم الرابط التالي %{url}

@@ -84,6 +84,8 @@ ps:
         rate: سکور
       invoice:
         job_user: د دندې کارونکی
+      frilans_finans_invoice:
+        job_user: د دندې کارونکی
       job:
         category: کټګوري
         comments: نظریات
@@ -140,6 +142,8 @@ ps:
         job: دنده
         score: کول
         to_user: کارونکي ته
+      token:
+        user: کارونکی
       skill:
         job_skills: کاري تجربه
         jobs: دنده
