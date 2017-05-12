@@ -23,14 +23,31 @@ RSpec.describe ErrorNotifier do
     let(:message) { 'Error message' }
     let(:name) { 'Watman' }
     let(:context) { { name: name } }
+    let(:exception) do
+      raised_error = nil
+      begin
+        raise StandardError, 'error message'
+      rescue StandardError => e
+        raised_error = e
+      end
+      raised_error
+    end
 
-    subject! { described_class.send(message, context: context, client: notify_client) }
+    subject! do
+      described_class.send(
+        message,
+        exception: exception,
+        context: context,
+        client: notify_client
+      )
+    end
 
     it 'sends' do
-      default_context = { reraised_exception: true }
-      expected = { message: message, context: default_context.merge(context) }
-
-      expect(notify_client.last).to eq(expected)
+      error_context = notify_client.last[:context]
+      expect(error_context[:name]).to eq(name)
+      expect(error_context[:reraised_exception]).to eq(true)
+      expect(error_context[:error_class]).to eq('StandardError')
+      expect(error_context[:error_message]).to eq('error message')
     end
   end
 end

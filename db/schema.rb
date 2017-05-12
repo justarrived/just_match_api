@@ -815,6 +815,8 @@ ActiveRecord::Schema.define(version: 20170510145555) do
     t.integer  "system_language_id"
     t.string   "linkedin_url"
     t.string   "facebook_url"
+    t.boolean  "has_welcome_app_account",          default: false
+    t.datetime "welcome_app_last_checked_at"
     t.index ["company_id"], name: "index_users_on_company_id", using: :btree
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["frilans_finans_id"], name: "index_users_on_frilans_finans_id", unique: true, using: :btree
