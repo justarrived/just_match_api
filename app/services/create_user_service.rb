@@ -38,7 +38,10 @@ class CreateUserService
     rescue ActiveRecord::RecordInvalid,
            ActiveRecord::Rollback,
            ActiveRecord::StatementInvalid,
-           ActiveRecord::RecordNotSaved
+           ActiveRecord::RecordNotSaved => e
+
+      context = { user_id: user.id }
+      ErrorNotifier.send('User creation failed', exception: e, context: context)
       user
     end
   end
