@@ -77,7 +77,7 @@ The code follows most Rails conventions. If you've worked with Rails before the 
 
 * __Admin tools__
   - Uses `activeadmin` gem
-  - Admin interface under path `/admin`
+  - Admin interface under `admin` subdomain
   - Admin insights interface under path `/insights`
     + Uses the `blazer` gem
 
