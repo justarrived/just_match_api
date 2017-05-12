@@ -84,6 +84,8 @@ ti:
         rate: ኣሰራርዓ ወይ ኣመዳድባ ባጀላ ወይ ደረጃ
       invoice:
         job_user: Jobb_user (ተጠቃም_ስራሕ)
+      frilans_finans_invoice:
+        job_user: Jobb_user (ተጠቃም_ስራሕ)
       job:
         category: ምድብ
         comments: ርእይቶታት
@@ -140,6 +142,8 @@ ti:
         job: ስራሕ
         score: ግበር ወይ ስራሕ
         to_user: ናብ ተጠቓሚ
+      token:
+        user: ተጠቃሚ
       skill:
         job_skills: ናይ ስራሕ ተሞክሮታት
         jobs: ስራሕ

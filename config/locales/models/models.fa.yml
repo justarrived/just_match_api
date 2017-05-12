@@ -84,6 +84,8 @@ fa:
         rate: نرخ
       invoice:
         job_user: کاربران شغلی
+      frilans_finans_invoice:
+        job_user: کاربران شغلی
       job:
         category: دسته بندی
         comments: نظرات
@@ -140,6 +142,8 @@ fa:
         job: کار
         score: نمره
         to_user: به کاربر
+      token:
+        user: کاربر
       skill:
         job_skills: مهارت های شغلی
         jobs: شغل ها

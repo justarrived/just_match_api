@@ -26,6 +26,7 @@ ar:
       not_a_number: ليس رقم
       not_an_integer: يجب أن يكون رقم كامل
       odd: يجب أن يكون رقم مُفرد
+      required: يجب أن تكون موجودة
       taken: مستخدم مسبقا
       model_invalid: 'حصل خطأٌ%{errors}'
       too_long:
