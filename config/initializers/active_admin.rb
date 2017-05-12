@@ -35,6 +35,13 @@ ActiveAdmin.setup do |config|
   #
   # Default:
   config.default_namespace = :admin
+
+  config.namespace :admin do
+    config.route_options = { path: '' }
+  end
+
+  # The below line fixes, https://github.com/activeadmin/activeadmin/issues/3911
+  # config.root_to_options = { as: :admin_root }
   #
   # You can customize the settings for each namespace by using
   # a namespace block. For example, to change the site title
