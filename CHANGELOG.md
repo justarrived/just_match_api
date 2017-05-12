@@ -4,6 +4,22 @@ HEAD
 -----------
 
 
+v1.64 - 2017-05-12
+----------
+* _Feature_:
+  - Move admin interface from `/admin` to `admin.` subdomain
+  - Check if user has Welcome!
+* _API_:
+  - Add User welcome app fields
+* _DB_:
+  - Add `User#has_welcome_app_account` (boolean, default: false)
+  - Add `User#welcome_app_last_checked_at` (datetime)
+* _Enhancement_:
+  - Extract `CreateUserService` from users controller (refactor create action)
+  - Track error if an database error occurs on user creation
+  - Update `Dev::UserSeed`
+
+
 v1.63 - 2017-05-11
 ----------
 * _Admin_:
