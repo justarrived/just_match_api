@@ -10,7 +10,7 @@ gem 'lograge', '~> 0.5' # Less verbose Rails log in production
 gem 'puma', '~> 3.8' # App server
 
 # Analytics
-gem 'ahoy_matey', '~> 1.5.4'
+gem 'ahoy_matey', '~> 1.6'
 
 # STORAGE
 gem 'aws-sdk', '~> 2.9' # Upload images to AWS S3
@@ -27,7 +27,7 @@ gem 'sidekiq', '~> 4.2' # Background worker (Redis-backed)
 gem 'sidekiq-statistic', '~> 1.2'
 
 # MONITORING
-gem 'airbrake', '~> 6.0' # Error catcher and reporter
+gem 'airbrake', '~> 6.1' # Error catcher and reporter
 gem 'skylight', '~> 1.2' # Performance monitoring
 
 # PAGINATION
