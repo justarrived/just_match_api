@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# XML-schema https://jobb.blocket.se/dynamic.xml
 class BlocketjobbJobPresenter
   attr_reader :job, :company
 

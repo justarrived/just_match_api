@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# XML-schema https://jobb.blocket.se/dynamic.xml
 class BlocketjobbJobsSerializer
   def self.to_xml(jobs:, locale: :sv)
     I18n.with_locale(locale) { build_xml_document(jobs).target! }
