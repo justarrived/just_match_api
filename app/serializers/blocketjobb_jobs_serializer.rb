@@ -12,7 +12,7 @@ class BlocketjobbJobsSerializer
 
     builder.jobfeed_xml_stucture do |node|
       node.ads do |ads_node|
-        jobs.each { |job| append_ad_xml(ads_node, BlocketjobbJobPresenter.new(job)) }
+        jobs.each { |job| append_ad_xml(ads_node, Blocketjobb::JobWrapper.new(job)) }
       end
     end
     builder

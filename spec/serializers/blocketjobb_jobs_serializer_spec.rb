@@ -12,7 +12,7 @@ RSpec.describe BlocketjobbJobsSerializer do
         last_application_at: 2.weeks.from_now,
         publish_on_blocketjobb: true
       )
-      job_view = BlocketjobbJobPresenter.new(job)
+      job_view = Blocketjobb::JobWrapper.new(job)
 
       body = BlocketjobbJobsSerializer.to_xml(jobs: [job])
       xml = Nokogiri::XML.parse(body).css('jobfeed_xml_stucture ads ad')

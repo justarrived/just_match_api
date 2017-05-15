@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe BlocketjobbJobPresenter do
+RSpec.describe Blocketjobb::JobWrapper do
   describe '#external_ad_id' do
     it 'returns the jobs id' do
       job = FactoryGirl.build(:job, id: '1')
