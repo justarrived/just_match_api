@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class BlocketjobbJobsSerializer
-  def self.to_xml(jobs:)
-    I18n.with_locale(:en) do
+  def self.to_xml(jobs:, locale: :sv)
+    I18n.with_locale(locale) do
       build_xml_document(jobs).target!
     end
   end

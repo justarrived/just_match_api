@@ -7,7 +7,7 @@ RSpec.describe BlocketjobbJobsSerializer do
     it 'returns the correct XML' do
       job = FactoryGirl.create(
         :job_with_translation,
-        translation_locale: :en,
+        translation_locale: :sv,
         blocketjobb_category: 'Övrigt',
         last_application_at: 2.weeks.from_now,
         publish_on_blocketjobb: true
@@ -52,7 +52,7 @@ RSpec.describe BlocketjobbJobsSerializer do
       corp_orgno = xml.css('corp_orgno').text.strip
       corp_url = xml.css('corp_url').text.strip
 
-      expect(corp_descr).to eq(job_view.company_description)
+      expect(corp_descr).to eq(I18n.with_locale(:sv) { job_view.company_description })
       expect(corp_url).to eq(job_view.company_url)
       expect(corp_name).to eq(job_view.company_name)
       expect(corp_orgno).to eq(job_view.company_orgno)
