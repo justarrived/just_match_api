@@ -57,7 +57,7 @@ ActiveAdmin.register ArbetsformedlingenAd do
   member_action :push_to_arbetsformedlingen, method: :post do
     ad = resource
 
-    result = PushArbetsformedlingenAdService.call(ad)
+    result = I18n.with_locale(:sv) { PushArbetsformedlingenAdService.call(ad) }
 
     if result.errors.empty?
       message = I18n.t('admin.arbetsformedlingen_ad.push.pushing_msg')
