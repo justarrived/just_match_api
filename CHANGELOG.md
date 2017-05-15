@@ -3,6 +3,16 @@
 HEAD
 -----------
 
+v1.67 - 2017-05-15
+----------
+* _Enhancement_:
+  - Upgrade to Ruby 2.4.1
+  - Update `User::needs_welcome_app_update` scope to only check regular users
+* _Update gems_:
+  - `aws-sdk`
+  - `ahoy`
+  - `airbrake`
+
 
 v1.66 - 2017-05-12
 ----------
