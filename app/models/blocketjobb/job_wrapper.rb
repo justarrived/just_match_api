@@ -96,11 +96,13 @@ module Blocketjobb
     end
 
     def apply_url
+      job_param = job.to_param
       FrontendRouter.draw(
         :job,
-        id: job.to_param,
+        id: job_param,
         utm_source: 'blocketjobb',
-        utm_medium: 'ad'
+        utm_medium: 'ad',
+        utm_content: job.to_param
       )
     end
 

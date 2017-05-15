@@ -15,7 +15,7 @@ RSpec.describe Blocketjobb::JobWrapper do
     it 'returns the apply_url' do
       job = FactoryGirl.build(:job, id: '1')
 
-      url = 'https://app.justarrived.se/job/1?utm_source=blocketjobb&utm_medium=ad'
+      url = "https://app.justarrived.se/job/1?utm_source=blocketjobb&utm_medium=ad&utm_content=#{job.to_param}" # rubocop:disable Metrics/LineLength
       expect(described_class.new(job).apply_url).to eq(url)
     end
   end
