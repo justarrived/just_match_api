@@ -11,7 +11,7 @@ RSpec.describe Api::V1::Users::UserDocumentsController, type: :controller do
   end
 
   describe 'GET #index' do
-    it 'creates user document' do
+    it 'lists user documents' do
       user_document = FactoryGirl.create(:user_document, user: user)
       get :index, params: { user_id: user }, session: valid_session
       expect(assigns(:user_documents).first).to eq(user_document)
