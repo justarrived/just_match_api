@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Linkedin::JobWrapper do
-  let(:job) { FactoryGirl.build(:job) }
+  let(:job) { FactoryGirl.build(:job, id: 73) }
   let(:job_wrapper) { described_class.new(job: job) }
 
   describe '#description' do
@@ -55,6 +55,7 @@ RSpec.describe Linkedin::JobWrapper do
       expect(url).to include('utm_source=linkedin')
       expect(url).to include('utm_medium=ad')
       expect(url).to include('utm_campaign=welcometalent')
+      expect(url).to include("utm_content=#{job.to_param}")
     end
   end
 end

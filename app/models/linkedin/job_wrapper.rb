@@ -40,12 +40,14 @@ module Linkedin
     end
 
     def apply_url
+      job_param = job.to_param
       FrontendRouter.draw(
         :job,
-        id: job.to_param,
+        id: job_param,
         utm_source: 'linkedin',
         utm_medium: 'ad',
-        utm_campaign: 'welcometalent'
+        utm_campaign: 'welcometalent',
+        utm_content: job_param
       )
     end
   end
