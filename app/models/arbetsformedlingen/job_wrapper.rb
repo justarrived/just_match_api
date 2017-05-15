@@ -37,7 +37,7 @@ module Arbetsformedlingen
         attributes: {
           id: SecureGenerator.uuid,
           active: published,
-          job_id: job.id,
+          job_id: job.to_param,
           number_to_fill: job.number_to_fill,
           ssyk_id: job.ssyk
         }
@@ -112,9 +112,10 @@ module Arbetsformedlingen
       @af_models[:application_method] ||= begin
         application_url = FrontendRouter.draw(
           :job,
-          id: job.id,
+          id: job.to_param,
           utm_source: 'arbetsformedlingen',
-          utm_medium: 'ad'
+          utm_medium: 'ad',
+          utm_content: job.to_param
         )
 
         Arbetsformedlingen::ApplicationMethod.new(

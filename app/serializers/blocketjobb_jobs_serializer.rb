@@ -1,10 +1,9 @@
 # frozen_string_literal: true
 
+# XML-schema https://jobb.blocket.se/dynamic.xml
 class BlocketjobbJobsSerializer
-  def self.to_xml(jobs:)
-    I18n.with_locale(:en) do
-      build_xml_document(jobs).target!
-    end
+  def self.to_xml(jobs:, locale: :sv)
+    I18n.with_locale(locale) { build_xml_document(jobs).target! }
   end
 
   def self.build_xml_document(jobs)
@@ -13,7 +12,7 @@ class BlocketjobbJobsSerializer
 
     builder.jobfeed_xml_stucture do |node|
       node.ads do |ads_node|
-        jobs.each { |job| append_ad_xml(ads_node, BlocketjobbJobPresenter.new(job)) }
+        jobs.each { |job| append_ad_xml(ads_node, Blocketjobb::JobWrapper.new(job)) }
       end
     end
     builder
