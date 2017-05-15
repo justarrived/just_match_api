@@ -13,6 +13,7 @@ module Index
       @users ||= begin
         scope_includes = %i(
           user_languages system_language language languages company chats user_documents
+          user_images
         )
 
         prepare_records(scope.with_translations.includes(*scope_includes))
