@@ -2,9 +2,7 @@
 
 class BlocketjobbJobsSerializer
   def self.to_xml(jobs:, locale: :sv)
-    I18n.with_locale(locale) do
-      build_xml_document(jobs).target!
-    end
+    I18n.with_locale(locale) { build_xml_document(jobs).target! }
   end
 
   def self.build_xml_document(jobs)

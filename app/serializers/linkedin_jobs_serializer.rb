@@ -1,9 +1,8 @@
 # frozen_string_literal: true
+
 class LinkedinJobsSerializer
-  def self.to_xml(jobs:)
-    I18n.with_locale(:en) do
-      build_xml_document(jobs)
-    end
+  def self.to_xml(jobs:, locale: :sv)
+    I18n.with_locale(locale) { build_xml_document(jobs) }
   end
 
   def self.build_xml_document(jobs)
