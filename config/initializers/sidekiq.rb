@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require 'airbrake/sidekiq/error_handler'
+require 'airbrake/sidekiq'
 # Respect current locale when sending background emails
 require 'sidekiq/middleware/i18n'
 
