@@ -3,6 +3,25 @@
 HEAD
 -----------
 
+v1.68 - 2017-05-15
+----------
+* _API_:
+  - Add user_images to include list for performance :rocket:
+  - Update users documents default sort order when included under user
+* _Enhancement_:
+  - Extract `Linkedin::JobWrapper` class from `LinkedinJobsSerializer`
+  - Rename BlocketjobbJobPresenter => Blocketjobb::JobWrapper for consistency
+  - Return Swedish by default for:
+    + Arbetsformedlingen ads
+    + Blocketjobb ads
+    + LinkedIN ads
+  - Add utm_content param to:
+    + Arbetsformedlingen ad push
+    + Blocketjobb feed
+    + Linkedin feed
+  - :hocho: Deprecation warning for requiring airbrake/sidekiq
+
+
 v1.67 - 2017-05-15
 ----------
 * _Enhancement_:
