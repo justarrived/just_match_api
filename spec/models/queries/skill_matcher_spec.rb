@@ -7,13 +7,13 @@ RSpec.describe Queries::SkillMatcher do
       it 'returns empty ActiveRecord relation' do
         job = FactoryGirl.create(:job)
         result = described_class.new(User, job).perform
-        expect(result.class).to eq(User::ActiveRecord_Relation)
+        expect(result.length).to be_zero
       end
 
       it 'returns empty ActiveRecord relation' do
         job = FactoryGirl.create(:job)
         result = described_class.new(User, job).perform(strict_match: true)
-        expect(result.class).to eq(User::ActiveRecord_Relation)
+        expect(result.length).to be_zero
       end
     end
 
