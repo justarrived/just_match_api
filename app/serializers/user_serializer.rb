@@ -73,7 +73,7 @@ class UserSerializer < ApplicationSerializer
   has_many :user_documents, unless: :collection_serializer? do
     link(:related) { api_v1_user_documents_url(object.id) }
 
-    object.user_documents
+    object.user_documents.order(created_at: :desc)
   end
 
   has_many :chats, unless: :collection_serializer? do
