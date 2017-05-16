@@ -3,6 +3,12 @@
 HEAD
 -----------
 
+
+v1.69 - 2017-05-16
+----------
+* _Admin_:
+  - Add ability to create remote FF Invoice
+
 v1.68 - 2017-05-15
 ----------
 * _API_:
