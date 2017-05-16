@@ -37,12 +37,18 @@ ActiveAdmin.register FrilansFinansInvoice do
 
   member_action :sync_with_frilans_finans, method: :post do
     ff_invoice = resource
-    SyncFrilansFinansInvoiceService.call(frilans_finans_invoice: ff_invoice)
+
+    if ff_invoice.frilans_finans_id
+      SyncFrilansFinansInvoiceService.call(frilans_finans_invoice: ff_invoice)
+    else
+      CreateFrilansFinansInvoiceService.create(ff_invoice: ff_invoice)
+    end
+
     message = I18n.t('admin.ff_remote_sync.msg')
     redirect_to(resource_path(resource), notice: message)
   end
 
-  action_item :view, only: :show, if: proc { resource.frilans_finans_id } do
+  action_item :view, only: :show, if: proc { AppConfig.frilans_finans_active? } do
     title = I18n.t('admin.ff_remote_sync.post_btn')
     path = sync_with_frilans_finans_admin_frilans_finans_invoice_path(resource)
     link_to title, path, method: :post
