@@ -41,7 +41,7 @@ panel(I18n.t('admin.job.show.status_flags')) do
     row :cancelled
     row :hidden
     row :staffing_job
-    row :direct_rectuitment_job
+    row :direct_recruitment_job
   end
 end
 

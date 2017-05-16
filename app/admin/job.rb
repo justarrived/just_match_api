@@ -13,7 +13,7 @@ ActiveAdmin.register Job do
       hidden: yes_no,
       featured: yes_no,
       staffing_job: yes_no,
-      direct_rectuitment_job: yes_no,
+      direct_recruitment_job: yes_no,
       filled: yes_no,
       cancelled: yes_no,
       upcoming: yes_no,
@@ -40,13 +40,14 @@ ActiveAdmin.register Job do
   filter :created_at
   filter :featured
   filter :filled
+  filter :staffing_job
+  filter :direct_recruitment_job
   filter :upcoming
   filter :cancelled
   filter :hidden
   filter :skills, collection: -> { Skill.with_translations.order_by_name }
   filter :hourly_pay
   filter :translations_description_cont, as: :string, label: I18n.t('admin.job.description') # rubocop:disable Metrics/LineLength
-  filter :translations_short_description_cont, as: :string, label: I18n.t('admin.job.short_description') # rubocop:disable Metrics/LineLength
 
   # Customize columns displayed on the index screen in the table
   index do
