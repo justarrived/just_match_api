@@ -3,6 +3,13 @@
 HEAD
 -----------
 
+v1.71 - 2017-05-16
+----------
+* _Admin_:
+  - Add `direct_recruitment_job`
+  - Add `staffing_job`
+
+
 v1.70 - 2017-05-16
 ----------
 * _Admin_:
