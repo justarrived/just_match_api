@@ -13,7 +13,8 @@ RSpec.describe UpdateUserWelcomeAppStatusService do
         :user,
         email: 'buren@example.com',
         has_welcome_app_account: true,
-        welcome_app_last_checked_at: 1.year.ago
+        welcome_app_last_checked_at: 1.year.ago,
+        updated_at: 2.weeks.ago
       )
     end
 
@@ -22,6 +23,15 @@ RSpec.describe UpdateUserWelcomeAppStatusService do
       Timecop.freeze(frozen_time) do
         updated_user = UpdateUserWelcomeAppStatusService.call(user: user)
         expect(updated_user.welcome_app_last_checked_at).to eq(frozen_time)
+      end
+    end
+
+    it 'updates welcome_app_last_checked_at' do
+      last_updated_at = user.updated_at
+      frozen_time = Time.zone.now
+      Timecop.freeze(frozen_time) do
+        updated_user = UpdateUserWelcomeAppStatusService.call(user: user)
+        expect(updated_user.updated_at).to eq(last_updated_at)
       end
     end
 
