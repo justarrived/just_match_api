@@ -3,6 +3,11 @@
 HEAD
 -----------
 
+v1.72 - 2017-05-18
+----------
+* Update welcome app service to not touch `User#updated_at`
+
+
 v1.71 - 2017-05-16
 ----------
 * _Admin_:
