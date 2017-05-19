@@ -29,12 +29,13 @@ RSpec.describe CreateTranslationsService do
     end
   end
 
-  describe '::attributes_for_translation' do
+  describe '#attributes_for_translation' do
     context 'when changed arg is nil' do
       it 'returns all attributes' do
         message_body = 'Watman'
         translation = FactoryGirl.create(:message_translation, body: message_body)
-        attributes = described_class.attributes_for_translation(translation, nil)
+        service = described_class.new(translation: translation, from: :sv, changed: nil)
+        attributes = service.attributes_for_translation
         expect(attributes).to eq('body' => message_body)
       end
     end
@@ -42,25 +43,34 @@ RSpec.describe CreateTranslationsService do
     it 'returns all attributes in changed array (of strings)' do
       name = 'Watman'
       translation = FactoryGirl.create(:job_translation, name: name)
-      attributes = described_class.attributes_for_translation(translation, %w(name))
+      service = described_class.new(translation: translation, from: :sv, changed: %w(name))
+      attributes = service.attributes_for_translation
       expect(attributes).to eq('name' => name)
     end
 
     it 'returns all attributes in changed array (of symbols)' do
       name = 'Watman'
       translation = FactoryGirl.create(:job_translation, name: name)
-      attributes = described_class.attributes_for_translation(translation, %i(name))
+      service = described_class.new(
+        translation: translation,
+        from: :sv,
+        changed: %i(name)
+      )
+      attributes = service.attributes_for_translation
       expect(attributes).to eq('name' => name)
     end
   end
 
-  describe '::set_translation' do
+  describe '#set_translation' do
     it 'creates a translation' do
       translation = FactoryGirl.create(:message_translation, body: 'Watman')
       language = FactoryGirl.create(:language)
+      service = described_class.new(
+        translation: translation,
+        from: :sv
+      )
       expect do
-        described_class.set_translation(
-          translation,
+        service.set_translation(
           translation.translation_attributes,
           language
         )
@@ -68,20 +78,22 @@ RSpec.describe CreateTranslationsService do
     end
   end
 
-  describe '::translate_attributes' do
+  describe '#translate_attributes' do
     it 'translates each attribute in hash' do
       expected = 'Taw'
       google_translate_mock = Struct.new(:text).new(expected)
       allow(GoogleTranslate).to receive(:translate).and_return(google_translate_mock)
       attributes = { title: 'Wat', subtitle: 'Wat' }
-      translated = described_class.translate_attributes(attributes, from: :sv, to: :en)
+      service = described_class.new(translation: nil, from: :sv)
+      translated = service.translate_attributes(attributes, from: :sv, to: :en)
       expect(translated).to eq(title: expected, subtitle: expected)
     end
   end
 
   describe '::translate_text' do
     it 'returns nil if text is blank' do
-      expect(described_class.translate_text('   ', from: :sv, to: :en)).to be_nil
+      service = described_class.new(translation: nil, from: :sv)
+      expect(service.translate_text('   ', from: :sv, to: :en)).to be_nil
     end
 
     it 'returns translated text' do
@@ -89,7 +101,8 @@ RSpec.describe CreateTranslationsService do
       google_translate_mock = Struct.new(:text).new(expected)
       allow(GoogleTranslate).to receive(:translate).and_return(google_translate_mock)
 
-      translated_text = described_class.translate_text('Wat', from: :sv, to: :en)
+      service = described_class.new(translation: nil, from: :sv)
+      translated_text = service.translate_text('Wat', from: :sv, to: :en)
       expect(translated_text).to eq(expected)
     end
   end
