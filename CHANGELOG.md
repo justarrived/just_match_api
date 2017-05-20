@@ -3,6 +3,12 @@
 HEAD
 -----------
 
+v1.73 - 2017-05-21
+----------
+* Add markdown support to all translated fields
+* Correctly handle translation lookups with nil-locale
+
+
 v1.72 - 2017-05-18
 ----------
 * Update welcome app service to not touch `User#updated_at`
