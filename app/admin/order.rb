@@ -97,12 +97,16 @@ ActiveAdmin.register Order do
 
       f.input :lost
 
-      f.has_many :order_documents, new_record: true do |ff|
-        ff.semantic_errors(*ff.object.errors.keys)
+      if f.object.persisted?
+        f.has_many :order_documents, new_record: true do |ff|
+          ff.semantic_errors(*ff.object.errors.keys)
 
-        ff.inputs('Documents', for: [:document, ff.object.document || Document.new]) do |fff|
-          fff.input :document, required: true, as: :file
+          ff.inputs('Documents', for: [:document, ff.object.document || Document.new]) do |fff|
+            fff.input :document, required: true, as: :file
+          end
         end
+      else
+        para strong(I18n.t('admin.order.persisted_before_document_upload'))
       end
     end
 
