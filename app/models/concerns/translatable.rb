@@ -65,7 +65,7 @@ module Translatable
         end
 
         define_method(:find_translation) do |locale: I18n.locale, fallback: true|
-          for_locale = locale.to_s
+          for_locale = locale ? locale.to_s : nil
           @_translation_for ||= {}
           @_translation_for[for_locale] ||= begin
             locale_fallbacks = I18nMeta.fallbacks(for_locale)
