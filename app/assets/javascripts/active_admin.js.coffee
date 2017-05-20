@@ -26,3 +26,6 @@ $ ->
 $(document).on 'ready', ->
   $('#filters_sidebar_section').activeAdminFiltersVisibility
     ordering: true
+
+  $('[markdown="true"]').each (index, element) ->
+    new SimpleMDE(element: element)

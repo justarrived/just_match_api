@@ -1,11 +1,12 @@
 # frozen_string_literal: true
-class StringFormatter
-  include ActionView::Helpers::TextHelper # needed for #simple_format
 
+require 'markdowner'
+
+class StringFormatter
   def to_html(string)
     return if string.blank?
 
-    simple_format(string)
+    Markdowner.to_html(string)
   end
 
   def force_utf8(string)

@@ -487,6 +487,7 @@ GEM
       activerecord
       kaminari-core (= 1.0.1)
     kaminari-core (1.0.1)
+    kramdown (1.13.2)
     launchy (2.4.3)
       addressable (~> 2.3)
     letter_opener (1.4.1)
@@ -611,6 +612,7 @@ GEM
     responders (2.4.0)
       actionpack (>= 4.2.0, < 5.3)
       railties (>= 4.2.0, < 5.3)
+    rinku (2.0.2)
     rspec-activemodel-mocks (1.0.3)
       activemodel (>= 3.0)
       activesupport (>= 3.0)
@@ -775,6 +777,7 @@ DEPENDENCIES
   inherited_resources (~> 1.7)
   json_api_helpers!
   kaminari (~> 1.0)
+  kramdown (~> 1.13)
   letter_opener (~> 1.4)
   listen (~> 3.1)
   lograge (~> 0.5)
@@ -794,6 +797,7 @@ DEPENDENCIES
   rails-controller-testing
   rails-i18n (~> 5.0)
   redis-activesupport (~> 5.0)
+  rinku (~> 2.0.2)
   rspec-activemodel-mocks (~> 1.0)
   rspec-rails (~> 3.5)
   rspec_junit_formatter (~> 0.2)
@@ -817,4 +821,4 @@ RUBY VERSION
    ruby 2.4.1p111
 
 BUNDLED WITH
-   1.14.6
+   1.15.0
