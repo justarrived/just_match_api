@@ -205,6 +205,10 @@ ActiveAdmin.setup do |config|
   # To load a javascript file:
   #   config.register_javascript 'my_javascript.js'
 
+  # SimpleMDE - Markdown editor
+  config.register_stylesheet 'https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css'
+  config.register_javascript 'https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js'
+
   # == CSV options
   #
   # Set the CSV builder separator

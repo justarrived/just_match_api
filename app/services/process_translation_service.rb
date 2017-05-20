@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 require 'i18n/detect_language'
+require 'markdowner'
 
 class ProcessTranslationService
   CONFIDENCE_THRESHOLD = 0.50
@@ -12,7 +13,8 @@ class ProcessTranslationService
 
     return if text.blank?
 
-    from = translation.language&.locale || detect_locale(text, translation)
+    html = Markdowner.to_html(text)
+    from = translation.language&.locale || detect_locale(html, translation)
     return if from.nil?
 
     CreateTranslationsJob.perform_later(

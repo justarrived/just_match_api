@@ -8,8 +8,8 @@ RSpec.describe StringFormatter do
       ['', nil],
       ['   ', nil],
       [nil, nil],
-      ['Just Arrived', '<p>Just Arrived</p>'],
-      ["Just \n Arrived", "<p>Just \n<br /> Arrived</p>"]
+      ['Just Arrived', "<p>Just Arrived</p>\n"],
+      ["Just \n Arrived", "<p>Just <br />\n Arrived</p>\n"]
     ].each do |values|
       argument, expected = values
 

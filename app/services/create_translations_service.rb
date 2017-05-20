@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 require 'i18n/google_translate'
+require 'markdowner'
+require 'html_sanitizer'
 
 class CreateTranslationsService
   def self.call(translation:, from:, changed: nil, languages: nil)
@@ -67,7 +69,10 @@ class CreateTranslationsService
 
   def translate_text(text, from:, to:)
     return if text.blank?
-    translation = GoogleTranslate.translate(text, from: from, to: to, type: :plain)
-    translation.text
+    html = Markdowner.to_html(text)
+    translation = GoogleTranslate.translate(html, from: from, to: to, type: :html)
+    # NOTE: #to_markdown adds "\n" to the end of the string, so lets remove it
+    markdown = Markdowner.to_markdown(translation.text).strip
+    HTMLSanitizer.sanitize(markdown)
   end
 end
