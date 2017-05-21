@@ -92,12 +92,7 @@ ActiveAdmin.register Job do
       short_description: permitted_params.dig(:job, :short_description)
     }
     language = Language.find_by(id: permitted_params.dig(:job, :language_id))
-    job.set_translation(translation_params, language).tap do |result|
-      ProcessTranslationJob.perform_later(
-        translation: result.translation,
-        changed: result.changed_fields
-      )
-    end
+    job.set_translation(translation_params, language)
   end
 
   after_save do |job|
