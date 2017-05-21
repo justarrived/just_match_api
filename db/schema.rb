@@ -14,7 +14,6 @@ ActiveRecord::Schema.define(version: 20170510145555) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "pg_stat_statements"
   enable_extension "unaccent"
 
   create_table "active_admin_comments", force: :cascade do |t|
@@ -22,8 +21,8 @@ ActiveRecord::Schema.define(version: 20170510145555) do
     t.text     "body"
     t.string   "resource_id",   null: false
     t.string   "resource_type", null: false
-    t.integer  "author_id"
     t.string   "author_type"
+    t.integer  "author_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id", using: :btree

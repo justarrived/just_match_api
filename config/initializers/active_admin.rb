@@ -1,4 +1,19 @@
 # frozen_string_literal: true
+
+class ActiveAdminFooter < ActiveAdmin::Component
+  def build(_namespace)
+    super(id: 'footer')
+    commit_sha = ENV['HEROKU_SLUG_COMMIT']
+    changelog_link = nil
+    unless commit_sha
+      url = "https://github.com/justarrived/just_match_api/tree/#{commit_sha}"
+      changelog_link = link_to(commit_sha, url)
+    end
+
+    para "Commit sha: #{changelog_link || '-'}".html_safe
+  end
+end
+
 ActiveAdmin.setup do |config|
   # == Site Title
   #
@@ -293,4 +308,6 @@ ActiveAdmin.setup do |config|
   # of those filters by default here.
   #
   # config.include_default_association_filters = true
+
+  config.view_factory.footer = ActiveAdminFooter
 end
