@@ -73,6 +73,7 @@ en:
       post_btn: Machine Translate
     order:
       create_job: Create job
+      persisted_before_document_upload: Order must be saved before you can upload documents.
     job_request:
       clone: Clone
       create_order: Create order
