@@ -3,10 +3,19 @@
 HEAD
 -----------
 
-v1.73 - 2017-05-21
+v1.74 - 2017-05-21
 ----------
-* Add markdown support to all translated fields
-* Correctly handle translation lookups with nil-locale
+* _Admin_:
+  - Don't automatically translate jobs after save
+  - Add note stating that documents only can be uploaded to an order if its been saved
+
+
+v1.73 - 2017-05-20
+----------
+* _Feature_:
+  - Add markdown support to all translated fields
+* _Bugfix_:
+  - Correctly handle translation lookups with nil-locale
 
 
 v1.72 - 2017-05-18
