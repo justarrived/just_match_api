@@ -18,14 +18,19 @@ module WelcomeApp
   ConfigurationError = Class.new(RuntimeError)
 
   class Configuration
-    attr_writer :base_uri
+    attr_writer :base_uri, :client_key
 
     def initialize
       @base_uri = nil
+      @client_key = nil
     end
 
     def base_uri
       @base_uri || fail(ConfigurationError, 'base_uri must be set')
+    end
+
+    def client_key
+      @client_key || fail(ConfigurationError, 'client_key must be set')
     end
   end
 end
