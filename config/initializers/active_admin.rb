@@ -9,11 +9,11 @@ class ActiveAdminFooter < ActiveAdmin::Component
     changelog_link = nil
     unless commit_sha == '-'
       url = "https://github.com/justarrived/just_match_api/tree/#{commit_sha}"
-      changelog_link = link_to(commit_sha, url)
+      changelog_link = link_to('GitHub', url)
     end
 
     para safe_join(
-      ['Commit sha: ', changelog_link, " Released at: #{released_at}"]
+      ['Commit: ', changelog_link, " Released at: #{released_at}"]
     )
   end
 end

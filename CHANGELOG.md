@@ -8,6 +8,7 @@ v1.76 - 2017-05-22
 * _Admin_:
   - Improve custom footer that displays Heroku release meta data
 
+
 v1.75 - 2017-05-22
 ----------
 * _Admin_:
