@@ -3,14 +3,18 @@
 class ActiveAdminFooter < ActiveAdmin::Component
   def build(_namespace)
     super(id: 'footer')
-    commit_sha = ENV['HEROKU_SLUG_COMMIT']
+    commit_sha = ENV.fetch('HEROKU_SLUG_COMMIT', '-')
+    released_at = ENV.fetch('HEROKU_RELEASE_CREATED_AT', '-')
+
     changelog_link = nil
-    unless commit_sha
+    unless commit_sha == '-'
       url = "https://github.com/justarrived/just_match_api/tree/#{commit_sha}"
       changelog_link = link_to(commit_sha, url)
     end
 
-    para "Commit sha: #{changelog_link || '-'}".html_safe
+    para safe_join(
+      ['Commit sha: ', changelog_link, " Released at: #{released_at}"]
+    )
   end
 end
 
