@@ -10,7 +10,18 @@ class JobRequest < ApplicationRecord
   scope :pending, -> { where(finished: false) }
   scope :last_30_days, -> { where('created_at > ?', 30.days.ago) }
 
+  before_validation :set_company_values
+
   after_create :send_created_notice
+
+  def set_company_values
+    return unless company
+
+    self.company_name = company.name
+    self.company_org_no = company.cin
+    self.company_email = company.email if company_email.blank?
+    self.company_address = company.address
+  end
 
   def current_status_name
     return 'Cancelled' if cancelled
