@@ -3,6 +3,20 @@
 HEAD
 -----------
 
+v1.75 - 2017-05-22
+----------
+* _Admin_:
+  - Add custom footer that displays Heroku commit sha
+  - Add `JobRequest#company` filter and set `JobRequest#company_name` automatically
+* _Enhancement_:
+  - Add arbetsformedlingen env-vars to app.json
+  - Update AF Jobwrapper unpublish date
+  - Update Welcome app Client options
+  - Welcome app auth key
+* _Update gem_:
+  - arbetsformedlingen
+
+
 v1.74 - 2017-05-21
 ----------
 * _Admin_:
