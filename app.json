@@ -115,6 +115,11 @@
       "value": "false",
       "required": false
     },
+    "WELCOME_APP_CLIENT_KEY": {
+      "description": "Welcome App client key",
+      "value": "",
+      "required": false
+    },
     "FRILANS_FINANS_ACTIVE": {
       "description": "Frilans Finans integration active",
       "value": "false",

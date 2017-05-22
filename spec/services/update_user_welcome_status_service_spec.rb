@@ -6,6 +6,7 @@ RSpec.describe UpdateUserWelcomeAppStatusService do
   describe '#call' do
     before(:each) do
       allow_any_instance_of(WelcomeApp::Client).to receive(:user_exist?).and_return(true)
+      allow_any_instance_of(WelcomeApp::Configuration).to receive(:client_key).and_return('') # rubocop:disable Metrics/LineLength
     end
 
     let(:user) do
