@@ -13,12 +13,9 @@ module WelcomeApp
   }.merge!(USER_AGENT).freeze
 
   class Client
-    def initialize(
-      key: WelcomeApp.config.client_key,
-      base_uri: WelcomeApp.config.base_uri
-    )
-      @auth_key = key
-      @base_uri = base_uri
+    def initialize(key: nil, base_uri: nil)
+      @auth_key = key || WelcomeApp.config.client_key
+      @base_uri = base_uri || WelcomeApp.config.base_uri
     end
 
     def user_exist?(email:)
