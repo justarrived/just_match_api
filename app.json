@@ -100,6 +100,16 @@
       "value": "",
       "required": false
     },
+    "ARBETSFORMEDLINGEN_CUSTOMER_ID": {
+      "description": "Arbetsförmedlingen customer_id (required for Arbetsförmedlingen sync)",
+      "value": "",
+      "required": false
+    },
+    "ARBETSFORMEDLINGEN_ADMIN_EMAIL": {
+      "description": "Arbetsförmedlingen admin email (required for Arbetsförmedlingen sync)",
+      "value": "",
+      "required": false
+    },
     "WELCOME_APP_ACTIVE": {
       "description": "Welcome App integration active",
       "value": "false",
