@@ -41,7 +41,7 @@ GIT
 
 GIT
   remote: https://github.com/buren/arbetsformedlingen
-  revision: f2e83e8cd4f8ded7b56e4ea0f58a502648fecec0
+  revision: 9d5a404d409cc8a92f2a1336ea34af073755f914
   specs:
     arbetsformedlingen (0.1.0)
       builder (~> 3.2)
