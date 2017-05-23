@@ -165,8 +165,27 @@ ActiveAdmin.register Job do
     render partial: 'admin/jobs/relations_list', locals: { job: job }
   end
 
-  form do |f|
-    render partial: 'admin/jobs/form', locals: { f: f }
+  sidebar :data_checklist, only: %i(show edit) do
+    h3 'Data collection'
+    div do
+      safe_join([strong('Skills added'), status_tag(job.skills.any?)])
+    end
+    div do
+      safe_join([strong('Languages added'), status_tag(job.languages.any?)])
+    end
+
+    hr
+
+    h3 'Pushed to'
+    div do
+      safe_join([strong('Arbetsförmedlingen'), status_tag(job.arbetsformedlingen_ad.present?)]) # rubocop:disable Metrics/LineLength
+    end
+    div do
+      safe_join([strong('LinkedIN'), status_tag(job.publish_on_linkedin)])
+    end
+    div do
+      safe_join([strong('Blocketjobb'), status_tag(job.publish_on_blocketjobb)])
+    end
   end
 
   sidebar :app, only: [:show, :edit] do
@@ -189,6 +208,10 @@ ActiveAdmin.register Job do
         li link_to("##{job_user.id} " + job_user.user.name, admin_job_user_path(job_user))
       end
     end
+  end
+
+  form do |f|
+    render partial: 'admin/jobs/form', locals: { f: f }
   end
 
   show do
