@@ -11,6 +11,36 @@ ActiveAdmin.register JobTranslation do
   filter :created_at
   filter :updated_at
 
+  index do
+    column :id do |translation|
+      link_to(translation.id, admin_job_translation_path(translation))
+    end
+    column :job_id do |translation|
+      link_to("##{translation.job_id}", admin_job_path(translation.job_id))
+    end
+    column :name
+    column :language
+    column :updated_at
+
+    actions
+  end
+
+  show do |job_translation|
+    attributes_table do
+      row :id
+      row :job
+      row :name
+      row :short_description
+      row :description do
+        StringFormatter.new.to_html(job_translation.description).html_safe # rubocop:disable Rails/OutputSafety, Metrics/LineLength
+      end
+      row :locale
+      row :language
+      row :updated_at
+      row :created_at
+    end
+  end
+
   form do |f|
     f.inputs do
       f.semantic_errors
@@ -28,5 +58,11 @@ ActiveAdmin.register JobTranslation do
 
   permit_params do
     [:name, :short_description, :description, :locale, :job_id, :language_id]
+  end
+
+  controller do
+    def scoped_collection
+      super.includes(:language)
+    end
   end
 end

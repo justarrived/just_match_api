@@ -17,7 +17,9 @@ panel(I18n.t('admin.job.show.general')) do
     row :municipality
     row :swedish_drivers_license
     row :car_required
-    row :description { |job| simple_format(job.description) }
+    row :description do |job|
+      StringFormatter.new.to_html(job.description).html_safe  # rubocop:disable Rails/OutputSafety, Metrics/LineLength
+    end
     row :skills { |job| job_skills_badges(job_skills: job.job_skills) }
     row :languages { |job| job_languages_badges(job_languages: job.job_languages) }
   end
