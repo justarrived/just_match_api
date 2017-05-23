@@ -136,7 +136,7 @@ GEM
       uuidtools
     airbrake (6.1.0)
       airbrake-ruby (~> 2.2, >= 2.2.3)
-    airbrake-ruby (2.2.3)
+    airbrake-ruby (2.2.4)
     annotate (2.7.1)
       activerecord (>= 3.2, < 6.0)
       rake (>= 10.4, < 12.0)
