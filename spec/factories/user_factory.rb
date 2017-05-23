@@ -58,6 +58,11 @@ FactoryGirl.define do
       admin true
     end
 
+    factory :super_admin_user do
+      admin true
+      super_admin true
+    end
+
     factory :company_user do
       association :company
     end
