@@ -33,7 +33,7 @@ gem 'sidekiq-statistic', '~> 1.2'
 
 # MONITORING
 gem 'airbrake', '~> 6.1' # Error catcher and reporter
-gem 'skylight', '~> 1.2' # Performance monitoring
+gem 'skylight', '~> 1.3' # Performance monitoring
 
 # PAGINATION
 gem 'kaminari', '~> 1.0' # Easy pagination
