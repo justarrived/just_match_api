@@ -24,6 +24,8 @@ $skinTablePadding: 10px !default;
 @import 'chosen';
 @import 'active_admin_datetimepicker';
 
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
+
 // START: ACTIVEADMIN
 #site_title_image {
   max-height: 21px;
@@ -136,4 +138,106 @@ $skinTablePadding: 10px !default;
 .col .table-column-icon-link {
   color: #222531;
   text-decoration: none;
+}
+
+
+.CodeMirror.CodeMirror-sided.CodeMirror-fullscreen {
+  padding-top: 100px; // Account for ActiveAdmin title-bar
+}
+
+// Markdown preview styling
+.editor-preview-side.editor-preview-active-side {
+  padding-top: 100px; // Account for ActiveAdmin title-bar
+}
+
+.CodeMirror.CodeMirror-wrap,
+.editor-preview-side.editor-preview-active-side,
+.editor-preview.editor-preview-active {
+  color: rgba(0, 0, 0, .87);
+  background: #fff;
+  // Text styling
+  h1, h2, h3, h4, h5, .cm-header {
+    font-family: Open Sans,Helvetica Neue,Helvetica,Arial,sans-serif;
+    color: rgba(0, 0, 0, .87);
+  }
+  h3, h4, .cm-header-3, .cm-header-4 { font-weight: 700; }
+
+  h1, .cm-header-1 { font-size: 42px; }
+  h2, .cm-header-2 { font-size: 36px; }
+  h3, .cm-header-3 { font-size: 24px; }
+  h4, .cm-header-4 { font-size: 18px; }
+  h5, .cm-header-5 { font-size: 16px; }
+
+  div, ul li, ol li, p, span, .CodeMirror-line {
+    font-family: Open Sans,Helvetica Neue,Helvetica,Arial,sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    text-rendering: optimizelegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-decoration: none;
+    font-style: normal;
+    font-weight: 400;
+    text-align: left;
+    text-shadow: none;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    -ms-word-break: break-all;
+    word-break: break-word;
+    -ms-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+  }
+
+  p {
+    margin-bottom: 16px;
+  }
+
+  i, .cm-em, .cm-formatting-em {
+    font-style: italic;
+  }
+
+  strong, .cm-strong {
+    font-weight: 700;
+  }
+
+  a, .CodeMirror-line .cm-link {
+    color: #45e2ff;
+    &:hover {
+      color: #ed4da4;
+      cursor: pointer;
+    }
+  }
+
+  hr {
+    height: 0;
+  }
+
+  ol > li {
+    padding: 0 !important;
+  }
+
+  // Standard list styling
+  ul {
+    margin: 16px 0;
+    list-style-type: disc;
+    list-style-position: inside;
+  }
+  ol {
+    margin: 16px 0;
+    list-style-type: decimal;
+    list-style-position: inside;
+  }
+  ul ul, ol ul {
+    list-style-type: circle;
+    list-style-position: inside;
+    margin-left: 15px;
+  }
+  ol ol, ul ol {
+    list-style-type: lower-latin;
+    list-style-position: inside;
+    margin-left: 15px;
+  }
+
+
 }

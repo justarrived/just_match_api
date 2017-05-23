@@ -15,13 +15,15 @@ ActiveAdmin.register JobTranslation do
     f.inputs do
       f.semantic_errors
 
-      f.input :job
-      f.input :language
+      f.input :job, collection: Job.with_translations
+      f.input :language, collection: Language.system_languages.order(:en_name)
       f.input :locale
       f.input :name
       f.input :short_description
       f.input :description, input_html: { markdown: true }
     end
+
+    f.actions
   end
 
   permit_params do
