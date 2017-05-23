@@ -11,7 +11,20 @@ ActiveAdmin.register JobTranslation do
   filter :created_at
   filter :updated_at
 
+  form do |f|
+    f.inputs do
+      f.semantic_errors
+
+      f.input :job
+      f.input :language
+      f.input :locale
+      f.input :name
+      f.input :short_description
+      f.input :description, input_html: { markdown: true }
+    end
+  end
+
   permit_params do
-    [:name, :short_description, :description, :locale]
+    [:name, :short_description, :description, :locale, :job_id, :language_id]
   end
 end
