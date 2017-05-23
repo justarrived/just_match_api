@@ -3,6 +3,16 @@
 HEAD
 -----------
 
+
+v1.78 - 2017-05-23
+----------
+* _Admin_:
+  - Add job data checklist sidebar
+  - Format Job#description on show pages
+* _Enhancement_:
+  - Only send admin notifications to super admins
+
+
 v1.77 - 2017-05-23
 ----------
 * _Admin_:
