@@ -3,6 +3,19 @@
 HEAD
 -----------
 
+v1.77 - 2017-05-23
+----------
+* _Admin_:
+  - Add Markdown editor to JobTranslation and match preview styling
+  - Add git tag to footer
+* _Enhancement_:
+  - Add VERSION file that contains the git-tag
+* _Update gem_:
+  - aws-sdk
+  - geocoder
+  - skylight
+  - airbrake
+
 v1.76 - 2017-05-22
 ----------
 * _Admin_:
