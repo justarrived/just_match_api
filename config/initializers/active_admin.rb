@@ -12,9 +12,11 @@ class ActiveAdminFooter < ActiveAdmin::Component
       changelog_link = link_to('GitHub', url)
     end
 
-    para safe_join(
-      ['Commit: ', changelog_link, " Released at: #{released_at}"]
-    )
+    para [
+      "Version: #{JustMatch::VERSION}",
+      safe_join(['Commit: ', changelog_link || '-']),
+      "Released at: #{released_at}"
+    ].join(', ')
   end
 end
 
