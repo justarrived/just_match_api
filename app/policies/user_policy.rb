@@ -27,7 +27,7 @@ class UserPolicy < ApplicationPolicy
     :country_of_origin, :auth_token, :account_clearing_number, :account_number,
     :skype_username, :next_of_kin_name, :next_of_kin_phone, :full_street_address,
     :arbetsformedlingen_registered_at, :just_arrived_staffing, :support_chat_activated,
-    :bank_account, :has_welcome_app_account
+    :bank_account, :has_welcome_app_account, :public_profile
   ]).freeze
 
   attr_reader :accepted_applicant
