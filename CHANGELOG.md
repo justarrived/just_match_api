@@ -3,6 +3,19 @@
 HEAD
 -----------
 
+v1.79 - 2017-05-24
+----------
+* _API_:
+  - Allow users to set User#public_profile
+* _Admin_:
+  - Add User#public_profile support to admin
+  - Improve admin footer
+* _DB_:
+  - Add `User#public_profile` boolean (default: false)
+* _Enhancement_:
+  - Add .env to spring reboot file
+  - Update Job#city and Job#street min length
+
 
 v1.78 - 2017-05-23
 ----------
