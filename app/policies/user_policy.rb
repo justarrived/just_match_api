@@ -68,21 +68,10 @@ class UserPolicy < ApplicationPolicy
     true
   end
 
-  def statuses?
-    true
-  end
-
-  def genders?
-    true
-  end
-
-  def email_suggestion?
-    true
-  end
-
-  def categories?
-    true
-  end
+  alias_method :statuses?, :notifications?
+  alias_method :genders?, :notifications?
+  alias_method :email_suggestion?, :notifications?
+  alias_method :categories?, :notifications?
 
   def present_attributes(collection: false)
     return ATTRIBUTES if no_user?
