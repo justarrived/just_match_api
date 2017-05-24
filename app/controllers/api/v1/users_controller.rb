@@ -62,6 +62,7 @@ module Api
           param :first_name, String, desc: 'First name', required: true
           param :last_name, String, desc: 'Last name', required: true
           param :consent, [true], desc: 'Terms of agreement consent', required: true
+          param :public_profile, [true, false], desc: 'Display user publically'
           param :description, String, desc: 'Description'
           param :job_experience, String, desc: 'Job experience'
           param :education, String, desc: 'Education'
@@ -140,6 +141,7 @@ module Api
           param :first_name, String, desc: 'First name'
           param :last_name, String, desc: 'Last name'
           param :description, String, desc: 'Description'
+          param :public_profile, [true, false], desc: 'Display user publically'
           param :job_experience, String, desc: 'Job experience'
           param :education, String, desc: 'Education'
           param :competence_text, String, desc: 'Competences'
@@ -350,6 +352,7 @@ module Api
           :education, :ssn, :street, :city, :zip, :language_id, :company_id,
           :competence_text, :current_status, :at_und, :arrived_at, :country_of_origin,
           :skype_username, :gender, :bank_account, :linkedin_url, :facebook_url,
+          :public_profile,
           :system_language_id, ignored_notifications: []
         ]
         jsonapi_params.permit(*whitelist)

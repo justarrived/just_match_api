@@ -148,6 +148,7 @@ columns do
   column do
     panel(I18n.t('admin.user.show.status_flags')) do
       attributes_table_for(user) do
+        row :public_profile
         row :super_admin
         row :admin
         row :managed

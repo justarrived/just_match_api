@@ -65,6 +65,7 @@ if user.persisted?
   f.actions
 
   f.inputs I18n.t('admin.user.form.status_flags') do
+    f.input :public_profile, hint: I18n.t('admin.user.form.public_profile.hint')
     f.input :verified
     f.input :admin
     f.input :super_admin

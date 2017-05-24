@@ -8,7 +8,7 @@ RSpec.describe InvoiceMissingCompanyFrilansFinansIdNotifier, type: :mailer do
 
   it 'must work' do
     # Create an admin to send the email to
-    user = FactoryGirl.create(:admin_user)
+    user = FactoryGirl.create(:super_admin_user)
 
     allow(AdminMailer).to receive(:invoice_missing_company_frilans_finans_id_email).
       and_return(mailer)
