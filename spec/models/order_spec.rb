@@ -20,6 +20,8 @@ end
 #  filled_hourly_pay_rate         :decimal(, )
 #  filled_invoice_hourly_pay_rate :decimal(, )
 #  filled_hours                   :decimal(, )
+#  name                           :string
+#  category                       :integer
 #
 # Indexes
 #

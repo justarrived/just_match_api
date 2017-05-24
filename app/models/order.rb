@@ -17,8 +17,20 @@ class Order < ApplicationRecord
       where('jobs.id IS NULL OR jobs.filled = false')
   })
 
+  CATEGORIES = {
+    freelance: 1,
+    staffing: 2,
+    direct_recruitment: 3
+  }.freeze
+
+  enum category: CATEGORIES
+
   # NOTE: This is necessary for nested activeadmin has_many form
   accepts_nested_attributes_for :order_documents, :documents
+
+  def display_name
+    "##{id || 'unsaved'} #{name}"
+  end
 
   def filled_jobs
     jobs.filled
@@ -48,6 +60,8 @@ end
 #  filled_hourly_pay_rate         :decimal(, )
 #  filled_invoice_hourly_pay_rate :decimal(, )
 #  filled_hours                   :decimal(, )
+#  name                           :string
+#  category                       :integer
 #
 # Indexes
 #

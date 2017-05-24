@@ -56,10 +56,7 @@ ActiveAdmin.register Order do
       row :documents do
         safe_join(
           order.documents.order(created_at: :desc).map do |document|
-            link_to(
-              document.document_file_name,
-              download_link_to(url: document.url, file_name: document.document_file_name)
-            )
+            download_link_to(url: document.url, file_name: document.document_file_name)
           end,
           ', '
         )
@@ -68,6 +65,7 @@ ActiveAdmin.register Order do
       row :invoice_hourly_pay_rate
       row :hourly_pay_rate
       row :hours
+      row :category
       row :total_filled_revenue
       row :filled_invoice_hourly_pay_rate
       row :filled_hourly_pay_rate
@@ -89,6 +87,8 @@ ActiveAdmin.register Order do
       f.input :hourly_pay_rate
       f.input :hours
 
+      f.input :category
+
       if f.object.persisted?
         f.input :filled_invoice_hourly_pay_rate
         f.input :filled_hourly_pay_rate
@@ -101,7 +101,7 @@ ActiveAdmin.register Order do
         f.has_many :order_documents, new_record: true do |ff|
           ff.semantic_errors(*ff.object.errors.keys)
 
-          ff.inputs('Documents', for: [:document, ff.object.document || Document.new]) do |fff|
+          ff.inputs('Documents', for: [:document, ff.object.document || Document.new]) do |fff| # rubocop:disable Metrics/LineLength
             fff.input :document, required: true, as: :file
           end
         end
