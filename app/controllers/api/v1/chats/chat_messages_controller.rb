@@ -30,7 +30,7 @@ module Api
         example Doxxer.read_example(Message, plural: true)
         def index
           messages_index = Index::MessagesIndex.new(self)
-          @messages = messages_index.messages(@chat.messages)
+          @messages = messages_index.messages(messages_scope)
 
           api_render(@messages, total: messages_index.count)
         end
@@ -71,6 +71,10 @@ module Api
           chats_scope = Chat if current_user.admin?
 
           @chat = chats_scope.find(params[:id])
+        end
+
+        def messages_scope
+          @chat.messages.includes(:chat, author: %i(company user_images))
         end
 
         def message_params
