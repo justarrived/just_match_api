@@ -44,6 +44,7 @@ ActiveAdmin.register Order do
   show do |order|
     attributes_table do
       row :job_request
+      row :name
       row :jobs do
         safe_join(
           order.jobs.order(filled: :asc).map do |job|
@@ -82,6 +83,7 @@ ActiveAdmin.register Order do
   form do |f|
     f.inputs do
       f.input :job_request
+      f.input :name
 
       f.input :invoice_hourly_pay_rate
       f.input :hourly_pay_rate
