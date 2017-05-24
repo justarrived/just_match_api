@@ -10,10 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170510145555) do
+ActiveRecord::Schema.define(version: 20170524081905) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "pg_stat_statements"
   enable_extension "unaccent"
 
   create_table "active_admin_comments", force: :cascade do |t|
@@ -21,8 +22,8 @@ ActiveRecord::Schema.define(version: 20170510145555) do
     t.text     "body"
     t.string   "resource_id",   null: false
     t.string   "resource_type", null: false
-    t.string   "author_type"
     t.integer  "author_id"
+    t.string   "author_type"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id", using: :btree
@@ -816,6 +817,7 @@ ActiveRecord::Schema.define(version: 20170510145555) do
     t.string   "facebook_url"
     t.boolean  "has_welcome_app_account",          default: false
     t.datetime "welcome_app_last_checked_at"
+    t.boolean  "public_profile",                   default: false
     t.index ["company_id"], name: "index_users_on_company_id", using: :btree
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["frilans_finans_id"], name: "index_users_on_frilans_finans_id", unique: true, using: :btree
