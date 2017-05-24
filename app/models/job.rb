@@ -49,8 +49,8 @@ class Job < ApplicationRecord
   validates :category, presence: true
   validates :name, presence: true, on: :create # Virtual attribute
   validates :description, presence: true, on: :create # Virtual attribute
-  validates :street, length: { minimum: 3 }, allow_blank: false
-  validates :city, length: { minimum: 2 }, allow_blank: true
+  validates :street, length: { minimum: 1 }, allow_blank: false
+  validates :city, length: { minimum: 1 }, allow_blank: true
   validates :zip, length: { minimum: 5 }, allow_blank: false
   validates :municipality, swedish_municipality: true
   validates :swedish_drivers_license, swedish_drivers_license: true
