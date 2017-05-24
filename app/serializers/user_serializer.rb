@@ -12,7 +12,7 @@ class UserSerializer < ApplicationSerializer
     :current_status, :at_und, :arrived_at, :country_of_origin, :managed, :verified,
     :account_clearing_number, :account_number, :gender, :full_street_address,
     :support_chat_activated, :linkedin_url, :bank_account, :facebook_url,
-    :has_welcome_app_account, :welcome_app_last_checked_at
+    :has_welcome_app_account, :welcome_app_last_checked_at, :public_profile
   ] + EXTRA_ATTRIBUTES
 
   link(:self) { api_v1_user_url(object) }
