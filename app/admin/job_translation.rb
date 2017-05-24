@@ -32,7 +32,7 @@ ActiveAdmin.register JobTranslation do
       row :name
       row :short_description
       row :description do
-        StringFormatter.new.to_html(job_translation.description).html_safe # rubocop:disable Rails/OutputSafety, Metrics/LineLength
+        StringFormatter.new.to_html(job_translation.description)&.html_safe # rubocop:disable Rails/OutputSafety, Metrics/LineLength
       end
       row :locale
       row :language
