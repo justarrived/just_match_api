@@ -2,6 +2,7 @@
 
 require 'kramdown'
 require 'rinku'
+require 'html_sanitizer'
 
 module Markdowner
   def self.to_html(markdown)
