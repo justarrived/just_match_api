@@ -4,7 +4,11 @@ class ChatMailer < ApplicationMailer
     @author_name = author.name
     @message_body = message.body
 
-    @chat_url = frontend_mail_url(:chat, id: chat.id, utm_campaign: 'new_message')
+    @chat_url = frontend_mail_url(
+      :chat,
+      message_id: message.id,
+      utm_campaign: 'new_message'
+    )
 
     subject = I18n.t('mailer.new_chat_message.subject', name: @author_name)
     mail(to: user.contact_email, subject: subject)

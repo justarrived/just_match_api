@@ -35,7 +35,7 @@ RSpec.describe ChatMailer, type: :mailer do
     end
 
     it 'renders chat URL' do
-      chat_url = FrontendRouter.draw(:chat, id: chat.id)
+      chat_url = FrontendRouter.draw(:chat, message_id: message.id)
       expect(mail).to match_email_body(chat_url)
     end
 
