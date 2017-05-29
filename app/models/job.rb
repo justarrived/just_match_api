@@ -171,6 +171,14 @@ class Job < ApplicationRecord
     FrontendRouter.draw(:job, id: id)
   end
 
+  def dates_object
+    Jobs::Dates.new(
+      last_application_at: last_application_at,
+      starts_at: job_date,
+      ends_at: job_end_date
+    )
+  end
+
   def profession_title
     category&.name
   end
