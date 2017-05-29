@@ -13,7 +13,8 @@ class JobPolicy < ApplicationPolicy
     :language_id, :gross_amount, :net_amount, :gross_amount_with_currency, :currency,
     :net_amount_with_currency, :city, :gross_amount_delimited, :net_amount_delimited,
     :full_street_address, :description_html, :staffing_job, :direct_recruitment_job,
-    :swedish_drivers_license, :car_required, :last_application_at
+    :swedish_drivers_license, :car_required, :last_application_at,
+    :last_application_at_in_words
   ].freeze
 
   ATTRIBUTES = [
@@ -23,7 +24,7 @@ class JobPolicy < ApplicationPolicy
     :net_amount, :gross_amount_with_currency, :net_amount_with_currency, :city, :currency,
     :gross_amount_delimited, :net_amount_delimited, :full_street_address, :staffing_job,
     :description_html, :direct_recruitment_job, :swedish_drivers_license, :car_required,
-    :last_application_at
+    :last_application_at, :last_application_at_in_words
   ].freeze
 
   OWNER_ATTRIBUTES = [

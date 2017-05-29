@@ -53,6 +53,12 @@ class JobSerializer < ApplicationSerializer
     to_unit(object.net_amount, object.currency)
   end
 
+  attribute :last_application_at_in_words do
+    if object.last_application_at
+      distance_of_time_in_words_from_now(object.last_application_at)
+    end
+  end
+
   has_many :comments, unless: :collection_serializer? do
     link(:related) { api_v1_job_comments_url(job_id: object.id) }
 
