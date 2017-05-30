@@ -4,6 +4,12 @@ HEAD
 -----------
 
 
+v1.83 - 2017-05-30
+----------
+* _API_:
+  - Add `Job#full_time` to job serializer
+
+
 v1.82 - 2017-05-30
 ----------
 * _Update gems:_
