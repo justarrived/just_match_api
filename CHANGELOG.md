@@ -4,6 +4,18 @@ HEAD
 -----------
 
 
+v1.81 - 2017-05-30
+----------
+* _Admin_:
+  - Add comments link to job and users relation sidebar
+  - Add Order name and category + fix broken download link
+  - Be defensive for JobTranslation#description show view
+  - Fix order show/form for new fields
+* _Enhancement_:
+  - Update frontend chat route
+  - Require `html_sanitizer` in `Markdowner`
+
+
 v1.80 - 2017-05-24
 ----------
 * Chat messages N+1 queries
