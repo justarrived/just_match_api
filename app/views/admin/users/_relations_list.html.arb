@@ -84,6 +84,6 @@ ul do
   )
   li link_to(
     I18n.t('admin.counts.written_comments', count: user.written_comments.count)
-    admin_admin_comments_path + owner_user_query
+    admin_comments_path + owner_user_query
   )
 end

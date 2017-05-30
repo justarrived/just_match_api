@@ -33,7 +33,7 @@ ul do
   )
   li link_to(
     I18n.t('admin.counts.comments', count: job.comments.count),
-    admin_admin_comments_path + job_query
+    admin_comments_path + job_query
   )
 
   hr
