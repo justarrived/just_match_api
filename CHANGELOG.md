@@ -4,6 +4,15 @@ HEAD
 -----------
 
 
+v1.82 - 2017-05-30
+----------
+* _Update gems:_
+  - `aws-sdk`
+  - `airbrake`
+  - `skylight`
+  - `google-cloud-translate`
+
+
 v1.81 - 2017-05-30
 ----------
 * _Admin_:
