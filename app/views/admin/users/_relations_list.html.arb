@@ -82,5 +82,8 @@ ul do
       admin_ratings_path + from_user_query
     )
   )
-  li I18n.t('admin.counts.written_comments', count: user.written_comments.count)
+  li link_to(
+    I18n.t('admin.counts.written_comments', count: user.written_comments.count)
+    admin_admin_comments_path + owner_user_query
+  )
 end
