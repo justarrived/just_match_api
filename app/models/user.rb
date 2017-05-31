@@ -63,6 +63,9 @@ class User < ApplicationRecord
 
   has_many :job_users
   has_many :jobs, through: :job_users
+  has_many :employed_for_jobs, lambda {
+    joins(:job_users).where('job_users.will_perform = true').distinct
+  }, through: :job_users, source: :job
 
   has_many :user_languages, dependent: :destroy
   has_many :languages, through: :user_languages
