@@ -41,17 +41,37 @@ namespace :dev do
   namespace :db do
     desc 'Download latest database dump from Heroku, import and anonymize it'
     task :heroku_import, [:heroku_app_name] => [:environment] do |_t, args|
+      unless Rails.env.development?
+        fail('This command must run with Rails using the development environment.')
+      end
+
       heroku_app_name = args[:heroku_app_name]
-      if heroku_app_name.nil? || heroku_app_name.empty?
+      if heroku_app_name.blank?
         puts 'Example'
-        puts '  $ bin/rails dev:production_data_to_dev["your_heroku_app_name"]'
+        puts '  $ bin/rails dev:db:heroku_import["your_heroku_app_name"]'
         fail('You must provide a Heroku app name')
       end
-      system("heroku pg:backups:download --app=#{heroku_app_name}")
+
+      db_dump_path = 'tmp/latest-heroku.dump'
+
+      # Download DB backup from Heroku
+      puts 'Starting download of latest Heroku DB backup'
+      system("heroku pg:backups:download --app=#{heroku_app_name} --output=#{db_dump_path}") # rubocop:disable Metrics/LineLength
+      puts "Latest Heroku DB backup saved to #{db_dump_path}"
+
+      puts 'Dropping current database'
       Rake::Task['db:drop'].execute
       Rake::Task['db:create'].execute
-      system('pg_restore --no-owner -d just_match_development latest.dump')
+
+      # Restore DB
+      puts "Restoring the database from #{db_dump_path}. This may take a while.."
+      system("pg_restore --no-owner -d just_match_development #{db_dump_path}")
+      puts 'Database restored.'
+
+      # Anonymize DB
+      puts 'Anonymizing the database and making it secure for development use.'
       Rake::Task['dev:anonymize_database'].execute
+      puts 'Anonymization finished. Database ready for development use.'
     end
   end
 
