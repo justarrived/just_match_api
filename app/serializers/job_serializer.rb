@@ -58,7 +58,7 @@ class JobSerializer < ApplicationSerializer
   end
 
   attribute :open_for_applications do
-    object.dates_object.open_for_applications?
+    object.open_for_applications?
   end
 
   attribute :starts_in_the_future do

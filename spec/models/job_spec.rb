@@ -14,6 +14,28 @@ RSpec.describe Job, type: :model do
     end
   end
 
+  describe '#open_for_applications?' do
+    it 'returns false if job is cancelled' do
+      job = FactoryGirl.build(:job, cancelled: true)
+      expect(job.open_for_applications?).to eq(false)
+    end
+
+    it 'returns false if job is filled' do
+      job = FactoryGirl.build(:job, filled: true)
+      expect(job.open_for_applications?).to eq(false)
+    end
+
+    it 'returns true if job is open for applications' do
+      job = FactoryGirl.build(
+        :job,
+        last_application_at: 2.days.from_now,
+        cancelled: false,
+        filled: false
+      )
+      expect(job.open_for_applications?).to eq(true)
+    end
+  end
+
   describe '#ended?' do
     it 'returns false if job end date is in the future' do
       job = FactoryGirl.build(:job, job_end_date: 1.minute.from_now)

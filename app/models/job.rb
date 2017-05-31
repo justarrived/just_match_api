@@ -167,6 +167,14 @@ class Job < ApplicationRecord
     self.swedish_drivers_license = value
   end
 
+  def open_for_applications?
+    [
+      !cancelled,
+      !filled,
+      dates_object.open_for_applications?
+    ].all?
+  end
+
   def application_url
     FrontendRouter.draw(:job, id: id)
   end
