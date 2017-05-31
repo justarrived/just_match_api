@@ -28,6 +28,10 @@ class Order < ApplicationRecord
   # NOTE: This is necessary for nested activeadmin has_many form
   accepts_nested_attributes_for :order_documents, :documents
 
+  def self.total_revenue
+    sum('invoice_hourly_pay_rate * orders.hours')
+  end
+
   def display_name
     "##{id || 'unsaved'} #{name}"
   end

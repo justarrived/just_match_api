@@ -18,6 +18,15 @@ ActiveAdmin.register Order do
   scope :all
   scope :unfilled, default: true
 
+  sidebar :totals, only: :index do
+    para 'Total unfilled & unlost revenue:'
+    strong NumberFormatter.new.to_unit(
+      Order.unfilled.total_revenue,
+      'SEK',
+      locale: :sv
+    )
+  end
+
   action_item :create_job, only: :show do
     path = create_job_with_order_admin_job_path(order_id: order.id)
     link_to(I18n.t('admin.order.create_job'), path)
