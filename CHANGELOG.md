@@ -4,6 +4,33 @@ HEAD
 -----------
 
 
+v1.83 - 2017-05-30
+----------
+* _API_:
+  - Add `Job#full_time` to job serializer
+
+
+v1.82 - 2017-05-30
+----------
+* _Update gems:_
+  - `aws-sdk`
+  - `airbrake`
+  - `skylight`
+  - `google-cloud-translate`
+
+
+v1.81 - 2017-05-30
+----------
+* _Admin_:
+  - Add comments link to job and users relation sidebar
+  - Add Order name and category + fix broken download link
+  - Be defensive for JobTranslation#description show view
+  - Fix order show/form for new fields
+* _Enhancement_:
+  - Update frontend chat route
+  - Require `html_sanitizer` in `Markdowner`
+
+
 v1.80 - 2017-05-24
 ----------
 * Chat messages N+1 queries
