@@ -5,6 +5,7 @@ ActiveAdmin.register Order do
 
   filter :job_request_sales_user_id, as: :select, collection: -> { User.sales_users }
   filter :job_request_delivery_user_id, as: :select, collection: -> { User.delivery_users } # rubocop:disable Metrics/LineLength
+  filter :category
   filter :invoice_hourly_pay_rate
   filter :hourly_pay_rate
   filter :hours
