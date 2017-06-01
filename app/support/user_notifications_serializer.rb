@@ -1,13 +1,12 @@
 # frozen_string_literal: true
 class UserNotificationsSerializer
-  def self.serializeble_resource(key_transform:)
+  def self.serializeble_resource
     notifications_data = User::NOTIFICATIONS.map do |name|
       attributes = { description: I18n.t("notifications.#{name}") }
       JsonApiData.new(
         id: name,
         type: :user_notifications,
-        attributes: attributes,
-        key_transform: key_transform
+        attributes: attributes
       )
     end
 

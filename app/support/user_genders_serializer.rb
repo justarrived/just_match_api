@@ -20,8 +20,7 @@ class UserGendersSerializer
         id: gender_name,
         type: :user_genders,
         attributes: attributes,
-        relationships: relationships,
-        key_transform: :underscore
+        relationships: relationships
       )
     end
     JsonApiDatum.new(genders_data)

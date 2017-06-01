@@ -267,7 +267,6 @@ module Api
       ExpiredTokenError = Class.new(ArgumentError)
       InvalidAuthTokenError = Class.new(ArgumentError)
 
-      before_action :set_json_api_helper_default_key_transform_header
       before_action :authenticate_user_token!
       before_action :set_locale
 
@@ -368,7 +367,7 @@ module Api
 
       def api_render_errors(model)
         errors = {
-          errors: JsonApiErrorSerializer.serialize(model, key_transform: key_transform_header), # rubocop:disable Metrics/LineLength
+          errors: JsonApiErrorSerializer.serialize(model),
           meta: deprecations_meta
         }
         render json: errors, status: :unprocessable_entity
@@ -383,7 +382,6 @@ module Api
 
         serialized_model = JsonApiSerializer.serialize(
           model,
-          key_transform: key_transform_header,
           included: included_resources,
           fields: fields_params.to_h,
           current_user: current_user,
@@ -461,20 +459,8 @@ module Api
         end
       end
 
-      def set_json_api_helper_default_key_transform_header
-        JsonApiHelpers.configure.key_transform = key_transform_header
-      end
-
       def api_locale_header
         request.headers['X-API-LOCALE']
-      end
-
-      def key_transform_header
-        case request.headers['X-API-KEY-TRANSFORM']
-        when 'underscore' then :underscore
-        else
-          'dash'
-        end
       end
 
       def act_as_user_header

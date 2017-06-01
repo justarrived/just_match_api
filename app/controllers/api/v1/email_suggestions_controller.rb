@@ -31,8 +31,7 @@ module Api
     address: 'buren',
     domain: 'example.com',
     full: 'buren@example.com'
-  },
-  key_transform: :underscore
+  }
 ).to_h)}
       JSON_EXAMPLE
       def suggest
@@ -47,8 +46,7 @@ module Api
         response = JsonApiData.new(
           id: SecureGenerator.token(length: 32),
           type: :email_suggestions,
-          attributes: attributes,
-          key_transform: key_transform_header
+          attributes: attributes
         )
 
         render json: response, status: :ok

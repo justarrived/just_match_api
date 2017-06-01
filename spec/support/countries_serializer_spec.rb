@@ -3,10 +3,9 @@ require 'rails_helper'
 
 RSpec.describe CountriesSerializer do
   describe '#serializeble_resource' do
-    let(:key_transform) { :dash }
     let(:filter) { {} }
     subject do
-      described_class.serializeble_resource(key_transform: key_transform, filter: filter)
+      described_class.serializeble_resource(filter: filter)
     end
 
     it 'returns all countries' do

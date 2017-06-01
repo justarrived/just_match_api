@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe UserStatusesSerializer do
   describe '#serializeble_resource' do
-    subject { described_class.serializeble_resource(key_transform: :dash).to_h }
+    subject { described_class.serializeble_resource.to_h }
 
     it 'returns serialized statues' do
       I18n.with_locale(:ar) do
@@ -14,7 +14,7 @@ RSpec.describe UserStatusesSerializer do
         ar_name = I18n.t('user.statuses.asylum_seeker', locale: :ar)
 
         expect(data[:attributes][:name]).to eq(ar_name)
-        expect(data[:attributes][:'translated-text'][:name]).to eq(ar_name)
+        expect(data[:attributes][:translated_text][:name]).to eq(ar_name)
       end
     end
   end

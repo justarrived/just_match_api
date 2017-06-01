@@ -52,10 +52,7 @@ module Api
       def index
         filter = JsonApiFilterParams.build(params[:filter], %i(name country_code))
 
-        countries = CountriesSerializer.serializeble_resource(
-          filter: filter,
-          key_transform: key_transform_header
-        )
+        countries = CountriesSerializer.serializeble_resource(filter: filter)
         render json: countries
       end
     end

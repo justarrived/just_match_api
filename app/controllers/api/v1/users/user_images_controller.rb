@@ -78,7 +78,7 @@ module Api
 '
         def categories
           authorize(User)
-          resource = UserImageCategoriesSerializer.serializeble_resource(key_transform: key_transform_header) # rubocop:disable Metrics/LineLength
+          resource = UserImageCategoriesSerializer.serializeble_resource
           render json: resource
         end
 

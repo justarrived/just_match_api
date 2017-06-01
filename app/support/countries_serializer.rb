@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class CountriesSerializer
-  def self.serializeble_resource(key_transform:, filter: {})
+  def self.serializeble_resource(filter: {})
     countries_data = []
     language_id = Language.find_by(lang_code: I18n.locale)&.id
 
@@ -39,8 +39,7 @@ class CountriesSerializer
         id: country_code,
         type: :countries,
         attributes: attributes,
-        relationships: relationships,
-        key_transform: key_transform
+        relationships: relationships
       )
     end
 

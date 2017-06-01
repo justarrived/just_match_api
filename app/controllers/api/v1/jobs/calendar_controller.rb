@@ -22,8 +22,7 @@ module Api
           authorize(@job)
 
           serialized_data = JobGoogleCalendarSerializer.serializeble_resource(
-            job: @job,
-            key_transform: key_transform_header
+            job: @job
           )
           render json: serialized_data
         end
