@@ -1,11 +1,15 @@
 # frozen_string_literal: true
 
-class MockParams < Hash
-  def initialize(data)
-    @data = data
+class MockParams
+  def initialize(hash)
+    @hash = hash
   end
 
   def [](name)
-    @data[name.to_s]
+    @hash[name.to_s]
+  end
+
+  def to_h
+    @hash
   end
 end
