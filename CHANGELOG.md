@@ -4,6 +4,36 @@ HEAD
 -----------
 
 
+v1.84 - 2017-06-01
+----------
+* _API_:
+  - Add job attributes: open_for_applications and starts_in_the_future
+  - Add Job#last_application_at_in_words to jobs serializer
+  - Add JobUser#application_status. Closes #1005
+  - Return high priority skills in user missing traits
+* _Admin_:
+  - Add job user status colors. Closes #1092
+  - Add Order#category to filter. Closes #1148
+  - Add Skill#high_priority support
+  - Add support for uploading user documents directly in the user form. Closes #1133
+  - Add total unfilled and unlost revenue to order index sidebar
+  - Add user id filter on user index page. Closes #1146
+  - Fix admin comments route
+  - Improved ongoing jobs
+* _DB_: Add Skill#high_priority (boolean, default: false)
+* _Enhancement_:
+  - :hocho: all references to key_transform
+  - :hocho: key transform HTTP header test
+  - Add `#distance_of_time_in_words_from_now` available to all serializers
+  - Add `DateFormatter` support class
+  - Add `Job#dates_object` that returns an instance of `Jobs::Dates`
+  - Add `Jobs::Dates` class that encapsulates a jobs date functionality
+  - Add `Job#open_for_applications?` method
+  - Auto-format code with rubocop :lipstick:
+  - Extract a few env-variables from the User model
+  - Improve the Heroku Database Backup import task
+
+
 v1.83 - 2017-05-30
 ----------
 * _API_:
