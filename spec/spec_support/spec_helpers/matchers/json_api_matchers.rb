@@ -12,27 +12,27 @@ def has_jsonapi_root_keys(actual, model)
 end
 
 # For testing contollers responses
-RSpec::Matchers.define :be_jsonapi_response_for do |dashed_model_name|
+RSpec::Matchers.define :be_jsonapi_response_for do |model_name|
   match do |actual|
-    has_jsonapi_root_keys(JSON.parse(actual), dashed_model_name)
+    has_jsonapi_root_keys(JSON.parse(actual), model_name)
   end
 end
 
-RSpec::Matchers.define :have_jsonapi_attribute_error do |dashed_attribute_name|
+RSpec::Matchers.define :have_jsonapi_attribute_error do |attribute_name|
   match do |actual|
     errors = JSON.parse(actual)['errors']
     return false if errors.nil?
 
     errors.map do |error|
-      error.dig(:source, :pointer) == "/data/attributes/#{dashed_attribute_name}"
+      error.dig(:source, :pointer) == "/data/attributes/#{attribute_name}"
     end
   end
 end
 
 # For testing serializers
-RSpec::Matchers.define :be_jsonapi_formatted do |dashed_model_name|
+RSpec::Matchers.define :be_jsonapi_formatted do |model_name|
   match do |actual|
-    has_jsonapi_root_keys(actual, dashed_model_name)
+    has_jsonapi_root_keys(actual, model_name)
   end
 end
 
