@@ -86,6 +86,17 @@ class JobUser < ApplicationRecord
     'Applied'
   end
 
+  def application_status
+    return :rejected if job.started? && !will_perform
+
+    return :withdrawn if application_withdrawn
+    return :hired if will_perform
+    return :offered if accepted
+    return :rejected if rejected
+
+    :applied
+  end
+
   def applicant_confirmation_overdue?
     return false if accepted_at.nil? || will_perform
 

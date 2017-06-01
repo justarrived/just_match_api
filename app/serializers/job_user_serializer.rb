@@ -3,7 +3,7 @@
 class JobUserSerializer < ApplicationSerializer
   ATTRIBUTES = %i(
     accepted accepted_at will_perform performed will_perform_confirmation_by
-    language_id
+    language_id application_status
   ).freeze
 
   attributes ATTRIBUTES

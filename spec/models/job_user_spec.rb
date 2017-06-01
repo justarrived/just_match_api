@@ -7,6 +7,39 @@ RSpec.describe JobUser, type: :model do
     expect(JobUser::MAX_CONFIRMATION_TIME_HOURS).to eq(24)
   end
 
+  describe '#application_status' do
+    it 'returns rejected if job is started and applicant is not hired' do
+      job = FactoryGirl.build(:job, job_date: 2.weeks.ago)
+      job_user = FactoryGirl.build(:job_user, job: job, will_perform: false)
+      expect(job_user.application_status).to eq(:rejected)
+    end
+
+    it 'returns withdrawn if applicant has withdrawn' do
+      job_user = FactoryGirl.build(:job_user, application_withdrawn: true)
+      expect(job_user.application_status).to eq(:withdrawn)
+    end
+
+    it 'returns hired if applicant is hired' do
+      job_user = FactoryGirl.build(:job_user, will_perform: true)
+      expect(job_user.application_status).to eq(:hired)
+    end
+
+    it 'returns accepted if applicant has been accepted' do
+      job_user = FactoryGirl.build(:job_user, accepted: true)
+      expect(job_user.application_status).to eq(:offered)
+    end
+
+    it 'returns rejected if applicant has been rejected' do
+      job_user = FactoryGirl.build(:job_user, rejected: true)
+      expect(job_user.application_status).to eq(:rejected)
+    end
+
+    it 'returns applied by default' do
+      job_user = FactoryGirl.build(:job_user)
+      expect(job_user.application_status).to eq(:applied)
+    end
+  end
+
   describe '#applicant_confirmation_overdue?' do
     it 'returns true if overdue' do
       hours_ago = (JobUser::MAX_CONFIRMATION_TIME_HOURS + 1).hours.ago
