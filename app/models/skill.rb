@@ -15,6 +15,7 @@ class Skill < ApplicationRecord
     order("skill_translations.name #{dir}")
   }
   scope :visible, -> { where(internal: false) }
+  scope :high_priority, -> { where(high_priority: true) }
 
   include Translatable
   translates :name
