@@ -180,7 +180,9 @@ ActiveAdmin.register JobUser do
     column :applied_at, sortable: 'job_users.created_at' do |job_user|
       job_user.created_at.strftime('%Y-%m-%d')
     end
-    column :status, &:current_status
+    column :status do |job_user|
+      job_user_current_status_badge(job_user.current_status)
+    end
   end
 
   show do

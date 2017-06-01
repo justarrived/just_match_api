@@ -10,6 +10,20 @@ module AdminHelper
     end
   end
 
+  def job_user_current_status_badge(status)
+    color = '#323537' # black
+    font_weight = 'normal'
+
+    if status == 'Not pre-reported!'
+      color = 'red'
+      font_weight = 'bold'
+    elsif status == 'paid'
+      color = 'green'
+    end
+
+    content_tag(:span, status, style: "color: #{color};font-weight: #{font_weight}")
+  end
+
   def user_icon_png(html_class: '')
     user_icon = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAllBMVEUAAAAiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTEiJTF/Cx8WAAAAMXRSTlMAAgMEBQYHCAkKFhcwMTIzODo8b3B0d3h5fJSXoKKjpqqtubzDz9HT2t7g6Onz9ff9NenHaAAAAKJJREFUGBllwYkWQkAABdBHi1SiRSvRSii9//+5zkzOnBlzL5Qgqetkjj43p5Q5MOXsZDAsqMyhS6kk0DVUaugaKjV0ZyoJdCGVAIYLOzlM7oVS7kIz3JSxE56bJl04cbkeoDOuSBaRB3hRQfI1wt+JPUdIPi0+hBUtSwgHWnYQ7rTcIFS0lBA+tLwhPGl5QNjTsoUwadnTepBm1y813+sUwA9NtT5hdtOe/QAAAABJRU5ErkJggg==' # rubocop:disable Metrics/LineLength
 
