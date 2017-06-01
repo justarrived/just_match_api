@@ -1,12 +1,13 @@
 # frozen_string_literal: true
+
 require 'email_suggestion'
 
 module Api
   module V1
     class UsersController < BaseController
-      SET_USER_ACTIONS = [
-        :show, :edit, :update, :destroy, :matching_jobs, :jobs, :missing_traits
-      ].freeze
+      SET_USER_ACTIONS = %i(
+        show edit update destroy matching_jobs jobs missing_traits
+      ).freeze
       before_action :set_user, only: SET_USER_ACTIONS
 
       resource_description do

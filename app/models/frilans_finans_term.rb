@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class FrilansFinansTerm < ApplicationRecord
   scope :user_terms, -> { where(company: false) }
   scope :company_terms, -> { where(company: true) }

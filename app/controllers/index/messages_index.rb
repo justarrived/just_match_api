@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Index
   class MessagesIndex < BaseIndex
     def messages(scope = Message)

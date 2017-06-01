@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class EmailSuggestion
   DOMAINS = [
     'yahoo.com', 'google.com', 'hotmail.com', 'gmail.com', 'me.com', 'aol.com',

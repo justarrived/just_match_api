@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 ActiveAdmin.register_page 'Dashboard' do
   menu priority: 1, label: proc { I18n.t('active_admin.dashboard') }
 
@@ -59,7 +60,7 @@ ActiveAdmin.register_page 'Dashboard' do
       column do
         panel link_to(I18n.t('admin.recent_ff_invoices.title'), admin_frilans_finans_invoices_path) do # rubocop:disable Metrics/LineLength
           scope = FrilansFinansInvoice.order(created_at: :desc).
-                  includes(:job_user, :user, job: [:translations, :language]).
+                  includes(:job_user, :user, job: %i(translations language)).
                   limit(20)
 
           table_for(scope) do
@@ -132,7 +133,7 @@ ActiveAdmin.register_page 'Dashboard' do
       column do
         panel(link_to(I18n.t('admin.recent_job_users.title'), admin_job_users_path)) do
           scope = JobUser.order(created_at: :desc).
-                  includes(:user, job: [:translations, :language]).
+                  includes(:user, job: %i(translations language)).
                   limit(20)
 
           table_for(scope) do

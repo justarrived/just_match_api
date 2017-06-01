@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Api
   module V1
     module Users
@@ -38,15 +39,15 @@ module Api
         def job_user_index_scope(scope)
           job_includes = []
           if included_resource?(:job)
-            job_includes = [
-              :job_users, :owner, :company, :language, :category, :hourly_pay
-            ]
+            job_includes = %i(
+              job_users owner company language category hourly_pay
+            )
           end
 
           scope = scope.includes(job: job_includes)
 
           if included_resource?(:user)
-            scope = scope.includes(user: [:user_images, :chats])
+            scope = scope.includes(user: %i(user_images chats))
           end
 
           scope.left_outer_joins(user: [:received_ratings])

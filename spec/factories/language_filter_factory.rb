@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 FactoryGirl.define do
   factory :language_filter do
     association :filter

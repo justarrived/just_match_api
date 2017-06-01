@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module InvalidCredentials
   INVALID_CREDENTIALS_CODE = :invalid_credentials
 

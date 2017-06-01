@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'import/wgtrm/user'
 require 'import/wgtrm/import_user'
 
@@ -51,7 +52,7 @@ module Wgtrm
         u.password = SecureRandom.uuid
       end
 
-      if !phone.blank? && PhoneNumber.swedish_number?(phone) && PhoneNumber.valid?(phone)
+      if phone.present? && PhoneNumber.swedish_number?(phone) && PhoneNumber.valid?(phone)
         user.phone ||= phone
       end
       user

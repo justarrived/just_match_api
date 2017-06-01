@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module NotFound
   NOT_FOUND_CODE = :not_found
 

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class Invoice < ApplicationRecord
   belongs_to :frilans_finans_invoice
   belongs_to :job_user

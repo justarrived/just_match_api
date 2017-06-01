@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class AddMissingBlazerKeys < ActiveRecord::Migration
   def change
     # rubocop:disable Metrics/LineLength

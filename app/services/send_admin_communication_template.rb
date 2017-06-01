@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class SendAdminCommunicationTemplate
   def self.call(users:, job:, communcation_template:, type:, support_user: User.main_support_user) # rubocop:disable Metrics/LineLength
     template = communcation_template

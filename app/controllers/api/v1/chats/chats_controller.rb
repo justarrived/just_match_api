@@ -1,10 +1,11 @@
 # frozen_string_literal: true
+
 module Api
   module V1
     module Chats
       class ChatsController < BaseController
         before_action :require_user
-        before_action :set_chat, only: [:show, :update]
+        before_action :set_chat, only: %i(show update)
 
         after_action :verify_authorized, only: []
 

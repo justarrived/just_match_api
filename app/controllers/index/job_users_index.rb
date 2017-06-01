@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Index
   class JobUsersIndex < BaseIndex
     SORTABLE_FIELDS = %i(created_at updated_at).freeze

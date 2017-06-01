@@ -1,11 +1,12 @@
 # frozen_string_literal: true
+
 module Api
   module V1
     module Users
       class UserSkillsController < BaseController
         before_action :set_user
-        before_action :set_user_skill, only: [:show, :destroy]
-        before_action :set_skill, only: [:show, :destroy]
+        before_action :set_user_skill, only: %i(show destroy)
+        before_action :set_skill, only: %i(show destroy)
 
         resource_description do
           resource_id 'user_skills'

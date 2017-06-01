@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class AddAdditionalInterviewFieldsToUsers < ActiveRecord::Migration[5.0]
   def change
     add_column :users, :interviewed_by_user_id, :integer

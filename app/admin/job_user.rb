@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 ActiveAdmin.register JobUser do
   menu parent: 'Jobs', priority: 2
 
@@ -198,11 +199,11 @@ ActiveAdmin.register JobUser do
 
   include AdminHelpers::MachineTranslation::Actions
 
-  sidebar :relations, only: [:show, :edit] do
+  sidebar :relations, only: %i(show edit) do
     render partial: 'admin/users/relations_list', locals: { user: job_user.user }
   end
 
-  sidebar :latest_applications, only: [:show, :edit] do
+  sidebar :latest_applications, only: %i(show edit) do
     user = job_user.user
     ul do
       user.job_users.includes(job: [:translations]).recent(50).each do |job_user|
@@ -211,7 +212,7 @@ ActiveAdmin.register JobUser do
     end
   end
 
-  sidebar :documents, only: [:show, :edit] do
+  sidebar :documents, only: %i(show edit) do
     user = job_user.user
     user_documents = user.user_documents.recent(50).includes(:document)
 
@@ -232,7 +233,7 @@ ActiveAdmin.register JobUser do
     set_job_user_translation.call(job_user, permitted_params)
   end
 
-  sidebar :app, only: [:show, :edit] do
+  sidebar :app, only: %i(show edit) do
     ul do
       li(
         link_to(
@@ -245,10 +246,10 @@ ActiveAdmin.register JobUser do
   end
 
   permit_params do
-    [
-      :user_id, :job_id, :accepted, :will_perform, :performed, :apply_message,
-      :application_withdrawn, :shortlisted, :rejected
-    ]
+    %i(
+      user_id job_id accepted will_perform performed apply_message
+      application_withdrawn shortlisted rejected
+    )
   end
 
   controller do
@@ -256,7 +257,7 @@ ActiveAdmin.register JobUser do
       super.includes(
         :user,
         :frilans_finans_invoice,
-        job: [:translations, :language]
+        job: %i(translations language)
       )
     end
   end

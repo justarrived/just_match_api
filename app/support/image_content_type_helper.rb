@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class ImageContentTypeHelper
   ALLOWED_IMAGE_CONTENT_TYPES = %w(image/jpeg image/png).freeze
   ALLOWED_FILE_EXTENSIONS = %w(jpeg png).freeze

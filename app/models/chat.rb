@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class Chat < ApplicationRecord
   has_many :chat_users, dependent: :destroy
   has_many :users, through: :chat_users

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class DataUriDocument
   attr_reader :content_type
 

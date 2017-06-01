@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module AdminHelper
   def safe_pretty_print_json(json_string)
     content_tag :pre, begin

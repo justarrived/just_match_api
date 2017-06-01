@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class CreateJobLanguages < ActiveRecord::Migration[5.0]
   def change
     create_table :job_languages do |t|

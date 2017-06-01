@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 def hash_or_nil?(value)
   value.nil? || value.is_a?(Hash)
 end

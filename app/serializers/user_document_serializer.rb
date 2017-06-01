@@ -1,6 +1,7 @@
 # frozen_string_literal: true
+
 class UserDocumentSerializer < ApplicationSerializer
-  ATTRIBUTES = [:category, :created_at].freeze
+  ATTRIBUTES = %i(category created_at).freeze
   attributes ATTRIBUTES
 
   attribute :category_name

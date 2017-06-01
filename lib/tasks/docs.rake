@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 namespace :docs do
   task api_examples: :environment do
     fail 'Can only generate docs when Rails is in docs env.' unless Rails.env.docs?

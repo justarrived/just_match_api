@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'migrate_data/migrate_translations'
 require 'migrate_data/user_language_to_system_language'
 

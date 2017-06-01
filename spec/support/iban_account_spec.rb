@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe IBANAccount do
@@ -47,7 +48,7 @@ RSpec.describe IBANAccount do
       let(:iban) { invalid_iban }
 
       it 'returns errors' do
-        expect(subject.errors).to match([:too_short, :bad_format])
+        expect(subject.errors).to match(%i(too_short bad_format))
       end
     end
   end

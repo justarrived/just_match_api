@@ -1,6 +1,7 @@
 # frozen_string_literal: true
+
 class UserImageSerializer < ApplicationSerializer
-  ATTRIBUTES = [:one_time_token, :one_time_token_expires_at, :category].freeze
+  ATTRIBUTES = %i(one_time_token one_time_token_expires_at category).freeze
   attributes ATTRIBUTES
 
   attribute :category_name

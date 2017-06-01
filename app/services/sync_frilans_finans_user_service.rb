@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class SyncFrilansFinansUserService
   def self.call(user:)
     id = user.frilans_finans_id

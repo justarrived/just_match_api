@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class AddMissingUniqIndexesV2 < ActiveRecord::Migration
   def change
     add_index :currencies, :frilans_finans_id, unique: true
@@ -7,7 +8,7 @@ class AddMissingUniqIndexesV2 < ActiveRecord::Migration
 
     add_index :terms_agreements, :version, unique: true
 
-    add_index :terms_agreement_consents, [:user_id, :job_id], unique: true
-    add_index :terms_agreement_consents, [:job_id, :user_id], unique: true
+    add_index :terms_agreement_consents, %i(user_id job_id), unique: true
+    add_index :terms_agreement_consents, %i(job_id user_id), unique: true
   end
 end

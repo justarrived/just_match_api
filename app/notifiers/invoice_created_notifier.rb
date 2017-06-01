@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class InvoiceCreatedNotifier < BaseNotifier
   def self.call(job:, user:)
     owner = job.owner

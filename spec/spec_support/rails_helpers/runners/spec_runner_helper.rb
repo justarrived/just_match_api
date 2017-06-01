@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module SpecRunnerHelper
   def execute_runner?(env_name, default: true)
     filtered_test = ARGV.any? do |arg|

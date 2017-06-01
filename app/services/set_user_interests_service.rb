@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module SetUserInterestsService
   def self.call(user:, interest_ids_param:)
     return UserInterest.none if interest_ids_param.nil?
@@ -7,8 +8,8 @@ module SetUserInterestsService
     user_interests_params = normalize_interest_ids(interest_ids_param)
     user_interests = user_interests_params.map do |attrs|
       UserInterest.find_or_initialize_by(user: user, interest_id: attrs[:id]).tap do |us|
-        us.level = attrs[:level] unless attrs[:level].blank?
-        us.level_by_admin = attrs[:level_by_admin] unless attrs[:level_by_admin].blank?
+        us.level = attrs[:level] if attrs[:level].present?
+        us.level_by_admin = attrs[:level_by_admin] if attrs[:level_by_admin].present?
       end
     end
     user_interests.each(&:save)

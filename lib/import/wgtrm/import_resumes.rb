@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Wgtrm
   class ImportResumes
     UserMap = Struct.new(:user, :slug)

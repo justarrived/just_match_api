@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class InvoiceMissingCompanyFrilansFinansIdNotifier < BaseNotifier
   def self.call(ff_invoice:, job:)
     User.super_admins.each do |user|

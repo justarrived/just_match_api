@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module ENVTestHelper
   # NOTE: should mock instead of mutating
   def self.wrap(env_map)

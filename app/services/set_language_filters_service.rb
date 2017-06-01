@@ -1,15 +1,16 @@
 # frozen_string_literal: true
+
 module SetLanguageFiltersService
   def self.call(filter:, language_ids_param:)
-    return LanguageFilter.none if language_ids_param.nil? || language_ids_param.empty?
+    return LanguageFilter.none if language_ids_param.blank?
 
     filter_languages_params = normalize_language_ids(language_ids_param)
     filter.filter_languages = filter_languages_params.map do |attrs|
       LanguageFilter.find_or_initialize_by(filter: filter, language_id: attrs[:id]).
         tap do |lf|
-        lf.proficiency = attrs[:proficiency] unless attrs[:proficiency].blank?
+        lf.proficiency = attrs[:proficiency] if attrs[:proficiency].present?
 
-        unless attrs[:proficiency_by_admin].blank?
+        if attrs[:proficiency_by_admin].present?
           lf.proficiency_by_admin = attrs[:proficiency_by_admin]
         end
       end

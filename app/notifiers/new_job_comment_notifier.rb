@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class NewJobCommentNotifier < BaseNotifier
   def self.call(comment:, job:)
     owner = job.owner

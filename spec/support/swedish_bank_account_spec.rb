@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe SwedishBankAccount do
@@ -18,7 +19,7 @@ RSpec.describe SwedishBankAccount do
       subject { described_class.new(invalid_account).errors }
 
       it 'returns list of errors' do
-        expected = [:too_short, :invalid_characters, :unknown_clearing_number]
+        expected = %i(too_short invalid_characters unknown_clearing_number)
         expect(subject).to match(expected)
       end
 
@@ -26,7 +27,7 @@ RSpec.describe SwedishBankAccount do
         let(:invalid_account) { nil }
 
         it 'returns list of errors' do
-          expected = [:too_short, :unknown_clearing_number]
+          expected = %i(too_short unknown_clearing_number)
           expect(subject).to match(expected)
         end
       end
@@ -78,7 +79,7 @@ RSpec.describe SwedishBankAccount do
   describe '#errors_by_field' do
     let(:test_datum) do
       [
-        [:account, [:too_short, :invalid_characters]],
+        [:account, %i(too_short invalid_characters)],
         [:clearing_number, [:unknown_clearing_number]],
         [:serial_number, []]
       ]
@@ -97,7 +98,7 @@ RSpec.describe SwedishBankAccount do
     end
 
     it 'returns pair of errors for each field' do
-      expected = [:account, [:too_short, :invalid_characters]]
+      expected = [:account, %i(too_short invalid_characters)]
       expect(subject.errors_by_field.first).to eq(expected)
     end
   end
@@ -107,7 +108,7 @@ RSpec.describe SwedishBankAccount do
 
     [
       [:serial_number, []],
-      [:account, [:too_short, :invalid_characters]],
+      [:account, %i(too_short invalid_characters)],
       [:clearing_number, [:unknown_clearing_number]]
     ].each do |test_data|
       field = test_data.first
@@ -123,7 +124,7 @@ RSpec.describe SwedishBankAccount do
     subject { described_class.new(nil) }
 
     [
-      [:account, [:invalid_characters, :too_short, :too_long]],
+      [:account, %i(invalid_characters too_short too_long)],
       [:serial_number, [:bad_checksum]],
       [:clearing_number, [:unknown_clearing_number]]
     ].each do |test_data|

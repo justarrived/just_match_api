@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class FaqTranslation < ApplicationRecord
   belongs_to :faq, optional: false
   belongs_to :language, optional: false

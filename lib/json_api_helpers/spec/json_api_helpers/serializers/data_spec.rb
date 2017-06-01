@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'json'
 
 require 'spec_helper'
@@ -59,7 +60,7 @@ RSpec.describe JsonApiHelpers::Serializers::Data do
       }
       data = described_class.new(id: '1', type: 'test_type', relationships: relationships)
 
-      result = data.to_h.dig(:data, :relationships, :'test-relation', :data)
+      result = data.to_h.dig(:data, :relationships, :test_relation, :data)
       expect(result).to eq(id: '1', type: 'test_relations')
     end
   end

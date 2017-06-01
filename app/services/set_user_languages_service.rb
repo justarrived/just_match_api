@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module SetUserLanguagesService
   def self.call(user:, language_ids_param:)
     return UserLanguage.none if language_ids_param.nil?
@@ -7,9 +8,9 @@ module SetUserLanguagesService
     user_languages_params = normalize_language_ids(language_ids_param)
     user_languages = user_languages_params.map do |attrs|
       UserLanguage.find_or_initialize_by(user: user, language_id: attrs[:id]).tap do |ul|
-        ul.proficiency = attrs[:proficiency] unless attrs[:proficiency].blank?
+        ul.proficiency = attrs[:proficiency] if attrs[:proficiency].present?
 
-        unless attrs[:proficiency_by_admin].blank?
+        if attrs[:proficiency_by_admin].present?
           ul.proficiency_by_admin = attrs[:proficiency_by_admin]
         end
       end

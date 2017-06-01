@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Wgtrm
   class ImportUser
     attr_reader :user, :wgtrm_user, :user_languages, :user_tags, :user_interests

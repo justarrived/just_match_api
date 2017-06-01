@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Wgtrm
   class User
     LanguageProficiency = Struct.new(:name, :proficiency)
@@ -261,7 +262,7 @@ module Wgtrm
     private
 
     def split_column(column)
-      return [] if column.nil? || column.empty?
+      return [] if column.blank?
 
       column.split('/').map(&:strip)
     end

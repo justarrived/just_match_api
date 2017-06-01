@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'rails_helper'
 
 # Even though this describes SkillsController, it should really be BaseController tests

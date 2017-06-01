@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Sweepers
   class FrilansFinansInvoiceSweeper
     def self.create_frilans_finans(scope = FrilansFinansInvoice)

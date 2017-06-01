@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class Rating < ApplicationRecord
   SCORE_RANGE = 1..5
 
@@ -86,7 +87,7 @@ class Rating < ApplicationRecord
   end
 
   def validate_rating_user
-    [:from_user, :to_user].each do |relation_name|
+    %i(from_user to_user).each do |relation_name|
       user_object = public_send(relation_name)
       unless self.class.user_allowed_to_rate?(job: job, user: user_object)
         errors.add(relation_name, I18n.t('errors.rating.user_allowed_to_rate'))

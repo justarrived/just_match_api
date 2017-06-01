@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class CreateFrilansFinansInvoiceService
   def self.create(ff_invoice:, pre_report: true, express_payment: false)
     job_user = ff_invoice.job_user

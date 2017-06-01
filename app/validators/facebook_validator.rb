@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class FacebookValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
     value_changed = record.public_send("#{attribute}_changed?")

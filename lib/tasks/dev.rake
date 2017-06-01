@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'seeds/dev/chat_seed'
 require 'seeds/dev/company_seed'
 require 'seeds/dev/faq_seed'

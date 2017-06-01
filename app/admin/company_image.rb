@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 ActiveAdmin.register CompanyImage do
   menu parent: 'Misc', priority: 3
 
@@ -43,7 +44,7 @@ ActiveAdmin.register CompanyImage do
   end
 
   permit_params do
-    [:company_id, :image]
+    %i(company_id image)
   end
 
   controller do

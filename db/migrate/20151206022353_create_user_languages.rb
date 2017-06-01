@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class CreateUserLanguages < ActiveRecord::Migration
   def change
     create_table :user_languages do |t|

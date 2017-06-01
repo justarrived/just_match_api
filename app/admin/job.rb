@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 ActiveAdmin.register Job do
   config.scoped_collection_actions_if = -> { true }
 
@@ -161,7 +162,7 @@ ActiveAdmin.register Job do
     )
   end
 
-  sidebar :relations, only: [:show, :edit] do
+  sidebar :relations, only: %i(show edit) do
     render partial: 'admin/jobs/relations_list', locals: { job: job }
   end
 
@@ -188,7 +189,7 @@ ActiveAdmin.register Job do
     end
   end
 
-  sidebar :app, only: [:show, :edit] do
+  sidebar :app, only: %i(show edit) do
     ul do
       li link_to(
         I18n.t('admin.view_in_app.job'),
@@ -198,7 +199,7 @@ ActiveAdmin.register Job do
     end
   end
 
-  sidebar :latest_applicants, only: [:show, :edit] do
+  sidebar :latest_applicants, only: %i(show edit) do
     ul do
       job.job_users.
         order(created_at: :desc).
@@ -231,8 +232,8 @@ ActiveAdmin.register Job do
       :company_contact_user_id, :just_arrived_contact_user_id, :municipality,
       :number_to_fill, :order_id, :full_time, :swedish_drivers_license, :car_required,
       :publish_on_linkedin, :publish_on_blocketjobb, :blocketjobb_category,
-      job_skills_attributes: [:skill_id, :proficiency, :proficiency_by_admin],
-      job_languages_attributes: [:language_id, :proficiency, :proficiency_by_admin]
+      job_skills_attributes: %i(skill_id proficiency proficiency_by_admin),
+      job_languages_attributes: %i(language_id proficiency proficiency_by_admin)
     ]
     JobPolicy::FULL_ATTRIBUTES + extras
   end
@@ -240,7 +241,7 @@ ActiveAdmin.register Job do
   controller do
     def scoped_collection
       super.with_translations.
-        includes(:just_arrived_contact, skills: [:translations, :language]).
+        includes(:just_arrived_contact, skills: %i(translations language)).
         left_joins(:job_users).
         select('jobs.*, count(job_users.id) as job_users_count').
         group('jobs.id, job_users.job_id')

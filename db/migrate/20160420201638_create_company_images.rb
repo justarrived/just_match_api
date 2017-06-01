@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class CreateCompanyImages < ActiveRecord::Migration
   def change
     create_table :company_images do |t|

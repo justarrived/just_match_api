@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class AddAddressFieldsToUsers < ActiveRecord::Migration
   def change
     # Remove old address column

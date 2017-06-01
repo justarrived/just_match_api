@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class HourlyPayPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve

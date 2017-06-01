@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module SetUserSkillsService
   def self.call(user:, skill_ids_param:)
     return UserSkill.none if skill_ids_param.nil?
@@ -7,9 +8,9 @@ module SetUserSkillsService
     user_skills_params = normalize_skill_ids(skill_ids_param)
     user_skills = user_skills_params.map do |attrs|
       UserSkill.find_or_initialize_by(user: user, skill_id: attrs[:id]).tap do |us|
-        us.proficiency = attrs[:proficiency] unless attrs[:proficiency].blank?
+        us.proficiency = attrs[:proficiency] if attrs[:proficiency].present?
 
-        unless attrs[:proficiency_by_admin].blank?
+        if attrs[:proficiency_by_admin].present?
           us.proficiency_by_admin = attrs[:proficiency_by_admin]
         end
       end

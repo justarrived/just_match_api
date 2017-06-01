@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 ActiveAdmin.register UserTranslation do
   menu parent: 'Misc'
 
@@ -13,6 +14,6 @@ ActiveAdmin.register UserTranslation do
   filter :updated_at
 
   permit_params do
-    [:body, :locale]
+    %i(body locale)
   end
 end

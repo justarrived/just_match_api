@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class FailedToActivateInvoiceNotifier < BaseNotifier
   def self.call(ff_invoice:)
     User.super_admins.each do |user|

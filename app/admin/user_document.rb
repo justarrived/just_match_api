@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 ActiveAdmin.register UserDocument do
   menu parent: 'Users'
 
@@ -35,7 +36,7 @@ ActiveAdmin.register UserDocument do
   end
 
   permit_params do
-    [:user_id, :document_id, :category]
+    %i(user_id document_id category)
   end
 
   controller do

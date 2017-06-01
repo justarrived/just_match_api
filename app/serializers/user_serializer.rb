@@ -1,19 +1,20 @@
 # frozen_string_literal: true
+
 class UserSerializer < ApplicationSerializer
   # Since the #attributes method is overriden and provides a whitelist of attribute_names
   # that can be returned to the user we can return all User column names here
   EXTRA_ATTRIBUTES = %i(ignored_notifications primary_role).freeze
-  attributes [
-    :id, :email, :phone, :description, :created_at, :updated_at, :latitude, :longitude,
-    :language_id, :anonymized, :password_hash, :password_salt, :admin, :street, :city,
-    :zip, :zip_latitude, :zip_longitude, :first_name, :last_name, :name, :ssn, :banned,
-    :company_id, :one_time_token, :one_time_token_expires_at, :just_arrived_staffing,
-    :ignored_notifications_mask, :frilans_finans_id, :frilans_finans_payment_details,
-    :current_status, :at_und, :arrived_at, :country_of_origin, :managed, :verified,
-    :account_clearing_number, :account_number, :gender, :full_street_address,
-    :support_chat_activated, :linkedin_url, :bank_account, :facebook_url,
-    :has_welcome_app_account, :welcome_app_last_checked_at, :public_profile
-  ] + EXTRA_ATTRIBUTES
+  attributes %i(
+    id email phone description created_at updated_at latitude longitude
+    language_id anonymized password_hash password_salt admin street city
+    zip zip_latitude zip_longitude first_name last_name name ssn banned
+    company_id one_time_token one_time_token_expires_at just_arrived_staffing
+    ignored_notifications_mask frilans_finans_id frilans_finans_payment_details
+    current_status at_und arrived_at country_of_origin managed verified
+    account_clearing_number account_number gender full_street_address
+    support_chat_activated linkedin_url bank_account facebook_url
+    has_welcome_app_account welcome_app_last_checked_at public_profile
+  ) + EXTRA_ATTRIBUTES
 
   link(:self) { api_v1_user_url(object) }
 

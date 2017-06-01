@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class JobSkillPolicy < ApplicationPolicy
   Context = Struct.new(:user, :job_context)
 

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class EmailValidator < ActiveModel::EachValidator
   EMAIL_REGEX = /\A.+@.+\..+\z/
 

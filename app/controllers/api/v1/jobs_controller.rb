@@ -3,7 +3,7 @@
 module Api
   module V1
     class JobsController < BaseController
-      before_action :set_job, only: [:show, :edit, :update, :matching_users]
+      before_action :set_job, only: %i(show edit update matching_users)
 
       resource_description do
         short 'API for managing jobs'
@@ -188,12 +188,12 @@ module Api
         scope = policy_scope(Job)
 
         if included_resource?(:job_languages) || included_resource?('job_languages.language') # rubocop:disable Metrics/LineLength
-          scope = scope.includes(job_languages: [:language, :job])
+          scope = scope.includes(job_languages: %i(language job))
         end
 
         if included_resource?(:job_skills) || included_resource?('job_skills.skill')
           scope = scope.includes(
-            job_skills: [{ skill: [:translations, :language] }, :job]
+            job_skills: [{ skill: %i(translations language) }, :job]
           )
         end
 
@@ -206,7 +206,7 @@ module Api
 
       def jobs_index_scope(base_scope)
         if included_resource?(:comments)
-          base_scope = base_scope.includes(comments: [:owner, :language, :translations])
+          base_scope = base_scope.includes(comments: %i(owner language translations))
         end
 
         base_scope = base_scope.includes(:hourly_pay) if included_resource?(:hourly_pay)
@@ -217,7 +217,7 @@ module Api
         end
 
         if included_resource?(:owner)
-          base_scope = base_scope.includes(owner: [:user_images, :translations])
+          base_scope = base_scope.includes(owner: %i(user_images translations))
         end
 
         base_scope

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class SignJobUserService
   def self.call(job_user:, job_owner:, terms_agreement:)
     job_user.will_perform = true

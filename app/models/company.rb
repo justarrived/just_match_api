@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class Company < ApplicationRecord
   has_many :users
   has_many :owned_jobs, through: :users
@@ -86,7 +87,7 @@ class Company < ApplicationRecord
   end
 
   def set_default_billing_email
-    return unless billing_email.blank?
+    return if billing_email.present?
     return if email.blank?
 
     self.billing_email = email

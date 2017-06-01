@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Index
   class InterestsIndex < BaseIndex
     FILTER_MATCH_TYPES = {

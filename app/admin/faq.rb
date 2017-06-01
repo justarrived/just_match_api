@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 ActiveAdmin.register Faq do
   menu parent: 'Misc'
 
@@ -19,6 +20,6 @@ ActiveAdmin.register Faq do
   end
 
   permit_params do
-    [:question, :answer, :language_id]
+    %i(question answer language_id)
   end
 end

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module JsonApiHelpers
   # NOTE:
   #   For some weird reason, ActiveModelSerializers call #original_url on

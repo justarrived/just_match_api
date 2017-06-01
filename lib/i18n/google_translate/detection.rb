@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module GoogleTranslate
   class Detection
     attr_reader :text, :language, :confidence

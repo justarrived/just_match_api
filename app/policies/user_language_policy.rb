@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class UserLanguagePolicy < ApplicationPolicy
   Context = Struct.new(:user, :user_record)
 

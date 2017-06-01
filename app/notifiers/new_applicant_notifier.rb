@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class NewApplicantNotifier < BaseNotifier
   def self.call(job_user:, owner:, skills:, languages:)
     envelope = JobMailer.new_applicant_email(job_user: job_user, owner: owner)

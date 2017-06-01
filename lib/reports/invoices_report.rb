@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module InvoicesReport
   JOB_ROWS_HEADER = %w(
     company job_name activated status payment_status approval_status

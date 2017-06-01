@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # Preview all emails at http://localhost:3000/rails/mailers/job_user_mailer
 class JobUserMailerPreview < ActionMailer::Preview
   def new_applicant_job_info_email

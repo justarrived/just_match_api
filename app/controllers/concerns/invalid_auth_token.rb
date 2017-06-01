@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module InvalidAuthToken
   INVALID_AUTH_TOKEN_CODE = :invalid_auth_token
 

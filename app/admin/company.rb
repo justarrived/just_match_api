@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 ActiveAdmin.register Company do
   menu parent: 'Jobs'
 
@@ -47,7 +48,7 @@ ActiveAdmin.register Company do
     active_admin_comments
   end
 
-  sidebar :relations, only: [:show, :edit] do
+  sidebar :relations, only: %i(show edit) do
     company_query = AdminHelpers::Link.query(:company_id, company.id)
 
     ul do
@@ -94,20 +95,20 @@ ActiveAdmin.register Company do
   end
 
   permit_params do
-    [
-      :name,
-      :cin,
-      :created_at,
-      :updated_at,
-      :frilans_finans_id,
-      :website,
-      :email,
-      :street,
-      :zip,
-      :city,
-      :municipality,
-      :billing_email,
-      :phone
-    ]
+    %i(
+      name
+      cin
+      created_at
+      updated_at
+      frilans_finans_id
+      website
+      email
+      street
+      zip
+      city
+      municipality
+      billing_email
+      phone
+    )
   end
 end

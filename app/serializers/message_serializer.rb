@@ -1,6 +1,7 @@
 # frozen_string_literal: true
+
 class MessageSerializer < ApplicationSerializer
-  ATTRIBUTES = [:created_at, :language_id].freeze
+  ATTRIBUTES = %i(created_at language_id).freeze
 
   attributes ATTRIBUTES
 

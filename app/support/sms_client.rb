@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class SMSClient
   class MissingTwilioAccountSidError < ArgumentError; end
   class MissingTwilioAuthTokenError < ArgumentError; end

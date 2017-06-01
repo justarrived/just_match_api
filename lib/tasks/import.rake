@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'import/wgtrm/import'
 require 'import/wgtrm/import_resumes'
 

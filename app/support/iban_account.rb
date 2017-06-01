@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class IBANAccount
   # Errors map between IBANTools errors and "ours"
   ERRORS_MAP = {

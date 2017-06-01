@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 ActiveAdmin.register Interest do
   menu parent: 'Settings'
 
@@ -15,7 +16,7 @@ ActiveAdmin.register Interest do
   end
 
   permit_params do
-    [:name, :internal, :language_id]
+    %i(name internal language_id)
   end
 
   controller do

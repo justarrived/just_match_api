@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class FrilansFinansInvoice < ApplicationRecord
   FF_PAID_STATUS = 2
 

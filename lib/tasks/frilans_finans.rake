@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 namespace :frilans_finans do
   task import: :environment do
     %w(currencies professions).each do |task|

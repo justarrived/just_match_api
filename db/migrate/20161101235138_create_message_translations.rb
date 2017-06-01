@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class CreateMessageTranslations < ActiveRecord::Migration[5.0]
   def change
     create_table :message_translations do |t|

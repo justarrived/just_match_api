@@ -1,9 +1,10 @@
 # frozen_string_literal: true
+
 class JobUserSerializer < ApplicationSerializer
-  ATTRIBUTES = [
-    :accepted, :accepted_at, :will_perform, :performed, :will_perform_confirmation_by,
-    :language_id
-  ].freeze
+  ATTRIBUTES = %i(
+    accepted accepted_at will_perform performed will_perform_confirmation_by
+    language_id
+  ).freeze
 
   attributes ATTRIBUTES
 

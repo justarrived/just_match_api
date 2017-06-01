@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module MailerHelper
   def phone_to(number)
     link_to(number, "tel:#{number}")

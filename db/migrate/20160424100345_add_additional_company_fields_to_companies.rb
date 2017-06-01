@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class AddAdditionalCompanyFieldsToCompanies < ActiveRecord::Migration
   def change
     add_column :companies, :email, :string

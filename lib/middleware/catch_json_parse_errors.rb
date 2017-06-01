@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class CatchJsonParseErrors
   def initialize(app)
     @app = app

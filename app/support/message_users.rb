@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class MessageUsers
   def self.call(type:, users:, template:, subject: nil, data: {}, &block)
     new(type, users, template, subject, data, &block).call

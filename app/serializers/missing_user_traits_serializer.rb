@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class MissingUserTraitsSerializer
   def self.serialize(user_attributes:, skills: [], languages: [], skills_hint: nil, languages_hint: nil) # rubocop:disable Metrics/LineLength
     attributes = {}

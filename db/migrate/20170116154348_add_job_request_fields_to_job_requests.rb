@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class AddJobRequestFieldsToJobRequests < ActiveRecord::Migration[5.0]
   def change
     add_column :job_requests, :cancelled, :boolean, default: false

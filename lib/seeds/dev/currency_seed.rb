@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Dev
   class CurrencySeed < BaseSeed
     def self.call

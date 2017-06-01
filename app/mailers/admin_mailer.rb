@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class AdminMailer < ApplicationMailer
   def invoice_missing_company_frilans_finans_id_email(user:, ff_invoice:, job:)
     @ff_invoice = ff_invoice

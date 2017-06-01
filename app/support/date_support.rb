@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module DateSupport
   def self.days_in(start, finish)
     (start.to_date..finish.to_date).to_a

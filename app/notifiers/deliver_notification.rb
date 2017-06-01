@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class DeliverNotification
   def self.call(envelope, locale)
     envelope.deliver_later

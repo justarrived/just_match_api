@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Api
   module V1
     module Users
@@ -30,9 +31,8 @@ module Api
     detail: I18n.t('errors.user.wrong_password'),
     code: :wrong_password,
     attribute: :old_password
-    )
   )
-}
+)}
 "
         # rubocop:enable Metrics/LineLength
         def create

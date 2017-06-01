@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class AddLanguageToModelTranslations < ActiveRecord::Migration[5.0]
   def change
     add_reference :comment_translations,  :language, foreign_key: true

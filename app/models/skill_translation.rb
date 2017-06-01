@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class SkillTranslation < ApplicationRecord
   belongs_to :skill
 

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class AddFfFieldsToFrilansFinansInvoice < ActiveRecord::Migration[5.0]
   def change
     add_column :frilans_finans_invoices, :ff_pre_report, :boolean, default: true

@@ -1,10 +1,11 @@
 # frozen_string_literal: true
+
 module Api
   module V1
     module Users
       class UserDocumentsController < BaseController
-        before_action :set_user, only: [:index, :create]
-        after_action :verify_authorized, except: [:create, :index]
+        before_action :set_user, only: %i(index create)
+        after_action :verify_authorized, except: %i(create index)
 
         ALLOWED_INCLUDES = %w(document).freeze
 

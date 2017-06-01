@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 FactoryGirl.define do
   factory :job_request do
     company_name 'MyString'

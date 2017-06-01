@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Index
   class CategoriesIndex < BaseIndex
     FILTER_MATCH_TYPES = { name: :starts_with }.freeze

@@ -1,15 +1,16 @@
 # frozen_string_literal: true
+
 module SetInterestFiltersService
   def self.call(filter:, interest_ids_param:)
-    return InterestFilter.none if interest_ids_param.nil? || interest_ids_param.empty?
+    return InterestFilter.none if interest_ids_param.blank?
 
     filter_interests_params = normalize_interest_ids(interest_ids_param)
     filter.filter_interests = filter_interests_params.map do |attrs|
       InterestFilter.find_or_initialize_by(filter: filter, interest_id: attrs[:id]).
         tap do |interest_filter|
-        interest_filter.level = attrs[:level] unless attrs[:level].blank?
+        interest_filter.level = attrs[:level] if attrs[:level].present?
 
-        unless attrs[:level_by_admin].blank?
+        if attrs[:level_by_admin].present?
           interest_filter.level_by_admin = attrs[:level_by_admin]
         end
       end

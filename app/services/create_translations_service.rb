@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'i18n/google_translate'
 require 'markdowner'
 require 'html_sanitizer'

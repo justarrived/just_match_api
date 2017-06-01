@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class MessageTranslation < ApplicationRecord
   belongs_to :message
 

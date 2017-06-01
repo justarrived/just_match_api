@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class AddZipCoordinatesToUsers < ActiveRecord::Migration
   def change
     add_column :users, :zip_latitude, :float

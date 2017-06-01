@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class Category < ApplicationRecord
   INSURANCE_STATUSES = {
     insured: 1,

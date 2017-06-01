@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class AddZipCoordinatesToJobs < ActiveRecord::Migration
   def change
     add_column :jobs, :zip_latitude, :float

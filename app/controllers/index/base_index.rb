@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Index
   class BaseIndex
     delegate :params, to: :controller

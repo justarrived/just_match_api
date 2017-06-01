@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module PayCalculator
   NET_SALARY_MULTIPLIER = 0.7
   RATE_EXCLUDING_VAT_MULTIPLIER = 1.4

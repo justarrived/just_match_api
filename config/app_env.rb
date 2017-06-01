@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class AppEnv
   NO_DEFAULT = :a931e53fede62dc64fd24a09a4c9eafa29b63d0982c399be36e6561d5daf63d54a4c
 

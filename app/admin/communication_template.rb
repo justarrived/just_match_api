@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 ActiveAdmin.register CommunicationTemplate do
   menu parent: 'Settings'
 
@@ -60,7 +61,7 @@ ActiveAdmin.register CommunicationTemplate do
   end
 
   permit_params do
-    [:language_id, :category, :subject, :body]
+    %i(language_id category subject body)
   end
 
   controller do

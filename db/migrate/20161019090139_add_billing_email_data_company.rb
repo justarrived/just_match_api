@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class AddBillingEmailDataCompany < ActiveRecord::Migration[5.0]
   def up
     Company.all.map do |company|

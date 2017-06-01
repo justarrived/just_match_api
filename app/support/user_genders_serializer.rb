@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class UserGendersSerializer
   def self.serializeble_resource
     language_id = Language.find_by_locale(I18n.locale)&.id

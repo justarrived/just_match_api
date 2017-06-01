@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class SwedishBankAccount
   ERRORS_MAP = {
     BankTools::SE::Errors::TOO_SHORT               => :too_short,
@@ -8,7 +9,7 @@ class SwedishBankAccount
     BankTools::SE::Errors::UNKNOWN_CLEARING_NUMBER => :unknown_clearing_number
   }.freeze
 
-  ACCOUNT_ERRORS = [:invalid_characters, :too_short, :too_long].freeze
+  ACCOUNT_ERRORS = %i(invalid_characters too_short too_long).freeze
   CLEARING_NUMBER_ERRORS = [:unknown_clearing_number].freeze
   SERIAL_NUMBER_ERRORS = [:bad_checksum].freeze
 

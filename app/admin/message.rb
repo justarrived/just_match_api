@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 ActiveAdmin.register Message do
   menu parent: 'Chats'
 
@@ -49,12 +50,12 @@ ActiveAdmin.register Message do
   end
 
   permit_params do
-    [
-      :chat_id,
-      :author_id,
-      :language_id,
-      :body
-    ]
+    %i(
+      chat_id
+      author_id
+      language_id
+      body
+    )
   end
 
   controller do

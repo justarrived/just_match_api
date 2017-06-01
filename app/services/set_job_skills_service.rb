@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module SetJobSkillsService
   def self.call(job:, skill_ids_param:)
     return JobSkill.none if skill_ids_param.nil?
@@ -6,9 +7,9 @@ module SetJobSkillsService
     job_skills_params = normalize_skill_ids(skill_ids_param)
     job_skills = job_skills_params.map do |attrs|
       JobSkill.find_or_initialize_by(job: job, skill_id: attrs[:id]).tap do |job_skill|
-        job_skill.proficiency = attrs[:proficiency] unless attrs[:proficiency].blank?
+        job_skill.proficiency = attrs[:proficiency] if attrs[:proficiency].present?
 
-        unless attrs[:proficiency_by_admin].blank?
+        if attrs[:proficiency_by_admin].present?
           job_skill.proficiency_by_admin = attrs[:proficiency_by_admin]
         end
       end

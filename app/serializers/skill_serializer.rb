@@ -1,6 +1,7 @@
 # frozen_string_literal: true
+
 class SkillSerializer < ApplicationSerializer
-  ATTRIBUTES = [:name, :language_id].freeze
+  ATTRIBUTES = %i(name language_id).freeze
 
   attributes ATTRIBUTES
 

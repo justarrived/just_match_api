@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class FrilansFinansApiLog < ApplicationRecord
   scope :unproccessable_entity, -> { where(status: 422) }
   scope :server_error, -> { where(status: 500) }

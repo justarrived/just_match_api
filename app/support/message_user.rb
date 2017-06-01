@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class MessageUser
   def self.call(type:, user:, template:, subject: nil, data: {})
     new(type, user, template, subject, data).call do |formatted_subject, message|

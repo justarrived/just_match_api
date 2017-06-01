@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class CreateJobApplicationService
   def self.call(job:, user:, attributes:, job_owner:)
     job_user = JobUser.find_or_initialize_by(user: user, job: job)

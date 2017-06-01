@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 ActiveAdmin.register UserImage do
   menu parent: 'Users'
 
@@ -49,7 +50,7 @@ ActiveAdmin.register UserImage do
   end
 
   permit_params do
-    [:user_id, :category, :image]
+    %i(user_id category image)
   end
 
   controller do

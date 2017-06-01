@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'read_static_faq'
 
 class StaticFAQ

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class CountriesSerializer
   def self.serializeble_resource(filter: {})
     countries_data = []

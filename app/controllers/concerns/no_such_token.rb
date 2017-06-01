@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module NoSuchToken
   NO_SUCH_TOKEN = :no_such_token
 

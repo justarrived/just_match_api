@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class StaticFAQSerializer
   def self.serializeble_resource(locale:, language_id:, filter: {})
     faqs_data = []

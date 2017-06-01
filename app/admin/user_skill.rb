@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 ActiveAdmin.register UserSkill do
   menu parent: 'Users'
 
@@ -29,12 +30,12 @@ ActiveAdmin.register UserSkill do
   end
 
   permit_params do
-    [:user_id, :skill_id, :proficiency, :proficiency_by_admin]
+    %i(user_id skill_id proficiency proficiency_by_admin)
   end
 
   controller do
     def scoped_collection
-      super.includes(:user, skill: [:translations, :language])
+      super.includes(:user, skill: %i(translations language))
     end
   end
 end

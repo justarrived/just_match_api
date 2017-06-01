@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 ActiveAdmin.register Rating do
   menu parent: 'Jobs'
 
@@ -22,17 +23,17 @@ ActiveAdmin.register Rating do
   end
 
   permit_params do
-    [
-      :from_user_id,
-      :to_user_id,
-      :job_id,
-      :score
-    ]
+    %i(
+      from_user_id
+      to_user_id
+      job_id
+      score
+    )
   end
 
   controller do
     def scoped_collection
-      super.includes(job: [:language, :translations])
+      super.includes(job: %i(language translations))
     end
   end
 end

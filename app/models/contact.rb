@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class Contact < ApplicationRecord
   validates :name, length: { minimum: 2 }, allow_blank: false
   validates :email, length: { minimum: 6 }, allow_blank: false

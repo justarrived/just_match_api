@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Sweepers
   class CompanyImageSweeper
     def self.destroy_orphans(scope = CompanyImage)

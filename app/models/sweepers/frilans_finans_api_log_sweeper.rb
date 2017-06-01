@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Sweepers
   class FrilansFinansApiLogSweeper
     def self.destroy_old(scope: FrilansFinansApiLog, datetime: 1.week.ago)
