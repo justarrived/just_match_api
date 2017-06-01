@@ -150,8 +150,8 @@ RSpec.describe Api::V1::UsersController, type: :controller do
           attrs = valid_attributes.dup
           attrs[:data][:attributes][:bank_account] = '8000-2000 00000 00'
           post :create, params: attrs, headers: {}
-          expect(response.body).to have_jsonapi_attribute('account-clearing-number', '8000-2') # rubocop:disable Metrics/LineLength
-          expect(response.body).to have_jsonapi_attribute('account-number', '0000000000')
+          expect(response.body).to have_jsonapi_attribute('account_clearing_number', '8000-2') # rubocop:disable Metrics/LineLength
+          expect(response.body).to have_jsonapi_attribute('account_number', '0000000000')
         end
       end
 
@@ -169,7 +169,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         attrs = valid_attributes.dup
         attrs[:data][:attributes][:system_language_id] = nil
         post :create, params: attrs, headers: {}
-        expect(response.body).to have_jsonapi_attribute_error_for(:'system-language')
+        expect(response.body).to have_jsonapi_attribute_error_for(:system_language)
       end
 
       context 'without consent' do
@@ -472,7 +472,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         type = json_object['type']
 
         expect(description).to eq(I18n.t("notifications.#{id}"))
-        expect(type).to eq('user-notifications')
+        expect(type).to eq('user_notifications')
         expect(User::NOTIFICATIONS).to include(id)
       end
     end
@@ -498,7 +498,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
         expect(name).to eq(I18n.t("user.statuses.#{id}"))
         expect(description).to eq(I18n.t("user.statuses.#{id}_description"))
-        expect(type).to eq('user-statuses')
+        expect(type).to eq('user_statuses')
         expect(User::STATUSES.keys).to include(id.to_sym)
       end
     end

@@ -27,8 +27,8 @@ RSpec.describe Api::V1::Jobs::UsersController do
         }
 
         expect(response.body).to be_jsonapi_attribute('city', {})
-        expect(response.body).to be_jsonapi_attribute('skill-ids', skill_hash)
-        expect(response.body).to be_jsonapi_attribute('language-ids', language_hash)
+        expect(response.body).to be_jsonapi_attribute('skill_ids', skill_hash)
+        expect(response.body).to be_jsonapi_attribute('language_ids', language_hash)
       end
     end
   end
@@ -52,8 +52,8 @@ RSpec.describe Api::V1::Jobs::UsersController do
         FactoryGirl.create(:job_user, user: admin_user, job: job)
         get :job_user, params: { job_id: job.id, user_id: admin_user.id }
 
-        expect(JSON.parse(response.body)['meta']).to eq('has-applied' => true)
-        expect(response.body).to be_jsonapi_response_for('job-users', {})
+        expect(JSON.parse(response.body)['meta']).to eq('has_applied' => true)
+        expect(response.body).to be_jsonapi_response_for('job_users', {})
       end
     end
   end

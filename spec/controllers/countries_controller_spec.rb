@@ -10,7 +10,7 @@ RSpec.describe Api::V1::CountriesController, type: :controller do
       first_country_attrs = first_country.fetch('attributes')
 
       id = first_country.fetch('id')
-      country_code = first_country_attrs.fetch('country-code')
+      country_code = first_country_attrs.fetch('country_code')
       name = first_country_attrs.fetch('name')
 
       expect(id).to eq('AF')
