@@ -17,10 +17,10 @@ class Language < ApplicationRecord
   scope :machine_translation_languages, -> { system_languages.where(machine_translation: true) } # rubocop:disable Metrics/LineLength
 
   def self.common_working_languages_for(country:)
-    country_code = country.to_s.downcase
-    none unless country_code == 'se'
+    country_code = country.to_s.upcase
+    return where(lang_code: %i(en sv)) if country_code == 'SE'
 
-    where(lang_code: %i(en sv))
+    where(lang_code: %i(en))
   end
 
   def self.to_form_array(include_blank: false)
