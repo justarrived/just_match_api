@@ -3,6 +3,11 @@
 HEAD
 -----------
 
+v1.85 - 2017-06-01
+----------
+* _Admin_:
+  - Fix `AdminHelper#job_user_current_status_badge` for `Paid` status
+
 
 v1.84 - 2017-06-01
 ----------
