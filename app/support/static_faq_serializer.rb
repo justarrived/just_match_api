@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class StaticFAQSerializer
-  def self.serializeble_resource(locale:, language_id:, key_transform:, filter: {})
+  def self.serializeble_resource(locale:, language_id:, filter: {})
     faqs_data = []
 
     StaticFAQ.get(locale: locale).each_with_index do |attrs, index|
@@ -15,8 +15,7 @@ class StaticFAQSerializer
         id: index,
         type: :faqs,
         attributes: build_attributes(attrs, language_id),
-        relationships: relationships,
-        key_transform: key_transform
+        relationships: relationships
       )
     end
 

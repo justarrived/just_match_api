@@ -41,8 +41,7 @@ module Api
             skills: missing_skills,
             skills_hint: I18n.t('user.missing_job_skills_trait'),
             languages: missing_languages,
-            languages_hint: I18n.t('user.missing_job_languages_trait'),
-            key_transform: key_transform_header
+            languages_hint: I18n.t('user.missing_job_languages_trait')
           )
           render json: response
         end

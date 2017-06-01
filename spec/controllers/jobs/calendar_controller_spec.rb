@@ -11,7 +11,7 @@ RSpec.describe Api::V1::Jobs::CalendarController, type: :controller do
       json = JSON.parse(response.body)
 
       url_part = 'https://www.google.com/calendar/render?action=TEMPLATE'
-      expect(json.dig('data', 'attributes', 'template-url')).to include(url_part)
+      expect(json.dig('data', 'attributes', 'template_url')).to include(url_part)
     end
   end
 end

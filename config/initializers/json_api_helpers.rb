@@ -17,7 +17,7 @@ JsonApiFieldsParams = JsonApiHelpers::Params::Fields
 JsonApiIncludeParams = JsonApiHelpers::Params::Includes
 
 JsonApiHelpers.configure do |config|
-  config.key_transform = :dash
+  config.key_transform = :unaltered
   config.deserializer_klass = ActiveModelSerializers::Deserialization
   config.params_klass = ActionController::Parameters
 end

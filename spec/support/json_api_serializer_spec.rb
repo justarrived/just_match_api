@@ -67,10 +67,10 @@ RSpec.describe JsonApiSerializer do
           type: 'skills',
           attributes: {
             name: nil,
-            'language-id': nil,
-            'translated-text': {
+            language_id: nil,
+            translated_text: {
               name: nil,
-              'language-id': nil
+              language_id: nil
             }
           },
           relationships: {

@@ -60,7 +60,6 @@ module Api
               id: auth_token,
               type: :token,
               attributes: attributes,
-              key_transform: key_transform_header,
               meta: deprecations_meta
             )
             render json: response, status: :created

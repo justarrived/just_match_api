@@ -17,7 +17,7 @@ RSpec.describe ChatUserSerializer, type: :serializer do
     end
 
     it 'is valid jsonapi format' do
-      expect(subject).to be_jsonapi_formatted('chat-users')
+      expect(subject).to be_jsonapi_formatted('chat_users')
     end
   end
 end

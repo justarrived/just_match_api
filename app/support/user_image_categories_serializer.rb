@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class UserImageCategoriesSerializer
-  def self.serializeble_resource(key_transform:)
+  def self.serializeble_resource
     language_id = Language.find_by_locale(I18n.locale)&.id
 
     notifications_data = UserImage::CATEGORIES.map do |category_name, _value|
@@ -24,8 +24,7 @@ class UserImageCategoriesSerializer
         id: category_name,
         type: :user_image_categories,
         attributes: attributes,
-        relationships: relationships,
-        key_transform: key_transform
+        relationships: relationships
       )
     end
 

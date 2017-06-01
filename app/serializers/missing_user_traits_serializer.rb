@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class MissingUserTraitsSerializer
-  def self.serialize(user_attributes:, skills: [], languages: [], skills_hint: nil, languages_hint: nil, key_transform: :unaltered) # rubocop:disable Metrics/LineLength
+  def self.serialize(user_attributes:, skills: [], languages: [], skills_hint: nil, languages_hint: nil) # rubocop:disable Metrics/LineLength
     attributes = {}
     user_attributes.each { |name| attributes[name] = {} }
 
@@ -15,8 +15,7 @@ class MissingUserTraitsSerializer
     JsonApiData.new(
       id: SecureGenerator.token(length: 32),
       type: :missing_user_traits,
-      attributes: attributes,
-      key_transform: key_transform
+      attributes: attributes
     )
   end
 end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class UserStatusesSerializer
-  def self.serializeble_resource(key_transform:)
+  def self.serializeble_resource
     language_id = Language.find_by_locale(I18n.locale)&.id
 
     statuses_data = User::STATUSES.map do |status_name, _status_id|
@@ -25,8 +25,7 @@ class UserStatusesSerializer
         id: status_name,
         type: :user_statuses,
         attributes: attributes,
-        relationships: relationships,
-        key_transform: key_transform
+        relationships: relationships
       )
     end
     JsonApiDatum.new(statuses_data)

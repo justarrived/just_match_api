@@ -16,29 +16,27 @@ RSpec.describe UserSerializer, type: :serializer do
     )
     (UserPolicy::ATTRIBUTES - ignored).each do |attribute|
       it "has #{attribute.to_s.humanize.downcase}" do
-        dashed_attribute = attribute.to_s.dasherize
         value = resource.public_send(attribute)
-        expect(subject).to have_jsonapi_attribute(dashed_attribute, value)
+        expect(subject).to have_jsonapi_attribute(attribute.to_s, value)
       end
     end
 
     it 'has translated_text' do
-      dashed_attribute = 'translated_text'.dasherize
       value = {
         'description' => nil,
-        'description_html'.dasherize => nil,
-        'job_experience'.dasherize => nil,
-        'job_experience_html'.dasherize => nil,
+        'description_html' => nil,
+        'job_experience' => nil,
+        'job_experience_html' => nil,
         'education' => nil,
-        'education_html'.dasherize => nil,
-        'competence_text'.dasherize => nil,
-        'competence_text_html'.dasherize => nil,
-        'language_id'.dasherize => nil
+        'education_html' => nil,
+        'competence_text' => nil,
+        'competence_text_html' => nil,
+        'language_id' => nil
       }
-      expect(subject).to have_jsonapi_attribute(dashed_attribute, value)
+      expect(subject).to have_jsonapi_attribute('translated_text', value)
     end
 
-    %w(language languages company user-images).each do |relationship|
+    %w(language languages company user_images).each do |relationship|
       it "has #{relationship} relationship" do
         expect(subject).to have_jsonapi_relationship(relationship)
       end

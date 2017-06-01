@@ -10,7 +10,7 @@ RSpec.describe InvoiceSerializer, type: :serializer do
       JSON.parse(serialization.to_json)
     end
 
-    %w(job-user).each do |relationship|
+    %w(job_user).each do |relationship|
       it "has #{relationship} relationship" do
         expect(subject).to have_jsonapi_relationship(relationship)
       end

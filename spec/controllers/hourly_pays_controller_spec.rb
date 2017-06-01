@@ -24,8 +24,8 @@ RSpec.describe Api::V1::HourlyPaysController, type: :controller do
     it 'returns calculated salary' do
       get :calculate, params: valid_attributes
 
-      expect(response.body).to be_jsonapi_response_for('hourly-pays')
-      expect(response.body).to be_jsonapi_attribute('gross-salary', 100)
+      expect(response.body).to be_jsonapi_response_for('hourly_pays')
+      expect(response.body).to be_jsonapi_attribute('gross_salary', 100)
     end
   end
 end

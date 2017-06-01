@@ -17,7 +17,7 @@ RSpec.describe JobSkillSerializer, type: :serializer do
     end
 
     it 'is valid jsonapi format' do
-      expect(subject).to be_jsonapi_formatted('job-skills')
+      expect(subject).to be_jsonapi_formatted('job_skills')
     end
   end
 end

@@ -10,35 +10,34 @@ RSpec.describe CompanyImageSerializer, type: :serializer do
       JSON.parse(serialization.to_json)
     end
 
-    it 'has category-name' do
-      expect(subject).to have_jsonapi_attribute('category-name', 'logo')
+    it 'has category_name' do
+      expect(subject).to have_jsonapi_attribute('category_name', 'logo')
     end
 
-    it 'has image-url' do
+    it 'has image_url' do
       value = resource.image.url
-      expect(subject).to have_jsonapi_attribute('image-url', value)
+      expect(subject).to have_jsonapi_attribute('image_url', value)
     end
 
-    it 'has image-url-large' do
+    it 'has image_url_large' do
       value = resource.image.url(:large)
-      expect(subject).to have_jsonapi_attribute('image-url-large', value)
+      expect(subject).to have_jsonapi_attribute('image_url_large', value)
     end
 
-    it 'has image-url-medium' do
+    it 'has image_url_medium' do
       value = resource.image.url(:medium)
-      expect(subject).to have_jsonapi_attribute('image-url-medium', value)
+      expect(subject).to have_jsonapi_attribute('image_url_medium', value)
     end
 
-    it 'has image-url-small' do
+    it 'has image_url_small' do
       value = resource.image.url(:small)
-      expect(subject).to have_jsonapi_attribute('image-url-small', value)
+      expect(subject).to have_jsonapi_attribute('image_url_small', value)
     end
 
     described_class::ATTRIBUTES.each do |attribute|
       it "has #{attribute.to_s.humanize.downcase}" do
-        dashed_attribute = attribute.to_s.dasherize
         value = resource.public_send(attribute)
-        expect(subject).to have_jsonapi_attribute(dashed_attribute, value)
+        expect(subject).to have_jsonapi_attribute(attribute.to_s, value)
       end
     end
 
@@ -49,7 +48,7 @@ RSpec.describe CompanyImageSerializer, type: :serializer do
     end
 
     it 'is valid jsonapi format' do
-      expect(subject).to be_jsonapi_formatted('company-images')
+      expect(subject).to be_jsonapi_formatted('company_images')
     end
   end
 end
