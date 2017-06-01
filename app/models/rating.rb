@@ -22,8 +22,8 @@ class Rating < ApplicationRecord
   validate :validate_job_user_performed
   validate :validate_rating_user
 
-  scope :received_ratings, ->(user) { where(to_user: user) }
-  scope :gave_ratings, ->(user) { where(from_user: user) }
+  scope :received_ratings, (->(user) { where(to_user: user) })
+  scope :gave_ratings, (->(user) { where(from_user: user) })
 
   def self.user_allowed_to_rate?(job:, user:)
     return false if job.nil? || user.nil?

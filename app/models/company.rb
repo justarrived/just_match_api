@@ -23,10 +23,10 @@ class Company < ApplicationRecord
   # Virtual attributes for Frilans Finans
   attr_accessor :user_frilans_finans_id, :country_name
 
-  scope :needs_frilans_finans_id, lambda {
+  scope :needs_frilans_finans_id, (lambda {
     where(frilans_finans_id: nil).
       joins(:users).where('users.frilans_finans_id IS NOT NULL')
-  }
+  })
 
   def display_name
     "##{id} #{name}"

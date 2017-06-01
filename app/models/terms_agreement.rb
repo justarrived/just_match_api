@@ -11,19 +11,19 @@ class TermsAgreement < ApplicationRecord
 
   validate :validate_url_with_protocol
 
-  scope :regular_users, lambda {
+  scope :regular_users, (lambda {
     joins(:frilans_finans_term).where('frilans_finans_terms.company = ?',  false)
-  }
-  scope :company_users, lambda {
+  })
+  scope :company_users, (lambda {
     joins(:frilans_finans_term).where('frilans_finans_terms.company = ?',  true)
-  }
-  scope :orphans, lambda {
+  })
+  scope :orphans, (lambda {
     ids = TermsAgreementConsent.pluck(:terms_agreement_id)
     where.not(id: ids)
-  }
-  scope :over_aged_orphans, lambda {
+  })
+  scope :over_aged_orphans, (lambda {
     orphans.where('created_at < ?', MAX_DAYS_AGE_AS_ORPHAN.days.ago)
-  }
+  })
 
   def validate_url_with_protocol
     return if url.nil? || url_starts_with_protocol?(url)

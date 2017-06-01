@@ -56,16 +56,16 @@ module Geocodable
       after_validation :geocode_zip, if: ->(record) { record.zip_changed? }
       after_validation :validate_geocoding
 
-      scope :near_address, lambda { |query|
+      scope :near_address, (lambda { |query|
         area, distance = query.downcase.split('km:')
         km = distance&.strip&.to_f || 50
 
         near(area, km, units: :km)
-      }
+      })
 
-      scope :near_coordinates, lambda { |lat:, long:, km: 50|
+      scope :near_coordinates, (lambda { |lat:, long:, km: 50|
         near([lat, long], km, units: :km)
-      }
+      })
 
       def self.within(lat:, long:, distance:, locate_type: :address)
         type = self::LOCATE_BY.fetch(locate_type)

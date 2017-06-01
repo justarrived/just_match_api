@@ -18,10 +18,6 @@ class UserImage < ApplicationRecord
 
   before_create :generate_one_time_token
 
-  scope :valid_one_time_tokens, lambda {
-    where('one_time_token_expires_at > ?', Time.zone.now)
-  }
-
   IMAGE_STYLES = { large: '600x600>', medium: '300x300>', small: '100x100>' }.freeze
   IMAGE_DEFAULT_URL = '/images/:style/missing.png'
   IMAGE_MAX_MB_SIZE = 8
@@ -33,10 +29,13 @@ class UserImage < ApplicationRecord
   validates_attachment_content_type :image, content_type: %r{\Aimage\/.*\Z}
   validates_attachment_size :image, less_than: IMAGE_MAX_MB_SIZE.megabytes
 
-  scope :orhpans, -> { where(user: nil) }
-  scope :over_aged_orphans, lambda {
+  scope :valid_one_time_tokens, (lambda {
+    where('one_time_token_expires_at > ?', Time.zone.now)
+  })
+  scope :orhpans, (-> { where(user: nil) })
+  scope :over_aged_orphans, (lambda {
     orhpans.where('created_at < ?', MAX_HOURS_AGE_AS_ORPHAN.hours.ago)
-  }
+  })
 
   # NOTE: Figure out a good way to validate :current_status and :at_und
   #       see https://github.com/rails/rails/issues/13971

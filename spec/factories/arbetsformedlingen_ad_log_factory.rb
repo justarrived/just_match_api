@@ -6,7 +6,7 @@ FactoryGirl.define do
     response ''
   end
 end
-
+# rubocop:disable Metrics/LineLength
 # == Schema Information
 #
 # Table name: arbetsformedlingen_ad_logs

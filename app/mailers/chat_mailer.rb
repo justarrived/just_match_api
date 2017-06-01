@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ChatMailer < ApplicationMailer
-  def new_message_email(user:, chat:, message:, author:)
+  def new_message_email(user:, chat:, message:, author:) # rubocop:disable Lint/UnusedMethodArgument, Metrics/LineLength
     @author_name = author.name
     @message_body = message.body
 

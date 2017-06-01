@@ -8,7 +8,7 @@ module Translatable
   included do
     has_many :translations, class_name: "#{name}Translation", foreign_key: "#{name.underscore.downcase}_id", dependent: :destroy # rubocop:disable Metrics/LineLength
 
-    scope :with_translations, -> { includes(:language, :translations) }
+    scope :with_translations, (-> { includes(:language, :translations) })
 
     def original_translation
       translations.find_by(locale: language&.lang_code)

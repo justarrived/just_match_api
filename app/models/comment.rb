@@ -10,7 +10,7 @@ class Comment < ApplicationRecord
   validates :commentable_type, presence: true
   validates :body, presence: true, on: :create
 
-  scope :visible, -> { where(hidden: false) }
+  scope :visible, (-> { where(hidden: false) })
 
   include Translatable
   translates :body

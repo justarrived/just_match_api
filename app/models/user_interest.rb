@@ -11,10 +11,10 @@ class UserInterest < ApplicationRecord
   validates :interest, uniqueness: { scope: :user }
   validates :user, uniqueness: { scope: :interest }
 
-  scope :visible, lambda {
+  scope :visible, (lambda {
     with_level.joins(:interest).where(interests: { internal: false })
-  }
-  scope :with_level, -> { where.not(level: nil) }
+  })
+  scope :with_level, (-> { where.not(level: nil) })
 
   def touched_by_admin?
     !level_by_admin.nil?

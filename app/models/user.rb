@@ -104,34 +104,34 @@ class User < ApplicationRecord
   validate :validate_swedish_bank_account
   validate :validate_arrival_date_in_past
 
-  scope :scope_for, ->(user) { user.admin? ? all : where(id: user&.id) }
-  scope :sales_users, -> { admins }
-  scope :delivery_users, -> { super_admins }
-  scope :super_admins, -> { where(super_admin: true) }
-  scope :admins, -> { where(admin: true) }
-  scope :company_users, -> { where.not(company: nil) }
-  scope :regular_users, -> { where(company: nil) }
-  scope :managed_users, -> { where(managed: true) }
-  scope :visible, -> { where.not(banned: true) }
-  scope :valid_one_time_tokens, lambda {
+  scope :scope_for, (->(user) { user.admin? ? all : where(id: user&.id) })
+  scope :sales_users, (-> { admins })
+  scope :delivery_users, (-> { super_admins })
+  scope :super_admins, (-> { where(super_admin: true) })
+  scope :admins, (-> { where(admin: true) })
+  scope :company_users, (-> { where.not(company: nil) })
+  scope :regular_users, (-> { where(company: nil) })
+  scope :managed_users, (-> { where(managed: true) })
+  scope :visible, (-> { where.not(banned: true) })
+  scope :valid_one_time_tokens, (lambda {
     where('one_time_token_expires_at > ?', Time.zone.now)
-  }
-  scope :frilans_finans_users, -> { where.not(frilans_finans_id: nil) }
-  scope :needs_frilans_finans_id, lambda {
+  })
+  scope :frilans_finans_users, (-> { where.not(frilans_finans_id: nil) })
+  scope :needs_frilans_finans_id, (lambda {
     not_anonymized.
       regular_users.
       where(frilans_finans_id: nil).
       where.not(phone: [nil, ''])
-  }
-  scope :anonymized, -> { where(anonymized: true) }
-  scope :not_anonymized, -> { where(anonymized: false) }
-  scope :verified, -> { where(verified: true) }
-  scope :needs_welcome_app_update, lambda {
+  })
+  scope :anonymized, (-> { where(anonymized: true) })
+  scope :not_anonymized, (-> { where(anonymized: false) })
+  scope :verified, (-> { where(verified: true) })
+  scope :needs_welcome_app_update, (lambda {
     scope = regular_users.where(welcome_app_last_checked_at: nil).
             or(before(:welcome_app_last_checked_at, 1.week.ago))
 
     scope.where(has_welcome_app_account: false)
-  }
+  })
 
   # NOTE: Figure out a good way to validate :current_status, :at_und and :gender
   #       see https://github.com/rails/rails/issues/13971

@@ -71,37 +71,37 @@ class Job < ApplicationRecord
 
   validate :validate_job_date_in_future, unless: -> { Rails.configuration.x.validate_job_date_in_future_inactive } # rubocop:disable Metrics/LineLength
 
-  scope :visible, -> { where(hidden: false) }
-  scope :cancelled, -> { where(cancelled: true) }
-  scope :uncancelled, -> { where(cancelled: false) }
-  scope :filled, -> { where(filled: true) }
-  scope :unfilled, -> { where(filled: false) }
-  scope :upcoming, -> { where(upcoming: true) }
-  scope :featured, -> { where(featured: true) }
-  scope :applied_jobs, lambda { |user_id|
+  scope :visible, (-> { where(hidden: false) })
+  scope :cancelled, (-> { where(cancelled: true) })
+  scope :uncancelled, (-> { where(cancelled: false) })
+  scope :filled, (-> { where(filled: true) })
+  scope :unfilled, (-> { where(filled: false) })
+  scope :upcoming, (-> { where(upcoming: true) })
+  scope :featured, (-> { where(featured: true) })
+  scope :applied_jobs, (lambda { |user_id|
     joins(:job_users).where('job_users.user_id = ?', user_id)
-  }
-  scope :no_applied_jobs, lambda { |user_id|
+  })
+  scope :no_applied_jobs, (lambda { |user_id|
     where.not(id: applied_jobs(user_id).map(&:id))
-  }
-  scope :active_between, lambda { |from, to|
+  })
+  scope :active_between, (lambda { |from, to|
     between = between(:job_date, from, to).or(between(:job_end_date, from, to))
     outer_between = where('job_date <= ? AND job_end_date >= ?', from, to)
 
     between.or(outer_between).uncancelled.filled
-  }
-  scope :ongoing, lambda {
+  })
+  scope :ongoing, (lambda {
     today = Time.zone.today
     active_between(today.beginning_of_day, today.end_of_day)
-  }
-  scope :order_by_name, lambda { |direction: :asc|
+  })
+  scope :order_by_name, (lambda { |direction: :asc|
     dir = direction.to_s == 'desc' ? 'DESC' : 'ASC'
     order("job_translations.name #{dir}")
-  }
-  scope :passed, -> { where('job_end_date < ?', Time.zone.now) }
-  scope :future, -> { where('job_end_date > ?', Time.zone.now) }
-  scope :linkedin_jobs, -> { where(publish_on_linkedin: true) }
-  scope :blocketjobb_jobs, -> { where(publish_on_blocketjobb: true) }
+  })
+  scope :passed, (-> { where('job_end_date < ?', Time.zone.now) })
+  scope :future, (-> { where('job_end_date > ?', Time.zone.now) })
+  scope :linkedin_jobs, (-> { where(publish_on_linkedin: true) })
+  scope :blocketjobb_jobs, (-> { where(publish_on_blocketjobb: true) })
 
   enum salary_type: SALARY_TYPES
 

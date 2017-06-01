@@ -12,23 +12,23 @@ class FrilansFinansInvoice < ApplicationRecord
   validates :job_user, presence: true
   validates :frilans_finans_id, uniqueness: true, allow_nil: true
 
-  scope :needs_frilans_finans_id, lambda {
+  scope :needs_frilans_finans_id, (lambda {
     joins(:job).
       where('jobs.staffing_job = ?', false).
       where('jobs.direct_recruitment_job = ?', false).
       where(frilans_finans_id: nil)
-  }
-  scope :has_frilans_finans_id, -> { where.not(frilans_finans_id: nil) }
-  scope :activated, -> { where(activated: true) }
-  scope :pre_report, -> { where(activated: false) }
-  scope :not_paid, -> { where('ff_status IS NULL OR ff_status != ?', FF_PAID_STATUS) }
-  scope :paid, -> { where(ff_status: FF_PAID_STATUS) }
-  scope :uncancelled_jobs, -> { joins(:job).where('jobs.cancelled = ?', false) }
+  })
+  scope :has_frilans_finans_id, (-> { where.not(frilans_finans_id: nil) })
+  scope :activated, (-> { where(activated: true) })
+  scope :pre_report, (-> { where(activated: false) })
+  scope :not_paid, (-> { where('ff_status IS NULL OR ff_status != ?', FF_PAID_STATUS) })
+  scope :paid, (-> { where(ff_status: FF_PAID_STATUS) })
+  scope :uncancelled_jobs, (-> { joins(:job).where('jobs.cancelled = ?', false) })
 
-  scope :job_ended, lambda { |start:, finish:|
+  scope :job_ended, (lambda { |start:, finish:|
     joins(:job).
       where('jobs.job_end_date > ? AND jobs.job_end_date < ?', start, finish)
-  }
+  })
 
   validate :validates_job_user_will_perform, on: :create
   validate :validate_job_frilans_finans_job

@@ -11,11 +11,11 @@ class Language < ApplicationRecord
 
   validates :lang_code, uniqueness: true, presence: true
 
-  scope :system_languages, -> { where(system_language: true) }
-  scope :non_system_languages, -> { where.not(system_language: true) }
-  scope :rtl_languages, -> { where(direction: :rtl) }
-  scope :ltr_languages, -> { where(direction: :ltr) }
-  scope :machine_translation_languages, -> { system_languages.where(machine_translation: true) } # rubocop:disable Metrics/LineLength
+  scope :system_languages, (-> { where(system_language: true) })
+  scope :non_system_languages, (-> { where.not(system_language: true) })
+  scope :rtl_languages, (-> { where(direction: :rtl) })
+  scope :ltr_languages, (-> { where(direction: :ltr) })
+  scope :machine_translation_languages, (-> { system_languages.where(machine_translation: true) }) # rubocop:disable Metrics/LineLength
 
   def self.common_working_languages_for(country:)
     country_code = country.to_s.upcase

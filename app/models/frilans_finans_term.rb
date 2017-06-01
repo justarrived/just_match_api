@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class FrilansFinansTerm < ApplicationRecord
-  scope :user_terms, -> { where(company: false) }
-  scope :company_terms, -> { where(company: true) }
+  scope :user_terms, (-> { where(company: false) })
+  scope :company_terms, (-> { where(company: true) })
 
   def self.current_user_terms
     user_terms.last

@@ -32,19 +32,19 @@ class JobUser < ApplicationRecord
 
   before_validation :accepted_at_setter
 
-  scope :unrejected, -> { where(rejected: false) }
-  scope :shortlisted, -> { where(shortlisted: true) }
-  scope :withdrawn, -> { where(application_withdrawn: true) }
-  scope :visible, -> { where(application_withdrawn: false) }
-  scope :accepted, -> { where(accepted: true) }
-  scope :will_perform, -> { where(will_perform: true) }
-  scope :unconfirmed, -> { accepted.where(will_perform: false) }
-  scope :performed, -> { where(performed: false) }
-  scope :applicant_confirmation_overdue, lambda {
+  scope :unrejected, (-> { where(rejected: false) })
+  scope :shortlisted, (-> { where(shortlisted: true) })
+  scope :withdrawn, (-> { where(application_withdrawn: true) })
+  scope :visible, (-> { where(application_withdrawn: false) })
+  scope :accepted, (-> { where(accepted: true) })
+  scope :will_perform, (-> { where(will_perform: true) })
+  scope :unconfirmed, (-> { accepted.where(will_perform: false) })
+  scope :performed, (-> { where(performed: false) })
+  scope :applicant_confirmation_overdue, (lambda {
     unconfirmed.where('accepted_at < ?', MAX_CONFIRMATION_TIME_HOURS.hours.ago)
-  }
-  scope :verified, -> { joins(:user).where('users.verified = ?', true) }
-  scope :not_pre_reported, lambda {
+  })
+  scope :verified, (-> { joins(:user).where('users.verified = ?', true) })
+  scope :not_pre_reported, (lambda {
     will_perform.
       joins(:job).
       where('jobs.job_date < ?', Time.zone.now).
@@ -52,7 +52,7 @@ class JobUser < ApplicationRecord
       where('jobs.staffing_job = ?', false).
       left_joins(:frilans_finans_invoice).
       where('frilans_finans_invoices.id IS NULL OR frilans_finans_invoices.ff_approval_status IS NULL') # rubocop:disable Metrics/LineLength
-  }
+  })
 
   include Translatable
   translates :apply_message

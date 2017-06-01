@@ -13,8 +13,8 @@ class UserSkill < ApplicationRecord
   validates :proficiency, numericality: { only_integer: true }, inclusion: PROFICIENCY_RANGE, allow_nil: true # rubocop:disable Metrics/LineLength
   validates :proficiency_by_admin, numericality: { only_integer: true }, inclusion: PROFICIENCY_RANGE, allow_nil: true # rubocop:disable Metrics/LineLength
 
-  scope :visible, -> { with_proficiency.joins(:skill).where(skills: { internal: false }) }
-  scope :with_proficiency, -> { where.not(proficiency: nil) }
+  scope :visible, (-> { with_proficiency.joins(:skill).where(skills: { internal: false }) }) # rubocop:disable Metrics/LineLength
+  scope :with_proficiency, (-> { where.not(proficiency: nil) })
 
   def self.safe_create(skill:, user:, proficiency_by_admin: nil)
     return find_or_create_by(user: user, skill: skill) if proficiency_by_admin.blank?

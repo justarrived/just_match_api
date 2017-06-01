@@ -11,12 +11,12 @@ class Skill < ApplicationRecord
 
   validates :name, uniqueness: true, length: { minimum: 1 }, allow_blank: false, on: :create # rubocop:disable Metrics/LineLength
 
-  scope :order_by_name, lambda { |direction: :asc|
+  scope :order_by_name, (lambda { |direction: :asc|
     dir = direction.to_s == 'desc' ? 'DESC' : 'ASC'
     order("skill_translations.name #{dir}")
-  }
-  scope :visible, -> { where(internal: false) }
-  scope :high_priority, -> { where(high_priority: true) }
+  })
+  scope :visible, (-> { where(internal: false) })
+  scope :high_priority, (-> { where(high_priority: true) })
 
   include Translatable
   translates :name

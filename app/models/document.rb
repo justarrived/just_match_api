@@ -14,9 +14,9 @@ class Document < ApplicationRecord
 
   before_create :generate_one_time_token
 
-  scope :valid_one_time_tokens, lambda {
+  scope :valid_one_time_tokens, (lambda {
     where('one_time_token_expires_at > ?', Time.zone.now)
-  }
+  })
 
   has_attached_file :document, s3_protocol: :https
 

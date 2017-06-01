@@ -6,11 +6,11 @@ class Interest < ApplicationRecord
 
   belongs_to :language, optional: true
 
-  scope :order_by_name, lambda { |direction: :asc|
+  scope :order_by_name, (lambda { |direction: :asc|
     dir = direction.to_s == 'desc' ? 'DESC' : 'ASC'
     order("interest_translations.name #{dir}")
-  }
-  scope :visible, -> { where(internal: false) }
+  })
+  scope :visible, (-> { where(internal: false) })
 
   include Translatable
   translates :name

@@ -5,7 +5,7 @@ class HourlyPay < ApplicationRecord
 
   validates :gross_salary, presence: true, numericality: { only_integer: true }
 
-  scope :active, -> { where(active: true) }
+  scope :active, (-> { where(active: true) })
 
   def name
     "Gross salary #{gross_salary} SEK"

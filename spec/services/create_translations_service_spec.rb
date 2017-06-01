@@ -43,7 +43,11 @@ RSpec.describe CreateTranslationsService do
     it 'returns all attributes in changed array (of strings)' do
       name = 'Watman'
       translation = FactoryGirl.create(:job_translation, name: name)
-      service = described_class.new(translation: translation, from: :sv, changed: %w(name))
+      service = described_class.new(
+        translation: translation,
+        from: :sv,
+        changed: %w(name)
+      )
       attributes = service.attributes_for_translation
       expect(attributes).to eq('name' => name)
     end

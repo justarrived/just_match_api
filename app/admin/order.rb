@@ -147,10 +147,13 @@ ActiveAdmin.register Order do
     def update_resource(order, params_array)
       order_params = params_array.first
       order_documents_attrs = order_params.delete(:order_documents_attributes)
-      document_ids_param = order_documents_attrs.fetch(:document_attributes, {}).map do |_index, attrs|
+      order_documents_attrs.fetch(:document_attributes, {}).map do |_index, attrs|
         { id: attrs[:id], document: attrs[:document] }
       end
-      SetOrderDocumentsService.call(order: order, order_documents_param: order_documents_attrs)
+      SetOrderDocumentsService.call(
+        order: order,
+        order_documents_param: order_documents_attrs
+      )
       super
     end
   end

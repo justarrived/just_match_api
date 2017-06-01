@@ -4,7 +4,6 @@ module SetOrderDocumentsService
   def self.call(order:, order_documents_param:)
     return OrderDocument.none if order_documents_param.nil?
 
-    current_order_documents = order.order_documents
     order_documents_params = normalize_order_documents(order_documents_param)
     order_documents = order_documents_params.map do |attrs_parts|
       attrs = attrs_parts.last.to_h.fetch(:document_attributes)
