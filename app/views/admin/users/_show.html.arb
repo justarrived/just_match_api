@@ -67,6 +67,20 @@ columns do
 
         h3 I18n.t('admin.user.show.verified', verified: user.verified)
 
+        if cv = user.user_documents.cv.last&.document
+          h3 safe_join(
+            [
+              download_link_to(
+                url: cv.url,
+                file_name: cv.document_file_name,
+                title: I18n.t('admin.download')
+              ),
+              'CV'
+            ],
+            ' '
+          )
+        end
+
         h3 I18n.t('admin.user.show.filters')
         div do
           content_tag(:p) do

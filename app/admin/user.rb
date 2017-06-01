@@ -329,7 +329,8 @@ ActiveAdmin.register User do
       user_skills_attributes: [:skill_id, :proficiency, :proficiency_by_admin],
       user_languages_attributes: [:language_id, :proficiency, :proficiency_by_admin],
       user_interests_attributes: [:interest_id, :level, :level_by_admin],
-      user_tags_attributes: [:id, :tag_id, :_destroy]
+      user_tags_attributes: [:id, :tag_id, :_destroy],
+      user_documents_attributes: [:id, :category, { document_attributes: [:document] }]
     ]
     UserPolicy::SELF_ATTRIBUTES + extras + relations
   end
@@ -341,6 +342,14 @@ ActiveAdmin.register User do
 
     def update_resource(user, params_array)
       user_params = params_array.first
+
+      document_params = user_params[:user_documents_attributes].to_unsafe_h
+      new_document_params = {}
+      document_params.each do |key, attributes|
+        # We don't want to touch already created user documents
+        new_document_params[key] = attributes unless attributes['id']
+      end
+      user_params[:user_documents_attributes] = new_document_params
 
       user_interests_attrs = user_params.delete(:user_interests_attributes)
       interest_ids_param = (user_interests_attrs || {}).map do |_index, attrs|
