@@ -45,13 +45,14 @@ end
 #
 # Table name: skills
 #
-#  id          :integer          not null, primary key
-#  name        :string
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  language_id :integer
-#  internal    :boolean          default(FALSE)
-#  color       :string
+#  id            :integer          not null, primary key
+#  name          :string
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  language_id   :integer
+#  internal      :boolean          default(FALSE)
+#  color         :string
+#  high_priority :boolean          default(FALSE)
 #
 # Indexes
 #
