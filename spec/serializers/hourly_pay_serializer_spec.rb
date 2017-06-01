@@ -18,20 +18,17 @@ RSpec.describe HourlyPaySerializer, type: :serializer do
     )
     (described_class::ATTRIBUTES - ignore_values).each do |attribute|
       it "has #{attribute.to_s.humanize.downcase}" do
-        dashed_attribute = attribute.to_s.dasherize
         value = resource.public_send(attribute)
-        expect(subject).to have_jsonapi_attribute(dashed_attribute, value)
+        expect(subject).to have_jsonapi_attribute(attribute.to_s, value)
       end
     end
 
     it 'has gross_salary_with_unit' do
-      dashed_attribute = 'gross_salary_with_unit'.dasherize
-      expect(subject).to have_jsonapi_attribute(dashed_attribute, '100 SEK/hour')
+      expect(subject).to have_jsonapi_attribute('gross_salary_with_unit', '100 SEK/hour')
     end
 
     it 'has gross_salary_delimited' do
-      dashed_attribute = 'gross_salary_delimited'.dasherize
-      expect(subject).to have_jsonapi_attribute(dashed_attribute, '100')
+      expect(subject).to have_jsonapi_attribute('gross_salary_delimited', '100')
     end
 
     it 'has unit' do
@@ -39,7 +36,7 @@ RSpec.describe HourlyPaySerializer, type: :serializer do
     end
 
     it 'is valid jsonapi format' do
-      expect(subject).to be_jsonapi_formatted('hourly-pays')
+      expect(subject).to be_jsonapi_formatted('hourly_pays')
     end
   end
 end

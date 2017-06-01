@@ -12,16 +12,14 @@ RSpec.describe JobUserSerializer, type: :serializer do
 
     described_class::ATTRIBUTES.each do |attribute|
       it "has #{attribute.to_s.humanize.downcase}" do
-        dashed_attribute = attribute.to_s.dasherize
         value = resource.public_send(attribute)
-        expect(subject).to have_jsonapi_attribute(dashed_attribute, value)
+        expect(subject).to have_jsonapi_attribute(attribute.to_s, value)
       end
     end
 
     it 'has translated_text' do
-      dashed_attribute = 'translated_text'.dasherize
-      value = { 'apply_message'.dasherize => nil, 'language_id'.dasherize => nil }
-      expect(subject).to have_jsonapi_attribute(dashed_attribute, value)
+      value = { 'apply_message' => nil, 'language_id' => nil }
+      expect(subject).to have_jsonapi_attribute('translated_text', value)
     end
 
     %w(job user language).each do |relationship|
@@ -31,7 +29,7 @@ RSpec.describe JobUserSerializer, type: :serializer do
     end
 
     it 'is valid jsonapi format' do
-      expect(subject).to be_jsonapi_formatted('job-users')
+      expect(subject).to be_jsonapi_formatted('job_users')
     end
   end
 end

@@ -12,14 +12,13 @@ RSpec.describe DocumentSerializer, type: :serializer do
 
     it 'has document-url' do
       value = resource.document.url
-      expect(subject).to have_jsonapi_attribute('document-url', value)
+      expect(subject).to have_jsonapi_attribute('document_url', value)
     end
 
     described_class::ATTRIBUTES.each do |attribute|
       it "has #{attribute.to_s.humanize.downcase}" do
-        dashed_attribute = attribute.to_s.dasherize
         value = resource.public_send(attribute)
-        expect(subject).to have_jsonapi_attribute(dashed_attribute, value)
+        expect(subject).to have_jsonapi_attribute(attribute.to_s, value)
       end
     end
 

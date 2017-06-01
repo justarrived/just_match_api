@@ -12,25 +12,22 @@ RSpec.describe CommentSerializer, type: :serializer do
 
     described_class::ATTRIBUTES.each do |attribute|
       it "has #{attribute.to_s.humanize.downcase}" do
-        dashed_attribute = attribute.to_s.dasherize
         value = resource.public_send(attribute)
-        expect(subject).to have_jsonapi_attribute(dashed_attribute, value)
+        expect(subject).to have_jsonapi_attribute(attribute.to_s, value)
       end
     end
 
     it 'has body_html' do
-      dashed_attribute = 'body_html'.dasherize
-      expect(subject).to have_jsonapi_attribute(dashed_attribute, nil)
+      expect(subject).to have_jsonapi_attribute('body_html', nil)
     end
 
     it 'has translated_text' do
-      dashed_attribute = 'translated_text'.dasherize
       value = {
         'body' => nil,
-        'body_html'.dasherize => nil,
-        'language_id'.dasherize => nil
+        'body_html' => nil,
+        'language_id' => nil
       }
-      expect(subject).to have_jsonapi_attribute(dashed_attribute, value)
+      expect(subject).to have_jsonapi_attribute('translated_text', value)
     end
 
     %w(owner language).each do |relationship|

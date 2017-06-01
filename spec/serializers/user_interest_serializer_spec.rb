@@ -17,7 +17,7 @@ RSpec.describe UserInterestSerializer, type: :serializer do
     end
 
     it 'is valid jsonapi format' do
-      expect(subject).to be_jsonapi_formatted('user-interests')
+      expect(subject).to be_jsonapi_formatted('user_interests')
     end
   end
 end

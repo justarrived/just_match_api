@@ -18,42 +18,39 @@ RSpec.describe JobSerializer, type: :serializer do
     )
     (JobPolicy::ATTRIBUTES - ignore_fields).each do |attribute|
       it "has #{attribute.to_s.humanize.downcase}" do
-        dashed_attribute = attribute.to_s.dasherize
         value = resource.public_send(attribute)
-        expect(subject).to have_jsonapi_attribute(dashed_attribute, value)
+        expect(subject).to have_jsonapi_attribute(attribute.to_s, value)
       end
     end
 
     it 'has translated_text' do
-      dashed_attribute = 'translated_text'.dasherize
       value = {
         'name' => nil,
         'description' => nil,
-        'description_html'.dasherize => nil,
-        'short_description'.dasherize => nil,
-        'language_id'.dasherize => nil
+        'description_html' => nil,
+        'short_description' => nil,
+        'language_id' => nil
       }
-      expect(subject).to have_jsonapi_attribute(dashed_attribute, value)
+      expect(subject).to have_jsonapi_attribute('translated_text', value)
     end
 
     it 'has net_amount_with_currency' do
-      dashed_attribute = 'net_amount_with_currency'.dasherize
-      expect(subject).to have_jsonapi_attribute(dashed_attribute, '2,100 SEK')
+      expect(subject).to have_jsonapi_attribute('net_amount_with_currency', '2,100 SEK')
     end
 
     it 'has gross_amount_with_currency' do
-      dashed_attribute = 'gross_amount_with_currency'.dasherize
-      expect(subject).to have_jsonapi_attribute(dashed_attribute, '3,000 SEK')
+      attribute = 'gross_amount_with_currency'
+      expect(subject).to have_jsonapi_attribute(attribute, '3,000 SEK')
     end
 
     it 'has net_amount_delimited' do
-      dashed_attribute = 'net_amount_delimited'.dasherize
-      expect(subject).to have_jsonapi_attribute(dashed_attribute, '2,100')
+      attribute = 'net_amount_delimited'
+      expect(subject).to have_jsonapi_attribute(attribute, '2,100')
     end
 
     it 'has gross_amount_delimited' do
-      dashed_attribute = 'gross_amount_delimited'.dasherize
-      expect(subject).to have_jsonapi_attribute(dashed_attribute, '3,000')
+      attribute = 'gross_amount_delimited'
+      expect(subject).to have_jsonapi_attribute(attribute, '3,000')
     end
 
     it 'has currency' do
@@ -61,7 +58,7 @@ RSpec.describe JobSerializer, type: :serializer do
     end
 
     %w(
-      owner company language category hourly-pay job-languages job-skills
+      owner company language category hourly_pay job_languages job_skills
     ).each do |relationship|
       it "has #{relationship} relationship" do
         expect(subject).to have_jsonapi_relationship(relationship)
