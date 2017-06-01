@@ -18,6 +18,23 @@ module Api
         job_languages job_languages.language job_skills job_skills.skill
       ).freeze
 
+      def locations
+        authorize(Job)
+        data = Job.uncancelled.find_each(batch_size: 5000).map do |job|
+          {
+            id: job.id.to_s,
+            type: :jobs,
+            attributes: {
+              zip_latitude: job.zip_latitude,
+              zip_longitude: job.zip_longitude,
+              hours: job.hours
+            }
+          }
+        end
+
+        render json: { data: data }.to_json, status: :ok
+      end
+
       api :GET, '/jobs', 'List jobs'
       description 'Returns a list of jobs.'
       ApipieDocHelper.params(self, Index::JobsIndex)

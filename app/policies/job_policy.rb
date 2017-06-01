@@ -42,6 +42,7 @@ class JobPolicy < ApplicationPolicy
     true
   end
 
+  alias_method :locations?, :index?
   alias_method :show?, :index?
   alias_method :google?, :show?
 
