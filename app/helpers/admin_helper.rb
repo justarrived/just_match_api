@@ -17,7 +17,7 @@ module AdminHelper
     if status == 'Not pre-reported!'
       color = 'red'
       font_weight = 'bold'
-    elsif status == 'paid'
+    elsif status == 'Paid'
       color = 'green'
     end
 
