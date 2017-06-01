@@ -94,6 +94,22 @@ class AppConfig
     env['FRILANS_FINANS_BASE_URI']
   end
 
+  def self.user_one_time_token_valid_for_hours
+    Integer(env.fetch('USER_ONE_TIME_TOKEN_VALID_FOR_HOURS', 18))
+  end
+
+  def self.max_password_length
+    Integer(env.fetch('MAX_PASSWORD_LENGTH', 50))
+  end
+
+  def self.min_password_length
+    Integer(env.fetch('MIN_PASSWORD_LENGTH', 6))
+  end
+
+  def self.days_between_welcome_checks
+    Integer(env.fetch('DAYS_BETWEEN_WELCOME_CHECKS', 7))
+  end
+
   def self.welcome_app_active?
     truthy?(env['WELCOME_APP_ACTIVE'])
   end

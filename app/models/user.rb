@@ -6,9 +6,10 @@ class User < ApplicationRecord
 
   class MissingFrilansFinansIdError < RuntimeError; end
 
-  MIN_PASSWORD_LENGTH = 6
-  MAX_PASSWORD_LENGTH = 50
-  ONE_TIME_TOKEN_VALID_FOR_HOURS = 18
+  MIN_PASSWORD_LENGTH = AppConfig.min_password_length
+  MAX_PASSWORD_LENGTH = AppConfig.max_password_length
+  ONE_TIME_TOKEN_VALID_FOR_HOURS = AppConfig.user_one_time_token_valid_for_hours
+  DAYS_BETWEEN_WELCOME_CHECKS = AppConfig.days_between_welcome_checks
 
   LOCATE_BY = {
     address: { lat: :latitude, long: :longitude }.freeze
@@ -128,7 +129,7 @@ class User < ApplicationRecord
   scope :verified, (-> { where(verified: true) })
   scope :needs_welcome_app_update, (lambda {
     scope = regular_users.where(welcome_app_last_checked_at: nil).
-            or(before(:welcome_app_last_checked_at, 1.week.ago))
+            or(before(:welcome_app_last_checked_at, DAYS_BETWEEN_WELCOME_CHECKS.days.ago))
 
     scope.where(has_welcome_app_account: false)
   })
