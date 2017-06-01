@@ -110,6 +110,7 @@ en:
     missing_job_skills_trait: above you can find some relevant skills for this job that you haven't added yet
     missing_job_languages_trait: above you can find some relevant languages for this job that you haven't added yet
     missing_languages_trait: here you can add some selected language skills that we really want to know more about
+    missing_skills_trait: here you can add some selected skills that we really want to know more about
     statuses:
       asylum_seeker: Asylum seeker
       asylum_seeker_description: Asylum seeker

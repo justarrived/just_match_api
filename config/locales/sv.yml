@@ -110,6 +110,7 @@ sv:
     missing_job_skills_trait: ovan kan du hitta relvanta färdigheter för det här jobbet
     missing_job_languages_trait: ovan kan du hitta relvanta språk för det här jobbet
     missing_languages_trait: här kan du lägga till några utvalda språkkunskaper som vi verkligen vill veta mer om
+    missing_skills_trait: här kan du lägga till några utvalda färdigheter som vi verkligen vill veta mer om
     statuses:
       asylum_seeker: Asylsökande
       asylum_seeker_description: Asylsökande

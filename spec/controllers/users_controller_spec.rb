@@ -439,6 +439,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     it 'returns the missing traits' do
       Language.find_or_create_by(lang_code: :en)
       sv = Language.find_or_create_by(lang_code: :sv)
+      skill = FactoryGirl.create(:skill, high_priority: true)
 
       user = FactoryGirl.create(:user, city: nil)
       user.languages = [sv]
@@ -449,8 +450,14 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         'hint' => I18n.t('user.missing_languages_trait')
       }
 
+      skill_hash = {
+        'ids' => [skill.id],
+        'hint' => I18n.t('user.missing_skills_trait')
+      }
+
       expect(response.body).to be_jsonapi_attribute('city', {})
       expect(response.body).to be_jsonapi_attribute('language_ids', language_hash)
+      expect(response.body).to be_jsonapi_attribute('skill_ids', skill_hash)
     end
   end
 
