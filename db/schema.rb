@@ -10,11 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170524140745) do
+ActiveRecord::Schema.define(version: 20170601080147) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "pg_stat_statements"
   enable_extension "unaccent"
 
   create_table "active_admin_comments", force: :cascade do |t|
@@ -22,8 +21,8 @@ ActiveRecord::Schema.define(version: 20170524140745) do
     t.text     "body"
     t.string   "resource_id",   null: false
     t.string   "resource_type", null: false
-    t.integer  "author_id"
     t.string   "author_type"
+    t.integer  "author_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id", using: :btree
@@ -138,8 +137,8 @@ ActiveRecord::Schema.define(version: 20170524140745) do
 
   create_table "comments", force: :cascade do |t|
     t.text     "body"
-    t.integer  "commentable_id"
     t.string   "commentable_type"
+    t.integer  "commentable_id"
     t.integer  "owner_user_id"
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
@@ -629,11 +628,12 @@ ActiveRecord::Schema.define(version: 20170524140745) do
 
   create_table "skills", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
     t.integer  "language_id"
-    t.boolean  "internal",    default: false
+    t.boolean  "internal",      default: false
     t.string   "color"
+    t.boolean  "high_priority", default: false
     t.index ["language_id"], name: "index_skills_on_language_id", using: :btree
     t.index ["name"], name: "index_skills_on_name", unique: true, using: :btree
   end

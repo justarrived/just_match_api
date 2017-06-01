@@ -314,10 +314,15 @@ module Api
         languages = Language.common_working_languages_for(country: :se)
         missing_languages = missing_traits.languages(user: @user, languages: languages)
 
+        skills = Skill.high_priority
+        missing_skills = missing_traits.skills(user: @user, skills: skills)
+
         response = MissingUserTraitsSerializer.serialize(
           user_attributes: missing_attributes,
           languages: missing_languages,
-          languages_hint: I18n.t('user.missing_languages_trait')
+          languages_hint: I18n.t('user.missing_languages_trait'),
+          skills: missing_skills,
+          skills_hint: I18n.t('user.missing_skills_trait')
         )
         render json: response
       end

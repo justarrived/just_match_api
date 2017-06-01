@@ -4,10 +4,15 @@ ActiveAdmin.register Skill do
 
   include AdminHelpers::MachineTranslation::Actions
 
+  scope :all
+  scope :high_priority
+  scope :visible
+
   index do
     selectable_column
 
     column :id
+    column :high_priority
     column :internal
     column :name { |skill| skill_badge(skill: skill) }
     column :updated_at
@@ -31,7 +36,7 @@ ActiveAdmin.register Skill do
   end
 
   permit_params do
-    [:name, :color, :internal, :language_id]
+    [:name, :color, :internal, :language_id, :high_priority]
   end
 
   controller do
