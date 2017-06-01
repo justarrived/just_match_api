@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class RatingPolicy < ApplicationPolicy
   Context = Struct.new(:current_user, :job)
 

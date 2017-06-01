@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class JobMailer < ApplicationMailer
   default from: DEFAULT_SUPPORT_EMAIL
 

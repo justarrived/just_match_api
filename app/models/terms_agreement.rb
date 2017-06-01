@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class TermsAgreement < ApplicationRecord
   MAX_DAYS_AGE_AS_ORPHAN = 2
 

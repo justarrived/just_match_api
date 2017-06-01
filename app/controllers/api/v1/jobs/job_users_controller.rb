@@ -1,12 +1,13 @@
 # frozen_string_literal: true
+
 module Api
   module V1
     module Jobs
       class JobUsersController < BaseController
         before_action :require_user
         before_action :set_job
-        before_action :set_job_user, only: [:show, :update, :destroy]
-        before_action :set_user, only: [:show, :update, :destroy]
+        before_action :set_job_user, only: %i(show update destroy)
+        before_action :set_user, only: %i(show update destroy)
 
         resource_description do
           resource_id 'job_users'
@@ -168,12 +169,12 @@ module Api
                        end
 
           if included_resource?(:user) || included_resource?(:'user.user_images')
-            user_includes = [:owned_jobs, :user_images, :chats]
+            user_includes = %i(owned_jobs user_images chats)
             base_scope = base_scope.includes(user: user_includes)
           end
 
           if included_resource?(:'user.user_images')
-            user_includes = [:language, :languages, :company]
+            user_includes = %i(language languages company)
             base_scope = base_scope.includes(user: user_includes)
           end
 

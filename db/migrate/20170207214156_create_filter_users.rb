@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class CreateFilterUsers < ActiveRecord::Migration[5.0]
   def change
     create_table :filter_users do |t|

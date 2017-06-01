@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 FactoryGirl.define do
   factory :document do
     one_time_token 'ea91a434-3381-480d-95fc-4e3efccc08b7'

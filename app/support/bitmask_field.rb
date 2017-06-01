@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module BitmaskField
   def self.to_mask(new_array, array)
     (new_array & array).map { |r| 2**array.index(r) }.sum

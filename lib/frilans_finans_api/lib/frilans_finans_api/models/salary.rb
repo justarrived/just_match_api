@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module FrilansFinansApi
   class Salary
     def self.index(invoice_id:, page: 1, client: FrilansFinansApi.config.client_klass.new)

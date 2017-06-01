@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Index
   class RatingsIndex < BaseIndex
     SORTABLE_FIELDS = %i(score created_at).freeze

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module AdminHelpers
   module MachineTranslation
     module Actions

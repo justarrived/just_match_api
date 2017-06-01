@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class FrilansFinansInvoiceAttributesService
   def self.call(user:, job:, pre_report:, express_payment:, client: FrilansFinansApi.config.client_klass.new) # rubocop:disable Metrics/LineLength
     tax = FrilansFinansApi::Tax.index(only_standard: true, client: client).resource

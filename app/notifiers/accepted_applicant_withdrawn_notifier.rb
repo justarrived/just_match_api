@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class AcceptedApplicantWithdrawnNotifier < BaseNotifier
   def self.call(job_user:, owner:)
     envelope = JobMailer.

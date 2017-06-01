@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class CreateHourlyPays < ActiveRecord::Migration
   def change
     create_table :hourly_pays do |t|

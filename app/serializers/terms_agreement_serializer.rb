@@ -1,6 +1,7 @@
 # frozen_string_literal: true
+
 class TermsAgreementSerializer < ApplicationSerializer
-  ATTRIBUTES = [:version, :url].freeze
+  ATTRIBUTES = %i(version url).freeze
   attributes ATTRIBUTES
 end
 

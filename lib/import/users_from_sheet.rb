@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Import
   class UsersFromSheet
     def self.call(path = 'tmp/validation-mapping.csv')
@@ -12,7 +13,7 @@ module Import
       user_id = data.user_id&.strip
       email = data.email&.strip&.downcase
       # Don't bother if we can't identify the user
-      return if (user_id.nil? || user_id.empty? || user_id == '-') && (email.nil? || email.empty?) # rubocop:disable Metrics/LineLength
+      return if (user_id.blank? || user_id == '-') && email.blank? # rubocop:disable Metrics/LineLength
 
       en_language = Language.find_by(lang_code: :en)
 
@@ -64,7 +65,7 @@ module Import
       }.each do |column_name, lang_code|
         language = Language.find_by(lang_code: lang_code)
         value = data.public_send(column_name)&.strip
-        next if value.nil? || value.empty?
+        next if value.blank?
 
         user_language = UserLanguage.find_or_initialize_by(user: user, language: language)
         user_language.proficiency_by_admin = value
@@ -74,16 +75,16 @@ module Import
 
     def self.process_foi(user, data)
       en_language = Language.find_by(lang_code: :en)
-      [
-        :foi_general_maintenance,
-        :foi_construction,
-        :foi_administration,
-        :foi_cleaning,
-        :foi_restaurant_or_kitchen,
-        :foi_customer_service
-      ].each do |column_name|
+      %i(
+        foi_general_maintenance
+        foi_construction
+        foi_administration
+        foi_cleaning
+        foi_restaurant_or_kitchen
+        foi_customer_service
+      ).each do |column_name|
         value = data.public_send(column_name)&.strip
-        next if value.nil? || value.empty?
+        next if value.blank?
 
         interest_name = format_interest_name(column_name)
         interest = InterestTranslation.find_by(name: interest_name)&.interest
@@ -100,19 +101,19 @@ module Import
 
     def self.process_skills(user, data)
       en_language = Language.find_by(lang_code: :en)
-      [
-        :swedish_driving_license,
-        :social_skills,
-        :flexibility,
-        :ambition,
-        :attitude,
-        :independent,
-        :economy,
-        :translation,
-        :it
-      ].each do |column_name|
+      %i(
+        swedish_driving_license
+        social_skills
+        flexibility
+        ambition
+        attitude
+        independent
+        economy
+        translation
+        it
+      ).each do |column_name|
         value = data.public_send(column_name)&.strip
-        next if value.nil? || value.empty?
+        next if value.blank?
 
         skill_name = format_skill_name(column_name)
         skill = SkillTranslation.find_by(name: skill_name)&.skill

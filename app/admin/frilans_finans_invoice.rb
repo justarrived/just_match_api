@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 ActiveAdmin.register FrilansFinansInvoice do
   menu parent: 'Jobs', if: proc { current_active_admin_user.super_admin? }
 
@@ -167,7 +168,7 @@ ActiveAdmin.register FrilansFinansInvoice do
   end
 
   permit_params do
-    [:activated, :job_user_id, :express_payment]
+    %i(activated job_user_id express_payment)
   end
 
   csv do
@@ -197,7 +198,7 @@ ActiveAdmin.register FrilansFinansInvoice do
 
   controller do
     def scoped_collection
-      super.includes(job: [:language, :translations])
+      super.includes(job: %i(language translations))
     end
   end
 end

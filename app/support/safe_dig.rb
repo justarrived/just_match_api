@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module SafeDig
   def self.dig(hash, *keys)
     current_value = hash[keys.shift]

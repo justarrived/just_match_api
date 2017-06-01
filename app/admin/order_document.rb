@@ -35,7 +35,7 @@ ActiveAdmin.register OrderDocument do
   end
 
   permit_params do
-    [:order_id, :document_id, :name]
+    %i(order_id document_id name)
   end
 
   controller do

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 ActiveAdmin.register UserInterest do
   menu parent: 'Users'
 
@@ -29,12 +30,12 @@ ActiveAdmin.register UserInterest do
   end
 
   permit_params do
-    [:user_id, :interest_id, :level, :level_by_admin]
+    %i(user_id interest_id level level_by_admin)
   end
 
   controller do
     def scoped_collection
-      super.includes(:user, interest: [:translations, :language])
+      super.includes(:user, interest: %i(translations language))
     end
   end
 end

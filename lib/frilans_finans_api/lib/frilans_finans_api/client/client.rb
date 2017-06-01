@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'frilans_finans_api/client/request'
 
 module FrilansFinansApi

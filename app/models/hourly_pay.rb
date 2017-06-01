@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class HourlyPay < ApplicationRecord
   has_many :jobs
 

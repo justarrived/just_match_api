@@ -1,11 +1,12 @@
 # frozen_string_literal: true
+
 module Api
   module V1
     module Users
       class UserLanguagesController < BaseController
         before_action :set_user
-        before_action :set_user_language, only: [:show, :destroy]
-        before_action :set_language, only: [:show, :destroy]
+        before_action :set_user_language, only: %i(show destroy)
+        before_action :set_language, only: %i(show destroy)
 
         resource_description do
           short 'API for managing user languages'

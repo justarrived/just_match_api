@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Index
   class UserSkillsIndex < BaseIndex
     def user_skills(scope = UserSkill)

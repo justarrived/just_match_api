@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module TokenExpired
   TOKEN_EXPIRED_CODE = :token_expired
 

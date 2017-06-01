@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class JobLanguageSerializer < ApplicationSerializer
   has_one :job
   has_one :language

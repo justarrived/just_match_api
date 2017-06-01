@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class UserNotificationsSerializer
   def self.serializeble_resource
     notifications_data = User::NOTIFICATIONS.map do |name|

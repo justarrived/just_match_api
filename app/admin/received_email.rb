@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 ActiveAdmin.register ReceivedEmail do
   menu parent: 'Misc', priority: 5
 

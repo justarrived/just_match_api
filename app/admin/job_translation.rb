@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 ActiveAdmin.register JobTranslation do
   menu parent: 'Misc'
 
@@ -32,7 +33,7 @@ ActiveAdmin.register JobTranslation do
       row :name
       row :short_description
       row :description do
-        StringFormatter.new.to_html(job_translation.description)&.html_safe # rubocop:disable Rails/OutputSafety, Metrics/LineLength
+        StringFormatter.new.to_html(job_translation.description)&.html_safe # rubocop:disable Metrics/LineLength
       end
       row :locale
       row :language
@@ -57,7 +58,7 @@ ActiveAdmin.register JobTranslation do
   end
 
   permit_params do
-    [:name, :short_description, :description, :locale, :job_id, :language_id]
+    %i(name short_description description locale job_id language_id)
   end
 
   controller do

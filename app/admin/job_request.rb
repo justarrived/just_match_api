@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 ActiveAdmin.register JobRequest do
   menu parent: 'Sales'
 
@@ -207,34 +208,34 @@ ActiveAdmin.register JobRequest do
   end
 
   permit_params do
-    [
-      :company_name,
-      :contact_string,
-      :assignment,
-      :job_scope,
-      :job_specification,
-      :language_requirements,
-      :job_at_date,
-      :responsible,
-      :sales_user_id,
-      :delivery_user_id,
-      :suitable_candidates,
-      :comment,
-      :created_at,
-      :updated_at,
-      :short_name,
-      :finished,
-      :cancelled,
-      :draft_sent,
-      :signed_by_customer,
-      :requirements,
-      :hourly_pay,
-      :company_org_no,
-      :company_email,
-      :company_phone,
-      :company_id,
-      :company_address
-    ]
+    %i(
+      company_name
+      contact_string
+      assignment
+      job_scope
+      job_specification
+      language_requirements
+      job_at_date
+      responsible
+      sales_user_id
+      delivery_user_id
+      suitable_candidates
+      comment
+      created_at
+      updated_at
+      short_name
+      finished
+      cancelled
+      draft_sent
+      signed_by_customer
+      requirements
+      hourly_pay
+      company_org_no
+      company_email
+      company_phone
+      company_id
+      company_address
+    )
   end
 
   controller do

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Sweepers
   module AhoyEventSweeper
     def self.destroy_old(before_date:, scope: Ahoy::Event)

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 ActiveAdmin.register Filter do
   menu parent: 'Filters', priority: 1
 
@@ -41,7 +42,7 @@ ActiveAdmin.register Filter do
       row :updated_at { |filter| datetime_ago_in_words(filter.updated_at) }
       row :created_at { |filter| datetime_ago_in_words(filter.created_at) }
       row :skills do |filter|
-        skill_filters = filter.skill_filters.includes(skill: [:language, :translations])
+        skill_filters = filter.skill_filters.includes(skill: %i(language translations))
         badges = skill_filters.map do |sf|
           badge_name.call(sf.skill.name, sf.proficiency, sf.proficiency_by_admin)
         end
@@ -107,9 +108,9 @@ ActiveAdmin.register Filter do
   permit_params do
     [
       :name,
-      skill_filters_attributes: [:skill_id, :proficiency, :proficiency_by_admin],
-      language_filters_attributes: [:language_id, :proficiency, :proficiency_by_admin],
-      interest_filters_attributes: [:interest_id, :level, :level_by_admin]
+      skill_filters_attributes: %i(skill_id proficiency proficiency_by_admin),
+      language_filters_attributes: %i(language_id proficiency proficiency_by_admin),
+      interest_filters_attributes: %i(interest_id level level_by_admin)
     ]
   end
 

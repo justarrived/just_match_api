@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class ApplicationTexter
   cattr_accessor :default_from
   cattr_accessor :delayed_job_klass

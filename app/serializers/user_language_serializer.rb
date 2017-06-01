@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class UserLanguageSerializer < ApplicationSerializer
   ATTRIBUTES = [:proficiency].freeze
   attributes ATTRIBUTES

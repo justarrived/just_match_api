@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class SyncFrilansFinansInvoiceService
   def self.call(frilans_finans_invoice:, client: FrilansFinansApi.config.client_klass.new)
     ff_id = frilans_finans_invoice.frilans_finans_id

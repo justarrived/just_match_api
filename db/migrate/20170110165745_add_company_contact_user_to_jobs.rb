@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class AddCompanyContactUserToJobs < ActiveRecord::Migration[5.0]
   def change
     add_column :jobs, :company_contact_user_id, :integer

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'httparty'
 
 module FrilansFinansApi
@@ -134,10 +135,10 @@ module FrilansFinansApi
         "BODY: #{body}"
       ].join(' ')
       FrilansFinansApi.config.event_logger.request_event(params: json_params,
-                                                  status: status,
-                                                  verb: verb,
-                                                  uri: uri,
-                                                  body: body)
+                                                         status: status,
+                                                         verb: verb,
+                                                         uri: uri,
+                                                         body: body)
       FrilansFinansApi.config.logger.info log_body
     end
   end

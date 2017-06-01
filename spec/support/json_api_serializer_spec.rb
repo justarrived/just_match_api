@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'spec_helper'
 
 # NOTE: This is kept since the "local" test suite for JsonApiHelpers don't have coverage

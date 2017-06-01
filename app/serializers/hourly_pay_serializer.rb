@@ -1,9 +1,10 @@
 # frozen_string_literal: true
+
 class HourlyPaySerializer < ApplicationSerializer
-  ATTRIBUTES = [
-    :gross_salary, :net_salary, :rate_excluding_vat, :rate_including_vat, :active,
-    :currency, :unit
-  ].freeze
+  ATTRIBUTES = %i(
+    gross_salary net_salary rate_excluding_vat rate_including_vat active
+    currency unit
+  ).freeze
 
   attributes ATTRIBUTES
 

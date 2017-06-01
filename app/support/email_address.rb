@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class EmailAddress
   def self.normalize(email)
     Mail::Address.new(email)

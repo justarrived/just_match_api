@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class AddMissingUserKeysToJobRequests < ActiveRecord::Migration[5.0]
   def change
     # rubocop:disable Metrics/LineLength

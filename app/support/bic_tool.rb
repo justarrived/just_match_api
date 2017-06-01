@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class BICTool
   # BIC rules (taken from http://www.theswiftcodes.com/)
   #     First 4 characters - bank code (letters)

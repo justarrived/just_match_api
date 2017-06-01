@@ -1,13 +1,14 @@
 # frozen_string_literal: true
+
 module MigrateTranslations
   BATCH_SIZE = 100
 
   MODELS_DATA = [
     ['Comment', [:body]],
     ['Message', [:body]],
-    ['Job', [:name, :description, :short_description]],
+    ['Job', %i(name description short_description)],
     ['JobUser', [:apply_message]],
-    ['User', [:description, :education, :competence_text, :job_experience]]
+    ['User', %i(description education competence_text job_experience)]
   ].freeze
 
   def self.down

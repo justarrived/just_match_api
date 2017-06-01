@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 FactoryGirl.define do
   factory :frilans_finans_invoice do
     sequence :frilans_finans_id do |n|

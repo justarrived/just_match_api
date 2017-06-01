@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class CommentTranslation < ApplicationRecord
   belongs_to :comment
 

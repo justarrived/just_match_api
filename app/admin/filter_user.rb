@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 ActiveAdmin.register FilterUser do
   menu parent: 'Filters', priority: 2
 

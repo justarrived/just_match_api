@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class AddAccpetedDefaultValueToJobUsers < ActiveRecord::Migration
   def change
     # rubocop:disable Rails/ReversibleMigration

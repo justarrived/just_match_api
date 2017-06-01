@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 ActiveAdmin.register FrilansFinansApiLog do
   menu parent: 'Misc', priority: 2
 

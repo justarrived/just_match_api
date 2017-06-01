@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Index
   class LanguagesIndex < BaseIndex
     MAX_PER_PAGE = 300

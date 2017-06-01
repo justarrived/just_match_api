@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class TranferHourlyPayRateToGrossSalaryColumn < ActiveRecord::Migration
   def up
     HourlyPay.all.each do |hourly_pay|

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 ActiveAdmin.register Chat do
   menu parent: 'Chats', url: -> { admin_chats_path(order: 'updated_at_desc') }
 
@@ -108,6 +109,6 @@ ActiveAdmin.register Chat do
   end
 
   permit_params do
-    [messages_attributes: [:author_id, :language_id, :body, :_destroy, :id]]
+    [messages_attributes: %i(author_id language_id body _destroy id)]
   end
 end

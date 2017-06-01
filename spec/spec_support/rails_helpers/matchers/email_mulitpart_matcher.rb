@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'rspec/expectations'
 
 RSpec::Matchers.define :match_email_body do |expected|

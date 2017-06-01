@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 Kaminari.configure do |config|
   config.default_per_page = AppConfig.default_records_per_page
   config.max_per_page = AppConfig.max_records_per_page

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Index
   class UserLanguagesIndex < BaseIndex
     ALLOWED_FILTERS = %i(lang_code en_name direction system_language).freeze

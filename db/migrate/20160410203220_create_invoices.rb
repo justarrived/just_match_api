@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class CreateInvoices < ActiveRecord::Migration
   def change
     create_table :invoices do |t|

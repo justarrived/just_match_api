@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Queries
   class UserTraits
     def self.by_filter(filter, scope: User)

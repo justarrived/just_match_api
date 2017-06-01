@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Index
   class FaqsIndex < BaseIndex
     ALLOWED_FILTERS = %i(language_id).freeze

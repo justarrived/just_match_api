@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module FrilansFinansApi
   class NilClient
     HTTP_STATUS = 200

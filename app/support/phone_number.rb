@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class PhoneNumber
   def self.normalize(phone_number)
     # GlobalPhone returns nil if the number is invalid

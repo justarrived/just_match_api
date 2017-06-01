@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module FrilansFinans
   module InvoiceWrapper
     def self.attributes(job:, user:, tax:, ff_user:, pre_report:, express_payment:)

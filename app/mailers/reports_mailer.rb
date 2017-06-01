@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class ReportsMailer < ApplicationMailer
   def send_monthly_report(email:, job_rows_path:, summary_path:)
     attachments['job_rows.csv'] = File.read(job_rows_path)

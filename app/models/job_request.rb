@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class JobRequest < ApplicationRecord
   belongs_to :company, optional: true
   belongs_to :delivery_user, optional: true, class_name: 'User', foreign_key: 'delivery_user_id' # rubocop:disable Metrics/LineLength

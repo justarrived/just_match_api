@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class AddLangNamesDataToLanguages < ActiveRecord::Migration
   def up
     Language.all.map do |language|

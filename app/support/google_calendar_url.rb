@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class GoogleCalendarUrl
   BASE_URL = 'https://www.google.com/calendar/render?'.freeze
 

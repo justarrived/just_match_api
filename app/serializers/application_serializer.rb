@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class ApplicationSerializer < ActiveModel::Serializer
   delegate :to_html, to: :string_formatter
   delegate :to_unit, to: :number_formatter

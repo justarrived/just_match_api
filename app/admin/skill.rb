@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 ActiveAdmin.register Skill do
   menu parent: 'Settings'
 
@@ -36,7 +37,7 @@ ActiveAdmin.register Skill do
   end
 
   permit_params do
-    [:name, :color, :internal, :language_id, :high_priority]
+    %i(name color internal language_id high_priority)
   end
 
   controller do

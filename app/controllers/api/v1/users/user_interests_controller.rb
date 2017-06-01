@@ -1,11 +1,12 @@
 # frozen_string_literal: true
+
 module Api
   module V1
     module Users
       class UserInterestsController < BaseController
         before_action :set_user
-        before_action :set_user_interest, only: [:show, :destroy]
-        before_action :set_interest, only: [:show, :destroy]
+        before_action :set_user_interest, only: %i(show destroy)
+        before_action :set_interest, only: %i(show destroy)
 
         resource_description do
           resource_id 'user_interests'

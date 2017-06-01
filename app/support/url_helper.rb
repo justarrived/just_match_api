@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module URLHelper
   def self.starts_with_protocol?(url)
     url.starts_with?('http://') || url.starts_with?('https://')

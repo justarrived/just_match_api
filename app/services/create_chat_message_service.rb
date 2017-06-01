@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class CreateChatMessageService
   SEND_IF_NO_MESSAGE_IN_HOURS = 1
 

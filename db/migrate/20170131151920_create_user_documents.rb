@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class CreateUserDocuments < ActiveRecord::Migration[5.0]
   def change
     create_table :user_documents do |t|

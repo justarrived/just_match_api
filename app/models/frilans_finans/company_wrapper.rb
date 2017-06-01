@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module FrilansFinans
   module CompanyWrapper
     def self.attributes(company:)

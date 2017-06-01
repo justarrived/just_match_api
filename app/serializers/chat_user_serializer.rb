@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class ChatUserSerializer < ApplicationSerializer
   has_one :chat
   has_one :user

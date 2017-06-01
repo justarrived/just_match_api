@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class NewJobRequestNotifier < BaseNotifier
   def self.call(job_request:)
     AppConfig.new_job_request_email_recipients.each do |email|

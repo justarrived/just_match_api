@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class CreateFrilansFinansInvoices < ActiveRecord::Migration
   def change
     create_table :frilans_finans_invoices do |t|

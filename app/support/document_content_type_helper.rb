@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class DocumentContentTypeHelper
   CONTENT_TYPES_MAP = {
     'application/pdf' => 'pdf',

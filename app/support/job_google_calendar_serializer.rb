@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class JobGoogleCalendarSerializer
   def self.serializeble_resource(job:)
     JsonApiData.new(

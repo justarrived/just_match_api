@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 ActiveAdmin.register Token do
   menu parent: 'Users'
 
@@ -14,6 +15,6 @@ ActiveAdmin.register Token do
   end
 
   permit_params do
-    [:user_id, :expires_at]
+    %i(user_id expires_at)
   end
 end

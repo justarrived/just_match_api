@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'seeds/base_seed'
 
 class CurrencySeed < BaseSeed

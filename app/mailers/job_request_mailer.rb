@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class JobRequestMailer < ApplicationMailer
   def new_job_request_email(job_request:, recipient_email:)
     subject = 'New job request!'

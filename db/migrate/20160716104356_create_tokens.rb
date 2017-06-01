@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class CreateTokens < ActiveRecord::Migration
   def change
     create_table :tokens do |t|

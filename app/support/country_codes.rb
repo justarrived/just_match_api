@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module CountryCodes
   COUNTRY_CODES = Set.new(YAML.load_file('data/country_codes.yml')['codes']).freeze
 

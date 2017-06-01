@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class AddMissingFkKeysForFilters < ActiveRecord::Migration
   def change
     add_foreign_key 'language_filters', 'languages', name: 'language_filters_language_id_fk' # rubocop:disable Metrics/LineLength

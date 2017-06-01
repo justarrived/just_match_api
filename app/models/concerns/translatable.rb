@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Translatable
   TranslationResult = Struct.new(:translation, :changed_fields)
 

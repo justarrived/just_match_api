@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class CreateTermsAgreements < ActiveRecord::Migration
   def change
     create_table :terms_agreements do |t|

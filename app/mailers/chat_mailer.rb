@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class ChatMailer < ApplicationMailer
   def new_message_email(user:, chat:, message:, author:)
     @author_name = author.name

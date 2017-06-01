@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Sweepers
   class JobUserSweeper
     def self.applicant_confirmation_overdue(scope = JobUser)

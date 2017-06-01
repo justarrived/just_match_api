@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class Document < ApplicationRecord
   CONTENT_TYPES = DocumentContentTypeHelper::CONTENT_TYPES_MAP.keys.freeze
   DOCUMENT_MAX_MB_SIZE = 20

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class CommunicationTemplateTranslation < ApplicationRecord
   belongs_to :communication_template
 

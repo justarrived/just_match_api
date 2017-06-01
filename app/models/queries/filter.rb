@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Queries
   class Filter
     def self.filter(records, filters, filter_types)

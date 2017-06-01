@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 ActiveAdmin.register User do
   menu parent: 'Users', priority: 1
 
@@ -75,7 +76,7 @@ ActiveAdmin.register User do
       users = User.where(id: ids)
       notice = []
 
-      unless add_tag.blank?
+      if add_tag.present?
         tag = Tag.find_by(id: add_tag)
         users.each do |user|
           UserTag.safe_create(tag: tag, user: user)
@@ -83,7 +84,7 @@ ActiveAdmin.register User do
         notice << I18n.t('admin.user.batch_form.tag_added_notice', name: tag.name)
       end
 
-      unless remove_tag.blank?
+      if remove_tag.present?
         tag = Tag.find_by(id: remove_tag)
         users.each do |user|
           UserTag.safe_destroy(tag: tag, user: user)
@@ -107,11 +108,11 @@ ActiveAdmin.register User do
     users = User.where(id: ids)
     notice = []
 
-    unless add_skill.blank?
+    if add_skill.present?
       skill = Skill.find_by(id: add_skill)
       users.each do |user|
         attributes = { skill: skill, user: user }
-        unless proficiency_by_admin.blank?
+        if proficiency_by_admin.present?
           attributes[:proficiency_by_admin] = proficiency_by_admin
         end
 
@@ -188,7 +189,6 @@ ActiveAdmin.register User do
     end
   end
 
-
   # Create sections on the index screen
   scope :all
   scope :admins
@@ -244,7 +244,7 @@ ActiveAdmin.register User do
   end
 
   show do |user|
-    support_chat = Chat.includes(messages: [:translations, :author, :language]).
+    support_chat = Chat.includes(messages: %i(translations author language)).
                    find_or_create_support_chat(user)
     render partial: 'admin/users/show', locals: { support_chat: support_chat }
   end
@@ -255,11 +255,11 @@ ActiveAdmin.register User do
 
   include AdminHelpers::MachineTranslation::Actions
 
-  sidebar :relations, only: [:show, :edit] do
+  sidebar :relations, only: %i(show edit) do
     render partial: 'admin/users/relations_list', locals: { user: user }
   end
 
-  sidebar :latest_applications, only: [:show, :edit], if: proc { !user.company? } do
+  sidebar :latest_applications, only: %i(show edit), if: proc { !user.company? } do
     ul do
       user.job_users.includes(job: [:translations]).recent(50).each do |job_user|
         li link_to("##{job_user.id} " + job_user.job.name, admin_job_user_path(job_user))
@@ -267,7 +267,7 @@ ActiveAdmin.register User do
     end
   end
 
-  sidebar :latest_owned_jobs, only: [:show, :edit], if: proc { user.company? } do
+  sidebar :latest_owned_jobs, only: %i(show edit), if: proc { user.company? } do
     ul do
       user.owned_jobs.
         order(created_at: :desc).
@@ -280,12 +280,12 @@ ActiveAdmin.register User do
     end
   end
 
-  sidebar :profile_image, only: [:show, :edit] do
+  sidebar :profile_image, only: %i(show edit) do
     profile_image = user_profile_image(user: user, size: :medium)
     image_tag(profile_image, class: 'sidebar-image') if profile_image
   end
 
-  sidebar :documents, only: [:show, :edit] do
+  sidebar :documents, only: %i(show edit) do
     user_documents = user.user_documents.recent(50).includes(:document)
 
     locals = { user_documents: user_documents }
@@ -326,10 +326,10 @@ ActiveAdmin.register User do
     extras << :super_admin if authenticated_admin_user.super_admin?
 
     relations = [
-      user_skills_attributes: [:skill_id, :proficiency, :proficiency_by_admin],
-      user_languages_attributes: [:language_id, :proficiency, :proficiency_by_admin],
-      user_interests_attributes: [:interest_id, :level, :level_by_admin],
-      user_tags_attributes: [:id, :tag_id, :_destroy],
+      user_skills_attributes: %i(skill_id proficiency proficiency_by_admin),
+      user_languages_attributes: %i(language_id proficiency proficiency_by_admin),
+      user_interests_attributes: %i(interest_id level level_by_admin),
+      user_tags_attributes: %i(id tag_id _destroy),
       user_documents_attributes: [:id, :category, { document_attributes: [:document] }]
     ]
     UserPolicy::SELF_ATTRIBUTES + extras + relations
@@ -389,8 +389,8 @@ ActiveAdmin.register User do
         user_skills: [:skill],
         user_languages: [:language],
         user_interests: [:interest],
-        interests: [:translations, :language],
-        skills: [:translations, :language]
+        interests: %i(translations language),
+        skills: %i(translations language)
       ).
         where(id: params[:id]).
         first!

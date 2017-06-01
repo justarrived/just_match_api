@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class AddJaStaffingAndSuperAdminToUsers < ActiveRecord::Migration[5.0]
   def change
     add_column :users, :just_arrived_staffing, :boolean, default: false

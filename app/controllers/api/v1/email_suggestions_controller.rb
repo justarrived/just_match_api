@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'email_suggestion'
 
 module Api
@@ -22,23 +23,23 @@ module Api
           param :email, String, desc: 'Email address', required: true
         end
       end
-      example <<-JSON_EXAMPLE
-# Response example
-#{JSON.pretty_generate(JsonApiData.new(
-  id: SecureGenerator.token(length: 32),
-  type: :email_suggestions,
-  attributes: {
-    address: 'buren',
-    domain: 'example.com',
-    full: 'buren@example.com'
-  }
-).to_h)}
+      example <<~JSON_EXAMPLE
+        # Response example
+        #{JSON.pretty_generate(JsonApiData.new(
+          id: SecureGenerator.token(length: 32),
+          type: :email_suggestions,
+          attributes: {
+            address: 'buren',
+            domain: 'example.com',
+            full: 'buren@example.com'
+          }
+        ).to_h)}
       JSON_EXAMPLE
       def suggest
         attributes = {}
 
         email = jsonapi_params[:email]
-        unless email.blank?
+        if email.present?
           suggestion = EmailSuggestion.call(email)
           attributes = suggestion unless suggestion.empty?
         end

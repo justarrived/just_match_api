@@ -1,10 +1,11 @@
 # frozen_string_literal: true
+
 module Index
   class UserInterestsIndex < BaseIndex
     def user_interests(scope = UserInterest)
       @user_interests ||= begin
         if included_resource?(:interest)
-          scope = scope.includes(interest: [:language, :translations])
+          scope = scope.includes(interest: %i(language translations))
         end
 
         prepare_records(scope.includes(:interest, :user))

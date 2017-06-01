@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class MagicLoginLinkNotifier < BaseNotifier
   def self.call(user:)
     if user.phone?

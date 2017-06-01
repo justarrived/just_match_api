@@ -1,8 +1,9 @@
 # frozen_string_literal: true
+
 module Api
   module V1
     class LanguagesController < BaseController
-      before_action :set_language, only: [:show, :update, :destroy]
+      before_action :set_language, only: %i(show update destroy)
 
       resource_description do
         short 'API for managing languages'

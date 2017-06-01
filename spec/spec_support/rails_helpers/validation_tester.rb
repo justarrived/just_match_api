@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class ValidationTester
   extend ActiveModel::Naming
   include ActiveModel::Conversion

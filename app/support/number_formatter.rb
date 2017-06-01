@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class NumberFormatter
   include ActionView::Helpers::NumberHelper
 

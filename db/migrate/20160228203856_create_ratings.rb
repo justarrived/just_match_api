@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class CreateRatings < ActiveRecord::Migration
   def change
     create_table :ratings do |t|
@@ -18,7 +19,7 @@ class CreateRatings < ActiveRecord::Migration
     add_foreign_key :ratings, :jobs, name: 'ratings_job_id_fk'
     add_foreign_key :ratings, :users, column: 'to_user_id', name: 'ratings_to_user_id_fk'
 
-    add_index :ratings, [:job_id, :from_user_id], unique: true
-    add_index :ratings, [:job_id, :to_user_id], unique: true
+    add_index :ratings, %i(job_id from_user_id), unique: true
+    add_index :ratings, %i(job_id to_user_id), unique: true
   end
 end

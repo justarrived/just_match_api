@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class UserPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
@@ -10,25 +11,25 @@ class UserPolicy < ApplicationPolicy
     end
   end
 
-  ATTRIBUTES = [
-    :id, :first_name, :description, :description_html, :education, :education_html,
-    :job_experience, :job_experience_html, :competence_text, :competence_text_html,
-    :language_id, :zip, :zip_latitude, :zip_longitude, :primary_role, :translated_text,
-    :gender, :system_language_id, :linkedin_url, :facebook_url
-  ].freeze
+  ATTRIBUTES = %i(
+    id first_name description description_html education education_html
+    job_experience job_experience_html competence_text competence_text_html
+    language_id zip zip_latitude zip_longitude primary_role translated_text
+    gender system_language_id linkedin_url facebook_url
+  ).freeze
 
-  ACCEPTED_APPLICANT_ATTRIBUTES = ATTRIBUTES + [
-    :phone, :street, :city, :latitude, :longitude, :email, :last_name, :name
-  ].freeze
+  ACCEPTED_APPLICANT_ATTRIBUTES = ATTRIBUTES + %i(
+    phone street city latitude longitude email last_name name
+  ).freeze
 
-  SELF_ATTRIBUTES = (ATTRIBUTES + ACCEPTED_APPLICANT_ATTRIBUTES + [
-    :created_at, :updated_at, :admin, :anonymized, :ignored_notifications,
-    :frilans_finans_payment_details, :ssn, :current_status, :at_und, :arrived_at,
-    :country_of_origin, :auth_token, :account_clearing_number, :account_number,
-    :skype_username, :next_of_kin_name, :next_of_kin_phone, :full_street_address,
-    :arbetsformedlingen_registered_at, :just_arrived_staffing, :support_chat_activated,
-    :bank_account, :has_welcome_app_account, :public_profile
-  ]).freeze
+  SELF_ATTRIBUTES = (ATTRIBUTES + ACCEPTED_APPLICANT_ATTRIBUTES + %i(
+    created_at updated_at admin anonymized ignored_notifications
+    frilans_finans_payment_details ssn current_status at_und arrived_at
+    country_of_origin auth_token account_clearing_number account_number
+    skype_username next_of_kin_name next_of_kin_phone full_street_address
+    arbetsformedlingen_registered_at just_arrived_staffing support_chat_activated
+    bank_account has_welcome_app_account public_profile
+  )).freeze
 
   attr_reader :accepted_applicant
 

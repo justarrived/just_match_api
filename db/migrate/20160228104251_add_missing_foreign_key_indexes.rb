@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class AddMissingForeignKeyIndexes < ActiveRecord::Migration
   # rubocop:disable Metrics/LineLength
   def change

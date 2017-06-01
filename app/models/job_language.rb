@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class JobLanguage < ApplicationRecord
   PROFICIENCY_RANGE = 1..5
 

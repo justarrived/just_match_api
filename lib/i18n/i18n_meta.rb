@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class I18nMeta
   META = {
     'fa_AF' => { direction: :rtl, fallbacks: %w(fa en) },

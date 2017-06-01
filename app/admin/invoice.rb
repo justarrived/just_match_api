@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 ActiveAdmin.register Invoice do
   menu parent: 'Jobs', if: proc { current_active_admin_user.super_admin? }
 
@@ -24,7 +25,7 @@ ActiveAdmin.register Invoice do
 
   controller do
     def scoped_collection
-      super.includes(job: [:language, :translations])
+      super.includes(job: %i(language translations))
     end
   end
 end

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 RSpec::Matchers.define :be_jsonapi_response_for do |model|
   match do |actual|
     parsed_actual = JSON.parse(actual)

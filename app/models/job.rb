@@ -112,11 +112,11 @@ class Job < ApplicationRecord
   accepts_nested_attributes_for :job_skills, :job_languages
 
   ransacker :city, type: :string do
-    Arel.sql("unaccent(\"city\")")
+    Arel.sql('unaccent("city")')
   end
 
   ransacker :municipality, type: :string do
-    Arel.sql("unaccent(\"city\")")
+    Arel.sql('unaccent("city")')
   end
 
   def self.ransackable_scopes(_auth_object = nil)
@@ -230,20 +230,20 @@ class Job < ApplicationRecord
   end
 
   def invoice_specification
-    <<-JOB_SPECIFICATION
-#{name} (ID: ##{id}) - #{profession_title}
+    <<~JOB_SPECIFICATION
+      #{name} (ID: ##{id}) - #{profession_title}
 
-Period: #{job_date.to_date} - #{job_end_date.to_date}
-Total hours: #{hours}
+      Period: #{job_date.to_date} - #{job_end_date.to_date}
+      Total hours: #{hours}
 
-Hourly invoice: #{hourly_pay.invoice_rate} SEK/h
-Gross salary: #{hourly_pay.gross_salary} SEK/h
+      Hourly invoice: #{hourly_pay.invoice_rate} SEK/h
+      Gross salary: #{hourly_pay.gross_salary} SEK/h
 
-COMPANY
-#{company.name} (ID: ##{company.id})
-CIN (Org. No.): #{company.cin}
-Billing email: #{company.billing_email}
-Address: #{company.address}
+      COMPANY
+      #{company.name} (ID: ##{company.id})
+      CIN (Org. No.): #{company.cin}
+      Billing email: #{company.billing_email}
+      Address: #{company.address}
     JOB_SPECIFICATION
   end
 

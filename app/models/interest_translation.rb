@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class InterestTranslation < ApplicationRecord
   belongs_to :interest
 

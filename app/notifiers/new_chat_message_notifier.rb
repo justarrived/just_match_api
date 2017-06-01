@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class NewChatMessageNotifier < BaseNotifier
   def self.call(chat:, message:, author:)
     chat.users.each do |user|

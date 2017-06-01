@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Api
   module V1
     module Users
@@ -69,7 +70,7 @@ module Api
           chats_scope = @user.chats
 
           if included_resources.include?(:messages)
-            chats_scope = chats_scope.includes(messages: [:author, :language])
+            chats_scope = chats_scope.includes(messages: %i(author language))
           end
 
           @chat = chats_scope.find(params[:id])

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Queries
   class SkillMatcher
     def initialize(scope, match_against_record)

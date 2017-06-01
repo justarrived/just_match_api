@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require_relative 'boot'
 
 require 'rails'
@@ -38,7 +39,7 @@ module JustMatch
     # ti    - Tigrinya [partial Rails translation locally]
     # fa_AF - Dari / Persian (Afghanistan) [partial Rails translation locally]
     # ps    - Pashto [partial Rails translation locally]
-    config.i18n.available_locales = [:en, :sv, :ar, :fa, :ku, :ti, :fa_AF, :ps]
+    config.i18n.available_locales = %i(en sv ar fa ku ti fa_AF ps)
     config.i18n.fallbacks = I18nMeta.fallbacks_hash
     config.i18n.load_path += Dir[
       Rails.root.join('config', 'locales', '**', '*.{rb,yml}')
@@ -58,7 +59,7 @@ module JustMatch
         origins(*AppConfig.cors_whitelist)
         resource '/api/*',
                  headers: :any,
-                 methods: [:get, :post, :delete, :put, :patch, :options, :head]
+                 methods: %i(get post delete put patch options head)
       end
     end
 

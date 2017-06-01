@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'seeds/base_seed'
 
 class BlazerSeed < BaseSeed
@@ -23,17 +24,17 @@ class BlazerSeed < BaseSeed
   end
 
   def create_report_invoice_report_query
-    sql_statement = <<-SQL
-SELECT "frilans_finans_invoices"."id",
-       "frilans_finans_invoices"."ff_amount",
-       "frilans_finans_invoices"."ff_gross_salary",
-       "frilans_finans_invoices"."job_user_id",
-       "frilans_finans_invoices"."frilans_finans_id"
-FROM "frilans_finans_invoices"
-INNER JOIN "job_users" ON "job_users"."id" = "frilans_finans_invoices"."job_user_id"
-INNER JOIN "jobs" ON "jobs"."id" = "job_users"."job_id" WHERE "frilans_finans_invoices"."activated" = {activated}
-AND (jobs.job_end_date > {start_time}
-     AND jobs.job_end_date < {end_time})
+    sql_statement = <<~SQL
+      SELECT "frilans_finans_invoices"."id",
+             "frilans_finans_invoices"."ff_amount",
+             "frilans_finans_invoices"."ff_gross_salary",
+             "frilans_finans_invoices"."job_user_id",
+             "frilans_finans_invoices"."frilans_finans_id"
+      FROM "frilans_finans_invoices"
+      INNER JOIN "job_users" ON "job_users"."id" = "frilans_finans_invoices"."job_user_id"
+      INNER JOIN "jobs" ON "jobs"."id" = "job_users"."job_id" WHERE "frilans_finans_invoices"."activated" = {activated}
+      AND (jobs.job_end_date > {start_time}
+           AND jobs.job_end_date < {end_time})
     SQL
 
     Blazer::Query.create!(
@@ -45,14 +46,14 @@ AND (jobs.job_end_date > {start_time}
   end
 
   def create_report_invoice_amount_query
-    sql_statement = <<-SQL
-SELECT SUM("frilans_finans_invoices"."ff_amount")
-FROM "frilans_finans_invoices"
-INNER JOIN "job_users" ON "job_users"."id" = "frilans_finans_invoices"."job_user_id"
-INNER JOIN "jobs" ON "jobs"."id" = "job_users"."job_id"
-WHERE "frilans_finans_invoices"."activated" = {activated}
-    AND (jobs.job_end_date > {start_time}
-         AND jobs.job_end_date < {end_time})
+    sql_statement = <<~SQL
+      SELECT SUM("frilans_finans_invoices"."ff_amount")
+      FROM "frilans_finans_invoices"
+      INNER JOIN "job_users" ON "job_users"."id" = "frilans_finans_invoices"."job_user_id"
+      INNER JOIN "jobs" ON "jobs"."id" = "job_users"."job_id"
+      WHERE "frilans_finans_invoices"."activated" = {activated}
+          AND (jobs.job_end_date > {start_time}
+               AND jobs.job_end_date < {end_time})
     SQL
 
     Blazer::Query.create!(
@@ -66,12 +67,12 @@ WHERE "frilans_finans_invoices"."activated" = {activated}
   def create_job_users_status_dashboard
     dashboard = Blazer::Dashboard.create!(name: 'Job User Status')
 
-    sql_statement = <<-SQL
-SELECT "job_users".* FROM "job_users" INNER JOIN "jobs" ON "jobs"."id" = "job_users"."job_id"
-  WHERE (jobs.job_date >= {start_time} AND jobs.job_date <= {end_time})
-  AND accepted = {accepted}  -- true if user has been accepted by the employeer false otherwise
-  AND will_perform = {will_perform} -- true if the user was confirmed they will perform the job
-  AND performed = {performed} -- true if the user has indicated they've performed the job
+    sql_statement = <<~SQL
+      SELECT "job_users".* FROM "job_users" INNER JOIN "jobs" ON "jobs"."id" = "job_users"."job_id"
+        WHERE (jobs.job_date >= {start_time} AND jobs.job_date <= {end_time})
+        AND accepted = {accepted}  -- true if user has been accepted by the employeer false otherwise
+        AND will_perform = {will_perform} -- true if the user was confirmed they will perform the job
+        AND performed = {performed} -- true if the user has indicated they've performed the job
     SQL
     dashboard.queries << Blazer::Query.create!(
       name: 'Job User by Status',

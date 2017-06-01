@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class AfterTrueValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, _value)
     field = options.fetch(:field)

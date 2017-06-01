@@ -1,9 +1,10 @@
 # frozen_string_literal: true
+
 module Api
   module V1
     module Users
       class UserImagesController < BaseController
-        before_action :set_user, only: [:show, :create]
+        before_action :set_user, only: %i(show create)
         before_action :set_user_image, only: [:show]
 
         api :GET, '/users/:user_id/images/:id', 'Show user image'

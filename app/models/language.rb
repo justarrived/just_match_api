@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class Language < ApplicationRecord
   has_many :user_languages
   has_many :users, through: :user_languages
@@ -36,8 +37,8 @@ class Language < ApplicationRecord
 
   def name_for(locale)
     translated_name = public_send(:"#{locale}_name")
-    return translated_name unless translated_name.blank?
-    return en_name unless en_name.blank?
+    return translated_name if translated_name.present?
+    return en_name if en_name.present?
 
     local_name
   end

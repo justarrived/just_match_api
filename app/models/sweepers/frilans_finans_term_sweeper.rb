@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Sweepers
   class FrilansFinansTermSweeper
     def self.create_frilans_finans

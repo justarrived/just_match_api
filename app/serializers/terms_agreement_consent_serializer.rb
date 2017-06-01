@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class TermsAgreementConsentSerializer < ApplicationSerializer
   ATTRIBUTES = [].freeze
   attributes ATTRIBUTES

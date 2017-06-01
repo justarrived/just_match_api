@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Index
   class JobsIndex < BaseIndex
     FILTER_MATCH_TYPES = {
@@ -17,9 +18,9 @@ module Index
 
     def jobs(scope = Job)
       @jobs ||= begin
-        include_scopes = [
-          :language, :company, :category, :hourly_pay, :job_skills, :job_languages
-        ]
+        include_scopes = %i(
+          language company category hourly_pay job_skills job_languages
+        )
 
         include_scopes << user_include_scopes(user_key: :owner)
 

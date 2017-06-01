@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module SecureGenerator
   DEFAULT_TOKEN_LENGTH = 128
 

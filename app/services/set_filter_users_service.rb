@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class SetFilterUsersService
   def self.call(filter:)
     FilterUser.transaction do

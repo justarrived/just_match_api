@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class UserInterest < ApplicationRecord
   LEVEL_RANGE = 1..5
 

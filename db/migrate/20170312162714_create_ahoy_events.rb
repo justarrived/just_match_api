@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class CreateAhoyEvents < ActiveRecord::Migration
   def change
     create_table :ahoy_events do |t|
@@ -13,8 +14,8 @@ class CreateAhoyEvents < ActiveRecord::Migration
       t.timestamp :time
     end
 
-    add_index :ahoy_events, [:visit_id, :name]
-    add_index :ahoy_events, [:user_id, :name]
-    add_index :ahoy_events, [:name, :time]
+    add_index :ahoy_events, %i(visit_id name)
+    add_index :ahoy_events, %i(user_id name)
+    add_index :ahoy_events, %i(name time)
   end
 end

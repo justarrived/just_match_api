@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class FilterUser < ApplicationRecord
   belongs_to :filter
   belongs_to :user

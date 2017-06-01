@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class AskForJobInformationNotifier < BaseNotifier
   def self.call(job_user:)
     job = job_user.job

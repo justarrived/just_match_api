@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class Token < ApplicationRecord
   DEFAULT_EXPIRE_IN_DAYS = 14
 

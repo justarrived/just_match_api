@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module SetJobLanguagesService
   def self.call(job:, language_ids_param:)
     return JobLanguage.none if language_ids_param.nil?
@@ -8,9 +9,9 @@ module SetJobLanguagesService
       JobLanguage.find_or_initialize_by(
         job: job, language_id: attrs[:id]
       ).tap do |job_language|
-        job_language.proficiency = attrs[:proficiency] unless attrs[:proficiency].blank?
+        job_language.proficiency = attrs[:proficiency] if attrs[:proficiency].present?
 
-        unless attrs[:proficiency_by_admin].blank?
+        if attrs[:proficiency_by_admin].present?
           job_language.proficiency_by_admin = attrs[:proficiency_by_admin]
         end
       end

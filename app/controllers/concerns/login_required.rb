@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module LoginRequired
   LOGIN_REQUIRED_CODE = :login_required
 

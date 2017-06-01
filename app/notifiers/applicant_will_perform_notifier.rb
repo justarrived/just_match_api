@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class ApplicantWillPerformNotifier < BaseNotifier
   def self.call(job_user:, owner:)
     user_email(job_user: job_user, owner: owner)

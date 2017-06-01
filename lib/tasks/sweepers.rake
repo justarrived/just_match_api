@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 namespace :sweepers do
   task applicant_confirmation_overdue: :environment do |task_name|
     wrap_sweeper_task(task_name) do
@@ -60,10 +61,10 @@ namespace :sweepers do
   end
 
   task frilans_finans: :environment do
-    [
-      :create_terms, :create_users, :create_companies, :create_invoices,
-      :activate_invoices
-    ].each do |task|
+    %i(
+      create_terms create_users create_companies create_invoices
+      activate_invoices
+    ).each do |task|
       Rake::Task["sweepers:frilans_finans:#{task}"].execute
     end
   end

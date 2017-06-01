@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module FrilansFinans
   module UserWrapper
     def self.attributes(user)
@@ -20,9 +21,9 @@ module FrilansFinans
 
       ssn = user.ssn
 
-      attrs[:social_security_number] = format_ssn(ssn) unless ssn.blank?
-      attrs[:account_clearing_number] = user.account_clearing_number unless user.account_clearing_number.blank? # rubocop:disable Metrics/LineLength
-      attrs[:account_number] = user.account_number unless user.account_number.blank?
+      attrs[:social_security_number] = format_ssn(ssn) if ssn.present?
+      attrs[:account_clearing_number] = user.account_clearing_number if user.account_clearing_number.present? # rubocop:disable Metrics/LineLength
+      attrs[:account_number] = user.account_number if user.account_number.present?
 
       attrs
     end

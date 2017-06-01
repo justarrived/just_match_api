@@ -1,6 +1,7 @@
 # frozen_string_literal: true
+
 class CompanySerializer < ApplicationSerializer
-  ATTRIBUTES = [:name, :website, :cin, :street, :zip, :city, :phone, :email].freeze
+  ATTRIBUTES = %i(name website cin street zip city phone email).freeze
   attributes ATTRIBUTES
 
   link(:self) { api_v1_company_url(object) }

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'json_api_helpers/action_dispatch_request_wrapper'
 
 module JsonApiHelpers

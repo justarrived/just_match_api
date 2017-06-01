@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class Doxxer
   BASE_URL = AppConfig.app_base_url
   EXAMPLE_OUTPUT_PATH = 'examples'
@@ -28,7 +29,7 @@ class Doxxer
       model_json_string
     ]
 
-    with_error = [:create, :update].include?(method)
+    with_error = %i(create update).include?(method)
 
     error = []
     if with_error

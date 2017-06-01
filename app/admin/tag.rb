@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 ActiveAdmin.register Tag do
   menu parent: 'Settings'
 
@@ -15,6 +16,6 @@ ActiveAdmin.register Tag do
   end
 
   permit_params do
-    [:name, :color]
+    %i(name color)
   end
 end

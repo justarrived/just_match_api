@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class JobCancelledNotifier < BaseNotifier
   def self.call(job:)
     job.users.each do |user|

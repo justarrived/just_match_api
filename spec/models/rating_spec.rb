@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Rating, type: :model do
@@ -171,7 +172,7 @@ RSpec.describe Rating, type: :model do
     end
   end
 
-  [:from_user, :to_user].each do |relation_name|
+  %i(from_user to_user).each do |relation_name|
     describe "validate #{relation_name}" do
       let(:user_type_sym) { relation_name }
       let(:user_subject) { public_send(user_type_sym) }

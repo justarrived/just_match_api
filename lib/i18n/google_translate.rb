@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'google/cloud/translate'
 
 require 'i18n/google_translate/detection'
