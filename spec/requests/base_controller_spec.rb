@@ -16,7 +16,7 @@ RSpec.describe 'BaseController', type: :request do
         get api_v1_user_path(user_id: user.id), headers: auth_header
 
         parsed_body = JSON.parse(response.body)
-        first_name = parsed_body.dig('data', 'attributes', 'first-name')
+        first_name = parsed_body.dig('data', 'attributes', 'first_name')
 
         expect(first_name).to eq('Jane')
       end
@@ -55,46 +55,6 @@ RSpec.describe 'BaseController', type: :request do
         expect(errors['status']).to eq(401)
         expect(errors['detail']).to eq(I18n.t('token_expired_error'))
         expect(errors['code']).to eq('token_expired')
-      end
-    end
-  end
-
-  describe 'key transform header' do
-    let(:zip_long) { 18 }
-    before(:each) do
-      FactoryGirl.create(:job, zip_longitude: 18)
-    end
-
-    context 'with X-API-KEY-TRANSFORM underscore' do
-      it 'returns all keys in underscore format' do
-        get api_v1_jobs_path, headers: { 'X-API-KEY-TRANSFORM' => 'underscore' }
-
-        parsed_body = JSON.parse(response.body)
-        first_data = parsed_body['data'].first
-        zip_long = first_data.dig('attributes', 'zip_longitude')
-        expect(zip_long).to eq(zip_long)
-      end
-    end
-
-    context 'with X-API-KEY-TRANSFORM dash' do
-      it 'returns all keys in dashed/kebab-case format' do
-        get api_v1_jobs_path, headers: { 'X-API-KEY-TRANSFORM' => 'dash' }
-
-        parsed_body = JSON.parse(response.body)
-        first_data = parsed_body['data'].first
-        zip_long = first_data.dig('attributes', 'zip-longitude')
-
-        expect(zip_long).to eq(zip_long)
-      end
-
-      it 'returns all keys in dashed/kebab-case format by default' do
-        get api_v1_jobs_path
-
-        parsed_body = JSON.parse(response.body)
-        first_data = parsed_body['data'].first
-        zip_long = first_data.dig('attributes', 'zip-longitude')
-
-        expect(zip_long).to eq(zip_long)
       end
     end
   end
