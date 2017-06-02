@@ -3,6 +3,13 @@
 HEAD
 -----------
 
+
+v1.86 - 2017-06-02
+----------
+* _Admin_:
+  - Don't assume that `user_documents_attributes` always exists in user params
+
+
 v1.85 - 2017-06-01
 ----------
 * _Admin_:
