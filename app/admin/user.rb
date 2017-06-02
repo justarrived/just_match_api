@@ -343,13 +343,15 @@ ActiveAdmin.register User do
     def update_resource(user, params_array)
       user_params = params_array.first
 
-      document_params = user_params[:user_documents_attributes].to_unsafe_h
-      new_document_params = {}
-      document_params.each do |key, attributes|
-        # We don't want to touch already created user documents
-        new_document_params[key] = attributes unless attributes['id']
+      document_params = user_params[:user_documents_attributes]&.to_unsafe_h
+      if document_params
+        new_document_params = {}
+        document_params.each do |key, attributes|
+          # We don't want to touch already created user documents
+          new_document_params[key] = attributes unless attributes['id']
+        end
+        user_params[:user_documents_attributes] = new_document_params
       end
-      user_params[:user_documents_attributes] = new_document_params
 
       user_interests_attrs = user_params.delete(:user_interests_attributes)
       interest_ids_param = (user_interests_attrs || {}).map do |_index, attrs|
