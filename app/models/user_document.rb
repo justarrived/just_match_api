@@ -4,7 +4,10 @@ class UserDocument < ApplicationRecord
   belongs_to :user
   belongs_to :document
 
-  CATEGORIES = { cv: 1 }.freeze
+  CATEGORIES = {
+    cv: 1,
+    personal_letter: 2
+  }.freeze
 
   # NOTE: Figure out a good way to validate #category
   #       see https://github.com/rails/rails/issues/13971
