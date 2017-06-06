@@ -4,6 +4,17 @@ HEAD
 -----------
 
 
+v1.87 - 2017-06-06
+----------
+* _Enhancement_:
+  - Replace `#before_filter` with `#before_action` in active_admin config
+  - Add missing I18n key for `UserDocument::CATEGORIES` enum
+  - `Job::blocketjobb_jobs` scope only returns jobs with last application dates in the future
+  - Remove blocketjobb auth key, since they can't use it..
+  - Add User document personal letter category
+  - Move all remaining serializers from `app/support` to `app/serializers`
+
+
 v1.86 - 2017-06-02
 ----------
 * _Admin_:
