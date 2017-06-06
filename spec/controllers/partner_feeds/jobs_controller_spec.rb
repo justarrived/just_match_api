@@ -57,27 +57,10 @@ RSpec.describe Api::V1::PartnerFeeds::JobsController, type: :controller do
 
   describe 'GET #blocketjobb' do
     it 'returns blocketjobb jobs' do
-      token = 'nososecret'
-      allow(AppSecrets).to receive(:blocketjobb_sync_key).and_return(token)
-
       request.content_type = 'application/json'
-      get :blocketjobb, params: { auth_token: token }
-
-      FactoryGirl.create(:job)
-      get :blocketjobb, params: { auth_token: token }
-      expect(response.status).to eq(200)
-    end
-
-    it 'returns 401 Unquthorized if an invalid key is passed' do
-      FactoryGirl.create(:job)
-      get :blocketjobb, params: { auth_token: 'thewrongkey' }
-      expect(response.status).to eq(401)
-    end
-
-    it 'returns 401 Unquthorized if an no key is passed' do
       FactoryGirl.create(:job)
       get :blocketjobb
-      expect(response.status).to eq(401)
+      expect(response.status).to eq(200)
     end
   end
 end
