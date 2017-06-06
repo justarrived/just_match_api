@@ -73,7 +73,15 @@ ActiveAdmin.register Job do
     column :job_end_date do |job|
       european_date(job.job_end_date)
     end
-    column :hours
+    column :order_value do |job|
+      order = job.order
+      if order
+        NumberFormatter.new.to_delimited(
+          order.hours * order&.invoice_hourly_pay_rate,
+          locale: :sv
+        )
+      end
+    end
     column :city
     column :filled
     column :recruiter do |job|
@@ -241,7 +249,7 @@ ActiveAdmin.register Job do
   controller do
     def scoped_collection
       super.with_translations.
-        includes(:just_arrived_contact).
+        includes(:just_arrived_contact, :order).
         left_joins(:job_users).
         select('jobs.*, count(job_users.id) as job_users_count').
         group('jobs.id, job_users.job_id')
