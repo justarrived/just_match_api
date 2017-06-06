@@ -147,6 +147,8 @@ en:
     categories:
       cv: CV
       cv_description: Your CV (Curriculum Vitae)
+      personal_letter: Personal Letter
+      personal_letter_description: Your Personal Letter
   user_image:
     categories:
       profile: Profile

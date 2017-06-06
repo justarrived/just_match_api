@@ -147,6 +147,8 @@ sv:
     categories:
       cv: CV
       cv_description: Ditt CV (Curriculum Vitae)
+      personal_letter: Personligt brev
+      personal_letter_description: Ditt personliga brev
   user_image:
     categories:
       profile: Profi
