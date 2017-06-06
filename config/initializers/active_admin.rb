@@ -178,8 +178,8 @@ ActiveAdmin.setup do |config|
   # You can add before, after and around filters to all of your
   # Active Admin resources and pages from here.
   #
-  config.before_filter :authenticate_admin
-  config.before_filter :set_admin_locale
+  config.before_action :authenticate_admin
+  config.before_action :set_admin_locale
 
   # == Localize Date/Time Format
   #
