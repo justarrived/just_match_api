@@ -3,6 +3,12 @@
 HEAD
 -----------
 
+v1.88 - 2017-06-06
+----------
+* _Admin_:
+  - Display job order value on jobs index page
+  - Remove unused eager loading on jobs index
+
 
 v1.87 - 2017-06-06
 ----------
