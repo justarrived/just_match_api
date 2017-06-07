@@ -61,6 +61,28 @@ FrilansFinansApi.configure do |config|
   config.event_logger = FrilansFinansApi::NilEventLogger.new
 end
 
+JsonApiHelpers.configure do |config|
+  config.deserializer_klass = Class.new do
+    def self.jsonapi_parse(json_api_hash)
+      json_api_hash.dig('data', 'attributes')
+    end
+  end
+
+  config.params_klass = Class.new do
+    def initialize(hash)
+      @hash = hash
+    end
+
+    def [](name)
+      @hash[name.to_s]
+    end
+
+    def to_h
+      @hash
+    end
+  end
+end
+
 # Only allow the tests to connect to localhost and  allow codeclimate
 # codeclimate (for test coverage reporting)
 WebMock.disable_net_connect!(allow_localhost: true, allow: 'codeclimate.com')
