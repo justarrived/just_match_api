@@ -658,9 +658,9 @@ end
 #  city                         :string
 #  staffing_job                 :boolean          default(FALSE)
 #  direct_recruitment_job       :boolean          default(FALSE)
+#  order_id                     :integer
 #  municipality                 :string
 #  number_to_fill               :integer          default(1)
-#  order_id                     :integer
 #  full_time                    :boolean          default(FALSE)
 #  swedish_drivers_license      :string
 #  car_required                 :boolean          default(FALSE)
@@ -669,6 +669,8 @@ end
 #  publish_on_blocketjobb       :boolean          default(FALSE)
 #  last_application_at          :datetime
 #  blocketjobb_category         :string
+#  publish_at                   :datetime
+#  unpublish_at                 :datetime
 #
 # Indexes
 #
