@@ -4,12 +4,6 @@ Rails.application.configure do
   # Settings specified here will take precedence over those in
   # config/application.rb.
 
-  # Less verbose Rails logging
-  config.lograge.enabled = true
-  config.lograge.custom_options = lambda do |event|
-    event.payload
-  end
-
   # Code is not reloaded between requests.
   config.cache_classes = true
 
@@ -115,6 +109,12 @@ Rails.application.configure do
     logger = ActiveSupport::Logger.new(STDOUT)
     logger.formatter = config.log_formatter
     config.logger = ActiveSupport::TaggedLogging.new(logger)
+  end
+
+  # Less verbose Rails logging
+  config.lograge.enabled = true
+  config.lograge.custom_options = lambda do |event|
+    event.payload
   end
 
   # Do not dump schema after migrations.
