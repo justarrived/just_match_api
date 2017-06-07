@@ -3,12 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::CompaniesController, type: :controller do
-  let(:valid_session) { {} }
-
   describe 'GET #index' do
     it 'assigns all companies as @companies' do
       company = FactoryGirl.create(:company)
-      process :index, method: :get, headers: valid_session
+      process :index, method: :get
       expect(assigns(:companies)).to eq([company])
     end
   end
@@ -16,7 +14,7 @@ RSpec.describe Api::V1::CompaniesController, type: :controller do
   describe 'GET #show' do
     it 'assigns company as @company' do
       company = FactoryGirl.create(:company)
-      get :show, params: { company_id: company.to_param }, headers: valid_session
+      get :show, params: { company_id: company.to_param }
       expect(assigns(:company)).to eq(company)
     end
   end
@@ -40,7 +38,7 @@ RSpec.describe Api::V1::CompaniesController, type: :controller do
 
     it 'creates a new Company' do
       expect do
-        post :create, params: valid_params, headers: valid_session
+        post :create, params: valid_params
       end.to change(Company, :count).by(1)
     end
 
@@ -50,7 +48,7 @@ RSpec.describe Api::V1::CompaniesController, type: :controller do
     end
 
     it 'returns 201 created status' do
-      get :create, params: valid_params, headers: valid_session
+      get :create, params: valid_params
       expect(response.status).to eq(201)
     end
 
