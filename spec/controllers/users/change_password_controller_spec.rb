@@ -6,11 +6,15 @@ RSpec.describe Api::V1::Users::ChangePasswordController, type: :controller do
   describe 'POST #create' do
     let(:old_password) { 'OLD PASSWORD' }
     let(:new_password) { 'NEW PASSWORD' }
-    let!(:user) { FactoryGirl.create(:user_with_one_time_token, password: old_password) }
+    let!(:user) do
+      FactoryGirl.create(:user_with_one_time_token, password: old_password).
+        tap(&:create_auth_token)
+    end
 
     context 'logged in user' do
       let(:valid_attributes) do
         {
+          auth_token: user.auth_token,
           data: {
             attributes: {
               old_password: old_password,
@@ -20,27 +24,20 @@ RSpec.describe Api::V1::Users::ChangePasswordController, type: :controller do
         }
       end
 
-      let(:valid_session) do
-        allow_any_instance_of(described_class).
-          to(receive(:current_user).
-          and_return(user))
-        {}
-      end
-
       it 'changes the user password' do
-        post :create, params: valid_attributes, headers: valid_session
+        post :create, params: valid_attributes
         expect(User.correct_password?(assigns(:user), new_password)).to eq(true)
       end
 
       it 'returns 200 ok sucessfull password update' do
-        post :create, params: valid_attributes, headers: valid_session
+        post :create, params: valid_attributes
         expect(response.status).to eq(200)
       end
 
       it 'destroys all user tokens' do
         user.create_auth_token
 
-        post :create, params: valid_attributes, headers: valid_session
+        post :create, params: valid_attributes
 
         expect(assigns(:user).auth_tokens.length).to be_zero
       end
