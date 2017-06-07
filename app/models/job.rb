@@ -100,17 +100,24 @@ class Job < ApplicationRecord
   })
   scope :passed, (-> { where('job_end_date < ?', Time.zone.now) })
   scope :future, (-> { where('job_end_date > ?', Time.zone.now) })
-  scope :linkedin_jobs, (-> { where(publish_on_linkedin: true) })
-  scope :blocketjobb_jobs, (lambda {
-    where(publish_on_blocketjobb: true).
-      where('last_application_at > ?', Time.zone.now)
-  })
   scope :published, (lambda {
     scope = visible.where(unpublish_at: nil).
       or(after(:unpublish_at, Time.zone.now))
 
     scope.where.not(publish_at: nil).
       before(:publish_at, Time.zone.now)
+  })
+  scope :linkedin_jobs, (lambda {
+    published.
+    uncancelled.
+      where(publish_on_linkedin: true).
+      where('last_application_at > ?', Time.zone.now)
+  })
+  scope :blocketjobb_jobs, (lambda {
+    published.
+    uncancelled.
+      where(publish_on_blocketjobb: true).
+      where('last_application_at > ?', Time.zone.now)
   })
 
   enum salary_type: SALARY_TYPES
