@@ -35,7 +35,7 @@ RSpec.describe Api::V1::SkillsController, type: :controller do
   describe 'GET #index' do
     it 'assigns all skills as @skills' do
       skill = FactoryGirl.create(:skill)
-      process :index, method: :get, headers: valid_session
+      process :index, method: :get
       expect(assigns(:skills)).to eq([skill])
     end
   end
@@ -43,7 +43,7 @@ RSpec.describe Api::V1::SkillsController, type: :controller do
   describe 'GET #show' do
     it 'assigns the requested skill as @skill' do
       skill = FactoryGirl.create(:skill)
-      get :show, params: { id: skill.to_param }, headers: valid_session
+      get :show, params: { id: skill.to_param }
       expect(assigns(:skill)).to eq(skill)
     end
   end
@@ -53,27 +53,27 @@ RSpec.describe Api::V1::SkillsController, type: :controller do
       it 'creates a new Skill' do
         allow_any_instance_of(User).to receive(:admin?).and_return(true)
         expect do
-          post :create, params: valid_attributes, headers: valid_session
+          post :create, params: valid_attributes
         end.to change(Skill, :count).by(1)
       end
 
       it 'assigns a newly created skill as @skill' do
         allow_any_instance_of(User).to receive(:admin?).and_return(true)
-        post :create, params: valid_attributes, headers: valid_session
+        post :create, params: valid_attributes
         expect(assigns(:skill)).to be_a(Skill)
         expect(assigns(:skill)).to be_persisted
       end
 
       it 'returns success status' do
         allow_any_instance_of(User).to receive(:admin?).and_return(true)
-        post :create, params: valid_attributes, headers: valid_session
+        post :create, params: valid_attributes
         expect(response.status).to eq(201)
       end
 
       context 'user not allowed' do
         it 'returns forbidden status' do
           allow_any_instance_of(User).to receive(:admin?).and_return(false)
-          post :create, params: valid_attributes, headers: valid_session
+          post :create, params: valid_attributes
           expect(response.status).to eq(403)
         end
       end
@@ -82,13 +82,13 @@ RSpec.describe Api::V1::SkillsController, type: :controller do
     context 'with invalid params' do
       it 'assigns a newly created but unsaved skill as @skill' do
         allow_any_instance_of(User).to receive(:admin?).and_return(true)
-        post :create, params: invalid_attributes, headers: valid_session
+        post :create, params: invalid_attributes
         expect(assigns(:skill)).to be_a_new(Skill)
       end
 
       it 'returns 422' do
         allow_any_instance_of(User).to receive(:admin?).and_return(true)
-        post :create, params: invalid_attributes, headers: valid_session
+        post :create, params: invalid_attributes
         expect(response.status).to eq(422)
       end
     end
@@ -107,7 +107,7 @@ RSpec.describe Api::V1::SkillsController, type: :controller do
       it 'updates the requested skill' do
         allow_any_instance_of(User).to receive(:admin?).and_return(true)
         skill = FactoryGirl.create(:skill)
-        put :update, params: { id: skill.to_param }.merge(new_attributes), headers: valid_session # rubocop:disable Metrics/LineLength
+        put :update, params: { id: skill.to_param }.merge(new_attributes)
         skill.reload
         expect(skill.original_name).to eq('New skill name')
       end
@@ -115,14 +115,14 @@ RSpec.describe Api::V1::SkillsController, type: :controller do
       it 'assigns the requested skill as @skill' do
         allow_any_instance_of(User).to receive(:admin?).and_return(true)
         skill = FactoryGirl.create(:skill)
-        put :update, params: { id: skill.to_param }.merge(new_attributes), headers: valid_session # rubocop:disable Metrics/LineLength
+        put :update, params: { id: skill.to_param }.merge(new_attributes)
         expect(assigns(:skill)).to eq(skill)
       end
 
       it 'returns 200' do
         allow_any_instance_of(User).to receive(:admin?).and_return(true)
         skill = FactoryGirl.create(:skill)
-        put :update, params: { id: skill.to_param }.merge(new_attributes), headers: valid_session # rubocop:disable Metrics/LineLength
+        put :update, params: { id: skill.to_param }.merge(new_attributes)
         expect(response.status).to eq(200)
       end
 
@@ -130,7 +130,7 @@ RSpec.describe Api::V1::SkillsController, type: :controller do
         it 'returns forbidden status' do
           skill = FactoryGirl.create(:skill)
           allow_any_instance_of(User).to receive(:admin?).and_return(false)
-          post :update, params: { id: skill.to_param }.merge(new_attributes), headers: valid_session # rubocop:disable Metrics/LineLength
+          post :update, params: { id: skill.to_param }.merge(new_attributes)
           expect(response.status).to eq(403)
         end
       end
@@ -140,7 +140,7 @@ RSpec.describe Api::V1::SkillsController, type: :controller do
       it 'returns 200' do
         allow_any_instance_of(User).to receive(:admin?).and_return(true)
         skill = FactoryGirl.create(:skill)
-        put :update, params: { id: skill.to_param }.merge(invalid_attributes), headers: valid_session # rubocop:disable Metrics/LineLength
+        put :update, params: { id: skill.to_param }.merge(invalid_attributes)
         expect(response.status).to eq(200)
       end
     end
@@ -151,14 +151,14 @@ RSpec.describe Api::V1::SkillsController, type: :controller do
       allow_any_instance_of(User).to receive(:admin?).and_return(true)
       skill = FactoryGirl.create(:skill)
       expect do
-        delete :destroy, params: { id: skill.to_param }, headers: valid_session
+        delete :destroy, params: { id: skill.to_param }
       end.to change(Skill, :count).by(-1)
     end
 
     it 'redirects to the skills list' do
       allow_any_instance_of(User).to receive(:admin?).and_return(true)
       skill = FactoryGirl.create(:skill)
-      delete :destroy, params: { id: skill.to_param }, headers: valid_session
+      delete :destroy, params: { id: skill.to_param }
       expect(response.status).to eq(204)
     end
 
@@ -166,7 +166,7 @@ RSpec.describe Api::V1::SkillsController, type: :controller do
       it 'returns forbidden status' do
         skill = FactoryGirl.create(:skill)
         allow_any_instance_of(User).to receive(:admin?).and_return(false)
-        delete :destroy, params: { id: skill.to_param, skill: valid_attributes }, headers: valid_session # rubocop:disable Metrics/LineLength
+        delete :destroy, params: { id: skill.to_param, skill: valid_attributes }
         expect(response.status).to eq(403)
       end
     end
