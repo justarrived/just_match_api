@@ -130,7 +130,7 @@ group :test, :docs do
   gem 'codeclimate-test-reporter', '~> 1.0', require: false
   gem 'database_cleaner', '~> 1.6'
   gem 'fuubar', '~> 2.2'
-  gem 'rails-controller-testing'
+  gem 'rails-controller-testing', '~> 1.0'
   gem 'rspec-activemodel-mocks', '~> 1.0'
   gem 'simplecov', '~> 0.13', require: false
   gem 'timecop', '~> 0.8'
