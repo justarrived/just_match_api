@@ -1,25 +1,5 @@
 # frozen_string_literal: true
 
-# == Schema Information
-#
-# Table name: interests
-#
-#  id          :integer          not null, primary key
-#  name        :string
-#  language_id :integer
-#  internal    :boolean          default(FALSE)
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#
-# Indexes
-#
-#  index_interests_on_language_id  (language_id)
-#
-# Foreign Keys
-#
-#  fk_rails_4b04e42f8f  (language_id => languages.id)
-#
-
 require 'rails_helper'
 
 RSpec.describe Api::V1::InterestsController, type: :controller do
@@ -39,3 +19,22 @@ RSpec.describe Api::V1::InterestsController, type: :controller do
     end
   end
 end
+# == Schema Information
+#
+# Table name: interests
+#
+#  id          :integer          not null, primary key
+#  name        :string
+#  language_id :integer
+#  internal    :boolean          default(FALSE)
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#
+# Indexes
+#
+#  index_interests_on_language_id  (language_id)
+#
+# Foreign Keys
+#
+#  fk_rails_4b04e42f8f  (language_id => languages.id)
+#
