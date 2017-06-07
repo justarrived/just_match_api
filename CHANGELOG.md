@@ -3,6 +3,31 @@
 HEAD
 -----------
 
+
+v1.89 - 2017-06-07
+----------
+* _API_:
+  - Only return published jobs from jobs endpoint
+* _Admin_:
+  - Add missing locales to job data checklist
+  - Add two job filters
+* _DB_:
+  - Add `Job#publish_at` (datetime)
+  - Add `Job#unpublish_at` (datetime)
+* _Enhancement_:
+  - Update `Job::blocketjobb_jobs` and `Job::linkedin_jobs` scope
+  - Update production log level from DEBUG => INFO
+  - Move lograge config next to other logging config
+  - Add `I18n` for new job validation
+  - Add job validation when published to linkedin
+  - Add `Job::published` scope
+* _Update gem_:
+  - lograge
+  - puma
+  - rails-i18n
+  - aws-sdk
+
+
 v1.88 - 2017-06-06
 ----------
 * _Admin_:
