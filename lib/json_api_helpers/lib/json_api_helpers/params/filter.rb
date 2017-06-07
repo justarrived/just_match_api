@@ -32,7 +32,7 @@ module JsonApiHelpers
         start = _parse_date_string(date_parts.first)
         finish = _parse_date_string(date_parts.last)
         start..finish
-      rescue ArgumentError, 'invalid date' => _e
+      rescue ArgumentError
         nil
       end
 
