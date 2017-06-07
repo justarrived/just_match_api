@@ -26,7 +26,7 @@ module Api
         authorize(Job)
 
         jobs_index = Index::JobsIndex.new(self, current_user)
-        jobs_scope = jobs_index_scope(Job.uncancelled)
+        jobs_scope = jobs_index_scope(Job.uncancelled.published)
         @jobs = jobs_index.jobs(jobs_scope)
 
         api_render(@jobs, total: jobs_index.count)
