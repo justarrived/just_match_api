@@ -56,6 +56,7 @@ sv:
       update_not_allowed_when_accepted: job kan inte uppdateras när jobbet har redan accepterats av användaren
       job_end_date_after_job_date: måste vara efter jobb datum
       last_application_at_on_publish_to_blocketjobb: sista ansöknings tid måste anges ifall jobbet ska publiceras till Blocketjobb
+      last_application_at_on_publish_to_linkedin: sista ansöknings tid måste anges ifall jobbet ska publiceras till LinkedIN
       municipality_presence_on_publish_to_blocketjobb: kommun måste anges ifall jobbet ska publiceras till Blocketjobb
       blocketjobb_category_presence_on_publish_to_blocketjobb: blocketjobb kategori måste anges ifall jobbet ska publiceras till Blocketjobb
       company_presence_on_publish_to_blocketjobb: företag måste anges (via ägaren av jobbet) ifall jobbet ska publiceras till Blocketjobb
