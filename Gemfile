@@ -107,7 +107,7 @@ group :development, :test, :docs do
   gem 'immigrant', '~> 0.3'
   gem 'rspec-rails', '~> 3.6'
   gem 'rspec_junit_formatter', '~> 0.2'
-  gem 'rubocop', '~> 0.48', require: false
+  gem 'rubocop', '~> 0.49', require: false
 end
 
 group :development do
@@ -128,7 +128,7 @@ end
 
 group :test, :docs do
   gem 'codeclimate-test-reporter', '~> 1.0', require: false
-  gem 'database_cleaner', '~> 1.5'
+  gem 'database_cleaner', '~> 1.6'
   gem 'fuubar', '~> 2.2'
   gem 'rails-controller-testing'
   gem 'rspec-activemodel-mocks', '~> 1.0'
