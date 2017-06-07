@@ -3,45 +3,37 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::Chats::ChatsController, type: :controller do
+  let(:user) { FactoryGirl.create(:user_with_tokens) }
   let(:valid_attributes) do
-    user = FactoryGirl.create(:user)
     {
+      auth_token: user.auth_token,
       data: {
-        attributes: { user_ids: [user] }
+        attributes: { user_ids: [FactoryGirl.create(:user)] }
       }
     }
   end
 
   let(:invalid_attributes) do
     {
+      auth_token: user.auth_token,
       data: {
         attributes: { user_ids: [] }
       }
     }
   end
 
-  let(:valid_session) do
-    user = FactoryGirl.create(:user_with_tokens)
-    allow_any_instance_of(described_class).
-      to(
-        receive(:current_user).
-        and_return(user)
-      )
-    { token: user.auth_token }
-  end
-
   describe 'GET #index' do
     it 'assigns all chats as @chats' do
-      allow_any_instance_of(User).to receive(:admin?).and_return(true)
+      admin_user = FactoryGirl.create(:user_with_tokens, admin: true)
       chat = Chat.create! {}
-      process :index, method: :get, headers: valid_session
+      process :index, method: :get, params: { auth_token: admin_user.auth_token }
       expect(assigns(:chats)).to eq([chat])
     end
 
     context 'not authorized' do
       it 'returns not authorized status' do
-        allow_any_instance_of(User).to receive(:admin?).and_return(false)
-        process :index, method: :get, headers: valid_session
+        random_user = FactoryGirl.create(:user_with_tokens)
+        process :index, method: :get, params: { auth_token: random_user.auth_token }
         expect(response.status).to eq(403)
       end
     end
@@ -50,10 +42,10 @@ RSpec.describe Api::V1::Chats::ChatsController, type: :controller do
   describe 'GET #show' do
     context 'authorized' do
       it 'assigns the requested chat as @chat' do
-        user = User.find_by_auth_token(valid_session[:token])
         chat_user = FactoryGirl.create(:chat_user, user: user)
         chat = chat_user.chat
-        process :show, method: :get, params: { id: chat.to_param }, headers: valid_session
+        params = { auth_token: user.auth_token, id: chat.to_param }
+        process :show, method: :get, params: params
         expect(assigns(:chat)).to eq(chat)
       end
     end
@@ -62,7 +54,8 @@ RSpec.describe Api::V1::Chats::ChatsController, type: :controller do
       it 'raises record not found error' do
         chat_user = FactoryGirl.create(:chat_user)
         chat = chat_user.chat
-        process :show, method: :get, params: { id: chat.to_param }, headers: valid_session
+        params = { auth_token: user.auth_token, id: chat.to_param }
+        process :show, method: :get, params: params
         expect(response.status).to eq(404)
       end
     end
@@ -72,18 +65,18 @@ RSpec.describe Api::V1::Chats::ChatsController, type: :controller do
     context 'with valid params' do
       it 'creates a new Chat' do
         expect do
-          process :create, method: :post, params: valid_attributes, headers: valid_session
+          process :create, method: :post, params: valid_attributes
         end.to change(Chat, :count).by(1)
       end
 
       it 'assigns a newly created chat as @chat' do
-        process :create, method: :post, params: valid_attributes, headers: valid_session
+        process :create, method: :post, params: valid_attributes
         expect(assigns(:chat)).to be_a(Chat)
         expect(assigns(:chat)).to be_persisted
       end
 
       it 'returns created status' do
-        process :create, method: :post, params: valid_attributes, headers: valid_session
+        process :create, method: :post, params: valid_attributes
         expect(response.status).to eq(201)
       end
     end
@@ -91,13 +84,13 @@ RSpec.describe Api::V1::Chats::ChatsController, type: :controller do
     context 'with invalid params' do
       it 'assigns a newly created but unsaved chat as @chat' do
         FactoryGirl.create(:user)
-        process :create, method: :post, params: invalid_attributes, headers: valid_session
+        process :create, method: :post, params: invalid_attributes
         expect(assigns(:chat)).to be_a_new(Chat)
       end
 
       it 'returns @chat errors' do
         FactoryGirl.create(:user)
-        process :create, method: :post, params: invalid_attributes, headers: valid_session
+        process :create, method: :post, params: invalid_attributes
         min = Chat::MIN_USERS
         max = Chat::MAX_USERS
         message = I18n.t('errors.chat.number_of_users', min: min, max: max)
@@ -106,7 +99,7 @@ RSpec.describe Api::V1::Chats::ChatsController, type: :controller do
 
       it 'returns unprocessable entity' do
         FactoryGirl.create(:user)
-        process :create, method: :post, params: invalid_attributes, headers: valid_session
+        process :create, method: :post, params: invalid_attributes
         expect(response.status).to eq(422)
       end
     end
