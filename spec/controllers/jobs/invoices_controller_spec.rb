@@ -54,7 +54,9 @@ RSpec.describe Api::V1::Jobs::InvoicesController, type: :controller do
 
     context 'invalid user' do
       it 'returns 401 unauthorized' do
-        post :create, params: valid_params
+        params = valid_params.dup
+        params.delete(:auth_token)
+        post :create, params: params
         expect(response.status).to eq(401)
       end
     end
