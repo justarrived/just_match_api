@@ -23,7 +23,7 @@ RSpec.describe Api::V1::Jobs::JobSkillsController, type: :controller do
     it 'assigns all user skills as @skills' do
       job = FactoryGirl.create(:job_with_skills, skills_count: 1)
       job_skill = job.job_skills.first
-      get :index, params: { job_id: job.to_param }, headers: valid_session
+      get :index, params: { job_id: job.to_param }
       expect(assigns(:job_skills)).to eq([job_skill])
     end
   end
@@ -33,7 +33,7 @@ RSpec.describe Api::V1::Jobs::JobSkillsController, type: :controller do
       job = FactoryGirl.create(:job_with_skills, skills_count: 1)
       job_skill = job.job_skills.first
       params = { job_id: job.to_param, job_skill_id: job_skill.to_param }
-      get :show, params: params, headers: valid_session
+      get :show, params: params
       expect(assigns(:job_skill)).to eq(job_skill)
     end
 
@@ -41,7 +41,7 @@ RSpec.describe Api::V1::Jobs::JobSkillsController, type: :controller do
       job = FactoryGirl.create(:job_with_skills, skills_count: 1)
       job_skill = job.job_skills.first
       params = { job_id: job.to_param, job_skill_id: job_skill.to_param }
-      get :show, params: params, headers: valid_session
+      get :show, params: params
       expect(assigns(:job)).to eq(job)
     end
   end
@@ -49,17 +49,18 @@ RSpec.describe Api::V1::Jobs::JobSkillsController, type: :controller do
   describe 'POST #create' do
     context 'with valid params' do
       context 'logged in' do
-        let(:user) { User.find_by_auth_token(valid_session[:token]) }
+        let(:user) { FactoryGirl.create(:company_user).tap(&:create_auth_token) }
 
         it 'creates a new JobSkill' do
           job = FactoryGirl.create(:job, owner: user)
           skill = FactoryGirl.create(:skill)
           params = {
+            auth_token: user.auth_token,
             job_id: job.to_param,
             data: { id: skill.to_param }
           }
           expect do
-            post :create, params: params, headers: valid_session
+            post :create, params: params
           end.to change(JobSkill, :count).by(1)
         end
 
@@ -67,10 +68,11 @@ RSpec.describe Api::V1::Jobs::JobSkillsController, type: :controller do
           job = FactoryGirl.create(:job, owner: user)
           skill = FactoryGirl.create(:skill)
           params = {
+            auth_token: user.auth_token,
             job_id: job.to_param,
             data: { id: skill.to_param }
           }
-          post :create, params: params, headers: valid_session
+          post :create, params: params
           expect(assigns(:job_skill)).to be_a(JobSkill)
           expect(assigns(:job_skill)).to be_persisted
         end
@@ -79,10 +81,11 @@ RSpec.describe Api::V1::Jobs::JobSkillsController, type: :controller do
           job = FactoryGirl.create(:job, owner: user)
           skill = FactoryGirl.create(:skill)
           params = {
+            auth_token: user.auth_token,
             job_id: job.to_param,
             data: { id: skill.to_param }
           }
-          post :create, params: params, headers: valid_session
+          post :create, params: params
           expect(response.status).to eq(201)
         end
       end
@@ -92,28 +95,39 @@ RSpec.describe Api::V1::Jobs::JobSkillsController, type: :controller do
           job = FactoryGirl.create(:job)
           skill = FactoryGirl.create(:skill)
           params = {
+            auth_token: 'wat',
             job_id: job.to_param,
             data: { id: skill.to_param }
           }
           expect do
-            post :create, params: params, headers: valid_session
+            post :create, params: params
           end.to change(JobSkill, :count).by(0)
         end
       end
     end
 
     context 'with invalid params' do
-      let(:user) { User.find_by_auth_token(valid_session[:token]) }
+      let(:user) { FactoryGirl.create(:company_user).tap(&:create_auth_token) }
 
       it 'assigns a newly created but unsaved job_skill as @job_skill' do
         job = FactoryGirl.create(:job, owner: user)
-        post :create, params: { job_id: job.to_param, skill: {} }, headers: valid_session
+        params = {
+          auth_token: user.auth_token,
+          job_id: job.to_param,
+          skill: {}
+        }
+        post :create, params: params
         expect(assigns(:job_skill)).to be_a_new(JobSkill)
       end
 
       it 'returns unprocessable entity status' do
         job = FactoryGirl.create(:job, owner: user)
-        post :create, params: { job_id: job.to_param, skill: {} }, headers: valid_session
+        params = {
+          auth_token: user.auth_token,
+          job_id: job.to_param,
+          skill: {}
+        }
+        post :create, params: params
         expect(response.status).to eq(422)
       end
     end
@@ -121,22 +135,30 @@ RSpec.describe Api::V1::Jobs::JobSkillsController, type: :controller do
 
   describe 'DELETE #destroy' do
     context 'logged in user is owner' do
-      let(:user) { User.find_by_auth_token(valid_session[:token]) }
+      let(:user) { FactoryGirl.create(:company_user).tap(&:create_auth_token) }
 
       it 'destroys the requested job_skill' do
         job = FactoryGirl.create(:job_with_skills, owner: user)
         job_skill = job.job_skills.first
+        params = {
+          auth_token: user.auth_token,
+          job_id: job.to_param,
+          job_skill_id: job_skill.to_param
+        }
         expect do
-          params = { job_id: job.to_param, job_skill_id: job_skill.to_param }
-          delete :destroy, params: params, headers: valid_session
+          delete :destroy, params: params
         end.to change(JobSkill, :count).by(-1)
       end
 
       it 'returns no content status' do
         job = FactoryGirl.create(:job_with_skills, owner: user)
         job_skill = job.job_skills.first
-        params = { job_id: job.to_param, job_skill_id: job_skill.to_param }
-        delete :destroy, params: params, headers: valid_session
+        params = {
+          auth_token: user.auth_token,
+          job_id: job.to_param,
+          job_skill_id: job_skill.to_param
+        }
+        delete :destroy, params: params
         expect(response.status).to eq(204)
       end
     end
@@ -145,17 +167,26 @@ RSpec.describe Api::V1::Jobs::JobSkillsController, type: :controller do
       it 'destroys the requested job_skill' do
         job = FactoryGirl.create(:job_with_skills)
         job_skill = job.job_skills.first
+        params = {
+          auth_token: 'wat',
+          job_id: job.to_param,
+          job_skill_id: job_skill.to_param
+        }
         expect do
-          params = { job_id: job.to_param, job_skill_id: job_skill.to_param }
-          delete :destroy, params: params, headers: valid_session
+          delete :destroy, params: params
         end.to change(JobSkill, :count).by(0)
       end
 
       it 'returns no content status' do
         job = FactoryGirl.create(:job_with_skills)
         job_skill = job.job_skills.first
-        params = { job_id: job.to_param, job_skill_id: job_skill.to_param }
-        delete :destroy, params: params, headers: valid_session
+        random_user = FactoryGirl.create(:user_with_tokens)
+        params = {
+          auth_token: random_user.auth_token,
+          job_id: job.to_param,
+          job_skill_id: job_skill.to_param
+        }
+        delete :destroy, params: params
         expect(response.status).to eq(403)
       end
     end
