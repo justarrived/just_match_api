@@ -49,6 +49,8 @@ ActiveAdmin.register Job do
   filter :skills, collection: -> { Skill.with_translations.order_by_name }
   filter :hourly_pay
   filter :translations_description_cont, as: :string, label: I18n.t('admin.job.description') # rubocop:disable Metrics/LineLength
+  filter :publish_on_blocketjobb
+  filter :publish_on_linkedin
 
   # Customize columns displayed on the index screen in the table
   index do
