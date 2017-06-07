@@ -15,6 +15,10 @@ class JobRequest < ApplicationRecord
 
   after_create :send_created_notice
 
+  def display_name
+    "##{id || 'unsaved'} #{short_name}"
+  end
+
   def set_company_values
     return unless company
 
