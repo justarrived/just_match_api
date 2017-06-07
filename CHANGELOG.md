@@ -4,6 +4,13 @@ HEAD
 -----------
 
 
+v1.90 - 2017-06-07
+----------
+ * _Admin_:
+  - Copy `JobRequest` name to `Order`
+  - Add `JobRequest#display_name`
+
+
 v1.89 - 2017-06-07
 ----------
 * _API_:
