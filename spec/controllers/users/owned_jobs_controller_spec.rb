@@ -3,20 +3,13 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::Users::OwnedJobsController, type: :controller do
-  let(:user) { FactoryGirl.create(:company_user) }
-
-  let(:valid_session) do
-    allow_any_instance_of(described_class).
-      to(
-        receive(:current_user).
-        and_return(user)
-      )
-    {}
+  let(:user) do
+    FactoryGirl.create(:company_user).tap(&:create_auth_token)
   end
 
   it 'assigns all jobs as @jobs' do
     job = FactoryGirl.create(:job, owner: user)
-    get :index, params: { user_id: user.to_param }, headers: valid_session
+    get :index, params: { auth_token: user.auth_token, user_id: user.to_param }
     expect(assigns(:jobs)).to eq([job])
   end
 
