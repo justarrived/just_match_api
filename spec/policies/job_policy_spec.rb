@@ -14,6 +14,7 @@ RSpec.describe JobPolicy do
       :currency, :gross_amount_delimited, :net_amount_delimited, :full_street_address,
       :staffing_job, :description_html, :direct_recruitment_job, :owner_user_id,
       :swedish_drivers_license, :car_required, :last_application_at, :full_time,
+      :publish_at, :unpublish_at,
       :language_id, :category_id, :hourly_pay_id, { skill_ids: [] }
     ]
   end

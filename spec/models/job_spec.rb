@@ -3,8 +3,18 @@
 require 'rails_helper'
 
 RSpec.describe Job, type: :model do
-  describe 'class queries' do
-    describe '#matches_user'
+  describe '::published' do
+    it 'only returns published jobs' do
+      # Not published
+      FactoryGirl.create(:job, publish_at: nil, unpublish_at: nil)
+      FactoryGirl.create(:job, publish_at: 2.days.ago, unpublish_at: 1.day.ago)
+      FactoryGirl.create(:job, publish_at: 1.day.ago, unpublish_at: nil, hidden: true)
+      # Published
+      FactoryGirl.create(:job, publish_at: 1.day.ago, unpublish_at: nil)
+      FactoryGirl.create(:job, publish_at: 2.days.ago, unpublish_at: 1.day.from_now)
+
+      expect(Job.published.count).to eq(2)
+    end
   end
 
   describe '#application_url' do
@@ -658,9 +668,9 @@ end
 #  city                         :string
 #  staffing_job                 :boolean          default(FALSE)
 #  direct_recruitment_job       :boolean          default(FALSE)
+#  order_id                     :integer
 #  municipality                 :string
 #  number_to_fill               :integer          default(1)
-#  order_id                     :integer
 #  full_time                    :boolean          default(FALSE)
 #  swedish_drivers_license      :string
 #  car_required                 :boolean          default(FALSE)
@@ -669,6 +679,8 @@ end
 #  publish_on_blocketjobb       :boolean          default(FALSE)
 #  last_application_at          :datetime
 #  blocketjobb_category         :string
+#  publish_at                   :datetime
+#  unpublish_at                 :datetime
 #
 # Indexes
 #

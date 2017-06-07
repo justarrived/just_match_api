@@ -8,7 +8,8 @@ RSpec.describe Api::V1::PartnerFeeds::JobsController, type: :controller do
       job = FactoryGirl.create(
         :job_with_translation,
         translation_locale: :en,
-        publish_on_linkedin: true
+        publish_on_linkedin: true,
+        last_application_at: 2.days.from_now
       )
       token = 'nososecret'
       allow(AppSecrets).to receive(:linkedin_sync_key).and_return(token)

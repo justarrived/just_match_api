@@ -14,6 +14,7 @@ FactoryGirl.define do
     association :category
     association :hourly_pay
     job_date 1.week.from_now
+    publish_at 1.day.ago
     hours 30
 
     factory :job_with_translation do
@@ -126,6 +127,7 @@ FactoryGirl.define do
       updated_at Time.new(2016, 2, 12, 1, 1, 1).utc
       job_date Time.new(2016, 2, 18, 1, 1, 1).utc
       job_end_date Time.new(2016, 2, 20, 1, 1, 1).utc
+      publish_at Time.new(2016, 2, 10, 1, 1, 1).utc
       last_application_at Time.new(2016, 2, 17, 1, 1, 1).utc
       description 'Typewriter hashtag ennui brunch post-ironic food truck vinegar.'
     end
@@ -166,9 +168,9 @@ end
 #  city                         :string
 #  staffing_job                 :boolean          default(FALSE)
 #  direct_recruitment_job       :boolean          default(FALSE)
+#  order_id                     :integer
 #  municipality                 :string
 #  number_to_fill               :integer          default(1)
-#  order_id                     :integer
 #  full_time                    :boolean          default(FALSE)
 #  swedish_drivers_license      :string
 #  car_required                 :boolean          default(FALSE)
@@ -177,6 +179,8 @@ end
 #  publish_on_blocketjobb       :boolean          default(FALSE)
 #  last_application_at          :datetime
 #  blocketjobb_category         :string
+#  publish_at                   :datetime
+#  unpublish_at                 :datetime
 #
 # Indexes
 #

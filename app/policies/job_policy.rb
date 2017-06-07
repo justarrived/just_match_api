@@ -16,7 +16,7 @@ class JobPolicy < ApplicationPolicy
     full_street_address description_html staffing_job direct_recruitment_job
     swedish_drivers_license car_required last_application_at
     last_application_at_in_words open_for_applications starts_in_the_future
-    full_time
+    full_time publish_at unpublish_at
   ).freeze
 
   ATTRIBUTES = %i(
@@ -27,7 +27,7 @@ class JobPolicy < ApplicationPolicy
     gross_amount_delimited net_amount_delimited full_street_address staffing_job
     description_html direct_recruitment_job swedish_drivers_license car_required
     last_application_at last_application_at_in_words open_for_applications
-    starts_in_the_future full_time
+    starts_in_the_future full_time publish_at unpublish_at
   ).freeze
 
   OWNER_ATTRIBUTES = [
@@ -35,7 +35,7 @@ class JobPolicy < ApplicationPolicy
     :city, :filled, :short_description, :featured, :upcoming, :currency,
     :gross_amount_delimited, :net_amount_delimited, :full_street_address, :staffing_job,
     :description_html, :direct_recruitment_job, :owner_user_id, :swedish_drivers_license,
-    :car_required, :last_application_at, :full_time,
+    :car_required, :last_application_at, :full_time, :publish_at, :unpublish_at,
     :language_id, :category_id, :hourly_pay_id, skill_ids: []
   ].freeze
 

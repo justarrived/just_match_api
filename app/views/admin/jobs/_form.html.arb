@@ -6,6 +6,8 @@ f.inputs(I18n.t('admin.job.form.detail_section_title')) do
   f.input :job_date, as: :date_time_picker
   f.input :job_end_date, as: :date_time_picker
   f.input :last_application_at, as: :date_time_picker
+  f.input :publish_at, as: :date_time_picker
+  f.input :unpublish_at, as: :date_time_picker
   f.input :full_time
   f.input :salary_type
   f.input :hourly_pay, hint: I18n.t('admin.job.form.hourly_pay_hint')

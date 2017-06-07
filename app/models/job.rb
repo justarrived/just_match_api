@@ -62,6 +62,7 @@ class Job < ApplicationRecord
 
   validate :validate_job_end_date_after_job_date
   validate :validate_last_application_at_on_publish_to_blocketjobb
+  validate :validate_last_application_at_on_publish_to_linkedin
   validate :validate_municipality_presence_on_publish_to_blocketjobb
   validate :validate_blocketjobb_category_presence_on_publish_to_blocketjobb
   validate :validate_company_presence_on_publish_to_blocketjobb
@@ -100,9 +101,23 @@ class Job < ApplicationRecord
   })
   scope :passed, (-> { where('job_end_date < ?', Time.zone.now) })
   scope :future, (-> { where('job_end_date > ?', Time.zone.now) })
-  scope :linkedin_jobs, (-> { where(publish_on_linkedin: true) })
+  scope :published, (lambda {
+    scope = where(unpublish_at: nil).
+      or(after(:unpublish_at, Time.zone.now))
+
+    scope.visible.where.not(publish_at: nil).
+      before(:publish_at, Time.zone.now)
+  })
+  scope :linkedin_jobs, (lambda {
+    published.
+    uncancelled.
+      where(publish_on_linkedin: true).
+      where('last_application_at > ?', Time.zone.now)
+  })
   scope :blocketjobb_jobs, (lambda {
-    where(publish_on_blocketjobb: true).
+    published.
+    uncancelled.
+      where(publish_on_blocketjobb: true).
       where('last_application_at > ?', Time.zone.now)
   })
 
@@ -388,6 +403,14 @@ class Job < ApplicationRecord
     errors.add(:last_application_at, message)
   end
 
+  def validate_last_application_at_on_publish_to_linkedin
+    return unless publish_on_linkedin
+    return if last_application_at.present?
+
+    message = I18n.t('errors.job.last_application_at_on_publish_to_linkedin')
+    errors.add(:last_application_at, message)
+  end
+
   def validate_municipality_presence_on_publish_to_blocketjobb
     return unless publish_on_blocketjobb
     return if municipality.present?
@@ -476,9 +499,9 @@ end
 #  city                         :string
 #  staffing_job                 :boolean          default(FALSE)
 #  direct_recruitment_job       :boolean          default(FALSE)
+#  order_id                     :integer
 #  municipality                 :string
 #  number_to_fill               :integer          default(1)
-#  order_id                     :integer
 #  full_time                    :boolean          default(FALSE)
 #  swedish_drivers_license      :string
 #  car_required                 :boolean          default(FALSE)
@@ -487,6 +510,8 @@ end
 #  publish_on_blocketjobb       :boolean          default(FALSE)
 #  last_application_at          :datetime
 #  blocketjobb_category         :string
+#  publish_at                   :datetime
+#  unpublish_at                 :datetime
 #
 # Indexes
 #
