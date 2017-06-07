@@ -105,6 +105,13 @@ class Job < ApplicationRecord
     where(publish_on_blocketjobb: true).
       where('last_application_at > ?', Time.zone.now)
   })
+  scope :published, (lambda {
+    scope = visible.where(unpublish_at: nil).
+      or(after(:unpublish_at, Time.zone.now))
+
+    scope.where.not(publish_at: nil).
+      before(:publish_at, Time.zone.now)
+  })
 
   enum salary_type: SALARY_TYPES
 

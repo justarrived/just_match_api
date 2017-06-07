@@ -3,8 +3,18 @@
 require 'rails_helper'
 
 RSpec.describe Job, type: :model do
-  describe 'class queries' do
-    describe '#matches_user'
+  describe '::published' do
+    it 'only returns published jobs' do
+      # Not published
+      FactoryGirl.create(:job, publish_at: nil, unpublish_at: nil)
+      FactoryGirl.create(:job, publish_at: 2.days.ago, unpublish_at: 1.day.ago)
+      FactoryGirl.create(:job, publish_at: 1.day.ago, unpublish_at: nil, hidden: true)
+      # Published
+      FactoryGirl.create(:job, publish_at: 1.day.ago, unpublish_at: nil)
+      FactoryGirl.create(:job, publish_at: 2.days.ago, unpublish_at: 1.day.from_now)
+
+      expect(Job.published.count).to eq(2)
+    end
   end
 
   describe '#application_url' do
