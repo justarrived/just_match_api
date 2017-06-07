@@ -11,14 +11,6 @@ RSpec.describe Api::V1::Users::UserSkillsController, type: :controller do
     {}
   end
 
-  let(:valid_session) do
-    user = FactoryGirl.create(:user_with_tokens)
-    allow_any_instance_of(described_class).
-      to(receive(:current_user).
-      and_return(user))
-    { token: user.auth_token }
-  end
-
   describe 'GET #index' do
     it 'assigns all user skills as @skills' do
       user = FactoryGirl.create(:user_with_skills, skills_count: 2)
@@ -61,8 +53,12 @@ RSpec.describe Api::V1::Users::UserSkillsController, type: :controller do
       user = FactoryGirl.create(:user_with_skills, skills_count: 1)
       user_skill = user.user_skills.first
       skill = user_skill.skill
-      params = { user_id: user.to_param, user_skill_id: user_skill.to_param }
-      get :show, params: params, headers: valid_session
+      params = {
+        auth_token: user.auth_token,
+        user_id: user.to_param,
+        user_skill_id: user_skill.to_param
+      }
+      get :show, params: params
 
       expect(assigns(:skill)).to eq(skill)
       expect(assigns(:user_skill)).to eq(user_skill)
@@ -73,30 +69,32 @@ RSpec.describe Api::V1::Users::UserSkillsController, type: :controller do
   describe 'POST #create' do
     context 'with valid params' do
       context 'authorized user' do
-        let(:user) { User.find_by_auth_token(valid_session[:token]) }
+        let(:user) { FactoryGirl.create(:user_with_tokens) }
 
         it 'creates a new UserSkill' do
           skill = FactoryGirl.create(:skill)
           params = {
+            auth_token: user.auth_token,
             user_id: user.to_param,
             data: {
               attributes: { id: skill.to_param }
             }
           }
           expect do
-            post :create, params: params, headers: valid_session
+            post :create, params: params
           end.to change(UserSkill, :count).by(1)
         end
 
         it 'assigns a newly created user_skill as @user_skill' do
           skill = FactoryGirl.create(:skill)
           params = {
+            auth_token: user.auth_token,
             user_id: user.to_param,
             data: {
               attributes: { id: skill.to_param, proficiency: 5 }
             }
           }
-          post :create, params: params, headers: valid_session
+          post :create, params: params
           expect(assigns(:user_skill)).to be_a(UserSkill)
           expect(assigns(:user_skill)).to be_persisted
           expect(assigns(:user_skill).proficiency).to eq(5)
@@ -105,12 +103,13 @@ RSpec.describe Api::V1::Users::UserSkillsController, type: :controller do
         it 'returns created status' do
           skill = FactoryGirl.create(:skill)
           params = {
+            auth_token: user.auth_token,
             user_id: user.to_param,
             data: {
               attributes: { id: skill.to_param }
             }
           }
-          post :create, params: params, headers: valid_session
+          post :create, params: params
           expect(response.status).to eq(201)
         end
       end
@@ -122,22 +121,24 @@ RSpec.describe Api::V1::Users::UserSkillsController, type: :controller do
           to(receive(:current_user).
           and_return(User.new))
         user = FactoryGirl.create(:user)
-        post :create, params: { user_id: user.to_param, skill: {} }
+        post :create, params: { auth_token: 'wat', user_id: user.to_param, skill: {} }
         expect(response.status).to eq(401)
       end
     end
 
     context 'with invalid params' do
       context 'authorized user' do
-        let(:user) { User.find_by_auth_token(valid_session[:token]) }
+        let(:user) { FactoryGirl.create(:user_with_tokens) }
 
         it 'assigns a newly created but unsaved user_skill as @user_skill' do
-          post :create, params: { user_id: user.to_param, skill: {} }, headers: valid_session # rubocop:disable Metrics/LineLength
+          params = { auth_token: user.auth_token, user_id: user.to_param, skill: {} }
+          post :create, params: params
           expect(assigns(:user_skill)).to be_a_new(UserSkill)
         end
 
         it 'returns unprocessable entity status' do
-          post :create, params: { user_id: user.to_param, skill: {} }, headers: valid_session # rubocop:disable Metrics/LineLength
+          params = { auth_token: user.auth_token, user_id: user.to_param, skill: {} }
+          post :create, params: params
           expect(response.status).to eq(422)
         end
       end
@@ -146,22 +147,22 @@ RSpec.describe Api::V1::Users::UserSkillsController, type: :controller do
 
   describe 'DELETE #destroy' do
     context 'authorized user' do
-      let(:valid_session) do
-        user = FactoryGirl.create(:user_with_skills)
-        user.create_auth_token
-        allow_any_instance_of(described_class).
-          to(receive(:current_user).
-          and_return(user))
-        { token: user.auth_token }
+      let(:user) do
+        FactoryGirl.create(:user_with_skills).tap do |user|
+          user.create_auth_token
+          user
+        end
       end
-
-      let(:user) { User.find_by_auth_token(valid_session[:token]) }
 
       it 'destroys the requested user_skill' do
         user_skill = user.user_skills.first
+        params = {
+          auth_token: user.auth_token,
+          user_id: user.to_param,
+          user_skill_id: user_skill.to_param
+        }
         expect do
-          params = { user_id: user.to_param, user_skill_id: user_skill.to_param }
-          delete :destroy, params: params, headers: valid_session
+          delete :destroy, params: params
         end.to change(UserSkill, :count).by(-1)
       end
 
@@ -169,16 +170,24 @@ RSpec.describe Api::V1::Users::UserSkillsController, type: :controller do
         user_skill = user.user_skills.first
         user_skill.update(proficiency_by_admin: 5)
 
+        params = {
+          auth_token: user.auth_token,
+          user_id: user.to_param,
+          user_skill_id: user_skill.to_param
+        }
         expect do
-          params = { user_id: user.to_param, user_skill_id: user_skill.to_param }
-          delete :destroy, params: params, headers: valid_session
+          delete :destroy, params: params
         end.to change(UserSkill, :count).by(0)
       end
 
       it 'returns no content status' do
         user_skill = user.user_skills.first
-        params = { user_id: user.to_param, user_skill_id: user_skill.to_param }
-        delete :destroy, params: params, headers: valid_session
+        params = {
+          auth_token: user.auth_token,
+          user_id: user.to_param,
+          user_skill_id: user_skill.to_param
+        }
+        delete :destroy, params: params
         expect(response.status).to eq(204)
       end
     end
@@ -187,17 +196,26 @@ RSpec.describe Api::V1::Users::UserSkillsController, type: :controller do
       it 'does not destroy the requested user_skill' do
         user = FactoryGirl.create(:user_with_skills)
         user_skill = user.user_skills.first
+        params = {
+          auth_token: user.auth_token,
+          user_id: user.to_param,
+          user_skill_id: user_skill.to_param
+        }
         expect do
-          params = { user_id: user.to_param, user_skill_id: user_skill.to_param }
-          delete :destroy, params: params, headers: valid_session
+          delete :destroy, params: params
         end.to change(UserSkill, :count).by(0)
       end
 
       it 'returns not authorized status' do
         user = FactoryGirl.create(:user_with_skills)
+        other_user = FactoryGirl.create(:user_with_tokens)
         user_skill = user.user_skills.first
-        params = { user_id: user.to_param, user_skill_id: user_skill.to_param }
-        delete :destroy, params: params, headers: valid_session
+        params = {
+          auth_token: other_user.auth_token,
+          user_id: user.to_param,
+          user_skill_id: user_skill.to_param
+        }
+        delete :destroy, params: params
         expect(response.status).to eq(403)
       end
     end
