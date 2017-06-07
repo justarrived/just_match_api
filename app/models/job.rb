@@ -62,6 +62,7 @@ class Job < ApplicationRecord
 
   validate :validate_job_end_date_after_job_date
   validate :validate_last_application_at_on_publish_to_blocketjobb
+  validate :validate_last_application_at_on_publish_to_linkedin
   validate :validate_municipality_presence_on_publish_to_blocketjobb
   validate :validate_blocketjobb_category_presence_on_publish_to_blocketjobb
   validate :validate_company_presence_on_publish_to_blocketjobb
@@ -101,10 +102,10 @@ class Job < ApplicationRecord
   scope :passed, (-> { where('job_end_date < ?', Time.zone.now) })
   scope :future, (-> { where('job_end_date > ?', Time.zone.now) })
   scope :published, (lambda {
-    scope = visible.where(unpublish_at: nil).
+    scope = where(unpublish_at: nil).
       or(after(:unpublish_at, Time.zone.now))
 
-    scope.where.not(publish_at: nil).
+    scope.visible.where.not(publish_at: nil).
       before(:publish_at, Time.zone.now)
   })
   scope :linkedin_jobs, (lambda {
@@ -399,6 +400,14 @@ class Job < ApplicationRecord
     return if last_application_at.present?
 
     message = I18n.t('errors.job.last_application_at_on_publish_to_blocketjobb')
+    errors.add(:last_application_at, message)
+  end
+
+  def validate_last_application_at_on_publish_to_linkedin
+    return unless publish_on_linkedin
+    return if last_application_at.present?
+
+    message = I18n.t('errors.job.last_application_at_on_publish_to_linkedin')
     errors.add(:last_application_at, message)
   end
 
