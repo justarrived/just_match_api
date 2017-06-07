@@ -175,17 +175,36 @@ ActiveAdmin.register Job do
   end
 
   sidebar :data_checklist, only: %i(show edit) do
-    h3 'Data collection'
+    h3 I18n.t('admin.job.checklist_sidebar.missing_translations')
     div do
-      safe_join([strong('Skills added'), status_tag(job.skills.any?)])
-    end
-    div do
-      safe_join([strong('Languages added'), status_tag(job.languages.any?)])
+      strong(
+        (%w(en sv ar) - job.translations.map(&:locale).compact).join(', ')
+      )
     end
 
     hr
 
-    h3 'Pushed to'
+    h3 I18n.t('admin.job.checklist_sidebar.data_title')
+    div do
+      safe_join(
+        [
+          strong(I18n.t('admin.job.checklist_sidebar.skills')),
+          status_tag(job.skills.any?)
+        ]
+      )
+    end
+    div do
+      safe_join(
+        [
+          strong(I18n.t('admin.job.checklist_sidebar.languages')),
+          status_tag(job.languages.any?)
+        ]
+      )
+    end
+
+    hr
+
+    h3 I18n.t('admin.job.checklist_sidebar.pushed')
     div do
       safe_join([strong('Arbetsförmedlingen'), status_tag(job.arbetsformedlingen_ad.present?)]) # rubocop:disable Metrics/LineLength
     end

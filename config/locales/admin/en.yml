@@ -110,6 +110,12 @@ en:
         apply_message: Apply message
         no_apply_message: No apply message.
     job:
+      checklist_sidebar:
+        data_title: Data collection
+        skills: Skills added
+        languages: Languages added
+        pushed: Pushed to
+        missing_translations: Missing translations
       batch_action:
         update:
           title: Update selected or all jobs
