@@ -20,7 +20,7 @@ Style/CollectionMethods:
 Style/RedundantFreeze:
   Description: "Checks usages of Object#freeze on immutable objects."
   Enabled: false
-Style/DotPosition:
+Layout/DotPosition:
   Description: Checks the position of the dot in multi-line method calls.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#consistent-multi-line-chains
   Enabled: true

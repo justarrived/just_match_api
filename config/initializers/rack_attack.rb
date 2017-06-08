@@ -6,7 +6,7 @@ module Rack
     Rack::Attack.cache.store = ActiveSupport::Cache::RedisStore.new(redis)
 
     safelist('allow from localhost') do |req|
-      '127.0.0.1' == req.ip || '::1' == req.ip
+      req.ip == '127.0.0.1' || req.ip == '::1'
     end
 
     # Allow 500 requests per 10 seconds

@@ -15,7 +15,7 @@ module Api
       description 'Returns a list of FAQs. There are two possible values for `category`, `newcomer` and `company`' # rubocop:disable Metrics/LineLength
       # rubocop:disable Metrics/LineLength
       example "# Response example
-#{JSON.pretty_generate(StaticFAQSerializer.serializeble_resource(language_id: 1, locale: :en).to_h)}" # rubocop:disable Style/CommentIndentation
+#{JSON.pretty_generate(StaticFAQSerializer.serializeble_resource(language_id: 1, locale: :en).to_h)}" # rubocop:disable Layout/CommentIndentation
       # rubocop:enable Metrics/LineLength
       def index
         authorize(Faq)
