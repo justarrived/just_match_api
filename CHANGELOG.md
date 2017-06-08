@@ -4,6 +4,18 @@ HEAD
 -----------
 
 
+v1.91 - 2017-06-08
+----------
+* _Enhancement_:
+  - **Upgrade Rails from 5.0.2 to 5.1.1** :tada:
+  - Remove config file with deprecated setting
+  - Validate `UserInterest#level` and `UserInterest#level_by_admin` range
+  - rubocop v49 :lipstick:
+  - Test: Fix config issue when running specs for json_api_helper from JustMatch
+* _Update gems_:
+  - Updates develoment and test group gems
+
+
 v1.90 - 2017-06-07
 ----------
  * _Admin_:
