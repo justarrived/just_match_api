@@ -4,6 +4,12 @@ HEAD
 -----------
 
 
+v1.95 - 2017-06-08
+----------
+* _Bugfix_:
+  - Send a numeric ID as the `PacketID` to Arbetsförmedlingen
+
+
 v1.94 - 2017-06-08
 ----------
 * _Bugfix_:
