@@ -83,7 +83,7 @@ module Arbetsformedlingen
       @af_models[:company] ||= Arbetsformedlingen::Company.new(
         name: 'Just Arrived Bemaning AB',
         cin: '559079-4466',
-        description: '',
+        description: 'Vi sammanför nyanlända med svenska företag som behöver hjälp med dagliga aktiviteter. Vår digitala plattform gör det enkelt för företag att lägga upp enkla uppdrag och tjänster som sedan matchas med nyanlända som söker jobb.', # rubocop:disable Metrics/LineLength
         address: {
           country_code: 'SE',
           zip: '11356',
