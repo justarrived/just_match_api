@@ -124,7 +124,8 @@ class Job < ApplicationRecord
   enum salary_type: SALARY_TYPES
 
   include Translatable
-  translates :name, :short_description, :description
+  translates :name, :short_description, :description, :tasks_description,
+             :applicant_description, :requirements_description
 
   # NOTE: This is necessary for nested activeadmin has_many form
   accepts_nested_attributes_for :job_skills, :job_languages
