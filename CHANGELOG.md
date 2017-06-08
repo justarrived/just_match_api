@@ -3,6 +3,13 @@
 HEAD
 -----------
 
+
+v1.94 - 2017-06-08
+----------
+* _Bugfix_:
+  - Fix no method error in ArbetsformedlingenAdService
+
+
 v1.93 - 2017-06-08
 ----------
 * _FrilansFinansApi_:
