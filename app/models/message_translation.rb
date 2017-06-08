@@ -25,6 +25,6 @@ end
 #
 # Foreign Keys
 #
-#  fk_rails_65c61df7ae  (language_id => languages.id)
-#  fk_rails_fb730bdd6d  (message_id => messages.id)
+#  fk_rails_...  (language_id => languages.id)
+#  fk_rails_...  (message_id => messages.id)
 #

@@ -29,5 +29,5 @@ end
 #
 # Foreign Keys
 #
-#  fk_rails_ac8a5d0441  (user_id => users.id)
+#  fk_rails_...  (user_id => users.id)
 #

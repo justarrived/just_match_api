@@ -22,6 +22,6 @@ end
 #
 # Foreign Keys
 #
-#  fk_rails_83e668e52f  (filter_id => filters.id)
-#  fk_rails_a8a19036ad  (user_id => users.id)
+#  fk_rails_...  (filter_id => filters.id)
+#  fk_rails_...  (user_id => users.id)
 #

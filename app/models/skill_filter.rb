@@ -24,6 +24,6 @@ end
 #
 # Foreign Keys
 #
-#  fk_rails_4cc01b462d        (filter_id => filters.id)
+#  fk_rails_...               (filter_id => filters.id)
 #  skill_filters_skill_id_fk  (skill_id => skills.id)
 #

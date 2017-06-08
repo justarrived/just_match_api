@@ -27,6 +27,6 @@ end
 #
 # Foreign Keys
 #
-#  fk_rails_907ad55d9d  (language_id => languages.id)
-#  fk_rails_a8afd7f71e  (job_user_id => job_users.id)
+#  fk_rails_...  (job_user_id => job_users.id)
+#  fk_rails_...  (language_id => languages.id)
 #

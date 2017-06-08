@@ -41,5 +41,5 @@ end
 #
 # Foreign Keys
 #
-#  fk_rails_24be635445  (language_id => languages.id)
+#  fk_rails_...  (language_id => languages.id)
 #

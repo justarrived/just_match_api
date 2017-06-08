@@ -35,6 +35,6 @@ end
 #
 # Foreign Keys
 #
-#  fk_rails_7156651ad8  (tag_id => tags.id)
-#  fk_rails_ea0382482a  (user_id => users.id)
+#  fk_rails_...  (tag_id => tags.id)
+#  fk_rails_...  (user_id => users.id)
 #

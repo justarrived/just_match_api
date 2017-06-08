@@ -32,6 +32,6 @@ end
 #
 # Foreign Keys
 #
-#  fk_rails_d7df84e8b6  (document_id => documents.id)
-#  fk_rails_f7fb997ee3  (order_id => orders.id)
+#  fk_rails_...  (document_id => documents.id)
+#  fk_rails_...  (order_id => orders.id)
 #

@@ -42,6 +42,6 @@ end
 #
 # Foreign Keys
 #
-#  fk_rails_55c37c820d  (user_id => users.id)
-#  fk_rails_9a2a0b4576  (document_id => documents.id)
+#  fk_rails_...  (document_id => documents.id)
+#  fk_rails_...  (user_id => users.id)
 #

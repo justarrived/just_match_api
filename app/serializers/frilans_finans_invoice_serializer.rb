@@ -30,5 +30,5 @@ end
 #
 # Foreign Keys
 #
-#  fk_rails_061906fba3  (job_user_id => job_users.id)
+#  fk_rails_...  (job_user_id => job_users.id)
 #

@@ -5,6 +5,7 @@ require 'rails_helper'
 RSpec.describe CommunicationTemplateTranslation, type: :model do
 end
 # rubocop:disable Metrics/LineLength
+
 # == Schema Information
 #
 # Table name: communication_template_translations
@@ -26,5 +27,5 @@ end
 # Foreign Keys
 #
 #  communication_template_translations_communication_template_id_f  (communication_template_id => communication_templates.id)
-#  fk_rails_745b09f1d4                                              (language_id => languages.id)
+#  fk_rails_...                                                     (language_id => languages.id)
 #

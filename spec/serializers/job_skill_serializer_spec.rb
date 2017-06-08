@@ -44,6 +44,6 @@ end
 #
 # Foreign Keys
 #
-#  fk_rails_514cd69e1b  (skill_id => skills.id)
-#  fk_rails_94b0ff3621  (job_id => jobs.id)
+#  fk_rails_...  (job_id => jobs.id)
+#  fk_rails_...  (skill_id => skills.id)
 #

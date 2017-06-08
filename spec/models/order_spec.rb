@@ -29,5 +29,5 @@ end
 #
 # Foreign Keys
 #
-#  fk_rails_7dd74d23d2  (job_request_id => job_requests.id)
+#  fk_rails_...  (job_request_id => job_requests.id)
 #

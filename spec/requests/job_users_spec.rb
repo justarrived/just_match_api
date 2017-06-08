@@ -43,7 +43,7 @@ end
 #
 # Foreign Keys
 #
-#  fk_rails_548d2d3ba9  (job_id => jobs.id)
-#  fk_rails_815844930e  (user_id => users.id)
-#  fk_rails_93547d43e9  (language_id => languages.id)
+#  fk_rails_...  (job_id => jobs.id)
+#  fk_rails_...  (language_id => languages.id)
+#  fk_rails_...  (user_id => users.id)
 #

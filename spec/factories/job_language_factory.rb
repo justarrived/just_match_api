@@ -28,6 +28,6 @@ end
 #
 # Foreign Keys
 #
-#  fk_rails_291eb8392f  (language_id => languages.id)
-#  fk_rails_adf9e1cd09  (job_id => jobs.id)
+#  fk_rails_...  (job_id => jobs.id)
+#  fk_rails_...  (language_id => languages.id)
 #

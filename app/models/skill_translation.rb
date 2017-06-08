@@ -25,6 +25,6 @@ end
 #
 # Foreign Keys
 #
-#  fk_rails_c9679897a6  (language_id => languages.id)
-#  fk_rails_cf44d9c794  (skill_id => skills.id)
+#  fk_rails_...  (language_id => languages.id)
+#  fk_rails_...  (skill_id => skills.id)
 #

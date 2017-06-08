@@ -28,6 +28,6 @@ end
 #
 # Foreign Keys
 #
-#  fk_rails_0d27bd670b  (interest_id => interests.id)
-#  fk_rails_c6495a7f09  (filter_id => filters.id)
+#  fk_rails_...  (filter_id => filters.id)
+#  fk_rails_...  (interest_id => interests.id)
 #

@@ -33,6 +33,6 @@ end
 #
 # Foreign Keys
 #
-#  fk_rails_59acb6e327  (skill_id => skills.id)
-#  fk_rails_fe61b6a893  (user_id => users.id)
+#  fk_rails_...  (skill_id => skills.id)
+#  fk_rails_...  (user_id => users.id)
 #

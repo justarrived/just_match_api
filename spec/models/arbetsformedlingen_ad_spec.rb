@@ -36,5 +36,5 @@ end
 #
 # Foreign Keys
 #
-#  fk_rails_b4811505f7  (job_id => jobs.id)
+#  fk_rails_...  (job_id => jobs.id)
 #

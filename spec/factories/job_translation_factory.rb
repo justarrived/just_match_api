@@ -31,6 +31,6 @@ end
 #
 # Foreign Keys
 #
-#  fk_rails_a8f6a40518  (language_id => languages.id)
-#  fk_rails_f6d3a9562e  (job_id => jobs.id)
+#  fk_rails_...  (job_id => jobs.id)
+#  fk_rails_...  (language_id => languages.id)
 #

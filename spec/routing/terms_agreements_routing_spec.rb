@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: terms_agreements
@@ -18,7 +17,7 @@
 #
 # Foreign Keys
 #
-#  fk_rails_d0dcb0c0f5  (frilans_finans_term_id => frilans_finans_terms.id)
+#  fk_rails_...  (frilans_finans_term_id => frilans_finans_terms.id)
 #
 
 require 'rails_helper'

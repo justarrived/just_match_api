@@ -5,6 +5,7 @@ class ArbetsformedlingenAdLog < ApplicationRecord
 end
 
 # rubocop:disable Metrics/LineLength
+
 # == Schema Information
 #
 # Table name: arbetsformedlingen_ad_logs
@@ -21,5 +22,5 @@ end
 #
 # Foreign Keys
 #
-#  fk_rails_68b7e43017  (arbetsformedlingen_ad_id => arbetsformedlingen_ads.id)
+#  fk_rails_...  (arbetsformedlingen_ad_id => arbetsformedlingen_ads.id)
 #

@@ -4,6 +4,7 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::FaqsController, type: :controller do
 end
+
 # == Schema Information
 #
 # Table name: faqs
@@ -21,5 +22,5 @@ end
 #
 # Foreign Keys
 #
-#  fk_rails_24be635445  (language_id => languages.id)
+#  fk_rails_...  (language_id => languages.id)
 #

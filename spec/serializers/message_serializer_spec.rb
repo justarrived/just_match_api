@@ -63,7 +63,7 @@ end
 #
 # Foreign Keys
 #
-#  fk_rails_0f670de7ba    (chat_id => chats.id)
-#  fk_rails_ab4144543f    (language_id => languages.id)
+#  fk_rails_...           (chat_id => chats.id)
+#  fk_rails_...           (language_id => languages.id)
 #  messages_author_id_fk  (author_id => users.id)
 #

@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: terms_agreement_consents
@@ -21,9 +20,9 @@
 #
 # Foreign Keys
 #
-#  fk_rails_388a50da05  (user_id => users.id)
-#  fk_rails_94839d2aec  (job_id => jobs.id)
-#  fk_rails_d2e6843d3e  (terms_agreement_id => terms_agreements.id)
+#  fk_rails_...  (job_id => jobs.id)
+#  fk_rails_...  (terms_agreement_id => terms_agreements.id)
+#  fk_rails_...  (user_id => users.id)
 #
 
 require 'rails_helper'

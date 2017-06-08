@@ -12,8 +12,8 @@ end
 #
 #  id               :integer          not null, primary key
 #  body             :text
-#  commentable_type :string
 #  commentable_id   :integer
+#  commentable_type :string
 #  owner_user_id    :integer
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
@@ -28,5 +28,5 @@ end
 # Foreign Keys
 #
 #  comments_owner_user_id_fk  (owner_user_id => users.id)
-#  fk_rails_f55d9b0548        (language_id => languages.id)
+#  fk_rails_...               (language_id => languages.id)
 #

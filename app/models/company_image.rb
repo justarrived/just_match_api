@@ -61,5 +61,5 @@ end
 #
 # Foreign Keys
 #
-#  fk_rails_6dcf524eba  (company_id => companies.id)
+#  fk_rails_...  (company_id => companies.id)
 #

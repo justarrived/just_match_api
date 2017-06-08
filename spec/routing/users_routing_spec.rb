@@ -141,8 +141,8 @@ end
 #
 # Foreign Keys
 #
-#  fk_rails_45f4f12508              (language_id => languages.id)
-#  fk_rails_7682a3bdfe              (company_id => companies.id)
+#  fk_rails_...                     (company_id => companies.id)
+#  fk_rails_...                     (language_id => languages.id)
 #  users_interviewed_by_user_id_fk  (interviewed_by_user_id => users.id)
 #  users_system_language_id_fk      (system_language_id => languages.id)
 #

@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: invoices
@@ -18,8 +17,8 @@
 #
 # Foreign Keys
 #
-#  fk_rails_bb8882afb5  (frilans_finans_invoice_id => frilans_finans_invoices.id)
-#  fk_rails_c894e05ce5  (job_user_id => job_users.id)
+#  fk_rails_...  (frilans_finans_invoice_id => frilans_finans_invoices.id)
+#  fk_rails_...  (job_user_id => job_users.id)
 #
 
 require 'rails_helper'

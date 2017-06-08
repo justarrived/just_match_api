@@ -42,6 +42,6 @@ end
 #
 # Foreign Keys
 #
-#  fk_rails_5630a14e4d  (interest_id => interests.id)
-#  fk_rails_ec759c020c  (user_id => users.id)
+#  fk_rails_...  (interest_id => interests.id)
+#  fk_rails_...  (user_id => users.id)
 #

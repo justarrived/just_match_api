@@ -29,6 +29,6 @@ end
 #
 # Foreign Keys
 #
-#  fk_rails_64aa138099  (language_id => languages.id)
-#  fk_rails_9e1ac06144  (faq_id => faqs.id)
+#  fk_rails_...  (faq_id => faqs.id)
+#  fk_rails_...  (language_id => languages.id)
 #

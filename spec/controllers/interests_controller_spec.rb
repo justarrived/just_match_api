@@ -19,6 +19,7 @@ RSpec.describe Api::V1::InterestsController, type: :controller do
     end
   end
 end
+
 # == Schema Information
 #
 # Table name: interests
@@ -36,5 +37,5 @@ end
 #
 # Foreign Keys
 #
-#  fk_rails_4b04e42f8f  (language_id => languages.id)
+#  fk_rails_...  (language_id => languages.id)
 #

@@ -34,6 +34,6 @@ end
 #
 # Foreign Keys
 #
-#  fk_rails_4459d4650d  (user_id => users.id)
-#  fk_rails_c58bd6dc9f  (language_id => languages.id)
+#  fk_rails_...  (language_id => languages.id)
+#  fk_rails_...  (user_id => users.id)
 #

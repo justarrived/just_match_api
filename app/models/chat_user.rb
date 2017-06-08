@@ -27,6 +27,6 @@ end
 #
 # Foreign Keys
 #
-#  fk_rails_3953ef352e  (user_id => users.id)
-#  fk_rails_86a54ec29b  (chat_id => chats.id)
+#  fk_rails_...  (chat_id => chats.id)
+#  fk_rails_...  (user_id => users.id)
 #

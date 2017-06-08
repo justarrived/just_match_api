@@ -68,10 +68,10 @@ end
 #
 # Foreign Keys
 #
-#  fk_rails_1cf0b3b406                   (category_id => categories.id)
-#  fk_rails_70cb33aa57                   (language_id => languages.id)
-#  fk_rails_b144fc917d                   (hourly_pay_id => hourly_pays.id)
-#  fk_rails_ca13181750                   (order_id => orders.id)
+#  fk_rails_...                          (category_id => categories.id)
+#  fk_rails_...                          (hourly_pay_id => hourly_pays.id)
+#  fk_rails_...                          (language_id => languages.id)
+#  fk_rails_...                          (order_id => orders.id)
 #  jobs_company_contact_user_id_fk       (company_contact_user_id => users.id)
 #  jobs_just_arrived_contact_user_id_fk  (just_arrived_contact_user_id => users.id)
 #  jobs_owner_user_id_fk                 (owner_user_id => users.id)
