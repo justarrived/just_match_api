@@ -35,7 +35,7 @@ module Arbetsformedlingen
         document: build_document,
         position: build_position,
         attributes: {
-          id: SecureGenerator.uuid,
+          id: job.id,
           active: published,
           job_id: job.to_param,
           number_to_fill: job.number_to_fill,
