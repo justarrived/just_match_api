@@ -226,6 +226,26 @@ RSpec.describe FrilansFinansApi::Client do
     end
   end
 
+  describe '#profession' do
+    subject do
+      json = fixture_client.read(:profession)
+      url = "#{base_uri}/professions/1"
+
+      stub_request(:get, url).
+        with(default_headers).
+        to_return(status: 200, body: json, headers: {})
+
+      described_class.new
+    end
+
+    it 'returns profession' do
+      response = subject.profession(id: 1)
+      parsed_body = JSON.parse(response.body)
+      id = parsed_body.dig('data', 'id')
+      expect(id).to eq('1')
+    end
+  end
+
   describe '#update_user' do
     let(:user_id) { 1 }
 

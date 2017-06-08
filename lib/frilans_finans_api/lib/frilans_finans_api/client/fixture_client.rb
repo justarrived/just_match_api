@@ -37,6 +37,10 @@ module FrilansFinansApi
       mock_response(read(:user))
     end
 
+    def profession(**_args)
+      mock_response(read(:profession))
+    end
+
     def invoice(**_args)
       mock_response(read(:invoice))
     end

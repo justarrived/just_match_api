@@ -44,6 +44,10 @@ module FrilansFinansApi
       request.get(uri: "/users/#{id}")
     end
 
+    def profession(id:)
+      request.get(uri: "/professions/#{id}")
+    end
+
     def create_user(attributes: {})
       request.post(uri: '/users', body: build_attributes(attributes))
     end
