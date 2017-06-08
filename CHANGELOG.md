@@ -4,6 +4,12 @@ HEAD
 -----------
 
 
+v1.92 - 2017-06-08
+----------
+* _Admin_:
+  - Convert `ActionController:Parameters` to `Hash` for backward compatibility
+
+
 v1.91 - 2017-06-08
 ----------
 * _Enhancement_:
