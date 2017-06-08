@@ -280,7 +280,7 @@ ActiveAdmin.register Job do
       job_params = params_array.first
 
       job_skills_attrs = job_params.delete(:job_skills_attributes)
-      skill_ids_param = (job_skills_attrs || {}).map do |_index, attrs|
+      skill_ids_param = (job_skills_attrs&.to_unsafe_h || {}).map do |_index, attrs|
         {
           id: attrs[:skill_id],
           proficiency: attrs[:proficiency],
@@ -290,7 +290,7 @@ ActiveAdmin.register Job do
       SetJobSkillsService.call(job: job, skill_ids_param: skill_ids_param)
 
       job_languages_attrs = job_params.delete(:job_languages_attributes)
-      language_ids_param = (job_languages_attrs || {}).map do |_index, attrs|
+      language_ids_param = (job_languages_attrs&.to_unsafe_h || {}).map do |_index, attrs|
         {
           id: attrs[:language_id],
           proficiency: attrs[:proficiency],

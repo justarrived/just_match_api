@@ -95,7 +95,7 @@ ActiveAdmin.register Chat do
       chat_params = params_array.first
 
       chat_messages_attrs = chat_params.delete(:messages_attributes)
-      message_ids_param = (chat_messages_attrs || {}).map do |_index, attrs|
+      message_ids_param = (chat_messages_attrs&.to_unsafe_h || {}).map do |_index, attrs|
         {
           id: attrs[:id],
           language_id: attrs[:language_id],

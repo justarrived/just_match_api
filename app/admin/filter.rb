@@ -119,7 +119,7 @@ ActiveAdmin.register Filter do
       filter_params = params_array.first
 
       filter_interests_attrs = filter_params.delete(:filter_interests_attributes)
-      interest_ids_param = (filter_interests_attrs || {}).map do |_index, attrs|
+      interest_ids_param = (filter_interests_attrs&.to_unsafe_h || {}).map do |_index, attrs| # rubocop:disable Metrics/LineLength
         {
           id: attrs[:interest_id],
           level: attrs[:level],
@@ -131,7 +131,7 @@ ActiveAdmin.register Filter do
       )
 
       filter_skills_attrs = filter_params.delete(:filter_skills_attributes)
-      skill_ids_param = (filter_skills_attrs || {}).map do |_index, attrs|
+      skill_ids_param = (filter_skills_attrs&.to_unsafe_h || {}).map do |_index, attrs|
         {
           id: attrs[:skill_id],
           proficiency: attrs[:proficiency],
@@ -141,7 +141,7 @@ ActiveAdmin.register Filter do
       SetSkillFiltersService.call(filter: filter, skill_ids_param: skill_ids_param)
 
       filter_languages_attrs = filter_params.delete(:filter_languages_attributes)
-      language_ids_param = (filter_languages_attrs || {}).map do |_index, attrs|
+      language_ids_param = (filter_languages_attrs&.to_unsafe_h || {}).map do |_index, attrs| # rubocop:disable Metrics/LineLength
         {
           id: attrs[:language_id],
           proficiency: attrs[:proficiency],

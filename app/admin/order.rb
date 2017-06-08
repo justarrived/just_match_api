@@ -149,7 +149,8 @@ ActiveAdmin.register Order do
     def update_resource(order, params_array)
       order_params = params_array.first
       order_documents_attrs = order_params.delete(:order_documents_attributes)
-      order_documents_attrs.fetch(:document_attributes, {}).map do |_index, attrs|
+      attributes = order_documents_attrs[:document_attributes]&.to_unsafe_h || {}
+      attributes.map do |_index, attrs|
         { id: attrs[:id], document: attrs[:document] }
       end
       SetOrderDocumentsService.call(

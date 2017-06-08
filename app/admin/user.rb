@@ -354,7 +354,7 @@ ActiveAdmin.register User do
       end
 
       user_interests_attrs = user_params.delete(:user_interests_attributes)
-      interest_ids_param = (user_interests_attrs || {}).map do |_index, attrs|
+      interest_ids_param = (user_interests_attrs&.to_unsafe_h || {}).map do |_index, attrs| # rubocop:disable Metrics/LineLength
         {
           id: attrs[:interest_id],
           level: attrs[:level],
@@ -364,7 +364,7 @@ ActiveAdmin.register User do
       SetUserInterestsService.call(user: user, interest_ids_param: interest_ids_param)
 
       user_skills_attrs = user_params.delete(:user_skills_attributes)
-      skill_ids_param = (user_skills_attrs || {}).map do |_index, attrs|
+      skill_ids_param = (user_skills_attrs&.to_unsafe_h || {}).map do |_index, attrs|
         {
           id: attrs[:skill_id],
           proficiency: attrs[:proficiency],
@@ -374,7 +374,7 @@ ActiveAdmin.register User do
       SetUserSkillsService.call(user: user, skill_ids_param: skill_ids_param)
 
       user_languages_attrs = user_params.delete(:user_languages_attributes)
-      language_ids_param = (user_languages_attrs || {}).map do |_index, attrs|
+      language_ids_param = (user_languages_attrs&.to_unsafe_h || {}).map do |_index, attrs| # rubocop:disable Metrics/LineLength
         {
           id: attrs[:language_id],
           proficiency: attrs[:proficiency],
