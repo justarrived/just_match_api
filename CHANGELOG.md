@@ -3,6 +3,10 @@
 HEAD
 -----------
 
+v1.93 - 2017-06-08
+----------
+* _FrilansFinansApi_:
+  - Add support for fetching a single profession
 
 v1.92 - 2017-06-08
 ----------
