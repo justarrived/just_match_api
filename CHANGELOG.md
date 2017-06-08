@@ -4,6 +4,12 @@ HEAD
 -----------
 
 
+v1.96 - 2017-06-08
+----------
+* _Enhancement_:
+  - Update `arbetsformedlingen` company information to always be Just Arrived Bemaning AB
+
+
 v1.95 - 2017-06-08
 ----------
 * _Bugfix_:
