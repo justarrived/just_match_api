@@ -7,7 +7,6 @@ module Arbetsformedlingen
     def initialize(job, published:)
       @job = job
       @published = published
-      @company = job.company
       @af_models = {}
 
       @packet = build_packet
@@ -27,7 +26,7 @@ module Arbetsformedlingen
 
     private
 
-    attr_reader :job, :company, :published
+    attr_reader :job, :published
 
     def build_packet
       @af_models[:packet] ||= Arbetsformedlingen::Packet.new(
@@ -82,15 +81,15 @@ module Arbetsformedlingen
 
     def build_company
       @af_models[:company] ||= Arbetsformedlingen::Company.new(
-        name: company.name,
-        cin: company.cin,
-        description: company.description,
+        name: 'Just Arrived Bemaning AB',
+        cin: '559079-4466',
+        description: '',
         address: {
-          country_code: company.country_code,
-          zip: company.zip,
-          municipality: company.municipality,
-          street: company.street,
-          city: company.city
+          country_code: 'SE',
+          zip: '11356',
+          municipality: 'Stockholm',
+          street: 'Birger Jarlsgatan 57C',
+          city: 'Stockholm'
         }
       )
     end
