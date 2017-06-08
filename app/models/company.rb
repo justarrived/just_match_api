@@ -69,6 +69,8 @@ class Company < ApplicationRecord
     )
   end
 
+  alias_method :short_description, :description
+
   def company_image_logo
     company_images.last
   end

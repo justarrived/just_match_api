@@ -6,6 +6,8 @@ class CompanySerializer < ApplicationSerializer
 
   link(:self) { api_v1_company_url(object) }
 
+  attribute :short_description { object.short_description }
+
   has_many :company_images
 end
 
