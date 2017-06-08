@@ -16,9 +16,11 @@ class JobPolicy < ApplicationPolicy
     full_street_address description_html staffing_job direct_recruitment_job
     swedish_drivers_license car_required last_application_at
     last_application_at_in_words open_for_applications starts_in_the_future
-    full_time publish_at unpublish_at tasks_description applicant_description
-    requirements_description
+    full_time publish_at unpublish_at tasks_description tasks_description_html
+    applicant_description applicant_description_html requirements_description
+    requirements_description_html
   ).freeze
+
 
   ATTRIBUTES = %i(
     id description job_date hours name created_at updated_at zip
@@ -29,7 +31,8 @@ class JobPolicy < ApplicationPolicy
     description_html direct_recruitment_job swedish_drivers_license car_required
     last_application_at last_application_at_in_words open_for_applications
     starts_in_the_future full_time publish_at unpublish_at tasks_description
-    applicant_description requirements_description
+    tasks_description_html applicant_description applicant_description_html
+    requirements_description requirements_description_html
   ).freeze
 
   OWNER_ATTRIBUTES = [

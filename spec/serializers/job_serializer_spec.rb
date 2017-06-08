@@ -30,7 +30,13 @@ RSpec.describe JobSerializer, type: :serializer do
         'description' => nil,
         'description_html' => nil,
         'short_description' => nil,
-        'language_id' => nil
+        'language_id' => nil,
+        'tasks_description' => nil,
+        'tasks_description_html' => nil,
+        'applicant_description' => nil,
+        'applicant_description_html' => nil,
+        'requirements_description' => nil,
+        'requirements_description_html' => nil
       }
       expect(subject).to have_jsonapi_attribute('translated_text', value)
     end
