@@ -21,7 +21,6 @@ class JobPolicy < ApplicationPolicy
     requirements_description_html
   ).freeze
 
-
   ATTRIBUTES = %i(
     id description job_date hours name created_at updated_at zip
     zip_latitude zip_longitude verified job_end_date filled short_description
