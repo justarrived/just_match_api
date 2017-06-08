@@ -14,6 +14,7 @@ end
 require 'webmock/rspec'
 require 'frilans_finans_api'
 require 'frilans_finans_api/test_helper'
+require 'json_api_helpers'
 require 'byebug'
 Dir['spec/spec_support/spec_helpers/**/*.rb'].each { |f| require_relative "../#{f}" }
 
@@ -59,28 +60,6 @@ FrilansFinansApi.configure do |config|
   config.client_id = '123456'
   config.client_secret = 'notsosecret'
   config.event_logger = FrilansFinansApi::NilEventLogger.new
-end
-
-JsonApiHelpers.configure do |config|
-  config.deserializer_klass = Class.new do
-    def self.jsonapi_parse(json_api_hash)
-      json_api_hash.dig('data', 'attributes')
-    end
-  end
-
-  config.params_klass = Class.new do
-    def initialize(hash)
-      @hash = hash
-    end
-
-    def [](name)
-      @hash[name.to_s]
-    end
-
-    def to_h
-      @hash
-    end
-  end
 end
 
 # Only allow the tests to connect to localhost and  allow codeclimate
