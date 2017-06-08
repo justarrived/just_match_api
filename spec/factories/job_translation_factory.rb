@@ -14,15 +14,18 @@ end
 #
 # Table name: job_translations
 #
-#  id                :integer          not null, primary key
-#  locale            :string
-#  short_description :string
-#  name              :string
-#  description       :text
-#  job_id            :integer
-#  created_at        :datetime         not null
-#  updated_at        :datetime         not null
-#  language_id       :integer
+#  id                       :integer          not null, primary key
+#  locale                   :string
+#  short_description        :string
+#  name                     :string
+#  description              :text
+#  job_id                   :integer
+#  created_at               :datetime         not null
+#  updated_at               :datetime         not null
+#  language_id              :integer
+#  tasks_description        :text
+#  applicant_description    :text
+#  requirements_description :text
 #
 # Indexes
 #
