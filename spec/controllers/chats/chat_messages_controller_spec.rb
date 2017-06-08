@@ -4,7 +4,8 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::Chats::ChatMessagesController, type: :controller do
   before(:each) do
-    @chat_user = FactoryGirl.create(:chat_user, user: FactoryGirl.create(:company_user))
+    company_user = FactoryGirl.create(:company_user).tap(&:create_auth_token)
+    @chat_user = FactoryGirl.create(:chat_user, user: company_user)
   end
 
   let(:valid_attributes) do
@@ -33,13 +34,14 @@ RSpec.describe Api::V1::Chats::ChatMessagesController, type: :controller do
         user = @chat_user.user
         FactoryGirl.create(:message, chat: chat, author: user)
         {
+          auth_token: user.auth_token,
           id: chat.to_param,
           include: 'author,author.company'
         }
       end
 
       it 'assigns all messages as @messages' do
-        get :index, params: valid_attributes, headers: valid_session
+        get :index, params: valid_attributes
         expect(assigns(:messages).first).to be_a(Message)
       end
     end
@@ -50,7 +52,9 @@ RSpec.describe Api::V1::Chats::ChatMessagesController, type: :controller do
       let(:valid_attributes) do
         language = FactoryGirl.create(:language)
         chat = @chat_user.chat
+        user = @chat_user.user
         {
+          auth_token: user.auth_token,
           id: chat.to_param,
           data: {
             attributes: { body: 'Some test text.', language_id: language }
@@ -60,24 +64,24 @@ RSpec.describe Api::V1::Chats::ChatMessagesController, type: :controller do
 
       it 'creates a new Message' do
         expect do
-          post :create, params: valid_attributes, headers: valid_session
+          post :create, params: valid_attributes
         end.to change(Message, :count).by(1)
       end
 
       it 'assigns chat as @chat' do
-        post :create, params: valid_attributes, headers: valid_session
+        post :create, params: valid_attributes
         expect(assigns(:chat)).to be_a(Chat)
         expect(assigns(:chat)).to be_persisted
       end
 
       it 'assigns a newly created message as @message' do
-        post :create, params: valid_attributes, headers: valid_session
+        post :create, params: valid_attributes
         expect(assigns(:message)).to be_a(Message)
         expect(assigns(:message)).to be_persisted
       end
 
       it 'returns created status' do
-        post :create, params: valid_attributes, headers: valid_session
+        post :create, params: valid_attributes
         expect(response.status).to eq(201)
       end
     end
@@ -85,16 +89,17 @@ RSpec.describe Api::V1::Chats::ChatMessagesController, type: :controller do
     context 'with invalid params' do
       let(:invalid_attributes) do
         chat = @chat_user.chat
-        { id: chat.to_param, message: { body: '' } }
+        user = @chat_user.user
+        { auth_token: user.auth_token, id: chat.to_param, message: { body: '' } }
       end
 
       it 'assigns message as @message' do
-        post :create, params: invalid_attributes, headers: valid_session
+        post :create, params: invalid_attributes
         expect(assigns(:message)).to be_a(Message)
       end
 
       it 'returns @message errors' do
-        post :create, params: invalid_attributes, headers: valid_session
+        post :create, params: invalid_attributes
         expect(assigns(:message).errors[:body]).to eq(["can't be blank"])
       end
     end

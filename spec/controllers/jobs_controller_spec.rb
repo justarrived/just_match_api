@@ -4,9 +4,11 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::JobsController, type: :controller do
   let(:company) { FactoryGirl.create(:company) }
-  let(:owner) { FactoryGirl.create(:user, company: company) }
+  let(:owner) { FactoryGirl.create(:user, company: company).tap(&:create_auth_token) }
+  let(:logged_in_user) { FactoryGirl.create(:user_with_tokens, company: company) }
   let(:valid_attributes) do
     {
+      auth_token: logged_in_user.auth_token,
       data: {
         attributes: {
           hours: 2,
@@ -29,40 +31,17 @@ RSpec.describe Api::V1::JobsController, type: :controller do
 
   let(:invalid_attributes) do
     {
+      auth_token: logged_in_user.auth_token,
       data: {
         attributes: { hours: nil }
       }
     }
   end
 
-  let(:valid_session) do
-    user = FactoryGirl.create(:user_with_tokens, company: FactoryGirl.create(:company))
-    allow_any_instance_of(described_class).
-      to(receive(:current_user).
-      and_return(user))
-    { token: user.auth_token }
-  end
-
-  let(:valid_admin_session) do
-    admin = FactoryGirl.create(:admin_user)
-    allow_any_instance_of(described_class).
-      to(receive(:current_user).
-      and_return(admin))
-    { token: admin.auth_token }
-  end
-
-  let(:invalid_session) do
-    user = FactoryGirl.create(:user)
-    allow_any_instance_of(described_class).
-      to(receive(:current_user).
-      and_return(User.new))
-    { token: user.auth_token }
-  end
-
   describe 'GET #index' do
     it 'assigns all jobs as @jobs' do
       job = FactoryGirl.create(:job)
-      process :index, method: :get, headers: valid_session
+      process :index, method: :get
       expect(assigns(:jobs)).to eq([job])
     end
 
@@ -85,35 +64,30 @@ RSpec.describe Api::V1::JobsController, type: :controller do
   describe 'GET #show' do
     it 'assigns the requested job as @job' do
       job = FactoryGirl.create(:job)
-      get :show, params: { job_id: job.to_param }, headers: valid_session
+      get :show, params: { job_id: job.to_param }
       expect(assigns(:job)).to eq(job)
     end
   end
 
   describe 'POST #create' do
-    let(:valid_session) do
-      allow_any_instance_of(described_class).
-        to(receive(:current_user).
-        and_return(owner))
-      { token: owner.auth_token }
-    end
+    let(:logged_in_user) { owner }
 
     context 'with valid params' do
       it 'creates a new Job' do
         expect do
-          post :create, params: valid_attributes, headers: valid_session
+          post :create, params: valid_attributes
         end.to change(Job, :count).by(1)
       end
 
       it '[deprecated] creates a new Job without owner_id in payload ' do
         valid_attributes[:data][:attributes][:owner_user_id] = nil
         expect do
-          post :create, params: valid_attributes, headers: valid_session
+          post :create, params: valid_attributes
         end.to change(Job, :count).by(1)
       end
 
       it 'works' do
-        post :create, params: valid_attributes, headers: valid_session
+        post :create, params: valid_attributes
         job = assigns(:job)
 
         expect(job.translations.length).to eq(1)
@@ -125,12 +99,12 @@ RSpec.describe Api::V1::JobsController, type: :controller do
 
     context 'with invalid params' do
       it 'assigns a newly created but unsaved job as @job' do
-        post :create, params: invalid_attributes, headers: valid_session
+        post :create, params: invalid_attributes
         expect(assigns(:job)).to be_a_new(Job)
       end
 
       it 'returns 422 status' do
-        post :create, params: invalid_attributes, headers: valid_session
+        post :create, params: invalid_attributes
         expect(response.status).to eq(422)
       end
     end
@@ -141,19 +115,18 @@ RSpec.describe Api::V1::JobsController, type: :controller do
       let(:new_hours) { 8 }
       let(:new_attributes) do
         {
+          auth_token: owner.auth_token,
           data: {
             attributes: { hours: new_hours }
           }
         }
       end
 
-      let(:user) { User.find_by_auth_token(valid_session[:token]) }
-
       context 'owner user' do
         it 'updates the requested job' do
-          job = FactoryGirl.create(:job, owner: user)
+          job = FactoryGirl.create(:job, owner: owner)
           params = { job_id: job.to_param }.merge(new_attributes)
-          put :update, params: params, headers: valid_session
+          put :update, params: params
           job.reload
           expect(job.hours).to eq(new_hours)
         end
@@ -161,20 +134,21 @@ RSpec.describe Api::V1::JobsController, type: :controller do
         it 'assigns the requested user as @job' do
           job = FactoryGirl.create(:job)
           params = { job_id: job.to_param }.merge(new_attributes)
-          put :update, params: params, headers: valid_session
+          put :update, params: params
           expect(assigns(:job)).to eq(job)
         end
 
         it 'returns success status' do
-          job = FactoryGirl.create(:job, owner: user)
+          job = FactoryGirl.create(:job, owner: owner)
           params = { job_id: job.to_param }.merge(new_attributes)
-          put :update, params: params, headers: valid_session
+          put :update, params: params
           expect(response.status).to eq(200)
         end
 
         context 'cancelled job' do
           let(:new_attributes) do
             {
+              auth_token: owner.auth_token,
               data: {
                 attributes: { cancelled: true }
               }
@@ -182,12 +156,12 @@ RSpec.describe Api::V1::JobsController, type: :controller do
           end
 
           it 'sends cancelled notifications' do
-            job = FactoryGirl.create(:job, owner: user)
+            job = FactoryGirl.create(:job, owner: owner)
 
             allow(JobCancelledNotifier).to receive(:call).and_return(nil)
 
             params = { job_id: job.to_param }.merge(new_attributes)
-            put :update, params: params, headers: valid_session
+            put :update, params: params
 
             expect(JobCancelledNotifier).to have_received(:call).with(job: job)
           end
@@ -195,10 +169,10 @@ RSpec.describe Api::V1::JobsController, type: :controller do
 
         context 'locked job' do
           it 'returns for status' do
-            job = FactoryGirl.create(:job, owner: user)
+            job = FactoryGirl.create(:job, owner: owner)
             FactoryGirl.create(:job_user, job: job, accepted: true, will_perform: true)
             params = { job_id: job.to_param }.merge(new_attributes)
-            put :update, params: params, headers: valid_session
+            put :update, params: params
             expect(response.status).to eq(403)
             parsed_json = JSON.parse(response.body)
             expect(parsed_json['errors'].first['status']).to eq(403)
@@ -209,6 +183,7 @@ RSpec.describe Api::V1::JobsController, type: :controller do
       context 'non associated user' do
         let(:new_attributes) do
           {
+            auth_token: FactoryGirl.create(:user_with_tokens).auth_token,
             data: {
               attributes: { hours: 6 }
             }
@@ -222,36 +197,7 @@ RSpec.describe Api::V1::JobsController, type: :controller do
           job = FactoryGirl.create(:job, owner: user1)
           FactoryGirl.create(:job_user, user: user2, job: job)
           params = { job_id: job.to_param }.merge(new_attributes)
-          put :update, params: params, headers: valid_session
-          expect(response.status).to eq(403)
-        end
-      end
-
-      context 'job user' do
-        let(:new_attributes) do
-          {
-            data: {
-              attributes: { hours: 6 }
-            }
-          }
-        end
-
-        let(:valid_session) do
-          user = FactoryGirl.create(:user_with_tokens)
-          allow_any_instance_of(described_class).
-            to(receive(:current_user).
-            and_return(user))
-          { token: user.auth_token }
-        end
-
-        let(:user) { User.find_by_auth_token(valid_session[:token]) }
-
-        it 'returns forbidden status' do
-          FactoryGirl.create(:user)
-          job = FactoryGirl.create(:job)
-          FactoryGirl.create(:job_user, user: user, job: job)
-          params = { job_id: job.to_param }.merge(new_attributes)
-          put :update, params: params, headers: valid_session
+          put :update, params: params
           expect(response.status).to eq(403)
         end
       end
@@ -259,19 +205,24 @@ RSpec.describe Api::V1::JobsController, type: :controller do
 
     context 'with invalid params' do
       let(:job) do
-        user = User.find_by_auth_token(valid_session[:token])
-        FactoryGirl.create(:job, owner: user)
+        FactoryGirl.create(:job, owner: owner)
       end
 
       it 'assigns the job as @job' do
-        params = { job_id: job.to_param }.merge(invalid_attributes)
-        put :update, params: params, headers: valid_session
+        params = {
+          auth_token: owner.auth_token,
+          job_id: job.to_param
+        }.merge(invalid_attributes)
+
+        put :update, params: params
         expect(assigns(:job)).to eq(job)
       end
 
       it 'returns unprocessable entity status' do
         params = { job_id: job.to_param }.merge(invalid_attributes)
-        put :update, params: params, headers: valid_session
+        params[:auth_token] = owner.auth_token
+
+        put :update, params: params
         expect(response.status).to eq(422)
       end
     end
@@ -279,20 +230,22 @@ RSpec.describe Api::V1::JobsController, type: :controller do
 
   describe 'GET #matching_users' do
     it 'returns 200 status if job owner' do
-      job = FactoryGirl.create(:job)
-      get :show, params: { job_id: job.to_param }, headers: valid_session
+      job = FactoryGirl.create(:job, owner: owner)
+      params = { auth_token: owner.auth_token, job_id: job.to_param }
+      get :show, params: params
       expect(response.status).to eq(200)
     end
 
     it 'returns 200 status if admin is user' do
       job = FactoryGirl.create(:job)
-      get :matching_users, params: { job_id: job.to_param }, headers: valid_admin_session
+      admin = FactoryGirl.create(:user_with_tokens, admin: true)
+      get :matching_users, params: { auth_token: admin.auth_token, job_id: job.to_param }
       expect(response.status).to eq(200)
     end
 
     it 'returns 401 unauthorized status when user not authorized' do
       job = FactoryGirl.create(:job)
-      get :matching_users, params: { job_id: job.to_param }, headers: invalid_session
+      get :matching_users, params: { job_id: job.to_param }
       expect(response.status).to eq(401)
     end
   end

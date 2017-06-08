@@ -42,17 +42,16 @@ RSpec.describe Api::V1::Companies::CompanyImagesController, type: :controller do
   describe 'GET #show' do
     let(:company) { FactoryGirl.create(:company) }
     let(:company_image) { FactoryGirl.create(:company_image, company: company) }
-    let(:valid_session) { {} }
 
     it 'returns user image' do
       params = { company_id: company.to_param, id: company_image.to_param }
-      get :show, params: params, headers: valid_session
+      get :show, params: params
       expect(assigns(:company_image)).to eq(company_image)
     end
 
     it 'returns 200 ok status' do
       params = { company_id: company.to_param, id: company_image.to_param }
-      get :show, params: params, headers: valid_session
+      get :show, params: params
       assigns(:company_image)
       expect(response.status).to eq(200)
     end

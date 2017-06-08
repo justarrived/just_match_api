@@ -3,25 +3,16 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::Users::MessagesController, type: :controller do
-  let(:valid_session) do
-    user = FactoryGirl.create(:user)
-    allow_any_instance_of(described_class).
-      to(receive(:current_user).
-      and_return(user))
-    {}
-  end
-
   describe 'GET #index' do
     context 'with valid params' do
       let(:valid_attributes) do
-        user = FactoryGirl.create(:user)
-        { user_id: user.to_param }
+        user = FactoryGirl.create(:user_with_tokens)
+        { auth_token: user.auth_token, user_id: user.to_param }
       end
 
       it 'assigns all messages as @messages' do
-        expected_klass = Message::ActiveRecord_Relation
-        get :index, params: valid_attributes, headers: valid_session
-        expect(assigns(:messages).class).to eq(expected_klass)
+        get :index, params: valid_attributes
+        expect(assigns(:messages).length).to eq(0)
       end
     end
   end
@@ -32,7 +23,9 @@ RSpec.describe Api::V1::Users::MessagesController, type: :controller do
         language = FactoryGirl.create(:language)
         chat_user = FactoryGirl.create(:chat_user)
         user = chat_user.user
+        user.create_auth_token
         {
+          auth_token: user.auth_token,
           user_id: user.to_param,
           data: {
             attributes: { body: 'Some test text.', language_id: language }
@@ -42,18 +35,18 @@ RSpec.describe Api::V1::Users::MessagesController, type: :controller do
 
       it 'creates a new Message' do
         expect do
-          post :create, params: valid_attributes, headers: valid_session
+          post :create, params: valid_attributes
         end.to change(Message, :count).by(1)
       end
 
       it 'assigns a newly created message as @message' do
-        post :create, params: valid_attributes, headers: valid_session
+        post :create, params: valid_attributes
         expect(assigns(:message)).to be_a(Message)
         expect(assigns(:message)).to be_persisted
       end
 
       it 'returns created status' do
-        post :create, params: valid_attributes, headers: valid_session
+        post :create, params: valid_attributes
         expect(response.status).to eq(201)
       end
     end
@@ -62,7 +55,9 @@ RSpec.describe Api::V1::Users::MessagesController, type: :controller do
       let(:invalid_attributes) do
         chat_user = FactoryGirl.create(:chat_user)
         user = chat_user.user
+        user.create_auth_token
         {
+          auth_token: user.auth_token,
           user_id: user.to_param, data: {
             attributes: { body: '' }
           }
@@ -71,12 +66,12 @@ RSpec.describe Api::V1::Users::MessagesController, type: :controller do
 
       it 'does not create a new Message' do
         expect do
-          post :create, params: invalid_attributes, headers: valid_session
+          post :create, params: invalid_attributes
         end.to change(Message, :count).by(0)
       end
 
       it 'returns @message errors' do
-        post :create, params: invalid_attributes, headers: valid_session
+        post :create, params: invalid_attributes
         expect(assigns(:message).errors[:body]).to eq(["can't be blank"])
       end
     end

@@ -27,7 +27,7 @@ If you're looking for help, ask questions, want to contribute or give feedback, 
 ## Built with
 
 * Ruby 2.4
-* Ruby on Rails 5.0
+* Ruby on Rails 5.1
 * PostgreSQL 9.3
 * Redis 3
 

@@ -23,12 +23,10 @@ RSpec.describe Api::V1::LanguagesController, type: :controller do
     }
   end
 
-  let(:valid_session) { {} }
-
   describe 'GET #index' do
     it 'assigns all languages as @languages' do
       language = FactoryGirl.create(:language)
-      process :index, method: :get, headers: valid_session
+      process :index, method: :get
       expect(assigns(:languages)).to eq([language])
     end
   end
@@ -36,7 +34,7 @@ RSpec.describe Api::V1::LanguagesController, type: :controller do
   describe 'GET #show' do
     it 'assigns the requested language as @language' do
       language = FactoryGirl.create(:language)
-      get :show, params: { id: language.to_param }, headers: valid_session
+      get :show, params: { id: language.to_param }
       expect(assigns(:language)).to eq(language)
     end
   end
@@ -46,27 +44,27 @@ RSpec.describe Api::V1::LanguagesController, type: :controller do
       it 'creates a new Language' do
         allow_any_instance_of(User).to receive(:admin?).and_return(true)
         expect do
-          post :create, params: valid_attributes, headers: valid_session
+          post :create, params: valid_attributes
         end.to change(Language, :count).by(1)
       end
 
       it 'assigns a newly created language as @language' do
         allow_any_instance_of(User).to receive(:admin?).and_return(true)
-        post :create, params: valid_attributes, headers: valid_session
+        post :create, params: valid_attributes
         expect(assigns(:language)).to be_a(Language)
         expect(assigns(:language)).to be_persisted
       end
 
       it 'returns created status' do
         allow_any_instance_of(User).to receive(:admin?).and_return(true)
-        post :create, params: valid_attributes, headers: valid_session
+        post :create, params: valid_attributes
         expect(response.status).to eq(201)
       end
 
       context 'not authorized' do
         it 'returns not authorized status' do
           allow_any_instance_of(User).to receive(:admin?).and_return(false)
-          post :create, params: valid_attributes, headers: valid_session
+          post :create, params: valid_attributes
           expect(response.status).to eq(403)
         end
       end
@@ -75,13 +73,13 @@ RSpec.describe Api::V1::LanguagesController, type: :controller do
     context 'with invalid params' do
       it 'assigns a newly created but unsaved language as @language' do
         allow_any_instance_of(User).to receive(:admin?).and_return(true)
-        post :create, params: invalid_attributes, headers: valid_session
+        post :create, params: invalid_attributes
         expect(assigns(:language)).to be_a_new(Language)
       end
 
       it 'returns unprocessable entity status' do
         allow_any_instance_of(User).to receive(:admin?).and_return(true)
-        post :create, params: invalid_attributes, headers: valid_session
+        post :create, params: invalid_attributes
         expect(response.status).to eq(422)
       end
     end
@@ -101,7 +99,7 @@ RSpec.describe Api::V1::LanguagesController, type: :controller do
         allow_any_instance_of(User).to receive(:admin?).and_return(true)
         language = FactoryGirl.create(:language)
         params = { id: language.to_param }.merge(new_attributes)
-        put :update, params: params, headers: valid_session
+        put :update, params: params
         language.reload
         expect(language.lang_code).to eq('ar')
       end
@@ -109,7 +107,7 @@ RSpec.describe Api::V1::LanguagesController, type: :controller do
       it 'assigns the requested language as @language' do
         language = FactoryGirl.create(:language, lang_code: 'ar')
         params = { id: language.to_param }.merge(new_attributes)
-        put :update, params: params, headers: valid_session
+        put :update, params: params
         expect(assigns(:language)).to eq(language)
       end
 
@@ -117,7 +115,7 @@ RSpec.describe Api::V1::LanguagesController, type: :controller do
         allow_any_instance_of(User).to receive(:admin?).and_return(true)
         language = FactoryGirl.create(:language)
         params = { id: language.to_param }.merge(new_attributes)
-        put :update, params: params, headers: valid_session
+        put :update, params: params
         expect(response.status).to eq(200)
       end
 
@@ -126,7 +124,7 @@ RSpec.describe Api::V1::LanguagesController, type: :controller do
           allow_any_instance_of(User).to receive(:admin?).and_return(false)
           language = FactoryGirl.create(:language)
           params = { id: language.to_param }.merge(new_attributes)
-          post :update, params: params, headers: valid_session
+          post :update, params: params
           expect(response.status).to eq(403)
         end
       end
@@ -136,7 +134,7 @@ RSpec.describe Api::V1::LanguagesController, type: :controller do
       it 'assigns the language as @language' do
         language = FactoryGirl.create(:language)
         params = { id: language.to_param }.merge(invalid_attributes)
-        put :update, params: params, headers: valid_session
+        put :update, params: params
         expect(assigns(:language)).to eq(language)
       end
 
@@ -144,7 +142,7 @@ RSpec.describe Api::V1::LanguagesController, type: :controller do
         allow_any_instance_of(User).to receive(:admin?).and_return(true)
         language = FactoryGirl.create(:language)
         params = { id: language.to_param }.merge(invalid_attributes)
-        put :update, params: params, headers: valid_session
+        put :update, params: params
         expect(response.status).to eq(422)
       end
     end
@@ -155,14 +153,14 @@ RSpec.describe Api::V1::LanguagesController, type: :controller do
       allow_any_instance_of(User).to receive(:admin?).and_return(true)
       language = FactoryGirl.create(:language)
       expect do
-        delete :destroy, params: { id: language.to_param }, headers: valid_session
+        delete :destroy, params: { id: language.to_param }
       end.to change(Language, :count).by(-1)
     end
 
     it 'returns deleted status' do
       allow_any_instance_of(User).to receive(:admin?).and_return(true)
       language = FactoryGirl.create(:language)
-      delete :destroy, params: { id: language.to_param }, headers: valid_session
+      delete :destroy, params: { id: language.to_param }
       expect(response.status).to eq(204)
     end
 
@@ -171,7 +169,7 @@ RSpec.describe Api::V1::LanguagesController, type: :controller do
         allow_any_instance_of(User).to receive(:admin?).and_return(false)
         language = FactoryGirl.create(:language)
         params = { id: language.to_param }
-        post :destroy, params: params, headers: valid_session
+        post :destroy, params: params
         expect(response.status).to eq(403)
       end
     end

@@ -20,8 +20,6 @@ RSpec.describe Api::V1::Users::UserSessionsController, type: :controller do
     {}
   end
 
-  let(:valid_session) { {} }
-
   describe 'POST #create' do
     context 'valid user' do
       context 'with email given' do
@@ -34,7 +32,7 @@ RSpec.describe Api::V1::Users::UserSessionsController, type: :controller do
           attributes = valid_attributes.dup
           attributes[:data][:attributes][:email_or_phone] = email.upcase
 
-          post :create, params: attributes, headers: valid_session
+          post :create, params: attributes
           expect(response.status).to eq(201)
         end
 
@@ -42,17 +40,17 @@ RSpec.describe Api::V1::Users::UserSessionsController, type: :controller do
           attributes = valid_attributes.dup
           attributes[:data][:attributes][:email_or_phone] = "  #{email}  "
 
-          post :create, params: attributes, headers: valid_session
+          post :create, params: attributes
           expect(response.status).to eq(201)
         end
 
         it 'should return success status' do
-          post :create, params: valid_attributes, headers: valid_session
+          post :create, params: valid_attributes
           expect(response.status).to eq(201)
         end
 
         it 'should return JSON with token key' do
-          post :create, params: valid_attributes, headers: valid_session
+          post :create, params: valid_attributes
           json = JSON.parse(response.body)
           jsonapi_params = JsonApiDeserializer.parse(json)
           expected = SecureGenerator::DEFAULT_TOKEN_LENGTH
@@ -60,7 +58,7 @@ RSpec.describe Api::V1::Users::UserSessionsController, type: :controller do
         end
 
         it 'should return JSON with user id' do
-          post :create, params: valid_attributes, headers: valid_session
+          post :create, params: valid_attributes
           json = JSON.parse(response.body)
           jsonapi_params = JsonApiDeserializer.parse(json)
           expect(jsonapi_params['user_id']).not_to be_nil
@@ -80,7 +78,7 @@ RSpec.describe Api::V1::Users::UserSessionsController, type: :controller do
             }
           }
 
-          post :create, params: valid_attributes, headers: valid_session
+          post :create, params: valid_attributes
           expect(response.status).to eq(201)
         end
       end
@@ -88,12 +86,12 @@ RSpec.describe Api::V1::Users::UserSessionsController, type: :controller do
 
     context 'invalid user' do
       it 'should return forbidden status' do
-        post :create, params: valid_attributes, headers: valid_session
+        post :create, params: valid_attributes
         expect(response.status).to eq(422)
       end
 
       it 'returns explaination' do
-        post :create, params: valid_attributes, headers: valid_session
+        post :create, params: valid_attributes
         message = I18n.t('errors.user_session.wrong_email_or_phone_or_password')
         json = JSON.parse(response.body)
         first_detail = json['errors'].first['detail']
@@ -112,12 +110,12 @@ RSpec.describe Api::V1::Users::UserSessionsController, type: :controller do
       end
 
       it 'returns forbidden status' do
-        post :create, params: valid_attributes, headers: valid_session
+        post :create, params: valid_attributes
         expect(response.status).to eq(403)
       end
 
       it 'returns explaination' do
-        post :create, params: valid_attributes, headers: valid_session
+        post :create, params: valid_attributes
         json = JSON.parse(response.body)
         message = 'an admin has banned'
         detail = json['errors'].first['detail']
@@ -143,7 +141,7 @@ RSpec.describe Api::V1::Users::UserSessionsController, type: :controller do
       end
 
       it 'returns valid response' do
-        post :create, params: valid_attributes, headers: valid_session
+        post :create, params: valid_attributes
 
         json = JSON.parse(response.body)
         jsonapi_params = JsonApiDeserializer.parse(json)

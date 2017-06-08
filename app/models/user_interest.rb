@@ -10,6 +10,8 @@ class UserInterest < ApplicationRecord
   validates :user, presence: true
   validates :interest, uniqueness: { scope: :user }
   validates :user, uniqueness: { scope: :interest }
+  validates :level, numericality: { only_integer: true }, inclusion: LEVEL_RANGE, allow_nil: true # rubocop:disable Metrics/LineLength
+  validates :level_by_admin, numericality: { only_integer: true }, inclusion: LEVEL_RANGE, allow_nil: true # rubocop:disable Metrics/LineLength
 
   scope :visible, (lambda {
     with_level.joins(:interest).where(interests: { internal: false })
