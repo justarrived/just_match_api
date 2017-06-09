@@ -218,7 +218,7 @@ RSpec.describe Blocketjobb::JobWrapper do
       job = FactoryGirl.build(:job, owner: owner)
 
       result = described_class.new(job).company_description
-      expect(result).to eq(owner.company.description)
+      expect(result).to eq(owner.company.guaranteed_description)
     end
   end
 
