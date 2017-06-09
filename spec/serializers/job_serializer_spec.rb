@@ -16,6 +16,7 @@ RSpec.describe JobSerializer, type: :serializer do
       gross_amount_with_currency net_amount_with_currency
       gross_amount_delimited net_amount_delimited description_html
       last_application_at_in_words open_for_applications starts_in_the_future
+      tasks_description_html applicant_description_html requirements_description_html
     )
     (JobPolicy::ATTRIBUTES - ignore_fields).each do |attribute|
       it "has #{attribute.to_s.humanize.downcase}" do
@@ -30,7 +31,13 @@ RSpec.describe JobSerializer, type: :serializer do
         'description' => nil,
         'description_html' => nil,
         'short_description' => nil,
-        'language_id' => nil
+        'language_id' => nil,
+        'tasks_description' => nil,
+        'tasks_description_html' => nil,
+        'applicant_description' => nil,
+        'applicant_description_html' => nil,
+        'requirements_description' => nil,
+        'requirements_description_html' => nil
       }
       expect(subject).to have_jsonapi_attribute('translated_text', value)
     end
@@ -119,6 +126,9 @@ end
 #  blocketjobb_category         :string
 #  publish_at                   :datetime
 #  unpublish_at                 :datetime
+#  tasks_description            :text
+#  applicant_description        :text
+#  requirements_description     :text
 #
 # Indexes
 #

@@ -8,7 +8,10 @@ RSpec.describe JobTranslation, type: :model do
       :job_translation,
       name: 'Wat',
       short_description: 'Short',
-      description: 'Desc'
+      description: 'Desc',
+      tasks_description: 'Task Desc',
+      applicant_description: 'App Desc',
+      requirements_description: 'Req Desc'
     )
   end
 
@@ -30,7 +33,10 @@ RSpec.describe JobTranslation, type: :model do
 
     it 'returns a list of changed translation attributes' do
       subject.name = 'Watwoman'
-      expected = %w(short_description description)
+      expected = %w(
+        short_description description tasks_description applicant_description
+        requirements_description
+      )
       expect(subject.unchanged_translation_fields).to eq(expected)
     end
   end
@@ -47,7 +53,10 @@ RSpec.describe JobTranslation, type: :model do
       expected = {
         'name' => 'Wat',
         'short_description' => 'Short',
-        'description' => 'Desc'
+        'description' => 'Desc',
+        'tasks_description' => 'Task Desc',
+        'applicant_description' => 'App Desc',
+        'requirements_description' => 'Req Desc'
       }
       expect(result).to eq(expected)
     end
@@ -58,15 +67,18 @@ end
 #
 # Table name: job_translations
 #
-#  id                :integer          not null, primary key
-#  locale            :string
-#  short_description :string
-#  name              :string
-#  description       :text
-#  job_id            :integer
-#  created_at        :datetime         not null
-#  updated_at        :datetime         not null
-#  language_id       :integer
+#  id                       :integer          not null, primary key
+#  locale                   :string
+#  short_description        :string
+#  name                     :string
+#  description              :text
+#  job_id                   :integer
+#  created_at               :datetime         not null
+#  updated_at               :datetime         not null
+#  language_id              :integer
+#  tasks_description        :text
+#  applicant_description    :text
+#  requirements_description :text
 #
 # Indexes
 #

@@ -100,7 +100,10 @@ ActiveAdmin.register Job do
     translation_params = {
       name: permitted_params.dig(:job, :name),
       description: permitted_params.dig(:job, :description),
-      short_description: permitted_params.dig(:job, :short_description)
+      short_description: permitted_params.dig(:job, :short_description),
+      tasks_description: permitted_params.dig(:job, :tasks_description),
+      applicant_description: permitted_params.dig(:job, :applicant_description),
+      requirements_description: permitted_params.dig(:job, :requirements_description)
     }
     language = Language.find_by(id: permitted_params.dig(:job, :language_id))
     job.set_translation(translation_params, language)
@@ -261,6 +264,7 @@ ActiveAdmin.register Job do
       :company_contact_user_id, :just_arrived_contact_user_id, :municipality,
       :number_to_fill, :order_id, :full_time, :swedish_drivers_license, :car_required,
       :publish_on_linkedin, :publish_on_blocketjobb, :blocketjobb_category,
+      :salary_type,
       job_skills_attributes: %i(skill_id proficiency proficiency_by_admin),
       job_languages_attributes: %i(language_id proficiency proficiency_by_admin)
     ]

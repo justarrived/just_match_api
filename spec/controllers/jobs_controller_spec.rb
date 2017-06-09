@@ -298,6 +298,9 @@ end
 #  blocketjobb_category         :string
 #  publish_at                   :datetime
 #  unpublish_at                 :datetime
+#  tasks_description            :text
+#  applicant_description        :text
+#  requirements_description     :text
 #
 # Indexes
 #

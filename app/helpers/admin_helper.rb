@@ -10,6 +10,10 @@ module AdminHelper
     end
   end
 
+  def markdown_to_html(markdown)
+    ::StringFormatter.new.to_html(markdown)&.html_safe
+  end
+
   def job_user_current_status_badge(status)
     color = '#323537' # black
     font_weight = 'normal'

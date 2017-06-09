@@ -54,6 +54,9 @@ module Api
           param :name, String, desc: 'Name', required: true
           param :short_description, String, desc: 'Short description'
           param :description, String, desc: 'Description', required: true
+          param :tasks_description, String, desc: 'Tasks description'
+          param :applicant_description, String, desc: 'Applicant description'
+          param :requirements_description, String, desc: 'Requirements description'
           param :owner_user_id, Integer, desc: "User id of the job owner (please note that if you try to set an owner you are not allowed to, the error will simple be: owner can't be blank)", required: true
           param :job_date, String, desc: 'Job start date', required: true
           param :job_end_date, String, desc: 'Job end date'
@@ -120,6 +123,9 @@ module Api
           param :name, String, desc: 'Name'
           param :short_description, String, desc: 'Short description'
           param :description, String, desc: 'Description'
+          param :tasks_description, String, desc: 'Tasks description'
+          param :applicant_description, String, desc: 'Applicant description'
+          param :requirements_description, String, desc: 'Requirements description'
           param :job_date, String, desc: 'Job start date'
           param :job_end_date, String, desc: 'Job end date'
           param :hours, Float, desc: 'Estmiated completion time'

@@ -29,12 +29,42 @@ class JobSerializer < ApplicationSerializer
     to_html(object.original_description)
   end
 
+  attribute :tasks_description do
+    object.original_tasks_description
+  end
+
+  attribute :tasks_description_html do
+    to_html(object.original_tasks_description)
+  end
+
+  attribute :applicant_description do
+    object.original_applicant_description
+  end
+
+  attribute :applicant_description_html do
+    to_html(object.original_applicant_description)
+  end
+
+  attribute :requirements_description do
+    object.original_requirements_description
+  end
+
+  attribute :requirements_description_html do
+    to_html(object.original_requirements_description)
+  end
+
   attribute :translated_text do
     {
       name: object.translated_name,
       short_description: object.translated_short_description,
       description: object.translated_description,
       description_html: to_html(object.translated_description),
+      tasks_description: object.translated_tasks_description,
+      tasks_description_html: to_html(object.translated_tasks_description),
+      applicant_description: object.translated_applicant_description,
+      applicant_description_html: to_html(object.translated_applicant_description),
+      requirements_description: object.translated_requirements_description,
+      requirements_description_html: to_html(object.translated_requirements_description),
       language_id: object.translated_language_id
     }
   end
@@ -177,6 +207,9 @@ end
 #  blocketjobb_category         :string
 #  publish_at                   :datetime
 #  unpublish_at                 :datetime
+#  tasks_description            :text
+#  applicant_description        :text
+#  requirements_description     :text
 #
 # Indexes
 #

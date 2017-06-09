@@ -17,6 +17,9 @@ f.inputs(I18n.t('admin.job.form.detail_section_title')) do
   f.input :name
   f.input :short_description
   f.input :description, input_html: { markdown: true }
+  f.input :tasks_description, input_html: { markdown: true }
+  f.input :applicant_description, input_html: { markdown: true }
+  f.input :requirements_description, input_html: { markdown: true }
   f.input :swedish_drivers_license, hint: Arbetsformedlingen::DriversLicenseCode.codes.join(', ')
   f.input :car_required
   f.input :number_to_fill
