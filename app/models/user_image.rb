@@ -11,7 +11,8 @@ class UserImage < ApplicationRecord
     lma_card: 5,
     residence_permit_front: 6,
     residence_permit_back: 7,
-    skatteverket_certificate: 8
+    skatteverket_certificate: 8,
+    recruiter_profile: 9
   }.freeze
 
   belongs_to :user, optional: true
