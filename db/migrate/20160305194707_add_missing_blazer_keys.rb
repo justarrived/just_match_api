@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class AddMissingBlazerKeys < ActiveRecord::Migration
+class AddMissingBlazerKeys < ActiveRecord::Migration[4.2]
   def change
     # rubocop:disable Metrics/LineLength
     add_foreign_key 'blazer_audits', 'blazer_queries', column: 'query_id', name: 'blazer_audits_query_id_fk'

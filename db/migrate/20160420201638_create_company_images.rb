@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CreateCompanyImages < ActiveRecord::Migration
+class CreateCompanyImages < ActiveRecord::Migration[4.2]
   def change
     create_table :company_images do |t|
       t.datetime :one_time_token_expires_at

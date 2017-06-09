@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CreateJobSkills < ActiveRecord::Migration
+class CreateJobSkills < ActiveRecord::Migration[4.2]
   def change
     create_table :job_skills do |t|
       t.belongs_to :job, index: true, foreign_key: true

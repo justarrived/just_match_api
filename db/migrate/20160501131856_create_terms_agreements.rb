@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CreateTermsAgreements < ActiveRecord::Migration
+class CreateTermsAgreements < ActiveRecord::Migration[4.2]
   def change
     create_table :terms_agreements do |t|
       t.string :version, unique: true

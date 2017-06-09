@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CreateUserLanguages < ActiveRecord::Migration
+class CreateUserLanguages < ActiveRecord::Migration[4.2]
   def change
     create_table :user_languages do |t|
       t.belongs_to :language, index: true, foreign_key: true

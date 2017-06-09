@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CreateHourlyPays < ActiveRecord::Migration
+class CreateHourlyPays < ActiveRecord::Migration[4.2]
   def change
     create_table :hourly_pays do |t|
       t.boolean :active, default: false

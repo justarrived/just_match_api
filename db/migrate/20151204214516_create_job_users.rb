@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CreateJobUsers < ActiveRecord::Migration
+class CreateJobUsers < ActiveRecord::Migration[4.2]
   def change
     create_table :job_users do |t|
       t.belongs_to :user, index: true, foreign_key: true

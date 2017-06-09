@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class AddOneTimeTokenToUsers < ActiveRecord::Migration
+class AddOneTimeTokenToUsers < ActiveRecord::Migration[4.2]
   def change
     add_column :users, :one_time_token, :string
     add_column :users, :one_time_token_expires_at, :datetime

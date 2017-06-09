@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class AddMissingUniqIndexes < ActiveRecord::Migration
+class AddMissingUniqIndexes < ActiveRecord::Migration[4.2]
   def change
     add_index :users, :email, unique: true
     add_index :users, :auth_token, unique: true

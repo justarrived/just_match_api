@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CreateFrilansFinansInvoices < ActiveRecord::Migration
+class CreateFrilansFinansInvoices < ActiveRecord::Migration[4.2]
   def change
     create_table :frilans_finans_invoices do |t|
       t.integer :frilans_finans_id, unique: true

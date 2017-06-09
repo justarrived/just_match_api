@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class AddLatitudeAndLongitudeToJob < ActiveRecord::Migration
+class AddLatitudeAndLongitudeToJob < ActiveRecord::Migration[4.2]
   def change
     add_column :jobs, :latitude, :float
     add_column :jobs, :longitude, :float

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class InstallBlazer < ActiveRecord::Migration
+class InstallBlazer < ActiveRecord::Migration[4.2]
   def change
     create_table :blazer_queries do |t|
       t.references :creator

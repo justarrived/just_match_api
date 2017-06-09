@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CreateJobRequests < ActiveRecord::Migration
+class CreateJobRequests < ActiveRecord::Migration[4.2]
   def change
     create_table :job_requests do |t|
       t.string :company_name

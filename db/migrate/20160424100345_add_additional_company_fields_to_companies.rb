@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class AddAdditionalCompanyFieldsToCompanies < ActiveRecord::Migration
+class AddAdditionalCompanyFieldsToCompanies < ActiveRecord::Migration[4.2]
   def change
     add_column :companies, :email, :string
     add_column :companies, :street, :string
