@@ -168,6 +168,8 @@ en:
       residence_permit_back_description: Picture of the back side your residence permit
       skatteverket_certificate: Skatteverket certificate
       skatteverket_certificate_description: Picture of your Skatteverket certificate
+      recruiter_profile: Rectuiter profile
+      recruiter_profile_description: Rectuiter profile picture
   job:
     salary_summary: Your salary will be fixed at %{hourly_gross_salary_with_unit}.
     schedule_summary: Your first work day will be on %{start_date}.

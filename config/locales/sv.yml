@@ -168,6 +168,8 @@ sv:
       residence_permit_back_description: Bild på baksidan av ditt upplehållstillstånd
       skatteverket_certificate: Certifikat Skatteverket
       skatteverket_certificate_description: Bild på ditt certifikat från Skatteverket
+      recruiter_profile: Rekryterarprofilbild
+      recruiter_profile_description: Profilbild som kommer användas för när du står som ansvarig rekryterare
   job:
     salary_summary: Du har fast lön på %{hourly_gross_salary_with_unit}.
     schedule_summary: Din första arbetsdag kommer vara på %{start_date}.
