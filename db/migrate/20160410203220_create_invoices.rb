@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CreateInvoices < ActiveRecord::Migration
+class CreateInvoices < ActiveRecord::Migration[4.2]
   def change
     create_table :invoices do |t|
       t.integer :frilans_finans_id

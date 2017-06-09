@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class AddMissingForeignKeyIndexes < ActiveRecord::Migration
+class AddMissingForeignKeyIndexes < ActiveRecord::Migration[4.2]
   # rubocop:disable Metrics/LineLength
   def change
     add_foreign_key 'comments', 'users', column: 'owner_user_id', name: 'comments_owner_user_id_fk'

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CreateUserImages < ActiveRecord::Migration
+class CreateUserImages < ActiveRecord::Migration[4.2]
   def change
     create_table :user_images do |t|
       t.datetime :one_time_token_expires_at

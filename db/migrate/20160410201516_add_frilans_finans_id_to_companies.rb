@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class AddFrilansFinansIdToCompanies < ActiveRecord::Migration
+class AddFrilansFinansIdToCompanies < ActiveRecord::Migration[4.2]
   def change
     add_column :companies, :frilans_finans_id, :integer
     add_index :companies, :frilans_finans_id, unique: true

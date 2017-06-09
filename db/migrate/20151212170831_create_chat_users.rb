@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CreateChatUsers < ActiveRecord::Migration
+class CreateChatUsers < ActiveRecord::Migration[4.2]
   def change
     create_table :chat_users do |t|
       t.belongs_to :chat, index: true, foreign_key: true

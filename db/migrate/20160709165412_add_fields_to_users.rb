@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class AddFieldsToUsers < ActiveRecord::Migration
+class AddFieldsToUsers < ActiveRecord::Migration[4.2]
   def change
     add_column :users, :current_status, :integer
     add_column :users, :at_und, :integer

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CreateFrilansFinansApiLogs < ActiveRecord::Migration
+class CreateFrilansFinansApiLogs < ActiveRecord::Migration[4.2]
   def change
     create_table :frilans_finans_api_logs do |t|
       t.integer :status
