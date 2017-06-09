@@ -16,6 +16,7 @@ module Api
       ALLOWED_INCLUDES = %w(
         owner company company.company_images language category hourly_pay comments
         job_languages job_languages.language job_skills job_skills.skill
+        responsible_recruiter responsible_recruiter.user_images
       ).freeze
 
       api :GET, '/jobs', 'List jobs'
