@@ -6,7 +6,26 @@ class CompanySerializer < ApplicationSerializer
 
   link(:self) { api_v1_company_url(object) }
 
-  attribute :short_description { object.short_description }
+  attribute :short_description do
+    object.original_short_description
+  end
+
+  attribute :description do
+    object.original_description
+  end
+
+  attribute :description_html do
+    to_html(object.original_description)
+  end
+
+  attribute :translated_text do
+    {
+      short_description: object.translated_short_description,
+      description: object.translated_description,
+      description_html: to_html(object.translated_description),
+      language_id: object.translated_language_id
+    }
+  end
 
   has_many :company_images
 end

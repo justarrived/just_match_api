@@ -10,10 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170608112244) do
+ActiveRecord::Schema.define(version: 20170609123827) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "hstore"
+  enable_extension "pg_stat_statements"
   enable_extension "unaccent"
 
   create_table "active_admin_comments", id: :serial, force: :cascade do |t|
@@ -21,8 +23,8 @@ ActiveRecord::Schema.define(version: 20170608112244) do
     t.text "body"
     t.string "resource_id", null: false
     t.string "resource_type", null: false
-    t.string "author_type"
     t.integer "author_id"
+    t.string "author_type"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id"
@@ -137,8 +139,8 @@ ActiveRecord::Schema.define(version: 20170608112244) do
 
   create_table "comments", id: :serial, force: :cascade do |t|
     t.text "body"
-    t.string "commentable_type"
     t.integer "commentable_id"
+    t.string "commentable_type"
     t.integer "owner_user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -199,6 +201,18 @@ ActiveRecord::Schema.define(version: 20170608112244) do
     t.integer "image_file_size"
     t.datetime "image_updated_at"
     t.index ["company_id"], name: "index_company_images_on_company_id"
+  end
+
+  create_table "company_translations", force: :cascade do |t|
+    t.string "locale"
+    t.string "short_description"
+    t.text "description"
+    t.bigint "language_id"
+    t.bigint "company_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_company_translations_on_company_id"
+    t.index ["language_id"], name: "index_company_translations_on_language_id"
   end
 
   create_table "contacts", id: :serial, force: :cascade do |t|
@@ -482,9 +496,9 @@ ActiveRecord::Schema.define(version: 20170608112244) do
     t.string "city"
     t.boolean "staffing_job", default: false
     t.boolean "direct_recruitment_job", default: false
+    t.integer "order_id"
     t.string "municipality"
     t.integer "number_to_fill", default: 1
-    t.integer "order_id"
     t.boolean "full_time", default: false
     t.string "swedish_drivers_license"
     t.boolean "car_required", default: false
@@ -886,6 +900,8 @@ ActiveRecord::Schema.define(version: 20170608112244) do
   add_foreign_key "communication_template_translations", "languages"
   add_foreign_key "communication_templates", "languages"
   add_foreign_key "company_images", "companies"
+  add_foreign_key "company_translations", "companies"
+  add_foreign_key "company_translations", "languages"
   add_foreign_key "faq_translations", "faqs"
   add_foreign_key "faq_translations", "languages"
   add_foreign_key "faqs", "languages"

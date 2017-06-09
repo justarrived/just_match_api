@@ -81,7 +81,10 @@ module Blocketjobb
     end
 
     delegate :name, to: :company, prefix: true
-    delegate :description, to: :company, prefix: true
+
+    def company_description
+      company.guaranteed_description
+    end
 
     def company_orgno
       company.cin
