@@ -11,19 +11,12 @@
         "zip": "11851",
         "city": "Stockholm",
         "phone": null,
-        "email": "test@example.com"
+        "email": "test@example.com",
+        "short_description": "A company is located at A street, 11851, Stockholm, Sverige. You can find their website at https://example.com."
       },
       "relationships": {
         "company_images": {
           "data": []
-        },
-        "users": {
-          "data": [
-            {
-              "id": "2",
-              "type": "users"
-            }
-          ]
         }
       },
       "links": {

@@ -45,10 +45,10 @@
       "source": {
         "pointer": "/data/attributes/street"
       },
-      "detail": "is too short (minimum is 3 characters)",
+      "detail": "is too short (minimum is 1 character)",
       "meta": {
         "type": "too_short",
-        "count": 3
+        "count": 1
       }
     },
     {

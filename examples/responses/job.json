@@ -26,6 +26,12 @@
         "short_description": null,
         "description": null,
         "description_html": null,
+        "tasks_description": null,
+        "tasks_description_html": null,
+        "applicant_description": null,
+        "applicant_description_html": null,
+        "requirements_description": null,
+        "requirements_description_html": null,
         "language_id": null
       },
       "language_id": 6,
@@ -42,7 +48,20 @@
       "staffing_job": false,
       "direct_recruitment_job": false,
       "swedish_drivers_license": "A,B",
-      "car_required": false
+      "car_required": false,
+      "last_application_at": "2016-02-17T01:01:01.000+01:00",
+      "last_application_at_in_words": "over 1 year",
+      "open_for_applications": false,
+      "starts_in_the_future": false,
+      "full_time": false,
+      "publish_at": "2016-02-10T01:01:01.000+01:00",
+      "unpublish_at": null,
+      "tasks_description": null,
+      "tasks_description_html": null,
+      "applicant_description": null,
+      "applicant_description_html": null,
+      "requirements_description": null,
+      "requirements_description_html": null
     },
     "relationships": {
       "comments": {
@@ -56,6 +75,9 @@
       },
       "job_skills": {
         "data": []
+      },
+      "responsible_recruiter": {
+        "data": null
       },
       "owner": {
         "data": {

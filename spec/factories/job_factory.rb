@@ -130,6 +130,9 @@ FactoryGirl.define do
       publish_at Time.new(2016, 2, 10, 1, 1, 1).utc
       last_application_at Time.new(2016, 2, 17, 1, 1, 1).utc
       description 'Typewriter hashtag ennui brunch post-ironic food truck vinegar.'
+      tasks_description 'Some description in markdown.'
+      applicant_description 'Some description in markdown.'
+      requirements_description 'Some description in markdown.'
     end
   end
 end

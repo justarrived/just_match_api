@@ -58,7 +58,9 @@
       "full_street_address": "Bankgatan 14C, 223 52, Lund, Sverige",
       "just_arrived_staffing": false,
       "support_chat_activated": false,
-      "bank_account": null
+      "bank_account": null,
+      "has_welcome_app_account": false,
+      "public_profile": false
     },
     "relationships": {
       "company": {
