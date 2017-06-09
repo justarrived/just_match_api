@@ -114,7 +114,7 @@ ActiveAdmin.register Company do
       f.input :billing_email
       f.input :language, as: :select, collection: Language.system_languages
       f.input :short_description, as: :string
-      f.input :description, as: :text
+      f.input :description, as: :text, input_html: { markdown: true }
     end
 
     f.actions
