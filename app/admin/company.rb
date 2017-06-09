@@ -41,6 +41,8 @@ ActiveAdmin.register Company do
       row :zip
       row :city
       row :frilans_finans_id
+      row :short_description
+      row :description
       row :created_at
       row :updated_at
     end
@@ -58,6 +60,12 @@ ActiveAdmin.register Company do
           admin_jobs_path + company_query
         )
       )
+      li(
+        link_to(
+          I18n.t('admin.counts.translations', count: company.translations.count),
+          admin_company_translations_path + company_query
+        )
+      )
     end
 
     hr
@@ -67,6 +75,21 @@ ActiveAdmin.register Company do
         li link_to(user.display_name, admin_user_path(user))
       end
     end
+  end
+
+  set_company_translation = lambda do |company, permitted_params|
+    return unless company.persisted? && company.valid?
+
+    translation_params = {
+      short_description: permitted_params.dig(:company, :short_description),
+      description: permitted_params.dig(:company, :description)
+    }
+    language = Language.find_by(id: permitted_params.dig(:company, :language_id))
+    company.set_translation(translation_params, language)
+  end
+
+  after_save do |company|
+    set_company_translation.call(company, permitted_params)
   end
 
   form do |f|
@@ -89,6 +112,9 @@ ActiveAdmin.register Company do
       )
       f.input :phone
       f.input :billing_email
+      f.input :language, as: :select, collection: Language.system_languages
+      f.input :short_description, as: :string
+      f.input :description, as: :text
     end
 
     f.actions
@@ -109,6 +135,9 @@ ActiveAdmin.register Company do
       municipality
       billing_email
       phone
+      short_description
+      description
+      language_id
     )
   end
 end

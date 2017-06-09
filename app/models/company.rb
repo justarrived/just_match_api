@@ -28,6 +28,12 @@ class Company < ApplicationRecord
       joins(:users).where('users.frilans_finans_id IS NOT NULL')
   })
 
+  include Translatable
+  translates :short_description, :description
+
+  # NOTE: This is needed in order to be able to have it as a form input in the admin UI
+  attr_reader :language
+
   def display_name
     "##{id} #{name}"
   end
@@ -60,7 +66,10 @@ class Company < ApplicationRecord
     'SE'
   end
 
-  def description
+  def guaranteed_description
+    return description if description.present?
+    return short_description if short_description.present?
+
     I18n.t(
       'arbetsformedlingen.company_description',
       name: name,
@@ -68,8 +77,6 @@ class Company < ApplicationRecord
       url: website
     )
   end
-
-  alias_method :short_description, :description
 
   def company_image_logo
     company_images.last
