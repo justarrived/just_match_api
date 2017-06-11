@@ -722,7 +722,7 @@ GEM
       activemodel (>= 5.0)
       bindex (>= 0.4.0)
       railties (>= 5.0)
-    webmock (2.3.2)
+    webmock (3.0.1)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
       hashdiff
@@ -822,7 +822,7 @@ DEPENDENCIES
   twilio-ruby (~> 4.13)
   uglifier (~> 3.2)
   web-console (~> 3.5)
-  webmock (~> 2.0)
+  webmock (~> 3.0)
   welcome_app!
   yagni_json_encoder (~> 1.0)
 
