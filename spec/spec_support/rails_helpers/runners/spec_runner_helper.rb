@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module SpecRunnerHelper
-  def execute_runner?(env_name, default: true)
+  def self.execute?(env_name, default: true)
     filtered_test = ARGV.any? do |arg|
       arg.starts_with?('spec') || arg.starts_with?('./spec')
     end

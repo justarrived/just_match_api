@@ -3,10 +3,8 @@
 require 'spec_support/rails_helpers/runners/spec_runner_helper'
 
 module RubocopRunner
-  extend SpecRunnerHelper
-
   def self.run
-    return unless execute_runner?('RUBOCOP')
+    return unless SpecRunnerHelper.execute?('RUBOCOP')
 
     require 'rubocop/rake_task'
 

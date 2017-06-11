@@ -3,10 +3,8 @@
 require 'spec_support/rails_helpers/runners/spec_runner_helper'
 
 module CheckDBUniqIndexesRunner
-  extend SpecRunnerHelper
-
   def self.run
-    return unless execute_runner?('CHECK_DB_UNIQ_INDEXES', default: false)
+    return unless SpecRunnerHelper.execute?('CHECK_DB_UNIQ_INDEXES', default: false)
 
     puts 'Will watch for missing DB uniqueness indexes during test suite..'
 

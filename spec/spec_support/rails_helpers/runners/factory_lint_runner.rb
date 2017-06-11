@@ -3,10 +3,8 @@
 require 'spec_support/rails_helpers/runners/spec_runner_helper'
 
 module FactoryLintRunner
-  extend SpecRunnerHelper
-
   def self.run
-    return unless execute_runner?('LINT_FACTORY')
+    return unless SpecRunnerHelper.execute?('LINT_FACTORY')
 
     factories_to_lint = FactoryGirl.factories.reject do |factory|
       name = factory.name.to_s

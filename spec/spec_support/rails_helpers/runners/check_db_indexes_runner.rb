@@ -3,10 +3,8 @@
 require 'spec_support/rails_helpers/runners/spec_runner_helper'
 
 module CheckDBIndexesRunner
-  extend SpecRunnerHelper
-
   def self.run
-    return unless execute_runner?('CHECK_DB_INDEXES')
+    return unless SpecRunnerHelper.execute?('CHECK_DB_INDEXES')
 
     print 'Checking for missing DB indexes..'
 
