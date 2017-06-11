@@ -21,9 +21,9 @@ class MessageSerializer < ApplicationSerializer
     }
   end
 
-  has_one :chat
-  has_one :language
-  has_one :author
+  belongs_to :chat
+  belongs_to :language
+  belongs_to :author
 
   has_one :company do
     object.author.company
