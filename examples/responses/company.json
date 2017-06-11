@@ -11,7 +11,15 @@
       "city": "Stockholm",
       "phone": null,
       "email": "test@example.com",
-      "short_description": "A company is located at A street, 11851, Stockholm, Sverige. You can find their website at https://example.com."
+      "short_description": null,
+      "description": null,
+      "description_html": null,
+      "translated_text": {
+        "short_description": null,
+        "description": null,
+        "description_html": null,
+        "language_id": null
+      }
     },
     "relationships": {
       "company_images": {
