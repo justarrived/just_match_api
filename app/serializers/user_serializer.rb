@@ -45,15 +45,15 @@ class UserSerializer < ApplicationSerializer
     }
   end
 
-  has_one :company do
+  belongs_to :company do
     link(:self) { api_v1_company_url(object.company) if object.company }
   end
 
-  has_one :language do
+  belongs_to :language do
     link(:self) { api_v1_language_url(object.language_id) if object.language_id }
   end
 
-  has_one :system_language do
+  belongs_to :system_language do
     link(:self) do
       api_v1_language_url(object.system_language_id) if object.system_language_id
     end

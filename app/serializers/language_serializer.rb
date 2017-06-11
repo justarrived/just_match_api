@@ -12,7 +12,7 @@ class LanguageSerializer < ApplicationSerializer
     object.name_for(I18n.locale)
   end
 
-  has_one :language { scope.fetch(:current_language) }
+  belongs_to :language { scope.fetch(:current_language) }
 
   attribute :language_id { scope.fetch(:current_language_id) }
 

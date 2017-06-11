@@ -35,10 +35,10 @@ class JobUserSerializer < ApplicationSerializer
     end
   end
 
-  has_one :user
-  has_one :job
+  belongs_to :user
+  belongs_to :job
 
-  has_one :language do
+  belongs_to :language do
     link(:self) { api_v1_language_url(object.language_id) if object.language_id }
   end
 

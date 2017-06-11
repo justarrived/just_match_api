@@ -106,9 +106,9 @@ class JobSerializer < ApplicationSerializer
   has_many :job_languages, unless: :collection_serializer?
   has_many :job_skills, unless: :collection_serializer?
 
-  has_one :responsible_recruiter { object.just_arrived_contact }
+  belongs_to :responsible_recruiter { object.just_arrived_contact }
 
-  has_one :owner do
+  belongs_to :owner do
     owner_object = if object.upcoming
                      object.owner.anonymize
                    else
@@ -122,7 +122,7 @@ class JobSerializer < ApplicationSerializer
     owner_object
   end
 
-  has_one :company do
+  belongs_to :company do
     # Anonymize the company if the job is upcoming
     company_object = if object.upcoming
                        object.company&.anonymize
@@ -137,15 +137,15 @@ class JobSerializer < ApplicationSerializer
     company_object
   end
 
-  has_one :language do
+  belongs_to :language do
     link(:self) { api_v1_language_url(object.language_id) if object.language_id }
   end
 
-  has_one :category do
+  belongs_to :category do
     link(:self) { api_v1_category_url(object.category_id) if object.category_id }
   end
 
-  has_one :hourly_pay do
+  belongs_to :hourly_pay do
     link(:self) { api_v1_hourly_pay_url(object.hourly_pay_id) if object.hourly_pay_id }
   end
 

@@ -21,20 +21,16 @@ class MessageSerializer < ApplicationSerializer
     }
   end
 
-  has_one :chat
-  has_one :language
-  has_one :author
+  belongs_to :chat
+  belongs_to :language
+  belongs_to :author
 
   has_one :company do
     object.author.company
   end
 
-  has_one :user_images do
+  has_many :user_images do
     object.author.user_images
-  end
-
-  has_many :company_images do
-    object.author.company&.company_images
   end
 
   has_many :company_images do
