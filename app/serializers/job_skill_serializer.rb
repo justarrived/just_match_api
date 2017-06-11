@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class JobSkillSerializer < ApplicationSerializer
-  has_one :job
-  has_one :skill
+  belongs_to :job
+  belongs_to :skill
 end
 
 # == Schema Information

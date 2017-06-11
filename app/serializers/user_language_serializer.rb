@@ -4,8 +4,8 @@ class UserLanguageSerializer < ApplicationSerializer
   ATTRIBUTES = [:proficiency].freeze
   attributes ATTRIBUTES
 
-  has_one :language
-  has_one :user
+  belongs_to :language
+  belongs_to :user
 end
 
 # == Schema Information

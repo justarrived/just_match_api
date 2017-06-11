@@ -12,7 +12,7 @@ class UserImageSerializer < ApplicationSerializer
 
   link(:self) { api_v1_user_image_url(object.user_id, object) if object.user_id }
 
-  has_one :user
+  belongs_to :user
 
   def image_url
     object.image.url

@@ -6,8 +6,8 @@ class UserDocumentSerializer < ApplicationSerializer
 
   attribute :category_name
 
-  has_one :user
-  has_one :document
+  belongs_to :user
+  belongs_to :document
 
   def category_name
     object.category
