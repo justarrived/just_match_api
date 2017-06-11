@@ -12,7 +12,7 @@ class CompanyImageSerializer < ApplicationSerializer
 
   link(:self) { api_v1_company_image_url(object.company_id, object) if object.company_id }
 
-  has_one :company
+  belongs_to :company
 
   def category_name
     'logo'

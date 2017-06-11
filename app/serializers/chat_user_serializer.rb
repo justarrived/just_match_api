@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class ChatUserSerializer < ApplicationSerializer
-  has_one :chat
-  has_one :user
+  belongs_to :chat
+  belongs_to :user
 end
 
 # == Schema Information

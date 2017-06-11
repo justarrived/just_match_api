@@ -7,7 +7,7 @@ class InterestSerializer < ApplicationSerializer
 
   link(:self) { api_v1_interest_url(object) }
 
-  has_one :language
+  belongs_to :language
 
   attribute :translated_text do
     { name: object.translated_name, language_id: object.translated_language_id }

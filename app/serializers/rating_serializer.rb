@@ -5,9 +5,9 @@ class RatingSerializer < ApplicationSerializer
 
   attributes ATTRIBUTES
 
-  has_one :job
-  has_one :to_user
-  has_one :comment
+  belongs_to :job
+  belongs_to :to_user
+  belongs_to :comment
 end
 
 # == Schema Information

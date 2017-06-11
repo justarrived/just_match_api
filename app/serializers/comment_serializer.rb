@@ -21,8 +21,8 @@ class CommentSerializer < ApplicationSerializer
     }
   end
 
-  has_one :owner
-  has_one :language
+  belongs_to :owner
+  belongs_to :language
 end
 # rubocop:disable Metrics/LineLength
 

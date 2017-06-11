@@ -7,7 +7,7 @@ class SkillSerializer < ApplicationSerializer
 
   link(:self) { api_v1_skill_url(object) }
 
-  has_one :language
+  belongs_to :language
 
   attribute :translated_text do
     { name: object.translated_name, language_id: object.translated_language_id }
