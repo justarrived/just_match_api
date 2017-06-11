@@ -86,6 +86,7 @@ gem 'rails-i18n', '~> 5.0' # Rails translations
 
 # PERFORMANCE GEMS
 gem 'fast_blank', '~> 1.0' # Re-implements #blank? in C
+gem 'fast_xs', '~> 0.8' # Re-implements String#to_xs in C
 gem 'yagni_json_encoder', '~> 1.0' # Make Rails use the OJ gem for JSON
 
 # DOCS
