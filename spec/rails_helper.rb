@@ -37,7 +37,7 @@ RSpec.configure do |config|
   # Filter lines from Rails gems in backtraces.
   config.filter_rails_from_backtrace!
 
-  factory_girl_stats = nil
+  factory_girl_stats = FactoryGirlStats.new
   # Before the test suite is run
   config.before(:suite) do
     UtmUrlBuilder.default_utm_source = nil
