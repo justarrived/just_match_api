@@ -36,10 +36,6 @@ class MessageSerializer < ApplicationSerializer
   has_many :company_images do
     object.author.company&.company_images
   end
-
-  has_many :company_images do
-    object.author.company&.company_images
-  end
 end
 
 # == Schema Information
