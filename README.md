@@ -21,6 +21,7 @@ If you're looking for help, ask questions, want to contribute or give feedback, 
 * [Deploy](#deploy)
 * [Commands](#commands)
 * [Contributing](#contributing)
+* [Wish list](#wish-list)
 * [Translations](#translations)
 * [License](#license)
 
@@ -139,6 +140,12 @@ If you want to contribute please take a moment to review our [contributing guide
 If you're not sure where to go you can always join our Gitter chat and ask :)
 
 [![Join the chat at https://gitter.im/justarrived/just_match_api](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/justarrived/just_match_api?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
+## Wish list
+
+* Dockerfile [issue#314](https://github.com/justarrived/just_match_api/issues/314)
+* Login with Facebook, Google etc
+* Speedup test suite [issue#1166](https://github.com/justarrived/just_match_api/issues/1166)
 
 ## Translations
 
