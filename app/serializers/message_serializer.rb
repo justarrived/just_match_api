@@ -29,7 +29,7 @@ class MessageSerializer < ApplicationSerializer
     object.author.company
   end
 
-  has_one :user_images do
+  has_many :user_images do
     object.author.user_images
   end
 
