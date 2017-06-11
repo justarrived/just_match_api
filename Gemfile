@@ -28,8 +28,8 @@ gem 'rack-cors', '~> 0.4', require: 'rack/cors' # Configure CORS
 gem 'rack-timeout', '~> 0.4' # Kill requests that run for too long
 
 # BACKGROUND JOBS
-gem 'sidekiq', '~> 4.2' # Background worker (Redis-backed)
-gem 'sidekiq-statistic', '~> 1.2'
+gem 'sidekiq', '< 6' # Background worker (Redis-backed)
+gem 'sidekiq-statistic', git: 'https://github.com/davydovanton/sidekiq-statistic'
 
 # MONITORING
 gem 'airbrake', '~> 6.1' # Error catcher and reporter
