@@ -21,6 +21,9 @@ exclude_paths:
 - lib/frilans_finans_api/spec/**/*
 - lib/json_api_helpers/spec/**/*
 - lib/welcome_app/spec/**/*
+- lib/frilans_finans_api/lib/**/version.rb
+- lib/json_api_helpers/lib/**/version.rb
+- lib/welcome_app/lib/**/version.rb
 - lib/seeds/dev
 - lib/migrate_data/migrate_translations.rb
 - lib/migrate_data/user_language_to_system_language.rb
