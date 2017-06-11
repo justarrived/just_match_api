@@ -6,6 +6,8 @@ ruby '2.4.1'
 
 gem 'rails', '5.1.1' # Ruby on Rails MVC framework
 
+gem 'bootsnap', '~> 1.0' # Optimize Rails boot time
+
 # TEXT PROCESSING
 gem 'kramdown', '~> 1.13' # Markdown <> HTML
 gem 'rinku', '~> 2.0.2' # Autolink
