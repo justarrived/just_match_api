@@ -47,6 +47,17 @@ RSpec.describe Job, type: :model do
     end
   end
 
+  describe '#full_standalone_description' do
+    it 'contains headings for all present fields' do
+      job = FactoryGirl.build(:job, applicant_description: 'Testing')
+      result = job.full_standalone_description
+      expect(result).to include(I18n.t('job.description_title'))
+      expect(result).to include(I18n.t('job.applicant_description_title'))
+      expect(result).not_to include(I18n.t('job.tasks_description_title'))
+      expect(result).not_to include(I18n.t('job.requirements_description_title'))
+    end
+  end
+
   describe '#ended?' do
     it 'returns false if job end date is in the future' do
       job = FactoryGirl.build(:job, job_end_date: 1.minute.from_now)

@@ -171,8 +171,12 @@ en:
       recruiter_profile: Rectuiter profile
       recruiter_profile_description: Rectuiter profile picture
   job:
+    applicant_description_title: You are
+    description_title: About the job
+    requirements_description_title: Requirements
     salary_summary: Your salary will be fixed at %{hourly_gross_salary_with_unit}.
     schedule_summary: Your first work day will be on %{start_date}.
+    tasks_description_title: Work assignments
   texter:
     magic_login_link:
       login_line: Just Arrived magic login link %{url}

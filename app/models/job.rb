@@ -186,6 +186,32 @@ class Job < ApplicationRecord
     self.swedish_drivers_license = value
   end
 
+  def full_standalone_description
+    fragments = []
+
+    if description.present?
+      fragments << I18n.t('job.description_title')
+      fragments << description
+    end
+
+    if applicant_description.present?
+      fragments << I18n.t('job.applicant_description_title')
+      fragments << applicant_description
+    end
+
+    if tasks_description.present?
+      fragments << I18n.t('job.tasks_description_title')
+      fragments << tasks_description
+    end
+
+    if requirements_description.present?
+      fragments << I18n.t('job.requirements_description_title')
+      fragments << requirements_description
+    end
+
+    fragments.join("\n\n")
+  end
+
   def open_for_applications?
     [
       !cancelled,
