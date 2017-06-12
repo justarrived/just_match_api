@@ -5,32 +5,31 @@ class ArbetsformedlingenAd < ApplicationRecord
   has_many :arbetsformedlingen_ad_logs
 
   validates :job, presence: true
+  validates :occupation, inclusion: { in: Arbetsformedlingen::OccupationCode::CODE_MAP.keys } # rubocop:disable Metrics/LineLength
 
   validate :validate_job_data_for_arbetsformedlingen, if: :published
 
   def validate_job_data_for_arbetsformedlingen
     return unless job
 
-    wrapper = Arbetsformedlingen::JobWrapper.new(job, published: published)
+    wrapper = Arbetsformedlingen::JobWrapper.new(self)
     return if wrapper.valid?
 
     wrapper.errors.each do |model_name, model_errors|
       model_errors.each do |arbetsformedlingen_model, field_errors_map|
         if field_errors_map.is_a?(Array)
           field_errors_map.each do |error|
-            attr_name = map_arbetsformedlingen_attribute_name(arbetsformedlingen_model)
             errors.add(
               map_arbetsformedlingen_model_name(model_name),
-              "#{attr_name.to_s.humanize.downcase} #{error}"
+              "#{arbetsformedlingen_model.to_s.humanize.downcase} #{error}"
             )
           end
         else
           field_errors_map.each do |name, field_errors|
             field_errors.each do |error|
-              attr_name = map_arbetsformedlingen_attribute_name(name)
               errors.add(
                 map_arbetsformedlingen_model_name(model_name),
-                "#{attr_name.to_s.humanize.downcase} #{error}"
+                "#{name.to_s.humanize.downcase} #{error}"
               )
             end
           end
@@ -51,10 +50,6 @@ class ArbetsformedlingenAd < ApplicationRecord
       publication: 'job'
     }.fetch(name, name)
   end
-
-  def map_arbetsformedlingen_attribute_name(name)
-    { ssyk_id: 'category ssyk' }.fetch(name, name)
-  end
 end
 
 # == Schema Information
@@ -66,6 +61,7 @@ end
 #  published  :boolean          default(FALSE)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  occupation :string
 #
 # Indexes
 #

@@ -12,6 +12,7 @@ ActiveAdmin.register ArbetsformedlingenAd do
       link_to(ad.id, admin_arbetsformedlingen_ad_path(ad))
     end
     column :published
+    column :occupation
     column :job
     column :updated_at do |ad|
       link_to(datetime_ago_in_words(ad.updated_at), admin_arbetsformedlingen_ad_path(ad))
@@ -23,6 +24,7 @@ ActiveAdmin.register ArbetsformedlingenAd do
     attributes_table do
       row :id
       row :job
+      row :occupation
       row :published
       row :updated_at
       row :created_at
@@ -46,6 +48,18 @@ ActiveAdmin.register ArbetsformedlingenAd do
         end
       end
     end
+  end
+
+  form do |f|
+    f.semantic_errors
+
+    f.inputs(f.object.display_name) do
+      f.input :job, collection: Job.with_translations
+      f.input :occupation, collection: Arbetsformedlingen::OccupationCode.to_form_array(name_only: true) # rubocop:disable Metrics/LineLength
+      f.input :published
+    end
+
+    f.actions
   end
 
   member_action :create_with_job, method: :get do
@@ -81,6 +95,6 @@ ActiveAdmin.register ArbetsformedlingenAd do
   end
 
   permit_params do
-    %i(job_id published)
+    %i(job_id published occupation)
   end
 end

@@ -4,6 +4,7 @@ FactoryGirl.define do
   factory :arbetsformedlingen_ad do
     association :job
     published false
+    occupation 'Arkitekt'
   end
 end
 
@@ -16,6 +17,7 @@ end
 #  published  :boolean          default(FALSE)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  occupation :string
 #
 # Indexes
 #

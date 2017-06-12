@@ -6,7 +6,7 @@ class PushArbetsformedlingenAdService
   def self.call(arbetsformedlingen_ad)
     ad = arbetsformedlingen_ad
 
-    wrapper = Arbetsformedlingen::JobWrapper.new(ad.job, published: ad.published)
+    wrapper = Arbetsformedlingen::JobWrapper.new(ad)
     return Result.new(wrapper.errors, nil) unless wrapper.valid?
 
     response = Arbetsformedlingen.post_job(wrapper.packet)
