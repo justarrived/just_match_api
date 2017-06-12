@@ -3,6 +3,13 @@
 HEAD
 -----------
 
+v1.100 - 2017-06-12
+----------
+* _Admin_:
+  - Whitelist permitted params for CompanyTranslations
+  - Include machine translations actions module in company resource
+  - Protect against nil-cases in admin order
+
 
 v1.99 - 2017-06-12
 ----------
