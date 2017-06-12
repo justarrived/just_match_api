@@ -17,6 +17,8 @@ ActiveAdmin.register Company do
   filter :city
   filter :created_at
 
+  include AdminHelpers::MachineTranslation::Actions
+
   index do
     column :id
     column :name
