@@ -23,4 +23,11 @@ RSpec.describe Markdowner do
       expect(Markdowner.to_markdown(markdown)).to eq("# Testing\n\n")
     end
   end
+
+  describe '::html_to_text' do
+    it 'converts HTML to plain text' do
+      html = '<div><p>Testing</p><h1>Heading</h1></div>'
+      expect(Markdowner.html_to_text(html)).to eq("Testing\nHeading")
+    end
+  end
 end
