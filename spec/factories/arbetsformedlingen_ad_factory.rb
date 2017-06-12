@@ -16,6 +16,7 @@ end
 #  published  :boolean          default(FALSE)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  occupation :string
 #
 # Indexes
 #

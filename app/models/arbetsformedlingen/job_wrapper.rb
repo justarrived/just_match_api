@@ -4,9 +4,9 @@ module Arbetsformedlingen
   class JobWrapper
     attr_reader :packet
 
-    def initialize(job, published:)
-      @job = job
-      @published = published
+    def initialize(arbetsformedlingen_ad)
+      @arbetsformedlingen_ad = arbetsformedlingen_ad
+      @job = arbetsformedlingen_ad.job
       @af_models = {}
 
       @packet = build_packet
@@ -26,7 +26,7 @@ module Arbetsformedlingen
 
     private
 
-    attr_reader :job, :published
+    attr_reader :job, :arbetsformedlingen_ad
 
     def build_packet
       @af_models[:packet] ||= Arbetsformedlingen::Packet.new(
@@ -35,10 +35,10 @@ module Arbetsformedlingen
         position: build_position,
         attributes: {
           id: job.id,
-          active: published,
+          active: arbetsformedlingen_ad.published,
           job_id: job.to_param,
           number_to_fill: job.number_to_fill,
-          ssyk_id: job.ssyk
+          occupation: arbetsformedlingen_ad.occupation
         }
       )
     end
