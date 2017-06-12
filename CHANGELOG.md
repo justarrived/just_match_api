@@ -4,6 +4,44 @@ HEAD
 -----------
 
 
+v1.97 - 2017-06-12
+----------
+* _API_:
+  - Add `Company#short_description` to company serializer
+  - Add new job description fields to jobs serializer
+  - Add responsible recruiter to jobs serializer
+  - Expose Company `#description` and `#short_description`
+  - Remove `Company#users`
+* _Admin_:
+  - Add support for new job description fields
+* _DB_:
+  - Add job fields (translated):
+    + `tasks_description`
+    + `applicant_description`
+    + `requirements_description`
+  - Add company description (translated):
+    + `short_description`
+    + `description`
+* _Enhancement_:
+  - Update API doc examples
+  - Replace unnecessary inheritance with class method call for spec runners
+  - Replace `has_one` with `belongs_to` in serializers (avoids loading the relation) :rocket:
+  - Add `UserImage` `recruiter_profile` category
+  - Add missing I18n keys
+  - Add bootsnap gem to speed up Rails boot time :rocket:
+  - Add factory girl stats helper
+  - Regenerate API doc examples
+  - Ignore coverage for some files
+  - Add explicit version to each `ActiveRecord::Migration`
+* _Add gem_:
+  - `fast_xs` for a faster String#to_xs implementation :rocket:
+* _Update gem_:
+  - mail
+  - aws-sdk
+  - sidekiq 5
+  - webmock 2.0 => 3.0
+
+
 v1.96 - 2017-06-08
 ----------
 * _Enhancement_:
