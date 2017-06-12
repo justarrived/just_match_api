@@ -4,6 +4,16 @@ HEAD
 -----------
 
 
+v1.99 - 2017-06-12
+----------
+* _Enhancement_:
+  - Add new job description fields to JobTranslation
+  - Use full standalone job description when pushing to Arbetsförmedlingen
+  - Add `Job#full_standalone_description` that concatenates all description fields
+  - Add `Markdowner::html_to_text` method
+  - Add `I18n` for full description titles
+
+
 v1.98 - 2017-06-12
 ----------
 * _DB_:
