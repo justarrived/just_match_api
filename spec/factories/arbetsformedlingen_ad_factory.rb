@@ -4,6 +4,7 @@ FactoryGirl.define do
   factory :arbetsformedlingen_ad do
     association :job
     published false
+    occupation 'Arkitekt'
   end
 end
 
