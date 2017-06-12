@@ -4,6 +4,14 @@ HEAD
 -----------
 
 
+v1.98 - 2017-06-12
+----------
+* _DB_:
+  - Add `ArbetsformedlingenAd#occupation` (string)
+* _Enhancement_:
+  - Add support for Arbetsförmedlingen occupation
+
+
 v1.97 - 2017-06-12
 ----------
 * _API_:
