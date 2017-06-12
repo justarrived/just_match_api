@@ -52,13 +52,26 @@ ActiveAdmin.register JobTranslation do
       f.input :name
       f.input :short_description
       f.input :description, input_html: { markdown: true }
+      f.input :tasks_description, input_html: { markdown: true }
+      f.input :applicant_description, input_html: { markdown: true }
+      f.input :requirements_description, input_html: { markdown: true }
     end
 
     f.actions
   end
 
   permit_params do
-    %i(name short_description description locale job_id language_id)
+    %i(
+      name
+      short_description
+      description
+      tasks_description
+      applicant_description
+      requirements_description
+      locale
+      job_id
+      language_id
+    )
   end
 
   controller do
