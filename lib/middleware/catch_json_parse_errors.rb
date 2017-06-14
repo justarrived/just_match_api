@@ -7,7 +7,7 @@ class CatchJsonParseErrors
 
   def call(env)
     @app.call(env)
-  rescue ActionDispatch::ParamsParser::ParseError => error
+  rescue ActionDispatch::Http::Parameters::ParseError => error
     raise error unless json_content_type?(env)
 
     detail = I18n.t('errors.bad_json_format', error_class: error.class)
