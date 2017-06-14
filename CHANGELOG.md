@@ -3,6 +3,15 @@
 HEAD
 -----------
 
+
+v1.101 - 2017-06-14
+----------
+* _Admin_:
+  - :hocho: :bug: Fix upload of order documents
+* _Enhancement_:
+  - Replace deprecated error class with new class constant
+
+
 v1.100 - 2017-06-12
 ----------
 * _Admin_:
