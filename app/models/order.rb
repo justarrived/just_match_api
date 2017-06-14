@@ -33,7 +33,7 @@ class Order < ApplicationRecord
   end
 
   def display_name
-    "##{id || 'unsaved'} #{name}"
+    "##{id || 'unsaved'} #{name || 'Order'}"
   end
 
   def filled_jobs
