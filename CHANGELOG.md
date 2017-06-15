@@ -3,6 +3,13 @@
 HEAD
 -----------
 
+
+v1.103 - 2017-06-15
+----------
+* _Enhancement_:
+  - Add Frilans Finans Invoice id to job invoice specification
+
+
 v1.102 - 2017-06-15
 ----------
 * _Admin_:
