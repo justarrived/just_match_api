@@ -3,6 +3,12 @@
 HEAD
 -----------
 
+v1.102 - 2017-06-15
+----------
+* _Admin_:
+  - Fix bug that caused an undefined method to be called on hash when saving an order without any order documents
+  - Add job order link
+
 
 v1.101 - 2017-06-14
 ----------
