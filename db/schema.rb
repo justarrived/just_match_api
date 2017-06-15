@@ -10,12 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170612084341) do
+ActiveRecord::Schema.define(version: 20170615144327) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "hstore"
-  enable_extension "pg_stat_statements"
   enable_extension "unaccent"
 
   create_table "active_admin_comments", id: :serial, force: :cascade do |t|
@@ -23,8 +21,8 @@ ActiveRecord::Schema.define(version: 20170612084341) do
     t.text "body"
     t.string "resource_id", null: false
     t.string "resource_type", null: false
-    t.integer "author_id"
     t.string "author_type"
+    t.integer "author_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id"
@@ -140,8 +138,8 @@ ActiveRecord::Schema.define(version: 20170612084341) do
 
   create_table "comments", id: :serial, force: :cascade do |t|
     t.text "body"
-    t.integer "commentable_id"
     t.string "commentable_type"
+    t.integer "commentable_id"
     t.integer "owner_user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -262,6 +260,17 @@ ActiveRecord::Schema.define(version: 20170612084341) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["language_id"], name: "index_faqs_on_language_id"
+  end
+
+  create_table "feedbacks", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "job_id"
+    t.string "title"
+    t.text "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["job_id"], name: "index_feedbacks_on_job_id"
+    t.index ["user_id"], name: "index_feedbacks_on_user_id"
   end
 
   create_table "filter_users", id: :serial, force: :cascade do |t|
@@ -497,9 +506,9 @@ ActiveRecord::Schema.define(version: 20170612084341) do
     t.string "city"
     t.boolean "staffing_job", default: false
     t.boolean "direct_recruitment_job", default: false
-    t.integer "order_id"
     t.string "municipality"
     t.integer "number_to_fill", default: 1
+    t.integer "order_id"
     t.boolean "full_time", default: false
     t.string "swedish_drivers_license"
     t.boolean "car_required", default: false
@@ -906,6 +915,8 @@ ActiveRecord::Schema.define(version: 20170612084341) do
   add_foreign_key "faq_translations", "faqs"
   add_foreign_key "faq_translations", "languages"
   add_foreign_key "faqs", "languages"
+  add_foreign_key "feedbacks", "jobs"
+  add_foreign_key "feedbacks", "users"
   add_foreign_key "filter_users", "filters"
   add_foreign_key "filter_users", "users"
   add_foreign_key "frilans_finans_invoices", "job_users"

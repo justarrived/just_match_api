@@ -43,6 +43,8 @@ class User < ApplicationRecord
   belongs_to :company, optional: true
   belongs_to :interviewed_by, optional: true, class_name: 'User', foreign_key: 'interviewed_by_user_id' # rubocop:disable Metrics/LineLength
 
+  has_many :feedbacks
+
   has_many :filter_users
   has_many :filters, through: :filter_users
 
@@ -148,7 +150,8 @@ class User < ApplicationRecord
   translates :description, :job_experience, :education, :competence_text
 
   # NOTE: This is necessary for nested activeadmin has_many form
-  accepts_nested_attributes_for :user_skills, :user_languages, :user_interests, :user_documents # rubocop:disable Metrics/LineLength
+  accepts_nested_attributes_for :user_skills, :user_languages, :user_interests,
+                                :user_documents, :feedbacks
   accepts_nested_attributes_for :user_tags, allow_destroy: true
 
   # Don't change the order or remove any items in the array,
