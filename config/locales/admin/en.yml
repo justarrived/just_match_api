@@ -247,6 +247,7 @@ en:
         tags: Tags
         skills: Skills
         filters: In filters
+        feedbacks: Given feedback
         city: 'City: %{city}'
         basic_info_title: Basic information
         candidate_summary: Candidate summary

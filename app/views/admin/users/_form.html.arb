@@ -57,6 +57,14 @@ if user.persisted?
       end
     end
 
+    f.has_many :feedbacks, new_record: true do |ff|
+      ff.semantic_errors(*ff.object.errors.keys)
+
+      ff.input :job, collection: Job.with_translations
+      ff.input :title
+      ff.input :body
+    end
+
     f.input :interview_comment
     f.input :job_experience
     f.input :education

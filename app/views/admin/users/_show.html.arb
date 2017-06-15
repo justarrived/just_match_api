@@ -113,6 +113,16 @@ columns do
             column :end { |job| european_date(job.job_end_date) }
           end
         end
+
+        hr
+        h3 I18n.t('admin.user.show.feedbacks')
+        div do
+          user.feedbacks.each do |feedback|
+            h4 feedback.title
+            div { simple_format(feedback.body) }
+            hr
+          end
+        end
       end
     end
   end

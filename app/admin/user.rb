@@ -330,7 +330,8 @@ ActiveAdmin.register User do
       user_languages_attributes: %i(language_id proficiency proficiency_by_admin),
       user_interests_attributes: %i(interest_id level level_by_admin),
       user_tags_attributes: %i(id tag_id _destroy),
-      user_documents_attributes: [:id, :category, { document_attributes: [:document] }]
+      user_documents_attributes: [:id, :category, { document_attributes: [:document] }],
+      feedbacks_attributes: %i(id job_id title body)
     ]
     UserPolicy::SELF_ATTRIBUTES + extras + relations
   end
