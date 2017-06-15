@@ -2,8 +2,6 @@
 
 module SetOrderDocumentsService
   def self.call(order:, order_documents_param:)
-    return OrderDocument.none if order_documents_param.nil?
-
     order_documents = order_documents_param.map do |attrs_parts|
       attrs = attrs_parts.last.fetch(:document_attributes)
       next if attrs[:id]

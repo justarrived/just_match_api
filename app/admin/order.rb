@@ -148,10 +148,10 @@ ActiveAdmin.register Order do
 
     def update_resource(order, params_array)
       order_params = params_array.first
-      order_documents_attrs = order_params.delete(:order_documents_attributes) || {}
+      order_documents_attrs = order_params.delete(:order_documents_attributes)&.to_unsafe_h || {} # rubocop:disable Metrics/LineLength
       SetOrderDocumentsService.call(
         order: order,
-        order_documents_param: order_documents_attrs&.to_unsafe_h
+        order_documents_param: order_documents_attrs
       )
       super
     end
