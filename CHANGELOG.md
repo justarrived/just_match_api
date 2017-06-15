@@ -3,6 +3,11 @@
 HEAD
 -----------
 
+v1.104 - 2017-06-15
+----------
+ * _Admin_:
+  - Add job cancelled filter to job users view
+
 
 v1.103 - 2017-06-15
 ----------
