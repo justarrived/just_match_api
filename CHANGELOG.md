@@ -3,6 +3,13 @@
 HEAD
 -----------
 
+v1.106 - 2017-06-15
+----------
+* _Admin_:
+  - Don't display rejected candidates in longlist
+  - Improved order category form and filter
+
+
 v1.105 - 2017-06-15
 ----------
 * _Feature_:
