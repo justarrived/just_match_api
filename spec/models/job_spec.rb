@@ -140,9 +140,11 @@ RSpec.describe Job, type: :model do
 
   describe '#invoice_specification' do
     let(:job_id) { 73_000_000 }
-    let(:job) { FactoryGirl.build(:job, job_end_date: 2.weeks.from_now, id: job_id) }
 
     it 'returns with the correct content parts' do
+      job = FactoryGirl.create(:job, job_end_date: 2.weeks.from_now, id: job_id)
+      job_user = FactoryGirl.create(:job_user_will_perform, job: job)
+      FactoryGirl.create(:frilans_finans_invoice, job_user: job_user)
       [
         job.category.name,
         job.name,
@@ -153,12 +155,18 @@ RSpec.describe Job, type: :model do
         job.hourly_pay.invoice_rate,
         job.hourly_pay.gross_salary,
         job.company.name,
+        job_user.frilans_finans_invoice.id,
         job.company.cin,
         job.company.billing_email,
         job.company.address
       ].map(&:to_s).each do |expected_part|
         expect(job.invoice_specification).to include(expected_part)
       end
+    end
+
+    it 'does not crash if there is no job_user#frilans_finans_invoice' do
+      job = FactoryGirl.build(:job, job_end_date: 2.weeks.from_now, id: job_id)
+      expect(job.invoice_specification).to include(job.name)
     end
   end
 
