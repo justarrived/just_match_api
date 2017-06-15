@@ -137,12 +137,10 @@ ActiveAdmin.register JobUser do
   scope :all
   scope :visible, default: true
   scope :shortlisted
-  scope :accepted
   scope :will_perform
-  scope :verified
-  scope :withdrawn
   scope :not_pre_reported
 
+  filter :job_cancelled_eq, as: :boolean, label: I18n.t('admin.job.cancelled')
   filter :user_first_name_cont, as: :string, label: I18n.t('admin.user.first_name')
   filter :user_last_name_cont, as: :string, label: I18n.t('admin.user.last_name')
   filter :job_translations_name_cont, as: :string, label: I18n.t('admin.job.name_search')

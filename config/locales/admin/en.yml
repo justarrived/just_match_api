@@ -125,6 +125,7 @@ en:
       create_arbetsformedlingen_ad: Create Arbetsförmedlingen Ad
       show_arbetsformedlingen_ad: Show Arbetsförmedlingen Ad
       google_calendar_link: Google Calendar
+      cancelled: Cancelled
       name: Name
       name_search: Job name
       description: Description
