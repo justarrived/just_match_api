@@ -276,7 +276,7 @@ en:
       form:
         details: Details
         category_hint: 'You need a unique category name'
-        subject_hint: 'Subject line of template you (can use variables here..)'
+        subject_hint: 'Subject line of template (you can use variables here..)'
         body_hint: 'Body of template (you can use variables here..)'
     counts:
       documents: Has %{count} documents

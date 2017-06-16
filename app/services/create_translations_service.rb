@@ -73,7 +73,13 @@ class CreateTranslationsService
     html = Markdowner.to_html(text)
     translation = GoogleTranslate.translate(html, from: from, to: to, type: :html)
     # NOTE: #to_markdown adds "\n" to the end of the string, so lets remove it
-    markdown = Markdowner.to_markdown(translation.text).strip
+    translated_text = strip_rtl_inline_html_styling(translation.text)
+    markdown = Markdowner.to_markdown(translated_text).strip
     HTMLSanitizer.sanitize(markdown)
+  end
+
+  def strip_rtl_inline_html_styling(text)
+    rtl_inline_style = Regexp.new('style=";text-align:right;direction:rtl"')
+    text.gsub(rtl_inline_style, '')
   end
 end

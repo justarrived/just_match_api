@@ -24,6 +24,30 @@ ActiveAdmin.register CommunicationTemplate do
       row :body do |c_template|
         simple_format(c_template.body)
       end
+      row :translations do |c_template|
+        safe_join(c_template.translations.map do |translation|
+          link_to(
+            translation.locale,
+            admin_communication_template_translation_path(translation)
+          )
+        end, ', ')
+      end
+      row :missing_translations do |c_template|
+        system_languages = Language.system_languages
+        missing = system_languages.map(&:lang_code) - c_template.translations.map(&:locale) # rubocop:disable Metrics/LineLength
+
+        safe_join(missing.map do |locale|
+          language = system_languages.detect { |lang| lang.lang_code == locale }
+          link_to(
+            "Create #{language.name} version",
+            new_admin_communication_template_translation_path(
+              'communication_template_translation[locale]': locale,
+              'communication_template_translation[language_id]': language.id,
+              'communication_template_translation[communication_template_id]': c_template.id # rubocop:disable Metrics/LineLength
+            )
+          )
+        end, ', ')
+      end
     end
   end
 
