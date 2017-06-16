@@ -3,6 +3,17 @@
 HEAD
 -----------
 
+
+v1.107 - 2017-06-16
+----------
+* _Admin_:
+  - Nest Feedbacks nav link under users
+  - Nest CompanyTranslation under Misc nav-item
+* _Bugfix_:
+ - Specify max markdown line width. Closes #1169
+ - Remote inline RTL styling from Google Translate result. Closes #1171
+
+
 v1.106 - 2017-06-15
 ----------
 * _Admin_:
