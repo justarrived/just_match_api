@@ -94,7 +94,7 @@ RSpec.describe CreateTranslationsService do
     end
   end
 
-  describe '::translate_text' do
+  describe '#translate_text' do
     it 'returns nil if text is blank' do
       service = described_class.new(translation: nil, from: :sv)
       expect(service.translate_text('   ', from: :sv, to: :en)).to be_nil
@@ -108,6 +108,25 @@ RSpec.describe CreateTranslationsService do
       service = described_class.new(translation: nil, from: :sv)
       translated_text = service.translate_text('Wat', from: :sv, to: :en)
       expect(translated_text).to eq(expected)
+    end
+  end
+
+  describe '#strip_rtl_inline_html_styling' do
+    let(:instance) { described_class.new(translation: nil, from: nil) }
+
+    it 'strips inline HTML rtl styling' do
+      text = '<h1 style=";text-align:right;direction:rtl">معلومة اضافية</h1>'
+      expected = '<h1 >معلومة اضافية</h1>'
+
+      result = instance.strip_rtl_inline_html_styling(text)
+
+      expect(result).to eq(expected)
+    end
+
+    it 'returns the text untouched for other HTML' do
+      expected = '<h1>Yesh</h1>'
+      result = instance.strip_rtl_inline_html_styling(expected)
+      expect(result).to eq(expected)
     end
   end
 end
