@@ -6,6 +6,8 @@ require 'nokogiri'
 require 'html_sanitizer'
 
 module Markdowner
+  MARKDOWN_LINE_WIDTH = 250
+
   def self.to_html(markdown)
     sanitized_markdown = HTMLSanitizer.sanitize(markdown)
     autolinked_markdown = Rinku.auto_link(sanitized_markdown)
@@ -13,7 +15,11 @@ module Markdowner
   end
 
   def self.to_markdown(html)
-    Kramdown::Document.new(html, html_to_native: true).to_kramdown
+    Kramdown::Document.new(
+      html,
+      html_to_native: true,
+      line_width: MARKDOWN_LINE_WIDTH
+    ).to_kramdown
   end
 
   def self.html_to_text(html)
