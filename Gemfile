@@ -21,7 +21,7 @@ gem 'ahoy_matey', '~> 1.6'
 
 # STORAGE
 gem 'aws-sdk', '~> 2.9' # Upload images to AWS S3
-gem 'pg', '~> 0.20' # Use postgresql as the database for Active Record
+gem 'pg', '~> 0.21' # Use postgresql as the database for Active Record
 gem 'redis-activesupport', '~> 5.0' # To use Redis as the cache store for rack-attack
 
 # RACK MIDDLEWARE
