@@ -40,15 +40,6 @@ GIT
       safely_block (>= 0.1.1)
 
 GIT
-  remote: https://github.com/buren/arbetsformedlingen
-  revision: 2e5623ba0a5d1bbcedeba7da8bb5c4e17fe9a2ad
-  specs:
-    arbetsformedlingen (0.1.0)
-      builder (~> 3.2)
-      dry-validation (~> 0.10)
-      httparty (~> 0.13)
-
-GIT
   remote: https://github.com/davydovanton/sidekiq-statistic
   revision: 70e02c75438b15157b5b79364876741ffdcac5c8
   specs:
@@ -150,6 +141,10 @@ GEM
       rake (>= 10.4, < 13.0)
     apipie-rails (0.5.1)
       rails (>= 4.1)
+    arbetsformedlingen (0.1.1)
+      builder (~> 3.2)
+      dry-validation (~> 0.10)
+      httparty (~> 0.13)
     arbre (1.1.1)
       activesupport (>= 3.0.0)
     arel (8.0.0)
@@ -755,7 +750,7 @@ DEPENDENCIES
   airbrake (~> 6.1)
   annotate (~> 2.7)
   apipie-rails (~> 0.5)
-  arbetsformedlingen!
+  arbetsformedlingen (~> 0.1)
   aws-sdk (~> 2.9)
   banktools-se (~> 2.6)
   bcrypt (~> 3.1.11)
