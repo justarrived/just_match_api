@@ -4,6 +4,17 @@ HEAD
 -----------
 
 
+v1.108 - 2017-06-19
+----------
+* _Admin_:
+  - When creating a job set the default #publish_at datetime to the current time
+* _Update gem_:
+  - airbrake
+  - aws-sdk
+  - pg
+  - sidekiq
+
+
 v1.107 - 2017-06-16
 ----------
 * _Admin_:
