@@ -15,8 +15,8 @@ sv:
         subject: 'Admin notis: Aktivering av Frilans Finans Faktura misslyckades'
         notice: Misslyckades skapa Frilans Finans faktura för %{id}
   arbetsformedlingen:
-    application_method_description: Logga in eller registera dig och sök jobbet på %{application_url}
-    company_description: '%{name} har sitt kontor på %{address}. Du kan hitta deras hemsida på %{url}.'
+    application_method_description: Logga in eller registrera dig för att söka jobbet på %{application_url}
+    company_description: '%{name}ligger på %{address}. Deras hemsida hittar du på %{url}.'
   errors:
     unauthorized: Du har inte behörighet att utföra den här åtgärden.
     bad_json_format: "Det fanns problem i det JSON du skickade in: %{error_class}"
@@ -55,16 +55,16 @@ sv:
       hourly_pay_active: måste vara aktiv
       update_not_allowed_when_accepted: job kan inte uppdateras när jobbet har redan accepterats av användaren
       job_end_date_after_job_date: måste vara efter jobb datum
-      last_application_at_on_publish_to_blocketjobb: sista ansöknings tid måste anges ifall jobbet ska publiceras till Blocketjobb
-      last_application_at_on_publish_to_linkedin: sista ansöknings tid måste anges ifall jobbet ska publiceras till LinkedIN
-      municipality_presence_on_publish_to_blocketjobb: kommun måste anges ifall jobbet ska publiceras till Blocketjobb
-      blocketjobb_category_presence_on_publish_to_blocketjobb: blocketjobb kategori måste anges ifall jobbet ska publiceras till Blocketjobb
-      company_presence_on_publish_to_blocketjobb: företag måste anges (via ägaren av jobbet) ifall jobbet ska publiceras till Blocketjobb
+      last_application_at_on_publish_to_blocketjobb: sista ansökningsdatum måste vara angett ifall du ska publicera jobb till Blocketjobb
+      last_application_at_on_publish_to_linkedin: sista ansökningsdatum måste vara angett ifall du ska publicera jobb till LinkedIN
+      municipality_presence_on_publish_to_blocketjobb: kommun måste vara ifyllt ifall du ska publicera jobbet till Blocketjobb
+      blocketjobb_category_presence_on_publish_to_blocketjobb: blocketjobb kategori måste vara ifyllt ifall du ska publicera jobbet till Blocketjobb
+      company_presence_on_publish_to_blocketjobb: företag måste vara ifyllt (genom ägaren) ifall du ska publicera jobbet till Blocketjobb
       hours_lower_bound: måste minst vara %{min_hours} timmar per dag
       hours_upper_bound: kan inte vara fler än %{max_hours} timmar per dag
       owner_must_belong_to_company: ägaren måste tillhöra ett företag
     job_user:
-      terms_agreement_consent_required: du måste acceptera villkoren för att kunna söka jobbet
+      terms_agreement_consent_required: du måste godkänna villkoren för att kunna söka jobbet
       terms_agreement_not_found: kan inte hitta den versionen av villkoren
       forbidden_applicant_user: inte tillåten att söka det här jobbet
       not_owner_of_job: kan inte både vara jobb ägare och jobb sökare
@@ -97,21 +97,21 @@ sv:
       email: 'måste se ut som en e-postadress'
       after_true: '%{field} måste vara sant'
       unrevertable: kan inte återställa %{field}
-      swedish_municipality: måste vara en svensk kommun
-      linkedin_url: måste vara en LinkedIN länk
-      facebook_url: måste vara en Facebook länk
-      url: måste vara en länk
-      drivers_license: måste bestå av endast gilltiga körkorts typer
+      swedish_municipality: måste vara en giltig svensk kommun
+      linkedin_url: måste vara en giltig LinkedIN URL
+      facebook_url: måste vara en giltig Facebook URL
+      url: måste vara en URL
+      drivers_license: får bara innehålla giltiga körkortsbeteckningar
   invalid_credentials: Fel referenser.
-  invalid_auth_token: Fel nyckel.
+  invalid_auth_token: Ogiltig autensieringskod.
   not_logged_in_error: Måste vara inloggad.
   record_not_found: Posten existerar inte.
   token_expired_error: Din token har upphört att gälla.
   user:
-    missing_job_skills_trait: ovan kan du hitta relvanta färdigheter för det här jobbet
-    missing_job_languages_trait: ovan kan du hitta relvanta språk för det här jobbet
-    missing_languages_trait: här kan du lägga till några utvalda språkkunskaper som vi verkligen vill veta mer om
-    missing_skills_trait: här kan du lägga till några utvalda färdigheter som vi verkligen vill veta mer om
+    missing_job_skills_trait: ovan kan du hitta relevanta kompetenser för det här jobbet som du inte lagt till än
+    missing_job_languages_trait: ovan kan du hitta relevanta språk för det här jobbet som du inte lagt till än
+    missing_languages_trait: här kan du lägga till några utvalda språk som vi är intresserade att veta mer om
+    missing_skills_trait: här kan du lägga till några utvalda kompetenser som vi är intresserade att veta mer om
     statuses:
       asylum_seeker: Asylsökande
       asylum_seeker_description: Asylsökande
@@ -148,7 +148,7 @@ sv:
     categories:
       cv: CV
       cv_description: Ditt CV (Curriculum Vitae)
-      personal_letter: Personligt brev
+      personal_letter: Personlig brev
       personal_letter_description: Ditt personliga brev
   user_image:
     categories:
@@ -168,14 +168,14 @@ sv:
       residence_permit_back_description: Bild på baksidan av ditt upplehållstillstånd
       skatteverket_certificate: Certifikat Skatteverket
       skatteverket_certificate_description: Bild på ditt certifikat från Skatteverket
-      recruiter_profile: Rekryterarprofilbild
-      recruiter_profile_description: Profilbild som kommer användas för när du står som ansvarig rekryterare
+      recruiter_profile: Rekryterarprofil
+      recruiter_profile_description: Rekryterarprofilbild
   job:
     applicant_description_title: Du är
-    description_title: Om tjänsten
+    description_title: Om jobbet
     requirements_description_title: Krav
-    salary_summary: Du har fast lön på %{hourly_gross_salary_with_unit}.
-    schedule_summary: Din första arbetsdag kommer vara på %{start_date}.
+    salary_summary: Du kommer ha fast lön på %{hourly_gross_salary_with_unit}.
+    schedule_summary: Din första arbetsdag kommer vara %{start_date}.
     tasks_description_title: Arbetsuppgifter
   texter:
     magic_login_link:
