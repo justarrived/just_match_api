@@ -4,6 +4,12 @@ HEAD
 -----------
 
 
+v1.109 - 2017-06-20
+----------
+* _Update gem_:
+  - arbetsformedlingen (and fetch it from RubyGems)
+
+
 v1.108 - 2017-06-19
 ----------
 * _Admin_:
