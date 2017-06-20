@@ -141,7 +141,7 @@ GEM
       rake (>= 10.4, < 13.0)
     apipie-rails (0.5.1)
       rails (>= 4.1)
-    arbetsformedlingen (0.1.1)
+    arbetsformedlingen (0.1.2)
       builder (~> 3.2)
       dry-validation (~> 0.10)
       httparty (~> 0.13)
