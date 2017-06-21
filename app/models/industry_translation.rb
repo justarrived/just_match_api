@@ -2,7 +2,8 @@
 
 class IndustryTranslation < ApplicationRecord
   belongs_to :industry
-  belongs_to :language
+
+  include TranslationModel
 end
 
 # == Schema Information
