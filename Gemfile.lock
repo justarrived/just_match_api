@@ -136,6 +136,8 @@ GEM
     airbrake (6.1.2)
       airbrake-ruby (~> 2.2, >= 2.2.5)
     airbrake-ruby (2.2.6)
+    ancestry (3.0.0)
+      activerecord (>= 3.2.0)
     annotate (2.7.2)
       activerecord (>= 3.2, < 6.0)
       rake (>= 10.4, < 13.0)
@@ -748,6 +750,7 @@ DEPENDENCIES
   activeadmin!
   ahoy_matey (~> 1.6)
   airbrake (~> 6.1)
+  ancestry (~> 3.0)
   annotate (~> 2.7)
   apipie-rails (~> 0.5)
   arbetsformedlingen (~> 0.1)
