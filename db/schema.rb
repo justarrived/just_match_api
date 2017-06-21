@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170615144327) do
+ActiveRecord::Schema.define(version: 20170621113050) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -331,6 +331,27 @@ ActiveRecord::Schema.define(version: 20170615144327) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "gross_salary"
+  end
+
+  create_table "industries", force: :cascade do |t|
+    t.string "name"
+    t.string "ancestry"
+    t.bigint "language_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ancestry"], name: "index_industries_on_ancestry"
+    t.index ["language_id"], name: "index_industries_on_language_id"
+  end
+
+  create_table "industry_translations", force: :cascade do |t|
+    t.string "name"
+    t.bigint "industry_id"
+    t.bigint "language_id"
+    t.string "locale"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["industry_id"], name: "index_industry_translations_on_industry_id"
+    t.index ["language_id"], name: "index_industry_translations_on_language_id"
   end
 
   create_table "interest_filters", id: :serial, force: :cascade do |t|
@@ -920,6 +941,9 @@ ActiveRecord::Schema.define(version: 20170615144327) do
   add_foreign_key "filter_users", "filters"
   add_foreign_key "filter_users", "users"
   add_foreign_key "frilans_finans_invoices", "job_users"
+  add_foreign_key "industries", "languages"
+  add_foreign_key "industry_translations", "industries"
+  add_foreign_key "industry_translations", "languages"
   add_foreign_key "interest_filters", "filters"
   add_foreign_key "interest_filters", "interests"
   add_foreign_key "interest_translations", "interests"
