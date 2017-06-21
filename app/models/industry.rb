@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Industry < ApplicationRecord
+  has_ancestry
+
   belongs_to :language
 
   include Translatable
