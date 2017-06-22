@@ -27,6 +27,7 @@ module Dev
             name: name,
             description: description,
             short_description: short_description,
+            publish_at: Time.zone.now,
             job_date: job_date,
             job_end_date: job_end_date,
             owner: users.sample,
