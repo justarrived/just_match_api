@@ -7,6 +7,10 @@ class Industry < ApplicationRecord
 
   include Translatable
   translates :name
+
+  def display_name
+    "##{id} #{name}"
+  end
 end
 
 # == Schema Information
