@@ -6,7 +6,7 @@ require 'nokogiri'
 require 'html_sanitizer'
 
 module Markdowner
-  MARKDOWN_LINE_WIDTH = 1_000_000
+  MARKDOWN_LINE_WIDTH = 1_000
 
   def self.to_html(markdown)
     sanitized_markdown = HTMLSanitizer.sanitize(markdown)
