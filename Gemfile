@@ -37,7 +37,8 @@ gem 'sidekiq-statistic', git: 'https://github.com/davydovanton/sidekiq-statistic
 gem 'airbrake', '~> 6.1' # Error catcher and reporter
 gem 'skylight', '~> 1.3' # Performance monitoring
 
-# PAGINATION
+# DATABASE / MODELS
+gem 'ancestry', '~> 3.0' # Organize records in a tree structure
 gem 'kaminari', '~> 1.0' # Easy pagination
 
 # JSON

@@ -6,6 +6,9 @@ class Company < ApplicationRecord
 
   has_many :company_images
 
+  has_many :company_industries
+  has_many :industries, through: :company_industries
+
   before_validation :add_protocol_to_website
   before_validation :set_default_billing_email
 
