@@ -7,7 +7,8 @@ class JobIndustry < ApplicationRecord
   IMPORTANCE_TYPES = {
     required: 1,
     important: 2,
-    bonus: 3
+    bonus: 3,
+    irrelevant: 4
   }.freeze
 
   enum importance: IMPORTANCE_TYPES
