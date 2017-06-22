@@ -3,6 +3,14 @@
 class JobIndustry < ApplicationRecord
   belongs_to :job
   belongs_to :industry
+
+  IMPORTANCE_TYPES = {
+    required: 1,
+    important: 2,
+    bonus: 3
+  }.freeze
+
+  enum importance: IMPORTANCE_TYPES
 end
 
 # == Schema Information
