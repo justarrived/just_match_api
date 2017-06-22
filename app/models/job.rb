@@ -32,6 +32,9 @@ class Job < ApplicationRecord
   has_one :company, through: :owner
   has_one :arbetsformedlingen_ad
 
+  has_many :job_industries
+  has_many :industries, through: :job_industries
+
   has_many :job_skills
   has_many :skills, through: :job_skills
 
