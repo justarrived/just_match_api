@@ -4,6 +4,25 @@ HEAD
 -----------
 
 
+v1.110 - 2017-06-22
+----------
+* _Feature_:
+  - Industry feature (new models: `Industry`, `IndustryTranslation`, `CompanyIndustry`, `JobIndustry`)
+* _Admin_:
+  - Add Company & Job industry undet the correct menu item
+  - Industry implementation
+* Add #has_ancestry to Industry model
+* Add enum declaration to JobIndustry#importance
+* _Add gem_:
+  - `ancestry` (organize records in a tree structure)
+* Add Industry and IndustryTranslation model
+* _Enhancement_:
+  - Add `job#publish_at` to job dev seed
+  - Add missing sv translation
+  - Pull translations from Transifex
+  - Set markdown line width to a very large number (1 000 000). Closes #1169
+
+
 v1.109 - 2017-06-20
 ----------
 * _Update gem_:
