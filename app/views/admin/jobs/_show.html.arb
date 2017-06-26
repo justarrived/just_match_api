@@ -6,6 +6,7 @@ panel(I18n.t('admin.job.show.general')) do
     row :name
     row :hours
     row :gross_amount { |job| "#{job.gross_amount} SEK" }
+    row :last_application_at
     row :job_date
     row :job_end_date
     row :publish_at
