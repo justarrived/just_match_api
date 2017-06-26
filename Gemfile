@@ -48,6 +48,9 @@ gem 'json_api_helpers', path: 'lib/json_api_helpers' # JSON API helpers
 # IMAGES
 gem 'paperclip', '~> 5.1' # Image handler
 
+# HTTP
+gem 'httparty', '~> 0.13' # Make HTTP requests with ease
+
 # SECURITY
 gem 'bcrypt', '~> 3.1.11', require: true # Encrypt passwords
 gem 'pundit', '~> 1.1' # Authorization policies
