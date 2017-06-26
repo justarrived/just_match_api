@@ -4,6 +4,27 @@ HEAD
 -----------
 
 
+v1.111 - 2017-06-26
+----------
+* _Feature_:
+  - _Document parsing_ - Add document content to `Document` model:
+    + Add DocumentContentsAdderJob to user documents controller
+    + Add ability to extract and add document content from file to our DB
+    + Add Document#text_content DB column (text)
+    + Add URL document to text function object
+    + Add DocumentParserClient class
+* _Admin_:
+  - Add resumé search to users index page
+  - Add job#last_application_at to job show page
+* _Enhancement_:
+  - Add Job::unfilled scope to blocketjobb and linkedin scopes
+  - Decrease max markdown line width to fix regex range to big error
+* _Update gem_:
+  - bootsnap
+  - aws-sdk
+  - timecop
+
+
 v1.110 - 2017-06-22
 ----------
 * _Feature_:
