@@ -4,6 +4,13 @@ HEAD
 -----------
 
 
+v1.112 - 2017-06-26
+----------
+* _Enhancement_:
+  - Reimplement `DocumentParserClient` to directly interface with an Apache Tika web server
+  - :hocho: Unused Struct
+
+
 v1.111 - 2017-06-26
 ----------
 * _Feature_:
