@@ -198,11 +198,12 @@ ActiveAdmin.register User do
   scope :managed_users
   scope :verified
 
+  # rubocop:disable Metrics/LineLength
   filter :near_address, label: I18n.t('admin.filter.near_address'), as: :string
   filter :first_name_or_last_name_cont, as: :string, label: I18n.t('admin.user.name')
+  filter :documents_text_content_cont, as: :string, label: I18n.t('admin.user.resume_search_label')
   filter :interview_comment
   filter :tags, collection: -> { Tag.order(:name) }
-  # rubocop:disable Metrics/LineLength
   filter :skills, collection: -> { Skill.with_translations.order_by_name }
   filter :user_skills_proficiency_gteq, as: :select, collection: [nil, nil] + UserSkill::PROFICIENCY_RANGE.to_a
   filter :user_skills_proficiency_by_admin_gteq, as: :select, collection: [nil, nil] + UserSkill::PROFICIENCY_RANGE.to_a

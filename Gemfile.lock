@@ -782,6 +782,7 @@ DEPENDENCIES
   global_phone (~> 1.0)
   google-cloud-translate (~> 0.23)
   honey_format (~> 0.2)
+  httparty (~> 0.13)
   i18n-tasks (~> 0.9.2)
   i18n_data (~> 0.7)
   i18n_generators (~> 2.1)

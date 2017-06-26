@@ -48,6 +48,8 @@ module Api
           @user_document = UserDocument.create(**arguments)
 
           if @user_document.valid?
+            DocumentContentsAdderJob.perform_later(document: @user_document.document)
+
             api_render(@user_document, status: :created)
           else
             api_render_errors(@user_document)

@@ -144,6 +144,16 @@
       "description": "Goole Maps API token (required geocoding)",
       "value": "",
       "required": false
+    },
+    "DOCUMENT_PARSER_ACTIVE": {
+      "description": "Document Parser active (required for document text extraction)",
+      "value": "",
+      "required": false
+    },
+    "DOCUMENT_PARSER_AUTH_TOKEN": {
+      "description": "Document Parser API Auth Token (required for document text extraction)",
+      "value": "",
+      "required": false
     }
   },
   "addons": ["sendgrid:starter", "scheduler:standard", "heroku-redis:hobby-dev", "airbrake:free-hrku"],
