@@ -23,9 +23,10 @@ module Api
 
             index_klass::ALLOWED_FILTERS.each do |filter|
               formatted_filter = filter.to_s
+              filter_match_type = index_klass::FILTER_MATCH_TYPES[filter]
               extra_explain = if index_klass::TRANSFORMABLE_FILTERS[filter] == :date_range
                                 ', by range with *YYYY-MM-DD..YYYY-MM-DD*'
-                              elsif index_klass::FILTER_MATCH_TYPES[filter]
+                              elsif filter_match_type && filter_match_type != :fake_attribute
                                 ", matches if #{index_klass::FILTER_MATCH_TYPES[filter].to_s.humanize.downcase}"
                               else
                                 ''
