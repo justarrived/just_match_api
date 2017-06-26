@@ -5,8 +5,6 @@ require 'httparty'
 class DocumentParserClient
   BASE_URI = 'https://apache-tika.justarrived.se'
 
-  Result = Struct.new(:title, :text, :code)
-
   def initialize(base_uri: BASE_URI)
     @base_uri = base_uri
   end
