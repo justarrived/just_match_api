@@ -15,10 +15,6 @@ class AppSecrets
     @env = AppEnv.new
   end
 
-  def self.document_parser_auth_token
-    env['DOCUMENT_PARSER_AUTH_TOKEN']
-  end
-
   def self.welcome_app_client_key
     env['WELCOME_APP_CLIENT_KEY']
   end

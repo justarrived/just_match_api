@@ -149,11 +149,6 @@
       "description": "Document Parser active (required for document text extraction)",
       "value": "",
       "required": false
-    },
-    "DOCUMENT_PARSER_AUTH_TOKEN": {
-      "description": "Document Parser API Auth Token (required for document text extraction)",
-      "value": "",
-      "required": false
     }
   },
   "addons": ["sendgrid:starter", "scheduler:standard", "heroku-redis:hobby-dev", "airbrake:free-hrku"],
