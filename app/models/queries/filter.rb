@@ -9,7 +9,9 @@ module Queries
         next if field_name.to_s.include?('.')
 
         filter_type = filter_types[field_name]
-        if filter_type.is_a?(Hash) && filter_type[:translated]
+        if filter_type == :fake_attribute
+          records # we can't filter on fake attributes
+        elsif filter_type.is_a?(Hash) && filter_type[:translated]
           records = filter_translated_records(records, field_name, value, filter_type[:translated]) # rubocop:disable Metrics/LineLength
         elsif filter_type == :in_list
           records = records.where(field_name => value&.split(','))
