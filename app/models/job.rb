@@ -104,6 +104,12 @@ class Job < ApplicationRecord
   })
   scope :passed, (-> { where('job_end_date < ?', Time.zone.now) })
   scope :future, (-> { where('job_end_date > ?', Time.zone.now) })
+  scope :open_for_applications, (lambda {
+    after(:last_application_at, Time.zone.now).
+      unfilled.
+      published.
+      uncancelled
+  })
   scope :published, (lambda {
     scope = where(unpublish_at: nil).
       or(after(:unpublish_at, Time.zone.now))
