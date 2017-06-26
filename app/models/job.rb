@@ -112,12 +112,14 @@ class Job < ApplicationRecord
       before(:publish_at, Time.zone.now)
   })
   scope :linkedin_jobs, (lambda {
+    unfilled.
     published.
     uncancelled.
       where(publish_on_linkedin: true).
       where('last_application_at > ?', Time.zone.now)
   })
   scope :blocketjobb_jobs, (lambda {
+    unfilled.
     published.
     uncancelled.
       where(publish_on_blocketjobb: true).
