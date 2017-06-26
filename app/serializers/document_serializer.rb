@@ -22,4 +22,5 @@ end
 #  document_content_type     :string
 #  document_file_size        :integer
 #  document_updated_at       :datetime
+#  text_content              :text
 #

@@ -38,6 +38,7 @@ RSpec.describe Api::V1::DocumentsController, type: :controller do
     end
   end
 end
+
 # == Schema Information
 #
 # Table name: documents
@@ -51,4 +52,5 @@ end
 #  document_content_type     :string
 #  document_file_size        :integer
 #  document_updated_at       :datetime
+#  text_content              :text
 #
