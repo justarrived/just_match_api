@@ -15,6 +15,10 @@ class AppConfig
     @env = AppEnv.new
   end
 
+  def self.document_parser_active?
+    truthy?(env['DOCUMENT_PARSER_ACTIVE'])
+  end
+
   def self.default_mailer_url_host
     'api.justarrived.se'
   end
