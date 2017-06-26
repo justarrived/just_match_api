@@ -17,6 +17,30 @@ RSpec.describe Job, type: :model do
     end
   end
 
+  describe '#published?' do
+    [
+      # publish_at, unpublish_at, expected
+      [nil, nil, false],
+      [nil, 30.days.ago, false],
+      [nil, 30.days.from_now, false],
+      [2.days.ago, nil, true],
+      [2.days.from_now, nil, false],
+      [2.days.from_now, 2.days.from_now, false],
+      [2.days.ago, 2.days.from_now, true]
+    ].each do |data|
+      publish_at, unpublish_at, expected = data
+
+      it "returns #{expected} on publish_at: #{publish_at}, unpublish_at: #{unpublish_at}" do # rubocop:disable Metrics/LineLength
+        job = FactoryGirl.build(
+          :job,
+          publish_at: publish_at,
+          unpublish_at: unpublish_at
+        )
+        expect(job.published?).to eq(expected)
+      end
+    end
+  end
+
   describe '#application_url' do
     it 'returns the correct application URL' do
       id = 7

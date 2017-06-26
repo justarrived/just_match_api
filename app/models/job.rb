@@ -217,6 +217,16 @@ class Job < ApplicationRecord
     fragments.join("\n\n")
   end
 
+  def published?
+    return false if publish_at.nil?
+    now = Time.zone.now
+
+    publish_in_past = publish_at < now
+    unpublish_in_future = unpublish_at.nil? || unpublish_at > now
+
+    publish_in_past && unpublish_in_future
+  end
+
   def open_for_applications?
     [
       !cancelled,
