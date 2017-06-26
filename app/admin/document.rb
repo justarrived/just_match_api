@@ -40,6 +40,7 @@ ActiveAdmin.register Document do
       row :one_time_token_expires_at
       row :document_updated_at { datetime_ago_in_words(doc.document_updated_at) }
       row :created_at { datetime_ago_in_words(doc.created_at) }
+      row :text_content
     end
 
     active_admin_comments
