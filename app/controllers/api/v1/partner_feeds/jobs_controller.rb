@@ -5,6 +5,7 @@ module Api
     module PartnerFeeds
       class JobsController < BaseController
         before_action :verify_linkedin_sync_key, only: %i(linkedin)
+        before_action :verify_blocketjobb_sync_key, only: %i(blocketjobb)
         after_action :verify_authorized, except: %i(linkedin blocketjobb)
 
         resource_description do
@@ -67,6 +68,13 @@ module Api
         def verify_linkedin_sync_key
           unauthorized! if params[:auth_token].blank?
           return if AppSecrets.linkedin_sync_key == params[:auth_token]
+
+          unauthorized!
+        end
+
+        def verify_blocketjobb_sync_key
+          unauthorized! if params[:auth_token].blank?
+          return if AppSecrets.blocketjobb_sync_key == params[:auth_token]
 
           unauthorized!
         end

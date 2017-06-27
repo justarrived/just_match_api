@@ -23,6 +23,10 @@ class AppSecrets
     env['LINKEDIN_SYNC_KEY']
   end
 
+  def self.blocketjobb_sync_key
+    env['BLOCKETJOBB_SYNC_KEY']
+  end
+
   def self.arbetsformedlingen_customer_id
     env['ARBETSFORMEDLINGEN_CUSTOMER_ID']
   end
