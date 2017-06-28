@@ -6,6 +6,7 @@ f.inputs(I18n.t('admin.job.form.detail_section_title')) do
   f.input :job_date, as: :date_time_picker
   f.input :job_end_date, as: :date_time_picker
   f.input :last_application_at, as: :date_time_picker
+  f.input :preview_key, hint: I18n.t('admin.job.form.preview_key_hint')
   # If the job has *not* been saved then set the current
   # time as the publish date
   f.object.publish_at = Time.zone.now unless f.object.persisted?

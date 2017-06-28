@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170626090335) do
+ActiveRecord::Schema.define(version: 20170628093346) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -564,6 +564,7 @@ ActiveRecord::Schema.define(version: 20170626090335) do
     t.text "tasks_description"
     t.text "applicant_description"
     t.text "requirements_description"
+    t.string "preview_key"
     t.index ["category_id"], name: "index_jobs_on_category_id"
     t.index ["hourly_pay_id"], name: "index_jobs_on_hourly_pay_id"
     t.index ["language_id"], name: "index_jobs_on_language_id"

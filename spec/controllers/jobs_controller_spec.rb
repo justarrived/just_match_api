@@ -67,6 +67,27 @@ RSpec.describe Api::V1::JobsController, type: :controller do
       get :show, params: { job_id: job.to_param }
       expect(assigns(:job)).to eq(job)
     end
+
+    context 'job with preview key' do
+      it 'assigns the requested job as @job if the correct preview key is provided' do
+        key = 'nososecret'
+        job = FactoryGirl.create(:job, preview_key: key)
+        get :show, params: { job_id: job.to_param, preview_key: key }
+        expect(assigns(:job)).to eq(job)
+      end
+
+      it 'returns 404 if the no preview key is provided' do
+        job = FactoryGirl.create(:job, preview_key: 'nososecret')
+        get :show, params: { job_id: job.to_param }
+        expect(response.status).to eq(404)
+      end
+
+      it 'returns 404 if the incorrect preview key is provided' do
+        job = FactoryGirl.create(:job, preview_key: 'nososecret')
+        get :show, params: { job_id: job.to_param, preview_key: 'wrongpreviewkey' }
+        expect(response.status).to eq(404)
+      end
+    end
   end
 
   describe 'POST #create' do
@@ -301,6 +322,7 @@ end
 #  tasks_description            :text
 #  applicant_description        :text
 #  requirements_description     :text
+#  preview_key                  :string
 #
 # Indexes
 #

@@ -119,11 +119,16 @@ class Job < ApplicationRecord
     dates_scope = last_app_at_scope.or(before(:job_date, Time.zone.now))
     dates_scope.or(filled.or(cancelled))
   })
+  scope :without_preview_key, (lambda {
+    where(preview_key: [nil, ''])
+  })
   scope :published, (lambda {
     scope = where(unpublish_at: nil).
       or(after(:unpublish_at, Time.zone.now))
 
-    scope.visible.where.not(publish_at: nil).
+    scope.visible.
+      without_preview_key.
+      where.not(publish_at: nil).
       before(:publish_at, Time.zone.now)
   })
   scope :linkedin_jobs, (lambda {
@@ -234,6 +239,8 @@ class Job < ApplicationRecord
 
   def published?
     return false if publish_at.nil?
+    return false if preview_key.present?
+
     now = Time.zone.now
 
     publish_in_past = publish_at < now
@@ -574,6 +581,7 @@ end
 #  tasks_description            :text
 #  applicant_description        :text
 #  requirements_description     :text
+#  preview_key                  :string
 #
 # Indexes
 #
