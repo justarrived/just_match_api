@@ -9,7 +9,7 @@ module Api
         after_action :verify_authorized, except: %i(index)
 
         ALLOWED_INCLUDES = %w(
-          job job.company job.company.company_images user user.user_images
+          job job.company job.company.company_images
         ).freeze
 
         api :GET, '/users/:user_id/jobs', 'Shows all job the user has applied to.'
@@ -46,13 +46,7 @@ module Api
             )
           end
 
-          scope = scope.includes(job: job_includes)
-
-          if included_resource?(:user)
-            scope = scope.includes(user: %i(user_images chats))
-          end
-
-          scope.left_outer_joins(user: [:received_ratings])
+          scope.includes(job: job_includes)
         end
 
         def authorize_index(user)
