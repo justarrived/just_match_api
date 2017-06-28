@@ -120,7 +120,7 @@ class Job < ApplicationRecord
     dates_scope.or(filled.or(cancelled))
   })
   scope :without_preview_key, (lambda {
-    where(preview_key: [nil, '']).or(where(preview_key: ''))
+    where(preview_key: [nil, ''])
   })
   scope :published, (lambda {
     scope = where(unpublish_at: nil).
