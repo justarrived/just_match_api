@@ -111,6 +111,8 @@ en:
         no_apply_message: No apply message.
     job:
       checklist_sidebar:
+        published: Published
+        preview_key: Preview key
         data_title: Data collection
         skills: Skills added
         languages: Languages added
@@ -150,6 +152,7 @@ en:
         status_section_title: Status
         hourly_pay_hint: 'The hourly pay, you can add more Hourly Pays if you want under "Settings"'
         language_hint: 'Language that the job information is written in'
+        preview_key_hint: If set, the job can only be accessed with this preview key
         owner_hint: 'Job owner @ client company'
         company_contact_hint: 'Job contact @ client company, if blank owner will be used instead'
         just_arrived_contact_hint: 'The responsible user @ Just Arrived'
@@ -264,8 +267,8 @@ en:
         ongoing_jobs: Ongoing jobs
         future_jobs: Future jobs
         rejected: Rejected
-        no_skills_added: No languages added.
-        no_languages_added: No skills added.
+        no_skills_added: No skills added.
+        no_languages_added: No languages added.
     send_employment_certificate:
       post_btn: Send employment certificate
       msg: Request for employment certificate sent. The user will receive an email from Frilans Finans.

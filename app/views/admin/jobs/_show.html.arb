@@ -41,6 +41,7 @@ end
 
 panel(I18n.t('admin.job.show.status_flags')) do
   attributes_table_for(job) do
+    row :preview_key
     row :featured
     row :verified
     row :upcoming

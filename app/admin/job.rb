@@ -180,11 +180,32 @@ ActiveAdmin.register Job do
   end
 
   sidebar :data_checklist, only: %i(show edit) do
-    h3 I18n.t('admin.job.checklist_sidebar.missing_translations')
     div do
-      strong(
-        (%w(en sv ar) - job.translations.map(&:locale).compact).join(', ')
+      safe_join(
+        [
+          strong(I18n.t('admin.job.checklist_sidebar.published')),
+          status_tag(job.published?)
+        ]
       )
+    end
+
+    div do
+      safe_join(
+        [
+          strong(I18n.t('admin.job.checklist_sidebar.preview_key')),
+          status_tag(job.preview_key.presence)
+        ]
+      )
+    end
+
+    missing_translations = %w(en sv ar) - job.translations.map(&:locale).compact
+    if missing_translations.any?
+      h3 I18n.t('admin.job.checklist_sidebar.missing_translations')
+      div do
+        strong(
+          missing_translations.join(', ')
+        )
+      end
     end
 
     hr
@@ -264,7 +285,7 @@ ActiveAdmin.register Job do
       :company_contact_user_id, :just_arrived_contact_user_id, :municipality,
       :number_to_fill, :order_id, :full_time, :swedish_drivers_license, :car_required,
       :publish_on_linkedin, :publish_on_blocketjobb, :blocketjobb_category,
-      :salary_type,
+      :salary_type, :preview_key,
       job_skills_attributes: %i(skill_id proficiency proficiency_by_admin),
       job_languages_attributes: %i(language_id proficiency proficiency_by_admin)
     ]

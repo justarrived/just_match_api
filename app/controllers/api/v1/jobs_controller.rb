@@ -204,6 +204,12 @@ module Api
           )
         end
 
+        scope = if key = params[:preview_key].presence
+                  scope.where(preview_key: key)
+                else
+                  scope.published
+                end
+
         @job = scope.find(params[:job_id])
       end
 

@@ -38,6 +38,11 @@ RSpec.describe Job, type: :model do
         )
         expect(job.published?).to eq(expected)
       end
+
+      it 'returns false if preview key is present' do
+        job = FactoryGirl.build(:job, preview_key: 'notsosecret')
+        expect(job.published?).to eq(false)
+      end
     end
   end
 
@@ -727,6 +732,7 @@ end
 #  tasks_description            :text
 #  applicant_description        :text
 #  requirements_description     :text
+#  preview_key                  :string
 #
 # Indexes
 #

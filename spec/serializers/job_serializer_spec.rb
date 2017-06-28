@@ -129,6 +129,7 @@ end
 #  tasks_description            :text
 #  applicant_description        :text
 #  requirements_description     :text
+#  preview_key                  :string
 #
 # Indexes
 #
