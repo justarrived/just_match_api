@@ -8,7 +8,9 @@ module Api
 
         after_action :verify_authorized, except: %i(index)
 
-        ALLOWED_INCLUDES = %w(job user user.user_images).freeze
+        ALLOWED_INCLUDES = %w(
+          job job.company job.company.company_images user user.user_images
+        ).freeze
 
         api :GET, '/users/:user_id/jobs', 'Shows all job the user has applied to.'
         # rubocop:disable Metrics/LineLength
