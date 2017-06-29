@@ -243,27 +243,22 @@ ActiveAdmin.register Job do
   end
 
   sidebar :app, only: %i(show edit) do
-    ul do
-      if job.preview_key.present?
-        preview_url = [
-          FrontendRouter.draw(:job, id: job.id, utm_medium: UTM_ADMIN_MEDIUM),
-          "preview_key=#{job.preview_key}"
-        ].join('&')
+    if job.preview_key.present?
+      para link_to(
+        I18n.t('admin.view_in_app.job_preview'),
+        link_to_job_preview(job),
+        target: '_blank'
+      )
 
-        li(
-          link_to(
-            I18n.t('admin.view_in_app.job_preview'),
-            preview_url,
-            target: '_blank'
-          )
-        )
-      else
-        li link_to(
-          I18n.t('admin.view_in_app.job'),
-          FrontendRouter.draw(:job, id: job.id, utm_medium: UTM_ADMIN_MEDIUM),
-          target: '_blank'
-        )
-      end
+      strong('Copy-pastable link to customer: ')
+
+      content_tag(:pre, link_to_job_preview(job, utm_medium: 'email'))
+    else
+      link_to(
+        I18n.t('admin.view_in_app.job'),
+        FrontendRouter.draw(:job, id: job.id, utm_medium: UTM_ADMIN_MEDIUM),
+        target: '_blank'
+      )
     end
   end
 

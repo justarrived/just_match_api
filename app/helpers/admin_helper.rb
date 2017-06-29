@@ -10,6 +10,23 @@ module AdminHelper
     end
   end
 
+  def link_to_job_preview(job, utm_medium: nil)
+    base_url = FrontendRouter.draw(
+      :job,
+      id: job.id,
+      utm_medium: utm_medium || UTM_ADMIN_MEDIUM,
+      utm_campaign: 'job_preview',
+      utm_content: "job-#{job.id}"
+    )
+
+    preview_url = [
+      base_url,
+      "preview_key=#{job.preview_key}"
+    ].join('&')
+
+    preview_url
+  end
+
   def markdown_to_html(markdown)
     ::StringFormatter.new.to_html(markdown)&.html_safe
   end
