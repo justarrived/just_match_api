@@ -4,6 +4,27 @@ HEAD
 -----------
 
 
+v1.113 - 2017-06-29
+----------
+* _Admin_:
+  - Add job preview link to sidebar if in preview mode
+  - Set Comm.Template translation language on save
+  - Limit Comm. template language form selection to only be system langs
+* _Feature_:
+  - Add support for job preview keys:
+    + Only allow listing of job with preview key if the correct preview key is passed as a parameter
+    + Add uniqueness validation on `Job#preview_key`
+* _Enhancement_:
+  * Remove unused allowed includes and optimize user-jobs endpoint
+  * Add `job.company` and `job.company.company_images` to allowed includes. Closes #1182
+  * Revert "Remove blocketjobb auth key, since they can't use it.."
+  * Update `ApiPieDocHelper` to support fake attribute filter
+  * Add support for `/jobs?filter[open_for_applications]=`. Closes #1178
+  * Add `Job::open_for_applications` scope
+  * Add `Job::closed_for_applications` scope
+  * Implement `Job#published?` method
+
+
 v1.112 - 2017-06-26
 ----------
 * _Enhancement_:
