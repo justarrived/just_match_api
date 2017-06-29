@@ -244,11 +244,26 @@ ActiveAdmin.register Job do
 
   sidebar :app, only: %i(show edit) do
     ul do
-      li link_to(
-        I18n.t('admin.view_in_app.job'),
-        FrontendRouter.draw(:job, id: job.id, utm_medium: UTM_ADMIN_MEDIUM),
-        target: '_blank'
-      )
+      if job.preview_key.present?
+        preview_url = [
+          FrontendRouter.draw(:job, id: job.id, utm_medium: UTM_ADMIN_MEDIUM),
+          "preview_key=#{job.preview_key}"
+        ].join('&')
+
+        li(
+          link_to(
+            I18n.t('admin.view_in_app.job_preview'),
+            preview_url,
+            target: '_blank'
+          )
+        )
+      else
+        li link_to(
+          I18n.t('admin.view_in_app.job'),
+          FrontendRouter.draw(:job, id: job.id, utm_medium: UTM_ADMIN_MEDIUM),
+          target: '_blank'
+        )
+      end
     end
   end
 
