@@ -55,6 +55,7 @@ class Job < ApplicationRecord
   validates :street, length: { minimum: 1 }, allow_blank: false
   validates :city, length: { minimum: 1 }, allow_blank: true
   validates :zip, length: { minimum: 5 }, allow_blank: false
+  validates :preview_key, uniqueness: true, allow_blank: true
   validates :municipality, swedish_municipality: true
   validates :swedish_drivers_license, swedish_drivers_license: true
   validates :job_date, presence: true
