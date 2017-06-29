@@ -27,7 +27,7 @@ ActiveAdmin.register CommunicationTemplate do
       row :translations do |c_template|
         safe_join(c_template.translations.map do |translation|
           link_to(
-            translation.locale,
+            translation.locale || 'Original',
             admin_communication_template_translation_path(translation)
           )
         end, ', ')
@@ -49,6 +49,8 @@ ActiveAdmin.register CommunicationTemplate do
         end, ', ')
       end
     end
+
+    active_admin_comments
   end
 
   form do |f|
@@ -73,11 +75,12 @@ ActiveAdmin.register CommunicationTemplate do
   set_template_translation = lambda do |template, permitted_params|
     return unless template.persisted? && template.valid?
 
-    template.set_translation(
+    params = {
       name: permitted_params.dig(:communication_template, :name),
       subject: permitted_params.dig(:communication_template, :subject),
       body: permitted_params.dig(:communication_template, :body)
-    )
+    }
+    template.set_translation(params, template.language)
   end
 
   after_save do |template|
