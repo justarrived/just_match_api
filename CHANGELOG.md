@@ -3,6 +3,16 @@
 HEAD
 -----------
 
+
+v1.115 - 2017-07-04
+----------
+* _Admin_:
+  - Improved job preview link
+* _Enhancement_:
+  - Pull translations from Transifex
+  - Update salary info email copy
+
+
 v1.114 - 2017-06-29
 ----------
 * _Admin_:
