@@ -26,7 +26,7 @@ en:
         Your contact person at Just Arrived for this job is %{ja_contact_name} call him/her at %{ja_contact_phone} if you have any questions, or email him/her at %{ja_contact_email}.
 
         About the salary:
-        An invoice will be activated 2-5 days after the job finishes. After this it will take up to 10 days for you to receive your salary, which means, depending on weekends a total of maximum three weeks after the job’s end date.
+        An invoice will be activated 2-5 days after the job finishes. After this it will take up to 10 days for you to receive your salary, which means, depending on weekends a total of maximum 30 days after the job’s end date.
         (If you have provided all the info about your bank account etc. correctly.)
     applicant_will_perform:
       subject: Congrats! The candidate will perform your job

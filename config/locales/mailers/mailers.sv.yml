@@ -24,7 +24,7 @@ sv:
         Din kontaktperson hos Just Arrived för detta jobb är %{ja_contact_name} ring henne/honom på %{ja_contact_phone} om du har några frågor, eller maila henne/honom på %{ja_contact_email}.
 
         Om lönen:
-        En faktura kommer aktiveras 2-5 dagar efter att jobbet avslutas. Efter detta kommer det ta upp till 10 dagar för dig att få din lön, vilket betyder, beroende på helgdagar, att det tar max tre veckor efter att jobbet avslutats.
+        En faktura kommer aktiveras 2-5 dagar efter att jobbet avslutas. Efter detta kommer det ta upp till 10 dagar för dig att få din lön, vilket betyder, beroende på helgdagar, att det tar max 30 dagar efter att jobbet avslutats.
         (Förutsatt att du har angett korrekt information om bankkonto m.m.)
     applicant_will_perform:
       subject: Grattis! Den accepterade användare för ditt jobb har konfirmerat.
