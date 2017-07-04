@@ -24,7 +24,7 @@ sv:
         Din kontaktperson hos Just Arrived för detta jobb är %{ja_contact_name} ring henne/honom på %{ja_contact_phone} om du har några frågor, eller maila henne/honom på %{ja_contact_email}.
 
         Om lönen:
-        En faktura kommer aktiveras 2-5 dagar efter att jobbet avslutas. Efter detta kommer det ta upp till 30 dagar för dig att få din lön.
+        En faktura kommer aktiveras 2-5 dagar efter att jobbet avslutas. Efter detta kommer det ta upp till 30 dagar.
         (Förutsatt att du har angett korrekt information om bankkonto m.m.)
     applicant_will_perform:
       subject: Grattis! Den accepterade användare för ditt jobb har konfirmerat.
@@ -121,9 +121,9 @@ sv:
         Vi har många användare och ansökningar till våra jobb, så bli inte nedslagen om någon annan får jobbet den här gången. Nästa gång kan det vara du!
 
         Din bästa chans att få ett jobb är att logga in ofta, söka jobb ofta, och se till att din profil är uppdaterad! Vi är övertygade om att du kommer få ett jobb som passar din profil snart!
+      body_fillout_notice: 'För att vi ska kunna matcha dig med ett jobb behöver vi veta lite mer om dina färdigheter i:'
       body_edit_profile: Uppdatera din profil här %{url}
       body_edit_profile_cta: Uppdatera din profil
-      body_fillout_notice: 'För att vi ska kunna matcha dig med ett jobb, behöver vi veta lite mer om dina kunskaper:'
     new_applicant:
       applicant_line: Kandidaten är %{name} och bor i närheten av där uppdraget ska utföras.
       congrats_line: Grattis %{name}!
