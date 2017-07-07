@@ -15,8 +15,20 @@ RSpec.describe BaseNotifier do
   end
   subject { described_class }
 
-  it 'converts class name to underscored name' do
-    expect(subject.underscored_name).to eq('base')
+  describe '::underscored_name' do
+    it 'converts class name to underscored name' do
+      expect(subject.underscored_name).to eq('base')
+    end
+
+    it 'converts class name to underscored name for subclass' do
+      sub_class = Class.new(described_class) do
+        def self.to_s
+          'AnonNotifier'
+        end
+      end
+
+      expect(sub_class.underscored_name).to eq('anon')
+    end
   end
 
   describe '#dispatch' do
