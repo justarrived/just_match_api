@@ -26,7 +26,7 @@ en:
         Your contact person at Just Arrived for this job is %{ja_contact_name} call him/her at %{ja_contact_phone} if you have any questions, or email him/her at %{ja_contact_email}.
 
         About the salary:
-        An invoice will be activated 2-5 days after the job finishes. After this it will take up to 30 days for you to receive your salary.
+        An invoice will be activated 2-5 days after we receive your time report. After this it will take up to 30 days for you to receive your salary.
         (If you have provided all the info about your bank account etc. correctly.)
     applicant_will_perform:
       subject: Congrats! The candidate will perform your job
@@ -98,7 +98,7 @@ en:
       body: |
         Hi %{name}!
 
-        Today the invoice for your job “%{job_name}” was created. This means that you should have your salary on your account within two weeks.
+        Today the invoice for your job “%{job_name}” was created.
 
         You will also receive a specification of your salary from Frilans Finans.
         If you want help with understanding what all the different numbers are, please read this explaining document: %{payslip_explain_url}.
