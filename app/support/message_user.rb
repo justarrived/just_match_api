@@ -41,7 +41,7 @@ class MessageUser
   end
 
   def send_email(email, subject, message)
-    return unless send_email?
+    return unless send_email? && email
 
     envelope = ActionMailer::Base.mail(
       from: ApplicationMailer::DEFAULT_SUPPORT_EMAIL,
