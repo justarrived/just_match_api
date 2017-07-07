@@ -24,7 +24,7 @@ sv:
         Din kontaktperson hos Just Arrived för detta jobb är %{ja_contact_name} ring henne/honom på %{ja_contact_phone} om du har några frågor, eller maila henne/honom på %{ja_contact_email}.
 
         Om lönen:
-        En faktura kommer aktiveras 2-5 dagar efter att jobbet avslutas. Efter detta kommer det ta upp till 30 dagar.
+        En faktura kommer aktiveras 2-5 dagar efter att din tidrapport är inne. Efter detta kommer det ta upp till 30 dagar.
         (Förutsatt att du har angett korrekt information om bankkonto m.m.)
     applicant_will_perform:
       subject: Grattis! Den accepterade användare för ditt jobb har konfirmerat.
@@ -95,14 +95,14 @@ sv:
       body: |
         Hej %{name}!
 
-        Idag aktiverades fakturan för ditt jobb “%{job_name}” . Detta betyder att du bör ha din lön på ditt konto inom två veckor.
+        Idag aktiverades fakturan för ditt jobb “%{job_name}” . Detta betyder att du bör ha din lön på ditt konto inom 30 dagar.
 
         Du kommer även att få en specifikation på din lön från Frilans Finans.
         Om du behöver hjälp med att förstå vad alla de olika siffrorna betyder, läs gärna detta förklarande dokument: %{payslip_explain_url}.
 
         Kontakta oss på %{support_email} om frågor eller problem uppstår.
 
-        Har du sett till att betygssätta din jobberfarenhet på Just Arrived, och berättat för oss om din upplevelse?
+        Har du sett till att betygsätta din jobberfarenhet på Just Arrived, och berättat för oss om din upplevelse?
         Kom ihåg att din upplevelse är viktig för oss!
     magic_login_link:
       subject: Magisk login-länk
