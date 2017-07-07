@@ -4,6 +4,17 @@ HEAD
 -----------
 
 
+v1.116 - 2017-07-07
+----------
+* _Enhancement_:
+  - Pull translations from Transifex
+  - Update mail about salary
+* _Update gem_:
+  - `aws-sdk`
+  - `kramdown`
+  - `sidekiq`
+
+
 v1.115 - 2017-07-04
 ----------
 * _Admin_:
