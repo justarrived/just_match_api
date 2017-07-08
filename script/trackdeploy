@@ -1,0 +1,39 @@
+#!/bin/bash
+set -euo pipefail
+IFS=$'\n\t'
+
+test -f .env && source .env
+
+AIRBRAKE_PROJECT_ID=${JUST_MATCH_API_AIRBRAKE_PROJECT_ID:-}
+AIRBRAKE_API_KEY=${JUST_MATCH_API_AIRBRAKE_API_KEY:-}
+
+trackdeploy() {
+  local project_id=$AIRBRAKE_PROJECT_ID
+  local project_key=$AIRBRAKE_API_KEY
+
+  if [[ -z $project_id ]]; then
+    echo "[WARN] AIRBRAKE_PROJECT_ID must be set to track deploy. Skipping.."
+    return
+  fi
+
+  if [[ -z $project_key ]]; then
+    echo "[WARN] AIRBRAKE_API_KEY must be set to track deploy. Skipping.."
+    return
+  fi
+
+  local environment=production
+  local repository='https://github.com/justarrived/just_match_api'
+  local revision="$(git rev-parse HEAD)"
+  local username=$(whoami)
+
+  local data="{\"environment\":\"${environment}\",\"username\":\"${username}\",\"repository\":\"${repository}\",\"revision\":\"${revision}\"}"
+
+  curl -X POST \
+    -H "Content-Type: application/json" \
+    -d $data \
+    "https://airbrake.io/api/v4/projects/${project_id}/deploys?key=${project_key}"
+
+  echo 'Pushed deploy information to Airbrake'
+}
+
+trackdeploy
