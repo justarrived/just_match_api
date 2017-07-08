@@ -4,6 +4,36 @@ HEAD
 -----------
 
 
+v1.117 - 2017-07-08
+----------
+* _Feature_:
+  - Add `script/trackdeploy`
+* _Enhancement_:
+  - Add missing I18n field key to job user unrevertable error tests
+  - Add missing I18n-key for HTTP Not Acceptable response
+  - Add rack middleware that catches unknown formats
+  - Add tests for `CatchJsonParseErrors`
+  - Add tests for production seeds
+  - Add SendMessageService#format_string exception comment and additional test
+  - Rename `MessageUsersFromTemplate` => `MessageUsersFromTemplateService`
+  - Rename `MessageUsers` => `MessageUsersService`
+  - Rename `MessageUser` => `MessageUserService`
+  - Refactor `MessageUser` to use `SendMessageService`
+  - Create `SendMessageService`
+  - Rescue `Redis::CannotConnectError` in `DeliverNotification`
+  - Nil check email in `MessageUser#send_email`
+  - Remove double nil check for user phone in `MessageUser#call`
+  - Add additional test for BaseNotifier
+* _Update gem_:
+  - Rails 5.1.1 => 5.1.2
+  - rspec_junit_formatter
+  - timecop
+  - airbrake
+  - aws-sdk
+  - ancestry
+  - google-cloud-translate (0.23 => 1.0)
+
+
 v1.116 - 2017-07-07
 ----------
 * _Enhancement_:
