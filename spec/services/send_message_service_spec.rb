@@ -70,5 +70,12 @@ RSpec.describe SendMessageService do
         service.format_string('Hi %<name>s (%<lang>sist)', {})
       end.to raise_error(KeyError)
     end
+
+    it 'raises ArgumentError when there are unmatched parentheses' do
+      service = described_class.new
+      expect do
+        service.format_string('Hi %{name]', {})
+      end.to raise_error(ArgumentError)
+    end
   end
 end

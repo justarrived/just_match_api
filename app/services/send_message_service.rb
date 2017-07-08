@@ -37,6 +37,6 @@ class SendMessageService
   end
 
   def format_string(string, data)
-    (string || '') % data # can raise KeyError
+    (string || '') % data # can raise KeyError, ArgumentError
   end
 end
