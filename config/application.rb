@@ -19,6 +19,7 @@ require 'action_view/railtie' # Needed for Rails mailers
 # require 'sprockets/railtie'
 # require "rails/test_unit/railtie"
 
+require_relative '../lib/middleware/catch_unknown_format_errors'
 require_relative '../lib/middleware/catch_json_parse_errors'
 require_relative '../lib/i18n/i18n_meta'
 
@@ -50,6 +51,7 @@ module JustMatch
     config.api_only = false
 
     config.middleware.insert_before Rack::Head, CatchJsonParseErrors
+    config.middleware.insert_after CatchJsonParseErrors, CatchUnknownFormatErrors
     config.middleware.use Rack::Attack
 
     config.active_job.queue_adapter = :sidekiq
