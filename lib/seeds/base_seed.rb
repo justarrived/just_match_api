@@ -10,6 +10,8 @@ class BaseSeed
   end
 
   def self.log(string)
+    return if Rails.env.test?
+
     # rubocop:disable Rails/Output
     puts "[db:seed] #{string}"
     # rubocop:enable Rails/Output
