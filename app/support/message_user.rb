@@ -7,49 +7,52 @@ class MessageUser
     end
   end
 
+  attr_reader :subject, :body
+
   def initialize(type, user, template, subject, data)
     @type = type
+    @data = data
     @user = user
     @template = template
     @subject = subject
-    @data = data.symbolize_keys
+
+    attributes = @user.attributes.
+                 transform_keys { |key| "user_#{key}" }.
+                 merge!(@data)
+
+    @service = SendMessageService.new(body: template, subject: subject, data: attributes)
+  rescue KeyError => e
+    @key_error = true
+    @key_error_message = "Error: '#{e.message}'"
   end
 
   def call
-    attributes = {}
-    @user.attributes.each { |key, value| attributes[:"user_#{key}"] = value }
-    attributes.merge!(@data)
-    begin
-      message = @template % attributes
-      subject = @subject % attributes
-      yield(subject, message) if block_given?
-    rescue KeyError => e
-      return { success: false, message: "Error: '#{e.message}'" }
-    end
+    return { success: false, message: @key_error_message } if key_error?
 
-    send_sms(@user.phone, message)
-    send_email(@user.email, subject, message)
+    send_sms
+    send_email
+
+    yield(@service.subject, @service.body) if block_given?
 
     { success: true, message: 'Sending message to user.' }
   end
 
-  def send_sms(phone, message)
+  def send_sms
+    phone = @user.phone
     return unless send_sms? && phone
 
-    from = AppSecrets.twilio_number
-    TexterJob.perform_later(from: from, to: phone, body: message)
+    @service.send_sms(to: phone)
   end
 
-  def send_email(email, subject, message)
+  def send_email
+    email = @user.email
     return unless send_email? && email
 
-    envelope = ActionMailer::Base.mail(
-      from: ApplicationMailer::DEFAULT_SUPPORT_EMAIL,
-      to: email,
-      subject: subject,
-      body: message
-    )
-    BaseNotifier.dispatch(envelope)
+    @service.send_email(to: @user.email)
+  end
+
+  def key_error?
+    !!@key_error
   end
 
   def send_sms?
