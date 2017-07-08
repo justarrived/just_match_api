@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe MessageUser do
+RSpec.describe MessageUserService do
   describe '#call' do
     it 'can work' do
       type = 'email' # must be email, sms, or both

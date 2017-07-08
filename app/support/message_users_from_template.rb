@@ -19,7 +19,7 @@ class MessageUsersFromTemplate
         translation = @template.find_translation(locale: user.locale)
         language_id = translation.language_id
 
-        response = MessageUser.call(
+        response = MessageUserService.call(
           type: @type,
           user: user,
           template: translation.body,

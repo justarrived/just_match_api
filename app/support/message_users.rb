@@ -17,7 +17,7 @@ class MessageUsers
   def call
     @users.each do |user|
       I18n.with_locale(user.locale) do
-        response = MessageUser.call(
+        response = MessageUserService.call(
           type: @type,
           user: user,
           template: @template,
