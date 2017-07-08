@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 
 ruby '2.4.1'
 
-gem 'rails', '5.1.1' # Ruby on Rails MVC framework
+gem 'rails', '5.1.2' # Ruby on Rails MVC framework
 
 gem 'bootsnap', '~> 1.1', require: false # Optimize Rails boot time
 
