@@ -165,7 +165,7 @@ RSpec.describe JobUser, type: :model do
 
     it 'adds *no* error when value is already false' do
       job_user.validate
-      err_msg = I18n.t('errors.validators.unrevertable')
+      err_msg = I18n.t('errors.validators.unrevertable', field: :will_perform)
       expect(job_user.errors.messages[:will_perform] || []).not_to include(err_msg)
     end
 
@@ -185,7 +185,7 @@ RSpec.describe JobUser, type: :model do
 
     it 'adds *no* error when value is already false' do
       job_user.validate
-      err_msg = I18n.t('errors.validators.unrevertable')
+      err_msg = I18n.t('errors.validators.unrevertable', field: :accepted)
       expect(job_user.errors.messages[:accepted] || []).not_to include(err_msg)
     end
 
@@ -205,7 +205,7 @@ RSpec.describe JobUser, type: :model do
       job_user.accepted_at = (JobUser::MAX_CONFIRMATION_TIME_HOURS + 1).hours.ago
       job_user.accepted = false
       job_user.validate
-      err_msg = I18n.t('errors.validators.unrevertable')
+      err_msg = I18n.t('errors.validators.unrevertable', field: :accepted)
       expect(job_user.errors.messages[:accepted] || []).not_to include(err_msg)
     end
   end
@@ -216,7 +216,7 @@ RSpec.describe JobUser, type: :model do
 
     it 'adds *no* error when value is already false' do
       job_user.validate
-      err_msg = I18n.t('errors.validators.unrevertable')
+      err_msg = I18n.t('errors.validators.unrevertable', field: :performed)
       expect(job_user.errors.messages[:performed] || []).not_to include(err_msg)
     end
 
