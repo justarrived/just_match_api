@@ -10,7 +10,7 @@ class SendAdminCommunicationTemplate
       data[:job_description] = job.description
     end
 
-    response = MessageUsersFromTemplate.call(
+    response = MessageUsersFromTemplateService.call(
       type: type,
       users: users,
       template: template,

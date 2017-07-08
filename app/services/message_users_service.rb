@@ -1,14 +1,15 @@
 # frozen_string_literal: true
 
-class MessageUsersFromTemplate
-  def self.call(type:, users:, template:, data: {}, &block)
-    new(type, users, template, data, &block).call
+class MessageUsersService
+  def self.call(type:, users:, template:, subject: nil, data: {}, &block)
+    new(type, users, template, subject, data, &block).call
   end
 
-  def initialize(type, users, template, data, &block)
+  def initialize(type, users, template, subject, data, &block)
     @type = type
     @users = users
     @template = template
+    @subject = subject
     @data = data
     @block = block
   end
@@ -16,17 +17,14 @@ class MessageUsersFromTemplate
   def call
     @users.each do |user|
       I18n.with_locale(user.locale) do
-        translation = @template.find_translation(locale: user.locale)
-        language_id = translation.language_id
-
-        response = MessageUser.call(
+        response = MessageUserService.call(
           type: @type,
           user: user,
-          template: translation.body,
-          subject: translation.subject,
+          template: @template,
+          subject: @subject,
           data: @data
         ) do |subject, message|
-          @block&.call(user, [subject, message].join("\n\n"), language_id)
+          @block&.call(user, [subject, message].join("\n\n"))
         end
         return response unless response[:success]
       end

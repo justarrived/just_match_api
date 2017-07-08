@@ -3,7 +3,7 @@
 class DeliverNotification
   def self.call(envelope, locale)
     envelope.deliver_later
-  rescue Redis::ConnectionError => e
+  rescue Redis::ConnectionError, Redis::CannotConnectError => e
     ErrorNotifier.send(e, context: { locale: locale })
     # Retry the block but skip Redis and deliver it synchronously instead
     envelope.deliver_now
