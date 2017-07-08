@@ -14,9 +14,9 @@ die () {
 [ "$#" -eq 1 ] || die "first argument <remote> required, $# provided"
 remote="$1"
 
-echo -e '\n== Deploying application =='
-git push heroku master --remote=$remote
-heroku run rails db:migrate --remote=$remote
+echo -e "\n== Deploying application to $remote =="
+git push "$remote" master
+heroku run rails db:migrate --remote="$remote"
 
 script/trackdeploy
 echo -e '\n== Deploy done =='
