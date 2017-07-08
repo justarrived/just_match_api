@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 
 ruby '2.4.1'
 
-gem 'rails', '5.1.1' # Ruby on Rails MVC framework
+gem 'rails', '5.1.2' # Ruby on Rails MVC framework
 
 gem 'bootsnap', '~> 1.1', require: false # Optimize Rails boot time
 
@@ -83,7 +83,7 @@ gem 'banktools-se', '~> 2.6' # Validate Swedish bank account
 gem 'countries', '~> 2.0', require: 'countries/global' # Country data in various locales
 gem 'geocoder', '~> 1.4' # Geocode resources
 gem 'global_phone', '~> 1.0' # Format cell phone numbers
-gem 'google-cloud-translate', '~> 0.23' # Translate with Google Translate API
+gem 'google-cloud-translate', '~> 1.0' # Translate with Google Translate API
 gem 'i18n_data', '~> 0.7' # Language and country names in various languages
 gem 'iban-tools', '~> 1.1' # Validate IBAN
 gem 'mailcheck', git: 'https://github.com/mailcheck/mailcheck-ruby' # Email suggestions for common email spelling misstakes
