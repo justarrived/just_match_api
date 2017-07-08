@@ -2,7 +2,7 @@
 
 class SendAdminMessage
   def self.call(users:, type:, subject:, template:, language_id:, support_user: User.main_support_user) # rubocop:disable Metrics/LineLength
-    response = MessageUsers.call(
+    response = MessageUsersService.call(
       type: type,
       users: users,
       template: template,

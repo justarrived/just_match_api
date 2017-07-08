@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class MessageUsers
+class MessageUsersService
   def self.call(type:, users:, template:, subject: nil, data: {}, &block)
     new(type, users, template, subject, data, &block).call
   end
