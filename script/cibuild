@@ -42,4 +42,5 @@ else
   else
     script/test spec
   fi
+  cc-test-reporter after-build --exit-code $?
 fi
