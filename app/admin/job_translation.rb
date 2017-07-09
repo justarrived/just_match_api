@@ -44,7 +44,7 @@ ActiveAdmin.register JobTranslation do
 
   form do |f|
     f.inputs do
-      f.semantic_errors
+      f.semantic_errors(*f.object.errors.keys)
 
       f.input :job, collection: Job.with_translations
       f.input :language, collection: Language.system_languages.order(:en_name)

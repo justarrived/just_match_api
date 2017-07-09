@@ -95,7 +95,7 @@ ActiveAdmin.register Company do
   end
 
   form do |f|
-    f.semantic_errors
+    f.semantic_errors(*f.object.errors.keys)
 
     f.inputs I18n.t('admin.company.form.main_form_section_title') do
       f.input :name

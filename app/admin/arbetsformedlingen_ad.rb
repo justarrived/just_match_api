@@ -51,7 +51,7 @@ ActiveAdmin.register ArbetsformedlingenAd do
   end
 
   form do |f|
-    f.semantic_errors
+    f.semantic_errors(*f.object.errors.keys)
 
     f.inputs(f.object.display_name) do
       f.input :job, collection: Job.with_translations
