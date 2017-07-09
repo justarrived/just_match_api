@@ -3,6 +3,7 @@
 FactoryGirl.define do
   factory :order do
     association :job_request
+    association :company
 
     hourly_pay_rate 119.98
     invoice_hourly_pay_rate 1119.99

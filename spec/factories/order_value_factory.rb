@@ -2,15 +2,11 @@
 
 FactoryGirl.define do
   factory :order_value do
-    order nil
+    association :order
     previous_order_value nil
     change_comment 'MyText'
     change_reason_category 1
     total_sold '9.99'
-    hourly_salary '9.99'
-    hourly_price '9.99'
-    hours_per_month '9.99'
-    number_of_months '9.99'
   end
 end
 
