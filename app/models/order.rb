@@ -42,13 +42,8 @@ class Order < ApplicationRecord
     order_values.reorder(created_at: :desc).first
   end
 
-  def total_sold
-    current_order_value&.total_sold
-  end
-
-  def total_filled
-    current_order_value&.total_filled
-  end
+  delegate :total_sold, to: :current_order_value
+  delegate :total_filled, to: :current_order_value
 
   def total_filled_revenue
     filled_jobs.map { |job| job.hours * filled_invoice_hourly_pay_rate.to_f }.sum
