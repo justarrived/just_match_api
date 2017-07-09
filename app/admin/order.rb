@@ -87,8 +87,8 @@ ActiveAdmin.register Order do
       row :updated_at
     end
 
-    panel 'Order values' do
-      order.order_values.each do |order_value|
+    order.order_values.each do |order_value|
+      panel order_value.display_name do
         attributes_table_for(order_value) do
           row :order_value do
             link_to(order_value.display_name, admin_order_value_path(order_value))
