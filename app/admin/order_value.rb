@@ -10,8 +10,10 @@ ActiveAdmin.register OrderValue do
     column :change_reason_category
     column :total_sold_value_change
     column :total_filled_value_change
-    column :total_sold_value
-    column :total_filled_value
+
+    column :total_filled_over_sold_order_value do |order_value|
+      total_filled_over_sold_order_value(order_value)
+    end
 
     actions
   end

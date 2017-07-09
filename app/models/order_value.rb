@@ -13,7 +13,7 @@ class OrderValue < ApplicationRecord
   def filled_percentage(round: nil)
     percentage = (filled_total_value / sold_total_value) * 100
 
-    percentage.round(round) if round
+    return percentage.round(round) if round
     percentage
   end
 

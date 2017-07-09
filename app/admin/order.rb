@@ -44,8 +44,9 @@ ActiveAdmin.register Order do
     selectable_column
 
     column :order { |order| link_to(order.display_name, admin_order_path(order)) }
-    column :job_request
-    column :total_sold
+    column :total do |order|
+      total_filled_over_sold_order_value(order.current_order_value)
+    end
     column :total_filled_revenue
 
     column :lost
@@ -129,7 +130,7 @@ ActiveAdmin.register Order do
       f.semantic_errors(*f.object.errors.keys)
 
       f.input :job_request
-      f.input :name
+      f.input :name, input_html: { value: f.object.job_request&.short_name }
       f.input :hours
 
       f.input :category
