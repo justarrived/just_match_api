@@ -24,10 +24,11 @@ RSpec.describe OrderValue, type: :model do
 
     it 'returns total changed value' do
       order_value = OrderValue.new(
-        previous_order_value: OrderValue.new(total_filled: 100),
-        total_filled: 50
+        previous_order_value: OrderValue.new(total_sold: 100, total_filled: 100),
+        total_filled: 50,
+        total_sold: 50
       )
-      expect(order_value.total_filled_value_change).to eq(-50.0)
+      expect(order_value.total_filled_value_change.to_i).to eq(-50)
     end
   end
 
@@ -131,6 +132,7 @@ RSpec.describe OrderValue, type: :model do
   describe '#filled_total_value' do
     it 'returns total filled value if its present' do
       order_value = OrderValue.new(
+        total_sold: 1900,
         total_filled: 1900,
         filled_hourly_price: 100,
         filled_hours_per_month: 100,
