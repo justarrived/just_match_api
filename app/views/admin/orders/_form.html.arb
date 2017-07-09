@@ -1,15 +1,22 @@
+# rubocop:disable Metrics/LineLength
+
+
 f.inputs do
   f.semantic_errors(*f.object.errors.keys)
 
+  f.input :name
+  f.input(
+    :company_id,
+    as: :select,
+    collection: Company.all,
+    input_html: { value: f.object.job_request&.company&.id }, hint: "If you can't find the company your looking for in the list, please create that company first and come back."
+  )
   f.input :job_request
-  f.input :name, input_html: { value: f.object.job_request&.short_name }
-  f.input :hours
 
   f.input :category
 
   current_order_value = f.object.current_order_value
   if f.object.persisted?
-    # rubocop:disable Metrics/LineLength
     f.input :lost
 
     f.has_many :order_values, new_record: true do |ff|
@@ -46,10 +53,10 @@ f.inputs do
         fff.input :document, required: true, as: :file
       end
     end
-    # rubocop:enable Metrics/LineLength
   else
     para strong(I18n.t('admin.order.persisted_before_document_upload'))
   end
 end
 
 f.actions
+# rubocop:enable Metrics/LineLength

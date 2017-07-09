@@ -36,6 +36,7 @@ ActiveAdmin.register Order do
     job_request = JobRequest.find_by(id: params[:job_request_id])
     @order = Order.new(job_request_id: job_request&.id)
     @order.name = job_request&.short_name
+    @order.company = job_request&.company
 
     render :new, layout: false
   end

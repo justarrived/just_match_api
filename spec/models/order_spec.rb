@@ -22,12 +22,15 @@ end
 #  filled_hours                   :decimal(, )
 #  name                           :string
 #  category                       :integer
+#  company_id                     :integer
 #
 # Indexes
 #
+#  index_orders_on_company_id      (company_id)
 #  index_orders_on_job_request_id  (job_request_id)
 #
 # Foreign Keys
 #
+#  fk_rails_...  (company_id => companies.id)
 #  fk_rails_...  (job_request_id => job_requests.id)
 #
