@@ -9,7 +9,7 @@ f.inputs do
     :company_id,
     as: :select,
     collection: Company.all,
-    input_html: { value: f.object.job_request&.company&.id }, hint: "If you can't find the company your looking for in the list, please create that company first and come back."
+    hint: "If you can't find the company your looking for in the list, please create that company first and come back."
   )
   f.input :job_request
 

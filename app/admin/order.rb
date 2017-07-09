@@ -46,13 +46,15 @@ ActiveAdmin.register Order do
 
     column :order { |order| link_to(order.display_name, admin_order_path(order)) }
     column :total do |order|
-      total_filled_over_sold_order_value(order.current_order_value)
+      total_filled_over_sold_order_value(order.order_values.last)
     end
-    column :total_filled_revenue
 
     column :lost
+    column :company
 
     column :updated_at
+
+    actions
   end
 
   show do |order|
@@ -71,6 +73,7 @@ ActiveAdmin.register Order do
       :category,
       :hours,
       :lost,
+      :company_id,
       :job_request_id,
       :hourly_pay_rate,
       :filled_invoice_hourly_pay_rate,
@@ -99,7 +102,7 @@ ActiveAdmin.register Order do
 
   controller do
     def scoped_collection
-      super.includes(:jobs)
+      super.includes(:company, :job_request, :jobs, :order_values)
     end
 
     def update_resource(order, params_array)

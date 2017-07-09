@@ -10,6 +10,8 @@ class Order < ApplicationRecord
 
   has_many :order_values
 
+  validates :company, presence: true
+
   scope :unfilled, (lambda {
     where(lost: false).
       joins('LEFT OUTER JOIN jobs ON jobs.order_id = orders.id').
