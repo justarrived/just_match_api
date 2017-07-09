@@ -10,6 +10,16 @@ module AdminHelper
     end
   end
 
+  def total_filled_over_sold_order_value(order_value)
+    return '-% (-/-)' if order_value.nil?
+
+    total_sold = order_value.sold_total_value
+    total_filled = order_value.filled_total_value
+    percentage = order_value.filled_percentage(round: 1)
+
+    "#{percentage || '-'}% (#{total_filled || '-'}/#{total_sold || '-'})"
+  end
+
   def link_to_job_preview(job, utm_medium: nil)
     base_url = FrontendRouter.draw(
       :job,

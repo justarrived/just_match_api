@@ -45,7 +45,7 @@ ActiveAdmin.register Order do
 
     column :order { |order| link_to(order.display_name, admin_order_path(order)) }
     column :job_request
-    column :total_revenue
+    column :total_sold
     column :total_filled_revenue
 
     column :lost
@@ -54,6 +54,8 @@ ActiveAdmin.register Order do
   end
 
   show do |order|
+    current_order_value = order.order_values.last
+
     attributes_table do
       row :job_request
       row :name
@@ -74,19 +76,49 @@ ActiveAdmin.register Order do
           ', '
         )
       end
-      row :total_revenue
-      row :invoice_hourly_pay_rate
-      row :hourly_pay_rate
-      row :hours
-      row :category
-      row :total_filled_revenue
-      row :filled_invoice_hourly_pay_rate
-      row :filled_hourly_pay_rate
-      row :filled_hours
 
+      row :total_filled_over_sold_order_value do
+        total_filled_over_sold_order_value(current_order_value)
+      end
+
+      row :category
       row :lost
       row :created_at
       row :updated_at
+    end
+
+    panel 'Order values' do
+      order.order_values.each do |order_value|
+        attributes_table_for(order_value) do
+          row :order_value do
+            link_to(order_value.display_name, admin_order_value_path(order_value))
+          end
+          row :previous_order_value
+          row :total_filled_over_sold_order_value do
+            total_filled_over_sold_order_value(current_order_value)
+          end
+          row :total_sold_value_change
+          row :total_filled_value_change
+
+          if order_value.total_sold
+            row :total_sold
+            row :total_filled
+          else
+            row :sold_hourly_salary
+            row :sold_hourly_price
+            row :sold_hours_per_month
+            row :sold_number_of_months
+
+            row :filled_hourly_salary
+            row :filled_hourly_price
+            row :filled_hours_per_month
+            row :filled_number_of_months
+          end
+
+          row :change_comment
+          row :change_reason_category
+        end
+      end
     end
 
     active_admin_comments
@@ -94,24 +126,47 @@ ActiveAdmin.register Order do
 
   form do |f|
     f.inputs do
+      f.semantic_errors(*f.object.errors.keys)
+
       f.input :job_request
       f.input :name
-
-      f.input :invoice_hourly_pay_rate
-      f.input :hourly_pay_rate
       f.input :hours
 
       f.input :category
 
+      current_order_value = f.object.current_order_value
       if f.object.persisted?
-        f.input :filled_invoice_hourly_pay_rate
-        f.input :filled_hourly_pay_rate
-        f.input :filled_hours
-      end
+        f.input :lost
 
-      f.input :lost
+        f.has_many :order_values, new_record: true do |ff|
+          # rubocop:disable Metrics/LineLength
+          if ff.object.new_record?
+            ff.semantic_errors(*ff.object.errors.keys)
 
-      if f.object.persisted?
+            ff.input :change_comment, label: 'Comment'
+            ff.input :change_reason_category if f.object.order_values.any?
+
+            ff.input :previous_order_value_id, as: :hidden, input_html: { value: current_order_value&.id }
+
+            current_total_sold = current_order_value&.total_sold
+            ff.input :total_sold, input_html: { value: current_total_sold }
+            ff.input :total_filled, input_html: { value: current_order_value&.total_filled || 0 }
+
+            if current_total_sold.nil?
+              ff.input :sold_hourly_salary, input_html: { value: current_order_value&.sold_hourly_salary }
+              ff.input :sold_hourly_price, input_html: { value: current_order_value&.sold_hourly_price }
+              ff.input :sold_hours_per_month, input_html: { value: current_order_value&.sold_hours_per_month }
+              ff.input :sold_number_of_months, input_html: { value: current_order_value&.sold_number_of_months }
+
+              ff.input :filled_hourly_salary, input_html: { value: current_order_value&.filled_hourly_salary || 0 }
+              ff.input :filled_hourly_price, input_html: { value: current_order_value&.filled_hourly_price || 0 }
+              ff.input :filled_hours_per_month, input_html: { value: current_order_value&.filled_hours_per_month || 0 }
+              ff.input :filled_number_of_months, input_html: { value: current_order_value&.filled_number_of_months || 0 }
+            end
+          end
+        end
+        # rubocop:enable Metrics/LineLength
+
         f.has_many :order_documents, new_record: true do |ff|
           ff.semantic_errors(*ff.object.errors.keys)
 
@@ -129,6 +184,7 @@ ActiveAdmin.register Order do
 
   permit_params do
     [
+      :name,
       :invoice_hourly_pay_rate,
       :category,
       :hours,
@@ -138,7 +194,24 @@ ActiveAdmin.register Order do
       :filled_invoice_hourly_pay_rate,
       :filled_hourly_pay_rate,
       :filled_hours,
-      order_documents_attributes: [:name, { document_attributes: %i(id document) }]
+      order_documents_attributes: [:name, { document_attributes: %i(id document) }],
+      order_values_attributes: %i(
+        id
+        order_id
+        previous_order_value_id
+        change_comment
+        change_reason_category
+        total_sold
+        sold_hourly_salary
+        sold_hourly_price
+        sold_hours_per_month
+        sold_number_of_months
+        total_filled
+        filled_hourly_salary
+        filled_hourly_price
+        filled_hours_per_month
+        filled_number_of_months
+      )
     ]
   end
 

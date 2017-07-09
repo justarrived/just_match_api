@@ -7,9 +7,7 @@ class Order < ApplicationRecord
   has_many :order_documents
   has_many :documents, through: :order_documents
 
-  validates :hours, presence: true, numericality: { greater_than_or_equal_to: 1 }
-  validates :invoice_hourly_pay_rate, presence: true
-  validates :hourly_pay_rate, presence: true, numericality: { greater_than_or_equal_to: 105 } # rubocop:disable Metrics/LineLength
+  has_many :order_values
 
   scope :unfilled, (lambda {
     where(lost: false).
@@ -26,7 +24,7 @@ class Order < ApplicationRecord
   enum category: CATEGORIES
 
   # NOTE: This is necessary for nested activeadmin has_many form
-  accepts_nested_attributes_for :order_documents, :documents
+  accepts_nested_attributes_for :order_documents, :documents, :order_values
 
   def self.total_revenue
     sum('invoice_hourly_pay_rate * orders.hours')
@@ -40,8 +38,16 @@ class Order < ApplicationRecord
     jobs.filled
   end
 
-  def total_revenue
-    invoice_hourly_pay_rate * hours
+  def current_order_value
+    order_values.reorder(created_at: :desc).first
+  end
+
+  def total_sold
+    current_order_value&.total_sold
+  end
+
+  def total_filled
+    current_order_value&.total_filled
   end
 
   def total_filled_revenue

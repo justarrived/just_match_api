@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170628093346) do
+ActiveRecord::Schema.define(version: 20170709091531) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -636,6 +636,26 @@ ActiveRecord::Schema.define(version: 20170628093346) do
     t.index ["order_id"], name: "index_order_documents_on_order_id"
   end
 
+  create_table "order_values", force: :cascade do |t|
+    t.bigint "order_id"
+    t.integer "previous_order_value_id"
+    t.text "change_comment"
+    t.integer "change_reason_category"
+    t.decimal "total_sold"
+    t.decimal "sold_hourly_salary"
+    t.decimal "sold_hourly_price"
+    t.decimal "sold_hours_per_month"
+    t.decimal "sold_number_of_months"
+    t.decimal "total_filled"
+    t.decimal "filled_hourly_salary"
+    t.decimal "filled_hourly_price"
+    t.decimal "filled_hours_per_month"
+    t.decimal "filled_number_of_months"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_order_values_on_order_id"
+  end
+
   create_table "orders", id: :serial, force: :cascade do |t|
     t.integer "job_request_id"
     t.decimal "invoice_hourly_pay_rate"
@@ -1009,6 +1029,8 @@ ActiveRecord::Schema.define(version: 20170628093346) do
   add_foreign_key "messages", "users", column: "author_id", name: "messages_author_id_fk"
   add_foreign_key "order_documents", "documents"
   add_foreign_key "order_documents", "orders"
+  add_foreign_key "order_values", "order_values", column: "previous_order_value_id", name: "previous_order_value_id_fk"
+  add_foreign_key "order_values", "orders"
   add_foreign_key "orders", "job_requests"
   add_foreign_key "ratings", "jobs", name: "ratings_job_id_fk"
   add_foreign_key "ratings", "users", column: "from_user_id", name: "ratings_from_user_id_fk"
