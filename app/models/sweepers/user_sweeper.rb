@@ -9,7 +9,7 @@ module Sweepers
 
         next if ff_id.nil?
 
-        user.frilans_finans_id = ff_id.to_i
+        user.frilans_finans_id = ff_id
         user.save!
       end
     end
