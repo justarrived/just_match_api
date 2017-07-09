@@ -6,7 +6,8 @@ FactoryGirl.define do
     previous_order_value nil
     change_comment 'MyText'
     change_reason_category 1
-    total_sold '9.99'
+    total_sold '10000'
+    total_filled '4000'
   end
 end
 
