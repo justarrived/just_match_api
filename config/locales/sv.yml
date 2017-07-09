@@ -20,7 +20,7 @@ sv:
   errors:
     unauthorized: Du har inte behörighet att utföra den här åtgärden.
     bad_json_format: "Det fanns problem i det JSON du skickade in: %{error_class}"
-    not_acceptable_response: Det givna formattet är inte gilltigt.
+    not_acceptable_response: Det givna formattet är inte giltigt.
     rate_limit:
       details: Gränsvärde nått. Var god försök lite senare.
     bank_account:
