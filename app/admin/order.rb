@@ -19,7 +19,7 @@ ActiveAdmin.register Order do
   scope :unfilled, default: true
 
   sidebar :totals, only: :index do
-    para 'Total unfilled & unlost revenue:'
+    para I18n.t('admin.order.sold_revenue_to_fill')
     strong NumberFormatter.new.to_unit(
       Order.unfilled.total_revenue,
       'SEK',
@@ -55,132 +55,12 @@ ActiveAdmin.register Order do
   end
 
   show do |order|
-    current_order_value = order.order_values.last
-
-    attributes_table do
-      row :job_request
-      row :name
-      row :jobs do
-        safe_join(
-          order.jobs.order(filled: :asc).map do |job|
-            title = "#{job.display_name} (#{job.filled ? 'filled' : 'unfilled'})"
-            link_to(title, admin_job_path(job))
-          end,
-          ', '
-        )
-      end
-      row :documents do
-        safe_join(
-          order.documents.order(created_at: :desc).map do |document|
-            download_link_to(url: document.url, file_name: document.document_file_name)
-          end,
-          ', '
-        )
-      end
-
-      row :total_filled_over_sold_order_value do
-        total_filled_over_sold_order_value(current_order_value)
-      end
-
-      row :category
-      row :lost
-      row :created_at
-      row :updated_at
-    end
-
-    order.order_values.each do |order_value|
-      panel order_value.display_name do
-        attributes_table_for(order_value) do
-          row :order_value do
-            link_to(order_value.display_name, admin_order_value_path(order_value))
-          end
-          row :previous_order_value
-          row :total_filled_over_sold_order_value do
-            total_filled_over_sold_order_value(current_order_value)
-          end
-          row :total_sold_value_change
-          row :total_filled_value_change
-
-          if order_value.total_sold
-            row :total_sold
-            row :total_filled
-          else
-            row :sold_hourly_salary
-            row :sold_hourly_price
-            row :sold_hours_per_month
-            row :sold_number_of_months
-
-            row :filled_hourly_salary
-            row :filled_hourly_price
-            row :filled_hours_per_month
-            row :filled_number_of_months
-          end
-
-          row :change_comment
-          row :change_reason_category
-        end
-      end
-    end
-
-    active_admin_comments
+    locals = { order: order }
+    render partial: 'admin/orders/show', locals: locals
   end
 
   form do |f|
-    f.inputs do
-      f.semantic_errors(*f.object.errors.keys)
-
-      f.input :job_request
-      f.input :name, input_html: { value: f.object.job_request&.short_name }
-      f.input :hours
-
-      f.input :category
-
-      current_order_value = f.object.current_order_value
-      if f.object.persisted?
-        f.input :lost
-
-        f.has_many :order_values, new_record: true do |ff|
-          # rubocop:disable Metrics/LineLength
-          if ff.object.new_record?
-            ff.semantic_errors(*ff.object.errors.keys)
-
-            ff.input :change_comment, label: 'Comment'
-            ff.input :change_reason_category if f.object.order_values.any?
-
-            ff.input :previous_order_value_id, as: :hidden, input_html: { value: current_order_value&.id }
-
-            current_total_sold = current_order_value&.total_sold
-            ff.input :total_sold, input_html: { value: current_total_sold }
-            ff.input :total_filled, input_html: { value: current_order_value&.total_filled || 0 }
-
-            if current_total_sold.nil?
-              ff.input :sold_hourly_salary, input_html: { value: current_order_value&.sold_hourly_salary }
-              ff.input :sold_hourly_price, input_html: { value: current_order_value&.sold_hourly_price }
-              ff.input :sold_hours_per_month, input_html: { value: current_order_value&.sold_hours_per_month }
-              ff.input :sold_number_of_months, input_html: { value: current_order_value&.sold_number_of_months }
-
-              ff.input :filled_hourly_salary, input_html: { value: current_order_value&.filled_hourly_salary || 0 }
-              ff.input :filled_hourly_price, input_html: { value: current_order_value&.filled_hourly_price || 0 }
-              ff.input :filled_hours_per_month, input_html: { value: current_order_value&.filled_hours_per_month || 0 }
-              ff.input :filled_number_of_months, input_html: { value: current_order_value&.filled_number_of_months || 0 }
-            end
-          end
-        end
-        # rubocop:enable Metrics/LineLength
-
-        f.has_many :order_documents, new_record: true do |ff|
-          ff.semantic_errors(*ff.object.errors.keys)
-
-          ff.inputs('Documents', for: [:document, ff.object.document || Document.new]) do |fff| # rubocop:disable Metrics/LineLength
-            fff.input :document, required: true, as: :file
-          end
-        end
-      else
-        para strong(I18n.t('admin.order.persisted_before_document_upload'))
-      end
-    end
-
-    f.actions
+    render partial: 'admin/orders/form', locals: { f: f }
   end
 
   permit_params do
