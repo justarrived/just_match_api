@@ -4,7 +4,7 @@ ActiveAdmin.register CommunicationTemplateTranslation do
   menu parent: 'Misc'
 
   form do |f|
-    f.semantic_errors
+    f.semantic_errors(*f.object.errors.keys)
 
     communication_template = f.object.communication_template
 

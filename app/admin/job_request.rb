@@ -164,7 +164,7 @@ ActiveAdmin.register JobRequest do
   end
 
   form do |f|
-    f.semantic_errors
+    f.semantic_errors(*f.object.errors.keys)
 
     # rubocop:disable Metrics/LineLength
     f.inputs 'Basic' do

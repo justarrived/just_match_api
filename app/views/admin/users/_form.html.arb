@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-f.semantic_errors
+f.semantic_errors(*f.object.errors.keys)
 
 if user.persisted?
   f.inputs I18n.t('admin.user.form.details') do
