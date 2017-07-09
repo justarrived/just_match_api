@@ -16,6 +16,8 @@ machine:
     GOOGLE_TRANSLATE_API_KEY: XYZ
 
 test:
+  post:
+    - bash <(curl -s https://codecov.io/bash)
   override:
     - script/cibuild:
       parallel: true
