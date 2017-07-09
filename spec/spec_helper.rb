@@ -8,7 +8,12 @@ if ENV.fetch('CODECLIMATE_REPO_TOKEN', false) || ENV.fetch('COVERAGE', false)
     add_filter '/lib/migrate_data/'
     add_filter '/lib/import/'
     add_filter '/lib/reports/'
-  end
+  end\
+end
+
+if ENV['CI_BUILD'] == 'true'
+  require 'codecov'
+  SimpleCov.formatter = SimpleCov::Formatter::Codecov
 end
 
 require 'webmock/rspec'

@@ -134,6 +134,7 @@ group :development do
 end
 
 group :test, :docs do
+  gem 'codecov', '~> 0.1', require: false
   gem 'codeclimate-test-reporter', '~> 1.0', require: false
   gem 'database_cleaner', '~> 1.6'
   gem 'fuubar', '~> 2.2'
