@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-require 'document_parser_client'
+require 'apache_tika_client'
 
 class DocumentContentsAdderService
   def self.call(document:)
     return unless AppConfig.document_parser_active?
 
-    parser = DocumentParserClient.new
+    parser = ApacheTikaClient.new
     body = parser.text_from_url(document.url, document.document_content_type)
     return if body.blank?
 

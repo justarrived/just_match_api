@@ -2,7 +2,7 @@
 
 require 'httparty'
 
-class DocumentParserClient
+class ApacheTikaClient
   BASE_URI = 'https://apache-tika.justarrived.se'
 
   def initialize(base_uri: BASE_URI)
