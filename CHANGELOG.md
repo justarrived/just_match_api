@@ -4,6 +4,14 @@ HEAD
 -----------
 
 
+v1.118 - 2017-07-09
+----------
+- _Enhancement_:
+  * Add `base_uri` config option to `ApacheTikaClient` and add `APACHE_TIKA_URL` to document parser
+  * Rename `DocumentParserClient` => `ApacheTikaClient`
+  * Update `script/deploy` to work better with different git-remotes
+
+
 v1.117 - 2017-07-08
 ----------
 * _Feature_:
