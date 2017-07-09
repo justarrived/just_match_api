@@ -3,6 +3,39 @@
 require 'rails_helper'
 
 RSpec.describe Order, type: :model do
+  describe '#validate_job_request_company_match' do
+    it 'adds no errors when job request is nil' do
+      order = Order.new
+      order.validate_job_request_company_match
+
+      expect(order.errors.full_messages.any?).to eq(false)
+    end
+
+    it 'adds no errors when job request company is nil' do
+      order = Order.new(job_request: JobRequest.new)
+      order.validate_job_request_company_match
+
+      expect(order.errors.full_messages.any?).to eq(false)
+    end
+
+    it 'adds no errors when job request company matches order company' do
+      company = Company.new
+      order = Order.new(job_request: JobRequest.new(company: company))
+      order.company = company
+      order.validate_job_request_company_match
+
+      expect(order.errors.full_messages.any?).to eq(false)
+    end
+
+    it 'adds errors when job request company does not matches order company' do
+      company = Company.new
+      order = Order.new(job_request: JobRequest.new(company: company))
+      order.company = Company.new
+      order.validate_job_request_company_match
+
+      expect(order.errors.full_messages.any?).to eq(true)
+    end
+  end
 end
 
 # == Schema Information

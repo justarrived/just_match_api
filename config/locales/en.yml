@@ -72,6 +72,8 @@ en:
       multiple_applicants: can't accept multiple applicants
       will_perform_true_on_delete: can't withdraw application when confirmed
       performed_before_job_started: can't confirm performed before job is started
+    order:
+      job_request_company_match: must be the same company as job request
     order_value:
       must_be_able_to_calulate_total: either total OR hourly_price, hours_per_month and number_of_months needs to be present
       hourly_price_presence: must be present if total is blank

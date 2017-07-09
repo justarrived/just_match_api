@@ -29,6 +29,8 @@ class Order < ApplicationRecord
   # NOTE: This is necessary for nested activeadmin has_many form
   accepts_nested_attributes_for :order_documents, :documents, :order_values
 
+  validate :validate_job_request_company_match
+
   def self.total_revenue
     sum('invoice_hourly_pay_rate * orders.hours')
   end
@@ -50,6 +52,14 @@ class Order < ApplicationRecord
 
   def total_filled_revenue
     filled_jobs.map { |job| job.hours * filled_invoice_hourly_pay_rate.to_f }.sum
+  end
+
+  def validate_job_request_company_match
+    return if job_request.nil?
+    return if job_request.company.nil?
+    return if job_request.company == company
+
+    errors.add(:company, I18n.t('errors.order.job_request_company_match'))
   end
 end
 
