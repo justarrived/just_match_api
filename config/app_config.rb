@@ -15,6 +15,10 @@ class AppConfig
     @env = AppEnv.new
   end
 
+  def self.apache_tika_url
+    env['APACHE_TIKA_URL']
+  end
+
   def self.document_parser_active?
     truthy?(env['DOCUMENT_PARSER_ACTIVE'])
   end

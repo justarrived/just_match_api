@@ -3,9 +3,11 @@
 require 'httparty'
 
 class ApacheTikaClient
-  BASE_URI = 'https://apache-tika.justarrived.se'
+  class << self
+    attr_accessor :base_uri
+  end
 
-  def initialize(base_uri: BASE_URI)
+  def initialize(base_uri: self.class.base_uri)
     @base_uri = base_uri
   end
 

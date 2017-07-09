@@ -149,6 +149,11 @@
       "description": "Document Parser active (required for document text extraction)",
       "value": "",
       "required": false
+    },
+    "APACHE_TIKA_URL": {
+      "description": "URL to a Apache Tika server (required for document text extraction)",
+      "value": "",
+      "required": false
     }
   },
   "addons": ["sendgrid:starter", "scheduler:standard", "heroku-redis:hobby-dev", "airbrake:free-hrku"],
