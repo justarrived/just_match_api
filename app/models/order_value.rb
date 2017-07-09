@@ -18,13 +18,13 @@ class OrderValue < ApplicationRecord
   end
 
   def total_sold_value_change
-    return 0.0 if previous_order_value.nil?
+    return 0.0 unless previous_order_value
 
     sold_total_value - previous_order_value.sold_total_value
   end
 
   def total_filled_value_change
-    return 0.0 if previous_order_value.nil?
+    return 0.0 unless previous_order_value
 
     filled_total_value - previous_order_value.filled_total_value
   end
@@ -34,18 +34,18 @@ class OrderValue < ApplicationRecord
     return if sold_hourly_price && sold_hours_per_month && sold_number_of_months
 
     error_message = I18n.t('errors.order_value.must_be_able_to_calulate_total')
-    errors.add(:total_sold, error_message) if total_sold.nil?
+    errors.add(:total_sold, error_message) unless total_sold
 
-    if sold_hourly_price.nil?
+    unless sold_hourly_price
       errors.add(:sold_hourly_price, I18n.t('errors.order_value.hourly_price_presence'))
     end
 
-    if sold_hours_per_month.nil?
+    unless sold_hours_per_month
       error_message = I18n.t('errors.order_value.hours_per_month_presence')
       errors.add(:sold_hours_per_month, error_message)
     end
 
-    if sold_number_of_months.nil?
+    unless sold_number_of_months
       month_errors = I18n.t('errors.order_value.number_of_months_presence')
       errors.add(:sold_number_of_months, month_errors)
     end
@@ -56,18 +56,18 @@ class OrderValue < ApplicationRecord
     return if filled_hourly_price && filled_hours_per_month && filled_number_of_months
 
     error_message = I18n.t('errors.order_value.must_be_able_to_calulate_total')
-    errors.add(:total_filled, error_message) if total_filled.nil?
+    errors.add(:total_filled, error_message) unless total_filled
 
-    if filled_hourly_price.nil?
+    unless filled_hourly_price
       errors.add(:filled_hourly_price, I18n.t('errors.order_value.hourly_price_presence'))
     end
 
-    if filled_hours_per_month.nil?
+    unless filled_hours_per_month
       error_message = I18n.t('errors.order_value.hours_per_month_presence')
       errors.add(:filled_hours_per_month, error_message)
     end
 
-    if filled_number_of_months.nil?
+    unless filled_number_of_months
       month_errors = I18n.t('errors.order_value.number_of_months_presence')
       errors.add(:filled_number_of_months, month_errors)
     end

@@ -55,8 +55,8 @@ class Order < ApplicationRecord
   end
 
   def validate_job_request_company_match
-    return if job_request.nil?
-    return if job_request.company.nil?
+    return unless job_request
+    return unless job_request.company
     return if job_request.company == company
 
     errors.add(:company, I18n.t('errors.order.job_request_company_match'))
