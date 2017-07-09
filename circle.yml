@@ -17,4 +17,9 @@ machine:
 
 test:
   override:
-    - script/cibuild
+    - script/cibuild:
+      parallel: true
+      files:
+        - spec/**/*.rb
+        - spec/lib/frilans_finans_api/spec/**/*.rb
+        - spec/lib/json_api_helpers/spec/**/*.rb
