@@ -22,7 +22,7 @@ dependencies:
 
 test:
   pre:
-    - cc-test-reporter before-build
+    - ./cc-test-reporter before-build
   override:
     - script/cibuild:
       parallel: true
