@@ -183,6 +183,15 @@ ActiveAdmin.register Job do
     div do
       safe_join(
         [
+          strong(I18n.t('admin.job.checklist_sidebar.hidden')),
+          status_tag(job.hidden)
+        ]
+      )
+    end
+
+    div do
+      safe_join(
+        [
           strong(I18n.t('admin.job.checklist_sidebar.published')),
           status_tag(job.published?)
         ]

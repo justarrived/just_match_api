@@ -112,6 +112,7 @@ en:
         no_apply_message: No apply message.
     job:
       checklist_sidebar:
+        hidden: Hidden
         published: Published
         preview_key: Preview key
         data_title: Data collection
