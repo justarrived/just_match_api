@@ -24,15 +24,15 @@ f.inputs do
       if ff.object.new_record?
         ff.semantic_errors(*ff.object.errors.keys)
 
-        ff.input :change_comment, label: I18n.t('admin.order.form.change_comment.label')
+        ff.input :change_comment, label: I18n.t('admin.order.form.change_comment.label'), hint: I18n.t('admin.order.form.change_comment.hint')
         ff.input :change_reason_category if f.object.order_values.any?
 
         ff.input :previous_order_value_id, as: :hidden, input_html: { value: current_order_value&.id }
         ff.input :changed_by_user_id, as: :hidden, input_html: { value: current_active_admin_user&.id }
 
         current_total_sold = current_order_value&.total_sold
-        ff.input :total_sold, input_html: { value: ff.object.total_sold || current_total_sold }
-        ff.input :total_filled, input_html: { value: ff.object.total_filled || current_order_value&.total_filled || 0 }
+        ff.input :total_sold, hint: I18n.t('admin.order.form.total_sold.hint'), input_html: { value: ff.object.total_sold || current_total_sold }
+        ff.input :total_filled, hint: I18n.t('admin.order.form.total_filled.hint'), input_html: { value: ff.object.total_filled || current_order_value&.total_filled || 0 }
 
         if current_total_sold.nil?
           ff.input :sold_hourly_salary, input_html: { value: ff.object.sold_hourly_salary || current_order_value&.sold_hourly_salary }
