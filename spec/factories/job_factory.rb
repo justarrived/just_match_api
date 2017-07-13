@@ -13,6 +13,7 @@ FactoryGirl.define do
     association :language
     association :category
     association :hourly_pay
+    customer_hourly_price 300.0
     job_date 1.week.from_now
     publish_at 1.day.ago
     hours 30
@@ -188,6 +189,7 @@ end
 #  applicant_description        :text
 #  requirements_description     :text
 #  preview_key                  :string
+#  customer_hourly_price        :decimal(, )
 #
 # Indexes
 #

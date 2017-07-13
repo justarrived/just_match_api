@@ -168,6 +168,7 @@ module Api
               changed: result.changed_fields
             )
           end
+          JobCancelledJob.perform_later(job: @job) if @job.cancelled_saved_to_true?
 
           @job.reload
 

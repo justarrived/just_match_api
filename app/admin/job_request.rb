@@ -101,6 +101,7 @@ ActiveAdmin.register JobRequest do
       row :short_name
       row :sales_user
       row :delivery_user
+      row :company
       row :company_name
       row :company_org_no
       row :company_phone

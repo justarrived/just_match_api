@@ -6,22 +6,18 @@ ActiveAdmin.register Order do
   filter :job_request_sales_user_id, as: :select, collection: -> { User.sales_users }
   filter :job_request_delivery_user_id, as: :select, collection: -> { User.delivery_users } # rubocop:disable Metrics/LineLength
   filter :category, as: :select, collection: -> { Order::CATEGORIES.to_a }
-  filter :invoice_hourly_pay_rate
-  filter :hourly_pay_rate
-  filter :hours
-  filter :filled_invoice_hourly_pay_rate
-  filter :filled_hourly_pay_rate
-  filter :filled_hours
   filter :created_at
   filter :updated_at
 
   scope :all
-  scope :unfilled, default: true
+  scope('Backlog', default: true, &:unfilled_and_unlost)
+  scope('Filled', default: true, &:filled_and_unlost)
+  scope :lost
 
   sidebar :totals, only: :index do
     para I18n.t('admin.order.sold_revenue_to_fill')
     strong NumberFormatter.new.to_unit(
-      Order.unfilled.total_revenue,
+      Order.total_revenue_to_fill,
       'SEK',
       locale: :sv
     )
@@ -37,6 +33,8 @@ ActiveAdmin.register Order do
     @order = Order.new(job_request_id: job_request&.id)
     @order.name = job_request&.short_name
     @order.company = job_request&.company
+    @order.sales_user = job_request&.sales_user
+    @order.delivery_user = job_request&.delivery_user
 
     render :new, layout: false
   end
@@ -58,8 +56,7 @@ ActiveAdmin.register Order do
   end
 
   show do |order|
-    locals = { order: order }
-    render partial: 'admin/orders/show', locals: locals
+    render partial: 'admin/orders/show', locals: { order: order }
   end
 
   form do |f|
@@ -69,21 +66,18 @@ ActiveAdmin.register Order do
   permit_params do
     [
       :name,
-      :invoice_hourly_pay_rate,
       :category,
-      :hours,
       :lost,
       :company_id,
       :job_request_id,
-      :hourly_pay_rate,
-      :filled_invoice_hourly_pay_rate,
-      :filled_hourly_pay_rate,
-      :filled_hours,
+      :sales_user_id,
+      :delivery_user_id,
       order_documents_attributes: [:name, { document_attributes: %i(id document) }],
       order_values_attributes: %i(
         id
         order_id
         previous_order_value_id
+        changed_by_user_id
         change_comment
         change_reason_category
         total_sold
@@ -102,7 +96,9 @@ ActiveAdmin.register Order do
 
   controller do
     def scoped_collection
-      super.includes(:company, :job_request, :jobs, :order_values)
+      super.includes(
+        :company, :job_request, :jobs, :order_values, :sales_user, :delivery_user
+      )
     end
 
     def update_resource(order, params_array)

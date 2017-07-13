@@ -3,6 +3,23 @@
 require 'rails_helper'
 
 RSpec.describe OrderValue, type: :model do
+  describe '#first_order_value?' do
+    it 'returns true for order value with no order' do
+      order_value = OrderValue.new(order: Order.new)
+      expect(order_value.first_order_value?).to eq(true)
+    end
+
+    it 'returns true for order value that belongs to an non-persited order' do
+      order_value = OrderValue.new(order: Order.new)
+      expect(order_value.first_order_value?).to eq(true)
+    end
+
+    it 'returns false for order value that belongs to an order with existing order values' do # rubocop:disable Metrics/LineLength
+      order_value = OrderValue.new(order: Order.new)
+      expect(order_value.first_order_value?).to eq(true)
+    end
+  end
+
   describe '#total_sold_value_change' do
     it 'returns 0 if there is no previous order value' do
       expect(OrderValue.new.total_sold_value_change).to be_zero
@@ -14,21 +31,6 @@ RSpec.describe OrderValue, type: :model do
         total_sold: 50
       )
       expect(order_value.total_sold_value_change).to eq(-50.0)
-    end
-  end
-
-  describe '#total_filled_value_change' do
-    it 'returns 0 if there is no previous order value' do
-      expect(OrderValue.new.total_filled_value_change).to be_zero
-    end
-
-    it 'returns total changed value' do
-      order_value = OrderValue.new(
-        previous_order_value: OrderValue.new(total_sold: 100, total_filled: 100),
-        total_filled: 50,
-        total_sold: 50
-      )
-      expect(order_value.total_filled_value_change.to_i).to eq(-50)
     end
   end
 
@@ -69,43 +71,6 @@ RSpec.describe OrderValue, type: :model do
     end
   end
 
-  describe '#validate_order_filled_total_possible_to_calculate' do
-    it 'adds no error if total_filled is present' do
-      order_value = OrderValue.new(total_filled: 13_000)
-      order_value.validate_order_filled_total_possible_to_calculate
-
-      expect(order_value.errors.any?).to eq(false)
-    end
-
-    it 'adds no error if hourly_price, hours_per_month, number_of_months are present' do
-      order_value = OrderValue.new(
-        filled_hourly_price: 300,
-        filled_hours_per_month: 100,
-        filled_number_of_months: 2
-      )
-      order_value.validate_order_filled_total_possible_to_calculate
-
-      expect(order_value.errors.any?).to eq(false)
-    end
-
-    it 'adds errors if total_filled and other fields are not present' do
-      order_value = OrderValue.new
-      order_value.validate_order_filled_total_possible_to_calculate
-
-      error_message = I18n.t('errors.order_value.must_be_able_to_calulate_total')
-      expect(order_value.errors[:total_filled].first).to eq(error_message)
-
-      error_message = I18n.t('errors.order_value.hourly_price_presence')
-      expect(order_value.errors[:filled_hourly_price].first).to eq(error_message)
-
-      error_message = I18n.t('errors.order_value.hours_per_month_presence')
-      expect(order_value.errors[:filled_hours_per_month].first).to eq(error_message)
-
-      error_message = I18n.t('errors.order_value.number_of_months_presence')
-      expect(order_value.errors[:filled_number_of_months].first).to eq(error_message)
-    end
-  end
-
   describe '#sold_total_value' do
     it 'returns total sold value if its present' do
       order_value = OrderValue.new(
@@ -133,22 +98,14 @@ RSpec.describe OrderValue, type: :model do
     it 'returns total filled value if its present' do
       order_value = OrderValue.new(
         total_sold: 1900,
-        total_filled: 1900,
-        filled_hourly_price: 100,
-        filled_hours_per_month: 100,
-        filled_number_of_months: 1
+        total_filled: 1900
       )
 
       expect(order_value.filled_total_value).to eq(1900)
     end
 
-    it 'returns caluclated value tolal filled is blank' do
-      order_value = OrderValue.new(
-        filled_hourly_price: 100,
-        filled_hours_per_month: 100,
-        filled_number_of_months: 1
-      )
-
+    xit 'returns caluclated value tolal filled is blank' do
+      order_value = OrderValue.new
       expect(order_value.filled_total_value).to eq(10_000)
     end
   end
@@ -167,13 +124,12 @@ RSpec.describe OrderValue, type: :model do
 
   describe '#calculate_total_filled_value' do
     it 'returns total value' do
-      order_value = OrderValue.new(
-        filled_hourly_price: 100,
-        filled_hours_per_month: 100,
-        filled_number_of_months: 1
-      )
+      order = FactoryGirl.create(:order)
+      FactoryGirl.create(:job, filled: true, order: order, hours: 40)
 
-      expect(order_value.calculate_total_filled_value).to eq(10_000)
+      order_value = FactoryGirl.build(:order_value, order: order)
+
+      expect(order_value.calculate_total_filled_value).to eq(4000.0)
     end
   end
 end
@@ -187,18 +143,15 @@ end
 #  previous_order_value_id :integer
 #  change_comment          :text
 #  change_reason_category  :integer
-#  total_sold              :decimal(, )
 #  sold_hourly_salary      :decimal(, )
 #  sold_hourly_price       :decimal(, )
 #  sold_hours_per_month    :decimal(, )
 #  sold_number_of_months   :decimal(, )
+#  total_sold              :decimal(, )
 #  total_filled            :decimal(, )
-#  filled_hourly_salary    :decimal(, )
-#  filled_hourly_price     :decimal(, )
-#  filled_hours_per_month  :decimal(, )
-#  filled_number_of_months :decimal(, )
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
+#  changed_by_user_id      :integer
 #
 # Indexes
 #

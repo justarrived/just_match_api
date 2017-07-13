@@ -9,7 +9,6 @@ ActiveAdmin.register OrderValue do
     column :order
     column :change_reason_category
     column :total_sold_value_change
-    column :total_filled_value_change
 
     column :total_filled_over_sold_order_value do |order_value|
       total_filled_over_sold_order_value(order_value)
@@ -33,19 +32,14 @@ ActiveAdmin.register OrderValue do
       row :total_sold_value_change
       row :sold_total_value
       row :total_sold
+      row :total_filled
 
       row :sold_hourly_salary
       row :sold_hourly_price
       row :sold_hours_per_month
       row :sold_number_of_months
 
-      row :total_filled_value_change
       row :filled_total_value
-      row :total_filled
-      row :filled_hourly_salary
-      row :filled_hourly_price
-      row :filled_hours_per_month
-      row :filled_number_of_months
     end
 
     active_admin_comments

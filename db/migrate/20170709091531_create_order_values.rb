@@ -9,17 +9,13 @@ class CreateOrderValues < ActiveRecord::Migration[5.1]
       t.text :change_comment
       t.integer :change_reason_category
 
-      t.decimal :total_sold
       t.decimal :sold_hourly_salary
       t.decimal :sold_hourly_price
       t.decimal :sold_hours_per_month
       t.decimal :sold_number_of_months
 
+      t.decimal :total_sold
       t.decimal :total_filled
-      t.decimal :filled_hourly_salary
-      t.decimal :filled_hourly_price
-      t.decimal :filled_hours_per_month
-      t.decimal :filled_number_of_months
 
       t.timestamps
     end

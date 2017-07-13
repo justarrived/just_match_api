@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170709172611) do
+ActiveRecord::Schema.define(version: 20170713081919) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -565,6 +565,7 @@ ActiveRecord::Schema.define(version: 20170709172611) do
     t.text "applicant_description"
     t.text "requirements_description"
     t.string "preview_key"
+    t.decimal "customer_hourly_price"
     t.index ["category_id"], name: "index_jobs_on_category_id"
     t.index ["hourly_pay_id"], name: "index_jobs_on_hourly_pay_id"
     t.index ["language_id"], name: "index_jobs_on_language_id"
@@ -639,18 +640,15 @@ ActiveRecord::Schema.define(version: 20170709172611) do
     t.integer "previous_order_value_id"
     t.text "change_comment"
     t.integer "change_reason_category"
-    t.decimal "total_sold"
     t.decimal "sold_hourly_salary"
     t.decimal "sold_hourly_price"
     t.decimal "sold_hours_per_month"
     t.decimal "sold_number_of_months"
+    t.decimal "total_sold"
     t.decimal "total_filled"
-    t.decimal "filled_hourly_salary"
-    t.decimal "filled_hourly_price"
-    t.decimal "filled_hours_per_month"
-    t.decimal "filled_number_of_months"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "changed_by_user_id"
     t.index ["order_id"], name: "index_order_values_on_order_id"
   end
 
@@ -668,8 +666,12 @@ ActiveRecord::Schema.define(version: 20170709172611) do
     t.string "name"
     t.integer "category"
     t.bigint "company_id"
+    t.integer "sales_user_id"
+    t.integer "delivery_user_id"
     t.index ["company_id"], name: "index_orders_on_company_id"
+    t.index ["delivery_user_id"], name: "index_orders_on_delivery_user_id"
     t.index ["job_request_id"], name: "index_orders_on_job_request_id"
+    t.index ["sales_user_id"], name: "index_orders_on_sales_user_id"
   end
 
   create_table "ratings", id: :serial, force: :cascade do |t|

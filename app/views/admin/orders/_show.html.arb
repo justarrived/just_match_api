@@ -4,6 +4,8 @@ panel(I18n.t('admin.order.show.panel_title')) do
   attributes_table_for(order) do
     row :job_request
     row :name
+    row :sales_user
+    row :delivery_user
     row :jobs do
       safe_join(
         order.jobs.order(filled: :asc).map do |job|
@@ -39,11 +41,8 @@ panel(I18n.t('admin.order.show.panel_title')) do
           link_to(order_value.display_name, admin_order_value_path(order_value))
         end
         row :previous_order_value
-        row :total_filled_over_sold_order_value do
-          total_filled_over_sold_order_value(current_order_value)
-        end
+        row :changed_by_user
         row :total_sold_value_change
-        row :total_filled_value_change
 
         if order_value.total_sold
           row :total_sold
@@ -53,11 +52,6 @@ panel(I18n.t('admin.order.show.panel_title')) do
           row :sold_hourly_price
           row :sold_hours_per_month
           row :sold_number_of_months
-
-          row :filled_hourly_salary
-          row :filled_hourly_price
-          row :filled_hours_per_month
-          row :filled_number_of_months
         end
 
         row :change_comment

@@ -20,18 +20,15 @@ end
 #  previous_order_value_id :integer
 #  change_comment          :text
 #  change_reason_category  :integer
-#  total_sold              :decimal(, )
 #  sold_hourly_salary      :decimal(, )
 #  sold_hourly_price       :decimal(, )
 #  sold_hours_per_month    :decimal(, )
 #  sold_number_of_months   :decimal(, )
+#  total_sold              :decimal(, )
 #  total_filled            :decimal(, )
-#  filled_hourly_salary    :decimal(, )
-#  filled_hourly_price     :decimal(, )
-#  filled_hours_per_month  :decimal(, )
-#  filled_number_of_months :decimal(, )
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
+#  changed_by_user_id      :integer
 #
 # Indexes
 #

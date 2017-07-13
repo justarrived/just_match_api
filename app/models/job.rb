@@ -20,6 +20,7 @@ class Job < ApplicationRecord
   MAX_HOURS_PER_DAY = 12
 
   belongs_to :order, optional: true
+  has_one :job_request, through: :order
   belongs_to :language, optional: true
   belongs_to :category
   belongs_to :hourly_pay
@@ -63,6 +64,8 @@ class Job < ApplicationRecord
   validates :hours, numericality: { greater_than_or_equal_to: MIN_TOTAL_HOURS }, presence: true # rubocop:disable Metrics/LineLength
   validates :number_to_fill, numericality: { greater_than_or_equal_to: 1 }
   validates :blocketjobb_category, inclusion: BlocketjobbCategories.to_a, allow_nil: true, if: :publish_on_blocketjobb # rubocop:disable Metrics/LineLength
+  # We need to limit this validatation to only include new jobs for backward compatibility
+  validates :customer_hourly_price, presence: true, on: :create
 
   validate :validate_job_end_date_after_job_date
   validate :validate_last_application_at_on_publish_to_blocketjobb
@@ -79,7 +82,7 @@ class Job < ApplicationRecord
   scope :visible, (-> { where(hidden: false) })
   scope :cancelled, (-> { where(cancelled: true) })
   scope :uncancelled, (-> { where(cancelled: false) })
-  scope :filled, (-> { where(filled: true) })
+  scope :filled, (-> { uncancelled.where(filled: true) })
   scope :unfilled, (-> { where(filled: false) })
   scope :upcoming, (-> { where(upcoming: true) })
   scope :featured, (-> { where(featured: true) })
@@ -205,6 +208,14 @@ class Job < ApplicationRecord
     return form_array unless include_blank
 
     [[I18n.t('admin.form.no_job_chosen'), nil]] + form_array
+  end
+
+  def cancelled_saved_to_true?
+    previous_value, new_value = previous_changes[:cancelled]
+    return false if previous_value.nil? || new_value.nil?
+    return false if previous_value
+
+    new_value
   end
 
   def set_normalized_swedish_drivers_license
@@ -376,6 +387,10 @@ class Job < ApplicationRecord
 
   def invoice_amount
     hourly_pay.invoice_rate * hours
+  end
+
+  def customer_invoice_amount
+    customer_hourly_price * hours
   end
 
   # NOTE: You need to call this __before__ the record is validated
@@ -583,6 +598,7 @@ end
 #  applicant_description        :text
 #  requirements_description     :text
 #  preview_key                  :string
+#  customer_hourly_price        :decimal(, )
 #
 # Indexes
 #

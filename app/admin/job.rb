@@ -76,10 +76,10 @@ ActiveAdmin.register Job do
       european_date(job.job_end_date)
     end
     column :order_value do |job|
-      order = job.order
-      if order
+      order_value = job.order&.current_order_value
+      if order_value
         NumberFormatter.new.to_delimited(
-          order.hours * order&.invoice_hourly_pay_rate,
+          order_value.sold_total_value,
           locale: :sv
         )
       end
@@ -110,12 +110,30 @@ ActiveAdmin.register Job do
   end
 
   after_save do |job|
-    set_job_translation.call(job, permitted_params)
+    if job.persisted? && job.valid?
+      set_job_translation.call(job, permitted_params)
+
+      JobCancelledJob.perform_later(job: job) if job.cancelled_saved_to_true?
+    end
   end
 
   member_action :create_job_with_order, method: :get do
     order_id = params[:order_id]
+    order = Order.find_by(id: order_id)
+    current_order_value = order&.order
+
     @job = Job.new(order_id: order_id)
+
+    @job.company = order&.company
+    @job.staffing_job = order&.staffing?
+    @job.direct_recruitment_job = order&.direct_recruitment?
+
+    hours_per_month = current_order_value&.sold_hours_per_month
+    number_of_months = current_order_value&.sold_number_of_months
+
+    if hours_per_month && number_of_months
+      @job.hours = hours_per_month * number_of_months
+    end
 
     render :new, layout: false
   end
@@ -295,7 +313,7 @@ ActiveAdmin.register Job do
       :company_contact_user_id, :just_arrived_contact_user_id, :municipality,
       :number_to_fill, :order_id, :full_time, :swedish_drivers_license, :car_required,
       :publish_on_linkedin, :publish_on_blocketjobb, :blocketjobb_category,
-      :salary_type, :preview_key,
+      :salary_type, :preview_key, :customer_hourly_price,
       job_skills_attributes: %i(skill_id proficiency proficiency_by_admin),
       job_languages_attributes: %i(language_id proficiency proficiency_by_admin)
     ]
@@ -305,7 +323,7 @@ ActiveAdmin.register Job do
   controller do
     def scoped_collection
       super.with_translations.
-        includes(:just_arrived_contact, :order).
+        includes(:just_arrived_contact, order: [:order_values]).
         left_joins(:job_users).
         select('jobs.*, count(job_users.id) as job_users_count').
         group('jobs.id, job_users.job_id')

@@ -17,6 +17,31 @@ RSpec.describe Job, type: :model do
     end
   end
 
+  describe '#cancelled_saved_to_true?' do
+    it 'returns true if cancelled was saved from false to true' do
+      job = FactoryGirl.build(:job, cancelled: false)
+      job.cancelled = true
+      job.save
+
+      expect(job.cancelled_saved_to_true?).to eq(true)
+    end
+
+    it 'returns false if cancelled was saved from true' do
+      job = FactoryGirl.create(:job, cancelled: true)
+      job.cancelled = true
+      job.save
+
+      expect(job.cancelled_saved_to_true?).to eq(false)
+    end
+
+    it 'returns false if cancelled was not changed' do
+      job = FactoryGirl.build(:job)
+      job.save
+
+      expect(job.cancelled_saved_to_true?).to eq(false)
+    end
+  end
+
   describe '#published?' do
     [
       # publish_at, unpublish_at, expected
@@ -733,6 +758,7 @@ end
 #  applicant_description        :text
 #  requirements_description     :text
 #  preview_key                  :string
+#  customer_hourly_price        :decimal(, )
 #
 # Indexes
 #

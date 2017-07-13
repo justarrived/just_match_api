@@ -1,6 +1,5 @@
 # rubocop:disable Metrics/LineLength
 
-
 f.inputs do
   f.semantic_errors(*f.object.errors.keys)
 
@@ -9,8 +8,10 @@ f.inputs do
     :company_id,
     as: :select,
     collection: Company.all,
-    hint: "If you can't find the company your looking for in the list, please create that company first and come back."
+    hint: I18n.t('admin.order.form.company.hint')
   )
+  f.input :sales_user, collection: User.sales_users
+  f.input :delivery_user, collection: User.delivery_users
   f.input :job_request
 
   f.input :category
@@ -27,21 +28,17 @@ f.inputs do
         ff.input :change_reason_category if f.object.order_values.any?
 
         ff.input :previous_order_value_id, as: :hidden, input_html: { value: current_order_value&.id }
+        ff.input :changed_by_user_id, as: :hidden, input_html: { value: current_active_admin_user&.id }
 
         current_total_sold = current_order_value&.total_sold
-        ff.input :total_sold, input_html: { value: current_total_sold }
-        ff.input :total_filled, input_html: { value: current_order_value&.total_filled || 0 }
+        ff.input :total_sold, input_html: { value: ff.object.total_sold || current_total_sold }
+        ff.input :total_filled, input_html: { value: ff.object.total_filled || current_order_value&.total_filled || 0 }
 
         if current_total_sold.nil?
-          ff.input :sold_hourly_salary, input_html: { value: current_order_value&.sold_hourly_salary }
-          ff.input :sold_hourly_price, input_html: { value: current_order_value&.sold_hourly_price }
-          ff.input :sold_hours_per_month, input_html: { value: current_order_value&.sold_hours_per_month }
-          ff.input :sold_number_of_months, input_html: { value: current_order_value&.sold_number_of_months }
-
-          ff.input :filled_hourly_salary, input_html: { value: current_order_value&.filled_hourly_salary || 0 }
-          ff.input :filled_hourly_price, input_html: { value: current_order_value&.filled_hourly_price || 0 }
-          ff.input :filled_hours_per_month, input_html: { value: current_order_value&.filled_hours_per_month || 0 }
-          ff.input :filled_number_of_months, input_html: { value: current_order_value&.filled_number_of_months || 0 }
+          ff.input :sold_hourly_salary, input_html: { value: ff.object.sold_hourly_salary || current_order_value&.sold_hourly_salary }
+          ff.input :sold_hourly_price, input_html: { value: ff.object.sold_hourly_price || current_order_value&.sold_hourly_price }
+          ff.input :sold_hours_per_month, input_html: { value: ff.object.sold_hours_per_month || current_order_value&.sold_hours_per_month }
+          ff.input :sold_number_of_months, input_html: { value: ff.object.sold_number_of_months || current_order_value&.sold_number_of_months }
         end
       end
     end
