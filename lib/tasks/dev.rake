@@ -98,6 +98,9 @@ namespace :dev do
     print 'Set admin user email to admin@example.com..'
     User.admins.first&.update(email: 'admin@example.com')
     puts 'done!'
+    print 'Deleting all tokens...'
+    Token.delete_all
+    puts 'done!'
     print "Anonymizing #{Company.count} companies..."
     Company.find_each(batch_size: 500).each do |company|
       company.name = Faker::Company.name
