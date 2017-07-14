@@ -23,16 +23,18 @@ f.inputs I18n.t('admin.company.form.main_form_section_title') do
   f.input :description, as: :text, input_html: { markdown: true }
   f.input :frilans_finans_id if f.object.persisted?
 
-  f.has_many :users, new_record: true do |ff|
-    if ff.object.new_record?
-      ff.semantic_errors(*ff.object.errors.keys)
+  if f.object.new_record?
+    f.has_many :users, new_record: true do |ff|
+      if ff.object.new_record?
+        ff.semantic_errors(*ff.object.errors.keys)
 
-      ff.input :system_language, collection: Language.system_languages.order(:en_name)
-      ff.input :email
-      ff.input :first_name
-      ff.input :last_name
-      ff.input :managed, as: :hidden, input_html: { value: true }
-      ff.input :password, as: :hidden, input_html: { value: SecureGenerator.uuid }
+        ff.input :system_language, collection: Language.system_languages.order(:en_name)
+        ff.input :email
+        ff.input :first_name
+        ff.input :last_name
+        ff.input :managed, as: :hidden, input_html: { value: true }
+        ff.input :password, as: :hidden, input_html: { value: SecureGenerator.uuid }
+      end
     end
   end
 end
