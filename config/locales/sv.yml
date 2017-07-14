@@ -74,6 +74,7 @@ sv:
       performed_before_job_started: kan inte konfirmera jobbet innan det påbörjats
     order:
       job_request_company_match: måste vara samma företag som job request tillhör
+      sales_and_delivery_user_equal: sälj- och leveransanvändaren kan inte vara samma användare
     order_value:
       must_be_able_to_calulate_total: antingen total ELLER hourly_price, hours_per_month och number_of_months måste vara angivna
       hourly_price_presence: måste vara angivet om total är blank
