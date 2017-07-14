@@ -31,6 +31,7 @@ f.inputs I18n.t('admin.company.form.main_form_section_title') do
       ff.input :email
       ff.input :first_name
       ff.input :last_name
+      ff.input :managed, as: :hidden, input_html: { value: true }
       ff.input :password, as: :hidden, input_html: { value: SecureGenerator.uuid }
     end
   end

@@ -121,6 +121,7 @@ ActiveAdmin.register Company do
         email
         first_name
         last_name
+        managed
         password
       )
     ]
