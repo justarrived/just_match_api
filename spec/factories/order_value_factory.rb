@@ -6,8 +6,12 @@ FactoryGirl.define do
     previous_order_value nil
     change_comment 'MyText'
     change_reason_category 1
-    total_sold '10000'
+    total_sold nil
     total_filled '4000'
+    sold_hourly_salary 200
+    sold_hourly_price 400
+    sold_hours_per_month 160
+    sold_number_of_months 1
   end
 end
 

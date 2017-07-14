@@ -104,8 +104,14 @@ RSpec.describe OrderValue, type: :model do
       expect(order_value.filled_total_value).to eq(1900)
     end
 
-    xit 'returns caluclated value tolal filled is blank' do
-      order_value = OrderValue.new
+    it 'returns calculated value tolal filled is blank' do
+      order = FactoryGirl.create(:order)
+      order_value = FactoryGirl.build(
+        :order_value,
+        order: order,
+        total_sold: 100,
+        total_filled: 10_000
+      )
       expect(order_value.filled_total_value).to eq(10_000)
     end
   end
