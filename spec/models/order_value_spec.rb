@@ -125,11 +125,17 @@ RSpec.describe OrderValue, type: :model do
   describe '#calculate_total_filled_value' do
     it 'returns total value' do
       order = FactoryGirl.create(:order)
-      FactoryGirl.create(:job, filled: true, order: order, hours: 40)
+      FactoryGirl.create(
+        :job,
+        filled: true,
+        customer_hourly_price: 400.0,
+        order: order,
+        hours: 40
+      )
 
       order_value = FactoryGirl.build(:order_value, order: order)
 
-      expect(order_value.calculate_total_filled_value).to eq(4000.0)
+      expect(order_value.calculate_total_filled_value).to eq(16_000.0)
     end
   end
 end
