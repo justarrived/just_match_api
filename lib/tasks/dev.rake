@@ -89,7 +89,9 @@ namespace :dev do
     print 'Setting all user passwords to "12345678"..'
     User.update_all( # rubocop:disable Rails/SkipsModelValidations
       password_salt: '$2a$10$G5.OPRLyRAh.gWYsY6lhaO',
-      password_hash: '$2a$10$G5.OPRLyRAh.gWYsY6lhaOWIRMicGMdU7DCDR3UTbnLTOufAqYZeG'
+      password_hash: '$2a$10$G5.OPRLyRAh.gWYsY6lhaOWIRMicGMdU7DCDR3UTbnLTOufAqYZeG',
+      account_clearing_number: nil,
+      account_number: nil
     )
     puts 'done!'
     print "Anonymizing #{User.count} users..."
@@ -97,6 +99,9 @@ namespace :dev do
     puts 'anonymized!'
     print 'Set admin user email to admin@example.com..'
     User.admins.first&.update(email: 'admin@example.com')
+    puts 'done!'
+    print 'Deleting all tokens...'
+    Token.delete_all
     puts 'done!'
     print "Anonymizing #{Company.count} companies..."
     Company.find_each(batch_size: 500).each do |company|

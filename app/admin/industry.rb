@@ -48,7 +48,7 @@ ActiveAdmin.register Industry do
   end
 
   form do |f|
-    f.semantic_errors
+    f.semantic_errors(*f.object.errors.keys)
 
     f.inputs('Industry') do
       f.input :name

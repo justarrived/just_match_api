@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-f.semantic_errors
+f.semantic_errors(*f.object.errors.keys)
 
 f.inputs(I18n.t('admin.job.form.detail_section_title')) do
   f.input :order

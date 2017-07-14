@@ -29,7 +29,7 @@ ActiveAdmin.register Chat do
   end
 
   form do |f|
-    f.semantic_errors
+    f.semantic_errors(*f.object.errors.keys)
     f.inputs I18n.t('admin.chat.form.messages_title') do
       f.has_many :messages, allow_destroy: false, new_record: true do |ff|
         message = ff.object

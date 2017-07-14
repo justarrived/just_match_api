@@ -10,6 +10,8 @@ Rails.application.config.filter_parameters += %i(
   token
   account-clearing-number
   account-number
+  account_clearing_number
+  account_number
   iban
   bic
 )

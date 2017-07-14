@@ -54,7 +54,7 @@ ActiveAdmin.register CommunicationTemplate do
   end
 
   form do |f|
-    f.semantic_errors
+    f.semantic_errors(*f.object.errors.keys)
 
     f.inputs I18n.t('admin.communication_template.form.details') do
       f.input :language, collection: Language.system_languages
