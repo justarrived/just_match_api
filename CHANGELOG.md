@@ -4,6 +4,12 @@ HEAD
 -----------
 
 
+v2.1 - 2017-07-14
+----------
+* _Admin_:
+  - Remove new user form from company edit page
+
+
 v2.0 - 2017-07-14
 ----------
 * _Admin_:
