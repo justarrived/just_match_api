@@ -4,6 +4,12 @@ HEAD
 -----------
 
 
+v2.2 - 2017-07-14
+----------
+* _Admin_:
+  - :hocho: bad method name when creating a job from an order
+
+
 v2.1 - 2017-07-14
 ----------
 * _Admin_:
