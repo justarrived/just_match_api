@@ -64,8 +64,6 @@ class Job < ApplicationRecord
   validates :hours, numericality: { greater_than_or_equal_to: MIN_TOTAL_HOURS }, presence: true # rubocop:disable Metrics/LineLength
   validates :number_to_fill, numericality: { greater_than_or_equal_to: 1 }
   validates :blocketjobb_category, inclusion: BlocketjobbCategories.to_a, allow_nil: true, if: :publish_on_blocketjobb # rubocop:disable Metrics/LineLength
-  # We need to limit this validatation to only include new jobs for backward compatibility
-  validates :customer_hourly_price, presence: true, on: :create
 
   validate :validate_job_end_date_after_job_date
   validate :validate_last_application_at_on_publish_to_blocketjobb
