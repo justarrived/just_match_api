@@ -4,6 +4,33 @@ HEAD
 -----------
 
 
+v2.0 - 2017-07-14
+----------
+* _Admin_:
+  - Set user as managed if created from the companies form
+  - Add form input hints to order form
+  - Add Job#hidden to job data checklist sidebar
+  - Add new user partial to company form and extract partial
+  - Improve performance for orders
+  - Improved display of order values KPIs
+  - Display each order value in its own panel on order show page
+  - Add list of validation errors to top of each custom form
+  - Add global errors list to companies form
+  - Extract show and form patials from order and add I18n
+* _Feature_:
+  - Implement OrderValue
+* _Enhancement_:
+  - Delete all bank account details when anonymizing the database for development use
+  - Delete all tokens when anonymizing the database for development use
+  - Add missing I18n keys to sv translation
+  - Add Order#company field
+  - Add additional params-keys to logging blacklist
+  - Validate that order company mathes order job request company
+  - Update README to include new instuctions on where to find the admin UI
+  - Set top-level-domain length to zero so we can access the admin UI on http://admin.localhost:3000 See https://gist.github.com/indiesquidge/b836647f851179589765#solution
+  - Do not convert Frilans Finans ID to integer
+
+
 v1.118 - 2017-07-09
 ----------
 - _Enhancement_:
