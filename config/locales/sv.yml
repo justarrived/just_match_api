@@ -72,6 +72,14 @@ sv:
       multiple_applicants: kan inte acceptera flera användare
       will_perform_true_on_delete: kan inte dra tillbaka ansökan efter konfirmering
       performed_before_job_started: kan inte konfirmera jobbet innan det påbörjats
+    order:
+      job_request_company_match: måste vara samma företag som job request tillhör
+      sales_and_delivery_user_equal: sälj- och leveransanvändaren kan inte vara samma användare
+    order_value:
+      must_be_able_to_calulate_total: antingen total ELLER hourly_price, hours_per_month och number_of_months måste vara angivna
+      hourly_price_presence: måste vara angivet om total är blank
+      hours_per_month_presence: måste vara angivet om total är blank
+      number_of_months_presence: måste vara angivet om total är blank
     rating:
       from_user_rated: kan inte rösta flera gånger
       to_user_rated: kan rösta flera gånger

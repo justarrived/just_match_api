@@ -37,6 +37,9 @@ class Company < ApplicationRecord
   # NOTE: This is needed in order to be able to have it as a form input in the admin UI
   attr_reader :language
 
+  # NOTE: This is necessary for nested activeadmin has_many form
+  accepts_nested_attributes_for :users
+
   def display_name
     "##{id} #{name}"
   end

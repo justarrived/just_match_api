@@ -84,6 +84,7 @@ end
 #  applicant_description        :text
 #  requirements_description     :text
 #  preview_key                  :string
+#  customer_hourly_price        :decimal(, )
 #
 # Indexes
 #

@@ -95,51 +95,35 @@ ActiveAdmin.register Company do
   end
 
   form do |f|
-    f.semantic_errors(*f.object.errors.keys)
-
-    f.inputs I18n.t('admin.company.form.main_form_section_title') do
-      f.input :name
-      f.input :cin
-      f.input :frilans_finans_id
-      f.input :website
-      f.input :email
-      f.input :street
-      f.input :zip
-      f.input :city
-      f.input(
-        :municipality,
-        as: :select,
-        collection: Arbetsformedlingen::MunicipalityCode.to_form_array(name_only: true),
-        hint: I18n.t('admin.company.form.municipality_hint')
-      )
-      f.input :phone
-      f.input :billing_email
-      f.input :language, as: :select, collection: Language.system_languages
-      f.input :short_description, as: :string
-      f.input :description, as: :text, input_html: { markdown: true }
-    end
-
-    f.actions
+    render partial: 'admin/companies/form', locals: { f: f }
   end
 
   permit_params do
-    %i(
-      name
-      cin
-      created_at
-      updated_at
-      frilans_finans_id
-      website
-      email
-      street
-      zip
-      city
-      municipality
-      billing_email
-      phone
-      short_description
-      description
-      language_id
-    )
+    [
+      :name,
+      :cin,
+      :created_at,
+      :updated_at,
+      :frilans_finans_id,
+      :website,
+      :email,
+      :street,
+      :zip,
+      :city,
+      :municipality,
+      :billing_email,
+      :phone,
+      :short_description,
+      :description,
+      :language_id,
+      users_attributes: %i(
+        system_language_id
+        email
+        first_name
+        last_name
+        managed
+        password
+      )
+    ]
   end
 end

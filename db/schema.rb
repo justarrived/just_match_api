@@ -10,12 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170628093346) do
+ActiveRecord::Schema.define(version: 20170713081919) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "hstore"
-  enable_extension "pg_stat_statements"
   enable_extension "unaccent"
 
   create_table "active_admin_comments", id: :serial, force: :cascade do |t|
@@ -23,8 +21,8 @@ ActiveRecord::Schema.define(version: 20170628093346) do
     t.text "body"
     t.string "resource_id", null: false
     t.string "resource_type", null: false
-    t.integer "author_id"
     t.string "author_type"
+    t.integer "author_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id"
@@ -140,8 +138,8 @@ ActiveRecord::Schema.define(version: 20170628093346) do
 
   create_table "comments", id: :serial, force: :cascade do |t|
     t.text "body"
-    t.integer "commentable_id"
     t.string "commentable_type"
+    t.integer "commentable_id"
     t.integer "owner_user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -550,9 +548,9 @@ ActiveRecord::Schema.define(version: 20170628093346) do
     t.string "city"
     t.boolean "staffing_job", default: false
     t.boolean "direct_recruitment_job", default: false
-    t.integer "order_id"
     t.string "municipality"
     t.integer "number_to_fill", default: 1
+    t.integer "order_id"
     t.boolean "full_time", default: false
     t.string "swedish_drivers_license"
     t.boolean "car_required", default: false
@@ -567,6 +565,7 @@ ActiveRecord::Schema.define(version: 20170628093346) do
     t.text "applicant_description"
     t.text "requirements_description"
     t.string "preview_key"
+    t.decimal "customer_hourly_price"
     t.index ["category_id"], name: "index_jobs_on_category_id"
     t.index ["hourly_pay_id"], name: "index_jobs_on_hourly_pay_id"
     t.index ["language_id"], name: "index_jobs_on_language_id"
@@ -636,6 +635,23 @@ ActiveRecord::Schema.define(version: 20170628093346) do
     t.index ["order_id"], name: "index_order_documents_on_order_id"
   end
 
+  create_table "order_values", force: :cascade do |t|
+    t.bigint "order_id"
+    t.integer "previous_order_value_id"
+    t.text "change_comment"
+    t.integer "change_reason_category"
+    t.decimal "sold_hourly_salary"
+    t.decimal "sold_hourly_price"
+    t.decimal "sold_hours_per_month"
+    t.decimal "sold_number_of_months"
+    t.decimal "total_sold"
+    t.decimal "total_filled"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "changed_by_user_id"
+    t.index ["order_id"], name: "index_order_values_on_order_id"
+  end
+
   create_table "orders", id: :serial, force: :cascade do |t|
     t.integer "job_request_id"
     t.decimal "invoice_hourly_pay_rate"
@@ -649,7 +665,13 @@ ActiveRecord::Schema.define(version: 20170628093346) do
     t.decimal "filled_hours"
     t.string "name"
     t.integer "category"
+    t.bigint "company_id"
+    t.integer "sales_user_id"
+    t.integer "delivery_user_id"
+    t.index ["company_id"], name: "index_orders_on_company_id"
+    t.index ["delivery_user_id"], name: "index_orders_on_delivery_user_id"
     t.index ["job_request_id"], name: "index_orders_on_job_request_id"
+    t.index ["sales_user_id"], name: "index_orders_on_sales_user_id"
   end
 
   create_table "ratings", id: :serial, force: :cascade do |t|
@@ -1009,6 +1031,9 @@ ActiveRecord::Schema.define(version: 20170628093346) do
   add_foreign_key "messages", "users", column: "author_id", name: "messages_author_id_fk"
   add_foreign_key "order_documents", "documents"
   add_foreign_key "order_documents", "orders"
+  add_foreign_key "order_values", "order_values", column: "previous_order_value_id", name: "previous_order_value_id_fk"
+  add_foreign_key "order_values", "orders"
+  add_foreign_key "orders", "companies"
   add_foreign_key "orders", "job_requests"
   add_foreign_key "ratings", "jobs", name: "ratings_job_id_fk"
   add_foreign_key "ratings", "users", column: "from_user_id", name: "ratings_from_user_id_fk"

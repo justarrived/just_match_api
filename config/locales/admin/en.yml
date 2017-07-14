@@ -73,6 +73,21 @@ en:
       queued_msg_multiple: Machine translations queued successfully.
       post_btn: Machine Translate
     order:
+      sold_revenue_to_fill: Total unfilled & unlost revenue
+      form:
+        company:
+          hint: If you can't find the company your looking for in the list, please create that company first and come back.
+        change_comment:
+          label: Comment
+          hint: Please add a comment explaing why you're updating the order value
+        document:
+          label: Document
+        total_sold:
+          hint: Only add total sold if the order is a direct recruitment with a one time fee
+        total_filled:
+          hint: Total filled is only used if the value total sold is present
+      show:
+        panel_title: Order
       create_job: Create job
       persisted_before_document_upload: Order must be saved before you can upload documents.
     job_request:
@@ -153,6 +168,7 @@ en:
         frilans_finans_section_title: Frilans Finans
         status_section_title: Status
         hourly_pay_hint: 'The hourly pay, you can add more Hourly Pays if you want under "Settings"'
+        customer_hourly_price_hint: 'The hourly invoice price for the customer.'
         language_hint: 'Language that the job information is written in'
         preview_key_hint: If set, the job can only be accessed with this preview key
         owner_hint: 'Job owner @ client company'

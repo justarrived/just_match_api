@@ -1,0 +1,40 @@
+f.semantic_errors(*f.object.errors.keys)
+
+f.inputs I18n.t('admin.company.form.main_form_section_title') do
+  f.input :name
+  f.input :cin
+  f.input :phone
+  f.input :email
+  f.input :billing_email
+  f.input :street
+  f.input :zip
+  f.input :city
+  f.input(
+    :municipality,
+    as: :select,
+    collection: Arbetsformedlingen::MunicipalityCode.to_form_array(name_only: true),
+    hint: I18n.t('admin.company.form.municipality_hint')
+  )
+
+  f.input :website
+  f.input :language, as: :select, collection: Language.system_languages
+
+  f.input :short_description, as: :string
+  f.input :description, as: :text, input_html: { markdown: true }
+  f.input :frilans_finans_id if f.object.persisted?
+
+  f.has_many :users, new_record: true do |ff|
+    if ff.object.new_record?
+      ff.semantic_errors(*ff.object.errors.keys)
+
+      ff.input :system_language, collection: Language.system_languages.order(:en_name)
+      ff.input :email
+      ff.input :first_name
+      ff.input :last_name
+      ff.input :managed, as: :hidden, input_html: { value: true }
+      ff.input :password, as: :hidden, input_html: { value: SecureGenerator.uuid }
+    end
+  end
+end
+
+f.actions

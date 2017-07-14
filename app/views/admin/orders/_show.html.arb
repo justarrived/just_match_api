@@ -1,0 +1,64 @@
+panel(I18n.t('admin.order.show.panel_title')) do
+  current_order_value = order.current_order_value
+
+  attributes_table_for(order) do
+    row :job_request
+    row :name
+    row :sales_user
+    row :delivery_user
+    row :jobs do
+      safe_join(
+        order.jobs.order(filled: :asc).map do |job|
+          title = "#{job.display_name} (#{job.filled ? 'filled' : 'unfilled'})"
+          link_to(title, admin_job_path(job))
+        end,
+        ', '
+      )
+    end
+    row :documents do
+      safe_join(
+        order.documents.order(created_at: :desc).map do |document|
+          download_link_to(url: document.url, file_name: document.document_file_name)
+        end,
+        ', '
+      )
+    end
+
+    row :total_filled_over_sold_order_value do
+      total_filled_over_sold_order_value(current_order_value)
+    end
+
+    row :category
+    row :lost
+    row :created_at
+    row :updated_at
+  end
+
+  order.order_values.each do |order_value|
+    panel order_value.display_name do
+      attributes_table_for(order_value) do
+        row :order_value do
+          link_to(order_value.display_name, admin_order_value_path(order_value))
+        end
+        row :previous_order_value
+        row :changed_by_user
+        row :total_sold_value_change
+
+        if order_value.total_sold
+          row :total_sold
+          row :total_filled
+        else
+          row :sold_hourly_salary
+          row :sold_hourly_price
+          row :sold_hours_per_month
+          row :sold_number_of_months
+        end
+
+        row :change_comment
+        row :change_reason_category
+      end
+    end
+  end
+
+  active_admin_comments_for(order)
+end

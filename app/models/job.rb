@@ -20,6 +20,7 @@ class Job < ApplicationRecord
   MAX_HOURS_PER_DAY = 12
 
   belongs_to :order, optional: true
+  has_one :job_request, through: :order
   belongs_to :language, optional: true
   belongs_to :category
   belongs_to :hourly_pay
@@ -79,7 +80,7 @@ class Job < ApplicationRecord
   scope :visible, (-> { where(hidden: false) })
   scope :cancelled, (-> { where(cancelled: true) })
   scope :uncancelled, (-> { where(cancelled: false) })
-  scope :filled, (-> { where(filled: true) })
+  scope :filled, (-> { uncancelled.where(filled: true) })
   scope :unfilled, (-> { where(filled: false) })
   scope :upcoming, (-> { where(upcoming: true) })
   scope :featured, (-> { where(featured: true) })
@@ -205,6 +206,14 @@ class Job < ApplicationRecord
     return form_array unless include_blank
 
     [[I18n.t('admin.form.no_job_chosen'), nil]] + form_array
+  end
+
+  def cancelled_saved_to_true?
+    previous_value, new_value = previous_changes[:cancelled]
+    return false if previous_value.nil? || new_value.nil?
+    return false if previous_value
+
+    new_value
   end
 
   def set_normalized_swedish_drivers_license
@@ -376,6 +385,10 @@ class Job < ApplicationRecord
 
   def invoice_amount
     hourly_pay.invoice_rate * hours
+  end
+
+  def customer_invoice_amount
+    customer_hourly_price * hours
   end
 
   # NOTE: You need to call this __before__ the record is validated
@@ -583,6 +596,7 @@ end
 #  applicant_description        :text
 #  requirements_description     :text
 #  preview_key                  :string
+#  customer_hourly_price        :decimal(, )
 #
 # Indexes
 #

@@ -1,0 +1,59 @@
+# rubocop:disable Metrics/LineLength
+
+f.inputs do
+  f.semantic_errors(*f.object.errors.keys)
+
+  f.input :name
+  f.input(
+    :company_id,
+    as: :select,
+    collection: Company.all,
+    hint: I18n.t('admin.order.form.company.hint')
+  )
+  f.input :sales_user, collection: User.sales_users
+  f.input :delivery_user, collection: User.delivery_users
+  f.input :job_request
+
+  f.input :category
+
+  current_order_value = f.object.current_order_value
+  if f.object.persisted?
+    f.input :lost
+
+    f.has_many :order_values, new_record: true do |ff|
+      if ff.object.new_record?
+        ff.semantic_errors(*ff.object.errors.keys)
+
+        ff.input :change_comment, label: I18n.t('admin.order.form.change_comment.label'), hint: I18n.t('admin.order.form.change_comment.hint')
+        ff.input :change_reason_category if f.object.order_values.any?
+
+        ff.input :previous_order_value_id, as: :hidden, input_html: { value: current_order_value&.id }
+        ff.input :changed_by_user_id, as: :hidden, input_html: { value: current_active_admin_user&.id }
+
+        current_total_sold = current_order_value&.total_sold
+        ff.input :total_sold, hint: I18n.t('admin.order.form.total_sold.hint'), input_html: { value: ff.object.total_sold || current_total_sold }
+        ff.input :total_filled, hint: I18n.t('admin.order.form.total_filled.hint'), input_html: { value: ff.object.total_filled || current_order_value&.total_filled || 0 }
+
+        if current_total_sold.nil?
+          ff.input :sold_hourly_salary, input_html: { value: ff.object.sold_hourly_salary || current_order_value&.sold_hourly_salary }
+          ff.input :sold_hourly_price, input_html: { value: ff.object.sold_hourly_price || current_order_value&.sold_hourly_price }
+          ff.input :sold_hours_per_month, input_html: { value: ff.object.sold_hours_per_month || current_order_value&.sold_hours_per_month }
+          ff.input :sold_number_of_months, input_html: { value: ff.object.sold_number_of_months || current_order_value&.sold_number_of_months }
+        end
+      end
+    end
+
+    f.has_many :order_documents, new_record: true do |ff|
+      ff.semantic_errors(*ff.object.errors.keys)
+
+      ff.inputs( I18n.t('admin.order.form.document.label'), for: [:document, ff.object.document || Document.new]) do |fff|
+        fff.input :document, required: true, as: :file
+      end
+    end
+  else
+    para strong(I18n.t('admin.order.persisted_before_document_upload'))
+  end
+end
+
+f.actions
+# rubocop:enable Metrics/LineLength

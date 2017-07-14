@@ -3,6 +3,9 @@
 FactoryGirl.define do
   factory :order do
     association :job_request
+    association :company
+    association :sales_user, factory: :user
+    association :delivery_user, factory: :user
 
     hourly_pay_rate 119.98
     invoice_hourly_pay_rate 1119.99
@@ -33,12 +36,19 @@ end
 #  filled_hours                   :decimal(, )
 #  name                           :string
 #  category                       :integer
+#  company_id                     :integer
+#  sales_user_id                  :integer
+#  delivery_user_id               :integer
 #
 # Indexes
 #
-#  index_orders_on_job_request_id  (job_request_id)
+#  index_orders_on_company_id        (company_id)
+#  index_orders_on_delivery_user_id  (delivery_user_id)
+#  index_orders_on_job_request_id    (job_request_id)
+#  index_orders_on_sales_user_id     (sales_user_id)
 #
 # Foreign Keys
 #
+#  fk_rails_...  (company_id => companies.id)
 #  fk_rails_...  (job_request_id => job_requests.id)
 #
