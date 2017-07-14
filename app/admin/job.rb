@@ -120,7 +120,7 @@ ActiveAdmin.register Job do
   member_action :create_job_with_order, method: :get do
     order_id = params[:order_id]
     order = Order.find_by(id: order_id)
-    current_order_value = order&.order
+    current_order_value = order&.current_order_value
 
     @job = Job.new(order_id: order_id)
 
