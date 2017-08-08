@@ -4,6 +4,12 @@ HEAD
 -----------
 
 
+v2.3 - 2017-08-08
+----------
+* _Bugfix_:
+  - Proper non-blank check in `MessageUserService`. Closes [#1197](https://github.com/justarrived/just_match_api/issues/1197)
+
+
 v2.2 - 2017-07-14
 ----------
 * _Admin_:
