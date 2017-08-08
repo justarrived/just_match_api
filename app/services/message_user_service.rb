@@ -39,14 +39,14 @@ class MessageUserService
 
   def send_sms
     phone = @user.phone
-    return unless send_sms? && phone
+    return unless send_sms? && phone.present?
 
     @service.send_sms(to: phone)
   end
 
   def send_email
     email = @user.email
-    return unless send_email? && email
+    return unless send_email? && email.present?
 
     @service.send_email(to: @user.email)
   end
