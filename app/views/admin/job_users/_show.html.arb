@@ -44,6 +44,15 @@ columns do
           column :end { |job| european_date(job.job_end_date) }
         end
       end
+
+      table_for(job_user) do
+        values = %i(
+          http_referrer utm_source utm_medium utm_campaign utm_term utm_content
+        ).each do |attribute|
+          value = job_user.public_send(attribute)
+          column attribute if value.present?
+        end
+      end
     end
   end
 

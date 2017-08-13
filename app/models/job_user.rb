@@ -167,6 +167,12 @@ end
 #  application_withdrawn :boolean          default(FALSE)
 #  shortlisted           :boolean          default(FALSE)
 #  rejected              :boolean          default(FALSE)
+#  http_referrer         :string(2083)
+#  utm_source            :string
+#  utm_medium            :string
+#  utm_campaign          :string
+#  utm_term              :string
+#  utm_content           :string
 #
 # Indexes
 #

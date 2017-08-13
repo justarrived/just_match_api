@@ -131,6 +131,41 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
         end
       end
 
+      context 'with referrer and utm data' do
+        let(:language) { FactoryGirl.create(:language) }
+
+        it 'creates a apply message' do
+          user = FactoryGirl.create(:user_with_tokens)
+          user1 = FactoryGirl.create(:company_user)
+          job = FactoryGirl.create(:job, owner: user1)
+          params = {
+            auth_token: user.auth_token,
+            job_id: job.to_param,
+            user: { id: user.to_param },
+            data: {
+              attributes: {
+                http_referrer: 'http_referrer',
+                utm_term: 'utm_term',
+                utm_source: 'utm_source',
+                utm_medium: 'utm_medium',
+                utm_content: 'utm_content',
+                utm_campaign: 'utm_campaign'
+              }
+            }
+          }
+          post :create, params: params
+          job_user = assigns(:job_user)
+          job_user.reload
+          expect(job_user).to be_a(JobUser)
+          expect(job_user.http_referrer).to eq('http_referrer')
+          expect(job_user.utm_term).to eq('utm_term')
+          expect(job_user.utm_source).to eq('utm_source')
+          expect(job_user.utm_medium).to eq('utm_medium')
+          expect(job_user.utm_content).to eq('utm_content')
+          expect(job_user.utm_campaign).to eq('utm_campaign')
+        end
+      end
+
       it 'returns created status' do
         user = FactoryGirl.create(:user_with_tokens)
         user1 = FactoryGirl.create(:company_user)
