@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
 class CreateJobApplicationService
-  def self.call(job:, user:, attributes:, job_owner:)
-    job_user = JobUser.find_or_initialize_by(user: user, job: job)
+  def self.call(job_user:, attributes:, job_owner:)
+    user = job_user.user
+    job = job_user.job
+    job_user.assign_attributes(attributes)
     job_user.application_withdrawn = false
-    job_user.apply_message = attributes[:apply_message]
     job_user.language = Language.find_by(id: attributes[:language_id])
 
     if job_user.save

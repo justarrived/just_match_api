@@ -10,7 +10,10 @@ class JobUserPolicy < ApplicationPolicy
   Context = Struct.new(:current_user, :job_context, :user_record)
 
   JOB_OWNER_ATTRIBUTES = [:accepted].freeze
-  JOB_USER_ATTRIBUTES = %i(will_perform performed apply_message language_id).freeze
+  JOB_USER_ATTRIBUTES = %i(
+    will_perform performed apply_message language_id http_referrer utm_term utm_source
+    utm_medium utm_content utm_campaign
+  ).freeze
   ADMIN_ATTRIBUTES = JOB_OWNER_ATTRIBUTES + JOB_USER_ATTRIBUTES
 
   attr_reader :job_context, :user_record
