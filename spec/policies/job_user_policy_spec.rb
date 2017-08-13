@@ -181,8 +181,11 @@ RSpec.describe JobUserPolicy do
       let(:policy_context) { described_class::Context.new(admin_user, job, a_job_user) }
 
       it 'returns correct attributes' do
-        expected = %i(accepted will_perform performed apply_message language_id)
-        expect(policy.permitted_attributes).to eq(expected)
+        expected = %i(
+          accepted will_perform performed apply_message language_id
+          http_referrer utm_term utm_source utm_medium utm_content utm_campaign
+        )
+        expect(policy.permitted_attributes).to match(expected)
       end
     end
 
@@ -190,8 +193,11 @@ RSpec.describe JobUserPolicy do
       let(:policy_context) { described_class::Context.new(a_job_user, job, a_job_user) }
 
       it 'returns correct attributes' do
-        expected = %i(will_perform performed apply_message language_id)
-        expect(policy.permitted_attributes).to eq(expected)
+        expected = %i(
+          will_perform performed apply_message language_id
+          http_referrer utm_term utm_source utm_medium utm_content utm_campaign
+        )
+        expect(policy.permitted_attributes).to match(expected)
       end
     end
   end
