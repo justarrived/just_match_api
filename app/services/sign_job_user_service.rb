@@ -35,14 +35,14 @@ class SignJobUserService
                 unrejected.
                 includes(:user)
 
-    # Reject all other job users
-    job_users.update_all(rejected: true) # rubocop:disable Rails/SkipsModelValidations
-
     job_users.each do |job_user|
       next if signed_job_user == job_user
 
       ApplicantRejectedNotifier.call(job_user: job_user)
     end
+
+    # Reject all other job users
+    job_users.update_all(rejected: true) # rubocop:disable Rails/SkipsModelValidations
     job_users
   end
 end
