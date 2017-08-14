@@ -18,7 +18,7 @@ gem 'kramdown', '~> 1.13' # Markdown <> HTML
 gem 'rinku', '~> 2.0.2' # Autolink
 
 # SERVER
-gem 'lograge', '~> 0.5' # Less verbose Rails log in production
+gem 'lograge', '~> 0.6' # Less verbose Rails log in production
 gem 'puma', '~> 3.9' # App server
 
 # Analytics
@@ -39,7 +39,7 @@ gem 'sidekiq', '< 6' # Background worker (Redis-backed)
 gem 'sidekiq-statistic', git: 'https://github.com/davydovanton/sidekiq-statistic'
 
 # MONITORING
-gem 'airbrake', '~> 6.1' # Error catcher and reporter
+gem 'airbrake', '~> 6.2' # Error catcher and reporter
 gem 'skylight', '~> 1.3' # Performance monitoring
 
 # DATABASE / MODELS
@@ -85,11 +85,11 @@ gem 'twilio-ruby', '~> 4.13' # Send SMS notifications
 
 # GEO/LOCALE/LANGUAGE UTILS
 gem 'banktools-se', '~> 2.6' # Validate Swedish bank account
-gem 'countries', '~> 2.0', require: 'countries/global' # Country data in various locales
+gem 'countries', '~> 2.1', require: 'countries/global' # Country data in various locales
 gem 'geocoder', '~> 1.4' # Geocode resources
 gem 'global_phone', '~> 1.0' # Format cell phone numbers
 gem 'google-cloud-translate', '~> 1.0' # Translate with Google Translate API
-gem 'i18n_data', '~> 0.7' # Language and country names in various languages
+gem 'i18n_data', '~> 0.8' # Language and country names in various languages
 gem 'iban-tools', '~> 1.1' # Validate IBAN
 gem 'mailcheck', git: 'https://github.com/mailcheck/mailcheck-ruby' # Email suggestions for common email spelling misstakes
 gem 'personnummer', '~> 0.0.9' # Swedish "personummer" or "samordningsnummer"
@@ -105,7 +105,7 @@ gem 'apipie-rails', '~> 0.5' # Easy API documentation
 gem 'maruku', '~> 0.7' # Needed for apipie-rails markdown support
 
 # UTILS
-gem 'faker', '~> 1.7' # Easily generate fake data (used for seeding dev/test/staging)
+gem 'faker', '~> 1.8' # Easily generate fake data (used for seeding dev/test/staging)
 gem 'honey_format', '~> 0.2' # Simple CSV reading
 
 # DEVELOPMENT/TEST/DOCS
