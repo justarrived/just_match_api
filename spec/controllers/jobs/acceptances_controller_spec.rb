@@ -31,6 +31,9 @@ RSpec.describe Api::V1::Jobs::AcceptancesController, type: :controller do
       job_user_id: job_user.to_param
     }.merge(new_attributes)
 
+    allow(AppSecrets).to receive(:twilio_account_sid).and_return('notsosecret')
+    allow(AppSecrets).to receive(:twilio_auth_token).and_return('notsosecret')
+
     post :create, params: params
     expect(assigns(:job_user).accepted).to eq(true)
   end
@@ -43,6 +46,9 @@ RSpec.describe Api::V1::Jobs::AcceptancesController, type: :controller do
       job_id: job.to_param,
       job_user_id: job_user.to_param
     }.merge(new_attributes)
+
+    allow(AppSecrets).to receive(:twilio_account_sid).and_return('notsosecret')
+    allow(AppSecrets).to receive(:twilio_auth_token).and_return('notsosecret')
 
     post :create, params: params
     expect(response.status).to eq(200)
