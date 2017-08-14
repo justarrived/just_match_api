@@ -104,9 +104,9 @@ module Api
             return
           end
 
+          job_user = JobUser.find_or_initialize_by(user: user, job: @job)
           @job_user = CreateJobApplicationService.call(
-            job: @job,
-            user: user,
+            job_user: job_user,
             attributes: job_user_attributes,
             job_owner: @job.owner
           )
