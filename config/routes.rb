@@ -1,13 +1,7 @@
 # frozen_string_literal: true
 
-require 'sidekiq/web'
 require 'admin_subdomain'
 
-Sidekiq::Web.set :sessions, domain: 'all'
-Sidekiq::Web.session_secret = Rails.application.secrets[:secret_key_base]
-Sidekiq::Web.use Rack::Auth::Basic do |username, password|
-  User.find_by_credentials(email_or_phone: username, password: password)
-end
 Rails.application.routes.draw do
   constraints(AdminSubdomain) do
     ActiveAdmin.routes(self)
@@ -17,7 +11,6 @@ Rails.application.routes.draw do
   root to: redirect('/api_docs')
 
   mount Blazer::Engine, at: 'insights'
-  mount Sidekiq::Web, at: 'sidekiq'
 
   namespace :api do
     namespace :v1 do
