@@ -30,7 +30,7 @@
         "author": {
           "data": {
             "id": "8",
-            "type": "users"
+            "type": "authors"
           }
         },
         "company": {
@@ -40,7 +40,7 @@
           "data": []
         },
         "company_images": {
-          "data": null
+          "data": []
         }
       }
     }

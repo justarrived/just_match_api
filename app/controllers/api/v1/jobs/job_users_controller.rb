@@ -80,6 +80,12 @@ module Api
             param :user_id, Integer, desc: 'User id of the applicant', required: true
             param :apply_message, String, desc: 'Apply message'
             param :language_id, Integer, desc: 'Language id of the text content (required if apply message is present)'
+            param :http_referrer, String, desc: 'HTTP Referrer'
+            param :utm_source, String, desc: 'UTM-source'
+            param :utm_medium, String, desc: 'UTM-medium'
+            param :utm_campaign, String, desc: 'UTM-campaign'
+            param :utm_term, String, desc: 'UTM-term'
+            param :utm_content, String, desc: 'UTM-content'
           end
         end
         # rubocop:enable Metrics/LineLength

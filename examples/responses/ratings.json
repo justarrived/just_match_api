@@ -16,7 +16,7 @@
         "to_user": {
           "data": {
             "id": "14",
-            "type": "users"
+            "type": "to_users"
           }
         },
         "comment": {
