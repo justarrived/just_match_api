@@ -14,7 +14,7 @@ class SMSClient
   end
 
   def send_message(from:, to:, body:)
-    @client.messages.create(from: from, to: to, body: body)
+    @client.api.messages.create(from: from, to: to, body: body)
   end
 
   private
