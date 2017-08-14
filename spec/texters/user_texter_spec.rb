@@ -6,6 +6,11 @@ RSpec.describe UserTexter do
   let(:one_time_token) { 'watwoman' }
   let(:user) { FactoryGirl.build(:user, one_time_token: one_time_token) }
 
+  before(:each) do
+    allow(AppSecrets).to receive(:twilio_account_sid).and_return('notsosecret')
+    allow(AppSecrets).to receive(:twilio_auth_token).and_return('notsosecret')
+  end
+
   describe '#applicant_accepted_text' do
     let!(:text) do
       described_class.magic_login_link_text(user: user).deliver_now

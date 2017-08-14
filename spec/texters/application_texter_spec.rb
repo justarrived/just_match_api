@@ -7,6 +7,11 @@ RSpec.describe ApplicationTexter do
   let(:to) { '+46735000000' }
   let(:body) { 'Watwoman' }
 
+  before(:each) do
+    allow(AppSecrets).to receive(:twilio_account_sid).and_return('notsosecret')
+    allow(AppSecrets).to receive(:twilio_auth_token).and_return('notsosecret')
+  end
+
   describe '#text' do
     let(:template) { 'job_texter/applicant_accepted_text' }
 
@@ -31,6 +36,23 @@ RSpec.describe ApplicationTexter do
 
     it 'returns a hash with all instance variables' do
       described_class.instance_variable_set('@name', value)
+
+      expected = { 'name' => value }
+      expect(described_class._pack_instance_variables).to eq(expected)
+    end
+
+    it 'ignores instance variable named @parent_name (Rails trickery..)' do
+      described_class.instance_variable_set('@name', value)
+      described_class.instance_variable_set('@parent_name', 'String') # Rails trickery..
+
+      expected = { 'name' => value }
+      expect(described_class._pack_instance_variables).to eq(expected)
+    end
+
+    it 'ignores instance variables prefixed with __' do
+      described_class.instance_variable_set('@name', value)
+      described_class.instance_variable_set('@__something', 'some')
+      described_class.instance_variable_set('@__darkside', 'thing')
 
       expected = { 'name' => value }
       expect(described_class._pack_instance_variables).to eq(expected)

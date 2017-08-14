@@ -201,6 +201,9 @@ RSpec.describe Api::V1::Users::UserSessionsController, type: :controller do
       end
 
       it 'returns 202 accepted status' do
+        allow(AppSecrets).to receive(:twilio_account_sid).and_return('notsosecret')
+        allow(AppSecrets).to receive(:twilio_auth_token).and_return('notsosecret')
+
         post :magic_link, params: valid_params
         expect(response.status).to eq(202)
       end

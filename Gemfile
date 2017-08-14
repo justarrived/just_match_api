@@ -9,7 +9,7 @@ end
 
 ruby '2.4.1'
 
-gem 'rails', '5.1.2' # Ruby on Rails MVC framework
+gem 'rails', '5.1.3' # Ruby on Rails MVC framework
 
 gem 'bootsnap', '~> 1.1', require: false # Optimize Rails boot time
 
@@ -31,7 +31,7 @@ gem 'redis-activesupport', '~> 5.0' # To use Redis as the cache store for rack-a
 
 # RACK MIDDLEWARE
 gem 'rack-attack', '~> 5.0' # Throttle API usage
-gem 'rack-cors', '~> 0.4', require: 'rack/cors' # Configure CORS
+gem 'rack-cors', '~> 1.0', require: 'rack/cors' # Configure CORS
 gem 'rack-timeout', '~> 0.4' # Kill requests that run for too long
 
 # BACKGROUND JOBS
@@ -81,7 +81,7 @@ gem 'frilans_finans_api', path: 'lib/frilans_finans_api' # Interact with Frilans
 # NOTIFICATIONS
 gem 'email_reply_parser', '~> 0.5' # Parse reply emails
 gem 'mail', '~> 2.6', '>= 2.6.6' # General email functionality
-gem 'twilio-ruby', '~> 4.13' # Send SMS notifications
+gem 'twilio-ruby', '~> 5.1' # Send SMS notifications
 
 # GEO/LOCALE/LANGUAGE UTILS
 gem 'banktools-se', '~> 2.6' # Validate Swedish bank account
@@ -124,7 +124,7 @@ end
 
 group :development do
   gem 'annotate', '~> 2.7'
-  gem 'better_errors', '~> 2.1'
+  gem 'better_errors', '~> 2.3'
   gem 'binding_of_caller', '~> 0.7'
   gem 'derailed_benchmarks', '~> 1.3'
   gem 'i18n-tasks', '~> 0.9.2'
