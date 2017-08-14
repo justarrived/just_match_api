@@ -12,6 +12,10 @@ class FakeSMS
     self
   end
 
+  def api
+    self
+  end
+
   def create(from:, to:, body:)
     self.class.messages << Message.new(from, to, body)
   end
