@@ -31,7 +31,7 @@ gem 'redis-activesupport', '~> 5.0' # To use Redis as the cache store for rack-a
 
 # RACK MIDDLEWARE
 gem 'rack-attack', '~> 5.0' # Throttle API usage
-gem 'rack-cors', '~> 0.4', require: 'rack/cors' # Configure CORS
+gem 'rack-cors', '~> 1.0', require: 'rack/cors' # Configure CORS
 gem 'rack-timeout', '~> 0.4' # Kill requests that run for too long
 
 # BACKGROUND JOBS
