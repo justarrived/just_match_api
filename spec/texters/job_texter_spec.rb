@@ -9,6 +9,11 @@ RSpec.describe JobTexter do
   let(:job) { FactoryGirl.build(:job, name: job_name) }
   let(:job_user) { FactoryGirl.build(:job_user, job: job, user: user) }
 
+  before(:each) do
+    allow(AppSecrets).to receive(:twilio_account_sid).and_return('notsosecret')
+    allow(AppSecrets).to receive(:twilio_auth_token).and_return('notsosecret')
+  end
+
   describe '#applicant_accepted_text' do
     let!(:text) do
       described_class.applicant_accepted_text(job_user: job_user).deliver_now
