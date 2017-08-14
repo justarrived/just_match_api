@@ -43,11 +43,17 @@ RSpec.describe Api::V1::Jobs::ConfirmationsController, type: :controller do
       end.to change(FrilansFinansInvoice, :count).by(1)
     end
 
-    it 'notifies user when updated Job#will_perform is set to true' do
+    it 'notifies user when updated Job#will_perform is set to true and sends notifications to rejected users' do # rubocop:disable Metrics/LineLength
+      # Already rejected job users, should *not* receive a notification
+      FactoryGirl.create(:job_user, job: job_user.job, rejected: true)
+      rejected_job_user = FactoryGirl.create(:job_user, job: job_user.job)
+
       notifier_args = { job_user: job_user, owner: owner }
       allow(ApplicantWillPerformNotifier).to receive(:call).with(notifier_args)
+      allow(ApplicantRejectedNotifier).to receive(:call).with(job_user: rejected_job_user)
       post :create, params: params
-      expect(ApplicantWillPerformNotifier).to have_received(:call)
+      expect(ApplicantWillPerformNotifier).to have_received(:call).once
+      expect(ApplicantRejectedNotifier).to have_received(:call).once
     end
 
     it 'creates a TermsAgreementConsent' do
