@@ -4,6 +4,25 @@ HEAD
 -----------
 
 
+v2.4 - 2017-08-14
+----------
+* _API_:
+  - Add job user tracking data support
+* _Admin_:
+  - Display tracking params on job user page
+* _DB_:
+  - Create migration for adding tracking params to `JobUser` model
+    + `http_referrer`
+    + `utm_source`
+    + `utm_medium`
+    + `utm_campaign`
+    + `utm_term`
+    + `utm_content`
+* _Enhancement_:
+  - Add github as a rubygems source in Gemfile
+  - Proper non-blank check in `MessageUserService`. Closes #1197
+
+
 v2.3 - 2017-08-08
 ----------
 * _Bugfix_:
