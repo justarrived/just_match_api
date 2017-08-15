@@ -83,6 +83,16 @@ if job.persisted?
     end
   end
 
+  f.inputs(I18n.t('admin.job.form.industries_title')) do
+    f.has_many :job_industries, allow_destroy: false, new_record: true do |ff|
+      ff.semantic_errors(*ff.object.errors.keys)
+
+      ff.input :industry, as: :select, collection: Industry.all
+      ff.input :importance
+      ff.input :years_of_experience
+    end
+  end
+
   f.actions
 end
 
