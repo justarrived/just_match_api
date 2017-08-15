@@ -45,6 +45,12 @@ ActiveAdmin.register Company do
       row :frilans_finans_id
       row :short_description
       row :description
+      row :industries do |company|
+        safe_join(
+          company.industries.map { |i| link_to(i.name, admin_industry_path(i)) },
+          ', '
+        )
+      end
       row :created_at
       row :updated_at
     end
@@ -116,6 +122,7 @@ ActiveAdmin.register Company do
       :short_description,
       :description,
       :language_id,
+      company_industries_attributes: %i(industry_id),
       users_attributes: %i(
         system_language_id
         email
