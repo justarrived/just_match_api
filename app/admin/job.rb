@@ -254,6 +254,14 @@ ActiveAdmin.register Job do
         ]
       )
     end
+    div do
+      safe_join(
+        [
+          strong(I18n.t('admin.job.checklist_sidebar.industries')),
+          status_tag(job.industries.any?)
+        ]
+      )
+    end
 
     hr
 
@@ -324,7 +332,8 @@ ActiveAdmin.register Job do
       :publish_on_linkedin, :publish_on_blocketjobb, :blocketjobb_category,
       :salary_type, :preview_key, :customer_hourly_price,
       job_skills_attributes: %i(skill_id proficiency proficiency_by_admin),
-      job_languages_attributes: %i(language_id proficiency proficiency_by_admin)
+      job_languages_attributes: %i(language_id proficiency proficiency_by_admin),
+      job_industries_attributes: %i(industry_id importance years_of_experience)
     ]
     JobPolicy::FULL_ATTRIBUTES + extras
   end
@@ -360,6 +369,17 @@ ActiveAdmin.register Job do
         }
       end
       SetJobLanguagesService.call(job: job, language_ids_param: language_ids_param)
+
+      job_industries_attrs = job_params.delete(:job_industries_attributes)
+      industry_ids_param = (job_industries_attrs&.to_unsafe_h || {}).map do |_index, attrs| # rubocop:disable Metrics/LineLength
+        {
+          id: attrs[:industry_id],
+          years_of_experience: attrs[:years_of_experience],
+          importance: attrs[:importance]
+        }
+      end
+      SetJobIndustriesService.call(job: job, industry_ids_param: industry_ids_param)
+
       super
     end
 

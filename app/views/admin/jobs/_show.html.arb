@@ -27,6 +27,11 @@ panel(I18n.t('admin.job.show.general')) do
     row :requirements { |job| markdown_to_html(job.requirements_description) }
     row :skills { |job| job_skills_badges(job_skills: job.job_skills) }
     row :languages { |job| job_languages_badges(job_languages: job.job_languages) }
+    row :industries do |job|
+      job.job_industries.includes(:industry).map do |ji|
+        "#{ji.industry.name} (#{ji.importance}, yxp: #{ji.years_of_experience})"
+      end.join(', ')
+    end
   end
 end
 

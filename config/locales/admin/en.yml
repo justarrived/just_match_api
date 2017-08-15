@@ -133,6 +133,7 @@ en:
         data_title: Data collection
         skills: Skills added
         languages: Languages added
+        industries: Industries added
         pushed: Pushed to
         missing_translations: Missing translations
       batch_action:
@@ -186,6 +187,7 @@ en:
         municipality_hint: 'Required if job is to be synced to Arbetsformedlingen or Blocketjobb'
         skills_title: Job skills
         languages_title: Job languages
+        industries_title: Job industries
         publish_on_linkedin:
           hint: If checked this job ad will be published on LinkedIN
         publish_on_blocketjobb:

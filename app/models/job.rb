@@ -155,7 +155,7 @@ class Job < ApplicationRecord
              :applicant_description, :requirements_description
 
   # NOTE: This is necessary for nested activeadmin has_many form
-  accepts_nested_attributes_for :job_skills, :job_languages
+  accepts_nested_attributes_for :job_skills, :job_languages, :job_industries
 
   ransacker :city, type: :string do
     Arel.sql('unaccent("city")')
