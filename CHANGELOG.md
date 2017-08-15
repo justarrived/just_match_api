@@ -4,6 +4,40 @@ HEAD
 -----------
 
 
+v2.5 - 2017-08-15
+----------
+* _Admin_:
+  - Add company industries to views
+  - Add job industries to views
+* _Enhancement_:
+  - Update i18n-tasks config & spec
+  - Set all other applicants as rejected when a user signs for a job
+  - Update SMSClient to be able to accept an instance of a client & update tests
+  - :hocho: Sidekiq web. Closes #1199
+  - Move responsibility from ApplicantWithdrawnNotification to SignJobUserService & ApplicantRejectedNotifier
+* _Docs_:
+  - Update JobUser create action API docs. Update API doc examples
+- _Gem update_:
+  - Update Rails => 5.1.3
+  - rack-cords
+  - redis-activesupport
+  - twilio-ruby (4.1 => 5.1)
+  - airbrake
+  - aws-sdk
+  - bootsnap
+  - countries
+  - faker
+  - google-cloud-translate
+  - httparty
+  - i18n_data
+  - lograge
+  - better_errors
+  - bullet
+  - fog
+  - i18n-tasks
+  - rspec-rails
+
+
 v2.4 - 2017-08-14
 ----------
 * _API_:
