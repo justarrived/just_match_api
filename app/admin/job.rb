@@ -257,8 +257,8 @@ ActiveAdmin.register Job do
     div do
       safe_join(
         [
-          strong(I18n.t('admin.job.checklist_sidebar.industries')),
-          status_tag(job.industries.any?)
+          strong(I18n.t('admin.job.checklist_sidebar.occupations')),
+          status_tag(job.occupations.any?)
         ]
       )
     end
@@ -333,7 +333,7 @@ ActiveAdmin.register Job do
       :salary_type, :preview_key, :customer_hourly_price,
       job_skills_attributes: %i(skill_id proficiency proficiency_by_admin),
       job_languages_attributes: %i(language_id proficiency proficiency_by_admin),
-      job_industries_attributes: %i(industry_id importance years_of_experience)
+      job_occupations_attributes: %i(occupation_id importance years_of_experience)
     ]
     JobPolicy::FULL_ATTRIBUTES + extras
   end
@@ -341,7 +341,7 @@ ActiveAdmin.register Job do
   controller do
     def scoped_collection
       super.with_translations.
-        includes(:just_arrived_contact, order: [:order_values]).
+        includes(:just_arrived_contact, order: %i(job_request)).
         left_joins(:job_users).
         select('jobs.*, count(job_users.id) as job_users_count').
         group('jobs.id, job_users.job_id')
@@ -370,15 +370,15 @@ ActiveAdmin.register Job do
       end
       SetJobLanguagesService.call(job: job, language_ids_param: language_ids_param)
 
-      job_industries_attrs = job_params.delete(:job_industries_attributes)
-      industry_ids_param = (job_industries_attrs&.to_unsafe_h || {}).map do |_index, attrs| # rubocop:disable Metrics/LineLength
+      job_occupations_attrs = job_params.delete(:job_occupations_attributes)
+      occupation_ids_param = (job_occupations_attrs&.to_unsafe_h || {}).map do |_index, attrs| # rubocop:disable Metrics/LineLength
         {
-          id: attrs[:industry_id],
+          id: attrs[:occupation_id],
           years_of_experience: attrs[:years_of_experience],
           importance: attrs[:importance]
         }
       end
-      SetJobIndustriesService.call(job: job, industry_ids_param: industry_ids_param)
+      SetJobOccupationsService.call(job: job, occupation_ids_param: occupation_ids_param)
 
       super
     end
