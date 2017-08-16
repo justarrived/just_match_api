@@ -31,15 +31,6 @@ GIT
       sprockets (< 4.1)
 
 GIT
-  remote: https://github.com/ankane/blazer
-  revision: 5571325985057f0e3972b1ac9d4a5286a5e2c572
-  specs:
-    blazer (1.7.10)
-      chartkick
-      rails
-      safely_block (>= 0.1.1)
-
-GIT
   remote: https://github.com/mailcheck/mailcheck-ruby
   revision: a64ef45e849748cd8eaad0afd0119abcf2ab143a
   specs:
@@ -161,6 +152,10 @@ GEM
     bindex (0.5.0)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
+    blazer (1.8.0)
+      chartkick
+      rails
+      safely_block (>= 0.1.1)
     bootsnap (1.1.2)
       msgpack (~> 1.0)
     bourbon (4.3.4)
@@ -174,7 +169,7 @@ GEM
     byebug (9.0.6)
     case_transform (0.2)
       activesupport
-    chartkick (2.2.3)
+    chartkick (2.2.4)
     chosen-rails (1.5.2)
       coffee-rails (>= 3.2)
       railties (>= 3.0)
@@ -760,7 +755,7 @@ DEPENDENCIES
   bcrypt (~> 3.1.11)
   better_errors (~> 2.3)
   binding_of_caller (~> 0.7)
-  blazer!
+  blazer (~> 1.8)
   bootsnap (~> 1.1)
   bullet (~> 5.5)
   byebug (~> 9.0)
