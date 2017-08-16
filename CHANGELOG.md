@@ -4,6 +4,20 @@ HEAD
 -----------
 
 
+v2.6 - 2017-08-16
+----------
+* _Feature_:
+  * Create occupation & job occupation
+* _DB_:
+  - Create DB migration for missing foreign keys in orders and order_values
+* _Update gem_:
+  - active_admin_scoped_collection_actions
+  - Use RubyGems version of blazer
+* _Misc_:
+  - :hocho: gem sidekiq-statistic
+  - Gemfile cleanup
+
+
 v2.5 - 2017-08-15
 ----------
 * _Admin_:
