@@ -6,10 +6,10 @@ GIT
       activeadmin
 
 GIT
-  remote: https://github.com/activeadmin-plugins/active_admin_scoped_collection_actions
-  revision: cedf046ff062fe64e9d5e8eef0d552fe5fa18968
+  remote: https://github.com/activeadmin-plugins/active_admin_scoped_collection_actions.git
+  revision: 59ca056ff83eb81747a347b5afe6f99f227f4728
   specs:
-    active_admin_scoped_collection_actions (0.2.1)
+    active_admin_scoped_collection_actions (0.3.3)
 
 GIT
   remote: https://github.com/activeadmin/activeadmin.git
