@@ -1,5 +1,5 @@
 GIT
-  remote: https://github.com/activeadmin-plugins/active_admin_filters_visibility
+  remote: https://github.com/activeadmin-plugins/active_admin_filters_visibility.git
   revision: b851bdcb4955161948325112a5bca336db8398fc
   specs:
     active_admin_filters_visibility (1.2.0)
@@ -12,8 +12,9 @@ GIT
     active_admin_scoped_collection_actions (0.2.1)
 
 GIT
-  remote: https://github.com/activeadmin/activeadmin
+  remote: https://github.com/activeadmin/activeadmin.git
   revision: e6228e7f3368e1677fe22b28b6c1f6e9ed93e43d
+  ref: e6228e7f3368e1677fe22b28b6c1f6e9ed93e43d
   specs:
     activeadmin (1.0.0.pre5)
       arbre (>= 1.1.1)
@@ -31,7 +32,7 @@ GIT
       sprockets (< 4.1)
 
 GIT
-  remote: https://github.com/mailcheck/mailcheck-ruby
+  remote: https://github.com/mailcheck/mailcheck-ruby.git
   revision: a64ef45e849748cd8eaad0afd0119abcf2ab143a
   specs:
     mailcheck (1.0.0)
@@ -595,7 +596,7 @@ GEM
     rainbow (2.2.2)
       rake
     rake (12.0.0)
-    ransack (1.8.2)
+    ransack (1.8.3)
       actionpack (>= 3.0)
       activerecord (>= 3.0)
       activesupport (>= 3.0)
