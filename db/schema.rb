@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170813205726) do
+ActiveRecord::Schema.define(version: 20170815122026) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -407,17 +407,6 @@ ActiveRecord::Schema.define(version: 20170813205726) do
     t.index ["job_user_id"], name: "index_invoices_on_job_user_id_uniq", unique: true
   end
 
-  create_table "job_industries", force: :cascade do |t|
-    t.bigint "job_id"
-    t.bigint "industry_id"
-    t.integer "years_of_experience"
-    t.integer "importance"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["industry_id"], name: "index_job_industries_on_industry_id"
-    t.index ["job_id"], name: "index_job_industries_on_job_id"
-  end
-
   create_table "job_languages", id: :serial, force: :cascade do |t|
     t.integer "job_id"
     t.integer "language_id"
@@ -427,6 +416,17 @@ ActiveRecord::Schema.define(version: 20170813205726) do
     t.datetime "updated_at", null: false
     t.index ["job_id"], name: "index_job_languages_on_job_id"
     t.index ["language_id"], name: "index_job_languages_on_language_id"
+  end
+
+  create_table "job_occupations", force: :cascade do |t|
+    t.bigint "job_id"
+    t.bigint "occupation_id"
+    t.integer "years_of_experience"
+    t.integer "importance"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["job_id"], name: "index_job_occupations_on_job_id"
+    t.index ["occupation_id"], name: "index_job_occupations_on_occupation_id"
   end
 
   create_table "job_requests", id: :serial, force: :cascade do |t|
@@ -631,6 +631,27 @@ ActiveRecord::Schema.define(version: 20170813205726) do
     t.datetime "updated_at", null: false
     t.index ["chat_id"], name: "index_messages_on_chat_id"
     t.index ["language_id"], name: "index_messages_on_language_id"
+  end
+
+  create_table "occupation_translations", force: :cascade do |t|
+    t.string "name"
+    t.bigint "occupation_id"
+    t.bigint "language_id"
+    t.string "locale"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["language_id"], name: "index_occupation_translations_on_language_id"
+    t.index ["occupation_id"], name: "index_occupation_translations_on_occupation_id"
+  end
+
+  create_table "occupations", force: :cascade do |t|
+    t.string "name"
+    t.string "ancestry"
+    t.bigint "language_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ancestry"], name: "index_occupations_on_ancestry"
+    t.index ["language_id"], name: "index_occupations_on_language_id"
   end
 
   create_table "order_documents", id: :serial, force: :cascade do |t|
@@ -1007,10 +1028,10 @@ ActiveRecord::Schema.define(version: 20170813205726) do
   add_foreign_key "interests", "languages"
   add_foreign_key "invoices", "frilans_finans_invoices"
   add_foreign_key "invoices", "job_users"
-  add_foreign_key "job_industries", "industries"
-  add_foreign_key "job_industries", "jobs"
   add_foreign_key "job_languages", "jobs"
   add_foreign_key "job_languages", "languages"
+  add_foreign_key "job_occupations", "jobs"
+  add_foreign_key "job_occupations", "occupations"
   add_foreign_key "job_requests", "companies"
   add_foreign_key "job_requests", "users", column: "delivery_user_id", name: "job_requests_delivery_user_id_fk"
   add_foreign_key "job_requests", "users", column: "sales_user_id", name: "job_requests_sales_user_id_fk"
@@ -1037,6 +1058,9 @@ ActiveRecord::Schema.define(version: 20170813205726) do
   add_foreign_key "messages", "chats"
   add_foreign_key "messages", "languages"
   add_foreign_key "messages", "users", column: "author_id", name: "messages_author_id_fk"
+  add_foreign_key "occupation_translations", "languages"
+  add_foreign_key "occupation_translations", "occupations"
+  add_foreign_key "occupations", "languages"
   add_foreign_key "order_documents", "documents"
   add_foreign_key "order_documents", "orders"
   add_foreign_key "order_values", "order_values", column: "previous_order_value_id", name: "previous_order_value_id_fk"

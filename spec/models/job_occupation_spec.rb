@@ -1,19 +1,17 @@
 # frozen_string_literal: true
 
-FactoryGirl.define do
-  factory :job_industry do
-    job nil
-    industry nil
-  end
+require 'rails_helper'
+
+RSpec.describe JobOccupation, type: :model do
 end
 
 # == Schema Information
 #
-# Table name: job_industries
+# Table name: job_occupations
 #
 #  id                  :integer          not null, primary key
 #  job_id              :integer
-#  industry_id         :integer
+#  occupation_id       :integer
 #  years_of_experience :integer
 #  importance          :integer
 #  created_at          :datetime         not null
@@ -21,11 +19,11 @@ end
 #
 # Indexes
 #
-#  index_job_industries_on_industry_id  (industry_id)
-#  index_job_industries_on_job_id       (job_id)
+#  index_job_occupations_on_job_id         (job_id)
+#  index_job_occupations_on_occupation_id  (occupation_id)
 #
 # Foreign Keys
 #
-#  fk_rails_...  (industry_id => industries.id)
 #  fk_rails_...  (job_id => jobs.id)
+#  fk_rails_...  (occupation_id => occupations.id)
 #
