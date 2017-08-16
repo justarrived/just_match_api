@@ -3,6 +3,12 @@
 HEAD
 -----------
 
+v2.8 - 2017-08-16
+----------
+* _Bugfix_:
+  - Explicitly set `User#language` as optional
+
+
 
 v2.7 - 2017-08-16
 ----------
