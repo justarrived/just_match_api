@@ -4,6 +4,12 @@ HEAD
 -----------
 
 
+v2.7 - 2017-08-16
+----------
+* _Bugfix_:
+  - Add optional to Event#visit belongs, see https://github.com/ankane/ahoy/issues/276
+
+
 v2.6 - 2017-08-16
 ----------
 * _Feature_:
