@@ -3,7 +3,9 @@
 FactoryGirl.define do
   factory :job_occupation do
     association :job
-    association :industry
+    association :occupation
+
+    importance :bonus
   end
 end
 
