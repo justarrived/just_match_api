@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170815122026) do
+ActiveRecord::Schema.define(version: 20170816121640) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1065,8 +1065,11 @@ ActiveRecord::Schema.define(version: 20170815122026) do
   add_foreign_key "order_documents", "orders"
   add_foreign_key "order_values", "order_values", column: "previous_order_value_id", name: "previous_order_value_id_fk"
   add_foreign_key "order_values", "orders"
+  add_foreign_key "order_values", "users", column: "changed_by_user_id", name: "order_values_changed_by_user_id_fk"
   add_foreign_key "orders", "companies"
   add_foreign_key "orders", "job_requests"
+  add_foreign_key "orders", "users", column: "delivery_user_id", name: "orders_delivery_user_id_fk"
+  add_foreign_key "orders", "users", column: "sales_user_id", name: "orders_sales_user_id_fk"
   add_foreign_key "ratings", "jobs", name: "ratings_job_id_fk"
   add_foreign_key "ratings", "users", column: "from_user_id", name: "ratings_from_user_id_fk"
   add_foreign_key "ratings", "users", column: "to_user_id", name: "ratings_to_user_id_fk"

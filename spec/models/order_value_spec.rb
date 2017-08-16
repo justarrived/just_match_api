@@ -171,6 +171,7 @@ end
 #
 # Foreign Keys
 #
-#  fk_rails_...                (order_id => orders.id)
-#  previous_order_value_id_fk  (previous_order_value_id => order_values.id)
+#  fk_rails_...                        (order_id => orders.id)
+#  order_values_changed_by_user_id_fk  (changed_by_user_id => users.id)
+#  previous_order_value_id_fk          (previous_order_value_id => order_values.id)
 #

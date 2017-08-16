@@ -45,6 +45,8 @@ ActiveAdmin.register Industry do
       row :updated_at
       row :created_at
     end
+
+    active_admin_comments
   end
 
   form do |f|

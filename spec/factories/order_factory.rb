@@ -49,6 +49,8 @@ end
 #
 # Foreign Keys
 #
-#  fk_rails_...  (company_id => companies.id)
-#  fk_rails_...  (job_request_id => job_requests.id)
+#  fk_rails_...                (company_id => companies.id)
+#  fk_rails_...                (job_request_id => job_requests.id)
+#  orders_delivery_user_id_fk  (delivery_user_id => users.id)
+#  orders_sales_user_id_fk     (sales_user_id => users.id)
 #
