@@ -4,7 +4,7 @@ FactoryGirl.define do
   factory :company_translation do
     short_description 'MyText'
     description 'MyText'
-    company nil
+    association :company
   end
 end
 

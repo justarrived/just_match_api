@@ -2,8 +2,8 @@
 
 FactoryGirl.define do
   factory :feedback do
-    user nil
-    job nil
+    association :user
+    association :job
     title 'MyString'
     body 'MyText'
   end

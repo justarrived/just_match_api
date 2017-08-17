@@ -2,8 +2,8 @@
 
 FactoryGirl.define do
   factory :company_industry do
-    company nil
-    industry nil
+    association :company
+    association :industry
   end
 end
 

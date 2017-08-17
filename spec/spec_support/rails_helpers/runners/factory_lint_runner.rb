@@ -15,6 +15,7 @@ module FactoryLintRunner
     print 'Validating factories..'
     DatabaseCleaner.start
     FactoryGirl.lint(factories_to_lint)
+    DatabaseCleaner.clean
     print "done \n"
   rescue => e
     DatabaseCleaner.clean

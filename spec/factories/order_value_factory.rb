@@ -3,7 +3,8 @@
 FactoryGirl.define do
   factory :order_value do
     association :order
-    previous_order_value nil
+    association :changed_by_user, factory: :user
+
     change_comment 'MyText'
     change_reason_category 1
     total_sold nil

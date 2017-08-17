@@ -3,6 +3,7 @@
 FactoryGirl.define do
   factory :industry do
     name 'MyString'
+    association :language
   end
 end
 

@@ -2,8 +2,8 @@
 
 FactoryGirl.define do
   factory :filter_user do
-    filter nil
-    user nil
+    association :filter
+    association :user
   end
 end
 

@@ -2,10 +2,10 @@
 
 FactoryGirl.define do
   factory :industry_translation do
+    association :industry
+    association :language
     name 'MyString'
-    industry nil
-    language nil
-    locale 'MyString'
+    locale 'en'
   end
 end
 
