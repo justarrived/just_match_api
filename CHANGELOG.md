@@ -3,6 +3,18 @@
 HEAD
 -----------
 
+v2.9 - 2017-08-17
+----------
+* _Admin_:
+  - Display user presentation fields & minor admin SQL-query optimization :rocket:
+  - Add Google Analytics to admin
+* _Enhancement_:
+  - Make `OrderValue#previous_order_value` relation optional
+  - Fix Blazer linked columns address
+* _Test_:
+  - Fix FatoryGirl factories
+
+
 v2.8 - 2017-08-16
 ----------
 * _Bugfix_:
