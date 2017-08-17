@@ -1,0 +1,12 @@
+present_fields = %i(presentation_profile presentation_personality presentation_availability)
+
+if present_fields.any?(&:present?)
+  h3 I18n.t('admin.user.show.presentation_title')
+
+  present_fields.each do |field|
+    if value = user.public_send(field).presence
+      h4 I18n.t("admin.user.show.#{field}")
+      div { simple_format(value) }
+    end
+  end
+end

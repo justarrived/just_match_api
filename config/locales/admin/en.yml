@@ -283,6 +283,10 @@ en:
         candidate_status: Candidate status
         misc: Admin details
         interview_comment: Interview comment
+        presentation_title: Presentation
+        presentation_profile: Profile
+        presentation_personality: Personality
+        presentation_availability: Availability
         no_interview_comment_explain: No interview has been conducted.
         ongoing_jobs: Ongoing jobs
         future_jobs: Future jobs

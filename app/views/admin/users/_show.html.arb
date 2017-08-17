@@ -21,10 +21,14 @@ columns do
         row :facebook_url
       end
 
-      h4 I18n.t('admin.user.show.interview_comment')
-      div do
-        simple_format(user.interview_comment)
+      if user.interview_comment.present?
+        h4 I18n.t('admin.user.show.interview_comment')
+        div do
+          simple_format(user.interview_comment)
+        end
       end
+
+      render partial: 'admin/users/customer_presentation_fields', locals: { user: user }
 
       div do
         content_tag(:p) do
