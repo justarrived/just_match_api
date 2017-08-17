@@ -149,6 +149,14 @@ class AppConfig
     truthy?(env.fetch('VALIDATE_SWEDISH_SSN', true))
   end
 
+  def self.admin_google_analytics_tracking_id
+    env['ADMIN_GOOGLE_ANALYTICS_TRACKING_ID']
+  end
+
+  def self.admin_google_analytics_active?
+    production? && admin_google_analytics_tracking_id.present?
+  end
+
   # Application config
 
   def self.aws_region
@@ -198,6 +206,10 @@ class AppConfig
   end
 
   # Environment
+
+  def self.production?
+    rails_env == 'production'
+  end
 
   def self.rails_env
     env['RAILS_ENV']
