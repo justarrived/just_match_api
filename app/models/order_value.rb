@@ -2,7 +2,7 @@
 
 class OrderValue < ApplicationRecord
   belongs_to :order
-  belongs_to :previous_order_value, class_name: 'OrderValue', foreign_key: 'previous_order_value_id' # rubocop:disable Metrics/LineLength
+  belongs_to :previous_order_value, class_name: 'OrderValue', foreign_key: 'previous_order_value_id', optional: true # rubocop:disable Metrics/LineLength
   belongs_to :changed_by_user, class_name: 'User', foreign_key: 'changed_by_user_id'
 
   validates :order, presence: true
