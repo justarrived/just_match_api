@@ -23,6 +23,10 @@ columns do
 
       br
 
+      render partial: 'admin/users/customer_presentation_fields', locals: { user: user }
+
+      br
+
       ongoing_jobs = user.employed_for_jobs.ongoing
       unless ongoing_jobs.empty?
         h3 I18n.t('admin.user.show.ongoing_jobs')

@@ -390,9 +390,11 @@ ActiveAdmin.register User do
 
     def find_resource
       User.includes(
-        user_skills: [:skill],
-        user_languages: [:language],
-        user_interests: [:interest],
+        jobs: %i(translations language),
+        user_documents: %i(document),
+        user_skills: %i(skill),
+        user_languages: %i(language),
+        user_interests: %i(interest),
         interests: %i(translations language),
         skills: %i(translations language)
       ).
