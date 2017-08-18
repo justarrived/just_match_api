@@ -14,7 +14,7 @@ module Api
           formats [:json]
         end
 
-        api :POST, '/job-digests/', 'Create job digest'
+        api :POST, '/digests/jobs/', 'Create job digest'
         description 'Create job digest.'
         error code: 400, desc: 'Bad request'
         error code: 422, desc: 'Unprocessable entity'
@@ -42,9 +42,10 @@ module Api
           end
         end
 
-        api :POST, '/job-digests/:job_digest_id', 'Update job digest'
+        api :PATCH, '/digests/jobs/:job_digest_id', 'Update job digest'
         description 'Update job digest.'
         error code: 400, desc: 'Bad request'
+        error code: 404, desc: 'Not found'
         error code: 422, desc: 'Unprocessable entity'
         ApipieDocHelper.params(self)
         param :data, Hash, desc: 'Top level key', required: true do
