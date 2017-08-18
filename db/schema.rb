@@ -425,6 +425,7 @@ ActiveRecord::Schema.define(version: 20170818070524) do
     t.datetime "updated_at", null: false
     t.index ["job_digest_id"], name: "index_job_digest_subscribers_on_job_digest_id"
     t.index ["user_id"], name: "index_job_digest_subscribers_on_user_id"
+    t.index ["uuid"], name: "index_job_digest_subscribers_on_uuid", unique: true
   end
 
   create_table "job_digests", force: :cascade do |t|

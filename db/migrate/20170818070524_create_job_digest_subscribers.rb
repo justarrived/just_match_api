@@ -11,5 +11,7 @@ class CreateJobDigestSubscribers < ActiveRecord::Migration[5.1]
 
       t.timestamps
     end
+
+    add_index :job_digest_subscribers, :uuid, unique: true
   end
 end
