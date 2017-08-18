@@ -24,6 +24,7 @@ end
 #
 #  index_job_digest_subscribers_on_job_digest_id  (job_digest_id)
 #  index_job_digest_subscribers_on_user_id        (user_id)
+#  index_job_digest_subscribers_on_uuid           (uuid) UNIQUE
 #
 # Foreign Keys
 #

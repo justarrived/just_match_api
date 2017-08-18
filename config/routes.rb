@@ -14,6 +14,8 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      resources :job_digests, param: :job_digest_id, path: 'job-digests', only: %i(create update)
+
       resources :jobs, param: :job_id, only: %i(index show create update) do
         member do
           get :matching_users, path: 'matching-users'
