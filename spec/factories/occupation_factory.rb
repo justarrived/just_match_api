@@ -20,8 +20,8 @@ end
 #
 # Indexes
 #
-#  index_occupatuions_on_ancestry     (ancestry)
-#  index_occupatuions_on_language_id  (language_id)
+#  index_occupations_on_ancestry     (ancestry)
+#  index_occupations_on_language_id  (language_id)
 #
 # Foreign Keys
 #
