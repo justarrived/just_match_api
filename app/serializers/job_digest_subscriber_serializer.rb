@@ -1,12 +1,10 @@
 # frozen_string_literal: true
 
-FactoryGirl.define do
-  factory :job_digest_subscriber do
-    email 'some@example.com'
+class JobDigestSubscriberSerializer < ApplicationSerializer
+  belongs_to :job_digest
+  belongs_to :user
 
-    user nil
-    association :job_digest
-  end
+  attributes :email, :uuid
 end
 
 # == Schema Information

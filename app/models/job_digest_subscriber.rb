@@ -2,11 +2,12 @@
 
 class JobDigestSubscriber < ApplicationRecord
   belongs_to :user, optional: true
-  belongs_to :job_digest
+  belongs_to :job_digest, dependent: :destroy
 
   before_validation :set_uuid
 
   validates :uuid, presence: true
+  validates :email, email: true
 
   validate :validates_user_or_email_presence
   validate :validates_user_and_email_both_not_presence
@@ -23,8 +24,8 @@ class JobDigestSubscriber < ApplicationRecord
     return if user.blank?
     return if email.blank?
 
-    errors.add(:user, :presence)
-    errors.add(:email, :presence)
+    errors.add(:user, :present)
+    errors.add(:email, :present)
   end
 
   def set_uuid

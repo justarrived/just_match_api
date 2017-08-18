@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       namespace :digests do
         resources :job_digests, param: :job_digest_id, path: :jobs, only: %i(create update)
+        resources :job_digest_subscribers, param: :job_digest_subscriber_id, path: :subscribers, only: %i(create destroy)
       end
 
       resources :jobs, param: :job_id, only: %i(index show create update) do
