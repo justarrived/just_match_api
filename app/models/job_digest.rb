@@ -11,7 +11,6 @@ class JobDigest < ApplicationRecord
   has_many :job_digest_occupations, dependent: :destroy
   has_many :occupations, through: :job_digest_occupations
 
-  validates :subscriber, presence: true
   validates :notification_frequency, presence: true
 
   enum notification_frequency: NOTIFICATION_FREQUENCY
