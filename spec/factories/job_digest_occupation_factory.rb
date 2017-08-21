@@ -2,8 +2,8 @@
 
 FactoryGirl.define do
   factory :job_digest_occupation do
-    job_digest nil
-    occupation nil
+    association :job_digest
+    association :occupation
 
     factory :job_digest_occupation_for_docs do
       id 1
