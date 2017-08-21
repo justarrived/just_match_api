@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class JobDigestSubscriberSerializer < ApplicationSerializer
-  belongs_to :user # TODO: This should only be included if the user is logged in
-
   attributes :email, :uuid
 
   has_many :job_digests
