@@ -3,6 +3,30 @@
 require 'rails_helper'
 
 RSpec.describe EmailAddress do
+  describe '#valid?' do
+    [
+      # data, expected
+      ['test@example.com', true],
+      [' test@example.com     ', true],
+      [' test@example.com   ', true],
+      ['test@example.com ', true],
+      ['  tEsT@EXample.COM ', true],
+      ['  TEST@EXAMPLE.cOM ', true],
+      [' Test Gu <test@EXAMPLE.cOM> ', true],
+      [' Test <TEST@EXAMPLE.cOM> (my test ad)', true],
+      ['test@ad.asdcom.com.com', true],
+      ['+46735000000', false],
+      ['+467350000aa', false],
+      ['test@', false]
+    ].each do |data|
+      email, expected = data
+
+      it "returns #{expected} for #{email}" do
+        expect(described_class.valid?(email)).to eq(expected)
+      end
+    end
+  end
+
   describe '#normalize' do
     [
       'test@example.com',
