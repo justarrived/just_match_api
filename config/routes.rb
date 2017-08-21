@@ -14,12 +14,16 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      namespace :digests do
-        resources :job_digests, param: :job_digest_id, path: :jobs, only: %i(create update destroy)
-        resources :job_digest_subscribers, param: :job_digest_subscriber_id, path: :subscribers, only: %i(show create destroy)
-      end
-
       resources :jobs, param: :job_id, only: %i(index show create update) do
+        collection do
+          resources :job_digests, param: :job_digest_id, module: :jobs, path: :digests, only: %i(create update destroy)
+          resources :job_digest_subscribers, param: :job_digest_subscriber_id, module: :jobs, path: :subscribers, only: %i(show create destroy) do
+            member do
+              get :digests, to: 'job_digests#index'
+            end
+          end
+        end
+
         member do
           get :matching_users, path: 'matching-users'
           resources :job_comments, module: :jobs, path: :comments, only: %i(index show create destroy)

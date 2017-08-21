@@ -2,7 +2,7 @@
 
 module Api
   module V1
-    module Digests
+    module Jobs
       class JobDigestSubscribersController < BaseController
         after_action :verify_authorized, except: %i(show create destroy)
 
@@ -64,13 +64,10 @@ module Api
         private
 
         def set_subscriber
-          uuid = params[:job_digest_subscriber_id]
-          if current_user.admin? || current_user.id.to_s == uuid.to_s
-            @subscriber = JobDigestSubscriber.find_by(user_id: uuid)
-            return if @subscriber
-          end
-
-          @subscriber = JobDigestSubscriber.find_by!(uuid: uuid)
+          @subscriber = Queries::FindJobDigestSubscriber.from_uuid_or_user_id(
+            current_user: current_user,
+            uuid_or_user_id: params[:job_digest_subscriber_id]
+          )
         end
 
         def initialize_subscriber(email, user_id)

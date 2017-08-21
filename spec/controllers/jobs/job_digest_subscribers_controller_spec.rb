@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Api::V1::Digests::JobDigestSubscribersController, type: :controller do
+RSpec.describe Api::V1::Jobs::JobDigestSubscribersController, type: :controller do
   describe 'GET #show' do
     let(:subscriber) { FactoryGirl.create(:job_digest_subscriber) }
 

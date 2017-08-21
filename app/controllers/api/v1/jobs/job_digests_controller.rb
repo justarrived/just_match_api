@@ -2,9 +2,9 @@
 
 module Api
   module V1
-    module Digests
+    module Jobs
       class JobDigestsController < BaseController
-        after_action :verify_authorized, except: %i(create update destroy)
+        after_action :verify_authorized, except: %i(index create update destroy)
 
         before_action :set_subscriber, only: %i(update destroy)
         before_action :set_job_digest, only: %i(update destroy)
@@ -15,6 +15,23 @@ module Api
           short 'API for job digests'
           description ''
           formats [:json]
+        end
+
+        api :GET, '/users', 'List users'
+        api :GET, '/digests/jobs/', 'Create job digest'
+        description 'Returns a list of users if the user is allowed.'
+        ApipieDocHelper.params(self, Index::UsersIndex)
+        example Doxxer.read_example(User, plural: true)
+        def index
+          subscriber = Queries::FindJobDigestSubscriber.from_uuid_or_user_id(
+            current_user: current_user,
+            uuid_or_user_id: params[:job_digest_subscriber_id]
+          )
+
+          job_digests_index = Index::UsersIndex.new(self)
+          job_digests = job_digests_index.job_digests(subscriber.job_digests)
+
+          api_render(job_digests, total: job_digests_index.count)
         end
 
         api :POST, '/digests/jobs/', 'Create job digest'
