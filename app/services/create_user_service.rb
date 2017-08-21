@@ -61,6 +61,7 @@ class CreateUserService
 
     send_welcome_notification
     push_to_frilans_finans
+    enqueue_job_digest_subscriber_sync
     user
   end
 
@@ -91,5 +92,9 @@ class CreateUserService
     if AppConfig.frilans_finans_active?
       SyncFrilansFinansUserJob.perform_later(user: user)
     end
+  end
+
+  def enqueue_job_digest_subscriber_sync
+    JobDigestSubscriberSyncJob.perform_later(user: user)
   end
 end
