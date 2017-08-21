@@ -155,6 +155,8 @@ class Doxxer
     model_name = _format_model_name(model_klass)
     begin
       FactoryGirl.build("#{model_name}_for_docs").attributes
+    rescue ActiveModel::MissingAttributeError => e
+      byebug
     rescue ArgumentError => e
       if e.message.start_with?('Factory not registered:')
         return FactoryGirl.build(model_name).attributes

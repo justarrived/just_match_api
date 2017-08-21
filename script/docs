@@ -7,9 +7,6 @@ cd "$(dirname "$0")/.."
 # script/docs: Generate application documentation.
 
 echo -e '\n== Generating documentation =='
-# ensure everything in the app is up to date.
-RAILS_ENV=docs script/update
-
 echo -e '\n== Generating API response examples =='
 RAILS_ENV=docs bin/rails docs:api_examples
 

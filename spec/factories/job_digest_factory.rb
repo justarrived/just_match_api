@@ -5,6 +5,15 @@ FactoryGirl.define do
     city 'Stockholm'
     notification_frequency 1
     association :subscriber, factory: :job_digest_subscriber
+
+    factory :job_digest_for_docs do
+      id 1
+      notification_frequency 1
+      city 'Stockholm'
+      subscriber nil
+      created_at Time.new(2016, 2, 10, 1, 1, 1).utc
+      updated_at Time.new(2016, 2, 12, 1, 1, 1).utc
+    end
   end
 end
 

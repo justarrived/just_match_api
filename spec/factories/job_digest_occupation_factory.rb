@@ -4,6 +4,12 @@ FactoryGirl.define do
   factory :job_digest_occupation do
     job_digest nil
     occupation nil
+
+    factory :job_digest_occupation_for_docs do
+      id 1
+      created_at Time.new(2016, 2, 10, 1, 1, 1).utc
+      updated_at Time.new(2016, 2, 12, 1, 1, 1).utc
+    end
   end
 end
 
