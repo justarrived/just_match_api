@@ -420,10 +420,8 @@ ActiveRecord::Schema.define(version: 20170818070524) do
     t.string "email"
     t.string "uuid", limit: 36
     t.bigint "user_id"
-    t.bigint "job_digest_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["job_digest_id"], name: "index_job_digest_subscribers_on_job_digest_id"
     t.index ["user_id"], name: "index_job_digest_subscribers_on_user_id"
     t.index ["uuid"], name: "index_job_digest_subscribers_on_uuid", unique: true
   end
@@ -431,8 +429,10 @@ ActiveRecord::Schema.define(version: 20170818070524) do
   create_table "job_digests", force: :cascade do |t|
     t.string "city"
     t.integer "notification_frequency"
+    t.bigint "job_digest_subscriber_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["job_digest_subscriber_id"], name: "index_job_digests_on_job_digest_subscriber_id"
   end
 
   create_table "job_languages", id: :serial, force: :cascade do |t|
@@ -1058,8 +1058,8 @@ ActiveRecord::Schema.define(version: 20170818070524) do
   add_foreign_key "invoices", "job_users"
   add_foreign_key "job_digest_occupations", "job_digests"
   add_foreign_key "job_digest_occupations", "occupations"
-  add_foreign_key "job_digest_subscribers", "job_digests"
   add_foreign_key "job_digest_subscribers", "users"
+  add_foreign_key "job_digests", "job_digest_subscribers"
   add_foreign_key "job_languages", "jobs"
   add_foreign_key "job_languages", "languages"
   add_foreign_key "job_occupations", "jobs"

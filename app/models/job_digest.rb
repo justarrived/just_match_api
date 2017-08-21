@@ -6,11 +6,12 @@ class JobDigest < ApplicationRecord
     weekly: 2
   }.freeze
 
-  has_many :job_digest_occupations
+  belongs_to :subscriber, class_name: 'JobDigestSubscriber', foreign_key: 'job_digest_subscriber_id' # rubocop:disable Metrics/LineLength
+
+  has_many :job_digest_occupations, dependent: :destroy
   has_many :occupations, through: :job_digest_occupations
 
-  has_one :job_digest_subscriber
-
+  validates :subscriber, presence: true
   validates :notification_frequency, presence: true
 
   enum notification_frequency: NOTIFICATION_FREQUENCY
@@ -20,9 +21,18 @@ end
 #
 # Table name: job_digests
 #
-#  id                     :integer          not null, primary key
-#  city                   :string
-#  notification_frequency :integer
-#  created_at             :datetime         not null
-#  updated_at             :datetime         not null
+#  id                       :integer          not null, primary key
+#  city                     :string
+#  notification_frequency   :integer
+#  job_digest_subscriber_id :integer
+#  created_at               :datetime         not null
+#  updated_at               :datetime         not null
+#
+# Indexes
+#
+#  index_job_digests_on_job_digest_subscriber_id  (job_digest_subscriber_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (job_digest_subscriber_id => job_digest_subscribers.id)
 #
