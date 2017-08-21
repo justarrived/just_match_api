@@ -4,8 +4,7 @@ module Api
   module V1
     module Digests
       class JobDigestsController < BaseController
-        # TODO: Remove this #after_action
-        after_action :verify_authorized, only: []
+        after_action :verify_authorized, except: %i(create update destroy)
 
         before_action :set_subscriber, only: %i(update destroy)
         before_action :set_job_digest, only: %i(update destroy)
