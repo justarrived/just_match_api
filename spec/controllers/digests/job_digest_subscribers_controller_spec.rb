@@ -12,6 +12,21 @@ RSpec.describe Api::V1::Digests::JobDigestSubscribersController, type: :controll
       expect(response).to be_success
     end
 
+    context 'param is user id' do
+      let(:admin_user) { FactoryGirl.create(:admin_user) }
+
+      it 'returns 200 when found' do
+        allow_any_instance_of(described_class).
+          to(receive(:current_user).
+          and_return(admin_user))
+        FactoryGirl.create(:job_digest_subscriber, user: admin_user, email: nil)
+
+        get :show, params: { job_digest_subscriber_id: admin_user.id }
+
+        expect(response.status).to eq(200)
+      end
+    end
+
     it 'returns 404 when not found' do
       get :show, params: { job_digest_subscriber_id: 'buren' }
 

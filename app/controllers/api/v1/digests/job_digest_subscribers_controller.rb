@@ -16,7 +16,7 @@ module Api
           formats [:json]
         end
 
-        api :GET, '/digests/subscribers/:job_digest_subscriber_uuid', 'Show job digest subscriber' # rubocop:disable Metrics/LineLength
+        api :GET, '/digests/subscribers/:job_digest_subscriber_uuid_or_user_id', 'Show job digest subscriber' # rubocop:disable Metrics/LineLength
         description 'Show job digest subscriber.'
         ApipieDocHelper.params(self)
         example Doxxer.read_example(JobDigestSubscriber)
@@ -48,7 +48,7 @@ module Api
           end
         end
 
-        api :DELETE, '/digests/subscribers/:job_digest_subscriber_uuid', 'Delete job digest' # rubocop:disable Metrics/LineLength
+        api :DELETE, '/digests/subscribers/:job_digest_subscriber_uuid_or_user_id', 'Delete job digest' # rubocop:disable Metrics/LineLength
         description 'Delete job digest subscriber.'
         error code: 400, desc: 'Bad request'
         error code: 404, desc: 'Not found'
@@ -65,6 +65,11 @@ module Api
 
         def set_subscriber
           uuid = params[:job_digest_subscriber_id]
+          if current_user.admin? || current_user.id.to_s == uuid.to_s
+            @subscriber = JobDigestSubscriber.find_by(user_id: uuid)
+            return if @subscriber
+          end
+
           @subscriber = JobDigestSubscriber.find_by!(uuid: uuid)
         end
 
