@@ -3,6 +3,21 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::Jobs::JobDigestsController, type: :controller do
+  describe 'GET #index' do
+    let(:subscriber) do
+      FactoryGirl.create(:job_digest_subscriber).tap do |subscriber|
+        subscriber.job_digests = [FactoryGirl.create(:job_digest)]
+      end
+    end
+
+    it 'returns all digests' do
+      get :index, params: { job_digest_subscriber_id: subscriber.uuid }
+
+      json = JSON.parse(response.body)
+      expect(json.fetch('data').first.fetch('type')).to eq('job_digests')
+    end
+  end
+
   describe 'POST #create' do
     let(:occupation) { FactoryGirl.create(:occupation) }
     let(:subscriber) { FactoryGirl.create(:job_digest_subscriber) }

@@ -4,8 +4,6 @@ module Api
   module V1
     module Jobs
       class JobDigestsController < BaseController
-        after_action :verify_authorized, except: %i(index create update destroy)
-
         before_action :set_subscriber, only: %i(update destroy)
         before_action :set_job_digest, only: %i(update destroy)
 
@@ -17,24 +15,25 @@ module Api
           formats [:json]
         end
 
-        api :GET, '/users', 'List users'
-        api :GET, '/digests/jobs/', 'Create job digest'
-        description 'Returns a list of users if the user is allowed.'
-        ApipieDocHelper.params(self, Index::UsersIndex)
-        example Doxxer.read_example(User, plural: true)
+        api :GET, '/jobs/:job_digest_subscriber_uuid_or_user_id/digests/', 'Get all job digest belonging to a certain subscriber' # rubocop:disable Metrics/LineLength
+        description 'Returns a list of job digests if the user is allowed.'
+        # ApipieDocHelper.params(self, Index::JobDigestsIndex)
+        example Doxxer.read_example(JobDigest, plural: true)
         def index
+          authorize(JobDigest)
+
           subscriber = Queries::FindJobDigestSubscriber.from_uuid_or_user_id(
             current_user: current_user,
             uuid_or_user_id: params[:job_digest_subscriber_id]
           )
 
-          job_digests_index = Index::UsersIndex.new(self)
+          job_digests_index = Index::JobDigestsIndex.new(self)
           job_digests = job_digests_index.job_digests(subscriber.job_digests)
 
           api_render(job_digests, total: job_digests_index.count)
         end
 
-        api :POST, '/digests/jobs/', 'Create job digest'
+        api :POST, '/jobs/digests/', 'Create job digest'
         description 'Create job digest.'
         error code: 400, desc: 'Bad request'
         error code: 422, desc: 'Unprocessable entity'
@@ -52,6 +51,8 @@ module Api
           end
         end
         def create
+          authorize(JobDigest)
+
           job_digest = JobDigest.new(job_digest_params)
           uuid = jsonapi_params[:job_digest_subscriber_uuid]
           job_digest.subscriber = JobDigestSubscriber.find_by(uuid: uuid)
@@ -65,7 +66,7 @@ module Api
           end
         end
 
-        api :PATCH, '/digests/jobs/:job_digest_id', 'Update job digest'
+        api :PATCH, '/jobs/digests/:job_digest_id', 'Update job digest'
         description 'Update job digest.'
         error code: 400, desc: 'Bad request'
         error code: 404, desc: 'Not found'
@@ -84,6 +85,8 @@ module Api
           end
         end
         def update
+          authorize(@job_digest)
+
           if @job_digest.update(job_digest_params)
             @job_digest.occupations = Occupation.where(id: occupation_ids_param)
 
@@ -93,12 +96,14 @@ module Api
           end
         end
 
-        api :DELETE, '/digests/jobs/:job_digest_id', 'Delete job digest'
+        api :DELETE, '/jobs/digests/:job_digest_id', 'Delete job digest'
         description 'Delete job digest subscriber.'
         error code: 400, desc: 'Bad request'
         error code: 404, desc: 'Not found'
         ApipieDocHelper.params(self)
         def destroy
+          authorize(@job_digest)
+
           @job_digest.destroy!
 
           head :no_content
