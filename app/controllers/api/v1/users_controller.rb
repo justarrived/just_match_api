@@ -187,12 +187,17 @@ module Api
       def update
         authorize(@user)
 
+        old_email = @user.email
         if @user.update(user_params)
           @user.set_translation(user_params).tap do |result|
             ProcessTranslationJob.perform_later(
               translation: result.translation,
               changed: result.changed_fields
             )
+          end
+
+          unless @user.email == old_email
+            JobDigestSubscriberSyncJob.perform_later(user: @user)
           end
 
           @user.reload
