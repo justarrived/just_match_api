@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 class OccupationSerializer < ApplicationSerializer
-  attribute :name do
-    object.original_body
-  end
+  attributes :name
 
   attribute :translated_text do
     { name: object.translated_name }
@@ -14,10 +12,6 @@ class OccupationSerializer < ApplicationSerializer
   end
 
   belongs_to :language
-
-  has_many :occupation
-
-  # TODO: TEST THE ABOVE SERIALIZER
 end
 
 # == Schema Information
