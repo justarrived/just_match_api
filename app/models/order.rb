@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Order < ApplicationRecord
-  belongs_to :job_request
+  belongs_to :job_request, optional: true
   belongs_to :company
   belongs_to :delivery_user, optional: true, class_name: 'User', foreign_key: 'delivery_user_id' # rubocop:disable Metrics/LineLength
   belongs_to :sales_user, optional: true, class_name: 'User', foreign_key: 'sales_user_id'
