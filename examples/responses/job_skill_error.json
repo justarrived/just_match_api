@@ -3,7 +3,7 @@
     {
       "status": 422,
       "source": {
-        "pointer": "/data/attributes/skill"
+        "pointer": "/data/attributes/job"
       },
       "detail": "can't be blank",
       "meta": {
@@ -14,6 +14,26 @@
       "status": 422,
       "source": {
         "pointer": "/data/attributes/job"
+      },
+      "detail": "can't be blank",
+      "meta": {
+        "type": "blank"
+      }
+    },
+    {
+      "status": 422,
+      "source": {
+        "pointer": "/data/attributes/skill"
+      },
+      "detail": "can't be blank",
+      "meta": {
+        "type": "blank"
+      }
+    },
+    {
+      "status": 422,
+      "source": {
+        "pointer": "/data/attributes/skill"
       },
       "detail": "can't be blank",
       "meta": {

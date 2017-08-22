@@ -1,1 +1,22 @@
-{}
+{
+  "data": [
+    {
+      "id": "1",
+      "type": "job_digests",
+      "attributes": {
+        "notification_frequency": "daily",
+        "city": "Stockholm"
+      },
+      "relationships": {
+        "job_digest_subscriber": {
+          "data": null
+        }
+      }
+    }
+  ],
+  "meta": {
+    "total": 1,
+    "current_page": 1,
+    "total_pages": 1
+  }
+}

@@ -8,9 +8,6 @@
         "uuid": null
       },
       "relationships": {
-        "user": {
-          "data": null
-        },
         "job_digests": {
           "data": []
         }
