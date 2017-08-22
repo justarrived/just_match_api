@@ -118,6 +118,7 @@ Rails.application.routes.draw do
         end
       end
 
+      resources :occupations, only: %i(index show)
       resources :terms_agreement_consents, path: 'terms-consents', only: [:create]
       resources :languages, only: %i(index show create update destroy)
       resources :skills, only: %i(index show create update destroy)
