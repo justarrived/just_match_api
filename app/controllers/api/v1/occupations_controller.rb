@@ -15,14 +15,15 @@ module Api
 
       api :GET, '/occupations', 'List occupations'
       description 'Returns a list of occupations.'
-      # ApipieDocHelper.params(self, Index::OccupationsIndex)
+      ApipieDocHelper.params(self, Index::OccupationsIndex)
       example Doxxer.read_example(Occupation, plural: true)
       def index
         authorize(Occupation)
 
-        @occupations = Occupation.all
+        occupations_index = Index::OccupationsIndex.new(self)
+        @occupations = occupations_index.occupations
 
-        api_render(@occupations)
+        api_render(@occupations, total: occupations_index.count)
       end
 
       api :GET, '/occupations/:id', 'Show occupation'

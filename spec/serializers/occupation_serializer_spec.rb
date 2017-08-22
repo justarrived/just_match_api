@@ -19,7 +19,7 @@ RSpec.describe OccupationSerializer, type: :serializer do
     end
 
     it 'has translated_text' do
-      value = { 'name' => nil }
+      value = { 'name' => nil, 'language_id' => nil }
       expect(subject).to have_jsonapi_attribute('translated_text', value)
     end
 

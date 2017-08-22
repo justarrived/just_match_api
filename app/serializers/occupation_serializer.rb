@@ -4,7 +4,10 @@ class OccupationSerializer < ApplicationSerializer
   attributes :name
 
   attribute :translated_text do
-    { name: object.translated_name }
+    {
+      name: object.translated_name,
+      language_id: object.translated_language_id
+    }
   end
 
   attribute :parent_id do
