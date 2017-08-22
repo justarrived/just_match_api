@@ -87,7 +87,8 @@ en:
       body: We want to update you on new jobs that might be fit for you. Check them out below and apply if you are interested.
       more_jobs: View all our jobs
       search_job: Read more and apply
-      unsubscribe: Unsubscribe now
+      update_digest_settings: Update email settings or cancel.
+      good_luck: 'Good luck!'
     job_match:
       accepted_line: You've got a new job match!
       congrats_line: Congrats %{name}!

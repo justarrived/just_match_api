@@ -2,7 +2,8 @@
 
 class SendLatestJobDigestService
   def self.call(jobs_published_within_hours:)
-    jobs = Job.includes(:occupations).
+    jobs = Job.with_translations.
+           includes(:occupations).
            published.
            after(:publish_at, jobs_published_within_hours.hours.ago)
 
