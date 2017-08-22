@@ -2,31 +2,29 @@
 
 <p><%= I18n.t('mailer.job_digest.body') %></p>
 
-<ul>
-  <% @jobs.each do |job| %>
-    <li>
-      <h4><%= job.translated_name %></h4>
-      <p><%= job.translated_short_description %></p>
-      <%= render(
-        'mailer_partials/action_button',
-        url: frontend_mail_url(:job, id: job.id, utm_campaign: 'job_digest'),
-        title: I18n.t('mailer.job_digest.search_job'),
-        align: I18nMeta.align(I18n.locale)
-      ) %>
-    </li>
-  <% end %>
-</ul>
+<% @jobs.each do |job| %>
+  <h4><%= job.translated_name %></h4>
+  <p><%= job.translated_short_description %></p>
+  <%= render(
+    'mailer_partials/action_button',
+    url: frontend_mail_url(:job, id: job.id, utm_campaign: 'job_digest'),
+    title: I18n.t('mailer.job_digest.search_job'),
+    align: I18nMeta.align(I18n.locale)
+  ) %>
+  <%= render 'mailer_partials/hr' %>
+<% end %>
 
+<br>
 <%= render(
   'mailer_partials/action_button',
   url: @more_jobs_url,
   title: I18n.t('mailer.job_digest.more_jobs'),
-  align: I18nMeta.align(I18n.locale)
+  align: :center
 ) %>
 
-<%= link_to(
-  I18n.t('mailer.job_digest.unsubscribe'),
-  @unsubscribe_url
-) %>
+<%= render 'mailer_partials/hr' %>
+
+<br>
+<%= link_to(I18n.t('mailer.job_digest.unsubscribe'), @unsubscribe_url, style: 'color: #9C9FA7') %>
 
 <p><%= I18n.t('mailer.signoff') %></p>
