@@ -3,6 +3,22 @@
 require 'rails_helper'
 
 RSpec.describe JobDigestSubscriber, type: :model do
+  describe '#contact_email' do
+    it 'returns the email if there is no user' do
+      the_email = 'some@example.com'
+      subscriber = FactoryGirl.build_stubbed(:job_digest_subscriber, email: the_email)
+
+      expect(subscriber.contact_email).to eq(the_email)
+    end
+
+    it 'returns the users contact email if there is a user' do
+      user = FactoryGirl.build_stubbed(:user)
+      subscriber = FactoryGirl.build(:job_digest_subscriber, email: nil, user: user)
+
+      expect(subscriber.contact_email).to eq(user.email)
+    end
+  end
+
   describe '#validates_user_or_email_presence' do
     it 'adds error if user and email are both blank' do
       jds = described_class.new

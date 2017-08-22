@@ -15,6 +15,12 @@ class JobDigestSubscriber < ApplicationRecord
   validate :validates_user_and_email_both_not_present
   validate :validates_email_not_belong_to_user
 
+  def contact_email
+    return user.contact_email if user
+
+    email
+  end
+
   def validates_user_or_email_presence
     return if email.present?
     return if user.present?
