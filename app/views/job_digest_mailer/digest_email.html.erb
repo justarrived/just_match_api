@@ -1,0 +1,32 @@
+<h3><%= I18n.t('mailer.job_digest.header') %></h3>
+
+<p><%= I18n.t('mailer.job_digest.body') %></p>
+
+<ul>
+  <% @jobs.each do |job| %>
+    <li>
+      <h4><%= job.translated_name %></h4>
+      <p><%= job.translated_short_description %></p>
+      <%= render(
+        'mailer_partials/action_button',
+        url: frontend_mail_url(:job, id: job.id, utm_campaign: 'job_digest'),
+        title: I18n.t('mailer.job_digest.search_job'),
+        align: I18nMeta.align(I18n.locale)
+      ) %>
+    </li>
+  <% end %>
+</ul>
+
+<%= render(
+  'mailer_partials/action_button',
+  url: @more_jobs_url,
+  title: I18n.t('mailer.job_digest.more_jobs'),
+  align: I18nMeta.align(I18n.locale)
+) %>
+
+<%= link_to(
+  I18n.t('mailer.job_digest.unsubscribe'),
+  @unsubscribe_url
+) %>
+
+<p><%= I18n.t('mailer.signoff') %></p>

@@ -11,3 +11,4 @@ routes:
   job_user: 'job/%{job_id}'
   user_edit: 'user'
   chat: 'support-chat?message_id=%{message_id}'
+  unsubscribe: 'unsubscribe=%{subscriber_id}'

@@ -8,12 +8,18 @@ class JobDigest < ApplicationRecord
 
   belongs_to :subscriber, class_name: 'JobDigestSubscriber', foreign_key: 'job_digest_subscriber_id' # rubocop:disable Metrics/LineLength
 
+  has_one :user, through: :subscriber
+
   has_many :job_digest_occupations, dependent: :destroy
   has_many :occupations, through: :job_digest_occupations
 
   validates :notification_frequency, presence: true
 
   enum notification_frequency: NOTIFICATION_FREQUENCY
+
+  def email
+    subscriber.contact_email
+  end
 end
 
 # == Schema Information

@@ -22,6 +22,30 @@ RSpec::Matchers.define :match_email_body do |expected|
   end
 end
 
+RSpec::Matchers.define :match_email_body_html do |expected|
+  match do |mail|
+    mail.html_part.body.to_s.include?(expected) == true
+  end
+
+  failure_message do |mail|
+    mail_contents = mail.public_send(html_part).body.to_s
+    fail_msg = "expected that #{mail_contents} would include #{expected}"
+    fail_msg unless mail_contents.include?(expected)
+  end
+end
+
+RSpec::Matchers.define :match_email_body_text do |expected|
+  match do |mail|
+    mail.text_part.body.to_s.include?(expected) == true
+  end
+
+  failure_message do |mail|
+    mail_contents = mail.public_send(text_part).body.to_s
+    fail_msg = "expected that #{mail_contents} would include #{expected}"
+    fail_msg unless mail_contents.include?(expected)
+  end
+end
+
 RSpec::Matchers.define :be_multipart_email do |expected|
   match do |mail|
     mail.multipart? == expected
