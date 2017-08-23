@@ -7,6 +7,7 @@ class FrilansFinansInvoice < ApplicationRecord
 
   has_one :job, through: :job_user
   has_one :user, through: :job_user
+  has_one :company, through: :job
   has_one :invoice
 
   validates :job_user, presence: true
@@ -99,6 +100,7 @@ end
 #  ff_sent_at         :datetime
 #  express_payment    :boolean          default(FALSE)
 #  ff_last_synced_at  :datetime
+#  ff_invoice_number  :integer
 #
 # Indexes
 #
