@@ -6,6 +6,7 @@ class SyncFrilansFinansInvoiceService
     document = FrilansFinansApi::Invoice.show(id: ff_id, client: client)
     ff_invoice = document.resource.attributes
 
+    frilans_finans_invoice.ff_invoice_number = ff_invoice['invoice_number']
     frilans_finans_invoice.ff_payment_status = ff_invoice['payment_status']
     frilans_finans_invoice.ff_approval_status = ff_invoice['approval_status']
     frilans_finans_invoice.ff_status = ff_invoice['status']

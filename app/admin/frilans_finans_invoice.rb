@@ -14,11 +14,13 @@ ActiveAdmin.register FrilansFinansInvoice do
   scope :uncancelled_jobs
 
   filter :activated
+  filter :ff_invoice_number
+  filter :frilans_finans_id
   filter :ff_status
+  filter :company
   filter :user
   filter :job, collection: -> { Job.with_translations }
   filter :express_payment
-  filter :frilans_finans_id
   filter :ff_pre_report
   filter :ff_amount
   filter :ff_gross_salary
@@ -124,6 +126,7 @@ ActiveAdmin.register FrilansFinansInvoice do
     attributes_table do
       row :id
       row :activated
+      row :ff_invoice_number
       row :ff_amount
       row :ff_gross_salary
       row :ff_status do
