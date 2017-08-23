@@ -3,6 +3,23 @@
 HEAD
 -----------
 
+
+v2.10 - 2017-08-23
+----------
+* _Bugfix_:
+  - Make Order#job_request optional
+* _Enhancement_:
+  - Add Frilans Finans Invoice number to FrilansFinansInvoice model
+  - Add EmailAddress#valid? method
+* _Update gem_:
+  - twilio-ruby
+  - aws-sdk
+  - puma
+  - aws-sdk
+* _Docs_:
+  - Update PostgreSQL version in docs and README
+
+
 v2.9 - 2017-08-17
 ----------
 * _Admin_:
