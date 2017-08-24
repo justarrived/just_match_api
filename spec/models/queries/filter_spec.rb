@@ -50,7 +50,21 @@ RSpec.describe Queries::Filter do
       end
     end
 
-    context 'filter_type: translated' do
+    context 'filter_type: alias' do
+      subject { described_class }
+
+      it 'returns correct results' do
+        occupation = FactoryGirl.create(:occupation_with_translation, name: 'watman')
+        occupation1 = FactoryGirl.create(:occupation_with_translation, name: 'wat1', parent: occupation)
+        FactoryGirl.create(:occupation_with_translation, name: 'tawnam')
+
+        filter = { parent_id: { alias: :ancestry } }
+        result = subject.filter(Occupation, { parent_id: occupation.to_param }, filter)
+        expect(result).to eq([occupation1])
+      end
+    end
+
+    context 'filter_type: in_list' do
       subject { described_class }
 
       it 'returns correct results' do
@@ -61,6 +75,22 @@ RSpec.describe Queries::Filter do
         filter = { id: :in_list }
         result = subject.filter(Skill, { id: [skill.id, skill1.id].join(',') }, filter)
         expect(result).to eq([skill, skill1])
+      end
+    end
+  end
+
+  describe '::normalize_value' do
+    it 'returns nil and empty string array if nil' do
+      expect(described_class.normalize_value(nil)).to eq([nil, ''])
+    end
+
+    it 'returns nil and empty string array if empty string' do
+      expect(described_class.normalize_value('')).to eq([nil, ''])
+    end
+
+    ['  ', 'yo', [:wat], { wat: :man }].each do |value|
+      it "returns value untouched for #{value}" do
+        expect(described_class.normalize_value(value)).to eq(value)
       end
     end
   end

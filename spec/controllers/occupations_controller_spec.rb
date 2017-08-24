@@ -14,9 +14,7 @@ RSpec.describe Api::V1::OccupationsController, type: :controller do
     it 'is able to filter out all root occupations' do
       occupation = FactoryGirl.create(:occupation)
       FactoryGirl.create(:occupation, parent: occupation)
-
-      get :index, params: { filter: { parent: nil } }
-
+      get :index, params: { filter: { parent_id: nil } }
       expect(assigns(:occupations)).to eq([occupation])
       expect(response.status).to eq(200)
     end
@@ -27,7 +25,7 @@ RSpec.describe Api::V1::OccupationsController, type: :controller do
       FactoryGirl.create(:occupation, parent: occupation2)
       FactoryGirl.create(:occupation)
 
-      get :index, params: { filter: { parent: occupation1 } }
+      get :index, params: { filter: { parent_id: occupation1.to_param } }
       expect(assigns(:occupations)).to eq([occupation2])
       expect(response.status).to eq(200)
     end

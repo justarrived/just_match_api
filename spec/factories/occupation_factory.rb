@@ -5,6 +5,12 @@ FactoryGirl.define do
     name 'MyString'
     association :language
 
+    factory :occupation_with_translation do
+      after(:create) do |occupation, _evaluator|
+        occupation.set_translation(name: occupation.name)
+      end
+    end
+
     factory :occupation_for_docs do
       id 1
       name 'Carpenter'

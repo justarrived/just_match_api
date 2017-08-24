@@ -4,7 +4,11 @@ module Index
   class OccupationsIndex < BaseIndex
     FILTER_MATCH_TYPES = {
       id: :in_list,
-      name: { translated: :starts_with }
+      name: { translated: :starts_with },
+      parent_id: {
+        alias: :ancestry,
+        type: :in_list
+      }
     }.freeze
     ALLOWED_FILTERS = %i(id name parent_id).freeze
     SORTABLE_FIELDS = %i(created_at name).freeze
