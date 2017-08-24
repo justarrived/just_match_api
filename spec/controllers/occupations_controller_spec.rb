@@ -10,6 +10,23 @@ RSpec.describe Api::V1::OccupationsController, type: :controller do
       expect(assigns(:occupations)).to eq([occupation])
       expect(response.status).to eq(200)
     end
+
+    it 'is able to filter out all root occupations' do
+      occupation1 = FactoryGirl.create(:occupation)
+      FactoryGirl.create(:occupation, parent: occupation1)
+      get :index, params: { filter: { parent: nil }}
+      expect(assigns(:occupations)).to eq([occupation1])
+      expect(response.status).to eq(200)
+    end
+
+    it 'is able to filter out children occupations of a specific occupation' do
+      occupation1 = FactoryGirl.create(:occupation)
+      occupation2 = FactoryGirl.create(:occupation, parent: occupation1)
+      occupation3 = FactoryGirl.create(:occupation)
+      get :index, params: { filter: { parent: occupation1 }}
+      expect(assigns(:occupations)).to eq([occupation2])
+      expect(response.status).to eq(200)
+    end
   end
 
   describe 'GET #show' do
