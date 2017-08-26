@@ -1,0 +1,11 @@
+# frozen_string_literal: true
+job_user_query = AdminHelpers::Link.query(:job_user_id, job_user.id)
+
+ul do
+  li link_to job_user.user.display_name, admin_user_path(job_user.user) if job_user.user
+  li link_to job_user.job.display_name, admin_job_path(job_user.job) if job_user.job
+  li link_to job_user.company.display_name, admin_company_path(job_user.company) if job_user.company
+  li link_to job_user.owner.display_name, admin_user_path(job_user.owner)
+  li link_to job_user.invoice.display_name, admin_invoice_path(job_user.invoice) if job_user.invoice
+  li link_to job_user.frilans_finans_invoice.display_name, admin_frilans_finans_invoice_path(job_user.frilans_finans_invoice) if job_user.frilans_finans_invoice
+end
