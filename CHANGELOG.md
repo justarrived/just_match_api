@@ -4,6 +4,12 @@ HEAD
 -----------
 
 
+v2.11 - 2017-08-26
+----------
+* _Admin_:
+  - Added a job user relations sidebar and a job relations sidebar to job user view
+
+
 v2.10 - 2017-08-23
 ----------
 * _Bugfix_:
