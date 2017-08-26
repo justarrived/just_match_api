@@ -2,6 +2,8 @@
 
 require 'spec_helper'
 
+require 'google_calendar_url'
+
 RSpec.describe GoogleCalendarUrl do
   let(:start_time) { Time.new(2016, 1, 1, 1, 1, 1, '+01:00') }
   let(:start_time_iso8601) { '20160101T000101Z' }
