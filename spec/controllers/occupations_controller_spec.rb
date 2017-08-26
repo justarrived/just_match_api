@@ -6,16 +6,18 @@ RSpec.describe Api::V1::OccupationsController, type: :controller do
   describe 'GET #index' do
     it 'assigns all occupations as @occupations' do
       occupation = FactoryGirl.create(:occupation)
-      process :index, method: :get
+      get :index
       expect(assigns(:occupations)).to eq([occupation])
       expect(response.status).to eq(200)
     end
 
     it 'is able to filter out all root occupations' do
-      occupation1 = FactoryGirl.create(:occupation)
-      FactoryGirl.create(:occupation, parent: occupation1)
+      occupation = FactoryGirl.create(:occupation)
+      FactoryGirl.create(:occupation, parent: occupation)
+
       get :index, params: { filter: { parent: nil } }
-      expect(assigns(:occupations)).to eq([occupation1])
+
+      expect(assigns(:occupations)).to eq([occupation])
       expect(response.status).to eq(200)
     end
 
@@ -23,7 +25,9 @@ RSpec.describe Api::V1::OccupationsController, type: :controller do
       occupation1 = FactoryGirl.create(:occupation)
       occupation2 = FactoryGirl.create(:occupation, parent: occupation1)
       FactoryGirl.create(:occupation)
+
       get :index, params: { filter: { parent: occupation1 } }
+
       expect(assigns(:occupations)).to eq([occupation2])
       expect(response.status).to eq(200)
     end
