@@ -67,6 +67,35 @@ RSpec.describe SendJobDigestNotificationsService do
         job_digest = FactoryGirl.build_stubbed(:job_digest, occupations: [first, second])
         expect(subject.new(job, job_digest).occupations?).to eq(true)
       end
+
+      context 'with children occupations' do
+        it 'returns true if any job occupations is in job digest' do
+          first = FactoryGirl.build_stubbed(:occupation)
+          second = FactoryGirl.build_stubbed(:occupation, parent: first)
+
+          job = FactoryGirl.build_stubbed(:job, occupations: [first])
+          job_digest = FactoryGirl.build_stubbed(:job_digest, occupations: [second])
+          expect(subject.new(job, job_digest).occupations?).to eq(true)
+        end
+      end
+    end
+
+    describe '#occupation_root_ids' do
+      it 'returns the ancestors id if present' do
+        root_occupation = FactoryGirl.build_stubbed(:occupation)
+        middle_occupation = FactoryGirl.build_stubbed(
+          :occupation, ancestry: root_occupation.id.to_s
+        )
+        child_occupation = FactoryGirl.build_stubbed(
+          :occupation, ancestry: middle_occupation.id.to_s
+        )
+        occupations = [root_occupation, middle_occupation, child_occupation]
+
+        matcher = subject.new(nil, nil)
+        expected = [root_occupation.id.to_s, middle_occupation.id.to_s]
+
+        expect(matcher.occupation_root_ids(occupations)).to match(expected)
+      end
     end
   end
 end

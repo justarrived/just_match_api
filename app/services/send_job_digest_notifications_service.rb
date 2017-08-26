@@ -43,12 +43,21 @@ class SendJobDigestNotificationsService
       return true if job_digest.occupations.empty?
       return false if job.occupations.empty?
 
-      (job.occupations & job_digest.occupations).any?
+      job_digest_occupations = occupation_root_ids(job_digest.occupations)
+      job_occupations = occupation_root_ids(job.occupations)
+
+      (job_occupations & job_digest_occupations).any?
     end
 
     def within_distance?
-      # TODO: Implement!
+      # TODO: Implement lat/long comparision
       job.city == job_digest.city
+    end
+
+    def occupation_root_ids(occupations)
+      occupations.map do |job_digest|
+        (job_digest.ancestry.presence || job_digest.id).to_s
+      end.uniq
     end
   end
 end
