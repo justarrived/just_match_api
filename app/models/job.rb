@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'google_calendar_url'
+
 class Job < ApplicationRecord
   include Geocodable
   include SkillMatchable
