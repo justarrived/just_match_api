@@ -41,12 +41,13 @@ class SendJobDigestNotificationsService
 
     def occupations?
       return true if job_digest.occupations.empty?
+      return false if job.occupations.empty?
 
       (job.occupations & job_digest.occupations).any?
     end
 
     def within_distance?
-      # fail(NotImplementedError, 'do it!')
+      # TODO: Implement!
       job.city == job_digest.city
     end
   end

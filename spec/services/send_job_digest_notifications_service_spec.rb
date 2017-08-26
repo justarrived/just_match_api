@@ -21,10 +21,12 @@ RSpec.describe SendJobDigestNotificationsService do
     end
 
     describe '#city?' do
-      it 'returns true if job digest city is blank' do
-        job = FactoryGirl.build_stubbed(:job)
-        job_digest = FactoryGirl.build_stubbed(:job_digest, city: nil)
-        expect(subject.new(job, job_digest).city?).to eq(true)
+      [nil, '   ', ' '].each do |city|
+        it "returns true if job digest city is blank for #{city})" do
+          job = FactoryGirl.build_stubbed(:job)
+          job_digest = FactoryGirl.build_stubbed(:job_digest, city: city)
+          expect(subject.new(job, job_digest).city?).to eq(true)
+        end
       end
 
       it 'returns true if job digest city is within distance from job' do
@@ -47,6 +49,14 @@ RSpec.describe SendJobDigestNotificationsService do
         job = FactoryGirl.build_stubbed(:job)
         job_digest = FactoryGirl.build_stubbed(:job_digest)
         expect(subject.new(job, job_digest).occupations?).to eq(true)
+      end
+
+      it 'returns false if any job occupations is empty and job digests is not' do
+        first = FactoryGirl.build_stubbed(:occupation)
+
+        job = FactoryGirl.build_stubbed(:job)
+        job_digest = FactoryGirl.build_stubbed(:job_digest, occupations: [first])
+        expect(subject.new(job, job_digest).occupations?).to eq(false)
       end
 
       it 'returns true if any job occupations is in job digest' do
