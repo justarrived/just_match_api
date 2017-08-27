@@ -94,7 +94,8 @@ RSpec.describe Api::V1::Jobs::JobDigestsController, type: :controller do
 
     context 'with valid params' do
       let(:job_digest) do
-        FactoryGirl.create(:job_digest, city: 'a city', subscriber: subscriber)
+        address = FactoryGirl.create(:address, city: 'a city')
+        FactoryGirl.create(:job_digest, address: address, subscriber: subscriber)
       end
       let(:new_city) { 'new city' }
       let(:valid_attributes) do
@@ -126,7 +127,7 @@ RSpec.describe Api::V1::Jobs::JobDigestsController, type: :controller do
         patch :update, params: valid_attributes
 
         job_digest.reload
-        expect(job_digest.city).to eq(new_city)
+        expect(job_digest.address.city).to eq(new_city)
       end
 
       it 'updates the JobDigest => JobDigestOccupation relation' do

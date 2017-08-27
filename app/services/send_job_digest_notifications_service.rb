@@ -26,14 +26,15 @@ class SendJobDigestNotificationsService
     end
 
     def match?
-      return false unless city?
+      return false unless address?
       return false unless occupations?
 
       true
     end
 
-    def city?
-      return true if job_digest.city.blank?
+    def address?
+      return true unless job_digest.address
+      return true unless job_digest.address.coordinates?
       return true if within_distance?
 
       false
@@ -50,8 +51,16 @@ class SendJobDigestNotificationsService
     end
 
     def within_distance?
-      # TODO: Implement lat/long comparision
-      job.city == job_digest.city
+      return false unless job.latitude
+      return false unless job.longitude
+
+      address = job_digest.address
+
+      distance = Geocoder::Calculations.distance_between(
+        [job.latitude, job.longitude],
+        [address.latitude, address.longitude]
+      )
+      distance < job_digest.max_distance
     end
 
     def occupation_root_ids(occupations)

@@ -56,6 +56,7 @@ module Api
           job_digest = JobDigest.new(job_digest_params)
           uuid = jsonapi_params[:job_digest_subscriber_uuid]
           job_digest.subscriber = JobDigestSubscriber.find_by(uuid: uuid)
+          job_digest.address = Address.new(address_params) unless address_params.empty?
 
           if job_digest.save
             job_digest.occupations = Occupation.where(id: occupation_ids_param)
@@ -87,7 +88,12 @@ module Api
         def update
           authorize(@job_digest)
 
-          if @job_digest.update(job_digest_params)
+          @job_digest.assign_attributes(job_digest_params)
+
+          if @job_digest.save
+            @job_digest.address ||= Address.new
+            @job_digest.address.update(address_params)
+
             @job_digest.occupations = Occupation.where(id: occupation_ids_param)
 
             api_render(@job_digest)
@@ -127,7 +133,12 @@ module Api
         end
 
         def job_digest_params
-          jsonapi_params.permit(:city, :notification_frequency)
+          jsonapi_params.permit(:notification_frequency)
+        end
+
+        def address_params
+          attributes = Address::PARTS + %i(longitude latitude)
+          jsonapi_params.permit(*attributes)
         end
       end
     end

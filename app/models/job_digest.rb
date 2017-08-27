@@ -6,6 +6,10 @@ class JobDigest < ApplicationRecord
     weekly: 2
   }.freeze
 
+  DEFAULT_MAX_DISTANCE = 50
+
+  before_validation :set_max_distance
+
   belongs_to :subscriber, class_name: 'JobDigestSubscriber', foreign_key: 'job_digest_subscriber_id' # rubocop:disable Metrics/LineLength
   belongs_to :address, optional: true
 
@@ -15,11 +19,18 @@ class JobDigest < ApplicationRecord
   has_many :occupations, through: :job_digest_occupations
 
   validates :notification_frequency, presence: true
+  validates :max_distance, numericality: { greater_than: 0 }, presence: true
 
   enum notification_frequency: NOTIFICATION_FREQUENCY
 
   def email
     subscriber.contact_email
+  end
+
+  def set_max_distance
+    return if max_distance.present?
+
+    self.max_distance = DEFAULT_MAX_DISTANCE
   end
 end
 
@@ -28,7 +39,7 @@ end
 # Table name: job_digests
 #
 #  id                       :integer          not null, primary key
-#  city                     :string
+#  address_id               :integer
 #  notification_frequency   :integer
 #  job_digest_subscriber_id :integer
 #  created_at               :datetime         not null
@@ -36,9 +47,11 @@ end
 #
 # Indexes
 #
+#  index_job_digests_on_address_id                (address_id)
 #  index_job_digests_on_job_digest_subscriber_id  (job_digest_subscriber_id)
 #
 # Foreign Keys
 #
+#  fk_rails_...  (address_id => addresses.id)
 #  fk_rails_...  (job_digest_subscriber_id => job_digest_subscribers.id)
 #

@@ -9,38 +9,125 @@ RSpec.describe SendJobDigestNotificationsService do
     describe '#match?' do
       it 'returns true if matches' do
         job = FactoryGirl.build_stubbed(:job)
-        job_digest = FactoryGirl.build_stubbed(:job_digest, city: nil)
+        address = FactoryGirl.build_stubbed(:address, city: nil)
+        job_digest = FactoryGirl.build_stubbed(:job_digest, address: address)
         expect(subject.new(job, job_digest).match?).to eq(true)
       end
 
       it 'returns false if it does not match' do
-        job = FactoryGirl.build_stubbed(:job)
-        job_digest = FactoryGirl.build_stubbed(:job_digest, city: 'bad city')
+        job = FactoryGirl.build_stubbed(:job, longitude: nil, latitude: nil)
+        address = FactoryGirl.build_stubbed(:address, longitude: 13, latitude: 13)
+        job_digest = FactoryGirl.build_stubbed(:job_digest, address: address)
         expect(subject.new(job, job_digest).match?).to eq(false)
       end
     end
 
-    describe '#city?' do
-      [nil, '   ', ' '].each do |city|
-        it "returns true if job digest city is blank for #{city})" do
-          job = FactoryGirl.build_stubbed(:job)
-          job_digest = FactoryGirl.build_stubbed(:job_digest, city: city)
-          expect(subject.new(job, job_digest).city?).to eq(true)
-        end
+    describe '#address?' do
+      it 'returns true if job digest has no address' do
+        job = FactoryGirl.build_stubbed(:job)
+        job_digest = FactoryGirl.build_stubbed(:job_digest, address: nil)
+
+        matcher = subject.new(job, job_digest)
+
+        expect(matcher.address?).to eq(true)
       end
 
+      it 'returns true if job digest address has no coordinates' do
+        address = FactoryGirl.build_stubbed(
+          :address,
+          city: 'Stockholm',
+          latitude: nil,
+          longitude: nil
+        )
+        job = FactoryGirl.build_stubbed(:job)
+        job_digest = FactoryGirl.build_stubbed(:job_digest, address: address)
+
+        matcher = subject.new(job, job_digest)
+
+        expect(matcher.address?).to eq(true)
+      end
+    end
+
+    describe '#within_distance?' do
       it 'returns true if job digest city is within distance from job' do
-        job = FactoryGirl.build_stubbed(:job, city: 'Stockholm')
-        job_digest = FactoryGirl.build_stubbed(:job_digest, city: 'Stockholm')
+        job = FactoryGirl.build_stubbed(
+          :job,
+          city: 'Stockholm',
+          latitude: 59.32932,
+          longitude: 18.06858
+        )
+        address = FactoryGirl.build_stubbed(
+          :address,
+          city: 'Stockholm',
+          latitude: 59.32932,
+          longitude: 18.06858
+        )
+        job_digest = FactoryGirl.build_stubbed(
+          :job_digest,
+          address: address,
+          max_distance: 50
+        )
 
-        expect(subject.new(job, job_digest).city?).to eq(true)
+        expect(subject.new(job, job_digest).within_distance?).to eq(true)
       end
 
-      it 'returns false if job digest city is within distance from job' do
-        job = FactoryGirl.build_stubbed(:job, city: 'Göteborg')
-        job_digest = FactoryGirl.build_stubbed(:job_digest, city: 'Stockholm')
+      it 'returns false if job digest address is not within distance from job' do
+        job = FactoryGirl.build_stubbed(
+          :job,
+          city: 'Stockholm',
+          latitude: 59.32932,
+          longitude: 18.06858
+        )
+        address = FactoryGirl.build_stubbed(
+          :address,
+          city: 'Lund',
+          latitude: 55.6987817,
+          longitude: 13.1975525
+        )
+        job_digest = FactoryGirl.build_stubbed(
+          :job_digest,
+          address: address,
+          max_distance: 50
+        )
 
-        expect(subject.new(job, job_digest).city?).to eq(false)
+        expect(subject.new(job, job_digest).within_distance?).to eq(false)
+      end
+
+      it 'returns true if job digest address is within distance from job' do
+        job = FactoryGirl.build_stubbed(
+          :job,
+          city: 'Stockholm',
+          latitude: 59.32932,
+          longitude: 18.06858
+        )
+        address = FactoryGirl.build_stubbed(
+          :address,
+          city: 'Lund',
+          latitude: 55.6987817,
+          longitude: 13.1975525
+        )
+        job_digest = FactoryGirl.build_stubbed(
+          :job_digest,
+          address: address,
+          max_distance: 500
+        )
+
+        expect(subject.new(job, job_digest).within_distance?).to eq(true)
+      end
+
+      it 'returns false if job digest address exists and job is not geocoded' do
+        address = FactoryGirl.build_stubbed(
+          :address,
+          city: 'Stockholm',
+          latitude: 13,
+          longitude: 13
+        )
+        job = FactoryGirl.build_stubbed(:job)
+        job_digest = FactoryGirl.build_stubbed(:job_digest, address: address)
+
+        matcher = subject.new(job, job_digest)
+
+        expect(matcher.address?).to eq(false)
       end
     end
 

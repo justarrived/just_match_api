@@ -11,14 +11,14 @@ RSpec.describe JobDigestSerializer, type: :serializer do
       JSON.parse(serialization.to_json)
     end
 
-    %i(city notification_frequency).each do |attribute|
+    %i(notification_frequency max_distance).each do |attribute|
       it "has #{attribute.to_s.humanize.downcase}" do
         value = resource.public_send(attribute)
         expect(subject).to have_jsonapi_attribute(attribute.to_s, value)
       end
     end
 
-    %w(job_digest_subscriber).each do |relationship|
+    %w(job_digest_subscriber address).each do |relationship|
       it "has #{relationship} relationship" do
         expect(subject).to have_jsonapi_relationship(relationship)
       end
@@ -35,7 +35,7 @@ end
 # Table name: job_digests
 #
 #  id                       :integer          not null, primary key
-#  city                     :string
+#  address_id               :integer
 #  notification_frequency   :integer
 #  job_digest_subscriber_id :integer
 #  created_at               :datetime         not null
@@ -43,9 +43,11 @@ end
 #
 # Indexes
 #
+#  index_job_digests_on_address_id                (address_id)
 #  index_job_digests_on_job_digest_subscriber_id  (job_digest_subscriber_id)
 #
 # Foreign Keys
 #
+#  fk_rails_...  (address_id => addresses.id)
 #  fk_rails_...  (job_digest_subscriber_id => job_digest_subscribers.id)
 #

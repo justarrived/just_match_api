@@ -1,14 +1,9 @@
 # frozen_string_literal: true
 
-FactoryGirl.define do
-  factory :address do
-    street1 'MyString'
-    street2 nil
-    city 'Lund'
-    state nil
-    postal_code '22352'
-    municipality nil
-  end
+class AddressSerializer < ApplicationSerializer
+  ATTRIBUTES = Address::PARTS + %i(longitude latitude)
+
+  attributes ATTRIBUTES
 end
 
 # == Schema Information

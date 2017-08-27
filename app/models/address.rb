@@ -5,7 +5,7 @@ require 'postal_code'
 class Address < ApplicationRecord
   include Uuidable
 
-  ADDRESS_ATTRIBUTES = %i(
+  PARTS = %i(
     street1
     street2
     postal_code
@@ -16,6 +16,7 @@ class Address < ApplicationRecord
   ).freeze
 
   geocoded_by :full_street_address
+  before_validation :normalize_attributes
   after_validation :geocode_address, if: :should_geocode?
 
   scope :near_address, (lambda { |query|
@@ -58,7 +59,7 @@ class Address < ApplicationRecord
   end
 
   def address_changed?
-    ADDRESS_ATTRIBUTES.any? { |attribute| public_send("#{attribute}_changed?") }
+    PARTS.any? { |attribute| public_send("#{attribute}_changed?") }
   end
 
   def should_geocode?
@@ -73,6 +74,23 @@ class Address < ApplicationRecord
 
     self.latitude = place.latitude
     self.longitude = place.longitude
+  end
+
+  def coordinates?
+    return true if longitude && latitude
+
+    false
+  end
+
+  def normalize_attributes
+    PARTS.each do |attribute|
+      input = public_send(attribute)
+      next unless input
+
+      value = input.strip
+      value = nil if input.blank?
+      public_send("#{attribute}=", value)
+    end
   end
 end
 

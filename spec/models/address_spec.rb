@@ -38,6 +38,40 @@ RSpec.describe Address, type: :model do
     end
   end
 
+  describe '#coordinates?' do
+    it 'returns true if both longitude and latitude is set' do
+      expect(Address.new(longitude: 13, latitude: 13).coordinates?).to eq(true)
+    end
+
+    it 'returns true unless both longitude and latitude is set' do
+      expect(Address.new.coordinates?).to eq(false)
+    end
+  end
+
+  describe '#normalize_attributes' do
+    %i(
+      street1
+      street2
+      postal_code
+      municipality
+      city
+      state
+      country_code
+    ).each do |attribute|
+      it "normalizes #{attribute}" do
+        address = described_class.new(attribute => "  #{attribute}  ")
+        address.normalize_attributes
+        expect(address.public_send(attribute)).to eq(attribute.to_s)
+      end
+
+      it "normalizes #{attribute} to nil if string is blank" do
+        address = described_class.new(attribute => '    ')
+        address.normalize_attributes
+        expect(address.public_send(attribute)).to be_nil
+      end
+    end
+  end
+
   describe 'address_changed?' do
     %i(
       street1
