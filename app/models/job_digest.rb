@@ -7,6 +7,7 @@ class JobDigest < ApplicationRecord
   }.freeze
 
   belongs_to :subscriber, class_name: 'JobDigestSubscriber', foreign_key: 'job_digest_subscriber_id' # rubocop:disable Metrics/LineLength
+  belongs_to :address, optional: true
 
   has_one :user, through: :subscriber
 

@@ -10,12 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170823095050) do
+ActiveRecord::Schema.define(version: 20170827132019) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "hstore"
-  enable_extension "pg_stat_statements"
   enable_extension "unaccent"
 
   create_table "active_admin_comments", id: :serial, force: :cascade do |t|
@@ -23,13 +21,29 @@ ActiveRecord::Schema.define(version: 20170823095050) do
     t.text "body"
     t.string "resource_id", null: false
     t.string "resource_type", null: false
-    t.integer "author_id"
     t.string "author_type"
+    t.integer "author_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id"
     t.index ["namespace"], name: "index_active_admin_comments_on_namespace"
     t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
+  end
+
+  create_table "addresses", force: :cascade do |t|
+    t.string "street1"
+    t.string "street2"
+    t.string "city"
+    t.string "state"
+    t.string "postal_code"
+    t.string "municipality"
+    t.string "country_code"
+    t.string "uuid", limit: 36
+    t.decimal "latitude", precision: 15, scale: 10
+    t.decimal "longitude", precision: 15, scale: 10
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["uuid"], name: "index_addresses_on_uuid"
   end
 
   create_table "ahoy_events", id: :serial, force: :cascade do |t|
@@ -140,8 +154,8 @@ ActiveRecord::Schema.define(version: 20170823095050) do
 
   create_table "comments", id: :serial, force: :cascade do |t|
     t.text "body"
-    t.integer "commentable_id"
     t.string "commentable_type"
+    t.integer "commentable_id"
     t.integer "owner_user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -327,7 +341,6 @@ ActiveRecord::Schema.define(version: 20170823095050) do
     t.datetime "ff_sent_at"
     t.boolean "express_payment", default: false
     t.datetime "ff_last_synced_at"
-    t.integer "ff_invoice_number"
     t.index ["job_user_id"], name: "index_frilans_finans_invoices_on_job_user_id"
   end
 
@@ -585,9 +598,9 @@ ActiveRecord::Schema.define(version: 20170823095050) do
     t.string "city"
     t.boolean "staffing_job", default: false
     t.boolean "direct_recruitment_job", default: false
-    t.integer "order_id"
     t.string "municipality"
     t.integer "number_to_fill", default: 1
+    t.integer "order_id"
     t.boolean "full_time", default: false
     t.string "swedish_drivers_license"
     t.boolean "car_required", default: false
