@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 class JobsDigestNotifier < BaseNotifier
-  def self.call(jobs:, email:, job_digest:, user: nil)
+  def self.call(jobs:, job_digest:)
     envelope = JobDigestMailer.digest_email(
-      email: email,
+      email: job_digest.email,
       jobs: jobs,
       job_digest: job_digest
     )
-    dispatch(envelope, locale: user&.locale)
+    dispatch(envelope, locale: job_digest.locale)
   end
 end

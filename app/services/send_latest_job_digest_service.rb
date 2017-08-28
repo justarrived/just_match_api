@@ -11,14 +11,15 @@ class SendLatestJobDigestService
            after(:publish_at, jobs_published_within_hours.hours.ago).
            limit(max_jobs)
 
+    total_sent = 0
     job_digests_scope.all.
       includes(:occupations, subscriber: %i(user)).
       find_in_batches(batch_size: MAX_JOB_DIGEST_BATCH) do |job_digests|
-
-      SendJobDigestNotificationsService.call(
+      total_sent += SendJobDigestNotificationsService.call(
         jobs: jobs,
         job_digests: job_digests
       )
     end
+    total_sent
   end
 end

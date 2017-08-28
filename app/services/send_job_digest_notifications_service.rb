@@ -2,15 +2,15 @@
 
 class SendJobDigestNotificationsService
   def self.call(jobs:, job_digests:)
+    total_sent = 0
     job_digests.each do |job_digest|
       matching_jobs = jobs.select { |job| JobDigestMatch.match?(job, job_digest) }
+      next if matching_jobs.empty?
 
-      JobsDigestNotifier.call(
-        jobs: matching_jobs,
-        email: job_digest.email,
-        user: job_digest.user
-      )
+      JobsDigestNotifier.call(jobs: matching_jobs, job_digest: job_digest)
+      total_sent += 1
     end
+    total_sent
   end
 
   class JobDigestMatch

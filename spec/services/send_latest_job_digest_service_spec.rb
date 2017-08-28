@@ -30,14 +30,15 @@ RSpec.describe SendLatestJobDigestService do
         ]
       )
 
+      # Should match
       FactoryGirl.create(:job_digest, occupations: [occ])
       FactoryGirl.create(:job_digest, occupations: [occ, occ1])
       FactoryGirl.create(:job_digest, occupations: [occ, occ2, occ3])
+      # Should *not* match
       FactoryGirl.create(:job_digest, occupations: [occ3])
 
-      allow(SendJobDigestNotificationsService).to receive(:call).and_return(nil)
-      described_class.call(jobs_published_within_hours: 24)
-      expect(SendJobDigestNotificationsService).to receive(:call).once
+      total_sent = described_class.call(jobs_published_within_hours: 24)
+      expect(total_sent).to eq(3)
     end
   end
 end

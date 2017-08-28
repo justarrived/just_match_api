@@ -444,6 +444,7 @@ ActiveRecord::Schema.define(version: 20170818070524) do
     t.bigint "address_id"
     t.integer "notification_frequency"
     t.float "max_distance"
+    t.string "locale", limit: 10
     t.bigint "job_digest_subscriber_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

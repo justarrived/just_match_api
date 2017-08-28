@@ -9,6 +9,7 @@ class JobDigest < ApplicationRecord
   DEFAULT_MAX_DISTANCE = 50
 
   before_validation :set_max_distance
+  before_validation :set_locale
 
   belongs_to :subscriber, class_name: 'JobDigestSubscriber', foreign_key: 'job_digest_subscriber_id' # rubocop:disable Metrics/LineLength
   belongs_to :address, optional: true
@@ -25,6 +26,10 @@ class JobDigest < ApplicationRecord
 
   def email
     subscriber.contact_email
+  end
+
+  def set_locale
+    self.locale = locale || user&.locale || I18n.default_locale.to_s
   end
 
   def set_max_distance
