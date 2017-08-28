@@ -71,7 +71,7 @@ module Api
             address_params: address_params,
             occupation_ids_param: occupation_ids_param,
             current_user: current_user,
-            uuid: jsonapi_params[:digest_subscriber_uuid],
+            uuid: jsonapi_params[:digest_subscriber_uuid].presence,
             user_id: jsonapi_params[:user_id].presence,
             email: jsonapi_params[:email].presence
           )
