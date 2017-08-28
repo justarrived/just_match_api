@@ -26,10 +26,9 @@ RSpec.describe CreateJobDigestService do
     end
 
     it 'can find job_digest subscriber using its UUID' do
-      digest = nil
       subscriber = FactoryGirl.create(:digest_subscriber)
 
-      described_class.call(
+      digest = described_class.call(
         job_digest_params: valid_job_digest_params,
         address_params: {},
         occupation_ids_param: {},
