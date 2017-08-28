@@ -2,6 +2,16 @@
 
 module Queries
   class Filter
+    def self.to_params(filter_types)
+      filter_types.map do |name, filter_type|
+        filter_type = { type: filter_type } unless filter_type.is_a?(Hash)
+        column = name
+        column = filter_type[:column] if filter_type[:column]
+
+        [name, { column: column }.merge!(filter_type)]
+      end.to_h
+    end
+
     def self.filter(records, filters, filter_types)
       filters.each do |field_name, value|
         # If it includes a '.' it means its a filter on a relation and

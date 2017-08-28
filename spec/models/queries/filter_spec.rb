@@ -3,6 +3,25 @@
 require 'rails_helper'
 
 RSpec.describe Queries::Filter do
+  describe '#to_params' do
+    it 'returns correct array for simplest type of filter' do
+      expected = { a: { column: :a, type: :b } }
+      expect(described_class.to_params(a: :b)).to match(expected)
+    end
+
+    it 'returns correct array for complex filter' do
+      filter = {
+        id: :in_list,
+        first_name: { translated: :starts_with, column: :fname }
+      }
+      expected = {
+        id: { column: :id, type: :in_list },
+        first_name: { column: :fname, translated: :starts_with }
+      }
+      expect(described_class.to_params(filter)).to match(expected)
+    end
+  end
+
   describe '#filter' do
     context 'no filter_types' do
       subject { described_class }
