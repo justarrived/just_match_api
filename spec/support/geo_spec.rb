@@ -29,6 +29,7 @@ RSpec.describe Geo do
 
     it 'returns nil result for no match' do
       place = Geo.best_result('watdress')
+      expect(place.city).to be_nil
       expect(place.address).to eq('')
       expect(place.country_code).to eq('')
       expect(place.latitude).to be_nil
