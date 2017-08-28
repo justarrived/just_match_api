@@ -13,6 +13,13 @@ require 'seeds/dev/tag_seed'
 require 'seeds/dev/terms_agreement_seed'
 require 'seeds/dev/user_seed'
 
+module System
+  def self.call(string)
+    puts "$ #{string}"
+    system(string)
+  end
+end
+
 namespace :dev do
   task count_models: :environment do
     ignore_tables = %w(
@@ -39,26 +46,47 @@ namespace :dev do
     puts "#{total_first_part}#{counts.sum}"
   end
 
+  desc 'Raise an exception unless in dev environment'
+  task :ensure_dev_env do
+    unless Rails.env.development?
+      fail('[ERROR] This command must run with Rails using the development environment.')
+    end
+  end
+
   namespace :db do
-    desc 'Download latest database dump from Heroku, import and anonymize it'
-    task :heroku_import, [:heroku_app_name] => [:environment] do |_t, args|
-      unless Rails.env.development?
-        fail('This command must run with Rails using the development environment.')
+    namespace :heroku do
+      DB_DUMP_PATH = 'tmp/latest-heroku.dump'
+
+      desc 'Download latest database dump from Heroku, import and anonymize it'
+      task :import, [:heroku_app_name] => [:environment] do |_t, args|
+        heroku_app_name = args[:heroku_app_name]
+
+        Rake::Task['dev:db:heroku:download'].invoke(heroku_app_name)
+        Rake::Task['dev:db:restore'].execute
+        Rake::Task['dev:db:anonymize'].execute
       end
 
-      heroku_app_name = args[:heroku_app_name]
-      if heroku_app_name.blank?
-        puts 'Example'
-        puts '  $ bin/rails dev:db:heroku_import["your_heroku_app_name"]'
-        fail('You must provide a Heroku app name')
+      desc 'Download latest database dump from Heroku'
+      task :download, %i[heroku_app_name db_dump_path] => %i[environment ensure_dev_env] do |_t, args| # rubocop:disable Metrics/LineLength
+        db_dump_path = args.fetch(:db_dump_path, DB_DUMP_PATH)
+        heroku_app_name = args[:heroku_app_name]
+        if heroku_app_name.blank?
+          puts 'Example'
+          puts '  $ bin/rails dev:db:heroku:download["your_heroku_app_name"]'
+          fail('[ERROR] You must provide a Heroku app name')
+        end
+
+        # Download DB backup from Heroku
+        puts 'Starting download of latest Heroku DB backup'
+        System.call("heroku pg:backups:download --app=#{heroku_app_name} --output=#{db_dump_path}") # rubocop:disable Metrics/LineLength
+        puts "Latest Heroku DB backup saved to #{db_dump_path}"
       end
+    end
 
-      db_dump_path = 'tmp/latest-heroku.dump'
-
-      # Download DB backup from Heroku
-      puts 'Starting download of latest Heroku DB backup'
-      system("heroku pg:backups:download --app=#{heroku_app_name} --output=#{db_dump_path}") # rubocop:disable Metrics/LineLength
-      puts "Latest Heroku DB backup saved to #{db_dump_path}"
+    desc 'Restore database from database dump'
+    task :restore, %i[db_dump_path db_name] => %i[environment ensure_dev_env] do |_t, args| # rubocop:disable Metrics/LineLength
+      db_dump_path = args.fetch(:db_dump_path, DB_DUMP_PATH)
+      db_name = args.fetch(:db_name, 'just_match_development')
 
       puts 'Dropping current database'
       Rake::Task['db:drop'].execute
@@ -66,53 +94,53 @@ namespace :dev do
 
       # Restore DB
       puts "Restoring the database from #{db_dump_path}. This may take a while.."
-      system("pg_restore --no-owner -d just_match_development #{db_dump_path}")
+      System.call("pg_restore --no-owner -d #{db_name} #{db_dump_path}")
       puts 'Database restored.'
+    end
 
-      # Anonymize DB
+    desc 'Anonymize the database'
+    task anonymize: %i[environment ensure_dev_env] do
+      if Rails.env.production?
+        fail('[ERROR] Can *not* anonymize database in production env!')
+      end
+
       puts 'Anonymizing the database and making it secure for development use.'
-      Rake::Task['dev:anonymize_database'].execute
+
+      print "Destroying #{Invoice.count} invoices.."
+      Invoice.destroy_all
+      puts 'destroyed!'
+      print "Destroying #{FrilansFinansInvoice.count} Frilans Finans Invoices.."
+      FrilansFinansInvoice.destroy_all
+      puts 'destoryed!'
+      print 'Setting all user passwords to "12345678"..'
+      User.update_all( # rubocop:disable Rails/SkipsModelValidations
+        password_salt: '$2a$10$G5.OPRLyRAh.gWYsY6lhaO',
+        password_hash: '$2a$10$G5.OPRLyRAh.gWYsY6lhaOWIRMicGMdU7DCDR3UTbnLTOufAqYZeG',
+        account_clearing_number: nil,
+        account_number: nil
+      )
+      puts 'done!'
+      print "Anonymizing #{User.count} users..."
+      User.find_each(batch_size: 500).each(&:reset!)
+      puts 'anonymized!'
+      print 'Set admin user email to admin@example.com..'
+      User.admins.first&.update(email: 'admin@example.com')
+      puts 'done!'
+      print 'Deleting all tokens...'
+      Token.delete_all
+      puts 'done!'
+      print "Anonymizing #{Company.count} companies..."
+      Company.find_each(batch_size: 500).each do |company|
+        company.name = Faker::Company.name
+        company.cin = Faker::Company.swedish_organisation_number
+        company.email = "#{SecureGenerator.token(length: 32)}@example.com"
+        company.website = nil
+        company.street = Faker::Address.street_address
+        company.save(validate: false)
+      end
+      puts 'done!'
       puts 'Anonymization finished. Database ready for development use.'
     end
-  end
-
-  desc 'Anonymize the database'
-  task anonymize_database: :environment do
-    fail('Can *not* anonymize database in production env!') if Rails.env.production?
-
-    print "Destroying #{Invoice.count} invoices.."
-    Invoice.destroy_all
-    puts 'destroyed!'
-    print "Destroying #{FrilansFinansInvoice.count} Frilans Finans Invoices.."
-    FrilansFinansInvoice.destroy_all
-    puts 'destoryed!'
-    print 'Setting all user passwords to "12345678"..'
-    User.update_all( # rubocop:disable Rails/SkipsModelValidations
-      password_salt: '$2a$10$G5.OPRLyRAh.gWYsY6lhaO',
-      password_hash: '$2a$10$G5.OPRLyRAh.gWYsY6lhaOWIRMicGMdU7DCDR3UTbnLTOufAqYZeG',
-      account_clearing_number: nil,
-      account_number: nil
-    )
-    puts 'done!'
-    print "Anonymizing #{User.count} users..."
-    User.find_each(batch_size: 500).each(&:reset!)
-    puts 'anonymized!'
-    print 'Set admin user email to admin@example.com..'
-    User.admins.first&.update(email: 'admin@example.com')
-    puts 'done!'
-    print 'Deleting all tokens...'
-    Token.delete_all
-    puts 'done!'
-    print "Anonymizing #{Company.count} companies..."
-    Company.find_each(batch_size: 500).each do |company|
-      company.name = Faker::Company.name
-      company.cin = Faker::Company.swedish_organisation_number
-      company.email = "#{SecureGenerator.token(length: 32)}@example.com"
-      company.website = nil
-      company.street = Faker::Address.street_address
-      company.save(validate: false)
-    end
-    puts 'anonymized!'
   end
 
   SEED_ADDRESSES = [
