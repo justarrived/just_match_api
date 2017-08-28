@@ -98,6 +98,15 @@ module Api
             param :occupation_ids, Array, of: Hash, desc: 'List of occupations' do
               param :id, Integer, desc: 'Occupation id', required: true
             end
+            param :street1, String, desc: 'Street1 value'
+            param :street2, String, desc: 'Street2 value'
+            param :postal_code, String, desc: 'Postal_code value'
+            param :municipality, String, desc: 'Municipality value'
+            param :city, String, desc: 'City value'
+            param :state, String, desc: 'State value'
+            param :country_code, String, desc: 'Country_code value'
+            param :latitude, Float, desc: 'Latitude value'
+            param :longitude, Float, desc: 'Longitude value'
             # rubocop:enable Metrics/LineLength
           end
         end

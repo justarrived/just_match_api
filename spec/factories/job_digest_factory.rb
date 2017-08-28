@@ -5,6 +5,7 @@ FactoryGirl.define do
     notification_frequency 1
     association :subscriber, factory: :digest_subscriber
     association :address
+    locale I18n.default_locale
 
     factory :job_digest_for_docs do
       id 1
