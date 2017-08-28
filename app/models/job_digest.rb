@@ -11,7 +11,7 @@ class JobDigest < ApplicationRecord
   before_validation :set_max_distance
   before_validation :set_locale
 
-  belongs_to :subscriber, class_name: 'JobDigestSubscriber', foreign_key: 'job_digest_subscriber_id' # rubocop:disable Metrics/LineLength
+  belongs_to :subscriber, class_name: 'DigestSubscriber', foreign_key: 'digest_subscriber_id' # rubocop:disable Metrics/LineLength
   belongs_to :address, optional: true
 
   has_one :user, through: :subscriber
@@ -54,17 +54,17 @@ end
 #  notification_frequency   :integer
 #  max_distance             :float
 #  locale                   :string(10)
-#  job_digest_subscriber_id :integer
+#  digest_subscriber_id :integer
 #  created_at               :datetime         not null
 #  updated_at               :datetime         not null
 #
 # Indexes
 #
 #  index_job_digests_on_address_id                (address_id)
-#  index_job_digests_on_job_digest_subscriber_id  (job_digest_subscriber_id)
+#  index_job_digests_on_digest_subscriber_id  (digest_subscriber_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (address_id => addresses.id)
-#  fk_rails_...  (job_digest_subscriber_id => job_digest_subscribers.id)
+#  fk_rails_...  (digest_subscriber_id => digest_subscribers.id)
 #

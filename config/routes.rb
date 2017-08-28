@@ -17,7 +17,7 @@ Rails.application.routes.draw do
       resources :jobs, param: :job_id, only: %i(index show create update) do
         collection do
           resources :job_digests, param: :job_digest_id, module: :jobs, path: :digests, only: %i(create update destroy)
-          resources :job_digest_subscribers, param: :job_digest_subscriber_id, module: :jobs, path: :subscribers, only: %i(show create destroy) do
+          resources :digest_subscribers, param: :digest_subscriber_id, module: :jobs, path: :subscribers, only: %i(show create destroy) do
             member do
               get :digests, to: 'job_digests#index'
             end

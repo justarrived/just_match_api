@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-class CreateJobDigestSubscribers < ActiveRecord::Migration[5.1]
+class CreateDigestSubscribers < ActiveRecord::Migration[5.1]
   def change
-    create_table :job_digest_subscribers do |t|
+    create_table :digest_subscribers do |t|
       t.string :email
       t.string :uuid, limit: 36 # Max UUID length is 36, see https://tools.ietf.org/html/rfc4122#section-3
 
@@ -11,6 +11,6 @@ class CreateJobDigestSubscribers < ActiveRecord::Migration[5.1]
       t.timestamps
     end
 
-    add_index :job_digest_subscribers, :uuid, unique: true
+    add_index :digest_subscribers, :uuid, unique: true
   end
 end

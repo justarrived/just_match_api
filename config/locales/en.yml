@@ -51,7 +51,7 @@ en:
       job_started: job start time must be in the passed before an invoice can be created
       job_user_accepted: user must be the accepted applicant before an invoice can be created
       job_user_will_perform: user must have confirmed the job before an invoice can be created
-    job_digest_subscriber:
+    digest_subscriber:
       email_belongs_to_user_account: already belongs to a user account
     job:
       job_date_in_the_past: must be in the future

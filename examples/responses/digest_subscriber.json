@@ -1,7 +1,7 @@
 {
   "data": {
     "id": "1",
-    "type": "job_digest_subscribers",
+    "type": "digest_subscribers",
     "attributes": {
       "email": "example-subscriber1@example.com",
       "uuid": null

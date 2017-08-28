@@ -7,7 +7,7 @@ RSpec.describe Api::V1::Jobs::JobDigestsController, type: :routing do
     it 'routes to #index' do
       path = '/api/v1/jobs/subscribers/1/digests'
       route_path = 'api/v1/jobs/job_digests#index'
-      expect(get: path).to route_to(route_path, job_digest_subscriber_id: '1')
+      expect(get: path).to route_to(route_path, digest_subscriber_id: '1')
     end
 
     it 'routes to #create' do

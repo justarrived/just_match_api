@@ -2,9 +2,9 @@
 
 require 'rails_helper'
 
-RSpec.describe JobDigestSubscriberSerializer, type: :serializer do
+RSpec.describe DigestSubscriberSerializer, type: :serializer do
   context 'Individual Resource Representation' do
-    let(:resource) { FactoryGirl.build(:job_digest_subscriber, id: '1') }
+    let(:resource) { FactoryGirl.build(:digest_subscriber, id: '1') }
     let(:serialization) { JsonApiSerializer.serialize(resource) }
 
     subject do
@@ -25,14 +25,14 @@ RSpec.describe JobDigestSubscriberSerializer, type: :serializer do
     end
 
     it 'is valid jsonapi format' do
-      expect(subject).to be_jsonapi_formatted('job_digest_subscribers')
+      expect(subject).to be_jsonapi_formatted('digest_subscribers')
     end
   end
 end
 
 # == Schema Information
 #
-# Table name: job_digest_subscribers
+# Table name: digest_subscribers
 #
 #  id         :integer          not null, primary key
 #  email      :string
@@ -43,8 +43,8 @@ end
 #
 # Indexes
 #
-#  index_job_digest_subscribers_on_user_id  (user_id)
-#  index_job_digest_subscribers_on_uuid     (uuid) UNIQUE
+#  index_digest_subscribers_on_user_id  (user_id)
+#  index_digest_subscribers_on_uuid     (uuid) UNIQUE
 #
 # Foreign Keys
 #

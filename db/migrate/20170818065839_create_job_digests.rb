@@ -8,7 +8,7 @@ class CreateJobDigests < ActiveRecord::Migration[5.1]
       t.float :max_distance
       t.string :locale, limit: '10'
 
-      t.belongs_to :job_digest_subscriber, foreign_key: true
+      t.belongs_to :digest_subscriber, foreign_key: true
 
       t.timestamps
     end

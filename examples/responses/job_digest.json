@@ -7,7 +7,7 @@
       "city": "Stockholm"
     },
     "relationships": {
-      "job_digest_subscriber": {
+      "digest_subscriber": {
         "data": null
       }
     }

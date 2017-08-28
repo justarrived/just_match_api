@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class JobDigestSubscriber < ApplicationRecord
+class DigestSubscriber < ApplicationRecord
   belongs_to :user, optional: true
 
   has_many :job_digests, dependent: :destroy
@@ -41,7 +41,7 @@ class JobDigestSubscriber < ApplicationRecord
     return if email.blank?
     return if User.find_by(email: email).blank?
 
-    message = I18n.t('errors.job_digest_subscriber.email_belongs_to_user_account')
+    message = I18n.t('errors.digest_subscriber.email_belongs_to_user_account')
     errors.add(:email, message)
   end
 
@@ -58,7 +58,7 @@ end
 
 # == Schema Information
 #
-# Table name: job_digest_subscribers
+# Table name: digest_subscribers
 #
 #  id         :integer          not null, primary key
 #  email      :string
@@ -69,8 +69,8 @@ end
 #
 # Indexes
 #
-#  index_job_digest_subscribers_on_user_id  (user_id)
-#  index_job_digest_subscribers_on_uuid     (uuid) UNIQUE
+#  index_digest_subscribers_on_user_id  (user_id)
+#  index_digest_subscribers_on_uuid     (uuid) UNIQUE
 #
 # Foreign Keys
 #

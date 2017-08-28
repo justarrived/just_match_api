@@ -41,7 +41,7 @@ class UpdateUserService
   end
 
   def enqueue_email_updated_events
-    JobDigestSubscriberSyncJob.perform_later(user: user)
+    DigestSubscriberSyncJob.perform_later(user: user)
   end
 
   def set_user_traits

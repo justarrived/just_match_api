@@ -18,7 +18,7 @@ RSpec.describe JobDigestSerializer, type: :serializer do
       end
     end
 
-    %w(job_digest_subscriber address).each do |relationship|
+    %w(digest_subscriber address).each do |relationship|
       it "has #{relationship} relationship" do
         expect(subject).to have_jsonapi_relationship(relationship)
       end
@@ -39,17 +39,17 @@ end
 #  notification_frequency   :integer
 #  max_distance             :float
 #  locale                   :string(10)
-#  job_digest_subscriber_id :integer
+#  digest_subscriber_id :integer
 #  created_at               :datetime         not null
 #  updated_at               :datetime         not null
 #
 # Indexes
 #
 #  index_job_digests_on_address_id                (address_id)
-#  index_job_digests_on_job_digest_subscriber_id  (job_digest_subscriber_id)
+#  index_job_digests_on_digest_subscriber_id  (digest_subscriber_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (address_id => addresses.id)
-#  fk_rails_...  (job_digest_subscriber_id => job_digest_subscribers.id)
+#  fk_rails_...  (digest_subscriber_id => digest_subscribers.id)
 #

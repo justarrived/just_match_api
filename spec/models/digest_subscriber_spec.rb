@@ -2,18 +2,18 @@
 
 require 'rails_helper'
 
-RSpec.describe JobDigestSubscriber, type: :model do
+RSpec.describe DigestSubscriber, type: :model do
   describe '#contact_email' do
     it 'returns the email if there is no user' do
       the_email = 'some@example.com'
-      subscriber = FactoryGirl.build_stubbed(:job_digest_subscriber, email: the_email)
+      subscriber = FactoryGirl.build_stubbed(:digest_subscriber, email: the_email)
 
       expect(subscriber.contact_email).to eq(the_email)
     end
 
     it 'returns the users contact email if there is a user' do
       user = FactoryGirl.build_stubbed(:user)
-      subscriber = FactoryGirl.build(:job_digest_subscriber, email: nil, user: user)
+      subscriber = FactoryGirl.build(:digest_subscriber, email: nil, user: user)
 
       expect(subscriber.contact_email).to eq(user.email)
     end
@@ -62,7 +62,7 @@ end
 
 # == Schema Information
 #
-# Table name: job_digest_subscribers
+# Table name: digest_subscribers
 #
 #  id         :integer          not null, primary key
 #  email      :string
@@ -73,8 +73,8 @@ end
 #
 # Indexes
 #
-#  index_job_digest_subscribers_on_user_id  (user_id)
-#  index_job_digest_subscribers_on_uuid     (uuid) UNIQUE
+#  index_digest_subscribers_on_user_id  (user_id)
+#  index_digest_subscribers_on_uuid     (uuid) UNIQUE
 #
 # Foreign Keys
 #

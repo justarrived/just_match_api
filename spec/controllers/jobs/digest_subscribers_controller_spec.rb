@@ -2,12 +2,12 @@
 
 require 'rails_helper'
 
-RSpec.describe Api::V1::Jobs::JobDigestSubscribersController, type: :controller do
+RSpec.describe Api::V1::Jobs::DigestSubscribersController, type: :controller do
   describe 'GET #show' do
-    let(:subscriber) { FactoryGirl.create(:job_digest_subscriber) }
+    let(:subscriber) { FactoryGirl.create(:digest_subscriber) }
 
     it 'returns 200 when found' do
-      get :show, params: { job_digest_subscriber_id: subscriber.uuid }
+      get :show, params: { digest_subscriber_id: subscriber.uuid }
 
       expect(response).to be_success
     end
@@ -19,16 +19,16 @@ RSpec.describe Api::V1::Jobs::JobDigestSubscribersController, type: :controller 
         allow_any_instance_of(described_class).
           to(receive(:current_user).
           and_return(admin_user))
-        FactoryGirl.create(:job_digest_subscriber, user: admin_user, email: nil)
+        FactoryGirl.create(:digest_subscriber, user: admin_user, email: nil)
 
-        get :show, params: { job_digest_subscriber_id: admin_user.id }
+        get :show, params: { digest_subscriber_id: admin_user.id }
 
         expect(response.status).to eq(200)
       end
     end
 
     it 'returns 404 when not found' do
-      get :show, params: { job_digest_subscriber_id: 'buren' }
+      get :show, params: { digest_subscriber_id: 'buren' }
 
       expect(response).to be_not_found
     end
@@ -48,12 +48,12 @@ RSpec.describe Api::V1::Jobs::JobDigestSubscribersController, type: :controller 
         }
         expect do
           post :create, params: valid_attributes
-        end.to change(JobDigestSubscriber, :count).by(1)
+        end.to change(DigestSubscriber, :count).by(1)
       end
 
       it 'returns existing JobDigest if user email already exists' do
         user = FactoryGirl.create(:user, email: 'digest-email@example.com')
-        FactoryGirl.create(:job_digest_subscriber, user: user, email: nil)
+        FactoryGirl.create(:digest_subscriber, user: user, email: nil)
 
         allow_any_instance_of(described_class).
           to(receive(:current_user).
@@ -66,14 +66,14 @@ RSpec.describe Api::V1::Jobs::JobDigestSubscribersController, type: :controller 
         }
         expect do
           post :create, params: valid_attributes
-        end.to change(JobDigestSubscriber, :count).by(0)
+        end.to change(DigestSubscriber, :count).by(0)
 
         expect(response.status).to eq(201)
       end
 
       it 'returns existing JobDigest if user id already exists and user is logged in' do
         user = FactoryGirl.create(:user, email: 'digest-email@example.com')
-        FactoryGirl.create(:job_digest_subscriber, user: user, email: nil)
+        FactoryGirl.create(:digest_subscriber, user: user, email: nil)
         allow_any_instance_of(described_class).
           to(receive(:current_user).
           and_return(user))
@@ -85,7 +85,7 @@ RSpec.describe Api::V1::Jobs::JobDigestSubscribersController, type: :controller 
         }
         expect do
           post :create, params: valid_attributes
-        end.to change(JobDigestSubscriber, :count).by(0)
+        end.to change(DigestSubscriber, :count).by(0)
 
         expect(response.status).to eq(201)
       end
@@ -100,22 +100,22 @@ RSpec.describe Api::V1::Jobs::JobDigestSubscribersController, type: :controller 
   end
 
   describe 'DELETE #destroy' do
-    it 'destroys job_digest_subscriber successfully if found by uuid' do
-      uuid = FactoryGirl.create(:job_digest_subscriber).uuid
+    it 'destroys digest_subscriber successfully if found by uuid' do
+      uuid = FactoryGirl.create(:digest_subscriber).uuid
 
       expect do
-        delete :destroy, params: { job_digest_subscriber_id: uuid }
-      end.to change(JobDigestSubscriber, :count).by(-1)
+        delete :destroy, params: { digest_subscriber_id: uuid }
+      end.to change(DigestSubscriber, :count).by(-1)
     end
 
-    it 'returns 404 status when job_digest_subscriber_id is found by #id' do
-      id = FactoryGirl.create(:job_digest_subscriber).id
-      delete :destroy, params: { job_digest_subscriber_id: id }
+    it 'returns 404 status when digest_subscriber_id is found by #id' do
+      id = FactoryGirl.create(:digest_subscriber).id
+      delete :destroy, params: { digest_subscriber_id: id }
       expect(response.status).to eq(404)
     end
 
-    it 'returns 404 status when job_digest_subscriber not found' do
-      delete :destroy, params: { job_digest_subscriber_id: '-1' }
+    it 'returns 404 status when digest_subscriber not found' do
+      delete :destroy, params: { digest_subscriber_id: '-1' }
       expect(response.status).to eq(404)
     end
   end

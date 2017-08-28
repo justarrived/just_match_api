@@ -3,7 +3,7 @@
 FactoryGirl.define do
   factory :job_digest do
     notification_frequency 1
-    association :subscriber, factory: :job_digest_subscriber
+    association :subscriber, factory: :digest_subscriber
     association :address
 
     factory :job_digest_for_docs do
@@ -26,17 +26,17 @@ end
 #  notification_frequency   :integer
 #  max_distance             :float
 #  locale                   :string(10)
-#  job_digest_subscriber_id :integer
+#  digest_subscriber_id :integer
 #  created_at               :datetime         not null
 #  updated_at               :datetime         not null
 #
 # Indexes
 #
 #  index_job_digests_on_address_id                (address_id)
-#  index_job_digests_on_job_digest_subscriber_id  (job_digest_subscriber_id)
+#  index_job_digests_on_digest_subscriber_id  (digest_subscriber_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (address_id => addresses.id)
-#  fk_rails_...  (job_digest_subscriber_id => job_digest_subscribers.id)
+#  fk_rails_...  (digest_subscriber_id => digest_subscribers.id)
 #

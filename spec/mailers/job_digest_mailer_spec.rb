@@ -33,7 +33,8 @@ RSpec.describe JobDigestMailer, type: :mailer do
   let(:job_digest) do
     mock_model(
       JobDigest,
-      job_digest_subscriber_id: 87
+      digest_subscriber_id: 87,
+      coordinates?: false
     )
   end
 
@@ -87,9 +88,29 @@ RSpec.describe JobDigestMailer, type: :mailer do
 
     it 'includes unsubscribe link in email body' do
       link = FrontendRouter.draw(:unsubscribe,
-                                 subscriber_id: job_digest.job_digest_subscriber_id,
+                                 subscriber_id: job_digest.digest_subscriber_id,
                                  utm_campaign: 'job_digest')
       expect(mail).to match_email_body(link)
+    end
+
+    it 'includes location settings in email body if there are *no* coordinates' do
+      message = I18n.t('mailer.job_digest.no_digest_address_setting_notice')
+      expect(mail).to match_email_body(message)
+    end
+
+    context 'with address coordinates' do
+      let(:job_digest) do
+        mock_model(
+          JobDigest,
+          digest_subscriber_id: 87,
+          coordinates?: true
+        )
+      end
+
+      it 'does not include location settings in email body if there are coordinates' do
+        message = I18n.t('mailer.job_digest.no_digest_address_setting_notice')
+        expect(mail).not_to match_email_body(message)
+      end
     end
   end
 end

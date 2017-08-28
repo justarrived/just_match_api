@@ -15,16 +15,16 @@ module Api
           formats [:json]
         end
 
-        api :GET, '/jobs/:job_digest_subscriber_uuid_or_user_id/digests/', 'Get all job digest belonging to a certain subscriber' # rubocop:disable Metrics/LineLength
+        api :GET, '/jobs/:digest_subscriber_uuid_or_user_id/digests/', 'Get all job digest belonging to a certain subscriber' # rubocop:disable Metrics/LineLength
         description 'Returns a list of job digests if the user is allowed.'
         # ApipieDocHelper.params(self, Index::JobDigestsIndex)
         example Doxxer.read_example(JobDigest, plural: true)
         def index
           authorize(JobDigest)
 
-          subscriber = Queries::FindJobDigestSubscriber.from_uuid_or_user_id(
+          subscriber = Queries::FindDigestSubscriber.from_uuid_or_user_id(
             current_user: current_user,
-            uuid_or_user_id: params[:job_digest_subscriber_id]
+            uuid_or_user_id: params[:digest_subscriber_id]
           )
 
           job_digests_index = Index::JobDigestsIndex.new(self)
@@ -43,10 +43,21 @@ module Api
             # rubocop:disable Metrics/LineLength
             param :city, String, desc: 'City'
             param :notification_frequency, String, desc: "Notification frequency one of #{JobDigest::NOTIFICATION_FREQUENCY.keys.to_sentence}", required: true
-            param :job_digest_subscriber_uuid, String, desc: 'Job digest subscriber UUID'
+            param :digest_subscriber_uuid, String, desc: 'Job digest subscriber UUID'
             param :occupation_ids, Array, of: Hash, desc: 'List of occupations' do
               param :id, Integer, desc: 'Occupation id', required: true
             end
+            param :street1, String, desc: 'Street1 value'
+            param :street2, String, desc: 'Street2 value'
+            param :postal_code, String, desc: 'Postal_code value'
+            param :municipality, String, desc: 'Municipality value'
+            param :city, String, desc: 'City value'
+            param :state, String, desc: 'State value'
+            param :country_code, String, desc: 'Country_code value'
+            param :latitude, Float, desc: 'Latitude value'
+            param :longitude, Float, desc: 'Longitude value'
+            param :user_id, String, desc: 'User id (required if email is blank)'
+            param :email, String, desc: 'Email (required if email is blank)'
             # rubocop:enable Metrics/LineLength
           end
         end
@@ -54,8 +65,9 @@ module Api
           authorize(JobDigest)
 
           job_digest = JobDigest.new(job_digest_params)
-          uuid = jsonapi_params[:job_digest_subscriber_uuid]
-          job_digest.subscriber = JobDigestSubscriber.find_by(uuid: uuid)
+          uuid = jsonapi_params[:digest_subscriber_uuid]
+          # TODO: Consider allowing a job subscriber to be created here
+          job_digest.subscriber = DigestSubscriber.find_by(uuid: uuid)
           job_digest.address = Address.new(address_params) unless address_params.empty?
 
           if job_digest.save
@@ -76,7 +88,7 @@ module Api
         param :data, Hash, desc: 'Top level key', required: true do
           param :attributes, Hash, desc: 'JobDigest attributes', required: true do
             # rubocop:disable Metrics/LineLength
-            param :job_digest_subscriber_uuid, String, desc: 'Job digest subscriber UUID'
+            param :digest_subscriber_uuid, String, desc: 'Job digest subscriber UUID'
             param :city, String, desc: 'City'
             param :notification_frequency, String, desc: "Notification frequency one of #{JobDigest::NOTIFICATION_FREQUENCY.keys.to_sentence}", required: true
             param :occupation_ids, Array, of: Hash, desc: 'List of occupations' do
@@ -103,7 +115,7 @@ module Api
         end
 
         api :DELETE, '/jobs/digests/:job_digest_id', 'Delete job digest'
-        description 'Delete job digest subscriber.'
+        description 'Delete digest subscriber.'
         error code: 400, desc: 'Bad request'
         error code: 404, desc: 'Not found'
         ApipieDocHelper.params(self)
@@ -118,8 +130,8 @@ module Api
         private
 
         def set_subscriber
-          uuid = jsonapi_params[:job_digest_subscriber_uuid]
-          @subscriber = JobDigestSubscriber.find_by!(uuid: uuid)
+          uuid = jsonapi_params[:digest_subscriber_uuid]
+          @subscriber = DigestSubscriber.find_by!(uuid: uuid)
         end
 
         def set_job_digest
@@ -137,7 +149,7 @@ module Api
         end
 
         def address_params
-          attributes = Address::PARTS + %i(longitude latitude)
+          attributes = Address::PARTS + %i(latitude longitude)
           jsonapi_params.permit(*attributes)
         end
       end

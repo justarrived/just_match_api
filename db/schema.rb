@@ -255,6 +255,16 @@ ActiveRecord::Schema.define(version: 20170818070524) do
     t.index ["frilans_finans_id"], name: "index_currencies_on_frilans_finans_id", unique: true
   end
 
+  create_table "digest_subscribers", force: :cascade do |t|
+    t.string "email"
+    t.string "uuid", limit: 36
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_digest_subscribers_on_user_id"
+    t.index ["uuid"], name: "index_digest_subscribers_on_uuid", unique: true
+  end
+
   create_table "documents", id: :serial, force: :cascade do |t|
     t.string "one_time_token"
     t.datetime "one_time_token_expires_at"
@@ -430,26 +440,16 @@ ActiveRecord::Schema.define(version: 20170818070524) do
     t.index ["occupation_id"], name: "index_job_digest_occupations_on_occupation_id"
   end
 
-  create_table "job_digest_subscribers", force: :cascade do |t|
-    t.string "email"
-    t.string "uuid", limit: 36
-    t.bigint "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_job_digest_subscribers_on_user_id"
-    t.index ["uuid"], name: "index_job_digest_subscribers_on_uuid", unique: true
-  end
-
   create_table "job_digests", force: :cascade do |t|
     t.bigint "address_id"
     t.integer "notification_frequency"
     t.float "max_distance"
     t.string "locale", limit: 10
-    t.bigint "job_digest_subscriber_id"
+    t.bigint "digest_subscriber_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["address_id"], name: "index_job_digests_on_address_id"
-    t.index ["job_digest_subscriber_id"], name: "index_job_digests_on_job_digest_subscriber_id"
+    t.index ["digest_subscriber_id"], name: "index_job_digests_on_digest_subscriber_id"
   end
 
   create_table "job_languages", id: :serial, force: :cascade do |t|
@@ -1055,6 +1055,7 @@ ActiveRecord::Schema.define(version: 20170818070524) do
   add_foreign_key "company_industries", "industries"
   add_foreign_key "company_translations", "companies"
   add_foreign_key "company_translations", "languages"
+  add_foreign_key "digest_subscribers", "users"
   add_foreign_key "faq_translations", "faqs"
   add_foreign_key "faq_translations", "languages"
   add_foreign_key "faqs", "languages"
@@ -1075,9 +1076,8 @@ ActiveRecord::Schema.define(version: 20170818070524) do
   add_foreign_key "invoices", "job_users"
   add_foreign_key "job_digest_occupations", "job_digests"
   add_foreign_key "job_digest_occupations", "occupations"
-  add_foreign_key "job_digest_subscribers", "users"
   add_foreign_key "job_digests", "addresses"
-  add_foreign_key "job_digests", "job_digest_subscribers"
+  add_foreign_key "job_digests", "digest_subscribers"
   add_foreign_key "job_languages", "jobs"
   add_foreign_key "job_languages", "languages"
   add_foreign_key "job_occupations", "jobs"

@@ -61,7 +61,7 @@ class CreateUserService
 
     send_welcome_notification
     push_to_frilans_finans
-    enqueue_job_digest_subscriber_sync
+    enqueue_digest_subscriber_sync
     user
   end
 
@@ -94,7 +94,7 @@ class CreateUserService
     end
   end
 
-  def enqueue_job_digest_subscriber_sync
-    JobDigestSubscriberSyncJob.perform_later(user: user)
+  def enqueue_digest_subscriber_sync
+    DigestSubscriberSyncJob.perform_later(user: user)
   end
 end

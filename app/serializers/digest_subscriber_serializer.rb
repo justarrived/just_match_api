@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class JobDigestSubscriberSerializer < ApplicationSerializer
+class DigestSubscriberSerializer < ApplicationSerializer
   attributes :email, :uuid
 
   has_many :job_digests
@@ -8,7 +8,7 @@ end
 
 # == Schema Information/
 #
-# Table name: job_digest_subscribers
+# Table name: digest_subscribers
 #
 #  id         :integer          not null, primary key
 #  email      :string
@@ -19,8 +19,8 @@ end
 #
 # Indexes
 #
-#  index_job_digest_subscribers_on_user_id  (user_id)
-#  index_job_digest_subscribers_on_uuid     (uuid) UNIQUE
+#  index_digest_subscribers_on_user_id  (user_id)
+#  index_digest_subscribers_on_uuid     (uuid) UNIQUE
 #
 # Foreign Keys
 #

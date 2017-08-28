@@ -7,7 +7,7 @@ class JobDigestMailerPreview < ActionMailer::Preview
     JobDigestMailer.digest_email(
       email: 'watman@example.com',
       jobs: Job.with_translations.last(5),
-      job_digest: JobDigest.new(job_digest_subscriber_id: 67)
+      job_digest: JobDigest.new(digest_subscriber_id: 67)
     )
   end
 end

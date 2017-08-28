@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 FactoryGirl.define do
-  factory :job_digest_subscriber do
+  factory :digest_subscriber do
     sequence :email do |n|
       "subscriber#{n}@example.com"
     end
     user nil
 
-    factory :job_digest_subscriber_for_docs do
+    factory :digest_subscriber_for_docs do
       id 1
       sequence :email do |n|
         "example-subscriber#{n}@example.com"
@@ -20,7 +20,7 @@ end
 
 # == Schema Information
 #
-# Table name: job_digest_subscribers
+# Table name: digest_subscribers
 #
 #  id         :integer          not null, primary key
 #  email      :string
@@ -31,8 +31,8 @@ end
 #
 # Indexes
 #
-#  index_job_digest_subscribers_on_user_id  (user_id)
-#  index_job_digest_subscribers_on_uuid     (uuid) UNIQUE
+#  index_digest_subscribers_on_user_id  (user_id)
+#  index_digest_subscribers_on_uuid     (uuid) UNIQUE
 #
 # Foreign Keys
 #
