@@ -30,7 +30,7 @@ module Api
         error code: 422, desc: 'Unprocessable entity'
         ApipieDocHelper.params(self)
         param :data, Hash, desc: 'Top level key', required: true do
-          param :attributes, Hash, desc: 'JobDigest attributes', required: true do
+          param :attributes, Hash, desc: 'JobDigestSubscriber attributes', required: true do # rubocop:disable Metrics/LineLength
             param :user_id, String, desc: 'User id (required if email is blank)'
             param :email, String, desc: 'Email (required if email is blank)'
           end

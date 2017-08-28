@@ -55,7 +55,7 @@ RSpec.describe Queries::Filter do
 
       it 'returns correct results' do
         occupation = FactoryGirl.create(:occupation_with_translation, name: 'watman')
-        occupation1 = FactoryGirl.create(:occupation_with_translation, name: 'wat1', parent: occupation)
+        occupation1 = FactoryGirl.create(:occupation_with_translation, name: 'wat1', parent: occupation) # rubocop:disable Metrics/LineLength
         FactoryGirl.create(:occupation_with_translation, name: 'tawnam')
 
         filter = { parent_id: { alias: :ancestry } }
