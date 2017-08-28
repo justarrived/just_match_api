@@ -25,9 +25,10 @@ RSpec.describe CreateJobDigestService do
       expect(digest).to be_persisted
     end
 
-    it 'can find job_digest subscriber using its UUID' do
+    it 'sends digest created notification' do
       subscriber = FactoryGirl.create(:digest_subscriber)
 
+      allow(DigestCreatedNotifier).to receive(:call).and_return(nil)
       digest = described_class.call(
         job_digest_params: valid_job_digest_params,
         address_params: {},
@@ -35,8 +36,7 @@ RSpec.describe CreateJobDigestService do
         current_user: User.new,
         uuid: subscriber.uuid
       )
-
-      expect(digest).to be_persisted
+      expect(DigestCreatedNotifier).to have_received(:call).with(job_digest: digest)
     end
 
     it 'can create job digest occupations' do
