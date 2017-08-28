@@ -51,6 +51,21 @@ RSpec.describe Api::V1::Jobs::JobDigestsController, type: :controller do
         end.to change(JobDigest, :count).by(1)
       end
 
+      it 'can create a new JobDigest and a new DigestSubscriber' do
+        params = {
+          data: {
+            attributes: {
+              notification_frequency: 'daily',
+              email: 'job-dig-subscriber@example.com'
+            }
+          }
+        }
+
+        expect do
+          post :create, params: params
+        end.to change(DigestSubscriber, :count).by(1)
+      end
+
       it 'creates a new JobDigestOccupation' do
         expect do
           post :create, params: valid_attributes_with_occupations

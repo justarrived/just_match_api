@@ -15,6 +15,8 @@ module Api
           formats [:json]
         end
 
+        ALLOWED_INCLUDES = %w(address digest_subscriber).freeze
+
         api :GET, '/jobs/:digest_subscriber_uuid_or_user_id/digests/', 'Get all job digest belonging to a certain subscriber' # rubocop:disable Metrics/LineLength
         description 'Returns a list of job digests if the user is allowed.'
         # ApipieDocHelper.params(self, Index::JobDigestsIndex)
@@ -64,15 +66,17 @@ module Api
         def create
           authorize(JobDigest)
 
-          job_digest = JobDigest.new(job_digest_params)
-          uuid = jsonapi_params[:digest_subscriber_uuid]
-          # TODO: Consider allowing a job subscriber to be created here
-          job_digest.subscriber = DigestSubscriber.find_by(uuid: uuid)
-          job_digest.address = Address.new(address_params) unless address_params.empty?
+          job_digest = CreateJobDigestService.call(
+            job_digest_params: job_digest_params,
+            address_params: address_params,
+            occupation_ids_param: occupation_ids_param,
+            current_user: current_user,
+            uuid: jsonapi_params[:digest_subscriber_uuid],
+            user_id: jsonapi_params[:user_id].presence,
+            email: jsonapi_params[:email].presence
+          )
 
-          if job_digest.save
-            job_digest.occupations = Occupation.where(id: occupation_ids_param)
-
+          if job_digest.persisted?
             api_render(job_digest, status: :created)
           else
             api_render_errors(job_digest)

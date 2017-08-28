@@ -1,11 +1,10 @@
 # frozen_string_literal: true
 
 class JobDigestSerializer < ApplicationSerializer
-  belongs_to :digest_subscriber
-
   attributes :notification_frequency, :max_distance
 
   belongs_to :address
+  belongs_to :digest_subscriber
 end
 
 # == Schema Information
