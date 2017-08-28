@@ -46,7 +46,7 @@ RSpec.describe JobDigestMailer, type: :mailer do
     end
 
     it 'renders the subject' do
-      subject = I18n.t('mailer.job_digest.subject')
+      subject = I18n.t('mailer.digest_email.subject')
       expect(mail.subject).to eql(subject)
     end
 
@@ -90,7 +90,7 @@ RSpec.describe JobDigestMailer, type: :mailer do
     end
 
     it 'includes location settings in email body if there are *no* coordinates' do
-      message = I18n.t('mailer.job_digest.no_digest_address_setting_notice')
+      message = I18n.t('mailer.digest_email.no_digest_address_setting_notice')
       expect(mail).to match_email_body(message)
     end
 
@@ -105,9 +105,39 @@ RSpec.describe JobDigestMailer, type: :mailer do
       end
 
       it 'does not include location settings in email body if there are coordinates' do
-        message = I18n.t('mailer.job_digest.no_digest_address_setting_notice')
+        message = I18n.t('mailer.digest_email.no_digest_address_setting_notice')
         expect(mail).not_to match_email_body(message)
       end
+    end
+  end
+
+  describe '#new_job_digest_email' do
+    let(:mail) do
+      described_class.digest_email(jobs: jobs, job_digest: job_digest)
+    end
+
+    it 'has both text and html part' do
+      expect(mail).to be_multipart_email(true)
+    end
+
+    it 'renders the subject' do
+      subject = I18n.t('mailer.digest_email.subject')
+      expect(mail.subject).to eql(subject)
+    end
+
+    it 'renders the receiver email' do
+      expect(mail.to).to eql([email])
+    end
+
+    it 'renders the sender email' do
+      expect(mail.from).to eql(['no-reply@justarrived.se'])
+    end
+
+    it 'includes unsubscribe link in email body' do
+      link = FrontendRouter.draw(:unsubscribe,
+                                 subscriber_id: job_digest.digest_subscriber_id,
+                                 utm_campaign: 'job_digest')
+      expect(mail).to match_email_body(link)
     end
   end
 end

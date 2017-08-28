@@ -18,6 +18,6 @@ class JobDigestMailer < ApplicationMailer
 
     @has_coordinates = job_digest.coordinates?
 
-    mail(to: email, subject: I18n.t('mailer.job_digest.subject'))
+    mail(to: email, subject: I18n.t('mailer.digest_email.subject'))
   end
 end

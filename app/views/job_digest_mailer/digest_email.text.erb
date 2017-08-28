@@ -1,21 +1,21 @@
-<%= I18n.t('mailer.job_digest.header') %>
+<%= I18n.t('mailer.digest_email.header') %>
 
-<%= I18n.t('mailer.job_digest.body') %>
+<%= I18n.t('mailer.digest_email.body') %>
 
 <% @jobs.each do |job| %>
   <%= job.translated_name %>
   <%= job.translated_short_description %>
-  <%= I18n.t('mailer.job_digest.search_job') %>
+  <%= I18n.t('mailer.digest_email.search_job') %>
   <%= frontend_mail_url(:job, id: job.id, utm_campaign: 'job_digest') %>
 
 <% end %>
 
-<%= I18n.t('mailer.job_digest.more_jobs') %> <%= @more_jobs_url %>
+<%= I18n.t('mailer.digest_email.more_jobs') %> <%= @more_jobs_url %>
 
 <% unless @has_coordinates %>
-<%= I18n.t('mailer.job_digest.no_digest_address_setting_notice') %> <%= @unsubscribe_url %>
+<%= I18n.t('mailer.digest_email.no_digest_address_setting_notice') %> <%= @unsubscribe_url %>
 <% end %>
 
 <%= I18n.t('mailer.signoff') %>
 
-<%= I18n.t('mailer.job_digest.update_digest_settings') %> <%= @unsubscribe_url %>
+<%= I18n.t('mailer.digest_email.update_digest_settings') %> <%= @unsubscribe_url %>
