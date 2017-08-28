@@ -15,6 +15,8 @@ class JobDigestMailer < ApplicationMailer
       utm_campaign: 'job_digest'
     )
 
+    @has_coordinates = job_digest.coordinates?
+
     mail(to: email, subject: I18n.t('mailer.job_digest.subject'))
   end
 end

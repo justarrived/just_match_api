@@ -88,6 +88,7 @@ en:
       more_jobs: View all our jobs
       search_job: Read more and apply
       update_digest_settings: Update email settings or cancel.
+      no_digest_address_setting_notice: Results not in your area? Add an address.
       good_luck: 'Good luck!'
     job_match:
       accepted_line: You've got a new job match!

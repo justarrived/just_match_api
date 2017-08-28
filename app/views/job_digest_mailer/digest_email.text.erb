@@ -10,10 +10,12 @@
 
 <% end %>
 
-<%= I18n.t('mailer.job_digest.more_jobs') %>
-<%= @more_jobs_url %>
+<%= I18n.t('mailer.job_digest.more_jobs') %> <%= @more_jobs_url %>
 
-<%= I18n.t('mailer.job_digest.update_digest_settings') %>
-<%= @unsubscribe_url %>
+<% unless @has_coordinates %>
+<%= I18n.t('mailer.job_digest.no_digest_address_setting_notice') %> <%= @unsubscribe_url %>
+<% end %>
 
 <%= I18n.t('mailer.signoff') %>
+
+<%= I18n.t('mailer.job_digest.update_digest_settings') %> <%= @unsubscribe_url %>

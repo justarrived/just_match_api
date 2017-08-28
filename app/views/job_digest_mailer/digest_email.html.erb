@@ -25,8 +25,13 @@
 <%= render 'mailer_partials/hr' %>
 
 <br>
-<%= link_to(I18n.t('mailer.job_digest.update_digest_settings'), @unsubscribe_url, style: 'color: #9C9FA7') %>
-
 <h4><%= I18n.t('mailer.job_digest.good_luck') %></h4>
 
+<% unless @has_coordinates %>
+<%= link_to(I18n.t('mailer.job_digest.no_digest_address_setting_notice'), @unsubscribe_url, style: 'color: #9C9FA7') %>
+<br>
+<% end %>
+
 <p><%= I18n.t('mailer.signoff') %></p>
+
+<%= link_to(I18n.t('mailer.job_digest.update_digest_settings'), @unsubscribe_url, style: 'color: #9C9FA7') %>

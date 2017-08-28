@@ -85,6 +85,7 @@ sv:
       more_jobs: Se alla våra jobb
       search_job: Läs mer och ansök
       update_digest_settings: Ändra inställningar för jobbevakning eller avsluta.
+      no_digest_address_setting_notice: Resulten inte i ditt område? Lägg till address.
       good_luck: 'Lycka till!'
     job_match:
       accepted_line: Du har fått en ny jobbmatchning!

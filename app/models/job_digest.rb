@@ -24,6 +24,12 @@ class JobDigest < ApplicationRecord
 
   enum notification_frequency: NOTIFICATION_FREQUENCY
 
+  def coordinates?
+    return false unless address
+
+    address.coordinates?
+  end
+
   def email
     subscriber.contact_email
   end
@@ -46,6 +52,8 @@ end
 #  id                       :integer          not null, primary key
 #  address_id               :integer
 #  notification_frequency   :integer
+#  max_distance             :float
+#  locale                   :string(10)
 #  job_digest_subscriber_id :integer
 #  created_at               :datetime         not null
 #  updated_at               :datetime         not null
