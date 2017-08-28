@@ -9,4 +9,11 @@ class JobDigestMailerPreview < ActionMailer::Preview
       job_digest: JobDigest.new(digest_subscriber_id: 67, subscriber: subscriber)
     )
   end
+
+  def digest_created_email
+    subscriber = DigestSubscriber.new(email: 'watman@example.com')
+    JobDigestMailer.digest_created_email(
+      job_digest: JobDigest.new(digest_subscriber_id: 67, subscriber: subscriber)
+    )
+  end
 end

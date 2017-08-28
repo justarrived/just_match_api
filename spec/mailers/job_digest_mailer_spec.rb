@@ -72,20 +72,20 @@ RSpec.describe JobDigestMailer, type: :mailer do
 
     it 'includes job links in email body' do
       jobs.each do |job|
-        link = FrontendRouter.draw(:job, id: job.id, utm_campaign: 'job_digest')
+        link = FrontendRouter.draw(:job, id: job.id, utm_campaign: 'digest_email')
         expect(mail).to match_email_body(link)
       end
     end
 
     it 'includes more jobs link in email body' do
-      link = FrontendRouter.draw(:jobs, utm_campaign: 'job_digest')
+      link = FrontendRouter.draw(:jobs, utm_campaign: 'digest_email')
       expect(mail).to match_email_body(link)
     end
 
     it 'includes unsubscribe link in email body' do
       link = FrontendRouter.draw(:unsubscribe,
                                  subscriber_id: job_digest.digest_subscriber_id,
-                                 utm_campaign: 'job_digest')
+                                 utm_campaign: 'digest_email')
       expect(mail).to match_email_body(link)
     end
 
@@ -111,9 +111,9 @@ RSpec.describe JobDigestMailer, type: :mailer do
     end
   end
 
-  describe '#new_job_digest_email' do
+  describe '#digest_created_email' do
     let(:mail) do
-      described_class.digest_email(jobs: jobs, job_digest: job_digest)
+      described_class.digest_created_email(job_digest: job_digest)
     end
 
     it 'has both text and html part' do
@@ -121,7 +121,7 @@ RSpec.describe JobDigestMailer, type: :mailer do
     end
 
     it 'renders the subject' do
-      subject = I18n.t('mailer.digest_email.subject')
+      subject = I18n.t('mailer.digest_created.subject')
       expect(mail.subject).to eql(subject)
     end
 
@@ -136,7 +136,7 @@ RSpec.describe JobDigestMailer, type: :mailer do
     it 'includes unsubscribe link in email body' do
       link = FrontendRouter.draw(:unsubscribe,
                                  subscriber_id: job_digest.digest_subscriber_id,
-                                 utm_campaign: 'job_digest')
+                                 utm_campaign: 'digest_created')
       expect(mail).to match_email_body(link)
     end
   end

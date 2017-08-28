@@ -1,0 +1,15 @@
+<%= I18n.t('mailer.digest_created.digest_created_body') %>
+
+---
+
+<%= I18n.t('mailer.digest_created.digest_created_body') %>
+
+<%= I18n.t('mailer.digest_created.update_settings') %>
+<%= @unsubscribe_url %>
+
+<% unless @user %>
+---
+
+<%= I18n.t('mailer.digest_created.user_register_signup_pitch') %>
+<%= @user_regiser_url %>
+<% end %>

@@ -90,6 +90,13 @@ en:
       update_digest_settings: Update email settings or cancel.
       no_digest_address_setting_notice: Results not in your area? Add an address.
       good_luck: 'Good luck!'
+    digest_created:
+      subject: Match mail subscription created
+      update_settings: Update notification settings
+      digest_created_title: Thank you for signing up!
+      digest_created_body: "You've signed up for new job notifications matcing these critera. You can update your settings at any time"
+      user_register_link_title: Register
+      user_register_signup_pitch: "While you're here you might be interested in signing up"
     job_match:
       accepted_line: You've got a new job match!
       congrats_line: Congrats %{name}!

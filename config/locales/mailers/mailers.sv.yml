@@ -78,7 +78,7 @@ sv:
       subject: 'Ett uppdrag du har sökt har avbrutits  '
       body: Jobbet %{job_name}  har avbrutits
       find_jobs_cta: Hitta fler jobb
-    job_digest:
+    digest_email:
       subject: Jobbtips
       header: Tips på jobb från Just Arrived
       body: Vi vill uppdatera dig med nya jobb som vi tror kan passa dig. Kolla in dem nedan och ansök om du är intresserad.
@@ -87,6 +87,13 @@ sv:
       update_digest_settings: Ändra inställningar för jobbevakning eller avsluta.
       no_digest_address_setting_notice: Resulten inte i ditt område? Lägg till address.
       good_luck: 'Lycka till!'
+    digest_created:
+      subject: Jobb-matchmail premuneration skapad
+      update_settings: Uppdatera permunerations inställningar
+      digest_created_title: Tack för din registering!
+      digest_created_body: Du har registerat dig för att få notifikationer när ett nytt jobb matchar. Du kan uppdatera dina inställningar när som helst.
+      user_register_link_title: Registera
+      user_register_signup_pitch: Medan du är här kanske du skulle vara instresserad av att registera dig
     job_match:
       accepted_line: Du har fått en ny jobbmatchning!
       congrats_line: Grattis %{name}!
