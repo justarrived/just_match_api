@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
 class JobDigestMailer < ApplicationMailer
-  def digest_email(email:, jobs:, job_digest:)
+  def digest_email(jobs:, job_digest:)
     @jobs = jobs
+    email = job_digest.email
 
     @more_jobs_url = frontend_mail_url(
       :jobs,

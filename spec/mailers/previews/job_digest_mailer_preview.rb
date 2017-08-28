@@ -3,11 +3,10 @@
 # Preview all emails at http://localhost:3000/rails/mailers/contact_mailer
 class JobDigestMailerPreview < ActionMailer::Preview
   def digest_email
-    I18n.locale = :sv
+    subscriber = DigestSubscriber.new(email: 'watman@example.com')
     JobDigestMailer.digest_email(
-      email: 'watman@example.com',
       jobs: Job.with_translations.last(5),
-      job_digest: JobDigest.new(digest_subscriber_id: 67)
+      job_digest: JobDigest.new(digest_subscriber_id: 67, subscriber: subscriber)
     )
   end
 end

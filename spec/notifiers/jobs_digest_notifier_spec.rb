@@ -18,7 +18,6 @@ RSpec.describe JobsDigestNotifier, type: :mailer do
       job_digest: job_digest
     }
     described_class.call(**mailer_args)
-    expected_args = mailer_args.merge(email: email)
-    expect(JobDigestMailer).to have_received(:digest_email).with(expected_args)
+    expect(JobDigestMailer).to have_received(:digest_email).with(mailer_args)
   end
 end

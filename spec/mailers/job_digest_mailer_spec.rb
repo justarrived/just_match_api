@@ -3,10 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe JobDigestMailer, type: :mailer do
-  let(:email) do
-    'watman@example.com'
-  end
-
+  let(:email) { 'watman@example.com' }
   let(:jobs) do
     [
       mock_model(
@@ -34,15 +31,14 @@ RSpec.describe JobDigestMailer, type: :mailer do
     mock_model(
       JobDigest,
       digest_subscriber_id: 87,
+      email: email,
       coordinates?: false
     )
   end
 
   describe '#new_job_digest_email' do
     let(:mail) do
-      described_class.digest_email(
-        email: email, jobs: jobs, job_digest: job_digest
-      )
+      described_class.digest_email(jobs: jobs, job_digest: job_digest)
     end
 
     it 'has both text and html part' do
@@ -103,6 +99,7 @@ RSpec.describe JobDigestMailer, type: :mailer do
         mock_model(
           JobDigest,
           digest_subscriber_id: 87,
+          email: email,
           coordinates?: true
         )
       end
