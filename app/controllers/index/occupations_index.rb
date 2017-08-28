@@ -6,7 +6,7 @@ module Index
       id: :in_list,
       name: { translated: :starts_with },
       parent_id: {
-        alias: :ancestry,
+        column: :ancestry,
         type: :in_list
       }
     }.freeze

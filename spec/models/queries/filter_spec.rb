@@ -3,10 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe Queries::Filter do
-  describe '#to_params' do
+  describe '#to_param_types' do
     it 'returns correct array for simplest type of filter' do
       expected = { a: { column: :a, type: :b } }
-      expect(described_class.to_params(a: :b)).to match(expected)
+      expect(described_class.to_param_types(a: :b)).to match(expected)
     end
 
     it 'returns correct array for complex filter' do
@@ -16,9 +16,9 @@ RSpec.describe Queries::Filter do
       }
       expected = {
         id: { column: :id, type: :in_list },
-        first_name: { column: :fname, translated: :starts_with }
+        first_name: { column: :fname, translated: true, type: :starts_with }
       }
-      expect(described_class.to_params(filter)).to match(expected)
+      expect(described_class.to_param_types(filter)).to match(expected)
     end
   end
 
@@ -69,7 +69,7 @@ RSpec.describe Queries::Filter do
       end
     end
 
-    context 'filter_type: alias' do
+    context 'filter_type: column' do
       subject { described_class }
 
       it 'returns correct results' do
@@ -77,7 +77,7 @@ RSpec.describe Queries::Filter do
         occupation1 = FactoryGirl.create(:occupation_with_translation, name: 'wat1', parent: occupation) # rubocop:disable Metrics/LineLength
         FactoryGirl.create(:occupation_with_translation, name: 'tawnam')
 
-        filter = { parent_id: { alias: :ancestry } }
+        filter = { parent_id: { column: :ancestry } }
         result = subject.filter(Occupation, { parent_id: occupation.to_param }, filter)
         expect(result).to eq([occupation1])
       end

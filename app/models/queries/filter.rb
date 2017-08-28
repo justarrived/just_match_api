@@ -2,17 +2,9 @@
 
 module Queries
   class Filter
-    def self.to_params(filter_types)
-      filter_types.map do |name, filter_type|
-        filter_type = { type: filter_type } unless filter_type.is_a?(Hash)
-        column = name
-        column = filter_type[:column] if filter_type[:column]
-
-        [name, { column: column }.merge!(filter_type)]
-      end.to_h
-    end
-
     def self.filter(records, filters, filter_types)
+      param_types = to_param_types(filter_types)
+
       filters.each do |field_name, value|
         # If it includes a '.' it means its a filter on a relation and
         # should therefore be ignored
@@ -20,17 +12,14 @@ module Queries
 
         value = normalize_value(value)
 
-        filter_type = filter_types[field_name]
-
-        filter_type = { type: filter_type } unless filter_type.is_a?(Hash)
+        filter_type = param_types.fetch(field_name, column: field_name)
         type = filter_type[:type]
-
-        field_name = filter_type[:alias] if filter_type[:alias]
+        field_name = filter_type[:column]
 
         if type == :fake_attribute
           records # we can't filter on fake attributes
         elsif filter_type[:translated]
-          records = filter_translated_records(records, field_name, value, filter_type[:translated]) # rubocop:disable Metrics/LineLength
+          records = filter_translated_records(records, field_name, value, type)
         elsif type == :in_list
           records = records.where(field_name => value&.split(','))
         elsif type
@@ -73,6 +62,21 @@ module Queries
       else
         raise ArgumentError, "unknown filter_type: '#{filter_type}'"
       end
+    end
+
+    def self.to_param_types(filter_types)
+      filter_types.map do |name, filter_type|
+        filter_type = { type: filter_type } unless filter_type.is_a?(Hash)
+        if type = filter_type[:translated]
+          filter_type[:type] = type
+          filter_type[:translated] = true
+        end
+
+        column = name
+        column = filter_type[:column] if filter_type[:column]
+
+        [name, { column: column }.merge!(filter_type)]
+      end.to_h
     end
   end
 end
