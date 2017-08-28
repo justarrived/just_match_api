@@ -5,7 +5,7 @@ class CreateJobDigestService
       job_digest_params:,
       address_params:,
       occupation_ids_param:,
-      current_user:,
+      current_user: User.new,
       uuid: nil,
       user_id: nil,
       email: nil
