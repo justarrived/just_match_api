@@ -5,7 +5,7 @@ class JobDigestMailerPreview < ActionMailer::Preview
   def digest_email
     subscriber = DigestSubscriber.new(email: 'watman@example.com')
     JobDigestMailer.digest_email(
-      jobs: Job.with_translations.last(5),
+      jobs: Job.with_translations.last(15),
       job_digest: JobDigest.new(digest_subscriber_id: 67, subscriber: subscriber)
     )
   end

@@ -25,6 +25,21 @@ RSpec.describe CreateJobDigestService do
       expect(digest).to be_persisted
     end
 
+    it 'can find job_digest subscriber using its UUID' do
+      digest = nil
+      subscriber = FactoryGirl.create(:digest_subscriber)
+
+      described_class.call(
+        job_digest_params: valid_job_digest_params,
+        address_params: {},
+        occupation_ids_param: {},
+        current_user: User.new,
+        uuid: subscriber.uuid
+      )
+
+      expect(digest).to be_persisted
+    end
+
     it 'can create job digest occupations' do
       digest = nil
       occupation = FactoryGirl.create(:occupation)

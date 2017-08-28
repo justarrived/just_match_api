@@ -3,10 +3,14 @@
 <%= I18n.t('mailer.digest_email.body') %>
 
 <% @jobs.each do |job| %>
-  <%= job.translated_name %>
-  <%= job.translated_short_description %>
-  <%= I18n.t('mailer.digest_email.search_job') %>
-  <%= frontend_mail_url(:job, id: job.id, utm_campaign: 'job_digest') %>
+<%= join_in_locale_order([
+  (job.city if job.city.present?),
+  job.translated_name
+].compact, join_with: ' - ')
+%>
+<%= job.translated_short_description %>
+<%= I18n.t('mailer.digest_email.search_job') %>
+<%= frontend_mail_url(:job, id: job.id, utm_campaign: 'job_digest') %>
 
 <% end %>
 

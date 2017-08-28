@@ -79,21 +79,21 @@ sv:
       body: Jobbet %{job_name}  har avbrutits
       find_jobs_cta: Hitta fler jobb
     digest_email:
-      subject: Jobbtips
-      header: Tips på jobb från Just Arrived
-      body: Vi vill uppdatera dig med nya jobb som vi tror kan passa dig. Kolla in dem nedan och ansök om du är intresserad.
+      subject: Nya jobbtips från Just Arrived
+      header: Nya jobbtips från Just Arrived
+      body: Kolla in jobben nedan och ansök om du är intresserad.
       more_jobs: Se alla våra jobb
       search_job: Läs mer och ansök
       update_digest_settings: Ändra inställningar för jobbevakning eller avsluta.
-      no_digest_address_setting_notice: Resulten inte i ditt område? Lägg till address.
-      good_luck: 'Lycka till!'
+      no_digest_address_setting_notice: Är jobben på fel ort? Uppdatera inställingar.
+      good_luck: 'Lycka till och ha en bra dag!'
     digest_created:
-      subject: Jobb-matchmail premuneration skapad
-      update_settings: Uppdatera permunerations inställningar
+      subject: Tack för att du prenumerar på våra jobbevakningar
+      update_settings: Uppdatera inställningar
       digest_created_title: Tack för din registering!
-      digest_created_body: Du har registerat dig för att få notifikationer när ett nytt jobb matchar. Du kan uppdatera dina inställningar när som helst.
+      digest_created_body: "Du har registrerat dig till att få jobbevakningar från Just Arrived. Vi kommer skicka dig ett mail när ett nytt jobb lagts upp som passar dina önskemål. Du kan uppdatera dina inställningar när som helst."
       user_register_link_title: Registera
-      user_register_signup_pitch: Medan du är här kanske du skulle vara instresserad av att registera dig
+      user_register_signup_pitch: "Medan du är här kanske du skulle vara intresserad av att registera din profil hos oss. Då kan vi matcha din profil med våra nya jobb!"
     job_match:
       accepted_line: Du har fått en ny jobbmatchning!
       congrats_line: Grattis %{name}!
@@ -195,4 +195,4 @@ sv:
         - Håll din profil uppdaterad! Varje förmåga och all information spelar roll. Vi är säkra på att det finns saker som du är bra på men inte har berättat för oss om än!
         - Om någonting är oklart, eller om du behöver hjälp, tveka inte att kontakta oss på %{support_email} eller kolla in %{faq_link}.
     google_calendar_link_name: Lägg till på Google Calendar
-    signoff: "Ha en bra dag!"
+    signoff: "/ Team Just Arrived"
