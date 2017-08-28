@@ -22,15 +22,15 @@ class Geo
     result = Geocoder.search(address).first
     return Place.new unless result
 
-    city = nil
-    # TODO: Figure out how to remove the below line.
-    #       Geocoder::Result::Test does not have that method
-    #       but Geocoder::Result::Google do
-    if result.respond_to?(:address_components_of_type)
-      city = result.address_components_of_type('postal_town')&.
+    # NOTE: Google has an address_components_of_type attribute, while other
+    #       geocoder adapters don't (including the test result object)
+    city = if result.respond_to?(:address_components_of_type)
+             result.address_components_of_type('postal_town')&.
              first&.
              fetch('long_name')
-    end
+           else
+             result.city
+           end
 
     Place.new(
       result.address,

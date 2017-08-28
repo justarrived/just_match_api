@@ -25,6 +25,7 @@ Geocoder::Lookup::Test.add_stub(
       'address'      => 'Stockholm, Sweden',
       'state'        => '',
       'state_code'   => '',
+      'city'         => 'Stockholm',
       'country'      => 'Sweden',
       'country_code' => 'SE'
     }
@@ -38,6 +39,7 @@ Geocoder::Lookup::Test.add_stub(
       'longitude'    => 13.1975525,
       'coordinates'  => [55.6987817, 13.1975525],
       'address'      => '22352, Sverige',
+      'city'         => 'Lund',
       'state'        => '',
       'state_code'   => '',
       'country'      => 'Sweden',
@@ -53,6 +55,7 @@ Geocoder::Lookup::Test.add_stub(
       'longitude'    => 13.1953695,
       'coordinates'  => [55.6997802, 13.1953695],
       'address'      => 'Bankgatan 14C, Lund, 22352, Sverige',
+      'city'         => 'Lund',
       'state'        => '',
       'state_code'   => '',
       'country'      => 'Sweden',

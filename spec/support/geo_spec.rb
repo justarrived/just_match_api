@@ -20,6 +20,7 @@ RSpec.describe Geo do
   describe '#best_result' do
     it 'returns result' do
       place = Geo.best_result('Stockholm')
+      expect(place.city).to eq('Stockholm')
       expect(place.address).to eq('Stockholm, Sweden')
       expect(place.country_code).to eq('SE')
       expect(place.latitude).to eq(59.32932)
