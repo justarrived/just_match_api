@@ -12,11 +12,13 @@ RSpec.describe Queries::Filter do
     it 'returns correct array for complex filter' do
       filter = {
         id: :in_list,
-        first_name: { translated: :starts_with, column: :fname }
+        first_name: { translated: :starts_with, column: :fname },
+        published: :fake_attribute
       }
       expected = {
         id: { column: :id, type: :in_list },
-        first_name: { column: :fname, translated: true, type: :starts_with }
+        first_name: { column: :fname, translated: true, type: :starts_with },
+        published: { column: nil, type: :fake_attribute }
       }
       expect(described_class.to_param_types(filter)).to match(expected)
     end

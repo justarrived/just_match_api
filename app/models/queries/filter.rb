@@ -72,8 +72,13 @@ module Queries
           filter_type[:translated] = true
         end
 
-        column = name
-        column = filter_type[:column] if filter_type[:column]
+        column = if filter_type[:column]
+                   filter_type[:column]
+                 elsif filter_type[:type] == :fake_attribute
+                   nil
+                 else
+                   name
+                 end
 
         [name, { column: column }.merge!(filter_type)]
       end.to_h
