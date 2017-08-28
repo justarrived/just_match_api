@@ -10,10 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170818070524) do
+ActiveRecord::Schema.define(version: 20170823095050) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "hstore"
+  enable_extension "pg_stat_statements"
   enable_extension "unaccent"
 
   create_table "active_admin_comments", id: :serial, force: :cascade do |t|
@@ -21,8 +23,8 @@ ActiveRecord::Schema.define(version: 20170818070524) do
     t.text "body"
     t.string "resource_id", null: false
     t.string "resource_type", null: false
-    t.string "author_type"
     t.integer "author_id"
+    t.string "author_type"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id"
@@ -154,8 +156,8 @@ ActiveRecord::Schema.define(version: 20170818070524) do
 
   create_table "comments", id: :serial, force: :cascade do |t|
     t.text "body"
-    t.string "commentable_type"
     t.integer "commentable_id"
+    t.string "commentable_type"
     t.integer "owner_user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -255,16 +257,6 @@ ActiveRecord::Schema.define(version: 20170818070524) do
     t.index ["frilans_finans_id"], name: "index_currencies_on_frilans_finans_id", unique: true
   end
 
-  create_table "digest_subscribers", force: :cascade do |t|
-    t.string "email"
-    t.string "uuid", limit: 36
-    t.bigint "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_digest_subscribers_on_user_id"
-    t.index ["uuid"], name: "index_digest_subscribers_on_uuid", unique: true
-  end
-
   create_table "documents", id: :serial, force: :cascade do |t|
     t.string "one_time_token"
     t.datetime "one_time_token_expires_at"
@@ -351,6 +343,7 @@ ActiveRecord::Schema.define(version: 20170818070524) do
     t.datetime "ff_sent_at"
     t.boolean "express_payment", default: false
     t.datetime "ff_last_synced_at"
+    t.integer "ff_invoice_number"
     t.index ["job_user_id"], name: "index_frilans_finans_invoices_on_job_user_id"
   end
 
@@ -440,16 +433,26 @@ ActiveRecord::Schema.define(version: 20170818070524) do
     t.index ["occupation_id"], name: "index_job_digest_occupations_on_occupation_id"
   end
 
+  create_table "job_digest_subscribers", force: :cascade do |t|
+    t.string "email"
+    t.string "uuid", limit: 36
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_job_digest_subscribers_on_user_id"
+    t.index ["uuid"], name: "index_job_digest_subscribers_on_uuid", unique: true
+  end
+
   create_table "job_digests", force: :cascade do |t|
     t.bigint "address_id"
     t.integer "notification_frequency"
     t.float "max_distance"
     t.string "locale", limit: 10
-    t.bigint "digest_subscriber_id"
+    t.bigint "job_digest_subscriber_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["address_id"], name: "index_job_digests_on_address_id"
-    t.index ["digest_subscriber_id"], name: "index_job_digests_on_digest_subscriber_id"
+    t.index ["job_digest_subscriber_id"], name: "index_job_digests_on_job_digest_subscriber_id"
   end
 
   create_table "job_languages", id: :serial, force: :cascade do |t|
@@ -601,9 +604,9 @@ ActiveRecord::Schema.define(version: 20170818070524) do
     t.string "city"
     t.boolean "staffing_job", default: false
     t.boolean "direct_recruitment_job", default: false
+    t.integer "order_id"
     t.string "municipality"
     t.integer "number_to_fill", default: 1
-    t.integer "order_id"
     t.boolean "full_time", default: false
     t.string "swedish_drivers_license"
     t.boolean "car_required", default: false
@@ -1055,7 +1058,6 @@ ActiveRecord::Schema.define(version: 20170818070524) do
   add_foreign_key "company_industries", "industries"
   add_foreign_key "company_translations", "companies"
   add_foreign_key "company_translations", "languages"
-  add_foreign_key "digest_subscribers", "users"
   add_foreign_key "faq_translations", "faqs"
   add_foreign_key "faq_translations", "languages"
   add_foreign_key "faqs", "languages"
@@ -1076,8 +1078,9 @@ ActiveRecord::Schema.define(version: 20170818070524) do
   add_foreign_key "invoices", "job_users"
   add_foreign_key "job_digest_occupations", "job_digests"
   add_foreign_key "job_digest_occupations", "occupations"
+  add_foreign_key "job_digest_subscribers", "users"
   add_foreign_key "job_digests", "addresses"
-  add_foreign_key "job_digests", "digest_subscribers"
+  add_foreign_key "job_digests", "job_digest_subscribers"
   add_foreign_key "job_languages", "jobs"
   add_foreign_key "job_languages", "languages"
   add_foreign_key "job_occupations", "jobs"

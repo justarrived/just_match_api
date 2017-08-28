@@ -16,10 +16,10 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :jobs, param: :job_id, only: %i(index show create update) do
         collection do
-          resources :job_digests, param: :job_digest_id, module: :jobs, path: :digests, only: %i(create update destroy)
+          resources :job_digests, param: :job_digest_id, module: :jobs, path: :digests, only: %i(create)
           resources :digest_subscribers, param: :digest_subscriber_id, module: :jobs, path: :subscribers, only: %i(show create destroy) do
             member do
-              get :digests, to: 'job_digests#index'
+              resources :job_digests, param: :job_digest_id, path: :digests, only: %i(index update destroy)
             end
           end
         end

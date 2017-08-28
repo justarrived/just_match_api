@@ -54,17 +54,17 @@ end
 #  notification_frequency   :integer
 #  max_distance             :float
 #  locale                   :string(10)
-#  digest_subscriber_id :integer
+#  job_digest_subscriber_id :integer
 #  created_at               :datetime         not null
 #  updated_at               :datetime         not null
 #
 # Indexes
 #
 #  index_job_digests_on_address_id                (address_id)
-#  index_job_digests_on_digest_subscriber_id  (digest_subscriber_id)
+#  index_job_digests_on_job_digest_subscriber_id  (job_digest_subscriber_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (address_id => addresses.id)
-#  fk_rails_...  (digest_subscriber_id => digest_subscribers.id)
+#  fk_rails_...  (job_digest_subscriber_id => job_digest_subscribers.id)
 #

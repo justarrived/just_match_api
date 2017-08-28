@@ -17,15 +17,15 @@ RSpec.describe Api::V1::Jobs::JobDigestsController, type: :routing do
     end
 
     it 'routes to #update' do
-      path = '/api/v1/jobs/digests/1'
+      path = '/api/v1/jobs/subscribers/1/digests/2'
       route_path = 'api/v1/jobs/job_digests#update'
-      expect(patch: path).to route_to(route_path, job_digest_id: '1')
+      expect(patch: path).to route_to(route_path, digest_subscriber_id: '1', job_digest_id: '2') # rubocop:disable Metrics/LineLength
     end
 
     it 'routes to #destroy' do
-      path = '/api/v1/jobs/digests/uuid'
+      path = '/api/v1/jobs/subscribers/1/digests/2'
       route_path = 'api/v1/jobs/job_digests#destroy'
-      expect(delete: path).to route_to(route_path, job_digest_id: 'uuid')
+      expect(delete: path).to route_to(route_path, digest_subscriber_id: '1', job_digest_id: '2') # rubocop:disable Metrics/LineLength
     end
   end
 end

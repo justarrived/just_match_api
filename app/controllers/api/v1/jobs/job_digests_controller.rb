@@ -83,7 +83,7 @@ module Api
           end
         end
 
-        api :PATCH, '/jobs/digests/:job_digest_id', 'Update job digest'
+        api :PATCH, '/jobs/subscribers/:digest_subscriber_uuid_or_user_id/digests/:job_digest_id', 'Update job digest' # rubocop:disable Metrics/LineLength
         description 'Update job digest.'
         error code: 400, desc: 'Bad request'
         error code: 404, desc: 'Not found'
@@ -127,10 +127,15 @@ module Api
           end
         end
 
-        api :DELETE, '/jobs/digests/:job_digest_id', 'Delete job digest'
+        api :DELETE, '/jobs/subscribers/:digest_subscriber_uuid_or_user_id/digests/:job_digest_id', 'Delete job digest' # rubocop:disable Metrics/LineLength
         description 'Delete digest subscriber.'
         error code: 400, desc: 'Bad request'
         error code: 404, desc: 'Not found'
+        param :data, Hash, desc: 'Top level key', required: true do
+          param :attributes, Hash, desc: 'JobDigest attributes', required: true do
+            param :digest_subscriber_uuid, String, desc: 'Job digest subscriber UUID', required: true # rubocop:disable Metrics/LineLength
+          end
+        end
         ApipieDocHelper.params(self)
         def destroy
           authorize(@job_digest)
@@ -143,8 +148,7 @@ module Api
         private
 
         def set_subscriber
-          uuid = jsonapi_params[:digest_subscriber_uuid]
-          @subscriber = DigestSubscriber.find_by!(uuid: uuid)
+          @subscriber = DigestSubscriber.find_by!(uuid: params[:digest_subscriber_id])
         end
 
         def set_job_digest
