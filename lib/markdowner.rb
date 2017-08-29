@@ -10,8 +10,8 @@ module Markdowner
 
   def self.to_html(markdown)
     sanitized_markdown = HTMLSanitizer.sanitize(markdown)
-    autolinked_markdown = Rinku.auto_link(sanitized_markdown)
-    Kramdown::Document.new(autolinked_markdown, input: 'GFM').to_html
+    html = Kramdown::Document.new(sanitized_markdown, input: 'GFM').to_html
+    Rinku.auto_link(html)
   end
 
   def self.to_markdown(html)
