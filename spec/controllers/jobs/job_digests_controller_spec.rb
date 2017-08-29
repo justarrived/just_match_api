@@ -147,6 +147,16 @@ RSpec.describe Api::V1::Jobs::JobDigestsController, type: :controller do
         expect(job_digest.address.city).to eq(new_city)
       end
 
+      it 'updates a deleted JobDigest and marks it as non-deleted' do
+        job_digest.soft_destroy!
+        expect(job_digest.deleted_at).not_to be_nil
+
+        patch :update, params: valid_attributes
+
+        job_digest.reload
+        expect(job_digest.deleted_at).to be_nil
+      end
+
       it 'updates the JobDigest => JobDigestOccupation relation' do
         job_digest.occupations = [FactoryGirl.create(:occupation)]
 
@@ -179,18 +189,22 @@ RSpec.describe Api::V1::Jobs::JobDigestsController, type: :controller do
 
   describe 'DELETE #destroy' do
     let(:subscriber) { FactoryGirl.create(:digest_subscriber) }
+    let(:job_digest) { FactoryGirl.create(:job_digest, subscriber: subscriber) }
     let!(:valid_params) do
       {
         digest_subscriber_id: subscriber.uuid,
-        job_digest_id: FactoryGirl.create(:job_digest, subscriber: subscriber)
+        job_digest_id: job_digest.id
       }
     end
 
-    it 'destroys digest_subscriber successfully if found by uuid and returns 204' do
-      expect do
-        delete :destroy, params: valid_params
-      end.to change(JobDigest, :count).by(-1)
+    it 'destroys digest_subscriber by setting #deleted_at successfully if found by uuid and returns 204' do # rubocop:disable Metrics/LineLength
+      expect(job_digest.deleted_at).to be_nil
 
+      delete :destroy, params: valid_params
+
+      job_digest.reload
+
+      expect(job_digest.deleted_at).not_to be_nil
       expect(response.status).to eq(204)
     end
 

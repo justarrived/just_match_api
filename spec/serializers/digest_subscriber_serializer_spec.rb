@@ -37,6 +37,7 @@ end
 #  id         :integer          not null, primary key
 #  email      :string
 #  uuid       :string(36)
+#  deleted_at :datetime
 #  user_id    :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null

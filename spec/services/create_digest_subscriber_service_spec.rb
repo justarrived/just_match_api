@@ -38,6 +38,23 @@ RSpec.describe CreateDigestSubscriberService do
         expect(subscriber).to be_persisted
       end
 
+      it 'returns persisted, DigestSubscriber if email is present' do
+        email = 'something@example.com'
+        old_subscriber = FactoryGirl.create(
+          :digest_subscriber, email: email, deleted_at: Time.zone.now
+        )
+        subscriber = nil
+
+        expect(old_subscriber.deleted_at).not_to be_nil
+
+        expect do
+          subscriber = described_class.call(current_user: User.new, email: email)
+        end.to change(DigestSubscriber, :count).by(0)
+
+        expect(subscriber.deleted_at).to be_nil
+        expect(old_subscriber).to eq(subscriber)
+      end
+
       it 'returns persisted, DigestSubscriber if user is present and valid' do
         user = FactoryGirl.create(:user)
         subscriber = FactoryGirl.create(:digest_subscriber, user: user, email: nil)

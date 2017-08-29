@@ -6,6 +6,8 @@ class CreateDigestSubscribers < ActiveRecord::Migration[5.1]
       t.string :email
       t.string :uuid, limit: 36 # Max UUID length is 36, see https://tools.ietf.org/html/rfc4122#section-3
 
+      t.datetime :deleted_at
+
       t.belongs_to :user, foreign_key: true
 
       t.timestamps

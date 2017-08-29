@@ -19,6 +19,18 @@ RSpec.describe DigestSubscriber, type: :model do
     end
   end
 
+  describe '#soft_destroy!' do
+    it 'sets #deleted_at to the current time' do
+      time = Time.zone.now
+      Timecop.freeze(time) do
+        digest = FactoryGirl.create(:digest_subscriber)
+        digest.soft_destroy!
+
+        expect(digest.deleted_at).to eq(time)
+      end
+    end
+  end
+
   describe '#validates_user_or_email_presence' do
     it 'adds error if user and email are both blank' do
       jds = described_class.new
@@ -67,6 +79,7 @@ end
 #  id         :integer          not null, primary key
 #  email      :string
 #  uuid       :string(36)
+#  deleted_at :datetime
 #  user_id    :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null

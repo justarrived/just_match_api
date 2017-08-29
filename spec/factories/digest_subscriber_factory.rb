@@ -6,6 +6,7 @@ FactoryGirl.define do
       "subscriber#{n}@example.com"
     end
     user nil
+    deleted_at nil
 
     factory :digest_subscriber_for_docs do
       id 1
@@ -25,6 +26,7 @@ end
 #  id         :integer          not null, primary key
 #  email      :string
 #  uuid       :string(36)
+#  deleted_at :datetime
 #  user_id    :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null

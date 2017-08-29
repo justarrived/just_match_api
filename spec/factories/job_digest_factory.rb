@@ -6,6 +6,7 @@ FactoryGirl.define do
     association :subscriber, factory: :digest_subscriber
     association :address
     locale I18n.default_locale
+    deleted_at nil
 
     factory :job_digest_for_docs do
       id 1
@@ -27,6 +28,7 @@ end
 #  notification_frequency :integer
 #  max_distance           :float
 #  locale                 :string(10)
+#  deleted_at             :datetime
 #  digest_subscriber_id   :integer
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null

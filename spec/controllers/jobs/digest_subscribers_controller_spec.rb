@@ -100,12 +100,16 @@ RSpec.describe Api::V1::Jobs::DigestSubscribersController, type: :controller do
   end
 
   describe 'DELETE #destroy' do
-    it 'destroys digest_subscriber successfully if found by uuid' do
-      uuid = FactoryGirl.create(:digest_subscriber).uuid
+    it 'marks digest_subscriber as deleted if found by uuid' do
+      subscriber = FactoryGirl.create(:digest_subscriber)
 
       expect do
-        delete :destroy, params: { digest_subscriber_id: uuid }
-      end.to change(DigestSubscriber, :count).by(-1)
+        delete :destroy, params: { digest_subscriber_id: subscriber.uuid }
+      end.to change(DigestSubscriber, :count).by(0)
+
+      subscriber.reload
+
+      expect(subscriber.deleted_at).not_to be_nil
     end
 
     it 'returns 404 status when digest_subscriber_id is found by #id' do

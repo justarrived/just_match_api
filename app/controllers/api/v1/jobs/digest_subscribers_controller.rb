@@ -49,7 +49,7 @@ module Api
           end
         end
 
-        api :DELETE, '/digests/subscribers/:digest_subscriber_uuid_or_user_id', 'Delete job digest' # rubocop:disable Metrics/LineLength
+        api :DELETE, '/digests/subscribers/:digest_subscriber_uuid_or_user_id', 'Delete digest subscriber' # rubocop:disable Metrics/LineLength
         description 'Delete digest subscriber.'
         error code: 400, desc: 'Bad request'
         error code: 404, desc: 'Not found'
@@ -57,7 +57,7 @@ module Api
         def destroy
           uuid = params[:digest_subscriber_id]
           digest_subscriber = DigestSubscriber.find_by!(uuid: uuid)
-          digest_subscriber.destroy!
+          digest_subscriber.soft_destroy!
 
           head :no_content
         end

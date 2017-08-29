@@ -21,6 +21,39 @@ RSpec.describe JobDigest, type: :model do
       expect(job_digest.coordinates?).to eq(true)
     end
   end
+
+  describe '#soft_destroy!' do
+    it 'sets #deleted_at to the current time' do
+      time = Time.zone.now
+      Timecop.freeze(time) do
+        digest = FactoryGirl.create(:job_digest)
+        digest.soft_destroy!
+
+        expect(digest.deleted_at).to eq(time)
+      end
+    end
+  end
+
+  describe '#set_locale' do
+    it 'sets locale to the default locale unless present' do
+      expect(described_class.new.tap(&:validate).locale).to eq(I18n.locale.to_s)
+    end
+
+    it 'does not override locale if present' do
+      expect(described_class.new(locale: :ar).tap(&:validate).locale).to eq('ar')
+    end
+  end
+
+  describe '#set_max_distance' do
+    it 'sets max_distance to the default max distance unless present' do
+      expected = JobDigest::DEFAULT_MAX_DISTANCE
+      expect(described_class.new.tap(&:validate).max_distance).to eq(expected)
+    end
+
+    it 'does not override max_distance if present' do
+      expect(described_class.new(max_distance: 1).tap(&:validate).max_distance).to eq(1)
+    end
+  end
 end
 
 # == Schema Information
@@ -32,6 +65,7 @@ end
 #  notification_frequency :integer
 #  max_distance           :float
 #  locale                 :string(10)
+#  deleted_at             :datetime
 #  digest_subscriber_id   :integer
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null

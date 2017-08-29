@@ -2,7 +2,7 @@
 
 module Index
   class JobDigestsIndex < BaseIndex
-    def job_digests(scope = Skill)
+    def job_digests(scope = JobDigest)
       @job_digests ||= prepare_records(scope)
     end
   end

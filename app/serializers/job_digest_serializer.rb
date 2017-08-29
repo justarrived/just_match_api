@@ -16,6 +16,7 @@ end
 #  notification_frequency :integer
 #  max_distance           :float
 #  locale                 :string(10)
+#  deleted_at             :datetime
 #  digest_subscriber_id   :integer
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null

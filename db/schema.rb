@@ -10,12 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170823095050) do
+ActiveRecord::Schema.define(version: 20170818070524) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "hstore"
-  enable_extension "pg_stat_statements"
   enable_extension "unaccent"
 
   create_table "active_admin_comments", id: :serial, force: :cascade do |t|
@@ -23,8 +21,8 @@ ActiveRecord::Schema.define(version: 20170823095050) do
     t.text "body"
     t.string "resource_id", null: false
     t.string "resource_type", null: false
-    t.integer "author_id"
     t.string "author_type"
+    t.integer "author_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id"
@@ -156,8 +154,8 @@ ActiveRecord::Schema.define(version: 20170823095050) do
 
   create_table "comments", id: :serial, force: :cascade do |t|
     t.text "body"
-    t.integer "commentable_id"
     t.string "commentable_type"
+    t.integer "commentable_id"
     t.integer "owner_user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -260,6 +258,7 @@ ActiveRecord::Schema.define(version: 20170823095050) do
   create_table "digest_subscribers", force: :cascade do |t|
     t.string "email"
     t.string "uuid", limit: 36
+    t.datetime "deleted_at"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -353,7 +352,6 @@ ActiveRecord::Schema.define(version: 20170823095050) do
     t.datetime "ff_sent_at"
     t.boolean "express_payment", default: false
     t.datetime "ff_last_synced_at"
-    t.integer "ff_invoice_number"
     t.index ["job_user_id"], name: "index_frilans_finans_invoices_on_job_user_id"
   end
 
@@ -448,6 +446,7 @@ ActiveRecord::Schema.define(version: 20170823095050) do
     t.integer "notification_frequency"
     t.float "max_distance"
     t.string "locale", limit: 10
+    t.datetime "deleted_at"
     t.bigint "digest_subscriber_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -604,9 +603,9 @@ ActiveRecord::Schema.define(version: 20170823095050) do
     t.string "city"
     t.boolean "staffing_job", default: false
     t.boolean "direct_recruitment_job", default: false
-    t.integer "order_id"
     t.string "municipality"
     t.integer "number_to_fill", default: 1
+    t.integer "order_id"
     t.boolean "full_time", default: false
     t.string "swedish_drivers_license"
     t.boolean "car_required", default: false

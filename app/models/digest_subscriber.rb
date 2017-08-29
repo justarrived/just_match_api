@@ -15,6 +15,10 @@ class DigestSubscriber < ApplicationRecord
   validate :validates_user_and_email_both_not_present
   validate :validates_email_not_belong_to_user
 
+  def soft_destroy!
+    update!(deleted_at: Time.zone.now)
+  end
+
   def contact_email
     return user.contact_email if user
 
@@ -63,6 +67,7 @@ end
 #  id         :integer          not null, primary key
 #  email      :string
 #  uuid       :string(36)
+#  deleted_at :datetime
 #  user_id    :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null

@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
 class JobDigestPolicy < ApplicationPolicy
+  class Scope < Scope
+    def resolve
+      scope.active
+    end
+  end
+
   def index?
     true
   end

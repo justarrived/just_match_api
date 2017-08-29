@@ -3,16 +3,21 @@
 class CreateDigestSubscriberService
   def self.call(current_user:, user_id: nil, email: nil)
     email = EmailAddress.normalize(email)
+    subscriber = nil
 
     if user_id && (current_user.admin? || user_id.to_s == current_user.id.to_s)
-      return DigestSubscriber.find_or_create_by(user_id: user_id)
+      subscriber = DigestSubscriber.find_or_initialize_by(user_id: user_id)
+    elsif email && email == current_user.email
+      subscriber = DigestSubscriber.find_or_initialize_by(user_id: current_user.id)
+    elsif email
+      subscriber = DigestSubscriber.find_or_initialize_by(email: email)
     end
 
-    if email && email == current_user.email
-      return DigestSubscriber.find_or_create_by(user_id: current_user.id)
+    if subscriber
+      subscriber.deleted_at = nil
+      subscriber.save
+      return subscriber
     end
-
-    return DigestSubscriber.find_or_create_by(email: email) if email
 
     DigestSubscriber.new.tap(&:validate)
   end

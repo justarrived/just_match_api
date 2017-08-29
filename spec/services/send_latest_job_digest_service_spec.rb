@@ -36,6 +36,7 @@ RSpec.describe SendLatestJobDigestService do
       FactoryGirl.create(:job_digest, occupations: [occ, occ2, occ3])
       # Should *not* match
       FactoryGirl.create(:job_digest, occupations: [occ3])
+      FactoryGirl.create(:job_digest, occupations: [occ], deleted_at: 1.day.ago)
 
       total_sent = described_class.call(jobs_published_within_hours: 24)
       expect(total_sent).to eq(3)
