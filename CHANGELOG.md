@@ -4,6 +4,15 @@ HEAD
 -----------
 
 
+v2.12 - 2017-08-29
+----------
+* _Bugfix_:
+  - Fix issue where markdown links would be auto-linked before conversion to HTML
+* _Enhancement_:
+  - Explicitly require uri in `GoogleCalendarUrl`
+  - Move `GoogleCalendarUrl` from `app/support` to `lib/`
+
+
 v2.11 - 2017-08-26
 ----------
 * _Admin_:
