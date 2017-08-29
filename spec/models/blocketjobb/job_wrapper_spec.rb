@@ -67,7 +67,14 @@ RSpec.describe Blocketjobb::JobWrapper do
       expect(described_class.new(job).company_logo_url).to eq(logo_url)
     end
 
-    it 'returns nil if there is no company logo' do
+    it 'returns configured logo if there is an Environment variable for it' do
+      expected = 'https://example.com/image.jpg'
+      allow(AppConfig).to receive(:blocketjobb_customer_logo_url).and_return(expected)
+      job = FactoryGirl.build(:job)
+      expect(described_class.new(job).company_logo_url).to eq(expected)
+    end
+
+    it 'returns empty string if there is no company logo' do
       owner = FactoryGirl.create(:company_user)
       job = FactoryGirl.build(:job, owner: owner)
 

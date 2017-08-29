@@ -122,6 +122,9 @@ module Blocketjobb
     end
 
     def company_logo_url
+      config_logo = AppConfig.blocketjobb_customer_logo_url
+      return config_logo if config_logo.present?
+
       return '' unless company
       logo = company.company_image_logo
       return '' unless logo
