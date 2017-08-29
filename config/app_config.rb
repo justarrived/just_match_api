@@ -43,6 +43,10 @@ class AppConfig
     env['ARBETSFORMEDLINGEN_DEFAULT_PUBLISHER_NAME']
   end
 
+  def self.blocketjobb_customer_logo_url
+    env['BLOCKETJOBB_CUSTOMER_LOGO_URL']
+  end
+
   # Application settings
 
   def self.allow_regular_users_to_create_jobs?
