@@ -62,8 +62,7 @@ namespace :dev do
         heroku_app_name = args[:heroku_app_name]
 
         Rake::Task['dev:db:heroku:download'].invoke(heroku_app_name)
-        Rake::Task['dev:db:restore'].execute
-        Rake::Task['dev:db:anonymize'].execute
+        Rake::Task['dev:db:import'].execute
       end
 
       desc 'Download latest database dump from Heroku'
@@ -83,19 +82,29 @@ namespace :dev do
       end
     end
 
-    desc 'Restore database from database dump'
-    task :restore, %i[db_dump_path db_name] => %i[environment ensure_dev_env] do |_t, args| # rubocop:disable Metrics/LineLength
+    desc 'Import database from database dump'
+    task :import, %i[db_dump_path db_name] => %i[environment ensure_dev_env] do |_t, args| # rubocop:disable Metrics/LineLength
       db_dump_path = args.fetch(:db_dump_path, DB_DUMP_PATH)
       db_name = args.fetch(:db_name, 'just_match_development')
 
-      puts 'Dropping current database'
+      puts 'Dropping database'
       Rake::Task['db:drop'].execute
+      puts 'Creating database'
       Rake::Task['db:create'].execute
 
       # Restore DB
       puts "Restoring the database from #{db_dump_path}. This may take a while.."
       System.call("pg_restore --no-owner -d #{db_name} #{db_dump_path}")
-      puts 'Database restored.'
+      puts 'Database imported.'
+    end
+
+    desc 'Restore database: import database dump, anonymize'
+    task :restore, %i[db_dump_path db_name] => %i[environment ensure_dev_env] do |_t, args| # rubocop:disable Metrics/LineLength
+      db_dump_path = args.fetch(:db_dump_path, DB_DUMP_PATH)
+      db_name = args.fetch(:db_name, 'just_match_development')
+
+      Rake::Task['dev:db:import'].invoke(db_dump_path, db_name)
+      Rake::Task['dev:db:anonymize'].execute
     end
 
     desc 'Anonymize the database'
