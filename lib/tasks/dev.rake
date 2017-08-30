@@ -62,7 +62,7 @@ namespace :dev do
         heroku_app_name = args[:heroku_app_name]
 
         Rake::Task['dev:db:heroku:download'].invoke(heroku_app_name)
-        Rake::Task['dev:db:import'].execute
+        Rake::Task['dev:db:restore'].execute
       end
 
       desc 'Download latest database dump from Heroku'
