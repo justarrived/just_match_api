@@ -10,9 +10,11 @@ module SetJobOccupationsService
         job: job,
         occupation_id: attrs[:id]
       ).tap do |job_occupation|
-        if attrs[:importance].present?
-          job_occupation.importance = attrs[:importance]
-        end
+        job_occupation.importance = if importance = attrs[:importance].presence
+                                      importance
+                                    else
+                                      :bonus
+                                    end
 
         if attrs[:years_of_experience].present?
           job_occupation.years_of_experience = attrs[:years_of_experience]
