@@ -185,7 +185,7 @@ ActiveAdmin.register JobRequest do
     end
 
     f.inputs 'Job details' do
-      f.input :job_specification, as: :text, hint: 'A more extensive description (if you have one) of the job'
+      f.input :job_specification, as: :text, hint: 'A more extensive description of the job'
       f.input :hourly_pay, hint: 'The hourly pay have you been discussing'
       f.input :job_at_date, hint: 'Estimated job dates, i.e "3 months starting in March-ish"'
       f.input :job_scope, hint: 'Full time? Part time? etc..'
