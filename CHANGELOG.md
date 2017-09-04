@@ -4,6 +4,16 @@ HEAD
 -----------
 
 
+v2.14 - 2017-09-04
+----------
+* _Admin_:
+  - Add stricter validation for `JobRequest` company relation/attributes
+  - Update Company index dashboard
+* _Enhancement_:
+  - Enforce `Company#swedish_municipality`
+  - Decrease min `Company#street` length
+
+
 v2.13 - 2017-09-04
 ----------
 * _Enhancement_:
