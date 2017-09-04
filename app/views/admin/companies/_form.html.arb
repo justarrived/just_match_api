@@ -1,11 +1,14 @@
 f.semantic_errors(*f.object.errors.keys)
 
 f.inputs I18n.t('admin.company.form.main_form_section_title') do
-  f.input :name
+  f.input :name, hint: 'Please check https://allabolag.se for the formal company name and their organisation number.'
   f.input :cin
   f.input :phone
   f.input :email
-  f.input :billing_email
+  f.input :billing_email, hint: 'The email to the person at the company who is going to receive all invoices.'
+
+  f.h3 safe_join(['&nbsp;'.html_safe, 'Billing address'])
+
   f.input :street
   f.input :zip
   f.input :city
@@ -30,6 +33,7 @@ f.inputs I18n.t('admin.company.form.main_form_section_title') do
   end
 
   if f.object.new_record?
+    f.h1 'Make sure to create a user!'
     f.has_many :users, new_record: true do |ff|
       if ff.object.new_record?
         ff.semantic_errors(*ff.object.errors.keys)
