@@ -18,7 +18,7 @@ class Company < ApplicationRecord
   validates :billing_email, presence: true
   validates :street, length: { minimum: 2 }, allow_blank: false
   validates :zip, length: { minimum: 5 }, allow_blank: false
-  validates :municipality, swedish_municipality: true
+  validates :municipality, swedish_municipality: true, allow_blank: false
   validates :city, length: { minimum: 1 }, allow_blank: false
   validates :frilans_finans_id, uniqueness: true, allow_nil: true
   validates :website, url: true
