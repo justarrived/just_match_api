@@ -16,7 +16,7 @@ class Company < ApplicationRecord
   validates :cin, uniqueness: true, length: { is: 10 }, allow_blank: false
   validates :email, presence: true
   validates :billing_email, presence: true
-  validates :street, length: { minimum: 5 }, allow_blank: false
+  validates :street, length: { minimum: 2 }, allow_blank: false
   validates :zip, length: { minimum: 5 }, allow_blank: false
   validates :municipality, swedish_municipality: true
   validates :city, length: { minimum: 1 }, allow_blank: false
