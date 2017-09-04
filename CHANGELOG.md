@@ -4,6 +4,18 @@ HEAD
 -----------
 
 
+v2.13 - 2017-09-04
+----------
+* _Enhancement_:
+  - Add env-config option for overriding the customer logo @ blocketjobb
+  - Set default `JobOccupation#importance` in `SetJobOccupationsService`
+* _Update gem:_
+  - Bump byebug from 9.0.6 to 9.1.0
+  - apipie-rails
+  - rinku
+  - twilio-ruby
+
+
 v2.12 - 2017-08-29
 ----------
 * _Bugfix_:
