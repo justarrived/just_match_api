@@ -2,7 +2,11 @@
 
 FactoryGirl.define do
   factory :job_request do
+    association :sales_user, factory: :user
     company_name 'MyString'
+    company_org_no '0000000000'
+    company_email 'wat@example.com'
+    company_address 'something street 2'
     contact_string 'MyString'
     assignment 'MyString'
     job_scope 'MyString'
@@ -10,6 +14,7 @@ FactoryGirl.define do
     language_requirements 'MyString'
     job_at_date 'MyString'
     responsible 'MyString'
+    requirements 'MyString'
     suitable_candidates 'MyString'
     comment 'MyString'
   end
