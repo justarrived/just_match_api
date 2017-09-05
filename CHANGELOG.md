@@ -3,6 +3,60 @@
 HEAD
 -----------
 
+
+v2.14 - 2017-09-04
+----------
+* _Admin_:
+  - Add stricter validation for `JobRequest` company relation/attributes
+  - Update Company index dashboard
+* _Enhancement_:
+  - Enforce `Company#swedish_municipality`
+  - Decrease min `Company#street` length
+
+
+v2.13 - 2017-09-04
+----------
+* _Enhancement_:
+  - Add env-config option for overriding the customer logo @ blocketjobb
+  - Set default `JobOccupation#importance` in `SetJobOccupationsService`
+* _Update gem:_
+  - Bump byebug from 9.0.6 to 9.1.0
+  - apipie-rails
+  - rinku
+  - twilio-ruby
+
+
+v2.12 - 2017-08-29
+----------
+* _Bugfix_:
+  - Fix issue where markdown links would be auto-linked before conversion to HTML
+* _Enhancement_:
+  - Explicitly require uri in `GoogleCalendarUrl`
+  - Move `GoogleCalendarUrl` from `app/support` to `lib/`
+
+
+v2.11 - 2017-08-26
+----------
+* _Admin_:
+  - Added a job user relations sidebar and a job relations sidebar to job user view
+
+
+v2.10 - 2017-08-23
+----------
+* _Bugfix_:
+  - Make Order#job_request optional
+* _Enhancement_:
+  - Add Frilans Finans Invoice number to FrilansFinansInvoice model
+  - Add EmailAddress#valid? method
+* _Update gem_:
+  - twilio-ruby
+  - aws-sdk
+  - puma
+  - aws-sdk
+* _Docs_:
+  - Update PostgreSQL version in docs and README
+
+
 v2.9 - 2017-08-17
 ----------
 * _Admin_:

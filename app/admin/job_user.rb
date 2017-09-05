@@ -199,8 +199,16 @@ ActiveAdmin.register JobUser do
 
   include AdminHelpers::MachineTranslation::Actions
 
-  sidebar :relations, only: %i(show edit) do
+  sidebar :job_user_relations, only: %i(show edit) do
+    render partial: 'admin/job_users/relations_list', locals: { job_user: job_user }
+  end
+
+  sidebar :user_relations, only: %i(show edit) do
     render partial: 'admin/users/relations_list', locals: { user: job_user.user }
+  end
+
+  sidebar :job_relations, only: %i(show edit) do
+    render partial: 'admin/jobs/relations_list', locals: { job: job_user.job }
   end
 
   sidebar :latest_applications, only: %i(show edit) do

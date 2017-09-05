@@ -23,8 +23,7 @@ ActiveAdmin.register Company do
     column :id
     column :name
     column :cin
-    column :frilans_finans_id
-    column :email
+    column :billing_email
     column :phone
     column :created_at
 

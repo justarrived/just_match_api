@@ -15,6 +15,12 @@ RSpec.describe Markdowner do
       expected = "<p><a href=\"http://www.example.com\">www.example.com</a></p>\n"
       expect(Markdowner.to_html(markdown)).to eq(expected)
     end
+
+    it 'converts markdown, with links, to HTML and autolinks' do
+      markdown = '[example.com](http://example.com) www.example.com'
+      expected = "<p><a href=\"http://example.com\">example.com</a> <a href=\"http://www.example.com\">www.example.com</a></p>\n" # rubocop:disable Metrics/LineLength
+      expect(Markdowner.to_html(markdown)).to eq(expected)
+    end
   end
 
   describe '::to_markdown' do

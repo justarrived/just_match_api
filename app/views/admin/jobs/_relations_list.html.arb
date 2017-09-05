@@ -6,7 +6,6 @@ ul do
   li link_to job.order.display_name, admin_order_path(job.order) if job.order
   li link_to job.company.display_name, admin_company_path(job.company) if job.company
   li link_to job.owner.display_name, admin_user_path(job.owner)
-  li link_to job.order.display_name, admin_order_path(job.order) if job.order
   if job.arbetsformedlingen_ad
     li(
       link_to(

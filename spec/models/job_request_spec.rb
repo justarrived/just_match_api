@@ -3,6 +3,37 @@
 require 'rails_helper'
 
 RSpec.describe JobRequest, type: :model do
+  describe '#validate_company_relation_or_company_details' do
+    it 'does not add error if company relation exists' do
+      company = FactoryGirl.build_stubbed(:company)
+      request = JobRequest.new(company: company)
+      request.validate_company_relation_or_company_details
+
+      expect(request.errors[:company]).to be_empty
+    end
+
+    it 'does not add error if company details exist' do
+      request = JobRequest.new(
+        company_name: 'ACME AB',
+        company_org_no: '5555555555',
+        company_email: 'company_email',
+        company_address: 'company_address'
+      )
+      request.validate_company_relation_or_company_details
+
+      expect(request.errors).to be_empty
+    end
+
+    it 'adds error(s) if neither company relation or company details exist' do
+      request = JobRequest.new
+      request.validate_company_relation_or_company_details
+
+      expect(request.errors[:company]).not_to be_empty
+      expect(request.errors[:company_org_no]).not_to be_empty
+      expect(request.errors[:company_email]).not_to be_empty
+      expect(request.errors[:company_address]).not_to be_empty
+    end
+  end
 end
 
 # == Schema Information

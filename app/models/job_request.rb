@@ -15,6 +15,30 @@ class JobRequest < ApplicationRecord
 
   after_create :send_created_notice
 
+  validates :sales_user, presence: true
+  validates :contact_string, presence: true
+  validates :job_specification, presence: true
+  validates :requirements, presence: true
+  validates :job_at_date, presence: true
+  validates :job_scope, presence: true
+  validates :company_email, email: true, allow_blank: true
+  validates :company_org_no, length: { is: 10 }, allow_blank: true
+
+  validate :validate_company_relation_or_company_details
+
+  def validate_company_relation_or_company_details
+    return if company
+
+    return if %i(company_org_no company_email company_address).map do |attribute|
+      value = public_send(attribute)
+      next if value.present?
+
+      errors.add(attribute, :blank)
+    end.all?(&:nil?)
+
+    errors.add(:company, :blank)
+  end
+
   def display_name
     "##{id || 'unsaved'} #{short_name}"
   end
