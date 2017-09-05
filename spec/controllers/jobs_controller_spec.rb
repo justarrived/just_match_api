@@ -16,7 +16,7 @@ RSpec.describe Api::V1::JobsController, type: :controller do
           short_description: 'Short description',
           description: 'Some job description',
           language_id: FactoryGirl.create(:language).id,
-          hourly_pay_id: FactoryGirl.create(:hourly_pay).id,
+          hourly_pay_id: FactoryGirl.create(:hourly_pay, gross_salary: 100).id,
           category_id: FactoryGirl.create(:category).id,
           owner_user_id: owner.id,
           street: 'Stora Nygatan 36',
@@ -114,6 +114,7 @@ RSpec.describe Api::V1::JobsController, type: :controller do
         expect(job.translations.length).to eq(1)
         expect(job).to be_a(Job)
         expect(job).to be_persisted
+        expect(job.customer_hourly_price).to eq(140)
         expect(response.status).to eq(201)
       end
     end
