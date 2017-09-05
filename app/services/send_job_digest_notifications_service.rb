@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 class SendJobDigestNotificationsService
-  def self.call(jobs:, job_digests:)
+  def self.call(jobs:, job_digests:, max_jobs: AppConfig.max_jobs_in_digest_notification)
     total_sent = 0
     job_digests.each do |job_digest|
       matching_jobs = jobs.select { |job| JobDigestMatch.match?(job, job_digest) }
       next if matching_jobs.empty?
 
-      JobsDigestNotifier.call(jobs: matching_jobs, job_digest: job_digest)
+      JobsDigestNotifier.call(jobs: matching_jobs[0...max_jobs], job_digest: job_digest)
       total_sent += 1
     end
     total_sent

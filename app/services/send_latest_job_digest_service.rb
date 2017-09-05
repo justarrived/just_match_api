@@ -2,14 +2,12 @@
 
 class SendLatestJobDigestService
   MAX_JOB_DIGEST_BATCH = 1000
-  MAX_JOBS = 10
 
-  def self.call(jobs_published_within_hours:, max_jobs: MAX_JOBS, job_digests_scope: JobDigest) # rubocop:disable Metrics/LineLength
+  def self.call(jobs_published_within_hours:, job_digests_scope: JobDigest)
     jobs = Job.with_translations.
            includes(:occupations).
            published.
-           after(:publish_at, jobs_published_within_hours.hours.ago).
-           limit(max_jobs)
+           after(:publish_at, jobs_published_within_hours.hours.ago)
 
     total_sent = 0
     job_digests_scope.active.
