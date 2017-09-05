@@ -15,6 +15,15 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :jobs, param: :job_id, only: %i(index show create update) do
+        collection do
+          resources :job_digests, param: :job_digest_id, module: :jobs, path: :digests, only: %i(create)
+          resources :digest_subscribers, param: :digest_subscriber_id, module: :jobs, path: :subscribers, only: %i(show create destroy) do
+            member do
+              resources :job_digests, param: :job_digest_id, path: :digests, only: %i(index update destroy)
+            end
+          end
+        end
+
         member do
           get :matching_users, path: 'matching-users'
           resources :job_comments, module: :jobs, path: :comments, only: %i(index show create destroy)
@@ -109,6 +118,7 @@ Rails.application.routes.draw do
         end
       end
 
+      resources :occupations, only: %i(index show)
       resources :terms_agreement_consents, path: 'terms-consents', only: [:create]
       resources :languages, only: %i(index show create update destroy)
       resources :skills, only: %i(index show create update destroy)

@@ -187,25 +187,15 @@ module Api
       def update
         authorize(@user)
 
-        if @user.update(user_params)
-          @user.set_translation(user_params).tap do |result|
-            ProcessTranslationJob.perform_later(
-              translation: result.translation,
-              changed: result.changed_fields
-            )
-          end
+        @user = UpdateUserService.call(
+          user: @user,
+          params: user_params,
+          language_ids: jsonapi_params[:language_ids],
+          skill_ids: jsonapi_params[:skill_ids],
+          interest_ids: jsonapi_params[:interest_ids]
+        )
 
-          @user.reload
-
-          SetUserTraitsService.call(
-            user: @user,
-            language_ids_param: jsonapi_params[:language_ids],
-            skill_ids_param: jsonapi_params[:skill_ids],
-            interest_ids_param: jsonapi_params[:interest_ids]
-          )
-
-          sync_ff_user(@user)
-
+        if @user.errors.empty?
           api_render(@user)
         else
           api_render_errors(@user)

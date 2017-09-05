@@ -3,25 +3,38 @@
 module Queries
   class Filter
     def self.filter(records, filters, filter_types)
+      param_types = to_param_types(filter_types)
+
       filters.each do |field_name, value|
         # If it includes a '.' it means its a filter on a relation and
         # should therefore be ignored
         next if field_name.to_s.include?('.')
 
-        filter_type = filter_types[field_name]
-        if filter_type == :fake_attribute
+        value = normalize_value(value)
+
+        filter_type = param_types.fetch(field_name, column: field_name)
+        type = filter_type[:type]
+        field_name = filter_type[:column]
+
+        if type == :fake_attribute
           records # we can't filter on fake attributes
-        elsif filter_type.is_a?(Hash) && filter_type[:translated]
-          records = filter_translated_records(records, field_name, value, filter_type[:translated]) # rubocop:disable Metrics/LineLength
-        elsif filter_type == :in_list
+        elsif filter_type[:translated]
+          records = filter_translated_records(records, field_name, value, type)
+        elsif type == :in_list
           records = records.where(field_name => value&.split(','))
-        elsif filter_type
-          records = filter_records(records, field_name, value, filter_type)
+        elsif type
+          records = filter_records(records, field_name, value, type)
         else
           records = records.where(field_name => value)
         end
       end
       records
+    end
+
+    def self.normalize_value(value)
+      return [nil, ''] if value.nil? || value.empty? # rubocop:disable Rails/Blank
+
+      value
     end
 
     def self.filter_records(records, field_name, value, filter_type)
@@ -49,6 +62,26 @@ module Queries
       else
         raise ArgumentError, "unknown filter_type: '#{filter_type}'"
       end
+    end
+
+    def self.to_param_types(filter_types)
+      filter_types.map do |name, filter_type|
+        filter_type = { type: filter_type } unless filter_type.is_a?(Hash)
+        if type = filter_type[:translated]
+          filter_type[:type] = type
+          filter_type[:translated] = true
+        end
+
+        column = if filter_type[:column]
+                   filter_type[:column]
+                 elsif filter_type[:type] == :fake_attribute
+                   nil
+                 else
+                   name
+                 end
+
+        [name, { column: column }.merge!(filter_type)]
+      end.to_h
     end
   end
 end

@@ -1,0 +1,43 @@
+<h3 style="color:#d10072"><%= I18n.t('mailer.digest_email.header') %></h3>
+
+<p><%= I18n.t('mailer.digest_email.body') %></p>
+
+<%= link_to(I18n.t('mailer.digest_email.update_digest_settings'), @unsubscribe_url, style: 'color: #9C9FA7') %>
+
+<% @jobs.each do |job| %>
+  <p>
+    <strong>
+      <%= join_in_locale_order([
+        (job.city if job.city.present?),
+        job.translated_name
+      ].compact, join_with: ' - ')
+      %>
+    </strong><br>
+    <%= job.translated_short_description %> <br>
+    <%= link_to(I18n.t('mailer.digest_email.search_job'), frontend_mail_url(:job, id: job.id, utm_campaign: 'job_digest')) %>
+  </p>
+<%= render 'mailer_partials/hr' %>
+<% end %>
+
+<br>
+<%= render(
+  'mailer_partials/action_button',
+  url: @more_jobs_url,
+  title: I18n.t('mailer.digest_email.more_jobs'),
+  align: :center
+) %>
+
+<% unless @has_coordinates %>
+<p>
+  <%= link_to(I18n.t('mailer.digest_email.no_digest_address_setting_notice'), @unsubscribe_url, style: 'color: #9C9FA7') %>
+  <br>
+</p>
+<% end %>
+
+<%= render 'mailer_partials/hr' %>
+
+<br>
+<h4><%= I18n.t('mailer.digest_email.good_luck') %></h4>
+<p><%= I18n.t('mailer.signoff') %></p>
+
+<p><%= link_to(I18n.t('mailer.digest_email.update_digest_settings'), @unsubscribe_url, style: 'color: #9C9FA7') %></p>

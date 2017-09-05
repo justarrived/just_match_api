@@ -1,0 +1,19 @@
+<h3><%= I18n.t('mailer.digest_created.digest_created_title') %></h3>
+<p><%= I18n.t('mailer.digest_created.digest_created_body') %></p>
+
+<p><%= link_to(I18n.t('mailer.digest_created.update_settings'), @unsubscribe_url) %></p>
+
+<% unless @user %>
+<%= render 'mailer_partials/hr' %>
+<p style="text-align: center">
+  <strong><%= I18n.t('mailer.digest_created.user_register_signup_pitch') %></strong>
+  <%= render(
+    'mailer_partials/action_button',
+    url: @user_regiser_url,
+    title: I18n.t('mailer.digest_created.user_register_link_title'),
+    align: :center
+  ) %>
+</p>
+<% end %>
+
+<p><%= I18n.t('mailer.signoff') %></p>

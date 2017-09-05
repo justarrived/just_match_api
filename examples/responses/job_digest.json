@@ -1,0 +1,15 @@
+{
+  "data": {
+    "id": "1",
+    "type": "job_digests",
+    "attributes": {
+      "notification_frequency": "daily",
+      "city": "Stockholm"
+    },
+    "relationships": {
+      "digest_subscriber": {
+        "data": null
+      }
+    }
+  }
+}

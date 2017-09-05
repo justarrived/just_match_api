@@ -3,6 +3,27 @@
 require 'rails_helper'
 
 RSpec.describe Queries::Filter do
+  describe '#to_param_types' do
+    it 'returns correct array for simplest type of filter' do
+      expected = { a: { column: :a, type: :b } }
+      expect(described_class.to_param_types(a: :b)).to match(expected)
+    end
+
+    it 'returns correct array for complex filter' do
+      filter = {
+        id: :in_list,
+        first_name: { translated: :starts_with, column: :fname },
+        published: :fake_attribute
+      }
+      expected = {
+        id: { column: :id, type: :in_list },
+        first_name: { column: :fname, translated: true, type: :starts_with },
+        published: { column: nil, type: :fake_attribute }
+      }
+      expect(described_class.to_param_types(filter)).to match(expected)
+    end
+  end
+
   describe '#filter' do
     context 'no filter_types' do
       subject { described_class }
@@ -50,7 +71,21 @@ RSpec.describe Queries::Filter do
       end
     end
 
-    context 'filter_type: translated' do
+    context 'filter_type: column' do
+      subject { described_class }
+
+      it 'returns correct results' do
+        occupation = FactoryGirl.create(:occupation_with_translation, name: 'watman')
+        occupation1 = FactoryGirl.create(:occupation_with_translation, name: 'wat1', parent: occupation) # rubocop:disable Metrics/LineLength
+        FactoryGirl.create(:occupation_with_translation, name: 'tawnam')
+
+        filter = { parent_id: { column: :ancestry } }
+        result = subject.filter(Occupation, { parent_id: occupation.to_param }, filter)
+        expect(result).to eq([occupation1])
+      end
+    end
+
+    context 'filter_type: in_list' do
       subject { described_class }
 
       it 'returns correct results' do
@@ -61,6 +96,22 @@ RSpec.describe Queries::Filter do
         filter = { id: :in_list }
         result = subject.filter(Skill, { id: [skill.id, skill1.id].join(',') }, filter)
         expect(result).to eq([skill, skill1])
+      end
+    end
+  end
+
+  describe '::normalize_value' do
+    it 'returns nil and empty string array if nil' do
+      expect(described_class.normalize_value(nil)).to eq([nil, ''])
+    end
+
+    it 'returns nil and empty string array if empty string' do
+      expect(described_class.normalize_value('')).to eq([nil, ''])
+    end
+
+    ['  ', 'yo', [:wat], { wat: :man }].each do |value|
+      it "returns value untouched for #{value}" do
+        expect(described_class.normalize_value(value)).to eq(value)
       end
     end
   end

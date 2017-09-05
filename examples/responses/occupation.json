@@ -1,0 +1,22 @@
+{
+  "data": {
+    "id": "1",
+    "type": "occupations",
+    "attributes": {
+      "name": null,
+      "translated_text": {
+        "name": null,
+        "language_id": null
+      },
+      "parent_id": null
+    },
+    "relationships": {
+      "language": {
+        "data": {
+          "id": "42",
+          "type": "languages"
+        }
+      }
+    }
+  }
+}

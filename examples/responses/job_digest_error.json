@@ -1,0 +1,24 @@
+{
+  "errors": [
+    {
+      "status": 422,
+      "source": {
+        "pointer": "/data/attributes/subscriber"
+      },
+      "detail": "can't be blank",
+      "meta": {
+        "type": "blank"
+      }
+    },
+    {
+      "status": 422,
+      "source": {
+        "pointer": "/data/attributes/notification_frequency"
+      },
+      "detail": "can't be blank",
+      "meta": {
+        "type": "blank"
+      }
+    }
+  ]
+}

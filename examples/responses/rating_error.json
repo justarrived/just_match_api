@@ -3,6 +3,76 @@
     {
       "status": 422,
       "source": {
+        "pointer": "/data/attributes/from_user"
+      },
+      "detail": "can't be blank",
+      "meta": {
+        "type": "blank"
+      }
+    },
+    {
+      "status": 422,
+      "source": {
+        "pointer": "/data/attributes/from_user"
+      },
+      "detail": "can't be blank",
+      "meta": {
+        "type": "blank"
+      }
+    },
+    {
+      "status": 422,
+      "source": {
+        "pointer": "/data/attributes/from_user"
+      },
+      "detail": "must be the job owner or the accepted applicant",
+      "meta": {
+        "type": "invalid"
+      }
+    },
+    {
+      "status": 422,
+      "source": {
+        "pointer": "/data/attributes/to_user"
+      },
+      "detail": "can't be blank",
+      "meta": {
+        "type": "blank"
+      }
+    },
+    {
+      "status": 422,
+      "source": {
+        "pointer": "/data/attributes/to_user"
+      },
+      "detail": "can't be blank",
+      "meta": {
+        "type": "blank"
+      }
+    },
+    {
+      "status": 422,
+      "source": {
+        "pointer": "/data/attributes/to_user"
+      },
+      "detail": "must be the job owner or the accepted applicant",
+      "meta": {
+        "type": "invalid"
+      }
+    },
+    {
+      "status": 422,
+      "source": {
+        "pointer": "/data/attributes/job"
+      },
+      "detail": "can't be blank",
+      "meta": {
+        "type": "blank"
+      }
+    },
+    {
+      "status": 422,
+      "source": {
         "pointer": "/data/attributes/job"
       },
       "detail": "can't be blank",
@@ -38,46 +108,6 @@
       "detail": "is not included in the list",
       "meta": {
         "type": "inclusion"
-      }
-    },
-    {
-      "status": 422,
-      "source": {
-        "pointer": "/data/attributes/from_user"
-      },
-      "detail": "can't be blank",
-      "meta": {
-        "type": "blank"
-      }
-    },
-    {
-      "status": 422,
-      "source": {
-        "pointer": "/data/attributes/from_user"
-      },
-      "detail": "must be the job owner or the accepted applicant",
-      "meta": {
-        "type": "invalid"
-      }
-    },
-    {
-      "status": 422,
-      "source": {
-        "pointer": "/data/attributes/to_user"
-      },
-      "detail": "can't be blank",
-      "meta": {
-        "type": "blank"
-      }
-    },
-    {
-      "status": 422,
-      "source": {
-        "pointer": "/data/attributes/to_user"
-      },
-      "detail": "must be the job owner or the accepted applicant",
-      "meta": {
-        "type": "invalid"
       }
     }
   ]

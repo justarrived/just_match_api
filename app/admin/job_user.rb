@@ -214,7 +214,11 @@ ActiveAdmin.register JobUser do
   sidebar :latest_applications, only: %i(show edit) do
     user = job_user.user
     ul do
-      user.job_users.includes(job: %i(language translations)).recent(50).each do |job_user|
+      user.job_users.
+        includes(job: %i(language translations)).
+        recent(50).
+        each do |job_user|
+
         li link_to("##{job_user.id} " + job_user.job.name, admin_job_user_path(job_user))
       end
     end

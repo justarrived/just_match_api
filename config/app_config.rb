@@ -86,6 +86,10 @@ class AppConfig
     Integer(env.fetch('LINKEDIN_JOB_RECORDS_FEED_LIMIT', 300))
   end
 
+  def self.max_jobs_in_digest_notification
+    Integer(env.fetch('MAX_JOBS_IN_DIGEST_NOTIFICATION', 10))
+  end
+
   def self.default_records_per_page
     Integer(env.fetch('DEFAULT_RECORDS_PER_PAGE', 10))
   end

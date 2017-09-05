@@ -14,8 +14,6 @@ ActiveRecord::Schema.define(version: 20170823095050) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "hstore"
-  enable_extension "pg_stat_statements"
   enable_extension "unaccent"
 
   create_table "active_admin_comments", id: :serial, force: :cascade do |t|
@@ -23,13 +21,29 @@ ActiveRecord::Schema.define(version: 20170823095050) do
     t.text "body"
     t.string "resource_id", null: false
     t.string "resource_type", null: false
-    t.integer "author_id"
     t.string "author_type"
+    t.integer "author_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id"
     t.index ["namespace"], name: "index_active_admin_comments_on_namespace"
     t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
+  end
+
+  create_table "addresses", force: :cascade do |t|
+    t.string "street1"
+    t.string "street2"
+    t.string "city"
+    t.string "state"
+    t.string "postal_code"
+    t.string "municipality"
+    t.string "country_code"
+    t.string "uuid", limit: 36
+    t.decimal "latitude", precision: 15, scale: 10
+    t.decimal "longitude", precision: 15, scale: 10
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["uuid"], name: "index_addresses_on_uuid"
   end
 
   create_table "ahoy_events", id: :serial, force: :cascade do |t|
@@ -140,8 +154,8 @@ ActiveRecord::Schema.define(version: 20170823095050) do
 
   create_table "comments", id: :serial, force: :cascade do |t|
     t.text "body"
-    t.integer "commentable_id"
     t.string "commentable_type"
+    t.integer "commentable_id"
     t.integer "owner_user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -239,6 +253,17 @@ ActiveRecord::Schema.define(version: 20170823095050) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["frilans_finans_id"], name: "index_currencies_on_frilans_finans_id", unique: true
+  end
+
+  create_table "digest_subscribers", force: :cascade do |t|
+    t.string "email"
+    t.string "uuid", limit: 36
+    t.datetime "deleted_at"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_digest_subscribers_on_user_id"
+    t.index ["uuid"], name: "index_digest_subscribers_on_uuid", unique: true
   end
 
   create_table "documents", id: :serial, force: :cascade do |t|
@@ -408,6 +433,28 @@ ActiveRecord::Schema.define(version: 20170823095050) do
     t.index ["job_user_id"], name: "index_invoices_on_job_user_id_uniq", unique: true
   end
 
+  create_table "job_digest_occupations", force: :cascade do |t|
+    t.bigint "job_digest_id"
+    t.bigint "occupation_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["job_digest_id"], name: "index_job_digest_occupations_on_job_digest_id"
+    t.index ["occupation_id"], name: "index_job_digest_occupations_on_occupation_id"
+  end
+
+  create_table "job_digests", force: :cascade do |t|
+    t.bigint "address_id"
+    t.integer "notification_frequency"
+    t.float "max_distance"
+    t.string "locale", limit: 10
+    t.datetime "deleted_at"
+    t.bigint "digest_subscriber_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["address_id"], name: "index_job_digests_on_address_id"
+    t.index ["digest_subscriber_id"], name: "index_job_digests_on_digest_subscriber_id"
+  end
+
   create_table "job_languages", id: :serial, force: :cascade do |t|
     t.integer "job_id"
     t.integer "language_id"
@@ -557,9 +604,9 @@ ActiveRecord::Schema.define(version: 20170823095050) do
     t.string "city"
     t.boolean "staffing_job", default: false
     t.boolean "direct_recruitment_job", default: false
-    t.integer "order_id"
     t.string "municipality"
     t.integer "number_to_fill", default: 1
+    t.integer "order_id"
     t.boolean "full_time", default: false
     t.string "swedish_drivers_license"
     t.boolean "car_required", default: false
@@ -1011,6 +1058,7 @@ ActiveRecord::Schema.define(version: 20170823095050) do
   add_foreign_key "company_industries", "industries"
   add_foreign_key "company_translations", "companies"
   add_foreign_key "company_translations", "languages"
+  add_foreign_key "digest_subscribers", "users"
   add_foreign_key "faq_translations", "faqs"
   add_foreign_key "faq_translations", "languages"
   add_foreign_key "faqs", "languages"
@@ -1029,6 +1077,10 @@ ActiveRecord::Schema.define(version: 20170823095050) do
   add_foreign_key "interests", "languages"
   add_foreign_key "invoices", "frilans_finans_invoices"
   add_foreign_key "invoices", "job_users"
+  add_foreign_key "job_digest_occupations", "job_digests"
+  add_foreign_key "job_digest_occupations", "occupations"
+  add_foreign_key "job_digests", "addresses"
+  add_foreign_key "job_digests", "digest_subscribers"
   add_foreign_key "job_languages", "jobs"
   add_foreign_key "job_languages", "languages"
   add_foreign_key "job_occupations", "jobs"
