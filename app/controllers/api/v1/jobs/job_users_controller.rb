@@ -159,7 +159,9 @@ module Api
         def job_user_attributes
           @job_user_attributes ||= begin
             attributes = policy(@job_user || JobUser.new).permitted_attributes
-            jsonapi_params.permit(attributes)
+            permitted = jsonapi_params.permit(attributes)
+            return permitted if permitted[:http_referrer].presence
+            permitted.merge(http_referrer: request.referer)
           end
         end
 
