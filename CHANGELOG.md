@@ -4,6 +4,37 @@ HEAD
 -----------
 
 
+v2.16 - 2017-09-05
+----------
+* _Feature_:
+  - Job digests notifications
+  - _New models_:
+    + `Address`
+    + `JobDigest`
+    + `JobDigestOccupation`
+    + `JobDigestSubscriber`
+* _API_:
+  - Add support for filtering occupations on their parents
+  - Allow creation of DigestSubscriber in JobDigestSubscriber API
+  - Proper implementation of /occupations
+  - Implement OccupationSerializer
+* _Admin_:
+* _Enhancement_:
+  - Update database import/restore tasks
+  - Add `dev:db:heroku:import` Rake task
+  - Make sure to handle `fake_attribute` type in `Queries::Filter`
+  - Extract method from `Queries::Filter::filter` -> `::to_param_types`
+  - Add `Queries::Filter#to_params` method
+  - Remove redundant parameter to mailer action button
+  - Extract UpdateUserService from UsersController
+  - Enqueue job if user updates his/her email
+  - Add JobDigestSubscriberSyncService that gets called in CreateUserService
+* _Docs_:
+  - Update API doc examples
+  - Require geocoder stubs in docs env
+  - Update doxxer models to document
+
+
 v2.15 - 2017-09-05
 ----------
 * _API_:
