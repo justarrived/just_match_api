@@ -15,6 +15,12 @@ class DigestSubscriber < ApplicationRecord
   validate :validates_user_and_email_both_not_present
   validate :validates_email_not_belong_to_user
 
+  def display_name
+    display = email.presence || "User ##{user_id}"
+
+    "##{id || 'unsaved'} #{display}"
+  end
+
   def soft_destroy!
     update!(deleted_at: Time.zone.now)
   end

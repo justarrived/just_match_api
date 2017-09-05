@@ -20,7 +20,7 @@ class JobDigest < ApplicationRecord
   has_many :occupations, through: :job_digest_occupations
 
   validates :notification_frequency, presence: true
-  validates :max_distance, numericality: { greater_than: 0 }, presence: true
+  validates :max_distance, numericality: { greater_than_or_equal_to: 0 }, presence: true
 
   enum notification_frequency: NOTIFICATION_FREQUENCY
 
@@ -41,7 +41,7 @@ class JobDigest < ApplicationRecord
   end
 
   def set_locale
-    self.locale = locale || user&.locale || I18n.default_locale.to_s
+    self.locale = locale.presence || user&.locale.presence || I18n.default_locale.to_s
   end
 
   def set_max_distance
