@@ -4,6 +4,20 @@ HEAD
 -----------
 
 
+v2.15 - 2017-09-05
+----------
+* _API_:
+  - Calculate default customer invoice price when creating a job
+  - Fallback on HTTP referrer request header if referrer is not set in JobUser POST body
+* _Enhancement_:
+  - Add `Job#customer_hourly_price` presence validation
+  - Enforce `Company#swedish_municipality`
+  - Decrease min `Company#street` length
+* _Admin_:
+  - Add stricter validation for JobRequest company relation/attributes
+  - Update Company index dashboard
+
+
 v2.14 - 2017-09-04
 ----------
 * _Admin_:
