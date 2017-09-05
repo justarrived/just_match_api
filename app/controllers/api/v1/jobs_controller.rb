@@ -89,6 +89,11 @@ module Api
         end
         @job.owner = owner
 
+        if hourly_pay = @job.hourly_pay
+          invoice_amount = PayCalculator.rate_excluding_vat(hourly_pay.gross_salary)
+          @job.customer_hourly_price = invoice_amount
+        end
+
         if @job.save
           @job.set_translation(job_attributes).tap do |result|
             ProcessTranslationJob.perform_later(
