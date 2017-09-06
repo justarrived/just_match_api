@@ -32,7 +32,8 @@ module Queries
     end
 
     def self.normalize_value(value)
-      return [nil, ''] if value.nil? || value.empty? # rubocop:disable Rails/Blank
+      return [nil, ''] if value.nil?
+      return [nil, ''] if value.respond_to?(:empty?) && value.empty?
 
       value
     end

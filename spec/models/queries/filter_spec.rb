@@ -109,7 +109,14 @@ RSpec.describe Queries::Filter do
       expect(described_class.normalize_value('')).to eq([nil, ''])
     end
 
-    ['  ', 'yo', [:wat], { wat: :man }].each do |value|
+    [
+      '  ',
+      'yo',
+      'nil',
+      [:wat],
+      { wat: :man },
+      2.days.ago..1.day.ago
+    ].each do |value|
       it "returns value untouched for #{value}" do
         expect(described_class.normalize_value(value)).to eq(value)
       end
