@@ -4,6 +4,12 @@ HEAD
 -----------
 
 
+v2.17 - 2017-09-06
+----------
+* _Enhancement_:
+  - Check if value responds to empty? before testing it in Queries::Filter
+
+
 v2.16 - 2017-09-05
 ----------
 * _Feature_:
