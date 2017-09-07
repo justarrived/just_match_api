@@ -4,6 +4,17 @@ HEAD
 -----------
 
 
+v2.18 - 2017-09-07
+----------
+* _API_:
+  * `GET /api/v1/jobs/digests/notification-frequencies`
+* _Enhancement_:
+  * Update copyright notice in apipie configuration
+  * Explicitly configure apipie to not use localization
+  * Additional validations for OrderValue
+  * Rename `serializeble_resource` => `serializable_resource`
+
+
 v2.17 - 2017-09-06
 ----------
 * _Enhancement_:
