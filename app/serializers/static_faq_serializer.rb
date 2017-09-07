@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class StaticFAQSerializer
-  def self.serializeble_resource(locale:, language_id:, filter: {})
+  def self.serializable_resource(locale:, language_id:, filter: {})
     faqs_data = []
 
     StaticFAQ.get(locale: locale).each_with_index do |attrs, index|

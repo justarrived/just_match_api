@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class CountriesSerializer
-  def self.serializeble_resource(filter: {})
+  def self.serializable_resource(filter: {})
     countries_data = []
     language_id = Language.find_by(lang_code: I18n.locale)&.id
 

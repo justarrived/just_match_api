@@ -3,8 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe UserStatusesSerializer do
-  describe '#serializeble_resource' do
-    subject { described_class.serializeble_resource.to_h }
+  describe '#serializable_resource' do
+    subject { described_class.serializable_resource.to_h }
 
     it 'returns serialized statues' do
       I18n.with_locale(:ar) do

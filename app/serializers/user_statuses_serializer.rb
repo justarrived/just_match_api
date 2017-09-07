@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class UserStatusesSerializer
-  def self.serializeble_resource
+  def self.serializable_resource
     language_id = Language.find_by_locale(I18n.locale)&.id
 
     statuses_data = User::STATUSES.map do |status_name, _status_id|
