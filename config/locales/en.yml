@@ -115,6 +115,14 @@ en:
       drivers_license: must consist of only valid drivers license codes
   invalid_credentials: Invalid credentials.
   invalid_auth_token: Invalid auth token.
+  job_digest:
+    notification_frequencies:
+      daily:
+        name: Daily
+        description: We'll send you a notification every day
+      weekly:
+        name: Weekly
+        description: We'll send you a notification every week
   not_logged_in_error: Must be logged in.
   record_not_found: Record does not exist.
   token_expired_error: Your token has expired.

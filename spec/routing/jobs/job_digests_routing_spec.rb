@@ -27,5 +27,11 @@ RSpec.describe Api::V1::Jobs::JobDigestsController, type: :routing do
       route_path = 'api/v1/jobs/job_digests#destroy'
       expect(delete: path).to route_to(route_path, digest_subscriber_id: '1', job_digest_id: '2') # rubocop:disable Metrics/LineLength
     end
+
+    it 'routes to #notification_frequencies' do
+      path = '/api/v1/jobs/digests/notification-frequencies'
+      route_path = 'api/v1/jobs/job_digests#notification_frequencies'
+      expect(get: path).to route_to(route_path)
+    end
   end
 end
