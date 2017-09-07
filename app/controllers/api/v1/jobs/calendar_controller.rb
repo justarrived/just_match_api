@@ -22,7 +22,7 @@ module Api
         def google
           authorize(@job)
 
-          serialized_data = JobGoogleCalendarSerializer.serializeble_resource(
+          serialized_data = JobGoogleCalendarSerializer.serializable_resource(
             job: @job
           )
           render json: serialized_data

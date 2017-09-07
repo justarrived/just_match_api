@@ -79,7 +79,7 @@ module Api
 '
         def categories
           authorize(User)
-          resource = UserImageCategoriesSerializer.serializeble_resource
+          resource = UserImageCategoriesSerializer.serializable_resource
           render json: resource
         end
 

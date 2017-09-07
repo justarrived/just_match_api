@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class UserNotificationsSerializer
-  def self.serializeble_resource
+  def self.serializable_resource
     notifications_data = User::NOTIFICATIONS.map do |name|
       attributes = { description: I18n.t("notifications.#{name}") }
       JsonApiData.new(

@@ -254,33 +254,33 @@ module Api
 
       api :GET, '/users/notifications', 'Show all possible user notifications'
       description 'Returns a list of all possible user notifications.'
-      example JSON.pretty_generate(UserNotificationsSerializer.serializeble_resource.to_h) # rubocop:disable Metrics/LineLength
+      example JSON.pretty_generate(UserNotificationsSerializer.serializable_resource.to_h) # rubocop:disable Metrics/LineLength
       def notifications
         authorize(User)
 
-        resource = UserNotificationsSerializer.serializeble_resource
+        resource = UserNotificationsSerializer.serializable_resource
 
         render json: resource
       end
 
       api :GET, '/users/statuses', 'Show all possible user statuses'
       description 'Returns a list of all possible user statuses.'
-      example JSON.pretty_generate(UserStatusesSerializer.serializeble_resource.to_h) # rubocop:disable Metrics/LineLength
+      example JSON.pretty_generate(UserStatusesSerializer.serializable_resource.to_h) # rubocop:disable Metrics/LineLength
       def statuses
         authorize(User)
 
-        resource = UserStatusesSerializer.serializeble_resource
+        resource = UserStatusesSerializer.serializable_resource
 
         render json: resource
       end
 
       api :GET, '/users/genders', 'Show all possible user genders'
       description 'Returns a list of all possible user genders.'
-      example JSON.pretty_generate(UserGendersSerializer.serializeble_resource.to_h)
+      example JSON.pretty_generate(UserGendersSerializer.serializable_resource.to_h)
       def genders
         authorize(User)
 
-        resource = UserGendersSerializer.serializeble_resource
+        resource = UserGendersSerializer.serializable_resource
 
         render json: resource
       end
