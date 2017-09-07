@@ -54,6 +54,15 @@ RSpec.describe JobDigest, type: :model do
       expect(described_class.new(max_distance: 1).tap(&:validate).max_distance).to eq(1)
     end
   end
+
+  context 'with non-persisted, invalid subscriber' do
+    it 'returns error' do
+      digest = described_class.new(subscriber: DigestSubscriber.new)
+      digest.validate
+
+      expect(digest.errors[:subscriber]).not_to be_empty
+    end
+  end
 end
 
 # == Schema Information

@@ -22,9 +22,19 @@ class JobDigest < ApplicationRecord
   validates :notification_frequency, presence: true
   validates :max_distance, numericality: { greater_than_or_equal_to: 0 }, presence: true
 
+  validate :validate_subscriber_valid
+
   enum notification_frequency: NOTIFICATION_FREQUENCY
 
   scope :active, -> { where(deleted_at: nil) }
+
+  def validate_subscriber_valid
+    return if subscriber.nil?
+    return if subscriber.persisted?
+    return if subscriber.valid?
+
+    errors.add(:subscriber, :invalid)
+  end
 
   def soft_destroy!
     update!(deleted_at: Time.zone.now)
