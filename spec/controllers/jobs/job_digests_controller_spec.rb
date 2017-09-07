@@ -226,4 +226,25 @@ RSpec.describe Api::V1::Jobs::JobDigestsController, type: :controller do
       expect(response.status).to eq(404)
     end
   end
+
+  describe 'GET #notification_frequencies' do
+    it 'returns all digests' do
+      get :notification_frequencies
+
+      json = JSON.parse(response.body)
+      first_freq = json.fetch('data').first
+
+      daily_name = I18n.t('job_digest.notification_frequencies.daily.name')
+      daily_desc = I18n.t('job_digest.notification_frequencies.daily.description')
+
+      expect(first_freq.fetch('type')).to eq('job_digest_notification_frequencies')
+      expect(first_freq.dig('attributes', 'key')).to eq('daily')
+
+      expect(first_freq.dig('attributes', 'name')).to eq(daily_name)
+      expect(first_freq.dig('attributes', 'translated_text', 'name')).to eq(daily_name)
+
+      expect(first_freq.dig('attributes', 'description')).to eq(daily_desc)
+      expect(first_freq.dig('attributes', 'translated_text', 'description')).to eq(daily_desc) # rubocop:disable Metrics/LineLength
+    end
+  end
 end

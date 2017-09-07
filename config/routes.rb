@@ -16,7 +16,11 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :jobs, param: :job_id, only: %i(index show create update) do
         collection do
-          resources :job_digests, param: :job_digest_id, module: :jobs, path: :digests, only: %i(create)
+          resources :job_digests, param: :job_digest_id, module: :jobs, path: :digests, only: %i(create) do
+            collection do
+              get 'notification-frequencies', to: 'notification_frequencies'
+            end
+          end
           resources :digest_subscribers, param: :digest_subscriber_id, module: :jobs, path: :subscribers, only: %i(show create destroy) do
             member do
               resources :job_digests, param: :job_digest_id, path: :digests, only: %i(index update destroy)

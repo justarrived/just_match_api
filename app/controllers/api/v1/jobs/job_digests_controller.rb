@@ -146,6 +146,17 @@ module Api
           head :no_content
         end
 
+        # rubocop:disable Metrics/LineLength
+        api :GET, '/jobs/digests/notification-frequencies', 'Show all possible notification frequencies'
+        description 'Returns a list of all possible notification frequencies.'
+        example JSON.pretty_generate(JobDigestNotificationFrequenciesSerializer.serializable_resource.to_h)
+        # rubocop:enable Metrics/LineLength
+        def notification_frequencies
+          authorize(JobDigest)
+
+          render json: JobDigestNotificationFrequenciesSerializer.serializable_resource
+        end
+
         private
 
         def set_subscriber

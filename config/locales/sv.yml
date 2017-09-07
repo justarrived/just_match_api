@@ -115,6 +115,14 @@ sv:
       drivers_license: får bara innehålla giltiga körkortsbeteckningar
   invalid_credentials: Fel referenser.
   invalid_auth_token: Ogiltig autensieringskod.
+  job_digest:
+    notification_frequencies:
+      daily:
+        name: Varje dag
+        description: Vi skickar dig en notifikation varje dag
+      weekly:
+        name: Varje vecka
+        description: Vi skickar dig en notifikation varje vecka
   not_logged_in_error: Måste vara inloggad.
   record_not_found: Posten existerar inte.
   token_expired_error: Din token har upphört att gälla.
