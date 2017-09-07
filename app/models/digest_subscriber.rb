@@ -33,6 +33,7 @@ class DigestSubscriber < ApplicationRecord
 
   def validates_user_or_email_presence
     return if email.present?
+    return if user_id.present?
     return if user.present?
 
     errors.add(:user, :blank)

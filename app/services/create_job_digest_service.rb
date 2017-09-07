@@ -22,6 +22,7 @@ class CreateJobDigestService
                             end
 
     job_digest.address = Address.new(address_params) unless address_params.empty?
+
     if job_digest.save
       job_digest.occupations = Occupation.where(id: occupation_ids_param)
       DigestCreatedNotifier.call(job_digest: job_digest)
