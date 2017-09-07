@@ -2,7 +2,7 @@
 
 Apipie.configure do |config|
   config.app_name                = 'JustMatch API'
-  config.copyright               = '&copy; Just Arrived 2015'
+  config.copyright               = '&copy; Just Arrived 2017'
   config.api_base_url            = '/api'
   config.doc_base_url            = '/api_docs'
   config.reload_controllers      = Rails.env.development?
