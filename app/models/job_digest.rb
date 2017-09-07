@@ -6,7 +6,7 @@ class JobDigest < ApplicationRecord
     weekly: 2
   }.freeze
 
-  DEFAULT_MAX_DISTANCE = 50
+  DEFAULT_MAX_DISTANCE = 100
 
   before_validation :set_max_distance
   before_validation :set_locale
