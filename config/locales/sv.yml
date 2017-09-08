@@ -52,7 +52,7 @@ sv:
       job_user_accepted: användaren måste vara accepterat innan en faktura kan bli skapad
       job_user_will_perform: användaren måste ha konfirmerat jobb innan en faktura kan bli skapad
     digest_subscriber:
-      email_belongs_to_user_account: tillhör redan ett användarkonto
+      email_belongs_to_user_account: tillhör redan en användare
     job:
       job_date_in_the_past: måste vara i framtiden
       hourly_pay_active: måste vara aktiv
