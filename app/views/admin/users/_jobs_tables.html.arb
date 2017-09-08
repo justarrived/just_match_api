@@ -1,0 +1,14 @@
+if defined?(ongoing_jobs) && ongoing_jobs.any?
+  h3 I18n.t('admin.user.show.ongoing_jobs')
+  render partial: 'admin/jobs/summary_table', locals: { jobs: ongoing_jobs }
+end
+
+if defined?(future_jobs) && future_jobs.any?
+  h3 I18n.t('admin.user.show.future_jobs')
+  render partial: 'admin/jobs/summary_table', locals: { jobs: future_jobs }
+end
+
+if defined?(previous_performed_jobs) && previous_performed_jobs.any?
+  h3 I18n.t('admin.user.show.previous_performed_jobs')
+  render partial: 'admin/jobs/summary_table', locals: { jobs: previous_performed_jobs }
+end
