@@ -325,6 +325,7 @@ end
 #  requirements_description     :text
 #  preview_key                  :string
 #  customer_hourly_price        :decimal(, )
+#  invoice_comment              :text
 #
 # Indexes
 #

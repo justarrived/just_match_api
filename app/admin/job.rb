@@ -330,7 +330,7 @@ ActiveAdmin.register Job do
       :company_contact_user_id, :just_arrived_contact_user_id, :municipality,
       :number_to_fill, :order_id, :full_time, :swedish_drivers_license, :car_required,
       :publish_on_linkedin, :publish_on_blocketjobb, :blocketjobb_category,
-      :salary_type, :preview_key, :customer_hourly_price,
+      :salary_type, :preview_key, :customer_hourly_price, :invoice_comment,
       job_skills_attributes: %i(skill_id proficiency proficiency_by_admin),
       job_languages_attributes: %i(language_id proficiency proficiency_by_admin),
       job_occupations_attributes: %i(occupation_id importance years_of_experience)

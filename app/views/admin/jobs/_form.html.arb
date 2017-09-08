@@ -126,3 +126,9 @@ f.inputs(I18n.t('admin.job.form.partners_section_title')) do
 end
 
 f.actions
+
+f.inputs('Invoice') do
+  f.input :invoice_comment
+end
+
+f.actions

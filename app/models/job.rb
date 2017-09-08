@@ -325,9 +325,11 @@ class Job < ApplicationRecord
   end
 
   def invoice_specification
+    comment = "\nINVOICE COMMENT: #{invoice_comment}\n\n" if invoice_comment.present?
+
     <<~JOB_SPECIFICATION
       #{name} (ID: ##{id}) - #{profession_title}
-
+      #{comment}
       Frilans Finans Invoice ID: ##{accepted_job_user&.frilans_finans_invoice&.id}
 
       Period: #{job_date.to_date} - #{job_end_date.to_date}
@@ -600,6 +602,7 @@ end
 #  requirements_description     :text
 #  preview_key                  :string
 #  customer_hourly_price        :decimal(, )
+#  invoice_comment              :text
 #
 # Indexes
 #

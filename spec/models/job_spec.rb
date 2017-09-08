@@ -196,7 +196,12 @@ RSpec.describe Job, type: :model do
     let(:job_id) { 73_000_000 }
 
     it 'returns with the correct content parts' do
-      job = FactoryGirl.create(:job, job_end_date: 2.weeks.from_now, id: job_id)
+      job = FactoryGirl.create(
+        :job,
+        job_end_date: 2.weeks.from_now,
+        id: job_id,
+        invoice_comment: 'This is a invoice comment'
+      )
       job_user = FactoryGirl.create(:job_user_will_perform, job: job)
       FactoryGirl.create(:frilans_finans_invoice, job_user: job_user)
       [
@@ -212,7 +217,8 @@ RSpec.describe Job, type: :model do
         job_user.frilans_finans_invoice.id,
         job.company.cin,
         job.company.billing_email,
-        job.company.address
+        job.company.address,
+        job.invoice_comment
       ].map(&:to_s).each do |expected_part|
         expect(job.invoice_specification).to include(expected_part)
       end
@@ -759,6 +765,7 @@ end
 #  requirements_description     :text
 #  preview_key                  :string
 #  customer_hourly_price        :decimal(, )
+#  invoice_comment              :text
 #
 # Indexes
 #
