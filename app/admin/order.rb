@@ -15,9 +15,23 @@ ActiveAdmin.register Order do
   scope :lost
 
   sidebar :totals, only: :index do
-    para I18n.t('admin.order.sold_revenue_to_fill')
+    para I18n.t('admin.order.current_scope_total_revenue')
     strong NumberFormatter.new.to_unit(
-      Order.total_revenue_to_fill,
+      orders.limit(nil).total_revenue,
+      'SEK',
+      locale: :sv
+    )
+    hr
+    para I18n.t('admin.order.current_scope_total_unfilled_unlost_revenue')
+    strong NumberFormatter.new.to_unit(
+      orders.unfilled_and_unlost.limit(nil).total_revenue,
+      'SEK',
+      locale: :sv
+    )
+    hr
+    para I18n.t('admin.order.total_unfilled_unlost_revenue')
+    strong NumberFormatter.new.to_unit(
+      Order.unfilled_and_unlost.total_revenue,
       'SEK',
       locale: :sv
     )
