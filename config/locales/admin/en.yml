@@ -73,7 +73,9 @@ en:
       queued_msg_multiple: Machine translations queued successfully.
       post_btn: Machine Translate
     order:
-      sold_revenue_to_fill: Total unfilled & unlost revenue
+      current_scope_total_revenue: Total unlost revenue (in current scope)
+      current_scope_total_unfilled_unlost_revenue: Total unfilled and unlost revenue (in current scope)
+      total_unfilled_unlost_revenue: Total unfilled and unlost revenue
       form:
         company:
           hint: If you can't find the company your looking for in the list, please create that company first and come back.

@@ -42,11 +42,9 @@ class Order < ApplicationRecord
 
   validate :validate_job_request_company_match
 
-  def self.total_revenue_to_fill
-    includes(:order_values).
-      unfilled_and_unlost.
-      map do |order|
-
+  def self.total_revenue
+    includes(:order_values).map do |order|
+      next 0.0 if order.lost
       order_value = order.current_order_value
 
       if order_value
