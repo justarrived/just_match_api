@@ -3,6 +3,16 @@
 HEAD
 -----------
 
+v2.20 - 2017-09-08
+----------
+ __Admin__:
+- Display previously performed jobs for user in user view & job user view
+- Improved totals in orders sidebar showing revenue totals
+
+__Enhancement__:
+- Update `JobDigest` default max distance to 100km (from 50km)
+- Validate `JobDigest#subscriber` relation
+
 
 v2.19 - 2017-09-07
 ----------
