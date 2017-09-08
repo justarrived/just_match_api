@@ -32,7 +32,7 @@ columns do
         locals: {
           ongoing_jobs: user.employed_for_jobs.ongoing,
           future_jobs: user.jobs.future,
-          previous_performed_jobs: user.employed_for_jobs
+          previous_performed_jobs: user.employed_for_jobs.passed
         }
       )
 
