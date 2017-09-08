@@ -4,6 +4,19 @@ HEAD
 -----------
 
 
+v2.22 - 2017-09-08
+----------
+__Enhancement__:
+- Pull transifex translations
+- Add `Job#invoice_comment` column
+
+__Gem update__:
+
+- rails 5.1.3 => 5.1.4
+- apipie-rails
+- bootsnap
+
+
 v2.21 - 2017-09-08
 ----------
 __Admin__:
