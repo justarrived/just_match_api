@@ -82,6 +82,8 @@ end
 
 panel(I18n.t('admin.job.show.misc')) do
   attributes_table_for(job) do
+    row :invoice_comment
+
     row :latitude
     row :longitude
     row :zip_latitude

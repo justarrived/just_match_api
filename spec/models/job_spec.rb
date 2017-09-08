@@ -212,7 +212,8 @@ RSpec.describe Job, type: :model do
         job_user.frilans_finans_invoice.id,
         job.company.cin,
         job.company.billing_email,
-        job.company.address
+        job.company.address,
+        job.invoice_comment
       ].map(&:to_s).each do |expected_part|
         expect(job.invoice_specification).to include(expected_part)
       end
@@ -759,6 +760,7 @@ end
 #  requirements_description     :text
 #  preview_key                  :string
 #  customer_hourly_price        :decimal(, )
+#  invoice_comment              :text
 #
 # Indexes
 #
