@@ -3,6 +3,16 @@
 HEAD
 -----------
 
+
+v2.21 - 2017-09-08
+----------
+__Admin__:
+ - Add passed scope to user previously performed jobs table
+
+ __Enhancement__:
+ - HTML email enhancements
+
+
 v2.20 - 2017-09-08
 ----------
  __Admin__:
