@@ -19,6 +19,8 @@ class JobDigestMailer < ApplicationMailer
 
     @has_coordinates = job_digest.coordinates?
 
+    @preheader = I18n.t('mailer.digest_email.preheader')
+
     mail(to: job_digest.email, subject: I18n.t('mailer.digest_email.subject'))
   end
 
