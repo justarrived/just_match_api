@@ -2,7 +2,7 @@
   "name": "JustMatch API",
   "description": "Match users with job opportunities.",
   "repository": "https://github.com/justarrived/just_match_api",
-  "website": "http://justarrived.se/",
+  "website": "https://justarrived.se/",
   "keywords": ["Just Arrived", "Just Match API", "job matching", "Ruby", "Ruby on Rails"],
   "env": {
     "SEND_SMS_NOTIFICATIONS": {
