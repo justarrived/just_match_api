@@ -1,0 +1,130 @@
+__Administration,Administration,الادارة
+Assistent,Assistant,مساعد
+Tolk & översättare,Interpreter,مترجم
+Arkivare och Bibliotekarie,Filing clerk & Librarian, مكتبي
+Koordinator,Coordinator, منسق
+"__Bank, Finans & Försäkring","Bank, Finance & Insurance",بنك ،محاسبة و تأمين
+Analytiker,Analyst,محلل
+Bank & Finans,Banking and Finance,بنك و محاسبة
+Försäkring,Insurance,تأمين
+__Bygg & Hantverk,Construction and craftsmanship,البناء و الحرف
+Målare,Painter,دهان
+Svetsare,Welder,لحام
+Elektriker,Electrician,كهربائي
+Snickare,Carpenter,نجار
+Rörmokare,HVAC Services,سباك
+Byggarbetare,Construction,عامل بناء
+__Data & IT,Computer and IT,الكمبيوتر و تكنولوجيا المعلومات
+Utvecklare,Developer,مطور(مبرمج)
+IT-Konsult,IT consultant,مستشار تكنولوجيا المعلومات
+CTO,CTO,الرئيس التنفيذي
+Nätverkstekniker,Network technician,تقني شبكات
+UX & Webbdesign,UX & Web design,يو إكس و مصمم مواقع إلكترونية
+Testare,Tester,المختبر(الفاحص)
+Databasadministration,Database administration,إدارة قواعدالبيانات
+Hårdvarudesign,Hardware design,تصميم الأجهزة
+IT-Arkitektur,IT architecture,آي تي هندسة معمارية
+IT-Kvalitetssäkring & Säkerhet,IT quality assurance,ضمان جودة تكنولوجيا المعلومات
+IT-Support,IT Support,دعم تكنولوجيا المعلومات
+Systemadministration,System administration,إدارة النظام
+Systemanalytiker,System analyst,محلل النظام
+__Ekonomi,Business administration,إدارة أعمال
+Ekonomiassistent,Accounting assistant,مساعد محاسب
+Controller,Controller,مراقب
+Redovisningsekonom,Accountant,محاسب
+Konsult,Other Business Consultancy,استشارات الأعمال الأخرى
+Rådgivare,Management consultancy and Business Advisory,الاستشارات الإدارية و الاستشارات التجارية
+Revision,Auditing,التدقيق
+Skatt,Tax services,الخدمات الضريبية
+__Försäljning,Sales,مبيعات
+Key Account Manager,Key account manager,مديرالحسابات الهامة الاستراتيجية
+Telefonförsäljare,Telemarketer,التسويق عبر الهاتف
+Butik,Store assistant,مساعد مخزن
+Kundservice,Customer service,خدمة الزبائن
+Säljsupport,Sales support,مسؤول دعم المبيعات
+__Hälsa & Sjukvård,Healthcare,العنايةالصحية
+Sjuksköterska,Nursing,تمريض
+Läkare,Physician,طبيب معالج
+Annan Vård & Omsorg,Other health care services,خدمات الرعاية الصحية الأخرى
+Tandvård,Dentistry,طب الأسنان
+Sjukgymnastik & Rehab,Physiotherapy,العلاج الطبيعي
+Medicin & Farmaci,Pharmacy,الصيدلة
+Medicinskforskning & Laboratorieverksamhet,Medical research,البحث الطبي
+Optiker & Audionom,Optician and Audionome,النظاراتي
+Psykolog,Psychologist,طبيب نفسي
+Socionom,Social worker,مرشد إجتماعي
+"__Hotell, Restaurang och Event","Hotel, restuarant and event",فندق ،مطعم ومناسبة
+Reception,Reception,إستقبال
+Servering,Waiter,نادل
+Kock & Kökspersonal,Chef and kitchen personnel,طباخ (شيف) وموظف مطبخ
+Eventmedarbetare,Event,موظف مناسبات
+__HR & Personal,HR & Personnel,الموارد البشرية
+HR-chef,HR manager,مديرالمواردالبشرية
+Rekrytering,Recruitment,توظيف
+Löner & Förmåner,Salary administration,إدارةالمرتبات
+HR-administration,HR administration,إدارةالمواردالبشرية
+__Industri och produktion,Industrial and Production,التصنيع والصناعة
+Montör,Assembling,فني صيانة
+Industri & Produktion,Production of industrial goods,إنتاج السلع الصناعية
+Tillverkning,Other production,الصناعات الأخرى
+Maskinarbete,Machine Labor,مشغل الماكينات
+Livsmedel,Food production,الصناعات الغذائية
+Quality Assurance,Quality assurance,ضمان الجودة
+Maskinreparatör,Machine repair services,ميكانيكي
+__Marknadsföring och kommunikation,Marketing & Communications,تسويق
+Marknadschef,Marketing Manager,مدير التسويق
+Digital Marknadsförare,Digital marketer,مسوق رقمي
+PR-konsult,PR Consultant,مستشار العلاقات العامة
+Marknadsassistent,Market assistant,مساعدتسويق
+Art director,Art Director,مديرفني
+Marknadskoordinator,Market coordinator,منسق تسويق
+Marknadsundersökare,Market researcher,باحث السوق
+Mediaplanerare,Media Planner,مخطط اعلام
+"__Media, Kultur & Design","Media, Culture and Design",وسائل الإعلام والثقافة والتصميم
+Filmare,Filmer,مصور أفلام
+Journalist,Journalist,صحفي
+Utgivare,Publisher,ناشر
+Designer,Designer,مصمم
+Fotograf,Photographer,مصور فوتوغراف
+"__Konst, Musik & Teater","Art, Music and Theatre",الفن،الموسيقى والمسرح
+Miljö & Djurvård,Enviroment and Animal Care,البيئة و العناية الحيوان
+Djurvårdare,Animal Care Services,خدمات العناية بالحيوان
+Jordbruk & Fiske,Farming and Fishing,الزراعة و الصيد
+Naturvård,Nature Care Services,خدمات رعاية الطبيعة
+"__Samhälle, Säkerhet och Juridik","Society, Security and Law",المجتمع،الأمن والقانون
+Ambassad & diplomatiska arbeten,Embassy and Diplomacy,السفارة والدبلوماسية
+Handläggare,Administrator,موظف إداري
+Bevakning,Surveillande and Guarding Services,خدمات المراقبة و الحراسة
+Brandman,Fireman,رجل إطفاء
+Advokat,Attourney,محامي
+Domstolsväsende,Court System Services,خدمات نظام المحاكم
+Affärsjurist,Corporate Lawyer,محامي قطاع الشركات
+Polis & Kriminalvård,Police and Criminal Care,الشرطة و العناية الجنائية
+__Service & Kundtjänst,Service and customer support,خدمة ودعم العملاء
+Resebyrå & Turism,Travel and tourism,السياحةوالسفر
+Kundtjänst,Customer service,خدمةالزبائن
+Frisör,Hairdresser,حلاق
+Skönhet & Personlig omsorg,Beauty care,العنايةبالجمال
+Städare,Cleaner,عامل تنظيف
+__Teknik & Ingenjör,Technology and engineering,التكنولوجي او الهندسة
+Arkitekt,Architect,مهندس معماري
+Forskare,Researcher,باحث
+Energi & Miljö,Energy & Environment,الطاقة
+Naturvetare,Natural scientist,عالم طبيعة
+Matematiker och Statistiker,Mathematician & Statistician,عالم الرياضيات والإحصاء
+Mekaniker,Mechanic,الميكانيكي
+Processingenjör,Process engineer,مهندس عمليات
+Teknisk rådgivare,Technical advisor,مستشار تقني
+Försäljningsingenjör,Sales engineer,مهندس العمليات
+__Transport & Logistik,Transport and Logistics,النقل والخدمات اللوجستية
+Chaufför,Trucker & Driver,سائق
+Lager,Warehouse,المستودعات
+Inköpare,Procurer,إدارة المشتريات
+Distribution,Distribution,التوزيع
+__Utbildning,Education,التعليم
+Förskolelärare,Pre-school Teaching,التعليم
+Lärare,Teaching,مدرس حضانة
+Fritidspedagog,After-school Teaching,تعليم
+Universitet & högskola,University,مدرس بعدالمدرسة
+Specialpedagog,Special Teaching,جامعة
+Barnskötare,Children caretaker,تعليم خاص

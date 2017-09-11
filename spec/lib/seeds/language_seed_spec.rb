@@ -5,7 +5,7 @@ require 'rails_helper'
 require 'seeds/production/language_seed'
 
 RSpec.describe LanguageSeed do
-  it 'creates default rates' do
+  it 'creates default languages' do
     expect do
       described_class.call
     end.to change(Language, :count).by(190)
