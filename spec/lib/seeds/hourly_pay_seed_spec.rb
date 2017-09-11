@@ -5,7 +5,7 @@ require 'rails_helper'
 require 'seeds/production/hourly_pay_seed'
 
 RSpec.describe HourlyPaySeed do
-  it 'creates default rates' do
+  it 'creates default hourly pays' do
     expected_length = described_class::DEFAULT_ALLOWED_RATES.length
 
     expect do

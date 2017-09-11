@@ -89,8 +89,9 @@ module Translatable
           end
         end
 
-        define_method("translated_#{attribute_name}") do
-          find_translation&.public_send(attribute_name)
+        define_method("translated_#{attribute_name}") do |locale: I18n.locale, fallback: true| # rubocop:disable Metrics/LineLength
+          find_translation(locale: locale, fallback: fallback)&.
+            public_send(attribute_name)
         end
 
         define_method(:translated_language_id) { find_translation&.language_id }

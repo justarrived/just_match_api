@@ -3,6 +3,7 @@
 require 'seeds/production/blazer_seed'
 require 'seeds/production/language_seed'
 require 'seeds/production/hourly_pay_seed'
+require 'seeds/production/occupation_seed'
 
 if AppConfig.live_frilans_finans_seed?
   require 'seeds/production/currency_seed'
@@ -20,3 +21,4 @@ CategorySeed.call
 CurrencySeed.call
 LanguageSeed.call
 HourlyPaySeed.call
+OccupationSeed.call

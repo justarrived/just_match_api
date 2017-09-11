@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'honey_format'
 require 'seeds/base_seed'
 
 class LanguageSeed < BaseSeed
