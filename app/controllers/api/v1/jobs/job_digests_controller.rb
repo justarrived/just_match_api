@@ -15,7 +15,7 @@ module Api
           formats [:json]
         end
 
-        ALLOWED_INCLUDES = %w(address subscriber).freeze
+        ALLOWED_INCLUDES = %w(address subscriber occupations).freeze
 
         api :GET, '/jobs/subscribers/:digest_subscriber_uuid_or_user_id/digests/', 'Get all job digest belonging to a certain subscriber' # rubocop:disable Metrics/LineLength
         description 'Returns a list of job digests if the user is allowed.'
