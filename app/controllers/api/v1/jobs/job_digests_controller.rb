@@ -17,7 +17,7 @@ module Api
 
         ALLOWED_INCLUDES = %w(address subscriber).freeze
 
-        api :GET, '/jobs/:digest_subscriber_uuid_or_user_id/digests/', 'Get all job digest belonging to a certain subscriber' # rubocop:disable Metrics/LineLength
+        api :GET, '/jobs/subscribers/:digest_subscriber_uuid_or_user_id/digests/', 'Get all job digest belonging to a certain subscriber' # rubocop:disable Metrics/LineLength
         description 'Returns a list of job digests if the user is allowed.'
         # ApipieDocHelper.params(self, Index::JobDigestsIndex)
         example Doxxer.read_example(JobDigest, plural: true)
@@ -160,7 +160,10 @@ module Api
         private
 
         def set_subscriber
-          @subscriber = DigestSubscriber.find_by!(uuid: params[:digest_subscriber_id])
+          @subscriber = Queries::FindDigestSubscriber.from_uuid_or_user_id(
+            current_user: current_user,
+            uuid_or_user_id: params[:digest_subscriber_id]
+          )
         end
 
         def set_job_digest
