@@ -5,6 +5,8 @@ class JobDigestSerializer < ApplicationSerializer
 
   belongs_to :address
   belongs_to :subscriber
+
+  has_many :occupations
 end
 
 # == Schema Information
