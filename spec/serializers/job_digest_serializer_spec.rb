@@ -18,7 +18,7 @@ RSpec.describe JobDigestSerializer, type: :serializer do
       end
     end
 
-    %w(digest_subscriber address).each do |relationship|
+    %w(subscriber address).each do |relationship|
       it "has #{relationship} relationship" do
         expect(subject).to have_jsonapi_relationship(relationship)
       end
