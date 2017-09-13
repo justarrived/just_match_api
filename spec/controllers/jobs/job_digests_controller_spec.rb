@@ -16,6 +16,26 @@ RSpec.describe Api::V1::Jobs::JobDigestsController, type: :controller do
       json = JSON.parse(response.body)
       expect(json.fetch('data').first.fetch('type')).to eq('job_digests')
     end
+
+    it 'returns empty digests if passed a user id without subscribers' do
+      user = FactoryGirl.create(:user)
+
+      get :index, params: { digest_subscriber_id: user.to_param }
+
+      json = JSON.parse(response.body)
+
+      expect(response.status).to eq(200)
+      expect(json.fetch('data')).to be_empty
+    end
+
+    it 'returns 200 if passed an invalid UUID' do
+      get :index, params: { digest_subscriber_id: SecureGenerator.uuid }
+
+      json = JSON.parse(response.body)
+
+      expect(response.status).to eq(200)
+      expect(json.fetch('data')).to be_empty
+    end
   end
 
   describe 'POST #create' do

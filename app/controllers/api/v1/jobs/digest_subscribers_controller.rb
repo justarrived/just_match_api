@@ -65,7 +65,7 @@ module Api
         private
 
         def set_subscriber
-          @subscriber = Queries::FindDigestSubscriber.from_uuid_or_user_id(
+          @subscriber = Queries::FindDigestSubscriber.from_uuid_or_user_id!(
             current_user: current_user,
             uuid_or_user_id: params[:digest_subscriber_id]
           )
