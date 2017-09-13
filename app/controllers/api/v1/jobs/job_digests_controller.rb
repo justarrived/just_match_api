@@ -29,6 +29,11 @@ module Api
             uuid_or_user_id: params[:digest_subscriber_id]
           )
 
+          unless subscriber
+            api_render(JobDigest.none, total: 0)
+            return
+          end
+
           job_digests_index = Index::JobDigestsIndex.new(self)
           job_digests = job_digests_index.job_digests(subscriber.job_digests)
 
@@ -160,7 +165,7 @@ module Api
         private
 
         def set_subscriber
-          @subscriber = Queries::FindDigestSubscriber.from_uuid_or_user_id(
+          @subscriber = Queries::FindDigestSubscriber.from_uuid_or_user_id!(
             current_user: current_user,
             uuid_or_user_id: params[:digest_subscriber_id]
           )
