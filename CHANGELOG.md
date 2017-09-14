@@ -4,6 +4,28 @@ HEAD
 -----------
 
 
+v2.23 - 2017-09-14
+----------
+__API__:
+* Make sure to return 404 in digest subscriber if no subscriber is found
+* Return empty job digest list when no subscriber is found
+* Add occupations to job digest allowed includes
+* Find subscriber by uuid or user id in job digests controller
+
+__Admin__:
+* :hocho: N+1 query for user locale for some extra :rocket:
+* Rename job digest subscriber relation
+* Add Occupation DB production seed
+
+__Update gem__:
+* Bump `apipie-rails` from 0.5.3 to 0.5.4
+* Bump `twilio-ruby` from 5.2.1 to 5.2.2
+* Bump `kramdown` from 1.14.0 to 1.15.0
+
+__Doc__:
+* Update API doc examples
+
+
 v2.22 - 2017-09-08
 ----------
 __Enhancement__:
