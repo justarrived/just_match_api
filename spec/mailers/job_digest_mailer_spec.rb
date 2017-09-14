@@ -32,6 +32,7 @@ RSpec.describe JobDigestMailer, type: :mailer do
       JobDigest,
       digest_subscriber_id: 87,
       email: email,
+      addresses: [],
       coordinates?: false,
       user: mock_model(User)
     )
@@ -101,6 +102,7 @@ RSpec.describe JobDigestMailer, type: :mailer do
           JobDigest,
           digest_subscriber_id: 87,
           email: email,
+          addresses: [],
           coordinates?: true,
           user: mock_model(User)
         )
