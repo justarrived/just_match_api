@@ -3,10 +3,10 @@
 class JobDigestSerializer < ApplicationSerializer
   attributes :notification_frequency, :max_distance
 
-  belongs_to :address
   belongs_to :subscriber
 
   has_many :occupations
+  has_many :addresses
 end
 
 # == Schema Information

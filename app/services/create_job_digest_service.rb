@@ -3,7 +3,7 @@
 class CreateJobDigestService
   def self.call(
       job_digest_params:,
-      address_params:,
+      addresses_params:,
       occupation_ids_param:,
       current_user: User.new,
       uuid: nil,
@@ -21,7 +21,7 @@ class CreateJobDigestService
                               )
                             end
 
-    job_digest.address = Address.new(address_params) unless address_params.empty?
+    job_digest.addresses = addresses_params.map { |params| Address.new(params) }
 
     if job_digest.save
       job_digest.occupations = Occupation.where(id: occupation_ids_param)

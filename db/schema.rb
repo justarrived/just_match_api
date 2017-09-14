@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170908133953) do
+ActiveRecord::Schema.define(version: 20170914115906) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -433,6 +433,15 @@ ActiveRecord::Schema.define(version: 20170908133953) do
     t.index ["frilans_finans_invoice_id"], name: "index_invoices_on_frilans_finans_invoice_id"
     t.index ["job_user_id"], name: "index_invoices_on_job_user_id"
     t.index ["job_user_id"], name: "index_invoices_on_job_user_id_uniq", unique: true
+  end
+
+  create_table "job_digest_addresses", force: :cascade do |t|
+    t.bigint "job_digest_id"
+    t.bigint "address_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["address_id"], name: "index_job_digest_addresses_on_address_id"
+    t.index ["job_digest_id"], name: "index_job_digest_addresses_on_job_digest_id"
   end
 
   create_table "job_digest_occupations", force: :cascade do |t|
@@ -1080,6 +1089,8 @@ ActiveRecord::Schema.define(version: 20170908133953) do
   add_foreign_key "interests", "languages"
   add_foreign_key "invoices", "frilans_finans_invoices"
   add_foreign_key "invoices", "job_users"
+  add_foreign_key "job_digest_addresses", "addresses"
+  add_foreign_key "job_digest_addresses", "job_digests"
   add_foreign_key "job_digest_occupations", "job_digests"
   add_foreign_key "job_digest_occupations", "occupations"
   add_foreign_key "job_digests", "addresses"

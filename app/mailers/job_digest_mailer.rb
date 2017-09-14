@@ -17,7 +17,7 @@ class JobDigestMailer < ApplicationMailer
       utm_campaign: utm_campaign
     )
 
-    @has_coordinates = job_digest.coordinates?
+    @has_coordinates = job_digest.addresses.any?(&:coordinates?)
 
     @preheader = I18n.t('mailer.digest_email.preheader')
 

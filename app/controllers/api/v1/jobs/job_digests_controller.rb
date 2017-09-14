@@ -15,7 +15,7 @@ module Api
           formats [:json]
         end
 
-        ALLOWED_INCLUDES = %w(address subscriber occupations).freeze
+        ALLOWED_INCLUDES = %w(addresses subscriber occupations).freeze
 
         api :GET, '/jobs/subscribers/:digest_subscriber_uuid_or_user_id/digests/', 'Get all job digest belonging to a certain subscriber' # rubocop:disable Metrics/LineLength
         description 'Returns a list of job digests if the user is allowed.'
@@ -48,23 +48,24 @@ module Api
         param :data, Hash, desc: 'Top level key', required: true do
           param :attributes, Hash, desc: 'JobDigest attributes', required: true do
             # rubocop:disable Metrics/LineLength
-            param :city, String, desc: 'City'
             param :notification_frequency, String, desc: "Notification frequency one of #{JobDigest::NOTIFICATION_FREQUENCY.keys.to_sentence}", required: true
-            param :digest_subscriber_uuid, String, desc: 'Job digest subscriber UUID'
+            param :digest_subscriber_uuid, String, desc: 'Job digest subscriber UUID (required if user_id and email is blank)'
+            param :user_id, String, desc: 'User id (required if email and digest_subscriber_uuid is blank)'
+            param :email, String, desc: 'Email (required if user_id and digest_subscriber_uuid is blank)'
             param :occupation_ids, Array, of: Hash, desc: 'List of occupations' do
               param :id, Integer, desc: 'Occupation id', required: true
             end
-            param :street1, String, desc: 'Street1 value'
-            param :street2, String, desc: 'Street2 value'
-            param :postal_code, String, desc: 'Postal_code value'
-            param :municipality, String, desc: 'Municipality value'
-            param :city, String, desc: 'City value'
-            param :state, String, desc: 'State value'
-            param :country_code, String, desc: 'Country_code value'
-            param :latitude, Float, desc: 'Latitude value'
-            param :longitude, Float, desc: 'Longitude value'
-            param :user_id, String, desc: 'User id (required if email is blank)'
-            param :email, String, desc: 'Email (required if email is blank)'
+            param :addresses, Hash, desc: 'Address attributes' do
+              param :street1, String, desc: 'Street1'
+              param :street2, String, desc: 'Street2'
+              param :postal_code, String, desc: 'Postal Code'
+              param :municipality, String, desc: 'Municipality'
+              param :city, String, desc: 'City'
+              param :state, String, desc: 'State'
+              param :country_code, String, desc: 'Country Code'
+              param :latitude, Float, desc: 'Latitude'
+              param :longitude, Float, desc: 'Longitude'
+            end
             # rubocop:enable Metrics/LineLength
           end
         end
@@ -73,7 +74,7 @@ module Api
 
           job_digest = CreateJobDigestService.call(
             job_digest_params: job_digest_params,
-            address_params: address_params,
+            addresses_params: addresses_params,
             occupation_ids_param: occupation_ids_param,
             current_user: current_user,
             uuid: jsonapi_params[:digest_subscriber_uuid].presence,
@@ -98,20 +99,21 @@ module Api
           param :attributes, Hash, desc: 'JobDigest attributes', required: true do
             # rubocop:disable Metrics/LineLength
             param :digest_subscriber_uuid, String, desc: 'Job digest subscriber UUID'
-            param :city, String, desc: 'City'
             param :notification_frequency, String, desc: "Notification frequency one of #{JobDigest::NOTIFICATION_FREQUENCY.keys.to_sentence}", required: true
             param :occupation_ids, Array, of: Hash, desc: 'List of occupations' do
               param :id, Integer, desc: 'Occupation id', required: true
             end
-            param :street1, String, desc: 'Street1 value'
-            param :street2, String, desc: 'Street2 value'
-            param :postal_code, String, desc: 'Postal_code value'
-            param :municipality, String, desc: 'Municipality value'
-            param :city, String, desc: 'City value'
-            param :state, String, desc: 'State value'
-            param :country_code, String, desc: 'Country_code value'
-            param :latitude, Float, desc: 'Latitude value'
-            param :longitude, Float, desc: 'Longitude value'
+            param :addresses, Hash, desc: 'Address attributes' do
+              param :street1, String, desc: 'Street1'
+              param :street2, String, desc: 'Street2'
+              param :postal_code, String, desc: 'Postal Code'
+              param :municipality, String, desc: 'Municipality'
+              param :city, String, desc: 'City'
+              param :state, String, desc: 'State'
+              param :country_code, String, desc: 'Country Code'
+              param :latitude, Float, desc: 'Latitude'
+              param :longitude, Float, desc: 'Longitude'
+            end
             # rubocop:enable Metrics/LineLength
           end
         end
@@ -122,9 +124,7 @@ module Api
           @job_digest.deleted_at = nil
 
           if @job_digest.save
-            @job_digest.address ||= Address.new
-            @job_digest.address.update(address_params)
-
+            @job_digest.addresses = addresses_params.map { |params| Address.new(params) }
             @job_digest.occupations = Occupation.where(id: occupation_ids_param)
 
             api_render(@job_digest)
@@ -185,9 +185,12 @@ module Api
           jsonapi_params.permit(:notification_frequency)
         end
 
-        def address_params
-          attributes = Address::PARTS + %i(latitude longitude)
-          jsonapi_params.permit(*attributes)
+        def addresses_params
+          jsonapi_params.
+            permit([addresses: Address::PARTS + %i(latitude longitude)]).
+            require(:addresses)
+        rescue ActionController::ParameterMissing # the addresses param is not required
+          []
         end
       end
     end
