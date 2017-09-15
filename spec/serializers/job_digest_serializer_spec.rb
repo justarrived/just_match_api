@@ -35,7 +35,6 @@ end
 # Table name: job_digests
 #
 #  id                     :integer          not null, primary key
-#  address_id             :integer
 #  notification_frequency :integer
 #  max_distance           :float
 #  locale                 :string(10)
@@ -46,11 +45,9 @@ end
 #
 # Indexes
 #
-#  index_job_digests_on_address_id            (address_id)
 #  index_job_digests_on_digest_subscriber_id  (digest_subscriber_id)
 #
 # Foreign Keys
 #
-#  fk_rails_...  (address_id => addresses.id)
 #  fk_rails_...  (digest_subscriber_id => digest_subscribers.id)
 #

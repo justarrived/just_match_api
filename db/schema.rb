@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170914115906) do
+ActiveRecord::Schema.define(version: 20170915071202) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -454,7 +454,6 @@ ActiveRecord::Schema.define(version: 20170914115906) do
   end
 
   create_table "job_digests", force: :cascade do |t|
-    t.bigint "address_id"
     t.integer "notification_frequency"
     t.float "max_distance"
     t.string "locale", limit: 10
@@ -462,7 +461,6 @@ ActiveRecord::Schema.define(version: 20170914115906) do
     t.bigint "digest_subscriber_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["address_id"], name: "index_job_digests_on_address_id"
     t.index ["digest_subscriber_id"], name: "index_job_digests_on_digest_subscriber_id"
   end
 
@@ -1093,7 +1091,6 @@ ActiveRecord::Schema.define(version: 20170914115906) do
   add_foreign_key "job_digest_addresses", "job_digests"
   add_foreign_key "job_digest_occupations", "job_digests"
   add_foreign_key "job_digest_occupations", "occupations"
-  add_foreign_key "job_digests", "addresses"
   add_foreign_key "job_digests", "digest_subscribers"
   add_foreign_key "job_languages", "jobs"
   add_foreign_key "job_languages", "languages"
