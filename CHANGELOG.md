@@ -3,6 +3,13 @@
 HEAD
 -----------
 
+
+v2.25 - 2017-09-15
+----------
+__Admin__:
+* Only display Order#total_sold in order form if order is a direct recruitment
+
+
 v2.24.1 - 2017-09-15
 ----------
 __Bugfix__:
