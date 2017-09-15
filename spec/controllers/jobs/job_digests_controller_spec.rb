@@ -86,6 +86,28 @@ RSpec.describe Api::V1::Jobs::JobDigestsController, type: :controller do
         end.to change(DigestSubscriber, :count).by(1)
       end
 
+      it 'can attach a new job digest to an existing user (with same email)' do
+        user = FactoryGirl.create(:user)
+        params = {
+          data: {
+            attributes: {
+              notification_frequency: 'daily',
+              email: user.email
+            }
+          }
+        }
+
+        FactoryGirl.create(:digest_subscriber, user: user, email: nil)
+
+        expect do
+          expect do
+            post :create, params: params
+          end.to change(JobDigest, :count).by(1)
+        end.to change(DigestSubscriber, :count).by(0)
+
+        expect(response.status).to eq(201)
+      end
+
       it 'creates a new JobDigestOccupation' do
         expect do
           post :create, params: valid_attributes_with_occupations

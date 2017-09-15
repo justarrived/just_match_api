@@ -38,7 +38,22 @@ RSpec.describe CreateDigestSubscriberService do
         expect(subscriber).to be_persisted
       end
 
-      it 'returns persisted, DigestSubscriber if email is present' do
+      it 'returns persisted, DigestSubscriber if email is present and a user already has that email' do # rubocop:disable Metrics/LineLength
+        user = FactoryGirl.create(:user)
+        FactoryGirl.create(:digest_subscriber, user: user, email: nil)
+        subscriber = nil
+
+        expect do
+          subscriber = described_class.call(
+            current_user: User.new,
+            email: user.email
+          )
+        end.to change(DigestSubscriber, :count).by(0)
+
+        expect(subscriber).to be_persisted
+      end
+
+      it 'returns persisted, DigestSubscriber if email is present and reinstates DigestSubscriber if previously deleted' do # rubocop:disable Metrics/LineLength
         email = 'something@example.com'
         old_subscriber = FactoryGirl.create(
           :digest_subscriber, email: email, deleted_at: Time.zone.now
