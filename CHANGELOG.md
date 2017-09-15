@@ -4,6 +4,14 @@ HEAD
 -----------
 
 
+v2.24 - 2017-09-15
+----------
+__Enhancement__:
+* Update subscriptions frontend route
+* Update sv locale
+* Replace `JobDigest#address` belongs to relation with has_many relation
+
+
 v2.23 - 2017-09-14
 ----------
 __API__:
