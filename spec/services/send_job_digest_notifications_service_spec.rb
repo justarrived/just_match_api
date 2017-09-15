@@ -10,14 +10,14 @@ RSpec.describe SendJobDigestNotificationsService do
       it 'returns true if matches' do
         job = FactoryGirl.build_stubbed(:job)
         address = FactoryGirl.build_stubbed(:address, city: nil)
-        job_digest = FactoryGirl.build_stubbed(:job_digest, address: address)
+        job_digest = FactoryGirl.build_stubbed(:job_digest, addresses: [address])
         expect(subject.new(job, job_digest).match?).to eq(true)
       end
 
       it 'returns false if it does not match' do
         job = FactoryGirl.build_stubbed(:job, longitude: nil, latitude: nil)
         address = FactoryGirl.build_stubbed(:address, longitude: 13, latitude: 13)
-        job_digest = FactoryGirl.build_stubbed(:job_digest, address: address)
+        job_digest = FactoryGirl.build_stubbed(:job_digest, addresses: [address])
         expect(subject.new(job, job_digest).match?).to eq(false)
       end
     end
@@ -25,7 +25,7 @@ RSpec.describe SendJobDigestNotificationsService do
     describe '#address?' do
       it 'returns true if job digest has no address' do
         job = FactoryGirl.build_stubbed(:job)
-        job_digest = FactoryGirl.build_stubbed(:job_digest, address: nil)
+        job_digest = FactoryGirl.build_stubbed(:job_digest, addresses: [])
 
         matcher = subject.new(job, job_digest)
 
@@ -40,7 +40,7 @@ RSpec.describe SendJobDigestNotificationsService do
           longitude: nil
         )
         job = FactoryGirl.build_stubbed(:job)
-        job_digest = FactoryGirl.build_stubbed(:job_digest, address: address)
+        job_digest = FactoryGirl.build_stubbed(:job_digest, addresses: [address])
 
         matcher = subject.new(job, job_digest)
 
@@ -64,11 +64,11 @@ RSpec.describe SendJobDigestNotificationsService do
         )
         job_digest = FactoryGirl.build_stubbed(
           :job_digest,
-          address: address,
+          addresses: [address],
           max_distance: 50
         )
 
-        expect(subject.new(job, job_digest).within_distance?).to eq(true)
+        expect(subject.new(job, job_digest).within_distance?(address)).to eq(true)
       end
 
       it 'returns false if job digest address is not within distance from job' do
@@ -86,11 +86,11 @@ RSpec.describe SendJobDigestNotificationsService do
         )
         job_digest = FactoryGirl.build_stubbed(
           :job_digest,
-          address: address,
+          addresses: [address],
           max_distance: 50
         )
 
-        expect(subject.new(job, job_digest).within_distance?).to eq(false)
+        expect(subject.new(job, job_digest).within_distance?(address)).to eq(false)
       end
 
       it 'returns true if job digest address is within distance from job' do
@@ -108,11 +108,11 @@ RSpec.describe SendJobDigestNotificationsService do
         )
         job_digest = FactoryGirl.build_stubbed(
           :job_digest,
-          address: address,
+          addresses: [address],
           max_distance: 500
         )
 
-        expect(subject.new(job, job_digest).within_distance?).to eq(true)
+        expect(subject.new(job, job_digest).within_distance?(address)).to eq(true)
       end
 
       it 'returns false if job digest address exists and job is not geocoded' do
@@ -123,7 +123,7 @@ RSpec.describe SendJobDigestNotificationsService do
           longitude: 13
         )
         job = FactoryGirl.build_stubbed(:job)
-        job_digest = FactoryGirl.build_stubbed(:job_digest, address: address)
+        job_digest = FactoryGirl.build_stubbed(:job_digest, addresses: [address])
 
         matcher = subject.new(job, job_digest)
 

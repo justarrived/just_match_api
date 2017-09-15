@@ -15,7 +15,7 @@ RSpec.describe CreateJobDigestService do
       expect do
         digest = described_class.call(
           job_digest_params: valid_job_digest_params,
-          address_params: {},
+          addresses_params: [],
           occupation_ids_param: {},
           current_user: User.new,
           uuid: subscriber.uuid
@@ -31,7 +31,7 @@ RSpec.describe CreateJobDigestService do
       allow(DigestCreatedNotifier).to receive(:call).and_return(nil)
       digest = described_class.call(
         job_digest_params: valid_job_digest_params,
-        address_params: {},
+        addresses_params: [],
         occupation_ids_param: {},
         current_user: User.new,
         uuid: subscriber.uuid
@@ -46,7 +46,7 @@ RSpec.describe CreateJobDigestService do
       expect do
         digest = described_class.call(
           job_digest_params: valid_job_digest_params,
-          address_params: {},
+          addresses_params: [],
           occupation_ids_param: [occupation.id],
           current_user: User.new,
           email: 'email@example.com'
@@ -63,7 +63,7 @@ RSpec.describe CreateJobDigestService do
       expect do
         digest = described_class.call(
           job_digest_params: valid_job_digest_params,
-          address_params: {},
+          addresses_params: [],
           occupation_ids_param: {},
           current_user: User.new,
           email: email
@@ -81,7 +81,7 @@ RSpec.describe CreateJobDigestService do
       expect do
         digest = described_class.call(
           job_digest_params: valid_job_digest_params,
-          address_params: {},
+          addresses_params: [],
           occupation_ids_param: {},
           current_user: User.new,
           email: email
@@ -97,12 +97,28 @@ RSpec.describe CreateJobDigestService do
       expect do
         digest = described_class.call(
           job_digest_params: valid_job_digest_params,
-          address_params: { street1: 'street1' },
+          addresses_params: [{ street1: 'street1' }],
           occupation_ids_param: {},
           current_user: User.new,
           email: 'email@example.com'
         )
       end.to change(Address, :count).by(1)
+
+      expect(digest).to be_persisted
+    end
+
+    it 'creates multiple new addresses if present' do
+      digest = nil
+
+      expect do
+        digest = described_class.call(
+          job_digest_params: valid_job_digest_params,
+          addresses_params: [{ street1: 'street1' }, { city: 'Stockholm' }],
+          occupation_ids_param: {},
+          current_user: User.new,
+          email: 'email@example.com'
+        )
+      end.to change(Address, :count).by(2)
 
       expect(digest).to be_persisted
     end
@@ -113,7 +129,7 @@ RSpec.describe CreateJobDigestService do
       expect do
         digest = described_class.call(
           job_digest_params: valid_job_digest_params,
-          address_params: {},
+          addresses_params: [],
           occupation_ids_param: {},
           current_user: User.new,
           email: 'email@example.com'
@@ -126,7 +142,7 @@ RSpec.describe CreateJobDigestService do
     it 'can create a new job digest' do
       digest = described_class.call(
         job_digest_params: valid_job_digest_params,
-        address_params: {},
+        addresses_params: [],
         occupation_ids_param: {},
         current_user: User.new,
         email: 'email@example.com'
@@ -138,7 +154,7 @@ RSpec.describe CreateJobDigestService do
     it 'can return a non-peristed, invalid job digest with errors' do
       digest = described_class.call(
         job_digest_params: {},
-        address_params: {},
+        addresses_params: [],
         occupation_ids_param: {},
         current_user: User.new
       )

@@ -5,7 +5,6 @@ ActiveAdmin.register JobDigest do
 
   permit_params do
     %i[
-      address_id
       notification_frequency
       max_distance
       locale

@@ -131,7 +131,7 @@ RSpec.describe Api::V1::Jobs::JobDigestsController, type: :controller do
     context 'with valid params' do
       let(:job_digest) do
         address = FactoryGirl.create(:address, city: 'a city')
-        FactoryGirl.create(:job_digest, address: address, subscriber: subscriber)
+        FactoryGirl.create(:job_digest, addresses: [address], subscriber: subscriber)
       end
       let(:new_city) { 'new city' }
       let(:valid_attributes) do
@@ -140,7 +140,9 @@ RSpec.describe Api::V1::Jobs::JobDigestsController, type: :controller do
           job_digest_id: job_digest.id,
           data: {
             attributes: {
-              city: new_city
+              addresses: [{
+                city: new_city
+              }]
             }
           }
         }
@@ -164,7 +166,7 @@ RSpec.describe Api::V1::Jobs::JobDigestsController, type: :controller do
         patch :update, params: valid_attributes
 
         job_digest.reload
-        expect(job_digest.address.city).to eq(new_city)
+        expect(job_digest.addresses.first.city).to eq(new_city)
       end
 
       it 'updates a deleted JobDigest and marks it as non-deleted' do

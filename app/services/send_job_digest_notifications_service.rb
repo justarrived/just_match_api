@@ -33,9 +33,12 @@ class SendJobDigestNotificationsService
     end
 
     def address?
-      return true unless job_digest.address
-      return true unless job_digest.address.coordinates?
-      return true if within_distance?
+      return true if job_digest.addresses.empty?
+
+      job_digest.addresses.each do |address|
+        return true unless address.coordinates?
+        return true if within_distance?(address)
+      end
 
       false
     end
@@ -50,11 +53,9 @@ class SendJobDigestNotificationsService
       (job_occupations & job_digest_occupations).any?
     end
 
-    def within_distance?
+    def within_distance?(address)
       return false unless job.latitude
       return false unless job.longitude
-
-      address = job_digest.address
 
       distance = Geocoder::Calculations.distance_between(
         [job.latitude, job.longitude],

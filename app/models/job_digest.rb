@@ -12,12 +12,13 @@ class JobDigest < ApplicationRecord
   before_validation :set_locale
 
   belongs_to :subscriber, class_name: 'DigestSubscriber', foreign_key: 'digest_subscriber_id' # rubocop:disable Metrics/LineLength
-  belongs_to :address, optional: true
 
   has_one :user, through: :subscriber
 
   has_many :job_digest_occupations, dependent: :destroy
   has_many :occupations, through: :job_digest_occupations
+  has_many :job_digest_addresses, dependent: :destroy
+  has_many :addresses, through: :job_digest_addresses
 
   validates :notification_frequency, presence: true
   validates :max_distance, numericality: { greater_than_or_equal_to: 0 }, presence: true
@@ -41,9 +42,9 @@ class JobDigest < ApplicationRecord
   end
 
   def coordinates?
-    return false unless address
+    return false if addresses.empty?
 
-    address.coordinates?
+    addresses.any?(&:coordinates?)
   end
 
   def email
@@ -66,7 +67,6 @@ end
 # Table name: job_digests
 #
 #  id                     :integer          not null, primary key
-#  address_id             :integer
 #  notification_frequency :integer
 #  max_distance           :float
 #  locale                 :string(10)
@@ -77,11 +77,9 @@ end
 #
 # Indexes
 #
-#  index_job_digests_on_address_id            (address_id)
 #  index_job_digests_on_digest_subscriber_id  (digest_subscriber_id)
 #
 # Foreign Keys
 #
-#  fk_rails_...  (address_id => addresses.id)
 #  fk_rails_...  (digest_subscriber_id => digest_subscribers.id)
 #
