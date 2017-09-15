@@ -4,6 +4,13 @@ HEAD
 -----------
 
 
+v2.26 - 2017-09-15
+----------
+__Admin__:
+* Add OrderValue validation on sold_number_of_months being 6 or less
+* Only display Order#total_sold in order form if order is a direct recruitment
+
+
 v2.25 - 2017-09-15
 ----------
 __Admin__:
