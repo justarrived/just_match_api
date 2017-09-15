@@ -3,6 +3,11 @@
 HEAD
 -----------
 
+v2.24.1 - 2017-09-15
+----------
+__Bugfix__:
+* Return existing digest subscriber with the same email as a user if passed the same email
+
 
 v2.24 - 2017-09-15
 ----------
