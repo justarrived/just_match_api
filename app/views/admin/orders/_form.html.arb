@@ -30,11 +30,11 @@ f.inputs do
         ff.input :previous_order_value_id, as: :hidden, input_html: { value: current_order_value&.id }
         ff.input :changed_by_user_id, as: :hidden, input_html: { value: current_active_admin_user&.id }
 
-        current_total_sold = current_order_value&.total_sold
-        ff.input :total_sold, hint: I18n.t('admin.order.form.total_sold.hint'), input_html: { value: ff.object.total_sold || current_total_sold }
-        ff.input :total_filled, hint: I18n.t('admin.order.form.total_filled.hint'), input_html: { value: ff.object.total_filled || current_order_value&.total_filled || 0 }
-
-        if current_total_sold.nil?
+        if f.object.category == 'direct_recruitment'
+          current_total_sold = current_order_value&.total_sold
+          ff.input :total_sold, hint: I18n.t('admin.order.form.total_sold.hint'), input_html: { value: ff.object.total_sold || current_total_sold }
+          ff.input :total_filled, hint: I18n.t('admin.order.form.total_filled.hint'), input_html: { value: ff.object.total_filled || current_order_value&.total_filled || 0 }
+        else
           ff.input :sold_hourly_salary, input_html: { value: ff.object.sold_hourly_salary || current_order_value&.sold_hourly_salary }
           ff.input :sold_hourly_price, input_html: { value: ff.object.sold_hourly_price || current_order_value&.sold_hourly_price }
           ff.input :sold_hours_per_month, input_html: { value: ff.object.sold_hours_per_month || current_order_value&.sold_hours_per_month }
