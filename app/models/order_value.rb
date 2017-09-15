@@ -10,8 +10,8 @@ class OrderValue < ApplicationRecord
   validates :change_comment, presence: true, unless: :first_order_value?
   validates :change_reason_category, presence: true, unless: :first_order_value?
 
-  validates :sold_hours_per_month, numericality: { greater_than_or_equal_to: 0.1 }
-  validates :sold_number_of_months, numericality: { greater_than_or_equal_to: 1.0, less_than_or_equal_to: 6.0 } # rubocop:disable Metrics/LineLength
+  validates :sold_hours_per_month, numericality: { greater_than_or_equal_to: 0.1 }, allow_blank: true # rubocop:disable Metrics/LineLength
+  validates :sold_number_of_months, numericality: { greater_than_or_equal_to: 1.0, less_than_or_equal_to: 6.0 }, allow_blank: true # rubocop:disable Metrics/LineLength
 
   validate :validate_order_sold_total_possible_to_calculate
 
