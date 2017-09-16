@@ -30,7 +30,7 @@ RSpec.describe JobDigestMailer, type: :mailer do
   let(:job_digest) do
     mock_model(
       JobDigest,
-      digest_subscriber_id: 87,
+      subscriber: mock_model(DigestSubscriber, uuid: SecureGenerator.uuid),
       email: email,
       addresses: [],
       coordinates?: false,
@@ -86,7 +86,7 @@ RSpec.describe JobDigestMailer, type: :mailer do
 
     it 'includes unsubscribe link in email body' do
       link = FrontendRouter.draw(:unsubscribe,
-                                 subscriber_id: job_digest.digest_subscriber_id,
+                                 subscriber_id: job_digest.subscriber.uuid,
                                  utm_campaign: 'digest_email')
       expect(mail).to match_email_body(link)
     end
@@ -100,7 +100,7 @@ RSpec.describe JobDigestMailer, type: :mailer do
       let(:job_digest) do
         mock_model(
           JobDigest,
-          digest_subscriber_id: 87,
+          subscriber: mock_model(DigestSubscriber, uuid: SecureGenerator.uuid),
           email: email,
           addresses: [],
           coordinates?: true,
@@ -139,7 +139,7 @@ RSpec.describe JobDigestMailer, type: :mailer do
 
     it 'includes unsubscribe link in email body' do
       link = FrontendRouter.draw(:unsubscribe,
-                                 subscriber_id: job_digest.digest_subscriber_id,
+                                 subscriber_id: job_digest.subscriber.uuid,
                                  utm_campaign: 'digest_created')
       expect(mail).to match_email_body(link)
     end
