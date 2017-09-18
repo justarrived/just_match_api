@@ -13,7 +13,7 @@ class JobDigestMailer < ApplicationMailer
 
     @unsubscribe_url = frontend_mail_url(
       :unsubscribe,
-      subscriber_id: job_digest.digest_subscriber_id,
+      subscriber_id: job_digest.subscriber.uuid,
       utm_campaign: utm_campaign
     )
 
@@ -27,7 +27,7 @@ class JobDigestMailer < ApplicationMailer
   def digest_created_email(job_digest:)
     @unsubscribe_url = frontend_mail_url(
       :unsubscribe,
-      subscriber_id: job_digest.digest_subscriber_id,
+      subscriber_id: job_digest.subscriber.uuid,
       utm_campaign: 'digest_created'
     )
 
