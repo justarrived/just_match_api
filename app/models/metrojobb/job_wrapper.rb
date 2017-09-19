@@ -45,8 +45,7 @@ module Metrojobb
     end
 
     def external_logo_url
-      # TODO: Implement!
-      ''
+      AppConfig.metrojobb_customer_logo_url
     end
 
     def category

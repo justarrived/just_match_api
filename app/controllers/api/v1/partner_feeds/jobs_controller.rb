@@ -72,7 +72,6 @@ module Api
           jobs = Job.with_translations.
                  metrojobb_jobs.
                  includes(:company).
-                 includes(:category).
                  order(created_at: :desc)
 
           render xml: MetrojobbJobsSerializer.to_xml(jobs: jobs)

@@ -47,6 +47,10 @@ class AppConfig
     env['BLOCKETJOBB_CUSTOMER_LOGO_URL']
   end
 
+  def self.metrojobb_customer_logo_url
+    env['METROJOBB_CUSTOMER_LOGO_URL']
+  end
+
   # Application settings
 
   def self.allow_regular_users_to_create_jobs?
