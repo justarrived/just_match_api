@@ -519,6 +519,9 @@ GEM
     memoist (0.16.0)
     memory_profiler (0.9.8)
     method_source (0.8.2)
+    metrojobb (0.2.1)
+      activemodel (~> 5.0)
+      builder (~> 3.2)
     mime-types (3.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0521)
@@ -796,6 +799,7 @@ DEPENDENCIES
   mailcheck!
   maruku (~> 0.7)
   memory_profiler (~> 0.9)
+  metrojobb (~> 0.2)
   paperclip (~> 5.1)
   personnummer (~> 0.0.9)
   pg (~> 0.21)
@@ -831,4 +835,4 @@ RUBY VERSION
    ruby 2.4.1p111
 
 BUNDLED WITH
-   1.15.4
+   1.16.0.pre.2
