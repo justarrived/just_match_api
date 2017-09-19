@@ -53,6 +53,21 @@ ActiveAdmin.register Order do
     render :new, layout: false
   end
 
+  member_action :create_order_extension, method: :get do
+    previous_order = Order.find_by(id: params[:order_id])
+
+    if previous_order
+      @order = previous_order.dup
+      @order.previous_order_id = previous_order.id
+      @order.order_values = [previous_order.order_values.last]
+      @order.save!
+      render :edit, layout: false
+    else
+      @order = Order.new
+      render :new, layout: false
+    end
+  end
+
   index do
     selectable_column
 
