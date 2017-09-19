@@ -13,6 +13,7 @@ class MetrojobbJobsSerializer
 
   def self.build_ad(job)
     Metrojobb::Ad.new(
+      order_number: job.order_number,
       external_application: job.external_application,
       heading: job.heading,
       job_title: job.job_title,
@@ -20,7 +21,6 @@ class MetrojobbJobsSerializer
       description: job.description,
       employer: job.employer,
       employer_home_page: job.employer_home_page,
-      # opportunities: job.opportunities,
       from_date: job.from_date,
       to_date: job.to_date,
       external_logo_url: job.external_logo_url,
@@ -28,8 +28,8 @@ class MetrojobbJobsSerializer
       # relations
       location: Metrojobb::Location.new(city: job.city),
       employment_type: Metrojobb::EmploymentType.new(id: employment_type(job)),
-      category: Metrojobb::Category.new(id: category(job)),
-      region: Metrojobb::Region.new(id: region(job))
+      category: Metrojobb::Category.new(id: job.category),
+      region: Metrojobb::Region.new(id: job.region)
     )
   end
 
@@ -41,13 +41,5 @@ class MetrojobbJobsSerializer
            end
     type = Metrojobb::EmploymentType.new(name: name)
     type.employment_type_id
-  end
-
-  def self.category(job)
-    # TODO: Implement!
-  end
-
-  def self.region(job)
-    # TODO: Implement!
   end
 end

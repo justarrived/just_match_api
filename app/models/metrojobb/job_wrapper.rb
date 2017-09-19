@@ -12,6 +12,10 @@ module Metrojobb
     delegate :city, to: :job
     delegate :full_time, to: :job
 
+    def order_number
+      job.id
+    end
+
     def heading
       job.name
     end
@@ -33,11 +37,11 @@ module Metrojobb
     end
 
     def from_date
-      DateFormatter.new.yyyy_mm_dd(job.job_date)
+      DateFormatter.new.yyyy_mm_dd(job.publish_at)
     end
 
     def to_date
-      DateFormatter.new.yyyy_mm_dd(job.job_end_date)
+      DateFormatter.new.yyyy_mm_dd(job.last_application_at || job.job_date)
     end
 
     def external_logo_url
@@ -46,11 +50,14 @@ module Metrojobb
     end
 
     def category
-      # TODO: Implement!
+      job.metrojobb_category
     end
 
     def region
-      # TODO: Implement
+      code = Arbetsformedlingen::MunicipalityCode.to_code(job.municipality).to_s
+      # blocketjobb does not want a leading 0 as Arbetsformedlingen does
+      return code[1..-1] if code.start_with?('0')
+      code
     end
 
     def application_url

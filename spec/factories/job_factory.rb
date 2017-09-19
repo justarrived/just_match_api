@@ -191,6 +191,8 @@ end
 #  preview_key                  :string
 #  customer_hourly_price        :decimal(, )
 #  invoice_comment              :text
+#  publish_on_metrojobb         :boolean          default(FALSE)
+#  metrojobb_category           :string
 #
 # Indexes
 #

@@ -196,6 +196,10 @@ en:
           hint: If checked this job ad will be published on Blocketjobb (warning this will cost us quite a bit of money!)
         blocketjobb_category:
           hint: If this jobb is to be published to Blocketjobb, you need to provide this value
+        publish_on_metrojobb:
+          hint: If checked this job ad will be published on Metrojobb (warning this will cost us quite a bit of money!)
+        publish_on_metrojobb:
+          hint: If this jobb is to be published to Metrojobb, you need to provide this value
     frilans_finans_invoice:
       activate_confirmation: Are you sure you want to activate this invoice and send a notification to the user?
       not_paid: Not paid

@@ -69,9 +69,8 @@ module Api
         description 'Returns a list of jobs for Metrojobb to consume.'
         param :auth_token, String, desc: 'Auth token', required: true
         def metrojobb
-          # TODO: Add metrojobb_jobs scope
-          #  metrojobb_jobs.
           jobs = Job.with_translations.
+                 metrojobb_jobs.
                  includes(:company).
                  includes(:category).
                  order(created_at: :desc)

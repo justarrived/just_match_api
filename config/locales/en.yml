@@ -64,6 +64,9 @@ en:
       municipality_presence_on_publish_to_blocketjobb: municipality must be filled if job is to be published to Blocketjobb
       blocketjobb_category_presence_on_publish_to_blocketjobb: blocketjobb category must be filled if job is to be published on Blocketjobb
       company_presence_on_publish_to_blocketjobb: company must be filled (through the owner) if the job is to be published on Blocketjobb
+      municipality_presence_on_publish_to_metrojobb: municipality must be filled if job is to be published to Metrojobb
+      metrojobb_category_presence_on_publish_to_metrojobb: metrojobb category must be filled if job is to be published on Metrojobb
+      company_presence_on_publish_to_metrojobb: company must be filled (through the owner) if the job is to be published on Metrojobb
       hours_lower_bound: must be at least %{min_hours} hour(s) per day
       hours_upper_bound: can't be more than %{max_hours} hours per day
       owner_must_belong_to_company: owner must belong to a company

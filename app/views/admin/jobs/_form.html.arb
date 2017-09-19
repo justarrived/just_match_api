@@ -111,6 +111,8 @@ f.inputs(I18n.t('admin.job.form.partners_section_title')) do
   f.input :publish_on_linkedin, hint: I18n.t('admin.job.form.publish_on_linkedin.hint')
   f.input :publish_on_blocketjobb, hint: I18n.t('admin.job.form.publish_on_blocketjobb.hint') # rubocop:disable Metrics/LineLength
   f.input :blocketjobb_category, collection: BlocketjobbCategories.to_form_array, hint: I18n.t('admin.job.form.blocketjobb_category.hint') # rubocop:disable Metrics/LineLength
+  f.input :publish_on_metrojobb, hint: I18n.t('admin.job.form.publish_on_metrojobb.hint') # rubocop:disable Metrics/LineLength
+  f.input :metrojobb_category, collection: MetrojobbCategories.to_form_array, hint: I18n.t('admin.job.form.metrojobb_category.hint') # rubocop:disable Metrics/LineLength
 
   if af_ad = job.arbetsformedlingen_ad
     f.li link_to(

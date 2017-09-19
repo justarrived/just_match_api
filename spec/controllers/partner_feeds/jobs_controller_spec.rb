@@ -84,12 +84,15 @@ RSpec.describe Api::V1::PartnerFeeds::JobsController, type: :controller do
 
   describe 'GET #metrojobb' do
     it 'generates correct XML' do
-      job = FactoryGirl.create(
+      job_model = FactoryGirl.create(
         :job_with_translation,
         translation_locale: :en,
-        # publish_on_metrojobb: true, # TODO: Uncomment after attribute has been added
-        last_application_at: 2.days.from_now
+        publish_on_metrojobb: true,
+        last_application_at: 2.days.from_now,
+        metrojobb_category: MetrojobbCategories.to_form_array.last.first,
+        municipality: 'Stockholm'
       )
+      job = Metrojobb::JobWrapper.new(job: job_model)
 
       token = 'nososecret'
       allow(AppSecrets).to receive(:metrojobb_sync_key).and_return(token)
@@ -100,10 +103,15 @@ RSpec.describe Api::V1::PartnerFeeds::JobsController, type: :controller do
       xml = Nokogiri::XML.parse(response.body)
 
       application_url = xml.css('applicationURL').text
-      expect(application_url).to include("https://app.justarrived.se/job/#{job.to_param}")
+      expect(application_url).to include("https://app.justarrived.se/job/#{job.job.to_param}") # rubocop:disable Metrics/LineLength
 
-      expect(xml.css('employer').text).to include(job.company.name)
+      expect(xml.css('ad').attribute('orderno').value).to eq(job.order_number.to_s)
+
+      expect(xml.css('employer').text).to include(job.employer)
       expect(xml.css('externalApplication').text).to include('true')
+
+      expect(xml.css('region id').text).to include('180')
+      expect(xml.css('category id').text).to include('2402')
     end
 
     context 'auth' do
