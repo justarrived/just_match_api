@@ -40,6 +40,28 @@ RSpec.describe Invoice, type: :model do
     end
   end
 
+  describe '#validate_job_not_cancelled' do
+    let(:cancelled_job) { FactoryGirl.build(:job, cancelled: true) }
+    let(:job) { FactoryGirl.build(:job, cancelled: false) }
+    let(:message) { I18n.t('errors.invoice.job_cancelled') }
+
+    it 'adds error if the job is cancelled' do
+      job_user = FactoryGirl.build(:job_user, job: cancelled_job)
+      invoice = FactoryGirl.build(:invoice, job_user: job_user)
+      invoice.validate
+
+      expect(invoice.errors.messages[:job]).to include(message)
+    end
+
+    it 'adds no error if the job is not cancelled' do
+      job_user = FactoryGirl.build(:job_user, job: job)
+      invoice = FactoryGirl.build(:invoice, job_user: job_user)
+      invoice.validate
+
+      expect(invoice.errors.messages[:job]).not_to include(message)
+    end
+  end
+
   describe '#validate_job_user_accepted' do
     let(:passed_job) { FactoryGirl.build(:passed_job) }
     let(:message) { I18n.t('errors.invoice.job_user_accepted') }
