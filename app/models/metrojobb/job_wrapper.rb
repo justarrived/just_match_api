@@ -21,7 +21,7 @@ module Metrojobb
     end
 
     def job_title
-      job.category.name
+      category
     end
 
     def summary
