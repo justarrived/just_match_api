@@ -60,10 +60,14 @@ sv:
       update_not_allowed_when_accepted: job kan inte uppdateras när jobbet har redan accepterats av användaren
       job_end_date_after_job_date: måste vara efter jobb datum
       last_application_at_on_publish_to_blocketjobb: sista ansökningsdatum måste vara angett ifall du ska publicera jobb till Blocketjobb
+      last_application_at_on_publish_to_metrojobb: sista ansökningsdatum måste vara angett ifall du ska publicera jobb till Metrojobb
       last_application_at_on_publish_to_linkedin: sista ansökningsdatum måste vara angett ifall du ska publicera jobb till LinkedIN
       municipality_presence_on_publish_to_blocketjobb: kommun måste vara ifyllt ifall du ska publicera jobbet till Blocketjobb
+      municipality_presence_on_publish_to_metrojobb: kommun måste vara ifyllt ifall du ska publicera jobbet till Metrojobb
       blocketjobb_category_presence_on_publish_to_blocketjobb: blocketjobb kategori måste vara ifyllt ifall du ska publicera jobbet till Blocketjobb
+      metrojobb_category_presence_on_publish_to_metrojobb: metrojobb kategori måste vara ifyllt ifall du ska publicera jobbet till Metrojobb
       company_presence_on_publish_to_blocketjobb: företag måste vara ifyllt (genom ägaren) ifall du ska publicera jobbet till Blocketjobb
+      company_presence_on_publish_to_metrojobb: företag måste vara ifyllt (genom ägaren) ifall du ska publicera jobbet till Metrojobb
       hours_lower_bound: måste minst vara %{min_hours} timmar per dag
       hours_upper_bound: kan inte vara fler än %{max_hours} timmar per dag
       owner_must_belong_to_company: ägaren måste tillhöra ett företag
