@@ -27,6 +27,10 @@ class AppSecrets
     env['BLOCKETJOBB_SYNC_KEY']
   end
 
+  def self.metrojobb_sync_key
+    env['METROJOBB_SYNC_KEY']
+  end
+
   def self.arbetsformedlingen_customer_id
     env['ARBETSFORMEDLINGEN_CUSTOMER_ID']
   end

@@ -81,4 +81,55 @@ RSpec.describe Api::V1::PartnerFeeds::JobsController, type: :controller do
       expect(response.status).to eq(401)
     end
   end
+
+  describe 'GET #metrojobb' do
+    it 'generates correct XML' do
+      job = FactoryGirl.create(
+        :job_with_translation,
+        translation_locale: :en,
+        # publish_on_metrojobb: true, # TODO: Uncomment after attribute has been added
+        last_application_at: 2.days.from_now
+      )
+
+      token = 'nososecret'
+      allow(AppSecrets).to receive(:metrojobb_sync_key).and_return(token)
+
+      request.content_type = 'application/json'
+      get :metrojobb, params: { auth_token: token }
+
+      xml = Nokogiri::XML.parse(response.body)
+
+      application_url = xml.css('applicationURL').text
+      expect(application_url).to include("https://app.justarrived.se/job/#{job.to_param}")
+
+      expect(xml.css('employer').text).to include(job.company.name)
+      expect(xml.css('externalApplication').text).to include('true')
+    end
+
+    context 'auth' do
+      it 'returns metrojobb jobs' do
+        token = 'nososecret'
+        allow(AppSecrets).to receive(:metrojobb_sync_key).and_return(token)
+
+        request.content_type = 'application/json'
+        get :metrojobb, params: { auth_token: token }
+
+        FactoryGirl.create(:job)
+        get :metrojobb, params: { auth_token: token }
+        expect(response.status).to eq(200)
+      end
+
+      it 'returns 401 Unquthorized if an invalid key is passed' do
+        FactoryGirl.create(:job)
+        get :metrojobb, params: { auth_token: 'thewrongkey' }
+        expect(response.status).to eq(401)
+      end
+
+      it 'returns 401 Unquthorized if an no key is passed' do
+        FactoryGirl.create(:job)
+        get :metrojobb
+        expect(response.status).to eq(401)
+      end
+    end
+  end
 end

@@ -150,6 +150,14 @@ class Job < ApplicationRecord
       where(publish_on_blocketjobb: true).
       where('last_application_at > ?', Time.zone.now)
   })
+  scope :metrojobb, (lambda {
+    # TODO: Add #publish_on_metrojobb boolean column
+    unfilled.
+    published.
+    uncancelled.
+      where(publish_on_metrojobb: true).
+      where('last_application_at > ?', Time.zone.now)
+  })
 
   enum salary_type: SALARY_TYPES
 
