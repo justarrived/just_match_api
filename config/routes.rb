@@ -159,6 +159,7 @@ Rails.application.routes.draw do
         namespace :jobs do
           get :linkedin
           get :blocketjobb
+          get :metrojobb
         end
       end
     end

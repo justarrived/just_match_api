@@ -50,6 +50,7 @@ ActiveAdmin.register Job do
   filter :hourly_pay
   filter :translations_description_cont, as: :string, label: I18n.t('admin.job.description') # rubocop:disable Metrics/LineLength
   filter :publish_on_blocketjobb
+  filter :publish_on_metrojobb
   filter :publish_on_linkedin
 
   # Customize columns displayed on the index screen in the table
@@ -275,6 +276,9 @@ ActiveAdmin.register Job do
     div do
       safe_join([strong('Blocketjobb'), status_tag(job.publish_on_blocketjobb)])
     end
+    div do
+      safe_join([strong('Metrojobb'), status_tag(job.publish_on_metrojobb)])
+    end
   end
 
   sidebar :app, only: %i(show edit) do
@@ -330,6 +334,7 @@ ActiveAdmin.register Job do
       :company_contact_user_id, :just_arrived_contact_user_id, :municipality,
       :number_to_fill, :order_id, :full_time, :swedish_drivers_license, :car_required,
       :publish_on_linkedin, :publish_on_blocketjobb, :blocketjobb_category,
+      :publish_on_metrojobb, :metrojobb_category,
       :salary_type, :preview_key, :customer_hourly_price, :invoice_comment,
       job_skills_attributes: %i(skill_id proficiency proficiency_by_admin),
       job_languages_attributes: %i(language_id proficiency proficiency_by_admin),

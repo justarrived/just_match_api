@@ -66,14 +66,19 @@ class Job < ApplicationRecord
   validates :hours, numericality: { greater_than_or_equal_to: MIN_TOTAL_HOURS }, presence: true # rubocop:disable Metrics/LineLength
   validates :number_to_fill, numericality: { greater_than_or_equal_to: 1 }
   validates :blocketjobb_category, inclusion: BlocketjobbCategories.to_a, allow_nil: true, if: :publish_on_blocketjobb # rubocop:disable Metrics/LineLength
+  validates :metrojobb_category, inclusion: Metrojobb::Category.names, allow_nil: true, if: :publish_on_metrojobb # rubocop:disable Metrics/LineLength
   validates :customer_hourly_price, presence: true, numericality: { greater_than_or_equal_to: 0 }, on: :create # rubocop:disable Metrics/LineLength
 
   validate :validate_job_end_date_after_job_date
   validate :validate_last_application_at_on_publish_to_blocketjobb
+  validate :validate_last_application_at_on_publish_to_metrojobb
   validate :validate_last_application_at_on_publish_to_linkedin
   validate :validate_municipality_presence_on_publish_to_blocketjobb
+  validate :validate_municipality_presence_on_publish_to_metrojobb
   validate :validate_blocketjobb_category_presence_on_publish_to_blocketjobb
+  validate :validate_metrojobb_category_presence_on_publish_to_metrojobb
   validate :validate_company_presence_on_publish_to_blocketjobb
+  validate :validate_company_presence_on_publish_to_metrojobb
   validate :validate_hourly_pay_active
   validate :validate_within_allowed_hours
   validate :validate_owner_belongs_to_company, unless: -> { AppConfig.allow_regular_users_to_create_jobs? } # rubocop:disable Metrics/LineLength
@@ -148,6 +153,13 @@ class Job < ApplicationRecord
     published.
     uncancelled.
       where(publish_on_blocketjobb: true).
+      where('last_application_at > ?', Time.zone.now)
+  })
+  scope :metrojobb_jobs, (lambda {
+    unfilled.
+    published.
+    uncancelled.
+      where(publish_on_metrojobb: true).
       where('last_application_at > ?', Time.zone.now)
   })
 
@@ -488,6 +500,14 @@ class Job < ApplicationRecord
     errors.add(:last_application_at, message)
   end
 
+  def validate_last_application_at_on_publish_to_metrojobb
+    return unless publish_on_metrojobb
+    return if last_application_at.present?
+
+    message = I18n.t('errors.job.last_application_at_on_publish_to_metrojobb')
+    errors.add(:last_application_at, message)
+  end
+
   def validate_last_application_at_on_publish_to_linkedin
     return unless publish_on_linkedin
     return if last_application_at.present?
@@ -504,6 +524,14 @@ class Job < ApplicationRecord
     errors.add(:municipality, message)
   end
 
+  def validate_municipality_presence_on_publish_to_metrojobb
+    return unless publish_on_metrojobb
+    return if municipality.present?
+
+    message = I18n.t('errors.job.municipality_presence_on_publish_to_metrojobb')
+    errors.add(:municipality, message)
+  end
+
   def validate_blocketjobb_category_presence_on_publish_to_blocketjobb
     return unless publish_on_blocketjobb
     return if blocketjobb_category.present?
@@ -512,11 +540,27 @@ class Job < ApplicationRecord
     errors.add(:blocketjobb_category, message)
   end
 
+  def validate_metrojobb_category_presence_on_publish_to_metrojobb
+    return unless publish_on_metrojobb
+    return if metrojobb_category.present?
+
+    message = I18n.t('errors.job.metrojobb_category_presence_on_publish_to_metrojobb')
+    errors.add(:metrojobb_category, message)
+  end
+
   def validate_company_presence_on_publish_to_blocketjobb
     return unless publish_on_blocketjobb
     return if company.present?
 
     message = I18n.t('errors.job.company_presence_on_publish_to_blocketjobb')
+    errors.add(:company, message)
+  end
+
+  def validate_company_presence_on_publish_to_metrojobb
+    return unless publish_on_metrojobb
+    return if company.present?
+
+    message = I18n.t('errors.job.company_presence_on_publish_to_metrojobb')
     errors.add(:company, message)
   end
 
@@ -603,6 +647,8 @@ end
 #  preview_key                  :string
 #  customer_hourly_price        :decimal(, )
 #  invoice_comment              :text
+#  publish_on_metrojobb         :boolean          default(FALSE)
+#  metrojobb_category           :string
 #
 # Indexes
 #

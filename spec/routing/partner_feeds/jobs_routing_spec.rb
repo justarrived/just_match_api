@@ -15,5 +15,11 @@ RSpec.describe Api::V1::PartnerFeeds::JobsController, type: :routing do
       route_path = 'api/v1/partner_feeds/jobs#blocketjobb'
       expect(get: path).to route_to(route_path)
     end
+
+    it 'routes to #metrojobb' do
+      path = '/api/v1/partner-feeds/jobs/metrojobb'
+      route_path = 'api/v1/partner_feeds/jobs#metrojobb'
+      expect(get: path).to route_to(route_path)
+    end
   end
 end
