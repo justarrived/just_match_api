@@ -44,9 +44,15 @@ en:
     recent_users:
       title: Recent users
     recent_jobs:
-      title: Your recent jobs
+      title: My recent jobs
       name: Name
       filled: Filled
+      start_date: Start date
+      hours: Hours
+      hourly_pay: Hourly pay
+    my_unfilled_jobs:
+      title: My unfilled jobs
+      name: Name
       start_date: Start date
       hours: Hours
       hourly_pay: Hourly pay
