@@ -165,34 +165,32 @@ ActiveAdmin.register_page 'Dashboard' do
     end
 
     columns do
-      columns do
-        column do
-          panel(link_to(I18n.t('admin.no_invoice_job_users.title'), admin_job_users_path)) do # rubocop:disable Metrics/LineLength
-            scope = JobUser.order(created_at: :desc).
-                    includes(:user,
-                             job: %i(translations language)).
-                    where(will_perform: true,
-                          application_withdrawn: false,
-                          'jobs.job_end_date': Time.at(0).utc..Time.now.utc,
-                          'frilans_finans_invoices.id': nil).
-                    left_joins(:frilans_finans_invoice).
-                    limit(20)
+      column do
+        panel(link_to(I18n.t('admin.no_invoice_job_users.title'), admin_job_users_path)) do # rubocop:disable Metrics/LineLength
+          scope = JobUser.order(created_at: :desc).
+                  includes(:user,
+                           job: %i(translations language)).
+                  where(will_perform: true,
+                        application_withdrawn: false,
+                        'jobs.job_end_date': Time.at(0).utc..Time.now.utc,
+                        'frilans_finans_invoices.id': nil).
+                  left_joins(:frilans_finans_invoice).
+                  limit(20)
 
-            table_for(scope) do
-              column(I18n.t('admin.no_invoice_job_users.id')) do |job_user|
-                link_to("##{job_user.id}", admin_job_user_path(job_user))
-              end
+          table_for(scope) do
+            column(I18n.t('admin.no_invoice_job_users.id')) do |job_user|
+              link_to("##{job_user.id}", admin_job_user_path(job_user))
+            end
 
-              column(I18n.t('admin.no_invoice_job_users.job')) do |job_user|
-                link_to(
-                  truncate(job_user.job.display_name),
-                  admin_job_path(job_user.job)
-                )
-              end
+            column(I18n.t('admin.no_invoice_job_users.job')) do |job_user|
+              link_to(
+                truncate(job_user.job.display_name),
+                admin_job_path(job_user.job)
+              )
+            end
 
-              column(I18n.t('admin.no_invoice_job_users.user')) do |job_user|
-                link_to(job_user.user.name, admin_user_path(job_user.user))
-              end
+            column(I18n.t('admin.no_invoice_job_users.user')) do |job_user|
+              link_to(job_user.user.name, admin_user_path(job_user.user))
             end
           end
         end
