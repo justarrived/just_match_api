@@ -62,6 +62,11 @@ en:
       job: Job
       user: User
       id: ID
+    no_invoice_job_users:
+      title: Hired applicants missing frilans finans invoice (job ended)
+      job: Job
+      user: User
+      id: ID
     view_in_app:
       view: View in app
       candidates: View candidates in app
