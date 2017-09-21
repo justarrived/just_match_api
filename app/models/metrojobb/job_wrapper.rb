@@ -28,7 +28,11 @@ module Metrojobb
     end
 
     def description
-      StringFormatter.to_html(job.description)
+      StringFormatter.new.to_html(job.description)
+    end
+
+    def opportunities
+      job.number_to_fill
     end
 
     def employer
