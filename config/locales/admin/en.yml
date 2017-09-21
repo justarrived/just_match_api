@@ -50,6 +50,10 @@ en:
       start_date: Start date
       hours: Hours
       hourly_pay: Hourly pay
+    unfilled_urgent_job:
+      title: Unfilled jobs starting within 10 days
+      name: Name
+      start_date: Start date
     recent_ff_invoices:
       title: Recent Frilans Finans Invoices
       status: Status
