@@ -173,6 +173,7 @@ ActiveAdmin.register_page 'Dashboard' do
                   where(will_perform: true,
                         application_withdrawn: false,
                         'jobs.job_end_date': Time.at(0).utc..Time.now.utc,
+                        'jobs.cancelled': false,
                         'frilans_finans_invoices.id': nil).
                   left_joins(:frilans_finans_invoice).
                   limit(20)
