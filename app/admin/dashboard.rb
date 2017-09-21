@@ -168,6 +168,7 @@ ActiveAdmin.register_page 'Dashboard' do
       column do
         panel link_to(I18n.t('admin.unfilled_urgent_job.title'), admin_jobs_path) do
           scope = Job.with_translations.
+                  uncancelled.
                   unfilled.
                   where(job_date: Time.now.utc..(Time.now.utc + 10.days)).
                   left_joins(:job_users).
