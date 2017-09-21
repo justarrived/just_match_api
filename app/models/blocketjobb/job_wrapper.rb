@@ -23,7 +23,7 @@ module Blocketjobb
     end
 
     def body
-      StringFormatter.to_html(job.description)
+      StringFormatter.new.to_html(job.description)
     end
 
     def apply_date

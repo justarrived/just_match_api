@@ -25,6 +25,7 @@ class MetrojobbJobsSerializer
       to_date: job.to_date,
       external_logo_url: job.external_logo_url,
       application_url: job.application_url,
+      opportunities: job.opportunities,
       # relations
       location: Metrojobb::Location.new(city: job.city),
       employment_type: Metrojobb::EmploymentType.new(id: employment_type(job)),
