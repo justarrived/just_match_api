@@ -51,7 +51,7 @@ RSpec.describe Blocketjobb::JobWrapper do
   describe '#body' do
     it 'returns the jobs id' do
       job = FactoryGirl.build(:job, description: 'job desc')
-      expect(described_class.new(job).body).to eq('job desc')
+      expect(described_class.new(job).body).to eq("<p>job desc</p>\n")
     end
   end
 

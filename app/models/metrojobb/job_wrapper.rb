@@ -8,7 +8,6 @@ module Metrojobb
       @job = job
     end
 
-    delegate :description, to: :job
     delegate :city, to: :job
     delegate :full_time, to: :job
 
@@ -26,6 +25,14 @@ module Metrojobb
 
     def summary
       job.short_description
+    end
+
+    def description
+      StringFormatter.new.to_html(job.description)
+    end
+
+    def opportunities
+      job.number_to_fill
     end
 
     def employer

@@ -36,7 +36,7 @@ RSpec.describe BlocketjobbJobsSerializer do
       expect(display_at).to eq(job_view.display_at)
       expect(category).to eq(job_view.category)
       expect(subject).to eq(job_view.subject)
-      expect(body).to eq(job_view.body)
+      expect(body).to eq(job_view.body.strip)
       expect(job_ad_type).to eq(job_view.job_ad_type)
       expect(employment).to eq(job_view.employment)
       expect(apply_date).to eq(job_view.apply_date)
