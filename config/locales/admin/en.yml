@@ -44,12 +44,16 @@ en:
     recent_users:
       title: Recent users
     recent_jobs:
-      title: Your recent jobs
+      title: My recent jobs
       name: Name
       filled: Filled
       start_date: Start date
       hours: Hours
       hourly_pay: Hourly pay
+    my_unfilled_jobs:
+      title: My unfilled jobs
+      name: Name
+      start_date: Start date
     unfilled_urgent_job:
       title: Unfilled jobs starting within 10 days
       name: Name
@@ -63,6 +67,11 @@ en:
       accepted: Accepted
       will_perform: Will perform
       name: Name
+      job: Job
+      user: User
+      id: ID
+    no_invoice_job_users:
+      title: Hired applicants missing frilans finans invoice (job ended)
       job: Job
       user: User
       id: ID
