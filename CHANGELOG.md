@@ -3,6 +3,20 @@
 HEAD
 -----------
 
+v2.28 - 2017-09-21
+----------
+__API__:
+* Return job description as HTML in metrojobb partner feed
+* Fix BlocketjobbSerializer spec for blocketjobb body as HTML
+* Add opportunities to metrojobb feed & return job description as HTML
+
+__Enhancement__:
+* Visible jobs should not be cancelled
+* Unfilled jobs starting within 10 days dashboard
+
+__Gem update__:
+* Update metrojobb
+
 
 v2.27 - 2017-09-19
 ----------
