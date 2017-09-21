@@ -168,6 +168,7 @@ ActiveAdmin.register_page 'Dashboard' do
       column do
         panel link_to(I18n.t('admin.my_unfilled_jobs.title'), admin_jobs_path) do
           scope = Job.with_translations.
+                  uncancelled.
                   unfilled.
                   where(just_arrived_contact: authenticated_admin).
                   left_joins(:job_users).
