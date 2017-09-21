@@ -54,8 +54,6 @@ en:
       title: My unfilled jobs
       name: Name
       start_date: Start date
-      hours: Hours
-      hourly_pay: Hourly pay
     recent_ff_invoices:
       title: Recent Frilans Finans Invoices
       status: Status

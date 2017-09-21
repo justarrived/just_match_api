@@ -168,7 +168,6 @@ ActiveAdmin.register_page 'Dashboard' do
       column do
         panel link_to(I18n.t('admin.my_unfilled_jobs.title'), admin_jobs_path) do
           scope = Job.with_translations.
-                  includes(:hourly_pay).
                   unfilled.
                   where(just_arrived_contact: authenticated_admin).
                   left_joins(:job_users).
@@ -188,14 +187,6 @@ ActiveAdmin.register_page 'Dashboard' do
 
             column(I18n.t('admin.my_unfilled_jobs.name')) do |job|
               link_to(truncate(job.display_name), admin_job_path(job))
-            end
-
-            column(I18n.t('admin.my_unfilled_jobs.hours')) do |job|
-              job.hours.round(0)
-            end
-
-            column(I18n.t('admin.my_unfilled_jobs.hourly_pay')) do |job|
-              job.hourly_pay.gross_salary
             end
 
             column(I18n.t('admin.my_unfilled_jobs.start_date')) do |job|
