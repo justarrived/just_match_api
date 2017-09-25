@@ -38,7 +38,7 @@ gem 'rack-timeout', '~> 0.4' # Kill requests that run for too long
 gem 'sidekiq', '< 6' # Background worker (Redis-backed)
 
 # MONITORING
-gem 'airbrake', '~> 6.2' # Error catcher and reporter
+gem 'airbrake', '~> 7.0' # Error catcher and reporter
 gem 'skylight', '~> 1.3' # Performance monitoring
 
 # DATABASE / MODELS
