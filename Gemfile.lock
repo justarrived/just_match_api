@@ -7,9 +7,9 @@ GIT
 
 GIT
   remote: https://github.com/activeadmin-plugins/active_admin_scoped_collection_actions.git
-  revision: 59ca056ff83eb81747a347b5afe6f99f227f4728
+  revision: 04cdcb9b96c4408856c423930476b5dd4debf521
   specs:
-    active_admin_scoped_collection_actions (0.3.3)
+    active_admin_scoped_collection_actions (0.3.4)
 
 GIT
   remote: https://github.com/activeadmin/activeadmin.git
