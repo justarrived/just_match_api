@@ -66,7 +66,7 @@ module Arbetsformedlingen
           application_method: build_application_method,
           attributes: {
             title: job.name,
-            purpose: job.full_standalone_description,
+            purpose: StringFormatter.new.to_html(job.full_standalone_description),
             address: {
               country_code: job.country_code,
               zip: job.zip,
