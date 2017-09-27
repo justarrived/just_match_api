@@ -108,6 +108,7 @@ en:
       show:
         panel_title: Order
       create_job: Create job
+      create_order_extension: Create extension
       persisted_before_document_upload: Order must be saved before you can upload documents.
     job_request:
       clone: Clone

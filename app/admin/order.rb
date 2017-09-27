@@ -37,6 +37,11 @@ ActiveAdmin.register Order do
     )
   end
 
+  action_item :create_order_extension, only: :show do
+    path = create_order_extension_admin_order_path(order_id: order.id)
+    link_to(I18n.t('admin.order.create_order_extension'), path)
+  end
+
   action_item :create_job, only: :show do
     path = create_job_with_order_admin_job_path(order_id: order.id)
     link_to(I18n.t('admin.order.create_job'), path)
@@ -59,11 +64,13 @@ ActiveAdmin.register Order do
     if previous_order
       @order = previous_order.dup
       @order.previous_order_id = previous_order.id
-      @order.order_values = [previous_order.order_values.last]
       @order.save!
+      @order.order_values = [previous_order.order_values.last].compact
+
       render :edit, layout: false
     else
       @order = Order.new
+
       render :new, layout: false
     end
   end
