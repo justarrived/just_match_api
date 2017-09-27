@@ -39,7 +39,7 @@ ActiveAdmin.register Job do
   filter :created_at
   filter :featured
   filter :filled
-  filter :staffing_company
+  filter :staffing_company, collection: -> { Company.staffing_agencies.order(:name) }
   filter :direct_recruitment_job
   filter :upcoming
   filter :cancelled
