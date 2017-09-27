@@ -20,7 +20,7 @@ module Linkedin
     end
 
     def description
-      "#{job.description}\n\n#welcometalent"
+      "#{job.full_standalone_description}\n\n#welcometalent"
     end
 
     def location
