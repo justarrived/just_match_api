@@ -65,7 +65,14 @@ ActiveAdmin.register Order do
       @order = previous_order.dup
       @order.previous_order_id = previous_order.id
       @order.save!
-      @order.order_values = [previous_order.order_values.last].compact
+
+      if previous_order_value = previous_order.order_values.last
+        order_value = previous_order_value.dup
+        order_value.order = @order
+        order_value.save!
+      end
+
+      @order.reload
 
       render :edit, layout: false
     else
