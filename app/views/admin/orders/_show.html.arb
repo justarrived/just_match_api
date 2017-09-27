@@ -2,6 +2,7 @@ panel(I18n.t('admin.order.show.panel_title')) do
   current_order_value = order.current_order_value
 
   attributes_table_for(order) do
+    row :previous_order
     row :job_request
     row :name
     row :sales_user

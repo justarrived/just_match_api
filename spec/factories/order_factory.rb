@@ -39,13 +39,15 @@ end
 #  company_id                     :integer
 #  sales_user_id                  :integer
 #  delivery_user_id               :integer
+#  previous_order_id              :integer
 #
 # Indexes
 #
-#  index_orders_on_company_id        (company_id)
-#  index_orders_on_delivery_user_id  (delivery_user_id)
-#  index_orders_on_job_request_id    (job_request_id)
-#  index_orders_on_sales_user_id     (sales_user_id)
+#  index_orders_on_company_id         (company_id)
+#  index_orders_on_delivery_user_id   (delivery_user_id)
+#  index_orders_on_job_request_id     (job_request_id)
+#  index_orders_on_previous_order_id  (previous_order_id)
+#  index_orders_on_sales_user_id      (sales_user_id)
 #
 # Foreign Keys
 #

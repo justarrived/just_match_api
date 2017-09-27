@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Order < ApplicationRecord
+  belongs_to :previous_order, optional: true, class_name: 'Order', foreign_key: 'previous_order_id' # rubocop:disable Metrics/LineLength
   belongs_to :job_request, optional: true
   belongs_to :company
   belongs_to :delivery_user, optional: true, class_name: 'User', foreign_key: 'delivery_user_id' # rubocop:disable Metrics/LineLength
@@ -28,6 +29,7 @@ class Order < ApplicationRecord
   scope :filled, (-> { where.not(id: unfilled.map(&:id)) })
   scope :unfilled_and_unlost, (-> { unlost.unfilled })
   scope :filled_and_unlost, (-> { unlost.filled })
+  scope :order_extensions, (-> { where.not(previous_order_id: nil) })
 
   CATEGORIES = {
     freelance: 1,
@@ -109,13 +111,15 @@ end
 #  company_id                     :integer
 #  sales_user_id                  :integer
 #  delivery_user_id               :integer
+#  previous_order_id              :integer
 #
 # Indexes
 #
-#  index_orders_on_company_id        (company_id)
-#  index_orders_on_delivery_user_id  (delivery_user_id)
-#  index_orders_on_job_request_id    (job_request_id)
-#  index_orders_on_sales_user_id     (sales_user_id)
+#  index_orders_on_company_id         (company_id)
+#  index_orders_on_delivery_user_id   (delivery_user_id)
+#  index_orders_on_job_request_id     (job_request_id)
+#  index_orders_on_previous_order_id  (previous_order_id)
+#  index_orders_on_sales_user_id      (sales_user_id)
 #
 # Foreign Keys
 #

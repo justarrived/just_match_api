@@ -6,13 +6,16 @@ ActiveAdmin.register Order do
   filter :sales_user_id, as: :select, collection: -> { User.sales_users }
   filter :delivery_user_id, as: :select, collection: -> { User.delivery_users } # rubocop:disable Metrics/LineLength
   filter :category, as: :select, collection: -> { Order::CATEGORIES.to_a }
+  filter :previous_order_id_present, as: :select, collection: [['No', false]], label: 'Extensions' # rubocop:disable Metrics/LineLength
+
   filter :created_at
   filter :updated_at
 
   scope :all
   scope('Backlog', default: true, &:unfilled_and_unlost)
-  scope('Filled', default: true, &:filled_and_unlost)
+  scope('Filled', &:filled_and_unlost)
   scope :lost
+  scope('Extensions', &:order_extensions)
 
   sidebar :totals, only: :index do
     para I18n.t('admin.order.current_scope_total_revenue')
@@ -37,6 +40,11 @@ ActiveAdmin.register Order do
     )
   end
 
+  action_item :create_order_extension, only: :show do
+    path = create_order_extension_admin_order_path(order_id: order.id)
+    link_to(I18n.t('admin.order.create_order_extension'), path)
+  end
+
   action_item :create_job, only: :show do
     path = create_job_with_order_admin_job_path(order_id: order.id)
     link_to(I18n.t('admin.order.create_job'), path)
@@ -53,10 +61,46 @@ ActiveAdmin.register Order do
     render :new, layout: false
   end
 
+  member_action :create_order_extension, method: :get do
+    previous_order = Order.find_by(id: params[:order_id])
+
+    if previous_order
+      @order = previous_order.dup
+      @order.previous_order_id = previous_order.id
+      @order.save!
+
+      if previous_order_value = previous_order.order_values.last
+        order_value = OrderValue.new
+        # copy relevant values from previous order value
+        order_value.sold_hourly_salary = previous_order_value.sold_hourly_salary
+        order_value.sold_hourly_price = previous_order_value.sold_hourly_price
+        order_value.sold_hours_per_month = previous_order_value.sold_hours_per_month
+        order_value.sold_number_of_months = previous_order_value.sold_number_of_months
+        order_value.total_sold = previous_order_value.total_sold
+        order_value.total_filled = previous_order_value.total_filled
+        order_value.changed_by_user = current_active_admin_user
+
+        order_value.change_comment = "An extension if order ##{previous_order.id}"
+        order_value.change_reason_category = :extension
+        order_value.order = @order
+        order_value.save!
+      end
+
+      @order.reload
+
+      render :edit, layout: false
+    else
+      @order = Order.new
+
+      render :new, layout: false
+    end
+  end
+
   index do
     selectable_column
 
     column :order { |order| link_to(order.display_name, admin_order_path(order)) }
+    column :extension { |order| status_tag(!!order.previous_order_id) }
     column :total do |order|
       total_filled_over_sold_order_value(order.order_values.last)
     end
@@ -111,7 +155,8 @@ ActiveAdmin.register Order do
   controller do
     def scoped_collection
       super.includes(
-        :company, :job_request, :jobs, :order_values, :sales_user, :delivery_user
+        :company, :job_request, :order_values, :sales_user, :delivery_user,
+        jobs: %i(translations language)
       )
     end
 
