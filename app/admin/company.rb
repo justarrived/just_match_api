@@ -35,6 +35,7 @@ ActiveAdmin.register Company do
       row :name
       row :cin
       row :billing_email
+      row :staffing_agency
       row :website
       row :phone
       row :email
@@ -121,6 +122,7 @@ ActiveAdmin.register Company do
       :short_description,
       :description,
       :language_id,
+      :staffing_agency,
       company_industries_attributes: %i(industry_id),
       users_attributes: %i(
         system_language_id
