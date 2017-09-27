@@ -770,13 +770,15 @@ end
 #  invoice_comment              :text
 #  publish_on_metrojobb         :boolean          default(FALSE)
 #  metrojobb_category           :string
+#  staffing_company_id          :integer
 #
 # Indexes
 #
-#  index_jobs_on_category_id    (category_id)
-#  index_jobs_on_hourly_pay_id  (hourly_pay_id)
-#  index_jobs_on_language_id    (language_id)
-#  index_jobs_on_order_id       (order_id)
+#  index_jobs_on_category_id          (category_id)
+#  index_jobs_on_hourly_pay_id        (hourly_pay_id)
+#  index_jobs_on_language_id          (language_id)
+#  index_jobs_on_order_id             (order_id)
+#  index_jobs_on_staffing_company_id  (staffing_company_id)
 #
 # Foreign Keys
 #
