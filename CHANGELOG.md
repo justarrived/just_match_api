@@ -3,6 +3,52 @@
 HEAD
 -----------
 
+
+v2.30 - 2017-09-27
+----------
+__API__:
+
+* Explicitly set locale for each 3rd party job board feed
+* Return job full standalone description instead of only the description to 3rd party integrations
+
+__DB__:
+
+* Add Company#staffing_agency boolean field
+* Add Job#staffing_company belongs_to relation
+* Add Order#previous_order_id field
+
+__Enhancement__:
+
+* Replace Job#company_job => Job#staffing_company
+* Add JobEmployer model (not DB backed) and refactor job wrappers
+* Add new order value change category type: extension
+* Add Order#previous_order belongs to
+* Update metrojobb wrapper to account for a badly named attribute name in the metrojobb API
+* Return simple HTML to Arbetsförmedlingen rather than markdown..
+* :hocho: type Bemaning => Bemanning
+* Implemented the my unfilled jobs that expire in 10 days dashboard
+
+__Admin__:
+
+* Add Company#staffing_agency support
+* Include jobs translations and language in order index page
+* Add order extension support to index/show/form/filter sections
+* Copy relevant attributes instead of cloning
+* Copy previous order value to new extension order
+* Add create order extension action button
+* Improve Arbetsförmedlingen ad page performance
+* Set locale explicitly when pushing Arbetsförmedlingen ads
+* Update admin hint for job attributes
+* Limit filter scope for Job#staffing_company
+
+__Gem update__:
+
+* Bump active_admin_scoped_collection_actions from 59ca05 to 04cdcb
+* Bump airbrake from 6.2.1 to 7.0.0
+* Bump lograge from 0.6.0 to 0.7.1
+* Update nokogiri 1.8.0 => 1.8.1
+
+
 v2.29 - 2017-09-21
 ----------
 __Admin__:
