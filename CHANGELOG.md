@@ -656,7 +656,7 @@ v1.97 - 2017-06-12
 v1.96 - 2017-06-08
 ----------
 * _Enhancement_:
-  - Update `arbetsformedlingen` company information to always be Just Arrived Bemaning AB
+  - Update `arbetsformedlingen` company information to always be Just Arrived Bemaninng AB
 
 
 v1.95 - 2017-06-08

@@ -278,7 +278,7 @@ en:
         password:
           hint: Warning this will reset the password
         just_arrived_staffing:
-          hint: Check this if this user is hired by Just Arrived Bemaning AB
+          hint: Check this if this user is hired by Just Arrived Bemanning AB
       find_ff_user:
         find_button: Find and set from Frilans Finans
         ff_id_present_msg: User already has a Frilans Finans ID (#%{id})
