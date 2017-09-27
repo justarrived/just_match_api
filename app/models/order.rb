@@ -29,6 +29,7 @@ class Order < ApplicationRecord
   scope :filled, (-> { where.not(id: unfilled.map(&:id)) })
   scope :unfilled_and_unlost, (-> { unlost.unfilled })
   scope :filled_and_unlost, (-> { unlost.filled })
+  scope :order_extensions, (-> { where.not(previous_order_id: nil) })
 
   CATEGORIES = {
     freelance: 1,

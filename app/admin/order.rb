@@ -6,13 +6,16 @@ ActiveAdmin.register Order do
   filter :sales_user_id, as: :select, collection: -> { User.sales_users }
   filter :delivery_user_id, as: :select, collection: -> { User.delivery_users } # rubocop:disable Metrics/LineLength
   filter :category, as: :select, collection: -> { Order::CATEGORIES.to_a }
+  filter :previous_order_id_present, as: :select, collection: [['No', false]], label: 'Extensions'
+
   filter :created_at
   filter :updated_at
 
   scope :all
   scope('Backlog', default: true, &:unfilled_and_unlost)
-  scope('Filled', default: true, &:filled_and_unlost)
+  scope('Filled', &:filled_and_unlost)
   scope :lost
+  scope('Extensions', &:order_extensions)
 
   sidebar :totals, only: :index do
     para I18n.t('admin.order.current_scope_total_revenue')
@@ -97,6 +100,7 @@ ActiveAdmin.register Order do
     selectable_column
 
     column :order { |order| link_to(order.display_name, admin_order_path(order)) }
+    column :extension { |order| status_tag(!!order.previous_order_id) }
     column :total do |order|
       total_filled_over_sold_order_value(order.order_values.last)
     end
