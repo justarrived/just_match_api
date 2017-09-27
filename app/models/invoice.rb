@@ -20,7 +20,7 @@ class Invoice < ApplicationRecord
     joins(:frilans_finans_invoice, :job).
       where('frilans_finans_invoices.frilans_finans_id IS NOT NULL').
       where('frilans_finans_invoices.activated = false').
-      where('jobs.staffing_job = ?', false).
+      where('jobs.staffing_company_id IS NULL').
       where('jobs.direct_recruitment_job = ?', false)
   })
 

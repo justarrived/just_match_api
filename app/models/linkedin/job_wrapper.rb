@@ -6,7 +6,7 @@ module Linkedin
 
     def initialize(job:)
       @job = job
-      @company = job.company
+      @company = JobEmployer.new(job)
     end
 
     delegate :name, to: :company, prefix: true

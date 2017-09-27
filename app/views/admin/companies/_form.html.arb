@@ -7,6 +7,10 @@ f.inputs I18n.t('admin.company.form.main_form_section_title') do
   f.input :email
   f.input :billing_email, hint: 'The email to the person at the company who is going to receive all invoices.'
 
+  if current_active_admin_user.super_admin?
+    f.input :staffing_agency, hint: 'Is this a company a staffing agency?'
+  end
+
   f.h3 safe_join(['&nbsp;'.html_safe, 'Billing address'])
 
   f.input :street

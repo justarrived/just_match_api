@@ -6,12 +6,16 @@ class JobSerializer < ApplicationSerializer
     latitude longitude language_id street zip zip_latitude zip_longitude
     hidden category_id hourly_pay_id verified job_end_date cancelled filled
     featured upcoming language_id gross_amount net_amount city currency
-    full_street_address staffing_job direct_recruitment_job application_url
+    full_street_address direct_recruitment_job application_url
     swedish_drivers_license car_required last_application_at full_time publish_at
     unpublish_at
   )
 
   link(:self) { api_v1_job_url(object) }
+
+  attribute :staffing_job do
+    object.staffing_company_id.present?
+  end
 
   attribute :name do
     object.original_name
@@ -217,13 +221,15 @@ end
 #  invoice_comment              :text
 #  publish_on_metrojobb         :boolean          default(FALSE)
 #  metrojobb_category           :string
+#  staffing_company_id          :integer
 #
 # Indexes
 #
-#  index_jobs_on_category_id    (category_id)
-#  index_jobs_on_hourly_pay_id  (hourly_pay_id)
-#  index_jobs_on_language_id    (language_id)
-#  index_jobs_on_order_id       (order_id)
+#  index_jobs_on_category_id          (category_id)
+#  index_jobs_on_hourly_pay_id        (hourly_pay_id)
+#  index_jobs_on_language_id          (language_id)
+#  index_jobs_on_order_id             (order_id)
+#  index_jobs_on_staffing_company_id  (staffing_company_id)
 #
 # Foreign Keys
 #

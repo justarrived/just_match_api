@@ -7,7 +7,7 @@ module Blocketjobb
 
     def initialize(job)
       @job = job
-      @company = job.company
+      @company = JobEmployer.new(job)
     end
 
     def external_ad_id

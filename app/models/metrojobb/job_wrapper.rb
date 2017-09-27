@@ -2,10 +2,11 @@
 
 module Metrojobb
   class JobWrapper
-    attr_reader :job
+    attr_reader :job, :company
 
     def initialize(job:)
       @job = job
+      @company = JobEmployer.new(job)
     end
 
     delegate :city, to: :job
@@ -26,7 +27,7 @@ module Metrojobb
     # NOTE: This is the "company description" its only called #summary because of
     # metrojobb legacy code..
     def summary
-      job.company.name
+      company.description
     end
 
     def description
@@ -38,11 +39,11 @@ module Metrojobb
     end
 
     def employer
-      job.company.name
+      company.name
     end
 
     def employer_home_page
-      job.company.website
+      company.website
     end
 
     def from_date

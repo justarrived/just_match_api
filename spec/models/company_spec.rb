@@ -36,6 +36,27 @@ RSpec.describe Company, type: :model do
     end
   end
 
+  describe '#formatted_cin' do
+    [
+      # input, expected
+      %w(XXXXXXXXXX XXXXXX-XXXX),
+      %w(xxx xxx),
+      %w(xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx)
+    ].each do |data|
+      input, expected = data
+
+      it 'returns well formatted cin' do
+        company = Company.new(cin: input)
+        expect(company.formatted_cin).to eq(expected)
+      end
+    end
+
+    it 'returns nil when passed nil' do
+      company = Company.new(cin: nil)
+      expect(company.formatted_cin).to be_nil
+    end
+  end
+
   describe '#add_protocol_to_website' do
     it 'adds HTTP if missing' do
       company = Company.new(website: 'example.com')
@@ -108,6 +129,7 @@ end
 #  phone             :string
 #  billing_email     :string
 #  municipality      :string
+#  staffing_agency   :boolean          default(FALSE)
 #
 # Indexes
 #

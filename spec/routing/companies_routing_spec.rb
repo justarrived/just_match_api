@@ -42,6 +42,7 @@ end
 #  phone             :string
 #  billing_email     :string
 #  municipality      :string
+#  staffing_agency   :boolean          default(FALSE)
 #
 # Indexes
 #

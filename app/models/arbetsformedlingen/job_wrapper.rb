@@ -7,6 +7,7 @@ module Arbetsformedlingen
     def initialize(arbetsformedlingen_ad)
       @arbetsformedlingen_ad = arbetsformedlingen_ad
       @job = arbetsformedlingen_ad.job
+      @employer = JobEmployer.new(@job)
       @af_models = {}
 
       @packet = build_packet
@@ -26,7 +27,7 @@ module Arbetsformedlingen
 
     private
 
-    attr_reader :job, :arbetsformedlingen_ad
+    attr_reader :job, :arbetsformedlingen_ad, :employer
 
     def build_packet
       @af_models[:packet] ||= Arbetsformedlingen::Packet.new(
@@ -81,15 +82,15 @@ module Arbetsformedlingen
 
     def build_company
       @af_models[:company] ||= Arbetsformedlingen::Company.new(
-        name: 'Just Arrived Bemaninng AB',
-        cin: '559079-4466',
-        description: 'Vi sammanför nyanlända med svenska företag som behöver hjälp med dagliga aktiviteter. Vår digitala plattform gör det enkelt för företag att lägga upp enkla uppdrag och tjänster som sedan matchas med nyanlända som söker jobb.', # rubocop:disable Metrics/LineLength
+        name: employer.name,
+        cin: employer.formatted_cin,
+        description: employer.description,
         address: {
-          country_code: 'SE',
-          zip: '11356',
-          municipality: 'Stockholm',
-          street: 'Birger Jarlsgatan 57C',
-          city: 'Stockholm'
+          country_code: employer.country_code,
+          zip: employer.zip,
+          municipality: employer.municipality,
+          street: employer.street,
+          city: employer.city
         }
       )
     end

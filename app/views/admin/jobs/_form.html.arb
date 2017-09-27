@@ -97,7 +97,7 @@ if job.persisted?
 end
 
 f.inputs(I18n.t('admin.job.form.status_section_title')) do
-  f.input :staffing_job, hint: I18n.t('admin.job.form.staffing_job_hint')
+  f.input :staffing_company, as: :select, collection: Company.staffing_agencies, hint: I18n.t('admin.job.form.staffing_company_hint')
   f.input :direct_recruitment_job, hint: I18n.t('admin.job.form.direct_recruitment_job_hint')
   f.input :hidden, hint: I18n.t('admin.job.form.hidden_hint')
   f.input :verified, hint: I18n.t('admin.job.form.verified_hint')

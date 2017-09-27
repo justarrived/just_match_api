@@ -10,11 +10,11 @@ module Index
     TRANSFORMABLE_FILTERS = TRANSFORMABLE_FILTERS.merge(job_date: :date_range).freeze
     ALLOWED_FILTERS = %i(
       id name description hours created_at job_date verified filled featured
-      staffing_job direct_recruitment_job open_for_applications job_user.user_id
+      staffing_company_id direct_recruitment_job open_for_applications job_user.user_id
     ).freeze
     SORTABLE_FIELDS = %i(
-      hours job_date name verified filled featured created_at updated_at staffing_job
-      direct_recruitment_job
+      hours job_date name verified filled featured created_at updated_at
+      direct_recruitment_job staffing_company_id
     ).freeze
 
     def jobs(scope = Job)
