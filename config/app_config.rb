@@ -37,8 +37,16 @@ class AppConfig
 
   # 3rd party job boards
 
+  def self.linkedin_default_locale
+    env.fetch('LINKEDIN_DEFAULT_LOCALE', 'sv')
+  end
+
   def self.linkedin_job_records_feed_limit
     Integer(env.fetch('LINKEDIN_JOB_RECORDS_FEED_LIMIT', 300))
+  end
+
+  def self.arbetsformedlingen_default_locale
+    env.fetch('ARBETSFORMEDLINGEN_DEFAULT_LOCALE', 'sv')
   end
 
   def self.arbetsformedlingen_default_publisher_email
@@ -49,8 +57,16 @@ class AppConfig
     env['ARBETSFORMEDLINGEN_DEFAULT_PUBLISHER_NAME']
   end
 
+  def self.blocketjobb_default_locale
+    env.fetch('BLOCKETJOBB_DEFAULT_LOCALE', 'sv')
+  end
+
   def self.blocketjobb_customer_logo_url
     env['BLOCKETJOBB_CUSTOMER_LOGO_URL']
+  end
+
+  def self.metrojobb_default_locale
+    env.fetch('METROJOBB_DEFAULT_LOCALE', 'sv')
   end
 
   def self.metrojobb_customer_logo_url
