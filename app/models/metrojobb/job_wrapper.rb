@@ -23,8 +23,10 @@ module Metrojobb
       category
     end
 
+    # NOTE: This is the "company description" its only called #summary because of
+    # metrojobb legacy code..
     def summary
-      job.short_description
+      job.company.name
     end
 
     def description
