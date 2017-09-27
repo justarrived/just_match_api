@@ -54,8 +54,12 @@ en:
       title: My unfilled jobs
       name: Name
       start_date: Start date
-    unfilled_urgent_job:
+    unfilled_urgent_jobs:
       title: Unfilled jobs starting within 10 days
+      name: Name
+      start_date: Start date
+    my_unfilled_urgent_jobs:
+      title: My unfilled jobs starting within 10 days
       name: Name
       start_date: Start date
     recent_ff_invoices:

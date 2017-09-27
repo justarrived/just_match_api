@@ -18,7 +18,7 @@ gem 'kramdown', '~> 1.15' # Markdown <> HTML
 gem 'rinku', '~> 2.0.2' # Autolink
 
 # SERVER
-gem 'lograge', '~> 0.6' # Less verbose Rails log in production
+gem 'lograge', '~> 0.7' # Less verbose Rails log in production
 gem 'puma', '~> 3.9' # App server
 
 # Analytics
@@ -38,7 +38,7 @@ gem 'rack-timeout', '~> 0.4' # Kill requests that run for too long
 gem 'sidekiq', '< 6' # Background worker (Redis-backed)
 
 # MONITORING
-gem 'airbrake', '~> 6.2' # Error catcher and reporter
+gem 'airbrake', '~> 7.0' # Error catcher and reporter
 gem 'skylight', '~> 1.3' # Performance monitoring
 
 # DATABASE / MODELS
