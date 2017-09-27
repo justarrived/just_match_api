@@ -27,6 +27,7 @@ class Company < ApplicationRecord
   attr_accessor :user_frilans_finans_id
   attr_writer :country_name
 
+  scope :staffing_agencies, (-> { where(staffing_agency: true) })
   scope :needs_frilans_finans_id, (lambda {
     where(frilans_finans_id: nil).
       joins(:users).where('users.frilans_finans_id IS NOT NULL')
@@ -43,6 +44,10 @@ class Company < ApplicationRecord
 
   def display_name
     "##{id} #{name}"
+  end
+
+  def staffing_agency?
+    staffing_agency
   end
 
   def anonymize

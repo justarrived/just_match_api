@@ -51,7 +51,7 @@ class JobUser < ApplicationRecord
       joins(:job).
       where('jobs.job_date < ?', Time.zone.now).
       where('jobs.direct_recruitment_job = ?', false).
-      where('jobs.staffing_job = ?', false).
+      where('jobs.staffing_company_id IS NULL').
       left_joins(:frilans_finans_invoice).
       where('frilans_finans_invoices.id IS NULL OR frilans_finans_invoices.ff_approval_status IS NULL') # rubocop:disable Metrics/LineLength
   })

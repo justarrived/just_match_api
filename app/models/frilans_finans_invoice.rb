@@ -15,7 +15,7 @@ class FrilansFinansInvoice < ApplicationRecord
 
   scope :needs_frilans_finans_id, (lambda {
     joins(:job).
-      where('jobs.staffing_job = ?', false).
+      where('jobs.staffing_company_id IS NULL').
       where('jobs.direct_recruitment_job = ?', false).
       where(frilans_finans_id: nil)
   })

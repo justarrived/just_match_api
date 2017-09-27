@@ -35,6 +35,10 @@ class AppConfig
     'http://justarrived.se/assets/files/CV-template.docx'
   end
 
+  def self.default_staffing_company_id
+    env['DEFAULT_STAFFING_COMPANY_ID']
+  end
+
   # 3rd party job boards
 
   def self.linkedin_default_locale

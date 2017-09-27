@@ -13,8 +13,6 @@ ActiveAdmin.register Job do
     {
       hidden: yes_no,
       featured: yes_no,
-      staffing_job: yes_no,
-      direct_recruitment_job: yes_no,
       filled: yes_no,
       cancelled: yes_no,
       upcoming: yes_no,
@@ -41,7 +39,7 @@ ActiveAdmin.register Job do
   filter :created_at
   filter :featured
   filter :filled
-  filter :staffing_job
+  filter :staffing_company
   filter :direct_recruitment_job
   filter :upcoming
   filter :cancelled
@@ -126,7 +124,7 @@ ActiveAdmin.register Job do
     @job = Job.new(order_id: order_id)
 
     @job.company = order&.company
-    @job.staffing_job = order&.staffing?
+    @job.staffing_company_id = AppConfig.default_staffing_company_id if order&.staffing?
     @job.direct_recruitment_job = order&.direct_recruitment?
 
     hours_per_month = current_order_value&.sold_hours_per_month
@@ -336,6 +334,7 @@ ActiveAdmin.register Job do
       :publish_on_linkedin, :publish_on_blocketjobb, :blocketjobb_category,
       :publish_on_metrojobb, :metrojobb_category,
       :salary_type, :preview_key, :customer_hourly_price, :invoice_comment,
+      :staffing_company_id,
       job_skills_attributes: %i(skill_id proficiency proficiency_by_admin),
       job_languages_attributes: %i(language_id proficiency proficiency_by_admin),
       job_occupations_attributes: %i(occupation_id importance years_of_experience)

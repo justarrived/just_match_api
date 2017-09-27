@@ -311,7 +311,7 @@ class Job < ApplicationRecord
   end
 
   def frilans_finans_job?
-    !staffing_job && !direct_recruitment_job
+    !staffing_company_id && !direct_recruitment_job
   end
 
   def started?
