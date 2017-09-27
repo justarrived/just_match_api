@@ -67,7 +67,18 @@ ActiveAdmin.register Order do
       @order.save!
 
       if previous_order_value = previous_order.order_values.last
-        order_value = previous_order_value.dup
+        order_value = OrderValue.new
+        # copy relevant values from previous order value
+        order_value.sold_hourly_salary = previous_order_value.sold_hourly_salary
+        order_value.sold_hourly_price = previous_order_value.sold_hourly_price
+        order_value.sold_hours_per_month = previous_order_value.sold_hours_per_month
+        order_value.sold_number_of_months = previous_order_value.sold_number_of_months
+        order_value.total_sold = previous_order_value.total_sold
+        order_value.total_filled = previous_order_value.total_filled
+        order_value.changed_by_user = current_active_admin_user
+
+        order_value.change_comment = "An extension if order ##{previous_order.id}"
+        order_value.change_reason_category = :extension
         order_value.order = @order
         order_value.save!
       end
