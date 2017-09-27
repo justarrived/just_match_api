@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170915071202) do
+ActiveRecord::Schema.define(version: 20170919210336) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -632,6 +632,8 @@ ActiveRecord::Schema.define(version: 20170915071202) do
     t.string "preview_key"
     t.decimal "customer_hourly_price"
     t.text "invoice_comment"
+    t.boolean "publish_on_metrojobb", default: false
+    t.string "metrojobb_category"
     t.index ["category_id"], name: "index_jobs_on_category_id"
     t.index ["hourly_pay_id"], name: "index_jobs_on_hourly_pay_id"
     t.index ["language_id"], name: "index_jobs_on_language_id"

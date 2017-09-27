@@ -3,6 +3,51 @@
 HEAD
 -----------
 
+v2.29 - 2017-09-21
+----------
+__Admin__:
+* Update admin dashboard
+
+
+v2.28 - 2017-09-21
+----------
+__API__:
+* Return job description as HTML in metrojobb partner feed
+* Fix BlocketjobbSerializer spec for blocketjobb body as HTML
+* Add opportunities to metrojobb feed & return job description as HTML
+
+__Enhancement__:
+* Visible jobs should not be cancelled
+* Unfilled jobs starting within 10 days dashboard
+
+__Gem update__:
+* Update metrojobb
+
+
+v2.27 - 2017-09-19
+----------
+__Feature__:
+* Metrojobb feed
+  - API: Add `/partner-feeds/jobs/metrojobs` endpoint
+
+__Admin__:
+* Filter order users on order and not on job request
+* Move job city input to be below the zip
+
+__Enhancement__:
+* Add `DateFormatter#yyyy_mm_dd` method
+* Explicitly allow blank for some order value attributes
+* Include Subscriber uuid instead of id in job digest mailer
+* On invoice create make sure that the job is not cancelled
+* Return HTML in `Blocketjobb::JobWrapper.body` instead of markdown
+
+__Bugfix__:
+* Update `OrderValue::CATEGORIES` and remove duplicate enum value
+
+__Gem updates__
+* Bump rubocop from 0.49.1 to 0.50.0
+* Bump twilio-ruby from 5.2.2 to 5.2.3
+
 
 v2.26 - 2017-09-15
 ----------
@@ -611,7 +656,7 @@ v1.97 - 2017-06-12
 v1.96 - 2017-06-08
 ----------
 * _Enhancement_:
-  - Update `arbetsformedlingen` company information to always be Just Arrived Bemaning AB
+  - Update `arbetsformedlingen` company information to always be Just Arrived Bemaninng AB
 
 
 v1.95 - 2017-06-08

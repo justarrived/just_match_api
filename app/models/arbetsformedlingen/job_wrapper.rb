@@ -66,7 +66,7 @@ module Arbetsformedlingen
           application_method: build_application_method,
           attributes: {
             title: job.name,
-            purpose: job.full_standalone_description,
+            purpose: StringFormatter.new.to_html(job.full_standalone_description),
             address: {
               country_code: job.country_code,
               zip: job.zip,
@@ -81,7 +81,7 @@ module Arbetsformedlingen
 
     def build_company
       @af_models[:company] ||= Arbetsformedlingen::Company.new(
-        name: 'Just Arrived Bemaning AB',
+        name: 'Just Arrived Bemaninng AB',
         cin: '559079-4466',
         description: 'Vi sammanför nyanlända med svenska företag som behöver hjälp med dagliga aktiviteter. Vår digitala plattform gör det enkelt för företag att lägga upp enkla uppdrag och tjänster som sedan matchas med nyanlända som söker jobb.', # rubocop:disable Metrics/LineLength
         address: {

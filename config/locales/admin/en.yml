@@ -44,12 +44,24 @@ en:
     recent_users:
       title: Recent users
     recent_jobs:
-      title: Your recent jobs
+      title: My recent jobs
       name: Name
       filled: Filled
       start_date: Start date
       hours: Hours
       hourly_pay: Hourly pay
+    my_unfilled_jobs:
+      title: My unfilled jobs
+      name: Name
+      start_date: Start date
+    unfilled_urgent_jobs:
+      title: Unfilled jobs starting within 10 days
+      name: Name
+      start_date: Start date
+    my_unfilled_urgent_jobs:
+      title: My unfilled jobs starting within 10 days
+      name: Name
+      start_date: Start date
     recent_ff_invoices:
       title: Recent Frilans Finans Invoices
       status: Status
@@ -59,6 +71,11 @@ en:
       accepted: Accepted
       will_perform: Will perform
       name: Name
+      job: Job
+      user: User
+      id: ID
+    no_invoice_job_users:
+      title: Hired applicants missing frilans finans invoice (job ended)
       job: Job
       user: User
       id: ID
@@ -179,6 +196,8 @@ en:
         just_arrived_contact_hint: 'The responsible user @ Just Arrived'
         staffing_job: Staffing job
         direct_recruitment_job: Direct recruitment
+        staffing_job_hint: Only check this if this is a staffing job
+        direct_recruitment_job_hint: Only check this if this is a direct recruitment
         category_hint: 'This field is only used for insurance purposes'
         hidden_hint: 'If checked the job will not be returned to clients'
         verified_hint: 'If checked an admin has verified the job'
@@ -186,7 +205,7 @@ en:
         cancelled_hint: 'If checked the job is deemed cancelled'
         filled_hint: 'If checked it marks that the job has a hired user'
         featured_hint: 'If checked it will be displayed on our start page etc'
-        municipality_hint: 'Required if job is to be synced to Arbetsformedlingen or Blocketjobb'
+        municipality_hint: 'Required if job is to be synced to Arbetsformedlingen, Blocketjobb or Metrojobb'
         skills_title: Job skills
         languages_title: Job languages
         occupations_title: Job occupations
@@ -196,6 +215,10 @@ en:
           hint: If checked this job ad will be published on Blocketjobb (warning this will cost us quite a bit of money!)
         blocketjobb_category:
           hint: If this jobb is to be published to Blocketjobb, you need to provide this value
+        publish_on_metrojobb:
+          hint: If checked this job ad will be published on Metrojobb (warning this will cost us quite a bit of money!)
+        metrojobb_category:
+          hint: If this jobb is to be published to Metrojobb, you need to provide this value
     frilans_finans_invoice:
       activate_confirmation: Are you sure you want to activate this invoice and send a notification to the user?
       not_paid: Not paid
@@ -261,7 +284,7 @@ en:
         password:
           hint: Warning this will reset the password
         just_arrived_staffing:
-          hint: Check this if this user is hired by Just Arrived Bemaning AB
+          hint: Check this if this user is hired by Just Arrived Bemanning AB
       find_ff_user:
         find_button: Find and set from Frilans Finans
         ff_id_present_msg: User already has a Frilans Finans ID (#%{id})

@@ -41,6 +41,8 @@ panel(I18n.t('admin.job.show.partners_title')) do
     row :publish_on_linkedin
     row :publish_on_blocketjobb
     row :blocketjobb_category if job.publish_on_blocketjobb
+    row :publish_on_metrojobb
+    row :metrojobb_category if job.publish_on_metrojobb
     row :arbetsformedlingen_ad
   end
 end
