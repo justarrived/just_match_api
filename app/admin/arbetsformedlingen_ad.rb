@@ -5,6 +5,14 @@ ActiveAdmin.register ArbetsformedlingenAd do
 
   config.batch_actions = false
 
+  scope :all, default: true
+  scope :published
+  scope :unpublished
+
+  filter :published
+  filter :created_at
+  filter :updated_at
+
   index do
     selectable_column
 
@@ -71,7 +79,7 @@ ActiveAdmin.register ArbetsformedlingenAd do
   member_action :push_to_arbetsformedlingen, method: :post do
     ad = resource
 
-    result = I18n.with_locale(:sv) { PushArbetsformedlingenAdService.call(ad) }
+    result = PushArbetsformedlingenAdService.call(ad)
 
     if result.errors.empty?
       message = I18n.t('admin.arbetsformedlingen_ad.push.pushing_msg')
@@ -96,5 +104,17 @@ ActiveAdmin.register ArbetsformedlingenAd do
 
   permit_params do
     %i(job_id published occupation)
+  end
+
+  controller do
+    def scoped_collection
+      super.includes(job: %i(translations language))
+    end
+
+    def find_resource
+      I18n.with_locale(AppConfig.arbetsformedlingen_default_locale) do
+        ArbetsformedlingenAd.where(id: params[:id]).first!
+      end
+    end
   end
 end

@@ -9,6 +9,9 @@ class ArbetsformedlingenAd < ApplicationRecord
 
   validate :validate_job_data_for_arbetsformedlingen, if: :published
 
+  scope :published, ->() { where(published: true) }
+  scope :unpublished, ->() { where(published: false) }
+
   def validate_job_data_for_arbetsformedlingen
     return unless job
 
