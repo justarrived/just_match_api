@@ -12,6 +12,7 @@ f.inputs do
   )
   f.input :sales_user, collection: User.sales_users
   f.input :delivery_user, collection: User.delivery_users
+  f.input :previous_order, collection: Order.all
   f.input :job_request
 
   f.input :category

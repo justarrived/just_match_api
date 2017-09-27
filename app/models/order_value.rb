@@ -20,7 +20,8 @@ class OrderValue < ApplicationRecord
     no_suitable_candidate: 2,
     changes_in_the_customer_demand: 3,
     not_a_well_established_order: 4,
-    other: 5
+    other: 5,
+    extension: 6
   }.freeze
 
   enum change_reason_category: CHANGE_CATEGORIES
