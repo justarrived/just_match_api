@@ -14,8 +14,8 @@ RSpec.describe BlocketjobbJobsSerializer do
       )
       job_view = Blocketjobb::JobWrapper.new(job)
 
-      body = BlocketjobbJobsSerializer.to_xml(jobs: [job])
-      xml = Nokogiri::XML.parse(body).css('jobfeed_xml_stucture ads ad')
+      xml_string = BlocketjobbJobsSerializer.to_xml(jobs: [job], locale: I18n.locale)
+      xml = Nokogiri::XML.parse(xml_string).css('jobfeed_xml_stucture ads ad')
 
       # Job data
       external_ad_id = xml.css('external_ad_id').text.strip
@@ -52,7 +52,7 @@ RSpec.describe BlocketjobbJobsSerializer do
       corp_orgno = xml.css('corp_orgno').text.strip
       corp_url = xml.css('corp_url').text.strip
 
-      expect(corp_descr).to eq(I18n.with_locale(:sv) { job_view.company_description })
+      expect(corp_descr).to eq(job_view.company_description)
       expect(corp_url).to eq(job_view.company_url)
       expect(corp_name).to eq(job_view.company_name)
       expect(corp_orgno).to eq(job_view.company_orgno)

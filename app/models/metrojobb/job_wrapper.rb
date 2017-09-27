@@ -30,7 +30,7 @@ module Metrojobb
     end
 
     def description
-      StringFormatter.new.to_html(job.description)
+      StringFormatter.new.to_html(job.full_standalone_description)
     end
 
     def opportunities
