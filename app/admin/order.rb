@@ -6,7 +6,7 @@ ActiveAdmin.register Order do
   filter :sales_user_id, as: :select, collection: -> { User.sales_users }
   filter :delivery_user_id, as: :select, collection: -> { User.delivery_users } # rubocop:disable Metrics/LineLength
   filter :category, as: :select, collection: -> { Order::CATEGORIES.to_a }
-  filter :previous_order_id_present, as: :select, collection: [['No', false]], label: 'Extensions'
+  filter :previous_order_id_present, as: :select, collection: [['No', false]], label: 'Extensions' # rubocop:disable Metrics/LineLength
 
   filter :created_at
   filter :updated_at
@@ -155,7 +155,8 @@ ActiveAdmin.register Order do
   controller do
     def scoped_collection
       super.includes(
-        :company, :job_request, :jobs, :order_values, :sales_user, :delivery_user
+        :company, :job_request, :order_values, :sales_user, :delivery_user,
+        jobs: %i(translations language)
       )
     end
 
