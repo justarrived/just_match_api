@@ -24,7 +24,8 @@ class Company < ApplicationRecord
   validates :website, url: true
 
   # Virtual attributes for Frilans Finans
-  attr_accessor :user_frilans_finans_id, :country_name
+  attr_accessor :user_frilans_finans_id
+  attr_writer :country_name
 
   scope :needs_frilans_finans_id, (lambda {
     where(frilans_finans_id: nil).
@@ -70,6 +71,14 @@ class Company < ApplicationRecord
 
   def country_code
     'SE'
+  end
+
+  def formatted_cin
+    return if cin.blank?
+    # 'XXXXXXXXXX' => 'XXXXXX-XXXX'
+    return cin.insert(6, '-') if cin.length == 10 # valid, non-formatted, cin length
+
+    cin
   end
 
   def guaranteed_description
