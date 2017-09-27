@@ -7,7 +7,7 @@ class JobEmployer
 
   def initialize(job)
     @job = job
-    @employer = set_employer(job)
+    @employer = calculate_employer(job)
   end
 
   def description
@@ -16,11 +16,9 @@ class JobEmployer
 
   private
 
-  def set_employer(job)
-    # TODO: just arrived bemmanning
-    # WARNING: If we perform a SQL-query here, its going to cause a MAJOR N+1
-    raise(NotImplementedError) if job.staffing_job
+  def calculate_employer(job)
+    return job.staffing_company if job.staffing_company
 
-    @employer = job.company
+    job.company
   end
 end
