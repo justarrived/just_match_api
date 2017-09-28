@@ -15,7 +15,10 @@ class ArbetsformedlingenAd < ApplicationRecord
   def validate_job_data_for_arbetsformedlingen
     return unless job
 
-    wrapper = Arbetsformedlingen::JobWrapper.new(self)
+    wrapper = Arbetsformedlingen::JobWrapper.new(
+      self,
+      staffing_company: Company.default_staffing_company
+    )
     return if wrapper.valid?
 
     wrapper.errors.each do |model_name, model_errors|

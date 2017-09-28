@@ -7,6 +7,9 @@ RSpec.describe ArbetsformedlingenAd, type: :model do
     it 'adds error if the job data is *not* valid for Arbetsformedlingen' do
       job = FactoryGirl.build(:job, number_to_fill: nil)
       ad = FactoryGirl.build(:arbetsformedlingen_ad, job: job, published: true)
+
+      allow(AppConfig).to receive(:default_staffing_company_id).and_return(job.company.id)
+
       ad.validate
       expect(ad.errors.messages[:job]).to include('number to fill must be filled')
     end

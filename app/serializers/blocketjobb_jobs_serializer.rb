@@ -3,16 +3,23 @@
 # XML-schema https://jobb.blocket.se/dynamic.xml
 class BlocketjobbJobsSerializer
   def self.to_xml(jobs:, locale: :sv)
-    I18n.with_locale(locale) { build_xml_document(jobs).target! }
+    I18n.with_locale(locale) do
+      build_xml_document(jobs, Company.default_staffing_company).target!
+    end
   end
 
-  def self.build_xml_document(jobs)
+  def self.build_xml_document(jobs, staffing_company)
     builder = Builder::XmlMarkup.new(indent: 2)
     builder.instruct! :xml, version: '1.0', encoding: 'UTF-8'
 
     builder.jobfeed_xml_stucture do |node|
       node.ads do |ads_node|
-        jobs.each { |job| append_ad_xml(ads_node, Blocketjobb::JobWrapper.new(job)) }
+        jobs.each do |job|
+          append_ad_xml(
+            ads_node,
+            Blocketjobb::JobWrapper.new(job, staffing_company: staffing_company)
+          )
+        end
       end
     end
     builder

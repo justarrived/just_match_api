@@ -4,9 +4,9 @@ module Metrojobb
   class JobWrapper
     attr_reader :job, :company
 
-    def initialize(job:)
+    def initialize(job:, staffing_company:)
       @job = job
-      @company = JobEmployer.new(job)
+      @company = staffing_company
     end
 
     delegate :city, to: :job

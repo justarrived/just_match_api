@@ -7,7 +7,8 @@ RSpec.describe Blocketjobb::JobWrapper do
     it 'returns the jobs id' do
       job = FactoryGirl.build(:job, id: '1')
 
-      expect(described_class.new(job).external_ad_id).to eq(job.id.to_s)
+      wrapper = described_class.new(job, staffing_company: job.company)
+      expect(wrapper.external_ad_id).to eq(job.id.to_s)
     end
   end
 
@@ -16,43 +17,49 @@ RSpec.describe Blocketjobb::JobWrapper do
       job = FactoryGirl.build(:job, id: '1')
 
       url = "https://app.justarrived.se/job/1?utm_source=blocketjobb&utm_medium=ad&utm_content=#{job.to_param}" # rubocop:disable Metrics/LineLength
-      expect(described_class.new(job).apply_url).to eq(url)
+      wrapper = described_class.new(job, staffing_company: job.company)
+      expect(wrapper.apply_url).to eq(url)
     end
   end
 
   describe '#display_at' do
     it 'returns the jobs id' do
       job = FactoryGirl.build(:job)
-      expect(described_class.new(job).display_at).to eq('jobb')
+      wrapper = described_class.new(job, staffing_company: job.company)
+      expect(wrapper.display_at).to eq('jobb')
     end
   end
 
   describe '#provider_name' do
     it 'returns the jobs id' do
       job = FactoryGirl.build(:job)
-      expect(described_class.new(job).provider_name).to eq('JustMatch')
+      wrapper = described_class.new(job, staffing_company: job.company)
+      expect(wrapper.provider_name).to eq('JustMatch')
     end
   end
 
   describe '#category' do
     it 'returns the jobs id' do
       job = FactoryGirl.build(:job, blocketjobb_category: 'Övrigt')
-      expect(described_class.new(job).category).to eq('9380')
+      wrapper = described_class.new(job, staffing_company: job.company)
+      expect(wrapper.category).to eq('9380')
     end
   end
 
   describe '#subject' do
     it 'returns the jobs id' do
       job = FactoryGirl.build(:job, name: 'job name')
-      expect(described_class.new(job).subject).to eq('job name')
+      wrapper = described_class.new(job, staffing_company: job.company)
+      expect(wrapper.subject).to eq('job name')
     end
   end
 
   describe '#body' do
     it 'returns the jobs id' do
       job = FactoryGirl.build(:job, description: 'job desc')
-      body = "<p>#{I18n.t('job.description_title')}</p>\n\n<p>job desc</p>\n"
-      expect(described_class.new(job).body).to eq(body)
+      body = "<p>job desc</p>\n"
+      wrapper = described_class.new(job, staffing_company: job.company)
+      expect(wrapper.body).to eq(body)
     end
   end
 
@@ -65,42 +72,48 @@ RSpec.describe Blocketjobb::JobWrapper do
       job = FactoryGirl.build(:job, owner: owner)
 
       logo_url = company_image.image.url(:large)
-      expect(described_class.new(job).company_logo_url).to eq(logo_url)
+      wrapper = described_class.new(job, staffing_company: job.company)
+      expect(wrapper.company_logo_url).to eq(logo_url)
     end
 
     it 'returns configured logo if there is an Environment variable for it' do
       expected = 'https://example.com/image.jpg'
       allow(AppConfig).to receive(:blocketjobb_customer_logo_url).and_return(expected)
       job = FactoryGirl.build(:job)
-      expect(described_class.new(job).company_logo_url).to eq(expected)
+      wrapper = described_class.new(job, staffing_company: job.company)
+      expect(wrapper.company_logo_url).to eq(expected)
     end
 
     it 'returns empty string if there is no company logo' do
       owner = FactoryGirl.create(:company_user)
       job = FactoryGirl.build(:job, owner: owner)
 
-      expect(described_class.new(job).company_logo_url).to eq('')
+      wrapper = described_class.new(job, staffing_company: job.company)
+      expect(wrapper.company_logo_url).to eq('')
     end
   end
 
   describe '#municipality' do
     it 'returns the correct municipality' do
       job = FactoryGirl.build(:job, municipality: 'Kiruna')
-      expect(described_class.new(job).municipality).to eq('8')
+      wrapper = described_class.new(job, staffing_company: job.company)
+      expect(wrapper.municipality).to eq('8')
     end
   end
 
   describe '#region' do
     it 'returns the correct region' do
       job = FactoryGirl.build(:job, municipality: 'Kiruna')
-      expect(described_class.new(job).region).to eq('1')
+      wrapper = described_class.new(job, staffing_company: job.company)
+      expect(wrapper.region).to eq('1')
     end
   end
 
   describe '#region_name' do
     it 'returns the correct region name' do
       job = FactoryGirl.build(:job, municipality: 'Kiruna')
-      expect(described_class.new(job).region_name).to eq('Norrbotten')
+      wrapper = described_class.new(job, staffing_company: job.company)
+      expect(wrapper.region_name).to eq('Norrbotten')
     end
   end
 
@@ -112,7 +125,8 @@ RSpec.describe Blocketjobb::JobWrapper do
       time = Time.zone.now
       job = FactoryGirl.build(:job, created_at: time)
 
-      expect(described_class.new(job).publication_date).to eq(time.strftime('%Y-%m-%d'))
+      wrapper = described_class.new(job, staffing_company: job.company)
+      expect(wrapper.publication_date).to eq(time.strftime('%Y-%m-%d'))
     end
   end
 
@@ -121,7 +135,8 @@ RSpec.describe Blocketjobb::JobWrapper do
       time = Time.zone.now
       job = FactoryGirl.build(:job, updated_at: time)
 
-      expect(described_class.new(job).update_date).to eq(time.strftime('%Y-%m-%d'))
+      wrapper = described_class.new(job, staffing_company: job.company)
+      expect(wrapper.update_date).to eq(time.strftime('%Y-%m-%d'))
     end
   end
 
@@ -130,7 +145,8 @@ RSpec.describe Blocketjobb::JobWrapper do
       time = 2.weeks.from_now
       job = FactoryGirl.build(:job, last_application_at: time)
 
-      expect(described_class.new(job).end_date).to eq(time.strftime('%Y-%m-%d'))
+      wrapper = described_class.new(job, staffing_company: job.company)
+      expect(wrapper.end_date).to eq(time.strftime('%Y-%m-%d'))
     end
   end
 
@@ -141,7 +157,8 @@ RSpec.describe Blocketjobb::JobWrapper do
         job = FactoryGirl.create(:job_with_translation, last_application_at: time)
 
         yyyy_mm_dd = 60.days.from_now.strftime('%Y-%m-%d')
-        expect(described_class.new(job).apply_date).to eq(yyyy_mm_dd)
+        wrapper = described_class.new(job, staffing_company: job.company)
+        expect(wrapper.apply_date).to eq(yyyy_mm_dd)
       end
     end
 
@@ -151,7 +168,8 @@ RSpec.describe Blocketjobb::JobWrapper do
         job = FactoryGirl.create(:job_with_translation, last_application_at: time)
 
         yyyy_mm_dd = 2.days.from_now.strftime('%Y-%m-%d')
-        expect(described_class.new(job).apply_date).to eq(yyyy_mm_dd)
+        wrapper = described_class.new(job, staffing_company: job.company)
+        expect(wrapper.apply_date).to eq(yyyy_mm_dd)
       end
     end
   end
@@ -160,13 +178,15 @@ RSpec.describe Blocketjobb::JobWrapper do
     it 'returns "1" when job is full time' do
       job = FactoryGirl.build(:job, full_time: true)
 
-      expect(described_class.new(job).employment).to eq('1')
+      wrapper = described_class.new(job, staffing_company: job.company)
+      expect(wrapper.employment).to eq('1')
     end
 
     it 'returns "2" when job is not full time' do
       job = FactoryGirl.build(:job, full_time: false)
 
-      expect(described_class.new(job).employment).to eq('2')
+      wrapper = described_class.new(job, staffing_company: job.company)
+      expect(wrapper.employment).to eq('2')
     end
   end
 
@@ -174,13 +194,15 @@ RSpec.describe Blocketjobb::JobWrapper do
     it 'returns "2" when job is a direct recruitment job' do
       job = FactoryGirl.build(:job, direct_recruitment_job: true)
 
-      expect(described_class.new(job).job_ad_type).to eq('2')
+      wrapper = described_class.new(job, staffing_company: job.company)
+      expect(wrapper.job_ad_type).to eq('2')
     end
 
     it 'returns "3" when job is not direct recruitment' do
       job = FactoryGirl.build(:job, direct_recruitment_job: false)
 
-      expect(described_class.new(job).job_ad_type).to eq('3')
+      wrapper = described_class.new(job, staffing_company: job.company)
+      expect(wrapper.job_ad_type).to eq('3')
     end
   end
 
@@ -189,7 +211,8 @@ RSpec.describe Blocketjobb::JobWrapper do
       owner = FactoryGirl.create(:company_user)
       job = FactoryGirl.build(:job, owner: owner)
 
-      expect(described_class.new(job).address).to eq(owner.company.address)
+      wrapper = described_class.new(job, staffing_company: job.company)
+      expect(wrapper.address).to eq(owner.company.address)
     end
   end
 
@@ -198,7 +221,8 @@ RSpec.describe Blocketjobb::JobWrapper do
       owner = FactoryGirl.create(:company_user)
       job = FactoryGirl.build(:job, owner: owner)
 
-      expect(described_class.new(job).zipcode).to eq(owner.company.zip)
+      wrapper = described_class.new(job, staffing_company: job.company)
+      expect(wrapper.zipcode).to eq(owner.company.zip)
     end
   end
 
@@ -207,7 +231,8 @@ RSpec.describe Blocketjobb::JobWrapper do
       owner = FactoryGirl.create(:company_user)
       job = FactoryGirl.build(:job, owner: owner)
 
-      expect(described_class.new(job).company_name).to eq(owner.company.name)
+      wrapper = described_class.new(job, staffing_company: job.company)
+      expect(wrapper.company_name).to eq(owner.company.name)
     end
   end
 
@@ -216,7 +241,8 @@ RSpec.describe Blocketjobb::JobWrapper do
       owner = FactoryGirl.create(:company_user)
       job = FactoryGirl.build(:job, owner: owner)
 
-      expect(described_class.new(job).company_orgno).to eq(owner.company.cin)
+      wrapper = described_class.new(job, staffing_company: job.company)
+      expect(wrapper.company_orgno).to eq(owner.company.cin)
     end
   end
 
@@ -225,7 +251,7 @@ RSpec.describe Blocketjobb::JobWrapper do
       owner = FactoryGirl.create(:company_user)
       job = FactoryGirl.build(:job, owner: owner)
 
-      result = described_class.new(job).company_description
+      result = described_class.new(job, staffing_company: job.company).company_description
       expect(result).to eq(owner.company.guaranteed_description)
     end
   end
@@ -235,7 +261,8 @@ RSpec.describe Blocketjobb::JobWrapper do
       owner = FactoryGirl.create(:company_user)
       job = FactoryGirl.build(:job, owner: owner)
 
-      expect(described_class.new(job).company_url).to eq(owner.company.website)
+      wrapper = described_class.new(job, staffing_company: job.company)
+      expect(wrapper.company_url).to eq(owner.company.website)
     end
   end
 end

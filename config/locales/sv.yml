@@ -196,7 +196,6 @@ sv:
       recruiter_profile_description: Rekryterarprofilbild
   job:
     applicant_description_title: Du är
-    description_title: Om jobbet
     requirements_description_title: Krav
     salary_summary: Du kommer ha fast lön på %{hourly_gross_salary_with_unit}.
     schedule_summary: Din första arbetsdag kommer vara %{start_date}.

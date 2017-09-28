@@ -4,10 +4,10 @@ module Arbetsformedlingen
   class JobWrapper
     attr_reader :packet
 
-    def initialize(arbetsformedlingen_ad)
+    def initialize(arbetsformedlingen_ad, staffing_company:)
       @arbetsformedlingen_ad = arbetsformedlingen_ad
       @job = arbetsformedlingen_ad.job
-      @employer = JobEmployer.new(@job)
+      @employer = staffing_company
       @af_models = {}
 
       @packet = build_packet
@@ -84,7 +84,6 @@ module Arbetsformedlingen
       @af_models[:company] ||= Arbetsformedlingen::Company.new(
         name: employer.name,
         cin: employer.formatted_cin,
-        description: employer.description,
         address: {
           country_code: employer.country_code,
           zip: employer.zip,

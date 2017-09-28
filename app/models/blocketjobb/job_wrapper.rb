@@ -5,9 +5,9 @@ module Blocketjobb
   class JobWrapper
     attr_reader :job, :company
 
-    def initialize(job)
+    def initialize(job, staffing_company:)
       @job = job
-      @company = JobEmployer.new(job)
+      @company = staffing_company
     end
 
     def external_ad_id

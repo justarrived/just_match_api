@@ -2,12 +2,14 @@
 
 class MetrojobbJobsSerializer
   def self.to_xml(jobs: [], locale: :sv)
-    I18n.with_locale(locale) { build_xml_document(jobs) }
+    I18n.with_locale(locale) do
+      build_xml_document(jobs, Company.default_staffing_company)
+    end
   end
 
-  def self.build_xml_document(jobs)
+  def self.build_xml_document(jobs, staffing_company)
     Metrojobb::Ads.new(jobs.map do |job|
-      build_ad(Metrojobb::JobWrapper.new(job: job))
+      build_ad(Metrojobb::JobWrapper.new(job: job, staffing_company: staffing_company))
     end).to_xml
   end
 

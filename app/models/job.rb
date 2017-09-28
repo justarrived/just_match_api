@@ -241,7 +241,6 @@ class Job < ApplicationRecord
     fragments = []
 
     if description.present?
-      fragments << I18n.t('job.description_title')
       fragments << description
     end
 
