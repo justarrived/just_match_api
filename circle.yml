@@ -1,20 +1,54 @@
-machine:
-  ruby:
-    version: 2.4.1
+version: 2
+jobs:
+  build:
+    parallelism: 3
+    working_directory: ~/circleci-demo-ruby-rails
+    docker:
+      - image: circleci/ruby:2.4.1
+        environment:
+          RAILS_ENV: test
+          CIRCLE_CI: true
+          LINT_FACTORY: true
+          AIRBRAKE_PROJECT_ID: 123456
+          AIRBRAKE_API_KEY: notsosecret
+          FRILANS_FINANS_BASE_URI: 'https://example.com'
+          FRILANS_FINANS_CLIENT_ID: 123456
+          FRILANS_FINANS_CLIENT_SECRET: notsosecret
+          TWILIO_ACCOUNT_SID: XYZ
+          TWILIO_AUTH_TOKEN: notsosecret
+          TWILIO_NUMBER: '+46735000000'
+          GOOGLE_TRANSLATE_API_KEY: XYZ
 
-  environment:
-    CIRCLE_CI: true
-    LINT_FACTORY: true
-    AIRBRAKE_PROJECT_ID: 123456
-    AIRBRAKE_API_KEY: notsosecret
-    FRILANS_FINANS_BASE_URI: 'https://example.com'
-    FRILANS_FINANS_CLIENT_ID: 123456
-    FRILANS_FINANS_CLIENT_SECRET: notsosecret
-    TWILIO_ACCOUNT_SID: XYZ
-    TWILIO_AUTH_TOKEN: notsosecret
-    TWILIO_NUMBER: '+46735000000'
-    GOOGLE_TRANSLATE_API_KEY: XYZ
+      - image: circleci/postgres:9.4.12-alpine
+    steps:
+      - checkout
 
-test:
-  override:
-    - script/cibuild
+      # Restore bundle cache
+      - restore_cache:
+          key: rails-demo-{{ checksum "Gemfile.lock" }}
+
+      # Bundle install dependencies
+      - run: bundle install --path vendor/bundle
+
+      # Store bundle cache
+      - save_cache:
+          key: rails-demo-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+
+      # Database setup
+      - run: bundle exec rake db:create
+      - run: bundle exec rake db:schema:load
+
+      # Run rspec in parallel
+      - type: shell
+        command: |
+          bundle exec rspec --profile 10 \
+                            --format RspecJunitFormatter \
+                            --out test_results/rspec.xml \
+                            --format progress \
+                            $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
+
+      # Save test results for timing analysis
+      - store_test_results:
+          path: test_results
