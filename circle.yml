@@ -4,7 +4,7 @@ jobs:
     parallelism: 3
     working_directory: ~/circleci-demo-ruby-rails
     docker:
-      - image: circleci/ruby:2.4.1
+      - image: circleci/ruby:2.4.1-node
         environment:
           RAILS_ENV: test
           CIRCLE_CI: true
