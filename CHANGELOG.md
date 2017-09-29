@@ -3,6 +3,19 @@
 HEAD
 -----------
 
+v2.31 - 2017-09-29
+----------
+__Admin__:
+
+* Add job featured scope to index page
+* Add job published scope to index page
+* Allow filtering job staffing job
+
+__Enhancement__:
+
+* Refactor JobWrappers
+* Always return the default staffing company to all 3rd party jobs ads
+
 
 v2.30 - 2017-09-27
 ----------
