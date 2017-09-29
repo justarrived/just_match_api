@@ -34,6 +34,7 @@ The code follows most Rails conventions. If you've worked with Rails before the 
 * __JSON serialization__
   - Uses the `active_model_serializers` gem
     + Uses the JSON API adapter
+  - Uses the `jsonapi_helpers` gem
   - Follows the JSON API standard
 
 
@@ -44,7 +45,7 @@ The code follows most Rails conventions. If you've worked with Rails before the 
   - Sends SMS messages using Twilio and the `twilio-ruby` gem
 
 * __Invoices__
-  - Integrates with Frilans Finans, using the local gem `frilans_finans_api`
+  - Integrates with Frilans Finans, using the gem `frilans_finans_api`
   - Almost all API communication with Frilans Finans is done from scheduled jobs
 
 * __Geocoding__
@@ -67,7 +68,6 @@ The code follows most Rails conventions. If you've worked with Rails before the 
 
 * __Errors & Monitoring__
   - Uses the Airbrake and the `airbrake` gem for error notifications
-  - Uses `skylight` gem for performance monitoring ([skylight.io](https://skylight.io))
 
 
 * __API versions__

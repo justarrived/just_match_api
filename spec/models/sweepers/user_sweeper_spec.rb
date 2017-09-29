@@ -8,7 +8,7 @@ RSpec.describe Sweepers::UserSweeper do
       it 'sets user frilans finans id' do
         user = FactoryGirl.create(:user, frilans_finans_id: nil)
 
-        isolate_frilans_finans_client(FrilansFinansApi::FixtureClient) do
+        isolate_frilans_finans_client(FrilansFinansAPI::FixtureClient) do
           described_class.create_frilans_finans
           user.reload
           expect(user.frilans_finans_id).to eq(1)
@@ -18,7 +18,7 @@ RSpec.describe Sweepers::UserSweeper do
       it 'does nothing with anonymized users' do
         user = FactoryGirl.create(:user, frilans_finans_id: nil, anonymized: true)
 
-        isolate_frilans_finans_client(FrilansFinansApi::FixtureClient) do
+        isolate_frilans_finans_client(FrilansFinansAPI::FixtureClient) do
           described_class.create_frilans_finans
           user.reload
           expect(user.frilans_finans_id).to be_nil
@@ -30,7 +30,7 @@ RSpec.describe Sweepers::UserSweeper do
       it 'does nothing when frilans finans returns nil' do
         user = FactoryGirl.create(:user, frilans_finans_id: nil)
 
-        isolate_frilans_finans_client(FrilansFinansApi::NilClient) do
+        isolate_frilans_finans_client(FrilansFinansAPI::NilClient) do
           described_class.create_frilans_finans
           user.reload
           expect(user.frilans_finans_id).to be_nil

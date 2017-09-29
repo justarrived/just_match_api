@@ -11,6 +11,7 @@ RSpec.describe Api::V1::PartnerFeeds::JobsController, type: :controller do
         publish_on_linkedin: true,
         last_application_at: 2.days.from_now
       )
+      allow(AppConfig).to receive(:default_staffing_company_id).and_return(job.company.id)
       token = 'nososecret'
       allow(AppSecrets).to receive(:linkedin_sync_key).and_return(token)
 
@@ -62,9 +63,10 @@ RSpec.describe Api::V1::PartnerFeeds::JobsController, type: :controller do
       allow(AppSecrets).to receive(:blocketjobb_sync_key).and_return(token)
 
       request.content_type = 'application/json'
-      get :blocketjobb, params: { auth_token: token }
 
-      FactoryGirl.create(:job)
+      job = FactoryGirl.create(:job)
+      allow(AppConfig).to receive(:default_staffing_company_id).and_return(job.company.id)
+
       get :blocketjobb, params: { auth_token: token }
       expect(response.status).to eq(200)
     end
@@ -92,7 +94,8 @@ RSpec.describe Api::V1::PartnerFeeds::JobsController, type: :controller do
         metrojobb_category: MetrojobbCategories.to_form_array.last.first,
         municipality: 'Stockholm'
       )
-      job = Metrojobb::JobWrapper.new(job: job_model)
+      job = Metrojobb::JobWrapper.new(job: job_model, staffing_company: job_model.company)
+      allow(AppConfig).to receive(:default_staffing_company_id).and_return(job_model.company.id) # rubocop:disable Metrics/LineLength
 
       token = 'nososecret'
       allow(AppSecrets).to receive(:metrojobb_sync_key).and_return(token)
@@ -120,9 +123,10 @@ RSpec.describe Api::V1::PartnerFeeds::JobsController, type: :controller do
         allow(AppSecrets).to receive(:metrojobb_sync_key).and_return(token)
 
         request.content_type = 'application/json'
-        get :metrojobb, params: { auth_token: token }
 
-        FactoryGirl.create(:job)
+        job = FactoryGirl.create(:job)
+        allow(AppConfig).to receive(:default_staffing_company_id).and_return(job.company.id) # rubocop:disable Metrics/LineLength
+
         get :metrojobb, params: { auth_token: token }
         expect(response.status).to eq(200)
       end

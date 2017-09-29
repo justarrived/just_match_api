@@ -130,6 +130,7 @@ end
 #  billing_email     :string
 #  municipality      :string
 #  staffing_agency   :boolean          default(FALSE)
+#  display_name      :string
 #
 # Indexes
 #

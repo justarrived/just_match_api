@@ -138,6 +138,8 @@ class Job < ApplicationRecord
       or(after(:unpublish_at, Time.zone.now))
 
     scope.visible.
+      unfilled.
+      uncancelled.
       without_preview_key.
       where.not(publish_at: nil).
       before(:publish_at, Time.zone.now)
@@ -241,7 +243,6 @@ class Job < ApplicationRecord
     fragments = []
 
     if description.present?
-      fragments << I18n.t('job.description_title')
       fragments << description
     end
 

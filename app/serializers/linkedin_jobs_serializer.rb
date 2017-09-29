@@ -2,17 +2,24 @@
 
 class LinkedinJobsSerializer
   def self.to_xml(jobs:, locale: :sv)
-    I18n.with_locale(locale) { build_xml_document(jobs) }
+    I18n.with_locale(locale) do
+      build_xml_document(jobs, Company.default_staffing_company)
+    end
   end
 
-  def self.build_xml_document(jobs)
+  def self.build_xml_document(jobs, staffing_company)
     builder = Builder::XmlMarkup.new(indent: 2)
     builder.instruct! :xml, version: '1.0', encoding: 'UTF-8'
 
     builder.source do |source_node|
       source_node.publisherUrl('https://justarrived.se')
       source_node.publisher('Just Arrived')
-      jobs.each { |job| build_job_xml(source_node, Linkedin::JobWrapper.new(job: job)) }
+      jobs.each do |job|
+        build_job_xml(
+          source_node,
+          Linkedin::JobWrapper.new(job: job, staffing_company: staffing_company)
+        )
+      end
     end
     builder.target!
   end

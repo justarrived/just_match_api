@@ -2,7 +2,7 @@
 
 class FindFrilansFinansUserIdService
   def self.call(email:)
-    document = FrilansFinansApi::User.index(email: email)
+    document = FrilansFinansAPI::User.index(email: email)
     document.resource.id
   end
 end

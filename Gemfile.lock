@@ -38,18 +38,6 @@ GIT
     mailcheck (1.0.0)
 
 PATH
-  remote: lib/frilans_finans_api
-  specs:
-    frilans_finans_api (0.1.0)
-      httparty (~> 0.13)
-
-PATH
-  remote: lib/json_api_helpers
-  specs:
-    json_api_helpers (0.1.0)
-      activesupport (>= 4.2)
-
-PATH
   remote: lib/welcome_app
   specs:
     welcome_app (0.1.0)
@@ -127,7 +115,7 @@ GEM
       rake (>= 10.4, < 13.0)
     apipie-rails (0.5.4)
       rails (>= 4.1)
-    arbetsformedlingen (0.1.2)
+    arbetsformedlingen (0.2.0)
       builder (~> 3.2)
       dry-validation (~> 0.10)
       httparty (~> 0.13)
@@ -220,28 +208,28 @@ GEM
     dry-container (0.6.0)
       concurrent-ruby (~> 1.0)
       dry-configurable (~> 0.1, >= 0.1.3)
-    dry-core (0.3.1)
+    dry-core (0.3.3)
       concurrent-ruby (~> 1.0)
     dry-equalizer (0.2.0)
-    dry-logic (0.4.1)
+    dry-logic (0.4.2)
       dry-container (~> 0.2, >= 0.2.6)
       dry-core (~> 0.2)
       dry-equalizer (~> 0.2)
-    dry-types (0.10.3)
+    dry-types (0.12.0)
       concurrent-ruby (~> 1.0)
       dry-configurable (~> 0.1)
       dry-container (~> 0.3)
       dry-core (~> 0.2, >= 0.2.1)
       dry-equalizer (~> 0.2)
-      dry-logic (~> 0.4, >= 0.4.0)
+      dry-logic (~> 0.4, >= 0.4.2)
       inflecto (~> 0.0.0, >= 0.0.2)
-    dry-validation (0.10.7)
+    dry-validation (0.11.1)
       concurrent-ruby (~> 1.0)
       dry-configurable (~> 0.1, >= 0.1.3)
       dry-core (~> 0.2, >= 0.2.1)
       dry-equalizer (~> 0.2)
       dry-logic (~> 0.4, >= 0.4.0)
-      dry-types (~> 0.9, >= 0.9.0)
+      dry-types (~> 0.12.0)
     easy_translate (0.5.0)
       json
       thread
@@ -414,6 +402,8 @@ GEM
     formtastic (3.1.5)
       actionpack (>= 3.2.13)
     formtastic_i18n (0.6.0)
+    frilans_finans_api (0.4.0)
+      httparty (~> 0.13)
     fuubar (2.2.0)
       rspec-core (~> 3.0)
       ruby-progressbar (~> 1.4)
@@ -480,6 +470,8 @@ GEM
       railties (>= 3.2.16)
     json (1.8.6)
     jsonapi-renderer (0.1.2)
+    jsonapi_helpers (0.2.0)
+      activesupport (>= 4.2)
     jwt (1.5.6)
     kaminari (1.0.1)
       activesupport (>= 4.1.0)
@@ -536,6 +528,7 @@ GEM
     multi_json (1.12.1)
     multi_xml (0.6.0)
     multipart-post (2.0.0)
+    newrelic_rpm (4.5.0.337)
     nio4r (2.1.0)
     nokogiri (1.8.1)
       mini_portile2 (~> 2.3.0)
@@ -685,8 +678,6 @@ GEM
       simplecov-html (~> 0.10.0)
     simplecov-html (0.10.1)
     sixarm_ruby_unaccent (1.2.0)
-    skylight (1.3.1)
-      activesupport (>= 3.0.0)
     spring (2.0.2)
       activesupport (>= 4.2)
     spring-commands-rspec (1.0.4)
@@ -778,7 +769,7 @@ DEPENDENCIES
   fast_blank (~> 1.0)
   fast_xs (~> 0.8)
   fog (~> 1.40)
-  frilans_finans_api!
+  frilans_finans_api (~> 0.4)
   fuubar (~> 2.2)
   geocoder (~> 1.4)
   global_phone (~> 1.0)
@@ -791,7 +782,7 @@ DEPENDENCIES
   iban-tools (~> 1.1)
   immigrant (~> 0.3)
   inherited_resources (~> 1.7)
-  json_api_helpers!
+  jsonapi_helpers (~> 0.2)
   kaminari (~> 1.0)
   kramdown (~> 1.15)
   letter_opener (~> 1.4)
@@ -802,6 +793,7 @@ DEPENDENCIES
   maruku (~> 0.7)
   memory_profiler (~> 0.9)
   metrojobb (~> 0.2)
+  newrelic_rpm (~> 4.5)
   paperclip (~> 5.1)
   personnummer (~> 0.0.9)
   pg (~> 0.21)
@@ -821,7 +813,6 @@ DEPENDENCIES
   rubocop (~> 0.50)
   sidekiq (< 6)
   simplecov (~> 0.13)
-  skylight (~> 1.3)
   spring (~> 2.0)
   spring-commands-rspec (~> 1.0)
   stackprof (~> 0.2)

@@ -3,7 +3,7 @@
 module Dev
   class CategorySeed < BaseSeed
     def self.call
-      client = FrilansFinansApi::FixtureClient.new
+      client = FrilansFinansAPI::FixtureClient.new
       FrilansFinansImporter.professions(client: client)
     end
   end

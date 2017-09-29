@@ -5,9 +5,9 @@ module Blocketjobb
   class JobWrapper
     attr_reader :job, :company
 
-    def initialize(job)
+    def initialize(job, staffing_company: nil)
       @job = job
-      @company = JobEmployer.new(job)
+      @company = staffing_company || @job.staffing_company || @job.company
     end
 
     def external_ad_id
@@ -80,7 +80,9 @@ module Blocketjobb
       company.zip
     end
 
-    delegate :name, to: :company, prefix: true
+    def company_name
+      company.display_name
+    end
 
     def company_description
       company.guaranteed_description

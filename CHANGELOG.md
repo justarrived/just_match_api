@@ -3,6 +3,48 @@
 HEAD
 -----------
 
+v2.34 - 2017-09-29
+----------
+__API__:
+
+* Use `Company#display_name` over `#name` in 3rd party ad integrations
+
+
+v2.33 - 2017-09-29
+----------
+__API__:
+
+* Add unfilled and uncancelled scope to job published scope
+
+
+v2.32 - 2017-09-29
+----------
+__API__:
+
+* Update companies serializer to use Company#display_name
+
+__DB__:
+
+* Add `Company#display_name` column
+
+__Enhancement__:
+
+* Replace Skylight with NewRelic for performance monitoring :rocket:
+
+
+v2.31 - 2017-09-29
+----------
+__Admin__:
+
+* Add job featured scope to index page
+* Add job published scope to index page
+* Allow filtering job staffing job
+
+__Enhancement__:
+
+* Refactor JobWrappers
+* Always return the default staffing company to all 3rd party jobs ads
+
 
 v2.30 - 2017-09-27
 ----------
@@ -1056,7 +1098,7 @@ v1.60 - 2017-05-04
   - Add proper configure class for `JsonApiHelpers`
   - Proper configuration module for `FrilansFinansApi`
   - Destroy week old frilans finans api logs sweeper task
-  - Remove FrilansFinansApi::reset_config method
+  - Remove FrilansFinansAPI::reset_config method
 
 
 v1.59 - 2017-05-02
@@ -1746,7 +1788,7 @@ v1.8 - 2017-02-19
 
 v1.7.1 - 2017-02-17
 ----------
-* _FrilansFinansApi_: Add `FrilansFinansApi::User::index` method
+* _FrilansFinansApi_: Add `FrilansFinansAPI::User::index` method
 
 
 v1.7 - 2017-02-17

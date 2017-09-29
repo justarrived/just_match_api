@@ -28,6 +28,8 @@ ActiveAdmin.register Job do
   scope :unfilled
   scope :filled
   scope :cancelled
+  scope :published
+  scope :featured
 
   # Filterable attributes on the index screen
   filter :near_address, label: I18n.t('admin.filter.near_address'), as: :string

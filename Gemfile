@@ -39,7 +39,7 @@ gem 'sidekiq', '< 6' # Background worker (Redis-backed)
 
 # MONITORING
 gem 'airbrake', '~> 7.0' # Error catcher and reporter
-gem 'skylight', '~> 1.3' # Performance monitoring
+gem 'newrelic_rpm', '~> 4.5' # Performance monitoring
 
 # DATABASE / MODELS
 gem 'ancestry', '~> 3.0' # Organize records in a tree structure
@@ -47,7 +47,7 @@ gem 'kaminari', '~> 1.0' # Easy pagination
 
 # JSON
 gem 'active_model_serializers', '~> 0.10' # Serialize models to JSON
-gem 'json_api_helpers', path: 'lib/json_api_helpers' # JSON API helpers
+gem 'jsonapi_helpers', '~> 0.2' # JSONAPI helpers
 
 # IMAGES
 gem 'paperclip', '~> 5.1' # Image handler
@@ -77,7 +77,7 @@ gem 'metrojobb', '~> 0.2' # Gem for building a feed for Metrojobb
 gem 'welcome_app', path: 'lib/welcome_app' # Interact with WelcomeApp!
 
 # Invoices
-gem 'frilans_finans_api', path: 'lib/frilans_finans_api' # Interact with Frilans Finans API
+gem 'frilans_finans_api', '~> 0.4' # Interact with Frilans Finans API
 
 # NOTIFICATIONS
 gem 'email_reply_parser', '~> 0.5' # Parse reply emails
