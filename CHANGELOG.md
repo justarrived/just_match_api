@@ -3,6 +3,12 @@
 HEAD
 -----------
 
+v2.34 - 2017-09-29
+----------
+__API__:
+
+* Use `Company#display_name` over `#name` in 3rd party ad integrations
+
 
 v2.33 - 2017-09-29
 ----------
