@@ -82,7 +82,7 @@ module Arbetsformedlingen
 
     def build_company
       @af_models[:company] ||= Arbetsformedlingen::Company.new(
-        name: employer.name,
+        name: employer.display_name,
         cin: employer.formatted_cin,
         address: {
           country_code: employer.country_code,

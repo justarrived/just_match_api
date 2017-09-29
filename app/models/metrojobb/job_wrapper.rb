@@ -39,7 +39,7 @@ module Metrojobb
     end
 
     def employer
-      company.name
+      company.display_name
     end
 
     def employer_home_page
