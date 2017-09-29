@@ -47,7 +47,7 @@ gem 'kaminari', '~> 1.0' # Easy pagination
 
 # JSON
 gem 'active_model_serializers', '~> 0.10' # Serialize models to JSON
-gem 'json_api_helpers', path: 'lib/json_api_helpers' # JSON API helpers
+gem 'jsonapi_helpers', '~> 0.2' # JSONAPI helpers
 
 # IMAGES
 gem 'paperclip', '~> 5.1' # Image handler

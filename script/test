@@ -3,17 +3,11 @@ set -euo pipefail
 IFS=$'\n\t'
 
 cd "$(dirname "$0")/.."
-RUN_NESTED_GEMS_SPECS=${RUN_NESTED_GEMS_SPECS-'false'}
-
-run_json_api_helpers_specs=''
-if [[ $RUN_NESTED_GEMS_SPECS == 'true' ]]; then
-  run_json_api_helpers_specs='lib/json_api_helpers/spec'
-fi
 
 echo -e '\n== Running tests =='
 export RAILS_ENV=test
 export RAKE_ENV=test
-bin/rspec "$@" $run_json_api_helpers_specs
+bin/rspec "$@"
 test_suite_exit_status=$?
 
 # If token is set send coverage report to CodeClimate
