@@ -77,7 +77,7 @@ gem 'metrojobb', '~> 0.2' # Gem for building a feed for Metrojobb
 gem 'welcome_app', path: 'lib/welcome_app' # Interact with WelcomeApp!
 
 # Invoices
-gem 'frilans_finans_api', path: 'lib/frilans_finans_api' # Interact with Frilans Finans API
+gem 'frilans_finans_api', '~> 0.2' # Interact with Frilans Finans API
 
 # NOTIFICATIONS
 gem 'email_reply_parser', '~> 0.5' # Parse reply emails
