@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-# NOTE: This is kept since the "local" test suite for JsonApiHelpers don't have coverage
+# NOTE: This is kept since the "local" test suite for JSONAPIHelpers don't have coverage
 # for most of the logic there its not clear that we'd want to mock the
 # ActiveModelSerializers API, we're using there private(-ish) API and can be good to
 # keep around if the compatibility brakes
