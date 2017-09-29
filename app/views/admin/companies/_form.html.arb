@@ -2,6 +2,7 @@ f.semantic_errors(*f.object.errors.keys)
 
 f.inputs I18n.t('admin.company.form.main_form_section_title') do
   f.input :name, hint: 'Please check https://allabolag.se for the formal company name and their organisation number.'
+  f.input :display_name, hint: 'The name you want users to read.'
   f.input :cin
   f.input :phone
   f.input :email
