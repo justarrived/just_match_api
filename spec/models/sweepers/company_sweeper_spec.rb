@@ -8,7 +8,7 @@ RSpec.describe Sweepers::CompanySweeper do
 
   describe '#create_frilans_finans' do
     it 'sets company frilans finans id' do
-      isolate_frilans_finans_client(FrilansFinansApi::FixtureClient) do
+      isolate_frilans_finans_client(FrilansFinansAPI::FixtureClient) do
         company = FactoryGirl.create(:company, users: [user, a_user])
 
         described_class.create_frilans_finans
@@ -20,7 +20,7 @@ RSpec.describe Sweepers::CompanySweeper do
     it 'does nothing when frilans finans returns nil' do
       company = FactoryGirl.create(:company, users: [user, a_user])
 
-      isolate_frilans_finans_client(FrilansFinansApi::NilClient) do
+      isolate_frilans_finans_client(FrilansFinansAPI::NilClient) do
         described_class.create_frilans_finans
         company.reload
         expect(company.frilans_finans_id).to be_nil

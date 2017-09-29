@@ -68,7 +68,7 @@ module InvoicesReport
   end
 
   def self.remote_frilans_finans_data(ff_id)
-    document = FrilansFinansApi::Invoice.show(id: ff_id)
+    document = FrilansFinansAPI::Invoice.show(id: ff_id)
     document.resource.attributes
   end
 

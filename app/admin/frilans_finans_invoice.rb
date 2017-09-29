@@ -62,7 +62,7 @@ ActiveAdmin.register FrilansFinansInvoice do
   member_action :send_employment_certificate, method: :post do
     ff_invoice = resource
     attributes = { invoice_ids: [ff_invoice.frilans_finans_id] }
-    FrilansFinansApi::EmploymentCertificate.create(attributes: attributes)
+    FrilansFinansAPI::EmploymentCertificate.create(attributes: attributes)
     message = I18n.t('admin.send_employment_certificate.msg')
     redirect_to(resource_path(resource), notice: message)
   end

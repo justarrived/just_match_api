@@ -21,6 +21,6 @@ namespace :frilans_finans do
   task :parse_log, [:filename] do |_t, args|
     require 'frilans_finans_api/parse_log'
 
-    puts FrilansFinansApi::ParseLog.call(args.fetch(:filename)).inspect
+    puts FrilansFinansAPI::ParseLog.call(args.fetch(:filename)).inspect
   end
 end

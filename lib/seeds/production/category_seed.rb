@@ -15,6 +15,6 @@ class CategorySeed < BaseSeed
 
   def client
     # The API isn't live yet, so use a fixture client by default
-    FrilansFinansApi::FixtureClient.new
+    FrilansFinansAPI::FixtureClient.new
   end
 end
