@@ -46,6 +46,16 @@ class Company < ApplicationRecord
     "##{id} #{name}"
   end
 
+  def self.default_staffing_company
+    company = Company.find_by(id: AppConfig.default_staffing_company_id)
+    return company if company
+
+    raise(
+      StandardError,
+      'default staffing company must be set inorder to use this integration'
+    )
+  end
+
   def staffing_agency?
     staffing_agency
   end

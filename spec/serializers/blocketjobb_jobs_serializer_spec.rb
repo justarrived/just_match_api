@@ -12,8 +12,9 @@ RSpec.describe BlocketjobbJobsSerializer do
         last_application_at: 2.weeks.from_now,
         publish_on_blocketjobb: true
       )
-      job_view = Blocketjobb::JobWrapper.new(job)
+      job_view = Blocketjobb::JobWrapper.new(job, staffing_company: job.company)
 
+      allow(AppConfig).to receive(:default_staffing_company_id).and_return(job.company.id)
       xml_string = BlocketjobbJobsSerializer.to_xml(jobs: [job], locale: I18n.locale)
       xml = Nokogiri::XML.parse(xml_string).css('jobfeed_xml_stucture ads ad')
 
