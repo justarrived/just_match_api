@@ -14,7 +14,6 @@ end
 require 'webmock/rspec'
 require 'frilans_finans_api'
 require 'frilans_finans_api/test_helper'
-require 'json_api_helpers'
 require 'byebug'
 Dir['spec/spec_support/spec_helpers/**/*.rb'].each { |f| require_relative "../#{f}" }
 
