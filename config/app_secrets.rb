@@ -47,10 +47,6 @@ class AppSecrets
     env['INCOMING_SMS_KEY']
   end
 
-  def self.skylight_authentication
-    env['SKYLIGHT_AUTHENTICATION']
-  end
-
   def self.blazer_database_url
     env['BLAZER_DATABASE_URL']
   end
