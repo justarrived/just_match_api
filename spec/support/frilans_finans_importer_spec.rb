@@ -13,7 +13,7 @@ RSpec.describe FrilansFinansImporter do
     end
 
     it 'can import professions' do
-      allow(FrilansFinansApi::Profession).to receive(:walk).and_yield(professions_mock)
+      allow(FrilansFinansAPI::Profession).to receive(:walk).and_yield(professions_mock)
 
       expect do
         described_class.professions
@@ -28,7 +28,7 @@ RSpec.describe FrilansFinansImporter do
     end
 
     it 'can import currencies' do
-      allow(FrilansFinansApi::Currency).to receive(:walk).and_yield(currencies_mock)
+      allow(FrilansFinansAPI::Currency).to receive(:walk).and_yield(currencies_mock)
 
       expect do
         described_class.currencies

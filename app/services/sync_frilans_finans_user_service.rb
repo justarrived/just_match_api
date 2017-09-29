@@ -6,9 +6,9 @@ class SyncFrilansFinansUserService
     attributes = FrilansFinans::UserWrapper.attributes(user)
 
     if id
-      FrilansFinansApi::User.update(id: id, attributes: attributes)
+      FrilansFinansAPI::User.update(id: id, attributes: attributes)
     else
-      FrilansFinansApi::User.create(attributes: attributes)
+      FrilansFinansAPI::User.create(attributes: attributes)
     end
   end
 end

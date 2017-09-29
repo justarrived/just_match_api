@@ -11,7 +11,7 @@ class CreateFrilansFinansInvoiceService
       return ff_invoice
     end
 
-    client = FrilansFinansApi.config.client_klass.new
+    client = FrilansFinansAPI.config.client_klass.new
     ff_invoice_attributes = FrilansFinansInvoiceAttributesService.call(
       client: client,
       user: user,
@@ -21,7 +21,7 @@ class CreateFrilansFinansInvoiceService
     )
     # Idempotent invoice request http://developers.frilansfinans.xyz/#idempotent-requests
     ff_invoice_attributes[:remote_id] = ff_invoice.id.to_s
-    ff_invoice_remote = FrilansFinansApi::Invoice.create(
+    ff_invoice_remote = FrilansFinansAPI::Invoice.create(
       attributes: ff_invoice_attributes,
       client: client
     )

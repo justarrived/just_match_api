@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe Sweepers::FrilansFinansTermSweeper do
   describe '#create_frilans_finans' do
     before(:each) do
-      allow(FrilansFinansApi::Terms).to(receive(:get).and_return('watman'))
+      allow(FrilansFinansAPI::Terms).to(receive(:get).and_return('watman'))
     end
 
     it 'creates Frilans Finans terms' do
