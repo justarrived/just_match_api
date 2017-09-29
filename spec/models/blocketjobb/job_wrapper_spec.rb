@@ -228,11 +228,13 @@ RSpec.describe Blocketjobb::JobWrapper do
 
   describe '#company_name' do
     it 'returns the company name' do
-      owner = FactoryGirl.create(:company_user)
+      company_name = 'ACME display'
+      company = FactoryGirl.create(:company, display_name: company_name)
+      owner = FactoryGirl.create(:company_user, company: company)
       job = FactoryGirl.build(:job, owner: owner)
 
       wrapper = described_class.new(job)
-      expect(wrapper.company_name).to eq(owner.company.name)
+      expect(wrapper.company_name).to eq(owner.company.display_name)
     end
   end
 

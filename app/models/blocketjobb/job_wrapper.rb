@@ -80,7 +80,9 @@ module Blocketjobb
       company.zip
     end
 
-    delegate :name, to: :company, prefix: true
+    def company_name
+      company.display_name
+    end
 
     def company_description
       company.guaranteed_description

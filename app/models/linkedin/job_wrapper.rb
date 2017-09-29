@@ -9,7 +9,9 @@ module Linkedin
       @company = staffing_company || job.staffing_company || job.company
     end
 
-    delegate :name, to: :company, prefix: true
+    def company_name
+      company.display_name
+    end
 
     def partner_job_id
       job.to_param
