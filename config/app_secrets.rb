@@ -47,8 +47,8 @@ class AppSecrets
     env['INCOMING_SMS_KEY']
   end
 
-  def self.skylight_authentication
-    env['SKYLIGHT_AUTHENTICATION']
+  def self.newrelic_apm_key
+    env['NEWRELIC_APM_KEY']
   end
 
   def self.blazer_database_url

@@ -67,7 +67,6 @@ The code follows most Rails conventions. If you've worked with Rails before the 
 
 * __Errors & Monitoring__
   - Uses the Airbrake and the `airbrake` gem for error notifications
-  - Uses `skylight` gem for performance monitoring ([skylight.io](https://skylight.io))
 
 
 * __API versions__
