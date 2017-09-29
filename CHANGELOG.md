@@ -3,6 +3,21 @@
 HEAD
 -----------
 
+v2.32 - 2017-09-29
+----------
+__API__:
+
+* Update companies serializer to use Company#display_name
+
+__DB__:
+
+* Add `Company#display_name` column
+
+__Enhancement__:
+
+* Replace Skylight with NewRelic for performance monitoring :rocket:
+
+
 v2.31 - 2017-09-29
 ----------
 __Admin__:
