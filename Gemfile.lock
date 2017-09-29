@@ -38,19 +38,6 @@ GIT
     mailcheck (1.0.0)
 
 PATH
-<<<<<<< HEAD
-  remote: lib/frilans_finans_api
-  specs:
-    frilans_finans_api (0.1.0)
-      httparty (~> 0.13)
-=======
-  remote: lib/json_api_helpers
-  specs:
-    json_api_helpers (0.1.0)
-      activesupport (>= 4.2)
->>>>>>> 884e7a3d73bff7368c44a990c8cb091d396632c2
-
-PATH
   remote: lib/welcome_app
   specs:
     welcome_app (0.1.0)
