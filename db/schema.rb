@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170927181900) do
+ActiveRecord::Schema.define(version: 20170929154939) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -204,6 +204,7 @@ ActiveRecord::Schema.define(version: 20170927181900) do
     t.string "billing_email"
     t.string "municipality"
     t.boolean "staffing_agency", default: false
+    t.string "display_name"
     t.index ["cin"], name: "index_companies_on_cin", unique: true
     t.index ["frilans_finans_id"], name: "index_companies_on_frilans_finans_id", unique: true
   end

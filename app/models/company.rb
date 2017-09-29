@@ -42,8 +42,10 @@ class Company < ApplicationRecord
   # NOTE: This is necessary for nested activeadmin has_many form
   accepts_nested_attributes_for :users, :company_industries
 
+  # NOTE: We need to define this method since #display_name is inherited
+  #       from ApplicationRecord
   def display_name
-    "##{id} #{name}"
+    self[:display_name].presence || name
   end
 
   def self.default_staffing_company
@@ -152,6 +154,7 @@ end
 #  billing_email     :string
 #  municipality      :string
 #  staffing_agency   :boolean          default(FALSE)
+#  display_name      :string
 #
 # Indexes
 #

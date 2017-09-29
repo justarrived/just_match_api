@@ -107,6 +107,7 @@ ActiveAdmin.register Company do
   permit_params do
     [
       :name,
+      :display_name,
       :cin,
       :created_at,
       :updated_at,
