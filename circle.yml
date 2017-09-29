@@ -2,10 +2,12 @@ version: 2
 jobs:
   build:
     parallelism: 3
-    working_directory: ~/circleci-demo-ruby-rails
+    working_directory: ~/justmatch
     docker:
       - image: circleci/ruby:2.4.1-node
         environment:
+          PGHOST: 127.0.0.1
+          PGUSER: justmatch-test
           RAILS_ENV: test
           CIRCLE_CI: true
           LINT_FACTORY: true
@@ -20,6 +22,10 @@ jobs:
           GOOGLE_TRANSLATE_API_KEY: XYZ
 
       - image: circleci/postgres:9.4.12-alpine
+        environment:
+          POSTGRES_USER: justmatch
+          POSTGRES_DB: justmatch-test
+          POSTGRES_PASSWORD: ""
     steps:
       - checkout
 
@@ -37,9 +43,14 @@ jobs:
           paths:
             - vendor/bundle
 
+     - run:
+          name: Wait for database
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
+
       # Database setup
-      - run: bundle exec rake db:create
-      - run: bundle exec rake db:schema:load
+      - run:
+          name: Database setup
+          command: bin/rails db:schema:load --trace
 
       # Run rspec in parallel
       - type: shell
