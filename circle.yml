@@ -25,14 +25,15 @@ jobs:
 
       # Restore bundle cache
       - restore_cache:
-          key: rails-demo-{{ checksum "Gemfile.lock" }}
+          keys:
+            - gem-cache-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
 
       # Bundle install dependencies
       - run: bundle install --path vendor/bundle
 
       # Store bundle cache
       - save_cache:
-          key: rails-demo-{{ checksum "Gemfile.lock" }}
+          key: gem-cache-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
 
