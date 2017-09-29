@@ -43,14 +43,13 @@ jobs:
           paths:
             - vendor/bundle
 
-     - run:
+      - run:
           name: Wait for database
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
 
       # Database setup
-      - run:
-          name: Database setup
-          command: bin/rails db:schema:load --trace
+      - run: bundle exec rake db:create
+      - run: bundle exec rake db:schema:load
 
       # Run rspec in parallel
       - type: shell
