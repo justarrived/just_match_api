@@ -39,6 +39,7 @@ gem 'sidekiq', '< 6' # Background worker (Redis-backed)
 
 # MONITORING
 gem 'airbrake', '~> 7.0' # Error catcher and reporter
+gem 'newrelic_rpm', '~> 4.5' # Performance monitoring
 
 # DATABASE / MODELS
 gem 'ancestry', '~> 3.0' # Organize records in a tree structure

@@ -47,6 +47,10 @@ class AppSecrets
     env['INCOMING_SMS_KEY']
   end
 
+  def self.newrelic_apm_key
+    env['NEWRELIC_APM_KEY']
+  end
+
   def self.blazer_database_url
     env['BLAZER_DATABASE_URL']
   end
