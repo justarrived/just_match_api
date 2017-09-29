@@ -2,12 +2,12 @@ version: 2
 jobs:
   build:
     parallelism: 3
-    working_directory: ~/justmatch
+    working_directory: ~/just_match
     docker:
       - image: circleci/ruby:2.4.1-node
         environment:
           PGHOST: 127.0.0.1
-          PGUSER: justmatch-test
+          PGUSER: just_match
           RAILS_ENV: test
           CIRCLE_CI: true
           LINT_FACTORY: true
@@ -21,10 +21,10 @@ jobs:
           TWILIO_NUMBER: '+46735000000'
           GOOGLE_TRANSLATE_API_KEY: XYZ
 
-      - image: circleci/postgres:9.4.12-alpine
+      - image: circleci/postgres:9.5-alpine
         environment:
-          POSTGRES_USER: justmatch
-          POSTGRES_DB: justmatch-test
+          POSTGRES_USER: just_match
+          POSTGRES_DB: just_match_test
           POSTGRES_PASSWORD: ""
     steps:
       - checkout
