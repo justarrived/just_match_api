@@ -3,17 +3,11 @@ set -euo pipefail
 IFS=$'\n\t'
 
 cd "$(dirname "$0")/.."
-RUN_NESTED_GEMS_SPECS=${RUN_NESTED_GEMS_SPECS-'false'}
-
-run_frilans_finans_api_specs=''
-if [[ $RUN_NESTED_GEMS_SPECS == 'true' ]]; then
-  run_frilans_finans_api_specs='lib/frilans_finans_api/spec'
-fi
 
 echo -e '\n== Running tests =='
 export RAILS_ENV=test
 export RAKE_ENV=test
-bin/rspec "$@" $run_frilans_finans_api_specs
+bin/rspec "$@"
 test_suite_exit_status=$?
 
 # If token is set send coverage report to CodeClimate
