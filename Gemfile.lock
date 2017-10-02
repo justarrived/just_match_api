@@ -199,6 +199,8 @@ GEM
       thor (~> 0.19)
     diff-lcs (1.3)
     docile (1.1.5)
+    domain_name (0.5.20170404)
+      unf (>= 0.0.5, < 1.0.0)
     dotenv (2.2.1)
     dotenv-rails (2.2.1)
       dotenv (= 2.2.1)
@@ -237,7 +239,7 @@ GEM
     email_reply_parser (0.5.9)
     errbase (0.0.3)
     erubi (1.6.1)
-    excon (0.58.0)
+    excon (0.59.0)
     execjs (2.7.0)
     factory_girl (4.8.0)
       activesupport (>= 3.0.0)
@@ -253,7 +255,7 @@ GEM
     ffi (1.9.18)
     fission (0.5.0)
       CFPropertyList (~> 2.2)
-    fog (1.41.0)
+    fog (1.42.0)
       fog-aliyun (>= 0.1.0)
       fog-atmos
       fog-aws (>= 0.6.0)
@@ -270,6 +272,7 @@ GEM
       fog-json
       fog-local
       fog-openstack
+      fog-ovirt
       fog-powerdns (>= 0.1.1)
       fog-profitbricks
       fog-rackspace
@@ -286,7 +289,7 @@ GEM
       fog-xenserver
       fog-xml (~> 0.1.1)
       ipaddress (~> 0.5)
-      json (>= 1.8, < 2.0)
+      json (~> 2.0)
     fog-aliyun (0.2.0)
       fog-core (~> 1.27)
       fog-json (~> 1.0)
@@ -295,7 +298,7 @@ GEM
     fog-atmos (0.1.0)
       fog-core
       fog-xml
-    fog-aws (1.4.0)
+    fog-aws (1.4.1)
       fog-core (~> 1.38)
       fog-json (~> 1.0)
       fog-xml (~> 0.1)
@@ -342,12 +345,17 @@ GEM
     fog-json (1.0.2)
       fog-core (~> 1.0)
       multi_json (~> 1.10)
-    fog-local (0.3.1)
+    fog-local (0.4.0)
       fog-core (~> 1.27)
     fog-openstack (0.1.21)
       fog-core (>= 1.40)
       fog-json (>= 1.0)
       ipaddress (>= 0.8)
+    fog-ovirt (0.1.0)
+      fog-core (~> 1.45)
+      fog-json
+      fog-xml (~> 0.1.1)
+      rbovirt (~> 0.1.4)
     fog-powerdns (0.1.1)
       fog-core (~> 1.27)
       fog-json (~> 1.0)
@@ -389,7 +397,7 @@ GEM
     fog-voxel (0.1.0)
       fog-core
       fog-xml
-    fog-vsphere (1.11.3)
+    fog-vsphere (1.13.1)
       fog-core
       rbvmomi (~> 1.9)
     fog-xenserver (0.3.0)
@@ -435,6 +443,8 @@ GEM
     heapy (0.1.2)
     highline (1.7.8)
     honey_format (0.2.1)
+    http-cookie (1.0.3)
+      domain_name (~> 0.5)
     httparty (0.15.6)
       multi_xml (>= 0.5.2)
     i18n (0.8.6)
@@ -468,7 +478,7 @@ GEM
       thor (>= 0.14, < 2.0)
     jquery-ui-rails (6.0.1)
       railties (>= 3.2.16)
-    json (1.8.6)
+    json (2.1.0)
     jsonapi-renderer (0.1.2)
     jsonapi_helpers (0.2.0)
       activesupport (>= 4.2)
@@ -525,9 +535,10 @@ GEM
     money (6.9.0)
       i18n (>= 0.6.4, < 0.9)
     msgpack (1.1.0)
-    multi_json (1.12.1)
+    multi_json (1.12.2)
     multi_xml (0.6.0)
     multipart-post (2.0.0)
+    netrc (0.11.0)
     newrelic_rpm (4.5.0.337)
     nio4r (2.1.0)
     nokogiri (1.8.1)
@@ -603,6 +614,9 @@ GEM
     rb-fsevent (0.9.8)
     rb-inotify (0.9.8)
       ffi (>= 0.5.0)
+    rbovirt (0.1.4)
+      nokogiri
+      rest-client (> 1.7.0)
     rbvmomi (1.11.3)
       builder (~> 3.0)
       json (>= 1.8)
@@ -619,6 +633,10 @@ GEM
     responders (2.4.0)
       actionpack (>= 4.2.0, < 5.3)
       railties (>= 4.2.0, < 5.3)
+    rest-client (2.0.2)
+      http-cookie (>= 1.0.2, < 2.0)
+      mime-types (>= 1.16, < 4.0)
+      netrc (~> 0.8)
     rinku (2.0.3)
     rspec-activemodel-mocks (1.0.3)
       activemodel (>= 3.0)
@@ -706,6 +724,9 @@ GEM
       thread_safe (~> 0.1)
     uglifier (3.2.0)
       execjs (>= 0.3.0, < 3)
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.7.4)
     unicode-display_width (1.3.0)
     unicode_utils (1.4.0)
     uniform_notifier (1.10.0)
@@ -768,7 +789,7 @@ DEPENDENCIES
   faker (~> 1.8)
   fast_blank (~> 1.0)
   fast_xs (~> 0.8)
-  fog (~> 1.40)
+  fog (~> 1.42)
   frilans_finans_api (~> 0.4)
   fuubar (~> 2.2)
   geocoder (~> 1.4)
