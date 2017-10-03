@@ -21,8 +21,6 @@ module Jobs
     def open_for_applications?
       if last_application_at
         last_application_at > Time.zone.now
-      elsif starts_at
-        starts_at > Time.zone.now
       elsif ends_at
         ends_at > Time.zone.now
       else
