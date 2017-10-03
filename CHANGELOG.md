@@ -3,6 +3,33 @@
 HEAD
 -----------
 
+
+v2.35 - 2017-10-03
+----------
+__Admin__:
+
+* Add addiotional fields to invoice CSV export
+
+__API__:
+
+* Allow filtering Job#cancelled in /jobs
+* Rename `FrilansFinansApi` => `FrilansFinansAPI`
+
+__Update gem__:
+
+* Extract `frilans_finans_api` to its own remote gem
+* Extract `json_api_helpers` to its own remote gem
+* Bump `airbrake` from 7.0.0 to 7.0.2
+* Bump `fog` from 1.41.0 to 1.42.0
+* Bump `twilio`-ruby from 5.2.3 to 5.3.0
+
+__Docs__:
+
+* Update docs/README
+* Add digest subscriber API docs
+* Update job digest API docs
+
+
 v2.34 - 2017-09-29
 ----------
 __API__:
