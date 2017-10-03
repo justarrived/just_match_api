@@ -24,7 +24,7 @@ module Sweepers
           express_payment: ff_invoice.express_payment
         )
 
-        ff_invoice_remote = FrilansFinansApi::Invoice.update(
+        ff_invoice_remote = FrilansFinansAPI::Invoice.update(
           id: frilans_finans_id,
           attributes: attributes
         )

@@ -40,7 +40,7 @@ RSpec.describe Sweepers::FrilansFinansInvoiceSweeper do
       )
       job_user_with_invoice.save!
 
-      isolate_frilans_finans_client(FrilansFinansApi::FixtureClient) do
+      isolate_frilans_finans_client(FrilansFinansAPI::FixtureClient) do
         described_class.activate_frilans_finans
       end
 
@@ -68,7 +68,7 @@ RSpec.describe Sweepers::FrilansFinansInvoiceSweeper do
         allow(FailedToActivateInvoiceNotifier).to receive(:call).
           with(ff_invoice: ff_invoice)
 
-        isolate_frilans_finans_client(FrilansFinansApi::FixtureClient) do
+        isolate_frilans_finans_client(FrilansFinansAPI::FixtureClient) do
           described_class.activate_frilans_finans
         end
 

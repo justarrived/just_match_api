@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe CreateFrilansFinansInvoiceService do
   before(:each) { stub_frilans_finans_auth_request }
 
-  let(:base_uri) { FrilansFinansApi.config.base_uri }
+  let(:base_uri) { FrilansFinansAPI.config.base_uri }
   let(:company) { FactoryGirl.create(:company, frilans_finans_id: 1) }
   let(:job) do
     owner = FactoryGirl.create(:user, company: company)
@@ -16,14 +16,14 @@ RSpec.describe CreateFrilansFinansInvoiceService do
   let(:user) { FactoryGirl.create(:user, frilans_finans_id: user_ff_id) }
   let(:ff_invoice) { job_user.frilans_finans_invoice }
 
-  let(:frilans_api_klass) { FrilansFinansApi::Invoice }
+  let(:frilans_api_klass) { FrilansFinansAPI::Invoice }
   let(:ff_document_mock) { OpenStruct.new(resource: OpenStruct.new(id: user_ff_id)) }
   let(:ff_nil_document_mock) { OpenStruct.new(resource: OpenStruct.new(id: nil)) }
   let(:invoice_request_body) { /^\{"data":*/ }
   let(:express_payment) { false }
 
   subject do
-    isolate_frilans_finans_client(FrilansFinansApi::Client) do
+    isolate_frilans_finans_client(FrilansFinansAPI::Client) do
       headers = {
         'Authorization' => 'Bearer xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
         'User-Agent' => 'FrilansFinansAPI - Ruby client',
@@ -113,13 +113,13 @@ RSpec.describe CreateFrilansFinansInvoiceService do
     let(:user) { FactoryGirl.create(:user, frilans_finans_id: 2222) }
 
     subject do
-      isolate_frilans_finans_client(FrilansFinansApi::NilClient) do
+      isolate_frilans_finans_client(FrilansFinansAPI::NilClient) do
         described_class.create(ff_invoice: ff_invoice)
       end
     end
 
     it 'does call Frilans Finans API' do
-      isolate_frilans_finans_client(FrilansFinansApi::NilClient) do
+      isolate_frilans_finans_client(FrilansFinansAPI::NilClient) do
         allow(frilans_api_klass).to receive(:create).and_return(ff_nil_document_mock)
         subject
         expect(frilans_api_klass).to have_received(:create)
@@ -127,7 +127,7 @@ RSpec.describe CreateFrilansFinansInvoiceService do
     end
 
     it 'notifies admin user' do
-      isolate_frilans_finans_client(FrilansFinansApi::NilClient) do
+      isolate_frilans_finans_client(FrilansFinansAPI::NilClient) do
         allow(frilans_api_klass).to receive(:create).and_return(ff_nil_document_mock)
         allow(InvoiceFailedToConnectToFrilansFinansNotifier).to receive(:call)
         subject

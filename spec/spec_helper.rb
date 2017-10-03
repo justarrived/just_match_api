@@ -19,7 +19,7 @@ Dir['spec/spec_support/spec_helpers/**/*.rb'].each { |f| require_relative "../#{
 
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
-  config.include FrilansFinansApi::TestHelper
+  config.include FrilansFinansAPI::TestHelper
 
   config.expect_with :rspec do |expectations|
     # Better expetations output
@@ -53,12 +53,12 @@ RSpec.configure do |config|
 end
 
 # Set test defaults
-FrilansFinansApi.configure do |config|
-  config.client_klass = FrilansFinansApi::FixtureClient
+FrilansFinansAPI.configure do |config|
+  config.client_klass = FrilansFinansAPI::FixtureClient
   config.base_uri = 'https://example.com'
   config.client_id = '123456'
   config.client_secret = 'notsosecret'
-  config.event_logger = FrilansFinansApi::NilEventLogger.new
+  config.event_logger = FrilansFinansAPI::NilEventLogger.new
 end
 
 # Only allow the tests to connect to localhost and  allow codeclimate
