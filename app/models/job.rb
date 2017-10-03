@@ -138,8 +138,6 @@ class Job < ApplicationRecord
       or(after(:unpublish_at, Time.zone.now))
 
     scope.visible.
-      unfilled.
-      uncancelled.
       without_preview_key.
       where.not(publish_at: nil).
       before(:publish_at, Time.zone.now)
