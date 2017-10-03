@@ -8,7 +8,7 @@ v2.35 - 2017-10-03
 ----------
 __Admin__:
 
-* Add addiotional fields to invoice CSV export
+* Add additional fields to invoice CSV export
 
 __API__:
 
