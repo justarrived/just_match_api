@@ -26,6 +26,11 @@ ActiveAdmin.register Invoice do
   csv do
     column(:company) { |invoice| invoice.company&.name }
     column(:job_id) { |invoice| invoice.job.id }
+    column(:job_hours) { |invoice| invoice.job.hours }
+    column(:job_customer_hourly_price) { |invoice| invoice.job.customer_hourly_price }
+    column(:ff_invoice_amount) do |invoice|
+      invoice.frilans_finans_invoice.ff_amount
+    end
     column(:ff_invoice_number) do |invoice|
       invoice.frilans_finans_invoice.ff_invoice_number
     end
