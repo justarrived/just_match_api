@@ -119,7 +119,7 @@ class Job < ApplicationRecord
     last_app_at_scope = after(:last_application_at, Time.zone.now).
                           or(where(last_application_at: nil))
     last_app_at_scope.
-      after(:job_date, Time.zone.now).
+      after(:job_end_date, Time.zone.now).
       unfilled.
       uncancelled
   })
