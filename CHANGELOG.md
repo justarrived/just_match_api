@@ -4,6 +4,14 @@ HEAD
 -----------
 
 
+v2.36 - 2017-10-03
+----------
+__Enhancement__:
+
+* Revert "Add unfilled and uncancelled scope to job published scope"
+* Allow applications for jobs that have 'started', but not 'ended'
+
+
 v2.35 - 2017-10-03
 ----------
 __Admin__:
