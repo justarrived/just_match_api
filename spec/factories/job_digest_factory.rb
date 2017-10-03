@@ -6,12 +6,11 @@ FactoryGirl.define do
     association :subscriber, factory: :digest_subscriber
     locale I18n.default_locale
     deleted_at nil
+    max_distance 100
 
     factory :job_digest_for_docs do
       id 1
       notification_frequency 1
-      city 'Stockholm'
-      subscriber nil
       created_at Time.new(2016, 2, 10, 1, 1, 1).utc
       updated_at Time.new(2016, 2, 12, 1, 1, 1).utc
     end
