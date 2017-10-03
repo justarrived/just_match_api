@@ -1,0 +1,22 @@
+{
+  "data": [
+    {
+      "id": "1",
+      "type": "digest_subscribers",
+      "attributes": {
+        "email": "example-subscriber2@example.com",
+        "uuid": null
+      },
+      "relationships": {
+        "job_digests": {
+          "data": []
+        }
+      }
+    }
+  ],
+  "meta": {
+    "total": 1,
+    "current_page": 1,
+    "total_pages": 1
+  }
+}
