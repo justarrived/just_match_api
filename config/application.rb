@@ -67,7 +67,6 @@ module JustMatch
 
     # rubocop:disable Metrics/LineLength
     config.x.frilans_finans = AppConfig.frilans_finans_active?
-    config.x.validate_job_date_in_future_inactive = AppConfig.validate_job_date_in_future_inactive?
     config.x.send_sms_notifications = AppConfig.send_sms_notifications?
     config.x.validate_swedish_ssn = AppConfig.validate_swedish_ssn
     config.x.invoice_company_frilans_finans_id = AppConfig.invoice_company_frilans_finans_id
