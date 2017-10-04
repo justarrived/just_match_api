@@ -1,136 +1,191 @@
 # frozen_string_literal: true
-f.semantic_errors(*f.object.errors.keys)
 
-f.inputs(I18n.t('admin.job.form.detail_section_title')) do
-  f.input :order
-  f.input :job_date, as: :date_time_picker
-  f.input :job_end_date, as: :date_time_picker
-  f.input :last_application_at, as: :date_time_picker
-  f.input :preview_key, hint: I18n.t('admin.job.form.preview_key_hint')
-  # If the job has *not* been saved then set the current
-  # time as the publish date
-  f.object.publish_at = Time.zone.now unless f.object.persisted?
-  f.input :publish_at, as: :date_time_picker
-  f.input :unpublish_at, as: :date_time_picker
-  f.input :full_time
-  f.input :salary_type
-  f.input :hourly_pay, hint: I18n.t('admin.job.form.hourly_pay_hint')
-  f.input :customer_hourly_price, hint: I18n.t('admin.job.form.customer_hourly_price_hint') # rubocop:disable Metrics/LineLength
-  f.input :hours
+# f.semantic_errors(*f.object.errors.keys)
 
-  f.input :language, hint: I18n.t('admin.job.form.language_hint'), collection: Language.system_languages.order(:en_name) # rubocop:disable Metrics/LineLength
-  f.input :name
-  f.input :short_description
-  f.input :description, input_html: { markdown: true }
-  f.input :tasks_description, input_html: { markdown: true }
-  f.input :applicant_description, input_html: { markdown: true }
-  f.input :requirements_description, input_html: { markdown: true }
-  f.input :swedish_drivers_license, hint: Arbetsformedlingen::DriversLicenseCode.codes.join(', ')
-  f.input :car_required
-  f.input :number_to_fill
-end
+url = if resource.persisted?
+          admin_job_path(resource)
+        else
+          admin_jobs_path
+        end
 
-f.actions
+active_admin_form_for(resource, url: url) do |f|
+  columns do
+    column do
+      f.inputs('Basic') do
+        f.input :name
+        f.input :short_description
+        f.input(:job_date, as: :date_time_picker, label: 'Start date')
+        f.input(:job_end_date, as: :date_time_picker, label: 'End date')
+        f.input :owner, collection: User.company_users, hint: I18n.t('admin.job.form.owner_hint') # rubocop:disable Metrics/LineLength
+        f.input :company_contact, hint: I18n.t('admin.job.form.company_contact_hint')
 
-f.inputs(I18n.t('admin.job.form.admin_users_section_title')) do
-  f.input :owner, collection: User.company_users, hint: I18n.t('admin.job.form.owner_hint') # rubocop:disable Metrics/LineLength
-  f.input :company_contact, hint: I18n.t('admin.job.form.company_contact_hint')
-  f.input :just_arrived_contact, hint: I18n.t('admin.job.form.just_arrived_contact_hint')
-end
+      end
+    end
 
-f.actions
+    column do
+      f.inputs('Internal') do
+        f.input :order
+        f.input :staffing_company, as: :select, collection: Company.staffing_agencies, hint: I18n.t('admin.job.form.staffing_company_hint')
+        f.input :direct_recruitment_job, hint: I18n.t('admin.job.form.direct_recruitment_job_hint')
+        f.input :just_arrived_contact, hint: I18n.t('admin.job.form.just_arrived_contact_hint')
+        f.input :category, hint: I18n.t('admin.job.form.category_hint')
+      end
+    end
 
-f.inputs(I18n.t('admin.job.form.address_section_title')) do
-  f.input :street
-  f.input :zip
-  f.input :city
-  f.input(
-    :municipality,
-    as: :select,
-    collection: Arbetsformedlingen::MunicipalityCode.to_form_array(name_only: true),
-    hint: I18n.t('admin.job.form.municipality_hint')
-  )
-end
+    column do
+      f.inputs(I18n.t('admin.job.form.status_section_title')) do
+        f.input :featured, hint: I18n.t('admin.job.form.featured_hint')
+        f.input :filled, hint: I18n.t('admin.job.form.filled_hint')
+        f.input :cancelled, hint: I18n.t('admin.job.form.cancelled_hint')
+        # f.input :hidden, hint: I18n.t('admin.job.form.hidden_hint')
+        # f.input :verified, hint: I18n.t('admin.job.form.verified_hint')
+        # f.input :upcoming, hint: I18n.t('admin.job.form.upcoming_hint')
+      end
+    end
+  end
 
-f.actions
+  columns do
+    column do
+      f.inputs('Invoice') do
+        f.input :customer_hourly_price, hint: I18n.t('admin.job.form.customer_hourly_price_hint') # rubocop:disable Metrics/LineLength
+        f.input :hourly_pay, hint: I18n.t('admin.job.form.hourly_pay_hint')
+        f.input :hours
+        f.input :number_to_fill, hint: 'How many positions do you want to fill?'
+        f.input :full_time
+        f.input :invoice_comment, hint: 'This will be displayed on the invoice from Frilans Finans', input_html: { rows: 4 }
+      end
+    end
 
-f.inputs(I18n.t('admin.job.form.frilans_finans_section_title')) do
-  f.input :category, hint: I18n.t('admin.job.form.category_hint')
-end
+    column do
+      f.inputs(I18n.t('admin.job.form.address_section_title')) do
+        f.input :street
+        f.input :zip
+        f.input :city
+        f.input(
+          :municipality,
+          as: :select,
+          collection: Arbetsformedlingen::MunicipalityCode.to_form_array(name_only: true),
+          hint: I18n.t('admin.job.form.municipality_hint')
+        )
+        div(nil, class: 'job-address-google-maps')
+      end
+    end
+  end
 
-f.actions
+  panel('Data') do
+    columns do
+      column do
+        f.has_many :job_skills, allow_destroy: false, new_record: true do |ff|
+          ff.semantic_errors(*ff.object.errors.keys)
 
-if job.persisted?
-  f.inputs(I18n.t('admin.job.form.skills_title')) do
-    f.has_many :job_skills, allow_destroy: false, new_record: true do |ff|
-      ff.semantic_errors(*ff.object.errors.keys)
+          ff.input :skill, as: :select, collection: Skill.with_translations
+          ff.input :proficiency, as: :select, collection: JobSkill::PROFICIENCY_RANGE
+          ff.input :proficiency_by_admin, as: :select, collection: JobSkill::PROFICIENCY_RANGE
+        end
+      end
 
-      ff.input :skill, as: :select, collection: Skill.with_translations
-      ff.input :proficiency, as: :select, collection: JobSkill::PROFICIENCY_RANGE
-      ff.input :proficiency_by_admin, as: :select, collection: JobSkill::PROFICIENCY_RANGE
+      column do
+        f.has_many :job_languages, allow_destroy: false, new_record: true do |ff|
+          ff.semantic_errors(*ff.object.errors.keys)
+
+          ff.input :language, as: :select, collection: Language.all
+          ff.input :proficiency, as: :select, collection: JobLanguage::PROFICIENCY_RANGE
+          ff.input :proficiency_by_admin, as: :select, collection: JobLanguage::PROFICIENCY_RANGE # rubocop:disable Metrics/LineLength
+        end
+      end
+
+      column do
+        f.has_many :job_occupations, allow_destroy: false, new_record: true do |ff|
+          ff.semantic_errors(*ff.object.errors.keys)
+
+          ff.input :occupation, as: :select, collection: Occupation.all
+          ff.input :importance
+          ff.input :years_of_experience
+        end
+      end
+    end
+  end
+
+  h1 'Ad'
+
+  tabs do
+    tab('Settings') do
+      columns do
+        column do
+          f.inputs('Dates') do
+            f.input :last_application_at, as: :date_time_picker
+            # If the job has *not* been saved then set the current
+            # time as the publish date
+            # f.object.publish_at = Time.zone.now unless f.object.persisted?
+            f.input :publish_at, as: :date_time_picker
+            f.input :unpublish_at, as: :date_time_picker
+          end
+        end
+
+        column do
+          f.inputs('Settings') do
+            f.input :featured, hint: I18n.t('admin.job.form.featured_hint')
+            f.input :preview_key, hint: I18n.t('admin.job.form.preview_key_hint')
+          end
+        end
+      end
+
+    end
+
+    tab('Content') do
+      f.inputs('Ad') do
+        f.input :short_description
+        f.input :description, input_html: { markdown: true }
+
+        columns do
+          column do
+            f.input :tasks_description, input_html: { markdown: true }
+          end
+
+          column do
+            f.input :applicant_description, input_html: { markdown: true }
+          end
+
+          column do
+            f.input :requirements_description, input_html: { markdown: true }
+          end
+        end
+      end
+    end
+
+    tab('Job boards') do
+      f.inputs(I18n.t('admin.job.form.partners_section_title')) do
+        f.input(
+          :municipality,
+          as: :select,
+          collection: Arbetsformedlingen::MunicipalityCode.to_form_array(name_only: true),
+          hint: I18n.t('admin.job.form.municipality_hint')
+        )
+        hr
+        f.input :swedish_drivers_license, hint: Arbetsformedlingen::DriversLicenseCode.codes.join(', ')
+        f.input :car_required
+        hr
+
+        f.input :publish_on_linkedin, hint: I18n.t('admin.job.form.publish_on_linkedin.hint')
+        f.input :publish_on_blocketjobb, hint: I18n.t('admin.job.form.publish_on_blocketjobb.hint') # rubocop:disable Metrics/LineLength
+        f.input :blocketjobb_category, collection: BlocketjobbCategories.to_form_array, hint: I18n.t('admin.job.form.blocketjobb_category.hint') # rubocop:disable Metrics/LineLength
+        f.input :publish_on_metrojobb, hint: I18n.t('admin.job.form.publish_on_metrojobb.hint') # rubocop:disable Metrics/LineLength
+        f.input :metrojobb_category, collection: MetrojobbCategories.to_form_array, hint: I18n.t('admin.job.form.metrojobb_category.hint') # rubocop:disable Metrics/LineLength
+
+        if af_ad = job.arbetsformedlingen_ad
+          f.li link_to(
+            I18n.t('admin.job.show_arbetsformedlingen_ad'),
+            admin_arbetsformedlingen_ad_path(af_ad)
+          )
+        elsif job.persisted?
+          f.li link_to(
+            I18n.t('admin.job.create_arbetsformedlingen_ad'),
+            create_with_job_admin_arbetsformedlingen_ad_path(job_id: job.id)
+          )
+        end
+      end
     end
   end
 
   f.actions
-
-  f.inputs(I18n.t('admin.job.form.languages_title')) do
-    f.has_many :job_languages, allow_destroy: false, new_record: true do |ff|
-      ff.semantic_errors(*ff.object.errors.keys)
-
-      ff.input :language, as: :select, collection: Language.all
-      ff.input :proficiency, as: :select, collection: JobLanguage::PROFICIENCY_RANGE
-      ff.input :proficiency_by_admin, as: :select, collection: JobLanguage::PROFICIENCY_RANGE # rubocop:disable Metrics/LineLength
-    end
-  end
-
-  f.inputs(I18n.t('admin.job.form.occupations_title')) do
-    f.has_many :job_occupations, allow_destroy: false, new_record: true do |ff|
-      ff.semantic_errors(*ff.object.errors.keys)
-
-      ff.input :occupation, as: :select, collection: Occupation.all
-      ff.input :importance
-      ff.input :years_of_experience
-    end
-  end
-
-  f.actions
 end
-
-f.inputs(I18n.t('admin.job.form.status_section_title')) do
-  f.input :staffing_company, as: :select, collection: Company.staffing_agencies, hint: I18n.t('admin.job.form.staffing_company_hint')
-  f.input :direct_recruitment_job, hint: I18n.t('admin.job.form.direct_recruitment_job_hint')
-  f.input :hidden, hint: I18n.t('admin.job.form.hidden_hint')
-  f.input :verified, hint: I18n.t('admin.job.form.verified_hint')
-  f.input :upcoming, hint: I18n.t('admin.job.form.upcoming_hint')
-  f.input :cancelled, hint: I18n.t('admin.job.form.cancelled_hint')
-  f.input :filled, hint: I18n.t('admin.job.form.filled_hint')
-  f.input :featured, hint: I18n.t('admin.job.form.featured_hint')
-end
-
-f.inputs(I18n.t('admin.job.form.partners_section_title')) do
-  f.input :publish_on_linkedin, hint: I18n.t('admin.job.form.publish_on_linkedin.hint')
-  f.input :publish_on_blocketjobb, hint: I18n.t('admin.job.form.publish_on_blocketjobb.hint') # rubocop:disable Metrics/LineLength
-  f.input :blocketjobb_category, collection: BlocketjobbCategories.to_form_array, hint: I18n.t('admin.job.form.blocketjobb_category.hint') # rubocop:disable Metrics/LineLength
-  f.input :publish_on_metrojobb, hint: I18n.t('admin.job.form.publish_on_metrojobb.hint') # rubocop:disable Metrics/LineLength
-  f.input :metrojobb_category, collection: MetrojobbCategories.to_form_array, hint: I18n.t('admin.job.form.metrojobb_category.hint') # rubocop:disable Metrics/LineLength
-
-  if af_ad = job.arbetsformedlingen_ad
-    f.li link_to(
-      I18n.t('admin.job.show_arbetsformedlingen_ad'),
-      admin_arbetsformedlingen_ad_path(af_ad)
-    )
-  elsif job.persisted?
-    f.li link_to(
-      I18n.t('admin.job.create_arbetsformedlingen_ad'),
-      create_with_job_admin_arbetsformedlingen_ad_path(job_id: job.id)
-    )
-  end
-end
-
-f.actions
-
-f.inputs('Invoice') do
-  f.input :invoice_comment
-end
-
-f.actions
