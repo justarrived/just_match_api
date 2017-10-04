@@ -24,7 +24,7 @@ active_admin_form_for(resource, url: url) do |f|
 
     column do
       f.inputs('Internal') do
-        f.input :order
+        f.input :order, collection: Order.includes(:job_request)
         f.input :staffing_company, as: :select, collection: Company.staffing_agencies, hint: I18n.t('admin.job.form.staffing_company_hint')
         f.input :direct_recruitment_job, hint: I18n.t('admin.job.form.direct_recruitment_job_hint')
         f.input :just_arrived_contact, hint: I18n.t('admin.job.form.just_arrived_contact_hint')
@@ -97,7 +97,7 @@ active_admin_form_for(resource, url: url) do |f|
         f.has_many :job_occupations, allow_destroy: false, new_record: true do |ff|
           ff.semantic_errors(*ff.object.errors.keys)
 
-          ff.input :occupation, as: :select, collection: Occupation.all
+          ff.input :occupation, as: :select, collection: Occupation.with_translations
           ff.input :importance
           ff.input :years_of_experience
         end
