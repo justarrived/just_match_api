@@ -67,7 +67,6 @@ active_admin_form_for(resource, url: url) do |f|
           collection: Arbetsformedlingen::MunicipalityCode.to_form_array(name_only: true),
           hint: I18n.t('admin.job.form.municipality_hint')
         )
-        div(nil, class: 'job-address-google-maps')
       end
     end
   end
