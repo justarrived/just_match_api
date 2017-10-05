@@ -55,7 +55,6 @@ class Job < ApplicationRecord
   validates :hourly_pay, presence: true
   validates :category, presence: true
   validates :name, presence: true, on: :create # Virtual attribute
-  validates :description, presence: true, on: :create # Virtual attribute
   validates :street, length: { minimum: 1 }, allow_blank: false
   validates :city, length: { minimum: 1 }, allow_blank: true
   validates :zip, length: { minimum: 5 }, allow_blank: false
