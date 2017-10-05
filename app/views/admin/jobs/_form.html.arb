@@ -37,7 +37,7 @@ active_admin_form_for(resource, url: url) do |f|
       f.inputs(I18n.t('admin.job.section_title.status')) do
         f.input :cloned, label: I18n.t('admin.job.form.cloned_label'), hint: I18n.t('admin.job.form.cloned_hint')
         f.input :featured, hint: I18n.t('admin.job.form.featured_hint')
-        f.input :filled, hint: I18n.t('admin.job.form.filled_hint')
+        f.input :filled, as: :boolean, hint: I18n.t('admin.job.form.filled_hint')
         f.input :cancelled, hint: I18n.t('admin.job.form.cancelled_hint')
         # f.input :hidden, hint: I18n.t('admin.job.form.hidden_hint')
         # f.input :verified, hint: I18n.t('admin.job.form.verified_hint')

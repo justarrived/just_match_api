@@ -36,7 +36,6 @@ end
 #  verified                     :boolean          default(FALSE)
 #  job_end_date                 :datetime
 #  cancelled                    :boolean          default(FALSE)
-#  filled                       :boolean          default(FALSE)
 #  short_description            :string
 #  featured                     :boolean          default(FALSE)
 #  upcoming                     :boolean          default(FALSE)
