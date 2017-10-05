@@ -4,6 +4,16 @@ HEAD
 -----------
 
 
+v2.38 - 2017-10-05
+----------
+__API__:
+* Don't include cloned jobs in /jobs
+
+__Enhancement__:
+* Add `Job#filled_at` column
+* Custom UTM-source for job digest emails
+
+
 v2.37 - 2017-10-05
 ----------
 __Admin__:
