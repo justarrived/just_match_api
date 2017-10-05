@@ -7,6 +7,7 @@ class SendLatestJobDigestService
     jobs = Job.with_translations.
            includes(:occupations).
            published.
+           not_cloned.
            after(:publish_at, jobs_published_within_hours.hours.ago)
 
     total_sent = 0
