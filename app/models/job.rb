@@ -53,7 +53,7 @@ class Job < ApplicationRecord
   before_validation :set_normalized_swedish_drivers_license
 
   validates :hourly_pay, presence: true
-  validates :category, presence: true
+  validates :category, presence: true, if: :frilans_finans_job?
   validates :name, presence: true, on: :create # Virtual attribute
   validates :street, length: { minimum: 1 }, allow_blank: false
   validates :city, length: { minimum: 1 }, allow_blank: true

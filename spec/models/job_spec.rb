@@ -474,6 +474,15 @@ RSpec.describe Job, type: :model do
     end
   end
 
+  describe 'validate category if frilans_finans_job' do
+    it "adds error if #{name}_category is not set and publish_on_#{name} is true" do
+      job = FactoryGirl.build(:job, category: nil)
+      job.validate
+
+      expect(job.errors.messages[:category]).to include("can't be blank")
+    end
+  end
+
   %i[blocketjobb metrojobb].each do |name|
     describe "#validate_last_application_at_on_publish_to_#{name}" do
       it "adds error if last_application_at is not set and publish_on_#{name} is true" do
