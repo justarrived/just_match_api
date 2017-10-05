@@ -10,7 +10,7 @@
 %>
 <%= job.translated_short_description %>
 <%= I18n.t('mailer.digest_email.search_job') %>
-<%= frontend_mail_url(:job, id: job.id, utm_campaign: 'job_digest') %>
+<%= frontend_mail_url(:job, id: job.id, utm_source: @utm_source, utm_campaign: @utm_campaign) %>
 
 <% end %>
 

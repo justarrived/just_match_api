@@ -14,7 +14,10 @@
       %>
     </strong><br>
     <%= job.translated_short_description %> <br>
-    <%= link_to(I18n.t('mailer.digest_email.search_job'), frontend_mail_url(:job, id: job.id, utm_campaign: 'job_digest')) %>
+    <%= link_to(
+      I18n.t('mailer.digest_email.search_job'),
+      frontend_mail_url(:job, id: job.id, utm_source: @utm_source, utm_campaign: @utm_campaign)
+    ) %>
   </p>
 <%= render 'mailer_partials/hr' %>
 <% end %>
