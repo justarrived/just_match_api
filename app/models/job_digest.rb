@@ -8,6 +8,8 @@ class JobDigest < ApplicationRecord
 
   DEFAULT_MAX_DISTANCE = 100
 
+  boolean_as_time :deleted
+
   before_validation :set_max_distance
   before_validation :set_locale
 

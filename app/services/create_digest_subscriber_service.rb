@@ -18,7 +18,7 @@ class CreateDigestSubscriberService
     end
 
     if subscriber
-      subscriber.deleted_at = nil
+      subscriber.deleted = false
       subscriber.save
       return subscriber
     end

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class DigestSubscriber < ApplicationRecord
+  boolean_as_time :deleted
+
   belongs_to :user, optional: true
 
   has_many :job_digests, dependent: :destroy
