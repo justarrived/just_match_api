@@ -27,10 +27,6 @@ class AppConfig
     'api.justarrived.se'
   end
 
-  def self.payslip_explain_url
-    'http://justarrived.se/payslip/'
-  end
-
   def self.cv_template_url
     'http://justarrived.se/assets/files/CV-template.docx'
   end

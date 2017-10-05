@@ -118,7 +118,6 @@ en:
         Today the invoice for your job “%{job_name}” was created.
 
         You will also receive a specification of your salary from Frilans Finans.
-        If you want help with understanding what all the different numbers are, please read this explaining document: %{payslip_explain_url}.
 
         Contact us at %{support_email} if questions or problems arise.
 
