@@ -4,7 +4,13 @@ HEAD
 -----------
 
 
-v2.38 - 2017-10-05
+v2.40 - 2017-10-05
+----------
+__Bugfix__:
+* API: treat Job#filled as a fake attribute in API search
+
+
+v2.39 - 2017-10-05
 ----------
 __API__:
 * Don't include cloned jobs in /jobs
@@ -14,7 +20,7 @@ __Enhancement__:
 * Custom UTM-source for job digest emails
 
 
-v2.37 - 2017-10-05
+v2.37/38 - 2017-10-05
 ----------
 __Admin__:
 
