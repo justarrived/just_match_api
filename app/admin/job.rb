@@ -200,14 +200,7 @@ ActiveAdmin.register Job do
   end
 
   sidebar :data_checklist, only: %i(show edit) do
-    div do
-      safe_join(
-        [
-          strong(I18n.t('admin.job.checklist_sidebar.hidden')),
-          status_tag(job.hidden)
-        ]
-      )
-    end
+    h3 I18n.t('admin.job.checklist_sidebar.status')
 
     div do
       safe_join(
@@ -226,6 +219,39 @@ ActiveAdmin.register Job do
         ]
       )
     end
+
+    hr
+
+    h3 I18n.t('admin.job.checklist_sidebar.missing_ad_content')
+
+    div do
+      safe_join(
+        [
+          strong(I18n.t('admin.job.checklist_sidebar.short_description')),
+          status_tag(job.short_description.present?)
+        ]
+      )
+    end
+
+    div do
+      safe_join(
+        [
+          strong(I18n.t('admin.job.checklist_sidebar.description')),
+          status_tag(job.description.present?)
+        ]
+      )
+    end
+
+    div do
+      safe_join(
+        [
+          strong(I18n.t('admin.job.checklist_sidebar.city')),
+          status_tag(job.city.presence)
+        ]
+      )
+    end
+
+    hr
 
     missing_translations = %w(en sv ar) - job.translations.map(&:locale).compact
     if missing_translations.any?

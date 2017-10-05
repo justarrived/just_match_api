@@ -156,6 +156,11 @@ en:
         occupations: Occupations added
         pushed: Pushed to
         missing_translations: Missing translations
+        status: Status
+        city: City
+        description: Description
+        short_description: Short description
+        missing_ad_content: Missing ad content
       batch_action:
         update:
           title: Update selected or all jobs
