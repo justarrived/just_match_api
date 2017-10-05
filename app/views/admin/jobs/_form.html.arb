@@ -6,24 +6,25 @@ url = if resource.persisted?
           admin_jobs_path
         end
 
+# rubocop:disable Metrics/LineLength
 active_admin_form_for(resource, url: url) do |f|
   f.semantic_errors(*f.object.errors.keys)
 
   columns do
     column do
-      f.inputs('Basic') do
-        f.input :name
-        f.input :short_description
-        f.input(:job_date, as: :date_time_picker, label: 'Start date')
-        f.input(:job_end_date, as: :date_time_picker, label: 'End date')
-        f.input :owner, collection: User.company_users, hint: I18n.t('admin.job.form.owner_hint') # rubocop:disable Metrics/LineLength
+      f.inputs(I18n.t('admin.job.form.section_title.basic')) do
+        f.input :name, hint: I18n.t('admin.job.form.name_hint')
+        f.input :short_description, hint: I18n.t('admin.job.form.short_description_hint')
+        f.input(:job_date, as: :date_time_picker, label: I18n.t('admin.job.form.job_date_label'))
+        f.input(:job_end_date, as: :date_time_picker, label: I18n.t('admin.job.form.job_end_date_label'))
+        f.input :owner, collection: User.company_users, hint: I18n.t('admin.job.form.owner_hint')
         f.input :company_contact, hint: I18n.t('admin.job.form.company_contact_hint')
 
       end
     end
 
     column do
-      f.inputs('Internal') do
+      f.inputs(I18n.t('admin.job.form.section_title.internal')) do
         f.input :order, collection: Order.includes(:job_request)
         f.input :staffing_company, as: :select, collection: Company.staffing_agencies, hint: I18n.t('admin.job.form.staffing_company_hint')
         f.input :direct_recruitment_job, hint: I18n.t('admin.job.form.direct_recruitment_job_hint')
@@ -34,7 +35,7 @@ active_admin_form_for(resource, url: url) do |f|
 
     column do
       f.inputs(I18n.t('admin.job.form.status_section_title')) do
-        f.input :cloned, label: I18n.t('admin.job.form.cloned_label'), hint: I18n.t('admin.job.form.cloned_hint') # rubocop:disable Metrics/LineLength
+        f.input :cloned, label: I18n.t('admin.job.form.cloned_label'), hint: I18n.t('admin.job.form.cloned_hint')
         f.input :featured, hint: I18n.t('admin.job.form.featured_hint')
         f.input :filled, hint: I18n.t('admin.job.form.filled_hint')
         f.input :cancelled, hint: I18n.t('admin.job.form.cancelled_hint')
@@ -47,8 +48,8 @@ active_admin_form_for(resource, url: url) do |f|
 
   columns do
     column do
-      f.inputs('Invoice') do
-        f.input :customer_hourly_price, hint: I18n.t('admin.job.form.customer_hourly_price_hint') # rubocop:disable Metrics/LineLength
+      f.inputs(I18n.t('admin.job.form.section_title.invoice')) do
+        f.input :customer_hourly_price, hint: I18n.t('admin.job.form.customer_hourly_price_hint')
         f.input :hourly_pay, hint: I18n.t('admin.job.form.hourly_pay_hint')
         f.input :hours
         f.input :number_to_fill, hint: 'How many positions do you want to fill?'
@@ -72,7 +73,7 @@ active_admin_form_for(resource, url: url) do |f|
     end
   end
 
-  panel('Data') do
+  panel(I18n.t('admin.job.form.section_title.data')) do
     columns do
       column do
         f.has_many :job_skills, allow_destroy: false, new_record: true do |ff|
@@ -90,7 +91,7 @@ active_admin_form_for(resource, url: url) do |f|
 
           ff.input :language, as: :select, collection: Language.all
           ff.input :proficiency, as: :select, collection: JobLanguage::PROFICIENCY_RANGE
-          ff.input :proficiency_by_admin, as: :select, collection: JobLanguage::PROFICIENCY_RANGE # rubocop:disable Metrics/LineLength
+          ff.input :proficiency_by_admin, as: :select, collection: JobLanguage::PROFICIENCY_RANGE
         end
       end
 
@@ -106,13 +107,13 @@ active_admin_form_for(resource, url: url) do |f|
     end
   end
 
-  h1 'Ad'
+  h1 I18n.t('admin.job.form.section_title.ad')
 
   tabs do
-    tab('Settings') do
+    tab(I18n.t('admin.job.form.section_title.settings')) do
       columns do
         column do
-          f.inputs('Dates') do
+          f.inputs(I18n.t('admin.job.form.section_title.dates')) do
             f.input :last_application_at, as: :date_time_picker
             # If the job has *not* been saved then set the current
             # time as the publish date
@@ -123,7 +124,7 @@ active_admin_form_for(resource, url: url) do |f|
         end
 
         column do
-          f.inputs('Settings') do
+          f.inputs(I18n.t('admin.job.form.section_title.settings')) do
             f.input :featured, hint: I18n.t('admin.job.form.featured_hint')
             f.input :preview_key, hint: I18n.t('admin.job.form.preview_key_hint')
           end
@@ -132,8 +133,8 @@ active_admin_form_for(resource, url: url) do |f|
 
     end
 
-    tab('Content') do
-      f.inputs('Ad') do
+    tab(I18n.t('admin.job.form.section_title.content')) do
+      f.inputs(I18n.t('admin.job.form.section_title.ad')) do
         f.input :short_description
         f.input :description, input_html: { markdown: true }
 
@@ -153,7 +154,7 @@ active_admin_form_for(resource, url: url) do |f|
       end
     end
 
-    tab('Job boards') do
+    tab(I18n.t('admin.job.form.section_title.job_boards')) do
       f.inputs(I18n.t('admin.job.form.partners_section_title')) do
         f.input(
           :municipality,
@@ -167,10 +168,10 @@ active_admin_form_for(resource, url: url) do |f|
         hr
 
         f.input :publish_on_linkedin, hint: I18n.t('admin.job.form.publish_on_linkedin.hint')
-        f.input :publish_on_blocketjobb, hint: I18n.t('admin.job.form.publish_on_blocketjobb.hint') # rubocop:disable Metrics/LineLength
-        f.input :blocketjobb_category, collection: BlocketjobbCategories.to_form_array, hint: I18n.t('admin.job.form.blocketjobb_category.hint') # rubocop:disable Metrics/LineLength
-        f.input :publish_on_metrojobb, hint: I18n.t('admin.job.form.publish_on_metrojobb.hint') # rubocop:disable Metrics/LineLength
-        f.input :metrojobb_category, collection: MetrojobbCategories.to_form_array, hint: I18n.t('admin.job.form.metrojobb_category.hint') # rubocop:disable Metrics/LineLength
+        f.input :publish_on_blocketjobb, hint: I18n.t('admin.job.form.publish_on_blocketjobb.hint')
+        f.input :blocketjobb_category, collection: BlocketjobbCategories.to_form_array, hint: I18n.t('admin.job.form.blocketjobb_category.hint')
+        f.input :publish_on_metrojobb, hint: I18n.t('admin.job.form.publish_on_metrojobb.hint')
+        f.input :metrojobb_category, collection: MetrojobbCategories.to_form_array, hint: I18n.t('admin.job.form.metrojobb_category.hint')
 
         if af_ad = job.arbetsformedlingen_ad
           f.li link_to(
@@ -189,3 +190,4 @@ active_admin_form_for(resource, url: url) do |f|
 
   f.actions
 end
+# rubocop:enable Metrics/LineLength

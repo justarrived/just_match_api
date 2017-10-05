@@ -187,6 +187,20 @@ en:
           title: Job comments
           open_in_app: Answer
       form:
+        section_title:
+          basic: Basic
+          internal: Internal
+          invoice: Invoice
+          data: Data
+          ad: Ad
+          settings: Settings
+          dates: Dates
+          content: Content
+          job_boards: Job boards
+        name_hint: The title of the job
+        short_description_hint: 'Max 155 characters, make it short and sweat :)'
+        job_date_label: 'Earliest start date'
+        job_end_date_label: 'End date'
         partners_section_title: Publish to partners
         detail_section_title: Details
         admin_users_section_title: Admin users
