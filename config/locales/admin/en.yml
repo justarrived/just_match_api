@@ -176,6 +176,18 @@ en:
       description: Description
       short_description: Short Description
       clone: Clone
+      section_title:
+        address: Address
+        basic: Basic
+        internal: Internal
+        invoice: Invoice
+        data: Data
+        ad: Ad
+        settings: Settings
+        dates: Dates
+        content: Content
+        job_boards: Job boards
+        status: Status
       show:
         title: Job detail
         general: General
@@ -183,20 +195,16 @@ en:
         relations: Relations
         misc: Misc
         partners_title: Publish partners
+        applicant_description:
+          short_name: Applicant
+        tasks_description:
+          short_name: Tasks
+        requirements_description:
+          short_name: Requirements
         comments:
           title: Job comments
           open_in_app: Answer
       form:
-        section_title:
-          basic: Basic
-          internal: Internal
-          invoice: Invoice
-          data: Data
-          ad: Ad
-          settings: Settings
-          dates: Dates
-          content: Content
-          job_boards: Job boards
         name_hint: The title of the job
         short_description_hint: 'Max 155 characters, make it short and sweat :)'
         job_date_label: 'Earliest start date'
@@ -206,7 +214,6 @@ en:
         admin_users_section_title: Admin users
         address_section_title: Address
         frilans_finans_section_title: Frilans Finans
-        status_section_title: Status
         hourly_pay_hint: 'The hourly pay, you can add more Hourly Pays if you want under "Settings"'
         customer_hourly_price_hint: 'The hourly invoice price for the customer.'
         language_hint: 'Language that the job information is written in'

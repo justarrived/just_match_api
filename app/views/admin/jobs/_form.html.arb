@@ -12,7 +12,7 @@ active_admin_form_for(resource, url: url) do |f|
 
   columns do
     column do
-      f.inputs(I18n.t('admin.job.form.section_title.basic')) do
+      f.inputs(I18n.t('admin.job.section_title.basic')) do
         f.input :name, hint: I18n.t('admin.job.form.name_hint')
         f.input :short_description, hint: I18n.t('admin.job.form.short_description_hint')
         f.input(:job_date, as: :date_time_picker, label: I18n.t('admin.job.form.job_date_label'))
@@ -24,7 +24,7 @@ active_admin_form_for(resource, url: url) do |f|
     end
 
     column do
-      f.inputs(I18n.t('admin.job.form.section_title.internal')) do
+      f.inputs(I18n.t('admin.job.section_title.internal')) do
         f.input :order, collection: Order.includes(:job_request)
         f.input :staffing_company, as: :select, collection: Company.staffing_agencies, hint: I18n.t('admin.job.form.staffing_company_hint')
         f.input :direct_recruitment_job, hint: I18n.t('admin.job.form.direct_recruitment_job_hint')
@@ -34,7 +34,7 @@ active_admin_form_for(resource, url: url) do |f|
     end
 
     column do
-      f.inputs(I18n.t('admin.job.form.status_section_title')) do
+      f.inputs(I18n.t('admin.job.section_title.status')) do
         f.input :cloned, label: I18n.t('admin.job.form.cloned_label'), hint: I18n.t('admin.job.form.cloned_hint')
         f.input :featured, hint: I18n.t('admin.job.form.featured_hint')
         f.input :filled, hint: I18n.t('admin.job.form.filled_hint')
@@ -48,7 +48,7 @@ active_admin_form_for(resource, url: url) do |f|
 
   columns do
     column do
-      f.inputs(I18n.t('admin.job.form.section_title.invoice')) do
+      f.inputs(I18n.t('admin.job.section_title.invoice')) do
         f.input :customer_hourly_price, hint: I18n.t('admin.job.form.customer_hourly_price_hint')
         f.input :hourly_pay, hint: I18n.t('admin.job.form.hourly_pay_hint')
         f.input :hours
@@ -59,7 +59,7 @@ active_admin_form_for(resource, url: url) do |f|
     end
 
     column do
-      f.inputs(I18n.t('admin.job.form.address_section_title')) do
+      f.inputs(I18n.t('admin.job.section_title.address')) do
         f.input :street
         f.input :zip
         f.input :city
@@ -73,18 +73,8 @@ active_admin_form_for(resource, url: url) do |f|
     end
   end
 
-  panel(I18n.t('admin.job.form.section_title.data')) do
+  panel(I18n.t('admin.job.section_title.data')) do
     columns do
-      column do
-        f.has_many :job_skills, allow_destroy: false, new_record: true do |ff|
-          ff.semantic_errors(*ff.object.errors.keys)
-
-          ff.input :skill, as: :select, collection: Skill.with_translations
-          ff.input :proficiency, as: :select, collection: JobSkill::PROFICIENCY_RANGE
-          ff.input :proficiency_by_admin, as: :select, collection: JobSkill::PROFICIENCY_RANGE
-        end
-      end
-
       column do
         f.has_many :job_languages, allow_destroy: false, new_record: true do |ff|
           ff.semantic_errors(*ff.object.errors.keys)
@@ -104,16 +94,26 @@ active_admin_form_for(resource, url: url) do |f|
           ff.input :years_of_experience
         end
       end
+
+      column do
+        f.has_many :job_skills, allow_destroy: false, new_record: true do |ff|
+          ff.semantic_errors(*ff.object.errors.keys)
+
+          ff.input :skill, as: :select, collection: Skill.with_translations
+          ff.input :proficiency, as: :select, collection: JobSkill::PROFICIENCY_RANGE
+          ff.input :proficiency_by_admin, as: :select, collection: JobSkill::PROFICIENCY_RANGE
+        end
+      end
     end
   end
 
-  h1 I18n.t('admin.job.form.section_title.ad')
+  h1 I18n.t('admin.job.section_title.ad')
 
   tabs do
-    tab(I18n.t('admin.job.form.section_title.settings')) do
+    tab(I18n.t('admin.job.section_title.settings')) do
       columns do
         column do
-          f.inputs(I18n.t('admin.job.form.section_title.dates')) do
+          f.inputs(I18n.t('admin.job.section_title.dates')) do
             f.input :last_application_at, as: :date_time_picker
             # If the job has *not* been saved then set the current
             # time as the publish date
@@ -124,7 +124,7 @@ active_admin_form_for(resource, url: url) do |f|
         end
 
         column do
-          f.inputs(I18n.t('admin.job.form.section_title.settings')) do
+          f.inputs(I18n.t('admin.job.section_title.settings')) do
             f.input :featured, hint: I18n.t('admin.job.form.featured_hint')
             f.input :preview_key, hint: I18n.t('admin.job.form.preview_key_hint')
           end
@@ -133,8 +133,8 @@ active_admin_form_for(resource, url: url) do |f|
 
     end
 
-    tab(I18n.t('admin.job.form.section_title.content')) do
-      f.inputs(I18n.t('admin.job.form.section_title.ad')) do
+    tab(I18n.t('admin.job.section_title.content')) do
+      f.inputs(I18n.t('admin.job.section_title.ad')) do
         f.input :short_description
         f.input :description, input_html: { markdown: true }
 
@@ -154,7 +154,7 @@ active_admin_form_for(resource, url: url) do |f|
       end
     end
 
-    tab(I18n.t('admin.job.form.section_title.job_boards')) do
+    tab(I18n.t('admin.job.section_title.job_boards')) do
       f.inputs(I18n.t('admin.job.form.partners_section_title')) do
         f.input(
           :municipality,

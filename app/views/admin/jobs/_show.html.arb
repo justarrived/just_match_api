@@ -1,100 +1,191 @@
 # frozen_string_literal: true
-panel(I18n.t('admin.job.show.general')) do
-  attributes_table_for(job) do
-    row :id
-    row :cloned
-    row :filled
-    row :name
-    row :hours
-    row :gross_amount { |job| "#{job.gross_amount} SEK" }
-    row :last_application_at
-    row :job_date
-    row :job_end_date
-    row :publish_at
-    row :unpublish_at
-    row :hourly_pay
-    row :customer_hourly_price
-    row :short_description
-    row :number_to_fill
-    row :street
-    row :city
-    row :zip
-    row :municipality
-    row :swedish_drivers_license
-    row :car_required
-    row :description { |job| markdown_to_html(job.description) }
-    row :tasks { |job| markdown_to_html(job.tasks_description) }
-    row :applicant { |job| markdown_to_html(job.applicant_description) }
-    row :requirements { |job| markdown_to_html(job.requirements_description) }
-    row :skills { |job| job_skills_badges(job_skills: job.job_skills) }
-    row :languages { |job| job_languages_badges(job_languages: job.job_languages) }
-    row :occupations do |job|
-      job.job_occupations.includes(:occupation).map do |jo|
-        "#{jo.occupation.name} (#{jo.importance}, yxp: #{jo.years_of_experience})"
-      end.join(', ')
+
+columns do
+  column do
+    panel(I18n.t('admin.job.section_title.basic')) do
+      attributes_table_for(job) do
+        row :name
+        row :short_description
+        row :job_date
+        row :job_end_date
+        row :owner
+        row :company_contact
+      end
+    end
+  end
+
+  column do
+    panel(I18n.t('admin.job.section_title.internal')) do
+      attributes_table_for(job) do
+        row :order
+        row :staffing_company
+        row :direct_recruitment_job
+        row :just_arrived_contact
+        row :category
+      end
+    end
+  end
+
+  column do
+    panel(I18n.t('admin.job.section_title.status')) do
+      attributes_table_for(job) do
+        row :cloned
+        row :featured
+        row :filled
+        row :cancelled
+        # row :hidden
+        # row :verified
+        # row :upcoming
+      end
     end
   end
 end
 
+columns do
+  column do
+    panel(I18n.t('admin.job.section_title.invoice')) do
+      attributes_table_for(job) do
+        row :customer_hourly_price
+        row :hourly_pay
+        row :hours
+        row :number_to_fill
+        row :full_time
+        row :invoice_comment
+      end
+    end
+  end
 
-panel(I18n.t('admin.job.show.partners_title')) do
-  attributes_table_for(job) do
-    row :publish_on_linkedin
-    row :publish_on_blocketjobb
-    row :blocketjobb_category if job.publish_on_blocketjobb
-    row :publish_on_metrojobb
-    row :metrojobb_category if job.publish_on_metrojobb
-    row :arbetsformedlingen_ad
+  column do
+    panel(I18n.t('admin.job.section_title.address')) do
+      attributes_table_for(job) do
+        row :street
+        row :zip
+        row :city
+        row :municipality
+      end
+    end
   end
 end
 
-panel(I18n.t('admin.job.show.status_flags')) do
-  attributes_table_for(job) do
-    row :preview_key
-    row :featured
-    row :verified
-    row :upcoming
-    row :cancelled
-    row :hidden
-    row :staffing_company
-    row :direct_recruitment_job
+panel(I18n.t('admin.job.section_title.data')) do
+  columns do
+    column do
+      attributes_table_for(job) do
+        row :languages { |job| job_languages_badges(job_languages: job.job_languages) }
+      end
+    end
+
+    column do
+      attributes_table_for(job) do
+        row :occupations do |job|
+          job.job_occupations.includes(:occupation).map do |jo|
+            "#{jo.occupation.name} (#{jo.importance}, yxp: #{jo.years_of_experience})"
+          end.join(', ')
+        end
+      end
+    end
+
+    column do
+      attributes_table_for(job) do
+        row :skills { |job| job_skills_badges(job_skills: job.job_skills) }
+      end
+    end
   end
 end
 
-panel(I18n.t('admin.job.show.relations')) do
-  attributes_table_for(job) do
-    row :owner
-    row :company_contact
-    row :just_arrived_contact
-    row :category
-    row :language
+h1 I18n.t('admin.job.section_title.ad')
+
+tabs do
+  tab(I18n.t('admin.job.section_title.settings')) do
+    columns do
+      column do
+        attributes_table_for(job) do
+          row :last_application_at
+          # If the job has *not* been saved then set the current
+          # time as the publish date
+          # f.object.publish_at = Time.zone.now unless f.object.persisted?
+          row :publish_at
+          row :unpublish_at
+        end
+      end
+
+      column do
+        attributes_table_for(job) do
+          row :featured
+          row :preview_key
+        end
+      end
+    end
+
+  end
+
+  tab(I18n.t('admin.job.section_title.content')) do
+    attributes_table_for(job) do
+      row :short_description
+      row :description { |job| markdown_to_html(job.description) }
+    end
+
+    columns do
+      column do
+        div do
+          attributes_table_for(job) do
+            row(I18n.t('admin.job.show.tasks_description.short_name')) do |job|
+              markdown_to_html(job.tasks_description)
+            end
+          end
+        end
+      end
+
+      column do
+        div do
+          attributes_table_for(job) do
+            row(I18n.t('admin.job.show.applicant_description.short_name')) do |job|
+              markdown_to_html(job.applicant_description)
+            end
+          end
+        end
+      end
+
+      column do
+        div do
+          attributes_table_for(job) do
+            row(I18n.t('admin.job.show.requirements_description.short_name')) do |job|
+              markdown_to_html(job.requirements_description)
+            end
+          end
+        end
+      end
+    end
+  end
+
+  tab(I18n.t('admin.job.section_title.job_boards')) do
+    attributes_table_for(job) do
+      row :municipality
+      row :swedish_drivers_license
+      row :car_required
+
+      row :publish_on_linkedin
+      row :publish_on_blocketjobb
+      row :blocketjobb_category
+      row :publish_on_metrojobb
+      row :metrojobb_category
+
+      if af_ad = job.arbetsformedlingen_ad
+        link_to(
+          I18n.t('admin.job.show_arbetsformedlingen_ad'),
+          admin_arbetsformedlingen_ad_path(af_ad)
+        )
+      elsif job.persisted?
+        link_to(
+          I18n.t('admin.job.create_arbetsformedlingen_ad'),
+          create_with_job_admin_arbetsformedlingen_ad_path(job_id: job.id)
+        )
+      end
+    end
   end
 end
 
-panel I18n.t('admin.job.show.comments.title') do
-  job_comments.last(5).reverse_each do |comment|
-    h4 comment.owner.name
-    div { simple_format(comment.body) }
-    em datetime_ago_in_words(comment.created_at)
-    hr
-    br
-  end
-
-  h4 link_to(I18n.t('admin.job.show.comments.open_in_app'), frontend_app_job_path)
-end
-
-panel(I18n.t('admin.job.show.misc')) do
-  attributes_table_for(job) do
-    row :invoice_comment
-
-    row :latitude
-    row :longitude
-    row :zip_latitude
-    row :zip_longitude
-
-    row :created_at { datetime_ago_in_words(job.created_at) }
-    row :updated_at { datetime_ago_in_words(job.updated_at) }
-  end
-end
+br
+br
 
 active_admin_comments_for(job)
