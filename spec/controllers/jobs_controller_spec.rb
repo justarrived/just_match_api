@@ -40,15 +40,15 @@ RSpec.describe Api::V1::JobsController, type: :controller do
 
   describe 'GET #index' do
     it 'assigns all jobs as @jobs' do
-      job = FactoryGirl.create(:job)
+      job = FactoryGirl.create(:published_job)
       process :index, method: :get
       expect(assigns(:jobs)).to eq([job])
     end
 
     it 'returns sorted results' do
-      FactoryGirl.create(:job, hours: 7)
-      FactoryGirl.create(:job, hours: 10)
-      FactoryGirl.create(:job, hours: 5)
+      FactoryGirl.create(:published_job, hours: 7)
+      FactoryGirl.create(:published_job, hours: 10)
+      FactoryGirl.create(:published_job, hours: 5)
 
       get :index, params: { sort: '-hours' }
       expect(response.status).to eq(200)
@@ -63,7 +63,7 @@ RSpec.describe Api::V1::JobsController, type: :controller do
 
   describe 'GET #show' do
     it 'assigns the requested job as @job' do
-      job = FactoryGirl.create(:job)
+      job = FactoryGirl.create(:published_job)
       get :show, params: { job_id: job.to_param }
       expect(assigns(:job)).to eq(job)
     end
@@ -71,19 +71,19 @@ RSpec.describe Api::V1::JobsController, type: :controller do
     context 'job with preview key' do
       it 'assigns the requested job as @job if the correct preview key is provided' do
         key = 'nososecret'
-        job = FactoryGirl.create(:job, preview_key: key)
+        job = FactoryGirl.create(:published_job, preview_key: key)
         get :show, params: { job_id: job.to_param, preview_key: key }
         expect(assigns(:job)).to eq(job)
       end
 
-      it 'returns 404 if the no preview key is provided' do
+      it 'returns 404 if no preview key is provided' do
         job = FactoryGirl.create(:job, preview_key: 'nososecret')
         get :show, params: { job_id: job.to_param }
         expect(response.status).to eq(404)
       end
 
       it 'returns 404 if the incorrect preview key is provided' do
-        job = FactoryGirl.create(:job, preview_key: 'nososecret')
+        job = FactoryGirl.create(:published_job, preview_key: 'nososecret')
         get :show, params: { job_id: job.to_param, preview_key: 'wrongpreviewkey' }
         expect(response.status).to eq(404)
       end
@@ -245,21 +245,21 @@ RSpec.describe Api::V1::JobsController, type: :controller do
 
   describe 'GET #matching_users' do
     it 'returns 200 status if job owner' do
-      job = FactoryGirl.create(:job, owner: owner)
+      job = FactoryGirl.create(:published_job, owner: owner)
       params = { auth_token: owner.auth_token, job_id: job.to_param }
       get :show, params: params
       expect(response.status).to eq(200)
     end
 
     it 'returns 200 status if admin is user' do
-      job = FactoryGirl.create(:job)
+      job = FactoryGirl.create(:published_job)
       admin = FactoryGirl.create(:user_with_tokens, admin: true)
       get :matching_users, params: { auth_token: admin.auth_token, job_id: job.to_param }
       expect(response.status).to eq(200)
     end
 
     it 'returns 401 unauthorized status when user not authorized' do
-      job = FactoryGirl.create(:job)
+      job = FactoryGirl.create(:published_job)
       get :matching_users, params: { job_id: job.to_param }
       expect(response.status).to eq(401)
     end

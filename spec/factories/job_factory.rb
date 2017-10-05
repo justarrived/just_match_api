@@ -15,7 +15,6 @@ FactoryGirl.define do
     association :hourly_pay
     customer_hourly_price 300.0
     job_date 1.week.from_now
-    publish_at 1.day.ago
     hours 30
 
     factory :job_with_translation do
@@ -41,6 +40,8 @@ FactoryGirl.define do
     factory :passed_job do
       job_date 7.days.ago
       job_end_date 6.days.ago
+      publish_at 8.days.ago
+
       # Since a job can't be screated thats in the passed we need to skip validations
       to_create { |instance| instance.save(validate: false) }
     end
@@ -49,8 +50,6 @@ FactoryGirl.define do
       job_date Time.zone.now - 1.hour
       job_end_date 1.day.from_now
       hours 4
-      # Since a job can't be created thats in the passed we need to skip validations
-      to_create { |instance| instance.save(validate: false) }
     end
 
     factory :future_job do
@@ -105,6 +104,30 @@ FactoryGirl.define do
       end
     end
 
+    factory :published_job do
+      publish_at Time.current
+
+      transient do
+        job_occupations_count 1
+      end
+
+      after(:create) do |job, evaluator|
+        job_occupations = create_list(:job_occupation, evaluator.job_occupations_count)
+        job.job_occupations = job_occupations
+      end
+    end
+
+    factory :job_with_occupations do
+      transient do
+        job_occupations_count 1
+      end
+
+      after(:create) do |job, evaluator|
+        job_occupations = create_list(:job_occupation, evaluator.job_occupations_count)
+        job.job_occupations = job_occupations
+      end
+    end
+
     factory :job_with_users do
       transient do
         users_count 1
@@ -126,6 +149,7 @@ FactoryGirl.define do
 
       created_at Time.new(2016, 2, 10, 1, 1, 1).utc
       updated_at Time.new(2016, 2, 12, 1, 1, 1).utc
+      publish_at Time.new(2016, 2, 12, 1, 1, 1).utc
       job_date Time.new(2016, 2, 18, 1, 1, 1).utc
       job_end_date Time.new(2016, 2, 20, 1, 1, 1).utc
       publish_at Time.new(2016, 2, 10, 1, 1, 1).utc
