@@ -488,8 +488,7 @@ class Job < ApplicationRecord
     errors.add(:description, :blank) if description.blank?
     errors.add(:street, :blank) if street.blank?
     errors.add(:zip, :blank) if zip.blank?
-    errors.add(:preview_key, :presence) if preview_key.present?
-    errors.add(:occupations, :required) if occupations.length.zero?
+    errors.add(:occupations, :required) if persisted? && occupations.length.zero?
   end
 
   def validate_job_end_date_after_job_date

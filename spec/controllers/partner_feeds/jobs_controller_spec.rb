@@ -9,7 +9,9 @@ RSpec.describe Api::V1::PartnerFeeds::JobsController, type: :controller do
         :job_with_translation,
         translation_locale: :en,
         publish_on_linkedin: true,
-        last_application_at: 2.days.from_now
+        last_application_at: 2.days.from_now,
+        publish_at: Time.current,
+        job_occupations: [FactoryGirl.create(:job_occupation)]
       )
       allow(AppConfig).to receive(:default_staffing_company_id).and_return(job.company.id)
       token = 'nososecret'
@@ -64,7 +66,7 @@ RSpec.describe Api::V1::PartnerFeeds::JobsController, type: :controller do
 
       request.content_type = 'application/json'
 
-      job = FactoryGirl.create(:job)
+      job = FactoryGirl.create(:published_job)
       allow(AppConfig).to receive(:default_staffing_company_id).and_return(job.company.id)
 
       get :blocketjobb, params: { auth_token: token }
@@ -92,7 +94,9 @@ RSpec.describe Api::V1::PartnerFeeds::JobsController, type: :controller do
         publish_on_metrojobb: true,
         last_application_at: 2.days.from_now,
         metrojobb_category: MetrojobbCategories.to_form_array.last.first,
-        municipality: 'Stockholm'
+        municipality: 'Stockholm',
+        publish_at: Time.current,
+        job_occupations: [FactoryGirl.create(:job_occupation)]
       )
       job = Metrojobb::JobWrapper.new(job: job_model, staffing_company: job_model.company)
       allow(AppConfig).to receive(:default_staffing_company_id).and_return(job_model.company.id) # rubocop:disable Metrics/LineLength
@@ -124,7 +128,7 @@ RSpec.describe Api::V1::PartnerFeeds::JobsController, type: :controller do
 
         request.content_type = 'application/json'
 
-        job = FactoryGirl.create(:job)
+        job = FactoryGirl.create(:published_job)
         allow(AppConfig).to receive(:default_staffing_company_id).and_return(job.company.id) # rubocop:disable Metrics/LineLength
 
         get :metrojobb, params: { auth_token: token }
