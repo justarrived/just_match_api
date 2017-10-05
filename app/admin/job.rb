@@ -330,6 +330,13 @@ ActiveAdmin.register Job do
   end
 
   sidebar :latest_applicants, only: %i(show edit) do
+    h4 link_to(
+      I18n.t('admin.counts.applicants', count: job.job_users.count),
+      admin_job_users_path + AdminHelpers::Link.query(:job_id, job.id)
+    )
+
+    br
+
     ul do
       job.job_users.
         order(created_at: :desc).
