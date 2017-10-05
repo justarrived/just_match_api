@@ -32,6 +32,8 @@ class ApplicationRecord < ActiveRecord::Base
       if ActiveModel::Type::Boolean::FALSE_VALUES.include?(value)
         send(setter_attribute, nil)
       else
+        return value if value = send(field)
+
         send(setter_attribute, -> { Time.current }.call)
       end
     end
