@@ -20,6 +20,23 @@ class ApplicationRecord < ActiveRecord::Base
     end.compact
   end
 
+  def self.boolean_as_time(attribute, field = "#{attribute}_at")
+    define_method(attribute) do
+      !send(field).nil? && send(field) <= -> { Time.current }.call
+    end
+
+    alias_method "#{attribute}?", attribute
+
+    setter_attribute = "#{field}="
+    define_method("#{attribute}=") do |value|
+      if ActiveModel::Type::Boolean::FALSE_VALUES.include?(value)
+        send(setter_attribute, nil)
+      else
+        send(setter_attribute, -> { Time.current }.call)
+      end
+    end
+  end
+
   def human_model_name
     self.class.model_name.human
   end

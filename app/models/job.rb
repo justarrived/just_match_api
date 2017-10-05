@@ -53,9 +53,8 @@ class Job < ApplicationRecord
   before_validation :set_normalized_swedish_drivers_license
 
   validates :hourly_pay, presence: true
-  validates :category, presence: true
+  validates :category, presence: true, if: :frilans_finans_job?
   validates :name, presence: true, on: :create # Virtual attribute
-  validates :description, presence: true, on: :create # Virtual attribute
   validates :street, length: { minimum: 1 }, allow_blank: false
   validates :city, length: { minimum: 1 }, allow_blank: true
   validates :zip, length: { minimum: 5 }, allow_blank: false
@@ -84,8 +83,7 @@ class Job < ApplicationRecord
   validate :validate_within_allowed_hours
   validate :validate_owner_belongs_to_company, unless: -> { AppConfig.allow_regular_users_to_create_jobs? } # rubocop:disable Metrics/LineLength
 
-  validate :validate_job_date_in_future, unless: -> { Rails.configuration.x.validate_job_date_in_future_inactive } # rubocop:disable Metrics/LineLength
-
+  scope :not_cloned, (-> { where(cloned: false) })
   scope :visible, (-> { where(hidden: false) })
   scope :cancelled, (-> { where(cancelled: true) })
   scope :uncancelled, (-> { where(cancelled: false) })
@@ -479,13 +477,6 @@ class Job < ApplicationRecord
     )
   end
 
-  def validate_job_date_in_future
-    return unless job_date_changed?
-    return if job_date.nil? || job_date > Time.zone.now
-
-    errors.add(:job_date, I18n.t('errors.job.job_date_in_the_past'))
-  end
-
   def validate_job_end_date_after_job_date
     return if job_date.nil? || job_end_date.nil? || job_end_date >= job_date
 
@@ -650,6 +641,7 @@ end
 #  publish_on_metrojobb         :boolean          default(FALSE)
 #  metrojobb_category           :string
 #  staffing_company_id          :integer
+#  cloned                       :boolean          default(FALSE)
 #
 # Indexes
 #

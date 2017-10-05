@@ -148,6 +148,7 @@ ActiveAdmin.register Job do
   member_action :clone, method: :get do
     base_job = Job.find(params[:id])
     @job = base_job.dup
+    @job.cloned = true
 
     Job.translated_fields.each do |translated_field|
       text = base_job.public_send(translated_field)
@@ -200,14 +201,7 @@ ActiveAdmin.register Job do
   end
 
   sidebar :data_checklist, only: %i(show edit) do
-    div do
-      safe_join(
-        [
-          strong(I18n.t('admin.job.checklist_sidebar.hidden')),
-          status_tag(job.hidden)
-        ]
-      )
-    end
+    h3 I18n.t('admin.job.checklist_sidebar.status')
 
     div do
       safe_join(
@@ -226,6 +220,39 @@ ActiveAdmin.register Job do
         ]
       )
     end
+
+    hr
+
+    h3 I18n.t('admin.job.checklist_sidebar.missing_ad_content')
+
+    div do
+      safe_join(
+        [
+          strong(I18n.t('admin.job.checklist_sidebar.short_description')),
+          status_tag(job.short_description.present?)
+        ]
+      )
+    end
+
+    div do
+      safe_join(
+        [
+          strong(I18n.t('admin.job.checklist_sidebar.description')),
+          status_tag(job.description.present?)
+        ]
+      )
+    end
+
+    div do
+      safe_join(
+        [
+          strong(I18n.t('admin.job.checklist_sidebar.city')),
+          status_tag(job.city.presence)
+        ]
+      )
+    end
+
+    hr
 
     missing_translations = %w(en sv ar) - job.translations.map(&:locale).compact
     if missing_translations.any?
@@ -333,7 +360,7 @@ ActiveAdmin.register Job do
       :company_contact_user_id, :just_arrived_contact_user_id, :municipality,
       :number_to_fill, :order_id, :full_time, :swedish_drivers_license, :car_required,
       :publish_on_linkedin, :publish_on_blocketjobb, :blocketjobb_category,
-      :publish_on_metrojobb, :metrojobb_category,
+      :publish_on_metrojobb, :metrojobb_category, :cloned,
       :salary_type, :preview_key, :customer_hourly_price, :invoice_comment,
       :staffing_company_id,
       job_skills_attributes: %i(skill_id proficiency proficiency_by_admin),

@@ -2,6 +2,7 @@
 panel(I18n.t('admin.job.show.general')) do
   attributes_table_for(job) do
     row :id
+    row :cloned
     row :filled
     row :name
     row :hours

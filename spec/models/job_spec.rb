@@ -427,40 +427,6 @@ RSpec.describe Job, type: :model do
     end
   end
 
-  describe '#validate_job_date_in_future' do
-    it 'adds error if the job_date is in the passed' do
-      job = FactoryGirl.build(:job, job_date: 1.day.ago)
-      job.validate
-      message = I18n.t('errors.job.job_date_in_the_past')
-      expect(job.errors.messages[:job_date]).to include(message)
-    end
-
-    it 'adds *no* error if the job_date is in the passed but has not changed' do
-      new_name = 'Watwoman'
-      job = FactoryGirl.build(:job, job_date: 1.day.ago)
-      job.save(validate: false)
-      job.name = new_name
-      job.save
-      message = I18n.t('errors.job.job_date_in_the_past')
-      expect(job.errors.messages[:job_date] || []).not_to include(message)
-      expect(job.name).to eq(new_name)
-    end
-
-    it 'adds *no* error if the job_date is nil' do
-      job = FactoryGirl.build(:job, job_date: nil)
-      job.validate
-      message = I18n.t('errors.job.job_date_in_the_past')
-      expect(job.errors.messages[:job_date]).not_to include(message)
-    end
-
-    it 'adds *no* error if the job_date is in the future' do
-      job = FactoryGirl.build(:job, job_date: 1.week.from_now)
-      job.validate
-      message = I18n.t('errors.job.job_date_in_the_past')
-      expect(job.errors.messages[:job_date] || []).not_to include(message)
-    end
-  end
-
   describe 'validates that municipality is a valid Swedish municipality' do
     it 'adds error if the municipality is not known' do
       job = FactoryGirl.build(:job, municipality: 'watman')
@@ -505,6 +471,15 @@ RSpec.describe Job, type: :model do
       job.validate
       message = I18n.t('errors.job.job_end_date_after_job_date')
       expect(job.errors.messages[:job_end_date] || []).not_to include(message)
+    end
+  end
+
+  describe 'validate category if frilans_finans_job' do
+    it "adds error if #{name}_category is not set and publish_on_#{name} is true" do
+      job = FactoryGirl.build(:job, category: nil)
+      job.validate
+
+      expect(job.errors.messages[:category]).to include("can't be blank")
     end
   end
 
@@ -770,6 +745,7 @@ end
 #  publish_on_metrojobb         :boolean          default(FALSE)
 #  metrojobb_category           :string
 #  staffing_company_id          :integer
+#  cloned                       :boolean          default(FALSE)
 #
 # Indexes
 #

@@ -79,15 +79,8 @@ module Api
 
         @job = Job.new(job_attributes)
 
-        owner = nil
-        owner_id = jsonapi_params[:owner_id].to_i
-        if owner_id.zero?
-          owner = current_user
-          ActiveSupport::Deprecation.warn('Not explicitly setting the owner_id as part of the payload has been deprecated please set a owner_id.') # rubocop:disable Metrics/LineLength
-        else
-          owner = User.scope_for(current_user).find_by(id: jsonapi_params[:owner_user_id])
-        end
-        @job.owner = owner
+        owner_id = jsonapi_params[:owner_user_id]
+        @job.owner = User.scope_for(current_user).find_by(id: owner_id)
 
         if hourly_pay = @job.hourly_pay
           invoice_amount = PayCalculator.rate_excluding_vat(hourly_pay.gross_salary)

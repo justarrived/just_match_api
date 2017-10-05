@@ -156,6 +156,11 @@ en:
         occupations: Occupations added
         pushed: Pushed to
         missing_translations: Missing translations
+        status: Status
+        city: City
+        description: Description
+        short_description: Short description
+        missing_ad_content: Missing ad content
       batch_action:
         update:
           title: Update selected or all jobs
@@ -205,6 +210,7 @@ en:
         cancelled_hint: 'If checked the job is deemed cancelled'
         filled_hint: 'If checked it marks that the job has a hired user'
         featured_hint: 'If checked it will be displayed on our start page etc'
+        cloned_hint: 'This job is cloned and will not be listed.'
         municipality_hint: 'Required if job is to be synced to Arbetsformedlingen, Blocketjobb or Metrojobb'
         skills_title: Job skills
         languages_title: Job languages

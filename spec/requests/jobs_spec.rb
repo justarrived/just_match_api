@@ -67,6 +67,7 @@ end
 #  publish_on_metrojobb         :boolean          default(FALSE)
 #  metrojobb_category           :string
 #  staffing_company_id          :integer
+#  cloned                       :boolean          default(FALSE)
 #
 # Indexes
 #
