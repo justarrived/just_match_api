@@ -4,6 +4,15 @@ HEAD
 -----------
 
 
+v2.39 - 2017-10-05
+----------
+__Enhancement__:
+* Add job publish validations
+* Remove `Job#filled` boolean column
+* Don't update the `boolean_as_time` timestamp if already set
+* Convert all usage of `jobs.filled` boolean DB column to `jobs.filled_at`
+
+
 v2.38 - 2017-10-05
 ----------
 __API__:
