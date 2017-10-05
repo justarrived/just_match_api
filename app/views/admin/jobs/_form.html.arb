@@ -34,7 +34,7 @@ active_admin_form_for(resource, url: url) do |f|
 
     column do
       f.inputs(I18n.t('admin.job.form.status_section_title')) do
-        f.input :cloned, hint: I18n.t('admin.job.form.cloned_hint')
+        f.input :cloned, label: I18n.t('admin.job.form.cloned_label'), hint: I18n.t('admin.job.form.cloned_hint') # rubocop:disable Metrics/LineLength
         f.input :featured, hint: I18n.t('admin.job.form.featured_hint')
         f.input :filled, hint: I18n.t('admin.job.form.filled_hint')
         f.input :cancelled, hint: I18n.t('admin.job.form.cancelled_hint')
