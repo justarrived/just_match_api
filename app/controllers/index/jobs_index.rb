@@ -4,6 +4,7 @@ module Index
   class JobsIndex < BaseIndex
     FILTER_MATCH_TYPES = {
       open_for_applications: :fake_attribute,
+      filled: :fake_attribute,
       name: { translated: :contains },
       description: { translated: :contains }
     }.freeze
@@ -27,9 +28,17 @@ module Index
 
         scope = filter_job_user_jobs(scope, filter_params[:'job_user.user_id'])
         scope = filter_open_for_application(scope, filter_params[:open_for_applications])
+        scope = filter_filled(scope, filter_params[:filled])
 
         prepare_records(scope.with_translations.includes(*include_scopes))
       end
+    end
+
+    def filter_filled(scope, value)
+      return scope if value.blank?
+      return scope.filled if value == 'true'
+
+      scope
     end
 
     def filter_open_for_application(scope, filter_value)
