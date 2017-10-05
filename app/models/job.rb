@@ -21,6 +21,8 @@ class Job < ApplicationRecord
   MIN_HOURS_PER_DAY = 0.5
   MAX_HOURS_PER_DAY = 12
 
+  boolean_as_time :filled
+
   belongs_to :order, optional: true
   has_one :job_request, through: :order
   belongs_to :language, optional: true
@@ -87,8 +89,8 @@ class Job < ApplicationRecord
   scope :visible, (-> { where(hidden: false) })
   scope :cancelled, (-> { where(cancelled: true) })
   scope :uncancelled, (-> { where(cancelled: false) })
-  scope :filled, (-> { uncancelled.where(filled: true) })
-  scope :unfilled, (-> { where(filled: false) })
+  scope :filled, (-> { uncancelled.where.not(filled_at: nil) })
+  scope :unfilled, (-> { where(filled_at: nil) })
   scope :upcoming, (-> { where(upcoming: true) })
   scope :featured, (-> { where(featured: true) })
   scope :applied_jobs, (lambda { |user_id|
@@ -376,11 +378,11 @@ class Job < ApplicationRecord
   end
 
   def fill_position
-    update(filled: true)
+    update(filled_at: Time.current)
   end
 
   def fill_position!
-    update!(filled: true)
+    update!(filled_at: Time.current)
   end
 
   def locked_for_changes?

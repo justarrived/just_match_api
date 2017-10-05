@@ -23,7 +23,7 @@ class Order < ApplicationRecord
   scope :unlost, (-> { where(lost: false) })
   scope :unfilled, (lambda {
     joins('LEFT OUTER JOIN jobs ON orders.id = jobs.order_id').
-      where('jobs.id IS NULL OR (jobs.filled = false AND jobs.cancelled = false)').
+      where('jobs.id IS NULL OR (jobs.filled_at IS NULL AND jobs.cancelled = false)').
       distinct
   })
   scope :filled, (-> { where.not(id: unfilled.map(&:id)) })
