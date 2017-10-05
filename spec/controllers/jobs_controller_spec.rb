@@ -100,13 +100,6 @@ RSpec.describe Api::V1::JobsController, type: :controller do
         end.to change(Job, :count).by(1)
       end
 
-      it '[deprecated] creates a new Job without owner_id in payload ' do
-        valid_attributes[:data][:attributes][:owner_user_id] = nil
-        expect do
-          post :create, params: valid_attributes
-        end.to change(Job, :count).by(1)
-      end
-
       it 'works' do
         post :create, params: valid_attributes
         job = assigns(:job)
