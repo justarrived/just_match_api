@@ -83,6 +83,7 @@ class Job < ApplicationRecord
   validate :validate_within_allowed_hours
   validate :validate_owner_belongs_to_company, unless: -> { AppConfig.allow_regular_users_to_create_jobs? } # rubocop:disable Metrics/LineLength
 
+  scope :not_cloned, (-> { where(cloned: false) })
   scope :visible, (-> { where(hidden: false) })
   scope :cancelled, (-> { where(cancelled: true) })
   scope :uncancelled, (-> { where(cancelled: false) })
@@ -640,6 +641,7 @@ end
 #  publish_on_metrojobb         :boolean          default(FALSE)
 #  metrojobb_category           :string
 #  staffing_company_id          :integer
+#  cloned                       :boolean          default(FALSE)
 #
 # Indexes
 #

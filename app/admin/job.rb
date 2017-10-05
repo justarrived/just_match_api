@@ -148,6 +148,7 @@ ActiveAdmin.register Job do
   member_action :clone, method: :get do
     base_job = Job.find(params[:id])
     @job = base_job.dup
+    @job.cloned = true
 
     Job.translated_fields.each do |translated_field|
       text = base_job.public_send(translated_field)
@@ -361,7 +362,7 @@ ActiveAdmin.register Job do
       :company_contact_user_id, :just_arrived_contact_user_id, :municipality,
       :number_to_fill, :order_id, :full_time, :swedish_drivers_license, :car_required,
       :publish_on_linkedin, :publish_on_blocketjobb, :blocketjobb_category,
-      :publish_on_metrojobb, :metrojobb_category,
+      :publish_on_metrojobb, :metrojobb_category, :cloned,
       :salary_type, :preview_key, :customer_hourly_price, :invoice_comment,
       :staffing_company_id,
       job_skills_attributes: %i(skill_id proficiency proficiency_by_admin),
