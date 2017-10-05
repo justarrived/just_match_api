@@ -36,7 +36,8 @@ module Dev
             hours: hours,
             language: languages.sample,
             category: categories.sample,
-            hourly_pay: hourly_pays.sample
+            hourly_pay: hourly_pays.sample,
+            customer_hourly_price: 350
           )
           job.set_translation(
             name: name,
