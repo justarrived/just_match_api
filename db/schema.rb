@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171005111639) do
+ActiveRecord::Schema.define(version: 20171005174629) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -638,6 +638,7 @@ ActiveRecord::Schema.define(version: 20171005111639) do
     t.string "metrojobb_category"
     t.integer "staffing_company_id"
     t.boolean "cloned", default: false
+    t.datetime "filled_at"
     t.index ["category_id"], name: "index_jobs_on_category_id"
     t.index ["hourly_pay_id"], name: "index_jobs_on_hourly_pay_id"
     t.index ["language_id"], name: "index_jobs_on_language_id"

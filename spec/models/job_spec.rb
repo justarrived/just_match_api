@@ -746,6 +746,7 @@ end
 #  metrojobb_category           :string
 #  staffing_company_id          :integer
 #  cloned                       :boolean          default(FALSE)
+#  filled_at                    :datetime
 #
 # Indexes
 #
