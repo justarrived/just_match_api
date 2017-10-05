@@ -69,6 +69,7 @@ class Job < ApplicationRecord
   validates :metrojobb_category, inclusion: Metrojobb::Category.names, allow_nil: true, if: :publish_on_metrojobb # rubocop:disable Metrics/LineLength
   validates :customer_hourly_price, presence: true, numericality: { greater_than_or_equal_to: 0 }, on: :create # rubocop:disable Metrics/LineLength
 
+  validate :validate_job_required_data_on_publish
   validate :validate_job_end_date_after_job_date
   validate :validate_last_application_at_on_publish_to_blocketjobb
   validate :validate_last_application_at_on_publish_to_metrojobb
@@ -475,6 +476,18 @@ class Job < ApplicationRecord
       start_time: job_date,
       end_time: job_end_date
     )
+  end
+
+  def validate_job_required_data_on_publish
+    return unless publish_at
+    return if publish_at_was # don't validate a previously published job
+
+    errors.add(:short_description, :blank) if short_description.blank?
+    errors.add(:description, :blank) if description.blank?
+    errors.add(:street, :blank) if street.blank?
+    errors.add(:zip, :blank) if zip.blank?
+    errors.add(:preview_key, :presence) if preview_key.present?
+    errors.add(:occupations, :required) if occupations.length.zero?
   end
 
   def validate_job_end_date_after_job_date
