@@ -348,9 +348,7 @@ ActiveAdmin.register Job do
     end
   end
 
-  form do |f|
-    render partial: 'admin/jobs/form', locals: { f: f }
-  end
+  form partial: 'form'
 
   show do
     job_comments = job.comments.with_translations.includes(:owner)

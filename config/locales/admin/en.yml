@@ -176,6 +176,18 @@ en:
       description: Description
       short_description: Short Description
       clone: Clone
+      section_title:
+        address: Address
+        basic: Basic
+        internal: Internal
+        invoice: Invoice
+        data: Data
+        ad: Ad
+        settings: Settings
+        dates: Dates
+        content: Content
+        job_boards: Job boards
+        status: Status
       show:
         title: Job detail
         general: General
@@ -183,16 +195,25 @@ en:
         relations: Relations
         misc: Misc
         partners_title: Publish partners
+        applicant_description:
+          short_name: Applicant
+        tasks_description:
+          short_name: Tasks
+        requirements_description:
+          short_name: Requirements
         comments:
           title: Job comments
           open_in_app: Answer
       form:
+        name_hint: The title of the job
+        short_description_hint: 'Max 155 characters, make it short and sweat :)'
+        job_date_label: 'Earliest start date'
+        job_end_date_label: 'End date'
         partners_section_title: Publish to partners
         detail_section_title: Details
         admin_users_section_title: Admin users
         address_section_title: Address
         frilans_finans_section_title: Frilans Finans
-        status_section_title: Status
         hourly_pay_hint: 'The hourly pay, you can add more Hourly Pays if you want under "Settings"'
         customer_hourly_price_hint: 'The hourly invoice price for the customer.'
         language_hint: 'Language that the job information is written in'
@@ -210,6 +231,8 @@ en:
         cancelled_hint: 'If checked the job is deemed cancelled'
         filled_hint: 'If checked it marks that the job has a hired user'
         featured_hint: 'If checked it will be displayed on our start page etc'
+        cloned_hint: 'This job is cloned or is an extension and will not be listed.'
+        cloned_label: Extension or clone
         municipality_hint: 'Required if job is to be synced to Arbetsformedlingen, Blocketjobb or Metrojobb'
         skills_title: Job skills
         languages_title: Job languages
