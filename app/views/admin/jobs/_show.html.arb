@@ -31,7 +31,7 @@ columns do
       attributes_table_for(job) do
         row :cloned
         row :featured
-        row :filled
+        row :filled { status_tag(job.filled) }
         row :cancelled
         # row :hidden
         # row :verified

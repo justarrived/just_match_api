@@ -8,7 +8,7 @@ module InvoicesReport
   ).freeze
 
   def self.call(range)
-    jobs = Job.where(job_date: range).where(filled: true)
+    jobs = Job.where(job_date: range).where.not(filled_at: nil)
 
     hours_worked = 0
     invoice_sum = 0
