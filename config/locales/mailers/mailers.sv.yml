@@ -115,7 +115,6 @@ sv:
         Idag aktiverades fakturan för ditt jobb “%{job_name}” . Detta betyder att du bör ha din lön på ditt konto inom 30 dagar.
 
         Du kommer även att få en specifikation på din lön från Frilans Finans.
-        Om du behöver hjälp med att förstå vad alla de olika siffrorna betyder, läs gärna detta förklarande dokument: %{payslip_explain_url}.
 
         Kontakta oss på %{support_email} om frågor eller problem uppstår.
 
