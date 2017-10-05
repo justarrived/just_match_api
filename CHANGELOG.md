@@ -4,6 +4,35 @@ HEAD
 -----------
 
 
+v2.37 - 2017-10-05
+----------
+__Admin__:
+
+* :hocho: N+1 queries in job form :rocket:
+* Add applicants link to Latest applicants sidebar
+* Job#cloned input
+* Improve job data checklist sidebar
+* Rewrite job form
+* Rewrite job show page
+
+__Enhancement__:
+* Add `ApplicationRecord#boolean_as_time` method that enables a time column to act as a boolean
+* Add Job#cloned (boolean, default: false)
+* Don't send cloned jobs in job digests
+* Only validate `Job#category` if `Job#frilans_finans_job?` is true
+* Refactor DigestSubscriber and JobDigest to use ::boolean_as_time
+* Remove job date in future validation
+* Remove `Job#description` presence validation
+* Remove payslip explain URL from invoice mailer, since it does not exist
+* Update JobSeed to include all required attributes
+
+__API__:
+* Remove deprecated feature in jobs controller
+
+__Update gem__:
+* Update sidekiq 5.0.4 => 5.0.5
+
+
 v2.36 - 2017-10-03
 ----------
 __Enhancement__:
