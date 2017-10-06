@@ -4,6 +4,17 @@ HEAD
 -----------
 
 
+v2.41 - 2017-10-06
+----------
+__Enhancement__:
+* Remove street and zip from Job presence validations and add city to pub. validations
+
+__Bugfix__:
+* API: Fix sort by job#filled
+* Update job scope for job show
+* Update order to sort jobs on filled_at and not filled
+
+
 v2.40 - 2017-10-05
 ----------
 __Bugfix__:
