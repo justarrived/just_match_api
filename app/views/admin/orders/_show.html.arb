@@ -9,7 +9,7 @@ panel(I18n.t('admin.order.show.panel_title')) do
     row :delivery_user
     row :jobs do
       safe_join(
-        order.jobs.order(filled: :asc).map do |job|
+        order.jobs.order(filled_at: :asc).map do |job|
           title = "#{job.display_name} (#{job.filled ? 'filled' : 'unfilled'})"
           link_to(title, admin_job_path(job))
         end,
