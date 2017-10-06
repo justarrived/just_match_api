@@ -206,7 +206,7 @@ module Api
         scope = if key = params[:preview_key].presence
                   scope.where(preview_key: key)
                 else
-                  scope.where(preview_key: nil)
+                  scope.where(preview_key: [nil, ''])
                 end
 
         @job = scope.find(params[:job_id])
