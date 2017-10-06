@@ -62,5 +62,12 @@ module Index
 
       scope.applied_jobs(user_id)
     end
+
+    def sort_params
+      super.tap do |sort|
+        # #filled does not exist in the database so we need to translate it to #filled_at
+        sort['filled_at'] = sort.delete('filled') if sort.key?('filled')
+      end
+    end
   end
 end
