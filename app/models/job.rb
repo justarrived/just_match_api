@@ -57,9 +57,9 @@ class Job < ApplicationRecord
   validates :hourly_pay, presence: true
   validates :category, presence: true, if: :frilans_finans_job?
   validates :name, presence: true, on: :create # Virtual attribute
-  validates :street, length: { minimum: 1 }, allow_blank: false
+  validates :street, length: { minimum: 1 }, allow_blank: true
   validates :city, length: { minimum: 1 }, allow_blank: true
-  validates :zip, length: { minimum: 5 }, allow_blank: false
+  validates :zip, length: { minimum: 5 }, allow_blank: true
   validates :preview_key, uniqueness: true, allow_blank: true
   validates :municipality, swedish_municipality: true
   validates :swedish_drivers_license, swedish_drivers_license: true
@@ -487,6 +487,7 @@ class Job < ApplicationRecord
     errors.add(:short_description, :blank) if short_description.blank?
     errors.add(:description, :blank) if description.blank?
     errors.add(:street, :blank) if street.blank?
+    errors.add(:city, :blank) if city.blank?
     errors.add(:zip, :blank) if zip.blank?
     errors.add(:occupations, :required) if persisted? && occupations.length.zero?
   end
