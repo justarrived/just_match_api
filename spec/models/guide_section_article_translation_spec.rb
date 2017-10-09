@@ -13,6 +13,7 @@ end
 #  id                       :integer          not null, primary key
 #  language_id              :integer
 #  guide_section_article_id :integer
+#  locale                   :string
 #  title                    :string
 #  slug                     :string
 #  short_description        :string
@@ -22,10 +23,10 @@ end
 #
 # Indexes
 #
-#  index_guide_s_art_transls_on_guide_s_art_id              (guide_section_article_id)
 #  index_guide_section_article_translations_on_language_id  (language_id)
 #
 # Foreign Keys
 #
+#  fk_rails_...  (guide_section_article_id => guide_section_articles.id)
 #  fk_rails_...  (language_id => languages.id)
 #

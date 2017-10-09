@@ -368,13 +368,13 @@ ActiveRecord::Schema.define(version: 20171009212038) do
   create_table "guide_section_article_translations", force: :cascade do |t|
     t.bigint "language_id"
     t.integer "guide_section_article_id"
+    t.string "locale"
     t.string "title"
     t.string "slug"
     t.string "short_description"
     t.string "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["guide_section_article_id"], name: "index_guide_s_art_transls_on_guide_s_art_id"
     t.index ["language_id"], name: "index_guide_section_article_translations_on_language_id"
   end
 
@@ -392,6 +392,7 @@ ActiveRecord::Schema.define(version: 20171009212038) do
   create_table "guide_section_translations", force: :cascade do |t|
     t.string "locale"
     t.string "title"
+    t.string "slug"
     t.string "short_description"
     t.bigint "guide_section_id"
     t.bigint "language_id"
@@ -1128,6 +1129,7 @@ ActiveRecord::Schema.define(version: 20171009212038) do
   add_foreign_key "filter_users", "filters"
   add_foreign_key "filter_users", "users"
   add_foreign_key "frilans_finans_invoices", "job_users"
+  add_foreign_key "guide_section_article_translations", "guide_section_articles"
   add_foreign_key "guide_section_article_translations", "languages"
   add_foreign_key "guide_section_articles", "guide_sections"
   add_foreign_key "guide_section_articles", "languages"

@@ -17,6 +17,7 @@ end
 #  id                :integer          not null, primary key
 #  locale            :string
 #  title             :string
+#  slug              :string
 #  short_description :string
 #  guide_section_id  :integer
 #  language_id       :integer
