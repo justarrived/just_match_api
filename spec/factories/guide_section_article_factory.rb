@@ -3,7 +3,7 @@
 FactoryGirl.define do
   factory :guide_section_article do
     language nil
-    guide_section nil
+    association :section, factory: :guide_section
   end
 end
 

@@ -3,7 +3,7 @@
 FactoryGirl.define do
   factory :guide_section do
     order 1
-    language nil
+    association :language
   end
 end
 
