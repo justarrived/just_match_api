@@ -12,26 +12,6 @@ GIT
     active_admin_scoped_collection_actions (0.3.4)
 
 GIT
-  remote: https://github.com/activeadmin/activeadmin.git
-  revision: e6228e7f3368e1677fe22b28b6c1f6e9ed93e43d
-  ref: e6228e7f3368e1677fe22b28b6c1f6e9ed93e43d
-  specs:
-    activeadmin (1.0.0.pre5)
-      arbre (>= 1.1.1)
-      bourbon
-      coffee-rails
-      formtastic (~> 3.1)
-      formtastic_i18n
-      inherited_resources (~> 1.7)
-      jquery-rails
-      jquery-ui-rails
-      kaminari (>= 0.15, < 2.0)
-      railties (>= 4.2, < 5.2)
-      ransack (~> 1.3)
-      sass-rails
-      sprockets (< 4.1)
-
-GIT
   remote: https://github.com/mailcheck/mailcheck-ruby.git
   revision: a64ef45e849748cd8eaad0afd0119abcf2ab143a
   specs:
@@ -78,6 +58,18 @@ GEM
       activemodel (>= 4.1, < 6)
       case_transform (>= 0.2)
       jsonapi-renderer (>= 0.1.1.beta1, < 0.2)
+    activeadmin (1.1.0)
+      arbre (>= 1.1.1)
+      coffee-rails
+      formtastic (~> 3.1)
+      formtastic_i18n
+      inherited_resources (~> 1.7)
+      jquery-rails
+      kaminari (>= 0.15, < 2.0)
+      railties (>= 4.2, < 5.2)
+      ransack (~> 1.3)
+      sass (~> 3.1)
+      sprockets (< 4.1)
     activejob (5.1.4)
       activesupport (= 5.1.4)
       globalid (>= 0.3.6)
@@ -147,9 +139,6 @@ GEM
       safely_block (>= 0.1.1)
     bootsnap (1.1.3)
       msgpack (~> 1.0)
-    bourbon (4.3.4)
-      sass (~> 3.4)
-      thor (~> 0.19)
     browser (2.4.0)
     builder (3.2.3)
     bullet (5.6.1)
@@ -169,9 +158,9 @@ GEM
     codeclimate-test-reporter (1.0.8)
       simplecov (<= 0.13)
     coderay (1.1.1)
-    coffee-rails (4.2.1)
+    coffee-rails (4.2.2)
       coffee-script (>= 2.2.0)
-      railties (>= 4.0.0, < 5.2.x)
+      railties (>= 4.0.0)
     coffee-script (2.4.1)
       coffee-script-source
       execjs
@@ -476,8 +465,6 @@ GEM
       rails-dom-testing (>= 1, < 3)
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
-    jquery-ui-rails (6.0.1)
-      railties (>= 3.2.16)
     json (2.1.0)
     jsonapi-renderer (0.1.2)
     jsonapi_helpers (0.2.0)
@@ -522,7 +509,7 @@ GEM
     maruku (0.7.3)
     memoist (0.16.0)
     memory_profiler (0.9.8)
-    method_source (0.8.2)
+    method_source (0.9.0)
     metrojobb (0.5.1)
       activemodel (~> 5.0)
       builder (~> 3.2)
@@ -673,7 +660,11 @@ GEM
     safe_yaml (1.0.4)
     safely_block (0.2.0)
       errbase
-    sass (3.4.23)
+    sass (3.5.2)
+      sass-listen (~> 4.0.0)
+    sass-listen (4.0.0)
+      rb-fsevent (~> 0.9, >= 0.9.4)
+      rb-inotify (~> 0.9, >= 0.9.7)
     sass-rails (5.0.6)
       railties (>= 4.0.0, < 6)
       sass (~> 3.1)
@@ -713,7 +704,7 @@ GEM
     thor (0.20.0)
     thread (0.2.2)
     thread_safe (0.3.6)
-    tilt (2.0.7)
+    tilt (2.0.8)
     timecop (0.9.1)
     trollop (2.1.2)
     twilio-ruby (5.3.0)
@@ -761,7 +752,7 @@ DEPENDENCIES
   active_admin_scoped_collection_actions!
   active_admin_theme (~> 1.0)
   active_model_serializers (~> 0.10)
-  activeadmin!
+  activeadmin
   ahoy_matey (~> 1.6)
   airbrake (~> 7.0)
   ancestry (~> 3.0)
