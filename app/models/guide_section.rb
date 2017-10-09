@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class GuideSection < ApplicationRecord
-  belongs_to :language
+  belongs_to :language, optional: true
 
   include Translatable
   translates :title, :short_description, :slug
