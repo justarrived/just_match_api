@@ -752,7 +752,7 @@ DEPENDENCIES
   active_admin_scoped_collection_actions!
   active_admin_theme (~> 1.0)
   active_model_serializers (~> 0.10)
-  activeadmin
+  activeadmin (~> 1.1)
   ahoy_matey (~> 1.6)
   airbrake (~> 7.0)
   ancestry (~> 3.0)
