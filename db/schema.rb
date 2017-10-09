@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171009204853) do
+ActiveRecord::Schema.define(version: 20171009205913) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -363,6 +363,18 @@ ActiveRecord::Schema.define(version: 20171009204853) do
     t.boolean "company", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "guide_section_translations", force: :cascade do |t|
+    t.string "locale"
+    t.string "title"
+    t.string "short_description"
+    t.bigint "guide_section_id"
+    t.bigint "language_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["guide_section_id"], name: "index_guide_section_translations_on_guide_section_id"
+    t.index ["language_id"], name: "index_guide_section_translations_on_language_id"
   end
 
   create_table "guide_sections", force: :cascade do |t|
@@ -1092,6 +1104,8 @@ ActiveRecord::Schema.define(version: 20171009204853) do
   add_foreign_key "filter_users", "filters"
   add_foreign_key "filter_users", "users"
   add_foreign_key "frilans_finans_invoices", "job_users"
+  add_foreign_key "guide_section_translations", "guide_sections"
+  add_foreign_key "guide_section_translations", "languages"
   add_foreign_key "guide_sections", "languages"
   add_foreign_key "industries", "languages"
   add_foreign_key "industry_translations", "industries"

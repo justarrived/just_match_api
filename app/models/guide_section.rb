@@ -2,6 +2,9 @@
 
 class GuideSection < ApplicationRecord
   belongs_to :language
+
+  include Translatable
+  translates :title, :short_description, :slug
 end
 
 # == Schema Information
