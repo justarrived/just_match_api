@@ -4,8 +4,12 @@ class GuideSectionArticle < ApplicationRecord
   belongs_to :language, optional: true
   belongs_to :guide_section
   belongs_to :next_article, optional: true, class_name: 'GuideSectionArticle', foreign_key: 'next_guide_section_article_id' # rubocop:disable Metrics/LineLength
+
+  include Translatable
+  translates :title, :slug, :short_description, :body
 end
 
+# rubocop:disable Metrics/LineLength
 # == Schema Information
 #
 # Table name: guide_section_articles

@@ -6,6 +6,7 @@ ActiveAdmin.register GuideSectionArticle do
       order
       language_id
       next_guide_section_article_id
+      guide_section_id
     ]
   end
 end
