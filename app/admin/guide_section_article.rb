@@ -54,11 +54,6 @@ ActiveAdmin.register GuideSectionArticle do
     f.inputs('Article') do
       f.input :section, collection: GuideSection.with_translations
       f.input :language, collection: Language.system_languages
-      next_article_collection = if f.object.persisted?
-                                  f.object.section.articles - [f.object]
-                                else
-                                  GuideSectionArticle.all
-                                end
       f.input :order
       f.input :title
       f.input :slug
@@ -85,10 +80,7 @@ ActiveAdmin.register GuideSectionArticle do
   controller do
     def scoped_collection
       super.with_translations.
-        includes(
-          :next_article,
-          section: %i[language translations]
-        )
+        includes(section: %i[language translations])
     end
   end
 end
