@@ -5,8 +5,7 @@ class GuideSectionArticleSerializer < ApplicationSerializer
 
   attributes ATTRIBUTES
 
-  # TODO: Implement!
-  # link(:self) { api_v1_guide_section_article_url(object.section, object) }
+  link(:self) { api_v1_guides_guide_section_article_url(object.section, object) }
 
   belongs_to :language
   belongs_to :section
