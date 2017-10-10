@@ -35,6 +35,8 @@ ActiveAdmin.register GuideSectionArticle do
       row :short_description
       row :body { |article| markdown_to_html(article.body) }
     end
+
+    active_admin_comments
   end
 
   after_save do |article|
