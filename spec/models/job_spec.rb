@@ -443,6 +443,32 @@ RSpec.describe Job, type: :model do
     end
   end
 
+  describe '#validate_not_cloned_when_published' do
+    it 'adds error if job is published and cloned' do
+      job = FactoryGirl.build(:job, cloned: true, publish_at: 1.day.from_now)
+      job.validate_not_cloned_when_published
+
+      message = I18n.t('errors.job.not_cloned_when_published')
+      expect(job.errors.messages[:publish_at]).to include(message)
+    end
+
+    it 'adds no error if job is not cloned' do
+      job = FactoryGirl.build(:job, cloned: false, publish_at: 1.day.from_now)
+      job.validate_not_cloned_when_published
+
+      message = I18n.t('errors.job.not_cloned_when_published')
+      expect(job.errors.messages[:publish_at]).not_to include(message)
+    end
+
+    it 'adds no error if job is not published' do
+      job = FactoryGirl.build(:job, cloned: true, publish_at: nil)
+      job.validate_not_cloned_when_published
+
+      message = I18n.t('errors.job.not_cloned_when_published')
+      expect(job.errors.messages[:publish_at]).not_to include(message)
+    end
+  end
+
   describe '#validate_job_end_date_after_job_date' do
     it 'adds error if job end date is before job date' do
       attributes = { job_date: 2.days.from_now, job_end_date: 1.day.from_now }
