@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class GuideSectionTranslation < ApplicationRecord
-  belongs_to :guide_section
+  belongs_to :section, class_name: 'GuideSection', foreign_key: 'guide_section_id'
 
   include TranslationModel
 end

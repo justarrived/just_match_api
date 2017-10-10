@@ -26,7 +26,7 @@ ActiveAdmin.register GuideSectionArticle do
 
   show do
     attributes_table do
-      row :guide_section
+      row :section
       row :order
       row :language
       row :next_article
@@ -58,7 +58,7 @@ ActiveAdmin.register GuideSectionArticle do
       next_article_collection = if f.object.persisted?
                                   f.object.section.articles - [f.object]
                                 else
-                                  Article.all
+                                  GuideSectionArticle.all
                                 end
       f.input :next_article, collection: next_article_collection
       f.input :title

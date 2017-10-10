@@ -3,7 +3,7 @@
 ActiveAdmin.register GuideSectionTranslation do
   menu parent: 'Guide', label: 'Section Translations', priority: 3
 
-  filter :guide_section, collection: -> { GuideSection.with_translations }
+  filter :section, collection: -> { GuideSection.with_translations }
   filter :language, collection: -> { Language.system_languages }
   filter :title
   filter :slug
