@@ -570,6 +570,13 @@ class Job < ApplicationRecord
     errors.add(:company, message)
   end
 
+  def validate_not_cloned_when_published
+    return unless cloned
+    return unless publish_at
+
+    errors.add(:publish_at, I18n.t('errors.job.not_cloned_when_published'))
+  end
+
   def validate_hourly_pay_active
     return if hourly_pay.nil? || hourly_pay.active
 
