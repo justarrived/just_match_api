@@ -381,12 +381,11 @@ ActiveRecord::Schema.define(version: 20171009212038) do
   create_table "guide_section_articles", force: :cascade do |t|
     t.bigint "language_id"
     t.bigint "guide_section_id"
+    t.integer "order"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "next_guide_section_article_id"
     t.index ["guide_section_id"], name: "index_guide_section_articles_on_guide_section_id"
     t.index ["language_id"], name: "index_guide_section_articles_on_language_id"
-    t.index ["next_guide_section_article_id"], name: "index_guide_section_articles_on_next_guide_section_article_id"
   end
 
   create_table "guide_section_translations", force: :cascade do |t|

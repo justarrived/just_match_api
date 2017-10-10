@@ -16,8 +16,8 @@ ActiveAdmin.register GuideSectionArticle do
     selectable_column
 
     column :id
+    column :order
     column :title
-    column :next_article
     column :section
     column :updated_at
 
@@ -29,7 +29,6 @@ ActiveAdmin.register GuideSectionArticle do
       row :section
       row :order
       row :language
-      row :next_article
       row :locale
       row :title
       row :slug
@@ -60,7 +59,7 @@ ActiveAdmin.register GuideSectionArticle do
                                 else
                                   GuideSectionArticle.all
                                 end
-      f.input :next_article, collection: next_article_collection
+      f.input :order
       f.input :title
       f.input :slug
       f.input :short_description
@@ -74,7 +73,6 @@ ActiveAdmin.register GuideSectionArticle do
     %i[
       order
       language_id
-      next_guide_section_article_id
       guide_section_id
       locale
       title
