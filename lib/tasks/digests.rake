@@ -7,12 +7,14 @@ namespace :digests do
     if email.present?
       companies = Company.after(:created_at, 24.hours.ago).limit(25).to_a
 
-      envelope = CompanyMailer.new_companies_digest_email(
-        email: email,
-        companies: companies
-      )
+      unless companies.length.zero?
+        envelope = CompanyMailer.new_companies_digest_email(
+          email: email,
+          companies: companies
+        )
 
-      DeliverNotification.call(envelope, I18n.locale)
+        DeliverNotification.call(envelope, I18n.locale)
+      end
     end
   end
 
