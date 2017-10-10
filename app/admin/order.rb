@@ -134,6 +134,7 @@ ActiveAdmin.register Order do
       order_values_attributes: %i(
         id
         order_id
+        previous_order_id
         previous_order_value_id
         changed_by_user_id
         change_comment
