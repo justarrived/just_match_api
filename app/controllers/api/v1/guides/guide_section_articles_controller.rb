@@ -16,12 +16,10 @@ module Api
 
         ALLOWED_INCLUDES = %w[sections].freeze
 
-        # rubocop:disable Metrics/LineLength
-        api :GET, '/guides/sections/:id_or_slug/articles/:id_or_slug', 'List guide section articles'
+        api :GET, '/guides/sections/:id_or_slug/articles/:id_or_slug', 'List guide section articles' # rubocop:disable Metrics/LineLength
         description 'Returns a list of guide section articles.'
         ApipieDocHelper.params(self, Index::GuideSectionArticlesIndex)
         example Doxxer.read_example(GuideSectionArticle, plural: true)
-        # rubocop:enable Metrics/LineLength
         def index
           authorize(GuideSectionArticle)
 
@@ -31,13 +29,11 @@ module Api
           api_render(@articles, total: articles_index.count)
         end
 
-        # rubocop:disable Metrics/LineLength
-        api :GET, '/guides/sections/:id_or_slug/articles/:id_or_slug', 'Show guide section article'
+        api :GET, '/guides/sections/:id_or_slug/articles/:id_or_slug', 'Show guide section article' # rubocop:disable Metrics/LineLength
         description 'Returns guide section article.'
         error code: 404, desc: 'Not found'
         ApipieDocHelper.params(self)
         example Doxxer.read_example(GuideSectionArticle)
-        # rubocop:enable Metrics/LineLength
         def show
           authorize(@article)
 
