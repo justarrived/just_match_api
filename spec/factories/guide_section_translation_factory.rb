@@ -5,8 +5,8 @@ FactoryGirl.define do
     locale 'MyString'
     title 'MyString'
     short_description 'MyString'
-    guide_section nil
-    language nil
+    association :section, factory: :guide_section
+    association :language
   end
 end
 

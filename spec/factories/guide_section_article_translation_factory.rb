@@ -2,11 +2,12 @@
 
 FactoryGirl.define do
   factory :guide_section_article_translation do
-    language nil
     title 'MyString'
     slug 'MyString'
     short_description 'MyString'
     body 'MyString'
+    association :language
+    association :article, factory: :guide_section_article
   end
 end
 
