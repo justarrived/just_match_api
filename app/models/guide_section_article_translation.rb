@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class GuideSectionArticleTranslation < ApplicationRecord
-  belongs_to :article, class_name: 'GuideSectionArticle', foreign_key: 'guide_section_article_id'
+  belongs_to :article, class_name: 'GuideSectionArticle', foreign_key: 'guide_section_article_id' # rubocop:disable Metrics/LineLength
 
   include TranslationModel
 end
