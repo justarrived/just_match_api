@@ -105,9 +105,9 @@ GEM
       safely_block (>= 0.1.1)
       user_agent_parser
       uuidtools
-    airbrake (7.0.2)
+    airbrake (7.0.3)
       airbrake-ruby (~> 2.4)
-    airbrake-ruby (2.4.0)
+    airbrake-ruby (2.4.2)
     ancestry (3.0.1)
       activerecord (>= 3.2.0)
     annotate (2.7.2)
