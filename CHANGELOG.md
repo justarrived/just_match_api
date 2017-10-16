@@ -4,6 +4,14 @@ HEAD
 -----------
 
 
+v2.44 - 2017-10-16
+----------
+* Bump `better_errors` from 2.3.0 to 2.4.0
+* Bump `twilio-ruby` from 5.3.1 to 5.4.0
+* Bump `kaminari` from 1.0.1 to 1.1.0
+* Bump `airbrake` from 7.0.2 to 7.0.3
+
+
 v2.43 - 2017-10-16
 ----------
 __API__:
