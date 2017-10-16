@@ -10,12 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171005192458) do
+ActiveRecord::Schema.define(version: 20171009212038) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "hstore"
-  enable_extension "pg_stat_statements"
   enable_extension "unaccent"
 
   create_table "active_admin_comments", id: :serial, force: :cascade do |t|
@@ -23,8 +21,8 @@ ActiveRecord::Schema.define(version: 20171005192458) do
     t.text "body"
     t.string "resource_id", null: false
     t.string "resource_type", null: false
-    t.integer "author_id"
     t.string "author_type"
+    t.integer "author_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id"
@@ -156,8 +154,8 @@ ActiveRecord::Schema.define(version: 20171005192458) do
 
   create_table "comments", id: :serial, force: :cascade do |t|
     t.text "body"
-    t.integer "commentable_id"
     t.string "commentable_type"
+    t.integer "commentable_id"
     t.integer "owner_user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -365,6 +363,50 @@ ActiveRecord::Schema.define(version: 20171005192458) do
     t.boolean "company", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "guide_section_article_translations", force: :cascade do |t|
+    t.bigint "language_id"
+    t.integer "guide_section_article_id"
+    t.string "locale"
+    t.string "title"
+    t.string "slug"
+    t.string "short_description"
+    t.string "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["language_id"], name: "index_guide_section_article_translations_on_language_id"
+  end
+
+  create_table "guide_section_articles", force: :cascade do |t|
+    t.bigint "language_id"
+    t.bigint "guide_section_id"
+    t.integer "order"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["guide_section_id"], name: "index_guide_section_articles_on_guide_section_id"
+    t.index ["language_id"], name: "index_guide_section_articles_on_language_id"
+  end
+
+  create_table "guide_section_translations", force: :cascade do |t|
+    t.string "locale"
+    t.string "title"
+    t.string "slug"
+    t.string "short_description"
+    t.bigint "guide_section_id"
+    t.bigint "language_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["guide_section_id"], name: "index_guide_section_translations_on_guide_section_id"
+    t.index ["language_id"], name: "index_guide_section_translations_on_language_id"
+  end
+
+  create_table "guide_sections", force: :cascade do |t|
+    t.integer "order"
+    t.bigint "language_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["language_id"], name: "index_guide_sections_on_language_id"
   end
 
   create_table "hourly_pays", id: :serial, force: :cascade do |t|
@@ -614,9 +656,9 @@ ActiveRecord::Schema.define(version: 20171005192458) do
     t.string "city"
     t.boolean "staffing_job", default: false
     t.boolean "direct_recruitment_job", default: false
-    t.integer "order_id"
     t.string "municipality"
     t.integer "number_to_fill", default: 1
+    t.integer "order_id"
     t.boolean "full_time", default: false
     t.string "swedish_drivers_license"
     t.boolean "car_required", default: false
@@ -1086,6 +1128,13 @@ ActiveRecord::Schema.define(version: 20171005192458) do
   add_foreign_key "filter_users", "filters"
   add_foreign_key "filter_users", "users"
   add_foreign_key "frilans_finans_invoices", "job_users"
+  add_foreign_key "guide_section_article_translations", "guide_section_articles"
+  add_foreign_key "guide_section_article_translations", "languages"
+  add_foreign_key "guide_section_articles", "guide_sections"
+  add_foreign_key "guide_section_articles", "languages"
+  add_foreign_key "guide_section_translations", "guide_sections"
+  add_foreign_key "guide_section_translations", "languages"
+  add_foreign_key "guide_sections", "languages"
   add_foreign_key "industries", "languages"
   add_foreign_key "industry_translations", "industries"
   add_foreign_key "industry_translations", "languages"
