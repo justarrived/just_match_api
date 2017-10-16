@@ -43,7 +43,7 @@ gem 'newrelic_rpm', '~> 4.5' # Performance monitoring
 
 # DATABASE / MODELS
 gem 'ancestry', '~> 3.0' # Organize records in a tree structure
-gem 'kaminari', '~> 1.0' # Easy pagination
+gem 'kaminari', '~> 1.1' # Easy pagination
 
 # JSON
 gem 'active_model_serializers', '~> 0.10' # Serialize models to JSON
