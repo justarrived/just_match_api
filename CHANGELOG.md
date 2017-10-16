@@ -4,6 +4,31 @@ HEAD
 -----------
 
 
+v2.43 - 2017-10-16
+----------
+__API__:
+* Add /guides/* routes
+* Add missing self-links to guides serializers
+* Implement guides/* endpoints
+
+__DB__:
+* Add Guide section & article JSON serializers
+* Add GuideSection model
+* Add GuideSectionArticle model
+* Add GuideSectionArticleTranslation model
+* Add GuideSectionTranslation model
+
+__Admin__:
+* Add admin comments to guide section article
+* Remove duplicates fields from job form
+* Remove reference to removed Article#next_article relation
+* Update guide model CRUD views
+
+__Enhancement__:
+* Don't send new companies digest if there are no new companies
+* Validate that a cloned job can't be published
+
+
 v2.42 - 2017-10-10
 ----------
 __Admin__:
