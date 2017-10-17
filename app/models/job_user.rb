@@ -13,6 +13,8 @@ class JobUser < ApplicationRecord
   has_one :invoice
   has_one :frilans_finans_invoice
 
+  has_many :active_admin_comments, as: :resource, dependent: :destroy
+
   validates :user, presence: true
   validates :job, presence: true
 

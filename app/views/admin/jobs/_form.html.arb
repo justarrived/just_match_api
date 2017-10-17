@@ -14,7 +14,6 @@ active_admin_form_for(resource, url: url) do |f|
     column do
       f.inputs(I18n.t('admin.job.section_title.basic')) do
         f.input :name, hint: I18n.t('admin.job.form.name_hint')
-        f.input :short_description, hint: I18n.t('admin.job.form.short_description_hint')
         f.input(:job_date, as: :date_time_picker, label: I18n.t('admin.job.form.job_date_label'))
         f.input(:job_end_date, as: :date_time_picker, label: I18n.t('admin.job.form.job_end_date_label'))
         f.input :owner, collection: User.company_users, hint: I18n.t('admin.job.form.owner_hint')
@@ -39,7 +38,7 @@ active_admin_form_for(resource, url: url) do |f|
         f.input :featured, hint: I18n.t('admin.job.form.featured_hint')
         f.input :filled, as: :boolean, hint: I18n.t('admin.job.form.filled_hint')
         f.input :cancelled, hint: I18n.t('admin.job.form.cancelled_hint')
-        # f.input :hidden, hint: I18n.t('admin.job.form.hidden_hint')
+        f.input :hidden, hint: I18n.t('admin.job.form.hidden_hint')
         # f.input :verified, hint: I18n.t('admin.job.form.verified_hint')
         # f.input :upcoming, hint: I18n.t('admin.job.form.upcoming_hint')
       end
@@ -125,7 +124,6 @@ active_admin_form_for(resource, url: url) do |f|
 
         column do
           f.inputs(I18n.t('admin.job.section_title.settings')) do
-            f.input :featured, hint: I18n.t('admin.job.form.featured_hint')
             f.input :preview_key, hint: I18n.t('admin.job.form.preview_key_hint')
           end
         end
@@ -135,7 +133,7 @@ active_admin_form_for(resource, url: url) do |f|
 
     tab(I18n.t('admin.job.section_title.content')) do
       f.inputs(I18n.t('admin.job.section_title.ad')) do
-        f.input :short_description
+        f.input :short_description, hint: I18n.t('admin.job.form.short_description_hint')
         f.input :description, input_html: { markdown: true }
 
         columns do

@@ -4,6 +4,7 @@ module Index
   class JobsIndex < BaseIndex
     FILTER_MATCH_TYPES = {
       open_for_applications: :fake_attribute,
+      filled: :fake_attribute,
       name: { translated: :contains },
       description: { translated: :contains }
     }.freeze
@@ -27,9 +28,17 @@ module Index
 
         scope = filter_job_user_jobs(scope, filter_params[:'job_user.user_id'])
         scope = filter_open_for_application(scope, filter_params[:open_for_applications])
+        scope = filter_filled(scope, filter_params[:filled])
 
         prepare_records(scope.with_translations.includes(*include_scopes))
       end
+    end
+
+    def filter_filled(scope, value)
+      return scope if value.blank?
+      return scope.filled if value == 'true'
+
+      scope
     end
 
     def filter_open_for_application(scope, filter_value)
@@ -52,6 +61,13 @@ module Index
       return scope.no_applied_jobs(user_id) if filter_user_id.start_with?('-')
 
       scope.applied_jobs(user_id)
+    end
+
+    def sort_params
+      super.tap do |sort|
+        # #filled does not exist in the database so we need to translate it to #filled_at
+        sort['filled_at'] = sort.delete('filled') if sort.key?('filled')
+      end
     end
   end
 end

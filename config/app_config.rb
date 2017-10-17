@@ -183,6 +183,10 @@ class AppConfig
     production? && admin_google_analytics_tracking_id.present?
   end
 
+  def self.new_companies_digest_receiver_email
+    env['NEW_COMPANIES_DIGEST_RECEIVER_EMAIL']
+  end
+
   # Application config
 
   def self.aws_region

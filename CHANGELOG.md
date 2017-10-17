@@ -4,16 +4,79 @@ HEAD
 -----------
 
 
-v2.39 - 2017-10-05
+v2.45 - 2017-10-17
+----------
+__Admin__:
+* Add job user active admin comments to index dashboard
+* Add active admin comment model
+
+
+v2.44 - 2017-10-16
+----------
+* Bump `better_errors` from 2.3.0 to 2.4.0
+* Bump `twilio-ruby` from 5.3.1 to 5.4.0
+* Bump `kaminari` from 1.0.1 to 1.1.0
+* Bump `airbrake` from 7.0.2 to 7.0.3
+
+
+v2.43 - 2017-10-16
+----------
+__API__:
+* Add /guides/* routes
+* Add missing self-links to guides serializers
+* Implement guides/* endpoints
+
+__DB__:
+* Add Guide section & article JSON serializers
+* Add GuideSection model
+* Add GuideSectionArticle model
+* Add GuideSectionArticleTranslation model
+* Add GuideSectionTranslation model
+
+__Admin__:
+* Add admin comments to guide section article
+* Remove duplicates fields from job form
+* Remove reference to removed Article#next_article relation
+* Update guide model CRUD views
+
+__Enhancement__:
+* Don't send new companies digest if there are no new companies
+* Validate that a cloned job can't be published
+
+
+v2.42 - 2017-10-10
+----------
+__Admin__:
+* Add `Order#previous_order_id` to permitted params
+
+__Enhancement__:
+* Raketask: `digests:new_companies`
+* Create new company digest mailer
+
+__Update gem__:
+* Bump webmock from 3.0.1 to 3.1.0
+* Bump twilio-ruby from 5.3.0 to 5.3.1
+* Bump bootsnap from 1.1.3 to 1.1.5
+
+
+v2.41 - 2017-10-06
 ----------
 __Enhancement__:
-* Add job publish validations
-* Remove `Job#filled` boolean column
-* Don't update the `boolean_as_time` timestamp if already set
-* Convert all usage of `jobs.filled` boolean DB column to `jobs.filled_at`
+* Remove street and zip from Job presence validations and add city to pub. validations
+
+__Bugfix__:
+* API: Fix sort by job#filled
+* Update job scope for job show
+* Update order to sort jobs on filled_at and not filled
 
 
-v2.38 - 2017-10-05
+v2.40 - 2017-10-05
+----------
+__Bugfix__:
+* API: treat Job#filled as a fake attribute in API search
+
+
+v2.39 - 2017-10-05
 ----------
 __API__:
 * Don't include cloned jobs in /jobs
@@ -21,9 +84,12 @@ __API__:
 __Enhancement__:
 * Add `Job#filled_at` column
 * Custom UTM-source for job digest emails
+* Add job publish validations
+* Remove `Job#filled` boolean column
+* Don't update the `boolean_as_time` timestamp if already set
+* Convert all usage of `jobs.filled` boolean DB column to `jobs.filled_at`
 
-
-v2.37 - 2017-10-05
+v2.37/38 - 2017-10-05
 ----------
 __Admin__:
 

@@ -72,6 +72,7 @@ en:
       hours_lower_bound: must be at least %{min_hours} hour(s) per day
       hours_upper_bound: can't be more than %{max_hours} hours per day
       owner_must_belong_to_company: owner must belong to a company
+      not_cloned_when_published: "can't publish a cloned job"
     job_user:
       terms_agreement_consent_required: you must accept the terms of agreement to apply for this job
       terms_agreement_not_found: no such terms agreement
