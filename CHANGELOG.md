@@ -4,6 +4,13 @@ HEAD
 -----------
 
 
+v2.45 - 2017-10-17
+----------
+__Admin__:
+* Add job user active admin comments to index dashboard
+* Add active admin comment model
+
+
 v2.44 - 2017-10-16
 ----------
 * Bump `better_errors` from 2.3.0 to 2.4.0
