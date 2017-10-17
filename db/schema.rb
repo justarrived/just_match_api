@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171005192458) do
+ActiveRecord::Schema.define(version: 20171009212038) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -365,6 +365,50 @@ ActiveRecord::Schema.define(version: 20171005192458) do
     t.boolean "company", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "guide_section_article_translations", force: :cascade do |t|
+    t.bigint "language_id"
+    t.integer "guide_section_article_id"
+    t.string "locale"
+    t.string "title"
+    t.string "slug"
+    t.string "short_description"
+    t.string "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["language_id"], name: "index_guide_section_article_translations_on_language_id"
+  end
+
+  create_table "guide_section_articles", force: :cascade do |t|
+    t.bigint "language_id"
+    t.bigint "guide_section_id"
+    t.integer "order"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["guide_section_id"], name: "index_guide_section_articles_on_guide_section_id"
+    t.index ["language_id"], name: "index_guide_section_articles_on_language_id"
+  end
+
+  create_table "guide_section_translations", force: :cascade do |t|
+    t.string "locale"
+    t.string "title"
+    t.string "slug"
+    t.string "short_description"
+    t.bigint "guide_section_id"
+    t.bigint "language_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["guide_section_id"], name: "index_guide_section_translations_on_guide_section_id"
+    t.index ["language_id"], name: "index_guide_section_translations_on_language_id"
+  end
+
+  create_table "guide_sections", force: :cascade do |t|
+    t.integer "order"
+    t.bigint "language_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["language_id"], name: "index_guide_sections_on_language_id"
   end
 
   create_table "hourly_pays", id: :serial, force: :cascade do |t|
@@ -1086,6 +1130,13 @@ ActiveRecord::Schema.define(version: 20171005192458) do
   add_foreign_key "filter_users", "filters"
   add_foreign_key "filter_users", "users"
   add_foreign_key "frilans_finans_invoices", "job_users"
+  add_foreign_key "guide_section_article_translations", "guide_section_articles"
+  add_foreign_key "guide_section_article_translations", "languages"
+  add_foreign_key "guide_section_articles", "guide_sections"
+  add_foreign_key "guide_section_articles", "languages"
+  add_foreign_key "guide_section_translations", "guide_sections"
+  add_foreign_key "guide_section_translations", "languages"
+  add_foreign_key "guide_sections", "languages"
   add_foreign_key "industries", "languages"
   add_foreign_key "industry_translations", "industries"
   add_foreign_key "industry_translations", "languages"

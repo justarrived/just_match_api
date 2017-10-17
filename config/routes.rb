@@ -162,6 +162,14 @@ Rails.application.routes.draw do
           get :metrojobb
         end
       end
+
+      namespace :guides do
+        resources :guide_sections, param: :section_id, path: :sections, only: %i(index show) do
+          member do
+            resources :guide_section_articles, param: :article_id, path: :articles, only: %i(index show)
+          end
+        end
+      end
     end
   end
 end

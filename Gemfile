@@ -43,7 +43,7 @@ gem 'newrelic_rpm', '~> 4.5' # Performance monitoring
 
 # DATABASE / MODELS
 gem 'ancestry', '~> 3.0' # Organize records in a tree structure
-gem 'kaminari', '~> 1.0' # Easy pagination
+gem 'kaminari', '~> 1.1' # Easy pagination
 
 # JSON
 gem 'active_model_serializers', '~> 0.10' # Serialize models to JSON
@@ -82,7 +82,7 @@ gem 'frilans_finans_api', '~> 0.4' # Interact with Frilans Finans API
 # NOTIFICATIONS
 gem 'email_reply_parser', '~> 0.5' # Parse reply emails
 gem 'mail', '~> 2.6', '>= 2.6.6' # General email functionality
-gem 'twilio-ruby', '~> 5.3' # Send SMS notifications
+gem 'twilio-ruby', '~> 5.4' # Send SMS notifications
 
 # GEO/LOCALE/LANGUAGE UTILS
 gem 'banktools-se', '~> 2.6' # Validate Swedish bank account
@@ -125,7 +125,7 @@ end
 
 group :development do
   gem 'annotate', '~> 2.7'
-  gem 'better_errors', '~> 2.3'
+  gem 'better_errors', '~> 2.4'
   gem 'binding_of_caller', '~> 0.7'
   gem 'derailed_benchmarks', '~> 1.3'
   gem 'i18n-tasks', '~> 0.9.2'
@@ -147,5 +147,5 @@ group :test, :docs do
   gem 'rspec-activemodel-mocks', '~> 1.0'
   gem 'simplecov', '~> 0.13', require: false
   gem 'timecop', '~> 0.8'
-  gem 'webmock', '~> 3.0'
+  gem 'webmock', '~> 3.1'
 end

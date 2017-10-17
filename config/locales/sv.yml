@@ -71,6 +71,7 @@ sv:
       hours_lower_bound: måste minst vara %{min_hours} timmar per dag
       hours_upper_bound: kan inte vara fler än %{max_hours} timmar per dag
       owner_must_belong_to_company: ägaren måste tillhöra ett företag
+      not_cloned_when_published: "kan inte publicera ett klonat jobb"
     job_user:
       terms_agreement_consent_required: du måste godkänna villkoren för att kunna söka jobbet
       terms_agreement_not_found: kan inte hitta den versionen av villkoren
