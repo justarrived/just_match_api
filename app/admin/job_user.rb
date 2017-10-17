@@ -181,6 +181,10 @@ ActiveAdmin.register JobUser do
     column :status do |job_user|
       job_user_current_status_badge(job_user.current_status)
     end
+    column :comment do |job_user|
+      # comments = ActiveAdmin::Comment.find_for_resource_in_namespace(job_user, 'admin')
+      job_user.active_admin_comments.last&.body
+    end
   end
 
   show do
@@ -268,6 +272,7 @@ ActiveAdmin.register JobUser do
     def scoped_collection
       super.includes(
         :user,
+        :active_admin_comments,
         :frilans_finans_invoice,
         job: %i(translations language)
       )

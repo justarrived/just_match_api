@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
-class ActiveAdminComment < ActiveRecord::Base
+class ActiveAdminComment < ApplicationRecord
   belongs_to :resource, polymorphic: true
 end
