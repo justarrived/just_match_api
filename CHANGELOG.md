@@ -4,6 +4,23 @@ HEAD
 -----------
 
 
+v2.46 - 2017-10-18
+----------
+__Admin__:
+* Add job user active admin comments to index dashboard
+* Simpler handling of guide translations
+* Add active admin comment model
+
+__API__:
+* Fix misspelled allowed include for guide section article
+
+__Enhancement__:
+* Update job subscription mail copy
+* Update mailer copy from Job Digest emails
+* Pull translations from Transifex
+* Don't send job cancelled notifications to users that have withdrawn their application. Closes #1221
+
+
 v2.45 - 2017-10-17
 ----------
 __Admin__:
