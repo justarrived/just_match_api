@@ -14,7 +14,7 @@ module Api
           api_versions '1.0'
         end
 
-        ALLOWED_INCLUDES = %w[sections].freeze
+        ALLOWED_INCLUDES = %w[section].freeze
 
         api :GET, '/guides/sections/:id_or_slug/articles/:id_or_slug', 'List guide section articles' # rubocop:disable Metrics/LineLength
         description 'Returns a list of guide section articles.'
