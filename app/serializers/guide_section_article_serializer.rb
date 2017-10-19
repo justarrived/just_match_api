@@ -10,12 +10,17 @@ class GuideSectionArticleSerializer < ApplicationSerializer
   belongs_to :language
   belongs_to :section
 
+  attribute :body_html do
+    to_html(object.original_body)
+  end
+
   attribute :translated_text do
     {
       title: object.translated_title,
       slug: object.translated_slug,
       short_description: object.translated_short_description,
       body: object.translated_body,
+      body_html: to_html(object.translated_body),
       language_id: object.translated_language_id
     }
   end

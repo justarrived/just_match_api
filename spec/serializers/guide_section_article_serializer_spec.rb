@@ -24,6 +24,7 @@ RSpec.describe GuideSectionArticleSerializer, type: :serializer do
         'slug' => nil,
         'short_description' => nil,
         'body' => nil,
+        'body_html' => nil,
         'language_id' => nil
       }
       expect(subject).to have_jsonapi_attribute('translated_text', value)
