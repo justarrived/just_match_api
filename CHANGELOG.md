@@ -4,6 +4,15 @@ HEAD
 -----------
 
 
+v2.47 - 2017-10-19
+----------
+__API__:
+* Add `body_html` to `GuideSectionArticleSerializer`
+
+__Admin__:
+* Custom GuideSectionArticleTranslation form
+
+
 v2.46 - 2017-10-18
 ----------
 __Admin__:
