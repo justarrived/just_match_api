@@ -24,7 +24,7 @@ ActiveAdmin.register Company do
     column :name
     column :cin
     column :billing_email
-    column :phone
+    column :sales_user
     column :created_at
 
     actions
@@ -36,6 +36,7 @@ ActiveAdmin.register Company do
       row :cin
       row :billing_email
       row :staffing_agency
+      row :sales_user
       row :website
       row :phone
       row :email
