@@ -12,6 +12,8 @@ f.inputs I18n.t('admin.company.form.main_form_section_title') do
     f.input :staffing_agency, hint: 'Is this a company a staffing agency?'
   end
 
+  f.input :sales_user, collection: User.sales_users
+
   f.h3 safe_join(['&nbsp;'.html_safe, 'Billing address'])
 
   f.input :street

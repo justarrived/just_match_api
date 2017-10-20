@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171009212038) do
+ActiveRecord::Schema.define(version: 20171020113203) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -205,6 +205,7 @@ ActiveRecord::Schema.define(version: 20171009212038) do
     t.string "municipality"
     t.boolean "staffing_agency", default: false
     t.string "display_name"
+    t.integer "sales_user_id"
     t.index ["cin"], name: "index_companies_on_cin", unique: true
     t.index ["frilans_finans_id"], name: "index_companies_on_frilans_finans_id", unique: true
   end
@@ -1116,6 +1117,7 @@ ActiveRecord::Schema.define(version: 20171009212038) do
   add_foreign_key "communication_template_translations", "communication_templates", name: "communication_template_translations_communication_template_id_f"
   add_foreign_key "communication_template_translations", "languages"
   add_foreign_key "communication_templates", "languages"
+  add_foreign_key "companies", "users", column: "sales_user_id", name: "companies_sales_user_id_fk"
   add_foreign_key "company_images", "companies"
   add_foreign_key "company_industries", "companies"
   add_foreign_key "company_industries", "industries"
