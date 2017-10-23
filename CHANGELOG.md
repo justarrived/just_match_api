@@ -4,6 +4,13 @@ HEAD
 -----------
 
 
+v2.49 - 2017-10-23
+----------
+__Admin__:
+* Remove duplicated input for municipality in job form
+* Add company sales user to index and show view
+
+
 v2.48 - 2017-10-20
 ----------
 * Add `Company#sales_user`
