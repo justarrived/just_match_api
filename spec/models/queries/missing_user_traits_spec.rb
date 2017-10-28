@@ -8,7 +8,7 @@ RSpec.describe Queries::MissingUserTraits do
       user = User.new
       expected = %w(ssn street zip city phone bank_account)
       missing_traits = described_class.new(user: user)
-      result = missing_traits.attributes(user: user, attributes: expected)
+      result = missing_traits.attributes(attributes: expected)
       expect(result).to include(*expected)
     end
 
@@ -16,7 +16,7 @@ RSpec.describe Queries::MissingUserTraits do
       user = FactoryGirl.build(:user, :bank_account)
       attributes = %w(ssn street zip city phone bank_account)
       missing_traits = described_class.new(user: user)
-      expect(missing_traits.attributes(user: user, attributes: attributes)).to be_empty
+      expect(missing_traits.attributes(attributes: attributes)).to be_empty
     end
   end
 
