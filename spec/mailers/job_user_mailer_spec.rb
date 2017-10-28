@@ -6,13 +6,23 @@ RSpec.describe JobUserMailer, type: :mailer do
   let(:user) do
     tel = '+46735000000'
     mail = 'user@example.com'
-    mock_model(User, first_name: 'User', name: 'User', contact_email: mail, phone: tel)
+    mock_model(
+      User,
+      first_name: 'User',
+      name: 'User',
+      contact_email: mail,
+      phone: tel,
+      user_documents: UserDocument.none,
+      skills: [],
+      languages: []
+    )
   end
   let(:ja_contact) do
     tel = '+46735000000'
     mail = 'user@example.com'
     mock_model(User, first_name: 'User', name: 'User', email: mail, phone: tel)
   end
+  let(:a_skill) { mock_model(Skill, name: 'A skill') }
   let(:job_user) { mock_model JobUser, user: user, job: job, id: 37 }
   let(:job) do
     mock_model(
@@ -26,7 +36,9 @@ RSpec.describe JobUserMailer, type: :mailer do
       gross_amount: 200,
       hourly_gross_salary: 100,
       google_calendar_template_url: 'http://google.calendar.example.com',
-      hourly_pay: mock_model(HourlyPay, gross_salary: 100)
+      hourly_pay: mock_model(HourlyPay, gross_salary: 100),
+      skills: [a_skill],
+      languages: []
     )
   end
 
@@ -70,12 +82,8 @@ RSpec.describe JobUserMailer, type: :mailer do
   end
 
   describe '#update_data_reminder_email' do
-    let(:skill) { FactoryGirl.create(:skill) }
-    let(:language) { FactoryGirl.create(:language) }
     let(:mail) do
-      described_class.update_data_reminder_email(
-        job_user: job_user, skills: [skill], languages: [language]
-      )
+      described_class.update_data_reminder_email(job_user: job_user)
     end
 
     it 'has both text and html part' do
@@ -117,7 +125,7 @@ RSpec.describe JobUserMailer, type: :mailer do
     end
 
     it 'includes skill names in email body' do
-      expect(mail).to match_email_body(skill.name)
+      expect(mail).to match_email_body(a_skill.name)
     end
   end
 end

@@ -9,7 +9,7 @@
 ) %>
 
 <% end %>
-<% if @missing_competences %>
+<% if @missing_languages.any? || @missing_skills.any? %>
 <%= I18n.t('mailer.update_data_reminder.competence_list_title') %>
 
 <% @missing_languages.each do |language| %>
