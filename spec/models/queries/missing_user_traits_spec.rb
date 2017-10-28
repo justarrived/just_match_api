@@ -65,4 +65,17 @@ RSpec.describe Queries::MissingUserTraits do
       expect(languages).to be_empty
     end
   end
+
+  describe '#cv?' do
+    let(:user) { FactoryGirl.create(:user) }
+
+    it 'returns true if cv is missing' do
+      expect(described_class.cv?(user: user)).to eq(true)
+    end
+
+    it 'retruns false if cv is present' do
+      FactoryGirl.create(:user_document, user: user, category: :cv)
+      expect(described_class.cv?(user: user)).to eq(false)
+    end
+  end
 end

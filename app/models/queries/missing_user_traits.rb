@@ -14,5 +14,9 @@ module Queries
     def self.languages(user:, languages:)
       languages - user.languages
     end
+
+    def self.cv?(user:)
+      user.user_documents.cv.last.nil?
+    end
   end
 end
