@@ -206,9 +206,9 @@ en:
         You recently applied for the job "%{job_name}".
 
         We're currently in the process of reviewing all applications and for us to best be able to match you we need some more information about you.
-      cv_upload_body: 'Your CV, you can upload it here: %{url}.'
+      cv_upload_body: 'Upload your CV at %{url}.'
       competence_list_title: 'Your competence level in:'
-      competence_update_body: 'You can update your skills by going to your profile page: %{url}'
+      competence_update_body: 'You can update your skills by going to your profile page: %{url}.'
       update_cv_link: upload CV.
       update_competences_link: update competences.
     signoff: "/ Team Just Arrived"
