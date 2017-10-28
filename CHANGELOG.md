@@ -4,6 +4,24 @@ HEAD
 -----------
 
 
+v2.50 - 2017-10-28
+----------
+__Enhancement__:
+* Add company filter to order index
+
+__Admin__:
+* Track send job digest email for analytics purposes
+
+__Gem update__:
+* Bump `binding_of_caller` from 0.7.2 to 0.7.3
+* Bump `rubocop` from 0.50.0 to 0.51.0
+* Bump `twilio-ruby` from 5.4.0 to 5.4.2
+* Bump `kaminari` from 1.1.0 to 1.1.1
+* Bump `airbrake` from 7.0.3 to 7.1.0
+* Bump `rack-cors` from 1.0.1 to 1.0.2
+* Bump `redis-activesupport` from 5.0.3 to 5.0.4
+
+
 v2.49 - 2017-10-23
 ----------
 __Admin__:
