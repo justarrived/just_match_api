@@ -5,14 +5,12 @@ require 'rails_helper'
 # Even though this describes SkillsController, it should really be BaseController tests
 RSpec.describe Api::V1::SkillsController, type: :controller do
   context 'locale' do
-    after(:each) do
-      I18n.locale = I18n.default_locale
-    end
-
     it 'sets the locale from header' do
+      before_locale = I18n.locale
       request.headers['X-API-LOCALE'] = 'sv'
       get :index
       expect(I18n.locale).to eq(:sv)
+      I18n.locale = before_locale
     end
   end
 
