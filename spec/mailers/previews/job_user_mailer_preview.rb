@@ -9,7 +9,12 @@ class JobUserMailerPreview < ActionMailer::Preview
   end
 
   def update_data_reminder_email
-    JobUserMailer.update_data_reminder_email(job_user: job_user)
+    JobUserMailer.update_data_reminder_email(
+      job_user: job_user,
+      skills: Skill.first(2),
+      languages: Language.first(2),
+      missing_cv: true
+    )
   end
 
   private
@@ -19,7 +24,7 @@ class JobUserMailerPreview < ActionMailer::Preview
   end
 
   def job_user
-    @job_user ||= JobUser.last
+    @job_user ||= JobUser.first
   end
 
   def user
