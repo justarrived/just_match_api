@@ -16,6 +16,8 @@ class CreateJobApplicationService
         )
       end
 
+      UpdateApplicantDataReminderJob.set(wait: 3.days).perform_later(job_user: job_user)
+
       missing_traits = Queries::MissingUserTraits.new(user: user)
       missing_skills = missing_traits.skills(skills: job.skills)
       missing_languages = missing_traits.languages(languages: job.languages)
