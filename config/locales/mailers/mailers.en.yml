@@ -198,4 +198,17 @@ en:
         - Keep your profile updated! Every skill or piece of information matters. We are sure that there are some things that you’re good at that you haven’t told us about yet!
         - If anything’s unclear, or if you need help, please do not hesitate to contact us at %{support_email} or check out our %{faq_link}.
     google_calendar_link_name: Add to Google Calendar
+    update_data_reminder:
+      subject: We are matching you for a job, update your profile!
+      introduction_body: |
+        Hi,
+
+        You recently applied for the job "%{job_name}".
+
+        We're currently in the process of reviewing all applications and for us to best be able to match you we need some more information about you.
+      cv_upload_body: 'Your CV, you can upload it here: %{url}.'
+      competence_list_title: 'Your competence level in:'
+      competence_update_body: 'You can update your skills by going to your profile page: %{url}'
+      update_cv_link: upload CV.
+      update_competences_link: update competences.
     signoff: "/ Team Just Arrived"

@@ -21,4 +21,19 @@ class JobUserMailer < ApplicationMailer
     subject = I18n.t('mailer.new_applicant_job_info.subject')
     mail(to: user.contact_email, subject: subject)
   end
+
+  def update_data_reminder_email(job_user:, skills: [], languages: [], missing_cv: true)
+    utm_campaign = 'update_data_reminder'
+    user = job_user.user
+    @job = job_user.job
+    @missing_languages = languages
+    @missing_skills = skills
+    @missing_cv = missing_cv
+    @missing_competences = @missing_languages.any? || @missing_skills.any?
+    @job_url = frontend_mail_url(:job, id: @job.id, utm_campaign: utm_campaign)
+    @profile_update_url = frontend_mail_url(:user_edit, utm_campaign: utm_campaign)
+
+    subject = I18n.t('mailer.update_data_reminder.subject')
+    mail(to: user.contact_email, subject: subject)
+  end
 end
