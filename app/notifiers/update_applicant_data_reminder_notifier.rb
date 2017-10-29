@@ -9,6 +9,6 @@ class UpdateApplicantDataReminderNotifier < BaseNotifier
       languages: languages,
       missing_cv: missing_cv
     )
-    dispatch(envelope, user: user, locale: user.locale)
+    dispatch(envelope, user: user, locale: user.locale, name: 'update_data_reminder')
   end
 end
