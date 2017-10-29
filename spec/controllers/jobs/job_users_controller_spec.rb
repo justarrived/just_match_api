@@ -232,9 +232,9 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
           job_id: job.to_param,
           user: { id: user.to_param }
         }
-        allow(NewApplicantNotifier).to receive(:call)
-        post :create, params: params
-        expect(NewApplicantNotifier).to have_received(:call)
+        expect do
+          post :create, params: params
+        end.to have_enqueued_job(NewApplicantNotifierJob)
       end
     end
 
