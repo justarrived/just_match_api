@@ -101,7 +101,7 @@ RSpec.describe JobUserMailer, type: :mailer do
     end
 
     it 'includes @profile_update_url in email body' do
-      url = FrontendRouter.draw(:user_edit)
+      url = FrontendRouter.draw(:user_basic_data_edit)
       expect(mail).to match_email_body(url)
     end
 

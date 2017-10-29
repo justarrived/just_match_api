@@ -211,4 +211,5 @@ en:
       competence_update_body: 'You can update your skills by going to your profile page: %{url}.'
       update_cv_link: upload CV.
       update_competences_link: update competences.
+      body_edit_profile_cta: Edit your profile
     signoff: "/ Team Just Arrived"
