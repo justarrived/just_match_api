@@ -105,9 +105,21 @@
               <table border="0" cellpadding="0" cellspacing="0" style="border-collapse:separate;mso-table-lspace:0pt;mso-table-rspace:0pt;width:100%;">
                 <tr>
                   <td class="content-block" style="font-family:sans-serif;font-size:14px;vertical-align:top;color:#999999;font-size:12px;text-align:center;">
-                    <span class="apple-link" style="color:#999999;font-size:12px;text-align:center;">Just Arrived</span>
-                    <br />
-                     <a href="https://app.justarrived.se/?utm_source=just_match&utm_medium=email&utm_content=footer" style="color:#999999;font-size:12px;text-align:center;">app.justarrived.se</a>.
+                    <span class="apple-link" style="color:#999999;font-size:12px;text-align:center;">Just Arrived</span> &mdash;
+                     <%= link_to(
+                       'app.justarrived.se',
+                       frontend_mail_url(:root, utm_content: 'footer'),
+                       style: 'color:#999999;font-size:12px;text-align:center;'
+                     ) %>
+                     <br />
+                     <br />
+                     <i>
+                       <%= link_to(
+                         I18n.t('mailer.update_settings'),
+                         frontend_mail_url(:user_notification_settings_edit, utm_content: 'footer'),
+                         style: 'color:#999999;font-size:12px;text-align:center;'
+                       ) %>
+                     </i>
                   </td>
                 </tr>
               </table>

@@ -196,3 +196,4 @@ sv:
         - Om någonting är oklart, eller om du behöver hjälp, tveka inte att kontakta oss på %{support_email} eller kolla in %{faq_link}.
     google_calendar_link_name: Lägg till på Google Calendar
     signoff: "/ Team Just Arrived"
+    update_settings: Uppdatera notifikationsinställing

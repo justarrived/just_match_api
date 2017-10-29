@@ -199,3 +199,4 @@ en:
         - If anything’s unclear, or if you need help, please do not hesitate to contact us at %{support_email} or check out our %{faq_link}.
     google_calendar_link_name: Add to Google Calendar
     signoff: "/ Team Just Arrived"
+    update_settings: Update notification settings
