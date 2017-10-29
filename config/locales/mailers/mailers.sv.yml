@@ -138,6 +138,7 @@ sv:
 
         Din bästa chans att få ett jobb är att logga in ofta, söka jobb ofta, och se till att din profil är uppdaterad! Vi är övertygade om att du kommer få ett jobb som passar din profil snart!
       body_fillout_notice: 'För att vi ska kunna matcha dig med ett jobb behöver vi veta lite mer om dina färdigheter i:'
+      body_cv_fillout_notice: Om du laddar upp ett CV ökar det dina chanser att bli matchad till ett jobb. Du kan ladda upp ditt CV på din profilsida.
       body_edit_profile: Uppdatera din profil här %{url}
       body_edit_profile_cta: Uppdatera din profil
     new_applicant:

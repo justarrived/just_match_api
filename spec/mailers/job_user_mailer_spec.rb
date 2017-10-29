@@ -33,9 +33,10 @@ RSpec.describe JobUserMailer, type: :mailer do
   describe '#new_applicant_job_info_email' do
     let(:skill) { FactoryGirl.create(:skill) }
     let(:language) { FactoryGirl.create(:language) }
+    let(:missing_cv) { true }
     let(:mail) do
       described_class.new_applicant_job_info_email(
-        job_user: job_user, skills: [skill], languages: [language]
+        job_user: job_user, skills: [skill], languages: [language], missing_cv: missing_cv
       )
     end
 

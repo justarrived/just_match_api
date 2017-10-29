@@ -141,6 +141,7 @@ en:
 
         Your best chance to get any job is to login often, apply often, and make sure that your profile is updated! We are convinced that you will get a job that suits your profile soon!
       body_fillout_notice: 'In order for us to match you with a job we want to know a little bit more about your skills in:'
+      body_cv_fillout_notice: Uploading a CV greatly improves the odds of us being able to match you. You can upload your CV on your profile page.
       body_edit_profile: Edit your profile here %{url}.
       body_edit_profile_cta: Edit your profile
     new_applicant:
