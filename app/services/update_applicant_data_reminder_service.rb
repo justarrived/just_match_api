@@ -2,6 +2,9 @@
 
 class UpdateApplicantDataReminderService
   def self.call(job_user:)
+    return if job_user.rejected?
+    return if job_user.application_withdrawn?
+
     user = job_user.user
     job = job_user.job
     missing_traits = Queries::MissingUserTraits.new(user: user)
