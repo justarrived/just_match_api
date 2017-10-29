@@ -11,6 +11,6 @@ routes:
   job_users: 'company/job/%{job_id}/candidates'
   job_user: 'job/%{job_id}'
   user_edit: 'user'
-  user_basic_data_edit: '/basic-user-data'
+  user_basic_data_edit: 'basic-user-data'
   chat: 'support-chat?message_id=%{message_id}'
   unsubscribe: 'subscriptions/%{subscriber_id}'
