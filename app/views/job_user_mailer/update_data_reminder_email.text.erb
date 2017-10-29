@@ -5,7 +5,7 @@
 <% if @missing_cv %>
 <%= I18n.t(
     'mailer.update_data_reminder.cv_upload_body',
-    url: @profile_update_url
+    url: @user_edit_url
 ) %>
 
 <% end %>
@@ -21,7 +21,7 @@
 
 <%= I18n.t(
   'mailer.update_data_reminder.competence_update_body',
-  url: @profile_update_url
+  url: @user_edit_url
 ) %>
 <% end %>
 

@@ -11,7 +11,7 @@
       'mailer.update_data_reminder.cv_upload_body',
       url: link_to(
         I18n.t('mailer.update_data_reminder.update_cv_link'),
-        @profile_update_url
+        @user_edit_url
       )
     ).html_safe
   ) %>
@@ -34,7 +34,7 @@
       'mailer.update_data_reminder.competence_update_body',
       url: link_to(
         I18n.t('mailer.update_data_reminder.update_competences_link'),
-        @profile_update_url
+        @user_edit_url
       )
     ).html_safe
   ) %>
@@ -42,7 +42,7 @@
 
 <%= render(
   'mailer_partials/action_button',
-  url: @profile_update_url,
+  url: @user_edit_url,
   title: I18n.t('mailer.update_data_reminder.body_edit_profile_cta')
 ) %>
 
