@@ -208,4 +208,5 @@ sv:
       competence_update_body: 'Du kan uppdatera dina kompetenser genom att gå till din profilsida: %{url}.'
       update_cv_link: ladda upp CV.
       update_competences_link: uppdatera kompetenser.
+      body_edit_profile_cta: Uppdatera din profil
     signoff: "/ Team Just Arrived"
