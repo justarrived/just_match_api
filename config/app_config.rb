@@ -28,7 +28,7 @@ class AppConfig
   end
 
   def self.cv_template_url
-    'http://justarrived.se/assets/files/CV-template.docx'
+    'https://justarrived.se/assets/files/CV-template.docx'
   end
 
   def self.default_staffing_company_id
