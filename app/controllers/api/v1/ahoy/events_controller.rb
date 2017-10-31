@@ -14,6 +14,8 @@ module Api
           api_versions '1.0'
         end
 
+        EVENT_TYPES = %w[page_view].freeze
+
         api :POST, '/ahoy/events/', 'Create new Ahoy event'
         description 'Creates an Ahoy event.'
         error code: 400, desc: 'Bad request'
@@ -23,15 +25,47 @@ module Api
         ApipieDocHelper.params(self)
         param :data, Hash, desc: 'Top level key', required: true do
           param :attributes, Hash, desc: 'Event attributes', required: true do
+            param :type, String, desc: "The event type, one of: #{EVENT_TYPES.to_sentence}" # rubocop:disable Metrics/LineLength
             param :page_url, String, desc: 'Page URL', required: true
           end
         end
         def create
           authorize(::Ahoy::Event)
 
-          track_event(:page_view, page_url: jsonapi_params[:page_url])
+          unless EVENT_TYPES.include?(jsonapi_params[:type])
+            message = "unknown event type must be one of: #{EVENT_TYPES.to_sentence}."
+            errors = JsonApiErrors.new
+            errors.add(detail: message, attribute: :page_url)
 
-          head :no_content
+            render json: errors, status: :unprocessable_entity
+            return
+          end
+
+          create_page_view
+        end
+
+        private
+
+        def create_page_view
+          page_url = jsonapi_params[:page_url]
+          attributes = { page_url: page_url }
+
+          if AbsoluteUrl.valid?(page_url)
+            track_event(:page_view, attributes)
+
+            response = JsonApiData.new(
+              id: SecureGenerator.uuid,
+              type: :ahoy_events,
+              attributes: attributes
+            )
+            render json: response, status: :created
+          else
+            message = I18n.t('errors.validators.url')
+            errors = JsonApiErrors.new
+            errors.add(detail: message, attribute: :page_url)
+
+            render json: errors, status: :unprocessable_entity
+          end
         end
       end
     end
