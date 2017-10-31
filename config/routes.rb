@@ -14,6 +14,10 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      namespace :ahoy do
+        resources :events
+      end
+
       resources :jobs, param: :job_id, only: %i(index show create update) do
         collection do
           resources :job_digests, param: :job_digest_id, module: :jobs, path: :digests, only: %i(create) do
