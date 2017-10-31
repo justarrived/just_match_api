@@ -99,9 +99,9 @@ columns do
         render(
           partial: 'admin/users/jobs_tables',
           locals: {
-            ongoing_jobs: user.employed_for_jobs.ongoing,
-            future_jobs: user.jobs.future,
-            previous_performed_jobs: user.employed_for_jobs.passed
+            ongoing_jobs: user.employed_for_jobs.ongoing.with_translations,
+            future_jobs: user.jobs.future.with_translations,
+            previous_performed_jobs: user.employed_for_jobs.passed.with_translations
           }
         )
 
