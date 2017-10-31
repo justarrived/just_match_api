@@ -4,6 +4,20 @@ HEAD
 -----------
 
 
+v2.52 - 2017-10-31
+----------
+__API__:
+* Add `/ahoy/events` endpoint
+
+__Enhancement__:
+* Refactor `UrlValidator` to use `AbsoluteUrl` class
+* Add `AbsoluteUrl` class
+
+__Admin__:
+* Add user latest activity sidebar to user & job user
+* :hocho: N+1 queries :rocket:
+
+
 v2.51 - 2017-10-30
 ----------
 __API__:
