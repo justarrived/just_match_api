@@ -4,6 +4,22 @@ HEAD
 -----------
 
 
+v2.51 - 2017-10-30
+----------
+__API__:
+* Update `/user/notifications` to include the correct i18n JSON-structure
+* Add `job#frilans_finans_job` attribute to jobs API type
+
+__Enhancement__:
+* Use https protocol in AppConfig#cv_template_url
+
+__Gem update__:
+* Bump arbetsformedlingen gem
+  - Update PushArbetsformedlingenAdService to use new API
+* Bump database_cleaner from 1.6.1 to 1.6.2
+* Bump twilio-ruby from 5.4.2 to 5.4.3
+
+
 v2.50 - 2017-10-28
 ----------
 __Enhancement__:
