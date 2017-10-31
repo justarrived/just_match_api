@@ -118,7 +118,7 @@ group :development, :test, :docs do
   gem 'factory_girl_rails', '~> 4.9'
   gem 'fog', '~> 1.42' # Cloud services gem, in production the aws-sdk gem is used
   gem 'immigrant', '~> 0.3'
-  gem 'rspec-rails', '~> 3.6'
+  gem 'rspec-rails', '~> 3.7'
   gem 'rspec_junit_formatter', '~> 0.2'
   gem 'rubocop', '~> 0.51', require: false
 end
