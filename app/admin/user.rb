@@ -262,7 +262,7 @@ ActiveAdmin.register User do
 
   sidebar :latest_applications, only: %i(show edit), if: proc { !user.company? } do
     ul do
-      user.job_users.includes(job: [:translations]).recent(50).each do |job_user|
+      user.job_users.includes(job: %i[translations language]).recent(50).each do |job_user| # rubocop:disable Metrics/LineLength
         li link_to("##{job_user.id} " + job_user.job.name, admin_job_user_path(job_user))
       end
     end
@@ -272,7 +272,7 @@ ActiveAdmin.register User do
     ul do
       user.owned_jobs.
         order(created_at: :desc).
-        includes(:translations).
+        with_translations.
         limit(50).
         each do |job|
 
