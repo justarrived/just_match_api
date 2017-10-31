@@ -3,7 +3,7 @@
 module Api
   module V1
     module Ahoy
-      class EventsController < BaseController
+      class EventsController < V1::BaseController
         after_action :track_request, except: %i[create]
 
         resource_description do
