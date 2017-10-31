@@ -14,6 +14,7 @@ module Api
           api_versions '1.0'
         end
 
+        ALLOWED_INCLUDES = [].freeze
         EVENT_TYPES = %w[page_view].freeze
 
         api :POST, '/ahoy/events/', 'Create new Ahoy event'
@@ -25,7 +26,7 @@ module Api
         ApipieDocHelper.params(self)
         param :data, Hash, desc: 'Top level key', required: true do
           param :attributes, Hash, desc: 'Event attributes', required: true do
-            param :type, String, desc: "The event type, one of: #{EVENT_TYPES.to_sentence}" # rubocop:disable Metrics/LineLength
+            param :type, String, desc: "The event type, one of: #{EVENT_TYPES.join(', ')}"
             param :page_url, String, desc: 'Page URL', required: true
           end
         end
@@ -33,7 +34,7 @@ module Api
           authorize(::Ahoy::Event)
 
           unless EVENT_TYPES.include?(jsonapi_params[:type])
-            message = "unknown event type must be one of: #{EVENT_TYPES.to_sentence}."
+            message = "unknown event type must be one of: #{EVENT_TYPES.join(', ')}."
             errors = JsonApiErrors.new
             errors.add(detail: message, attribute: :page_url)
 
