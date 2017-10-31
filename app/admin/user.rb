@@ -293,6 +293,10 @@ ActiveAdmin.register User do
     render partial: 'admin/users/documents_list', locals: locals
   end
 
+  sidebar :latest_activity, only: %i[show edit] do
+    render partial: 'admin/users/latest_activity', locals: { user: user }
+  end
+
   set_user_translation = lambda do |user, permitted_params|
     return unless user.persisted? && user.valid?
 
