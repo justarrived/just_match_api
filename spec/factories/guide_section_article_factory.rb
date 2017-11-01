@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :guide_section_article do
     language nil
     association :section, factory: :guide_section

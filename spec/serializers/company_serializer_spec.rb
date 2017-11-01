@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe CompanySerializer, type: :serializer do
   context 'Individual Resource Representation' do
-    let(:resource) { FactoryGirl.build(:company, id: '1') }
+    let(:resource) { FactoryBot.build(:company, id: '1') }
     let(:serialization) { JsonApiSerializer.serialize(resource) }
 
     subject do

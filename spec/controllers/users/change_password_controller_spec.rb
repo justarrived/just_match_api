@@ -7,7 +7,7 @@ RSpec.describe Api::V1::Users::ChangePasswordController, type: :controller do
     let(:old_password) { 'OLD PASSWORD' }
     let(:new_password) { 'NEW PASSWORD' }
     let!(:user) do
-      FactoryGirl.create(:user_with_one_time_token, password: old_password).
+      FactoryBot.create(:user_with_one_time_token, password: old_password).
         tap(&:create_auth_token)
     end
 

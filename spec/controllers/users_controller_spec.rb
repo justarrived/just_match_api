@@ -9,8 +9,8 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     {
       data: {
         attributes: {
-          skill_ids: [{ id: FactoryGirl.create(:skill).id, proficiency: 4 }],
-          interest_ids: [{ id: FactoryGirl.create(:interest).id, level: 4 }],
+          skill_ids: [{ id: FactoryBot.create(:skill).id, proficiency: 4 }],
+          interest_ids: [{ id: FactoryBot.create(:interest).id, level: 4 }],
           email: 'someone@example.com',
           first_name: 'Some user',
           last_name: 'name',
@@ -37,25 +37,25 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     }
   end
 
-  let(:logged_in_user) { FactoryGirl.create(:user_with_tokens) }
+  let(:logged_in_user) { FactoryBot.create(:user_with_tokens) }
 
   describe 'GET #index' do
     it 'assigns all users as @users' do
-      user = FactoryGirl.create(:user)
-      admin = FactoryGirl.create(:user_with_tokens, admin: true)
+      user = FactoryBot.create(:user)
+      admin = FactoryBot.create(:user_with_tokens, admin: true)
       process :index, method: :get, params: { auth_token: admin.auth_token }
       expect(assigns(:users)).to include(user)
     end
 
     context 'not authorized' do
       it 'does not assigns all users as @users' do
-        FactoryGirl.create(:user)
+        FactoryBot.create(:user)
         process :index, method: :get
         expect(assigns(:users)).to eq(nil)
       end
 
       it 'returns 401 status' do
-        FactoryGirl.create(:user)
+        FactoryBot.create(:user)
         process :index, method: :get
         expect(response.status).to eq(401)
       end
@@ -64,13 +64,13 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
   describe 'GET #show' do
     it 'assigns the requested user as @user' do
-      user = FactoryGirl.create(:user_with_tokens)
+      user = FactoryBot.create(:user_with_tokens)
       get :show, params: { auth_token: user.auth_token, user_id: user.to_param }
       expect(assigns(:user)).to eq(user)
     end
 
     it 'returns 401 status' do
-      user = FactoryGirl.create(:user)
+      user = FactoryBot.create(:user)
       get :show, params: { user_id: user.to_param }
       expect(response.status).to eq(401)
     end
@@ -171,7 +171,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       end
 
       context 'user image tokens' do
-        let(:user_image) { FactoryGirl.create(:user_image) }
+        let(:user_image) { FactoryBot.create(:user_image) }
 
         it 'can add user image' do
           token = user_image.one_time_token
@@ -249,7 +249,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       end
 
       context 'unauthorized/forbidden' do
-        let(:user) { FactoryGirl.create(:user) }
+        let(:user) { FactoryBot.create(:user) }
 
         it 'does not update the requested user' do
           old_name = user.first_name
@@ -298,7 +298,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       end
 
       context 'with user interests' do
-        let(:interest) { FactoryGirl.create(:interest) }
+        let(:interest) { FactoryBot.create(:interest) }
         let(:interest_id) { interest.id }
         let(:new_attributes) do
           {
@@ -369,7 +369,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       it 'does not destroy the requested user' do
         first_name = 'Some user'
 
-        user = FactoryGirl.create(:user, first_name: first_name)
+        user = FactoryBot.create(:user, first_name: first_name)
         params = {
           auth_token: logged_in_user.auth_token,
           user_id: user.to_param
@@ -380,7 +380,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       end
 
       it 'returns not forbidden status' do
-        user = FactoryGirl.create(:user)
+        user = FactoryBot.create(:user)
         params = { auth_token: logged_in_user.auth_token, user_id: user.to_param }
 
         delete :destroy, params: params
@@ -434,8 +434,8 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
   describe 'GET #matching_jobs' do
     it 'returns 200 status for admin user' do
-      user = FactoryGirl.create(:user)
-      admin = FactoryGirl.create(:user_with_tokens, admin: true)
+      user = FactoryBot.create(:user)
+      admin = FactoryBot.create(:user_with_tokens, admin: true)
       get :show, params: { auth_token: admin.auth_token, user_id: user.to_param }
       expect(response.status).to eq(200)
     end
@@ -445,11 +445,11 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     it 'returns the missing traits' do
       Language.find_or_create_by(lang_code: :en)
       sv = Language.find_or_create_by(lang_code: :sv)
-      skill = FactoryGirl.create(:skill, high_priority: true)
+      skill = FactoryBot.create(:skill, high_priority: true)
 
-      user = FactoryGirl.create(:user, city: nil)
+      user = FactoryBot.create(:user, city: nil)
       user.languages = [sv]
-      admin = FactoryGirl.create(:user_with_tokens, admin: true)
+      admin = FactoryBot.create(:user_with_tokens, admin: true)
       params = { auth_token: admin.auth_token, user_id: user.to_param }
       get :missing_traits, params: params
 
@@ -471,13 +471,13 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
   describe 'GET #notifications' do
     it 'returns 200 status' do
-      user = FactoryGirl.create(:user)
+      user = FactoryBot.create(:user)
       get :notifications, params: { user_id: user.to_param }
       expect(response.status).to eq(200)
     end
 
     it 'correct response body' do
-      user = FactoryGirl.create(:user)
+      user = FactoryBot.create(:user)
       get :notifications, params: { user_id: user.to_param }
 
       result = JSON.parse(response.body)['data']
@@ -495,13 +495,13 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
   describe 'GET #statuses' do
     it 'returns 200 status' do
-      user = FactoryGirl.create(:user)
+      user = FactoryBot.create(:user)
       get :statuses, params: { user_id: user.to_param }
       expect(response.status).to eq(200)
     end
 
     it 'correct response body' do
-      user = FactoryGirl.create(:user)
+      user = FactoryBot.create(:user)
       get :statuses, params: { user_id: user.to_param }
 
       result = JSON.parse(response.body)['data']

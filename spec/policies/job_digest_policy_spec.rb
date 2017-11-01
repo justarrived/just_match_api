@@ -7,7 +7,7 @@ RSpec.describe JobDigestPolicy do
     allow_any_instance_of(User).to receive(:persisted?).and_return(true)
   end
 
-  let(:job_digest) { FactoryGirl.build_stubbed(:job_digest) }
+  let(:job_digest) { FactoryBot.build_stubbed(:job_digest) }
 
   context 'user' do
     subject { described_class.new(nil, job_digest) }
@@ -29,8 +29,8 @@ RSpec.describe JobDigestPolicy do
     end
 
     it 'only returns associated job digests in scope that are not deleted' do
-      job_digest = FactoryGirl.create(:job_digest)
-      FactoryGirl.create(:job_digest, deleted_at: 1.day.ago)
+      job_digest = FactoryBot.create(:job_digest)
+      FactoryBot.create(:job_digest, deleted_at: 1.day.ago)
       expect(subject.scope).to eq([job_digest])
     end
   end

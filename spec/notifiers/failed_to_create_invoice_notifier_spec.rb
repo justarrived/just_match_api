@@ -8,7 +8,7 @@ RSpec.describe FailedToActivateInvoiceNotifier, type: :mailer do
 
   it 'must work' do
     # Create an admin to send the email to
-    user = FactoryGirl.create(:super_admin_user)
+    user = FactoryBot.create(:super_admin_user)
 
     allow(AdminMailer).to receive(:failed_to_activate_invoice_email).
       and_return(mailer)

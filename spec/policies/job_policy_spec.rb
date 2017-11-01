@@ -24,7 +24,7 @@ RSpec.describe JobPolicy do
   context 'with anyone' do
     subject { JobPolicy.new(nil, job) }
 
-    let(:job) { FactoryGirl.build(:job) }
+    let(:job) { FactoryBot.build(:job) }
 
     it '#index? returns true' do
       expect(subject.index?).to eq(true)
@@ -56,7 +56,7 @@ RSpec.describe JobPolicy do
     end
 
     it '#permitted_attributes is correct for persisted job' do
-      persisted_job = FactoryGirl.create(:job)
+      persisted_job = FactoryBot.create(:job)
       policy = JobPolicy.new(nil, persisted_job)
       expect(policy.permitted_attributes).to eq([])
     end
@@ -73,9 +73,9 @@ RSpec.describe JobPolicy do
   context 'with company user' do
     subject { JobPolicy.new(user, job) }
 
-    let(:company) { FactoryGirl.build(:company) }
-    let(:user) { FactoryGirl.build(:user, company: company) }
-    let(:job) { FactoryGirl.build(:job) }
+    let(:company) { FactoryBot.build(:company) }
+    let(:user) { FactoryBot.build(:user, company: company) }
+    let(:job) { FactoryBot.build(:job) }
 
     it '#create? returns true' do
       expect(subject.create?).to eq(true)
@@ -85,8 +85,8 @@ RSpec.describe JobPolicy do
   context 'with user' do
     subject { JobPolicy.new(user, job) }
 
-    let(:user) { FactoryGirl.build(:user) }
-    let(:job) { FactoryGirl.build(:job) }
+    let(:user) { FactoryBot.build(:user) }
+    let(:job) { FactoryBot.build(:job) }
 
     it '#create? returns true' do
       expect(subject.create?).to eq(false)
@@ -105,7 +105,7 @@ RSpec.describe JobPolicy do
     end
 
     it '#permitted_attributes is correct for persisted job' do
-      persisted_job = FactoryGirl.create(:job)
+      persisted_job = FactoryBot.create(:job)
       policy = JobPolicy.new(user, persisted_job)
       expect(policy.permitted_attributes).to eq([])
     end
@@ -122,8 +122,8 @@ RSpec.describe JobPolicy do
   context 'with accepted applicant user' do
     subject { JobPolicy.new(user, job) }
 
-    let(:user) { FactoryGirl.create(:user) }
-    let(:job) { FactoryGirl.create(:job) }
+    let(:user) { FactoryBot.create(:user) }
+    let(:job) { FactoryBot.create(:job) }
 
     it '#update? returns false' do
       job.users = [user]
@@ -153,15 +153,15 @@ RSpec.describe JobPolicy do
   context 'with owner user' do
     subject { JobPolicy.new(user, job) }
 
-    let(:user) { FactoryGirl.build(:user) }
-    let(:job) { FactoryGirl.build(:job, owner: user) }
+    let(:user) { FactoryBot.build(:user) }
+    let(:job) { FactoryBot.build(:job, owner: user) }
 
     it '#matching_users? returns true' do
       expect(subject.matching_users?).to eq(true)
     end
 
     it '#permitted_attributes is correct for persisted job' do
-      persisted_job = FactoryGirl.create(:job)
+      persisted_job = FactoryBot.create(:job)
       policy = JobPolicy.new(nil, persisted_job)
       expect(policy.permitted_attributes).to eq([])
     end
@@ -178,8 +178,8 @@ RSpec.describe JobPolicy do
   context 'with admin user' do
     subject { JobPolicy.new(admin, job) }
 
-    let(:admin) { FactoryGirl.build(:admin_user) }
-    let(:job) { FactoryGirl.build(:job) }
+    let(:admin) { FactoryBot.build(:admin_user) }
+    let(:job) { FactoryBot.build(:job) }
 
     it '#matching_users? returns true' do
       expect(subject.matching_users?).to eq(true)
@@ -199,16 +199,16 @@ RSpec.describe JobPolicy do
   end
 
   describe 'scope' do
-    let(:admin) { FactoryGirl.build(:admin_user) }
-    let(:user) { FactoryGirl.build(:user) }
-    let(:job) { FactoryGirl.build(:job) }
+    let(:admin) { FactoryBot.build(:admin_user) }
+    let(:user) { FactoryBot.build(:user) }
+    let(:job) { FactoryBot.build(:job) }
 
     context 'user' do
       subject { JobPolicy.new(user, job) }
 
       it 'returns all visible jobs' do
-        FactoryGirl.create(:job, hidden: true)
-        FactoryGirl.create(:job)
+        FactoryBot.create(:job, hidden: true)
+        FactoryBot.create(:job)
         expect(subject.scope.length).to eq(1)
       end
     end

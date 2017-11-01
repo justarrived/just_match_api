@@ -7,10 +7,10 @@ RSpec.describe UserImagePolicy do
     allow_any_instance_of(User).to receive(:persisted?).and_return(true)
   end
 
-  let(:user) { FactoryGirl.build(:user) }
-  let(:user_image) { FactoryGirl.build(:user_image, user: user) }
-  let(:a_user) { FactoryGirl.build(:user) }
-  let(:admin_user) { FactoryGirl.build(:admin_user) }
+  let(:user) { FactoryBot.build(:user) }
+  let(:user_image) { FactoryBot.build(:user_image, user: user) }
+  let(:a_user) { FactoryBot.build(:user) }
+  let(:admin_user) { FactoryBot.build(:admin_user) }
   let(:policy) { described_class.new(policy_context, user_image) }
 
   permissions :show? do

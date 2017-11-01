@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe GuideSectionSerializer, type: :serializer do
   context 'Individual Resource Representation' do
-    let(:resource) { FactoryGirl.build(:guide_section, id: '1') }
+    let(:resource) { FactoryBot.build(:guide_section, id: '1') }
     let(:serialization) { JsonApiSerializer.serialize(resource) }
 
     subject do

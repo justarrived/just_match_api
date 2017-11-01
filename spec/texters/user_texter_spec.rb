@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe UserTexter do
   let(:one_time_token) { 'watwoman' }
-  let(:user) { FactoryGirl.build(:user, one_time_token: one_time_token) }
+  let(:user) { FactoryBot.build(:user, one_time_token: one_time_token) }
 
   before(:each) do
     allow(AppSecrets).to receive(:twilio_account_sid).and_return('notsosecret')

@@ -11,11 +11,11 @@ RSpec.describe Api::V1::Users::UserLanguagesController, type: :controller do
     {}
   end
 
-  let(:user) { FactoryGirl.create(:user_with_tokens) }
+  let(:user) { FactoryBot.create(:user_with_tokens) }
 
   describe 'GET #index' do
     it 'assigns all user languages as @languages' do
-      user = FactoryGirl.create(:user_with_languages, languages_count: 1)
+      user = FactoryBot.create(:user_with_languages, languages_count: 1)
       user.create_auth_token
       user.user_languages.first.update(proficiency: 3)
 
@@ -27,7 +27,7 @@ RSpec.describe Api::V1::Users::UserLanguagesController, type: :controller do
 
   describe 'GET #show' do
     it 'assigns @language, @user @user_language' do
-      user = FactoryGirl.create(:user_with_languages, languages_count: 1)
+      user = FactoryBot.create(:user_with_languages, languages_count: 1)
       language = user.languages.first
       user_language = user.user_languages.first
       params = {
@@ -45,7 +45,7 @@ RSpec.describe Api::V1::Users::UserLanguagesController, type: :controller do
   describe 'POST #create' do
     context 'with valid params' do
       let(:proficiency) { 4 }
-      let(:language) { FactoryGirl.create(:language) }
+      let(:language) { FactoryBot.create(:language) }
       let(:params) do
         {
           auth_token: user.auth_token,
@@ -82,7 +82,7 @@ RSpec.describe Api::V1::Users::UserLanguagesController, type: :controller do
       end
 
       context 'not authorized' do
-        let(:other_user) { FactoryGirl.create(:user) }
+        let(:other_user) { FactoryBot.create(:user) }
         let(:params) do
           {
             auth_token: user.auth_token,
@@ -127,7 +127,7 @@ RSpec.describe Api::V1::Users::UserLanguagesController, type: :controller do
   describe 'DELETE #destroy' do
     context 'authorized' do
       it 'destroys the requested user_language' do
-        user_language = FactoryGirl.create(:user_language, user: user)
+        user_language = FactoryBot.create(:user_language, user: user)
         params = {
           auth_token: user.auth_token,
           user_id: user.to_param,
@@ -139,7 +139,7 @@ RSpec.describe Api::V1::Users::UserLanguagesController, type: :controller do
       end
 
       it 'returns no content status' do
-        user_language = FactoryGirl.create(:user_language, user: user)
+        user_language = FactoryBot.create(:user_language, user: user)
         params = {
           auth_token: user.auth_token,
           user_id: user.to_param,
@@ -152,8 +152,8 @@ RSpec.describe Api::V1::Users::UserLanguagesController, type: :controller do
 
     context 'not authorized' do
       it 'does not destroys the requested user_language' do
-        other_user = FactoryGirl.create(:user_with_tokens)
-        user = FactoryGirl.create(:user_with_languages)
+        other_user = FactoryBot.create(:user_with_tokens)
+        user = FactoryBot.create(:user_with_languages)
         user_language = user.user_languages.first
         params = {
           auth_token: other_user.auth_token,
@@ -166,8 +166,8 @@ RSpec.describe Api::V1::Users::UserLanguagesController, type: :controller do
       end
 
       it 'returns not authorized error' do
-        other_user = FactoryGirl.create(:user_with_tokens)
-        user = FactoryGirl.create(:user_with_languages)
+        other_user = FactoryBot.create(:user_with_tokens)
+        user = FactoryBot.create(:user_with_languages)
         user_language = user.user_languages.first
         params = {
           auth_token: other_user.auth_token,

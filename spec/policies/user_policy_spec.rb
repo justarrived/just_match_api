@@ -10,7 +10,7 @@ RSpec.describe UserPolicy do
   context 'a user' do
     subject { UserPolicy.new(nil, user) }
 
-    let(:user) { FactoryGirl.build(:user) }
+    let(:user) { FactoryBot.build(:user) }
 
     it 'returns false for index' do
       expect(subject.index?).to eq(false)
@@ -64,8 +64,8 @@ RSpec.describe UserPolicy do
   context 'company user' do
     subject { UserPolicy.new(company_user, user) }
 
-    let(:company_user) { FactoryGirl.build(:company_user) }
-    let(:user) { FactoryGirl.build(:user) }
+    let(:company_user) { FactoryBot.build(:company_user) }
+    let(:user) { FactoryBot.build(:user) }
 
     it 'returns true for jobs' do
       expect(subject.jobs?).to eq(true)
@@ -85,15 +85,15 @@ RSpec.describe UserPolicy do
 
     let(:language) { Language.find_or_create_by!(lang_code: 'en') }
 
-    let(:owner) { FactoryGirl.build(:company_user, system_language: language) }
-    let(:user) { FactoryGirl.build(:user, system_language: language) }
-    let(:admin) { FactoryGirl.build(:admin_user) }
+    let(:owner) { FactoryBot.build(:company_user, system_language: language) }
+    let(:user) { FactoryBot.build(:user, system_language: language) }
+    let(:admin) { FactoryBot.build(:admin_user) }
 
-    let(:job) { FactoryGirl.create(:job, owner: owner) }
+    let(:job) { FactoryBot.create(:job, owner: owner) }
 
     context 'accepted applicant for owner' do
       it 'returns correct attributes' do
-        FactoryGirl.create(:job_user, job: job, user: user, accepted: true)
+        FactoryBot.create(:job_user, job: job, user: user, accepted: true)
         expected = described_class::ACCEPTED_APPLICANT_ATTRIBUTES
         expect(subject.present_attributes).to eq(expected)
       end
@@ -128,7 +128,7 @@ RSpec.describe UserPolicy do
   context 'logged in user is user' do
     subject { UserPolicy.new(user, user) }
 
-    let(:user) { FactoryGirl.build(:user) }
+    let(:user) { FactoryBot.build(:user) }
 
     it 'returns false for index' do
       expect(subject.index?).to eq(false)
@@ -182,8 +182,8 @@ RSpec.describe UserPolicy do
   context 'admin user' do
     subject { UserPolicy.new(admin, user) }
 
-    let(:admin) { FactoryGirl.build(:admin_user) }
-    let(:user) { FactoryGirl.build(:user) }
+    let(:admin) { FactoryBot.build(:admin_user) }
+    let(:user) { FactoryBot.build(:user) }
 
     it 'returns true for index' do
       expect(subject.index?).to eq(true)

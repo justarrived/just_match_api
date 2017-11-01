@@ -4,23 +4,23 @@ require 'rails_helper'
 
 RSpec.describe TermsAgreement, type: :model do
   context 'klass' do
-    let(:ff_company_term) { FactoryGirl.create(:frilans_finans_term, company: true) }
-    let(:ff_user_term) { FactoryGirl.create(:frilans_finans_term, company: true) }
+    let(:ff_company_term) { FactoryBot.create(:frilans_finans_term, company: true) }
+    let(:ff_user_term) { FactoryBot.create(:frilans_finans_term, company: true) }
 
     describe '#current_user_terms' do
       it 'returns the lastest user terms' do
-        FactoryGirl.create(:terms_agreement)
-        FactoryGirl.create(:terms_agreement, frilans_finans_term: ff_company_term)
-        terms = FactoryGirl.create(:terms_agreement)
+        FactoryBot.create(:terms_agreement)
+        FactoryBot.create(:terms_agreement, frilans_finans_term: ff_company_term)
+        terms = FactoryBot.create(:terms_agreement)
         expect(described_class.current_user_terms).to eq(terms)
       end
     end
 
     describe '#current_company_user_terms' do
       it 'returns the lastest user terms' do
-        FactoryGirl.create(:terms_agreement)
-        FactoryGirl.create(:terms_agreement, frilans_finans_term: ff_company_term)
-        terms = FactoryGirl.create(:terms_agreement, frilans_finans_term: ff_company_term)
+        FactoryBot.create(:terms_agreement)
+        FactoryBot.create(:terms_agreement, frilans_finans_term: ff_company_term)
+        terms = FactoryBot.create(:terms_agreement, frilans_finans_term: ff_company_term)
         expect(described_class.current_company_user_terms).to eq(terms)
       end
     end
@@ -30,21 +30,21 @@ RSpec.describe TermsAgreement, type: :model do
     let(:message) { I18n.t('errors.general.protocol_missing') }
 
     it 'adds error unless website start with protocol' do
-      terms_agreement = FactoryGirl.build(:terms_agreement, url: 'example.com')
+      terms_agreement = FactoryBot.build(:terms_agreement, url: 'example.com')
       terms_agreement.validate
 
       expect(terms_agreement.errors.messages[:url]).to include(message)
     end
 
     it 'adds *no* error if website start with http:// protocol' do
-      terms_agreement = FactoryGirl.build(:terms_agreement, url: 'http://example.com')
+      terms_agreement = FactoryBot.build(:terms_agreement, url: 'http://example.com')
       terms_agreement.validate
 
       expect(terms_agreement.errors.messages[:url] || []).not_to include(message)
     end
 
     it 'adds *no* error if website start with https:// protocol' do
-      terms_agreement = FactoryGirl.build(:terms_agreement, url: 'https://example.com')
+      terms_agreement = FactoryBot.build(:terms_agreement, url: 'https://example.com')
       terms_agreement.validate
 
       expect(terms_agreement.errors.messages[:url] || []).not_to include(message)

@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe JobDigestSerializer, type: :serializer do
   context 'Individual Resource Representation' do
-    let(:resource) { FactoryGirl.build(:job_digest, id: '1') }
+    let(:resource) { FactoryBot.build(:job_digest, id: '1') }
     let(:serialization) { JsonApiSerializer.serialize(resource) }
 
     subject do

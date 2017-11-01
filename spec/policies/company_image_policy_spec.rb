@@ -7,7 +7,7 @@ RSpec.describe CompanyImagePolicy do
     allow_any_instance_of(User).to receive(:persisted?).and_return(true)
   end
 
-  let(:company_image) { FactoryGirl.build(:company_image) }
+  let(:company_image) { FactoryBot.build(:company_image) }
   let(:policy) { described_class.new(policy_context, company_image) }
 
   permissions :show? do

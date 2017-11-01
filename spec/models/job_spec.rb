@@ -6,12 +6,12 @@ RSpec.describe Job, type: :model do
   describe '::published' do
     it 'only returns published jobs' do
       # Not published
-      FactoryGirl.create(:job, publish_at: nil, unpublish_at: nil)
-      FactoryGirl.create(:job, publish_at: 2.days.ago, unpublish_at: 1.day.ago)
-      FactoryGirl.create(:job, publish_at: 1.day.ago, unpublish_at: nil, hidden: true)
+      FactoryBot.create(:job, publish_at: nil, unpublish_at: nil)
+      FactoryBot.create(:job, publish_at: 2.days.ago, unpublish_at: 1.day.ago)
+      FactoryBot.create(:job, publish_at: 1.day.ago, unpublish_at: nil, hidden: true)
       # Published
-      FactoryGirl.create(:job, publish_at: 1.day.ago, unpublish_at: nil)
-      FactoryGirl.create(:job, publish_at: 2.days.ago, unpublish_at: 1.day.from_now)
+      FactoryBot.create(:job, publish_at: 1.day.ago, unpublish_at: nil)
+      FactoryBot.create(:job, publish_at: 2.days.ago, unpublish_at: 1.day.from_now)
 
       expect(Job.published.count).to eq(2)
     end
@@ -19,7 +19,7 @@ RSpec.describe Job, type: :model do
 
   describe '#cancelled_saved_to_true?' do
     it 'returns true if cancelled was saved from false to true' do
-      job = FactoryGirl.build(:job, cancelled: false)
+      job = FactoryBot.build(:job, cancelled: false)
       job.cancelled = true
       job.save
 
@@ -27,7 +27,7 @@ RSpec.describe Job, type: :model do
     end
 
     it 'returns false if cancelled was saved from true' do
-      job = FactoryGirl.create(:job, cancelled: true)
+      job = FactoryBot.create(:job, cancelled: true)
       job.cancelled = true
       job.save
 
@@ -35,7 +35,7 @@ RSpec.describe Job, type: :model do
     end
 
     it 'returns false if cancelled was not changed' do
-      job = FactoryGirl.build(:job)
+      job = FactoryBot.build(:job)
       job.save
 
       expect(job.cancelled_saved_to_true?).to eq(false)
@@ -56,7 +56,7 @@ RSpec.describe Job, type: :model do
       publish_at, unpublish_at, expected = data
 
       it "returns #{expected} on publish_at: #{publish_at}, unpublish_at: #{unpublish_at}" do # rubocop:disable Metrics/LineLength
-        job = FactoryGirl.build(
+        job = FactoryBot.build(
           :job,
           publish_at: publish_at,
           unpublish_at: unpublish_at
@@ -65,7 +65,7 @@ RSpec.describe Job, type: :model do
       end
 
       it 'returns false if preview key is present' do
-        job = FactoryGirl.build(:job, preview_key: 'notsosecret')
+        job = FactoryBot.build(:job, preview_key: 'notsosecret')
         expect(job.published?).to eq(false)
       end
     end
@@ -81,17 +81,17 @@ RSpec.describe Job, type: :model do
 
   describe '#open_for_applications?' do
     it 'returns false if job is cancelled' do
-      job = FactoryGirl.build(:job, cancelled: true)
+      job = FactoryBot.build(:job, cancelled: true)
       expect(job.open_for_applications?).to eq(false)
     end
 
     it 'returns false if job is filled' do
-      job = FactoryGirl.build(:job, filled: true)
+      job = FactoryBot.build(:job, filled: true)
       expect(job.open_for_applications?).to eq(false)
     end
 
     it 'returns true if job is open for applications' do
-      job = FactoryGirl.build(
+      job = FactoryBot.build(
         :job,
         last_application_at: 2.days.from_now,
         cancelled: false,
@@ -103,7 +103,7 @@ RSpec.describe Job, type: :model do
 
   describe '#full_standalone_description' do
     it 'contains headings for all present fields' do
-      job = FactoryGirl.build(:job, applicant_description: 'Testing')
+      job = FactoryBot.build(:job, applicant_description: 'Testing')
       result = job.full_standalone_description
       expect(result).to include(I18n.t('job.applicant_description_title'))
       expect(result).not_to include(I18n.t('job.tasks_description_title'))
@@ -113,12 +113,12 @@ RSpec.describe Job, type: :model do
 
   describe '#ended?' do
     it 'returns false if job end date is in the future' do
-      job = FactoryGirl.build(:job, job_end_date: 1.minute.from_now)
+      job = FactoryBot.build(:job, job_end_date: 1.minute.from_now)
       expect(job.ended?).to eq(false)
     end
 
     it 'returns true if job end date is in the passed' do
-      job = FactoryGirl.build(:job, job_end_date: 1.minute.ago)
+      job = FactoryBot.build(:job, job_end_date: 1.minute.ago)
       expect(job.ended?).to eq(true)
     end
   end
@@ -131,7 +131,7 @@ RSpec.describe Job, type: :model do
       end
 
       it 'returns skill array' do
-        job = FactoryGirl.create(:job_with_translation, name: 'Job name')
+        job = FactoryBot.create(:job_with_translation, name: 'Job name')
         job_array = described_class.to_form_array(include_blank: false)
         expect(job_array).to eq([["##{job.id} Job name", job.id]])
       end
@@ -146,7 +146,7 @@ RSpec.describe Job, type: :model do
       end
 
       it 'returns job array' do
-        job = FactoryGirl.create(:job_with_translation, name: 'Job name')
+        job = FactoryBot.create(:job_with_translation, name: 'Job name')
         job_array = described_class.to_form_array(include_blank: true)
         expect(job_array).to eq([[label, nil], ["##{job.id} Job name", job.id]])
       end
@@ -154,9 +154,9 @@ RSpec.describe Job, type: :model do
   end
 
   describe '#invoice_company_frilans_finans_id' do
-    let(:company) { FactoryGirl.build(:company, frilans_finans_id: 7373) }
-    let(:owner) { FactoryGirl.build(:user, company: company) }
-    let(:job) { FactoryGirl.build(:job, owner: owner) }
+    let(:company) { FactoryBot.build(:company, frilans_finans_id: 7373) }
+    let(:owner) { FactoryBot.build(:user, company: company) }
+    let(:job) { FactoryBot.build(:job, owner: owner) }
 
     context 'with configuration default_invoice_company_frilans_finans_id' do
       it 'returns id from config' do
@@ -177,7 +177,7 @@ RSpec.describe Job, type: :model do
 
   describe '#fill_position' do
     it 'sets filled to true' do
-      job = FactoryGirl.build(:job, filled: false)
+      job = FactoryBot.build(:job, filled: false)
       job.fill_position
       expect(job.filled).to eq(true)
     end
@@ -185,7 +185,7 @@ RSpec.describe Job, type: :model do
 
   describe '#fill_position!' do
     it 'sets filled to true' do
-      job = FactoryGirl.build(:job, filled: false)
+      job = FactoryBot.build(:job, filled: false)
       job.fill_position!
       expect(job.filled).to eq(true)
     end
@@ -195,14 +195,14 @@ RSpec.describe Job, type: :model do
     let(:job_id) { 73_000_000 }
 
     it 'returns with the correct content parts' do
-      job = FactoryGirl.create(
+      job = FactoryBot.create(
         :job,
         job_end_date: 2.weeks.from_now,
         id: job_id,
         invoice_comment: 'This is a invoice comment'
       )
-      job_user = FactoryGirl.create(:job_user_will_perform, job: job)
-      FactoryGirl.create(:frilans_finans_invoice, job_user: job_user)
+      job_user = FactoryBot.create(:job_user_will_perform, job: job)
+      FactoryBot.create(:frilans_finans_invoice, job_user: job_user)
       [
         job.category.name,
         job.name,
@@ -224,15 +224,15 @@ RSpec.describe Job, type: :model do
     end
 
     it 'does not crash if there is no job_user#frilans_finans_invoice' do
-      job = FactoryGirl.build(:job, job_end_date: 2.weeks.from_now, id: job_id)
+      job = FactoryBot.build(:job, job_end_date: 2.weeks.from_now, id: job_id)
       expect(job.invoice_specification).to include(job.name)
     end
   end
 
   describe '#gross_amount' do
     it 'can return the total gross amount that a user is to be payed' do
-      hourly_pay = FactoryGirl.build(:hourly_pay, gross_salary: 100)
-      job = FactoryGirl.build(:job, hours: 2, hourly_pay: hourly_pay)
+      hourly_pay = FactoryBot.build(:hourly_pay, gross_salary: 100)
+      job = FactoryBot.build(:job, hours: 2, hourly_pay: hourly_pay)
       expect(job.gross_amount).to eq(200)
     end
   end
@@ -255,7 +255,7 @@ RSpec.describe Job, type: :model do
 
   describe 'geocodable' do
     let(:job) do
-      FactoryGirl.create(:job, city: nil, street: 'Bankgatan 14C', zip: '223 52')
+      FactoryBot.create(:job, city: nil, street: 'Bankgatan 14C', zip: '223 52')
     end
 
     it 'geocodes by exact address' do
@@ -275,20 +275,20 @@ RSpec.describe Job, type: :model do
   end
 
   describe '#owner?' do
-    let(:user) { FactoryGirl.build(:company_user) }
-    let(:job) { FactoryGirl.build(:job, owner: user) }
+    let(:user) { FactoryBot.build(:company_user) }
+    let(:job) { FactoryBot.build(:job, owner: user) }
 
     it 'returns true if user is owner' do
       expect(job.owner?(user)).to eq(true)
     end
 
     it 'returns true if user is owner' do
-      a_user = FactoryGirl.build(:user)
+      a_user = FactoryBot.build(:user)
       expect(job.owner?(a_user)).to eq(false)
     end
 
     it 'returns false if owner is nil and user is not nil' do
-      a_user = FactoryGirl.build(:user)
+      a_user = FactoryBot.build(:user)
       expect(job.owner?(a_user)).to eq(false)
     end
 
@@ -304,9 +304,9 @@ RSpec.describe Job, type: :model do
     end
 
     it 'returns accepted user if no job user' do
-      applicant = FactoryGirl.create(:user)
-      owner = FactoryGirl.create(:company_user)
-      job = FactoryGirl.create(:job, owner: owner)
+      applicant = FactoryBot.create(:user)
+      owner = FactoryBot.create(:company_user)
+      job = FactoryBot.create(:job, owner: owner)
 
       job.create_applicant!(applicant)
       job.accept_applicant!(applicant)
@@ -318,14 +318,14 @@ RSpec.describe Job, type: :model do
   describe '#accept_applicant?' do
     it 'returns false if user is *not* the accepted user' do
       job = described_class.new
-      user = FactoryGirl.build(:user)
+      user = FactoryBot.build(:user)
       expect(job.accepted_applicant?(user)).to eq(false)
     end
 
     it 'returns true if user is the accepted user' do
-      applicant = FactoryGirl.create(:user)
-      owner = FactoryGirl.create(:company_user)
-      job = FactoryGirl.create(:job, owner: owner)
+      applicant = FactoryBot.create(:user)
+      owner = FactoryBot.create(:company_user)
+      job = FactoryBot.create(:job, owner: owner)
 
       job.create_applicant!(applicant)
       job.accept_applicant!(applicant)
@@ -335,7 +335,7 @@ RSpec.describe Job, type: :model do
 
     it 'returns false if owner is nil and user is not' do
       nil_job = Job.new
-      a_user = FactoryGirl.build(:user)
+      a_user = FactoryBot.build(:user)
       expect(nil_job.accepted_applicant?(a_user)).to eq(false)
     end
 
@@ -351,7 +351,7 @@ RSpec.describe Job, type: :model do
         start_date = Date.new(2016, 4, 22)
         end_date = Date.new(2016, 4, 26)
         job_attributes = { job_date: start_date, job_end_date: end_date }
-        job = FactoryGirl.build(:job, job_attributes)
+        job = FactoryBot.build(:job, job_attributes)
         expected = [
           Date.new(2016, 4, 22),
           Date.new(2016, 4, 23),
@@ -368,7 +368,7 @@ RSpec.describe Job, type: :model do
         start_date = Date.new(2016, 4, 22)
         end_date = Date.new(2016, 4, 30)
         job_attributes = { job_date: start_date, job_end_date: end_date }
-        job = FactoryGirl.build(:job, job_attributes)
+        job = FactoryBot.build(:job, job_attributes)
         expected = [
           Date.new(2016, 4, 22),
           Date.new(2016, 4, 25),
@@ -382,61 +382,61 @@ RSpec.describe Job, type: :model do
     end
 
     it 'returns nil if job date is nil' do
-      job = FactoryGirl.build(:job, job_date: nil)
+      job = FactoryBot.build(:job, job_date: nil)
       expect(job.workdays).to be_nil
     end
 
     it 'returns nil if job end date is nil' do
-      job = FactoryGirl.build(:job, job_end_date: nil)
+      job = FactoryBot.build(:job, job_end_date: nil)
       expect(job.workdays).to be_nil
     end
   end
 
   describe '#locked_for_changes?' do
-    let(:job) { FactoryGirl.create(:job) }
+    let(:job) { FactoryBot.create(:job) }
 
     it 'returns false when there is no accepted applicant' do
       expect(job.locked_for_changes?).to eq(false)
     end
 
     it 'returns false when there is an accepted applicant, but has *not* confirmed' do
-      FactoryGirl.create(:job_user, job: job, accepted: true)
+      FactoryBot.create(:job_user, job: job, accepted: true)
       expect(job.locked_for_changes?).to eq(false)
     end
 
     it 'returns true when there is an accepted applicant, that has confirmed' do
-      FactoryGirl.create(:job_user, job: job, accepted: true, will_perform: true)
+      FactoryBot.create(:job_user, job: job, accepted: true, will_perform: true)
       expect(job.locked_for_changes?).to eq(true)
     end
   end
 
   describe '#started?' do
     it 'returns true for an inprogress job' do
-      job = FactoryGirl.build(:inprogress_job)
+      job = FactoryBot.build(:inprogress_job)
       expect(job.started?).to eq(true)
     end
 
     it 'returns false for a future job' do
-      job = FactoryGirl.build(:future_job)
+      job = FactoryBot.build(:future_job)
       expect(job.started?).to eq(false)
     end
 
     it 'returns true for a passed job' do
-      job = FactoryGirl.build(:passed_job)
+      job = FactoryBot.build(:passed_job)
       expect(job.started?).to eq(true)
     end
   end
 
   describe 'validates that municipality is a valid Swedish municipality' do
     it 'adds error if the municipality is not known' do
-      job = FactoryGirl.build(:job, municipality: 'watman')
+      job = FactoryBot.build(:job, municipality: 'watman')
       job.validate
       message = I18n.t('errors.validators.swedish_municipality')
       expect(job.errors.messages[:municipality]).to include(message)
     end
 
     it 'adds *no* error if the municipality is known' do
-      job = FactoryGirl.build(:job, municipality: 'Stockholm')
+      job = FactoryBot.build(:job, municipality: 'Stockholm')
       job.validate
       message = I18n.t('errors.validators.swedish_municipality')
       expect(job.errors.messages[:municipality]).not_to include(message)
@@ -445,7 +445,7 @@ RSpec.describe Job, type: :model do
 
   describe '#validate_not_cloned_when_published' do
     it 'adds error if job is published and cloned' do
-      job = FactoryGirl.build(:job, cloned: true, publish_at: 1.day.from_now)
+      job = FactoryBot.build(:job, cloned: true, publish_at: 1.day.from_now)
       job.validate_not_cloned_when_published
 
       message = I18n.t('errors.job.not_cloned_when_published')
@@ -453,7 +453,7 @@ RSpec.describe Job, type: :model do
     end
 
     it 'adds no error if job is not cloned' do
-      job = FactoryGirl.build(:job, cloned: false, publish_at: 1.day.from_now)
+      job = FactoryBot.build(:job, cloned: false, publish_at: 1.day.from_now)
       job.validate_not_cloned_when_published
 
       message = I18n.t('errors.job.not_cloned_when_published')
@@ -461,7 +461,7 @@ RSpec.describe Job, type: :model do
     end
 
     it 'adds no error if job is not published' do
-      job = FactoryGirl.build(:job, cloned: true, publish_at: nil)
+      job = FactoryBot.build(:job, cloned: true, publish_at: nil)
       job.validate_not_cloned_when_published
 
       message = I18n.t('errors.job.not_cloned_when_published')
@@ -472,28 +472,28 @@ RSpec.describe Job, type: :model do
   describe '#validate_job_end_date_after_job_date' do
     it 'adds error if job end date is before job date' do
       attributes = { job_date: 2.days.from_now, job_end_date: 1.day.from_now }
-      job = FactoryGirl.build(:job, attributes)
+      job = FactoryBot.build(:job, attributes)
       job.validate
       message = I18n.t('errors.job.job_end_date_after_job_date')
       expect(job.errors.messages[:job_end_date]).to include(message)
     end
 
     it 'adds *no* error if the job_end_date is equal to job_date' do
-      job = FactoryGirl.build(:job, job_date: Date.tomorrow, job_end_date: Date.tomorrow)
+      job = FactoryBot.build(:job, job_date: Date.tomorrow, job_end_date: Date.tomorrow)
       job.validate
       message = I18n.t('errors.job.job_end_date_after_job_date')
       expect(job.errors.messages[:job_end_date] || []).not_to include(message)
     end
 
     it 'adds *no* error if the job_end_date is nil' do
-      job = FactoryGirl.build(:job, job_end_date: nil)
+      job = FactoryBot.build(:job, job_end_date: nil)
       job.validate
       message = I18n.t('errors.job.job_end_date_after_job_date')
       expect(job.errors.messages[:job_end_date] || []).not_to include(message)
     end
 
     it 'adds *no* error if the job_date is in the future' do
-      job = FactoryGirl.build(:job, job_end_date: 1.week.from_now)
+      job = FactoryBot.build(:job, job_end_date: 1.week.from_now)
       job.validate
       message = I18n.t('errors.job.job_end_date_after_job_date')
       expect(job.errors.messages[:job_end_date] || []).not_to include(message)
@@ -502,7 +502,7 @@ RSpec.describe Job, type: :model do
 
   describe 'validate category if frilans_finans_job' do
     it "adds error if #{name}_category is not set and publish_on_#{name} is true" do
-      job = FactoryGirl.build(:job, category: nil)
+      job = FactoryBot.build(:job, category: nil)
       job.validate
 
       expect(job.errors.messages[:category]).to include("can't be blank")
@@ -512,7 +512,7 @@ RSpec.describe Job, type: :model do
   %i[blocketjobb metrojobb].each do |name|
     describe "#validate_last_application_at_on_publish_to_#{name}" do
       it "adds error if last_application_at is not set and publish_on_#{name} is true" do
-        job = FactoryGirl.build(
+        job = FactoryBot.build(
           :job,
           last_application_at: nil,
           "publish_on_#{name}": true
@@ -523,7 +523,7 @@ RSpec.describe Job, type: :model do
       end
 
       it 'adds *no* error if #last_application_at is set' do
-        job = FactoryGirl.build(
+        job = FactoryBot.build(
           :job,
           last_application_at: Date.tomorrow,
           "publish_on_#{name}": true
@@ -536,16 +536,16 @@ RSpec.describe Job, type: :model do
 
     describe "#validate_company_presence_on_publish_to_#{name}" do
       it "adds error if company is not set (through owner) and publish_on_#{name} is true" do # rubocop:disable Metrics/LineLength
-        owner = FactoryGirl.build(:user)
-        job = FactoryGirl.build(:job, owner: owner, "publish_on_#{name}": true)
+        owner = FactoryBot.build(:user)
+        job = FactoryBot.build(:job, owner: owner, "publish_on_#{name}": true)
         job.validate
         message = I18n.t("errors.job.company_presence_on_publish_to_#{name}")
         expect(job.errors.messages[:company]).to include(message)
       end
 
       it 'adds *no* error if #company is set' do
-        owner = FactoryGirl.create(:company_user)
-        job = FactoryGirl.build(:job, owner: owner, "publish_on_#{name}": true)
+        owner = FactoryBot.create(:company_user)
+        job = FactoryBot.build(:job, owner: owner, "publish_on_#{name}": true)
         job.validate
         message = I18n.t("errors.job.company_presence_on_publish_to_#{name}")
         expect(job.errors.messages[:company]).not_to include(message)
@@ -554,14 +554,14 @@ RSpec.describe Job, type: :model do
 
     describe "#validate_municipality_presence_on_publish_to_#{name}" do
       it "adds error if municipality is not set and publish_on_#{name} is true" do
-        job = FactoryGirl.build(:job, municipality: nil, "publish_on_#{name}": true)
+        job = FactoryBot.build(:job, municipality: nil, "publish_on_#{name}": true)
         job.validate
         message = I18n.t("errors.job.municipality_presence_on_publish_to_#{name}")
         expect(job.errors.messages[:municipality]).to include(message)
       end
 
       it 'adds *no* error if #municipality is set' do
-        job = FactoryGirl.build(
+        job = FactoryBot.build(
           :job,
           municipality: 'Stockholm',
           "publish_on_#{name}": true
@@ -574,7 +574,7 @@ RSpec.describe Job, type: :model do
 
     describe "#validate_#{name}_category_presence_on_publish_to_#{name}" do
       it "adds error if #{name}_category is not set and publish_on_#{name} is true" do
-        job = FactoryGirl.build(
+        job = FactoryBot.build(
           :job,
           "#{name}_category": nil,
           "publish_on_#{name}": true
@@ -585,7 +585,7 @@ RSpec.describe Job, type: :model do
       end
 
       it "adds *no* error if ##{name}_category is set" do
-        job = FactoryGirl.build(
+        job = FactoryBot.build(
           :job,
           "#{name}_category": 'Övrigt',
           "publish_on_#{name}": true
@@ -599,16 +599,16 @@ RSpec.describe Job, type: :model do
 
   describe '#validate_hourly_rate_active' do
     it 'adds error if the hourly pay is *not* active' do
-      hourly_pay = FactoryGirl.build(:inactive_hourly_pay)
-      job = FactoryGirl.build(:job, hourly_pay: hourly_pay)
+      hourly_pay = FactoryBot.build(:inactive_hourly_pay)
+      job = FactoryBot.build(:job, hourly_pay: hourly_pay)
       job.validate
       message = I18n.t('errors.job.hourly_pay_active')
       expect(job.errors.messages[:hourly_pay]).to include(message)
     end
 
     it 'adds error if the hourly pay is *not* active' do
-      hourly_pay = FactoryGirl.build(:hourly_pay, active: true)
-      job = FactoryGirl.build(:job, hourly_pay: hourly_pay)
+      hourly_pay = FactoryBot.build(:hourly_pay, active: true)
+      job = FactoryBot.build(:job, hourly_pay: hourly_pay)
       job.validate
       message = I18n.t('errors.job.hourly_pay_active')
       expect(job.errors.messages[:hourly_pay] || []).not_to include(message)
@@ -628,7 +628,7 @@ RSpec.describe Job, type: :model do
       start_date = Date.new(2016, 4, 27)
       end_date = Date.new(2016, 4, 28)
       job_attributes = { job_date: start_date, job_end_date: end_date, hours: 3 }
-      job = FactoryGirl.build(:job, job_attributes)
+      job = FactoryBot.build(:job, job_attributes)
 
       job.validate
       expect(job.errors.messages[:hours] || []).not_to include(max_hours_error_message)
@@ -639,7 +639,7 @@ RSpec.describe Job, type: :model do
         start_date = Date.new(2016, 4, 4)
         end_date = Date.new(2016, 4, 18)
         job_attributes = { job_date: start_date, job_end_date: end_date, hours: 3 }
-        job = FactoryGirl.build(:job, job_attributes)
+        job = FactoryBot.build(:job, job_attributes)
 
         job.validate
         expect(job.errors.messages[:hours]).to include(min_hours_error_message)
@@ -649,7 +649,7 @@ RSpec.describe Job, type: :model do
         start_date = Date.new(2016, 4, 4)
         end_date = Date.new(2016, 4, 18)
         job_attributes = { job_date: start_date, job_end_date: end_date, hours: 300 }
-        job = FactoryGirl.build(:job, job_attributes)
+        job = FactoryBot.build(:job, job_attributes)
 
         job.validate
         expect(job.errors.messages[:hours]).to include(max_hours_error_message)
@@ -661,7 +661,7 @@ RSpec.describe Job, type: :model do
         start_date = Date.new(2016, 4, 8)
         end_date = Date.new(2016, 4, 10)
         job_attributes = { job_date: start_date, job_end_date: end_date, hours: 1 }
-        job = FactoryGirl.build(:job, job_attributes)
+        job = FactoryBot.build(:job, job_attributes)
 
         job.validate
         expect(job.errors.messages[:hours]).to include(min_hours_error_message)
@@ -671,7 +671,7 @@ RSpec.describe Job, type: :model do
         start_date = Date.new(2016, 4, 8)
         end_date = Date.new(2016, 4, 10)
         job_attributes = { job_date: start_date, job_end_date: end_date, hours: 100 }
-        job = FactoryGirl.build(:job, job_attributes)
+        job = FactoryBot.build(:job, job_attributes)
 
         job.validate
         expect(job.errors.messages[:hours]).to include(max_hours_error_message)
@@ -681,16 +681,16 @@ RSpec.describe Job, type: :model do
 
   describe '#validate_owner_belongs_to_company' do
     it 'adds error if owner does *not* belong to a company' do
-      owner = FactoryGirl.build(:user, company: nil)
-      job = FactoryGirl.build(:job, owner: owner)
+      owner = FactoryBot.build(:user, company: nil)
+      job = FactoryBot.build(:job, owner: owner)
       job.validate
       message = I18n.t('errors.job.owner_must_belong_to_company')
       expect(job.errors.messages[:owner]).to include(message)
     end
 
     it 'adds no error if the owner belongs to a company' do
-      owner = FactoryGirl.build(:company_user)
-      job = FactoryGirl.build(:job, owner: owner)
+      owner = FactoryBot.build(:company_user)
+      job = FactoryBot.build(:job, owner: owner)
       job.validate
       message = I18n.t('errors.job.owner_must_belong_to_company')
       expect(job.errors.messages[:owner] || []).not_to include(message)
@@ -700,7 +700,7 @@ RSpec.describe Job, type: :model do
   describe '#salary_summary' do
     it 'returns salary summary that includes the gross hourly pay' do
       I18n.with_locale(:sv) do
-        expect(FactoryGirl.build(:job).salary_summary).to include('100 SEK/timmen')
+        expect(FactoryBot.build(:job).salary_summary).to include('100 SEK/timmen')
       end
     end
   end
@@ -708,7 +708,7 @@ RSpec.describe Job, type: :model do
   describe '#schedule_summary' do
     it 'returns schedule summary that includes the job start date' do
       I18n.with_locale(:sv) do
-        job = FactoryGirl.build(:job)
+        job = FactoryBot.build(:job)
         expect(job.schedule_summary).to include(job.job_date.to_date.to_s)
       end
     end
