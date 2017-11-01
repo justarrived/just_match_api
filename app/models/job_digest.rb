@@ -49,6 +49,11 @@ class JobDigest < ApplicationRecord
     addresses.any?(&:coordinates?)
   end
 
+  def user_id
+    return unless user
+    user.id
+  end
+
   def email
     subscriber.contact_email
   end

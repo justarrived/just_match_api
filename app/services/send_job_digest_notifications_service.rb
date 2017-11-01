@@ -9,6 +9,8 @@ class SendJobDigestNotificationsService
 
       JobsDigestNotifier.call(jobs: matching_jobs[0...max_jobs], job_digest: job_digest)
       data = {
+        user_id: job_digest.user_id,
+        email: job_digest.email,
         job_digest_id: job_digest.id,
         matching_job_ids: matching_jobs.map(&:id)
       }
