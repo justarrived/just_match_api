@@ -12,50 +12,50 @@ RSpec.describe Invoice, type: :model do
   end
 
   describe '#validate_job_started' do
-    let(:passed_job) { FactoryGirl.build(:passed_job) }
-    let(:inprogress_job) { FactoryGirl.build(:inprogress_job) }
-    let(:future_job) { FactoryGirl.build(:future_job) }
+    let(:passed_job) { FactoryBot.build(:passed_job) }
+    let(:inprogress_job) { FactoryBot.build(:inprogress_job) }
+    let(:future_job) { FactoryBot.build(:future_job) }
     let(:message) { I18n.t('errors.invoice.job_started') }
 
     it 'adds error if the job is in the future' do
-      job_user = FactoryGirl.build(:job_user, job: future_job)
-      invoice = FactoryGirl.build(:invoice, job_user: job_user)
+      job_user = FactoryBot.build(:job_user, job: future_job)
+      invoice = FactoryBot.build(:invoice, job_user: job_user)
       invoice.validate
 
       expect(invoice.errors.messages[:job]).to include(message)
     end
 
     it 'adds *no* error if the job is in progress' do
-      job_user = FactoryGirl.build(:job_user, job: inprogress_job)
-      invoice = FactoryGirl.build(:invoice, job_user: job_user)
+      job_user = FactoryBot.build(:job_user, job: inprogress_job)
+      invoice = FactoryBot.build(:invoice, job_user: job_user)
       invoice.validate
       expect(invoice.errors.messages[:job] || []).not_to include(message)
     end
 
     it 'adds *no* error if the job is over' do
-      job_user = FactoryGirl.build(:job_user, job: passed_job)
-      invoice = FactoryGirl.build(:invoice, job_user: job_user)
+      job_user = FactoryBot.build(:job_user, job: passed_job)
+      invoice = FactoryBot.build(:invoice, job_user: job_user)
       invoice.validate
       expect(invoice.errors.messages[:job] || []).not_to include(message)
     end
   end
 
   describe '#validate_job_not_cancelled' do
-    let(:cancelled_job) { FactoryGirl.build(:job, cancelled: true) }
-    let(:job) { FactoryGirl.build(:job, cancelled: false) }
+    let(:cancelled_job) { FactoryBot.build(:job, cancelled: true) }
+    let(:job) { FactoryBot.build(:job, cancelled: false) }
     let(:message) { I18n.t('errors.invoice.job_cancelled') }
 
     it 'adds error if the job is cancelled' do
-      job_user = FactoryGirl.build(:job_user, job: cancelled_job)
-      invoice = FactoryGirl.build(:invoice, job_user: job_user)
+      job_user = FactoryBot.build(:job_user, job: cancelled_job)
+      invoice = FactoryBot.build(:invoice, job_user: job_user)
       invoice.validate
 
       expect(invoice.errors.messages[:job]).to include(message)
     end
 
     it 'adds no error if the job is not cancelled' do
-      job_user = FactoryGirl.build(:job_user, job: job)
-      invoice = FactoryGirl.build(:invoice, job_user: job_user)
+      job_user = FactoryBot.build(:job_user, job: job)
+      invoice = FactoryBot.build(:invoice, job_user: job_user)
       invoice.validate
 
       expect(invoice.errors.messages[:job]).not_to include(message)
@@ -63,40 +63,40 @@ RSpec.describe Invoice, type: :model do
   end
 
   describe '#validate_job_user_accepted' do
-    let(:passed_job) { FactoryGirl.build(:passed_job) }
+    let(:passed_job) { FactoryBot.build(:passed_job) }
     let(:message) { I18n.t('errors.invoice.job_user_accepted') }
 
     it 'adds error if the job user is not accepted' do
-      job_user = FactoryGirl.build(:job_user, job: passed_job, accepted: false)
-      invoice = FactoryGirl.build(:invoice, job_user: job_user)
+      job_user = FactoryBot.build(:job_user, job: passed_job, accepted: false)
+      invoice = FactoryBot.build(:invoice, job_user: job_user)
       invoice.validate
 
       expect(invoice.errors.messages[:job_user]).to include(message)
     end
 
     it 'adds *no* error if the job user is accepted' do
-      job_user = FactoryGirl.build(:job_user, job: passed_job, accepted: true)
-      invoice = FactoryGirl.build(:invoice, job_user: job_user)
+      job_user = FactoryBot.build(:job_user, job: passed_job, accepted: true)
+      invoice = FactoryBot.build(:invoice, job_user: job_user)
       invoice.validate
       expect(invoice.errors.messages[:job_user] || []).not_to include(message)
     end
   end
 
   describe '#validate_job_user_will_perform' do
-    let(:passed_job) { FactoryGirl.build(:passed_job) }
+    let(:passed_job) { FactoryBot.build(:passed_job) }
     let(:message) { I18n.t('errors.invoice.job_user_will_perform') }
 
     it 'adds error if the job user will perform is not true' do
-      job_user = FactoryGirl.build(:job_user, job: passed_job, accepted: false)
-      invoice = FactoryGirl.build(:invoice, job_user: job_user)
+      job_user = FactoryBot.build(:job_user, job: passed_job, accepted: false)
+      invoice = FactoryBot.build(:invoice, job_user: job_user)
       invoice.validate
 
       expect(invoice.errors.messages[:job_user]).to include(message)
     end
 
     it 'adds *no* error if the job user will perform is true' do
-      job_user = FactoryGirl.build(:job_user, job: passed_job, will_perform: true)
-      invoice = FactoryGirl.build(:invoice, job_user: job_user)
+      job_user = FactoryBot.build(:job_user, job: passed_job, will_perform: true)
+      invoice = FactoryBot.build(:invoice, job_user: job_user)
       invoice.validate
       expect(invoice.errors.messages[:job_user] || []).not_to include(message)
     end

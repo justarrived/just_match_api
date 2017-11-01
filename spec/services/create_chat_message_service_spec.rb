@@ -4,9 +4,9 @@ require 'rails_helper'
 
 RSpec.describe CreateChatMessageService do
   describe '#create' do
-    let(:author) { FactoryGirl.create(:user) }
-    let(:chat) { FactoryGirl.create(:chat) }
-    let(:language_id) { FactoryGirl.create(:language).id }
+    let(:author) { FactoryBot.create(:user) }
+    let(:chat) { FactoryBot.create(:chat) }
+    let(:language_id) { FactoryBot.create(:language).id }
     let(:body) { 'Watwoman, watman.' }
 
     subject do
@@ -42,15 +42,15 @@ RSpec.describe CreateChatMessageService do
 
     context 'valid message' do
       it 'returns true if last_message is nil' do
-        message = FactoryGirl.create(:message)
+        message = FactoryBot.create(:message)
         result = described_class.send_notification?(message: message, last_message: nil)
         expect(result).to eq(true)
       end
 
       it 'returns true last_message is older than SEND_IF_NO_MESSAGE_IN_HOURS hours' do
         some_hours_ago = (described_class::SEND_IF_NO_MESSAGE_IN_HOURS + 1).hours.ago
-        message = FactoryGirl.create(:message)
-        last_message = FactoryGirl.create(:message, created_at: some_hours_ago)
+        message = FactoryBot.create(:message)
+        last_message = FactoryBot.create(:message, created_at: some_hours_ago)
 
         result = described_class.send_notification?(
           message: message,
@@ -61,8 +61,8 @@ RSpec.describe CreateChatMessageService do
 
       it 'returns false last_message is older than SEND_IF_NO_MESSAGE_IN_HOURS hours' do
         few_hours_ago = (described_class::SEND_IF_NO_MESSAGE_IN_HOURS - 1).hours.ago
-        message = FactoryGirl.create(:message)
-        last_message = FactoryGirl.create(:message, created_at: few_hours_ago)
+        message = FactoryBot.create(:message)
+        last_message = FactoryBot.create(:message, created_at: few_hours_ago)
 
         result = described_class.send_notification?(
           message: message,

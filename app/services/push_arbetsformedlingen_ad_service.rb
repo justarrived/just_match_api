@@ -10,7 +10,8 @@ class PushArbetsformedlingenAdService
     wrapper = Arbetsformedlingen::JobWrapper.new(ad, staffing_company: staffing_company)
     return Result.new(wrapper.errors, nil) unless wrapper.valid?
 
-    response = Arbetsformedlingen.post_job(wrapper.packet)
+    client = Arbetsformedlingen::API::Client.new
+    response = client.create_ad(wrapper.packet)
 
     log = ArbetsformedlingenAdLog.create!(
       arbetsformedlingen_ad: ad,

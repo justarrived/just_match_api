@@ -5,12 +5,12 @@ require 'rails_helper'
 RSpec.describe Message, type: :model do
   describe '#created_before?' do
     it 'returns true if created before given datetime' do
-      message = FactoryGirl.create(:message, created_at: 2.hours.ago)
+      message = FactoryBot.create(:message, created_at: 2.hours.ago)
       expect(message.created_before?(1.hour.ago)).to eq(true)
     end
 
     it 'returns false if created after given datetime' do
-      message = FactoryGirl.create(:message, created_at: 1.hour.ago)
+      message = FactoryBot.create(:message, created_at: 1.hour.ago)
       expect(message.created_before?(2.hours.ago)).to eq(false)
     end
   end

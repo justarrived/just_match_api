@@ -4,9 +4,9 @@ require 'rails_helper'
 
 RSpec.describe UpdateApplicantDataReminderNotifier, type: :mailer do
   let(:mailer) { Struct.new(:deliver_later).new(nil) }
-  let(:job_user) { FactoryGirl.build(:job_user) }
-  let(:skills) { FactoryGirl.build(:skill) }
-  let(:languages) { FactoryGirl.build(:language) }
+  let(:job_user) { FactoryBot.build(:job_user) }
+  let(:skills) { FactoryBot.build(:skill) }
+  let(:languages) { FactoryBot.build(:language) }
   let(:missing_cv) { false }
 
   it 'sends email' do

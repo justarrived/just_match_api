@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe Sweepers::JobUserSweeper do
   describe '#applicant_confirmation_overdue' do
     before(:each) do
-      ju = FactoryGirl.create(:job_user, accepted: true)
+      ju = FactoryBot.create(:job_user, accepted: true)
       ju.accepted_at = 2.weeks.ago
       ju.save!
     end
@@ -38,7 +38,7 @@ RSpec.describe Sweepers::JobUserSweeper do
 
   describe '#update_job_filled' do
     before(:each) do
-      @job_user = FactoryGirl.create(:job_user, accepted: true, will_perform: true)
+      @job_user = FactoryBot.create(:job_user, accepted: true, will_perform: true)
       @job_user.save!
     end
 

@@ -6,10 +6,10 @@ RSpec.describe NewApplicantNotifier, type: :mailer do
   let(:mailer) { Struct.new(:deliver_later).new(nil) }
   let(:job) { mock_model Job, owner: owner }
   let(:job_user) { mock_model JobUser, job: job, user: user }
-  let(:user) { FactoryGirl.build(:user) }
-  let(:skills) { [FactoryGirl.build(:skill)] }
-  let(:languages) { [FactoryGirl.build(:language)] }
-  let(:owner) { FactoryGirl.build(:user) }
+  let(:user) { FactoryBot.build(:user) }
+  let(:skills) { [FactoryBot.build(:skill)] }
+  let(:languages) { [FactoryBot.build(:language)] }
+  let(:owner) { FactoryBot.build(:user) }
 
   before(:each) do
     allow(JobMailer).to receive(:new_applicant_email).and_return(mailer)

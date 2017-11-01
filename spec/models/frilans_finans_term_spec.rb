@@ -6,18 +6,18 @@ RSpec.describe FrilansFinansTerm, type: :model do
   context 'klass' do
     describe '#current_user_terms' do
       it 'returns the lastest user terms' do
-        FactoryGirl.create(:frilans_finans_term)
-        FactoryGirl.create(:frilans_finans_term, company: true)
-        terms = FactoryGirl.create(:frilans_finans_term)
+        FactoryBot.create(:frilans_finans_term)
+        FactoryBot.create(:frilans_finans_term, company: true)
+        terms = FactoryBot.create(:frilans_finans_term)
         expect(described_class.current_user_terms).to eq(terms)
       end
     end
 
     describe '#current_company_user_terms' do
       it 'returns the lastest user terms' do
-        FactoryGirl.create(:frilans_finans_term)
-        FactoryGirl.create(:frilans_finans_term, company: true)
-        terms = FactoryGirl.create(:frilans_finans_term, company: true)
+        FactoryBot.create(:frilans_finans_term)
+        FactoryBot.create(:frilans_finans_term, company: true)
+        terms = FactoryBot.create(:frilans_finans_term, company: true)
         expect(described_class.current_company_user_terms).to eq(terms)
       end
     end

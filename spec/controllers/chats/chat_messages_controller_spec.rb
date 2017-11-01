@@ -4,13 +4,13 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::Chats::ChatMessagesController, type: :controller do
   before(:each) do
-    company_user = FactoryGirl.create(:company_user).tap(&:create_auth_token)
-    @chat_user = FactoryGirl.create(:chat_user, user: company_user)
+    company_user = FactoryBot.create(:company_user).tap(&:create_auth_token)
+    @chat_user = FactoryBot.create(:chat_user, user: company_user)
   end
 
   let(:valid_attributes) do
-    first = FactoryGirl.create(:user)
-    second = FactoryGirl.create(:user)
+    first = FactoryBot.create(:user)
+    second = FactoryBot.create(:user)
     { user_ids: [first, second] }
   end
 
@@ -32,7 +32,7 @@ RSpec.describe Api::V1::Chats::ChatMessagesController, type: :controller do
       let(:valid_attributes) do
         chat = @chat_user.chat
         user = @chat_user.user
-        FactoryGirl.create(:message, chat: chat, author: user)
+        FactoryBot.create(:message, chat: chat, author: user)
         {
           auth_token: user.auth_token,
           id: chat.to_param,
@@ -50,7 +50,7 @@ RSpec.describe Api::V1::Chats::ChatMessagesController, type: :controller do
   describe 'POST #create' do
     context 'with valid params' do
       let(:valid_attributes) do
-        language = FactoryGirl.create(:language)
+        language = FactoryBot.create(:language)
         chat = @chat_user.chat
         user = @chat_user.user
         {

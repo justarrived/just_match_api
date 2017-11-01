@@ -4,6 +4,50 @@ HEAD
 -----------
 
 
+v2.53 - 2017-11-01
+----------
+__Admin__:
+* Display the latest job user comment
+
+__Enhancement__:
+* Add `user_id` and email to analytics data on send job digest email
+
+__Gem update__:
+* Rename `FactoryGirl` => `FactoryBot`
+* Bump `rspec-rails` from 3.6.1 to 3.7.1
+* Update factory_bot_rails gem to ~> 4.8
+
+
+v2.52 - 2017-10-31
+----------
+__API__:
+* Add `/ahoy/events` endpoint
+
+__Enhancement__:
+* Refactor `UrlValidator` to use `AbsoluteUrl` class
+* Add `AbsoluteUrl` class
+
+__Admin__:
+* Add user latest activity sidebar to user & job user
+* :hocho: N+1 queries :rocket:
+
+
+v2.51 - 2017-10-30
+----------
+__API__:
+* Update `/user/notifications` to include the correct i18n JSON-structure
+* Add `job#frilans_finans_job` attribute to jobs API type
+
+__Enhancement__:
+* Use https protocol in AppConfig#cv_template_url
+
+__Gem update__:
+* Bump arbetsformedlingen gem
+  - Update PushArbetsformedlingenAdService to use new API
+* Bump database_cleaner from 1.6.1 to 1.6.2
+* Bump twilio-ruby from 5.4.2 to 5.4.3
+
+
 v2.50 - 2017-10-28
 ----------
 __Enhancement__:

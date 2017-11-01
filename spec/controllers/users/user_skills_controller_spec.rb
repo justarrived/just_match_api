@@ -13,7 +13,7 @@ RSpec.describe Api::V1::Users::UserSkillsController, type: :controller do
 
   describe 'GET #index' do
     it 'assigns all user skills as @skills' do
-      user = FactoryGirl.create(:user_with_skills, skills_count: 2)
+      user = FactoryBot.create(:user_with_skills, skills_count: 2)
       user.user_skills.first.update(proficiency: 3)
       user.user_skills.last.skill.update(internal: true)
 
@@ -27,7 +27,7 @@ RSpec.describe Api::V1::Users::UserSkillsController, type: :controller do
     end
 
     it 'does not return internal skills' do
-      user = FactoryGirl.create(:user_with_skills, skills_count: 1)
+      user = FactoryBot.create(:user_with_skills, skills_count: 1)
       user.user_skills.first.skill.update(internal: true)
 
       allow_any_instance_of(described_class).
@@ -39,7 +39,7 @@ RSpec.describe Api::V1::Users::UserSkillsController, type: :controller do
     end
 
     it 'returns 200 ok status' do
-      user = FactoryGirl.create(:user)
+      user = FactoryBot.create(:user)
       allow_any_instance_of(described_class).
         to(receive(:current_user).
         and_return(user))
@@ -50,7 +50,7 @@ RSpec.describe Api::V1::Users::UserSkillsController, type: :controller do
 
   describe 'GET #show' do
     it 'assigns the requested user skill as @skill, @user_skill, @user' do
-      user = FactoryGirl.create(:user_with_skills, skills_count: 1)
+      user = FactoryBot.create(:user_with_skills, skills_count: 1)
       user_skill = user.user_skills.first
       skill = user_skill.skill
       params = {
@@ -69,10 +69,10 @@ RSpec.describe Api::V1::Users::UserSkillsController, type: :controller do
   describe 'POST #create' do
     context 'with valid params' do
       context 'authorized user' do
-        let(:user) { FactoryGirl.create(:user_with_tokens) }
+        let(:user) { FactoryBot.create(:user_with_tokens) }
 
         it 'creates a new UserSkill' do
-          skill = FactoryGirl.create(:skill)
+          skill = FactoryBot.create(:skill)
           params = {
             auth_token: user.auth_token,
             user_id: user.to_param,
@@ -86,7 +86,7 @@ RSpec.describe Api::V1::Users::UserSkillsController, type: :controller do
         end
 
         it 'assigns a newly created user_skill as @user_skill' do
-          skill = FactoryGirl.create(:skill)
+          skill = FactoryBot.create(:skill)
           params = {
             auth_token: user.auth_token,
             user_id: user.to_param,
@@ -101,7 +101,7 @@ RSpec.describe Api::V1::Users::UserSkillsController, type: :controller do
         end
 
         it 'returns created status' do
-          skill = FactoryGirl.create(:skill)
+          skill = FactoryBot.create(:skill)
           params = {
             auth_token: user.auth_token,
             user_id: user.to_param,
@@ -120,7 +120,7 @@ RSpec.describe Api::V1::Users::UserSkillsController, type: :controller do
         allow_any_instance_of(described_class).
           to(receive(:current_user).
           and_return(User.new))
-        user = FactoryGirl.create(:user)
+        user = FactoryBot.create(:user)
         post :create, params: { auth_token: 'wat', user_id: user.to_param, skill: {} }
         expect(response.status).to eq(401)
       end
@@ -128,7 +128,7 @@ RSpec.describe Api::V1::Users::UserSkillsController, type: :controller do
 
     context 'with invalid params' do
       context 'authorized user' do
-        let(:user) { FactoryGirl.create(:user_with_tokens) }
+        let(:user) { FactoryBot.create(:user_with_tokens) }
 
         it 'assigns a newly created but unsaved user_skill as @user_skill' do
           params = { auth_token: user.auth_token, user_id: user.to_param, skill: {} }
@@ -148,7 +148,7 @@ RSpec.describe Api::V1::Users::UserSkillsController, type: :controller do
   describe 'DELETE #destroy' do
     context 'authorized user' do
       let(:user) do
-        FactoryGirl.create(:user_with_skills).tap do |user|
+        FactoryBot.create(:user_with_skills).tap do |user|
           user.create_auth_token
           user
         end
@@ -194,7 +194,7 @@ RSpec.describe Api::V1::Users::UserSkillsController, type: :controller do
 
     context 'user not allowed' do
       it 'does not destroy the requested user_skill' do
-        user = FactoryGirl.create(:user_with_skills)
+        user = FactoryBot.create(:user_with_skills)
         user_skill = user.user_skills.first
         params = {
           auth_token: user.auth_token,
@@ -207,8 +207,8 @@ RSpec.describe Api::V1::Users::UserSkillsController, type: :controller do
       end
 
       it 'returns not authorized status' do
-        user = FactoryGirl.create(:user_with_skills)
-        other_user = FactoryGirl.create(:user_with_tokens)
+        user = FactoryBot.create(:user_with_skills)
+        other_user = FactoryBot.create(:user_with_tokens)
         user_skill = user.user_skills.first
         params = {
           auth_token: other_user.auth_token,

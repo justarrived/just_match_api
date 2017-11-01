@@ -28,7 +28,7 @@ RSpec.describe UserImage, type: :model do
   end
 
   describe '#generate_one_time_token' do
-    let(:user_image) { FactoryGirl.build(:user_image) }
+    let(:user_image) { FactoryBot.build(:user_image) }
 
     it 'generates one time token' do
       user_image.generate_one_time_token
@@ -49,7 +49,7 @@ RSpec.describe UserImage, type: :model do
   describe '#find_by_one_time_token' do
     context 'token still valid' do
       it 'finds and returns user_image' do
-        user_image = FactoryGirl.create(:user_image)
+        user_image = FactoryBot.create(:user_image)
         user_image.generate_one_time_token
         user_image.save!
 
@@ -60,7 +60,7 @@ RSpec.describe UserImage, type: :model do
 
     context 'token expired' do
       it 'returns nil' do
-        user_image = FactoryGirl.create(:user_image)
+        user_image = FactoryBot.create(:user_image)
         user_image.generate_one_time_token
         user_image.save!
 

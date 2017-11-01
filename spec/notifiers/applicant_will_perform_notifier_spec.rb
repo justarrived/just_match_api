@@ -5,8 +5,8 @@ require 'rails_helper'
 RSpec.describe ApplicantWillPerformNotifier, type: :mailer do
   let(:mailer) { Struct.new(:deliver_later).new(nil) }
   let(:job) { mock_model Job, owner: owner, job_users: JobUser.none }
-  let(:user) { FactoryGirl.build(:user) }
-  let(:owner) { FactoryGirl.build(:user) }
+  let(:user) { FactoryBot.build(:user) }
+  let(:owner) { FactoryBot.build(:user) }
   let(:job_user) { mock_model JobUser, user: user, job: job }
 
   it 'must work' do

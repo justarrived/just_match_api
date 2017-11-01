@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
   let(:user) do
-    FactoryGirl.create(:user_with_tokens, company: FactoryGirl.create(:company))
+    FactoryBot.create(:user_with_tokens, company: FactoryBot.create(:company))
   end
   let(:owner) { User.find_by_auth_token(valid_session[:token]) }
 
@@ -18,7 +18,7 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
 
   describe 'GET #index' do
     it 'assigns all user users as @users' do
-      job = FactoryGirl.create(:job_with_users, users_count: 1, owner: user)
+      job = FactoryBot.create(:job_with_users, users_count: 1, owner: user)
       job_user = job.job_users.first
       get :index, params: { auth_token: user.auth_token, job_id: job.to_param }
       expect(assigns(:job_users)).to eq([job_user])
@@ -26,7 +26,7 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
 
     context 'not authorized' do
       it 'returns not authorized status' do
-        job = FactoryGirl.create(:job_with_users, users_count: 1)
+        job = FactoryBot.create(:job_with_users, users_count: 1)
         get :index, params: { auth_token: user.auth_token, job_id: job.to_param }
         expect(response.status).to eq(403)
       end
@@ -35,7 +35,7 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
 
   describe 'GET #show' do
     it 'assigns @user, @job and @job_user' do
-      job = FactoryGirl.create(:job_with_users, users_count: 1, owner: user)
+      job = FactoryBot.create(:job_with_users, users_count: 1, owner: user)
       user = job.users.first
       user.create_auth_token
       job_user = job.job_users.first
@@ -52,7 +52,7 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
 
     context 'not authorized' do
       it 'returns unauthorized status' do
-        job = FactoryGirl.create(:job_with_users, users_count: 1)
+        job = FactoryBot.create(:job_with_users, users_count: 1)
         job_user = job.job_users.first
         params = {
           auth_token: user.auth_token,
@@ -68,9 +68,9 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
   describe 'POST #create' do
     context 'with valid params' do
       it 'creates a new JobUser' do
-        user = FactoryGirl.create(:user_with_tokens)
-        user1 = FactoryGirl.create(:company_user)
-        job = FactoryGirl.create(:job, owner: user1)
+        user = FactoryBot.create(:user_with_tokens)
+        user1 = FactoryBot.create(:company_user)
+        job = FactoryBot.create(:job, owner: user1)
         params = {
           auth_token: user.auth_token,
           job_id: job.to_param,
@@ -82,9 +82,9 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
       end
 
       it 'enqueues a data update reminder' do
-        user = FactoryGirl.create(:user_with_tokens)
-        user1 = FactoryGirl.create(:company_user)
-        job = FactoryGirl.create(:job, owner: user1)
+        user = FactoryBot.create(:user_with_tokens)
+        user1 = FactoryBot.create(:company_user)
+        job = FactoryBot.create(:job, owner: user1)
         params = {
           auth_token: user.auth_token,
           job_id: job.to_param,
@@ -96,10 +96,10 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
       end
 
       it 'forbidden if user tries to apply as someone else' do
-        user = FactoryGirl.create(:user)
-        other_user = FactoryGirl.create(:user_with_tokens)
-        user1 = FactoryGirl.create(:company_user)
-        job = FactoryGirl.create(:job, owner: user1)
+        user = FactoryBot.create(:user)
+        other_user = FactoryBot.create(:user_with_tokens)
+        user1 = FactoryBot.create(:company_user)
+        job = FactoryBot.create(:job, owner: user1)
         params = {
           auth_token: other_user.auth_token,
           job_id: job.to_param,
@@ -117,13 +117,13 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
       end
 
       context 'with apply message' do
-        let(:language) { FactoryGirl.create(:language) }
+        let(:language) { FactoryBot.create(:language) }
         let(:apply_message) { 'Something something, darkside..' }
 
         it 'creates a apply message' do
-          user = FactoryGirl.create(:user_with_tokens)
-          user1 = FactoryGirl.create(:company_user)
-          job = FactoryGirl.create(:job, owner: user1)
+          user = FactoryBot.create(:user_with_tokens)
+          user1 = FactoryBot.create(:company_user)
+          job = FactoryBot.create(:job, owner: user1)
           params = {
             auth_token: user.auth_token,
             job_id: job.to_param,
@@ -146,12 +146,12 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
       end
 
       context 'with referrer and utm data' do
-        let(:language) { FactoryGirl.create(:language) }
+        let(:language) { FactoryBot.create(:language) }
 
         it 'creates a job user with referrer & UTM data' do
-          user = FactoryGirl.create(:user_with_tokens)
-          user1 = FactoryGirl.create(:company_user)
-          job = FactoryGirl.create(:job, owner: user1)
+          user = FactoryBot.create(:user_with_tokens)
+          user1 = FactoryBot.create(:company_user)
+          job = FactoryBot.create(:job, owner: user1)
           params = {
             auth_token: user.auth_token,
             job_id: job.to_param,
@@ -185,9 +185,9 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
         end
 
         it 'creates a job user with referrer from request' do
-          user = FactoryGirl.create(:user_with_tokens)
-          user1 = FactoryGirl.create(:company_user)
-          job = FactoryGirl.create(:job, owner: user1)
+          user = FactoryBot.create(:user_with_tokens)
+          user1 = FactoryBot.create(:company_user)
+          job = FactoryBot.create(:job, owner: user1)
           params = {
             auth_token: user.auth_token,
             job_id: job.to_param,
@@ -211,9 +211,9 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
       end
 
       it 'returns created status' do
-        user = FactoryGirl.create(:user_with_tokens)
-        user1 = FactoryGirl.create(:company_user)
-        job = FactoryGirl.create(:job, owner: user1)
+        user = FactoryBot.create(:user_with_tokens)
+        user1 = FactoryBot.create(:company_user)
+        job = FactoryBot.create(:job, owner: user1)
         params = {
           auth_token: user.auth_token,
           job_id: job.to_param,
@@ -224,9 +224,9 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
       end
 
       it 'notifies owner when a a new JobUser is created' do
-        user = FactoryGirl.create(:user_with_tokens)
-        user1 = FactoryGirl.create(:company_user)
-        job = FactoryGirl.create(:job, owner: user1)
+        user = FactoryBot.create(:user_with_tokens)
+        user1 = FactoryBot.create(:company_user)
+        job = FactoryBot.create(:job, owner: user1)
         params = {
           auth_token: user.auth_token,
           job_id: job.to_param,
@@ -240,7 +240,7 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
 
     context 'with invalid params' do
       it 'returns unprocessable entity status' do
-        job = FactoryGirl.create(:job, owner: user)
+        job = FactoryBot.create(:job, owner: user)
         post :create, params: {
           auth_token: user.auth_token,
           job_id: job.to_param,
@@ -254,7 +254,7 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
   describe 'DELETE #destroy' do
     context 'not allowed' do
       it 'does not destroy the requested job_user' do
-        job = FactoryGirl.create(:job_with_users)
+        job = FactoryBot.create(:job_with_users)
         job_user = job.job_users.first
         params = { job_id: job.to_param, job_user_id: job_user.to_param }
         expect do
@@ -263,9 +263,9 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
       end
 
       it 'returns not allowed status' do
-        job = FactoryGirl.create(:job_with_users)
+        job = FactoryBot.create(:job_with_users)
         job_user = job.job_users.first
-        random_user = FactoryGirl.create(:user_with_tokens)
+        random_user = FactoryBot.create(:user_with_tokens)
         params = {
           auth_token: random_user.auth_token,
           job_id: job.to_param,
@@ -278,7 +278,7 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
 
     context 'allowed' do
       it 'can *not* be destroyed if JobUser#will_perform is true' do
-        job = FactoryGirl.create(:job_with_users, users_count: 1)
+        job = FactoryBot.create(:job_with_users, users_count: 1)
         user = job.users.first.tap(&:create_auth_token)
         job_user = job.job_users.first
         job.job_users.first.update_attributes(accepted: true, will_perform: true)
@@ -300,7 +300,7 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
       end
 
       it 'sends a notification to Job#owner if accepted applicant withdraws' do
-        job = FactoryGirl.create(:job_with_users, users_count: 1)
+        job = FactoryBot.create(:job_with_users, users_count: 1)
         user = job.users.first.tap(&:create_auth_token)
         job_user = job.job_users.first
         job.job_users.first.update_attributes(accepted: true)
@@ -316,7 +316,7 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
       end
 
       it 'returns no content status' do
-        job = FactoryGirl.create(:job_with_users, users_count: 1)
+        job = FactoryBot.create(:job_with_users, users_count: 1)
         user = job.users.first.tap(&:create_auth_token)
         job_user = job.job_users.first
 

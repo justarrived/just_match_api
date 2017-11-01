@@ -4,11 +4,11 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::Jobs::ConfirmationsController, type: :controller do
   describe 'POST #create' do
-    let(:user) { FactoryGirl.create(:user_with_tokens) }
-    let(:job) { FactoryGirl.create(:job, owner: owner) }
-    let(:owner) { FactoryGirl.create(:company_user) }
-    let(:job_user) { FactoryGirl.create(:job_user_accepted, job: job, user: user) }
-    let(:terms_agreement) { FactoryGirl.create(:terms_agreement) }
+    let(:user) { FactoryBot.create(:user_with_tokens) }
+    let(:job) { FactoryBot.create(:job, owner: owner) }
+    let(:owner) { FactoryBot.create(:company_user) }
+    let(:job_user) { FactoryBot.create(:job_user_accepted, job: job, user: user) }
+    let(:terms_agreement) { FactoryBot.create(:terms_agreement) }
     let(:consent) { true }
     let(:new_attributes) { {} }
 
@@ -45,8 +45,8 @@ RSpec.describe Api::V1::Jobs::ConfirmationsController, type: :controller do
 
     it 'notifies user when updated Job#will_perform is set to true and sends notifications to rejected users' do # rubocop:disable Metrics/LineLength
       # Already rejected job users, should *not* receive a notification
-      FactoryGirl.create(:job_user, job: job_user.job, rejected: true)
-      rejected_job_user = FactoryGirl.create(:job_user, job: job_user.job)
+      FactoryBot.create(:job_user, job: job_user.job, rejected: true)
+      rejected_job_user = FactoryBot.create(:job_user, job: job_user.job)
 
       notifier_args = { job_user: job_user, owner: owner }
       allow(ApplicantWillPerformNotifier).to receive(:call).with(notifier_args)

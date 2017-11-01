@@ -13,7 +13,7 @@ RSpec.describe Queries::MissingUserTraits do
     end
 
     it 'with *no* missing user attributes it returns an empty list' do
-      user = FactoryGirl.build(:user, :bank_account)
+      user = FactoryBot.build(:user, :bank_account)
       attributes = %w(ssn street zip city phone bank_account)
       missing_traits = described_class.new(user: user)
       expect(missing_traits.attributes(attributes: attributes)).to be_empty
@@ -21,11 +21,11 @@ RSpec.describe Queries::MissingUserTraits do
   end
 
   describe '#skills' do
-    let(:user) { FactoryGirl.create(:user) }
+    let(:user) { FactoryBot.create(:user) }
 
     it 'with missing skills it returns a collection of those skills' do
-      skill1 = FactoryGirl.create(:skill)
-      skill2 = FactoryGirl.create(:skill)
+      skill1 = FactoryBot.create(:skill)
+      skill2 = FactoryBot.create(:skill)
 
       expected = [skill1, skill2]
       missing_traits = described_class.new(user: user)
@@ -34,8 +34,8 @@ RSpec.describe Queries::MissingUserTraits do
     end
 
     it 'with *no* missing skills it returns an empty list' do
-      skill1 = FactoryGirl.create(:skill)
-      skill2 = FactoryGirl.create(:skill)
+      skill1 = FactoryBot.create(:skill)
+      skill2 = FactoryBot.create(:skill)
 
       expected = [skill1, skill2]
       user.skills = expected
@@ -47,7 +47,7 @@ RSpec.describe Queries::MissingUserTraits do
   end
 
   describe '#languages' do
-    let(:user) { FactoryGirl.create(:user) }
+    let(:user) { FactoryBot.create(:user) }
 
     it 'with missing languages it returns a collection of those languages' do
       en = Language.find_or_create_by(lang_code: :en)
@@ -73,7 +73,7 @@ RSpec.describe Queries::MissingUserTraits do
   end
 
   describe '#cv?' do
-    let(:user) { FactoryGirl.create(:user) }
+    let(:user) { FactoryBot.create(:user) }
 
     it 'returns true if cv is missing' do
       missing_traits = described_class.new(user: user)
@@ -81,7 +81,7 @@ RSpec.describe Queries::MissingUserTraits do
     end
 
     it 'retruns false if cv is present' do
-      FactoryGirl.create(:user_document, user: user, category: :cv)
+      FactoryBot.create(:user_document, user: user, category: :cv)
       missing_traits = described_class.new(user: user)
       expect(missing_traits.cv?).to eq(false)
     end

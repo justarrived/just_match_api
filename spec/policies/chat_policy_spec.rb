@@ -7,12 +7,12 @@ RSpec.describe ChatPolicy do
     allow_any_instance_of(User).to receive(:persisted?).and_return(true)
   end
 
-  let(:chat) { FactoryGirl.create(:chat) }
+  let(:chat) { FactoryBot.create(:chat) }
 
   context 'admin user' do
     subject { ChatPolicy.new(admin, chat) }
 
-    let(:admin) { FactoryGirl.build(:admin_user) }
+    let(:admin) { FactoryBot.build(:admin_user) }
 
     it 'returns true for index' do
       expect(subject.index?).to eq(true)
@@ -26,7 +26,7 @@ RSpec.describe ChatPolicy do
   context 'user *not* in chat' do
     subject { ChatPolicy.new(user, chat) }
 
-    let(:user) { FactoryGirl.build(:user) }
+    let(:user) { FactoryBot.build(:user) }
 
     it 'returns true for index' do
       expect(subject.index?).to eq(false)
@@ -42,9 +42,9 @@ RSpec.describe ChatPolicy do
 
     let(:language) { Language.find_or_create_by!(lang_code: 'en') }
 
-    let(:user) { FactoryGirl.build(:user, system_language: language) }
-    let(:a_user) { FactoryGirl.build(:user, system_language: language) }
-    let(:chat_with_users) { FactoryGirl.create(:chat, users: [user, a_user]) }
+    let(:user) { FactoryBot.build(:user, system_language: language) }
+    let(:a_user) { FactoryBot.build(:user, system_language: language) }
+    let(:chat_with_users) { FactoryBot.create(:chat, users: [user, a_user]) }
 
     it 'returns true for index' do
       expect(subject.index?).to eq(false)

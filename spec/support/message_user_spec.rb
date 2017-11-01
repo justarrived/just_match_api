@@ -6,7 +6,7 @@ RSpec.describe MessageUserService do
   describe '#call' do
     it 'can work' do
       type = 'email' # must be email, sms, or both
-      user = FactoryGirl.build(:user)
+      user = FactoryBot.build(:user)
       template = ''
       subject = ''
       data = {}
@@ -18,7 +18,7 @@ RSpec.describe MessageUserService do
 
     it 'can error' do
       type = 'email' # must be email, sms, or both
-      user = FactoryGirl.build(:user)
+      user = FactoryBot.build(:user)
       template = 'Hi %<name>s'
       subject = ''
       data = {}

@@ -183,20 +183,22 @@ ActiveAdmin.register JobUser do
     end
     column :comment do |job_user|
       # comments = ActiveAdmin::Comment.find_for_resource_in_namespace(job_user, 'admin')
-      job_user.active_admin_comments.last&.body
+      job_user.active_admin_comments.order(id: :desc).limit(1).first&.body
     end
   end
 
   show do
-    if job_user.job.ended?
-      render partial: 'job_ended_view', locals: { job_user: job_user }
-    else
-      render partial: 'show', locals: { job_user: job_user }
-    end
-
     support_chat = Chat.find_or_create_support_chat(job_user.user)
-    locals = { support_chat: support_chat }
-    render partial: 'admin/chats/latest_messages', locals: locals
+    locals = {
+      job_user: job_user,
+      support_chat: support_chat
+    }
+
+    if job_user.job.ended?
+      render partial: 'job_ended_view', locals: locals
+    else
+      render partial: 'show', locals: locals
+    end
 
     active_admin_comments
   end
@@ -259,6 +261,11 @@ ActiveAdmin.register JobUser do
         )
       )
     end
+  end
+
+  sidebar :latest_activity, only: %i[show edit] do
+    locals = { user: job_user.user }
+    render partial: 'admin/users/latest_activity', locals: locals
   end
 
   permit_params do

@@ -6,7 +6,7 @@ RSpec.describe 'JobUsers', type: :request do
   describe 'GET /jobs/1/users' do
     context 'not authorized' do
       it 'returns not authorized status' do
-        job = FactoryGirl.create(:job)
+        job = FactoryBot.create(:job)
         get api_v1_job_users_path(job_id: job.to_param)
         expect(response).to have_http_status(401)
       end

@@ -6,7 +6,7 @@ module FactoryLintRunner
   def self.run
     return unless SpecRunnerHelper.execute?('LINT_FACTORY')
 
-    factories_to_lint = FactoryGirl.factories.reject do |factory|
+    factories_to_lint = FactoryBot.factories.reject do |factory|
       name = factory.name.to_s
       # Don't lint factories used for documentation generation or
       # the rating factories, since they have advanced validation rules
@@ -14,7 +14,7 @@ module FactoryLintRunner
     end
     print 'Validating factories..'
     DatabaseCleaner.start
-    FactoryGirl.lint(factories_to_lint)
+    FactoryBot.lint(factories_to_lint)
     DatabaseCleaner.clean
     print "done \n"
   rescue => e

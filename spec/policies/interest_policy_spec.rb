@@ -10,7 +10,7 @@ RSpec.describe InterestPolicy do
   context 'anyone' do
     subject { InterestPolicy.new(nil, interest) }
 
-    let(:interest) { FactoryGirl.build(:interest) }
+    let(:interest) { FactoryBot.build(:interest) }
 
     it 'returns true for index' do
       expect(subject.index?).to eq(true)

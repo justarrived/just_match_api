@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :terms_agreement do
     sequence :version do |n|
       "v#{n}"

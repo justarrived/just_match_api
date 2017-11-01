@@ -6,9 +6,9 @@ require 'seeds/production/occupation_seed'
 
 RSpec.describe OccupationSeed do
   it 'creates default occupations' do
-    FactoryGirl.create(:language, lang_code: :en)
-    FactoryGirl.create(:language, lang_code: :sv)
-    FactoryGirl.create(:language, lang_code: :ar)
+    FactoryBot.create(:language, lang_code: :en)
+    FactoryBot.create(:language, lang_code: :sv)
+    FactoryBot.create(:language, lang_code: :ar)
     expect do
       expect do
         described_class.call

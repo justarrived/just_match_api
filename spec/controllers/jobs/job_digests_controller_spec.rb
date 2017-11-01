@@ -5,8 +5,8 @@ require 'rails_helper'
 RSpec.describe Api::V1::Jobs::JobDigestsController, type: :controller do
   describe 'GET #index' do
     let(:subscriber) do
-      FactoryGirl.create(:digest_subscriber).tap do |subscriber|
-        subscriber.job_digests = [FactoryGirl.create(:job_digest)]
+      FactoryBot.create(:digest_subscriber).tap do |subscriber|
+        subscriber.job_digests = [FactoryBot.create(:job_digest)]
       end
     end
 
@@ -18,7 +18,7 @@ RSpec.describe Api::V1::Jobs::JobDigestsController, type: :controller do
     end
 
     it 'returns empty digests if passed a user id without subscribers' do
-      user = FactoryGirl.create(:user)
+      user = FactoryBot.create(:user)
 
       get :index, params: { digest_subscriber_id: user.to_param }
 
@@ -39,8 +39,8 @@ RSpec.describe Api::V1::Jobs::JobDigestsController, type: :controller do
   end
 
   describe 'POST #create' do
-    let(:occupation) { FactoryGirl.create(:occupation) }
-    let(:subscriber) { FactoryGirl.create(:digest_subscriber) }
+    let(:occupation) { FactoryBot.create(:occupation) }
+    let(:subscriber) { FactoryBot.create(:digest_subscriber) }
     let(:valid_attributes) do
       {
         data: {
@@ -87,7 +87,7 @@ RSpec.describe Api::V1::Jobs::JobDigestsController, type: :controller do
       end
 
       it 'can attach a new job digest to an existing user (with same email)' do
-        user = FactoryGirl.create(:user)
+        user = FactoryBot.create(:user)
         params = {
           data: {
             attributes: {
@@ -97,7 +97,7 @@ RSpec.describe Api::V1::Jobs::JobDigestsController, type: :controller do
           }
         }
 
-        FactoryGirl.create(:digest_subscriber, user: user, email: nil)
+        FactoryBot.create(:digest_subscriber, user: user, email: nil)
 
         expect do
           expect do
@@ -124,8 +124,8 @@ RSpec.describe Api::V1::Jobs::JobDigestsController, type: :controller do
   end
 
   describe 'PATCH #update' do
-    let(:occupation) { FactoryGirl.create(:occupation) }
-    let(:subscriber) { FactoryGirl.create(:digest_subscriber) }
+    let(:occupation) { FactoryBot.create(:occupation) }
+    let(:subscriber) { FactoryBot.create(:digest_subscriber) }
     let(:valid_attributes) do
       {
         digest_subscriber_id: subscriber.uuid,
@@ -152,8 +152,8 @@ RSpec.describe Api::V1::Jobs::JobDigestsController, type: :controller do
 
     context 'with valid params' do
       let(:job_digest) do
-        address = FactoryGirl.create(:address, city: 'a city')
-        FactoryGirl.create(:job_digest, addresses: [address], subscriber: subscriber)
+        address = FactoryBot.create(:address, city: 'a city')
+        FactoryBot.create(:job_digest, addresses: [address], subscriber: subscriber)
       end
       let(:new_city) { 'new city' }
       let(:valid_attributes) do
@@ -169,7 +169,7 @@ RSpec.describe Api::V1::Jobs::JobDigestsController, type: :controller do
           }
         }
       end
-      let(:new_occupation) { FactoryGirl.create(:occupation) }
+      let(:new_occupation) { FactoryBot.create(:occupation) }
       let(:valid_attributes_with_occupations) do
         {
           digest_subscriber_id: subscriber.uuid,
@@ -202,7 +202,7 @@ RSpec.describe Api::V1::Jobs::JobDigestsController, type: :controller do
       end
 
       it 'updates the JobDigest => JobDigestOccupation relation' do
-        job_digest.occupations = [FactoryGirl.create(:occupation)]
+        job_digest.occupations = [FactoryBot.create(:occupation)]
 
         patch :update, params: valid_attributes_with_occupations
         job_digest.reload
@@ -214,7 +214,7 @@ RSpec.describe Api::V1::Jobs::JobDigestsController, type: :controller do
       it 'it returns 200 status' do
         params = {
           digest_subscriber_id: subscriber.uuid,
-          job_digest_id: FactoryGirl.create(:job_digest, subscriber: subscriber).id
+          job_digest_id: FactoryBot.create(:job_digest, subscriber: subscriber).id
         }
         patch :update, params: params
         expect(response.status).to eq(200)
@@ -224,7 +224,7 @@ RSpec.describe Api::V1::Jobs::JobDigestsController, type: :controller do
     it 'it returns 404 if passed invalid {UUID,ID} combo status' do
       params = {
         digest_subscriber_id: subscriber.uuid,
-        job_digest_id: FactoryGirl.create(:job_digest).id
+        job_digest_id: FactoryBot.create(:job_digest).id
       }
       patch :update, params: params
       expect(response).to be_not_found
@@ -232,8 +232,8 @@ RSpec.describe Api::V1::Jobs::JobDigestsController, type: :controller do
   end
 
   describe 'DELETE #destroy' do
-    let(:subscriber) { FactoryGirl.create(:digest_subscriber) }
-    let(:job_digest) { FactoryGirl.create(:job_digest, subscriber: subscriber) }
+    let(:subscriber) { FactoryBot.create(:digest_subscriber) }
+    let(:job_digest) { FactoryBot.create(:job_digest, subscriber: subscriber) }
     let!(:valid_params) do
       {
         digest_subscriber_id: subscriber.uuid,
@@ -255,7 +255,7 @@ RSpec.describe Api::V1::Jobs::JobDigestsController, type: :controller do
     it 'returns 404 status when digest subscriber is not found' do
       params = {
         digest_subscriber_id: subscriber.uuid,
-        job_digest_id: FactoryGirl.create(:job_digest)
+        job_digest_id: FactoryBot.create(:job_digest)
       }
       delete :destroy, params: params
       expect(response.status).to eq(404)
@@ -264,7 +264,7 @@ RSpec.describe Api::V1::Jobs::JobDigestsController, type: :controller do
     it 'returns 404 status when job_digest but digest subscriber is not found' do
       params = {
         digest_subscriber_id: subscriber.uuid,
-        job_digest_id: FactoryGirl.create(:job_digest)
+        job_digest_id: FactoryBot.create(:job_digest)
       }
       delete :destroy, params: params
       expect(response.status).to eq(404)

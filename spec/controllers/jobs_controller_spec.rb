@@ -3,9 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::JobsController, type: :controller do
-  let(:company) { FactoryGirl.create(:company) }
-  let(:owner) { FactoryGirl.create(:user, company: company).tap(&:create_auth_token) }
-  let(:logged_in_user) { FactoryGirl.create(:user_with_tokens, company: company) }
+  let(:company) { FactoryBot.create(:company) }
+  let(:owner) { FactoryBot.create(:user, company: company).tap(&:create_auth_token) }
+  let(:logged_in_user) { FactoryBot.create(:user_with_tokens, company: company) }
   let(:valid_attributes) do
     {
       auth_token: logged_in_user.auth_token,
@@ -15,9 +15,9 @@ RSpec.describe Api::V1::JobsController, type: :controller do
           name: 'Some job name',
           short_description: 'Short description',
           description: 'Some job description',
-          language_id: FactoryGirl.create(:language).id,
-          hourly_pay_id: FactoryGirl.create(:hourly_pay, gross_salary: 100).id,
-          category_id: FactoryGirl.create(:category).id,
+          language_id: FactoryBot.create(:language).id,
+          hourly_pay_id: FactoryBot.create(:hourly_pay, gross_salary: 100).id,
+          category_id: FactoryBot.create(:category).id,
           owner_user_id: owner.id,
           street: 'Stora Nygatan 36',
           city: 'Malmö',
@@ -40,15 +40,15 @@ RSpec.describe Api::V1::JobsController, type: :controller do
 
   describe 'GET #index' do
     it 'assigns all jobs as @jobs' do
-      job = FactoryGirl.create(:published_job)
+      job = FactoryBot.create(:published_job)
       process :index, method: :get
       expect(assigns(:jobs)).to eq([job])
     end
 
     it 'returns sorted results' do
-      FactoryGirl.create(:published_job, hours: 7)
-      FactoryGirl.create(:published_job, hours: 10)
-      FactoryGirl.create(:published_job, hours: 5)
+      FactoryBot.create(:published_job, hours: 7)
+      FactoryBot.create(:published_job, hours: 10)
+      FactoryBot.create(:published_job, hours: 5)
 
       get :index, params: { sort: '-hours' }
       expect(response.status).to eq(200)
@@ -63,7 +63,7 @@ RSpec.describe Api::V1::JobsController, type: :controller do
 
   describe 'GET #show' do
     it 'assigns the requested job as @job' do
-      job = FactoryGirl.create(:published_job)
+      job = FactoryBot.create(:published_job)
       get :show, params: { job_id: job.to_param }
       expect(assigns(:job)).to eq(job)
     end
@@ -71,19 +71,19 @@ RSpec.describe Api::V1::JobsController, type: :controller do
     context 'job with preview key' do
       it 'assigns the requested job as @job if the correct preview key is provided' do
         key = 'nososecret'
-        job = FactoryGirl.create(:published_job, preview_key: key)
+        job = FactoryBot.create(:published_job, preview_key: key)
         get :show, params: { job_id: job.to_param, preview_key: key }
         expect(assigns(:job)).to eq(job)
       end
 
       it 'returns 404 if no preview key is provided' do
-        job = FactoryGirl.create(:job, preview_key: 'nososecret')
+        job = FactoryBot.create(:job, preview_key: 'nososecret')
         get :show, params: { job_id: job.to_param }
         expect(response.status).to eq(404)
       end
 
       it 'returns 404 if the incorrect preview key is provided' do
-        job = FactoryGirl.create(:published_job, preview_key: 'nososecret')
+        job = FactoryBot.create(:published_job, preview_key: 'nososecret')
         get :show, params: { job_id: job.to_param, preview_key: 'wrongpreviewkey' }
         expect(response.status).to eq(404)
       end
@@ -139,7 +139,7 @@ RSpec.describe Api::V1::JobsController, type: :controller do
 
       context 'owner user' do
         it 'updates the requested job' do
-          job = FactoryGirl.create(:job, owner: owner)
+          job = FactoryBot.create(:job, owner: owner)
           params = { job_id: job.to_param }.merge(new_attributes)
           put :update, params: params
           job.reload
@@ -147,14 +147,14 @@ RSpec.describe Api::V1::JobsController, type: :controller do
         end
 
         it 'assigns the requested user as @job' do
-          job = FactoryGirl.create(:job)
+          job = FactoryBot.create(:job)
           params = { job_id: job.to_param }.merge(new_attributes)
           put :update, params: params
           expect(assigns(:job)).to eq(job)
         end
 
         it 'returns success status' do
-          job = FactoryGirl.create(:job, owner: owner)
+          job = FactoryBot.create(:job, owner: owner)
           params = { job_id: job.to_param }.merge(new_attributes)
           put :update, params: params
           expect(response.status).to eq(200)
@@ -171,7 +171,7 @@ RSpec.describe Api::V1::JobsController, type: :controller do
           end
 
           it 'sends cancelled notifications' do
-            job = FactoryGirl.create(:job, owner: owner)
+            job = FactoryBot.create(:job, owner: owner)
 
             allow(JobCancelledNotifier).to receive(:call).and_return(nil)
 
@@ -184,8 +184,8 @@ RSpec.describe Api::V1::JobsController, type: :controller do
 
         context 'locked job' do
           it 'returns for status' do
-            job = FactoryGirl.create(:job, owner: owner)
-            FactoryGirl.create(:job_user, job: job, accepted: true, will_perform: true)
+            job = FactoryBot.create(:job, owner: owner)
+            FactoryBot.create(:job_user, job: job, accepted: true, will_perform: true)
             params = { job_id: job.to_param }.merge(new_attributes)
             put :update, params: params
             expect(response.status).to eq(403)
@@ -198,7 +198,7 @@ RSpec.describe Api::V1::JobsController, type: :controller do
       context 'non associated user' do
         let(:new_attributes) do
           {
-            auth_token: FactoryGirl.create(:user_with_tokens).auth_token,
+            auth_token: FactoryBot.create(:user_with_tokens).auth_token,
             data: {
               attributes: { hours: 6 }
             }
@@ -206,11 +206,11 @@ RSpec.describe Api::V1::JobsController, type: :controller do
         end
 
         it 'returns forbidden status' do
-          FactoryGirl.create(:user)
-          user1 = FactoryGirl.create(:company_user)
-          user2 = FactoryGirl.create(:user)
-          job = FactoryGirl.create(:job, owner: user1)
-          FactoryGirl.create(:job_user, user: user2, job: job)
+          FactoryBot.create(:user)
+          user1 = FactoryBot.create(:company_user)
+          user2 = FactoryBot.create(:user)
+          job = FactoryBot.create(:job, owner: user1)
+          FactoryBot.create(:job_user, user: user2, job: job)
           params = { job_id: job.to_param }.merge(new_attributes)
           put :update, params: params
           expect(response.status).to eq(403)
@@ -220,7 +220,7 @@ RSpec.describe Api::V1::JobsController, type: :controller do
 
     context 'with invalid params' do
       let(:job) do
-        FactoryGirl.create(:job, owner: owner)
+        FactoryBot.create(:job, owner: owner)
       end
 
       it 'assigns the job as @job' do
@@ -245,21 +245,21 @@ RSpec.describe Api::V1::JobsController, type: :controller do
 
   describe 'GET #matching_users' do
     it 'returns 200 status if job owner' do
-      job = FactoryGirl.create(:published_job, owner: owner)
+      job = FactoryBot.create(:published_job, owner: owner)
       params = { auth_token: owner.auth_token, job_id: job.to_param }
       get :show, params: params
       expect(response.status).to eq(200)
     end
 
     it 'returns 200 status if admin is user' do
-      job = FactoryGirl.create(:published_job)
-      admin = FactoryGirl.create(:user_with_tokens, admin: true)
+      job = FactoryBot.create(:published_job)
+      admin = FactoryBot.create(:user_with_tokens, admin: true)
       get :matching_users, params: { auth_token: admin.auth_token, job_id: job.to_param }
       expect(response.status).to eq(200)
     end
 
     it 'returns 401 unauthorized status when user not authorized' do
-      job = FactoryGirl.create(:published_job)
+      job = FactoryBot.create(:published_job)
       get :matching_users, params: { job_id: job.to_param }
       expect(response.status).to eq(401)
     end

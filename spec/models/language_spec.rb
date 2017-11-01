@@ -5,17 +5,17 @@ require 'rails_helper'
 RSpec.describe Language, type: :model do
   describe '#name_for' do
     it 'returns name for locale' do
-      lang = FactoryGirl.build(:language, sv_name: 'Engelska')
+      lang = FactoryBot.build(:language, sv_name: 'Engelska')
       expect(lang.name_for(:sv)).to eq('Engelska')
     end
 
     it 'returns English fallback name for locale if name does not exist in that locale' do
-      lang = FactoryGirl.build(:language, sv_name: '', en_name: 'English')
+      lang = FactoryBot.build(:language, sv_name: '', en_name: 'English')
       expect(lang.name_for(:sv)).to eq('English')
     end
 
     it 'returns locale fallback name for locale if name does not exist in that locale' do
-      lang = FactoryGirl.build(:language, sv_name: nil, en_name: nil, local_name: 'loc')
+      lang = FactoryBot.build(:language, sv_name: nil, en_name: nil, local_name: 'loc')
       expect(lang.name_for(:sv)).to eq('loc')
     end
   end
