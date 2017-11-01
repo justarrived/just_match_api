@@ -31,11 +31,11 @@ RSpec.describe FrilansFinans::InvoiceWrapper do
     let(:ff_user_id) { 10 }
     let(:ff_company_id) { 11 }
     let(:ff_tax_id) { '3' }
-    let(:company) { FactoryGirl.create(:company, frilans_finans_id: ff_company_id) }
-    let(:owner) { FactoryGirl.create(:user, company: company) }
-    let(:job) { FactoryGirl.create(:job, job_end_date: 2.weeks.from_now, owner: owner, hours: 50) } # rubocop:disable Metrics/LineLength
+    let(:company) { FactoryBot.create(:company, frilans_finans_id: ff_company_id) }
+    let(:owner) { FactoryBot.create(:user, company: company) }
+    let(:job) { FactoryBot.create(:job, job_end_date: 2.weeks.from_now, owner: owner, hours: 50) } # rubocop:disable Metrics/LineLength
     let(:tax) { Struct.new(:id).new(ff_tax_id) }
-    let(:user) { FactoryGirl.build(:user, frilans_finans_id: ff_user_id) }
+    let(:user) { FactoryBot.build(:user, frilans_finans_id: ff_user_id) }
     let(:invoice_data) do
       described_class.invoice_data(
         job: job,
@@ -66,8 +66,8 @@ RSpec.describe FrilansFinans::InvoiceWrapper do
   end
 
   describe '#invoice_users' do
-    let(:user) { FactoryGirl.build(:user) }
-    let(:job) { FactoryGirl.build(:job, hours: 50) }
+    let(:user) { FactoryBot.build(:user) }
+    let(:job) { FactoryBot.build(:job, hours: 50) }
     let(:taxkey_id) { 13 }
     let(:express_payment) { false }
     let(:invoice_users_result) do
@@ -117,7 +117,7 @@ RSpec.describe FrilansFinans::InvoiceWrapper do
     it 'returns invoice dates data' do
       start = Date.new(2016, 4, 22)
       finish = Date.new(2016, 4, 26)
-      job = FactoryGirl.build(:job, job_date: start, job_end_date: finish, hours: 50)
+      job = FactoryBot.build(:job, job_date: start, job_end_date: finish, hours: 50)
 
       expected = [
         { date: Date.new(2016, 4, 22), hours: 10.0 },

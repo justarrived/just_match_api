@@ -17,8 +17,8 @@ RSpec.describe Api::V1::EmailController, type: :controller do
   describe 'POST #receive' do
     it 'creates message' do
       allow(AppSecrets).to receive(:incoming_email_key).and_return(ja_key)
-      FactoryGirl.create(:admin_user)
-      FactoryGirl.create(:user, email: email)
+      FactoryBot.create(:admin_user)
+      FactoryBot.create(:user, email: email)
 
       expect do
         post :receive, params: params
@@ -28,8 +28,8 @@ RSpec.describe Api::V1::EmailController, type: :controller do
 
     it 'can handle invalid UTF-8 bytes by replacing weird characters' do
       allow(AppSecrets).to receive(:incoming_email_key).and_return(ja_key)
-      FactoryGirl.create(:admin_user)
-      FactoryGirl.create(:user, email: email)
+      FactoryBot.create(:admin_user)
+      FactoryBot.create(:user, email: email)
       bad_utf8_params = params.merge(text: "Watman \xBF")
 
       expect do
@@ -41,8 +41,8 @@ RSpec.describe Api::V1::EmailController, type: :controller do
 
     it 'creates message' do
       allow(AppSecrets).to receive(:incoming_email_key).and_return(ja_key)
-      FactoryGirl.create(:admin_user)
-      FactoryGirl.create(:user, email: email)
+      FactoryBot.create(:admin_user)
+      FactoryBot.create(:user, email: email)
 
       expect do
         post :receive, params: params

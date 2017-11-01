@@ -12,18 +12,18 @@ RSpec.describe Queries::MissingUserTraits do
     end
 
     it 'with *no* missing user attributes it returns an empty list' do
-      user = FactoryGirl.build(:user, :bank_account)
+      user = FactoryBot.build(:user, :bank_account)
       attributes = %w(ssn street zip city phone bank_account)
       expect(described_class.attributes(user: user, attributes: attributes)).to be_empty
     end
   end
 
   describe '#skills' do
-    let(:user) { FactoryGirl.create(:user) }
+    let(:user) { FactoryBot.create(:user) }
 
     it 'with missing skills it returns a collection of those skills' do
-      skill1 = FactoryGirl.create(:skill)
-      skill2 = FactoryGirl.create(:skill)
+      skill1 = FactoryBot.create(:skill)
+      skill2 = FactoryBot.create(:skill)
 
       expected = [skill1, skill2]
       skills = described_class.skills(user: user, skills: expected)
@@ -31,8 +31,8 @@ RSpec.describe Queries::MissingUserTraits do
     end
 
     it 'with *no* missing skills it returns an empty list' do
-      skill1 = FactoryGirl.create(:skill)
-      skill2 = FactoryGirl.create(:skill)
+      skill1 = FactoryBot.create(:skill)
+      skill2 = FactoryBot.create(:skill)
 
       expected = [skill1, skill2]
       user.skills = expected
@@ -43,7 +43,7 @@ RSpec.describe Queries::MissingUserTraits do
   end
 
   describe '#languages' do
-    let(:user) { FactoryGirl.create(:user) }
+    let(:user) { FactoryBot.create(:user) }
 
     it 'with missing languages it returns a collection of those languages' do
       en = Language.find_or_create_by(lang_code: :en)

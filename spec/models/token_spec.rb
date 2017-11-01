@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe Token, type: :model do
   describe '#expired?' do
     context 'valid token' do
-      let(:token) { FactoryGirl.create(:token) }
+      let(:token) { FactoryBot.create(:token) }
 
       it 'returns false' do
         expect(token.expired?).to eq(false)
@@ -13,7 +13,7 @@ RSpec.describe Token, type: :model do
     end
 
     context 'expired token' do
-      let(:token) { FactoryGirl.create(:expired_token) }
+      let(:token) { FactoryBot.create(:expired_token) }
 
       it 'returns true' do
         expect(token.expired?).to eq(true)

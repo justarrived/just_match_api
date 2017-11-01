@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe Company, type: :model do
   describe '#address' do
-    let(:company) { FactoryGirl.build(:company, street: '1', zip: '1', city: '1') }
+    let(:company) { FactoryBot.build(:company, street: '1', zip: '1', city: '1') }
 
     it 'returns the company address' do
       expect(company.address).to eq('1, 1, 1, Sverige')
@@ -17,8 +17,8 @@ RSpec.describe Company, type: :model do
   end
 
   describe '#logo_image_token=' do
-    let(:company) { FactoryGirl.create(:company) }
-    let(:company_image) { FactoryGirl.create(:company_image) }
+    let(:company) { FactoryBot.create(:company) }
+    let(:company_image) { FactoryBot.create(:company_image) }
 
     it 'can set logo image from token' do
       company.logo_image_token = company_image.one_time_token

@@ -10,7 +10,7 @@ RSpec.describe SkillPolicy do
   context 'anyone' do
     subject { SkillPolicy.new(nil, skill) }
 
-    let(:skill) { FactoryGirl.build(:skill) }
+    let(:skill) { FactoryBot.build(:skill) }
 
     it 'returns true for index' do
       expect(subject.index?).to eq(true)
@@ -36,8 +36,8 @@ RSpec.describe SkillPolicy do
   context 'admin user' do
     subject { SkillPolicy.new(admin, skill) }
 
-    let(:admin) { FactoryGirl.build(:admin_user) }
-    let(:skill) { FactoryGirl.build(:skill) }
+    let(:admin) { FactoryBot.build(:admin_user) }
+    let(:skill) { FactoryBot.build(:skill) }
 
     it 'returns true for create' do
       expect(subject.create?).to eq(true)

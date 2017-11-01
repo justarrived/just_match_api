@@ -10,8 +10,8 @@ RSpec.describe ApplicantAcceptedNotifier, type: :mailer do
   end
 
   let(:job) { mock_model Job, owner: owner }
-  let(:user) { FactoryGirl.build(:user) }
-  let(:owner) { FactoryGirl.build(:user) }
+  let(:user) { FactoryBot.build(:user) }
+  let(:owner) { FactoryBot.build(:user) }
   let(:job_user) { mock_model JobUser, user: user, job: job }
 
   it 'calls job mailer' do

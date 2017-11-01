@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe JobTranslation, type: :model do
   subject do
-    FactoryGirl.build(
+    FactoryBot.build(
       :job_translation,
       name: 'Wat',
       short_description: 'Short',
@@ -20,7 +20,7 @@ RSpec.describe JobTranslation, type: :model do
   end
 
   describe '#changed_translation_fields' do
-    subject { FactoryGirl.create(:job_translation) }
+    subject { FactoryBot.create(:job_translation) }
 
     it 'returns a list of changed translation attributes' do
       subject.name = 'Watwoman'
@@ -29,7 +29,7 @@ RSpec.describe JobTranslation, type: :model do
   end
 
   describe '#unchanged_translation_fields' do
-    subject { FactoryGirl.create(:job_translation) }
+    subject { FactoryBot.create(:job_translation) }
 
     it 'returns a list of changed translation attributes' do
       subject.name = 'Watwoman'

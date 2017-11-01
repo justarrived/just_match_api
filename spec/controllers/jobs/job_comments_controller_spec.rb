@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe Api::V1::Jobs::JobCommentsController, type: :controller do
   let(:en_language) { Language.find_or_create_by!(lang_code: :en) }
   let(:comment_body) { 'Something, something darkside..' }
-  let(:user) { FactoryGirl.create(:user_with_tokens) }
+  let(:user) { FactoryBot.create(:user_with_tokens) }
   let(:valid_attributes) do
     {
       auth_token: user.auth_token,
@@ -25,7 +25,7 @@ RSpec.describe Api::V1::Jobs::JobCommentsController, type: :controller do
 
   describe 'GET #index' do
     it 'assigns all comments as @comments' do
-      job = FactoryGirl.create(:job_with_comments, comments_count: 1)
+      job = FactoryBot.create(:job_with_comments, comments_count: 1)
       comment = job.comments.first
       get :index, params: { auth_token: user.auth_token, job_id: job.to_param }
       expect(assigns(:comments)).to eq([comment])
@@ -34,7 +34,7 @@ RSpec.describe Api::V1::Jobs::JobCommentsController, type: :controller do
 
   describe 'GET #show' do
     it 'assigns the requested comment as @comment' do
-      job = FactoryGirl.create(:job_with_comments, comments_count: 1)
+      job = FactoryBot.create(:job_with_comments, comments_count: 1)
       comment = job.comments.first
       params = {
         auth_token: user.auth_token,
@@ -49,7 +49,7 @@ RSpec.describe Api::V1::Jobs::JobCommentsController, type: :controller do
   describe 'POST #create' do
     context 'with valid params' do
       it 'creates a new Comment' do
-        job = FactoryGirl.create(:job)
+        job = FactoryBot.create(:job)
         params = { job_id: job.to_param }.merge(valid_attributes)
         expect do
           post :create, params: params
@@ -57,7 +57,7 @@ RSpec.describe Api::V1::Jobs::JobCommentsController, type: :controller do
       end
 
       it 'assigns a newly created comment as @comment' do
-        job = FactoryGirl.create(:job)
+        job = FactoryBot.create(:job)
         params = { job_id: job.to_param }.merge(valid_attributes)
         post :create, params: params
         expect(assigns(:comment)).to be_a(Comment)
@@ -65,7 +65,7 @@ RSpec.describe Api::V1::Jobs::JobCommentsController, type: :controller do
       end
 
       it 'returns 201 created status' do
-        job = FactoryGirl.create(:job)
+        job = FactoryBot.create(:job)
         params = { job_id: job.to_param }.merge(valid_attributes)
         post :create, params: params
         expect(response.status).to eq(201)
@@ -73,7 +73,7 @@ RSpec.describe Api::V1::Jobs::JobCommentsController, type: :controller do
 
       it 'sends welcome notification' do
         allow(NewJobCommentNotifier).to receive(:call)
-        job = FactoryGirl.create(:job)
+        job = FactoryBot.create(:job)
         params = { job_id: job.to_param }.merge(valid_attributes)
         post :create, params: params
         expect(NewJobCommentNotifier).to have_received(:call)
@@ -82,14 +82,14 @@ RSpec.describe Api::V1::Jobs::JobCommentsController, type: :controller do
 
     context 'with invalid params' do
       it 'assigns a newly created but unsaved comment as @comment' do
-        job = FactoryGirl.create(:job)
+        job = FactoryBot.create(:job)
         params = { job_id: job.to_param }.merge(invalid_attributes)
         post :create, params: params
         expect(assigns(:comment)).to be_a_new(Comment)
       end
 
       it 'does not change Comment count' do
-        job = FactoryGirl.create(:job)
+        job = FactoryBot.create(:job)
         expect do
           params = { job_id: job.to_param }.merge(invalid_attributes)
           post :create, params: params
@@ -100,8 +100,8 @@ RSpec.describe Api::V1::Jobs::JobCommentsController, type: :controller do
 
   describe 'DELETE #destroy' do
     it 'destroys the requested comment' do
-      job = FactoryGirl.create(:job)
-      comment = FactoryGirl.create(:comment, owner: user, commentable: job)
+      job = FactoryBot.create(:job)
+      comment = FactoryBot.create(:comment, owner: user, commentable: job)
 
       params = {
         auth_token: user.auth_token,
@@ -115,8 +115,8 @@ RSpec.describe Api::V1::Jobs::JobCommentsController, type: :controller do
     end
 
     it 'returns 204 no content status' do
-      job = FactoryGirl.create(:job)
-      comment = FactoryGirl.create(:comment, owner: user, commentable: job)
+      job = FactoryBot.create(:job)
+      comment = FactoryBot.create(:comment, owner: user, commentable: job)
       params = {
         auth_token: user.auth_token,
         job_id: job.to_param,

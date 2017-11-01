@@ -95,7 +95,7 @@ The code follows most Rails conventions. If you've worked with Rails before the 
 
 * __Tests__
   - Uses `rspec`
-  - Uses `factory_girl`
+  - Uses `factory_bot`
   - Runners in `spec/spec_support/runners` are used to run extra checks when running tests
     + Runs only when running the entire test suite or if explicitly set
     + Some of them can halt the execution and return a non-zero exit status.

@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe Api::V1::CompaniesController, type: :controller do
   describe 'GET #index' do
     it 'assigns all companies as @companies' do
-      company = FactoryGirl.create(:company)
+      company = FactoryBot.create(:company)
       process :index, method: :get
       expect(assigns(:companies)).to eq([company])
     end
@@ -13,7 +13,7 @@ RSpec.describe Api::V1::CompaniesController, type: :controller do
 
   describe 'GET #show' do
     it 'assigns company as @company' do
-      company = FactoryGirl.create(:company)
+      company = FactoryBot.create(:company)
       get :show, params: { company_id: company.to_param }
       expect(assigns(:company)).to eq(company)
     end
@@ -53,7 +53,7 @@ RSpec.describe Api::V1::CompaniesController, type: :controller do
     end
 
     context 'company image' do
-      let(:company_image) { FactoryGirl.create(:company_image) }
+      let(:company_image) { FactoryBot.create(:company_image) }
 
       it 'can add company image' do
         token = company_image.one_time_token

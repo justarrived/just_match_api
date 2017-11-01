@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe JobCancelledNotifier, type: :mailer do
   let(:mailer) { Struct.new(:deliver_later).new(nil) }
-  let(:job) { FactoryGirl.create(:job_with_users) }
+  let(:job) { FactoryBot.create(:job_with_users) }
 
   it 'sends notification to user' do
     user = job.users.first
@@ -18,8 +18,8 @@ RSpec.describe JobCancelledNotifier, type: :mailer do
   end
 
   it 'does not send notification to a user who has withdrawn their application' do
-    job = FactoryGirl.create(:job)
-    FactoryGirl.create(:job_user, job: job, application_withdrawn: true)
+    job = FactoryBot.create(:job)
+    FactoryBot.create(:job_user, job: job, application_withdrawn: true)
 
     allow(JobMailer).to receive(:job_cancelled_email).
       and_return(mailer)

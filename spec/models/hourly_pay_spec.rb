@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe HourlyPay, type: :model do
-  let(:hourly_pay) { FactoryGirl.build(:hourly_pay, gross_salary: 100) }
+  let(:hourly_pay) { FactoryBot.build(:hourly_pay, gross_salary: 100) }
 
   describe '#name' do
     it 'returns a "nice" name' do

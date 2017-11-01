@@ -6,7 +6,7 @@ RSpec.describe Api::V1::Users::MessagesController, type: :controller do
   describe 'GET #index' do
     context 'with valid params' do
       let(:valid_attributes) do
-        user = FactoryGirl.create(:user_with_tokens)
+        user = FactoryBot.create(:user_with_tokens)
         { auth_token: user.auth_token, user_id: user.to_param }
       end
 
@@ -20,8 +20,8 @@ RSpec.describe Api::V1::Users::MessagesController, type: :controller do
   describe 'POST #create' do
     context 'with valid params' do
       let(:valid_attributes) do
-        language = FactoryGirl.create(:language)
-        chat_user = FactoryGirl.create(:chat_user)
+        language = FactoryBot.create(:language)
+        chat_user = FactoryBot.create(:chat_user)
         user = chat_user.user
         user.create_auth_token
         {
@@ -53,7 +53,7 @@ RSpec.describe Api::V1::Users::MessagesController, type: :controller do
 
     context 'with invalid params' do
       let(:invalid_attributes) do
-        chat_user = FactoryGirl.create(:chat_user)
+        chat_user = FactoryBot.create(:chat_user)
         user = chat_user.user
         user.create_auth_token
         {
