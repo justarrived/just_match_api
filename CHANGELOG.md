@@ -4,6 +4,20 @@ HEAD
 -----------
 
 
+v2.53 - 2017-11-01
+----------
+__Admin__:
+* Display the latest job user comment
+
+__Enhancement__:
+* Add `user_id` and email to analytics data on send job digest email
+
+__Gem update__:
+* Rename `FactoryGirl` => `FactoryBot`
+* Bump `rspec-rails` from 3.6.1 to 3.7.1
+* Update factory_bot_rails gem to ~> 4.8
+
+
 v2.52 - 2017-10-31
 ----------
 __API__:
