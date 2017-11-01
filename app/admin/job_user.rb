@@ -183,7 +183,7 @@ ActiveAdmin.register JobUser do
     end
     column :comment do |job_user|
       # comments = ActiveAdmin::Comment.find_for_resource_in_namespace(job_user, 'admin')
-      job_user.active_admin_comments.last&.body
+      job_user.active_admin_comments.order(id: :desc).limit(1).first&.body
     end
   end
 
