@@ -62,7 +62,7 @@ RSpec.describe JobUserMailer, type: :mailer do
     end
 
     it 'includes @user_edit_url in email body' do
-      url = FrontendRouter.draw(:user_basic_data_edit)
+      url = FrontendRouter.draw(:update_profile)
       expect(mail).to match_email_body(url)
     end
 
@@ -107,7 +107,7 @@ RSpec.describe JobUserMailer, type: :mailer do
     end
 
     it 'includes @user_edit_url in email body' do
-      url = FrontendRouter.draw(:user_basic_data_edit)
+      url = FrontendRouter.draw(:update_profile)
       expect(mail).to match_email_body(url)
     end
 

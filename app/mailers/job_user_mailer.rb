@@ -14,7 +14,7 @@ class JobUserMailer < ApplicationMailer
     @competence_names = skill_names + language_names
 
     @user_edit_url = frontend_mail_url(
-      :user_basic_data_edit,
+      :update_profile,
       utm_campaign: 'new_applicant_job_info'
     )
 
@@ -30,7 +30,7 @@ class JobUserMailer < ApplicationMailer
     @missing_skills = skills
     @missing_cv = missing_cv
     @job_url = frontend_mail_url(:job, id: @job.id, utm_campaign: utm_campaign)
-    @user_edit_url = frontend_mail_url(:user_basic_data_edit, utm_campaign: utm_campaign) # rubocop:disable Metrics/LineLength
+    @user_edit_url = frontend_mail_url(:update_profile, utm_campaign: utm_campaign) # rubocop:disable Metrics/LineLength
 
     subject = I18n.t('mailer.update_data_reminder.subject')
     mail(to: user.contact_email, subject: subject)
