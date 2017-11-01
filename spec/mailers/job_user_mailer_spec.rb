@@ -33,9 +33,10 @@ RSpec.describe JobUserMailer, type: :mailer do
   describe '#new_applicant_job_info_email' do
     let(:skill) { FactoryBot.create(:skill) }
     let(:language) { FactoryBot.create(:language) }
+    let(:missing_cv) { true }
     let(:mail) do
       described_class.new_applicant_job_info_email(
-        job_user: job_user, skills: [skill], languages: [language]
+        job_user: job_user, skills: [skill], languages: [language], missing_cv: missing_cv
       )
     end
 
@@ -60,8 +61,65 @@ RSpec.describe JobUserMailer, type: :mailer do
       expect(mail).to match_email_body(user.name)
     end
 
+    it 'includes @user_edit_url in email body' do
+      url = FrontendRouter.draw(:update_profile)
+      expect(mail).to match_email_body(url)
+    end
+
     it 'includes @job_name in email body' do
       expect(mail).to match_email_body(job.name)
+    end
+
+    it 'includes skill names in email body' do
+      expect(mail).to match_email_body(skill.name)
+    end
+  end
+
+  describe '#update_data_reminder_email' do
+    let(:skill) { FactoryBot.create(:skill) }
+    let(:language) { FactoryBot.create(:language) }
+    let(:mail) do
+      described_class.update_data_reminder_email(
+        job_user: job_user, skills: [skill], languages: [language]
+      )
+    end
+
+    it 'has both text and html part' do
+      expect(mail).to be_multipart_email(true)
+    end
+
+    it 'renders the subject' do
+      subject = I18n.t('mailer.update_data_reminder.subject')
+      expect(mail.subject).to eql(subject)
+    end
+
+    it 'renders the receiver email' do
+      expect(mail.to).to eql([user.contact_email])
+    end
+
+    it 'renders the sender email' do
+      expect(mail.from).to eql(['support@email.justarrived.se'])
+    end
+
+    it 'includes @job_url in email body' do
+      url = FrontendRouter.draw(:job, id: job.id)
+      expect(mail).to match_email_body(url)
+    end
+
+    it 'includes @user_edit_url in email body' do
+      url = FrontendRouter.draw(:update_profile)
+      expect(mail).to match_email_body(url)
+    end
+
+    it 'includes cv update info in email body' do
+      expect(mail).to match_email_body('CV')
+    end
+
+    it 'includes @job_name in email body' do
+      # we truncate the job name in the email so
+      # lets check only the first part
+      job_name = job.name[0..10]
+      expect(mail).to match_email_body(job_name)
     end
 
     it 'includes skill names in email body' do

@@ -138,6 +138,7 @@ sv:
 
         Din bästa chans att få ett jobb är att logga in ofta, söka jobb ofta, och se till att din profil är uppdaterad! Vi är övertygade om att du kommer få ett jobb som passar din profil snart!
       body_fillout_notice: 'För att vi ska kunna matcha dig med ett jobb behöver vi veta lite mer om dina färdigheter i:'
+      body_cv_fillout_notice: Om du laddar upp ett CV ökar det dina chanser att bli matchad till ett jobb. Du kan ladda upp ditt CV på din profilsida.
       body_edit_profile: Uppdatera din profil här %{url}
       body_edit_profile_cta: Uppdatera din profil
     new_applicant:
@@ -195,4 +196,18 @@ sv:
         - Håll din profil uppdaterad! Varje förmåga och all information spelar roll. Vi är säkra på att det finns saker som du är bra på men inte har berättat för oss om än!
         - Om någonting är oklart, eller om du behöver hjälp, tveka inte att kontakta oss på %{support_email} eller kolla in %{faq_link}.
     google_calendar_link_name: Lägg till på Google Calendar
+    update_data_reminder:
+      subject: We are matching you for a job, update your profile!
+      introduction_body: |
+        Hej,
+
+        Du sökte nyligen jobbet "%{job_name}".
+
+        Vi håller just nu på att gå igenom alla ansökningar och för att vi bäst ska kunna matcha dig behöver vi lite mer information.
+      cv_upload_body: 'Ladda upp ditt CV här: %{url}.'
+      competence_list_title: 'Din kunskapsnivå i:'
+      competence_update_body: 'Du kan uppdatera dina kompetenser genom att gå till din profilsida: %{url}.'
+      update_cv_link: ladda upp CV.
+      update_competences_link: uppdatera kompetenser.
+      body_edit_profile_cta: Uppdatera din profil
     signoff: "/ Team Just Arrived"

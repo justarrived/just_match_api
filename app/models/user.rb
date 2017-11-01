@@ -176,6 +176,7 @@ class User < ApplicationRecord
     new_applicant_job_info
     applicant_will_perform_job_info
     failed_to_activate_invoice
+    update_data_reminder
   ).freeze
 
   ransacker :first_name, type: :string do

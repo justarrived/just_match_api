@@ -11,5 +11,6 @@ routes:
   job_users: 'company/job/%{job_id}/candidates'
   job_user: 'job/%{job_id}'
   user_edit: 'user'
+  update_profile: 'update-profile'
   chat: 'support-chat?message_id=%{message_id}'
   unsubscribe: 'subscriptions/%{subscriber_id}'
