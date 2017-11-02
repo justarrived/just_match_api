@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :job_digest do
     notification_frequency 1
     association :subscriber, factory: :digest_subscriber

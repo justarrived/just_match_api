@@ -5,8 +5,8 @@ require 'rails_helper'
 RSpec.describe Api::V1::Jobs::UsersController do
   describe 'GET #missing_traits' do
     context 'with valid params' do
-      let(:admin_user) { FactoryGirl.create(:admin_user, city: nil) }
-      let(:job) { FactoryGirl.create(:job_with_traits) }
+      let(:admin_user) { FactoryBot.create(:admin_user, city: nil) }
+      let(:job) { FactoryBot.create(:job_with_traits) }
 
       before(:each) do
         allow_any_instance_of(User).to receive(:persisted?).and_return(true)
@@ -35,8 +35,8 @@ RSpec.describe Api::V1::Jobs::UsersController do
 
   describe 'GET #job_user' do
     context 'with valid params' do
-      let(:admin_user) { FactoryGirl.create(:admin_user) }
-      let(:job) { FactoryGirl.create(:job) }
+      let(:admin_user) { FactoryBot.create(:admin_user) }
+      let(:job) { FactoryBot.create(:job) }
 
       before(:each) do
         allow_any_instance_of(User).to receive(:persisted?).and_return(true)
@@ -49,7 +49,7 @@ RSpec.describe Api::V1::Jobs::UsersController do
       end
 
       it 'returns job user & has applied true under meta key if user has not applied' do
-        FactoryGirl.create(:job_user, user: admin_user, job: job)
+        FactoryBot.create(:job_user, user: admin_user, job: job)
         get :job_user, params: { job_id: job.id, user_id: admin_user.id }
 
         expect(JSON.parse(response.body)['meta']).to eq('has_applied' => true)

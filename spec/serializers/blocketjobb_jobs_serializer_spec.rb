@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe BlocketjobbJobsSerializer do
   describe '#to_xml' do
     it 'returns the correct XML' do
-      job = FactoryGirl.create(
+      job = FactoryBot.create(
         :job_with_translation,
         translation_locale: :sv,
         blocketjobb_category: 'Övrigt',

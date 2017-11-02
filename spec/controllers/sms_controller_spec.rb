@@ -16,8 +16,8 @@ RSpec.describe Api::V1::SmsController, type: :controller do
   describe 'POST #receive' do
     it 'creates message' do
       allow(AppSecrets).to receive(:incoming_sms_key).and_return(ja_key)
-      FactoryGirl.create(:admin_user)
-      FactoryGirl.create(:user, phone: phone)
+      FactoryBot.create(:admin_user)
+      FactoryBot.create(:user, phone: phone)
 
       expect do
         post :receive, params: params
@@ -27,8 +27,8 @@ RSpec.describe Api::V1::SmsController, type: :controller do
 
     it 'creates message' do
       allow(AppSecrets).to receive(:incoming_sms_key).and_return(ja_key)
-      FactoryGirl.create(:admin_user)
-      FactoryGirl.create(:user, phone: phone)
+      FactoryBot.create(:admin_user)
+      FactoryBot.create(:user, phone: phone)
 
       expect do
         post :receive, params: params

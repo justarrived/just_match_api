@@ -9,33 +9,33 @@ RSpec.describe JobUser, type: :model do
 
   describe '#application_status' do
     it 'returns rejected if job is started and applicant is not hired' do
-      job = FactoryGirl.build(:job, job_date: 2.weeks.ago)
-      job_user = FactoryGirl.build(:job_user, job: job, will_perform: false)
+      job = FactoryBot.build(:job, job_date: 2.weeks.ago)
+      job_user = FactoryBot.build(:job_user, job: job, will_perform: false)
       expect(job_user.application_status).to eq(:rejected)
     end
 
     it 'returns withdrawn if applicant has withdrawn' do
-      job_user = FactoryGirl.build(:job_user, application_withdrawn: true)
+      job_user = FactoryBot.build(:job_user, application_withdrawn: true)
       expect(job_user.application_status).to eq(:withdrawn)
     end
 
     it 'returns hired if applicant is hired' do
-      job_user = FactoryGirl.build(:job_user, will_perform: true)
+      job_user = FactoryBot.build(:job_user, will_perform: true)
       expect(job_user.application_status).to eq(:hired)
     end
 
     it 'returns accepted if applicant has been accepted' do
-      job_user = FactoryGirl.build(:job_user, accepted: true)
+      job_user = FactoryBot.build(:job_user, accepted: true)
       expect(job_user.application_status).to eq(:offered)
     end
 
     it 'returns rejected if applicant has been rejected' do
-      job_user = FactoryGirl.build(:job_user, rejected: true)
+      job_user = FactoryBot.build(:job_user, rejected: true)
       expect(job_user.application_status).to eq(:rejected)
     end
 
     it 'returns applied by default' do
-      job_user = FactoryGirl.build(:job_user)
+      job_user = FactoryBot.build(:job_user)
       expect(job_user.application_status).to eq(:applied)
     end
   end
@@ -43,13 +43,13 @@ RSpec.describe JobUser, type: :model do
   describe '#applicant_confirmation_overdue?' do
     it 'returns true if overdue' do
       hours_ago = (JobUser::MAX_CONFIRMATION_TIME_HOURS + 1).hours.ago
-      job_user = FactoryGirl.build(:job_user, accepted: true, accepted_at: hours_ago)
+      job_user = FactoryBot.build(:job_user, accepted: true, accepted_at: hours_ago)
       expect(job_user.applicant_confirmation_overdue?).to eq(true)
     end
 
     it 'returns false if time is overdue but will_perform has been set to true' do
       hours_ago = (JobUser::MAX_CONFIRMATION_TIME_HOURS + 1).hours.ago
-      job_user = FactoryGirl.build(
+      job_user = FactoryBot.build(
         :job_user,
         accepted: true,
         accepted_at: hours_ago,
@@ -60,12 +60,12 @@ RSpec.describe JobUser, type: :model do
 
     it 'returns false if *not* overdue' do
       hours_ago = (JobUser::MAX_CONFIRMATION_TIME_HOURS - 1).hours.ago
-      job_user = FactoryGirl.build(:job_user, accepted: true, accepted_at: hours_ago)
+      job_user = FactoryBot.build(:job_user, accepted: true, accepted_at: hours_ago)
       expect(job_user.applicant_confirmation_overdue?).to eq(false)
     end
 
     it 'returns false if accepted_at is nil' do
-      job_user = FactoryGirl.build(:job_user)
+      job_user = FactoryBot.build(:job_user)
       expect(job_user.applicant_confirmation_overdue?).to eq(false)
     end
   end
@@ -74,7 +74,7 @@ RSpec.describe JobUser, type: :model do
     it 'returns the time that the applicant has to confirm will_perform before' do
       time = Time.zone.now
       Timecop.freeze(time) do
-        job_user = FactoryGirl.build(:job_user, accepted: true, accepted_at: time)
+        job_user = FactoryBot.build(:job_user, accepted: true, accepted_at: time)
 
         expected_time = time + JobUser::MAX_CONFIRMATION_TIME_HOURS.hours
         expect(job_user.will_perform_confirmation_by).to eq(expected_time)
@@ -82,13 +82,13 @@ RSpec.describe JobUser, type: :model do
     end
 
     it 'returns nil if there is no accepted_at attribute' do
-      job_user = FactoryGirl.build(:job_user)
+      job_user = FactoryBot.build(:job_user)
       expect(job_user.will_perform_confirmation_by).to be_nil
     end
   end
 
   describe '#accepted_jobs_for' do
-    let(:job_user) { FactoryGirl.create(:job_user) }
+    let(:job_user) { FactoryBot.create(:job_user) }
 
     it 'returns all jobs where user is accepted' do
       job_user.accept
@@ -124,11 +124,11 @@ RSpec.describe JobUser, type: :model do
   end
 
   it 'validates uniqueness of {job|user} scope' do
-    user = FactoryGirl.build(:user)
-    job = FactoryGirl.build(:job)
-    FactoryGirl.create(:job_user, user: user, job: job)
+    user = FactoryBot.build(:user)
+    job = FactoryBot.build(:job)
+    FactoryBot.create(:job_user, user: user, job: job)
 
-    job_user = FactoryGirl.build(:job_user, user: user, job: job)
+    job_user = FactoryBot.build(:job_user, user: user, job: job)
     job_user.validate
 
     messages = job_user.errors.messages
@@ -139,10 +139,10 @@ RSpec.describe JobUser, type: :model do
   end
 
   it 'validates user not owner of job' do
-    job = FactoryGirl.create(:job)
+    job = FactoryBot.create(:job)
     job_owner = job.owner
 
-    job_user = FactoryGirl.build(:job_user, user: job_owner, job: job)
+    job_user = FactoryBot.build(:job_user, user: job_owner, job: job)
     job_user.validate
 
     message = job_user.errors.messages[:user]
@@ -150,9 +150,9 @@ RSpec.describe JobUser, type: :model do
   end
 
   it 'validates only one applicant' do
-    accepted_job_user = FactoryGirl.create(:job_user_accepted)
+    accepted_job_user = FactoryBot.create(:job_user_accepted)
 
-    job_user = FactoryGirl.create(:job_user, job: accepted_job_user.job)
+    job_user = FactoryBot.create(:job_user, job: accepted_job_user.job)
     job_user.validate
 
     err_msg = I18n.t('errors.job_user.multiple_applicants')
@@ -161,7 +161,7 @@ RSpec.describe JobUser, type: :model do
   end
 
   describe 'validate will perform not reverted' do
-    let(:job_user) { FactoryGirl.build(:job_user_accepted) }
+    let(:job_user) { FactoryBot.build(:job_user_accepted) }
 
     it 'adds *no* error when value is already false' do
       job_user.validate
@@ -181,7 +181,7 @@ RSpec.describe JobUser, type: :model do
   end
 
   describe 'validate accepted not reverted' do
-    let(:job_user) { FactoryGirl.build(:job_user) }
+    let(:job_user) { FactoryBot.build(:job_user) }
 
     it 'adds *no* error when value is already false' do
       job_user.validate
@@ -211,8 +211,8 @@ RSpec.describe JobUser, type: :model do
   end
 
   describe 'validate performed not reverted' do
-    let(:job) { FactoryGirl.build(:passed_job) }
-    let(:job_user) { FactoryGirl.build(:job_user_will_perform, job: job) }
+    let(:job) { FactoryBot.build(:passed_job) }
+    let(:job_user) { FactoryBot.build(:job_user_will_perform, job: job) }
 
     it 'adds *no* error when value is already false' do
       job_user.validate
@@ -232,7 +232,7 @@ RSpec.describe JobUser, type: :model do
   end
 
   describe 'validate accepted before will perform' do
-    let(:job_user) { FactoryGirl.build(:job_user) }
+    let(:job_user) { FactoryBot.build(:job_user) }
 
     it 'adds error if already accepted is false' do
       job_user.will_perform = true
@@ -251,7 +251,7 @@ RSpec.describe JobUser, type: :model do
   end
 
   describe 'validate will perform before performed' do
-    let(:job_user) { FactoryGirl.build(:job_user) }
+    let(:job_user) { FactoryBot.build(:job_user) }
 
     it 'adds error if will_perform is false' do
       job_user.performed = true
@@ -270,13 +270,13 @@ RSpec.describe JobUser, type: :model do
   end
 
   describe 'validate that only one applicant is accepted' do
-    let(:first_job_user) { FactoryGirl.create(:job_user_accepted) }
+    let(:first_job_user) { FactoryBot.create(:job_user_accepted) }
     let(:job_user) do
-      FactoryGirl.build(:job_user, job: first_job_user.job)
+      FactoryBot.build(:job_user, job: first_job_user.job)
     end
 
     context 'with no accpeted applicant' do
-      let(:first_job_user) { FactoryGirl.create(:job_user) }
+      let(:first_job_user) { FactoryBot.create(:job_user) }
 
       it 'adds error when value is true and set to false' do
         job_user.accepted = true
@@ -287,7 +287,7 @@ RSpec.describe JobUser, type: :model do
     end
 
     context 'with accepted applicant' do
-      let(:first_job_user) { FactoryGirl.create(:job_user_accepted) }
+      let(:first_job_user) { FactoryBot.create(:job_user_accepted) }
 
       it 'adds *no* error when accepted is false' do
         job_user.accepted = false

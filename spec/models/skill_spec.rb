@@ -6,7 +6,7 @@ RSpec.describe Skill, type: :model do
   describe '#display_name' do
     it 'returns the correct display name' do
       id = 7
-      skill = FactoryGirl.build(:skill, id: id)
+      skill = FactoryBot.build(:skill, id: id)
       expect(skill.display_name).to eq("##{id} #{skill.name}")
     end
   end
@@ -19,7 +19,7 @@ RSpec.describe Skill, type: :model do
       end
 
       it 'returns skill array' do
-        skill = FactoryGirl.create(:skill_with_translation)
+        skill = FactoryBot.create(:skill_with_translation)
         skill_array = described_class.to_form_array(include_blank: false)
         expect(skill_array).to eq([[skill.name, skill.id]])
       end
@@ -34,7 +34,7 @@ RSpec.describe Skill, type: :model do
       end
 
       it 'returns skill array' do
-        skill = FactoryGirl.create(:skill_with_translation)
+        skill = FactoryBot.create(:skill_with_translation)
         skill_array = described_class.to_form_array(include_blank: true)
         expect(skill_array).to eq([[label, nil], [skill.name, skill.id]])
       end

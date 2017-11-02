@@ -4,12 +4,12 @@ require 'rails_helper'
 
 RSpec.describe Rating, type: :model do
   let(:language) { Language.find_or_create_by!(lang_code: 'en') }
-  let(:from_user) { FactoryGirl.build(:user, system_language: language) }
-  let(:to_user) { FactoryGirl.build(:user, system_language: language) }
-  let(:job) { FactoryGirl.build(:job) }
+  let(:from_user) { FactoryBot.build(:user, system_language: language) }
+  let(:to_user) { FactoryBot.build(:user, system_language: language) }
+  let(:job) { FactoryBot.build(:job) }
 
   subject do
-    FactoryGirl.build(
+    FactoryBot.build(
       :rating,
       from_user: from_user,
       to_user: to_user,
@@ -22,7 +22,7 @@ RSpec.describe Rating, type: :model do
 
   describe '#validate_comment_owned_by' do
     context 'invalid' do
-      let(:comment) { FactoryGirl.build(:comment, owner: to_user) }
+      let(:comment) { FactoryBot.build(:comment, owner: to_user) }
 
       it 'adds error' do
         subject.validate
@@ -33,7 +33,7 @@ RSpec.describe Rating, type: :model do
     end
 
     context 'valid' do
-      let(:comment) { FactoryGirl.build(:comment, owner: from_user) }
+      let(:comment) { FactoryBot.build(:comment, owner: from_user) }
 
       it 'adds no error' do
         err_msg = I18n.t('errors.rating.comment_user')
@@ -43,12 +43,12 @@ RSpec.describe Rating, type: :model do
   end
 
   describe '#validate_job_concluded' do
-    let(:owner) { FactoryGirl.create(:user) }
-    let(:user) { FactoryGirl.create(:user) }
-    let(:job) { FactoryGirl.create(:passed_job, owner: owner) }
+    let(:owner) { FactoryBot.create(:user) }
+    let(:user) { FactoryBot.create(:user) }
+    let(:job) { FactoryBot.create(:passed_job, owner: owner) }
 
     context 'job owner rates' do
-      let(:rating) { FactoryGirl.build(:rating, job: job, from_user: owner) }
+      let(:rating) { FactoryBot.build(:rating, job: job, from_user: owner) }
 
       context 'valid' do
         it 'adds no error if there is *no* accepted job user' do
@@ -58,7 +58,7 @@ RSpec.describe Rating, type: :model do
         end
 
         it 'adds no error if the job is concluded' do
-          FactoryGirl.create(:job_user_concluded, job: job)
+          FactoryBot.create(:job_user_concluded, job: job)
           rating.validate
           message = I18n.t('errors.rating.job_user_concluded')
           expect(rating.errors.messages[:job_user] || []).not_to include(message)
@@ -67,7 +67,7 @@ RSpec.describe Rating, type: :model do
 
       context 'invalid' do
         it 'adds error' do
-          FactoryGirl.create(:job_user_accepted, job: job)
+          FactoryBot.create(:job_user_accepted, job: job)
           rating.validate
           message = I18n.t('errors.rating.job_user_concluded')
           expect(rating.errors.messages[:job_user]).to include(message)
@@ -76,11 +76,11 @@ RSpec.describe Rating, type: :model do
     end
 
     context 'job user rates' do
-      let(:rating) { FactoryGirl.build(:rating, job: job, from_user: user) }
+      let(:rating) { FactoryBot.build(:rating, job: job, from_user: user) }
 
       context 'invalid' do
         it 'adds error' do
-          FactoryGirl.create(:job_user_accepted, job: job, user: user)
+          FactoryBot.create(:job_user_accepted, job: job, user: user)
           rating.validate
           message = I18n.t('errors.rating.job_user_concluded')
           expect(rating.errors.messages[:job_user] || []).not_to include(message)
@@ -90,16 +90,16 @@ RSpec.describe Rating, type: :model do
   end
 
   describe '#validate_job_user_performed' do
-    let(:owner) { FactoryGirl.create(:user) }
-    let(:user) { FactoryGirl.create(:user) }
-    let(:job) { FactoryGirl.create(:passed_job, owner: owner) }
+    let(:owner) { FactoryBot.create(:user) }
+    let(:user) { FactoryBot.create(:user) }
+    let(:job) { FactoryBot.create(:passed_job, owner: owner) }
 
     context 'job owner rates' do
-      let(:rating) { FactoryGirl.build(:rating, job: job, from_user: owner) }
+      let(:rating) { FactoryBot.build(:rating, job: job, from_user: owner) }
 
       context 'invalid' do
         it 'adds error' do
-          FactoryGirl.create(:job_user_accepted, job: job)
+          FactoryBot.create(:job_user_accepted, job: job)
           rating.validate
           message = I18n.t('errors.rating.job_user_performed')
           expect(rating.errors.messages[:job_user]).not_to include(message)
@@ -108,7 +108,7 @@ RSpec.describe Rating, type: :model do
     end
 
     context 'job user rates' do
-      let(:rating) { FactoryGirl.build(:rating, job: job, from_user: user) }
+      let(:rating) { FactoryBot.build(:rating, job: job, from_user: user) }
 
       context 'valid' do
         it 'adds no error if there is *no* accepted job user' do
@@ -118,7 +118,7 @@ RSpec.describe Rating, type: :model do
         end
 
         it 'adds no error if the job is concluded' do
-          FactoryGirl.create(:job_user_concluded, job: job)
+          FactoryBot.create(:job_user_concluded, job: job)
           rating.validate
           message = I18n.t('errors.rating.job_user_performed')
           expect(rating.errors.messages[:job_user] || []).not_to include(message)
@@ -127,7 +127,7 @@ RSpec.describe Rating, type: :model do
 
       context 'invalid' do
         it 'adds error' do
-          FactoryGirl.create(:job_user_accepted, job: job, user: user)
+          FactoryBot.create(:job_user_accepted, job: job, user: user)
           rating.validate
           message = I18n.t('errors.rating.job_user_performed')
           expect(rating.errors.messages[:job_user]).to include(message)
@@ -155,7 +155,7 @@ RSpec.describe Rating, type: :model do
     end
 
     context 'owner' do
-      let(:job) { FactoryGirl.build(:job, owner: user_subject) }
+      let(:job) { FactoryBot.build(:job, owner: user_subject) }
 
       it 'returns true' do
         expect(subject).to eq(true)
@@ -164,7 +164,7 @@ RSpec.describe Rating, type: :model do
 
     context 'accepted_applicant' do
       it 'returns true' do
-        FactoryGirl.create(:job_user, job: job, user: user_subject)
+        FactoryBot.create(:job_user, job: job, user: user_subject)
         job.accept_applicant!(user_subject)
 
         expect(subject).to eq(true)
@@ -187,7 +187,7 @@ RSpec.describe Rating, type: :model do
       end
 
       context 'owner' do
-        let(:job) { FactoryGirl.build(:job, owner: user_subject) }
+        let(:job) { FactoryBot.build(:job, owner: user_subject) }
 
         it 'adds no error' do
           subject.validate
@@ -199,7 +199,7 @@ RSpec.describe Rating, type: :model do
 
       context 'accepted_applicant' do
         it 'adds no error' do
-          FactoryGirl.create(:job_user, job: job, user: user_subject)
+          FactoryBot.create(:job_user, job: job, user: user_subject)
           job.accept_applicant!(user_subject)
 
           subject.validate

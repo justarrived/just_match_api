@@ -7,10 +7,10 @@ RSpec.describe RatingPolicy do
     allow_any_instance_of(User).to receive(:persisted?).and_return(true)
   end
 
-  let(:admin) { FactoryGirl.build(:admin_user) }
-  let(:user) { FactoryGirl.build(:user) }
-  let(:job_owner) { FactoryGirl.build(:company_user) }
-  let(:job) { FactoryGirl.build(:job, owner: job_owner) }
+  let(:admin) { FactoryBot.build(:admin_user) }
+  let(:user) { FactoryBot.build(:user) }
+  let(:job_owner) { FactoryBot.build(:company_user) }
+  let(:job) { FactoryBot.build(:job, owner: job_owner) }
   let(:policy) { described_class.new(policy_context, nil) }
 
   permissions :create? do
@@ -54,12 +54,12 @@ RSpec.describe RatingPolicy do
     end
 
     context 'accepted applicant user' do
-      let(:user) { FactoryGirl.create(:user) }
+      let(:user) { FactoryBot.create(:user) }
       let(:policy_context) { described_class::Context.new(user, job) }
       let(:policy) { described_class.new(policy_context, nil) }
 
       it 'allows access' do
-        FactoryGirl.create(:job_user, job: job, user: user, accepted: true)
+        FactoryBot.create(:job_user, job: job, user: user, accepted: true)
 
         expect(policy.create?).to eq(true)
       end

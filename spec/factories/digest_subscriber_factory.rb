@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :digest_subscriber do
     sequence :email do |n|
       "subscriber#{n}@example.com"

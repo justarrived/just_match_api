@@ -42,7 +42,7 @@ RSpec.describe UserMailer, type: :mailer do
   end
 
   describe '#reset_password_email' do
-    let(:user) { FactoryGirl.build(:user_with_one_time_token) }
+    let(:user) { FactoryBot.build(:user_with_one_time_token) }
     let(:mail) { described_class.reset_password_email(user: user) }
 
     it 'has both text and html part' do
@@ -73,7 +73,7 @@ RSpec.describe UserMailer, type: :mailer do
   end
 
   describe '#changed_password_email' do
-    let(:user) { FactoryGirl.build(:user) }
+    let(:user) { FactoryBot.build(:user) }
     let(:mail) { described_class.changed_password_email(user: user) }
 
     it 'has both text and html part' do
@@ -99,7 +99,7 @@ RSpec.describe UserMailer, type: :mailer do
   end
 
   describe '#magic_login_link_email' do
-    let(:user) { FactoryGirl.build(:user_with_one_time_token) }
+    let(:user) { FactoryBot.build(:user_with_one_time_token) }
     let(:mail) { described_class.magic_login_link_email(user: user) }
 
     it 'has both text and html part' do

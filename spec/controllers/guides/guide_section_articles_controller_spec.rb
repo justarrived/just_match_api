@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe Api::V1::Guides::GuideSectionArticlesController, type: :controller do
   describe 'GET #index' do
     it 'returns articles' do
-      article = FactoryGirl.create(:guide_section_article)
+      article = FactoryBot.create(:guide_section_article)
       get :index, params: { section_id: article.section.id }
       expect(assigns(:articles)).to eq([article])
     end
@@ -13,13 +13,13 @@ RSpec.describe Api::V1::Guides::GuideSectionArticlesController, type: :controlle
 
   describe 'GET #show' do
     it 'returns article' do
-      article = FactoryGirl.create(:guide_section_article)
+      article = FactoryBot.create(:guide_section_article)
       get :show, params: { section_id: article.section.id, article_id: article.id }
       expect(assigns(:article)).to eq(article)
     end
 
     it 'can find article by slug' do
-      article = FactoryGirl.create(:guide_section_article)
+      article = FactoryBot.create(:guide_section_article)
       article.set_translation(slug: 'my-test-slug')
 
       params = {

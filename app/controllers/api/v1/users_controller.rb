@@ -296,17 +296,16 @@ module Api
       )
       def missing_traits
         authorize(@user)
-        missing_traits = Queries::MissingUserTraits
+        missing_traits = Queries::MissingUserTraits.new(user: @user)
 
         missing_attributes = missing_traits.attributes(
-          user: @user,
           attributes: %i(ssn street zip city phone)
         )
         languages = Language.common_working_languages_for(country: :se)
-        missing_languages = missing_traits.languages(user: @user, languages: languages)
+        missing_languages = missing_traits.languages(languages: languages)
 
         skills = Skill.high_priority
-        missing_skills = missing_traits.skills(user: @user, skills: skills)
+        missing_skills = missing_traits.skills(skills: skills)
 
         response = MissingUserTraitsSerializer.serialize(
           user_attributes: missing_attributes,

@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe JobRequest, type: :model do
   describe '#validate_company_relation_or_company_details' do
     it 'does not add error if company relation exists' do
-      company = FactoryGirl.build_stubbed(:company)
+      company = FactoryBot.build_stubbed(:company)
       request = JobRequest.new(company: company)
       request.validate_company_relation_or_company_details
 

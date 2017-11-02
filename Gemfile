@@ -38,7 +38,7 @@ gem 'rack-timeout', '~> 0.4' # Kill requests that run for too long
 gem 'sidekiq', '< 6' # Background worker (Redis-backed)
 
 # MONITORING
-gem 'airbrake', '~> 7.0' # Error catcher and reporter
+gem 'airbrake', '~> 7.1' # Error catcher and reporter
 gem 'newrelic_rpm', '~> 4.5' # Performance monitoring
 
 # DATABASE / MODELS
@@ -115,12 +115,12 @@ group :development, :test, :docs do
   gem 'byebug', '~> 9.1'
   gem 'consistency_fail', '~> 0.3'
   gem 'dotenv-rails', '~> 2.2'
-  gem 'factory_girl_rails', '~> 4.8'
+  gem 'factory_bot_rails', '~> 4.8'
   gem 'fog', '~> 1.42' # Cloud services gem, in production the aws-sdk gem is used
   gem 'immigrant', '~> 0.3'
-  gem 'rspec-rails', '~> 3.6'
+  gem 'rspec-rails', '~> 3.7'
   gem 'rspec_junit_formatter', '~> 0.2'
-  gem 'rubocop', '~> 0.50', require: false
+  gem 'rubocop', '~> 0.51', require: false
 end
 
 group :development do

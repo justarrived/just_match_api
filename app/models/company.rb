@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Company < ApplicationRecord
+  belongs_to :sales_user, optional: true, class_name: 'User', foreign_key: 'sales_user_id'
+
   has_many :users
   has_many :owned_jobs, through: :users
 
@@ -155,9 +157,14 @@ end
 #  municipality      :string
 #  staffing_agency   :boolean          default(FALSE)
 #  display_name      :string
+#  sales_user_id     :integer
 #
 # Indexes
 #
 #  index_companies_on_cin                (cin) UNIQUE
 #  index_companies_on_frilans_finans_id  (frilans_finans_id) UNIQUE
+#
+# Foreign Keys
+#
+#  companies_sales_user_id_fk  (sales_user_id => users.id)
 #

@@ -154,13 +154,6 @@ active_admin_form_for(resource, url: url) do |f|
 
     tab(I18n.t('admin.job.section_title.job_boards')) do
       f.inputs(I18n.t('admin.job.form.partners_section_title')) do
-        f.input(
-          :municipality,
-          as: :select,
-          collection: Arbetsformedlingen::MunicipalityCode.to_form_array(name_only: true),
-          hint: I18n.t('admin.job.form.municipality_hint')
-        )
-        hr
         f.input :swedish_drivers_license, hint: Arbetsformedlingen::DriversLicenseCode.codes.join(', ')
         f.input :car_required
         hr

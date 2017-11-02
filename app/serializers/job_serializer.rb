@@ -17,6 +17,10 @@ class JobSerializer < ApplicationSerializer
     object.staffing_company_id.present?
   end
 
+  attribute :frilans_finans_job do
+    object.frilans_finans_job?
+  end
+
   attribute :name do
     object.original_name
   end

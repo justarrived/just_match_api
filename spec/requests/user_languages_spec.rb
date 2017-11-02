@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe 'UserLanguages', type: :request do
   describe 'GET /users/1/languages' do
     it 'does not allow non-authenticated user' do
-      user = FactoryGirl.create(:user)
+      user = FactoryBot.create(:user)
       get api_v1_user_languages_path(user_id: user.to_param)
       expect(response).to have_http_status(401)
     end

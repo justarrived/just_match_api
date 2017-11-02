@@ -1,0 +1,28 @@
+<%= I18n.t(
+  'mailer.update_data_reminder.introduction_body',
+  job_name: "#{@job.name.truncate(30)} - #{@job_url}"
+) %>
+<% if @missing_cv %>
+<%= I18n.t(
+    'mailer.update_data_reminder.cv_upload_body',
+    url: @user_edit_url
+) %>
+
+<% end %>
+<% if @missing_languages.any? || @missing_skills.any? %>
+<%= I18n.t('mailer.update_data_reminder.competence_list_title') %>
+
+<% @missing_languages.each do |language| %>
+- <%= language.name %>
+<% end %>
+<% @missing_skills.each do |skill| %>
+- <%= skill.name %>
+<% end %>
+
+<%= I18n.t(
+  'mailer.update_data_reminder.competence_update_body',
+  url: @user_edit_url
+) %>
+<% end %>
+
+<%= I18n.t('mailer.signoff') %>

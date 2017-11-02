@@ -12,7 +12,7 @@ RSpec.describe Chat, type: :model do
 
     context 'with existing private chat' do
       it 'returns nil' do
-        chat = FactoryGirl.create(:chat_with_users, users_count: 2)
+        chat = FactoryBot.create(:chat_with_users, users_count: 2)
         result = described_class.find_private_chat(chat.users)
         expect(result).to eq(chat)
       end
@@ -22,7 +22,7 @@ RSpec.describe Chat, type: :model do
   describe '#find_or_create_private_chat' do
     context 'no existing private chat' do
       it 'returns new chat' do
-        users = [FactoryGirl.create(:user), FactoryGirl.create(:user)]
+        users = [FactoryBot.create(:user), FactoryBot.create(:user)]
         expect(described_class.find_private_chat(users)).to eq(nil)
 
         chat = described_class.find_or_create_private_chat(users)
@@ -33,7 +33,7 @@ RSpec.describe Chat, type: :model do
 
     context 'with existing private chat' do
       it 'returns correct chat' do
-        chat = FactoryGirl.create(:chat_with_users, users_count: 2)
+        chat = FactoryBot.create(:chat_with_users, users_count: 2)
         result = described_class.find_or_create_private_chat(chat.users)
         expect(result).to eq(chat)
       end
@@ -64,7 +64,7 @@ RSpec.describe Chat, type: :model do
 
     context 'with users' do
       it 'returns common chat ids' do
-        chat = FactoryGirl.create(:chat_with_users, users_count: 2)
+        chat = FactoryBot.create(:chat_with_users, users_count: 2)
         result = described_class.common_chat_ids(chat.users)
         expect(result).to eq([chat.id])
       end
@@ -74,9 +74,9 @@ RSpec.describe Chat, type: :model do
   describe '#create_message' do
     context 'valid message' do
       it 'returns created message' do
-        chat = FactoryGirl.create(:chat)
-        author = FactoryGirl.create(:user)
-        lang = FactoryGirl.create(:language)
+        chat = FactoryBot.create(:chat)
+        author = FactoryBot.create(:user)
+        lang = FactoryBot.create(:language)
         body = 'My text chat message.'
         message = chat.create_message(author: author, body: body, language_id: lang.id)
         expect(message.valid?).to eq(true)
@@ -88,8 +88,8 @@ RSpec.describe Chat, type: :model do
 
     context 'invalid message' do
       it 'returns message with errors' do
-        chat = FactoryGirl.create(:chat)
-        FactoryGirl.create(:language)
+        chat = FactoryBot.create(:chat)
+        FactoryBot.create(:language)
         messsage = chat.create_message(author: nil, body: nil, language_id: nil)
         expect(messsage.valid?).to eq(false)
         expect(messsage.errors[:author]).to include("can't be blank")

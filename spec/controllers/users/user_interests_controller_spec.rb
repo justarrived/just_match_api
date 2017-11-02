@@ -13,7 +13,7 @@ RSpec.describe Api::V1::Users::UserInterestsController, type: :controller do
 
   describe 'GET #index' do
     it 'assigns all user interests as @interests' do
-      user = FactoryGirl.create(:user_with_interests, interests_count: 2)
+      user = FactoryBot.create(:user_with_interests, interests_count: 2)
       user.create_auth_token
       user.user_interests.first.update(level: 3)
       user.user_interests.last.interest.update(internal: true)
@@ -24,7 +24,7 @@ RSpec.describe Api::V1::Users::UserInterestsController, type: :controller do
     end
 
     it 'does not return internal interests' do
-      user = FactoryGirl.create(:user_with_interests, interests_count: 1)
+      user = FactoryBot.create(:user_with_interests, interests_count: 1)
       user.create_auth_token
       user.user_interests.first.interest.update(internal: true)
 
@@ -33,7 +33,7 @@ RSpec.describe Api::V1::Users::UserInterestsController, type: :controller do
     end
 
     it 'returns 200 ok status' do
-      user = FactoryGirl.create(:user_with_tokens)
+      user = FactoryBot.create(:user_with_tokens)
       get :index, params: { auth_token: user.auth_token, user_id: user.to_param }
       expect(response.status).to eq(200)
     end
@@ -41,7 +41,7 @@ RSpec.describe Api::V1::Users::UserInterestsController, type: :controller do
 
   describe 'GET #show' do
     it 'assigns the requested user interest as @interest, @user_interest, @user' do
-      user = FactoryGirl.create(:user_with_interests, interests_count: 1)
+      user = FactoryBot.create(:user_with_interests, interests_count: 1)
       user_interest = user.user_interests.first
       interest = user_interest.interest
       params = {
@@ -60,10 +60,10 @@ RSpec.describe Api::V1::Users::UserInterestsController, type: :controller do
   describe 'POST #create' do
     context 'with valid params' do
       context 'authorized user' do
-        let(:user) { FactoryGirl.create(:user_with_tokens) }
+        let(:user) { FactoryBot.create(:user_with_tokens) }
 
         it 'creates a new UserInterest' do
-          interest = FactoryGirl.create(:interest)
+          interest = FactoryBot.create(:interest)
           params = {
             auth_token: user.auth_token,
             user_id: user.to_param,
@@ -77,7 +77,7 @@ RSpec.describe Api::V1::Users::UserInterestsController, type: :controller do
         end
 
         it 'assigns a newly created user_interest as @user_interest' do
-          interest = FactoryGirl.create(:interest)
+          interest = FactoryBot.create(:interest)
           params = {
             auth_token: user.auth_token,
             user_id: user.to_param,
@@ -92,7 +92,7 @@ RSpec.describe Api::V1::Users::UserInterestsController, type: :controller do
         end
 
         it 'returns created status' do
-          interest = FactoryGirl.create(:interest)
+          interest = FactoryBot.create(:interest)
           params = {
             auth_token: user.auth_token,
             user_id: user.to_param,
@@ -108,7 +108,7 @@ RSpec.describe Api::V1::Users::UserInterestsController, type: :controller do
 
     context 'not authorized' do
       it 'returns not authorized status' do
-        user = FactoryGirl.create(:user)
+        user = FactoryBot.create(:user)
         params = {
           auth_token: 'wat',
           user_id: user.to_param, interest: {}
@@ -120,7 +120,7 @@ RSpec.describe Api::V1::Users::UserInterestsController, type: :controller do
 
     context 'with invalid params' do
       context 'authorized user' do
-        let(:user) { FactoryGirl.create(:user_with_tokens) }
+        let(:user) { FactoryBot.create(:user_with_tokens) }
 
         it 'assigns a newly created but unsaved user_interest as @user_interest' do
           params = {
@@ -146,7 +146,7 @@ RSpec.describe Api::V1::Users::UserInterestsController, type: :controller do
   describe 'DELETE #destroy' do
     context 'authorized user' do
       let(:user) do
-        FactoryGirl.create(:user_with_interests).tap(&:create_auth_token)
+        FactoryBot.create(:user_with_interests).tap(&:create_auth_token)
       end
 
       it 'destroys the requested user_interest' do
@@ -189,9 +189,9 @@ RSpec.describe Api::V1::Users::UserInterestsController, type: :controller do
 
     context 'user not allowed' do
       it 'does not destroy the requested user_interest' do
-        user = FactoryGirl.create(:user_with_interests)
+        user = FactoryBot.create(:user_with_interests)
         user_interest = user.user_interests.first
-        other_user = FactoryGirl.create(:user_with_tokens)
+        other_user = FactoryBot.create(:user_with_tokens)
         expect do
           params = {
             auth_token: other_user.auth_token,
@@ -203,9 +203,9 @@ RSpec.describe Api::V1::Users::UserInterestsController, type: :controller do
       end
 
       it 'returns not authorized status' do
-        user = FactoryGirl.create(:user_with_interests)
+        user = FactoryBot.create(:user_with_interests)
         user_interest = user.user_interests.first
-        other_user = FactoryGirl.create(:user_with_tokens)
+        other_user = FactoryBot.create(:user_with_tokens)
         params = {
           auth_token: other_user.auth_token,
           user_id: user.to_param,

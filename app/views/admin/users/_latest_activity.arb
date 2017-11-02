@@ -1,0 +1,30 @@
+significant_event_names_map = {
+  'api/v1/contacts#create' => 'Submit contact form',
+  'api/v1/documents#create' => 'Upload document',
+  'api/v1/jobs#show' => 'Show job',
+  'api/v1/jobs/confirmations#create' => 'Sign job',
+  'api/v1/jobs/job_digests#create' => 'Create job digest',
+  'api/v1/jobs/job_digests#destroy' => 'Delete job digest',
+  'api/v1/jobs/job_digests#update' => 'Update job digest',
+  'api/v1/jobs/job_users#create' => 'Create application',
+  'api/v1/jobs/job_users#update' => 'Update application',
+  'api/v1/users/change_password#create' => 'Change password',
+  'api/v1/users/reset_password#create' => 'Reset password',
+  'api/v1/users/user_documents#create' => 'Upload document',
+  'api/v1/users/user_images#create' => 'Upload image',
+  'api/v1/users/user_sessions#create' => 'Login in',
+  'api/v1/users#update' => 'Update user'
+}.freeze
+
+events = Ahoy::Event.where(
+  name: significant_event_names_map.keys,
+  user_id: user.id
+).order(id: :desc).limit(20)
+
+table_for(events) do
+  column :name { |event| significant_event_names_map[event.name] }
+  column :time_ago do |event|
+    time_ago = distance_of_time_in_words(Time.zone.now, event.time)
+    "#{time_ago} ago"
+  end
+end

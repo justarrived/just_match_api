@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe GuideSectionArticleSerializer, type: :serializer do
   context 'Individual Resource Representation' do
-    let(:resource) { FactoryGirl.build(:guide_section_article, id: '1') }
+    let(:resource) { FactoryBot.build(:guide_section_article, id: '1') }
     let(:serialization) { JsonApiSerializer.serialize(resource) }
 
     subject do
@@ -24,6 +24,7 @@ RSpec.describe GuideSectionArticleSerializer, type: :serializer do
         'slug' => nil,
         'short_description' => nil,
         'body' => nil,
+        'body_html' => nil,
         'language_id' => nil
       }
       expect(subject).to have_jsonapi_attribute('translated_text', value)

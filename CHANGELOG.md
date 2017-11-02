@@ -4,6 +4,106 @@ HEAD
 -----------
 
 
+v2.53 - 2017-11-01
+----------
+__Admin__:
+* Display the latest job user comment
+
+__Enhancement__:
+* Add `user_id` and email to analytics data on send job digest email
+
+__Gem update__:
+* Rename `FactoryGirl` => `FactoryBot`
+* Bump `rspec-rails` from 3.6.1 to 3.7.1
+* Update factory_bot_rails gem to ~> 4.8
+
+
+v2.52 - 2017-10-31
+----------
+__API__:
+* Add `/ahoy/events` endpoint
+
+__Enhancement__:
+* Refactor `UrlValidator` to use `AbsoluteUrl` class
+* Add `AbsoluteUrl` class
+
+__Admin__:
+* Add user latest activity sidebar to user & job user
+* :hocho: N+1 queries :rocket:
+
+
+v2.51 - 2017-10-30
+----------
+__API__:
+* Update `/user/notifications` to include the correct i18n JSON-structure
+* Add `job#frilans_finans_job` attribute to jobs API type
+
+__Enhancement__:
+* Use https protocol in AppConfig#cv_template_url
+
+__Gem update__:
+* Bump arbetsformedlingen gem
+  - Update PushArbetsformedlingenAdService to use new API
+* Bump database_cleaner from 1.6.1 to 1.6.2
+* Bump twilio-ruby from 5.4.2 to 5.4.3
+
+
+v2.50 - 2017-10-28
+----------
+__Enhancement__:
+* Add company filter to order index
+
+__Admin__:
+* Track send job digest email for analytics purposes
+
+__Gem update__:
+* Bump `binding_of_caller` from 0.7.2 to 0.7.3
+* Bump `rubocop` from 0.50.0 to 0.51.0
+* Bump `twilio-ruby` from 5.4.0 to 5.4.2
+* Bump `kaminari` from 1.1.0 to 1.1.1
+* Bump `airbrake` from 7.0.3 to 7.1.0
+* Bump `rack-cors` from 1.0.1 to 1.0.2
+* Bump `redis-activesupport` from 5.0.3 to 5.0.4
+
+
+v2.49 - 2017-10-23
+----------
+__Admin__:
+* Remove duplicated input for municipality in job form
+* Add company sales user to index and show view
+
+
+v2.48 - 2017-10-20
+----------
+* Add `Company#sales_user`
+
+
+v2.47 - 2017-10-19
+----------
+__API__:
+* Add `body_html` to `GuideSectionArticleSerializer`
+
+__Admin__:
+* Custom GuideSectionArticleTranslation form
+
+
+v2.46 - 2017-10-18
+----------
+__Admin__:
+* Add job user active admin comments to index dashboard
+* Simpler handling of guide translations
+* Add active admin comment model
+
+__API__:
+* Fix misspelled allowed include for guide section article
+
+__Enhancement__:
+* Update job subscription mail copy
+* Update mailer copy from Job Digest emails
+* Pull translations from Transifex
+* Don't send job cancelled notifications to users that have withdrawn their application. Closes #1221
+
+
 v2.45 - 2017-10-17
 ----------
 __Admin__:
@@ -84,7 +184,10 @@ __API__:
 __Enhancement__:
 * Add `Job#filled_at` column
 * Custom UTM-source for job digest emails
-
+* Add job publish validations
+* Remove `Job#filled` boolean column
+* Don't update the `boolean_as_time` timestamp if already set
+* Convert all usage of `jobs.filled` boolean DB column to `jobs.filled_at`
 
 v2.37/38 - 2017-10-05
 ----------

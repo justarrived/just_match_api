@@ -79,20 +79,20 @@ sv:
       body: Jobbet %{job_name}  har avbrutits
       find_jobs_cta: Hitta fler jobb
     digest_email:
-      subject: Nya jobbtips från Just Arrived.
+      subject: Nya jobb från Just Arrived
       header: Nya jobbtips från Just Arrived
       preheader: Kolla in våra senaste jobb och sök idag!
       body: Kolla in jobben nedan och ansök om du är intresserad.
       more_jobs: Se alla våra jobb
       search_job: Läs mer och ansök
-      update_digest_settings: Ändra inställningar för jobbevakning eller avsluta.
+      update_digest_settings: Uppdatera jobbmailsinställningar
       no_digest_address_setting_notice: Är jobben på fel ort? Uppdatera inställingar.
       good_luck: 'Lycka till och ha en bra dag!'
     digest_created:
-      subject: Tack för att du prenumererar på våra jobbevakningar
+      subject: Nya jobb från Just Arrived kommer skickas till din inkorg
       update_settings: Uppdatera inställningar
       digest_created_title: Tack för din registering!
-      digest_created_body: "Du har registrerat dig till att få jobbevakningar från Just Arrived. Vi kommer skicka dig ett mail när ett nytt jobb lagts upp som passar dina önskemål. Du kan uppdatera dina inställningar när som helst."
+      digest_created_body: "Du har registrerat dig för jobbmail från Just Arrived. Vi kommer skicka dig email med nya jobb som matchar dina inställningar. Du kan avbryta eller uppdatera din inställningar när som helst."
       user_register_link_title: Registrera
       user_register_signup_pitch: "Medan du är här kanske du skulle vara intresserad av att registrera din profil hos oss. Då kan vi matcha din profil med våra nya jobb!"
     job_match:
@@ -138,6 +138,7 @@ sv:
 
         Din bästa chans att få ett jobb är att logga in ofta, söka jobb ofta, och se till att din profil är uppdaterad! Vi är övertygade om att du kommer få ett jobb som passar din profil snart!
       body_fillout_notice: 'För att vi ska kunna matcha dig med ett jobb behöver vi veta lite mer om dina färdigheter i:'
+      body_cv_fillout_notice: Om du laddar upp ett CV ökar det dina chanser att bli matchad till ett jobb. Du kan ladda upp ditt CV på din profilsida.
       body_edit_profile: Uppdatera din profil här %{url}
       body_edit_profile_cta: Uppdatera din profil
     new_applicant:
@@ -195,4 +196,18 @@ sv:
         - Håll din profil uppdaterad! Varje förmåga och all information spelar roll. Vi är säkra på att det finns saker som du är bra på men inte har berättat för oss om än!
         - Om någonting är oklart, eller om du behöver hjälp, tveka inte att kontakta oss på %{support_email} eller kolla in %{faq_link}.
     google_calendar_link_name: Lägg till på Google Calendar
+    update_data_reminder:
+      subject: We are matching you for a job, update your profile!
+      introduction_body: |
+        Hej,
+
+        Du sökte nyligen jobbet "%{job_name}".
+
+        Vi håller just nu på att gå igenom alla ansökningar och för att vi bäst ska kunna matcha dig behöver vi lite mer information.
+      cv_upload_body: 'Ladda upp ditt CV här: %{url}.'
+      competence_list_title: 'Din kunskapsnivå i:'
+      competence_update_body: 'Du kan uppdatera dina kompetenser genom att gå till din profilsida: %{url}.'
+      update_cv_link: ladda upp CV.
+      update_competences_link: uppdatera kompetenser.
+      body_edit_profile_cta: Uppdatera din profil
     signoff: "/ Team Just Arrived"

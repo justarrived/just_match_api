@@ -16,7 +16,7 @@ RSpec.describe CompanyImage, type: :model do
   end
 
   describe '#generate_one_time_token' do
-    let(:company_image) { FactoryGirl.build(:company_image) }
+    let(:company_image) { FactoryBot.build(:company_image) }
 
     it 'generates one time token' do
       company_image.generate_one_time_token
@@ -37,7 +37,7 @@ RSpec.describe CompanyImage, type: :model do
   describe '#find_by_one_time_token' do
     context 'token still valid' do
       it 'finds and returns company_image' do
-        company_image = FactoryGirl.create(:company_image)
+        company_image = FactoryBot.create(:company_image)
         company_image.generate_one_time_token
         company_image.save!
 
@@ -48,7 +48,7 @@ RSpec.describe CompanyImage, type: :model do
 
     context 'token expired' do
       it 'returns nil' do
-        company_image = FactoryGirl.create(:company_image)
+        company_image = FactoryBot.create(:company_image)
         company_image.generate_one_time_token
         company_image.save!
 

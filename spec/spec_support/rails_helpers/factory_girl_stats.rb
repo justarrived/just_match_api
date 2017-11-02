@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class FactoryGirlStats
+class FactoryBotStats
   attr_reader :results
 
   def initialize(log_slow: true, log_show_threshold: 0.3)

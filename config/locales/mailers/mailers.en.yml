@@ -82,20 +82,20 @@ en:
       body: The job %{job_name} has unfortunately been cancelled, click the link below to find more jobs.
       find_jobs_cta: Find more jobs
     digest_email:
-      subject: New job alerts from Just Arrived.
+      subject: New jobs from Just Arrived.
       header: New jobs for you from Just Arrived
       preheader: Check out our latest jobs and apply!
       body: Check them out and apply if you are interested.
       more_jobs: View all our jobs
       search_job: Read more and apply
-      update_digest_settings: Update alert preferences or cancel.
+      update_digest_settings: Update subscription preferences or cancel.
       no_digest_address_setting_notice: Jobs not in your location? Update preferences.
       good_luck: 'Good luck and have a good day!'
     digest_created:
-      subject: Job alert subscription created
+      subject: New jobs from Just Arrived will be sent to your inbox
       update_settings: Update notification settings
       digest_created_title: Thank you for signing up!
-      digest_created_body: "You've have signed up for job alerts form Just Arrived, we will send you an email when we post a new job that matches your critera. You can update your preferences at any time."
+      digest_created_body: "You've have signed up for job subscriptions form Just Arrived, we will send you an email when we post a new job that matches your critera. You can update your preferences at any time."
       user_register_link_title: Register
       user_register_signup_pitch: "While you're here you might be interested in registering your profile with us. This way we can match your profile with new jobs!"
     job_match:
@@ -141,6 +141,7 @@ en:
 
         Your best chance to get any job is to login often, apply often, and make sure that your profile is updated! We are convinced that you will get a job that suits your profile soon!
       body_fillout_notice: 'In order for us to match you with a job we want to know a little bit more about your skills in:'
+      body_cv_fillout_notice: Uploading a CV greatly improves the odds of us being able to match you. You can upload your CV on your profile page.
       body_edit_profile: Edit your profile here %{url}.
       body_edit_profile_cta: Edit your profile
     new_applicant:
@@ -198,4 +199,18 @@ en:
         - Keep your profile updated! Every skill or piece of information matters. We are sure that there are some things that you’re good at that you haven’t told us about yet!
         - If anything’s unclear, or if you need help, please do not hesitate to contact us at %{support_email} or check out our %{faq_link}.
     google_calendar_link_name: Add to Google Calendar
+    update_data_reminder:
+      subject: We are matching you for a job, update your profile!
+      introduction_body: |
+        Hi,
+
+        You recently applied for the job "%{job_name}".
+
+        We're currently in the process of reviewing all applications and for us to best be able to match you we need some more information about you.
+      cv_upload_body: 'Upload your CV at %{url}.'
+      competence_list_title: 'Your competence level in:'
+      competence_update_body: 'You can update your skills by going to your profile page: %{url}.'
+      update_cv_link: upload CV.
+      update_competences_link: update competences.
+      body_edit_profile_cta: Edit your profile
     signoff: "/ Team Just Arrived"

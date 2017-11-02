@@ -10,7 +10,7 @@ RSpec.describe LanguagePolicy do
   context 'anyone' do
     subject { LanguagePolicy.new(nil, language) }
 
-    let(:language) { FactoryGirl.build(:language) }
+    let(:language) { FactoryBot.build(:language) }
 
     it 'returns true for index' do
       expect(subject.index?).to eq(true)
@@ -36,8 +36,8 @@ RSpec.describe LanguagePolicy do
   context 'admin user' do
     subject { LanguagePolicy.new(admin, language) }
 
-    let(:admin) { FactoryGirl.build(:admin_user) }
-    let(:language) { FactoryGirl.build(:language) }
+    let(:admin) { FactoryBot.build(:admin_user) }
+    let(:language) { FactoryBot.build(:language) }
 
     it 'returns true for create' do
       expect(subject.create?).to eq(true)
