@@ -14,8 +14,8 @@ active_admin_form_for(resource, url: url) do |f|
     column do
       f.inputs(I18n.t('admin.job.section_title.basic')) do
         f.input :name, hint: I18n.t('admin.job.form.name_hint')
-        f.input(:job_date, as: :date_time_picker, label: I18n.t('admin.job.form.job_date_label'))
-        f.input(:job_end_date, as: :date_time_picker, label: I18n.t('admin.job.form.job_end_date_label'))
+        f.input(:job_date, as: :datetime_picker, label: I18n.t('admin.job.form.job_date_label'))
+        f.input(:job_end_date, as: :datetime_picker, label: I18n.t('admin.job.form.job_end_date_label'))
         f.input :owner, collection: User.company_users, hint: I18n.t('admin.job.form.owner_hint')
         f.input :company_contact, hint: I18n.t('admin.job.form.company_contact_hint')
 
@@ -113,12 +113,12 @@ active_admin_form_for(resource, url: url) do |f|
       columns do
         column do
           f.inputs(I18n.t('admin.job.section_title.dates')) do
-            f.input :last_application_at, as: :date_time_picker
+            f.input :last_application_at, as: :datetime_picker
             # If the job has *not* been saved then set the current
             # time as the publish date
             # f.object.publish_at = Time.zone.now unless f.object.persisted?
-            f.input :publish_at, as: :date_time_picker
-            f.input :unpublish_at, as: :date_time_picker
+            f.input :publish_at, as: :datetime_picker
+            f.input :unpublish_at, as: :datetime_picker
           end
         end
 

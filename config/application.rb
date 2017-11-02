@@ -16,7 +16,7 @@ require 'active_record/railtie'
 require 'action_controller/railtie'
 require 'action_mailer/railtie'
 require 'action_view/railtie' # Needed for Rails mailers
-# require 'sprockets/railtie'
+require 'sprockets/railtie'
 # require "rails/test_unit/railtie"
 
 require_relative '../lib/middleware/catch_unknown_format_errors'

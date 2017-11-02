@@ -1,7 +1,6 @@
 #= require jquery
 #= require active_admin/base
 #= require chosen-jquery
-#= require active_admin_datetimepicker
 #= require active_admin_scoped_collection_actions
 #= require active_admin_filters_visibility
 
@@ -23,9 +22,15 @@ $ ->
     allow_single_deselect: true,
     width: '100%'
 
-$(document).on 'ready', ->
+$ ->
   $('#filters_sidebar_section').activeAdminFiltersVisibility
     ordering: true
 
   $('[markdown="true"]').each (index, element) ->
     new SimpleMDE(element: element)
+
+  $('.date-time-picker').flatpickr
+    enableTime: true
+
+  $('.date-range-picker').flatpickr
+    enableTime: false
