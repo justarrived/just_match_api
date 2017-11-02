@@ -60,7 +60,6 @@ gem 'bcrypt', '~> 3.1.11', require: true # Encrypt passwords
 gem 'pundit', '~> 1.1' # Authorization policies
 
 # ADMIN
-# gem 'active_admin_datetimepicker', '~> 0.3' # Datetime picker for activeadmin
 gem 'active_admin_filters_visibility', github: 'activeadmin-plugins/active_admin_filters_visibility'
 gem 'active_admin_scoped_collection_actions', github: 'activeadmin-plugins/active_admin_scoped_collection_actions'
 gem 'active_admin_theme', '~> 1.0' # activeadmin theme
