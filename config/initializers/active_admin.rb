@@ -213,6 +213,10 @@ ActiveAdmin.setup do |config|
   config.register_stylesheet 'https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css'
   config.register_javascript 'https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js'
 
+  # Flatpickr - Datetime input
+  config.register_stylesheet 'https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css'
+  config.register_javascript 'https://cdn.jsdelivr.net/npm/flatpickr'
+
   # == CSV options
   #
   # Set the CSV builder separator

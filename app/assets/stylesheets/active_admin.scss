@@ -22,7 +22,6 @@ $skinTablePadding: 10px !default;
 @import 'wigu/active_admin_theme';
 
 @import 'chosen';
-@import 'active_admin_datetimepicker';
 
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
 
@@ -42,7 +41,10 @@ $skinTablePadding: 10px !default;
   }
 }
 
-// START: ACTIVEADMIN
+#wrapper .sidebar_section.panel > h3 {
+  margin-top: 0;
+}
+
 .status_tag {
   background: #0069d2;
 }
