@@ -4,6 +4,31 @@ HEAD
 -----------
 
 
+v2.54 - 2017-11-03
+----------
+__Admin__:
+* Add Company#sales_user_id to permitted params
+* :hocho: N+1 queries on job show page :rocket:
+* Avoid extra string allocation in user view
+* Styling fix
+
+__Enhancement__:
+* Extract notification logic from job user creation service to a background job
+* Implement update applicant data reminder service and notifier
+* New email `JobUser#update_data_reminder_email`
+* Add `UpdateApplicantDataReminderJob`
+* Update mailer `I18n`
+* Link to `/update-profile`
+* Refactor `Queries::MissingUserTraits` to be instantiated
+* Re-add sprockets/railtie require statement to app config
+* Add `MissingUserTraits#cv?`
+
+__Gem update__:
+* :hocho: `active_admin_datetimepicker` gem and replace it with our own implementation
+* Bump `activeadmin` from e6228e to 1.1.0
+* Bump mail 2.6.6 => 2.7
+
+
 v2.53 - 2017-11-01
 ----------
 __Admin__:
