@@ -353,11 +353,19 @@ ActiveAdmin.register Job do
   show do
     job_comments = job.comments.with_translations.includes(:owner)
     url = FrontendRouter.draw(:job, id: job.id, utm_medium: UTM_ADMIN_MEDIUM)
+    job_skills = job.job_skills.includes(skill: %i[translations language])
+    job_languages = job.job_languages.includes(:language)
+    job_occupations = job.job_occupations.includes(occupation: %i[translations language])
+
     locals = {
       job: job,
       job_comments: job_comments,
+      job_skills: job_skills,
+      job_languages: job_languages,
+      job_occupations: job_occupations,
       frontend_app_job_path: url
     }
+
     render partial: 'admin/jobs/show', locals: locals
   end
 

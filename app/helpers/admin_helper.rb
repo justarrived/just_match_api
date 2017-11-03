@@ -135,12 +135,12 @@ module AdminHelper
     )
   end
 
-  def job_skills_badges(job_skills:)
+  def job_skills_badges(job_skills:, join_with: ' ')
     links = job_skills.map do |job_skill|
       job_skill_badge(skill: job_skill.skill, job_skill: job_skill)
     end
 
-    safe_join(links, ' ')
+    safe_join(links, join_with)
   end
 
   def job_skill_badge(skill:, job_skill: nil)
