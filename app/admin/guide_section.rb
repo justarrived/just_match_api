@@ -10,6 +10,15 @@ ActiveAdmin.register GuideSection do
       row :title
       row :slug
       row :short_description
+      row :translations do |section|
+        safe_join(
+          section.translations.map do |translation|
+            path = admin_guide_section_article_translation_path(translation)
+            link_to(translation.locale, path)
+          end,
+          ', '
+        )
+      end
       row :missing_translations do |translation|
         system_languages = Language.system_languages
         missing = system_languages.map(&:lang_code) - translation.translations.map(&:locale) # rubocop:disable Metrics/LineLength
@@ -33,11 +42,14 @@ ActiveAdmin.register GuideSection do
 
   after_save do |section|
     if section.persisted? && section.valid?
-      section.set_translation(
-        title: permitted_params.dig(:guide_section, :title),
-        slug: permitted_params.dig(:guide_section, :slug),
-        short_description: permitted_params.dig(:guide_section, :short_description)
-      )
+      params = permitted_params.fetch(:guide_section)
+      translation_params = {
+        title: params[:title],
+        slug: params[:slug],
+        short_description: params[:short_description]
+      }
+      language = Language.find_by(id: params[:language_id]) if params[:language_id]
+      section.set_translation(translation_params, language)
     end
   end
 

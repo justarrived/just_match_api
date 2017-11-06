@@ -16,6 +16,7 @@ ActiveAdmin.register GuideSectionArticleTranslation do
     selectable_column
 
     column :id
+    column :language
     column :title
     column :article
     column :updated_at
