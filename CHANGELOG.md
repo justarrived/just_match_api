@@ -4,6 +4,18 @@ HEAD
 -----------
 
 
+v2.55 - 2017-11-06
+----------
+__Admin__:
+* Easier translations edit & overview for guide sections and guide section articles
+* Add language to section translation index dashboard
+
+__Update gem__:
+* Bump twilio-ruby from 5.4.3 to 5.4.4
+* Bump apipie-rails from 0.5.4 to 0.5.5
+* Bump i18n-tasks from 0.9.18 to 0.9.19
+
+
 v2.54 - 2017-11-03
 ----------
 __Admin__:
