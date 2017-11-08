@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 class UserNotificationsSerializer
-  def self.serializable_resource
+  def self.serializable_resource(notifications: UserNotification.names)
     language_id = Language.find_by_locale(I18n.locale)&.id
 
-    notifications_data = User::NOTIFICATIONS.map do |name|
+    notifications_data = notifications.map do |name|
       description = I18n.t("notifications.#{name}")
       attributes = {
         description: description,

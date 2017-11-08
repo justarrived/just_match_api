@@ -157,7 +157,7 @@ class User < ApplicationRecord
                                 :user_documents, :feedbacks
   accepts_nested_attributes_for :user_tags, allow_destroy: true
 
-  NOTIFICATIONS = UserNotification.all
+  NOTIFICATIONS = UserNotification.names
 
   ransacker :first_name, type: :string do
     Arel.sql('unaccent("first_name")')
@@ -414,11 +414,12 @@ class User < ApplicationRecord
   end
 
   def ignored_notifications=(notifications)
-    self.ignored_notifications_mask = BitmaskField.to_mask(notifications, NOTIFICATIONS)
+    mask = BitmaskField.to_mask(notifications, UserNotification.names)
+    self.ignored_notifications_mask = mask
   end
 
   def ignored_notifications
-    BitmaskField.from_mask(ignored_notifications_mask, NOTIFICATIONS)
+    BitmaskField.from_mask(ignored_notifications_mask, UserNotification.names)
   end
 
   def anonymize_attributes
