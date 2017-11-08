@@ -18,16 +18,27 @@ RSpec.describe NewApplicantNotifier, type: :mailer do
 
   it 'sends new_applicant_email mail' do
     NewApplicantNotifier.call(
-      job_user: job_user, owner: owner, skills: skills, languages: languages
+      job_user: job_user,
+      owner: owner,
+      skills: skills,
+      languages: languages,
+      missing_cv: true
     )
     expect(JobMailer).to have_received(:new_applicant_email).with(job_user: job_user, owner: owner) # rubocop:disable Metrics/LineLength
   end
 
   it 'sends new_applicant_job_info_email mail' do
     mailer_args = {
-      job_user: job_user, owner: owner, skills: skills, languages: languages
+      job_user: job_user,
+      owner: owner,
+      skills: skills,
+      languages: languages,
+      missing_cv: true
     }
     NewApplicantNotifier.call(**mailer_args)
-    expect(JobUserMailer).to have_received(:new_applicant_job_info_email).with(job_user: job_user, skills: skills, languages: languages) # rubocop:disable Metrics/LineLength
+    expected_args = {
+      job_user: job_user, skills: skills, languages: languages, missing_cv: true
+    }
+    expect(JobUserMailer).to have_received(:new_applicant_job_info_email).with(expected_args) # rubocop:disable Metrics/LineLength
   end
 end

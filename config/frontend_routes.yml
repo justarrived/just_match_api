@@ -13,5 +13,6 @@ routes:
   job_user: 'job/%{job_id}'
   user_edit: 'user'
   user_notification_settings_edit: 'user-notification-settings'
+  update_profile: 'update-profile'
   chat: 'support-chat?message_id=%{message_id}'
   unsubscribe: 'subscriptions/%{subscriber_id}'

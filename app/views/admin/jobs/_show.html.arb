@@ -71,14 +71,14 @@ panel(I18n.t('admin.job.section_title.data')) do
   columns do
     column do
       attributes_table_for(job) do
-        row :languages { |job| job_languages_badges(job_languages: job.job_languages) }
+        row :languages { job_languages_badges(job_languages: job_languages) }
       end
     end
 
     column do
       attributes_table_for(job) do
         row :occupations do |job|
-          job.job_occupations.includes(:occupation).map do |jo|
+          job_occupations.map do |jo|
             "#{jo.occupation.name} (#{jo.importance}, yxp: #{jo.years_of_experience})"
           end.join(', ')
         end
@@ -87,7 +87,7 @@ panel(I18n.t('admin.job.section_title.data')) do
 
     column do
       attributes_table_for(job) do
-        row :skills { |job| job_skills_badges(job_skills: job.job_skills) }
+        row :skills { job_skills_badges(job_skills: job_skills, join_with: br) }
       end
     end
   end

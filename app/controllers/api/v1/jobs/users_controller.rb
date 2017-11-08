@@ -28,11 +28,10 @@ module Api
           ).to_h
         )
         def missing_traits
-          missing = Queries::MissingUserTraits
-          missing_skills = missing.skills(user: @user, skills: @job.skills)
-          missing_languages = missing.languages(user: @user, languages: @job.languages)
+          missing = Queries::MissingUserTraits.new(user: @user)
+          missing_skills = missing.skills(skills: @job.skills)
+          missing_languages = missing.languages(languages: @job.languages)
           missing_user_attributes = missing.attributes(
-            user: @user,
             attributes: %i(ssn street zip city phone)
           )
 

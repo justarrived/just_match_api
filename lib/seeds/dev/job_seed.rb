@@ -33,6 +33,7 @@ module Dev
             owner: users.sample,
             street: address[:street],
             zip: address[:zip],
+            city: address[:city],
             hours: hours,
             language: languages.sample,
             category: categories.sample,

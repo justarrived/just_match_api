@@ -12,26 +12,6 @@ GIT
     active_admin_scoped_collection_actions (0.3.4)
 
 GIT
-  remote: https://github.com/activeadmin/activeadmin.git
-  revision: e6228e7f3368e1677fe22b28b6c1f6e9ed93e43d
-  ref: e6228e7f3368e1677fe22b28b6c1f6e9ed93e43d
-  specs:
-    activeadmin (1.0.0.pre5)
-      arbre (>= 1.1.1)
-      bourbon
-      coffee-rails
-      formtastic (~> 3.1)
-      formtastic_i18n
-      inherited_resources (~> 1.7)
-      jquery-rails
-      jquery-ui-rails
-      kaminari (>= 0.15, < 2.0)
-      railties (>= 4.2, < 5.2)
-      ransack (~> 1.3)
-      sass-rails
-      sprockets (< 4.1)
-
-GIT
   remote: https://github.com/mailcheck/mailcheck-ruby.git
   revision: a64ef45e849748cd8eaad0afd0119abcf2ab143a
   specs:
@@ -70,14 +50,24 @@ GEM
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.0.3)
-    active_admin_datetimepicker (0.5.0)
-      xdan-datetimepicker-rails (~> 2.5.1)
     active_admin_theme (1.0.3)
     active_model_serializers (0.10.6)
       actionpack (>= 4.1, < 6)
       activemodel (>= 4.1, < 6)
       case_transform (>= 0.2)
       jsonapi-renderer (>= 0.1.1.beta1, < 0.2)
+    activeadmin (1.1.0)
+      arbre (>= 1.1.1)
+      coffee-rails
+      formtastic (~> 3.1)
+      formtastic_i18n
+      inherited_resources (~> 1.7)
+      jquery-rails
+      kaminari (>= 0.15, < 2.0)
+      railties (>= 4.2, < 5.2)
+      ransack (~> 1.3)
+      sass (~> 3.1)
+      sprockets (< 4.1)
     activejob (5.1.4)
       activesupport (= 5.1.4)
       globalid (>= 0.3.6)
@@ -113,7 +103,7 @@ GEM
     annotate (2.7.2)
       activerecord (>= 3.2, < 6.0)
       rake (>= 10.4, < 13.0)
-    apipie-rails (0.5.4)
+    apipie-rails (0.5.5)
       rails (>= 4.1)
     arbetsformedlingen (0.3.0)
       builder (~> 3.2)
@@ -147,9 +137,6 @@ GEM
       safely_block (>= 0.1.1)
     bootsnap (1.1.5)
       msgpack (~> 1.0)
-    bourbon (4.3.4)
-      sass (~> 3.4)
-      thor (~> 0.19)
     browser (2.4.0)
     builder (3.2.3)
     bullet (5.6.1)
@@ -169,9 +156,9 @@ GEM
     codeclimate-test-reporter (1.0.8)
       simplecov (<= 0.13)
     coderay (1.1.2)
-    coffee-rails (4.2.1)
+    coffee-rails (4.2.2)
       coffee-script (>= 2.2.0)
-      railties (>= 4.0.0, < 5.2.x)
+      railties (>= 4.0.0)
     coffee-script (2.4.1)
       coffee-script-source
       execjs
@@ -418,7 +405,7 @@ GEM
     geocoder (1.4.4)
     get_process_mem (0.2.1)
     global_phone (1.0.1)
-    globalid (0.4.0)
+    globalid (0.4.1)
       activesupport (>= 4.2.0)
     google-cloud-core (1.0.0)
       google-cloud-env (~> 1.0)
@@ -448,7 +435,7 @@ GEM
     httparty (0.15.6)
       multi_xml (>= 0.5.2)
     i18n (0.8.6)
-    i18n-tasks (0.9.18)
+    i18n-tasks (0.9.19)
       activesupport (>= 4.0.2)
       ast (>= 2.1.0)
       easy_translate (>= 0.5.0)
@@ -476,8 +463,6 @@ GEM
       rails-dom-testing (>= 1, < 3)
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
-    jquery-ui-rails (6.0.1)
-      railties (>= 3.2.16)
     json (2.1.0)
     jsonapi-renderer (0.1.2)
     jsonapi_helpers (0.2.0)
@@ -517,8 +502,8 @@ GEM
     loofah (2.1.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
-    mail (2.6.6)
-      mime-types (>= 1.16, < 4)
+    mail (2.7.0)
+      mini_mime (>= 0.1.1)
     maruku (0.7.3)
     memoist (0.16.0)
     memory_profiler (0.9.8)
@@ -530,6 +515,7 @@ GEM
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0521)
     mimemagic (0.3.2)
+    mini_mime (0.1.4)
     mini_portile2 (2.3.0)
     minitest (5.10.3)
     money (6.9.0)
@@ -605,15 +591,15 @@ GEM
     rainbow (2.2.2)
       rake
     rake (12.2.1)
-    ransack (1.8.3)
+    ransack (1.8.4)
       actionpack (>= 3.0)
       activerecord (>= 3.0)
       activesupport (>= 3.0)
       i18n
       polyamorous (~> 1.3)
-    rb-fsevent (0.9.8)
-    rb-inotify (0.9.8)
-      ffi (>= 0.5.0)
+    rb-fsevent (0.10.2)
+    rb-inotify (0.9.10)
+      ffi (>= 0.5.0, < 2)
     rbovirt (0.1.4)
       nokogiri
       rest-client (> 1.7.0)
@@ -673,7 +659,11 @@ GEM
     safe_yaml (1.0.4)
     safely_block (0.2.0)
       errbase
-    sass (3.4.23)
+    sass (3.5.3)
+      sass-listen (~> 4.0.0)
+    sass-listen (4.0.0)
+      rb-fsevent (~> 0.9, >= 0.9.4)
+      rb-inotify (~> 0.9, >= 0.9.7)
     sass-rails (5.0.6)
       railties (>= 4.0.0, < 6)
       sass (~> 3.1)
@@ -713,10 +703,10 @@ GEM
     thor (0.20.0)
     thread (0.2.2)
     thread_safe (0.3.6)
-    tilt (2.0.7)
+    tilt (2.0.8)
     timecop (0.9.1)
     trollop (2.1.2)
-    twilio-ruby (5.4.3)
+    twilio-ruby (5.4.4)
       faraday (~> 0.9)
       jwt (~> 1.5)
       libxml-ruby (>= 2.0, < 4.0)
@@ -744,9 +734,6 @@ GEM
     websocket-driver (0.6.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
-    xdan-datetimepicker-rails (2.5.4)
-      jquery-rails
-      rails (>= 3.2.16)
     xml-simple (1.1.5)
     yagni_json_encoder (1.0.0)
       activesupport (>= 4.1.0)
@@ -756,12 +743,11 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  active_admin_datetimepicker (~> 0.3)
   active_admin_filters_visibility!
   active_admin_scoped_collection_actions!
   active_admin_theme (~> 1.0)
   active_model_serializers (~> 0.10)
-  activeadmin!
+  activeadmin (~> 1.1)
   ahoy_matey (~> 1.6)
   airbrake (~> 7.1)
   ancestry (~> 3.0)
@@ -797,7 +783,7 @@ DEPENDENCIES
   google-cloud-translate (~> 1.0)
   honey_format (~> 0.2)
   httparty (~> 0.13)
-  i18n-tasks (~> 0.9.2)
+  i18n-tasks (~> 0.9.19)
   i18n_data (~> 0.8)
   i18n_generators (~> 2.1)
   iban-tools (~> 1.1)

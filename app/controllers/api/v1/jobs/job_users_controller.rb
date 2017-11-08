@@ -113,8 +113,7 @@ module Api
           job_user = JobUser.find_or_initialize_by(user: user, job: @job)
           @job_user = CreateJobApplicationService.call(
             job_user: job_user,
-            attributes: job_user_attributes,
-            job_owner: @job.owner
+            attributes: job_user_attributes
           )
 
           if @job_user.valid?

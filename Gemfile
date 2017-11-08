@@ -60,11 +60,11 @@ gem 'bcrypt', '~> 3.1.11', require: true # Encrypt passwords
 gem 'pundit', '~> 1.1' # Authorization policies
 
 # ADMIN
-gem 'active_admin_datetimepicker', '~> 0.3' # Datetime picker for activeadmin
+# gem 'active_admin_datetimepicker', '~> 0.3' # Datetime picker for activeadmin
 gem 'active_admin_filters_visibility', github: 'activeadmin-plugins/active_admin_filters_visibility'
 gem 'active_admin_scoped_collection_actions', github: 'activeadmin-plugins/active_admin_scoped_collection_actions'
 gem 'active_admin_theme', '~> 1.0' # activeadmin theme
-gem 'activeadmin', github: 'activeadmin', ref: 'e6228e7f3368e1677fe22b28b6c1f6e9ed93e43d' # Admin interface, see diff https://github.com/activeadmin/activeadmin/compare/e6228e7f3368e1677fe22b28b6c1f6e9ed93e43d...master
+gem 'activeadmin', '~> 1.1' # Admin interface
 gem 'blazer', '~> 1.8' # Explore data with SQL
 gem 'chosen-rails', '~> 1.5' # Needed for autocomplete select input for activeadmin
 gem 'inherited_resources', '~> 1.7' # activeadmin Rails 5
@@ -128,7 +128,7 @@ group :development do
   gem 'better_errors', '~> 2.4'
   gem 'binding_of_caller', '~> 0.7'
   gem 'derailed_benchmarks', '~> 1.3'
-  gem 'i18n-tasks', '~> 0.9.2'
+  gem 'i18n-tasks', '~> 0.9.19'
   gem 'i18n_generators', '~> 2.1'
   gem 'letter_opener', '~> 1.4'
   gem 'listen', '~> 3.1'

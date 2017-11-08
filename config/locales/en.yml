@@ -170,6 +170,7 @@ en:
     new_applicant_job_info: Job apply info
     applicant_will_perform_job_info: Job confirmation info
     failed_to_activate_invoice: Failed to activate invoice
+    update_data_reminder: Update application data reminder
   user_document:
     categories:
       cv: CV

@@ -141,6 +141,7 @@ en:
 
         Your best chance to get any job is to login often, apply often, and make sure that your profile is updated! We are convinced that you will get a job that suits your profile soon!
       body_fillout_notice: 'In order for us to match you with a job we want to know a little bit more about your skills in:'
+      body_cv_fillout_notice: Uploading a CV greatly improves the odds of us being able to match you. You can upload your CV on your profile page.
       body_edit_profile: Edit your profile here %{url}.
       body_edit_profile_cta: Edit your profile
     new_applicant:
@@ -198,5 +199,19 @@ en:
         - Keep your profile updated! Every skill or piece of information matters. We are sure that there are some things that you’re good at that you haven’t told us about yet!
         - If anything’s unclear, or if you need help, please do not hesitate to contact us at %{support_email} or check out our %{faq_link}.
     google_calendar_link_name: Add to Google Calendar
+    update_data_reminder:
+      subject: We are matching you for a job, update your profile!
+      introduction_body: |
+        Hi,
+
+        You recently applied for the job "%{job_name}".
+
+        We're currently in the process of reviewing all applications and for us to best be able to match you we need some more information about you.
+      cv_upload_body: 'Upload your CV at %{url}.'
+      competence_list_title: 'Your competence level in:'
+      competence_update_body: 'You can update your skills by going to your profile page: %{url}.'
+      update_cv_link: upload CV.
+      update_competences_link: update competences.
+      body_edit_profile_cta: Edit your profile
     signoff: "/ Team Just Arrived"
     update_settings: Update notification settings

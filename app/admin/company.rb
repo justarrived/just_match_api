@@ -124,6 +124,7 @@ ActiveAdmin.register Company do
       :short_description,
       :description,
       :language_id,
+      :sales_user_id,
       :staffing_agency,
       company_industries_attributes: %i(industry_id),
       users_attributes: %i(

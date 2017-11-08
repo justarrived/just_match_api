@@ -6,7 +6,7 @@ module Api
   module V1
     class UsersController < BaseController
       SET_USER_ACTIONS = %i(
-        show edit update destroy matching_jobs jobs missing_traits
+        show edit update destroy matching_jobs jobs missing_traits available_notifications
       ).freeze
       before_action :set_user, only: SET_USER_ACTIONS
 
@@ -75,7 +75,7 @@ module Api
           param :zip, String, desc: 'Zip code'
           param :city, String, desc: 'City'
           param :ssn, String, desc: 'Social Security Number (10 characters)'
-          param :ignored_notifications, Array, of: 'ignored notifications', desc: "List of ignored notifications. Any of: #{User::NOTIFICATIONS.map { |n| "`#{n}`" }.join(', ')}"
+          param :ignored_notifications, Array, of: 'ignored notifications', desc: "List of ignored notifications. Any of: #{UserNotification.names.map { |n| "`#{n}`" }.join(', ')}"
           param :company_id, Integer, desc: 'Company id for user'
           param :system_language_id, Integer, desc: 'System language id for user (SMS/emails etc will be sent in this language)', required: true
           param :language_id, Integer, desc: 'Language id for the text fields'
@@ -152,7 +152,7 @@ module Api
           param :zip, String, desc: 'Zip code'
           param :city, String, desc: 'City'
           param :ssn, String, desc: 'Social Security Number (10 characters)'
-          param :ignored_notifications, Array, of: 'ignored notifications', desc: "List of ignored notifications. Any of: #{User::NOTIFICATIONS.map { |n| "`#{n}`" }.join(', ')}"
+          param :ignored_notifications, Array, of: 'ignored notifications', desc: "List of ignored notifications. Any of: #{UserNotification.names.map { |n| "`#{n}`" }.join(', ')}"
           param :system_language_id, Integer, desc: 'System language id for user (SMS/emails etc will be sent in this language)'
           param :language_id, Integer, desc: 'Language id for the text fields'
           param :language_ids, Array, of: Hash, desc: 'Languages that the user knows (if specified this will completely replace the users languages)' do
@@ -252,6 +252,19 @@ module Api
         render json: Job.uncancelled.matches_user(@user)
       end
 
+      api :GET, '/users/:user_id/available-notifications', 'Show relevant user notifications' # rubocop:disable Metrics/LineLength
+      description 'Returns a list of notifications relevant for user.'
+      example JSON.pretty_generate(UserNotificationsSerializer.serializable_resource.to_h) # rubocop:disable Metrics/LineLength
+      def available_notifications
+        authorize(@user)
+
+        resource = UserNotificationsSerializer.serializable_resource(
+          notifications: UserNotification.names(user_role: @user.primary_role)
+        )
+
+        render json: resource
+      end
+
       api :GET, '/users/notifications', 'Show all possible user notifications'
       description 'Returns a list of all possible user notifications.'
       example JSON.pretty_generate(UserNotificationsSerializer.serializable_resource.to_h) # rubocop:disable Metrics/LineLength
@@ -296,17 +309,16 @@ module Api
       )
       def missing_traits
         authorize(@user)
-        missing_traits = Queries::MissingUserTraits
+        missing_traits = Queries::MissingUserTraits.new(user: @user)
 
         missing_attributes = missing_traits.attributes(
-          user: @user,
           attributes: %i(ssn street zip city phone)
         )
         languages = Language.common_working_languages_for(country: :se)
-        missing_languages = missing_traits.languages(user: @user, languages: languages)
+        missing_languages = missing_traits.languages(languages: languages)
 
         skills = Skill.high_priority
-        missing_skills = missing_traits.skills(user: @user, skills: skills)
+        missing_skills = missing_traits.skills(skills: skills)
 
         response = MissingUserTraitsSerializer.serialize(
           user_attributes: missing_attributes,

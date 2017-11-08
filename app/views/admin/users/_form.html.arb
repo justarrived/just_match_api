@@ -107,7 +107,7 @@ if user.persisted?
     f.input :company
     f.input :next_of_kin_name
     f.input :next_of_kin_phone
-    f.input :ignored_notifications, as: :select, collection: User::NOTIFICATIONS, multiple: true # rubocop:disable Metrics/LineLength
+    f.input :ignored_notifications, as: :select, collection: UserNotification.names, multiple: true # rubocop:disable Metrics/LineLength
   end
 
   f.actions

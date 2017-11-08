@@ -17,7 +17,10 @@ ActiveAdmin.register GuideSectionArticle do
 
     column :id
     column :order
-    column :title
+    column 'Source language', :language
+    column :title do |article|
+      link_to(article.title, admin_guide_section_article_path(article))
+    end
     column :section
     column :updated_at
 
@@ -34,6 +37,15 @@ ActiveAdmin.register GuideSectionArticle do
       row :slug
       row :short_description
       row :body { |article| markdown_to_html(article.body) }
+      row :translations do |article|
+        safe_join(
+          article.translations.map do |translation|
+            path = admin_guide_section_article_translation_path(translation)
+            link_to(translation.locale, path)
+          end,
+          ', '
+        )
+      end
       row :missing_translations do |translation|
         system_languages = Language.system_languages
         missing = system_languages.map(&:lang_code) - translation.translations.map(&:locale) # rubocop:disable Metrics/LineLength
@@ -57,12 +69,15 @@ ActiveAdmin.register GuideSectionArticle do
 
   after_save do |article|
     if article.persisted? && article.valid?
-      article.set_translation(
-        title: permitted_params.dig(:guide_section_article, :title),
-        slug: permitted_params.dig(:guide_section_article, :slug),
-        short_description: permitted_params.dig(:guide_section_article, :short_description), # rubocop:disable Metrics/LineLength
-        body: permitted_params.dig(:guide_section_article, :body)
-      )
+      params = permitted_params.fetch(:guide_section_article)
+      language = Language.find_by(id: params[:language_id]) if params[:language_id]
+      translation_params = {
+        title: params[:title],
+        slug: params[:slug],
+        short_description: params[:short_description],
+        body: params[:body]
+      }
+      article.set_translation(translation_params, language)
     end
   end
 

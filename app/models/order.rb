@@ -68,7 +68,7 @@ class Order < ApplicationRecord
   end
 
   def display_name
-    "Order: ##{id || 'unsaved'} #{name&.presence || job_request&.short_name || 'Order'}"
+    "Order ##{id || 'unsaved'} #{name&.presence || job_request&.short_name || 'Order'}"
   end
 
   def filled_jobs

@@ -81,6 +81,20 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
         end.to change(JobUser, :count).by(1)
       end
 
+      it 'enqueues a data update reminder' do
+        user = FactoryBot.create(:user_with_tokens)
+        user1 = FactoryBot.create(:company_user)
+        job = FactoryBot.create(:job, owner: user1)
+        params = {
+          auth_token: user.auth_token,
+          job_id: job.to_param,
+          user: { id: user.to_param }
+        }
+        expect do
+          post :create, params: params
+        end.to have_enqueued_job(UpdateApplicantDataReminderJob)
+      end
+
       it 'forbidden if user tries to apply as someone else' do
         user = FactoryBot.create(:user)
         other_user = FactoryBot.create(:user_with_tokens)
@@ -218,9 +232,9 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
           job_id: job.to_param,
           user: { id: user.to_param }
         }
-        allow(NewApplicantNotifier).to receive(:call)
-        post :create, params: params
-        expect(NewApplicantNotifier).to have_received(:call)
+        expect do
+          post :create, params: params
+        end.to have_enqueued_job(NewApplicantNotifierJob)
       end
     end
 
