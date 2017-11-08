@@ -157,27 +157,7 @@ class User < ApplicationRecord
                                 :user_documents, :feedbacks
   accepts_nested_attributes_for :user_tags, allow_destroy: true
 
-  # Don't change the order or remove any items in the array,
-  # only additions are allowed
-  NOTIFICATIONS = %w(
-    accepted_applicant_confirmation_overdue
-    accepted_applicant_withdrawn
-    applicant_accepted
-    applicant_will_perform
-    invoice_created
-    job_user_performed
-    job_cancelled
-    new_applicant
-    user_job_match
-    new_chat_message
-    new_job_comment
-    applicant_rejected
-    job_match
-    new_applicant_job_info
-    applicant_will_perform_job_info
-    failed_to_activate_invoice
-    update_data_reminder
-  ).freeze
+  NOTIFICATIONS = UserNotification.names
 
   ransacker :first_name, type: :string do
     Arel.sql('unaccent("first_name")')
@@ -434,11 +414,12 @@ class User < ApplicationRecord
   end
 
   def ignored_notifications=(notifications)
-    self.ignored_notifications_mask = BitmaskField.to_mask(notifications, NOTIFICATIONS)
+    mask = BitmaskField.to_mask(notifications, UserNotification.names)
+    self.ignored_notifications_mask = mask
   end
 
   def ignored_notifications
-    BitmaskField.from_mask(ignored_notifications_mask, NOTIFICATIONS)
+    BitmaskField.from_mask(ignored_notifications_mask, UserNotification.names)
   end
 
   def anonymize_attributes

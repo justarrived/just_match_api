@@ -422,7 +422,7 @@ RSpec.describe User, type: :model do
           failed_to_activate_invoice
           update_data_reminder
         )
-        expect(User::NOTIFICATIONS).to eq(expected)
+        expect(UserNotification.names).to eq(expected)
       end
 
       it 'has corresponding notifier class for each item' do
@@ -431,7 +431,7 @@ RSpec.describe User, type: :model do
           applicant_rejected job_match new_applicant_job_info
           applicant_will_perform_job_info update_data_reminder
         )
-        (User::NOTIFICATIONS - ignore).each do |notification|
+        (UserNotification.names - ignore).each do |notification|
           expect { "#{notification.camelize}Notifier".constantize }.to_not raise_error
         end
       end
@@ -441,7 +441,7 @@ RSpec.describe User, type: :model do
       end
 
       it 'has corresponding I18n for each notification' do
-        User::NOTIFICATIONS.each do |notification|
+        UserNotification.names.each do |notification|
           translation = I18n.t("notifications.#{notification}")
           expect(translation).not_to match('translation missing:')
         end

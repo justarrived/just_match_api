@@ -85,6 +85,7 @@ Rails.application.routes.draw do
           resources :user_documents, module: :users, path: :documents, only: %i(index create)
 
           get :missing_traits, path: 'missing-traits'
+          get :available_notifications, path: 'available-notifications'
         end
 
         collection do

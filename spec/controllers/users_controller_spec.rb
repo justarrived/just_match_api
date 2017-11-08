@@ -488,7 +488,37 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
         expect(description).to eq(I18n.t("notifications.#{id}"))
         expect(type).to eq('user_notifications')
-        expect(User::NOTIFICATIONS).to include(id)
+        expect(UserNotification.names).to include(id)
+      end
+    end
+  end
+
+  describe 'GET #available_notifications' do
+    let(:user) { FactoryBot.create(:user_with_tokens) }
+    let(:valid_params) do
+      {
+        user_id: user.to_param,
+        auth_token: user.auth_token
+      }
+    end
+
+    it 'returns 200 status' do
+      get :available_notifications, params: valid_params
+      expect(response.status).to eq(200)
+    end
+
+    it 'correct response body' do
+      get :available_notifications, params: valid_params
+
+      result = JSON.parse(response.body)['data']
+      result.each do |json_object|
+        id = json_object['id']
+        description = json_object.dig('attributes', 'description')
+        type = json_object['type']
+
+        expect(description).to eq(I18n.t("notifications.#{id}"))
+        expect(type).to eq('user_notifications')
+        expect(UserNotification.names).to include(id)
       end
     end
   end

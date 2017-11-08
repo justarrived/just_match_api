@@ -45,6 +45,11 @@ RSpec.describe Api::V1::UsersController, type: :routing do
       expect(get: path).to route_to('api/v1/users#matching_jobs', user_id: '1')
     end
 
+    it 'routes to #available_notifications' do
+      path = '/api/v1/users/1/available-notifications'
+      expect(get: path).to route_to('api/v1/users#available_notifications', user_id: '1')
+    end
+
     it 'routes to #notifications' do
       path = '/api/v1/users/notifications'
       expect(get: path).to route_to('api/v1/users#notifications')
