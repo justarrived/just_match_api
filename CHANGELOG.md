@@ -4,6 +4,17 @@ HEAD
 -----------
 
 
+v2.56 - 2017-11-08
+----------
+__Admin__:
+* `Order#display_name` :lipstick:
+
+__Enhancement__:
+* Add `UserNotification` class and refactor user
+* :hocho: typo in English translation
+* Update job seed
+
+
 v2.55 - 2017-11-06
 ----------
 __Admin__:
