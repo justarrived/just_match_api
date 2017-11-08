@@ -253,7 +253,7 @@ module Api
       end
 
       api :GET, '/users/:user_id/available-notifications', 'Show relevant user notifications' # rubocop:disable Metrics/LineLength
-      description 'Returns a list of all possible user notifications.'
+      description 'Returns a list of notifications relevant for user.'
       example JSON.pretty_generate(UserNotificationsSerializer.serializable_resource.to_h) # rubocop:disable Metrics/LineLength
       def available_notifications
         authorize(@user)
