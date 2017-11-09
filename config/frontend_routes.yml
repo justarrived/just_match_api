@@ -1,5 +1,6 @@
 routes:
   base_url: 'https://app.justarrived.se/'
+  root: ''
   reset_password: 'reset-password/%{token}'
   login: 'login'
   register: 'register'
@@ -11,6 +12,7 @@ routes:
   job_users: 'company/job/%{job_id}/candidates'
   job_user: 'job/%{job_id}'
   user_edit: 'user'
+  user_notification_settings_edit: 'user-notification-settings'
   update_profile: 'update-profile'
   chat: 'support-chat?message_id=%{message_id}'
   unsubscribe: 'subscriptions/%{subscriber_id}'
