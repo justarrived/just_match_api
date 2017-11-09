@@ -95,7 +95,7 @@ en:
       subject: New jobs from Just Arrived will be sent to your inbox
       update_settings: Update notification settings
       digest_created_title: Thank you for signing up!
-      digest_created_body: "You've have signed up for job subscriptions form Just Arrived, we will send you an email when we post a new job that matches your critera. You can update your preferences at any time."
+      digest_created_body: "You have signed up for job subscriptions from Just Arrived, we will send you an email when we post a new job that matches your criteria. You can update your preferences at any time."
       user_register_link_title: Register
       user_register_signup_pitch: "While you're here you might be interested in registering your profile with us. This way we can match your profile with new jobs!"
     job_match:
