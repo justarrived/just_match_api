@@ -24,7 +24,8 @@ module Api
             languages: [Struct.new(:id).new(1)],
             languages_hint: 'any skill hint',
             skills: [Struct.new(:id).new(1)],
-            skills_hint: 'any skill hint'
+            skills_hint: 'any skill hint',
+            missing_cv: true
           ).to_h
         )
         def missing_traits
