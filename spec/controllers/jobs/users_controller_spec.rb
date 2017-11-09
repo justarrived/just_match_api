@@ -26,6 +26,7 @@ RSpec.describe Api::V1::Jobs::UsersController do
           'hint' => I18n.t('user.missing_job_languages_trait')
         }
 
+        expect(response.body).to be_jsonapi_attribute('cv', {})
         expect(response.body).to be_jsonapi_attribute('city', {})
         expect(response.body).to be_jsonapi_attribute('skill_ids', skill_hash)
         expect(response.body).to be_jsonapi_attribute('language_ids', language_hash)

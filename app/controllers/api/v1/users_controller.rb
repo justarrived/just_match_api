@@ -304,7 +304,10 @@ module Api
         MissingUserTraitsSerializer.serialize(
           user_attributes: %i(street city zip),
           languages: [Struct.new(:id).new(1)],
-          languages_hint: 'any language hint'
+          languages_hint: 'any language hint',
+          skills: [Struct.new(:id).new(1)],
+          skills_hint: 'any skill hint',
+          missing_cv: true
         ).to_h
       )
       def missing_traits
@@ -325,7 +328,8 @@ module Api
           languages: missing_languages,
           languages_hint: I18n.t('user.missing_languages_trait'),
           skills: missing_skills,
-          skills_hint: I18n.t('user.missing_skills_trait')
+          skills_hint: I18n.t('user.missing_skills_trait'),
+          missing_cv: missing_traits.cv?
         )
         render json: response
       end

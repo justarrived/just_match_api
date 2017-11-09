@@ -24,7 +24,8 @@ module Api
             languages: [Struct.new(:id).new(1)],
             languages_hint: 'any skill hint',
             skills: [Struct.new(:id).new(1)],
-            skills_hint: 'any skill hint'
+            skills_hint: 'any skill hint',
+            missing_cv: true
           ).to_h
         )
         def missing_traits
@@ -40,7 +41,8 @@ module Api
             skills: missing_skills,
             skills_hint: I18n.t('user.missing_job_skills_trait'),
             languages: missing_languages,
-            languages_hint: I18n.t('user.missing_job_languages_trait')
+            languages_hint: I18n.t('user.missing_job_languages_trait'),
+            missing_cv: missing.cv?
           )
           render json: response
         end
