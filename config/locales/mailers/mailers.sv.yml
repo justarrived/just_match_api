@@ -197,7 +197,7 @@ sv:
         - Om någonting är oklart, eller om du behöver hjälp, tveka inte att kontakta oss på %{support_email} eller kolla in %{faq_link}.
     google_calendar_link_name: Lägg till på Google Calendar
     update_data_reminder:
-      subject: We are matching you for a job, update your profile!
+      subject: Vi försöker matcha dig till ett jobb, uppdatera din profil!
       introduction_body: |
         Hej,
 
@@ -205,7 +205,7 @@ sv:
 
         Vi håller just nu på att gå igenom alla ansökningar och för att vi bäst ska kunna matcha dig behöver vi lite mer information.
       cv_upload_body: 'Ladda upp ditt CV här: %{url}.'
-      competence_list_title: 'Din kunskapsnivå i:'
+      competence_list_title: 'Din kompetensnivå i:'
       competence_update_body: 'Du kan uppdatera dina kompetenser genom att gå till din profilsida: %{url}.'
       update_cv_link: ladda upp CV.
       update_competences_link: uppdatera kompetenser.
