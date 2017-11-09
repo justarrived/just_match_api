@@ -90,7 +90,7 @@ sv:
       good_luck: 'Lycka till och ha en bra dag!'
     digest_created:
       subject: Nya jobb från Just Arrived kommer skickas till din inkorg
-      update_settings: Uppdatera inställningar
+      update_settings: Uppdatera notifikationsinställingar
       digest_created_title: Tack för din registering!
       digest_created_body: "Du har registrerat dig för jobbmail från Just Arrived. Vi kommer skicka dig email med nya jobb som matchar dina inställningar. Du kan avbryta eller uppdatera din inställningar när som helst."
       user_register_link_title: Registrera
@@ -211,4 +211,3 @@ sv:
       update_competences_link: uppdatera kompetenser.
       body_edit_profile_cta: Uppdatera din profil
     signoff: "/ Team Just Arrived"
-    update_settings: Uppdatera notifikationsinställing

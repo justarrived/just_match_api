@@ -200,5 +200,16 @@ ar:
     google_calendar_link_name: إضافة إلى تقويم جوجل
     update_data_reminder:
       subject: نحن نقوم بمطابقتك للحصول على وظيفة، قم بتحديث ملفك الشخصي!
+      introduction_body: |
+        مرحبا،
+
+        لقد تقدمت مؤخرا بطلب للحصول على الوظيفة "%{job_name}"
+
+        نحن حاليا بصدد مراجعة جميع الطلبات ولكي نتمكن من المطابقة بشكل أفضل، نحتاج إلى مزيد من المعلومات حولك.
+      cv_upload_body: 'قم برفع سيرتك الذاتية على %{url}.'
+      competence_list_title: 'مستوى كفاءتك في:'
+      competence_update_body: 'يمكنك تحديث مهاراتك بالانتقال إلى صفحة ملفك الشخصي: %{url}.'
+      update_cv_link: رفع السيرة الذاتية
+      update_competences_link: تديث الكفاءات
       body_edit_profile_cta: عدل ملفك
     signoff: "يوم جميل!"

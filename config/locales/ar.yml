@@ -14,9 +14,13 @@ ar:
       failed_to_activate_invoice:
         subject: 'ملاحظة المشرف: تعذر تفعيل فاتورة Frilans Finans'
         notice: تعذر انشاء فاتورة Frilans Finans
+  arbetsformedlingen:
+    application_method_description: سجل الدخول أو قم بتسجيل جديد وقدم طلب للحصول على وظيفة في %{application_url}
+    company_description: '%{name} متواجد في %{address}. يمكنك ايجاد موقعهم الإلكتروني في %{url}.'
   errors:
     unauthorized: أنت غير مخول بتنفيذ هذا الإجراء.
     bad_json_format: "حدثت مشكلة في JSON الذي أرسلته: %{error_class}"
+    not_acceptable_response: الشكل غير مقبول.
     rate_limit:
       details: وصلت للحد الأقصى. أعد المحاولة لاحقا.
     bank_account:
@@ -47,14 +51,27 @@ ar:
       job_started: يجب قبول المستخدم قبل إنشاء الفاتورة
       job_user_accepted: يجب قبول المستخدم قبل إنشاء الفاتورة
       job_user_will_perform: يجب على المستخدم تأكيد الوظيفة قبل التمكن من إنشاء فاتورة
+      job_cancelled: لا يمكن تحرير فاتورة ملغاة
+    digest_subscriber:
+      email_belongs_to_user_account: ينتمي بالفعل إلى حساب مستخدم
     job:
       job_date_in_the_past: يجب أن يكون في المستقبل
       hourly_pay_active: يجب أن يكون فاعل
       update_not_allowed_when_accepted: غير ممكن تحديث العمل بعد قبوله من المستخدم
       job_end_date_after_job_date: يجب أن يكون تاريخ لاحق للعمل
+      last_application_at_on_publish_to_blocketjobb: آخر تطبيق يجب تعيينه إذا كان العمل سيتم نشره إلى Blocketjobb
+      last_application_at_on_publish_to_metrojobb: آخر تطبيق يجب تعيينه إذا كان العمل سيتم نشره إلى Metrojobb
+      last_application_at_on_publish_to_linkedin: آخر تطبيق يجب تعيينه إذا كان العمل سيتم نشره إلى LinkedIn
+      municipality_presence_on_publish_to_blocketjobb: البلدية يجب تعيينها إذا كان العمل سيتم نشره إلى Blocketjobb
+      blocketjobb_category_presence_on_publish_to_blocketjobb: يجب ملء فئة Blocketjobb إذا كان العمل سينشر على Blocketjobb
+      company_presence_on_publish_to_blocketjobb: يجب ملء الشركة (عبر المالك) اذا كان العمل سيتم نشره على Blocketjobb
+      municipality_presence_on_publish_to_metrojobb: البلدية يجب تعيينها إذا كان العمل سيتم نشره إلى Metrojobb
+      metrojobb_category_presence_on_publish_to_metrojobb: يجب ملء فئة Metrojobb إذا كان العمل سينشر على Metrojobb
+      company_presence_on_publish_to_metrojobb: يجب ملء الشركة (عبر المالك) اذا كان العمل سيتم نشره على Metrojobb
       hours_lower_bound: يجب أن يكون %{min_hours} ساعات في النهار
       hours_upper_bound: غير ممكن أن يكون عدة %{min_hours} ساعات في النهار
       owner_must_belong_to_company: المالك يجب أن ينتمي إلى شركة
+      not_cloned_when_published: "لا يمكن نشر وظيفة مستنسخة"
     job_user:
       terms_agreement_consent_required: يجب عليك قبول شروط الاتفاق لتقديم طلب لهذه الوظيفة
       terms_agreement_not_found: لا يوجد اتفاق شروط من هذا القبيل
@@ -63,6 +80,14 @@ ar:
       multiple_applicants: لا يستطيع قبول عدة مستخدمين
       will_perform_true_on_delete: غير ممكن سحب الطلب بعد التأكيد
       performed_before_job_started: غير ممكن تأكيد العمل قبل بدءه
+    order:
+      job_request_company_match: يجب أن تكون نفس الشركة كما في طلب الوظيفة
+      sales_and_delivery_user_equal: مستخدم المبيعات والتسليم لا يمكن أن يكون المستخدم نفسه
+    order_value:
+      must_be_able_to_calulate_total: إما السعر الكلي أو بالساعة، والساعات في الشهر وعدد الأشهر يجب أن تكون موجودة
+      hourly_price_presence: يجب أن يكون موجودا إذا كان المجموع فارغ
+      hours_per_month_presence: يجب أن يكون موجودا إذا كان المجموع فارغ
+      number_of_months_presence: يجب أن يكون موجودا إذا كان المجموع فارغ
     rating:
       from_user_rated: غير ممكن التصويت عدة مرات
       to_user_rated: ممكن التصويت عدة مرات
@@ -89,16 +114,29 @@ ar:
       email: 'يجب أن يكون عنوان البريد الإلكتروني صحيح '
       after_true: '%{field} يجب أن يكون حقيقي'
       unrevertable: غير ممكن إعادة تعيين %{field}
+      swedish_municipality: يجب أن تكون بلدية سويدية معروفة
       linkedin_url: يجب تحديد رابط الLinkedIN
       facebook_url: يجب تحديد رابط الFacebook
       url: يجب تحديد الرابط
+      drivers_license: يجب أن تتكون فقط من رمز ترخيص صالح للسائق
   invalid_credentials: مراجع خاطئة
+  invalid_auth_token: رمز مصادقة غير صالح.
+  job_digest:
+    notification_frequencies:
+      daily:
+        name: يومي
+        description: سنرسل إليك إشعارا كل يوم
+      weekly:
+        name: أسبوعي
+        description: سنرسل إليك إشعارا كل أسبوع
   not_logged_in_error: يجب أن تكون داخلاً
   record_not_found: السجل غير موجود.
   token_expired_error: انتهت صلاحية الرمز المميز.
   user:
     missing_job_skills_trait: أعلاه يمكنك أن تجد بعض المهارات ذات الصلة لهذه الوظيفة التي لم تضفها بعد
     missing_job_languages_trait: أعلاه يمكنك أن تجد بعض اللغات ذات الصلة لهذه الوظيفة التي لم تضفها بعد
+    missing_languages_trait: هنا يمكنك إضافة بعض المهارات اللغوية المحددة التي نريد حقا أن نعرف المزيد عنها
+    missing_skills_trait: هنا يمكنك إضافة بعض المهارات المحددة التي نريد حقا أن نعرف المزيد عنها
     statuses:
       asylum_seeker: طالب لجوء
       asylum_seeker_description: طالب لجوء
@@ -131,6 +169,7 @@ ar:
     new_applicant_job_info: معلومات تقديم الوظيفة
     applicant_will_perform_job_info: معلومات تأكيد الوظيفة
     failed_to_activate_invoice: فشل في تفعيل فاتورة
+    update_data_reminder: تذكير تحديث بيانات الطلب
   user_document:
     categories:
       cv: السيرة الذاتية
@@ -155,9 +194,13 @@ ar:
       residence_permit_back_description: الصورة من الخلف لتصريح الإقامة الخاص بك.
       skatteverket_certificate: شهادة مصلحة الضرائب
       skatteverket_certificate_description: صورة شهادة مصلحة الضرائب الخاصة بك
+      recruiter_profile: الملف الشخصي لصاحب العمل
+      recruiter_profile_description: صورة الملف الشخصي لصاحب العمل
   job:
-    description_title: عن الوظيفة
+    applicant_description_title: أنت
     requirements_description_title: المتطلبات
+    salary_summary: راتب سيتم تحديده على %{hourly_gross_salary_with_unit}.
+    schedule_summary: أول يوم عمل لك سيكون في %{start_date}.
     tasks_description_title: مهام العمل
   texter:
     magic_login_link:
