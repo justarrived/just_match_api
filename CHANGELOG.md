@@ -4,6 +4,17 @@ HEAD
 -----------
 
 
+v2.57 - 2017-11-09
+----------
+__Enhancement__:
+* Add `Rack::Deflater` for static asset compression
+* Pull translations from Transifex
+* :hocho: typo in en translation
+* :hocho: digest subscribert mailer typos
+* :hocho: double key-entry in job seed
+* Add update notification settings URL to mail footer
+
+
 v2.56 - 2017-11-08
 ----------
 __Admin__:
