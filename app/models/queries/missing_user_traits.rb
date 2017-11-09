@@ -6,6 +6,7 @@ module Queries
 
     def initialize(user:)
       @user = user
+      @missing_cv = nil
     end
 
     def attributes(attributes:)
@@ -22,7 +23,9 @@ module Queries
     end
 
     def cv?
-      user.user_documents.cv.last.nil?
+      return @missing_cv unless @missing_cv.nil?
+
+      @missing_cv = user.user_documents.cv.last.nil?
     end
   end
 end
