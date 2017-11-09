@@ -4,6 +4,13 @@ HEAD
 -----------
 
 
+v2.58 - 2017-11-09
+----------
+__Enhancement__:
+* Pull translations from Transifex
+* Remove `active_admin_datetimepicker` gem from gemfile
+
+
 v2.57 - 2017-11-09
 ----------
 __Enhancement__:
