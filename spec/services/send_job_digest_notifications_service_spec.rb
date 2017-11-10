@@ -3,6 +3,27 @@
 require 'rails_helper'
 
 RSpec.describe SendJobDigestNotificationsService do
+  describe '::call' do
+    it 'returns 1 if one job matches' do
+      job = FactoryBot.build_stubbed(:job)
+      address = FactoryBot.build_stubbed(:address, city: nil)
+      job_digest = FactoryBot.build_stubbed(:job_digest, addresses: [address])
+
+      result = described_class.call(jobs: [job], job_digests: [job_digest])
+      expect(result).to eq(1)
+    end
+
+    it 'returns creates 1 Ahoy::Event' do
+      job = FactoryBot.build_stubbed(:job)
+      address = FactoryBot.build_stubbed(:address, city: nil)
+      job_digest = FactoryBot.build_stubbed(:job_digest, addresses: [address])
+
+      expect do
+        described_class.call(jobs: [job], job_digests: [job_digest])
+      end.to change(Ahoy::Event, :count).by(1)
+    end
+  end
+
   context 'matcher' do
     subject { described_class::JobDigestMatch }
 
