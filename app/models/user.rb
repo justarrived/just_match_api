@@ -43,6 +43,8 @@ class User < ApplicationRecord
   belongs_to :company, optional: true
   belongs_to :interviewed_by, optional: true, class_name: 'User', foreign_key: 'interviewed_by_user_id' # rubocop:disable Metrics/LineLength
 
+  has_one :utalk_code
+
   has_one :digest_subscriber
   has_many :job_digests, through: :digest_subscriber
 
