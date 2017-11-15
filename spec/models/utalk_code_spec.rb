@@ -1,7 +1,21 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe UtalkCode, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe '::first_unclaimed' do
+    it 'returns the first unclaimed code' do
+      FactoryBot.create(:utalk_code, user: FactoryBot.create(:user))
+      utalk_code = FactoryBot.create(:utalk_code, user: nil)
+
+      expect(described_class.first_unclaimed).to eq(utalk_code)
+    end
+
+    it 'returns nil if there are no unclaimed code' do
+      FactoryBot.create(:utalk_code, user: FactoryBot.create(:user))
+      expect(described_class.first_unclaimed).to be_nil
+    end
+  end
 end
 
 # == Schema Information

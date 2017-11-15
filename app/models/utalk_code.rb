@@ -4,6 +4,12 @@ class UtalkCode < ApplicationRecord
   belongs_to :user, optional: true
 
   validates :code, presence: true, uniqueness: true
+
+  scope :unclaimed, (-> { where(user: nil) })
+
+  def self.first_unclaimed
+    unclaimed.limit(1).first
+  end
 end
 
 # == Schema Information
