@@ -10,17 +10,17 @@ class MissingUserTraitsSerializer
     missing_cv: false
   )
     attributes = {}
-    user_attributes.each { |name| attributes[name] = {} }
+    attributes[:cv] = {} if missing_cv
 
-    if skills.any?
-      attributes[:skill_ids] = { ids: skills.map(&:id), hint: skills_hint }
-    end
+    user_attributes.each { |name| attributes[name] = {} }
 
     if languages.any?
       attributes[:language_ids] = { ids: languages.map(&:id), hint: languages_hint }
     end
 
-    attributes[:cv] = {} if missing_cv
+    if skills.any?
+      attributes[:skill_ids] = { ids: skills.map(&:id), hint: skills_hint }
+    end
 
     JsonApiData.new(
       id: SecureGenerator.token(length: 32),
