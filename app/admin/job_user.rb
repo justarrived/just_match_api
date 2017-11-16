@@ -140,6 +140,7 @@ ActiveAdmin.register JobUser do
   scope :will_perform
   scope :not_pre_reported
 
+  filter :user_documents_text_content_cont, as: :string, label: I18n.t('admin.user.resume_search_label') # rubocop:disable Metrics/LineLength
   filter :job_cancelled_eq, as: :boolean, label: I18n.t('admin.job.cancelled')
   filter :user_first_name_cont, as: :string, label: I18n.t('admin.user.first_name')
   filter :user_last_name_cont, as: :string, label: I18n.t('admin.user.last_name')
