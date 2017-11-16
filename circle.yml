@@ -1,20 +1,72 @@
-machine:
-  ruby:
-    version: 2.4.1
+version: 2
+jobs:
+  build:
+    parallelism: 3
+    working_directory: ~/just_match
+    docker:
+      - image: circleci/ruby:2.4.1-node
+        environment:
+          PGHOST: 127.0.0.1
+          PGUSER: just_match
+          RAILS_ENV: test
+          CIRCLE_CI: true
+          LINT_FACTORY: true
+          AIRBRAKE_PROJECT_ID: 123456
+          AIRBRAKE_API_KEY: notsosecret
+          FRILANS_FINANS_BASE_URI: 'https://example.com'
+          FRILANS_FINANS_CLIENT_ID: 123456
+          FRILANS_FINANS_CLIENT_SECRET: notsosecret
+          TWILIO_ACCOUNT_SID: XYZ
+          TWILIO_AUTH_TOKEN: notsosecret
+          TWILIO_NUMBER: '+46735000000'
+          GOOGLE_TRANSLATE_API_KEY: XYZ
+          RUN_NESTED_GEMS_SPECS: true
+          RAILS_EAGER_LOAD_IN_TEST: true
+          DISABLE_SPRING: 1
+          LINT_FACTORY: true
+          RUBOCOP: false
+          CHECK_DB_INDEXES: false
+          CHECK_DB_UNIQ_INDEXES: false
 
-  environment:
-    CIRCLE_CI: true
-    LINT_FACTORY: true
-    AIRBRAKE_PROJECT_ID: 123456
-    AIRBRAKE_API_KEY: notsosecret
-    FRILANS_FINANS_BASE_URI: 'https://example.com'
-    FRILANS_FINANS_CLIENT_ID: 123456
-    FRILANS_FINANS_CLIENT_SECRET: notsosecret
-    TWILIO_ACCOUNT_SID: XYZ
-    TWILIO_AUTH_TOKEN: notsosecret
-    TWILIO_NUMBER: '+46735000000'
-    GOOGLE_TRANSLATE_API_KEY: XYZ
+      - image: circleci/postgres:9.5-alpine
+        environment:
+          POSTGRES_USER: just_match
+          POSTGRES_DB: just_match_test
+          POSTGRES_PASSWORD: ""
+    steps:
+      - checkout
 
-test:
-  override:
-    - script/cibuild
+      # Restore bundle cache
+      - restore_cache:
+          keys:
+            - gem-cache-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+
+      # Bundle install dependencies
+      - run: bundle install --path vendor/bundle
+
+      # Store bundle cache
+      - save_cache:
+          key: gem-cache-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+
+      - run:
+          name: Wait for database
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
+
+      # Database setup
+      - run: bundle exec rake db:create
+      - run: bundle exec rake db:schema:load
+
+      # Run rspec in parallel
+      - type: shell
+        command: |
+          bundle exec rspec --profile 10 \
+                            --format RspecJunitFormatter \
+                            --out test_results/rspec.xml \
+                            --format progress \
+                            $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
+
+      # Save test results for timing analysis
+      - store_test_results:
+          path: test_results
