@@ -66,6 +66,7 @@ if user.persisted?
     end
 
     f.input :interview_comment
+    f.input :interviewed_at, as: :datetime_picker
     f.input :job_experience
     f.input :education
     f.input :competence_text
@@ -76,9 +77,9 @@ if user.persisted?
   f.inputs I18n.t('admin.user.form.immigration_status') do
     f.input :current_status
     f.input :at_und
-    f.input :arrived_at, as: :datepicker
+    f.input :arrived_at, as: :datetime_picker
     f.input :country_of_origin
-    f.input :arbetsformedlingen_registered_at, as: :datepicker
+    f.input :arbetsformedlingen_registered_at, as: :datetime_picker
   end
 
   f.actions
