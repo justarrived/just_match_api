@@ -4,6 +4,26 @@ HEAD
 -----------
 
 
+v2.59 - 2017-11-16
+----------
+__API__:
+* Return CV as a part of the missing user traits data
+* Update the order of missing user traits serializer
+
+__Admin__:
+* Add resume search to job user index view
+* Convert date input field as string to datepicker
+
+__Enhancement__:
+* Add additional test for `SendJobDigestNotificationsService`
+* Update sv locale
+* Update missing traits api docs
+
+__Gem update__:
+* Bump `twilio-ruby` from 5.4.4 to 5.4.5
+* Bump `personnummer` from 0.0.9 to 0.1.0
+
+
 v2.58 - 2017-11-09
 ----------
 __Enhancement__:
