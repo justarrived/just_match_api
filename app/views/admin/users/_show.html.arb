@@ -52,6 +52,16 @@ columns do
           content_tag(:p, user_tag_badges(user: user))
         end
 
+        div do
+          attributes_table_for(user) do
+            row :occupations do |user|
+              user_occupations.map do |user|
+                "#{user.occupation.name} (yxp: #{user.years_of_experience})"
+              end.join(', ')
+            end
+          end
+        end
+
         h3 I18n.t('admin.user.show.skills')
         div do
           content_tag(:p, user_skills_badges(user_skills: user.user_skills))

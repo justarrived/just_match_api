@@ -25,11 +25,18 @@ if user.persisted?
       ff.input :tag, as: :select, collection: Tag.all
     end
 
-    f.has_many :user_interests, allow_destroy: false, new_record: true do |ff|
+    f.has_many :user_occupations, allow_destroy: false, new_record: true do |ff|
       ff.semantic_errors(*ff.object.errors.keys)
 
-      ff.input :interest, as: :select, collection: Interest.with_translations
-      ff.input :level_by_admin, as: :select, collection: UserInterest::LEVEL_RANGE
+      ff.input :occupation, as: :select, collection: Occupation.with_translations
+      ff.input :years_of_experience, as: :select, collection: 0..100
+    end
+
+    f.has_many :user_languages, allow_destroy: false, new_record: true do |ff|
+      ff.semantic_errors(*ff.object.errors.keys)
+
+      ff.input :language, as: :select, collection: Language.order(:en_name)
+      ff.input :proficiency_by_admin, as: :select, collection: UserLanguage::PROFICIENCY_RANGE # rubocop:disable Metrics/LineLength
     end
 
     f.has_many :user_skills, allow_destroy: false, new_record: true do |ff|
@@ -39,11 +46,11 @@ if user.persisted?
       ff.input :proficiency_by_admin, as: :select, collection: UserSkill::PROFICIENCY_RANGE # rubocop:disable Metrics/LineLength
     end
 
-    f.has_many :user_languages, allow_destroy: false, new_record: true do |ff|
+    f.has_many :user_interests, allow_destroy: false, new_record: true do |ff|
       ff.semantic_errors(*ff.object.errors.keys)
 
-      ff.input :language, as: :select, collection: Language.order(:en_name)
-      ff.input :proficiency_by_admin, as: :select, collection: UserLanguage::PROFICIENCY_RANGE # rubocop:disable Metrics/LineLength
+      ff.input :interest, as: :select, collection: Interest.with_translations
+      ff.input :level_by_admin, as: :select, collection: UserInterest::LEVEL_RANGE
     end
 
     f.has_many :user_documents, allow_destroy: false, new_record: true do |ff|
