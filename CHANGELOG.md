@@ -3,6 +3,12 @@
 HEAD
 -----------
 
+v2.60 - 2017-11-17
+----------
+__Admin__:
+* Render resume PDFs on job user view
+* Add `User#interviewed_at` to user form
+
 
 v2.59 - 2017-11-16
 ----------
