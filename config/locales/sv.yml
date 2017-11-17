@@ -21,6 +21,8 @@ sv:
     unauthorized: Du har inte behörighet att utföra den här åtgärden.
     bad_json_format: "Det fanns problem i det JSON du skickade in: %{error_class}"
     not_acceptable_response: Det givna formattet är inte giltigt.
+    utalk_code:
+      no_unclaimed: det finns inga tillgängliga Utalk koder
     rate_limit:
       details: Gränsvärde nått. Var god försök lite senare.
     bank_account:
