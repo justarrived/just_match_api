@@ -9,7 +9,7 @@ RSpec.describe ClaimUtalkCodeService do
       user = FactoryBot.create(:user)
       utalk_code = nil
 
-      time = Time.current
+      time = Time.zone.now
       Timecop.freeze(time) do
         utalk_code = described_class.call(user: user)
       end

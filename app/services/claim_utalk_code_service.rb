@@ -11,7 +11,7 @@ class ClaimUtalkCodeService
 
     utalk_code.tap do |utalk|
       utalk.user = user
-      utalk.claimed_at = Time.current
+      utalk.claimed_at = Time.zone.now
       utalk.save!
     end
   end
