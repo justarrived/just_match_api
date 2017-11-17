@@ -18,7 +18,7 @@ RSpec.describe UserOccupationSerializer, type: :serializer do
       end
     end
 
-	%w(user occupation).each do |relationship|
+    %w(user occupation).each do |relationship|
       it "has #{relationship} relationship" do
         expect(subject).to have_jsonapi_relationship(relationship)
       end
