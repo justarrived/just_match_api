@@ -56,6 +56,9 @@ class User < ApplicationRecord
   has_many :user_documents
   has_many :documents, through: :user_documents
 
+  has_many :user_occupations
+  has_many :occupations, through: :user_occupations
+
   has_many :user_tags
   has_many :tags, through: :user_tags
 
@@ -156,7 +159,7 @@ class User < ApplicationRecord
 
   # NOTE: This is necessary for nested activeadmin has_many form
   accepts_nested_attributes_for :user_skills, :user_languages, :user_interests,
-                                :user_documents, :feedbacks
+                                :user_documents, :user_occupations, :feedbacks
   accepts_nested_attributes_for :user_tags, allow_destroy: true
 
   NOTIFICATIONS = UserNotification.names

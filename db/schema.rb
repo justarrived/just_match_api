@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171114161450) do
+ActiveRecord::Schema.define(version: 20171117123456) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -964,6 +964,17 @@ ActiveRecord::Schema.define(version: 20171114161450) do
     t.index ["user_id"], name: "index_user_languages_on_user_id"
   end
 
+  create_table "user_occupations", force: :cascade do |t|
+    t.bigint "occupation_id"
+    t.bigint "user_id"
+    t.integer "years_of_experience"
+    t.integer "importance"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["occupation_id"], name: "index_user_occupations_on_occupation_id"
+    t.index ["user_id"], name: "index_user_occupations_on_user_id"
+  end
+
   create_table "user_skills", id: :serial, force: :cascade do |t|
     t.integer "user_id"
     t.integer "skill_id"
@@ -1223,6 +1234,8 @@ ActiveRecord::Schema.define(version: 20171114161450) do
   add_foreign_key "user_interests", "users"
   add_foreign_key "user_languages", "languages"
   add_foreign_key "user_languages", "users"
+  add_foreign_key "user_occupations", "occupations"
+  add_foreign_key "user_occupations", "users"
   add_foreign_key "user_skills", "skills"
   add_foreign_key "user_skills", "users"
   add_foreign_key "user_tags", "tags"

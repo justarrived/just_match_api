@@ -75,7 +75,7 @@ FactoryBot.define do
 
     factory :user_with_skills do
       transient do
-        skills_count 5
+        skills_count 1
       end
 
       after(:create) do |user, evaluator|
@@ -86,7 +86,7 @@ FactoryBot.define do
 
     factory :user_with_interests do
       transient do
-        interests_count 5
+        interests_count 1
       end
 
       after(:create) do |user, evaluator|
@@ -95,9 +95,20 @@ FactoryBot.define do
       end
     end
 
+    factory :user_with_occupations do
+      transient do
+        occupations_count 1
+      end
+
+      after(:create) do |user, evaluator|
+        occupations = create_list(:occupation, evaluator.occupations_count)
+        user.occupations = occupations
+      end
+    end
+
     factory :user_with_languages do
       transient do
-        languages_count 5
+        languages_count 1
       end
 
       after(:create) do |user, evaluator|

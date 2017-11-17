@@ -3,26 +3,6 @@
     {
       "status": 422,
       "source": {
-        "pointer": "/data/attributes/category"
-      },
-      "detail": "can't be blank",
-      "meta": {
-        "type": "blank"
-      }
-    },
-    {
-      "status": 422,
-      "source": {
-        "pointer": "/data/attributes/category"
-      },
-      "detail": "can't be blank",
-      "meta": {
-        "type": "blank"
-      }
-    },
-    {
-      "status": 422,
-      "source": {
         "pointer": "/data/attributes/hourly_pay"
       },
       "detail": "can't be blank",
@@ -33,27 +13,7 @@
     {
       "status": 422,
       "source": {
-        "pointer": "/data/attributes/hourly_pay"
-      },
-      "detail": "can't be blank",
-      "meta": {
-        "type": "blank"
-      }
-    },
-    {
-      "status": 422,
-      "source": {
-        "pointer": "/data/attributes/owner"
-      },
-      "detail": "can't be blank",
-      "meta": {
-        "type": "blank"
-      }
-    },
-    {
-      "status": 422,
-      "source": {
-        "pointer": "/data/attributes/owner"
+        "pointer": "/data/attributes/category"
       },
       "detail": "can't be blank",
       "meta": {
@@ -73,7 +33,7 @@
     {
       "status": 422,
       "source": {
-        "pointer": "/data/attributes/description"
+        "pointer": "/data/attributes/job_date"
       },
       "detail": "can't be blank",
       "meta": {
@@ -83,29 +43,7 @@
     {
       "status": 422,
       "source": {
-        "pointer": "/data/attributes/street"
-      },
-      "detail": "is too short (minimum is 1 character)",
-      "meta": {
-        "type": "too_short",
-        "count": 1
-      }
-    },
-    {
-      "status": 422,
-      "source": {
-        "pointer": "/data/attributes/zip"
-      },
-      "detail": "is too short (minimum is 5 characters)",
-      "meta": {
-        "type": "too_short",
-        "count": 5
-      }
-    },
-    {
-      "status": 422,
-      "source": {
-        "pointer": "/data/attributes/job_date"
+        "pointer": "/data/attributes/owner"
       },
       "detail": "can't be blank",
       "meta": {

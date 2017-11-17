@@ -10,7 +10,7 @@ class Doxxer
     Chat, Comment, Job, User, Message, Language, UserLanguage, Skill, Rating, JobUser,
     JobSkill, UserSkill, Category, HourlyPay, Invoice, Faq, UserImage, Company,
     CompanyImage, TermsAgreement, TermsAgreementConsent, Interest, UserInterest, Document,
-    UserDocument, JobDigest, DigestSubscriber, Occupation
+    UserDocument, JobDigest, DigestSubscriber, Occupation, UserOccupation
   ].freeze
 
   def self.read_example(model_klass, plural: false, method: nil, meta: {})

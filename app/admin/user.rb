@@ -247,7 +247,15 @@ ActiveAdmin.register User do
   show do |user|
     support_chat = Chat.includes(messages: %i(translations author language)).
                    find_or_create_support_chat(user)
-    render partial: 'admin/users/show', locals: { support_chat: support_chat }
+    
+    user_occupations = user.user_occupations.includes(occupation: %i[translations language])
+
+    locals = {
+      support_chat: support_chat,
+      user_occupations: user_occupations
+    }
+
+    render partial: 'admin/users/show', locals: locals
   end
 
   form do |f|
@@ -336,6 +344,7 @@ ActiveAdmin.register User do
       user_interests_attributes: %i(interest_id level level_by_admin),
       user_tags_attributes: %i(id tag_id _destroy),
       user_documents_attributes: [:id, :category, { document_attributes: [:document] }],
+      user_occupations_attributes: %i(occupation_id years_of_experience),
       feedbacks_attributes: %i(id job_id title body)
     ]
     UserPolicy::SELF_ATTRIBUTES + extras + relations
@@ -389,6 +398,15 @@ ActiveAdmin.register User do
       end
 
       SetUserLanguagesService.call(user: user, language_ids_param: language_ids_param)
+
+      user_occupations_attrs = user_params.delete(:user_occupations_attributes)
+      occupation_ids_param = (user_occupations_attrs&.to_unsafe_h || {}).map do |_index, attrs| # rubocop:disable Metrics/LineLength
+        {
+          id: attrs[:occupation_id],
+          years_of_experience: attrs[:years_of_experience]
+        }
+      end
+      SetUserOccupationsService.call(user: user, occupation_ids_param: occupation_ids_param)
       super
     end
 

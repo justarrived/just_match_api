@@ -61,7 +61,8 @@
       "applicant_description": null,
       "applicant_description_html": null,
       "requirements_description": null,
-      "requirements_description_html": null
+      "requirements_description_html": null,
+      "frilans_finans_job": true
     },
     "relationships": {
       "comments": {
