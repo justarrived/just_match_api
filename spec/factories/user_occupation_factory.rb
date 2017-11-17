@@ -6,6 +6,16 @@ FactoryBot.define do
     user nil
     years_of_experience 1
     importance 1
+
+    factory :user_occupation_for_docs do
+      id 1
+      years_of_experience 3
+      created_at Time.new(2016, 2, 10, 1, 1, 1).utc
+      updated_at Time.new(2016, 2, 12, 1, 1, 1).utc
+
+      association :occupation
+      association :user
+    end
   end
 end
 
