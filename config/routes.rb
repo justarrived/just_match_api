@@ -78,6 +78,7 @@ Rails.application.routes.draw do
           resources :user_jobs, path: :jobs, module: :users, only: [:index]
           resources :owned_jobs, path: 'owned-jobs', module: :users, only: [:index]
           resources :user_skills, param: :user_skill_id, module: :users, path: :skills, only: %i(index show create destroy)
+          resources :user_occupations, param: :user_occupation_id, module: :users, path: :occupations, only: %i(index show create destroy)
           resources :user_interests, param: :user_interest_id, module: :users, path: :interests, only: %i(index show create destroy)
           resources :user_languages, param: :user_language_id, module: :users, path: :languages, only: %i(index show create destroy)
           resources :user_images, module: :users, path: :images, only: %i(show create)
