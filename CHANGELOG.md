@@ -3,6 +3,19 @@
 HEAD
 -----------
 
+v2.61 - 2017-11-17
+----------
+__API__:
+* Implement `/users/:id/utalk-codes` endpoint
+* Add `/users/:id/occupations` RESTful endpoint
+* Add `UserOccpation` model and serializer
+* Add `ClaimUtalkCodeService`
+* Create `UtalkCode` model
+
+__Docs__:
+* Re-generate API doc examples
+
+
 v2.60 - 2017-11-17
 ----------
 __Admin__:
