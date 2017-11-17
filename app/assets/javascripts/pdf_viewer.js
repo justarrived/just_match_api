@@ -1,4 +1,4 @@
-PDF_RESUME_DOM_ID = 'resume-pdf';
+var PDF_RESUME_DOM_ID = 'pdf-document';
 
 function initPDFjs() {
   // Disable workers to avoid yet another cross-origin issue (workers need

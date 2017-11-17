@@ -1,6 +1,14 @@
 # frozen_string_literal: true
 
 module AdminHelper
+  def render_or_link_document(document)
+    if document&.pdf?
+      content_tag(:canvas, nil, id: 'pdf-document', 'data-url': document.url)
+    elsif document
+      download_link_to(url: document.url, file_name: document.document_file_name)
+    end
+  end
+
   def safe_pretty_print_json(json_string)
     content_tag :pre, begin
       hash = JSON.parse(json_string)

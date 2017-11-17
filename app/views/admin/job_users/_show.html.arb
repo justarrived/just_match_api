@@ -101,13 +101,7 @@ end
 
 panel 'CV' do
   div do
-    if resume&.pdf?
-      content_tag(:canvas, nil, id: 'resume-pdf', 'data-url': resume.url)
-    elsif resume
-      download_link_to(url: resume.url, file_name: resume.document_file_name)
-    else
-      h3 I18n.t('admin.job_user.show.no_resume_uploaded')
-    end
+    render_or_link_document(resume) || h3(I18n.t('admin.job_user.show.no_resume_uploaded'))
   end
 end
 
