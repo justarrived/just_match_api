@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-user = job_user.user
 
 h1 job_user.current_status
 columns do
@@ -96,6 +95,18 @@ columns do
           content_tag(:em, I18n.t('admin.job_user.show.no_apply_message'))
         end
       end
+    end
+  end
+end
+
+panel 'CV' do
+  div do
+    if resume&.pdf?
+      content_tag(:canvas, nil, id: 'resume-pdf', 'data-url': resume.url)
+    elsif resume
+      download_link_to(url: resume.url, file_name: resume.document_file_name)
+    else
+      h3 I18n.t('admin.job_user.show.no_resume_uploaded')
     end
   end
 end

@@ -189,10 +189,15 @@ ActiveAdmin.register JobUser do
   end
 
   show do
+    user = job_user.user
     support_chat = Chat.find_or_create_support_chat(job_user.user)
+    resume = user.user_documents.cv.last&.document
+
     locals = {
       job_user: job_user,
-      support_chat: support_chat
+      support_chat: support_chat,
+      user: user,
+      resume: resume
     }
 
     if job_user.job.ended?

@@ -34,6 +34,10 @@ class Document < ApplicationRecord
 
   delegate :url, to: :document
 
+  def pdf?
+    document_content_type == 'application/pdf'
+  end
+
   def generate_one_time_token
     self.one_time_token_expires_at = Time.zone.now + ONE_TIME_TOKEN_VALID_FOR_HOURS.hours
     self.one_time_token = SecureGenerator.token
