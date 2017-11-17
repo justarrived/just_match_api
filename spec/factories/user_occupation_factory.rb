@@ -2,8 +2,8 @@
 
 FactoryBot.define do
   factory :user_occupation do
-    occupation nil
-    user nil
+    association :occupation
+    association :user
     years_of_experience 1
     importance 1
 
@@ -12,9 +12,6 @@ FactoryBot.define do
       years_of_experience 3
       created_at Time.new(2016, 2, 10, 1, 1, 1).utc
       updated_at Time.new(2016, 2, 12, 1, 1, 1).utc
-
-      association :occupation
-      association :user
     end
   end
 end
