@@ -74,6 +74,8 @@ Rails.application.routes.draw do
             end
           end
 
+          resources :utalk_codes, path: 'utalk-codes', module: :users, only: %i[index create]
+
           get :matching_jobs, path: 'matching-jobs'
           resources :user_jobs, path: :jobs, module: :users, only: [:index]
           resources :owned_jobs, path: 'owned-jobs', module: :users, only: [:index]

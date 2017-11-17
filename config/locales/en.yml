@@ -21,6 +21,8 @@ en:
     unauthorized: You are not authorized to perform this action.
     bad_json_format: "There was a problem in the JSON you submitted: %{error_class}"
     not_acceptable_response: The format is not acceptable.
+    utalk_code:
+      no_unclaimed: no unclaimed Utalk codes available
     rate_limit:
       details: Throttle limit reached. Retry later.
     bank_account:
