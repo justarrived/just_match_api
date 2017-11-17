@@ -145,6 +145,7 @@ en:
         created_at: Created at %{date}
         apply_message: Apply message
         no_apply_message: No apply message.
+        no_resume_uploaded: No resumé uploaded
     job:
       checklist_sidebar:
         hidden: Hidden

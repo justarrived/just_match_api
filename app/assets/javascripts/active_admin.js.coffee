@@ -3,6 +3,7 @@
 #= require chosen-jquery
 #= require active_admin_scoped_collection_actions
 #= require active_admin_filters_visibility
+#= require pdf_viewer
 
 
 # In forms

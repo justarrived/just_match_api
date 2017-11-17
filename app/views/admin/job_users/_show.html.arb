@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-user = job_user.user
 
 h1 job_user.current_status
 columns do
@@ -97,6 +96,12 @@ columns do
         end
       end
     end
+  end
+end
+
+panel 'CV' do
+  div do
+    render_or_link_document(resume) || h3(I18n.t('admin.job_user.show.no_resume_uploaded'))
   end
 end
 

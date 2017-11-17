@@ -213,6 +213,9 @@ ActiveAdmin.setup do |config|
   config.register_stylesheet 'https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css'
   config.register_javascript 'https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js'
 
+  # PDF.js
+  config.register_javascript 'https://cdn.jsdelivr.net/npm/pdfjs-dist/build/pdf.min.js'
+
   # Flatpickr - Datetime input
   config.register_stylesheet 'https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css'
   config.register_javascript 'https://cdn.jsdelivr.net/npm/flatpickr'

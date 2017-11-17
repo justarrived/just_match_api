@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171020113203) do
+ActiveRecord::Schema.define(version: 20171114161450) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1068,6 +1068,15 @@ ActiveRecord::Schema.define(version: 20171020113203) do
     t.index ["system_language_id"], name: "index_users_on_system_language_id"
   end
 
+  create_table "utalk_codes", force: :cascade do |t|
+    t.string "code"
+    t.bigint "user_id"
+    t.datetime "claimed_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_utalk_codes_on_user_id"
+  end
+
   create_table "visits", id: :serial, force: :cascade do |t|
     t.string "visit_token"
     t.string "visitor_token"
@@ -1226,5 +1235,6 @@ ActiveRecord::Schema.define(version: 20171020113203) do
   add_foreign_key "users", "languages"
   add_foreign_key "users", "languages", column: "system_language_id", name: "users_system_language_id_fk"
   add_foreign_key "users", "users", column: "interviewed_by_user_id", name: "users_interviewed_by_user_id_fk"
+  add_foreign_key "utalk_codes", "users"
   add_foreign_key "visits", "users", name: "visits_user_id_fk"
 end
