@@ -17,7 +17,7 @@ RSpec.describe ClaimUtalkCodeService do
       utalk_code.reload
 
       expect(utalk_code.user).to eq(user)
-      expect(utalk_code.claimed_at).to eq(time)
+      expect(utalk_code.claimed_at.to_date).to eq(time.to_date)
     end
 
     it 'raises NoUnClaimedUtalkCodeError if no avaialable codes exist' do
