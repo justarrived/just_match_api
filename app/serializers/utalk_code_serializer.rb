@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class UtalkCodeSerializer < ApplicationSerializer
-  ATTRIBUTES = %i[claimed_at].freeze
+  ATTRIBUTES = %i[code claimed_at].freeze
   attributes ATTRIBUTES
 
   link(:self) { api_v1_utalk_codes_url(user_id: object.user.id) }
