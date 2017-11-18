@@ -71,7 +71,7 @@ RSpec.describe JobSerializer, type: :serializer do
     end
 
     %w(
-      owner company language category hourly_pay job_languages job_skills
+      owner company language category hourly_pay job_languages job_skills job_occupations
     ).each do |relationship|
       it "has #{relationship} relationship" do
         expect(subject).to have_jsonapi_relationship(relationship)
