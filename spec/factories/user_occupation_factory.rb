@@ -5,7 +5,6 @@ FactoryBot.define do
     association :occupation
     association :user
     years_of_experience 1
-    importance 1
 
     factory :user_occupation_for_docs do
       id 1
