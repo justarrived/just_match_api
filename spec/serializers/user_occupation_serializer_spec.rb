@@ -38,7 +38,6 @@ end
 #  occupation_id       :integer
 #  user_id             :integer
 #  years_of_experience :integer
-#  importance          :integer
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #
