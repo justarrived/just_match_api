@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class JobOccupationSerializer < ApplicationSerializer
-  ATTRIBUTES = %i[years_of_experience importance created_at updated_at]
+  ATTRIBUTES = %i[years_of_experience importance created_at updated_at].freeze
 
   attributes ATTRIBUTES
 
