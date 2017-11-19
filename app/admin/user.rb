@@ -247,7 +247,7 @@ ActiveAdmin.register User do
   show do |user|
     support_chat = Chat.includes(messages: %i(translations author language)).
                    find_or_create_support_chat(user)
-    
+
     user_occupations = user.user_occupations.includes(occupation: %i[translations language])
 
     locals = {
