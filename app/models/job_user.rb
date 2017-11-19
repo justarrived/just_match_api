@@ -68,7 +68,7 @@ class JobUser < ApplicationRecord
   end
 
   def name
-    "##{id} Job User"
+    "##{id} #{I18n.t('activerecord.models.job_user')}"
   end
 
   def current_status
