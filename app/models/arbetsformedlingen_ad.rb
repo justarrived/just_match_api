@@ -2,7 +2,7 @@
 
 class ArbetsformedlingenAd < ApplicationRecord
   belongs_to :job
-  has_many :arbetsformedlingen_ad_logs
+  has_many :arbetsformedlingen_ad_logs, dependent: :destroy
 
   validates :job, presence: true
   validates :occupation, inclusion: { in: Arbetsformedlingen::OccupationCode::CODE_MAP.keys } # rubocop:disable Metrics/LineLength

@@ -3,10 +3,10 @@
 class Skill < ApplicationRecord
   belongs_to :language, optional: true
 
-  has_many :job_skills
+  has_many :job_skills, dependent: :destroy
   has_many :jobs, through: :job_skills
 
-  has_many :user_skills
+  has_many :user_skills, dependent: :destroy
   has_many :users, through: :user_skills
 
   validates :name, uniqueness: true, length: { minimum: 1 }, allow_blank: false, on: :create # rubocop:disable Metrics/LineLength

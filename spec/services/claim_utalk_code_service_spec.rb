@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe ClaimUtalkCodeService do
   describe ':call' do
     it 'associates the user with a utalk code' do
-      FactoryBot.create(:utalk_code, user: nil)
+      FactoryBot.create(:unclaimed_utalk_code)
       user = FactoryBot.create(:user)
       utalk_code = nil
 

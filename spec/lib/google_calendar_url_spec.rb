@@ -9,7 +9,7 @@ RSpec.describe GoogleCalendarUrl do
   let(:start_time_iso8601) { '20160101T000101Z' }
 
   describe '#build' do
-    let(:name) { 'Jacob B%' }
+    let(:name) { 'Jacob B&' }
     let(:description) { 'A fancy description.. ' * 150 }
     let(:location) { 'Stockholm, 11855, Sweden' }
 
@@ -38,15 +38,15 @@ RSpec.describe GoogleCalendarUrl do
     it 'returns correct name query param' do
       uri = URI.parse(subject)
       query = uri.query
-
-      expect(query).to include("text=#{URI.encode(name)}")
+      text_part = "text=#{CGI.escape(name)}"
+      expect(query).to include(text_part)
     end
 
     it 'returns correct description query param (truncated to a 1000 characters)' do
       uri = URI.parse(subject)
       query = uri.query
 
-      expected_description = URI.encode(description.truncate(1000))
+      expected_description = CGI.escape(description.truncate(1000))
       expect(query).to include("details=#{expected_description}")
     end
 
@@ -54,7 +54,7 @@ RSpec.describe GoogleCalendarUrl do
       uri = URI.parse(subject)
       query = uri.query
 
-      expect(query).to include("location=#{URI.encode(location)}")
+      expect(query).to include("location=#{CGI.escape(location)}")
     end
 
     it 'returns dates query param' do

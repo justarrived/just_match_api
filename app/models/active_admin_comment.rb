@@ -3,7 +3,7 @@
 class ActiveAdminComment < ApplicationRecord
   belongs_to :resource, polymorphic: true
 end
-
+# rubocop:disable Metrics/LineLength
 # == Schema Information
 #
 # Table name: active_admin_comments

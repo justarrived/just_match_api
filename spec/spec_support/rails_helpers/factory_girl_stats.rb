@@ -20,14 +20,14 @@ class FactoryBotStats
     results[factory_name][strategy_name][:execution_times_in_seconds] << execution_time_in_seconds # rubocop:disable Metrics/LineLength
 
     if @log_slow && execution_time_in_seconds >= @log_show_threshold
-      $stderr.puts "Slow factory: #{factory_name} using strategy #{strategy_name} [#{execution_time_in_seconds}s]" # rubocop:disable Metrics/LineLength
+      warn "Slow factory: #{factory_name} using strategy #{strategy_name} [#{execution_time_in_seconds}s]" # rubocop:disable Metrics/LineLength
     end
     results[factory_name][strategy_name]
   end
 
   def calculate_statistics
     results.each do |factory_name, strategies|
-      strategies.keys.each do |strategy_name|
+      strategies.each_key do |strategy_name|
         times = results[factory_name][strategy_name][:execution_times_in_seconds]
         total = times.sum
         average = total.fdiv(times.size)

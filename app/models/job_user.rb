@@ -10,8 +10,8 @@ class JobUser < ApplicationRecord
   has_one :company_contact, through: :job
   has_one :owner, through: :job
   has_one :company, through: :job
-  has_one :invoice
-  has_one :frilans_finans_invoice
+  has_one :invoice, dependent: :restrict_with_error
+  has_one :frilans_finans_invoice, dependent: :restrict_with_error
 
   has_many :active_admin_comments, as: :resource, dependent: :destroy
 
@@ -114,7 +114,7 @@ class JobUser < ApplicationRecord
   end
 
   def validate_applicant_not_owner_of_job
-    if job && job.owner == user
+    if job&.owner == user
       message = I18n.t('errors.job_user.not_owner_of_job')
       errors.add(:user, message)
     end
@@ -145,7 +145,7 @@ class JobUser < ApplicationRecord
   end
 
   def validate_job_started_before_performed
-    return if job && job.started?
+    return if job&.started?
     return unless performed
 
     message = I18n.t('errors.job_user.performed_before_job_started')
