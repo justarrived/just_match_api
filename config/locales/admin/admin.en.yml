@@ -1,5 +1,14 @@
 en:
   admin:
+    menu:
+      jobs: Jobs
+      users: Users
+      sales: Sales
+      filters: Filters
+      chats: Chats
+      settings: Settings
+      guide: Guide
+      misc: Misc
     yes_answer: Yes
     no_answer: No
     hired_suffix: '(hired)'

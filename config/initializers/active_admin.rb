@@ -238,7 +238,14 @@ ActiveAdmin.setup do |config|
   config.namespace :admin do |admin|
     admin.build_menu :utility_navigation do |menu|
       admin.add_current_user_to_menu(menu)
-      menu.add label: 'Goto App', url: 'https://app.justarrived.se'
+      menu.add label: proc { link_to(current_active_admin_user.first_name, admin_user_path(current_active_admin_user)) }, # rubocop:disable Metrics/LineLength
+               url: '#',
+               id: 'current_user',
+               if: proc { current_active_admin_user? }
+      menu.add label: 'Languages' do |lang|
+        lang.add label: 'English', url: proc { url_for(locale: 'en') }, id: 'i18n-en'
+        lang.add label: 'Swedish', url: proc { url_for(locale: 'sv') }, id: 'i18n-sv'
+      end
     end
   end
   #
@@ -246,15 +253,15 @@ ActiveAdmin.setup do |config|
   #
   config.namespace :admin do |admin|
     admin.build_menu :default do |menu|
-      menu.add label: 'Jobs', priority: 2
-      menu.add label: 'Users', priority: 3
-      menu.add label: 'Sales', priority: 4
+      menu.add id: 'Jobs', label: -> { I18n.t('admin.menu.jobs') }, priority: 2
+      menu.add id: 'Users', label: -> { I18n.t('admin.menu.users') }, priority: 3
+      menu.add id: 'Sales', label: -> { I18n.t('admin.menu.sales') }, priority: 4
       # rubocop:disable Metrics/LineLength
-      menu.add label: 'Filters', priority: 5, if: proc { current_active_admin_user.super_admin? }
-      menu.add label: 'Chats', priority: 6, if: proc { current_active_admin_user.super_admin? }
-      menu.add label: 'Settings', priority: 9, if: proc { current_active_admin_user.super_admin? }
-      menu.add label: 'Guide', priority: 10, if: proc { current_active_admin_user.super_admin? }
-      menu.add label: 'Misc', priority: 11, if: proc { current_active_admin_user.super_admin? }
+      menu.add id: 'Filters', label: -> { I18n.t('admin.menu.filters') }, priority: 5, if: proc { current_active_admin_user.super_admin? }
+      menu.add id: 'Chats', label: -> { I18n.t('admin.menu.chats') }, priority: 6, if: proc { current_active_admin_user.super_admin? }
+      menu.add id: 'Settings', label: -> { I18n.t('admin.menu.settings') }, priority: 9, if: proc { current_active_admin_user.super_admin? }
+      menu.add id: 'Guide', label: -> { I18n.t('admin.menu.guide') }, priority: 10, if: proc { current_active_admin_user.super_admin? }
+      menu.add id: 'Misc', label: -> { I18n.t('admin.menu.misc') }, priority: 11, if: proc { current_active_admin_user.super_admin? }
       # rubocop:enable Metrics/LineLength
     end
   end
