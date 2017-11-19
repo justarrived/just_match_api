@@ -5,6 +5,11 @@ FactoryBot.define do
     association :user
     sequence :code { |n| "UTALK-code-#{n}" }
     claimed_at '2017-11-14 17:14:50'
+
+    factory :unclaimed_utalk_code do
+      user nil
+      claimed_at nil
+    end
   end
 end
 

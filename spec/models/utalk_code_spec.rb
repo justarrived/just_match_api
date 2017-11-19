@@ -6,7 +6,7 @@ RSpec.describe UtalkCode, type: :model do
   describe '::first_unclaimed' do
     it 'returns the first unclaimed code' do
       FactoryBot.create(:utalk_code, user: FactoryBot.create(:user))
-      utalk_code = FactoryBot.create(:utalk_code, user: nil)
+      utalk_code = FactoryBot.create(:unclaimed_utalk_code)
 
       expect(described_class.first_unclaimed).to eq(utalk_code)
     end

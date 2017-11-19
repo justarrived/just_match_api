@@ -57,7 +57,7 @@ RSpec.describe Api::V1::Users::UtalkCodesController, type: :controller do
     context 'with no utalk code previously attached' do
       it 'returns created status and has attached a utalk code with user' do
         user = FactoryBot.create(:user_with_tokens)
-        utalk_code = FactoryBot.create(:utalk_code, user: nil)
+        utalk_code = FactoryBot.create(:unclaimed_utalk_code)
 
         post :create, params: { user_id: user.id, auth_token: user.auth_token }
 
