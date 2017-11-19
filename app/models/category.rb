@@ -7,7 +7,7 @@ class Category < ApplicationRecord
     uninsured: 3
   }.freeze
 
-  has_many :jobs
+  has_many :jobs, dependent: :restrict_with_error
 
   validates :name, uniqueness: true, length: { minimum: 3 }, allow_blank: false
   validates :insurance_status, presence: true

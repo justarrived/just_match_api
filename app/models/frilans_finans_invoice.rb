@@ -8,7 +8,7 @@ class FrilansFinansInvoice < ApplicationRecord
   has_one :job, through: :job_user
   has_one :user, through: :job_user
   has_one :company, through: :job
-  has_one :invoice
+  has_one :invoice, dependent: :restrict_with_error
 
   validates :job_user, presence: true
   validates :frilans_finans_id, uniqueness: true, allow_nil: true

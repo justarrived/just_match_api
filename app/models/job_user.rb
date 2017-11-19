@@ -10,8 +10,8 @@ class JobUser < ApplicationRecord
   has_one :company_contact, through: :job
   has_one :owner, through: :job
   has_one :company, through: :job
-  has_one :invoice
-  has_one :frilans_finans_invoice
+  has_one :invoice, dependent: :restrict_with_error
+  has_one :frilans_finans_invoice, dependent: :restrict_with_error
 
   has_many :active_admin_comments, as: :resource, dependent: :destroy
 

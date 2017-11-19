@@ -7,11 +7,11 @@ class Order < ApplicationRecord
   belongs_to :delivery_user, optional: true, class_name: 'User', foreign_key: 'delivery_user_id' # rubocop:disable Metrics/LineLength
   belongs_to :sales_user, optional: true, class_name: 'User', foreign_key: 'sales_user_id'
 
-  has_many :jobs
-  has_many :order_documents
+  has_many :jobs, dependent: :nullify
+  has_many :order_documents, dependent: :destroy
   has_many :documents, through: :order_documents
 
-  has_many :order_values
+  has_many :order_values, dependent: :destroy
 
   validates :company, presence: true
   validates :delivery_user, presence: true

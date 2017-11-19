@@ -36,21 +36,21 @@ class Job < ApplicationRecord
   # rubocop:enable Metrics/LineLength
 
   has_one :company, through: :owner
-  has_one :arbetsformedlingen_ad
+  has_one :arbetsformedlingen_ad, dependent: :restrict_with_error
 
-  has_many :job_occupations
+  has_many :job_occupations, dependent: :destroy
   has_many :occupations, through: :job_occupations
 
-  has_many :job_skills
+  has_many :job_skills, dependent: :destroy
   has_many :skills, through: :job_skills
 
-  has_many :job_languages
+  has_many :job_languages, dependent: :destroy
   has_many :languages, through: :job_languages
 
-  has_many :job_users
+  has_many :job_users, dependent: :restrict_with_error
   has_many :users, through: :job_users
 
-  has_many :comments, as: :commentable
+  has_many :comments, as: :commentable, dependent: :destroy
 
   before_validation :set_normalized_swedish_drivers_license
 

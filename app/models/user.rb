@@ -43,36 +43,36 @@ class User < ApplicationRecord
   belongs_to :company, optional: true
   belongs_to :interviewed_by, optional: true, class_name: 'User', foreign_key: 'interviewed_by_user_id' # rubocop:disable Metrics/LineLength
 
-  has_one :utalk_code
+  has_one :utalk_code, dependent: :nullify
 
-  has_one :digest_subscriber
+  has_one :digest_subscriber, dependent: :destroy
   has_many :job_digests, through: :digest_subscriber
 
-  has_many :feedbacks
+  has_many :feedbacks, dependent: :destroy
 
-  has_many :filter_users
+  has_many :filter_users, dependent: :destroy
   has_many :filters, through: :filter_users
 
-  has_many :user_documents
+  has_many :user_documents, dependent: :destroy
   has_many :documents, through: :user_documents
 
-  has_many :user_occupations
+  has_many :user_occupations, dependent: :destroy
   has_many :occupations, through: :user_occupations
 
-  has_many :user_tags
+  has_many :user_tags, dependent: :destroy
   has_many :tags, through: :user_tags
 
   has_many :auth_tokens, class_name: 'Token', dependent: :destroy
 
-  has_many :user_skills
+  has_many :user_skills, dependent: :destroy
   has_many :skills, through: :user_skills
 
-  has_many :user_interests
+  has_many :user_interests, dependent: :destroy
   has_many :interests, through: :user_interests
 
-  has_many :owned_jobs, class_name: 'Job', foreign_key: 'owner_user_id'
+  has_many :owned_jobs, class_name: 'Job', foreign_key: 'owner_user_id', dependent: :restrict_with_error # rubocop:disable Metrics/LineLength
 
-  has_many :job_users
+  has_many :job_users, dependent: :restrict_with_error
   has_many :jobs, through: :job_users
   has_many :employed_for_jobs, lambda {
     joins(:job_users).where('job_users.will_perform = true').distinct
@@ -81,17 +81,17 @@ class User < ApplicationRecord
   has_many :user_languages, dependent: :destroy
   has_many :languages, through: :user_languages
 
-  has_many :written_comments, class_name: 'Comment', foreign_key: 'owner_user_id'
+  has_many :written_comments, class_name: 'Comment', foreign_key: 'owner_user_id', dependent: :destroy # rubocop:disable Metrics/LineLength
 
-  has_many :chat_users
+  has_many :chat_users, dependent: :destroy
   has_many :chats, through: :chat_users
 
-  has_many :messages, class_name: 'Message', foreign_key: 'author_id'
+  has_many :messages, class_name: 'Message', foreign_key: 'author_id', dependent: :destroy
 
-  has_many :user_images
+  has_many :user_images, dependent: :destroy
 
-  has_many :given_ratings, class_name: 'Rating', foreign_key: 'from_user_id'
-  has_many :received_ratings, class_name: 'Rating', foreign_key: 'to_user_id'
+  has_many :given_ratings, class_name: 'Rating', foreign_key: 'from_user_id', dependent: :destroy # rubocop:disable Metrics/LineLength
+  has_many :received_ratings, class_name: 'Rating', foreign_key: 'to_user_id', dependent: :destroy # rubocop:disable Metrics/LineLength
 
   validates :system_language, presence: true
   validates :email, presence: true, uniqueness: true, email: true
