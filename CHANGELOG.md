@@ -3,6 +3,23 @@
 HEAD
 -----------
 
+
+v2.62 - 2017-11-19
+----------
+__API__:
+* Add job occupations `/jobs` to allowed includes
+* Add `JobOccupationSerializer` and add `job_occupations` relation to `JobSerializer`
+
+__Enhancement__:
+* Update `UtalkCode`::unclaimed scope to handle cases where the parent user has been deleted
+* Add dependent option to all `has_one` and `has_many` relations
+* Remove column and all references to `UserOccpuaton#importance`
+* Use `CGI::escape` instead of `URI::encode` in `GoogleCalendarUrl`
+* Freeze constants in serializers
+* :lipstick: Use safe navigation &. over &&
+* rubocop :lipstick:
+
+
 v2.61 - 2017-11-17
 ----------
 __API__:
