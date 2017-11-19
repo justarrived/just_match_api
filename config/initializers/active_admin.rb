@@ -244,7 +244,7 @@ ActiveAdmin.setup do |config|
                if: proc { current_active_admin_user? }
       menu.add label: 'Languages' do |lang|
         lang.add label: 'English', url: proc { url_for(locale: 'en') }, id: 'i18n-en'
-        lang.add label: 'Swedish', url: proc { url_for(locale: 'sv') }, id: 'i18n-sv'
+        lang.add label: 'Svenska', url: proc { url_for(locale: 'sv') }, id: 'i18n-sv'
       end
     end
   end
