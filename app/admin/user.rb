@@ -248,7 +248,8 @@ ActiveAdmin.register User do
     support_chat = Chat.includes(messages: %i(translations author language)).
                    find_or_create_support_chat(user)
 
-    user_occupations = user.user_occupations.includes(occupation: %i[translations language])
+    user_occupations = user.user_occupations.
+                       includes(occupation: %i[translations language])
 
     locals = {
       support_chat: support_chat,
@@ -406,7 +407,7 @@ ActiveAdmin.register User do
           years_of_experience: attrs[:years_of_experience]
         }
       end
-      SetUserOccupationsService.call(user: user, occupation_ids_param: occupation_ids_param)
+      SetUserOccupationsService.call(user: user, occupation_ids_param: occupation_ids_param) # rubocop:disable Metrics/LineLength
       super
     end
 

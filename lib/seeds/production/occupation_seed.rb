@@ -38,8 +38,6 @@ class OccupationSeed < BaseSeed
         occupation.set_translation({ name: ar }, ar_lang)
 
         root_occupation = occupation if is_root_occupation
-
-        occupation
       end
     end
   end
