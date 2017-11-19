@@ -16,7 +16,7 @@ en:
       frilans_finans_invoice: Frilans Finans Invoice
       job: Job
       job_skill: Job skill
-      job_user: Job user
+      job_user: Applicant
       language: Language
       message: Message
       rating: Rating
@@ -112,7 +112,7 @@ en:
         job_date: Job date
         job_end_date: Job end date
         job_skills: Job skills
-        job_users: Job users
+        job_users: Applicants
         language: Language
         latitude: Latitude
         longitude: Longitude
@@ -189,7 +189,7 @@ en:
         first_name: First name
         ignored_notifications_mask: Ignored notifications mask
         job_experience: Job experience
-        job_users: Job users
+        job_users: Applicants
         jobs: Jobs
         language: Language
         languages: Languages

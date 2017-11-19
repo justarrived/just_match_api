@@ -16,7 +16,7 @@ sv:
       frilans_finans_invoice: Frilans Finans Faktura
       job: Jobb
       job_skill: Jobb skill
-      job_user: Jobb användaren
+      job_user: Ansökan
       language: Språk
       message: Meddelande
       rating: Betyg
@@ -84,9 +84,9 @@ sv:
         jobs: Jobb
         rate: Betygsätta
       invoice:
-        job_user: Jobb_user
+        job_user: Ansökan
       frilans_finans_invoice:
-        job_user: Sökande
+        job_user: Ansökan
       job:
         category: Kategori
         comments: Kommentarer
@@ -98,7 +98,7 @@ sv:
         job_date: Jobbdatum
         job_end_date: Jobb slutdatum
         job_skills: Arbetserfarenheter
-        job_users: Jobb användare
+        job_users: Ansökan
         language: Språk
         latitude: Latitud
         longitude: Longitud
@@ -167,7 +167,7 @@ sv:
         first_name: Förnamn
         ignored_notifications_mask: Ignoreras aviseringar maskera
         job_experience: Arbetserfarenhet
-        job_users: Jobb användare
+        job_users: Ansökan
         jobs: Jobb
         language: Språk
         languages: Språk
