@@ -46,7 +46,7 @@ module AdminHelper
   end
 
   def markdown_to_html(markdown)
-    ::StringFormatter.new.to_html(markdown)&.html_safe
+    ::StringFormatter.new.to_html(markdown)&.html_safe # rubocop:disable Rails/OutputSafety, Metrics/LineLength
   end
 
   def job_user_current_status_badge(status)

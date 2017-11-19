@@ -2,9 +2,9 @@
 
 require 'rails_helper'
 
-RSpec.describe UserOccupationSerializer, type: :serializer do
+RSpec.describe JobOccupationSerializer, type: :serializer do
   context 'Individual Resource Representation' do
-    let(:resource) { FactoryBot.build(:user_occupation, id: '1') }
+    let(:resource) { FactoryBot.build(:job_occupation, id: '1') }
     let(:serialization) { JsonApiSerializer.serialize(resource) }
 
     subject do
@@ -18,36 +18,37 @@ RSpec.describe UserOccupationSerializer, type: :serializer do
       end
     end
 
-    %w(user occupation).each do |relationship|
+    %w(job occupation).each do |relationship|
       it "has #{relationship} relationship" do
         expect(subject).to have_jsonapi_relationship(relationship)
       end
     end
 
     it 'is valid jsonapi format' do
-      expect(subject).to be_jsonapi_formatted('user_occupations')
+      expect(subject).to be_jsonapi_formatted('job_occupations')
     end
   end
 end
 
 # == Schema Information
 #
-# Table name: user_occupations
+# Table name: job_occupations
 #
 #  id                  :integer          not null, primary key
+#  job_id              :integer
 #  occupation_id       :integer
-#  user_id             :integer
 #  years_of_experience :integer
+#  importance          :integer
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #
 # Indexes
 #
-#  index_user_occupations_on_occupation_id  (occupation_id)
-#  index_user_occupations_on_user_id        (user_id)
+#  index_job_occupations_on_job_id         (job_id)
+#  index_job_occupations_on_occupation_id  (occupation_id)
 #
 # Foreign Keys
 #
+#  fk_rails_...  (job_id => jobs.id)
 #  fk_rails_...  (occupation_id => occupations.id)
-#  fk_rails_...  (user_id => users.id)
 #

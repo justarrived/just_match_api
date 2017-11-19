@@ -5,7 +5,6 @@ FactoryBot.define do
     association :occupation
     association :user
     years_of_experience 1
-    importance 1
 
     factory :user_occupation_for_docs do
       id 1
@@ -24,7 +23,6 @@ end
 #  occupation_id       :integer
 #  user_id             :integer
 #  years_of_experience :integer
-#  importance          :integer
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #
