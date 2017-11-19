@@ -1,0 +1,61 @@
+fa:
+  admin:
+    job_name: کار
+    user_name: کاربر
+    recent_jobs:
+      name: نام
+      hours: ساعت ها
+      hourly_pay: پرداخت ساعتی
+    my_unfilled_jobs:
+      name: نام
+    unfilled_urgent_jobs:
+      name: نام
+    my_unfilled_urgent_jobs:
+      name: نام
+    recent_job_users:
+      accepted: پذیرفته شده
+      will_perform: انجام خواهد شد
+      name: نام
+      job: کار
+      user: کاربر
+    no_invoice_job_users:
+      job: کار
+      user: کاربر
+    order:
+      form:
+        change_comment:
+          label: اظهار نظر
+    job:
+      checklist_sidebar:
+        hidden: پنهان
+        description: شرح
+      name: نام
+      description: شرح
+      section_title:
+        invoice: صورتحساب
+      show:
+        applicant_description:
+          short_name: کاربران شغلی
+        comments:
+          open_in_app: پاسخ
+      form:
+        skills_title: مهارت های شغلی
+    chat:
+      name: چت
+      form:
+        messages_title: پیام
+    user:
+      system_language: زبان سیستم
+      name: نام
+      first_name: 'نام '
+      last_name: نام خانوادگی
+      phone: تلفن
+      email: پست الکترونیک
+      company: شرکت
+      verified: تایید شده
+      description: شرح
+      education: تحصیلات
+      job_experience: تجربۀ کاری/ شغلی
+      show:
+        skills: مهارت ها
+        languages: زبان ها

@@ -1,0 +1,263 @@
+sv:
+  admin:
+    menu:
+      jobs: Jobb
+      users: Användare
+      sales: Sälj
+      filters: Filter
+      chats: Chatt
+      settings: Inställningar
+      guide: Guide
+      misc: Övrigt
+    hired_suffix: '(anställd)'
+    batch_action_confirm: Är du säker?
+    verified_selected: Verifiera markerade.
+    job_name: Jobb
+    user_name: Användare
+    job_user_name: Ansökan
+    time_ago: '%{time}sen'
+    time_from_now: '%{time}från nu'
+    download: Ladda ner
+    upload: Ladda up
+    arbetsformedlingen_ad:
+      push:
+        button: Pusha
+        pushing_msg: 'Yay! Pushar till Arbetsförmedligen, håll tummarna!'
+        validation_error_msg: 'Hrm.. Det finns några fel du måste åtgärda innan vi kan pusha till Arbetsförmedlingen: %{errors}.'
+    arbetsformedlingen_ad_log:
+      name: Arbetsförmedlingen logg
+      af_error_code_msg: "Arbetsförmedlingen errorkod: %{code}"
+      af_valid_msg: Gilltig
+    create_invoice:
+      success_msg: Lyckades skapa en faktura. Fakturan kommer bli aktiverad hos Frilans Finans snart.
+      post_btn: Aktivera faktura
+    comment:
+      commentable_type_header: Typ
+    translation:
+      locale_language_missmatch: den angiva språkkoden måste matcha språket
+    form:
+      no_tag_chosen: 'Ingen tagg vald'
+      no_skill_chosen: 'Ingen kompetens vald'
+      no_template_chosen: 'Ingen template vald'
+      no_job_chosen: 'Inget jobb valt'
+      no_language_chosen: 'Inget språk valt'
+      no_interest_chosen: 'Inget intresse valt'
+    filter_user:
+      view_users: Visa %{count}filtrerade användare
+      update_users_notice: 'Uppdatera sidan :) Användarresultat lägg just nu till (~1500/sekund).'
+      update_users_btn: Uppdatera sökning
+    filter:
+      near_address: "Nära adress (lägg till 'km: XX' för distans)"
+    recent_users:
+      title: Nyligen tillagda användare
+    recent_jobs:
+      title: Mina senaste jobb
+      name: Namn
+      filled: Tillsatt
+      start_date: Startdatum
+      hours: Timmar
+      hourly_pay: Timlön
+    my_unfilled_jobs:
+      title: Mina otillsatta jobb
+      name: Namn
+      start_date: Startdatum
+    unfilled_urgent_jobs:
+      title: Otillsatta jobb som startar inom 10 dagar
+      name: Namn
+      start_date: Startdatum
+    my_unfilled_urgent_jobs:
+      title: Mina otillsatta jobb som startar inom 10 dagar
+      name: Namn
+      start_date: Startdatum
+    recent_ff_invoices:
+      title: Senaste Frilans Finans Fakturorna
+      status: Status
+      id: ID
+    recent_job_users:
+      title: Senaste ansökningar
+      accepted: Accepterad
+      will_perform: Kommer att utföra
+      name: Namn
+      job: Jobb
+      user: Användare
+      id: ID
+    no_invoice_job_users:
+      title: Anställda konsulter som saknar Frilans Finans Faktura (jobb avslutat)
+      job: Jobb
+      user: Användare
+      id: ID
+    view_in_app:
+      view: Visa i appen
+      candidates: Visa kandidater i appen
+      job: Visa jobb i appen
+      job_preview: Visa jobb förhandsgranskning i appen
+    confirm_dialog_title: Är du säker?
+    machine_translate:
+      queued_msg: Maskinöversättning las i kön.
+      queued_msg_multiple: Maskinöversättningar köas.
+      post_btn: Maskinöversätt
+    order:
+      current_scope_total_revenue: Total icke-förlorad omsättning (nuvarande sökning)
+      current_scope_total_unfilled_unlost_revenue: Total otillsatt och icke-förlorad omsättning (nuvarande sökning)
+      total_unfilled_unlost_revenue: Total otillsatt och icke-förlorade omsättning
+      form:
+        company:
+          hint: Om du inte kan hitta företaget du letar efter i listan, skapa företaget först och skapa ordern sen.
+        change_comment:
+          label: Kommentar
+          hint: Lägg till en kommentar som förklarar varför du uppdaterar ordervärdet
+        document:
+          label: Dokument
+        total_sold:
+          hint: Lägg vara till totalt sålt ordervärde ifall det är en direktrekrytering med en engångsavgift
+        total_filled:
+          hint: Totalt tillsatt värde används bara ifall totalt sålt order värde är satt
+      show:
+        panel_title: Order
+      create_job: Skapa jobb
+      create_order_extension: Skapa förlängning
+      persisted_before_document_upload: Ordern måste vara skapad innan du kan ladda upp dokument.
+    job_request:
+      clone: Klona
+      create_order: Skapa order
+      show_order: Visa order
+      batch:
+        draft_sent: Markerad som utkast skickad
+        signed_by_customer: Markerad som signerat av kund
+        cancelled: Markerad som avbruten
+        finished: Markerad som avslutad
+    job_user:
+      apply_message: Ansökningsmeddelande
+      batch_action:
+        ask_for_job_information:
+          confirm: Är du säker på att du vill notifiera alla användare som saknar jobbkompetenser att fylla i det som saknas?
+          success: Notifiera alla som sakar kompetenser.
+        shortlist:
+          confirm: Är du säker på att du vill shortlist:a de här användarna?
+        reject:
+          confirm: Är du säker på att du vill avslå de här ansökningarna?
+        accepted:
+          success_msg: 'Accepterade %{success_count}användar(e), ignorerade %{ignore_count}användar(e) som redan var accepterade.'
+          fail_msg: 'Misslyckades acceptera %{fail_count} användar(e): ansöknings IDs: %{fail_ids}. Accepterade %{success_count}användar(e), ignorerade %{ignore_count}användar(e) som redan var accepterade.'
+      show:
+        user_details: Användardetaljer
+        match_details: Matchningsdetaljer
+        job_details: Jobbdetaljer
+        created_at: Skapades %{date}
+        apply_message: Ansökningsmeddelande
+        no_apply_message: Inget ansökningsmeddelande.
+        no_resume_uploaded: Inget CV uppladdat
+    job:
+      checklist_sidebar:
+        hidden: Dold
+        published: Publicerad
+        preview_key: Förhandsgranskingsnyckel
+        data_title: Datainsamling
+        skills: Kompetenser tillagda
+        languages: Språk tillagda
+        occupations: Yrken tillagda
+        pushed: Pushat till
+        missing_translations: Saknar översättningar
+        status: Status
+        city: Stad
+        description: Beskrivning
+        short_description: Kort beskrivning
+        missing_ad_content: Saknar annonsinnehål
+      batch_action:
+        update:
+          title: Uppdatera markerade eller alla jobb
+      cancel_and_notify_btn: Avbryt och notifiera
+      cancelled_and_notitied_success: jobb avbrutet
+      cancelled_and_notitied_failed: jobb kunde inte avbrytas %{errors}
+      create_arbetsformedlingen_ad: Skapa Arbetförmedlingen Annons
+      show_arbetsformedlingen_ad: Visa Arbetförmedlingen Annons
+      google_calendar_link: Google Calendar
+      cancelled: Abrutet
+      name: Namn
+      name_search: Jobbnamn
+      description: Beskrivning
+      short_description: Kort beskrivning
+      clone: Klona
+      section_title:
+        address: Adress
+        basic: Bas
+        internal: Intern
+        invoice: Faktura
+        data: Data
+        ad: Annons
+        settings: Inställningar
+        dates: Datum
+        content: Innehåll
+        job_boards: Jobboards
+        status: Status
+      show:
+        title: Jobbdetaljer
+        general: Generellt
+        status_flags: Status flagga
+        relations: Relationer
+        misc: Övrigt
+        partners_title: Publicerade partners
+        applicant_description:
+          short_name: Sökande
+        tasks_description:
+          short_name: Uppgifter
+        requirements_description:
+          short_name: Krav
+        comments:
+          title: Jobbkommentarer
+          open_in_app: Svar
+      form:
+        name_hint: Titeln på jobbet
+        short_description_hint: 'Max 155 tecken, kort och enkelt :)'
+        job_date_label: 'Tidigaste  startdatum'
+        job_end_date_label: 'Slutdatum'
+        partners_section_title: Publicera till partners
+        detail_section_title: Detaljer
+        admin_users_section_title: Adminanvändare
+        address_section_title: Adress
+        frilans_finans_section_title: Frilans Finans
+        direct_recruitment_job: Direktrekrytering
+        skills_title: Arbetserfarenheter
+    frilans_finans_invoice:
+      show:
+        general: Generellt
+        frilans_finans: Frilans FInans
+        dates: Datum
+    chat:
+      name: Chatt
+      form:
+        messages_title: Meddelanden
+    user:
+      system_language: Systemspråk
+      name: Namn
+      first_name: Förnamn
+      last_name: Efternamn
+      phone: Telefon
+      email: E-post
+      company: Företag
+      verified: Verifierade
+      description: Beskrivning
+      education: Utbildning
+      job_experience: Arbetserfarenhet
+      form:
+        details: Detaljer
+        status_flags: Status flagga
+        misc: Övrigt
+      show:
+        skills: Färdigheter
+        languages: Språk
+        profile: Profi
+        status_flags: Status flagga
+        presentation_profile: Profi
+    communication_template:
+      form:
+        details: Detaljer
+  active_admin:
+    batch_actions:
+      labels:
+        add_and_remove_user_tag: 'Lägg till/ta bort användartagg till/från'
+        add_user_skill: 'Lägg till användarkompetens til'
+    filters:
+      predicates:
+        gteq_datetime: efter
+        lteq_datetime: före
