@@ -5,7 +5,7 @@ class UtalkCode < ApplicationRecord
 
   validates :code, presence: true, uniqueness: true
 
-  scope :unclaimed, (-> { where(user: nil) })
+  scope :unclaimed, (-> { where(user: nil, claimed_at: nil) })
 
   def self.first_unclaimed
     unclaimed.limit(1).first
