@@ -4,6 +4,19 @@ HEAD
 -----------
 
 
+v2.63 - 2017-11-20
+----------
+__Admin__:
+* Rename Job user to Applicant in I18n files
+
+__Update gems__:
+* twilio-ruby
+* newrelic_rpm
+* google-cloud-translate
+* active_model_serializers
+* webmock
+
+
 v2.62 - 2017-11-19
 ----------
 __API__:
