@@ -14,14 +14,14 @@ module CheckDBIndexesRunner
 
     puts if keys.any? || warnings.values.any?
 
-    warnings.values.each { |warning| $stderr.puts "WARNING: #{warning}" }
+    warnings.each_value { |warning| warn "WARNING: #{warning}" }
 
     keys.each do |key|
       column = key.options[:column]
       pk = key.options[:primary_key]
       from = "#{key.from_table}.#{column}"
       to = "#{key.to_table}.#{pk}"
-      $stderr.puts "Missing foreign key relationship on '#{from}' to '#{to}'"
+      warn "Missing foreign key relationship on '#{from}' to '#{to}'"
     end
 
     if keys.any?

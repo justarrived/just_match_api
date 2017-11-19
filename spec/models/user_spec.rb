@@ -714,7 +714,7 @@ RSpec.describe User, type: :model do
   end
 
   it 'has translations for all User statuses' do
-    User::STATUSES.keys.each do |status_name|
+    User::STATUSES.each_key do |status_name|
       name = I18n.t("user.statuses.#{status_name}", locale: :en)
       description = I18n.t("user.statuses.#{status_name}_description", locale: :en)
 

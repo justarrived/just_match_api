@@ -108,8 +108,14 @@ RSpec.describe Api::V1::Users::UserOccupationsController, type: :controller do
         allow_any_instance_of(described_class).
           to(receive(:current_user).
           and_return(User.new))
+
         user = FactoryBot.create(:user)
-        post :create, params: { auth_token: 'wat', user_id: user.to_param, occupation: {} }
+        params = {
+          auth_token: 'wat',
+          user_id: user.to_param,
+          occupation: {}
+        }
+        post :create, params: params
         expect(response.status).to eq(401)
       end
     end

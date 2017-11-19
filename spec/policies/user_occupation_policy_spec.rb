@@ -58,7 +58,7 @@ RSpec.describe UserOccupationPolicy do
     context '"self" user' do
       let(:policy_context) { described_class::Context.new(user, nil) }
       let(:policy) { described_class.new(policy_context, user_occupation) }
-      let(:user_occupation) { mock_model(UserOccupation, user: user, occupation: occupation) }
+      let(:user_occupation) { mock_model(UserOccupation, user: user, occupation: occupation) } # rubocop:disable Metrics/LineLength
 
       it 'allows access' do
         expect(policy.create?).to eq(true)
@@ -72,7 +72,7 @@ RSpec.describe UserOccupationPolicy do
     context 'admin user' do
       let(:policy_context) { described_class::Context.new(admin_user, nil) }
       let(:policy) { described_class.new(policy_context, user_occupation) }
-      let(:user_occupation) { mock_model(UserOccupation, user: user, occupation: occupation) }
+      let(:user_occupation) { mock_model(UserOccupation, user: user, occupation: occupation) } # rubocop:disable Metrics/LineLength
 
       it 'allows access' do
         expect(policy.create?).to eq(true)
@@ -86,7 +86,7 @@ RSpec.describe UserOccupationPolicy do
     context '*not* "self" user' do
       let(:policy_context) { described_class::Context.new(user, nil) }
       let(:policy) { described_class.new(policy_context, user_occupation) }
-      let(:user_occupation) { mock_model(UserOccupation, user: other_user, occupation: occupation) }
+      let(:user_occupation) { mock_model(UserOccupation, user: other_user, occupation: occupation) } # rubocop:disable Metrics/LineLength
 
       it 'denies access' do
         expect(policy.create?).to eq(false)
