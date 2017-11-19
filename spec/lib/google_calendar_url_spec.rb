@@ -9,7 +9,7 @@ RSpec.describe GoogleCalendarUrl do
   let(:start_time_iso8601) { '20160101T000101Z' }
 
   describe '#build' do
-    let(:name) { 'Jacob B' }
+    let(:name) { 'Jacob B%' }
     let(:description) { 'A fancy description.. ' * 150 }
     let(:location) { 'Stockholm, 11855, Sweden' }
 

@@ -9,11 +9,11 @@ class PhoneNumber
   def self.valid?(phone_number)
     number = GlobalPhone.parse(phone_number, :se)
     # GlobalPhone#valid? sometimes returns nil
-    !!(number && number.valid?)
+    !!(number&.valid?)
   end
 
   def self.swedish_number?(phone_number)
     number = GlobalPhone.parse(phone_number, :se)
-    number && number.territory.name == 'SE'
+    number&.territory&.name == 'SE'
   end
 end

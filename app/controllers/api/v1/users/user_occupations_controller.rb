@@ -30,12 +30,12 @@ module Api
           authorize(UserOccupation)
 
           user_occupations_index = Index::UserOccupationsIndex.new(self)
-          @user_occupations = user_occupations_index.user_occupations(@user.user_occupations)
+          @user_occupations = user_occupations_index.user_occupations(@user.user_occupations) # rubocop:disable Metrics/LineLength
 
           api_render(@user_occupations, total: user_occupations_index.count)
         end
 
-        api :GET, '/users/:user_id/occupations/:user_occupation_id', 'Show user occupation'
+        api :GET, '/users/:user_id/occupations/:user_occupation_id', 'Show user occupation' # rubocop:disable Metrics/LineLength
         description 'Returns user occupation if the user is allowed.'
         error code: 404, desc: 'Not found'
         ApipieDocHelper.params(self)
@@ -76,7 +76,7 @@ module Api
           end
         end
 
-        api :DELETE, '/users/:user_id/occupations/:user_occupation_id', 'Delete user occupation'
+        api :DELETE, '/users/:user_id/occupations/:user_occupation_id', 'Delete user occupation' # rubocop:disable Metrics/LineLength
         description 'Deletes user occupation if the user is allowed.'
         error code: 401, desc: 'Unauthorized'
         error code: 404, desc: 'Not found'
