@@ -114,7 +114,7 @@ class JobUser < ApplicationRecord
   end
 
   def validate_applicant_not_owner_of_job
-    if job && job.owner == user
+    if job&.owner == user
       message = I18n.t('errors.job_user.not_owner_of_job')
       errors.add(:user, message)
     end
@@ -145,7 +145,7 @@ class JobUser < ApplicationRecord
   end
 
   def validate_job_started_before_performed
-    return if job && job.started?
+    return if job&.started?
     return unless performed
 
     message = I18n.t('errors.job_user.performed_before_job_started')
