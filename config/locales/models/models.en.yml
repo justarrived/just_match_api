@@ -1,234 +1,880 @@
 en:
   activerecord:
     models:
-      blazer/query: Blazer/query
-      category: Category
-      chat: Chat
-      chat_user: Chat user
-      comment: Comment
-      company: Company
-      company_image: Company image
-      contact: Contact
-      currency: Currency
-      faq: Faq
-      hourly_pay: Hourly pay
-      invoice: Invoice
-      frilans_finans_invoice: Frilans Finans Invoice
-      job: Job
-      job_skill: Job skill
-      job_user: Applicant
-      language: Language
-      message: Message
-      rating: Rating
-      skill: Skill
-      user: User
-      user_image: User image
-      user_language: User language
-      user_skill: User skill
+      active_admin/comment: Active admin comment  #g
+      active_admin_comment: Active admin comment  #g
+      address: Address  #g
+      ahoy/event: Ahoy event  #g
+      arbetsformedlingen_ad: Arbetsförmedlingen ad  #g
+      arbetsformedlingen_ad_log: Arbetsförmedlingen ad log  #g
+      category: Category  #g
+      chat: Chat  #g
+      chat_user: Chat user  #g
+      comment: Comment  #g
+      comment_translation: Comment translation  #g
+      communication_template: Communication template  #g
+      communication_template_translation: Communication template translation  #g
+      company: Company  #g
+      company_image: Company image  #g
+      company_industry: Company industry  #g
+      company_translation: Company translation  #g
+      contact: Contact  #g
+      currency: Currency  #g
+      digest_subscriber: Digest subscriber  #g
+      document: Document  #g
+      faq: Faq  #g
+      faq_translation: Faq translation  #g
+      feedback: Feedback  #g
+      filter: Filter  #g
+      filter_user: Filter user  #g
+      frilans_finans_api_log: Frilans Finans API log  #g
+      frilans_finans_invoice: Frilans Finans Invoice  #g
+      frilans_finans_term: Frilans Finans term  #g
+      guide_section: Guide section  #g
+      guide_section_article: Guide section article  #g
+      guide_section_article_translation: Guide section article translation  #g
+      guide_section_translation: Guide section translation  #g
+      hourly_pay: Hourly pay  #g
+      industry: Industry  #g
+      industry_translation: Industry translation  #g
+      interest: Interest  #g
+      interest_filter: Interest filter  #g
+      interest_translation: Interest translation  #g
+      invoice: Invoice  #g
+      job: Job  #g
+      job_digest: Job digest  #g
+      job_digest_address: Job digest address  #g
+      job_digest_occupation: Job digest occupation  #g
+      job_language: Job language  #g
+      job_occupation: Job occupation  #g
+      job_request: Job request  #g
+      job_skill: Job skill  #g
+      job_translation: Job translation  #g
+      job_user: Applicant  #g
+      job_user_translation: Applicant translation  #g
+      language: Language  #g
+      language_filter: Language filter  #g
+      message: Message  #g
+      message_translation: Message translation  #g
+      occupation: Occupation  #g
+      occupation_translation: Occupation translation  #g
+      order: Order  #g
+      order_document: Order document  #g
+      order_value: Order value  #g
+      rating: Rating  #g
+      received_email: Received email  #g
+      received_text: Received text  #g
+      skill: Skill  #g
+      skill_filter: Skill filter  #g
+      skill_translation: Skill translation  #g
+      tag: Tag  #g
+      terms_agreement: Terms agreement  #g
+      terms_agreement_consent: Terms agreement consent  #g
+      token: Token  #g
+      user: User  #g
+      user_document: User document  #g
+      user_image: User image  #g
+      user_interest: User interest  #g
+      user_language: User language  #g
+      user_occupation: User occupation  #g
+      user_skill: User skill  #g
+      user_tag: User tag  #g
+      user_translation: User translation  #g
+      utalk_code: Utalk code  #g
+      visit: Visit  #g
 
     attributes:
-      blazer/query:
-        audits: Audits
-        checks: Checks
-        creator: Creator
-        dashboard_queries: Dashboard queries
-        dashboards: Dashboards
-        data_source: Data source
-        description: Description
-        name: Name
-        statement: Statement
+      active_admin/comment:
+        author: :activerecord.models.author  #g
+        author_type: Author type  #g
+        body: Body  #g
+        namespace: Namespace  #g
+        resource: :activerecord.models.resource  #g
+        resource_type: Resource type  #g
+
+      active_admin_comment:
+        author_type: Author type  #g
+        body: Body  #g
+        namespace: Namespace  #g
+        resource: :activerecord.models.resource  #g
+        resource_type: Resource type  #g
+
+      address:
+        city: City  #g
+        country_code: Country code  #g
+        latitude: Latitude  #g
+        longitude: Longitude  #g
+        municipality: Municipality  #g
+        postal_code: Postal code  #g
+        state: State  #g
+        street1: Street1  #g
+        street2: Street2  #g
+        uuid: UUID  #g
+
+      ahoy/event:
+        name: Name  #g
+        properties: Properties  #g
+        time: Time  #g
+        user: :activerecord.models.user  #g
+        visit: :activerecord.models.visit  #g
+
+      arbetsformedlingen_ad:
+        arbetsformedlingen_ad_logs: Arbetsförmedlingen ad logs  #g
+        job: :activerecord.models.job  #g
+        occupation: Occupation  #g
+        published: Published  #g
+
+      arbetsformedlingen_ad_log:
+        arbetsformedlingen_ad: :activerecord.models.arbetsformedlingen_ad  #g
+        response: Response  #g
 
       category:
-        jobs: Jobs
-        name: Name
+        insurance_status: Insurance status  #g
+        jobs: Jobs  #g
+        name: Name  #g
+        ssyk: SSYK  #g
 
       chat:
-        chat_users: Chat users
-        messages: Messages
-        users: Users
+        chat_users: Chat users  #g
+        messages: Messages  #g
+        user_images: User images  #g
+        users: Users  #g
 
       chat_user:
-        chat: Chat
-        user: User
+        chat: :activerecord.models.chat  #g
+        user: :activerecord.models.user  #g
 
       comment:
-        body: Body
-        commentable: Commentable
-        commentable_type: Commentable type
-        hidden: Hidden
-        language: Language
-        owner: Owner
+        body: Body  #g
+        commentable: :activerecord.models.commentable  #g
+        commentable_type: Commentable type  #g
+        hidden: Hidden  #g
+        language: :activerecord.models.language  #g
+        owner: :activerecord.models.owner  #g
+        translations: Translations  #g
+
+      comment_translation:
+        body: Body  #g
+        comment: :activerecord.models.comment  #g
+        language: :activerecord.models.language  #g
+        locale: Locale  #g
+
+      communication_template:
+        body: Body  #g
+        category: Category  #g
+        language: :activerecord.models.language  #g
+        subject: Subject  #g
+        translations: Translations  #g
+
+      communication_template_translation:
+        body: Body  #g
+        communication_template: :activerecord.models.communication_template  #g
+        language: :activerecord.models.language  #g
+        locale: Locale  #g
+        subject: Subject  #g
 
       company:
-        cin: Swedish organisation number
-        company_images: Company images
-        jobs: Jobs
-        name: Name
-        users: Users
-        website: Website
+        billing_email: Billing email  #g
+        cin: Swedish organisation number  #g
+        city: City  #g
+        company_images: Company images  #g
+        company_industries: Company industries  #g
+        display_name: Display name  #g
+        email: Email  #g
+        industries: Industries  #g
+        municipality: Municipality  #g
+        name: Name  #g
+        owned_jobs: Owned jobs  #g
+        phone: Phone  #g
+        sales_user: :activerecord.models.sales_user  #g
+        staffing_agency: Staffing agency  #g
+        street: Street  #g
+        translations: Translations  #g
+        users: Users  #g
+        website: Website  #g
+        zip: Zip  #g
 
       company_image:
-        company: Company
-        image_content_type: Image content type
-        image_file_name: Image file name
-        image_file_size: Image file size
-        image_updated_at: Image updated at
-        one_time_token: One time token
-        one_time_token_expires_at: One time token expires at
+        company: :activerecord.models.company  #g
+        image_content_type: Image content type  #g
+        image_file_name: Image file name  #g
+        image_file_size: Image file size  #g
+        image_updated_at: Image updated at  #g
+        one_time_token: One time token  #g
+        one_time_token_expires_at: One time token expires at  #g
+
+      company_industry:
+        company: :activerecord.models.company  #g
+        industry: :activerecord.models.industry  #g
+
+      company_translation:
+        company: :activerecord.models.company  #g
+        description: Description  #g
+        language: :activerecord.models.language  #g
+        locale: Locale  #g
+        short_description: Short description  #g
 
       contact:
-        body: Body
-        email: Email
-        name: Name
+        body: Body  #g
+        email: Email  #g
+        name: Name  #g
 
       currency:
-        currency_code: Currency code
+        currency_code: Currency code  #g
+
+      digest_subscriber:
+        deleted_at: Deleted at  #g
+        email: Email  #g
+        job_digests: Job digests  #g
+        user: :activerecord.models.user  #g
+        uuid: UUID  #g
+
+      document:
+        document_content_type: Document content type  #g
+        document_file_name: Document file name  #g
+        document_file_size: Document file size  #g
+        document_updated_at: Document updated at  #g
+        one_time_token: One time token  #g
+        one_time_token_expires_at: One time token expires at  #g
+        order_documents: Order documents  #g
+        orders: Orders  #g
+        text_content: Text content  #g
+        user_documents: User documents  #g
+        users: Users  #g
 
       faq:
-        answer: Answer
-        language: Language
-        question: Question
+        answer: Answer  #g
+        language: :activerecord.models.language  #g
+        question: Question  #g
+        translations: Translations  #g
 
-      hourly_pay:
-        active: Active
-        currency: Currency
-        jobs: Jobs
-        rate: Rate
+      faq_translation:
+        answer: Answer  #g
+        faq: :activerecord.models.faq  #g
+        language: :activerecord.models.language  #g
+        locale: Locale  #g
+        question: Question  #g
 
-      invoice:
-        job_user: Applicant
+      feedback:
+        body: Body  #g
+        job: :activerecord.models.job  #g
+        title: Title  #g
+        user: :activerecord.models.user  #g
+
+      filter:
+        filter_users: Filter users  #g
+        interest_filters: Interest filters  #g
+        interests: Interests  #g
+        language_filters: Language filters  #g
+        languages: Languages  #g
+        name: Name  #g
+        skill_filters: Skill filters  #g
+        skills: Skills  #g
+        users: Users  #g
+
+      filter_user:
+        filter: :activerecord.models.filter  #g
+        user: :activerecord.models.user  #g
+
+      frilans_finans_api_log:
+        params: Params  #g
+        response_body: Response body  #g
+        status: Status  #g
+        status_name: Status name  #g
+        uri: Uri  #g
+        verb: Verb  #g
 
       frilans_finans_invoice:
-        job_user: Applicant
+        activated: Activated  #g
+        company: :activerecord.models.company  #g
+        express_payment: Express payment  #g
+        ff_amount: Frilans Finans amount  #g
+        ff_approval_status: Frilans Finans approval status  #g
+        ff_gross_salary: Frilans Finans gross salary  #g
+        ff_invoice_number: Frilans Finans invoice number  #g
+        ff_last_synced_at: Frilans Finans last synced at  #g
+        ff_net_salary: Frilans Finans net salary  #g
+        ff_payment_status: Frilans Finans payment status  #g
+        ff_pre_report: Frilans Finans pre report  #g
+        ff_sent_at: Frilans Finans sent at  #g
+        ff_status: Frilans Finans status  #g
+        invoice: :activerecord.models.invoice  #g
+        job: :activerecord.models.job  #g
+        job_user: :activerecord.models.job_user  #g
+        user: :activerecord.models.user  #g
+
+      frilans_finans_term:
+        body: Body  #g
+        company: Company  #g
+
+      guide_section:
+        articles: Articles  #g
+        language: :activerecord.models.language  #g
+        order: Order  #g
+        translations: Translations  #g
+
+      guide_section_article:
+        language: :activerecord.models.language  #g
+        order: Order  #g
+        section: :activerecord.models.section  #g
+        translations: Translations  #g
+
+      guide_section_article_translation:
+        article: :activerecord.models.article  #g
+        body: Body  #g
+        language: :activerecord.models.language  #g
+        locale: Locale  #g
+        short_description: Short description  #g
+        slug: Slug  #g
+        title: Title  #g
+
+      guide_section_translation:
+        language: :activerecord.models.language  #g
+        locale: Locale  #g
+        section: :activerecord.models.section  #g
+        short_description: Short description  #g
+        slug: Slug  #g
+        title: Title  #g
+
+      hourly_pay:
+        active: Active  #g
+        currency: Currency  #g
+        gross_salary: Gross salary  #g
+        jobs: Jobs  #g
+
+      industry:
+        ancestry: Ancestry  #g
+        language: :activerecord.models.language  #g
+        name: Name  #g
+        translations: Translations  #g
+
+      industry_translation:
+        industry: :activerecord.models.industry  #g
+        language: :activerecord.models.language  #g
+        locale: Locale  #g
+        name: Name  #g
+
+      interest:
+        internal: Internal  #g
+        language: :activerecord.models.language  #g
+        name: Name  #g
+        translations: Translations  #g
+        user_interests: User interests  #g
+        users: Users  #g
+
+      interest_filter:
+        filter: :activerecord.models.filter  #g
+        interest: :activerecord.models.interest  #g
+        level: Level  #g
+        level_by_admin: Level by admin  #g
+
+      interest_translation:
+        interest: :activerecord.models.interest  #g
+        language: :activerecord.models.language  #g
+        locale: Locale  #g
+        name: Name  #g
+
+      invoice:
+        company: :activerecord.models.company  #g
+        frilans_finans_invoice: :activerecord.models.frilans_finans_invoice  #g
+        job: :activerecord.models.job  #g
+        job_user: :activerecord.models.job_user  #g
+        user: :activerecord.models.user  #g
 
       job:
-        category: Category
-        comments: Comments
-        company: Company
-        description: Description
-        hidden: Hidden
-        hourly_pay: Hourly Pay
-        hours: Hours
-        job_date: Job date
-        job_end_date: Job end date
-        job_skills: Job skills
-        job_users: Applicants
-        language: Language
-        latitude: Latitude
-        longitude: Longitude
-        name: Name
-        owner: Owner
-        skills: Skills
-        street: Street
-        users: Users
-        verified: Verified
-        zip: Zip
-        zip_latitude: Zip latitude
-        zip_longitude: Zip longitude
+        applicant_description: Applicant description  #g
+        arbetsformedlingen_ad: :activerecord.models.arbetsformedlingen_ad  #g
+        blocketjobb_category: Blocketjobb category  #g
+        cancelled: Cancelled  #g
+        car_required: Car required  #g
+        category: :activerecord.models.category  #g
+        city: City  #g
+        cloned: Cloned  #g
+        comments: Comments  #g
+        company: :activerecord.models.company  #g
+        company_contact: :activerecord.models.company_contact  #g
+        customer_hourly_price: Customer hourly price  #g
+        description: Description  #g
+        direct_recruitment_job: Direct recruitment job  #g
+        featured: Featured  #g
+        filled_at: Filled at  #g
+        full_time: Full time  #g
+        hidden: Hidden  #g
+        hourly_pay: :activerecord.models.hourly_pay  #g
+        hours: Hours  #g
+        invoice_comment: Invoice comment  #g
+        job_date: Start date  #g
+        job_end_date: End date  #g
+        job_languages: Job languages  #g
+        job_occupations: Job occupations  #g
+        job_request: :activerecord.models.job_request  #g
+        job_skills: Job skills  #g
+        job_users: Applicants  #g
+        just_arrived_contact: :activerecord.models.just_arrived_contact  #g
+        language: :activerecord.models.language  #g
+        languages: Languages  #g
+        last_application_at: Last application at  #g
+        latitude: Latitude  #g
+        longitude: Longitude  #g
+        metrojobb_category: Metrojobb category  #g
+        municipality: Municipality  #g
+        name: Name  #g
+        number_to_fill: Number to fill  #g
+        occupations: Occupations  #g
+        order: :activerecord.models.order  #g
+        owner: :activerecord.models.owner  #g
+        preview_key: Preview key  #g
+        publish_at: Publish at  #g
+        publish_on_blocketjobb: Publish on Blocketjobb  #g
+        publish_on_linkedin: Publish on LinkedIN  #g
+        publish_on_metrojobb: Publish on Metrojobb  #g
+        requirements_description: Requirements description  #g
+        salary_type: Salary type  #g
+        short_description: Short description  #g
+        skills: Skills  #g
+        staffing_company: :activerecord.models.staffing_company  #g
+        staffing_job: Staffing job  #g
+        street: Street  #g
+        swedish_drivers_license: Swedish drivers license  #g
+        tasks_description: Tasks description  #g
+        translations: Translations  #g
+        unpublish_at: Unpublish at  #g
+        upcoming: Upcoming  #g
+        users: Users  #g
+        verified: Verified  #g
+        zip: Zip  #g
+        zip_latitude: Zip latitude  #g
+        zip_longitude: Zip longitude  #g
+
+      job_digest:
+        addresses: Addresses  #g
+        deleted_at: Deleted at  #g
+        job_digest_addresses: Job digest addresses  #g
+        job_digest_occupations: Job digest occupations  #g
+        locale: Locale  #g
+        max_distance: Max distance  #g
+        notification_frequency: Notification frequency  #g
+        occupations: Occupations  #g
+        subscriber: :activerecord.models.subscriber  #g
+        user: :activerecord.models.user  #g
+
+      job_digest_address:
+        address: :activerecord.models.address  #g
+        job_digest: :activerecord.models.job_digest  #g
+
+      job_digest_occupation:
+        job_digest: :activerecord.models.job_digest  #g
+        occupation: :activerecord.models.occupation  #g
+
+      job_language:
+        job: :activerecord.models.job  #g
+        language: :activerecord.models.language  #g
+        proficiency: Proficiency  #g
+        proficiency_by_admin: Proficiency by admin  #g
+
+      job_occupation:
+        importance: Importance  #g
+        job: :activerecord.models.job  #g
+        occupation: :activerecord.models.occupation  #g
+        years_of_experience: Years of experience  #g
+
+      job_request:
+        assignment: Assignment  #g
+        cancelled: Cancelled  #g
+        comment: Comment  #g
+        company: :activerecord.models.company  #g
+        company_address: Company address  #g
+        company_email: Company email  #g
+        company_name: Company name  #g
+        company_org_no: Company org no  #g
+        company_phone: Company phone  #g
+        contact_string: Contact string  #g
+        delivery_user: :activerecord.models.delivery_user  #g
+        draft_sent: Draft sent  #g
+        finished: Finished  #g
+        hourly_pay: Hourly pay  #g
+        job_at_date: Job at date  #g
+        job_scope: Job scope  #g
+        job_specification: Job specification  #g
+        language_requirements: Language requirements  #g
+        order: :activerecord.models.order  #g
+        requirements: Requirements  #g
+        responsible: Responsible  #g
+        sales_user: :activerecord.models.sales_user  #g
+        short_name: Short name  #g
+        signed_by_customer: Signed by customer  #g
+        suitable_candidates: Suitable candidates  #g
 
       job_skill:
-        job: Job
-        skill: Skill
+        job: :activerecord.models.job  #g
+        proficiency: Proficiency  #g
+        proficiency_by_admin: Proficiency by admin  #g
+        skill: :activerecord.models.skill  #g
+
+      job_translation:
+        applicant_description: Applicant description  #g
+        description: Description  #g
+        job: :activerecord.models.job  #g
+        language: :activerecord.models.language  #g
+        locale: Locale  #g
+        name: Name  #g
+        requirements_description: Requirements description  #g
+        short_description: Short description  #g
+        tasks_description: Tasks description  #g
 
       job_user:
-        accepted: Accepted
-        accepted_at: Accepted at
-        invoice: Invoice
-        job: Job
-        performed: Performed
-        user: User
-        will_perform: Will perform
+        accepted: Accepted  #g
+        accepted_at: Accepted at  #g
+        active_admin_comments: Active admin comments  #g
+        application_withdrawn: Application withdrawn  #g
+        apply_message: Apply message  #g
+        company: :activerecord.models.company  #g
+        company_contact: :activerecord.models.company_contact  #g
+        frilans_finans_invoice: :activerecord.models.frilans_finans_invoice  #g
+        http_referrer: HTTP referrer  #g
+        invoice: :activerecord.models.invoice  #g
+        job: :activerecord.models.job  #g
+        language: :activerecord.models.language  #g
+        owner: :activerecord.models.owner  #g
+        performed: Performed  #g
+        rejected: Rejected  #g
+        shortlisted: Shortlisted  #g
+        translations: Translations  #g
+        user: :activerecord.models.user  #g
+        utm_campaign: UTM-campaign  #g
+        utm_content: UTM-content  #g
+        utm_medium: UTM-medium  #g
+        utm_source: UTM-source  #g
+        utm_term: UTM-term  #g
+        will_perform: Will perform  #g
+
+      job_user_translation:
+        apply_message: Apply message  #g
+        job_user: :activerecord.models.job_user  #g
+        language: :activerecord.models.language  #g
+        locale: Locale  #g
 
       language:
-        direction: Direction
-        en_name: En name
-        jobs: Jobs
-        lang_code: Lang code
-        local_name: Local name
-        system_language: System language
-        user_languages: User languages
-        users: Users
+        ar_name: Arabic name  #g
+        direction: Direction  #g
+        en_name: English name  #g
+        fa_af_name: Dari name  #g
+        fa_name: Farsi name  #g
+        job_languages: Job languages  #g
+        jobs: Jobs  #g
+        ku_name: Kurdish name  #g
+        lang_code: Language code  #g
+        local_name: Local name  #g
+        machine_translation: Machine translation  #g
+        ps_name: Pashto name  #g
+        sv_name: Swedish name  #g
+        system_language: System language  #g
+        ti_name: Tingringya name  #g
+        user_languages: User languages  #g
+        users: Users  #g
+
+      language_filter:
+        filter: :activerecord.models.filter  #g
+        language: :activerecord.models.language  #g
+        proficiency: Proficiency  #g
+        proficiency_by_admin: Proficiency by admin  #g
 
       message:
-        author: Author
-        body: Body
-        chat: Chat
-        integer: Integer
-        language: Language
+        author: :activerecord.models.author  #g
+        body: Body  #g
+        chat: :activerecord.models.chat  #g
+        integer: Integer  #g
+        language: :activerecord.models.language  #g
+        translations: Translations  #g
+
+      message_translation:
+        body: Body  #g
+        language: :activerecord.models.language  #g
+        locale: Locale  #g
+        message: :activerecord.models.message  #g
+
+      occupation:
+        ancestry: Ancestry  #g
+        language: :activerecord.models.language  #g
+        name: Name  #g
+        translations: Translations  #g
+
+      occupation_translation:
+        language: :activerecord.models.language  #g
+        locale: Locale  #g
+        name: Name  #g
+        occupation: :activerecord.models.occupation  #g
+
+      order:
+        category: Category  #g
+        company: :activerecord.models.company  #g
+        delivery_user: :activerecord.models.delivery_user  #g
+        documents: Documents  #g
+        filled_hourly_pay_rate: Filled hourly pay rate  #g
+        filled_hours: Filled hours  #g
+        filled_invoice_hourly_pay_rate: Filled invoice hourly pay rate  #g
+        hourly_pay_rate: Hourly pay rate  #g
+        hours: Hours  #g
+        invoice_hourly_pay_rate: Invoice hourly pay rate  #g
+        job_request: :activerecord.models.job_request  #g
+        jobs: Jobs  #g
+        lost: Lost  #g
+        name: Name  #g
+        order_documents: Order documents  #g
+        order_values: Order values  #g
+        previous_order: :activerecord.models.previous_order  #g
+        sales_user: :activerecord.models.sales_user  #g
+
+      order_document:
+        document: :activerecord.models.document  #g
+        name: Name  #g
+        order: :activerecord.models.order  #g
+
+      order_value:
+        change_comment: Change comment  #g
+        change_reason_category: Change reason category  #g
+        changed_by_user: :activerecord.models.changed_by_user  #g
+        order: :activerecord.models.order  #g
+        previous_order_value: :activerecord.models.previous_order_value  #g
+        sold_hourly_price: Sold hourly price  #g
+        sold_hourly_salary: Sold hourly salary  #g
+        sold_hours_per_month: Sold hours per month  #g
+        sold_number_of_months: Sold number of months  #g
+        total_filled: Total filled  #g
+        total_sold: Total sold  #g
 
       rating:
-        comment: Comment
-        from_user: From user
-        job: Job
-        score: Score
-        to_user: To user
+        comment: :activerecord.models.comment  #g
+        from_user: :activerecord.models.from_user  #g
+        job: :activerecord.models.job  #g
+        score: Score  #g
+        to_user: :activerecord.models.to_user  #g
 
-      token:
-        token: Token
-        expires_at: Expires at
-        user: User
+      received_email:
+        from_address: From address  #g
+        html_body: HTML body  #g
+        subject: Subject  #g
+        text_body: Text body  #g
+        to_address: To address  #g
+
+      received_text:
+        body: Body  #g
+        from_number: From number  #g
+        to_number: To number  #g
 
       skill:
-        job_skills: Job skills
-        jobs: Jobs
-        language: Language
-        name: Name
-        user_skills: User skills
-        users: Users
+        color: Color  #g
+        high_priority: High priority  #g
+        internal: Internal  #g
+        job_skills: Job skills  #g
+        jobs: Jobs  #g
+        language: :activerecord.models.language  #g
+        name: Name  #g
+        translations: Translations  #g
+        user_skills: User skills  #g
+        users: Users  #g
+
+      skill_filter:
+        filter: :activerecord.models.filter  #g
+        proficiency: Proficiency  #g
+        proficiency_by_admin: Proficiency by admin  #g
+        skill: :activerecord.models.skill  #g
+
+      skill_translation:
+        language: :activerecord.models.language  #g
+        locale: Locale  #g
+        name: Name  #g
+        skill: :activerecord.models.skill  #g
+
+      tag:
+        color: Color  #g
+        name: Name  #g
+        user_tags: User tags  #g
+        users: Users  #g
+
+      terms_agreement:
+        frilans_finans_term: :activerecord.models.frilans_finans_term  #g
+        url: URL  #g
+        version: Version  #g
+
+      terms_agreement_consent:
+        job: :activerecord.models.job  #g
+        terms_agreement: :activerecord.models.terms_agreement  #g
+        user: :activerecord.models.user  #g
+
+      token:
+        expires_at: Expires at  #g
+        token: Token  #g
+        user: :activerecord.models.user  #g
 
       user:
-        admin: Admin
-        anonymized: Anonymized
-        banned: Banned
-        chat_users: Chat users
-        chats: Chats
-        company: Company
-        description: Description
-        education: Education
-        email: Email
-        first_name: First name
-        ignored_notifications_mask: Ignored notifications mask
-        job_experience: Job experience
-        job_users: Applicants
-        jobs: Jobs
-        language: Language
-        languages: Languages
-        last_name: Last name
-        latitude: Latitude
-        longitude: Longitude
-        messages: Messages
-        one_time_token: One time token
-        one_time_token_expires_at: One time token expires at
-        owned_jobs: Owned jobs
-        password_hash: Password hash
-        password_salt: Password salt
-        phone: Phone
-        skills: Skills
-        ssn: Ssn
-        street: Street
-        user_images: User images
-        user_languages: User languages
-        user_skills: User skills
-        written_comments: Written comments
-        zip: Zip
-        zip_latitude: Zip latitude
-        zip_longitude: Zip longitude
-        frilans_finans_id: Frilans Finans id
-        frilans_finans_payment_details: Frilans Finans payment details
+        account_clearing_number: Account clearing number  #g
+        account_number: Account number  #g
+        admin: Admin  #g
+        anonymized: Anonymized  #g
+        arbetsformedlingen_registered_at: Arbetsformedlingen registered at  #g
+        arrived_at: Arrived at  #g
+        at_und: AT-und  #g
+        auth_tokens: Auth tokens  #g
+        banned: Banned  #g
+        chat_users: Chat users  #g
+        chats: Chats  #g
+        city: City  #g
+        company: :activerecord.models.company  #g
+        competence_text: Competence text  #g
+        country_of_origin: Country of origin  #g
+        current_status: Current status  #g
+        description: Description  #g
+        digest_subscriber: :activerecord.models.digest_subscriber  #g
+        documents: Documents  #g
+        education: Education  #g
+        email: Email  #g
+        employed_for_jobs: Employed for jobs  #g
+        facebook_url: Facebook URL  #g
+        feedbacks: Feedbacks  #g
+        filter_users: Filter users  #g
+        filters: Filters  #g
+        first_name: First name  #g
+        frilans_finans_payment_details: Frilans Finans payment details  #g
+        gender: Gender  #g
+        given_ratings: Given ratings  #g
+        has_welcome_app_account: Has Welcome app account  #g
+        ignored_notifications_mask: Ignored notifications mask  #g
+        interests: Interests  #g
+        interview_comment: Interview comment  #g
+        interviewed_at: Interviewed at  #g
+        interviewed_by: :activerecord.models.interviewed_by  #g
+        job_digests: Job digests  #g
+        job_experience: Job experience  #g
+        job_users: Applicants  #g
+        jobs: Jobs  #g
+        just_arrived_staffing: Just Arrived staffing  #g
+        language: :activerecord.models.language  #g
+        languages: Languages  #g
+        last_name: Last name  #g
+        latitude: Latitude  #g
+        linkedin_url: LinkedIN URL  #g
+        longitude: Longitude  #g
+        managed: Managed  #g
+        messages: Messages  #g
+        next_of_kin_name: Next of kin name  #g
+        next_of_kin_phone: Next of kin phone  #g
+        occupations: Occupations  #g
+        one_time_token: One time token  #g
+        one_time_token_expires_at: One time token expires at  #g
+        owned_jobs: Owned jobs  #g
+        password_hash: Password hash  #g
+        password_salt: Password salt  #g
+        phone: Phone  #g
+        presentation_availability: Presentation availability  #g
+        presentation_personality: Presentation personality  #g
+        presentation_profile: Presentation profile  #g
+        public_profile: Public profile  #g
+        received_ratings: Received ratings  #g
+        skills: Skills  #g
+        skype_username: Skype username  #g
+        ssn: Ssn  #g
+        street: Street  #g
+        super_admin: Super admin  #g
+        system_language: :activerecord.models.system_language  #g
+        tags: Tags  #g
+        translations: Translations  #g
+        user_documents: User documents  #g
+        user_images: User images  #g
+        user_interests: User interests  #g
+        user_languages: User languages  #g
+        user_occupations: User occupations  #g
+        user_skills: User skills  #g
+        user_tags: User tags  #g
+        utalk_code: :activerecord.models.utalk_code  #g
+        verified: Verified  #g
+        welcome_app_last_checked_at: Welcome app last checked at  #g
+        written_comments: Written comments  #g
+        zip: Zip  #g
+        zip_latitude: Zip latitude  #g
+        zip_longitude: Zip longitude  #g
+
+      user_document:
+        category: Category  #g
+        document: :activerecord.models.document  #g
+        user: :activerecord.models.user  #g
 
       user_image:
-        image_content_type: Image content type
-        image_file_name: Image file name
-        image_file_size: Image file size
-        image_updated_at: Image updated at
-        one_time_token: One time token
-        one_time_token_expires_at: One time token expires at
-        user: User
+        category: Category  #g
+        image_content_type: Image content type  #g
+        image_file_name: Image file name  #g
+        image_file_size: Image file size  #g
+        image_updated_at: Image updated at  #g
+        one_time_token: One time token  #g
+        one_time_token_expires_at: One time token expires at  #g
+        user: :activerecord.models.user  #g
+
+      user_interest:
+        interest: :activerecord.models.interest  #g
+        level: Level  #g
+        level_by_admin: Level by admin  #g
+        user: :activerecord.models.user  #g
 
       user_language:
-        language: Language
-        user: User
+        language: :activerecord.models.language  #g
+        proficiency: Proficiency  #g
+        proficiency_by_admin: Proficiency by admin  #g
+        user: :activerecord.models.user  #g
+
+      user_occupation:
+        occupation: :activerecord.models.occupation  #g
+        user: :activerecord.models.user  #g
+        years_of_experience: Years of experience  #g
 
       user_skill:
-        skill: Skill
-        user: User
+        proficiency: Proficiency  #g
+        proficiency_by_admin: Proficiency by admin  #g
+        skill: :activerecord.models.skill  #g
+        user: :activerecord.models.user  #g
+
+      user_tag:
+        tag: :activerecord.models.tag  #g
+        user: :activerecord.models.user  #g
+
+      user_translation:
+        competence_text: Competence text  #g
+        description: Description  #g
+        education: Education  #g
+        job_experience: Job experience  #g
+        language: :activerecord.models.language  #g
+        locale: Locale  #g
+        user: :activerecord.models.user  #g
+
+      utalk_code:
+        claimed_at: Claimed at  #g
+        code: Code  #g
+        user: :activerecord.models.user  #g
+
+      visit:
+        ahoy_events: Ahoy events  #g
+        browser: Browser  #g
+        city: City  #g
+        country: Country  #g
+        device_type: Device type  #g
+        ip: IP  #g
+        landing_page: Landing page  #g
+        latitude: Latitude  #g
+        longitude: Longitude  #g
+        os: OS  #g
+        postal_code: Postal code  #g
+        referrer: Referrer  #g
+        referring_domain: Referring domain  #g
+        region: Region  #g
+        screen_height: Screen height  #g
+        screen_width: Screen width  #g
+        search_keyword: Search keyword  #g
+        started_at: Started at  #g
+        user: :activerecord.models.user  #g
+        user_agent: User agent  #g
+        utm_campaign: UTM-campaign  #g
+        utm_content: UTM-content  #g
+        utm_medium: UTM-medium  #g
+        utm_source: UTM-source  #g
+        utm_term: UTM-term  #g
+        visit_token: Visit token  #g
+        visitor_token: Visitor token  #g
