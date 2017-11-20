@@ -16,7 +16,7 @@ en:
     verified_selected: Verified selected.
     job_name: Job
     user_name: User
-    job_user_name: Job User
+    job_user_name: Applicant
     time_ago: '%{time} ago'
     time_from_now: '%{time} from now'
     download: Download
@@ -137,16 +137,16 @@ en:
         shortlist:
           confirm: Are you sure you want to shortlist these users?
           success:
-            one: Successfully shortlisted one job user.
-            other: Successfully shortlisted %{count} job users.
+            one: Successfully shortlisted one applicant.
+            other: Successfully shortlisted %{count} applicants.
         reject:
           confirm: Are you sure you want to reject these users?
           success:
-            one: Successfully rejected one job user.
-            other: Successfully rejected %{count} job users.
+            one: Successfully rejected one applicant.
+            other: Successfully rejected %{count} applicants.
         accepted:
           success_msg: 'Successfully accepted %{success_count} user(s), ignored %{ignore_count} user(s) that were already accepted.'
-          fail_msg: 'Failed to accept %{fail_count} user(s): job users IDs: %{fail_ids}. Successfully accepted %{success_count} user(s), ignored %{ignore_count} user(s) that were already accepted.'
+          fail_msg: 'Failed to accept %{fail_count} user(s): applicants IDs: %{fail_ids}. Successfully accepted %{success_count} user(s), ignored %{ignore_count} user(s) that were already accepted.'
       show:
         user_details: User details
         match_details: Match details
