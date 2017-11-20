@@ -281,7 +281,7 @@ en:
         response_body: Response body  #g
         status: Status  #g
         status_name: Status name  #g
-        uri: Uri  #g
+        uri: URI  #g
         verb: Verb  #g
 
       frilans_finans_invoice:
