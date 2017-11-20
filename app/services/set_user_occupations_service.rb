@@ -22,7 +22,7 @@ module SetUserOccupationsService
   def self.normalize_occupation_ids(occupation_ids_param)
     occupation_ids_param.map do |occupation|
       if occupation.respond_to?(:permit)
-        occupation.permit(:id, :proficiency)
+        occupation.permit(:id, :years_of_experience)
       else
         occupation
       end
