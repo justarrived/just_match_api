@@ -6,15 +6,16 @@ class CreateUserService
   end
 
   attr_reader :user, :params, :password, :consent, :language_ids, :skill_ids,
-              :interest_ids, :image_tokens
+              :interest_ids, :image_tokens, :occupation_ids
 
-  def initialize(params:, password:, consent:, language_ids:, skill_ids:, interest_ids:, image_tokens:) # rubocop:disable Metrics/LineLength
+  def initialize(params:, password:, consent:, language_ids:, skill_ids:, interest_ids:, image_tokens:, occupation_ids:) # rubocop:disable Metrics/LineLength
     @params = params
     @password = password
     @consent = consent
     @language_ids = language_ids
     @skill_ids = skill_ids
     @interest_ids = interest_ids
+    @occupation_ids = occupation_ids
     @image_tokens = image_tokens
     @user = User.new(params)
   end
@@ -56,7 +57,8 @@ class CreateUserService
       user: user,
       language_ids_param: language_ids,
       skill_ids_param: skill_ids,
-      interest_ids_param: interest_ids
+      interest_ids_param: interest_ids,
+      occupation_ids_param: occupation_ids
     )
 
     send_welcome_notification
