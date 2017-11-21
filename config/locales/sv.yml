@@ -136,9 +136,11 @@ sv:
   token_expired_error: Din token har upphört att gälla.
   user:
     missing_job_skills_trait: ovan kan du hitta relevanta kompetenser för det här jobbet som du inte lagt till än
+    missing_job_occupations_trait: ovan kan du hitta relevanta yrken för det här jobbet som du inte lagt till än
     missing_job_languages_trait: ovan kan du hitta relevanta språk för det här jobbet som du inte lagt till än
     missing_languages_trait: här kan du lägga till några utvalda språk som vi är intresserade att veta mer om
     missing_skills_trait: här kan du lägga till några utvalda kompetenser som vi är intresserade att veta mer om
+    missing_occupations_trait: här kan du lägga till några utvalda yrken som vi är intresserade att veta mer om
     statuses:
       asylum_seeker: Asylsökande
       asylum_seeker_description: Asylsökande
