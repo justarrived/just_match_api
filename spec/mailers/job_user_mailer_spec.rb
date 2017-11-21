@@ -33,10 +33,15 @@ RSpec.describe JobUserMailer, type: :mailer do
   describe '#new_applicant_job_info_email' do
     let(:skill) { FactoryBot.create(:skill) }
     let(:language) { FactoryBot.create(:language) }
+    let(:occupation) { FactoryBot.create(:language) }
     let(:missing_cv) { true }
     let(:mail) do
       described_class.new_applicant_job_info_email(
-        job_user: job_user, skills: [skill], languages: [language], missing_cv: missing_cv
+        job_user: job_user,
+        skills: [skill],
+        languages: [language],
+        occupations: [occupation],
+        missing_cv: missing_cv
       )
     end
 
@@ -78,6 +83,7 @@ RSpec.describe JobUserMailer, type: :mailer do
   describe '#update_data_reminder_email' do
     let(:skill) { FactoryBot.create(:skill) }
     let(:language) { FactoryBot.create(:language) }
+    let(:occupation) { FactoryBot.create(:occupation) }
     let(:mail) do
       described_class.update_data_reminder_email(
         job_user: job_user, skills: [skill], languages: [language]

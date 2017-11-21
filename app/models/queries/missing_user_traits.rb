@@ -22,6 +22,10 @@ module Queries
       languages - user.languages
     end
 
+    def occupations(occupations:)
+      occupations - user.occupations
+    end
+
     def cv?
       return @missing_cv unless @missing_cv.nil?
 
