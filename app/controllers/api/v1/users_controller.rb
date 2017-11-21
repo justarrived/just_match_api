@@ -320,6 +320,8 @@ module Api
           languages_hint: 'any language hint',
           skills: [Struct.new(:id).new(1)],
           skills_hint: 'any skill hint',
+          occupations: [Struct.new(:id).new(1)],
+          occupations_hint: 'any occupation hint',
           missing_cv: true
         ).to_h
       )
@@ -336,12 +338,17 @@ module Api
         skills = Skill.high_priority
         missing_skills = missing_traits.skills(skills: skills)
 
+        occupations = Occupation.roots
+        missing_occupations = missing_traits.occupations(occupations: occupations)
+
         response = MissingUserTraitsSerializer.serialize(
           user_attributes: missing_attributes,
           languages: missing_languages,
           languages_hint: I18n.t('user.missing_languages_trait'),
           skills: missing_skills,
           skills_hint: I18n.t('user.missing_skills_trait'),
+          occupations: missing_occupations,
+          occupations_hint: I18n.t('user.missing_occupations_trait'),
           missing_cv: missing_traits.cv?
         )
         render json: response

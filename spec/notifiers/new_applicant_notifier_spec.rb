@@ -9,6 +9,7 @@ RSpec.describe NewApplicantNotifier, type: :mailer do
   let(:user) { FactoryBot.build(:user) }
   let(:skills) { [FactoryBot.build(:skill)] }
   let(:languages) { [FactoryBot.build(:language)] }
+  let(:occupations) { [FactoryBot.build(:occupation)] }
   let(:owner) { FactoryBot.build(:user) }
 
   before(:each) do
@@ -22,6 +23,7 @@ RSpec.describe NewApplicantNotifier, type: :mailer do
       owner: owner,
       skills: skills,
       languages: languages,
+      occupations: occupations,
       missing_cv: true
     )
     expect(JobMailer).to have_received(:new_applicant_email).with(job_user: job_user, owner: owner) # rubocop:disable Metrics/LineLength
@@ -33,11 +35,16 @@ RSpec.describe NewApplicantNotifier, type: :mailer do
       owner: owner,
       skills: skills,
       languages: languages,
+      occupations: occupations,
       missing_cv: true
     }
     NewApplicantNotifier.call(**mailer_args)
     expected_args = {
-      job_user: job_user, skills: skills, languages: languages, missing_cv: true
+      job_user: job_user,
+      skills: skills,
+      languages: languages,
+      occupations: occupations,
+      missing_cv: true
     }
     expect(JobUserMailer).to have_received(:new_applicant_job_info_email).with(expected_args) # rubocop:disable Metrics/LineLength
   end

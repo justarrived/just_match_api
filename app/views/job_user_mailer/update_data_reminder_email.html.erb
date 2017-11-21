@@ -17,15 +17,12 @@
   ) %>
 <% end %>
 
-<% if @missing_languages.any? || @missing_skills.any? %>
+<% if @competence_names.any? %>
   <%= simple_format I18n.t('mailer.update_data_reminder.competence_list_title') %>
 
   <ul>
-  <% @missing_languages.each do |language| %>
-    <li><%= language.name %></li>
-  <% end %>
-  <% @missing_skills.each do |skill| %>
-    <li><%= skill.name %></li>
+  <% @competence_names.each do |name| %>
+    <li><%= name %></li>
   <% end %>
   </ul>
 

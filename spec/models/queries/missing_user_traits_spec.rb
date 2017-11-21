@@ -72,6 +72,34 @@ RSpec.describe Queries::MissingUserTraits do
     end
   end
 
+  describe '#occupations' do
+    let(:user) { FactoryBot.create(:user) }
+
+    it 'with missing occupations it returns a collection of those occupations' do
+      root0 = FactoryBot.create(:occupation, ancestry: nil)
+      root1 = FactoryBot.create(:occupation, ancestry: nil)
+      FactoryBot.create(:occupation, ancestry: root1.id)
+
+      expected = [root0, root1]
+      missing_traits = described_class.new(user: user)
+      occupations = missing_traits.occupations(occupations: expected)
+      expect(occupations).to eq(expected)
+    end
+
+    it 'with *no* missing occupations it returns an empty list' do
+      root0 = FactoryBot.create(:occupation, ancestry: nil)
+      root1 = FactoryBot.create(:occupation, ancestry: nil)
+      FactoryBot.create(:occupation, ancestry: root1.id)
+
+      expected = [root0, root1]
+      user.occupations = expected
+
+      missing_traits = described_class.new(user: user)
+      occupations = missing_traits.occupations(occupations: expected)
+      expect(occupations).to be_empty
+    end
+  end
+
   describe '#cv?' do
     let(:user) { FactoryBot.create(:user) }
 

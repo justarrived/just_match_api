@@ -4,15 +4,19 @@
 class JobUserMailerPreview < ActionMailer::Preview
   def new_applicant_job_info_email
     JobUserMailer.new_applicant_job_info_email(
-      job_user: job_user, skills: skills, languages: languages
+      job_user: job_user,
+      skills: skills,
+      languages: languages,
+      occupations: occupations
     )
   end
 
   def update_data_reminder_email
     JobUserMailer.update_data_reminder_email(
       job_user: job_user,
-      skills: Skill.first(2),
-      languages: Language.first(2),
+      skills: skills,
+      languages: languages,
+      occupations: occupations,
       missing_cv: true
     )
   end
@@ -37,5 +41,9 @@ class JobUserMailerPreview < ActionMailer::Preview
 
   def languages
     @languages ||= Language.last(2)
+  end
+
+  def occupations
+    @occupations ||= Occupation.last(2)
   end
 end

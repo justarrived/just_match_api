@@ -5,8 +5,10 @@ class MissingUserTraitsSerializer
     user_attributes:,
     skills: [],
     languages: [],
+    occupations: [],
     skills_hint: nil,
     languages_hint: nil,
+    occupations_hint: nil,
     missing_cv: false
   )
     attributes = {}
@@ -16,6 +18,10 @@ class MissingUserTraitsSerializer
 
     if languages.any?
       attributes[:language_ids] = { ids: languages.map(&:id), hint: languages_hint }
+    end
+
+    if occupations.any?
+      attributes[:occupation_ids] = { ids: occupations.map(&:id), hint: occupations_hint }
     end
 
     if skills.any?
