@@ -4,6 +4,21 @@ HEAD
 -----------
 
 
+v2.64 - 2017-11-21
+----------
+__API__:
+* Add occupations relation to user serializer
+* Allow users to delete user occupations
+* Expose user occupations to user create/update actions
+* Add user occupations to allowed includes
+
+__Admin__:
+* Update job user index filters
+
+__Enhancement__:
+* Specify more job user relations through user
+
+
 v2.63 - 2017-11-20
 ----------
 __Admin__:
