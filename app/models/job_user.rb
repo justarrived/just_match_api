@@ -15,6 +15,18 @@ class JobUser < ApplicationRecord
 
   has_many :active_admin_comments, as: :resource, dependent: :destroy
 
+  has_many :user_tags, through: :user
+  has_many :tags, through: :user_tags
+
+  has_many :user_skills, through: :user
+  has_many :skills, through: :user_skills
+
+  has_many :user_languages, through: :user
+  has_many :languages, through: :user_languages
+
+  has_many :user_occupations, through: :user
+  has_many :occupations, through: :user_occupations
+
   validates :user, presence: true
   validates :job, presence: true
 
