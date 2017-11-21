@@ -71,6 +71,16 @@ class UserSerializer < ApplicationSerializer
     object.user_languages.visible
   end
 
+  has_many :occupations do
+    link(:related) { api_v1_user_occupations_url(object.id) }
+  end
+
+  has_many :user_occupations do
+    link(:related) { api_v1_user_occupations_url(object.id) }
+
+    object.user_occupations
+  end
+
   has_many :user_documents, unless: :collection_serializer? do
     link(:related) { api_v1_user_documents_url(object.id) }
 
