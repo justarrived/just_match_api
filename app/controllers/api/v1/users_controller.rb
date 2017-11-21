@@ -206,6 +206,8 @@ module Api
           occupation_ids: jsonapi_params[:occupation_ids]
         )
 
+        @user.reload
+
         if @user.errors.empty?
           api_render(@user)
         else
