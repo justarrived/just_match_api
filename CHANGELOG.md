@@ -4,6 +4,22 @@ HEAD
 -----------
 
 
+v2.65 - 2017-11-23
+----------
+__API__:
+* :hocho: N+1 SQL-queries in sections #index action
+* Reload user after user update action
+
+__Enhancement__:
+* Update `User::needs_frilans_finans_id` to only return user with an accepted applicant
+* Update i18n
+* Utilize User occupations in emails etc
+
+__Update gem__:
+* `puma`
+* `rspec-rails`
+
+
 v2.64 - 2017-11-21
 ----------
 __API__:
