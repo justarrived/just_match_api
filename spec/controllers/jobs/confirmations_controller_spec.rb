@@ -30,11 +30,13 @@ RSpec.describe Api::V1::Jobs::ConfirmationsController, type: :controller do
       post :create, params: params
       job_user.reload
       expect(job_user.will_perform).to eq(true)
+      expect(response.status).to eq(200)
     end
 
     it 'fills job position' do
       post :create, params: params
       expect(assigns(:job).reload.position_filled?).to eq(true)
+      expect(response.status).to eq(200)
     end
 
     it 'creates frilans finans invoice' do
@@ -87,6 +89,29 @@ RSpec.describe Api::V1::Jobs::ConfirmationsController, type: :controller do
         error = parsed_body['errors'].first
         expect(error['status']).to eq(404)
         expect(error['detail']).to eq(error_message)
+      end
+    end
+
+    context 'staffing job with missing terms agreement ID param' do
+      let(:terms_agreement) { TermsAgreement.new }
+      let(:company) { FactoryBot.create(:company) }
+      let(:job) { FactoryBot.create(:job, staffing_company: company, owner: owner) }
+      let(:params) do
+        {
+          auth_token: user.auth_token,
+          job_id: job.to_param,
+          job_user_id: job_user.to_param,
+          data: {
+            attributes: {
+              consent: consent
+            }
+          }
+        }
+      end
+
+      it 'success' do
+        post :create, params: params
+        expect(response.status).to eq(200)
       end
     end
   end

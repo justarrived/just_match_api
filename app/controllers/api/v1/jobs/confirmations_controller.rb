@@ -38,7 +38,7 @@ module Api
 
           terms_id = jsonapi_params[:terms_agreement_id]
           terms_agreement = TermsAgreement.find_by(id: terms_id)
-          if terms_agreement.nil?
+          if @job.frilans_finans_job? && terms_agreement.nil?
             respond_with_terms_agreement_not_found
             return
           end
