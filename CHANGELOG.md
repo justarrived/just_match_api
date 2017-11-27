@@ -4,6 +4,23 @@ HEAD
 -----------
 
 
+v2.66 - 2017-11-27
+----------
+__API__:
+* Allow users to accept staffing jobs
+* Return 201 created status instead of 200 when a user signs a contract
+
+__Admin__:
+* Update `job#skills` form input Skill scope
+
+__Enhancement__:
+* Convert `SignJobUserService` to use an instance of if-self internally
+
+__Update gem__:
+* Bump `stackprof` from 0.2.10 to 0.2.11
+* Bump `active_admin_scoped_collection_actions` from 04cdcb to a6311e
+
+
 v2.65 - 2017-11-23
 ----------
 __API__:
