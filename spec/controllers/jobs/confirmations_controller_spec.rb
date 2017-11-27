@@ -30,13 +30,13 @@ RSpec.describe Api::V1::Jobs::ConfirmationsController, type: :controller do
       post :create, params: params
       job_user.reload
       expect(job_user.will_perform).to eq(true)
-      expect(response.status).to eq(200)
+      expect(response.status).to eq(201)
     end
 
     it 'fills job position' do
       post :create, params: params
       expect(assigns(:job).reload.position_filled?).to eq(true)
-      expect(response.status).to eq(200)
+      expect(response.status).to eq(201)
     end
 
     it 'creates frilans finans invoice' do
@@ -111,7 +111,7 @@ RSpec.describe Api::V1::Jobs::ConfirmationsController, type: :controller do
 
       it 'success' do
         post :create, params: params
-        expect(response.status).to eq(200)
+        expect(response.status).to eq(201)
       end
     end
   end

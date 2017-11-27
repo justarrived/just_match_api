@@ -55,7 +55,7 @@ module Api
           )
 
           if @job_user.valid?
-            api_render(@job_user)
+            api_render(@job_user, status: :created)
           else
             api_render_errors(@job_user)
           end
