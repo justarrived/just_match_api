@@ -7,9 +7,9 @@ GIT
 
 GIT
   remote: https://github.com/activeadmin-plugins/active_admin_scoped_collection_actions.git
-  revision: 04cdcb9b96c4408856c423930476b5dd4debf521
+  revision: a6311e652711dba0c04d9b455a33c32367a9cea6
   specs:
-    active_admin_scoped_collection_actions (0.3.4)
+    active_admin_scoped_collection_actions (0.3.5)
 
 GIT
   remote: https://github.com/mailcheck/mailcheck-ruby.git
