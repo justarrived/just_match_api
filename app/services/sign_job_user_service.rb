@@ -1,7 +1,19 @@
 # frozen_string_literal: true
 
 class SignJobUserService
-  def self.call(job_user:, job_owner:, terms_agreement:)
+  def self.call(**args)
+    new(**args).call
+  end
+
+  attr_reader :job_user, :job_owner, :terms_agreement
+
+  def initialize(job_user:, job_owner:, terms_agreement:)
+    @job_user = job_user
+    @job_owner = job_owner
+    @terms_agreement = terms_agreement
+  end
+
+  def call
     job_user.will_perform = true
     return job_user unless job_user.save
 
@@ -27,7 +39,7 @@ class SignJobUserService
     job_user
   end
 
-  def self.reject_non_accepted_applicants(signed_job_user)
+  def reject_non_accepted_applicants(signed_job_user)
     job_users = signed_job_user.job.
                 job_users.
                 not_accepted.
