@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register UtalkCode do
+  menu parent: 'Misc'
+
   permit_params do
     %i[
       code
