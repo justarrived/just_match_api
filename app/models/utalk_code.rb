@@ -10,6 +10,18 @@ class UtalkCode < ApplicationRecord
   def self.first_unclaimed
     unclaimed.limit(1).first
   end
+
+  def signup_url
+    return nil unless user
+
+    params = {
+      e: user.email,
+      n: user.name,
+      c: code
+    }
+
+    "https://utalk.com/en/start?#{URI.encode_www_form(params.to_a)}"
+  end
 end
 
 # == Schema Information
