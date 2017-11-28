@@ -147,4 +147,5 @@ group :test, :docs do
   gem 'simplecov', '~> 0.13', require: false
   gem 'timecop', '~> 0.8'
   gem 'webmock', '~> 3.1'
+  gem 'rb-readline', '~> 0.5'
 end
