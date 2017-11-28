@@ -9,6 +9,8 @@ class UtalkCodeSerializer < ApplicationSerializer
   belongs_to :user do
     link(:related) { api_v1_user_url(user_id: object.user.id) }
   end
+
+  attribute :signup_url
 end
 
 # == Schema Information
