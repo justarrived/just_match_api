@@ -2,7 +2,12 @@
 
 FactoryBot.define do
   factory :guide_image do
-    title 'MyString'
+    title 'Image title'
+
+    # Image attributes
+    image_file_name { 'test.png' }
+    image_content_type { 'image/png' }
+    image_file_size { 1024 }
   end
 end
 
