@@ -146,6 +146,15 @@ $skinTablePadding: 10px !default;
   text-decoration: none;
 }
 
+// Guide
+
+.guide-image-inline-thumbnails {
+  display: inline-block;
+  max-width: 300px;
+}
+
+
+// CodeMirror
 
 .CodeMirror.CodeMirror-sided.CodeMirror-fullscreen {
   padding-top: 100px; // Account for ActiveAdmin title-bar

@@ -143,9 +143,9 @@ group :test, :docs do
   gem 'database_cleaner', '~> 1.6'
   gem 'fuubar', '~> 2.2'
   gem 'rails-controller-testing', '~> 1.0'
+  gem 'rb-readline', '~> 0.5'
   gem 'rspec-activemodel-mocks', '~> 1.0'
   gem 'simplecov', '~> 0.13', require: false
   gem 'timecop', '~> 0.8'
   gem 'webmock', '~> 3.1'
-  gem 'rb-readline', '~> 0.5'
 end

@@ -92,6 +92,12 @@ ActiveAdmin.register GuideSectionArticle do
       f.input :slug
       f.input :short_description
       f.input :body, as: :text, input_html: { markdown: true }
+
+      GuideImage.last(10).each do |guide_image|
+        div(class: 'guide-image-inline-thumbnails') do
+          image_tag(guide_image.image.url(:medium))
+        end
+      end
     end
 
     f.actions
