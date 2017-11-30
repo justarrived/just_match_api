@@ -19,6 +19,9 @@ ActiveAdmin.register GuideImage do
     attributes_table do
       row :id
       row :guide_image { image_tag(large_url) }
+      (%i[original] + GuideImage::IMAGE_STYLES.keys).each do |size|
+        row("#{size}_url") { guide_image.image.url(size) }
+      end
       row :url { large_url }
       row :created_at
       row :updated_at
