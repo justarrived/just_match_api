@@ -10,10 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171118100932) do
+ActiveRecord::Schema.define(version: 20171130082854) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "hstore"
+  enable_extension "pg_stat_statements"
   enable_extension "unaccent"
 
   create_table "active_admin_comments", id: :serial, force: :cascade do |t|
@@ -21,8 +23,8 @@ ActiveRecord::Schema.define(version: 20171118100932) do
     t.text "body"
     t.string "resource_id", null: false
     t.string "resource_type", null: false
-    t.string "author_type"
     t.integer "author_id"
+    t.string "author_type"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id"
@@ -154,8 +156,8 @@ ActiveRecord::Schema.define(version: 20171118100932) do
 
   create_table "comments", id: :serial, force: :cascade do |t|
     t.text "body"
-    t.string "commentable_type"
     t.integer "commentable_id"
+    t.string "commentable_type"
     t.integer "owner_user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -364,6 +366,16 @@ ActiveRecord::Schema.define(version: 20171118100932) do
     t.boolean "company", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "guide_images", force: :cascade do |t|
+    t.string "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "image_file_name"
+    t.string "image_content_type"
+    t.integer "image_file_size"
+    t.datetime "image_updated_at"
   end
 
   create_table "guide_section_article_translations", force: :cascade do |t|
@@ -657,9 +669,9 @@ ActiveRecord::Schema.define(version: 20171118100932) do
     t.string "city"
     t.boolean "staffing_job", default: false
     t.boolean "direct_recruitment_job", default: false
+    t.integer "order_id"
     t.string "municipality"
     t.integer "number_to_fill", default: 1
-    t.integer "order_id"
     t.boolean "full_time", default: false
     t.string "swedish_drivers_license"
     t.boolean "car_required", default: false

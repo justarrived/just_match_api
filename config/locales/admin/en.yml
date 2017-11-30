@@ -41,6 +41,12 @@ en:
       update_users_btn: Refresh search
     filter:
       near_address: "Near address (add 'km: XX' for distance)"
+    guide_image:
+      form:
+        title:
+          hint: This will be used as the images alt-text.
+        image:
+          hint: 'The image will be resized to: %{formats}.'
     recent_users:
       title: Recent users
     recent_jobs:
