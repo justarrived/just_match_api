@@ -44,7 +44,7 @@ en:
     guide_image:
       form:
         title:
-          hint: This will be used as the images alt-text.
+          hint: Just to make this image a bit easier to find / talk about.
         image:
           hint: 'The image will be resized to: %{formats}.'
     recent_users:
