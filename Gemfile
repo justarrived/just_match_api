@@ -67,7 +67,7 @@ gem 'activeadmin', '~> 1.1' # Admin interface
 gem 'blazer', '~> 1.8' # Explore data with SQL
 gem 'chosen-rails', '~> 1.5' # Needed for autocomplete select input for activeadmin
 gem 'inherited_resources', '~> 1.8' # activeadmin Rails 5
-gem 'uglifier', '~> 3.2' # Needed for activeadmin assets compilation
+gem 'uglifier', '~> 4.0' # Needed for activeadmin assets compilation
 
 gem 'arbetsformedlingen', '~> 0.1' # Gem for publishing jobs to Arbetsformedlingen (Swedish Employment Service)
 
