@@ -4,6 +4,24 @@ HEAD
 -----------
 
 
+v2.70 - 2017-12-04
+----------
+__API__:
+* Respond with 200 and empty data instead of 404 for user/:id/utalk_code
+
+__Admin__:
+* Link to all guide image URL sizes on show page
+
+__Gem update__:
+* Bump `uglifier` from 3.2.0 to 4.0.1
+* Bump `inherited_resources` from 1.7.2 to 1.8.0
+* Bump `kramdown` from 1.15.0 to 1.16.2
+* Bump `geocoder` from 1.4.4 to 1.4.5
+* Bump `twilio-ruby` from 5.5.0 to 5.5.1
+* Bump `bullet` from 5.6.1 to 5.7.0
+* Bump `rinku` from 2.0.3 to 2.0.4
+
+
 v2.69 - 2017-11-30
 ----------
 * Add `GuideImage` model
