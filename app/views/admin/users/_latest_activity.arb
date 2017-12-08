@@ -22,7 +22,15 @@ events = Ahoy::Event.where(
 ).order(id: :desc).limit(20)
 
 table_for(events) do
-  column :name { |event| significant_event_names_map[event.name] }
+  column :name do |event|
+    name = significant_event_names_map[event.name]
+    status = event.properties['response_status']
+    if status == 422
+      "Failed to #{name.downcase}"
+    else
+      name
+    end
+  end
   column :time_ago do |event|
     time_ago = distance_of_time_in_words(Time.zone.now, event.time)
     "#{time_ago} ago"
