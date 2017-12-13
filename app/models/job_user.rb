@@ -7,6 +7,7 @@ class JobUser < ApplicationRecord
   belongs_to :job
   belongs_to :language, optional: true
 
+  has_one :just_arrived_contact, through: :job
   has_one :company_contact, through: :job
   has_one :owner, through: :job
   has_one :company, through: :job
