@@ -4,6 +4,17 @@ HEAD
 -----------
 
 
+v2.71 - 2017-12-13
+----------
+__Admin__:
+* Prepend "Failed to" if user activity failed
+* Add direct link to job applicants on dashboard
+
+__Gem updates__:
+* Bump `apipie-rails` from 0.5.5 to 0.5.6
+* Bump `uglifier` from 4.0.1 to 4.0.2
+
+
 v2.70 - 2017-12-04
 ----------
 __API__:
