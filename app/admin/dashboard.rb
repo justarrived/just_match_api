@@ -22,7 +22,8 @@ ActiveAdmin.register_page 'Dashboard' do
                                            user_icon_png(html_class: 'table-column-icon'),
                                            job.job_users_count
                                          ])
-              column_content
+              link_path = admin_job_users_path + AdminHelpers::Link.query(:job_id, job.id)
+              link_to(column_content, link_path, class: 'table-column-icon-link')
             end
 
             column(I18n.t('admin.recent_jobs.name')) do |job|
@@ -119,7 +120,8 @@ ActiveAdmin.register_page 'Dashboard' do
                                            user_icon_png(html_class: 'table-column-icon'),
                                            job.job_users_count
                                          ])
-              column_content
+              link_path = admin_job_users_path + AdminHelpers::Link.query(:job_id, job.id)
+              link_to(column_content, link_path, class: 'table-column-icon-link')
             end
 
             column(I18n.t('admin.my_unfilled_urgent_jobs.name')) do |job|
@@ -160,7 +162,8 @@ ActiveAdmin.register_page 'Dashboard' do
                                            user_icon_png(html_class: 'table-column-icon'),
                                            job.job_users_count
                                          ])
-              column_content
+             link_path = admin_job_users_path + AdminHelpers::Link.query(:job_id, job.id)
+             link_to(column_content, link_path, class: 'table-column-icon-link')
             end
 
             column(I18n.t('admin.unfilled_urgent_jobs.name')) do |job|
