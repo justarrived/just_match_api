@@ -5,6 +5,11 @@ ActiveAdmin.register Occupation do
 
   include AdminHelpers::MachineTranslation::Actions
 
+  filter :translations_name_cont, as: :string, label: I18n.t('admin.name')
+  filter :ancestry, as: :select, collection: -> { Occupation.roots.with_translations }
+  filter :created_at
+  filter :updated_at
+
   set_occupation_translation = lambda do |occupation, permitted_params|
     return unless occupation.persisted? && occupation.valid?
 

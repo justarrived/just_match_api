@@ -12,6 +12,7 @@ en:
     time_from_now: '%{time} from now'
     download: Download
     upload: Upload
+    name: Name
     arbetsformedlingen_ad:
       push:
         button: Push
