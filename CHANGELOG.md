@@ -4,6 +4,12 @@ HEAD
 -----------
 
 
+v2.72 - 2017-12-14
+----------
+__Admin__:
+* Update filters for occupation/skill/interest/tag models
+
+
 v2.71 - 2017-12-13
 ----------
 __Admin__:
