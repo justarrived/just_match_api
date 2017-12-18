@@ -135,7 +135,7 @@ GEM
       chartkick
       rails
       safely_block (>= 0.1.1)
-    bootsnap (1.1.5)
+    bootsnap (1.1.7)
       msgpack (~> 1.0)
     browser (2.4.0)
     builder (3.2.3)
@@ -519,7 +519,7 @@ GEM
     minitest (5.10.3)
     money (6.9.0)
       i18n (>= 0.6.4, < 0.9)
-    msgpack (1.1.0)
+    msgpack (1.2.0)
     multi_json (1.12.2)
     multi_xml (0.6.0)
     multipart-post (2.0.0)
