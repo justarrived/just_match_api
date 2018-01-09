@@ -105,7 +105,7 @@ class JobSerializer < ApplicationSerializer
     object.dates_object.starts_in_the_future?
   end
 
-  attribute :schema_org do
+  attribute :schema_org, unless: :collection_serializer? do
     {
       job_position: SchemaOrg::JobPosting.new(
         job: object,
