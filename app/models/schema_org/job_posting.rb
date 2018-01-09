@@ -13,15 +13,11 @@ module SchemaOrg
       @main_occupation = main_occupation
     end
 
-    def title
-      main_occupation_name.presence ||
+    def main_occupation_name
+      main_occupation.name.presence ||
         job.metrojobb_category.presence ||
         job.blocketjobb_category.presence ||
         job.category&.name.presence
-    end
-
-    def main_occupation_name
-      main_occupation.name
     end
 
     # @see http://schema.org/JobPosting
@@ -59,7 +55,7 @@ module SchemaOrg
         'qualifications' => job.requirements_description,
         'responsibilities' => job.tasks_description,
         'skills' => job.applicant_description,
-        'title' => title
+        'title' => main_occupation_name
       }
       if job.last_application_at
         # "2017-02-24" or "2017-02-24T19:33:17+00:00"
