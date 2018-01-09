@@ -65,7 +65,7 @@ gem 'active_admin_scoped_collection_actions', github: 'activeadmin-plugins/activ
 gem 'active_admin_theme', '~> 1.0' # activeadmin theme
 gem 'activeadmin', '~> 1.2' # Admin interface
 gem 'blazer', '~> 1.8' # Explore data with SQL
-gem 'chosen-rails', '~> 1.5' # Needed for autocomplete select input for activeadmin
+gem 'chosen-rails', '~> 1.8' # Needed for autocomplete select input for activeadmin
 gem 'inherited_resources', '~> 1.8' # activeadmin Rails 5
 gem 'uglifier', '~> 4.1' # Needed for activeadmin assets compilation
 
