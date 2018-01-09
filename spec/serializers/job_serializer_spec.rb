@@ -43,6 +43,11 @@ RSpec.describe JobSerializer, type: :serializer do
       expect(subject).to have_jsonapi_attribute('translated_text', value)
     end
 
+    it 'has schema_org contains @type: JobPosting' do
+      value = subject.dig('data', 'attributes', 'schema_org', 'job_position')['@type']
+      expect(value).to eq('JobPosting')
+    end
+
     it 'has net_amount_with_currency' do
       expect(subject).to have_jsonapi_attribute('net_amount_with_currency', '2,100 SEK')
     end

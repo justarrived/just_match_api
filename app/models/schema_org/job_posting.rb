@@ -54,7 +54,6 @@ module SchemaOrg
             '@type' => 'PostalAddress',
             'streetAddress' => job.street,
             'addressLocality' => job.city,
-            # "addressRegion" => "MI",
             'postalCode' => job.zip,
             'addressCountry' => job.country_code
           }
