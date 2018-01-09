@@ -22,6 +22,7 @@ module Api
         user_languages user_languages.language language languages company user_images
         user_skills skills user_skills.skill user_documents user_documents.document
         user_interests user_interests.interest interests
+        user_occupations user_occupations.occupation occupations
       ).freeze
 
       api :GET, '/users', 'List users'
@@ -83,12 +84,16 @@ module Api
             param :id, Integer, desc: 'Language id', required: true
             param :proficiency, UserLanguage::PROFICIENCY_RANGE.to_a, desc: 'Language proficiency'
           end
+          param :occupation_ids, Array, of: Hash, desc: 'List of occupation ids' do
+            param :id, Integer, desc: 'Occupation id', required: true
+            param :years_of_experience, (1..100).to_a, desc: 'Years of experience'
+          end
           param :skill_ids, Array, of: Hash, desc: 'List of skill ids' do
             param :id, Integer, desc: 'Skill id', required: true
             param :proficiency, UserSkill::PROFICIENCY_RANGE.to_a, desc: 'Skill proficiency'
           end
           param :interest_ids, Array, of: Hash, desc: 'List of interest ids' do
-            param :id, Integer, desc: 'Level id', required: true
+            param :id, Integer, desc: 'Interest id', required: true
             param :proficiency, UserInterest::LEVEL_RANGE.to_a, desc: 'Interest level'
           end
           param :user_image_one_time_tokens, Array, of: 'UserImage one time tokens', desc: 'User image one time tokens'
@@ -118,6 +123,7 @@ module Api
           language_ids: jsonapi_params[:language_ids],
           skill_ids: jsonapi_params[:skill_ids],
           interest_ids: jsonapi_params[:interest_ids],
+          occupation_ids: jsonapi_params[:occupation_ids],
           image_tokens: jsonapi_params[:user_image_one_time_tokens]
         )
 
@@ -159,6 +165,10 @@ module Api
             param :id, Integer, desc: 'Language id', required: true
             param :proficiency, UserLanguage::PROFICIENCY_RANGE.to_a, desc: 'Language proficiency'
           end
+          param :occupation_ids, Array, of: Hash, desc: 'List of occupation ids' do
+            param :id, Integer, desc: 'Occupation id', required: true
+            param :years_of_experience, (1..100).to_a, desc: 'Years of experience'
+          end
           param :skill_ids, Array, of: Hash, desc: 'List of skill ids' do
             param :id, Integer, desc: 'Skill id', required: true
             param :proficiency, UserSkill::PROFICIENCY_RANGE.to_a, desc: 'Skill proficiency'
@@ -192,8 +202,11 @@ module Api
           params: user_params,
           language_ids: jsonapi_params[:language_ids],
           skill_ids: jsonapi_params[:skill_ids],
-          interest_ids: jsonapi_params[:interest_ids]
+          interest_ids: jsonapi_params[:interest_ids],
+          occupation_ids: jsonapi_params[:occupation_ids]
         )
+
+        @user.reload
 
         if @user.errors.empty?
           api_render(@user)
@@ -307,6 +320,8 @@ module Api
           languages_hint: 'any language hint',
           skills: [Struct.new(:id).new(1)],
           skills_hint: 'any skill hint',
+          occupations: [Struct.new(:id).new(1)],
+          occupations_hint: 'any occupation hint',
           missing_cv: true
         ).to_h
       )
@@ -323,12 +338,17 @@ module Api
         skills = Skill.high_priority
         missing_skills = missing_traits.skills(skills: skills)
 
+        occupations = Occupation.roots
+        missing_occupations = missing_traits.occupations(occupations: occupations)
+
         response = MissingUserTraitsSerializer.serialize(
           user_attributes: missing_attributes,
           languages: missing_languages,
           languages_hint: I18n.t('user.missing_languages_trait'),
           skills: missing_skills,
           skills_hint: I18n.t('user.missing_skills_trait'),
+          occupations: missing_occupations,
+          occupations_hint: I18n.t('user.missing_occupations_trait'),
           missing_cv: missing_traits.cv?
         )
         render json: response

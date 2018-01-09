@@ -23,8 +23,10 @@ module Api
         def index
           authorize(GuideSection)
 
+          sections_scope = GuideSection.
+                           includes(articles: %i[translations language section])
           sections_index = Index::GuideSectionsIndex.new(self)
-          @sections = sections_index.sections
+          @sections = sections_index.sections(sections_scope)
 
           api_render(@sections, total: sections_index.count)
         end

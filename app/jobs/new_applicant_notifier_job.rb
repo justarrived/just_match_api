@@ -8,6 +8,7 @@ class NewApplicantNotifierJob < ApplicationJob
     missing_traits = Queries::MissingUserTraits.new(user: user)
     missing_skills = missing_traits.skills(skills: job.skills)
     missing_languages = missing_traits.languages(languages: job.languages)
+    missing_occupations = missing_traits.occupations(occupations: job.occupations)
     missing_cv = missing_traits.cv?
 
     NewApplicantNotifier.call(
@@ -15,6 +16,7 @@ class NewApplicantNotifierJob < ApplicationJob
       owner: job.owner,
       skills: missing_skills,
       languages: missing_languages,
+      occupations: missing_occupations,
       missing_cv: missing_cv
     )
   end

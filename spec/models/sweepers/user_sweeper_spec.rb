@@ -7,6 +7,9 @@ RSpec.describe Sweepers::UserSweeper do
     context 'active Frilans Finans client' do
       it 'sets user frilans finans id' do
         user = FactoryBot.create(:user, frilans_finans_id: nil)
+        user_scope = User.where(id: user.id)
+
+        allow(User).to receive(:needs_frilans_finans_id).and_return(user_scope)
 
         isolate_frilans_finans_client(FrilansFinansAPI::FixtureClient) do
           described_class.create_frilans_finans

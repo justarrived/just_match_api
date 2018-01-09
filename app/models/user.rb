@@ -132,7 +132,10 @@ class User < ApplicationRecord
     not_anonymized.
       regular_users.
       where(frilans_finans_id: nil).
-      where.not(phone: [nil, ''])
+      where.not(phone: [nil, '']).
+      left_joins(:job_users).
+      where('job_users.id IS NOT NULL AND job_users.will_perform = true').
+      distinct
   })
   scope :anonymized, (-> { where(anonymized: true) })
   scope :not_anonymized, (-> { where(anonymized: false) })

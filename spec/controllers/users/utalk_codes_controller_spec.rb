@@ -34,7 +34,8 @@ RSpec.describe Api::V1::Users::UtalkCodesController, type: :controller do
 
         get :index, params: { user_id: user.id, auth_token: user.auth_token }
 
-        expect(response.status).to eq(404)
+        expect(response.status).to eq(200)
+        expect(JSON.parse(response.body)).to eq('data' => nil)
       end
     end
   end

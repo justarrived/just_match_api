@@ -3,6 +3,10 @@
 ActiveAdmin.register Tag do
   menu parent: 'Settings'
 
+  filter :name
+  filter :created_at
+  filter :updated_at
+
   index do
     selectable_column
 

@@ -4,6 +4,127 @@ HEAD
 -----------
 
 
+v2.73 - 2018-01-09
+----------
+* Bump `activeadmin` from 1.1.0 to 1.2.0
+* Bump `airbrake` from 7.1.0 to 7.1.1
+* Bump `bootsnap` from 1.1.5 to 1.1.7
+* Bump `bootsnap` from 1.1.7 to 1.1.8
+* Bump `bullet` from 5.7.0 to 5.7.1
+* Bump `chosen-rails` from 1.5.2 to 1.8.2
+* Bump `countries` from 2.1.2 to 2.1.3
+* Bump `faker` from 1.8.4 to 1.8.7
+* Bump `fuubar` from 2.2.0 to 2.3.1
+* Bump `letter_opener` from 1.4.1 to 1.5.0
+* Bump `newrelic_rpm` from 4.6.0.338 to 4.7.1.340
+* Bump `rubocop` from 0.51.0 to 0.52.0
+* Bump `rubocop` from 0.52.0 to 0.52.1
+* Bump `twilio-ruby` from 5.5.1 to 5.6.0
+* Bump `uglifier` from 4.0.2 to 4.1.2
+* Bump `uglifier` from 4.1.2 to 4.1.3
+* Bump `webmock` from 3.1.1 to 3.2.1
+
+
+v2.72 - 2017-12-14
+----------
+__Admin__:
+* Update filters for occupation/skill/interest/tag models
+
+
+v2.71 - 2017-12-13
+----------
+__Admin__:
+* Prepend "Failed to" if user activity failed
+* Add direct link to job applicants on dashboard
+
+__Gem updates__:
+* Bump `apipie-rails` from 0.5.5 to 0.5.6
+* Bump `uglifier` from 4.0.1 to 4.0.2
+
+
+v2.70 - 2017-12-04
+----------
+__API__:
+* Respond with 200 and empty data instead of 404 for user/:id/utalk_code
+
+__Admin__:
+* Link to all guide image URL sizes on show page
+
+__Gem update__:
+* Bump `uglifier` from 3.2.0 to 4.0.1
+* Bump `inherited_resources` from 1.7.2 to 1.8.0
+* Bump `kramdown` from 1.15.0 to 1.16.2
+* Bump `geocoder` from 1.4.4 to 1.4.5
+* Bump `twilio-ruby` from 5.5.0 to 5.5.1
+* Bump `bullet` from 5.6.1 to 5.7.0
+* Bump `rinku` from 2.0.3 to 2.0.4
+
+
+v2.69 - 2017-11-30
+----------
+* Add `GuideImage` model
+
+
+v2.68 - 2017-11-29
+----------
+__API__:
+* Add `UtalkCode#signup_url`
+
+
+v2.67 - 2017-11-28
+----------
+__Admin__:
+* Add `UtalkCode` resource
+
+
+v2.66 - 2017-11-27
+----------
+__API__:
+* Allow users to accept staffing jobs
+* Return 201 created status instead of 200 when a user signs a contract
+
+__Admin__:
+* Update `job#skills` form input Skill scope
+
+__Enhancement__:
+* Convert `SignJobUserService` to use an instance of if-self internally
+
+__Update gem__:
+* Bump `stackprof` from 0.2.10 to 0.2.11
+* Bump `active_admin_scoped_collection_actions` from 04cdcb to a6311e
+
+
+v2.65 - 2017-11-23
+----------
+__API__:
+* :hocho: N+1 SQL-queries in sections #index action
+* Reload user after user update action
+
+__Enhancement__:
+* Update `User::needs_frilans_finans_id` to only return user with an accepted applicant
+* Update i18n
+* Utilize User occupations in emails etc
+
+__Update gem__:
+* `puma`
+* `rspec-rails`
+
+
+v2.64 - 2017-11-21
+----------
+__API__:
+* Add occupations relation to user serializer
+* Allow users to delete user occupations
+* Expose user occupations to user create/update actions
+* Add user occupations to allowed includes
+
+__Admin__:
+* Update job user index filters
+
+__Enhancement__:
+* Specify more job user relations through user
+
+
 v2.63 - 2017-11-20
 ----------
 __Admin__:

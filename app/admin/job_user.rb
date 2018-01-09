@@ -141,19 +141,15 @@ ActiveAdmin.register JobUser do
   scope :not_pre_reported
 
   filter :user_documents_text_content_cont, as: :string, label: I18n.t('admin.user.resume_search_label') # rubocop:disable Metrics/LineLength
-  filter :job_cancelled_eq, as: :boolean, label: I18n.t('admin.job.cancelled')
-  filter :user_first_name_cont, as: :string, label: I18n.t('admin.user.first_name')
-  filter :user_last_name_cont, as: :string, label: I18n.t('admin.user.last_name')
-  filter :job_translations_name_cont, as: :string, label: I18n.t('admin.job.name_search')
-  filter :user_verified_eq, as: :boolean, label: I18n.t('admin.user.verified')
+  filter :tags
+  filter :languages
+  filter :user_interview_comment_cont, as: :string
+  filter :occupations
   filter :job, collection: -> { Job.with_translations.order_by_name.limit(1000) }
-  filter :frilans_finans_invoice, collection: -> { FrilansFinansInvoice.order(id: :desc) }
-  filter :invoice, collection: -> { Invoice.order(id: :desc) }
   filter :accepted
   filter :will_perform
   filter :performed
   filter :shortlisted
-  filter :application_withdrawn
   filter :updated_at
   filter :created_at
   filter :translations_apply_message_cont, as: :string, label: I18n.t('admin.job_user.apply_message') # rubocop:disable Metrics/LineLength

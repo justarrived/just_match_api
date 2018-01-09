@@ -48,7 +48,7 @@ en:
     chat:
       number_of_users: a chat must consist of between %{min}-%{max} number of users
     frilans_finans_invoice:
-      job_is_frilans_finans_job: job must be a Frilans Finans job
+      job_is_frilans_finans_job: must be a Frilans Finans job
     invoice:
       job_started: job start time must be in the passed before an invoice can be created
       job_user_accepted: user must be the accepted applicant before an invoice can be created
@@ -140,6 +140,8 @@ en:
     missing_job_languages_trait: above you can find some relevant languages for this job that you haven't added yet
     missing_languages_trait: here you can add some selected language skills that we really want to know more about
     missing_skills_trait: here you can add some selected skills that we really want to know more about
+    missing_occupations_trait: here you can add some selected occupations that we really want to know more about
+    missing_job_occupations_trait: above you can find some relevant occupations for this job that you haven't added yet
     statuses:
       asylum_seeker: Asylum seeker
       asylum_seeker_description: Asylum seeker

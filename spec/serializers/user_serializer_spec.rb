@@ -37,7 +37,7 @@ RSpec.describe UserSerializer, type: :serializer do
       expect(subject).to have_jsonapi_attribute('translated_text', value)
     end
 
-    %w(language languages company user_images).each do |relationship|
+    %w(language languages company user_images occupations).each do |relationship|
       it "has #{relationship} relationship" do
         expect(subject).to have_jsonapi_relationship(relationship)
       end

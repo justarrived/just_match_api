@@ -320,6 +320,30 @@ RSpec.describe Api::V1::UsersController, type: :controller do
           expect(user_interest.level).to eq(3)
         end
       end
+
+      context 'with user occupations' do
+        let(:occupation) { FactoryBot.create(:occupation) }
+        let(:occupation_id) { occupation.id }
+        let(:new_attributes) do
+          {
+            auth_token: logged_in_user.auth_token,
+            data: {
+              attributes: {
+                occupation_ids: [{ id: occupation_id, years_of_experience: 3 }]
+              }
+            }
+          }
+        end
+
+        it 'creates from occupation list of id and years_of_experience' do
+          params = { user_id: logged_in_user.to_param }.merge(new_attributes)
+          put :update, params: params
+
+          user_occupation = assigns(:user).user_occupations.first
+          expect(user_occupation.occupation.id).to eq(occupation_id)
+          expect(user_occupation.years_of_experience).to eq(3)
+        end
+      end
     end
 
     context 'with invalid params' do

@@ -21,6 +21,7 @@ en:
     time_from_now: '%{time} from now'
     download: Download
     upload: Upload
+    name: Name
     arbetsformedlingen_ad:
       push:
         button: Push
@@ -50,6 +51,12 @@ en:
       update_users_btn: Refresh search
     filter:
       near_address: "Near address (add 'km: XX' for distance)"
+    guide_image:
+      form:
+        title:
+          hint: Just to make this image a bit easier to find / talk about.
+        image:
+          hint: 'The image will be resized to: %{formats}.'
     recent_users:
       title: Recent users
     recent_jobs:

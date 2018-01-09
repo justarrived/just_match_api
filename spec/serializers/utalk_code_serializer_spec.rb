@@ -20,6 +20,11 @@ RSpec.describe UtalkCodeSerializer, type: :serializer do
       end
     end
 
+    it 'has signup_url attribute' do
+      value = resource.signup_url
+      expect(subject).to have_jsonapi_attribute('signup_url', value)
+    end
+
     %w(user).each do |relationship|
       it "has #{relationship} relationship" do
         expect(subject).to have_jsonapi_relationship(relationship)

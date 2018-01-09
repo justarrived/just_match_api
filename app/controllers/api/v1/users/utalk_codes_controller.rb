@@ -30,7 +30,7 @@ module Api
         example Doxxer.read_example(UtalkCode)
         def index
           unless @utalk_code
-            render_record_not_found
+            render json: { data: nil }
             return
           end
 

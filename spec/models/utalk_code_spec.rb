@@ -16,6 +16,25 @@ RSpec.describe UtalkCode, type: :model do
       expect(described_class.first_unclaimed).to be_nil
     end
   end
+
+  describe '#signup_url' do
+    it 'returns nil if there is no user' do
+      utalk = FactoryBot.build_stubbed(:utalk_code, user: nil)
+      expect(utalk.signup_url).to be_nil
+    end
+
+    it 'returns the correct signup URL for the user' do
+      code = 'watman'
+      user = FactoryBot.build_stubbed(:user)
+      utalk = FactoryBot.build_stubbed(:utalk_code, user: user, code: code)
+
+      escaped_email = CGI.escape(user.email)
+      escaped_name = CGI.escape(user.name)
+
+      expected = "https://utalk.com/en/start?e=#{escaped_email}&n=#{escaped_name}&c=#{code}" # rubocop:disable Metrics/LineLength
+      expect(utalk.signup_url).to eq(expected)
+    end
+  end
 end
 
 # == Schema Information
