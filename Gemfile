@@ -129,7 +129,7 @@ group :development do
   gem 'derailed_benchmarks', '~> 1.3'
   gem 'i18n-tasks', '~> 0.9.19'
   gem 'i18n_generators', '~> 2.1'
-  gem 'letter_opener', '~> 1.4'
+  gem 'letter_opener', '~> 1.5'
   gem 'listen', '~> 3.1'
   gem 'memory_profiler', '~> 0.9'
   gem 'spring', '~> 2.0'
