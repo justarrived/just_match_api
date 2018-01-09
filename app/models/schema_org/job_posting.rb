@@ -18,29 +18,13 @@ module SchemaOrg
       data = {
         '@context' => 'http://schema.org',
         '@type' => 'JobPosting',
-        # "baseSalary" => "100000", # NOTE => Only employers should provide baseSalary. If you're a third party job site, you can provide a salary estimate using the Occupation type.
-        # "salaryCurrency" => "USD",
-        # "baseSalary" => {
-        #   "@type" => "MonetaryAmount",
-        #   "currency" => "SEK",
-        #   "value" => {
-        #     "@type" => "QuantitativeValue",
-        #     "value" => job.gross_amount,
-        #     "unitText" => "HOUR"
-        #   }
-        # },
         'identifier' => {
           '@type' => 'PropertyValue',
           'name' => company.name,
           'value' => job.id
         },
-        # "jobBenefits" => "Medical, Life, Dental",
-        "datePosted" => DateFormatter.new.yyyy_mm_dd(job.publish_at), # alt. "2017-01-24T19:33:17+00:00"
-        "description" => job.description,
-        # "educationRequirements" => "Bachelor's Degree in Computer Science, Information Systems or related fields of study.",
-        # "experienceRequirements" => "Minumum 3 years experience as a software engineer",
-        # "incentiveCompensation" => "Performance-based annual bonus plan, project-completion bonuses",
-        # "industry" => industry,
+        'datePosted' => DateFormatter.new.yyyy_mm_dd(job.publish_at),
+        'description' => job.description,
         'employmentType' => employment_type,
         'hiringOrganization' => {
           '@type' => 'Organization',
@@ -58,13 +42,10 @@ module SchemaOrg
             'addressCountry' => job.country_code
           }
         },
-        # "occupationalCategory" => "15-1132.00 Software Developers, Application",
         'qualifications' => job.requirements_description,
         'responsibilities' => job.tasks_description,
         'skills' => job.applicant_description,
-        # "specialCommitments" => "VeteranCommit",
-        "title" => main_occupation.name,
-        # "workHours" => "40 hours per week",
+        'title' => main_occupation.name
       }
       if job.last_application_at
         # "2017-02-24" or "2017-02-24T19:33:17+00:00"
