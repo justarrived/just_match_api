@@ -4,6 +4,19 @@ HEAD
 -----------
 
 
+v2.74 - 2018-01-09
+----------
+__API__:
+* Add `job#schema_org` key to serializer that contains the JSON-ld for a JobPosition
+
+__Admin__:
+* Allow destroy for company industries
+
+__Enhancement__:
+* .ruby-style-guide :lipstick:
+* Run rails app:upgrade-> Rails 5.1
+
+
 v2.73 - 2018-01-09
 ----------
 * Bump `activeadmin` from 1.1.0 to 1.2.0
