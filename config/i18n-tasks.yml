@@ -99,6 +99,8 @@ ignore_unused:
 - 'errors.*' # Errors are often automatically generated
 - 'faq.*' # The FAQ is read from an initialiser
 - 'user_document.categories.*'
+- 'active_admin.*'
+- 'admin.menu.*'
 # - '{devise,kaminari,will_paginate}.*'
 # - 'simple_form.{yes,no}'
 # - 'simple_form.{placeholders,hints,labels}.*'

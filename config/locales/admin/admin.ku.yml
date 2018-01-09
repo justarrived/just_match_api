@@ -1,7 +1,13 @@
 ku:
   admin:
+    menu:
+      jobs: Kar
+      users: Bikarîner
+      chats: Çatê dike
     job_name: Kar
     user_name: Bikarîner
+    job_user_name: Kar_bikarîner
+    name: Nav
     recent_jobs:
       name: Nav
       hours: Saet

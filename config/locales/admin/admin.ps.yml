@@ -1,7 +1,13 @@
 ps:
   admin:
+    menu:
+      jobs: دنده
+      users: کارونکی
+      chats: غږیدل
     job_name: دنده
     user_name: کارونکی
+    job_user_name: د دندې کارونکی
+    name: نوم
     recent_jobs:
       name: نوم
       hours: ساعتونه

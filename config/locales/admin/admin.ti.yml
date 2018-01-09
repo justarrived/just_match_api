@@ -1,7 +1,13 @@
 ti:
   admin:
+    menu:
+      jobs: ስራሕ
+      users: ተጠቃሚ
+      chats: የዕልል (ቻት ይገብር)
     job_name: ስራሕ
     user_name: ተጠቃሚ
+    job_user_name: Jobb_user (ተጠቃም_ስራሕ)
+    name: ስም
     recent_jobs:
       name: ስም
       hours: ሰዓታት

@@ -1,7 +1,6 @@
 fa:
   activerecord:
     models:
-      blazer/query: فهرست/پرسش
       category: دسته بندی
       chat: چت
       chat_user: کاربران چت
@@ -25,84 +24,107 @@ fa:
       user_language: زبان کاربر
       user_skill: مهارت کاربران
     attributes:
-      blazer/query:
-        audits: ویرایش
-        checks: کنترل
-        creator: مؤلف
-        dashboard_queries: پرسشهای صفحۀ کنترل
-        dashboards: صفحۀ کنترل
-        data_source: منشاء داده ها
-        description: شرح
+      active_admin/comment:
+        body: پیکر
+      active_admin_comment:
+        body: پیکر
+      address:
+        latitude: عرض جغرافیایی
+        longitude: طول جغرافیایی
+      ahoy/event:
         name: نام
-        statement: اظهارنامه
       category:
         jobs: شغل ها
         name: نام
       chat:
         chat_users: کاربران چت
         messages: پیام
+        user_images: تصاویر کاربر
         users: کاربران
-      chat_user:
-        chat: گپ
-        user: کاربر
       comment:
         body: پیکر
-        commentable: قابل اظهار نظر
         commentable_type: از نوع قابل اظهار نظر
         hidden: پنهان
-        language: زبان
-        owner: مالک
+      comment_translation:
+        body: پیکر
+      communication_template:
+        body: پیکر
+        category: دسته بندی
+      communication_template_translation:
+        body: پیکر
       company:
         cin: شمارۀ ثبت سازمان در سوئد
         company_images: تصاویر شرکت
-        jobs: شغل ها
+        email: پست الکترونیک
         name: نام
+        owned_jobs: شغل های متعلقه
+        phone: تلفن
+        street: خیابان
         users: کاربران
         website: سایت اینترنتی
+        zip: کُد پستی
       company_image:
-        company: شرکت
         image_content_type: نوع محتوای تصویر
         image_file_name: نام فایل تصویری
         image_file_size: اندازه فایل تصویری
         image_updated_at: تصویر به روز شده در
         one_time_token: رمز یکبار مصرف
         one_time_token_expires_at: تاریخ انقضای رمز یکبار مصرف
+      company_translation:
+        description: شرح
       contact:
         body: پیکر
         email: پست الکترونیک
         name: نام
       currency:
         currency_code: کد ارز
+      digest_subscriber:
+        email: پست الکترونیک
+      document:
+        one_time_token: رمز یکبار مصرف
+        one_time_token_expires_at: تاریخ انقضای رمز یکبار مصرف
+        users: کاربران
       faq:
         answer: پاسخ
-        language: زبان
         question: سوال
+      faq_translation:
+        answer: پاسخ
+        question: سوال
+      feedback:
+        body: پیکر
+      filter:
+        languages: زبان ها
+        name: نام
+        skills: مهارت ها
+        users: کاربران
+      frilans_finans_term:
+        body: پیکر
+        company: شرکت
+      guide_section_article_translation:
+        body: پیکر
       hourly_pay:
         active: فعال
         currency: واحد پول
         jobs: شغل ها
-        rate: نرخ
-      invoice:
-        job_user: کاربران شغلی
-      frilans_finans_invoice:
-        job_user: کاربران شغلی
+      industry:
+        name: نام
+      industry_translation:
+        name: نام
+      interest:
+        name: نام
+        users: کاربران
+      interest_translation:
+        name: نام
       job:
-        category: دسته بندی
         comments: نظرات
-        company: شرکت
         description: شرح
         hidden: پنهان
-        hourly_pay: پرداخت ساعتی
         hours: ساعت ها
-        job_date: تاریخ کار
-        job_end_date: ' تاریخ خاتمۀ کار'
         job_skills: مهارت های شغلی
-        job_users: کاربران شغلی
-        language: زبان
+        languages: زبان ها
         latitude: عرض جغرافیایی
         longitude: طول جغرافیایی
         name: نام
-        owner: مالک
         skills: مهارت ها
         street: خیابان
         users: کاربران
@@ -110,46 +132,54 @@ fa:
         zip: کُد پستی
         zip_latitude: عرض جغرافیایی کُد پستی
         zip_longitude: طول جغرافیایی کُد پستی
-      job_skill:
-        job: کار
-        skill: مهارت
+      job_request:
+        comment: اظهار نظر
+        hourly_pay: پرداخت ساعتی
+      job_translation:
+        description: شرح
+        name: نام
       job_user:
         accepted: پذیرفته شده
         accepted_at: تاریخ پذیرفته شدن
-        invoice: صورتحساب
-        job: کار
         performed: انجام شد
-        user: کاربر
         will_perform: انجام خواهد شد
       language:
         direction: جهت
-        en_name: نام EN
         jobs: شغل ها
-        lang_code: کُد زبان
         local_name: نام محلی
         system_language: زبان سیستم
         user_languages: زبان کاربر
         users: کاربران
       message:
-        author: مؤلف
         body: پیکر
-        chat: چت
         integer: عدد صحیح
-        language: زبان
+      message_translation:
+        body: پیکر
+      occupation:
+        name: نام
+      occupation_translation:
+        name: نام
+      order:
+        category: دسته بندی
+        hours: ساعت ها
+        jobs: شغل ها
+        name: نام
+      order_document:
+        name: نام
       rating:
-        comment: اظهار نظر
-        from_user: از کاربر
-        job: کار
         score: نمره
-        to_user: به کاربر
-      token:
-        user: کاربر
+      received_text:
+        body: پیکر
       skill:
         job_skills: مهارت های شغلی
         jobs: شغل ها
-        language: زبان
         name: نام
         user_skills: مهارت های کاربر
+        users: کاربران
+      skill_translation:
+        name: نام
+      tag:
+        name: نام
         users: کاربران
       user:
         admin: مدیر سایت
@@ -157,16 +187,14 @@ fa:
         banned: ممنوع
         chat_users: کاربران چت
         chats: چت
-        company: شرکت
         description: شرح
         education: تحصیلات
         email: پست الکترونیک
         first_name: 'نام '
+        frilans_finans_payment_details: شرح پرداختی فاینانس آزاد
         ignored_notifications_mask: ماسک اطلاعیه های نادیده گرفته شده
         job_experience: تجربۀ کاری/ شغلی
-        job_users: کاربران شغلی
         jobs: شغل ها
-        language: زبان
         languages: زبان ها
         last_name: نام خانوادگی
         latitude: عرض جغرافیایی
@@ -184,23 +212,25 @@ fa:
         user_images: تصاویر کاربر
         user_languages: زبان کاربر
         user_skills: مهارت های کاربر
+        verified: تایید شده
         written_comments: نظرات کتبی
         zip: کُد پستی
         zip_latitude: عرض جغرافیایی کُد پستی
         zip_longitude: طول جغرافیایی کُد پستی
-        frilans_finans_id: شناسۀ فاینانس آزاد
-        frilans_finans_payment_details: شرح پرداختی فاینانس آزاد
+      user_document:
+        category: دسته بندی
       user_image:
+        category: دسته بندی
         image_content_type: نوع محتوای تصویر
         image_file_name: نام فایل تصویری
         image_file_size: اندازه فایل تصویری
         image_updated_at: 'تاریخ به روز شدن تصویر '
         one_time_token: رمز یکبار مصرف
         one_time_token_expires_at: تاریخ انقضای رمز یکبار مصرف
-        user: کاربر
-      user_language:
-        language: زبان
-        user: کاربر
-      user_skill:
-        skill: مهارت
-        user: کاربر
+      user_translation:
+        description: شرح
+        education: تحصیلات
+        job_experience: تجربۀ کاری/ شغلی
+      visit:
+        latitude: عرض جغرافیایی
+        longitude: طول جغرافیایی

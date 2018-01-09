@@ -1,7 +1,13 @@
 ar:
   admin:
+    menu:
+      jobs: أعمال
+      users: المستخدمون
+      chats: دردشات
     job_name: عمل
     user_name: المستخدم
+    job_user_name: طالب وظيفة
+    name: الاسم
     recent_jobs:
       name: الاسم
       hours: ساعات

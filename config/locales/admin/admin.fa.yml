@@ -1,7 +1,13 @@
 fa:
   admin:
+    menu:
+      jobs: شغل ها
+      users: کاربران
+      chats: چت
     job_name: کار
     user_name: کاربر
+    job_user_name: کاربران شغلی
+    name: نام
     recent_jobs:
       name: نام
       hours: ساعت ها

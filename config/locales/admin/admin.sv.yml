@@ -4,8 +4,8 @@ sv:
       jobs: Jobb
       users: Användare
       sales: Sälj
-      filters: Filter
-      chats: Chatt
+      filters: Filters
+      chats: Chattar
       settings: Inställningar
       guide: Guide
       misc: Övrigt
@@ -14,11 +14,12 @@ sv:
     verified_selected: Verifiera markerade.
     job_name: Jobb
     user_name: Användare
-    job_user_name: Ansökan
-    time_ago: '%{time}sen'
+    job_user_name: Sökande
+    time_ago: '%{time} sen'
     time_from_now: '%{time}från nu'
     download: Ladda ner
     upload: Ladda up
+    name: Namn
     arbetsformedlingen_ad:
       push:
         button: Pusha
@@ -48,6 +49,12 @@ sv:
       update_users_btn: Uppdatera sökning
     filter:
       near_address: "Nära adress (lägg till 'km: XX' för distans)"
+    guide_image:
+      form:
+        title:
+          hint: Bara för att göra den här bilden lättare att hitta / prata om.
+        image:
+          hint: 'Bilden kommer genereras till nya storlekar: %{formats}.'
     recent_users:
       title: Nyligen tillagda användare
     recent_jobs:
@@ -134,11 +141,17 @@ sv:
           success: Notifiera alla som sakar kompetenser.
         shortlist:
           confirm: Är du säker på att du vill shortlist:a de här användarna?
+          success:
+            one: Shortlist:ade en ansökan.
+            other: Shortlist:ade %{count}ansökningar.
         reject:
           confirm: Är du säker på att du vill avslå de här ansökningarna?
+          success:
+            one: Avvisade en ansökan.
+            other: Avvisade %{count}ansökningar.
         accepted:
           success_msg: 'Accepterade %{success_count}användar(e), ignorerade %{ignore_count}användar(e) som redan var accepterade.'
-          fail_msg: 'Misslyckades acceptera %{fail_count} användar(e): ansöknings IDs: %{fail_ids}. Accepterade %{success_count}användar(e), ignorerade %{ignore_count}användar(e) som redan var accepterade.'
+          fail_msg: 'Misslyckades att acceptera %{fail_count}användare: ansökings IDs: %{fail_ids}. Lyckades acceptera%{success_count}användare, ignorerade %{ignore_count} användare som redan var accepterade. '
       show:
         user_details: Användardetaljer
         match_details: Matchningsdetaljer
@@ -216,18 +229,57 @@ sv:
         admin_users_section_title: Adminanvändare
         address_section_title: Adress
         frilans_finans_section_title: Frilans Finans
+        hourly_pay_hint: 'Timlön, du kan lägga till fler timlöner under "Inställningar"'
+        customer_hourly_price_hint: 'Timpris för kunden.'
+        language_hint: 'Språket som jobbinformationen är skriven i'
+        preview_key_hint: Om satt, kan man bara komma åt jobbet med den här förhandsgranskingsnyckeln
+        owner_hint: 'Jobbägare @ klient företaget'
+        company_contact_hint: 'Jobbkontakt @ kundföretaget, om blank så kommer ägaren användas istället'
+        just_arrived_contact_hint: 'Ansvarig användare @ Just Arrived'
         direct_recruitment_job: Direktrekrytering
+        staffing_company_hint: Sätt bara det här värdet ifall jobbet är bemanning
+        direct_recruitment_job_hint: Sätt bara det här värdet ifall jobbet är en direktrekrytering
+        category_hint: 'Det här fältet används bara av försäkringsskäl'
+        hidden_hint: 'Om iklickat kommer jobbet inte returneras till klienter'
+        verified_hint: 'Om i klickat så har en admin verifierat jobbet'
+        upcoming_hint: 'Om i klickat så kommer viss jobbinformation inte skickas till klienter'
+        cancelled_hint: 'Om i klickat antas jobbet vara avbrutet'
+        filled_hint: 'Om i klickat så har jobbet blivit tillsatt'
+        featured_hint: 'Om i klickat kommer vi prioritera det här jobbet och visa det på startsidan'
+        cloned_hint: 'Jobbet är en klon eller en förlängning och kommer inte listas.'
+        cloned_label: Förlängning eller klo
+        municipality_hint: 'Krävt fält ifall jobbet ska bli synkad till Arbetsförmedlingen, Blocketjobb eller Metrojobb'
         skills_title: Arbetserfarenheter
+        languages_title: Jobbspårk
+        occupations_title: Jobbyrken
+        publish_on_linkedin:
+          hint: Klicka i ifall jobbannonsen ska publiceras på LinkedIN
+        publish_on_blocketjobb:
+          hint: 'Om i klickat kommer jobbannonsen att publiceras till Blocketjobb (varning: det kostar en del pengar!)'
+        blocketjobb_category:
+          hint: Om det här jobbet ska publiceras på Blocketjobb, måste du fylla i det här värdet
+        publish_on_metrojobb:
+          hint: 'Om i klickat kommer jobbannonsen att publiceras till Metrojobb (varning: det kostar en del pengar!)'
+        metrojobb_category:
+          hint: Om det här jobbet ska publiceras på Metrojobb, måste du fylla i det här värdet
     frilans_finans_invoice:
+      activate_confirmation: Är du säker på att du vill aktivera den här fakturan och skicka en notis till användaren?
+      not_paid: Obetalt
       show:
         general: Generellt
         frilans_finans: Frilans FInans
         dates: Datum
     chat:
       name: Chatt
+      support_chat: Supportchat
       form:
         messages_title: Meddelanden
+    company:
+      form:
+        main_form_section_title: Attribut
+        municipality_hint: 'Krävt fält om jobbet ska synkas till Arbetsförmedlingen'
     user:
+      system_language_link: Systemspråk %{lang}
       system_language: Systemspråk
       name: Namn
       first_name: Förnamn
@@ -235,24 +287,111 @@ sv:
       phone: Telefon
       email: E-post
       company: Företag
+      locale: Locale
       verified: Verifierade
       description: Beskrivning
       education: Utbildning
+      competence_text: Kompetenser
       job_experience: Arbetserfarenhet
+      managed_selected: Alla användare markerade som hanterade.
+      missing_account_details: 'Kan inte synka: Bank clearing nummer och kontonummer måste vara ifyllt.'
+      account_details_synced: Synka bankkontouppgifter till Frilans Finans.
+      missing_ff_id: 'Kan inte synka: Användaren saknar Frilans Finans ID.'
+      sync_ff_bank_account: Synka bankkonto
+      push_ff_user_success: användaren skickad till Frilans Finans (HTTP %{status})
+      push_ff_user_failed: användaren misslyckades att skickas till Frilans Finans (HTTP %{status})
+      push_frilans_finans_btn: Skicka till Frilans Finans
+      resume_search_label: CV-sök
+      batch_form:
+        tag_added_notice: 'La till "%{name}".'
+        tag_add_and_remove_not_uniq_notice: "Du kan inte både lägga till och ta bort samma tagg."
+        tag_removed_notice: 'Tog bort "%{name}".'
+        skill_added_notice: 'La till "%{name}" som färdighet'
       form:
         details: Detaljer
+        competences: Kompetenser
+        immigration_status: Invandringsstatus
         status_flags: Status flagga
+        payment_attributes: Betalningsdetaljer
+        presentation_inputs: Kundpresentation
         misc: Övrigt
+        create_user: Skapa användare
+        public_profile:
+          hint: Om användaren kommer vara publikt synlig
+        language:
+          hint: Standardspråk för all användarkommunikation.
+        managed:
+          hint: Om ifyllt kommer användare inte få några email notiser, alla email kommer istället skickas till den konfigurerade mottagaren.
+        banned:
+          hint: Om ifyllt kommer användare inte kunna logga in och kommer se ett meddelande att det har blivit avstängda från tjänsten.
+        password:
+          hint: Varning det här kommer återställda lösenordet
+        just_arrived_staffing:
+          hint: Sätt bara det här ifall användaren är anställd av Just Arrived Bemanning AB
+      find_ff_user:
+        find_button: Hitta och sätt Frilans Finans ID
+        ff_id_present_msg: Användaren har redan ett Frilans Finans ID (#%{id})
+        ff_id_found_msg: 'Frilans FInans ID hittat (#%{id}) och uppdaterade användaren.'
+        ff_id_not_found_msg: Inget Frilans Finans konto kunde hittas för den här användaren.
       show:
+        interests: Intressen
+        verified: 'Verifierade: %{verified}'
+        tags: Taggar
         skills: Färdigheter
+        filters: I filter
+        feedbacks: Given feedback
+        city: 'Stad: %{city}'
+        basic_info_title: Grundläggande information
+        candidate_summary: Kandidatsummering
         languages: Språk
+        average_score: 'Genomsnitt score: %{score}'
         profile: Profi
+        payment: Betalningsdetaljer
         status_flags: Status flagga
+        candidate_status: Kandidatstatus
+        misc: Admindetaljer
+        interview_comment: Intervjukommentar
+        presentation_title: Presentation
         presentation_profile: Profi
+        presentation_personality: Personlighet
+        presentation_availability: Tillgänglighet
+        no_interview_comment_explain: Ingen intervju har genomförts.
+        ongoing_jobs: Pågående jobb
+        future_jobs: Framtida jobb
+        previous_performed_jobs: Tidigare genomförda jobb
+        rejected: Avslagen
+        no_skills_added: Inga kompetenser tillagda.
+        no_languages_added: Inga språk tillagda.
+    send_employment_certificate:
+      post_btn: Skicka anställningscertifikat
+      msg: Förfrågan om anställningscertifikat skickat. Användare kommer få ett email från Frilans Finans.
+    ff_remote_sync:
+      msg_multiple: Lyckades synka
+      msg: Lyckades synka.
+      post_btn: Synka med Frilans Finans
     communication_template:
       form:
         details: Detaljer
+        category_hint: 'Det behöver ett unikt kategorinam'
+        subject_hint: 'Ämnesrad för den här template:n (du kan använda variabler här..)'
+        body_hint: 'Innehåll för den här template:n (du kan använda variabler här..)'
+    counts:
+      documents: Har %{count}dokument
+      applications: Har %{count}ansökningar
+      applicants: Har %{count}ansökande
+      comments: Har %{count}kommentarer
+      written_comments: Har skrivit %{count}kommentarer
+      written_messages: Har skrivit %{count}meddelande
+      translations: Har %{count}översättningar
+      images: Har %{count}bilder
+      sessions: Har %{count}loginsessioner
+      languages: Har %{count}språk
+      chats: Har %{count} chattar
+      received_ratings: Har mottagit %{count}betyg
+      given_ratings: Har gett %{count}betyg
+      owned_jobs: Äger %{count}jobb
   active_admin:
+    clone_model: "Klona %{model}"
     batch_actions:
       labels:
         add_and_remove_user_tag: 'Lägg till/ta bort användartagg till/från'
