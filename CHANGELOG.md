@@ -4,6 +4,27 @@ HEAD
 -----------
 
 
+v2.73 - 2018-01-09
+----------
+* Bump `activeadmin` from 1.1.0 to 1.2.0
+* Bump `airbrake` from 7.1.0 to 7.1.1
+* Bump `bootsnap` from 1.1.5 to 1.1.7
+* Bump `bootsnap` from 1.1.7 to 1.1.8
+* Bump `bullet` from 5.7.0 to 5.7.1
+* Bump `chosen-rails` from 1.5.2 to 1.8.2
+* Bump `countries` from 2.1.2 to 2.1.3
+* Bump `faker` from 1.8.4 to 1.8.7
+* Bump `fuubar` from 2.2.0 to 2.3.1
+* Bump `letter_opener` from 1.4.1 to 1.5.0
+* Bump `newrelic_rpm` from 4.6.0.338 to 4.7.1.340
+* Bump `rubocop` from 0.51.0 to 0.52.0
+* Bump `rubocop` from 0.52.0 to 0.52.1
+* Bump `twilio-ruby` from 5.5.1 to 5.6.0
+* Bump `uglifier` from 4.0.2 to 4.1.2
+* Bump `uglifier` from 4.1.2 to 4.1.3
+* Bump `webmock` from 3.1.1 to 3.2.1
+
+
 v2.72 - 2017-12-14
 ----------
 __Admin__:
