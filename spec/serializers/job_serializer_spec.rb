@@ -17,7 +17,7 @@ RSpec.describe JobSerializer, type: :serializer do
       gross_amount_delimited net_amount_delimited description_html
       last_application_at_in_words open_for_applications starts_in_the_future
       tasks_description_html applicant_description_html requirements_description_html
-      frilans_finans_job
+      frilans_finans_job schema_org
     )
     (JobPolicy::ATTRIBUTES - ignore_fields).each do |attribute|
       it "has #{attribute.to_s.humanize.downcase}" do

@@ -3,6 +3,7 @@
 module SchemaOrg
   # @see http://schema.org/JobPosting
   # @see https://developers.google.com/search/docs/data-types/job-posting#definitions
+  # @see https://search.google.com/structured-data/testing-tool
   class JobPosting
     attr_reader :job, :company, :main_occupation
 
@@ -10,6 +11,17 @@ module SchemaOrg
       @job = job
       @company = company
       @main_occupation = main_occupation
+    end
+
+    def title
+      main_occupation_name.presence ||
+        job.metrojobb_category.presence ||
+        job.blocketjobb_category.presence ||
+        job.category&.name.presence
+    end
+
+    def main_occupation_name
+      main_occupation.name
     end
 
     # @see http://schema.org/JobPosting
@@ -26,6 +38,7 @@ module SchemaOrg
         'datePosted' => DateFormatter.new.yyyy_mm_dd(job.publish_at),
         'description' => job.description,
         'employmentType' => employment_type,
+        'industry' => main_occupation_name,
         'hiringOrganization' => {
           '@type' => 'Organization',
           'name' => company.name,
@@ -38,6 +51,7 @@ module SchemaOrg
             '@type' => 'PostalAddress',
             'streetAddress' => job.street,
             'addressLocality' => job.city,
+            'addressRegion' => job.zip,
             'postalCode' => job.zip,
             'addressCountry' => job.country_code
           }
@@ -45,7 +59,7 @@ module SchemaOrg
         'qualifications' => job.requirements_description,
         'responsibilities' => job.tasks_description,
         'skills' => job.applicant_description,
-        'title' => main_occupation.name
+        'title' => title
       }
       if job.last_application_at
         # "2017-02-24" or "2017-02-24T19:33:17+00:00"

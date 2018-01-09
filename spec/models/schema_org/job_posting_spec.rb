@@ -45,6 +45,10 @@ RSpec.describe SchemaOrg::JobPosting do
       expect(job_posting_data['description']).to eq(description)
     end
 
+    it 'has the correct "industry" value' do
+      expect(job_posting_data['industry']).to eq(occupation_name)
+    end
+
     it 'has the correct "qualifications" value' do
       expect(job_posting_data['qualifications']).to eq(job.requirements_description)
     end
@@ -82,6 +86,7 @@ RSpec.describe SchemaOrg::JobPosting do
           '@type' => 'PostalAddress',
           'streetAddress' => job.street,
           'addressLocality' => job.city,
+          'addressRegion' => job.zip,
           'postalCode' => job.zip,
           'addressCountry' => job.country_code
         }
