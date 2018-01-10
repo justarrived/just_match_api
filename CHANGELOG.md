@@ -3,6 +3,25 @@
 HEAD
 -----------
 
+v2.75 - 2018-01-10
+----------
+__Admin__:
+* Localize menu
+* :rocket: faster comment display on applicant index page
+* Remove irrelevant relations links
+* Update admin link helper to work with default url options
+
+__Enhancement__:
+* Pull translations from Transifex
+* Remove unused I18n-keys and add model attributes I18n
+* Update I18n-tasks config to include additional locale files
+* Use `script/migrate` in `script/update`
+* Add `script/migrate` that takes care of the process of migrating the database
+* Add `script/build-model-translations`
+* Add `admin.*locale*.yml` files
+* Rename `admin/en.yml` => `admin/admin.en.yml`
+* Set admin locale based on user setting
+
 
 v2.74 - 2018-01-09
 ----------
