@@ -344,8 +344,6 @@ sv:
       documents: Har %{count} dokument
       applications: Har %{count} ansökningar
       applicants: Har %{count} ansökande
-      comments: Har %{count} kommentarer
-      written_comments: Har skrivit %{count} kommentarer
       written_messages: Har skrivit %{count} meddelande
       translations: Har %{count} översättningar
       images: Har %{count} bilder
