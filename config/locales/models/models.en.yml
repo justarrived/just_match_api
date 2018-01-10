@@ -7,6 +7,9 @@ en:
       ahoy/event: Ahoy event  #g
       arbetsformedlingen_ad: Arbetsförmedlingen ad  #g
       arbetsformedlingen_ad_log: Arbetsförmedlingen ad log  #g
+      blazer/check: Blazer/check  #g
+      blazer/dashboard: Blazer/dashboard  #g
+      blazer/query: Blazer/query  #g
       category: Category  #g
       chat: Chat  #g
       chat_user: Chat user  #g
@@ -30,6 +33,7 @@ en:
       frilans_finans_api_log: Frilans Finans API log  #g
       frilans_finans_invoice: Frilans Finans Invoice  #g
       frilans_finans_term: Frilans Finans term  #g
+      guide_image: Guide image  #g
       guide_section: Guide section  #g
       guide_section_article: Guide section article  #g
       guide_section_article_translation: Guide section article translation  #g
@@ -127,6 +131,29 @@ en:
       arbetsformedlingen_ad_log:
         arbetsformedlingen_ad: :activerecord.models.arbetsformedlingen_ad  #g
         response: Response  #g
+
+      blazer/check:
+        creator: :activerecord.models.creator  #g
+        emails: Emails  #g
+        query: :activerecord.models.query  #g
+        state: State  #g
+
+      blazer/dashboard:
+        creator: :activerecord.models.creator  #g
+        dashboard_queries: Dashboard queries  #g
+        name: Name  #g
+        queries: Queries  #g
+
+      blazer/query:
+        audits: Audits  #g
+        checks: Checks  #g
+        creator: :activerecord.models.creator  #g
+        dashboard_queries: Dashboard queries  #g
+        dashboards: Dashboards  #g
+        data_source: Data source  #g
+        description: Description  #g
+        name: Name  #g
+        statement: Statement  #g
 
       category:
         insurance_status: Insurance status  #g
@@ -306,6 +333,13 @@ en:
       frilans_finans_term:
         body: Body  #g
         company: Company  #g
+
+      guide_image:
+        image_content_type: Image content type  #g
+        image_file_name: Image file name  #g
+        image_file_size: Image file size  #g
+        image_updated_at: Image updated at  #g
+        title: Title  #g
 
       guide_section:
         articles: Articles  #g
@@ -535,12 +569,20 @@ en:
         invoice: :activerecord.models.invoice  #g
         job: :activerecord.models.job  #g
         language: :activerecord.models.language  #g
+        languages: Languages  #g
+        occupations: Occupations  #g
         owner: :activerecord.models.owner  #g
         performed: Performed  #g
         rejected: Rejected  #g
         shortlisted: Shortlisted  #g
+        skills: Skills  #g
+        tags: Tags  #g
         translations: Translations  #g
         user: :activerecord.models.user  #g
+        user_languages: User languages  #g
+        user_occupations: User occupations  #g
+        user_skills: User skills  #g
+        user_tags: User tags  #g
         utm_campaign: UTM-campaign  #g
         utm_content: UTM-content  #g
         utm_medium: UTM-medium  #g
