@@ -25,10 +25,21 @@ ps:
       user_language: د کارونکي ژبه
       user_skill: د کارونکي مهارت
     attributes:
+      active_admin/comment:
+        body: بدن
+      active_admin_comment:
+        body: بدن
+      address:
+        latitude: عرض البلد
+        longitude: طول البلد
+      ahoy/event:
+        name: نوم
+      blazer/dashboard:
+        dashboard_queries: د ډشبورډ بوښتنې
+        name: نوم
       blazer/query:
         audits: بیاکتنې
         checks: ارزونې
-        creator: رامینځته کونکی
         dashboard_queries: د ډشبورډ بوښتنې
         dashboards: ډشبورډ
         data_source: د ډیټا سرچینه
@@ -41,68 +52,97 @@ ps:
       chat:
         chat_users: د غږیدو کارونکي
         messages: پیغامات
+        user_images: د کارونکي عکسونه
         users: کارونکی
-      chat_user:
-        chat: غږیدل
-        user: کارونکی
       comment:
         body: بدن
-        commentable: د نظر لیکه
         commentable_type: د نظر نوع
         hidden: پټ
-        language: ژبه
-        owner: مالک
+      comment_translation:
+        body: بدن
+      communication_template:
+        body: بدن
+        category: کټګوري
+      communication_template_translation:
+        body: بدن
       company:
         cin: Cin
         company_images: د شرکت عکسونه
-        jobs: دنده
+        email: بریښنالیک
         name: نوم
+        owned_jobs: د دندو مالکیت
+        phone: تلیفون
+        street: کوڅه
         users: کارونکی
         website: ویب پاڼه
+        zip: زیپر
       company_image:
-        company: سوداګري
         image_content_type: د عکس د مینځپانګې نوع
         image_file_name: د عکس فایل نوم
         image_file_size: د فایل اندازه
         image_updated_at: عکس تازه شو
         one_time_token: د یو وار ټوکن
         one_time_token_expires_at: د یو وار ټوکن پدې نیټه پای ته رسي
+      company_translation:
+        description: شرح
       contact:
         body: بدن
         email: بریښنالیک
         name: نوم
       currency:
         currency_code: اسعار
+      digest_subscriber:
+        email: بریښنالیک
+      document:
+        one_time_token: د یو وار ټوکن
+        one_time_token_expires_at: د یو وار ټوکن پدې نیټه پای ته رسي
+        users: کارونکی
       faq:
         answer: ځواب ورکول
-        language: ژبه
         question: پوښتنه
+      faq_translation:
+        answer: ځواب ورکول
+        question: پوښتنه
+      feedback:
+        body: بدن
+      filter:
+        languages: ژبه
+        name: نوم
+        skills: مهارتونه
+        users: کارونکی
+      frilans_finans_term:
+        body: بدن
+        company: سوداګري
+      guide_image:
+        image_content_type: د عکس د مینځپانګې نوع
+        image_file_name: د عکس فایل نوم
+        image_file_size: د فایل اندازه
+        image_updated_at: عکس تازه شو
+      guide_section_article_translation:
+        body: بدن
       hourly_pay:
         active: فعال
         currency: اسعار
         jobs: دنده
-        rate: سکور
-      invoice:
-        job_user: د دندې کارونکی
-      frilans_finans_invoice:
-        job_user: د دندې کارونکی
+      industry:
+        name: نوم
+      industry_translation:
+        name: نوم
+      interest:
+        name: نوم
+        users: کارونکی
+      interest_translation:
+        name: نوم
       job:
-        category: کټګوري
         comments: نظریات
-        company: سوداګري
         description: شرح
         hidden: پټ
-        hourly_pay: ساعتوار نرخ
         hours: ساعتونه
-        job_date: د دندې نیټه
-        job_end_date: د دندې د پای نیټه
         job_skills: کاري تجربه
-        job_users: د دندې کارونکی
-        language: ژبه
+        languages: ژبه
         latitude: عرض البلد
         longitude: طول البلد
         name: نوم
-        owner: مالک
         skills: مهارتونه
         street: کوڅه
         users: کارونکی
@@ -110,46 +150,58 @@ ps:
         zip: زیپر
         zip_latitude: د زیپ عرض البلد
         zip_longitude: د زیپ طول البلد
-      job_skill:
-        job: دنده
-        skill: مهارت
+      job_request:
+        comment: نظر
+        hourly_pay: ساعتوار نرخ
+      job_translation:
+        description: شرح
+        name: نوم
       job_user:
         accepted: منل شوی
         accepted_at: منل شوی په
-        invoice: رسید
-        job: دنده
+        languages: ژبه
         performed: ترسره شوی
-        user: کارونکی
+        skills: مهارتونه
+        user_languages: د کارونکي ژبه
+        user_skills: د کارونکي مهارتونه
         will_perform: ترسره به شي
       language:
         direction: لارښود
-        en_name: د SV نوم
         jobs: دنده
-        lang_code: د ژبې کوډ
         local_name: ځایی نوم
         system_language: د سیسټم ژبه
         user_languages: د کارونکي ژبه
         users: کارونکی
       message:
-        author: لیکونکی
         body: بدن
-        chat: غږیدل
         integer: صحیح عدد
-        language: ژبه
+      message_translation:
+        body: بدن
+      occupation:
+        name: نوم
+      occupation_translation:
+        name: نوم
+      order:
+        category: کټګوري
+        hours: ساعتونه
+        jobs: دنده
+        name: نوم
+      order_document:
+        name: نوم
       rating:
-        comment: نظر
-        from_user: د کارونکي لخوا
-        job: دنده
         score: کول
-        to_user: کارونکي ته
-      token:
-        user: کارونکی
+      received_text:
+        body: بدن
       skill:
         job_skills: کاري تجربه
         jobs: دنده
-        language: ژبه
         name: نوم
         user_skills: د کارونکي مهارتونه
+        users: کارونکی
+      skill_translation:
+        name: نوم
+      tag:
+        name: نوم
         users: کارونکی
       user:
         admin: اداره
@@ -157,16 +209,13 @@ ps:
         banned: منع شوی
         chat_users: د غږیدو کارونکي
         chats: غږیدل
-        company: سوداګري
         description: شرح
         education: روزنه
         email: بریښنالیک
         first_name: لومړی نوم
         ignored_notifications_mask: د له پامه غورزول شوي خبرتیاو ماسک
         job_experience: د کار تجربه
-        job_users: د دندې کارونکی
         jobs: دنده
-        language: ژبه
         languages: ژبه
         last_name: تخلص
         latitude: عرض البلد
@@ -184,21 +233,25 @@ ps:
         user_images: د کارونکي عکسونه
         user_languages: د کارونکي ژبه
         user_skills: د کارونکي مهارتونه
+        verified: تایید شوی
         written_comments: لیکلي نظرونه
         zip: زیپر
         zip_latitude: د زیپ عرض البلد
         zip_longitude: د زیپ طول البلد
+      user_document:
+        category: کټګوري
       user_image:
+        category: کټګوري
         image_content_type: د عکس د مینځپانګې نوع
         image_file_name: د عکس فایل نوم
         image_file_size: د فایل اندازه
         image_updated_at: عکس تازه شو
         one_time_token: د یو وار ټوکن
         one_time_token_expires_at: د یو وار ټوکن پدې نیټه پای ته رسي
-        user: کارونکی
-      user_language:
-        language: ژبه
-        user: کارونکی
-      user_skill:
-        skill: تجربه
-        user: کارونکی
+      user_translation:
+        description: شرح
+        education: روزنه
+        job_experience: د کار تجربه
+      visit:
+        latitude: عرض البلد
+        longitude: طول البلد

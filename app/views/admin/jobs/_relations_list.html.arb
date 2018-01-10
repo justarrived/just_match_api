@@ -31,10 +31,6 @@ ul do
       admin_job_translations_path + job_query
     )
   )
-  li link_to(
-    I18n.t('admin.counts.comments', count: job.comments.count),
-    admin_comments_path + job_query
-  )
 
   hr
 
