@@ -346,8 +346,6 @@ en:
       documents: Has %{count} documents
       applications: Has %{count} applications
       applicants: Has %{count} applicants
-      comments: Has %{count} comments
-      written_comments: Has written %{count} comments
       written_messages: Has written %{count} messages
       translations: Has %{count} translations
       images: Has %{count} images
