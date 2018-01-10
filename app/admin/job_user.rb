@@ -179,7 +179,7 @@ ActiveAdmin.register JobUser do
       job_user_current_status_badge(job_user.current_status)
     end
     column :comment do |job_user|
-      job_user.active_admin_comments.max_by { |comment| comment.created_at }&.body
+      job_user.active_admin_comments.max_by(&:created_at)&.body
     end
   end
 
