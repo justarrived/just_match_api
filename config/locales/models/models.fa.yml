@@ -1,6 +1,7 @@
 fa:
   activerecord:
     models:
+      blazer/query: فهرست/پرسش
       category: دسته بندی
       chat: چت
       chat_user: کاربران چت
@@ -33,6 +34,18 @@ fa:
         longitude: طول جغرافیایی
       ahoy/event:
         name: نام
+      blazer/dashboard:
+        dashboard_queries: پرسشهای صفحۀ کنترل
+        name: نام
+      blazer/query:
+        audits: ویرایش
+        checks: کنترل
+        dashboard_queries: پرسشهای صفحۀ کنترل
+        dashboards: صفحۀ کنترل
+        data_source: منشاء داده ها
+        description: شرح
+        name: نام
+        statement: اظهارنامه
       category:
         jobs: شغل ها
         name: نام
@@ -100,6 +113,11 @@ fa:
       frilans_finans_term:
         body: پیکر
         company: شرکت
+      guide_image:
+        image_content_type: نوع محتوای تصویر
+        image_file_name: نام فایل تصویری
+        image_file_size: اندازه فایل تصویری
+        image_updated_at: 'تاریخ به روز شدن تصویر '
       guide_section_article_translation:
         body: پیکر
       hourly_pay:
@@ -141,7 +159,11 @@ fa:
       job_user:
         accepted: پذیرفته شده
         accepted_at: تاریخ پذیرفته شدن
+        languages: زبان ها
         performed: انجام شد
+        skills: مهارت ها
+        user_languages: زبان کاربر
+        user_skills: مهارت های کاربر
         will_perform: انجام خواهد شد
       language:
         direction: جهت

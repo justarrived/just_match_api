@@ -1,6 +1,7 @@
 ku:
   activerecord:
     models:
+      blazer/query: Blazer/query
       category: Kategorî
       chat: Çat
       chat_user: Çat bikarîner
@@ -33,6 +34,18 @@ ku:
         longitude: Dirêjexet
       ahoy/event:
         name: Nav
+      blazer/dashboard:
+        dashboard_queries: Textê alavan pirsên lêgerînê
+        name: Nav
+      blazer/query:
+        audits: Guhertin
+        checks: Çek
+        dashboard_queries: Textê alavan pirsên lêgerînê
+        dashboards: textên alavan
+        data_source: Çavkanîya datayan
+        description: Wesifkirin
+        name: Nav
+        statement: Îdîa
       category:
         jobs: Kar
         name: Nav
@@ -100,6 +113,11 @@ ku:
       frilans_finans_term:
         body: Laş
         company: Şîrket
+      guide_image:
+        image_content_type: Naveroka wêneyî cor
+        image_file_name: Wêne navê faylê
+        image_file_size: Mezinahîya faylê
+        image_updated_at: Wêne tê nûkirin
       guide_section_article_translation:
         body: Laş
       hourly_pay:
@@ -141,7 +159,11 @@ ku:
       job_user:
         accepted: Hat qebûl kirin
         accepted_at: Tê qebûl kirin
+        languages: Ziman
         performed: Temam kir
+        skills: Qabilîyet
+        user_languages: Zimanê bikarînerî
+        user_skills: Qabilîyetên bikarînerî
         will_perform: Dê bike
       language:
         direction: Hindav

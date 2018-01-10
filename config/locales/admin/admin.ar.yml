@@ -21,7 +21,6 @@ ar:
     recent_job_users:
       accepted: مقبول
       will_perform: سينفّذ
-      name: الاسم
       job: عمل
       user: المستخدم
     no_invoice_job_users:
@@ -33,7 +32,6 @@ ar:
           label: تعليق
     job:
       checklist_sidebar:
-        hidden: مخفي
         description: وصف
       name: الاسم
       description: وصف
@@ -44,10 +42,6 @@ ar:
           short_name: طالب وظيفة
         requirements_description:
           short_name: المتطلبات
-        comments:
-          open_in_app: جواب
-      form:
-        skills_title: خبرات عمل
     chat:
       name: دردشة
       form:
@@ -55,9 +49,6 @@ ar:
     user:
       system_language: 'لغة النظام '
       name: الاسم
-      first_name: الاسم الأول
-      last_name: اسم العائلة
-      phone: هاتف
       email: بريد إلكتروني
       company: شركة
       verified: مؤكدة

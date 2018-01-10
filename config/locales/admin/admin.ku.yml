@@ -21,7 +21,6 @@ ku:
     recent_job_users:
       accepted: Hat qebûl kirin
       will_perform: Dê bike
-      name: Nav
       job: Kar
       user: Bikarîner
     no_invoice_job_users:
@@ -33,7 +32,6 @@ ku:
           label: Têbînî
     job:
       checklist_sidebar:
-        hidden: Veşartî
         description: Wesifkirin
       name: Nav
       description: Wesifkirin
@@ -42,10 +40,6 @@ ku:
       show:
         applicant_description:
           short_name: Kar_bikarîner
-        comments:
-          open_in_app: Bersiv
-      form:
-        skills_title: Tecrîbeyên karî
     chat:
       name: Çat
       form:
@@ -53,9 +47,6 @@ ku:
     user:
       system_language: Zimanê sîstemê
       name: Nav
-      first_name: Nav
-      last_name: Paşnav
-      phone: Telefon
       email: E-poste
       company: Şîrket
       verified: Tesdîqkirî

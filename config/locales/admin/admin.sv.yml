@@ -34,8 +34,6 @@ sv:
       post_btn: Aktivera faktura
     comment:
       commentable_type_header: Typ
-    translation:
-      locale_language_missmatch: den angiva språkkoden måste matcha språket
     form:
       no_tag_chosen: 'Ingen tagg vald'
       no_skill_chosen: 'Ingen kompetens vald'
@@ -81,10 +79,8 @@ sv:
       status: Status
       id: ID
     recent_job_users:
-      title: Senaste ansökningar
       accepted: Accepterad
       will_perform: Kommer att utföra
-      name: Namn
       job: Jobb
       user: Användare
       id: ID
@@ -94,8 +90,6 @@ sv:
       user: Användare
       id: ID
     view_in_app:
-      view: Visa i appen
-      candidates: Visa kandidater i appen
       job: Visa jobb i appen
       job_preview: Visa jobb förhandsgranskning i appen
     confirm_dialog_title: Är du säker?
@@ -162,7 +156,6 @@ sv:
         no_resume_uploaded: Inget CV uppladdat
     job:
       checklist_sidebar:
-        hidden: Dold
         published: Publicerad
         preview_key: Förhandsgranskingsnyckel
         data_title: Datainsamling
@@ -185,11 +178,8 @@ sv:
       create_arbetsformedlingen_ad: Skapa Arbetförmedlingen Annons
       show_arbetsformedlingen_ad: Visa Arbetförmedlingen Annons
       google_calendar_link: Google Calendar
-      cancelled: Abrutet
       name: Namn
-      name_search: Jobbnamn
       description: Beskrivning
-      short_description: Kort beskrivning
       clone: Klona
       section_title:
         address: Adress
@@ -204,39 +194,24 @@ sv:
         job_boards: Jobboards
         status: Status
       show:
-        title: Jobbdetaljer
-        general: Generellt
-        status_flags: Status flagga
-        relations: Relationer
-        misc: Övrigt
-        partners_title: Publicerade partners
         applicant_description:
           short_name: Sökande
         tasks_description:
           short_name: Uppgifter
         requirements_description:
           short_name: Krav
-        comments:
-          title: Jobbkommentarer
-          open_in_app: Svar
       form:
         name_hint: Titeln på jobbet
         short_description_hint: 'Max 155 tecken, kort och enkelt :)'
         job_date_label: 'Tidigaste  startdatum'
         job_end_date_label: 'Slutdatum'
         partners_section_title: Publicera till partners
-        detail_section_title: Detaljer
-        admin_users_section_title: Adminanvändare
-        address_section_title: Adress
-        frilans_finans_section_title: Frilans Finans
         hourly_pay_hint: 'Timlön, du kan lägga till fler timlöner under "Inställningar"'
         customer_hourly_price_hint: 'Timpris för kunden.'
-        language_hint: 'Språket som jobbinformationen är skriven i'
         preview_key_hint: Om satt, kan man bara komma åt jobbet med den här förhandsgranskingsnyckeln
         owner_hint: 'Jobbägare @ klient företaget'
         company_contact_hint: 'Jobbkontakt @ kundföretaget, om blank så kommer ägaren användas istället'
         just_arrived_contact_hint: 'Ansvarig användare @ Just Arrived'
-        direct_recruitment_job: Direktrekrytering
         staffing_company_hint: Sätt bara det här värdet ifall jobbet är bemanning
         direct_recruitment_job_hint: Sätt bara det här värdet ifall jobbet är en direktrekrytering
         category_hint: 'Det här fältet används bara av försäkringsskäl'
@@ -249,9 +224,6 @@ sv:
         cloned_hint: 'Jobbet är en klon eller en förlängning och kommer inte listas.'
         cloned_label: Förlängning eller klo
         municipality_hint: 'Krävt fält ifall jobbet ska bli synkad till Arbetsförmedlingen, Blocketjobb eller Metrojobb'
-        skills_title: Arbetserfarenheter
-        languages_title: Jobbspårk
-        occupations_title: Jobbyrken
         publish_on_linkedin:
           hint: Klicka i ifall jobbannonsen ska publiceras på LinkedIN
         publish_on_blocketjobb:
@@ -282,9 +254,6 @@ sv:
       system_language_link: Systemspråk %{lang}
       system_language: Systemspråk
       name: Namn
-      first_name: Förnamn
-      last_name: Efternamn
-      phone: Telefon
       email: E-post
       company: Företag
       locale: Locale
@@ -294,10 +263,6 @@ sv:
       competence_text: Kompetenser
       job_experience: Arbetserfarenhet
       managed_selected: Alla användare markerade som hanterade.
-      missing_account_details: 'Kan inte synka: Bank clearing nummer och kontonummer måste vara ifyllt.'
-      account_details_synced: Synka bankkontouppgifter till Frilans Finans.
-      missing_ff_id: 'Kan inte synka: Användaren saknar Frilans Finans ID.'
-      sync_ff_bank_account: Synka bankkonto
       push_ff_user_success: användaren skickad till Frilans Finans (HTTP %{status})
       push_ff_user_failed: användaren misslyckades att skickas till Frilans Finans (HTTP %{status})
       push_frilans_finans_btn: Skicka till Frilans Finans
@@ -376,20 +341,19 @@ sv:
         subject_hint: 'Ämnesrad för den här template:n (du kan använda variabler här..)'
         body_hint: 'Innehåll för den här template:n (du kan använda variabler här..)'
     counts:
-      documents: Har %{count}dokument
-      applications: Har %{count}ansökningar
-      applicants: Har %{count}ansökande
-      comments: Har %{count}kommentarer
-      written_comments: Har skrivit %{count}kommentarer
-      written_messages: Har skrivit %{count}meddelande
-      translations: Har %{count}översättningar
-      images: Har %{count}bilder
-      sessions: Har %{count}loginsessioner
-      languages: Har %{count}språk
+      documents: Har %{count} dokument
+      applications: Har %{count} ansökningar
+      applicants: Har %{count} ansökande
+      comments: Har %{count} kommentarer
+      written_comments: Har skrivit %{count} kommentarer
+      written_messages: Har skrivit %{count} meddelande
+      translations: Har %{count} översättningar
+      images: Har %{count} bilder
+      sessions: Har %{count} loginsessioner
       chats: Har %{count} chattar
-      received_ratings: Har mottagit %{count}betyg
-      given_ratings: Har gett %{count}betyg
-      owned_jobs: Äger %{count}jobb
+      received_ratings: Har mottagit %{count} betyg
+      given_ratings: Har gett %{count} betyg
+      owned_jobs: Äger %{count} jobb
   active_admin:
     clone_model: "Klona %{model}"
     batch_actions:

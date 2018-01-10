@@ -7,6 +7,9 @@ sv:
       ahoy/event: Ahoy event
       arbetsformedlingen_ad: Arbetsförmedlingen annons
       arbetsformedlingen_ad_log: Arbetsförmedlingen annons logg
+      blazer/check: Blacker/check
+      blazer/dashboard: Blazer/dashboard
+      blazer/query: Blazer/query
       category: Kategori
       chat: Chatt
       chat_user: Chat användaren
@@ -30,6 +33,7 @@ sv:
       frilans_finans_api_log: Frilans Finans API logg
       frilans_finans_invoice: Frilans Finans Faktura
       frilans_finans_term: Frilans Finans villkor
+      guide_image: Guidebild
       guide_section: Guidesektio
       guide_section_article: Guidesektionsartikel
       guide_section_article_translation: Guidesektionsartikelöversättning
@@ -121,6 +125,26 @@ sv:
       arbetsformedlingen_ad_log:
         arbetsformedlingen_ad: :activerecord.models.arbetsformedlingen_ad
         response: Svar
+      blazer/check:
+        creator: :activerecord.models.creator
+        emails: Emails
+        query: :activerecord.models.query
+        state: Stat
+      blazer/dashboard:
+        creator: :activerecord.models.creator
+        dashboard_queries: Instrumentbrädan sökfrågor
+        name: Namn
+        queries: Förfrågan
+      blazer/query:
+        audits: Revisioner
+        checks: Checkar
+        creator: :activerecord.models.creator
+        dashboard_queries: Instrumentbrädan sökfrågor
+        dashboards: Instrumentpaneler
+        data_source: Datakälla
+        description: Beskrivning
+        name: Namn
+        statement: Påstående
       category:
         insurance_status: Försäkringsstatus
         jobs: Jobb
@@ -277,6 +301,12 @@ sv:
       frilans_finans_term:
         body: Kropp
         company: Företag
+      guide_image:
+        image_content_type: Bildinnehåll typ
+        image_file_name: Bild filnamn
+        image_file_size: Filstorleken
+        image_updated_at: Bild uppdateras
+        title: Titel
       guide_section:
         articles: Artiklar
         language: :activerecord.models.language
@@ -485,12 +515,20 @@ sv:
         invoice: :activerecord.models.invoice
         job: :activerecord.models.job
         language: :activerecord.models.language
+        languages: Språk
+        occupations: Yrken
         owner: :activerecord.models.owner
         performed: Genomförde
         rejected: Avslagen
         shortlisted: Shortlist:ad
+        skills: Färdigheter
+        tags: Taggar
         translations: Översättningar
         user: :activerecord.models.user
+        user_languages: Användarspråk
+        user_occupations: Användaryrke
+        user_skills: Användar färdigheter
+        user_tags: Användartaggar
         utm_campaign: UTM-kampanj
         utm_content: UTM-innehål
         utm_medium: UTM-medium

@@ -1,6 +1,7 @@
 ti:
   activerecord:
     models:
+      blazer/query: Blazer/query (ብሌዘር/ሕቶ)
       category: ምድብ
       chat: ቻት ወይ ዕላል
       chat_user: ተጠቃም ናይ ቻት
@@ -33,6 +34,18 @@ ti:
         longitude: Longitud (ትኹላዊ ናይ ሓሳብ መስመር)
       ahoy/event:
         name: ስም
+      blazer/dashboard:
+        dashboard_queries: መሳርሒ ሰሌዳ ወይ ቦርድ ሕቶታት
+        name: ስም
+      blazer/query:
+        audits: ኣውዲት
+        checks: ቼክ
+        dashboard_queries: መሳርሒ ሰሌዳ ወይ ቦርድ ሕቶታት
+        dashboards: መሳርሒ ሰሌዳ ወይ ቦርድ
+        data_source: ናይ ሓበሬታ ምንጪ
+        description: መብርሂ
+        name: ስም
+        statement: መግለጺ
       category:
         jobs: ስራሕ
         name: ስም
@@ -100,6 +113,11 @@ ti:
       frilans_finans_term:
         body: ሰብነት ወይ ኣካል
         company: ትካል ወይ ካምፓኒ
+      guide_image:
+        image_content_type: ዓይነት ትሕዝቶ-ስእሊ
+        image_file_name: ናይ ፋይል ስም ስእሊ
+        image_file_size: ዓቐን ወይ ግዝፊ ፋይል
+        image_updated_at: መሐደስታ ስእሊ
       guide_section_article_translation:
         body: ሰብነት ወይ ኣካል
       hourly_pay:
@@ -141,7 +159,11 @@ ti:
       job_user:
         accepted: ቅቡል
         accepted_at: ቅቡል ኣብ
+        languages: ቋንቋ
         performed: ተፈጺሙ
+        skills: ክእለት ወይ ሙያ
+        user_languages: ቋንቋ ናይ ተጠቃሚ
+        user_skills: ክእለት ወይ ሙያ ናይ ተጠቃሚ
         will_perform: ክፍጸም ኢዩ
       language:
         direction: ኣንፈት

@@ -48,7 +48,7 @@ sv:
     chat:
       number_of_users: en chat måste bestå av minst %{min} och %{max} antal användare
     frilans_finans_invoice:
-      job_is_frilans_finans_job: måste vara ett Frilans Finans job
+      job_is_frilans_finans_job: måste vara ett Frilans Finans jobb
     invoice:
       job_started: jobbets starttid kan inte vara i framtiden när en faktura ska skapas
       job_user_accepted: användaren måste vara accepterat innan en faktura kan bli skapad
@@ -139,8 +139,8 @@ sv:
     missing_job_languages_trait: ovan kan du hitta relevanta språk för det här jobbet som du inte lagt till än
     missing_languages_trait: här kan du lägga till några utvalda språk som vi är intresserade att veta mer om
     missing_skills_trait: här kan du lägga till några utvalda kompetenser som vi är intresserade att veta mer om
-    missing_occupations_trait: här kan du lägga till några utvalda yrkeserfarenheter som vi är intresserade att veta mer om
-    missing_job_occupations_trait: här kan du lägga till några utvalda yrkeserfarenheter för det här jobbet som vi är intresserade att veta mer om
+    missing_occupations_trait: här kan du lägga till några utvalda yrkesområden som vi är intresserade att veta mer om
+    missing_job_occupations_trait: här kan du hitta relevanta yrkesområden för det här jobbet som du inte lagt till än
     statuses:
       asylum_seeker: Asylsökande
       asylum_seeker_description: Asylsökande

@@ -1,6 +1,7 @@
 ar:
   activerecord:
     models:
+      blazer/query: سترة/استفسار
       category: فئة
       chat: دردشة
       chat_user: مستخدم الدردشة
@@ -35,6 +36,18 @@ ar:
         longitude: خط الطول
       ahoy/event:
         name: الاسم
+      blazer/dashboard:
+        dashboard_queries: لوحة الأجهزة استفسار
+        name: الاسم
+      blazer/query:
+        audits: محاسبات
+        checks: شيكات
+        dashboard_queries: لوحة الأجهزة استفسار
+        dashboards: لوحة الأجهزة
+        data_source: مصدر بيانات
+        description: وصف
+        name: الاسم
+        statement: توكيد
       category:
         jobs: عمل
         name: الاسم
@@ -102,6 +115,11 @@ ar:
       frilans_finans_term:
         body: جسم
         company: شركة
+      guide_image:
+        image_content_type: نوع محتوى الصورة
+        image_file_name: اسم ملف الصورة
+        image_file_size: حجم الملفّ
+        image_updated_at: تحديث صورة
       guide_section_article_translation:
         body: جسم
       hourly_pay:
@@ -144,7 +162,11 @@ ar:
       job_user:
         accepted: مقبول
         accepted_at: مقبول في
+        languages: لغات
         performed: نفّذ
+        skills: مهارات
+        user_languages: لغة المستخدم
+        user_skills: مهارات المستخدم
         will_perform: سينفّذ
       language:
         direction: اتجاه

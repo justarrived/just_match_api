@@ -21,7 +21,6 @@ ps:
     recent_job_users:
       accepted: منل شوی
       will_perform: ترسره به شي
-      name: نوم
       job: دنده
       user: کارونکی
     no_invoice_job_users:
@@ -33,7 +32,6 @@ ps:
           label: نظر
     job:
       checklist_sidebar:
-        hidden: پټ
         description: شرح
       name: نوم
       description: شرح
@@ -42,10 +40,6 @@ ps:
       show:
         applicant_description:
           short_name: د دندې کارونکی
-        comments:
-          open_in_app: ځواب ورکول
-      form:
-        skills_title: کاري تجربه
     chat:
       name: غږیدل
       form:
@@ -53,9 +47,6 @@ ps:
     user:
       system_language: د سیسټم ژبه
       name: نوم
-      first_name: لومړی نوم
-      last_name: تخلص
-      phone: تلیفون
       email: بریښنالیک
       company: سوداګري
       verified: تایید شوی
