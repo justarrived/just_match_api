@@ -144,7 +144,7 @@ ActiveAdmin.register JobUser do
   filter :tags
   filter :languages
   filter :user_interview_comment_cont, as: :string
-  filter :occupations
+  filter :occupations, collection: -> { Occupation.with_translations.order_by_name }
   filter :job, collection: -> { Job.with_translations.order_by_name.limit(1000) }
   filter :accepted
   filter :will_perform
@@ -179,8 +179,7 @@ ActiveAdmin.register JobUser do
       job_user_current_status_badge(job_user.current_status)
     end
     column :comment do |job_user|
-      # comments = ActiveAdmin::Comment.find_for_resource_in_namespace(job_user, 'admin')
-      job_user.active_admin_comments.order(id: :desc).limit(1).first&.body
+      job_user.active_admin_comments.max_by { |comment| comment.created_at }&.body
     end
   end
 

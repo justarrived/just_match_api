@@ -5,6 +5,11 @@ class Occupation < ApplicationRecord
 
   belongs_to :language
 
+  scope :order_by_name, (lambda { |direction: :asc|
+    dir = direction.to_s == 'desc' ? 'DESC' : 'ASC'
+    order("occupation_translations.name #{dir}")
+  })
+
   include Translatable
   translates :name
 
