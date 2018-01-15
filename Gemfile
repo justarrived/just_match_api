@@ -125,7 +125,7 @@ end
 group :development do
   gem 'annotate', '~> 2.7'
   gem 'better_errors', '~> 2.4'
-  gem 'binding_of_caller', '~> 0.7'
+  gem 'binding_of_caller', '~> 0.8'
   gem 'derailed_benchmarks', '~> 1.3'
   gem 'i18n-tasks', '~> 0.9.19'
   gem 'i18n_generators', '~> 2.1'
