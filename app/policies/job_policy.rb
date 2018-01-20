@@ -18,7 +18,7 @@ class JobPolicy < ApplicationPolicy
     last_application_at_in_words open_for_applications starts_in_the_future
     full_time publish_at unpublish_at tasks_description tasks_description_html
     applicant_description applicant_description_html requirements_description
-    requirements_description_html frilans_finans_job
+    requirements_description_html frilans_finans_job schema_org
   ).freeze
 
   ATTRIBUTES = %i(
@@ -32,6 +32,7 @@ class JobPolicy < ApplicationPolicy
     starts_in_the_future full_time publish_at unpublish_at tasks_description
     tasks_description_html applicant_description applicant_description_html
     requirements_description requirements_description_html frilans_finans_job
+    schema_org
   ).freeze
 
   OWNER_ATTRIBUTES = [

@@ -1,0 +1,58 @@
+ti:
+  admin:
+    menu:
+      jobs: ስራሕ
+      users: ተጠቃሚ
+      chats: የዕልል (ቻት ይገብር)
+    job_name: ስራሕ
+    user_name: ተጠቃሚ
+    job_user_name: Jobb_user (ተጠቃም_ስራሕ)
+    name: ስም
+    recent_jobs:
+      name: ስም
+      hours: ሰዓታት
+      hourly_pay: ብሰዓት ዝኽፈል ደሞዝ
+    my_unfilled_jobs:
+      name: ስም
+    unfilled_urgent_jobs:
+      name: ስም
+    my_unfilled_urgent_jobs:
+      name: ስም
+    recent_job_users:
+      accepted: ቅቡል
+      will_perform: ክፍጸም ኢዩ
+      job: ስራሕ
+      user: ተጠቃሚ
+    no_invoice_job_users:
+      job: ስራሕ
+      user: ተጠቃሚ
+    order:
+      form:
+        change_comment:
+          label: ርእይቶ
+    job:
+      checklist_sidebar:
+        description: መብርሂ
+      name: ስም
+      description: መብርሂ
+      section_title:
+        invoice: ፋክቱራ
+      show:
+        applicant_description:
+          short_name: Jobb_user (ተጠቃም_ስራሕ)
+    chat:
+      name: ቻት ወይ ዕላል
+      form:
+        messages_title: መልእኽቲ
+    user:
+      system_language: ናይቲ ሲስተም ቋንቋ
+      name: ስም
+      email: ኢ-መይል
+      company: ትካል ወይ ካምፓኒ
+      verified: ዝተረጋገጸ
+      description: መብርሂ
+      education: ምህሮ/ ትምህርቲ
+      job_experience: ናይ ስራሕ ተሞክሮ
+      show:
+        skills: ክእለት ወይ ሙያ
+        languages: ቋንቋ

@@ -1,35 +1,144 @@
 sv:
   activerecord:
     models:
+      active_admin/comment: Active admin comment
+      active_admin_comment: Active admin comment
+      address: Adress
+      ahoy/event: Ahoy event
+      arbetsformedlingen_ad: Arbetsförmedlingen annons
+      arbetsformedlingen_ad_log: Arbetsförmedlingen annons logg
+      blazer/check: Blacker/check
+      blazer/dashboard: Blazer/dashboard
       blazer/query: Blazer/query
       category: Kategori
       chat: Chatt
       chat_user: Chat användaren
       comment: Kommentar
+      comment_translation: Kommentaröversättning
+      communication_template: Kommunikationstemplate
+      communication_template_translation: Kommunikationstemplateöversättning
       company: Företag
       company_image: Företagets image
+      company_industry: Företags branch
+      company_translation: Företagsöversättning
       contact: Kontakta
       currency: Valuta
+      digest_subscriber: Abonnent
+      document: Dokument
       faq: Faq
-      hourly_pay: Timlön
-      invoice: Faktura
+      faq_translation: FAQ översättning
+      feedback: Feedback
+      filter: Filter
+      filter_user: Filteranvändare
+      frilans_finans_api_log: Frilans Finans API logg
       frilans_finans_invoice: Frilans Finans Faktura
+      frilans_finans_term: Frilans Finans villkor
+      guide_image: Guidebild
+      guide_section: Guidesektio
+      guide_section_article: Guidesektionsartikel
+      guide_section_article_translation: Guidesektionsartikelöversättning
+      guide_section_translation: Guidesektionsöversättning
+      hourly_pay: Timlön
+      industry: Industri
+      industry_translation: Industriöversättning
+      interest: Intresse
+      interest_filter: Intressefilter
+      interest_translation: Intresseöversättning
+      invoice: Faktura
       job: Jobb
+      job_digest: Jobbsammanfattning
+      job_digest_address: Jobbsammanfattningsadress
+      job_digest_occupation: Jobbsammanfattningsyrke
+      job_language: Jobbsprå
+      job_occupation: Jobbyrke
+      job_request: Jobb förfrågan
       job_skill: Jobb skill
-      job_user: Ansökan
+      job_translation: Jobböversättning
+      job_user: Sökande
+      job_user_translation: Ansökandeöversättning
       language: Språk
+      language_filter: Språkfilter
       message: Meddelande
+      message_translation: Meddelandeöversättning
+      occupation: Yrke
+      occupation_translation: Yrkesöversättning
+      order: Order
+      order_document: Orderdokument
+      order_value: Ordervärde
       rating: Betyg
+      received_email: Mottagna emai
+      received_text: Mottagna SMS
       skill: Skicklighet
+      skill_filter: Kompetensfilter
+      skill_translation: Kompetensöversättning
+      tag: Tagg
+      terms_agreement: Villkor
+      terms_agreement_consent: Villkorsacceptans
+      token: Nyckel
       user: Användare
+      user_document: Användardokument
       user_image: Användarbild
+      user_interest: Användarintresse
       user_language: Användarspråk
+      user_occupation: Användaryrke
       user_skill: Användarskicklighet
+      user_tag: Användartagg
+      user_translation: Användaröversättning
+      utalk_code: Utalk-kod
+      visit: Besök
     attributes:
+      active_admin/comment:
+        author: :activerecord.models.author
+        author_type: Författartyp
+        body: Kropp
+        namespace: Namespace
+        resource: :activerecord.models.resource
+        resource_type: Resurstyp
+      active_admin_comment:
+        author_type: Författartyp
+        body: Kropp
+        namespace: Namespace
+        resource: :activerecord.models.resource
+        resource_type: Resurstyp
+      address:
+        city: Stad
+        country_code: Landskod
+        latitude: Latitud
+        longitude: Longitud
+        municipality: Kommun
+        postal_code: Postkod
+        state: Stat
+        street1: Gata1
+        street2: Gata2
+        uuid: UUID
+      ahoy/event:
+        name: Namn
+        properties: Egenskaper
+        time: Tid
+        user: :activerecord.models.user
+        visit: :activerecord.models.visit
+      arbetsformedlingen_ad:
+        arbetsformedlingen_ad_logs: Arbetsförmedlingen annonslogg
+        job: :activerecord.models.job
+        occupation: Yrke
+        published: Publicerad
+      arbetsformedlingen_ad_log:
+        arbetsformedlingen_ad: :activerecord.models.arbetsformedlingen_ad
+        response: Svar
+      blazer/check:
+        creator: :activerecord.models.creator
+        emails: Emails
+        query: :activerecord.models.query
+        state: Stat
+      blazer/dashboard:
+        creator: :activerecord.models.creator
+        dashboard_queries: Instrumentbrädan sökfrågor
+        name: Namn
+        queries: Förfrågan
       blazer/query:
         audits: Revisioner
         checks: Checkar
-        creator: Skapare
+        creator: :activerecord.models.creator
         dashboard_queries: Instrumentbrädan sökfrågor
         dashboards: Instrumentpaneler
         data_source: Datakälla
@@ -37,173 +146,692 @@ sv:
         name: Namn
         statement: Påstående
       category:
+        insurance_status: Försäkringsstatus
         jobs: Jobb
         name: Namn
+        ssyk: SSYK
       chat:
         chat_users: Chattanvändare
         messages: Meddelanden
+        user_images: Användarbilder
         users: Användare
       chat_user:
-        chat: Chatt
-        user: Användare
+        chat: :activerecord.models.chat
+        user: :activerecord.models.user
       comment:
         body: Kropp
-        commentable: Kommentarsbar
+        commentable: :activerecord.models.commentable
         commentable_type: Commentable typ
         hidden: Dold
-        language: Språk
-        owner: Ägare
+        language: :activerecord.models.language
+        owner: :activerecord.models.owner
+        translations: Översättningar
+      comment_translation:
+        body: Kropp
+        comment: :activerecord.models.comment
+        language: :activerecord.models.language
+        locale: Locale
+      communication_template:
+        body: Kropp
+        category: Kategori
+        language: :activerecord.models.language
+        subject: Ämnesrad
+        translations: Översättningar
+      communication_template_translation:
+        body: Kropp
+        communication_template: :activerecord.models.communication_template
+        language: :activerecord.models.language
+        locale: Locale
+        subject: Ämnesrad
       company:
+        billing_email: Fakturaemail
         cin: Cin
+        city: Stad
         company_images: Företaget bilder
-        jobs: Jobb
+        company_industries: Företagsindustrier
+        display_name: Visningsnamn
+        email: E-post
+        industries: Industri
+        municipality: Kommun
         name: Namn
+        owned_jobs: Ägda jobb
+        phone: Telefon
+        sales_user: :activerecord.models.sales_user
+        staffing_agency: Bemanningsbolag
+        street: Gata
+        translations: Översättningar
         users: Användare
         website: Webbplats
+        zip: Blixtlås
       company_image:
-        company: Företag
+        company: :activerecord.models.company
         image_content_type: Bildinnehåll typ
         image_file_name: Bild filnamn
         image_file_size: Filstorleken
         image_updated_at: Bild uppdateras
         one_time_token: En gång token
         one_time_token_expires_at: En gång token går ut på
+      company_industry:
+        company: :activerecord.models.company
+        industry: :activerecord.models.industry
+      company_translation:
+        company: :activerecord.models.company
+        description: Beskrivning
+        language: :activerecord.models.language
+        locale: Locale
+        short_description: Kort beskrivning
       contact:
         body: Kropp
         email: E-post
         name: Namn
       currency:
         currency_code: Valutakod
+      digest_subscriber:
+        deleted_at: Borttaget den
+        email: E-post
+        job_digests: Jobbsammanfattning
+        user: :activerecord.models.user
+        uuid: UUID
+      document:
+        document_content_type: Dokument innehållstyp
+        document_file_name: Dokuments filnamn
+        document_file_size: Dokument filstorlek
+        document_updated_at: Dokument uppdaterat den
+        one_time_token: En gång token
+        one_time_token_expires_at: En gång token går ut på
+        order_documents: Orderdokument
+        orders: Ordrar
+        text_content: Textinnehåll
+        user_documents: Användardokument
+        users: Användare
       faq:
         answer: Svar
-        language: Språk
+        language: :activerecord.models.language
         question: Fråga
+        translations: Översättningar
+      faq_translation:
+        answer: Svar
+        faq: :activerecord.models.faq
+        language: :activerecord.models.language
+        locale: Locale
+        question: Fråga
+      feedback:
+        body: Kropp
+        job: :activerecord.models.job
+        title: Titel
+        user: :activerecord.models.user
+      filter:
+        filter_users: Filteranvändare
+        interest_filters: Intressefilter
+        interests: Intressen
+        language_filters: Språkfilter
+        languages: Språk
+        name: Namn
+        skill_filters: Kompetensfilter
+        skills: Färdigheter
+        users: Användare
+      filter_user:
+        filter: :activerecord.models.filter
+        user: :activerecord.models.user
+      frilans_finans_api_log:
+        params: Parametrar
+        response_body: Svarsinnehåll
+        status: Status
+        status_name: Statusnamn
+        uri: URI
+        verb: Verb
+      frilans_finans_invoice:
+        activated: Aktiverad
+        company: :activerecord.models.company
+        express_payment: Expressbetalning
+        ff_amount: Frilans Finans total
+        ff_approval_status: Frilans Finans godkännandestatus
+        ff_gross_salary: Frilans Finans bruttolön
+        ff_invoice_number: Frilans Finans fakturanummer
+        ff_last_synced_at: Frilans Finans senast synkat den
+        ff_net_salary: Frilans Finans nettolön
+        ff_payment_status: Frilans Finans betalningsstatus
+        ff_pre_report: Frilans Finans förhandsrapport
+        ff_sent_at: Frilans Finans skickat den
+        ff_status: Frilans Finans status
+        invoice: :activerecord.models.invoice
+        job: :activerecord.models.job
+        job_user: :activerecord.models.job_user
+        user: :activerecord.models.user
+      frilans_finans_term:
+        body: Kropp
+        company: Företag
+      guide_image:
+        image_content_type: Bildinnehåll typ
+        image_file_name: Bild filnamn
+        image_file_size: Filstorleken
+        image_updated_at: Bild uppdateras
+        title: Titel
+      guide_section:
+        articles: Artiklar
+        language: :activerecord.models.language
+        order: Order
+        translations: Översättningar
+      guide_section_article:
+        language: :activerecord.models.language
+        order: Order
+        section: :activerecord.models.section
+        translations: Översättningar
+      guide_section_article_translation:
+        article: :activerecord.models.article
+        body: Kropp
+        language: :activerecord.models.language
+        locale: Locale
+        short_description: Kort beskrivning
+        slug: Slugg
+        title: Titel
+      guide_section_translation:
+        language: :activerecord.models.language
+        locale: Locale
+        section: :activerecord.models.section
+        short_description: Kort beskrivning
+        slug: Slugg
+        title: Titel
       hourly_pay:
         active: Aktiva
         currency: Valuta
+        gross_salary: Bruttolön
         jobs: Jobb
-        rate: Betygsätta
+      industry:
+        ancestry: Förfäder
+        language: :activerecord.models.language
+        name: Namn
+        translations: Översättningar
+      industry_translation:
+        industry: :activerecord.models.industry
+        language: :activerecord.models.language
+        locale: Locale
+        name: Namn
+      interest:
+        internal: Intern
+        language: :activerecord.models.language
+        name: Namn
+        translations: Översättningar
+        user_interests: Användarintressen
+        users: Användare
+      interest_filter:
+        filter: :activerecord.models.filter
+        interest: :activerecord.models.interest
+        level: Nivå
+        level_by_admin: Nivå av admin
+      interest_translation:
+        interest: :activerecord.models.interest
+        language: :activerecord.models.language
+        locale: Locale
+        name: Namn
       invoice:
-        job_user: Ansökan
-      frilans_finans_invoice:
-        job_user: Ansökan
+        company: :activerecord.models.company
+        frilans_finans_invoice: :activerecord.models.frilans_finans_invoice
+        job: :activerecord.models.job
+        job_user: :activerecord.models.job_user
+        user: :activerecord.models.user
       job:
-        category: Kategori
+        applicant_description: Ansökandebeskrivning
+        arbetsformedlingen_ad: :activerecord.models.arbetsformedlingen_ad
+        blocketjobb_category: Blocketjobbkategori
+        cancelled: Abrutet
+        car_required: Bil krävs
+        category: :activerecord.models.category
+        city: Stad
+        cloned: Klonad
         comments: Kommentarer
-        company: Företag
+        company: :activerecord.models.company
+        company_contact: :activerecord.models.company_contact
+        customer_hourly_price: Kundtimpris
         description: Beskrivning
+        direct_recruitment_job: Direktrekrytering
+        featured: Featured
+        filled_at: Tillsatt den
+        full_time: Heltid
         hidden: Dold
-        hourly_pay: Timbetalning
+        hourly_pay: :activerecord.models.hourly_pay
         hours: Timmar
-        job_date: Jobbdatum
-        job_end_date: Jobb slutdatum
+        invoice_comment: Fakturakommentar
+        job_date: Startdatum
+        job_end_date: Slutdatum
+        job_languages: Jobbspråk
+        job_occupations: Jobbyrken
+        job_request: :activerecord.models.job_requests
         job_skills: Arbetserfarenheter
-        job_users: Ansökan
-        language: Språk
+        job_users: Ansökande
+        just_arrived_contact: :activerecord.models.just_arrived_contact
+        language: :activerecord.models.language
+        languages: Språk
+        last_application_at: Sista ansöknings vid
         latitude: Latitud
         longitude: Longitud
+        metrojobb_category: Metrojobbkategori
+        municipality: Kommun
         name: Namn
-        owner: Ägare
+        number_to_fill: Antal platser
+        occupations: Yrken
+        order: :activerecord.models.order
+        owner: :activerecord.models.owner
+        preview_key: Förhandsgranskingsnyckel
+        publish_at: Publicera den
+        publish_on_blocketjobb: Publicera på Blocketjobb
+        publish_on_linkedin: Publicera på LinkedIN
+        publish_on_metrojobb: Publicera på Metrojobb
+        requirements_description: Kravbeskrivning
+        salary_type: Löntyp
+        short_description: Kort beskrivning
         skills: Färdigheter
+        staffing_company: :activerecord.models.staffing_company
+        staffing_job: Bemanningsjobb
         street: Gata
+        swedish_drivers_license: Svenskt körkort
+        tasks_description: Uppdragsbeskrivning
+        translations: Översättningar
+        unpublish_at: Avpublicerat den
+        upcoming: Kommande
         users: Användare
         verified: Verifierade
         zip: Blixtlås
         zip_latitude: Zip latitud
         zip_longitude: Zip longitud
+      job_digest:
+        addresses: Adresser
+        deleted_at: Borttaget den
+        job_digest_addresses: Jobsammanfattningsadresser
+        job_digest_occupations: Jobbsammanfattningsyrken
+        locale: Locale
+        max_distance: Max distans
+        notification_frequency: Notifikationsfrekvens
+        occupations: Yrken
+        subscriber: :activerecord.models.subscriber
+        user: :activerecord.models.user
+      job_digest_address:
+        address: :activerecord.models.address
+        job_digest: :activerecord.models.job_digest
+      job_digest_occupation:
+        job_digest: :activerecord.models.job_digest
+        occupation: :activerecord.models.occupation
+      job_language:
+        job: :activerecord.models.job
+        language: :activerecord.models.language
+        proficiency: Skicklighet
+        proficiency_by_admin: Skicklighet satt av admin
+      job_occupation:
+        importance: Betydelse
+        job: :activerecord.models.job
+        occupation: :activerecord.models.occupation
+        years_of_experience: Års erfarenhet
+      job_request:
+        assignment: Uppdrag
+        cancelled: Abrutet
+        comment: Kommentar
+        company: :activerecord.models.company
+        company_address: Företagsadress
+        company_email: Företagsepost
+        company_name: Företagsnamn
+        company_org_no: Företagsorganisationsnummer
+        company_phone: Företagstelefon
+        contact_string: Kontaktdata
+        delivery_user: :activerecord.models.delivery_user
+        draft_sent: Utkast skickat
+        finished: Avslutat
+        hourly_pay: Timlön
+        job_at_date: Jobbdatum
+        job_scope: Jobbomfattning
+        job_specification: Jobbspecifikatio
+        language_requirements: Språkkrav
+        order: :activerecord.models.order
+        requirements: Krav
+        responsible: Ansvarig
+        sales_user: :activerecord.models.sales_user
+        short_name: Kortnamn
+        signed_by_customer: Signerat av kund
+        suitable_candidates: Passande kandidater
       job_skill:
-        job: Jobb
-        skill: Skill
+        job: :activerecord.models.job
+        proficiency: Proficienct
+        proficiency_by_admin: Skicklighet satt av admin
+        skill: :activerecord.models.skill
+      job_translation:
+        applicant_description: Ansökandebeskrivning
+        description: Beskrivning
+        job: :activerecord.models.job
+        language: :activerecord.models.language
+        locale: Locale
+        name: Namn
+        requirements_description: Kravbeskrivning
+        short_description: Kort beskrivning
+        tasks_description: Uppdragsbeskrivning
       job_user:
         accepted: Accepterad
         accepted_at: Accepteras på
-        invoice: Faktura
-        job: Jobb
+        active_admin_comments: Active admin kommentarer
+        application_withdrawn: Ansökand återkallad
+        apply_message: Ansökningsmeddelande
+        company: :activerecord.models.company
+        company_contact: :activerecord.models.company_contact
+        frilans_finans_invoice: :activerecord.models.frilans_finans_invoice
+        http_referrer: HTTP referrer
+        invoice: :activerecord.models.invoice
+        job: :activerecord.models.job
+        language: :activerecord.models.language
+        languages: Språk
+        occupations: Yrken
+        owner: :activerecord.models.owner
         performed: Genomförde
-        user: Användare
+        rejected: Avslagen
+        shortlisted: Shortlist:ad
+        skills: Färdigheter
+        tags: Taggar
+        translations: Översättningar
+        user: :activerecord.models.user
+        user_languages: Användarspråk
+        user_occupations: Användaryrke
+        user_skills: Användar färdigheter
+        user_tags: Användartaggar
+        utm_campaign: UTM-kampanj
+        utm_content: UTM-innehål
+        utm_medium: UTM-medium
+        utm_source: UTM-källa
+        utm_term: UTM-term
         will_perform: Kommer att utföra
+      job_user_translation:
+        apply_message: Ansökningsmeddelande
+        job_user: :activerecord.models.job_user
+        language: :activerecord.models.language
+        locale: Locale
       language:
+        ar_name: Arabiskt namn
         direction: Riktning
-        en_name: Sv namn
+        en_name: Engelskt namn
+        fa_af_name: Dari-namn
+        fa_name: Farsi nam
+        job_languages: Jobbspårk
         jobs: Jobb
-        lang_code: Lang-kod
+        ku_name: Kurdiskt namn
+        lang_code: Språkkod
         local_name: Lokalt namn
+        machine_translation: Maskinöversättning
+        ps_name: Pashto nam
+        sv_name: Svenskt namn
         system_language: Systemspråk
+        ti_name: Tigrinskt namn
         user_languages: Användarspråk
         users: Användare
+      language_filter:
+        filter: :activerecord.models.filter
+        language: :activerecord.models.language
+        proficiency: Proficienct
+        proficiency_by_admin: Skicklighet satt av admin
       message:
-        author: Författare
+        author: :activerecord.models.author
         body: Kropp
-        chat: Chatt
+        chat: :activerecord.models.chat
         integer: Heltal
-        language: Språk
+        language: :activerecord.models.language
+        translations: Översättningar
+      message_translation:
+        body: Kropp
+        language: :activerecord.models.language
+        locale: Locale
+        message: :activerecord.models.message
+      occupation:
+        ancestry: Förfäder
+        language: :activerecord.models.language
+        name: Namn
+        translations: Översättningar
+      occupation_translation:
+        language: :activerecord.models.language
+        locale: Locale
+        name: Namn
+        occupation: :activerecord.models.occupation
+      order:
+        category: Kategori
+        company: :activerecord.models.company
+        delivery_user: :activerecord.models.delivery_user
+        documents: Dokument
+        filled_hourly_pay_rate: Tillsatt timpris
+        filled_hours: Tillsatta timmar
+        filled_invoice_hourly_pay_rate: Tillsatt faktura timpris
+        hourly_pay_rate: Timpris
+        hours: Timmar
+        invoice_hourly_pay_rate: Faktura timpris
+        job_request: :activerecord.models.job_requests
+        jobs: Jobb
+        lost: Tappad
+        name: Namn
+        order_documents: Orderdokument
+        order_values: Ordervärden
+        previous_order: :activerecord.models.previous_order
+        sales_user: :activerecord.models.sales_user
+      order_document:
+        document: :activerecord.models.document
+        name: Namn
+        order: :activerecord.models.order
+      order_value:
+        change_comment: Ändringskommentar
+        change_reason_category: Ändringsanledningskategori
+        changed_by_user: :activerecord.models.changed_by_user
+        order: :activerecord.models.order
+        previous_order_value: :activerecord.models.previous_order_value
+        sold_hourly_price: Sålt timpris
+        sold_hourly_salary: Såld timlön
+        sold_hours_per_month: Sålt antal timmar per månad
+        sold_number_of_months: Sålt antal månader
+        total_filled: Totalt tillsatt
+        total_sold: Totalt sålt
       rating:
-        comment: Kommentar
-        from_user: Från användare
-        job: Jobb
+        comment: :activerecord.models.comment
+        from_user: :activerecord.models.from_user
+        job: :activerecord.models.job
         score: Göra
-        to_user: Till användare
-      token:
-        token: Nyckel
-        expires_at: Löper ut vid
-        user: Användare
+        to_user: :activerecord.models.to_user
+      received_email:
+        from_address: Från adress
+        html_body: HTML body
+        subject: Ämnesrad
+        text_body: Text body
+        to_address: Till adress
+      received_text:
+        body: Kropp
+        from_number: Från nummer
+        to_number: Till nummer
       skill:
+        color: Färg
+        high_priority: Hög prioritet
+        internal: Intern
         job_skills: Arbetserfarenheter
         jobs: Jobb
-        language: Språk
+        language: :activerecord.models.language
         name: Namn
+        translations: Översättningar
         user_skills: Användar färdigheter
         users: Användare
+      skill_filter:
+        filter: :activerecord.models.filter
+        proficiency: Proficienct
+        proficiency_by_admin: Skicklighet satt av admin
+        skill: :activerecord.models.skill
+      skill_translation:
+        language: :activerecord.models.language
+        locale: Locale
+        name: Namn
+        skill: :activerecord.models.skill
+      tag:
+        color: Färg
+        name: Namn
+        user_tags: Användartaggar
+        users: Användare
+      terms_agreement:
+        frilans_finans_term: :activerecord.models.frilans_finans_term
+        url: URL
+        version: Version
+      terms_agreement_consent:
+        job: :activerecord.models.job
+        terms_agreement: :activerecord.models.terms_agreement
+        user: :activerecord.models.user
+      token:
+        expires_at: Löper ut vid
+        token: Nyckel
+        user: :activerecord.models.user
       user:
+        account_clearing_number: Kontoclearningnummer
+        account_number: Kontonummer
         admin: Administration
         anonymized: Anonym
+        arbetsformedlingen_registered_at: Arbetsförmedligen registrerat den
+        arrived_at: Anlände den
+        at_und: AT-UND
+        auth_tokens: Auth tokens
         banned: Förbjudits
         chat_users: Chattanvändare
         chats: Chattar
-        company: Företag
+        city: Stad
+        company: :activerecord.models.company
+        competence_text: Kompetenstext
+        country_of_origin: Hemland
+        current_status: Nuvarande status
         description: Beskrivning
+        digest_subscriber: :activerecord.models.digest_subscriber
+        documents: Dokument
         education: Utbildning
         email: E-post
+        employed_for_jobs: Anställd för jobb
+        facebook_url: Facebook URL
+        feedbacks: Feedbacks
+        filter_users: Filteranvändare
+        filters: Filter
         first_name: Förnamn
+        frilans_finans_payment_details: Frilans Finans betaluppgifter
+        gender: Kön
+        given_ratings: Givna betyg
+        has_welcome_app_account: Har Welcome app konto
         ignored_notifications_mask: Ignoreras aviseringar maskera
+        interests: Intressen
+        interview_comment: Intervjukommentar
+        interviewed_at: Intervjuad den
+        interviewed_by: :activerecord.models.interviewed_by
+        job_digests: Jobbsammanfattning
         job_experience: Arbetserfarenhet
-        job_users: Ansökan
+        job_users: Ansökande
         jobs: Jobb
-        language: Språk
+        just_arrived_staffing: Just Arrived bemanning
+        language: :activerecord.models.language
         languages: Språk
         last_name: Efternamn
         latitude: Latitud
+        linkedin_url: LinkedIN URL
         longitude: Longitud
+        managed: Hanterad
         messages: Meddelanden
+        next_of_kin_name: Namn närmast anhörig
+        next_of_kin_phone: Telefon närmast anhörig
+        occupations: Yrken
         one_time_token: En gång token
         one_time_token_expires_at: En gång token går ut på
         owned_jobs: Ägda jobb
         password_hash: Lösenord hash
         password_salt: Lösenord salt
         phone: Telefon
+        presentation_availability: Presentation tillgänglighet
+        presentation_personality: Presentation personlighet
+        presentation_profile: Presentation profil
+        public_profile: Publik profil
+        received_ratings: Mottagna betyg
         skills: Färdigheter
+        skype_username: Skypeanvändarnamn
         ssn: Ssn
         street: Gata
+        super_admin: Super admin
+        system_language: :activerecord.models.system_language
+        tags: Taggar
+        translations: Översättningar
+        user_documents: Användardokument
         user_images: Användarbilder
+        user_interests: Användarintressen
         user_languages: Användarspråk
+        user_occupations: Användaryrke
         user_skills: Användar färdigheter
+        user_tags: Användartaggar
+        utalk_code: :activerecord.models.utalk_code
+        verified: Verifierade
+        welcome_app_last_checked_at: Welcome app senast kollat den
         written_comments: Skriftliga kommentarer
         zip: Blixtlås
         zip_latitude: Zip latitud
         zip_longitude: Zip longitud
-        frilans_finans_id: Frilans Finans id
-        frilans_finans_payment_details: Frilans Finans betaluppgifter
+      user_document:
+        category: Kategori
+        document: :activerecord.models.document
+        user: :activerecord.models.user
       user_image:
+        category: Kategori
         image_content_type: Bildinnehåll typ
         image_file_name: Bild filnamn
         image_file_size: Filstorleken
         image_updated_at: Bild uppdateras
         one_time_token: En gång token
         one_time_token_expires_at: En gång token går ut på
-        user: Användare
+        user: :activerecord.models.user
+      user_interest:
+        interest: :activerecord.models.interest
+        level: nivå
+        level_by_admin: Nivå av admin
+        user: :activerecord.models.user
       user_language:
-        language: Språk
-        user: Användare
+        language: :activerecord.models.language
+        proficiency: Skicklighet
+        proficiency_by_admin: Skicklighet satt av admin
+        user: :activerecord.models.user
+      user_occupation:
+        occupation: :activerecord.models.occupation
+        user: :activerecord.models.user
+        years_of_experience: Års erfarenhet
       user_skill:
-        skill: Erfarenheter
-        user: Användare
+        proficiency: Skicklighet
+        proficiency_by_admin: Skicklighet satt av admin
+        skill: :activerecord.models.skill
+        user: :activerecord.models.user
+      user_tag:
+        tag: :activerecord.models.tag
+        user: :activerecord.models.user
+      user_translation:
+        competence_text: Kompetenstext
+        description: Beskrivning
+        education: Utbildning
+        job_experience: Arbetserfarenhet
+        language: :activerecord.models.language
+        locale: Locale
+        user: :activerecord.models.user
+      utalk_code:
+        claimed_at: Hämtat den
+        code: Kod
+        user: :activerecord.models.user
+      visit:
+        ahoy_events: Ahoy events
+        browser: Webbläsare
+        city: Stad
+        country: Land
+        device_type: Enhetstyp
+        ip: IP
+        landing_page: Landningssida
+        latitude: Latitud
+        longitude: Longitud
+        os: OS
+        postal_code: Postkod
+        referrer: Referrer
+        referring_domain: Referrer domän
+        region: Region
+        screen_height: Skärmhöjd
+        screen_width: Skärmbredd
+        search_keyword: Sökord
+        started_at: Startat den
+        user: :activerecord.models.user
+        user_agent: User agent
+        utm_campaign: UTM-kampanj
+        utm_content: UTM-innehåll
+        utm_medium: UTM-medium
+        utm_source: UTM-källa
+        utm_term: UTM-term
+        visit_token: Besökstoken
+        visitor_token: Besökartoken

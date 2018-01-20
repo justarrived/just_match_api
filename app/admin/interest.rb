@@ -5,6 +5,11 @@ ActiveAdmin.register Interest do
 
   include AdminHelpers::MachineTranslation::Actions
 
+  filter :translations_name_cont, as: :string, label: I18n.t('admin.name')
+  filter :internal
+  filter :created_at
+  filter :updated_at
+
   set_interest_translation = lambda do |interest, permitted_params|
     return unless interest.persisted? && interest.valid?
 

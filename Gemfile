@@ -18,7 +18,7 @@ gem 'kramdown', '~> 1.16' # Markdown <> HTML
 gem 'rinku', '~> 2.0.4' # Autolink
 
 # SERVER
-gem 'lograge', '~> 0.7' # Less verbose Rails log in production
+gem 'lograge', '~> 0.9' # Less verbose Rails log in production
 gem 'puma', '~> 3.9' # App server
 
 # Analytics
@@ -38,8 +38,8 @@ gem 'rack-timeout', '~> 0.4' # Kill requests that run for too long
 gem 'sidekiq', '< 6' # Background worker (Redis-backed)
 
 # MONITORING
-gem 'airbrake', '~> 7.1' # Error catcher and reporter
-gem 'newrelic_rpm', '~> 4.5' # Performance monitoring
+gem 'airbrake', '~> 7.2' # Error catcher and reporter
+gem 'newrelic_rpm', '~> 4.7' # Performance monitoring
 
 # DATABASE / MODELS
 gem 'ancestry', '~> 3.0' # Organize records in a tree structure
@@ -63,11 +63,11 @@ gem 'pundit', '~> 1.1' # Authorization policies
 gem 'active_admin_filters_visibility', github: 'activeadmin-plugins/active_admin_filters_visibility'
 gem 'active_admin_scoped_collection_actions', github: 'activeadmin-plugins/active_admin_scoped_collection_actions'
 gem 'active_admin_theme', '~> 1.0' # activeadmin theme
-gem 'activeadmin', '~> 1.1' # Admin interface
+gem 'activeadmin', '~> 1.2' # Admin interface
 gem 'blazer', '~> 1.8' # Explore data with SQL
-gem 'chosen-rails', '~> 1.5' # Needed for autocomplete select input for activeadmin
+gem 'chosen-rails', '~> 1.8' # Needed for autocomplete select input for activeadmin
 gem 'inherited_resources', '~> 1.8' # activeadmin Rails 5
-gem 'uglifier', '~> 4.0' # Needed for activeadmin assets compilation
+gem 'uglifier', '~> 4.1' # Needed for activeadmin assets compilation
 
 gem 'arbetsformedlingen', '~> 0.1' # Gem for publishing jobs to Arbetsformedlingen (Swedish Employment Service)
 
@@ -81,7 +81,7 @@ gem 'frilans_finans_api', '~> 0.4' # Interact with Frilans Finans API
 # NOTIFICATIONS
 gem 'email_reply_parser', '~> 0.5' # Parse reply emails
 gem 'mail', '~> 2.6', '>= 2.6.6' # General email functionality
-gem 'twilio-ruby', '~> 5.5' # Send SMS notifications
+gem 'twilio-ruby', '~> 5.6' # Send SMS notifications
 
 # GEO/LOCALE/LANGUAGE UTILS
 gem 'banktools-se', '~> 2.6' # Validate Swedish bank account
@@ -119,17 +119,17 @@ group :development, :test, :docs do
   gem 'immigrant', '~> 0.3'
   gem 'rspec-rails', '~> 3.7'
   gem 'rspec_junit_formatter', '~> 0.2'
-  gem 'rubocop', '~> 0.51', require: false
+  gem 'rubocop', '~> 0.52', require: false
 end
 
 group :development do
   gem 'annotate', '~> 2.7'
   gem 'better_errors', '~> 2.4'
-  gem 'binding_of_caller', '~> 0.7'
+  gem 'binding_of_caller', '~> 0.8'
   gem 'derailed_benchmarks', '~> 1.3'
   gem 'i18n-tasks', '~> 0.9.19'
   gem 'i18n_generators', '~> 2.1'
-  gem 'letter_opener', '~> 1.4'
+  gem 'letter_opener', '~> 1.6'
   gem 'listen', '~> 3.1'
   gem 'memory_profiler', '~> 0.9'
   gem 'spring', '~> 2.0'
@@ -141,11 +141,11 @@ end
 group :test, :docs do
   gem 'codeclimate-test-reporter', '~> 1.0', require: false
   gem 'database_cleaner', '~> 1.6'
-  gem 'fuubar', '~> 2.2'
+  gem 'fuubar', '~> 2.3'
   gem 'rails-controller-testing', '~> 1.0'
   gem 'rb-readline', '~> 0.5'
   gem 'rspec-activemodel-mocks', '~> 1.0'
   gem 'simplecov', '~> 0.13', require: false
   gem 'timecop', '~> 0.8'
-  gem 'webmock', '~> 3.1'
+  gem 'webmock', '~> 3.2'
 end

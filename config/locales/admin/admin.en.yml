@@ -1,5 +1,14 @@
 en:
   admin:
+    menu:
+      jobs: Jobs
+      users: Users
+      sales: Sales
+      filters: Filters
+      chats: Chats
+      settings: Settings
+      guide: Guide
+      misc: Misc
     yes_answer: Yes
     no_answer: No
     hired_suffix: '(hired)'
@@ -12,6 +21,7 @@ en:
     time_from_now: '%{time} from now'
     download: Download
     upload: Upload
+    name: Name
     arbetsformedlingen_ad:
       push:
         button: Push
@@ -26,8 +36,6 @@ en:
       post_btn: Activate invoice
     comment:
       commentable_type_header: Type
-    translation:
-      locale_language_missmatch: the provided locale must be the same as the language locale
     form:
       no_tag_chosen: 'No tag chosen'
       no_skill_chosen: 'No skill chosen'
@@ -73,10 +81,8 @@ en:
       status: Status
       id: ID
     recent_job_users:
-      title: Recent applicants
       accepted: Accepted
       will_perform: Will perform
-      name: Name
       job: Job
       user: User
       id: ID
@@ -86,8 +92,6 @@ en:
       user: User
       id: ID
     view_in_app:
-      view: View in app
-      candidates: View candidates in app
       job: View job in app
       job_preview: View job preview in app
     confirm_dialog_title: Are you sure?
@@ -154,7 +158,6 @@ en:
         no_resume_uploaded: No resumé uploaded
     job:
       checklist_sidebar:
-        hidden: Hidden
         published: Published
         preview_key: Preview key
         data_title: Data collection
@@ -177,11 +180,8 @@ en:
       create_arbetsformedlingen_ad: Create Arbetsförmedlingen Ad
       show_arbetsformedlingen_ad: Show Arbetsförmedlingen Ad
       google_calendar_link: Google Calendar
-      cancelled: Cancelled
       name: Name
-      name_search: Job name
       description: Description
-      short_description: Short Description
       clone: Clone
       section_title:
         address: Address
@@ -196,39 +196,24 @@ en:
         job_boards: Job boards
         status: Status
       show:
-        title: Job detail
-        general: General
-        status_flags: Status flags
-        relations: Relations
-        misc: Misc
-        partners_title: Publish partners
         applicant_description:
           short_name: Applicant
         tasks_description:
           short_name: Tasks
         requirements_description:
           short_name: Requirements
-        comments:
-          title: Job comments
-          open_in_app: Answer
       form:
         name_hint: The title of the job
         short_description_hint: 'Max 155 characters, make it short and sweat :)'
         job_date_label: 'Earliest start date'
         job_end_date_label: 'End date'
         partners_section_title: Publish to partners
-        detail_section_title: Details
-        admin_users_section_title: Admin users
-        address_section_title: Address
-        frilans_finans_section_title: Frilans Finans
         hourly_pay_hint: 'The hourly pay, you can add more Hourly Pays if you want under "Settings"'
         customer_hourly_price_hint: 'The hourly invoice price for the customer.'
-        language_hint: 'Language that the job information is written in'
         preview_key_hint: If set, the job can only be accessed with this preview key
         owner_hint: 'Job owner @ client company'
         company_contact_hint: 'Job contact @ client company, if blank owner will be used instead'
         just_arrived_contact_hint: 'The responsible user @ Just Arrived'
-        direct_recruitment_job: Direct recruitment
         staffing_company_hint: Set only this if this is a staffing job
         direct_recruitment_job_hint: Only check this if this is a direct recruitment
         category_hint: 'This field is only used for insurance purposes'
@@ -241,9 +226,6 @@ en:
         cloned_hint: 'This job is cloned or is an extension and will not be listed.'
         cloned_label: Extension or clone
         municipality_hint: 'Required if job is to be synced to Arbetsformedlingen, Blocketjobb or Metrojobb'
-        skills_title: Job skills
-        languages_title: Job languages
-        occupations_title: Job occupations
         publish_on_linkedin:
           hint: If checked this job ad will be published on LinkedIN
         publish_on_blocketjobb:
@@ -274,9 +256,6 @@ en:
       system_language_link: System language %{lang}
       system_language: System language
       name: Name
-      first_name: First name
-      last_name: Last name
-      phone: Phone
       email: Email
       company: Company
       locale: Locale
@@ -286,10 +265,6 @@ en:
       competence_text: Competences
       job_experience: Job experience
       managed_selected: All selected users marked as managed.
-      missing_account_details: 'Can not sync: Account clearing number and account number must be set.'
-      account_details_synced: Synced bank account details to Frilans Finans.
-      missing_ff_id: 'Can not sync: User is missing Frilans Finans ID.'
-      sync_ff_bank_account: Sync bank account
       push_ff_user_success: user pushed successfully to Frilans Finans (HTTP %{status})
       push_ff_user_failed: user pushed to Frilans Finans failed (HTTP %{status})
       push_frilans_finans_btn: Push to Frilans Finans
@@ -371,13 +346,10 @@ en:
       documents: Has %{count} documents
       applications: Has %{count} applications
       applicants: Has %{count} applicants
-      comments: Has %{count} comments
-      written_comments: Has written %{count} comments
       written_messages: Has written %{count} messages
       translations: Has %{count} translations
       images: Has %{count} images
       sessions: Has %{count} login sessions
-      languages: Has %{count} languages
       chats: Has %{count} chats
       received_ratings: Has received %{count} ratings
       given_ratings: Has given %{count} ratings

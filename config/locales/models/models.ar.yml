@@ -11,25 +11,37 @@ ar:
       contact: اتصل
       currency: العملة
       faq: أسئلة متكرّرة
+      frilans_finans_invoice: فاتورة Frilans Finans
       hourly_pay: أجر الساعة
       invoice: فاتورة
-      frilans_finans_invoice: فاتورة Frilans Finans
       job: عمل
       job_skill: مهارة العمل
-      job_user: مستخدم العمل
+      job_user: طالب وظيفة
       language: لغة
       message: رسالة
       rating: تقييم
       skill: مهارة
+      token: بطاقة
       user: المستخدم
       user_image: صورة المستخدم
       user_language: لغة المستخدم
       user_skill: مهارة المستخدم
     attributes:
+      active_admin/comment:
+        body: جسم
+      active_admin_comment:
+        body: جسم
+      address:
+        latitude: خط العرض
+        longitude: خط الطول
+      ahoy/event:
+        name: الاسم
+      blazer/dashboard:
+        dashboard_queries: لوحة الأجهزة استفسار
+        name: الاسم
       blazer/query:
         audits: محاسبات
         checks: شيكات
-        creator: المنشيء
         dashboard_queries: لوحة الأجهزة استفسار
         dashboards: لوحة الأجهزة
         data_source: مصدر بيانات
@@ -42,68 +54,97 @@ ar:
       chat:
         chat_users: دردشة المستخدم
         messages: رسائل
+        user_images: صور المستخدم
         users: المستخدمون
-      chat_user:
-        chat: دردشة
-        user: المستخدم
       comment:
         body: جسم
-        commentable: حانة تعليق
         commentable_type: فئة تعليق
         hidden: مخفي
-        language: لغة
-        owner: مالك
+      comment_translation:
+        body: جسم
+      communication_template:
+        body: جسم
+        category: فئة
+      communication_template_translation:
+        body: جسم
       company:
         cin: رقم المنطمة السويدية
         company_images: صور الشركة
-        jobs: عمل
+        email: بريد إلكتروني
         name: الاسم
+        owned_jobs: أعمال مملوكة
+        phone: هاتف
+        street: شارع
         users: المستخدم
         website: موقع اِنترنت
+        zip: الرمز البريدي
       company_image:
-        company: شركة
         image_content_type: نوع محتوى الصورة
         image_file_name: اسم ملف الصورة
         image_file_size: حجم الملفّ
         image_updated_at: تحديث صورة
         one_time_token: رمز لمرة واحدة
         one_time_token_expires_at: رمز لمرة واحدة يهدف الى
+      company_translation:
+        description: وصف
       contact:
         body: جسم
         email: بريد إلكتروني
         name: الاسم
       currency:
         currency_code: مفتاح العملة
+      digest_subscriber:
+        email: بريد إلكتروني
+      document:
+        one_time_token: رمز لمرة واحدة
+        one_time_token_expires_at: رمز لمرة واحدة يهدف الى
+        users: المستخدمون
       faq:
         answer: جواب
-        language: لغة
         question: سؤال
+      faq_translation:
+        answer: جواب
+        question: سؤال
+      feedback:
+        body: جسم
+      filter:
+        languages: لغات
+        name: الاسم
+        skills: مهارات
+        users: المستخدمون
+      frilans_finans_term:
+        body: جسم
+        company: شركة
+      guide_image:
+        image_content_type: نوع محتوى الصورة
+        image_file_name: اسم ملف الصورة
+        image_file_size: حجم الملفّ
+        image_updated_at: تحديث صورة
+      guide_section_article_translation:
+        body: جسم
       hourly_pay:
         active: ناشط
         currency: العملة
         jobs: عمل
-        rate: تقييم
-      invoice:
-        job_user: مستخدم_العمل
-      frilans_finans_invoice:
-        job_user: طالب وظيفة
+      industry:
+        name: الاسم
+      industry_translation:
+        name: الاسم
+      interest:
+        name: الاسم
+        users: المستخدمون
+      interest_translation:
+        name: الاسم
       job:
-        category: فئة
         comments: تعليقات
-        company: شركة
         description: وصف
         hidden: مخفي
-        hourly_pay: دفع على الساعة
         hours: ساعات
-        job_date: تاريخ العمل
-        job_end_date: تاريخ انتهاء العمل
         job_skills: خبرات عمل
-        job_users: مستخدم العمل
-        language: لغة
+        languages: لغات
         latitude: خط العرض
         longitude: خط الطول
         name: الاسم
-        owner: المالك
         skills: مهارات
         street: شارع
         users: المستخدمون
@@ -111,65 +152,77 @@ ar:
         zip: الرمز البريدي
         zip_latitude: الرمز البريدي حسب خطّ العرض
         zip_longitude: الرمز البريدي حسب خط الطول
-      job_skill:
-        job: عمل
-        skill: مهارة
+      job_request:
+        comment: تعليق
+        hourly_pay: أجر الساعة
+        requirements: المتطلبات
+      job_translation:
+        description: وصف
+        name: الاسم
       job_user:
         accepted: مقبول
         accepted_at: مقبول في
-        invoice: فاتورة
-        job: عمل
+        languages: لغات
         performed: نفّذ
-        user: المستخدم
+        skills: مهارات
+        user_languages: لغة المستخدم
+        user_skills: مهارات المستخدم
         will_perform: سينفّذ
       language:
         direction: اتجاه
-        en_name: اسم سويدي
         jobs: عمل
-        lang_code: مفتاح اللغة
         local_name: اسم محلّي
         system_language: 'لغة النظام '
         user_languages: لغة الاستخدام
         users: المستخدم
       message:
-        author: كاتب
         body: جسم
-        chat: دردشة
         integer: عدد صحيح
-        language: لغة
+      message_translation:
+        body: جسم
+      occupation:
+        name: الاسم
+      occupation_translation:
+        name: الاسم
+      order:
+        category: فئة
+        hours: ساعات
+        jobs: أعمال
+        name: الاسم
+      order_document:
+        name: الاسم
       rating:
-        comment: تعليق
-        from_user: من المستخدم
-        job: عمل
         score: فِعْل
-        to_user: الى المستخدم
-      token:
-        token: بطاقة
-        expires_at: ينتهي في
-        user: المستخدم
+      received_text:
+        body: جسم
       skill:
         job_skills: خبرات عمل
         jobs: عمل
-        language: لغة
         name: الاسم
         user_skills: مهارات المستخدم
         users: المستخدم
+      skill_translation:
+        name: الاسم
+      tag:
+        name: الاسم
+        users: المستخدمون
+      token:
+        expires_at: ينتهي في
+        token: بطاقة
       user:
         admin: المدير
         anonymized: مجهول
         banned: مُنِع
         chat_users: لدردشة المستخدمون
         chats: دردشات
-        company: شركة
         description: وصف
         education: التعليم
         email: بريد إلكتروني
         first_name: الاسم الأول
+        frilans_finans_payment_details: تفاصيل دفع Frilans Finans
         ignored_notifications_mask: تجاهل إخطارات إخفاء
         job_experience: خبرة عمل
-        job_users: مستخدم العمل
         jobs: أعمال
-        language: لغة
         languages: لغات
         last_name: اسم العائلة
         latitude: خط العرض
@@ -187,23 +240,25 @@ ar:
         user_images: صور المستخدم
         user_languages: لغة المستخدم
         user_skills: مهارات المستخدم
+        verified: مؤكدة
         written_comments: تعليقات سابقة
         zip: الرمز البريدي
         zip_latitude: الرمز البريدي حسب خط العرض
         zip_longitude: الرمز البريدي حسب خط الطول
-        frilans_finans_id: 'بيانات Frilans Finans '
-        frilans_finans_payment_details: تفاصيل دفع Frilans Finans
+      user_document:
+        category: فئة
       user_image:
+        category: فئة
         image_content_type: نوع محتوى الصورة
         image_file_name: اسم ملف الصورة
         image_file_size: حجم الملفّ
         image_updated_at: تحديث صورة
         one_time_token: رمز لمرة واحدة
         one_time_token_expires_at: رمز لمرة واحدة يهدف الى
-        user: المستخدم
-      user_language:
-        language: لغة
-        user: المستخدم
-      user_skill:
-        skill: خبرة
-        user: المستخدم
+      user_translation:
+        description: وصف
+        education: التعليم
+        job_experience: خبرة عمل
+      visit:
+        latitude: خط العرض
+        longitude: خط الطول

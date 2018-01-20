@@ -4,6 +4,79 @@ HEAD
 -----------
 
 
+v2.76 - 2018-01-16
+----------
+__Admin__:
+* Add `lograge` initializer that adds support for Rails v5 api-only mode
+
+__Gem updates__:
+* Bump `activeadmin` from 1.2.0 to 1.2.1
+* Bump `lograge` from 0.7.1 to 0.9.0
+* Bump `airbrake` from 7.1.1 to 7.2.0
+* Bump `binding_of_caller` from 0.7.3 to 0.8.0
+* Bump `letter_opener` from 1.5.0 to 1.6.0
+
+
+v2.75 - 2018-01-10
+----------
+__Admin__:
+* Localize menu
+* :rocket: faster comment display on applicant index page
+* Remove irrelevant relations links
+* Update admin link helper to work with default url options
+
+__Enhancement__:
+* Pull translations from Transifex
+* Remove unused I18n-keys and add model attributes I18n
+* Update I18n-tasks config to include additional locale files
+* Use `script/migrate` in `script/update`
+* Add `script/migrate` that takes care of the process of migrating the database
+* Add `script/build-model-translations`
+* Add `admin.*locale*.yml` files
+* Rename `admin/en.yml` => `admin/admin.en.yml`
+* Set admin locale based on user setting
+
+
+v2.74 - 2018-01-09
+----------
+__API__:
+* Add `job#schema_org` key to serializer that contains the JSON-ld for a JobPosition
+
+__Admin__:
+* Allow destroy for company industries
+
+__Enhancement__:
+* .ruby-style-guide :lipstick:
+* Run rails app:upgrade-> Rails 5.1
+
+
+v2.73 - 2018-01-09
+----------
+* Bump `activeadmin` from 1.1.0 to 1.2.0
+* Bump `airbrake` from 7.1.0 to 7.1.1
+* Bump `bootsnap` from 1.1.5 to 1.1.7
+* Bump `bootsnap` from 1.1.7 to 1.1.8
+* Bump `bullet` from 5.7.0 to 5.7.1
+* Bump `chosen-rails` from 1.5.2 to 1.8.2
+* Bump `countries` from 2.1.2 to 2.1.3
+* Bump `faker` from 1.8.4 to 1.8.7
+* Bump `fuubar` from 2.2.0 to 2.3.1
+* Bump `letter_opener` from 1.4.1 to 1.5.0
+* Bump `newrelic_rpm` from 4.6.0.338 to 4.7.1.340
+* Bump `rubocop` from 0.51.0 to 0.52.0
+* Bump `rubocop` from 0.52.0 to 0.52.1
+* Bump `twilio-ruby` from 5.5.1 to 5.6.0
+* Bump `uglifier` from 4.0.2 to 4.1.2
+* Bump `uglifier` from 4.1.2 to 4.1.3
+* Bump `webmock` from 3.1.1 to 3.2.1
+
+
+v2.72 - 2017-12-14
+----------
+__Admin__:
+* Update filters for occupation/skill/interest/tag models
+
+
 v2.71 - 2017-12-13
 ----------
 __Admin__:

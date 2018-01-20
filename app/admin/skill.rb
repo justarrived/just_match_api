@@ -9,6 +9,12 @@ ActiveAdmin.register Skill do
   scope :high_priority
   scope :visible
 
+  filter :translations_name_cont, as: :string, label: I18n.t('admin.name')
+  filter :internal
+  filter :high_priority
+  filter :created_at
+  filter :updated_at
+
   index do
     selectable_column
 
