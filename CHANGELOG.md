@@ -4,6 +4,23 @@ HEAD
 -----------
 
 
+v2.77 - 2018-01-20
+----------
+__Admin__:
+* Various (minor) enhancements :lipstick:
+* Update applicant index view
+
+__Enhancement__:
+* Add lograge initializer that adds support for Rails-5 api-only mode
+
+__Gem updates__:
+* Bump `activeadmin` from 1.2.0 to 1.2.1
+* Bump `lograge` from 0.7.1 to 0.9.0
+* Bump `airbrake` from 7.1.1 to 7.2.0
+* Bump `binding_of_caller` from 0.7.3 to 0.8.0
+* Bump `letter_opener` from 1.5.0 to 1.6.0
+
+
 v2.76 - 2018-01-16
 ----------
 __Admin__:
