@@ -26,7 +26,7 @@ class Job < ApplicationRecord
   belongs_to :order, optional: true
   has_one :job_request, through: :order
   belongs_to :language, optional: true
-  belongs_to :category
+  belongs_to :category, optional: true
   belongs_to :hourly_pay
   belongs_to :owner, class_name: 'User', foreign_key: 'owner_user_id'
   # rubocop:disable Metrics/LineLength
@@ -311,7 +311,7 @@ class Job < ApplicationRecord
   end
 
   def frilans_finans_job?
-    !staffing_company_id && !direct_recruitment_job
+    staffing_company_id.blank? && !direct_recruitment_job
   end
 
   def started?

@@ -204,13 +204,13 @@ ActiveAdmin.register User do
   filter :documents_text_content_cont, as: :string, label: I18n.t('admin.user.resume_search_label')
   filter :interview_comment
   filter :tags, collection: -> { Tag.order(:name) }
+
+  filter :occupations, collection: -> { Occupation.with_translations.order_by_name }
+  filter :user_occupations_years_of_experience_gteq, as: :select, collection: [nil, nil] + (1..100).zip(1..100)
+
   filter :skills, collection: -> { Skill.with_translations.order_by_name }
   filter :user_skills_proficiency_gteq, as: :select, collection: [nil, nil] + UserSkill::PROFICIENCY_RANGE.to_a
   filter :user_skills_proficiency_by_admin_gteq, as: :select, collection: [nil, nil] + UserSkill::PROFICIENCY_RANGE.to_a
-
-  filter :interests, collection: -> { Interest.with_translations.order_by_name }
-  filter :user_interests_level_gteq, as: :select, collection: [nil, nil] + UserInterest::LEVEL_RANGE.to_a
-  filter :user_interests_level_by_admin_gteq, as: :select, collection: [nil, nil] + UserInterest::LEVEL_RANGE.to_a
 
   filter :system_language, collection: -> { Language.system_languages.order(:en_name) }, label: I18n.t('admin.user.system_language')
   filter :languages, collection: -> { Language.order(:en_name) }
