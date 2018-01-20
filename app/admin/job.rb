@@ -35,10 +35,10 @@ ActiveAdmin.register Job do
   filter :near_address, label: I18n.t('admin.filter.near_address'), as: :string
   filter :translations_name_cont, as: :string, label: I18n.t('admin.job.name')
   filter :company, collection: -> { Company.order(:name) }
+  filter :just_arrived_contact, collection: -> { User.delivery_users }
   filter :staffing_company_id_present, as: :select, collection: [['No', false]], label: 'Staffing job' # rubocop:disable Metrics/LineLength
   filter :job_date
   filter :job_end_date
-  filter :just_arrived_contact_user, collection: -> { User.delivery_users }
   filter :created_at
   filter :featured
   filter :filled

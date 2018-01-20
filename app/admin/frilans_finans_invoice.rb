@@ -17,6 +17,7 @@ ActiveAdmin.register FrilansFinansInvoice do
   filter :ff_invoice_number
   filter :frilans_finans_id
   filter :ff_status
+  filter :just_arrived_contact, collection: -> { User.delivery_users }
   filter :company
   filter :user
   filter :job, collection: -> { Job.with_translations }
@@ -115,7 +116,8 @@ ActiveAdmin.register FrilansFinansInvoice do
     column :ff_amount
     column :user
     column :job do |ff_invoice|
-      truncate(ff_invoice.job.original_name)
+      job = ff_invoice.job
+      link_to(truncate(job.original_name), admin_job_path(job))
     end
 
     actions
@@ -133,6 +135,7 @@ ActiveAdmin.register FrilansFinansInvoice do
         frilans_finans_invoice.ff_status_name(with_id: true)
       end
       row :frilans_finans_id
+      row :just_arrived_contact
       row :user
       row :job
       row :job_user

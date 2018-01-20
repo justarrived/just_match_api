@@ -140,6 +140,7 @@ ActiveAdmin.register JobUser do
   scope :will_perform
   scope :not_pre_reported
 
+  filter :just_arrived_contact, collection: -> { User.delivery_users }
   filter :user_documents_text_content_cont, as: :string, label: I18n.t('admin.user.resume_search_label') # rubocop:disable Metrics/LineLength
   filter :tags
   filter :languages
@@ -157,21 +158,23 @@ ActiveAdmin.register JobUser do
   index do
     selectable_column
 
-    column :id { |job_user| link_to(job_user.id, admin_job_user_path(job_user)) }
-    column :job_id do |job_user|
-      job = job_user.job
-      link_to(job.id, admin_job_path(job))
-    end
     column :user do |job_user|
       user = job_user.user
-      link_to(user.name, admin_user_path(user))
+      link_to(user.name, admin_job_user_path(job_user))
     end
-    column :job_city, sortable: 'jobs.city' do |job_user|
-      job_user.job.city
+
+    if params.dig(:q, :job_id_eq).blank?
+      column :job_id do |job_user|
+        job = job_user.job
+        link_to("##{job.id}", admin_job_path(job))
+      end
     end
     column :user_city, sortable: 'users.city' do |job_user|
       job_user.user.city
     end
+
+    column(:tags) { |job_user| user_tag_badges(user: job_user) }
+
     column :applied_at, sortable: 'job_users.created_at' do |job_user|
       job_user.created_at.strftime('%Y-%m-%d')
     end
