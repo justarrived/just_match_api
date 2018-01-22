@@ -219,8 +219,7 @@ GEM
       dry-equalizer (~> 0.2)
       dry-logic (~> 0.4, >= 0.4.0)
       dry-types (~> 0.12.0)
-    easy_translate (0.5.0)
-      json
+    easy_translate (0.5.1)
       thread
       thread_safe
     email_reply_parser (0.5.9)
@@ -428,7 +427,7 @@ GEM
       activesupport (>= 4.1, < 5.2)
     hashdiff (0.3.7)
     heapy (0.1.2)
-    highline (1.7.8)
+    highline (1.7.10)
     honey_format (0.2.1)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
@@ -436,10 +435,10 @@ GEM
       multi_xml (>= 0.5.2)
     i18n (0.9.1)
       concurrent-ruby (~> 1.0)
-    i18n-tasks (0.9.19)
+    i18n-tasks (0.9.20)
       activesupport (>= 4.0.2)
       ast (>= 2.1.0)
-      easy_translate (>= 0.5.0)
+      easy_translate (>= 0.5.1)
       erubi
       highline (>= 1.7.3)
       i18n
@@ -785,7 +784,7 @@ DEPENDENCIES
   google-cloud-translate (~> 1.0)
   honey_format (~> 0.2)
   httparty (~> 0.13)
-  i18n-tasks (~> 0.9.19)
+  i18n-tasks (~> 0.9.20)
   i18n_data (~> 0.8)
   i18n_generators (~> 2.1)
   iban-tools (~> 1.1)
