@@ -19,7 +19,7 @@ gem 'rinku', '~> 2.0.4' # Autolink
 
 # SERVER
 gem 'lograge', '~> 0.9' # Less verbose Rails log in production
-gem 'puma', '~> 3.9' # App server
+gem 'puma', '~> 3.11' # App server
 
 # Analytics
 gem 'ahoy_matey', '~> 1.6'
