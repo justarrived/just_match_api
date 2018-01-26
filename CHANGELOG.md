@@ -4,10 +4,17 @@ HEAD
 -----------
 
 
+v2.79 - 2018-01-27
+----------
+__Bugfix__:
+* Fix `Job::last_application_at` scope to properly find jobs with no job_end_date specified
+
+
 v2.78 - 2018-01-26
 ----------
 __Admin__:
 * Add `Occupation#language` to form
+* Add `Occupation#language_id` to permitted params
 
 __Enhancement__:
 * Pull translations from Transifex
