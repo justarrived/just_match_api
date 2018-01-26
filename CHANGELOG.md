@@ -4,6 +4,21 @@ HEAD
 -----------
 
 
+v2.78 - 2018-01-26
+----------
+__Admin__:
+* Add `Occupation#language` to form
+
+__Enhancement__:
+* Pull translations from Transifex
+
+__Gem updates__:
+* Bump `puma` from 3.11.0 to 3.11.2
+* Bump `i18n-tasks` from 0.9.19 to 0.9.20
+* Bump `webmock` from 3.2.1 to 3.3.0
+* Bump `bullet` from 5.7.1 to 5.7.2
+
+
 v2.77 - 2018-01-20
 ----------
 __Admin__:
