@@ -49,7 +49,7 @@ sv:
       job_digest: Jobbsammanfattning
       job_digest_address: Jobbsammanfattningsadress
       job_digest_occupation: Jobbsammanfattningsyrke
-      job_language: Jobbsprå
+      job_language: Jobbspråk
       job_occupation: Jobbyrke
       job_request: Jobb förfrågan
       job_skill: Jobb skill

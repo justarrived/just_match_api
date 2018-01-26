@@ -222,7 +222,7 @@ sv:
         filled_hint: 'Om i klickat så har jobbet blivit tillsatt'
         featured_hint: 'Om i klickat kommer vi prioritera det här jobbet och visa det på startsidan'
         cloned_hint: 'Jobbet är en klon eller en förlängning och kommer inte listas.'
-        cloned_label: Förlängning eller klo
+        cloned_label: Förlängning eller kloning
         municipality_hint: 'Krävt fält ifall jobbet ska bli synkad till Arbetsförmedlingen, Blocketjobb eller Metrojobb'
         publish_on_linkedin:
           hint: Klicka i ifall jobbannonsen ska publiceras på LinkedIN
