@@ -61,6 +61,7 @@ ActiveAdmin.register Occupation do
 
     f.inputs('Occupation') do
       f.input :name
+      f.input :language, collection: Language.system_languages.order(:en_name)
       f.input :parent_id, collection: Occupation.all
     end
 
