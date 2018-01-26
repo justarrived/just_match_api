@@ -69,7 +69,7 @@ ActiveAdmin.register Occupation do
   end
 
   permit_params do
-    %i(name parent_id)
+    %i(name language_id parent_id)
   end
 
   controller do
