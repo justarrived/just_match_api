@@ -57,6 +57,7 @@ sv:
     digest_subscriber:
       email_belongs_to_user_account: tillhör redan en användare
     job:
+      job_end_date_presence: jobbets slutdatum måste finnas om jobbet inte är en direktrekrytering
       job_date_in_the_past: måste vara i framtiden
       hourly_pay_active: måste vara aktiv
       update_not_allowed_when_accepted: job kan inte uppdateras när jobbet har redan accepterats av användaren

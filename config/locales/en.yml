@@ -57,6 +57,7 @@ en:
     digest_subscriber:
       email_belongs_to_user_account: already belongs to a user account
     job:
+      job_end_date_presence: job end date must be present unless the job is a direct recruitment
       job_date_in_the_past: must be in the future
       hourly_pay_active: must be active
       update_not_allowed_when_accepted: job can't be updated as it has been accepted by the user
