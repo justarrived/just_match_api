@@ -50,7 +50,7 @@ gem 'active_model_serializers', '~> 0.10' # Serialize models to JSON
 gem 'jsonapi_helpers', '~> 0.2' # JSONAPI helpers
 
 # IMAGES
-gem 'paperclip', '~> 5.1' # Image handler
+gem 'paperclip', '~> 5.2' # Image handler
 
 # HTTP
 gem 'httparty', '~> 0.13' # Make HTTP requests with ease
