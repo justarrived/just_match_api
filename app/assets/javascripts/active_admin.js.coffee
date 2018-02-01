@@ -17,6 +17,12 @@ $(document).on 'has_many_add:after', ->
     allow_single_deselect: true,
     width: '80%'
 
+  $('.date-time-picker').flatpickr
+    enableTime: true
+
+  $('.date-range-picker').flatpickr
+    enableTime: false
+
 # In filter forms
 $ ->
   $('.filter_form .select.input select').chosen
