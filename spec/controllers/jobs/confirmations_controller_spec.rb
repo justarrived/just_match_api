@@ -45,12 +45,6 @@ RSpec.describe Api::V1::Jobs::ConfirmationsController, type: :controller do
       end.to change(FrilansFinansInvoice, :count).by(1)
     end
 
-    it 'creates an employment period' do
-      expect do
-        post :create, params: params
-      end.to change(EmploymentPeriod, :count).by(1)
-    end
-
     it 'notifies user when updated Job#will_perform is set to true and sends notifications to rejected users' do # rubocop:disable Metrics/LineLength
       # Already rejected job users, should *not* receive a notification
       FactoryBot.create(:job_user, job: job_user.job, rejected: true)

@@ -88,6 +88,8 @@ search:
 ignore_missing:
 - 'active_admin.*'
 - 'admin.*'
+- 'activerecord.attributes.blazer*'
+- 'activerecord.models.blazer*'
 # - 'errors.messages.{accepted,blank,invalid,too_short,too_long}'
 # - '{devise,simple_form}.*'
 
