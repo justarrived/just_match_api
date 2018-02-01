@@ -4,6 +4,13 @@ HEAD
 -----------
 
 
+v2.81 - 2018-02-02
+----------
+__Admin__:
+* Add employment period percentage to user and job user show views
+* Pluralize `app/admin/*` model files
+
+
 v2.80 - 2018-02-01
 ----------
 __Admin__:
