@@ -235,6 +235,15 @@ ActiveAdmin.register User do
     selectable_column
 
     column :id
+    column :applications, sortable: 'job_users_count' do |user|
+      column_content = safe_join([
+                                   user_icon_png(html_class: 'table-column-icon'),
+                                   user.job_users_count
+                                 ])
+      link_path = admin_job_users_path + AdminHelpers::Link.query(:user_id, user.id)
+
+      link_to(column_content, link_path, class: 'table-column-icon-link')
+    end
     column :name
     column :email
     column :city
@@ -253,7 +262,8 @@ ActiveAdmin.register User do
 
     locals = {
       support_chat: support_chat,
-      user_occupations: user_occupations
+      user_occupations: user_occupations,
+      total_job_applications: user.job_users.count
     }
 
     render partial: 'admin/users/show', locals: locals
@@ -353,7 +363,11 @@ ActiveAdmin.register User do
 
   controller do
     def scoped_collection
-      super.includes(:tags)
+      super.with_translations.
+        includes(:tags).
+        left_joins(:job_users).
+        select('users.*, count(job_users.id) as job_users_count').
+        group('users.id, job_users.user_id')
     end
 
     def update_resource(user, params_array)

@@ -7,6 +7,13 @@ columns do
       h3 link_to("#{user.name} #{"(#{user.city})" if user.city}", admin_user_path(user)) # rubocop:disable Metrics/LineLength
 
       h3 I18n.t('admin.user.show.tags')
+      h3(
+        link_to(
+          I18n.t('admin.user.total_job_applications', count: total_job_applications),
+          user_applications_path(user)
+        )
+      )
+
       div do
         content_tag(:p, user_tag_badges(user: user))
       end

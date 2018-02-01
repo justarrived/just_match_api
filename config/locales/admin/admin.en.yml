@@ -265,6 +265,9 @@ en:
       competence_text: Competences
       job_experience: Job experience
       managed_selected: All selected users marked as managed.
+      total_job_applications:
+        one: Has made one job application
+        other: Total job applications %{count}
       push_ff_user_success: user pushed successfully to Frilans Finans (HTTP %{status})
       push_ff_user_failed: user pushed to Frilans Finans failed (HTTP %{status})
       push_frilans_finans_btn: Push to Frilans Finans
