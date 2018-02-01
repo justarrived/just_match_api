@@ -4,6 +4,25 @@ HEAD
 -----------
 
 
+v2.80 - 2018-02-01
+----------
+__Admin__:
+* Add employment period to user, job and applicants views and user form
+* Add total applications info to job user and user view
+* Add total applications to user view
+* Eager load tags in job user index view :rocket:
+* Support datetime pickers in dynamically added admin forms
+
+__Enhancement__:
+* Explicitly register Paperclip data URI adapter
+
+__Gem updates__:
+* Bump `twilio-ruby` from 5.6.0 to 5.6.1
+* Bump `byebug` from 9.1.0 to 10.0.0
+* Bump `paperclip` from 5.1.0 to 5.2.1
+* Bump `uglifier` from 4.1.3 to 4.1.5
+
+
 v2.79 - 2018-01-27
 ----------
 __Bugfix__:
