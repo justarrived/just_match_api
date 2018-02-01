@@ -262,7 +262,8 @@ ActiveAdmin.register User do
 
     locals = {
       support_chat: support_chat,
-      user_occupations: user_occupations
+      user_occupations: user_occupations,
+      total_job_applications: user.job_users.count
     }
 
     render partial: 'admin/users/show', locals: locals

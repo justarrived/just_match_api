@@ -193,6 +193,7 @@ ActiveAdmin.register JobUser do
 
     locals = {
       job_user: job_user,
+      total_job_applications: user.job_users.count,
       support_chat: support_chat,
       user: user,
       resume: resume

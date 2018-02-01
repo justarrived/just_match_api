@@ -45,6 +45,13 @@ columns do
   if user.candidate?
     column do
       panel I18n.t('admin.user.show.candidate_summary') do
+        h3(
+          link_to(
+            I18n.t('admin.user.total_job_applications', count: total_job_applications),
+            user_applications_path(user)
+          )
+        )
+
         h3 I18n.t('admin.user.show.city', city: user.city) unless user.city.blank?
 
         h3 I18n.t('admin.user.show.tags')

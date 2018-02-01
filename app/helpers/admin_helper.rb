@@ -28,6 +28,10 @@ module AdminHelper
     "#{percentage || '-'}% (#{total_filled || '-'}/#{total_sold || '-'})"
   end
 
+  def user_applications_path(user)
+    admin_job_users_path + AdminHelpers::Link.query(:user_id, user.id)
+  end
+
   def link_to_job_preview(job, utm_medium: nil)
     base_url = FrontendRouter.draw(
       :job,
