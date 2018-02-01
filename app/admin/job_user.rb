@@ -283,6 +283,7 @@ ActiveAdmin.register JobUser do
     def scoped_collection
       super.includes(
         :user,
+        :tags,
         :active_admin_comments,
         :frilans_finans_invoice,
         job: %i(translations language)
