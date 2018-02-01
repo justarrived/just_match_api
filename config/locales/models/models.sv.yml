@@ -25,6 +25,7 @@ sv:
       currency: Valuta
       digest_subscriber: Abonnent
       document: Dokument
+      employment_period: Anställingsperiod
       faq: Faq
       faq_translation: FAQ översättning
       feedback: Feedback
@@ -226,6 +227,13 @@ sv:
         name: Namn
       currency:
         currency_code: Valutakod
+      employment_period:
+        employee_signed_at: Arbetstagare signerade den
+        employer_signed_at: Arbetsgivare signerade den
+        ended_at: Slutade den
+        job: :activerecord.models.job
+        started_at: Började den
+        user: :activerecord.models.user
       digest_subscriber:
         deleted_at: Borttaget den
         email: E-post
@@ -298,6 +306,7 @@ sv:
         job: :activerecord.models.job
         job_user: :activerecord.models.job_user
         user: :activerecord.models.user
+        just_arrived_contact: :activerecord.models.just_arrived_contact
       frilans_finans_term:
         body: Kropp
         company: Företag
@@ -373,6 +382,7 @@ sv:
       job:
         applicant_description: Ansökandebeskrivning
         arbetsformedlingen_ad: :activerecord.models.arbetsformedlingen_ad
+        employment_periods: Anställingsperioder
         blocketjobb_category: Blocketjobbkategori
         cancelled: Abrutet
         car_required: Bil krävs
@@ -535,6 +545,7 @@ sv:
         utm_source: UTM-källa
         utm_term: UTM-term
         will_perform: Kommer att utföra
+        just_arrived_contact: :activerecord.models.just_arrived_contact
       job_user_translation:
         apply_message: Ansökningsmeddelande
         job_user: :activerecord.models.job_user
@@ -697,6 +708,7 @@ sv:
         education: Utbildning
         email: E-post
         employed_for_jobs: Anställd för jobb
+        employment_periods: Anställingsperioder
         facebook_url: Facebook URL
         feedbacks: Feedbacks
         filter_users: Filteranvändare

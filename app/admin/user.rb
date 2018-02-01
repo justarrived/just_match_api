@@ -356,7 +356,16 @@ ActiveAdmin.register User do
       user_tags_attributes: %i(id tag_id _destroy),
       user_documents_attributes: [:id, :category, { document_attributes: [:document] }],
       user_occupations_attributes: %i(occupation_id years_of_experience),
-      feedbacks_attributes: %i(id job_id title body)
+      feedbacks_attributes: %i(id job_id title body),
+      employment_periods_attributes: %i(
+        id
+        job_id
+        user_id
+        employer_signed_at
+        employee_signed_at
+        started_at
+        ended_at
+      )
     ]
     UserPolicy::SELF_ATTRIBUTES + extras + relations
   end

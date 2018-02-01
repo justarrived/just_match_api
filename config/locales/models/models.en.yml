@@ -7,9 +7,6 @@ en:
       ahoy/event: Ahoy event  #g
       arbetsformedlingen_ad: Arbetsförmedlingen ad  #g
       arbetsformedlingen_ad_log: Arbetsförmedlingen ad log  #g
-      blazer/check: Blazer/check  #g
-      blazer/dashboard: Blazer/dashboard  #g
-      blazer/query: Blazer/query  #g
       category: Category  #g
       chat: Chat  #g
       chat_user: Chat user  #g
@@ -25,6 +22,7 @@ en:
       currency: Currency  #g
       digest_subscriber: Digest subscriber  #g
       document: Document  #g
+      employment_period: Employment period  #g
       faq: Faq  #g
       faq_translation: Faq translation  #g
       feedback: Feedback  #g
@@ -131,29 +129,6 @@ en:
       arbetsformedlingen_ad_log:
         arbetsformedlingen_ad: :activerecord.models.arbetsformedlingen_ad  #g
         response: Response  #g
-
-      blazer/check:
-        creator: :activerecord.models.creator  #g
-        emails: Emails  #g
-        query: :activerecord.models.query  #g
-        state: State  #g
-
-      blazer/dashboard:
-        creator: :activerecord.models.creator  #g
-        dashboard_queries: Dashboard queries  #g
-        name: Name  #g
-        queries: Queries  #g
-
-      blazer/query:
-        audits: Audits  #g
-        checks: Checks  #g
-        creator: :activerecord.models.creator  #g
-        dashboard_queries: Dashboard queries  #g
-        dashboards: Dashboards  #g
-        data_source: Data source  #g
-        description: Description  #g
-        name: Name  #g
-        statement: Statement  #g
 
       category:
         insurance_status: Insurance status  #g
@@ -269,6 +244,14 @@ en:
         user_documents: User documents  #g
         users: Users  #g
 
+      employment_period:
+        employee_signed_at: Employee signed at  #g
+        employer_signed_at: Employer signed at  #g
+        ended_at: Ended at  #g
+        job: :activerecord.models.job  #g
+        started_at: Started at  #g
+        user: :activerecord.models.user  #g
+
       faq:
         answer: Answer  #g
         language: :activerecord.models.language  #g
@@ -328,6 +311,7 @@ en:
         invoice: :activerecord.models.invoice  #g
         job: :activerecord.models.job  #g
         job_user: :activerecord.models.job_user  #g
+        just_arrived_contact: :activerecord.models.just_arrived_contact  #g
         user: :activerecord.models.user  #g
 
       frilans_finans_term:
@@ -430,6 +414,7 @@ en:
         customer_hourly_price: Customer hourly price  #g
         description: Description  #g
         direct_recruitment_job: Direct recruitment job  #g
+        employment_periods: Employment periods  #g
         featured: Featured  #g
         filled_at: Filled at  #g
         full_time: Full time  #g
@@ -568,6 +553,7 @@ en:
         http_referrer: HTTP referrer  #g
         invoice: :activerecord.models.invoice  #g
         job: :activerecord.models.job  #g
+        just_arrived_contact: :activerecord.models.just_arrived_contact  #g
         language: :activerecord.models.language  #g
         languages: Languages  #g
         occupations: Occupations  #g
@@ -772,6 +758,7 @@ en:
         education: Education  #g
         email: Email  #g
         employed_for_jobs: Employed for jobs  #g
+        employment_periods: Employment periods  #g
         facebook_url: Facebook URL  #g
         feedbacks: Feedbacks  #g
         filter_users: Filter users  #g

@@ -59,6 +59,19 @@ columns do
           content_tag(:p, user_tag_badges(user: user))
         end
 
+        if user.employment_periods.any?
+          h3 EmploymentPeriod.model_name.human
+          div do
+            date_format = DateFormatter.new
+            user.employment_periods.each do |emp|
+              para link_to(
+                "##{emp.id} #{date_format.yyyy_mm_dd(emp.started_at)} - #{date_format.yyyy_mm_dd(emp.started_at)}",
+                admin_employment_period_path(emp)
+              )
+            end
+          end
+        end
+
         div do
           attributes_table_for(user) do
             row :occupations do |user|
