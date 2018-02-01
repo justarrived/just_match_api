@@ -9,6 +9,19 @@ ActiveAdmin.register EmploymentPeriod do
   filter :employer_signed_at
   filter :employee_signed_at
 
+  index do
+    selectable_column
+
+    column :id
+    column :user
+    column :job
+    column :started_at
+    column :ended_at
+    column :percentage { |emp| "#{emp.percentage}%" if emp.percentage }
+
+    actions
+  end
+
   form do |f|
     f.semantic_errors(*f.object.errors.keys)
     f.inputs '*' do
