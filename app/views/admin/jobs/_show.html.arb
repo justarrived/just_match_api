@@ -10,6 +10,11 @@ columns do
         row :job_end_date
         row :owner
         row :company_contact
+        row :employment_periods do
+          safe_join(job.employment_periods.map do |emp|
+            link_to(emp.display_name, admin_employment_period_path(emp))
+          end, ', ')
+        end
       end
     end
   end

@@ -2,8 +2,9 @@
 
 FactoryBot.define do
   factory :employment_period do
-    job_user nil
-    user nil
+    job nil
+    association :user
+    percentage 50.0
     employer_signed_at '2018-02-01 20:58:53'
     employee_signed_at '2018-02-01 20:58:53'
     started_at '2018-02-01 20:58:53'
@@ -16,7 +17,7 @@ end
 # Table name: employment_periods
 #
 #  id                 :integer          not null, primary key
-#  job_user_id        :integer
+#  job_id             :integer
 #  user_id            :integer
 #  employer_signed_at :datetime
 #  employee_signed_at :datetime
@@ -24,14 +25,15 @@ end
 #  ended_at           :datetime
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
+#  percentage         :decimal(, )
 #
 # Indexes
 #
-#  index_employment_periods_on_job_user_id  (job_user_id)
-#  index_employment_periods_on_user_id      (user_id)
+#  index_employment_periods_on_job_id   (job_id)
+#  index_employment_periods_on_user_id  (user_id)
 #
 # Foreign Keys
 #
-#  fk_rails_...  (job_user_id => job_users.id)
+#  fk_rails_...  (job_id => jobs.id)
 #  fk_rails_...  (user_id => users.id)
 #

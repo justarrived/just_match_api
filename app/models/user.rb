@@ -48,6 +48,8 @@ class User < ApplicationRecord
   has_one :digest_subscriber, dependent: :destroy
   has_many :job_digests, through: :digest_subscriber
 
+  has_many :employment_periods
+
   has_many :feedbacks, dependent: :destroy
 
   has_many :filter_users, dependent: :destroy
@@ -162,7 +164,8 @@ class User < ApplicationRecord
 
   # NOTE: This is necessary for nested activeadmin has_many form
   accepts_nested_attributes_for :user_skills, :user_languages, :user_interests,
-                                :user_documents, :user_occupations, :feedbacks
+                                :user_documents, :user_occupations, :feedbacks,
+                                :employment_periods
   accepts_nested_attributes_for :user_tags, allow_destroy: true
 
   NOTIFICATIONS = UserNotification.names

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171130082854) do
+ActiveRecord::Schema.define(version: 20180201214942) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -281,6 +281,20 @@ ActiveRecord::Schema.define(version: 20171130082854) do
     t.integer "document_file_size"
     t.datetime "document_updated_at"
     t.text "text_content"
+  end
+
+  create_table "employment_periods", force: :cascade do |t|
+    t.bigint "job_id"
+    t.bigint "user_id"
+    t.datetime "employer_signed_at"
+    t.datetime "employee_signed_at"
+    t.datetime "started_at"
+    t.datetime "ended_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.decimal "percentage"
+    t.index ["job_id"], name: "index_employment_periods_on_job_id"
+    t.index ["user_id"], name: "index_employment_periods_on_user_id"
   end
 
   create_table "faq_translations", id: :serial, force: :cascade do |t|
@@ -1153,6 +1167,8 @@ ActiveRecord::Schema.define(version: 20171130082854) do
   add_foreign_key "company_translations", "companies"
   add_foreign_key "company_translations", "languages"
   add_foreign_key "digest_subscribers", "users"
+  add_foreign_key "employment_periods", "jobs"
+  add_foreign_key "employment_periods", "users"
   add_foreign_key "faq_translations", "faqs"
   add_foreign_key "faq_translations", "languages"
   add_foreign_key "faqs", "languages"

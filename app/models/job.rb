@@ -35,6 +35,8 @@ class Job < ApplicationRecord
   belongs_to :staffing_company, class_name: 'Company', foreign_key: 'staffing_company_id', optional: true
   # rubocop:enable Metrics/LineLength
 
+  has_many :employment_periods
+
   has_one :company, through: :owner
   has_one :arbetsformedlingen_ad, dependent: :restrict_with_error
 
