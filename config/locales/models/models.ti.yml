@@ -1,7 +1,6 @@
 ti:
   activerecord:
     models:
-      blazer/query: Blazer/query (ብሌዘር/ሕቶ)
       category: ምድብ
       chat: ቻት ወይ ዕላል
       chat_user: ተጠቃም ናይ ቻት
@@ -34,18 +33,6 @@ ti:
         longitude: Longitud (ትኹላዊ ናይ ሓሳብ መስመር)
       ahoy/event:
         name: ስም
-      blazer/dashboard:
-        dashboard_queries: መሳርሒ ሰሌዳ ወይ ቦርድ ሕቶታት
-        name: ስም
-      blazer/query:
-        audits: ኣውዲት
-        checks: ቼክ
-        dashboard_queries: መሳርሒ ሰሌዳ ወይ ቦርድ ሕቶታት
-        dashboards: መሳርሒ ሰሌዳ ወይ ቦርድ
-        data_source: ናይ ሓበሬታ ምንጪ
-        description: መብርሂ
-        name: ስም
-        statement: መግለጺ
       category:
         jobs: ስራሕ
         name: ስም
