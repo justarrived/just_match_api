@@ -62,7 +62,7 @@ columns do
         render(
           partial: 'admin/employment_periods/simple_list',
           locals: {
-            employment_periods: user.employment_periods
+            employment_periods: user.employment_periods.reverse
           }
         )
 
