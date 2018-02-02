@@ -301,7 +301,7 @@ ActiveAdmin.register JobUser do
       ).joins(
         <<-SQL
         INNER JOIN users ON job_users.user_id = users.id
-         INNER JOIN job_users AS user_job_users ON (users.id = user_job_users.user_id)
+        INNER JOIN job_users AS user_job_users ON (users.id = user_job_users.user_id)
         SQL
       ).select('job_users.*, COUNT(user_job_users.id) as job_users_count').
         group('job_users.id, user_job_users.user_id, job_users.user_id')
