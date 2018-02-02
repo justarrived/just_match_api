@@ -163,6 +163,17 @@ ActiveAdmin.register JobUser do
       link_to(user.name, admin_job_user_path(job_user))
     end
 
+    column :applications, sortable: 'job_users_count' do |job_user|
+      user = job_user.user
+      column_content = safe_join([
+                                   user_icon_png(html_class: 'table-column-icon'),
+                                   job_user.job_users_count
+                                 ])
+      link_path = admin_job_users_path + AdminHelpers::Link.query(:user_id, user.id)
+
+      link_to(column_content, link_path, class: 'table-column-icon-link')
+    end
+
     if params.dig(:q, :job_id_eq).blank?
       column :job_id do |job_user|
         job = job_user.job
@@ -283,12 +294,17 @@ ActiveAdmin.register JobUser do
   controller do
     def scoped_collection
       super.includes(
-        :user,
         :tags,
         :active_admin_comments,
         :frilans_finans_invoice,
         job: %i(translations language)
-      )
+      ).joins(
+        <<-SQL
+        INNER JOIN users ON job_users.user_id = users.id
+        INNER JOIN job_users AS user_job_users ON (users.id = user_job_users.user_id)
+        SQL
+      ).select('job_users.*, COUNT(user_job_users.id) as job_users_count').
+        group('job_users.id, user_job_users.user_id, job_users.user_id')
     end
 
     def find_resource
