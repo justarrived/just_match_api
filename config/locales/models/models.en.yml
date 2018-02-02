@@ -249,6 +249,7 @@ en:
         employer_signed_at: Employer signed at  #g
         ended_at: Ended at  #g
         job: :activerecord.models.job  #g
+        percentage: Percentage  #g
         started_at: Started at  #g
         user: :activerecord.models.user  #g
 
