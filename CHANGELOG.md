@@ -4,6 +4,18 @@ HEAD
 -----------
 
 
+v2.82 - 2018-02-02
+----------
+__Admin__:
+* Display total job applications on job user index view
+
+__Enhancement__:
+* Memory optimization: Bump `dry-core` and `dry-types`. Cuts `arbetsformedligen` gem memory footprint by ~40% :rocket:
+
+__Gem updates__:
+* Bump `dry-core` and `dry-types`.
+
+
 v2.81 - 2018-02-02
 ----------
 __Admin__:
