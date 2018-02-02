@@ -487,7 +487,7 @@ class Job < ApplicationRecord
     return if publish_at_was # don't validate a previously published job
 
     if job_end_date.nil? && !direct_recruitment_job
-      errors.add(:job_end_date, :job_end_date_presence)
+      errors.add(:job_end_date, I18n.t('errors.job.job_end_date_presence'))
     end
 
     errors.add(:short_description, :blank) if short_description.blank?
