@@ -1,7 +1,6 @@
 ku:
   activerecord:
     models:
-      blazer/query: Blazer/query
       category: Kategorî
       chat: Çat
       chat_user: Çat bikarîner
@@ -34,18 +33,6 @@ ku:
         longitude: Dirêjexet
       ahoy/event:
         name: Nav
-      blazer/dashboard:
-        dashboard_queries: Textê alavan pirsên lêgerînê
-        name: Nav
-      blazer/query:
-        audits: Guhertin
-        checks: Çek
-        dashboard_queries: Textê alavan pirsên lêgerînê
-        dashboards: textên alavan
-        data_source: Çavkanîya datayan
-        description: Wesifkirin
-        name: Nav
-        statement: Îdîa
       category:
         jobs: Kar
         name: Nav

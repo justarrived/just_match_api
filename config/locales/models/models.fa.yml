@@ -1,7 +1,6 @@
 fa:
   activerecord:
     models:
-      blazer/query: فهرست/پرسش
       category: دسته بندی
       chat: چت
       chat_user: کاربران چت
@@ -34,18 +33,6 @@ fa:
         longitude: طول جغرافیایی
       ahoy/event:
         name: نام
-      blazer/dashboard:
-        dashboard_queries: پرسشهای صفحۀ کنترل
-        name: نام
-      blazer/query:
-        audits: ویرایش
-        checks: کنترل
-        dashboard_queries: پرسشهای صفحۀ کنترل
-        dashboards: صفحۀ کنترل
-        data_source: منشاء داده ها
-        description: شرح
-        name: نام
-        statement: اظهارنامه
       category:
         jobs: شغل ها
         name: نام

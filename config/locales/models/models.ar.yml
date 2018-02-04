@@ -1,7 +1,6 @@
 ar:
   activerecord:
     models:
-      blazer/query: سترة/استفسار
       category: فئة
       chat: دردشة
       chat_user: مستخدم الدردشة
@@ -36,18 +35,6 @@ ar:
         longitude: خط الطول
       ahoy/event:
         name: الاسم
-      blazer/dashboard:
-        dashboard_queries: لوحة الأجهزة استفسار
-        name: الاسم
-      blazer/query:
-        audits: محاسبات
-        checks: شيكات
-        dashboard_queries: لوحة الأجهزة استفسار
-        dashboards: لوحة الأجهزة
-        data_source: مصدر بيانات
-        description: وصف
-        name: الاسم
-        statement: توكيد
       category:
         jobs: عمل
         name: الاسم

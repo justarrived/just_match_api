@@ -15,6 +15,7 @@ FactoryBot.define do
     association :hourly_pay
     customer_hourly_price 300.0
     job_date 1.week.from_now
+    job_end_date 2.weeks.from_now
     hours 30
 
     factory :job_with_translation do
@@ -106,6 +107,9 @@ FactoryBot.define do
 
     factory :published_job do
       publish_at Time.current
+      job_date 1.day.ago
+      job_end_date 1.week.from_now
+      hours 30
 
       transient do
         job_occupations_count 1

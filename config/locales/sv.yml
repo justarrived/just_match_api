@@ -61,6 +61,7 @@ sv:
       hourly_pay_active: måste vara aktiv
       update_not_allowed_when_accepted: job kan inte uppdateras när jobbet har redan accepterats av användaren
       job_end_date_after_job_date: måste vara efter jobb datum
+      job_end_date_presence: måste finnas om jobbet inte är en direktrekrytering
       last_application_at_on_publish_to_blocketjobb: sista ansökningsdatum måste vara angett ifall du ska publicera jobb till Blocketjobb
       last_application_at_on_publish_to_metrojobb: sista ansökningsdatumet måste vara angivet ifall jobbet ska publiceras på Metrojobb
       last_application_at_on_publish_to_linkedin: sista ansökningsdatum måste vara angett ifall du ska publicera jobb till LinkedIN

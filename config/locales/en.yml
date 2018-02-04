@@ -57,10 +57,12 @@ en:
     digest_subscriber:
       email_belongs_to_user_account: already belongs to a user account
     job:
+      job_end_date_presence: job end date must be present unless the job is a direct recruitment
       job_date_in_the_past: must be in the future
       hourly_pay_active: must be active
       update_not_allowed_when_accepted: job can't be updated as it has been accepted by the user
       job_end_date_after_job_date: must be after job date
+      job_end_date_presence: must be present unless job is a direct recruitment
       last_application_at_on_publish_to_blocketjobb: last application at must be set if job is to be published to Blocketjobb
       last_application_at_on_publish_to_metrojobb: last application at must be set if job is to be published to Metrojobb
       last_application_at_on_publish_to_linkedin: last application at must be set if job is to be published to LinkedIN

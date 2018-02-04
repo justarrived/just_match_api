@@ -5,9 +5,16 @@ if employment_periods.any?
   div do
     date_format = DateFormatter.new
     employment_periods.each do |emp|
+      parts = [
+        date_format.yyyy_mm_dd(emp.started_at),
+        date_format.yyyy_mm_dd(emp.ended_at)
+      ]
+      text = "#{emp.percentage || '-'}%, #{parts.join(', ')}"
+
       para link_to(
-        "#{emp.percentage || '-'}%, #{date_format.yyyy_mm_dd(emp.started_at)} - #{date_format.yyyy_mm_dd(emp.started_at)}",
-        admin_employment_period_path(emp)
+        text,
+        admin_employment_period_path(emp),
+        style: emp.ongoing? ? 'color: green; font-weight: 700;' : ''
       )
     end
   end

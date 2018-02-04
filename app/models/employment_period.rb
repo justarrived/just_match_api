@@ -10,6 +10,13 @@ class EmploymentPeriod < ApplicationRecord
 
   validate :validate_ended_after_started
 
+  def ongoing?
+    return false if started_at > Time.current
+    return false if ended_at < Time.current
+
+    true
+  end
+
   def validate_ended_after_started
     return unless started_at
     return unless ended_at

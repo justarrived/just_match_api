@@ -361,6 +361,7 @@ ActiveAdmin.register User do
         id
         job_id
         user_id
+        percentage
         employer_signed_at
         employee_signed_at
         started_at
