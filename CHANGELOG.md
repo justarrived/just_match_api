@@ -4,6 +4,21 @@ HEAD
 -----------
 
 
+v2.83 - 2018-02-04
+----------
+__Admin__:
+* Improved EmploymentPeriod listing
+* Reverse employment period order
+* Add employment period percentage to user permitted params
+
+__Enhancement__:
+* Validate job end date presence unless the job is a direct recruitment
+* Pull translations from Transifex
+* Fix job validation error message
+* Add percentage translation
+* Add `EmploymentPeriod#ongoing?`
+
+
 v2.82 - 2018-02-02
 ----------
 __Admin__:
