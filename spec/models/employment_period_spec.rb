@@ -3,7 +3,34 @@
 require 'rails_helper'
 
 RSpec.describe EmploymentPeriod, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe '#ongoing?' do
+    it 'returns true if the job is ongoing' do
+      job = FactoryBot.build_stubbed(
+        :employment_period,
+        started_at: 1.day.ago,
+        ended_at: 1.day.from_now
+      )
+      expect(job.ongoing?).to eq(true)
+    end
+
+    it 'returns false if the job is in the future' do
+      job = FactoryBot.build_stubbed(
+        :employment_period,
+        started_at: 1.day.from_now,
+        ended_at: 5.days.from_now
+      )
+      expect(job.ongoing?).to eq(false)
+    end
+
+    it 'returns false if the job is in the passed' do
+      job = FactoryBot.build_stubbed(
+        :employment_period,
+        started_at: 2.days.ago,
+        ended_at: 1.day.ago
+      )
+      expect(job.ongoing?).to eq(false)
+    end
+  end
 end
 
 # == Schema Information
