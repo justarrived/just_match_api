@@ -5,11 +5,9 @@ class EmploymentPeriod < ApplicationRecord
   belongs_to :user
 
   validates :started_at, presence: true
-  validates :ended_at, presence: true
   validates :percentage, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
 
   validate :validate_ended_after_started
-
   def ongoing?
     return false if started_at > Time.current
     return false if ended_at < Time.current
