@@ -391,7 +391,7 @@ ActiveAdmin.register Job do
         includes(:just_arrived_contact, order: %i(job_request)).
         left_joins(:job_users).
         select('jobs.*, count(job_users.id) as job_users_count').
-        group('jobs.id, job_users.job_id')
+        group('jobs.id')
     end
 
     def update_resource(job, params_array)

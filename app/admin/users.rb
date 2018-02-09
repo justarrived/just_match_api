@@ -377,7 +377,7 @@ ActiveAdmin.register User do
         includes(:tags).
         left_joins(:job_users).
         select('users.*, count(job_users.id) as job_users_count').
-        group('users.id, job_users.user_id')
+        group('users.id')
     end
 
     def update_resource(user, params_array)
