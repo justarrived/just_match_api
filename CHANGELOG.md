@@ -4,6 +4,12 @@ HEAD
 -----------
 
 
+v2.85 - 2018-02-09
+----------
+__Admin/Bugfix__:
+* Update group by SQL-clauses for user/job/applicant listings
+
+
 v2.84 - 2018-02-09
 ----------
 __Enhancement__:
