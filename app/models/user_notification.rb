@@ -12,6 +12,7 @@ class UserNotification
     new_applicant_job_info
     applicant_will_perform_job_info
     update_data_reminder
+    product_information
   ).freeze
 
   COMPANY = %w(
@@ -25,6 +26,7 @@ class UserNotification
     new_job_comment
     job_match
     failed_to_activate_invoice
+    product_information
   ).freeze
 
   # Don't change the order or remove any items in the array,
@@ -47,6 +49,7 @@ class UserNotification
     applicant_will_perform_job_info
     failed_to_activate_invoice
     update_data_reminder
+    product_information
   ).freeze
 
   def self.names(user_role: nil)
