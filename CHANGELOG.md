@@ -4,6 +4,18 @@ HEAD
 -----------
 
 
+v2.84 - 2018-02-09
+----------
+__Enhancement__:
+* Remove presence validation on `EmploymentPeriod#ended_at`
+
+__Gem updates__:
+* Bump `chosen-rails` from 1.8.2 to 1.8.3
+* Bump `codeclimate-test-reporter` from 1.0.7 to 1.0.8
+* Bump `sidekiq` from 5.0.5 to 5.1.0
+* Bump `dry-core` from 0.4.2 to 0.4.3
+
+
 v2.83 - 2018-02-04
 ----------
 __Admin__:
