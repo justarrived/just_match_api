@@ -304,7 +304,7 @@ ActiveAdmin.register JobUser do
         INNER JOIN job_users AS user_job_users ON (users.id = user_job_users.user_id)
         SQL
       ).select('job_users.*, COUNT(user_job_users.id) as job_users_count').
-        group('job_users.id, user_job_users.user_id, job_users.user_id')
+        group('job_users.id')
     end
 
     def find_resource
