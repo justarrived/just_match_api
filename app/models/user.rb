@@ -95,6 +95,8 @@ class User < ApplicationRecord
   has_many :given_ratings, class_name: 'Rating', foreign_key: 'from_user_id', dependent: :destroy # rubocop:disable Metrics/LineLength
   has_many :received_ratings, class_name: 'Rating', foreign_key: 'to_user_id', dependent: :destroy # rubocop:disable Metrics/LineLength
 
+  can_count :job_users
+
   validates :system_language, presence: true
   validates :email, presence: true, uniqueness: true, email: true
   validates :first_name, length: { minimum: 1 }, allow_blank: false
