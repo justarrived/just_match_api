@@ -235,8 +235,8 @@ panel I18n.t('admin.user.show.misc') do
     row :zip_latitude
     row :zip_longitude
 
-    row :created_at { datetime_ago_in_words(user.created_at) }
-    row :updated_at { datetime_ago_in_words(user.updated_at) }
+    row(:created_at) { datetime_ago_in_words(user.created_at) }
+    row(:updated_at) { datetime_ago_in_words(user.updated_at) }
   end
 end
 

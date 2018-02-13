@@ -17,7 +17,7 @@ ActiveAdmin.register EmploymentPeriod do
     column :job
     column :started_at
     column :ended_at
-    column :percentage { |emp| "#{emp.percentage}%" if emp.percentage }
+    column(:percentage) { |emp| "#{emp.percentage}%" if emp.percentage }
 
     actions
   end

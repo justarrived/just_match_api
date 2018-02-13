@@ -47,7 +47,7 @@ ActiveAdmin.register Occupation do
       row :id
       row :name
       row :parent
-      row :child_count { occupation.descendants.count }
+      row(:child_count) { occupation.descendants.count }
       row :language
       row :updated_at
       row :created_at

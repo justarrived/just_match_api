@@ -125,7 +125,7 @@ class JobSerializer < ApplicationSerializer
   has_many :job_skills, unless: :collection_serializer?
   has_many :job_occupations, unless: :collection_serializer?
 
-  belongs_to :responsible_recruiter { object.just_arrived_contact }
+  belongs_to(:responsible_recruiter) { object.just_arrived_contact }
 
   belongs_to :owner do
     owner_object = if object.upcoming

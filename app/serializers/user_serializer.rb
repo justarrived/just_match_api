@@ -18,18 +18,18 @@ class UserSerializer < ApplicationSerializer
 
   link(:self) { api_v1_user_url(object) }
 
-  attribute :support_chat_activated { object.support_chat_activated? }
-  attribute :description { object.original_description }
-  attribute :description_html { to_html(object.original_description) }
+  attribute(:support_chat_activated) { object.support_chat_activated? }
+  attribute(:description) { object.original_description }
+  attribute(:description_html) { to_html(object.original_description) }
 
-  attribute :job_experience { object.original_job_experience }
-  attribute :job_experience_html { to_html(object.original_job_experience) }
+  attribute(:job_experience) { object.original_job_experience }
+  attribute(:job_experience_html) { to_html(object.original_job_experience) }
 
-  attribute :education { object.original_education }
-  attribute :education_html { to_html(object.original_education) }
+  attribute(:education) { object.original_education }
+  attribute(:education_html) { to_html(object.original_education) }
 
-  attribute :competence_text { object.original_competence_text }
-  attribute :competence_text_html { to_html(object.original_competence_text) }
+  attribute(:competence_text) { object.original_competence_text }
+  attribute(:competence_text_html) { to_html(object.original_competence_text) }
 
   attribute :translated_text do
     {

@@ -35,13 +35,13 @@ ActiveAdmin.register Chat do
         message = ff.object
         if message.persisted?
           attributes_table_for message do
-            row :id { link_to(message.display_name, admin_message_path(message)) }
-            row :language { message.language }
+            row(:id) { link_to(message.display_name, admin_message_path(message)) }
+            row(:language) { message.language }
             row :from do
               link_to(message.author.display_name, admin_user_path(message.author))
             end
-            row :created_at { datetime_ago_in_words(message.created_at) }
-            row :body { simple_format(message.body) }
+            row(:created_at) { datetime_ago_in_words(message.created_at) }
+            row(:body) { simple_format(message.body) }
           end
         else
           ff.semantic_errors(*message&.errors&.keys)
@@ -61,7 +61,7 @@ ActiveAdmin.register Chat do
       row :id
       row :updated_at
       row :created_at
-      row :message_count { chat.messages.count }
+      row(:message_count) { chat.messages.count }
       row :users do
         safe_join(
           chat.users.map { |user| link_to(user.display_name, admin_user_path(user)) },
@@ -75,13 +75,13 @@ ActiveAdmin.register Chat do
       order(created_at: :desc).
       each do |message|
       attributes_table do
-        row :id { link_to(message.display_name, admin_message_path(message)) }
-        row :language { message.language }
+        row(:id) { link_to(message.display_name, admin_message_path(message)) }
+        row(:language) { message.language }
         row :from do
           link_to(message.author.display_name, admin_user_path(message.author))
         end
-        row :created_at { datetime_ago_in_words(message.created_at) }
-        row :body { simple_format(message.body) }
+        row(:created_at) { datetime_ago_in_words(message.created_at) }
+        row(:body) { simple_format(message.body) }
       end
     end
   end

@@ -23,9 +23,9 @@ ActiveAdmin.register Message do
       row :id
       row :author
       row :chat
-      row :body { |chat| simple_format(chat.body) }
-      row :updated_at { |chat| datetime_ago_in_words(chat.updated_at) }
-      row :created_at { |chat| datetime_ago_in_words(chat.created_at) }
+      row(:body) { |chat| simple_format(chat.body) }
+      row(:updated_at) { |chat| datetime_ago_in_words(chat.updated_at) }
+      row(:created_at) { |chat| datetime_ago_in_words(chat.created_at) }
     end
   end
 

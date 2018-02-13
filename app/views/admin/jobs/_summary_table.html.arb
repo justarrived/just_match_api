@@ -1,6 +1,6 @@
 table_for(jobs) do
-  column :name { |job| link_to(job.name, admin_job_path(job)) }
+  column(:name) { |job| link_to(job.name, admin_job_path(job)) }
   column :hours
-  column :start { |job| european_date(job.job_date) }
-  column :end { |job| european_date(job.job_end_date) }
+  column(:start) { |job| european_date(job.job_date) }
+  column(:end) { |job| european_date(job.job_end_date) }
 end

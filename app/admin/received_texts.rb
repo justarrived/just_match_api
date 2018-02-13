@@ -16,8 +16,8 @@ ActiveAdmin.register ReceivedText do
     attributes_table do
       row :from_number
       row :to_number
-      row :created_at { |email| datetime_ago_in_words(email.created_at) }
-      row :body { |email| simple_format(email.body) }
+      row(:created_at) { |email| datetime_ago_in_words(email.created_at) }
+      row(:body) { |email| simple_format(email.body) }
     end
   end
 end
