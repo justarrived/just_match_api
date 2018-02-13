@@ -29,6 +29,9 @@ gem 'aws-sdk', '~> 2.10' # Upload images to AWS S3
 gem 'pg', '~> 0.21' # Use postgresql as the database for Active Record
 gem 'redis-activesupport', '~> 5.0' # To use Redis as the cache store for rack-attack
 
+# ACTIVERECORD
+gem 'association_count', '~> 1.0' # Simple count for ActiveRecord associations
+
 # RACK MIDDLEWARE
 gem 'rack-attack', '~> 5.0' # Throttle API usage
 gem 'rack-cors', '~> 1.0', require: 'rack/cors' # Configure CORS
