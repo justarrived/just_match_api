@@ -4,6 +4,25 @@ HEAD
 -----------
 
 
+v2.86 - 2018-02-13
+----------
+__Admin__:
+* :hocho: job user search bug. Closes [issue #1419](https://github.com/justarrived/just_match_api/issues/1419)
+
+__Enhancement__:
+* Add methods to count user => job users with ease
+* Add AssociationCount methods to all activerecord models
+* Add association_count gem
+
+__Gem updates__:
+* Bump sidekiq from 5.1.0 to 5.1.1
+* Bump uglifier from 4.1.5 to 4.1.6
+* Bump countries from 2.1.3 to 2.1.4
+* Bump httparty from 0.15.6 to 0.15.7
+* Bump twilio-ruby from 5.6.2 to 5.6.3
+
+v2.85 - 2018-02-09
+----------
 v2.85 - 2018-02-09
 ----------
 __Admin/Bugfix__:
