@@ -56,7 +56,7 @@ gem 'jsonapi_helpers', '~> 0.2' # JSONAPI helpers
 gem 'paperclip', '~> 5.2' # Image handler
 
 # HTTP
-gem 'httparty', '~> 0.15' # Make HTTP requests with ease
+gem 'httparty', '~> 0.16' # Make HTTP requests with ease
 
 # SECURITY
 gem 'bcrypt', '~> 3.1.11', require: true # Encrypt passwords
