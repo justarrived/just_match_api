@@ -95,7 +95,7 @@ GEM
       safely_block (>= 0.1.1)
       user_agent_parser
       uuidtools
-    airbrake (7.2.0)
+    airbrake (7.2.1)
       airbrake-ruby (~> 2.5)
     airbrake-ruby (2.8.1)
     ancestry (3.0.1)
