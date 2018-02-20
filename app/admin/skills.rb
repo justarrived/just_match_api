@@ -21,7 +21,7 @@ ActiveAdmin.register Skill do
     column :id
     column :high_priority
     column :internal
-    column :name { |skill| skill_badge(skill: skill) }
+    column(:name) { |skill| skill_badge(skill: skill) }
     column :updated_at
 
     actions

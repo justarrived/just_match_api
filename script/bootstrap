@@ -11,8 +11,8 @@ CI_BUILD=${CI_BUILD-false}
 
 echo -e '\n== Bootstrapping dependencies =='
 
-[[ $(ruby -v) == 'ruby 2.4'* ]] || {
-  echo -e '\nPlease install Ruby 2.4 and then run this script again.'
+[[ $(ruby -v) == 'ruby 2.5'* ]] || {
+  echo -e '\nPlease install Ruby 2.5 and then run this script again.'
   exit 1
 }
 

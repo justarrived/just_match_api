@@ -36,7 +36,7 @@ ActiveAdmin.register ArbetsformedlingenAd do
       row :published
       row :updated_at
       row :created_at
-      row :logs_count { logs.count }
+      row(:logs_count) { logs.count }
     end
 
     panel I18n.t('admin.arbetsformedlingen_ad_log.name') do

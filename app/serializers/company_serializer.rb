@@ -6,7 +6,7 @@ class CompanySerializer < ApplicationSerializer
 
   link(:self) { api_v1_company_url(object) }
 
-  attribute :name { object.display_name }
+  attribute(:name) { object.display_name }
 
   attribute :short_description do
     object.original_short_description

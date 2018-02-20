@@ -35,7 +35,7 @@ ActiveAdmin.register FrilansFinansApiLog do
       row :status_name
       row :verb
       row :uri
-      row :created_at { |log| datetime_ago_in_words(log.created_at) }
+      row(:created_at) { |log| datetime_ago_in_words(log.created_at) }
       row :params do |log|
         content_tag :pre, begin
           hash = JSON.parse(log.params)
@@ -45,7 +45,7 @@ ActiveAdmin.register FrilansFinansApiLog do
           log.params
         end
       end
-      row :response_body { |log| safe_pretty_print_json(log.response_body) }
+      row(:response_body) { |log| safe_pretty_print_json(log.response_body) }
     end
   end
 end

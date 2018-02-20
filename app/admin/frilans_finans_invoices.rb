@@ -166,8 +166,8 @@ ActiveAdmin.register FrilansFinansInvoice do
     h3 I18n.t('admin.frilans_finans_invoice.show.dates')
     attributes_table do
       row :ff_last_synced_at
-      row :updated_at { datetime_ago_in_words(frilans_finans_invoice.updated_at) }
-      row :created_at { datetime_ago_in_words(frilans_finans_invoice.created_at) }
+      row(:updated_at) { datetime_ago_in_words(frilans_finans_invoice.updated_at) }
+      row(:created_at) { datetime_ago_in_words(frilans_finans_invoice.created_at) }
     end
 
     active_admin_comments

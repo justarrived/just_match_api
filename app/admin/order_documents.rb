@@ -25,10 +25,10 @@ ActiveAdmin.register OrderDocument do
       row :order
       row :name
       row :document
-      row :document_url do |order_doc|
+      row(:document_url) do |order_doc|
         download_link_to(url: order_doc.url, file_name: order_doc.document_file_name)
       end
-      row :created_at { |order_doc| datetime_ago_in_words(order_doc.created_at) }
+      row(:created_at) { |order_doc| datetime_ago_in_words(order_doc.created_at) }
     end
 
     active_admin_comments

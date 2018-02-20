@@ -76,8 +76,8 @@ ActiveAdmin.register JobRequest do
     selectable_column
     column :status, &:current_status_name
     column :company_name
-    column :sales_user { |job_request| job_request.sales_user&.first_name }
-    column :delivery_user { |job_request| job_request.delivery_user&.first_name }
+    column(:sales_user) { |job_request| job_request.sales_user&.first_name }
+    column(:delivery_user) { |job_request| job_request.delivery_user&.first_name }
     column :requirements
     column :language_requirements
     column :job_at_date
@@ -121,7 +121,7 @@ ActiveAdmin.register JobRequest do
       row :signed_by_customer
       row :cancelled
       row :finished
-      row :created_at { datetime_ago_in_words(job_request.created_at) }
+      row(:created_at) { datetime_ago_in_words(job_request.created_at) }
     end
 
     panel('Copy-pasta') do
