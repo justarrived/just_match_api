@@ -4,6 +4,21 @@ HEAD
 -----------
 
 
+v2.87 - 2018-02-21
+----------
+__Ruby 2.5 upgrade__:
+* Update `NumberFormatter` methods to be backwards compatible with Ruby 2.5 new feature #7688
+* Set rubocop target ruby version to 2.4 since 2.4 is not supported yet
+* Update syntax to be Ruby 2.5 compliant
+* Update Ruby 2.4 references to Ruby 2.5
+* Update Ruby 2.4 => 2.5
+
+__Gem updates__:
+* Bump memory_profiler from 0.9.8 to 0.9.10
+* Bump httparty from 0.15.7 to 0.16.0
+* Bump airbrake from 7.2.0 to 7.2.1
+
+
 v2.86 - 2018-02-13
 ----------
 __Admin__:
