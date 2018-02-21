@@ -127,7 +127,7 @@ tabs do
   tab(I18n.t('admin.job.section_title.content')) do
     attributes_table_for(job) do
       row :short_description
-      row :description { |job| markdown_to_html(job.description) }
+      row(:description) { |job| markdown_to_html(job.description) }
     end
 
     columns do
