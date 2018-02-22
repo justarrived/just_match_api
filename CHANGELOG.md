@@ -4,6 +4,15 @@ HEAD
 -----------
 
 
+v2.89 - 2018-02-22
+----------
+__Enhancement__:
+* Decrease default batch size from 1000 to 500
+
+__Bugfix__:
+* Update Metrojobb category map
+
+
 v2.88 - 2018-02-21
 ----------
 * Update bad Ruby 2.5 syntax
