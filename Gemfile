@@ -96,7 +96,7 @@ gem 'i18n_data', '~> 0.8' # Language and country names in various languages
 gem 'iban-tools', '~> 1.1' # Validate IBAN
 gem 'mailcheck', github: 'mailcheck/mailcheck-ruby' # Email suggestions for common email spelling misstakes
 gem 'personnummer', '~> 0.1.0' # Swedish "personummer" or "samordningsnummer"
-gem 'rails-i18n', '~> 5.0' # Rails translations
+gem 'rails-i18n', '~> 5.1' # Rails translations
 
 # PERFORMANCE GEMS
 gem 'fast_blank', '~> 1.0' # Re-implements #blank? in C
