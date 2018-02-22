@@ -118,7 +118,7 @@ RSpec.describe Api::V1::PartnerFeeds::JobsController, type: :controller do
       expect(xml.css('externalApplication').text).to include('true')
 
       expect(xml.css('region id').text).to include('180')
-      expect(xml.css('category id').text).to include('2402')
+      expect(xml.css('category id').text).to include('26')
     end
 
     context 'auth' do
