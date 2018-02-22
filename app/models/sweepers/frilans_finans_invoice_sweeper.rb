@@ -3,7 +3,7 @@
 module Sweepers
   class FrilansFinansInvoiceSweeper
     def self.create_frilans_finans(scope = FrilansFinansInvoice)
-      scope.needs_frilans_finans_id.find_each(batch_size: 1000) do |ff_invoice|
+      scope.needs_frilans_finans_id.find_each(batch_size: 500) do |ff_invoice|
         begin
           CreateFrilansFinansInvoiceService.create(ff_invoice: ff_invoice)
         rescue User::MissingFrilansFinansIdError => e
@@ -13,7 +13,7 @@ module Sweepers
     end
 
     def self.activate_frilans_finans(scope = Invoice)
-      scope.needs_frilans_finans_activation.find_each(batch_size: 1000) do |invoice|
+      scope.needs_frilans_finans_activation.find_each(batch_size: 500) do |invoice|
         ff_invoice = invoice.frilans_finans_invoice
         frilans_finans_id = ff_invoice.frilans_finans_id
 
@@ -46,7 +46,7 @@ module Sweepers
     end
 
     def self.remote_sync(scope = FrilansFinansInvoice)
-      scope.has_frilans_finans_id.not_paid.find_each(batch_size: 1000) do |ff_invoice|
+      scope.has_frilans_finans_id.not_paid.find_each(batch_size: 500) do |ff_invoice|
         SyncFrilansFinansInvoiceService.call(frilans_finans_invoice: ff_invoice)
       end
     end

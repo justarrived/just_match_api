@@ -29,7 +29,7 @@ ActiveAdmin.register FrilansFinansInvoice do
 
   confirm_msg = I18n.t('admin.confirm_dialog_title')
   batch_action :sync_with_frilans_finans, confirm: confirm_msg do |ids|
-    collection.where(id: ids).find_each(batch_size: 1000).each do |ff_invoice|
+    collection.where(id: ids).find_each(batch_size: 500).each do |ff_invoice|
       if ff_invoice.frilans_finans_id
         SyncFrilansFinansInvoiceService.call(frilans_finans_invoice: ff_invoice)
       else
