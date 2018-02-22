@@ -3,7 +3,7 @@
 module Sweepers
   class UserSweeper
     def self.create_frilans_finans(scope = User)
-      scope.needs_frilans_finans_id.find_each(batch_size: 1000) do |user|
+      scope.needs_frilans_finans_id.find_each(batch_size: 500) do |user|
         ff_user = SyncFrilansFinansUserService.call(user: user)
         ff_id = ff_user.resource.id
 
