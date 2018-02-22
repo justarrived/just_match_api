@@ -260,10 +260,12 @@ ActiveAdmin.register User do
     user_occupations = user.user_occupations.
                        includes(occupation: %i[translations language])
 
+    resume = user.user_documents.cv.last&.document
     locals = {
       support_chat: support_chat,
       user_occupations: user_occupations,
-      total_job_applications: user.job_users.count
+      total_job_applications: user.job_users.count,
+      resume: resume
     }
 
     render partial: 'admin/users/show', locals: locals

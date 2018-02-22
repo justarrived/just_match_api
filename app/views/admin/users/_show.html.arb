@@ -144,6 +144,12 @@ columns do
 end
 
 if user.candidate?
+  panel 'CV' do
+    div do
+      render_or_link_document(resume) || h3(I18n.t('admin.job_user.show.no_resume_uploaded'))
+    end
+  end
+
   panel(I18n.t('admin.user.show.candidate_status')) do
     attributes_table_for(user) do
       row :current_status
