@@ -4,6 +4,12 @@ HEAD
 -----------
 
 
+v2.90 - 2018-02-22
+----------
+__Enhancement__:
+* Re-add some Metrojobb categories
+
+
 v2.89 - 2018-02-22
 ----------
 __Enhancement__:
