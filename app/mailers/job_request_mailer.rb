@@ -13,6 +13,7 @@ class JobRequestMailer < ApplicationMailer
     @job_scope = job_request.job_scope
     @requirements = job_request.requirements
     @job_specification = job_request.job_specification
+    @sales_user = job_request.sales_user
 
     mail(to: recipient_email, subject: subject)
   end
