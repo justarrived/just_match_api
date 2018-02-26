@@ -132,9 +132,10 @@ GEM
     bindex (0.5.0)
     binding_of_caller (0.8.0)
       debug_inspector (>= 0.0.1)
-    blazer (1.8.0)
+    blazer (1.8.2)
+      activerecord (>= 4)
       chartkick
-      rails
+      railties (>= 4)
       safely_block (>= 0.1.1)
     bootsnap (1.1.8)
       msgpack (~> 1.0)
@@ -146,7 +147,7 @@ GEM
     byebug (10.0.0)
     case_transform (0.2)
       activesupport
-    chartkick (2.3.0)
+    chartkick (2.3.1)
     chosen-rails (1.8.3)
       coffee-rails (>= 3.2)
       railties (>= 3.0)
@@ -659,7 +660,7 @@ GEM
     ruby-progressbar (1.9.0)
     ruby_dep (1.5.0)
     safe_yaml (1.0.4)
-    safely_block (0.2.0)
+    safely_block (0.2.1)
       errbase
     sass (3.5.5)
       sass-listen (~> 4.0.0)
