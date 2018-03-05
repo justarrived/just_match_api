@@ -84,7 +84,7 @@ gem 'frilans_finans_api', '~> 0.4' # Interact with Frilans Finans API
 # NOTIFICATIONS
 gem 'email_reply_parser', '~> 0.5' # Parse reply emails
 gem 'mail', '~> 2.6', '>= 2.6.6' # General email functionality
-gem 'twilio-ruby', '~> 5.6' # Send SMS notifications
+gem 'twilio-ruby', '~> 5.7' # Send SMS notifications
 
 # GEO/LOCALE/LANGUAGE UTILS
 gem 'banktools-se', '~> 2.6' # Validate Swedish bank account
