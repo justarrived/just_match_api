@@ -74,7 +74,7 @@ gem 'uglifier', '~> 4.1' # Needed for activeadmin assets compilation
 
 gem 'arbetsformedlingen', '~> 0.1' # Gem for publishing jobs to Arbetsformedlingen (Swedish Employment Service)
 
-gem 'metrojobb', '~> 0.2' # Gem for building a feed for Metrojobb
+gem 'metrojobb', '~> 0.6', '>= 0.6.1' # Gem for building a feed for Metrojobb
 
 gem 'welcome_app', path: 'lib/welcome_app' # Interact with WelcomeApp!
 

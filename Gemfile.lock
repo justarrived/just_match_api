@@ -509,7 +509,7 @@ GEM
     memoist (0.16.0)
     memory_profiler (0.9.10)
     method_source (0.9.0)
-    metrojobb (0.5.1)
+    metrojobb (0.6.1)
       activemodel (~> 5.0)
       builder (~> 3.2)
     mime-types (3.1)
@@ -803,7 +803,7 @@ DEPENDENCIES
   mailcheck!
   maruku (~> 0.7)
   memory_profiler (~> 0.9)
-  metrojobb (~> 0.2)
+  metrojobb (~> 0.6, >= 0.6.1)
   newrelic_rpm (~> 4.7)
   paperclip (~> 5.2)
   personnummer (~> 0.1.0)
