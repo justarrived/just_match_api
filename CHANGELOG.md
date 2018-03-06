@@ -4,6 +4,30 @@ HEAD
 -----------
 
 
+v2.91 - 2018-03-06
+----------
+__Admin__:
+* Add CV to user show page
+
+__Enhancement__:
+* Update job request mailer to include more info
+* Update NumberFormatter spec to expect , instead of ،
+* Add bundle exec to annotate command in `script/migrate`
+
+__Bugfix__:
+* Fix facebook & linkedin url validators for urls starting with http:/exampl.. Closes #1432
+
+__Gem updates__:
+* Bump `metrojobb` from 0.5.1 to 0.6.1
+* Bump `rubocop` from 0.52.1 to 0.53.0
+* Bump `geocoder` from 1.4.5 to 1.4.6
+* Bump `twilio-ruby` from 5.6.4 to 5.7.0
+* Bump `google-cloud-translate` from 1.1.0 to 1.2.0
+* Bump `rails-i18n` from 5.1.0 to 5.1.1
+* Bump `blazer` from 1.8.0 to 1.8.2
+* Bump `twilio-ruby` from 5.6.3 to 5.6.4
+
+
 v2.90 - 2018-02-22
 ----------
 __Enhancement__:
