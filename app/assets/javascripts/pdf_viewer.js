@@ -1,24 +1,26 @@
 var PDF_RESUME_DOM_ID = 'pdf-document';
 
 function initPDFjs() {
+  // Using DocumentInitParameters object to load binary data.
+  var canvas = document.getElementById(PDF_RESUME_DOM_ID);
+  if (!canvas) {
+    return;
+  }
+
   // Disable workers to avoid yet another cross-origin issue (workers need
   // the URL of the script to be loaded, and dynamically loading a cross-origin
   // script does not work).
   // PDFJS.disableWorker = true;
 
+  // Loaded via <script> tag, create shortcut to access PDF.js exports.
+  var pdfjs = window['pdfjs-dist/build/pdf'];
+
   // The workerSrc property shall be specified.
-  PDFJS.workerSrc = '//mozilla.github.io/pdf.js/build/pdf.worker.js';
-
-  // Using DocumentInitParameters object to load binary data.
-  var canvas = document.getElementById(PDF_RESUME_DOM_ID);
-
-  if (!canvas) {
-    return;
-  }
+  pdfjs.GlobalWorkerOptions.workerSrc = '//mozilla.github.io/pdf.js/build/pdf.worker.js';
 
   var url = canvas.attributes['data-url'].value;
 
-  var loadingTask = PDFJS.getDocument(url);
+  var loadingTask = pdfjs.getDocument(url);
   loadingTask.promise.then(function(pdf) {
     console.log('PDF loaded');
 
