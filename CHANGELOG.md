@@ -3,6 +3,13 @@
 HEAD
 -----------
 
+v2.92 - 2018-03-07
+----------
+__Admin__:
+* Update PDFJS initialization to work with latest PDFJS version
+* Lock the PDFJS version loaded to 2.0.419
+
+
 v2.91 - 2018-03-06
 ----------
 __Admin__:
