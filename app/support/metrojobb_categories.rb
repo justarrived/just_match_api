@@ -34,7 +34,8 @@ class MetrojobbCategories
     'Lärare / Utbildning' => '23',
     'Övrigt' => '24',
     'Artister / Skådespelare' => '25',
-    'Franchisetagare' => '26'
+    'Franchisetagare' => '26',
+    'Trädgårdsarbetare' => '410'
   }.freeze
 
   def self.to_form_array
