@@ -11,6 +11,7 @@ sv:
       misc: Övrigt
     hired_suffix: '(anställd)'
     batch_action_confirm: Är du säker?
+    action_confirm: Är du säker?
     verified_selected: Verifiera markerade.
     job_name: Jobb
     user_name: Användare
@@ -269,6 +270,8 @@ sv:
       push_ff_user_success: användaren skickad till Frilans Finans (HTTP %{status})
       push_ff_user_failed: användaren misslyckades att skickas till Frilans Finans (HTTP %{status})
       push_frilans_finans_btn: Skicka till Frilans Finans
+      anonymize_action: Anonymisera!
+      anonymized_success: Anonymisering av användaren lyckades.
       resume_search_label: CV-sök
       batch_form:
         tag_added_notice: 'La till "%{name}".'

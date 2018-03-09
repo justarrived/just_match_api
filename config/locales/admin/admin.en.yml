@@ -13,6 +13,7 @@ en:
     no_answer: No
     hired_suffix: '(hired)'
     batch_action_confirm: Are you sure?
+    action_confirm: Are you sure?
     verified_selected: Verified selected.
     job_name: Job
     user_name: User
@@ -271,6 +272,8 @@ en:
       push_ff_user_success: user pushed successfully to Frilans Finans (HTTP %{status})
       push_ff_user_failed: user pushed to Frilans Finans failed (HTTP %{status})
       push_frilans_finans_btn: Push to Frilans Finans
+      anonymize_action: Anonymize user!
+      anonymized_success: User successfully anonymized.
       resume_search_label: Search resumés
       batch_form:
         tag_added_notice: 'Added "%{name}".'

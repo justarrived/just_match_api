@@ -189,6 +189,21 @@ ActiveAdmin.register User do
     end
   end
 
+  action_item :anonymize, only: :show do
+    link_to(
+      I18n.t('admin.user.anonymize_action'),
+      anonymize_user_admin_user_path(id: user.id),
+      method: :post,
+      comfirm: I18n.t('admin.action_confirm')
+    )
+  end
+
+  member_action :anonymize_user, method: :post do
+    user = resource
+    user.reset!
+    redirect_to admin_users_path, notice: I18n.t('admin.user.anonymized_success')
+  end
+
   # Create sections on the index screen
   scope :all
   scope :admins
