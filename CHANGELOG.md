@@ -3,6 +3,22 @@
 HEAD
 -----------
 
+
+v2.93 - 2018-03-09
+----------
+__Admin__:
+* Add anonymise user action to User show page
+* Add job digest to user sidebar and better display of a job digest
+* Revert "Admin: Lock the PDFJS version loaded to 2.0.419"
+
+__Enhancement__:
+* Add `Trädgårdsarbetare` to `MetrojobbCategories`
+* Unpublish metrojobb on job end date instead of job start date. Closes #1389
+
+__Gem update__:
+* Bump honey_format from 0.2.1 to 0.3.0
+
+
 v2.92 - 2018-03-07
 ----------
 __Admin__:
