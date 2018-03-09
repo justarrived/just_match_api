@@ -4,6 +4,12 @@ HEAD
 -----------
 
 
+v2.94 - 2018-03-09
+----------
+__Admin__:
+* Add "Are you sure?" prompt when anonymizing a user
+
+
 v2.93 - 2018-03-09
 ----------
 __Admin__:
