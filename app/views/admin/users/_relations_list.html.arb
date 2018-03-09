@@ -33,6 +33,12 @@ ul do
         admin_job_users_path + user_query
       )
     )
+    li(
+      link_to(
+        I18n.t('admin.counts.job_digests', count: user.job_digests.count),
+        admin_job_digests_path + user_query
+      )
+    )
   end
   li(
     link_to(

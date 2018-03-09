@@ -344,6 +344,7 @@ sv:
         subject_hint: 'Ämnesrad för den här template:n (du kan använda variabler här..)'
         body_hint: 'Innehåll för den här template:n (du kan använda variabler här..)'
     counts:
+      job_digests: Har %{count} jobb bevakningar
       documents: Har %{count} dokument
       applications: Har %{count} ansökningar
       applicants: Har %{count} ansökande
