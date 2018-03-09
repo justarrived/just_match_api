@@ -194,7 +194,7 @@ ActiveAdmin.register User do
       I18n.t('admin.user.anonymize_action'),
       anonymize_user_admin_user_path(id: user.id),
       method: :post,
-      comfirm: I18n.t('admin.action_confirm')
+      data: { confirm: I18n.t('admin.action_confirm') }
     )
   end
 
