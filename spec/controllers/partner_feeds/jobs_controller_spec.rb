@@ -93,7 +93,7 @@ RSpec.describe Api::V1::PartnerFeeds::JobsController, type: :controller do
         translation_locale: :en,
         publish_on_metrojobb: true,
         last_application_at: 2.days.from_now,
-        metrojobb_category: MetrojobbCategories.to_form_array.last.first,
+        metrojobb_category: MetrojobbCategories.to_form_array.first.first,
         municipality: 'Stockholm',
         publish_at: Time.current,
         job_occupations: [FactoryBot.create(:job_occupation)]
@@ -118,7 +118,7 @@ RSpec.describe Api::V1::PartnerFeeds::JobsController, type: :controller do
       expect(xml.css('externalApplication').text).to include('true')
 
       expect(xml.css('region id').text).to include('180')
-      expect(xml.css('category id').text).to include('26')
+      expect(xml.css('category id').text).to include('1')
     end
 
     context 'auth' do
