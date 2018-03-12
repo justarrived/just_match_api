@@ -8,8 +8,10 @@ class EmploymentPeriod < ApplicationRecord
   validates :percentage, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
 
   validate :validate_ended_after_started
+
   def ongoing?
     return false if started_at > Time.current
+    return true unless ended_at
     return false if ended_at < Time.current
 
     true
