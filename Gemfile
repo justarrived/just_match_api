@@ -72,7 +72,7 @@ gem 'chosen-rails', '~> 1.8' # Needed for autocomplete select input for activead
 gem 'inherited_resources', '~> 1.8' # activeadmin Rails 5
 gem 'uglifier', '~> 4.1' # Needed for activeadmin assets compilation
 
-gem 'arbetsformedlingen', '~> 0.1' # Gem for publishing jobs to Arbetsformedlingen (Swedish Employment Service)
+gem 'arbetsformedlingen', '~> 0.4' # Gem for publishing jobs to Arbetsformedlingen (Swedish Employment Service)
 
 gem 'metrojobb', '~> 0.6', '>= 0.6.1' # Gem for building a feed for Metrojobb
 
