@@ -11,7 +11,7 @@ ruby '2.5.0'
 
 gem 'rails', '5.1.5' # Ruby on Rails MVC framework
 
-gem 'bootsnap', '~> 1.1', require: false # Optimize Rails boot time
+gem 'bootsnap', '~> 1.2', require: false # Optimize Rails boot time
 
 # TEXT PROCESSING
 gem 'kramdown', '~> 1.16' # Markdown <> HTML
