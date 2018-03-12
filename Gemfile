@@ -25,7 +25,7 @@ gem 'puma', '~> 3.11' # App server
 gem 'ahoy_matey', '~> 1.6'
 
 # STORAGE
-gem 'aws-sdk', '~> 2.10' # Upload images to AWS S3
+gem 'aws-sdk-s3', '~> 1.8' # Upload images to AWS S3
 gem 'pg', '~> 0.21' # Use postgresql as the database for Active Record
 gem 'redis-activesupport', '~> 5.0' # To use Redis as the cache store for rack-attack
 
