@@ -118,7 +118,7 @@ group :development, :test, :docs do
   gem 'consistency_fail', '~> 0.3'
   gem 'dotenv-rails', '~> 2.2'
   gem 'factory_bot_rails', '~> 4.8'
-  gem 'fog', '~> 1.42' # Cloud services gem, in production the aws-sdk gem is used
+  gem 'fog', '~> 2.0' # Cloud services gem, in production the aws-sdk gem is used
   gem 'immigrant', '~> 0.3'
   gem 'rspec-rails', '~> 3.7'
   gem 'rspec_junit_formatter', '~> 0.2'
