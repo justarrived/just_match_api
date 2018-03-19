@@ -22,7 +22,7 @@ gem 'lograge', '~> 0.9' # Less verbose Rails log in production
 gem 'puma', '~> 3.11' # App server
 
 # Analytics
-gem 'ahoy_matey', '~> 1.6'
+gem 'ahoy_matey', '~> 2.0'
 
 # STORAGE
 gem 'aws-sdk', '~> 2.10' # Upload images to AWS S3
