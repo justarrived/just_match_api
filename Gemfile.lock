@@ -149,7 +149,7 @@ GEM
     bullet (5.7.5)
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.11.0)
-    byebug (10.0.0)
+    byebug (10.0.1)
     case_transform (0.2)
       activesupport
     chartkick (2.3.1)
