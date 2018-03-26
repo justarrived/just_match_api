@@ -24,7 +24,7 @@ gem 'puma', '~> 3.11' # App server
 # Analytics
 gem 'ahoy_matey', '~> 1.6'
 
-gem 'loofah', '~> 2.2', '>= 2.2.1' # HTML sanitizer
+gem 'loofah', '~> 2.2' # HTML sanitizer
 
 # STORAGE
 gem 'aws-sdk-s3', '~> 1.8' # Upload images to AWS S3
