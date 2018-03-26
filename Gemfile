@@ -124,7 +124,7 @@ group :development, :test, :docs do
   gem 'immigrant', '~> 0.3'
   gem 'rspec-rails', '~> 3.7'
   gem 'rspec_junit_formatter', '~> 0.2'
-  gem 'rubocop', '~> 0.53', require: false
+  gem 'rubocop', '~> 0.54', require: false
 end
 
 group :development do
