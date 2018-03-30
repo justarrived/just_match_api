@@ -1,0 +1,376 @@
+en:
+  admin:
+    menu:
+      jobs: Jobs
+      users: Users
+      sales: Sales
+      filters: Filters
+      chats: Chats
+      settings: Settings
+      guide: Guide
+      misc: Misc
+    yes_answer: Yes
+    no_answer: No
+    hired_suffix: '(hired)'
+    batch_action_confirm: Are you sure?
+    action_confirm: Are you sure?
+    verified_selected: Verified selected.
+    job_name: Job
+    user_name: User
+    job_user_name: Applicant
+    time_ago: '%{time} ago'
+    time_from_now: '%{time} from now'
+    download: Download
+    upload: Upload
+    name: Name
+    arbetsformedlingen_ad:
+      push:
+        button: Push
+        pushing_msg: 'Yay! Pushing to Arbetsförmedlingen lets hope for the best!'
+        validation_error_msg: 'Hrm.. Here are som validation errors you need to fix fist before we can push to Arbetsförmedlingen: %{errors}.'
+    arbetsformedlingen_ad_log:
+      name: Arbetsförmedlingen log
+      af_error_code_msg: "Arbetsförmedlingen error code: %{code}"
+      af_valid_msg: Valid
+    create_invoice:
+      success_msg: Successfully created invoice. Invoice will be activated at Frilans Finans soon.
+      post_btn: Activate invoice
+    comment:
+      commentable_type_header: Type
+    form:
+      no_tag_chosen: 'No tag chosen'
+      no_skill_chosen: 'No skill chosen'
+      no_template_chosen: 'No template chosen'
+      no_job_chosen: 'No job chosen'
+      no_language_chosen: 'No language chosen'
+      no_interest_chosen: 'No interest chosen'
+    filter_user:
+      view_users: View %{count} filtered users
+      update_users_notice: 'Refresh the page :) User result is being updated (~1500 hits/sec).'
+      update_users_btn: Refresh search
+    filter:
+      near_address: "Near address (add 'km: XX' for distance)"
+    guide_image:
+      form:
+        title:
+          hint: Just to make this image a bit easier to find / talk about.
+        image:
+          hint: 'The image will be resized to: %{formats}.'
+    recent_users:
+      title: Recent users
+    recent_jobs:
+      title: My recent jobs
+      name: Name
+      filled: Filled
+      start_date: Start date
+      hours: Hours
+      hourly_pay: Hourly pay
+    my_unfilled_jobs:
+      title: My unfilled jobs
+      name: Name
+      start_date: Start date
+    unfilled_urgent_jobs:
+      title: Unfilled jobs starting within 10 days
+      name: Name
+      start_date: Start date
+    my_unfilled_urgent_jobs:
+      title: My unfilled jobs starting within 10 days
+      name: Name
+      start_date: Start date
+    recent_ff_invoices:
+      title: Recent Frilans Finans Invoices
+      status: Status
+      id: ID
+    recent_job_users:
+      accepted: Accepted
+      will_perform: Will perform
+      job: Job
+      user: User
+      id: ID
+    no_invoice_job_users:
+      title: Hired applicants missing frilans finans invoice (job ended)
+      job: Job
+      user: User
+      id: ID
+    view_in_app:
+      job: View job in app
+      job_preview: View job preview in app
+    confirm_dialog_title: Are you sure?
+    machine_translate:
+      queued_msg: Machine translation queued successfully.
+      queued_msg_multiple: Machine translations queued successfully.
+      post_btn: Machine Translate
+    order:
+      current_scope_total_revenue: Total unlost revenue (in current scope)
+      current_scope_total_unfilled_unlost_revenue: Total unfilled and unlost revenue (in current scope)
+      total_unfilled_unlost_revenue: Total unfilled and unlost revenue
+      form:
+        company:
+          hint: If you can't find the company your looking for in the list, please create that company first and come back.
+        change_comment:
+          label: Comment
+          hint: Please add a comment explaining why you're updating the order value
+        document:
+          label: Document
+        total_sold:
+          hint: Only add total sold if the order is a direct recruitment with a one time fee
+        total_filled:
+          hint: Total filled is only used if the value total sold is present
+      show:
+        panel_title: Order
+      create_job: Create job
+      create_order_extension: Create extension
+      persisted_before_document_upload: Order must be saved before you can upload documents.
+    job_request:
+      clone: Clone
+      create_order: Create order
+      show_order: Show order
+      batch:
+        draft_sent: Marked as draft sent
+        signed_by_customer: Marked as signed by customer
+        cancelled: Marked as cancelled
+        finished: Marked as finished
+    job_user:
+      apply_message: Apply message
+      batch_action:
+        ask_for_job_information:
+          confirm: Are you sure you want to notify all users that are missing job skills to fill those out?
+          success: Notified all users with missing skills.
+        shortlist:
+          confirm: Are you sure you want to shortlist these users?
+          success:
+            one: Successfully shortlisted one applicant.
+            other: Successfully shortlisted %{count} applicants.
+        reject:
+          confirm: Are you sure you want to reject these users?
+          success:
+            one: Successfully rejected one applicant.
+            other: Successfully rejected %{count} applicants.
+        accepted:
+          success_msg: 'Successfully accepted %{success_count} user(s), ignored %{ignore_count} user(s) that were already accepted.'
+          fail_msg: 'Failed to accept %{fail_count} user(s): applicants IDs: %{fail_ids}. Successfully accepted %{success_count} user(s), ignored %{ignore_count} user(s) that were already accepted.'
+      show:
+        user_details: User details
+        match_details: Match details
+        job_details: Job details
+        created_at: Created at %{date}
+        apply_message: Apply message
+        no_apply_message: No apply message.
+        no_resume_uploaded: No resumé uploaded
+    job:
+      checklist_sidebar:
+        published: Published
+        preview_key: Preview key
+        data_title: Data collection
+        skills: Skills added
+        languages: Languages added
+        occupations: Occupations added
+        pushed: Pushed to
+        missing_translations: Missing translations
+        status: Status
+        city: City
+        description: Description
+        short_description: Short description
+        missing_ad_content: Missing ad content
+      batch_action:
+        update:
+          title: Update selected or all jobs
+      cancel_and_notify_btn: Cancel and notify
+      cancelled_and_notitied_success: job cancelled successfully
+      cancelled_and_notitied_failed: job could not be cancelled %{errors}
+      create_arbetsformedlingen_ad: Create Arbetsförmedlingen Ad
+      show_arbetsformedlingen_ad: Show Arbetsförmedlingen Ad
+      google_calendar_link: Google Calendar
+      name: Name
+      description: Description
+      clone: Clone
+      section_title:
+        address: Address
+        basic: Basic
+        internal: Internal
+        invoice: Invoice
+        data: Data
+        ad: Ad
+        settings: Settings
+        dates: Dates
+        content: Content
+        job_boards: Job boards
+        status: Status
+      show:
+        applicant_description:
+          short_name: Applicant
+        tasks_description:
+          short_name: Tasks
+        requirements_description:
+          short_name: Requirements
+      form:
+        name_hint: The title of the job
+        short_description_hint: 'Max 155 characters, make it short and sweat :)'
+        job_date_label: 'Earliest start date'
+        job_end_date_label: 'End date'
+        partners_section_title: Publish to partners
+        hourly_pay_hint: 'The hourly pay, you can add more Hourly Pays if you want under "Settings"'
+        customer_hourly_price_hint: 'The hourly invoice price for the customer.'
+        preview_key_hint: If set, the job can only be accessed with this preview key
+        owner_hint: 'Job owner @ client company'
+        company_contact_hint: 'Job contact @ client company, if blank owner will be used instead'
+        just_arrived_contact_hint: 'The responsible user @ Just Arrived'
+        staffing_company_hint: Set only this if this is a staffing job
+        direct_recruitment_job_hint: Only check this if this is a direct recruitment
+        category_hint: 'This field is only used for insurance purposes'
+        hidden_hint: 'If checked the job will not be returned to clients'
+        verified_hint: 'If checked an admin has verified the job'
+        upcoming_hint: 'If checked certain job info will not be returned to clients'
+        cancelled_hint: 'If checked the job is deemed cancelled'
+        filled_hint: 'If checked it marks that the job has a hired user'
+        featured_hint: 'If checked it will be displayed on our start page etc'
+        cloned_hint: 'This job is cloned or is an extension and will not be listed.'
+        cloned_label: Extension or clone
+        municipality_hint: 'Required if job is to be synced to Arbetsformedlingen, Blocketjobb or Metrojobb'
+        publish_on_linkedin:
+          hint: If checked this job ad will be published on LinkedIN
+        publish_on_blocketjobb:
+          hint: If checked this job ad will be published on Blocketjobb (warning this will cost us quite a bit of money!)
+        blocketjobb_category:
+          hint: If this jobb is to be published to Blocketjobb, you need to provide this value
+        publish_on_metrojobb:
+          hint: If checked this job ad will be published on Metrojobb (warning this will cost us quite a bit of money!)
+        metrojobb_category:
+          hint: If this jobb is to be published to Metrojobb, you need to provide this value
+    frilans_finans_invoice:
+      activate_confirmation: Are you sure you want to activate this invoice and send a notification to the user?
+      not_paid: Not paid
+      show:
+        general: General
+        frilans_finans: Frilans Finans
+        dates: Dates
+    chat:
+      name: Chat
+      support_chat: Support chat
+      form:
+        messages_title: Messages
+    company:
+      form:
+        main_form_section_title: Attributes
+        municipality_hint: 'Required if job is to be synced to Arbetsformedlingen'
+    user:
+      system_language_link: System language %{lang}
+      system_language: System language
+      name: Name
+      email: Email
+      company: Company
+      locale: Locale
+      verified: Verified
+      description: Description
+      education: Education
+      competence_text: Competences
+      job_experience: Job experience
+      managed_selected: All selected users marked as managed.
+      total_job_applications:
+        one: Has made one job application
+        other: Total job applications %{count}
+      push_ff_user_success: user pushed successfully to Frilans Finans (HTTP %{status})
+      push_ff_user_failed: user pushed to Frilans Finans failed (HTTP %{status})
+      push_frilans_finans_btn: Push to Frilans Finans
+      anonymize_action: Anonymize user!
+      anonymized_success: User successfully anonymized.
+      resume_search_label: Search resumés
+      batch_form:
+        tag_added_notice: 'Added "%{name}".'
+        tag_add_and_remove_not_uniq_notice: "You can't add and remove the same tag."
+        tag_removed_notice: 'Removed "%{name}".'
+        skill_added_notice: 'Added "%{name}" as skill'
+      form:
+        details: Details
+        competences: Competences
+        immigration_status: Immigration status
+        status_flags: Status flags
+        payment_attributes: Payment attributes
+        presentation_inputs: Customer presentation
+        misc: Misc
+        create_user: Create user
+        public_profile:
+          hint: If the user will be publically accessable
+        language:
+          hint: Default language for user all notifications will be sent in this language.
+        managed:
+          hint: If checked the user will not receive any notification email, all emails will be re-routed to configured receiver.
+        banned:
+          hint: If checked the user will not be able to login and will see a message that they have been banned.
+        password:
+          hint: Warning this will reset the password
+        just_arrived_staffing:
+          hint: Check this if this user is hired by Just Arrived Bemanning AB
+      find_ff_user:
+        find_button: Find and set from Frilans Finans
+        ff_id_present_msg: User already has a Frilans Finans ID (#%{id})
+        ff_id_found_msg: 'Frilans Finans ID found (#%{id}) and succesfully updated user.'
+        ff_id_not_found_msg: No Frilans Finans account could be found for this user.
+      show:
+        interests: Interests
+        verified: 'Verified: %{verified}'
+        tags: Tags
+        skills: Skills
+        filters: In filters
+        feedbacks: Given feedback
+        city: 'City: %{city}'
+        basic_info_title: Basic information
+        candidate_summary: Candidate summary
+        languages: Languages
+        average_score: 'Avg. score: %{score}'
+        profile: Profile
+        payment: Payment details
+        status_flags: Status flags
+        candidate_status: Candidate status
+        misc: Admin details
+        interview_comment: Interview comment
+        presentation_title: Presentation
+        presentation_profile: Profile
+        presentation_personality: Personality
+        presentation_availability: Availability
+        no_interview_comment_explain: No interview has been conducted.
+        ongoing_jobs: Ongoing jobs
+        future_jobs: Future jobs
+        previous_performed_jobs: Previously performed jobs
+        rejected: Rejected
+        no_skills_added: No skills added.
+        no_languages_added: No languages added.
+    send_employment_certificate:
+      post_btn: Send employment certificate
+      msg: Request for employment certificate sent. The user will receive an email from Frilans Finans.
+    ff_remote_sync:
+      msg_multiple: Synced successfully.
+      msg: Synced successfully.
+      post_btn: Sync with Frilans Finans
+    communication_template:
+      form:
+        details: Details
+        category_hint: 'You need a unique category name'
+        subject_hint: 'Subject line of template (you can use variables here..)'
+        body_hint: 'Body of template (you can use variables here..)'
+    counts:
+      job_digests: Has %{count} job digests
+      documents: Has %{count} documents
+      applications: Has %{count} applications
+      applicants: Has %{count} applicants
+      written_messages: Has written %{count} messages
+      translations: Has %{count} translations
+      images: Has %{count} images
+      sessions: Has %{count} login sessions
+      chats: Has %{count} chats
+      received_ratings: Has received %{count} ratings
+      given_ratings: Has given %{count} ratings
+      owned_jobs: Owns %{count} jobs
+
+  active_admin:
+    clone_model: "Clone %{model}"
+
+    batch_actions:
+      labels:
+        add_and_remove_user_tag: 'Add/Remove User Tag To/From'
+        add_user_skill: 'Add User Skill To'
+
+    filters:
+      predicates:
+        gteq_datetime: after
+        lteq_datetime: before

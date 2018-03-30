@@ -25,6 +25,8 @@ data:
   # Locale files to write new keys to, based on a list of key pattern => file rules. Matched from top to bottom:
   # `i18n-tasks normalize -p` will force move the keys according to these rules
   write:
+    # write models.* and views.* keys to the respective files
+    - ['{models,views}.*', 'config/locales/\1.%{locale}.yml']
     ## For example, write devise and simple form keys to their respective files:
     # - ['{devise, simple_form}.*', 'config/locales/\1.%{locale}.yml']
     ## Catch-all default:
@@ -86,6 +88,8 @@ search:
 ignore_missing:
 - 'active_admin.*'
 - 'admin.*'
+- 'activerecord.attributes.blazer*'
+- 'activerecord.models.blazer*'
 # - 'errors.messages.{accepted,blank,invalid,too_short,too_long}'
 # - '{devise,simple_form}.*'
 
@@ -97,6 +101,8 @@ ignore_unused:
 - 'errors.*' # Errors are often automatically generated
 - 'faq.*' # The FAQ is read from an initialiser
 - 'user_document.categories.*'
+- 'active_admin.*'
+- 'admin.menu.*'
 # - '{devise,kaminari,will_paginate}.*'
 # - 'simple_form.{yes,no}'
 # - 'simple_form.{placeholders,hints,labels}.*'

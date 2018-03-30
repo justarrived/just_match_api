@@ -105,6 +105,16 @@ class JobSerializer < ApplicationSerializer
     object.dates_object.starts_in_the_future?
   end
 
+  attribute :schema_org, unless: :collection_serializer? do
+    {
+      job_position: SchemaOrg::JobPosting.new(
+        job: object,
+        company: object.company,
+        main_occupation: object.occupations.first || Occupation.new
+      ).to_h
+    }
+  end
+
   has_many :comments, unless: :collection_serializer? do
     link(:related) { api_v1_job_comments_url(job_id: object.id) }
 
@@ -115,7 +125,7 @@ class JobSerializer < ApplicationSerializer
   has_many :job_skills, unless: :collection_serializer?
   has_many :job_occupations, unless: :collection_serializer?
 
-  belongs_to :responsible_recruiter { object.just_arrived_contact }
+  belongs_to(:responsible_recruiter) { object.just_arrived_contact }
 
   belongs_to :owner do
     owner_object = if object.upcoming

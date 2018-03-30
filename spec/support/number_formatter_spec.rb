@@ -8,10 +8,10 @@ RSpec.describe NumberFormatter do
   describe '#to_unit' do
     [
       # Arabic locale
-      { number: 123_123, locale: :ar, expected: 'SEK 123،123' },
+      { number: 123_123, locale: :ar, expected: 'SEK 123,123' },
       { number: 123, locale: :ar, expected: 'SEK 123' },
-      { number: 123_123.46, locale: :ar, precision: 2, expected: 'SEK 123،123.46' },
-      { number: 123_123.4, locale: :ar, precision: 2, expected: 'SEK 123،123.4' },
+      { number: 123_123.46, locale: :ar, precision: 2, expected: 'SEK 123,123.46' },
+      { number: 123_123.4, locale: :ar, precision: 2, expected: 'SEK 123,123.4' },
       # Swedish locale
       { number: 123_123, locale: :sv, expected: '123 123 SEK' },
       { number: 123, locale: :sv, expected: '123 SEK' },

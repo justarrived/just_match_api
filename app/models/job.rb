@@ -26,7 +26,7 @@ class Job < ApplicationRecord
   belongs_to :order, optional: true
   has_one :job_request, through: :order
   belongs_to :language, optional: true
-  belongs_to :category
+  belongs_to :category, optional: true
   belongs_to :hourly_pay
   belongs_to :owner, class_name: 'User', foreign_key: 'owner_user_id'
   # rubocop:disable Metrics/LineLength
@@ -34,6 +34,8 @@ class Job < ApplicationRecord
   belongs_to :just_arrived_contact, class_name: 'User', foreign_key: 'just_arrived_contact_user_id', optional: true
   belongs_to :staffing_company, class_name: 'Company', foreign_key: 'staffing_company_id', optional: true
   # rubocop:enable Metrics/LineLength
+
+  has_many :employment_periods
 
   has_one :company, through: :owner
   has_one :arbetsformedlingen_ad, dependent: :restrict_with_error
@@ -120,7 +122,7 @@ class Job < ApplicationRecord
     last_app_at_scope = after(:last_application_at, Time.zone.now).
                           or(where(last_application_at: nil))
     last_app_at_scope.
-      after(:job_end_date, Time.zone.now).
+      where('job_end_date IS NULL OR job_end_date > ?', Time.zone.now).
       unfilled.
       uncancelled
   })
@@ -311,7 +313,7 @@ class Job < ApplicationRecord
   end
 
   def frilans_finans_job?
-    !staffing_company_id && !direct_recruitment_job
+    staffing_company_id.blank? && !direct_recruitment_job
   end
 
   def started?
@@ -483,6 +485,10 @@ class Job < ApplicationRecord
   def validate_job_required_data_on_publish
     return unless publish_at
     return if publish_at_was # don't validate a previously published job
+
+    if job_end_date.nil? && !direct_recruitment_job
+      errors.add(:job_end_date, I18n.t('errors.job.job_end_date_presence'))
+    end
 
     errors.add(:short_description, :blank) if short_description.blank?
     errors.add(:description, :blank) if description.blank?

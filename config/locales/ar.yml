@@ -45,8 +45,6 @@ ar:
       blank_if_field: لا يمكن تركه فارغا إذا كان %{field} موجودا
     chat:
       number_of_users: الدردشة يجب ان تكون بين  %{min}-%{max}  وعدد من المستخدمين
-    frilans_finans_invoice:
-      job_is_frilans_finans_job: يجب أن تكون وظيفة Frilans Finans
     invoice:
       job_started: يجب قبول المستخدم قبل إنشاء الفاتورة
       job_user_accepted: يجب قبول المستخدم قبل إنشاء الفاتورة

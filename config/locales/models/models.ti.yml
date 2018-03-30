@@ -1,7 +1,6 @@
 ti:
   activerecord:
     models:
-      blazer/query: Blazer/query (ብሌዘር/ሕቶ)
       category: ምድብ
       chat: ቻት ወይ ዕላል
       chat_user: ተጠቃም ናይ ቻት
@@ -15,7 +14,7 @@ ti:
       invoice: ፋክቱራ
       job: ስራሕ
       job_skill: ብቕዓት ስራሕ
-      job_user: ናይ ስራሕ ተጠቃሚ
+      job_user: Jobb_user (ተጠቃም_ስራሕ)
       language: ቋንቋ
       message: መልእኽቲ
       rating: ባጀላ/ምስክር ወረቐት ወይ ደረጃ
@@ -25,84 +24,112 @@ ti:
       user_language: ቋንቋ ናይ ተጠቃሚ
       user_skill: ክእለት ናይ ተጠቃሚ
     attributes:
-      blazer/query:
-        audits: ኣውዲት
-        checks: ቼክ
-        creator: ኣዳላዊ
-        dashboard_queries: መሳርሒ ሰሌዳ ወይ ቦርድ ሕቶታት
-        dashboards: መሳርሒ ሰሌዳ ወይ ቦርድ
-        data_source: ናይ ሓበሬታ ምንጪ
-        description: መብርሂ
+      active_admin/comment:
+        body: ሰብነት ወይ ኣካል
+      active_admin_comment:
+        body: ሰብነት ወይ ኣካል
+      address:
+        latitude: Latitud (ግዳማዊ ናይ ሓሳብ መስመር)
+        longitude: Longitud (ትኹላዊ ናይ ሓሳብ መስመር)
+      ahoy/event:
         name: ስም
-        statement: መግለጺ
       category:
         jobs: ስራሕ
         name: ስም
       chat:
         chat_users: ተጠቃሚ ናይ ቻት
         messages: መልእኽቲ
+        user_images: ናይ ተጠቃሚ ስእሊ
         users: ተጠቃሚ
-      chat_user:
-        chat: ቻት ወይ ዕላል
-        user: ተጠቃሚ
       comment:
         body: ሰብነት ወይ ኣካል
-        commentable: መስመር ርእይቶ
         commentable_type: Commentabl typ (ኮመንታብል ዓይነት)
         hidden: ሕቡእ
-        language: ቋንቋ
-        owner: ወናኒ
+      comment_translation:
+        body: ሰብነት ወይ ኣካል
+      communication_template:
+        body: ሰብነት ወይ ኣካል
+        category: ምድብ
+      communication_template_translation:
+        body: ሰብነት ወይ ኣካል
       company:
         cin: Cin (ሲን)
         company_images: ስእሊ ናይ ትካል
-        jobs: ስራሕ
+        email: ኢ-መይል
         name: ስም
+        owned_jobs: ዋንነታዊ ስራሕ
+        phone: ቴለፎን
+        street: ጎደና
         users: ተጠቃሚ
         website: መርበብ-ሓበሬታ
+        zip: Blixtlås (ሻርኔራ ወይ መኽፈቲ - ዚፕ)
       company_image:
-        company: ትካል ወይ ካምፓኒ
         image_content_type: ዓይነት ትሕዝቶ-ስእሊ
         image_file_name: ናይ ፋይል ስም ስእሊ
         image_file_size: ዓቐን ወይ ግዝፊ ፋይል
         image_updated_at: መሐደስታ ስእሊ
         one_time_token: ናይ ሓንሳብ ቶከን (token)
         one_time_token_expires_at: ናይ ሓንሳብ ቶከን (token) ዝውደኣሉ
+      company_translation:
+        description: መብርሂ
       contact:
         body: ሰብነት ወይ ኣካል
         email: ኢ-መይል
         name: ስም
       currency:
         currency_code: ናይ ቫሉታ ኮድ
+      digest_subscriber:
+        email: ኢ-መይል
+      document:
+        one_time_token: ናይ ሓንሳብ ቶከን (token)
+        one_time_token_expires_at: ናይ ሓንሳብ ቶከን (token) ዝውደኣሉ
+        users: ተጠቃሚ
       faq:
         answer: መልሲ
-        language: ቋንቋ
         question: ሕቶ
+      faq_translation:
+        answer: መልሲ
+        question: ሕቶ
+      feedback:
+        body: ሰብነት ወይ ኣካል
+      filter:
+        languages: ቋንቋ
+        name: ስም
+        skills: ክእለት ወይ ሙያ
+        users: ተጠቃሚ
+      frilans_finans_term:
+        body: ሰብነት ወይ ኣካል
+        company: ትካል ወይ ካምፓኒ
+      guide_image:
+        image_content_type: ዓይነት ትሕዝቶ-ስእሊ
+        image_file_name: ናይ ፋይል ስም ስእሊ
+        image_file_size: ዓቐን ወይ ግዝፊ ፋይል
+        image_updated_at: መሐደስታ ስእሊ
+      guide_section_article_translation:
+        body: ሰብነት ወይ ኣካል
       hourly_pay:
         active: ንጡፍ
         currency: ቫሉታ
         jobs: ስራሕ
-        rate: ኣሰራርዓ ወይ ኣመዳድባ ባጀላ ወይ ደረጃ
-      invoice:
-        job_user: Jobb_user (ተጠቃም_ስራሕ)
-      frilans_finans_invoice:
-        job_user: Jobb_user (ተጠቃም_ስራሕ)
+      industry:
+        name: ስም
+      industry_translation:
+        name: ስም
+      interest:
+        name: ስም
+        users: ተጠቃሚ
+      interest_translation:
+        name: ስም
       job:
-        category: ምድብ
         comments: ርእይቶታት
-        company: ትካል ወይ ካምፓኒ
         description: መብርሂ
         hidden: ሕቡእ
-        hourly_pay: ናይ ሰዓት ክፍሊት
         hours: ሰዓታት
-        job_date: ናይ ስራሕ ዕለት
-        job_end_date: ስራሕ ዝውደኣሉ ዕለት
         job_skills: ናይ ስራሕ ተሞክሮታት
-        job_users: ተጠቃም ስራሕ
-        language: ቋንቋ
+        languages: ቋንቋ
         latitude: Latitud (ግዳማዊ ናይ ሓሳብ መስመር)
         longitude: Longitud (ትኹላዊ ናይ ሓሳብ መስመር)
         name: ስም
-        owner: ወናኒ
         skills: ክእለት ወይ ሙያ
         street: ጎደና
         users: ተጠቃሚ
@@ -110,46 +137,58 @@ ti:
         zip: Blixtlås (ሻርኔራ ወይ መኽፈቲ - ዚፕ)
         zip_latitude: Zip latitud (ግዳማዊ ዚፕ)
         zip_longitude: Zip longitud (ትኹላዊ ዚፕ)
-      job_skill:
-        job: ስራሕ
-        skill: ፍልልይ
+      job_request:
+        comment: ርእይቶ
+        hourly_pay: ብሰዓት ዝኽፈል ደሞዝ
+      job_translation:
+        description: መብርሂ
+        name: ስም
       job_user:
         accepted: ቅቡል
         accepted_at: ቅቡል ኣብ
-        invoice: ፋክቱራ
-        job: ስራሕ
+        languages: ቋንቋ
         performed: ተፈጺሙ
-        user: ተጠቃሚ
+        skills: ክእለት ወይ ሙያ
+        user_languages: ቋንቋ ናይ ተጠቃሚ
+        user_skills: ክእለት ወይ ሙያ ናይ ተጠቃሚ
         will_perform: ክፍጸም ኢዩ
       language:
         direction: ኣንፈት
-        en_name: ስም ናይ Sv
         jobs: ስራሕ
-        lang_code: ሃገራዊ መእተዊ-ኮድ
         local_name: ውሽጣዊ ስም
         system_language: ናይቲ ሲስተም ቋንቋ
         user_languages: ቋንቋ ናይ ተጠቃሚ
         users: ተጠቃሚ
       message:
-        author: ደራሲ
         body: ሰብነት ወይ ኣካል
-        chat: ቻት ወይ ዕላል
         integer: ቅኑዕ ወይ ምሉእ ቁጽሪ (ኢንተጀር)
-        language: ቋንቋ
+      message_translation:
+        body: ሰብነት ወይ ኣካል
+      occupation:
+        name: ስም
+      occupation_translation:
+        name: ስም
+      order:
+        category: ምድብ
+        hours: ሰዓታት
+        jobs: ስራሕ
+        name: ስም
+      order_document:
+        name: ስም
       rating:
-        comment: ርእይቶ
-        from_user: ካብ ተጠቃሚ
-        job: ስራሕ
         score: ግበር ወይ ስራሕ
-        to_user: ናብ ተጠቓሚ
-      token:
-        user: ተጠቃሚ
+      received_text:
+        body: ሰብነት ወይ ኣካል
       skill:
         job_skills: ናይ ስራሕ ተሞክሮታት
         jobs: ስራሕ
-        language: ቋንቋ
         name: ስም
         user_skills: ክእለት ወይ ሙያ ናይ ተጠቃሚ
+        users: ተጠቃሚ
+      skill_translation:
+        name: ስም
+      tag:
+        name: ስም
         users: ተጠቃሚ
       user:
         admin: ምምሕዳር
@@ -157,16 +196,13 @@ ti:
         banned: ክልኩል
         chat_users: ተጠቃሚ ናይ ቻት
         chats: የዕልል (ቻት ይገብር)
-        company: ትካል ወይ ካምፓኒ
         description: መብርሂ
         education: ምህሮ/ ትምህርቲ
         email: ኢ-መይል
         first_name: ስም
         ignored_notifications_mask: ነቲ መጠንቀቕታ ምልክት ምጉሳይ
         job_experience: ናይ ስራሕ ተሞክሮ
-        job_users: ተጠቃም ስራሕ
         jobs: ስራሕ
-        language: ቋንቋ
         languages: ቋንቋ
         last_name: ስም ስድራ ወይ ኣቦ/ኣቦሓጎ
         latitude: Latitud (ግዳማዊ ናይ ሓሳብ መስመር)
@@ -184,21 +220,25 @@ ti:
         user_images: ናይ ተጠቃሚ ስእሊ
         user_languages: ቋንቋ ናይ ተጠቃሚ
         user_skills: ክእለት ወይ ሙያ ናይ ተጠቃሚ
+        verified: ዝተረጋገጸ
         written_comments: ናይ ጽሑፍ ርእይቶ
         zip: Blixtlås (ሻርኔራ ወይ መኽፈቲ - ዚፕ)
         zip_latitude: Zip latitud (ግዳማዊ ዚፕ)
         zip_longitude: Zip longitud (ትኹላዊ ዚፕ)
+      user_document:
+        category: ምድብ
       user_image:
+        category: ምድብ
         image_content_type: ዓይነት ትሕዝቶ-ስእሊ
         image_file_name: ናይ ፋይል ስም ስእሊ
         image_file_size: ዓቐን ወይ ግዝፊ ፋይል
         image_updated_at: መሐደስታ ስእሊ
         one_time_token: ናይ ሓንሳብ ቶከን (token)
         one_time_token_expires_at: ናይ ሓንሳብ ቶከን (token) ዝውደኣሉ
-        user: ተጠቃሚ
-      user_language:
-        language: ቋንቋ
-        user: ተጠቃሚ
-      user_skill:
-        skill: ተሞክሮታት
-        user: ተጠቃሚ
+      user_translation:
+        description: መብርሂ
+        education: ምህሮ/ ትምህርቲ
+        job_experience: ናይ ስራሕ ተሞክሮ
+      visit:
+        latitude: Latitud (ግዳማዊ ናይ ሓሳብ መስመር)
+        longitude: Longitud (ትኹላዊ ናይ ሓሳብ መስመር)

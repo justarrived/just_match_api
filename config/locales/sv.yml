@@ -22,7 +22,7 @@ sv:
     bad_json_format: "Det fanns problem i det JSON du skickade in: %{error_class}"
     not_acceptable_response: Det givna formattet är inte giltigt.
     utalk_code:
-      no_unclaimed: det finns inga tillgängliga Utalk koder
+      no_unclaimed: inga lediga Utalk-koder tillgängliga
     rate_limit:
       details: Gränsvärde nått. Var god försök lite senare.
     bank_account:
@@ -48,7 +48,7 @@ sv:
     chat:
       number_of_users: en chat måste bestå av minst %{min} och %{max} antal användare
     frilans_finans_invoice:
-      job_is_frilans_finans_job: jobbet måste vara ett Frilans Finans jobb
+      job_is_frilans_finans_job: måste vara ett Frilans Finans jobb
     invoice:
       job_started: jobbets starttid kan inte vara i framtiden när en faktura ska skapas
       job_user_accepted: användaren måste vara accepterat innan en faktura kan bli skapad
@@ -61,6 +61,7 @@ sv:
       hourly_pay_active: måste vara aktiv
       update_not_allowed_when_accepted: job kan inte uppdateras när jobbet har redan accepterats av användaren
       job_end_date_after_job_date: måste vara efter jobb datum
+      job_end_date_presence: måste finnas om jobbet inte är en direktrekrytering
       last_application_at_on_publish_to_blocketjobb: sista ansökningsdatum måste vara angett ifall du ska publicera jobb till Blocketjobb
       last_application_at_on_publish_to_metrojobb: sista ansökningsdatumet måste vara angivet ifall jobbet ska publiceras på Metrojobb
       last_application_at_on_publish_to_linkedin: sista ansökningsdatum måste vara angett ifall du ska publicera jobb till LinkedIN
@@ -136,11 +137,11 @@ sv:
   token_expired_error: Din token har upphört att gälla.
   user:
     missing_job_skills_trait: ovan kan du hitta relevanta kompetenser för det här jobbet som du inte lagt till än
-    missing_job_occupations_trait: ovan kan du hitta relevanta yrken för det här jobbet som du inte lagt till än
     missing_job_languages_trait: ovan kan du hitta relevanta språk för det här jobbet som du inte lagt till än
     missing_languages_trait: här kan du lägga till några utvalda språk som vi är intresserade att veta mer om
     missing_skills_trait: här kan du lägga till några utvalda kompetenser som vi är intresserade att veta mer om
-    missing_occupations_trait: här kan du lägga till några utvalda yrken som vi är intresserade att veta mer om
+    missing_occupations_trait: här kan du lägga till några utvalda yrkesområden som vi är intresserade att veta mer om
+    missing_job_occupations_trait: här kan du hitta relevanta yrkesområden för det här jobbet som du inte lagt till än
     statuses:
       asylum_seeker: Asylsökande
       asylum_seeker_description: Asylsökande

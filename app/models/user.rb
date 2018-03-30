@@ -48,6 +48,8 @@ class User < ApplicationRecord
   has_one :digest_subscriber, dependent: :destroy
   has_many :job_digests, through: :digest_subscriber
 
+  has_many :employment_periods
+
   has_many :feedbacks, dependent: :destroy
 
   has_many :filter_users, dependent: :destroy
@@ -93,6 +95,8 @@ class User < ApplicationRecord
   has_many :given_ratings, class_name: 'Rating', foreign_key: 'from_user_id', dependent: :destroy # rubocop:disable Metrics/LineLength
   has_many :received_ratings, class_name: 'Rating', foreign_key: 'to_user_id', dependent: :destroy # rubocop:disable Metrics/LineLength
 
+  can_count :job_users
+
   validates :system_language, presence: true
   validates :email, presence: true, uniqueness: true, email: true
   validates :first_name, length: { minimum: 1 }, allow_blank: false
@@ -129,6 +133,8 @@ class User < ApplicationRecord
   })
   scope :frilans_finans_users, (-> { where.not(frilans_finans_id: nil) })
   scope :needs_frilans_finans_id, (lambda {
+    # TODO: We should add an additional where-clause to only select jobs
+    #       that are "freelance"-jobs
     not_anonymized.
       regular_users.
       where(frilans_finans_id: nil).
@@ -162,7 +168,8 @@ class User < ApplicationRecord
 
   # NOTE: This is necessary for nested activeadmin has_many form
   accepts_nested_attributes_for :user_skills, :user_languages, :user_interests,
-                                :user_documents, :user_occupations, :feedbacks
+                                :user_documents, :user_occupations, :feedbacks,
+                                :employment_periods
   accepts_nested_attributes_for :user_tags, allow_destroy: true
 
   NOTIFICATIONS = UserNotification.names

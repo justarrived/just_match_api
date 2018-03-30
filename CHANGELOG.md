@@ -4,6 +4,269 @@ HEAD
 -----------
 
 
+v2.94 - 2018-03-09
+----------
+__Admin__:
+* Add "Are you sure?" prompt when anonymizing a user
+
+
+v2.93 - 2018-03-09
+----------
+__Admin__:
+* Add anonymise user action to User show page
+* Add job digest to user sidebar and better display of a job digest
+* Revert "Admin: Lock the PDFJS version loaded to 2.0.419"
+
+__Enhancement__:
+* Add `Trädgårdsarbetare` to `MetrojobbCategories`
+* Unpublish metrojobb on job end date instead of job start date. Closes #1389
+
+__Gem update__:
+* Bump honey_format from 0.2.1 to 0.3.0
+
+
+v2.92 - 2018-03-07
+----------
+__Admin__:
+* Update PDFJS initialization to work with latest PDFJS version
+* Lock the PDFJS version loaded to 2.0.419
+
+
+v2.91 - 2018-03-06
+----------
+__Admin__:
+* Add CV to user show page
+
+__Enhancement__:
+* Update job request mailer to include more info
+* Update NumberFormatter spec to expect , instead of ،
+* Add bundle exec to annotate command in `script/migrate`
+
+__Bugfix__:
+* Fix facebook & linkedin url validators for urls starting with http:/exampl.. Closes #1432
+
+__Gem updates__:
+* Bump `rails` from 5.1.4 to 5.1.5
+* Bump `metrojobb` from 0.5.1 to 0.6.1
+* Bump `rubocop` from 0.52.1 to 0.53.0
+* Bump `geocoder` from 1.4.5 to 1.4.6
+* Bump `twilio-ruby` from 5.6.4 to 5.7.0
+* Bump `google-cloud-translate` from 1.1.0 to 1.2.0
+* Bump `rails-i18n` from 5.1.0 to 5.1.1
+* Bump `blazer` from 1.8.0 to 1.8.2
+* Bump `twilio-ruby` from 5.6.3 to 5.6.4
+
+
+v2.90 - 2018-02-22
+----------
+__Enhancement__:
+* Re-add some Metrojobb categories
+
+
+v2.89 - 2018-02-22
+----------
+__Enhancement__:
+* Decrease default batch size from 1000 to 500
+
+__Bugfix__:
+* Update Metrojobb category map
+
+
+v2.88 - 2018-02-21
+----------
+* Update bad Ruby 2.5 syntax
+
+
+v2.87 - 2018-02-21
+----------
+__Ruby 2.5 upgrade__:
+* Update `NumberFormatter` methods to be backwards compatible with Ruby 2.5 new feature #7688
+* Set rubocop target ruby version to 2.4 since 2.4 is not supported yet
+* Update syntax to be Ruby 2.5 compliant
+* Update Ruby 2.4 references to Ruby 2.5
+* Update Ruby 2.4 => 2.5
+
+__Gem updates__:
+* Bump memory_profiler from 0.9.8 to 0.9.10
+* Bump httparty from 0.15.7 to 0.16.0
+* Bump airbrake from 7.2.0 to 7.2.1
+
+
+v2.86 - 2018-02-13
+----------
+__Admin__:
+* :hocho: job user search bug. Closes [issue #1419](https://github.com/justarrived/just_match_api/issues/1419)
+
+__Enhancement__:
+* Add methods to count user => job users with ease
+* Add AssociationCount methods to all activerecord models
+* Add association_count gem
+
+__Gem updates__:
+* Bump sidekiq from 5.1.0 to 5.1.1
+* Bump uglifier from 4.1.5 to 4.1.6
+* Bump countries from 2.1.3 to 2.1.4
+* Bump httparty from 0.15.6 to 0.15.7
+* Bump twilio-ruby from 5.6.2 to 5.6.3
+
+v2.85 - 2018-02-09
+----------
+v2.85 - 2018-02-09
+----------
+__Admin/Bugfix__:
+* Update group by SQL-clauses for user/job/applicant listings
+
+
+v2.84 - 2018-02-09
+----------
+__Enhancement__:
+* Remove presence validation on `EmploymentPeriod#ended_at`
+
+__Gem updates__:
+* Bump `chosen-rails` from 1.8.2 to 1.8.3
+* Bump `codeclimate-test-reporter` from 1.0.7 to 1.0.8
+* Bump `sidekiq` from 5.0.5 to 5.1.0
+* Bump `dry-core` from 0.4.2 to 0.4.3
+
+
+v2.83 - 2018-02-04
+----------
+__Admin__:
+* Improved EmploymentPeriod listing
+* Reverse employment period order
+* Add employment period percentage to user permitted params
+
+__Enhancement__:
+* Validate job end date presence unless the job is a direct recruitment
+* Pull translations from Transifex
+* Fix job validation error message
+* Add percentage translation
+* Add `EmploymentPeriod#ongoing?`
+
+
+v2.82 - 2018-02-02
+----------
+__Admin__:
+* Display total job applications on job user index view
+
+__Enhancement__:
+* Memory optimization: Bump `dry-core` and `dry-types`. Cuts `arbetsformedligen` gem memory footprint by ~40% :rocket:
+
+__Gem updates__:
+* Bump `dry-core` and `dry-types`.
+
+
+v2.81 - 2018-02-02
+----------
+__Admin__:
+* Add employment period percentage to user and job user show views
+* Pluralize `app/admin/*` model files
+
+
+v2.80 - 2018-02-01
+----------
+__Admin__:
+* Add employment period to user, job and applicants views and user form
+* Add total applications info to job user and user view
+* Add total applications to user view
+* Eager load tags in job user index view :rocket:
+* Support datetime pickers in dynamically added admin forms
+
+__Enhancement__:
+* Explicitly register Paperclip data URI adapter
+
+__Gem updates__:
+* Bump `twilio-ruby` from 5.6.0 to 5.6.1
+* Bump `byebug` from 9.1.0 to 10.0.0
+* Bump `paperclip` from 5.1.0 to 5.2.1
+* Bump `uglifier` from 4.1.3 to 4.1.5
+
+
+v2.79 - 2018-01-27
+----------
+__Bugfix__:
+* Fix `Job::last_application_at` scope to properly find jobs with no job_end_date specified
+
+
+v2.78 - 2018-01-26
+----------
+__Admin__:
+* Add `Occupation#language` to form
+* Add `Occupation#language_id` to permitted params
+
+__Enhancement__:
+* Pull translations from Transifex
+
+__Gem updates__:
+* Bump `puma` from 3.11.0 to 3.11.2
+* Bump `i18n-tasks` from 0.9.19 to 0.9.20
+* Bump `webmock` from 3.2.1 to 3.3.0
+* Bump `bullet` from 5.7.1 to 5.7.2
+
+
+v2.77 - 2018-01-20
+----------
+__Admin__:
+* Various (minor) enhancements :lipstick:
+* Update applicant index view
+
+__Enhancement__:
+* Add lograge initializer that adds support for Rails-5 api-only mode
+
+__Gem updates__:
+* Bump `activeadmin` from 1.2.0 to 1.2.1
+* Bump `lograge` from 0.7.1 to 0.9.0
+* Bump `airbrake` from 7.1.1 to 7.2.0
+* Bump `binding_of_caller` from 0.7.3 to 0.8.0
+* Bump `letter_opener` from 1.5.0 to 1.6.0
+
+
+v2.76 - 2018-01-16
+----------
+__Admin__:
+* Add `lograge` initializer that adds support for Rails v5 api-only mode
+
+__Gem updates__:
+* Bump `activeadmin` from 1.2.0 to 1.2.1
+* Bump `lograge` from 0.7.1 to 0.9.0
+* Bump `airbrake` from 7.1.1 to 7.2.0
+* Bump `binding_of_caller` from 0.7.3 to 0.8.0
+* Bump `letter_opener` from 1.5.0 to 1.6.0
+
+
+v2.75 - 2018-01-10
+----------
+__Admin__:
+* Localize menu
+* :rocket: faster comment display on applicant index page
+* Remove irrelevant relations links
+* Update admin link helper to work with default url options
+
+__Enhancement__:
+* Pull translations from Transifex
+* Remove unused I18n-keys and add model attributes I18n
+* Update I18n-tasks config to include additional locale files
+* Use `script/migrate` in `script/update`
+* Add `script/migrate` that takes care of the process of migrating the database
+* Add `script/build-model-translations`
+* Add `admin.*locale*.yml` files
+* Rename `admin/en.yml` => `admin/admin.en.yml`
+* Set admin locale based on user setting
+
+
+v2.74 - 2018-01-09
+----------
+__API__:
+* Add `job#schema_org` key to serializer that contains the JSON-ld for a JobPosition
+
+__Admin__:
+* Allow destroy for company industries
+
+__Enhancement__:
+* .ruby-style-guide :lipstick:
+* Run rails app:upgrade-> Rails 5.1
+
+
 v2.73 - 2018-01-09
 ----------
 * Bump `activeadmin` from 1.1.0 to 1.2.0

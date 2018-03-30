@@ -10,7 +10,7 @@ Developer guide for JustMatch Api.
 The code follows most Rails conventions. If you've worked with Rails before the project should be easy to navigate.
 
 * __Technology__
-  - Ruby 2.4
+  - Ruby 2.5
   - Ruby on Rails 5.1
   - PostgreSQL 9.5
   - Redis 3

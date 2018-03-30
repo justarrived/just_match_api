@@ -1,0 +1,15 @@
+#!/usr/bin/env ruby
+
+# frozen_string_literal: true
+
+def system_call(string)
+  puts "$ #{string}"
+  `#{string}`
+end
+
+original_name = 'config/locales/translation_en.yml'
+new_name = 'config/locales/models/models.en.yml'
+
+system_call('rails generate i18n_translation en')
+system_call("mv #{original_name} #{new_name}")
+puts "Model translations generated to #{new_name}"

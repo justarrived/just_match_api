@@ -1,0 +1,58 @@
+ku:
+  admin:
+    menu:
+      jobs: Kar
+      users: Bikarîner
+      chats: Çatê dike
+    job_name: Kar
+    user_name: Bikarîner
+    job_user_name: Kar_bikarîner
+    name: Nav
+    recent_jobs:
+      name: Nav
+      hours: Saet
+      hourly_pay: Meaşê bisaetan
+    my_unfilled_jobs:
+      name: Nav
+    unfilled_urgent_jobs:
+      name: Nav
+    my_unfilled_urgent_jobs:
+      name: Nav
+    recent_job_users:
+      accepted: Hat qebûl kirin
+      will_perform: Dê bike
+      job: Kar
+      user: Bikarîner
+    no_invoice_job_users:
+      job: Kar
+      user: Bikarîner
+    order:
+      form:
+        change_comment:
+          label: Têbînî
+    job:
+      checklist_sidebar:
+        description: Wesifkirin
+      name: Nav
+      description: Wesifkirin
+      section_title:
+        invoice: Fatûre
+      show:
+        applicant_description:
+          short_name: Kar_bikarîner
+    chat:
+      name: Çat
+      form:
+        messages_title: Peyam
+    user:
+      system_language: Zimanê sîstemê
+      name: Nav
+      email: E-poste
+      company: Şîrket
+      verified: Tesdîqkirî
+      description: Wesifkirin
+      education: Xwendin
+      job_experience: Tecrîbeyên karî
+      show:
+        skills: Qabilîyet
+        languages: Ziman

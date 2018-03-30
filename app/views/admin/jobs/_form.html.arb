@@ -27,7 +27,7 @@ active_admin_form_for(resource, url: url) do |f|
         f.input :order, collection: Order.includes(:job_request)
         f.input :staffing_company, as: :select, collection: Company.staffing_agencies, hint: I18n.t('admin.job.form.staffing_company_hint')
         f.input :direct_recruitment_job, hint: I18n.t('admin.job.form.direct_recruitment_job_hint')
-        f.input :just_arrived_contact, hint: I18n.t('admin.job.form.just_arrived_contact_hint')
+        f.input :just_arrived_contact, collection: User.delivery_users, hint: I18n.t('admin.job.form.just_arrived_contact_hint')
         f.input :category, hint: I18n.t('admin.job.form.category_hint')
       end
     end

@@ -27,14 +27,14 @@ If you're looking for help, ask questions, want to contribute or give feedback, 
 
 ## Built with
 
-* Ruby 2.4
+* Ruby 2.5
 * Ruby on Rails 5.1
 * PostgreSQL 9.5
 * Redis 3
 
 ## Getting started
 
-_Prerequisites_: Ruby 2.4, PostgreSQL 9.5 or above and Redis 3.
+_Prerequisites_: Ruby 2.5, PostgreSQL 9.5 or above and Redis 3.
 
 To setup your development environment
 

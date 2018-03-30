@@ -14,6 +14,7 @@ class FacebookValidator < ActiveModel::EachValidator
   def valid_facebook_url?(url)
     uri = URI.parse(url)
     return false unless uri.absolute?
+    return false if uri.host.nil?
     return false unless uri.host.include?('facebook.com')
 
     true

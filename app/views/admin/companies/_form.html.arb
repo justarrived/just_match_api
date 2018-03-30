@@ -34,7 +34,7 @@ f.inputs I18n.t('admin.company.form.main_form_section_title') do
   f.input :frilans_finans_id if f.object.persisted?
 
   if f.object.persisted?
-    f.has_many :company_industries do |ff|
+    f.has_many :company_industries, allow_destroy: true do |ff|
       ff.input :industry
     end
   end
