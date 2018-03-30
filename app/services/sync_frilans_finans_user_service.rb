@@ -8,7 +8,12 @@ class SyncFrilansFinansUserService
     if id
       FrilansFinansAPI::User.update(id: id, attributes: attributes)
     else
-      FrilansFinansAPI::User.create(attributes: attributes)
+      ff_user = FrilansFinansAPI::User.create(attributes: attributes)
+      ff_id = ff_user.resource.id
+      return if ff_id.nil?
+
+      user.frilans_finans_id = ff_id
+      user.save!
     end
   end
 end
