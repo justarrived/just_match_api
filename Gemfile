@@ -9,7 +9,7 @@ end
 
 ruby '2.5.0'
 
-gem 'rails', '5.1.5' # Ruby on Rails MVC framework
+gem 'rails', '5.1.6' # Ruby on Rails MVC framework
 
 gem 'bootsnap', '~> 1.2', require: false # Optimize Rails boot time
 
