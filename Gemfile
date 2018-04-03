@@ -18,7 +18,7 @@ gem 'kramdown', '~> 1.16' # Markdown <> HTML
 gem 'rinku', '~> 2.0.4' # Autolink
 
 # SERVER
-gem 'lograge', '~> 0.9' # Less verbose Rails log in production
+gem 'lograge', '~> 0.10' # Less verbose Rails log in production
 gem 'puma', '~> 3.11' # App server
 
 # Analytics
