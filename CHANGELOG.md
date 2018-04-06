@@ -4,6 +4,40 @@ HEAD
 -----------
 
 
+v2.95 - 2018-04-09
+----------
+__Enhancement__:
+* Move update of `user#frilans_finans_id` to sync service
+* Save the Frilans Finans user id on create
+* Add support for blank `ended_at` date in `EmploymentPeriod#ongoing`
+
+__Update gems__:
+* Depend on only `aws-sdk-s3` and not all of `aws-sdk`
+* [Security] Bump `rails-html-sanitizer` from 1.0.3 to 1.0.4
+* Bump `apipie-rails` from 0.5.6 to 0.5.7
+* Bump `arbetsformedlingen` from 0.3.0 to 0.4.1
+* Bump `bootsnap` from 1.1.8 to 1.2.1
+* Bump `bullet` from 5.7.3 to 5.7.5
+* Bump `byebug` from 10.0.0 to 10.0.2
+* Bump `derailed_benchmarks` from 1.3.2 to 1.3.4
+* Bump `fog` from 1.42.0 to 2.0.0
+* Bump `geocoder` from 1.4.6 to 1.4.7
+* Bump `httparty` from 0.16.0 to 0.16.2
+* Bump `i18n-tasks` from 0.9.20 to 0.9.21
+* Bump `lograge` from 0.9.0 to 0.10.0
+* Bump `loofah` from 2.2.0 to 2.2.2 - Fixes CVE-2018-8048 - Loofah XSS Vulnerability
+* Bump `newrelic_rpm` from 4.8.0.341 to 5.0.0.342
+* Bump `paperclip` from 5.2.1 to 6.0.0
+* Bump `puma` from 3.11.2 to 3.11.3
+* Bump `rack-attack` from 5.0.1 to 5.2.0
+* Bump `rails` from 5.1.5 to 5.1.6
+* Bump `rubocop` from 0.53.0 to 0.54.0
+* Bump `sidekiq` from 5.1.1 to 5.1.2
+* Bump `simplecov` from 0.15.1 to 0.16.1
+* Bump `twilio-ruby` from 5.7.0 to 5.7.2
+* Bump `uglifier` from 4.1.6 to 4.1.8
+
+
 v2.94 - 2018-03-09
 ----------
 __Admin__:
