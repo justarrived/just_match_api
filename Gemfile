@@ -27,7 +27,7 @@ gem 'ahoy_matey', '~> 1.6'
 gem 'loofah', '~> 2.2' # HTML sanitizer
 
 # STORAGE
-gem 'aws-sdk-s3', '~> 1.8' # Upload images to AWS S3
+gem 'aws-sdk-s3', '~> 1.9' # Upload images to AWS S3
 gem 'pg', '~> 0.21' # Use postgresql as the database for Active Record
 gem 'redis-activesupport', '~> 5.0' # To use Redis as the cache store for rack-attack
 
