@@ -4,7 +4,14 @@ HEAD
 -----------
 
 
-v2.95 - 2018-04-09
+v2.96 - 2018-04-09
+----------
+__Update gems__:
+* Bump aws-sdk-s3 from 1.8.2 to 1.9.0
+* Bump sidekiq from 5.1.2 to 5.1.3
+
+
+v2.95 - 2018-04-06
 ----------
 __Enhancement__:
 * Move update of `user#frilans_finans_id` to sync service
