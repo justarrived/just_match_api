@@ -22,12 +22,24 @@ script/bootstrap
 
 bin/rails db:create db:schema:load
 
-export LINT_FACTORY=true
-export RUBOCOP=false
-export CHECK_DB_INDEXES=false
-export CHECK_DB_UNIQ_INDEXES=false
-if [[ $CIRCLE_CI == 'true' ]]; then
-  script/test -r rspec_junit_formatter --format RspecJunitFormatter -o $CIRCLE_TEST_REPORTS/rspec/junit.xml spec
+testfiles=$(find ./spec -name '*_spec.rb' | sort | awk "NR % ${CIRCLE_NODE_TOTAL} == ${CIRCLE_NODE_INDEX}")
+
+if [ -z "$testfiles" ];then
+  echo 'more parallelism than tests'
 else
-  script/test spec
+  echo '==== TESTFILES START ===='
+  echo "$testfiles"
+  echo '==== TESTFILES END ===='
+  export LINT_FACTORY=true
+  export RUBOCOP=false
+  export CHECK_DB_INDEXES=false
+  export CHECK_DB_UNIQ_INDEXES=false
+  if [[ $CIRCLE_CI == 'true' ]]; then
+    script/test -r rspec_junit_formatter \
+      --format RspecJunitFormatter \
+      -o $CIRCLE_TEST_REPORTS/rspec/junit.xml \
+      $testfiles
+  else
+    script/test spec
+  fi
 fi

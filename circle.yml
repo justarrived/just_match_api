@@ -15,6 +15,20 @@ machine:
     TWILIO_NUMBER: '+46735000000'
     GOOGLE_TRANSLATE_API_KEY: XYZ
 
+dependencies:
+  post:
+    - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+    - chmod +x ./cc-test-reporter
+
 test:
+  pre:
+    - ./cc-test-reporter before-build
+  post:
+    - ./cc-test-reporter after-build --exit-code $?
   override:
-    - script/cibuild
+    - script/cibuild:
+      parallel: true
+      files:
+        - spec/**/*.rb
+        - spec/lib/frilans_finans_api/spec/**/*.rb
+        - spec/lib/json_api_helpers/spec/**/*.rb

@@ -11,6 +11,12 @@ if ENV.fetch('CODECLIMATE_REPO_TOKEN', false) || ENV.fetch('COVERAGE', false)
   end
 end
 
+formatters = [
+  SimpleCov::Formatter::HTMLFormatter,
+  SimpleCov::Formatter::CSVFormatter,
+]
+SimpleCov.formatters = SimpleCov::Formatter::MultiFormatter.new(formatters)
+
 require 'webmock/rspec'
 require 'frilans_finans_api'
 require 'frilans_finans_api/test_helper'
