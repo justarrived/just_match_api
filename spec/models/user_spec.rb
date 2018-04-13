@@ -421,6 +421,7 @@ RSpec.describe User, type: :model do
           applicant_will_perform_job_info
           failed_to_activate_invoice
           update_data_reminder
+          product_information
         )
         expect(UserNotification.names).to eq(expected)
       end
@@ -430,6 +431,7 @@ RSpec.describe User, type: :model do
         ignore = %w(
           applicant_rejected job_match new_applicant_job_info
           applicant_will_perform_job_info update_data_reminder
+          product_information
         )
         (UserNotification.names - ignore).each do |notification|
           expect { "#{notification.camelize}Notifier".constantize }.to_not raise_error
