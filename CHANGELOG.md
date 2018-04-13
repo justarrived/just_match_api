@@ -4,6 +4,154 @@ HEAD
 -----------
 
 
+v2.96 - 2018-04-09
+----------
+__Update gems__:
+* Bump aws-sdk-s3 from 1.8.2 to 1.9.0
+* Bump sidekiq from 5.1.2 to 5.1.3
+
+
+v2.95 - 2018-04-06
+----------
+__Enhancement__:
+* Move update of `user#frilans_finans_id` to sync service
+* Save the Frilans Finans user id on create
+* Add support for blank `ended_at` date in `EmploymentPeriod#ongoing`
+
+__Update gems__:
+* Depend on only `aws-sdk-s3` and not all of `aws-sdk`
+* [Security] Bump `rails-html-sanitizer` from 1.0.3 to 1.0.4
+* Bump `apipie-rails` from 0.5.6 to 0.5.7
+* Bump `arbetsformedlingen` from 0.3.0 to 0.4.1
+* Bump `bootsnap` from 1.1.8 to 1.2.1
+* Bump `bullet` from 5.7.3 to 5.7.5
+* Bump `byebug` from 10.0.0 to 10.0.2
+* Bump `derailed_benchmarks` from 1.3.2 to 1.3.4
+* Bump `fog` from 1.42.0 to 2.0.0
+* Bump `geocoder` from 1.4.6 to 1.4.7
+* Bump `httparty` from 0.16.0 to 0.16.2
+* Bump `i18n-tasks` from 0.9.20 to 0.9.21
+* Bump `lograge` from 0.9.0 to 0.10.0
+* Bump `loofah` from 2.2.0 to 2.2.2 - Fixes CVE-2018-8048 - Loofah XSS Vulnerability
+* Bump `newrelic_rpm` from 4.8.0.341 to 5.0.0.342
+* Bump `paperclip` from 5.2.1 to 6.0.0
+* Bump `puma` from 3.11.2 to 3.11.3
+* Bump `rack-attack` from 5.0.1 to 5.2.0
+* Bump `rails` from 5.1.5 to 5.1.6
+* Bump `rubocop` from 0.53.0 to 0.54.0
+* Bump `sidekiq` from 5.1.1 to 5.1.2
+* Bump `simplecov` from 0.15.1 to 0.16.1
+* Bump `twilio-ruby` from 5.7.0 to 5.7.2
+* Bump `uglifier` from 4.1.6 to 4.1.8
+
+
+v2.94 - 2018-03-09
+----------
+__Admin__:
+* Add "Are you sure?" prompt when anonymizing a user
+
+
+v2.93 - 2018-03-09
+----------
+__Admin__:
+* Add anonymise user action to User show page
+* Add job digest to user sidebar and better display of a job digest
+* Revert "Admin: Lock the PDFJS version loaded to 2.0.419"
+
+__Enhancement__:
+* Add `Trädgårdsarbetare` to `MetrojobbCategories`
+* Unpublish metrojobb on job end date instead of job start date. Closes #1389
+
+__Gem update__:
+* Bump honey_format from 0.2.1 to 0.3.0
+
+
+v2.92 - 2018-03-07
+----------
+__Admin__:
+* Update PDFJS initialization to work with latest PDFJS version
+* Lock the PDFJS version loaded to 2.0.419
+
+
+v2.91 - 2018-03-06
+----------
+__Admin__:
+* Add CV to user show page
+
+__Enhancement__:
+* Update job request mailer to include more info
+* Update NumberFormatter spec to expect , instead of ،
+* Add bundle exec to annotate command in `script/migrate`
+
+__Bugfix__:
+* Fix facebook & linkedin url validators for urls starting with http:/exampl.. Closes #1432
+
+__Gem updates__:
+* Bump `rails` from 5.1.4 to 5.1.5
+* Bump `metrojobb` from 0.5.1 to 0.6.1
+* Bump `rubocop` from 0.52.1 to 0.53.0
+* Bump `geocoder` from 1.4.5 to 1.4.6
+* Bump `twilio-ruby` from 5.6.4 to 5.7.0
+* Bump `google-cloud-translate` from 1.1.0 to 1.2.0
+* Bump `rails-i18n` from 5.1.0 to 5.1.1
+* Bump `blazer` from 1.8.0 to 1.8.2
+* Bump `twilio-ruby` from 5.6.3 to 5.6.4
+
+
+v2.90 - 2018-02-22
+----------
+__Enhancement__:
+* Re-add some Metrojobb categories
+
+
+v2.89 - 2018-02-22
+----------
+__Enhancement__:
+* Decrease default batch size from 1000 to 500
+
+__Bugfix__:
+* Update Metrojobb category map
+
+
+v2.88 - 2018-02-21
+----------
+* Update bad Ruby 2.5 syntax
+
+
+v2.87 - 2018-02-21
+----------
+__Ruby 2.5 upgrade__:
+* Update `NumberFormatter` methods to be backwards compatible with Ruby 2.5 new feature #7688
+* Set rubocop target ruby version to 2.4 since 2.4 is not supported yet
+* Update syntax to be Ruby 2.5 compliant
+* Update Ruby 2.4 references to Ruby 2.5
+* Update Ruby 2.4 => 2.5
+
+__Gem updates__:
+* Bump memory_profiler from 0.9.8 to 0.9.10
+* Bump httparty from 0.15.7 to 0.16.0
+* Bump airbrake from 7.2.0 to 7.2.1
+
+
+v2.86 - 2018-02-13
+----------
+__Admin__:
+* :hocho: job user search bug. Closes [issue #1419](https://github.com/justarrived/just_match_api/issues/1419)
+
+__Enhancement__:
+* Add methods to count user => job users with ease
+* Add AssociationCount methods to all activerecord models
+* Add association_count gem
+
+__Gem updates__:
+* Bump sidekiq from 5.1.0 to 5.1.1
+* Bump uglifier from 4.1.5 to 4.1.6
+* Bump countries from 2.1.3 to 2.1.4
+* Bump httparty from 0.15.6 to 0.15.7
+* Bump twilio-ruby from 5.6.2 to 5.6.3
+
+v2.85 - 2018-02-09
+----------
 v2.85 - 2018-02-09
 ----------
 __Admin/Bugfix__:

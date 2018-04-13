@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ApplicationRecord < ActiveRecord::Base
+  extend AssociationCount
+
   self.abstract_class = true
 
   scope :recent, (->(count) { order(created_at: :desc).limit(count) })

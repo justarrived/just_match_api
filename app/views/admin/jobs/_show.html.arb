@@ -36,7 +36,7 @@ columns do
       attributes_table_for(job) do
         row :cloned
         row :featured
-        row :filled { status_tag(job.filled) }
+        row(:filled) { status_tag(job.filled) }
         row :cancelled
         # row :hidden
         # row :verified
@@ -76,7 +76,7 @@ panel(I18n.t('admin.job.section_title.data')) do
   columns do
     column do
       attributes_table_for(job) do
-        row :languages { job_languages_badges(job_languages: job_languages) }
+        row(:languages) { job_languages_badges(job_languages: job_languages) }
       end
     end
 
@@ -92,7 +92,7 @@ panel(I18n.t('admin.job.section_title.data')) do
 
     column do
       attributes_table_for(job) do
-        row :skills { job_skills_badges(job_skills: job_skills, join_with: br) }
+        row(:skills) { job_skills_badges(job_skills: job_skills, join_with: br) }
       end
     end
   end
@@ -127,7 +127,7 @@ tabs do
   tab(I18n.t('admin.job.section_title.content')) do
     attributes_table_for(job) do
       row :short_description
-      row :description { |job| markdown_to_html(job.description) }
+      row(:description) { |job| markdown_to_html(job.description) }
     end
 
     columns do

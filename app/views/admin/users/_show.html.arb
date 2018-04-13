@@ -144,6 +144,12 @@ columns do
 end
 
 if user.candidate?
+  panel 'CV' do
+    div do
+      render_or_link_document(resume) || h3(I18n.t('admin.job_user.show.no_resume_uploaded'))
+    end
+  end
+
   panel(I18n.t('admin.user.show.candidate_status')) do
     attributes_table_for(user) do
       row :current_status
@@ -235,8 +241,8 @@ panel I18n.t('admin.user.show.misc') do
     row :zip_latitude
     row :zip_longitude
 
-    row :created_at { datetime_ago_in_words(user.created_at) }
-    row :updated_at { datetime_ago_in_words(user.updated_at) }
+    row(:created_at) { datetime_ago_in_words(user.created_at) }
+    row(:updated_at) { datetime_ago_in_words(user.updated_at) }
   end
 end
 

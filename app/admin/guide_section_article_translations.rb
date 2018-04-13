@@ -32,7 +32,7 @@ ActiveAdmin.register GuideSectionArticleTranslation do
       row :slug
       row :locale
       row :short_description
-      row :body { |translation| markdown_to_html(translation.body) }
+      row(:body) { |translation| markdown_to_html(translation.body) }
     end
   end
 

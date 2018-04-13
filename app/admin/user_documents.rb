@@ -29,7 +29,7 @@ ActiveAdmin.register UserDocument do
       row :document_url do |user_doc|
         download_link_to(url: user_doc.url, file_name: user_doc.document_file_name)
       end
-      row :created_at { |user_doc| datetime_ago_in_words(user_doc.created_at) }
+      row(:created_at) { |user_doc| datetime_ago_in_words(user_doc.created_at) }
     end
 
     active_admin_comments

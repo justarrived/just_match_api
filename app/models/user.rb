@@ -95,6 +95,8 @@ class User < ApplicationRecord
   has_many :given_ratings, class_name: 'Rating', foreign_key: 'from_user_id', dependent: :destroy # rubocop:disable Metrics/LineLength
   has_many :received_ratings, class_name: 'Rating', foreign_key: 'to_user_id', dependent: :destroy # rubocop:disable Metrics/LineLength
 
+  can_count :job_users
+
   validates :system_language, presence: true
   validates :email, presence: true, uniqueness: true, email: true
   validates :first_name, length: { minimum: 1 }, allow_blank: false
@@ -131,6 +133,8 @@ class User < ApplicationRecord
   })
   scope :frilans_finans_users, (-> { where.not(frilans_finans_id: nil) })
   scope :needs_frilans_finans_id, (lambda {
+    # TODO: We should add an additional where-clause to only select jobs
+    #       that are "freelance"-jobs
     not_anonymized.
       regular_users.
       where(frilans_finans_id: nil).

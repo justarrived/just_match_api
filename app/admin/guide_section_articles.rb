@@ -36,7 +36,7 @@ ActiveAdmin.register GuideSectionArticle do
       row :title
       row :slug
       row :short_description
-      row :body { |article| markdown_to_html(article.body) }
+      row(:body) { |article| markdown_to_html(article.body) }
       row :translations do |article|
         safe_join(
           article.translations.map do |translation|

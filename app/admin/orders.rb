@@ -99,8 +99,8 @@ ActiveAdmin.register Order do
   index do
     selectable_column
 
-    column :order { |order| link_to(order.display_name, admin_order_path(order)) }
-    column :extension { |order| status_tag(!!order.previous_order_id) }
+    column(:order) { |order| link_to(order.display_name, admin_order_path(order)) }
+    column(:extension) { |order| status_tag(!!order.previous_order_id) }
     column :total do |order|
       total_filled_over_sold_order_value(order.order_values.last)
     end

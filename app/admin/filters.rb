@@ -39,8 +39,8 @@ ActiveAdmin.register Filter do
     attributes_table do
       row :id
       row :name
-      row :updated_at { |filter| datetime_ago_in_words(filter.updated_at) }
-      row :created_at { |filter| datetime_ago_in_words(filter.created_at) }
+      row(:updated_at) { |filter| datetime_ago_in_words(filter.updated_at) }
+      row(:created_at) { |filter| datetime_ago_in_words(filter.created_at) }
       row :skills do |filter|
         skill_filters = filter.skill_filters.includes(skill: %i(language translations))
         badges = skill_filters.map do |sf|

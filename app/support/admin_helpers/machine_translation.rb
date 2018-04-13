@@ -7,7 +7,7 @@ module AdminHelpers
         mod.instance_eval do
           confirm_msg = I18n.t('admin.confirm_dialog_title')
           batch_action :machine_translate, confirm: confirm_msg do |ids|
-            collection.where(id: ids).find_each(batch_size: 1000).each do |model|
+            collection.where(id: ids).find_each(batch_size: 500).each do |model|
               ProcessTranslationJob.perform_later(
                 translation: model.original_translation
               )

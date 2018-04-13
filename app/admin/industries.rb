@@ -20,7 +20,7 @@ ActiveAdmin.register Industry do
   index do
     selectable_column
 
-    column :id { |industry| link_to("##{industry.id}", admin_industry_path(industry)) }
+    column(:id) { |industry| link_to("##{industry.id}", admin_industry_path(industry)) }
     column :name do |industry|
       link_to(industry.name, admin_industry_path(industry))
     end
@@ -40,7 +40,7 @@ ActiveAdmin.register Industry do
       row :id
       row :name
       row :parent
-      row :child_count { industry.descendants.count }
+      row(:child_count) { industry.descendants.count }
       row :language
       row :updated_at
       row :created_at

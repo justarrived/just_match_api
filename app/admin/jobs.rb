@@ -58,7 +58,7 @@ ActiveAdmin.register Job do
   index do
     selectable_column
 
-    column :id { |job| link_to(job.id, admin_job_path(job)) }
+    column(:id) { |job| link_to(job.id, admin_job_path(job)) }
     column :applicants, sortable: 'job_users_count' do |job|
       column_content = safe_join([
                                    user_icon_png(html_class: 'table-column-icon'),

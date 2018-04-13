@@ -30,6 +30,15 @@ RSpec.describe EmploymentPeriod, type: :model do
       )
       expect(job.ongoing?).to eq(false)
     end
+
+    it 'returns true if started_at is in the past and ended_at is not set' do
+      job = FactoryBot.build_stubbed(
+        :employment_period,
+        started_at: 2.days.ago,
+        ended_at: nil
+      )
+      expect(job.ongoing?).to eq(true)
+    end
   end
 end
 
