@@ -4,6 +4,16 @@ HEAD
 -----------
 
 
+v2.97 - 2018-04-13
+----------
+__Enhancement__:
+* Add marketing notifier and allow users to ignored notification options
+* Add feature toggle for new applicant emails
+
+__Bugfix__:
+* Update PDFJS worker JS path
+
+
 v2.96 - 2018-04-09
 ----------
 __Update gems__:
