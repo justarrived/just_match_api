@@ -431,7 +431,6 @@ RSpec.describe User, type: :model do
         ignore = %w(
           applicant_rejected job_match new_applicant_job_info
           applicant_will_perform_job_info update_data_reminder
-          product_information
         )
         (UserNotification.names - ignore).each do |notification|
           expect { "#{notification.camelize}Notifier".constantize }.to_not raise_error
