@@ -175,6 +175,7 @@ sv:
     applicant_will_perform_job_info: Information om jobbkonfirmering
     failed_to_activate_invoice: Aktivering av fakturan misslyckades
     update_data_reminder: Påminelse på uppdatering av ansökingsdata
+    marketing: Marknadsföring från Just Arrived
   user_document:
     categories:
       cv: CV
