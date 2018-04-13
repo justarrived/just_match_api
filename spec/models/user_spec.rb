@@ -421,7 +421,7 @@ RSpec.describe User, type: :model do
           applicant_will_perform_job_info
           failed_to_activate_invoice
           update_data_reminder
-          product_information
+          marketing
         )
         expect(UserNotification.names).to eq(expected)
       end

@@ -10,7 +10,7 @@ class ApplicationMailer < ActionMailer::Base
 
   include MailerHelper
 
-  def product_information_email(user:, subject:, body:)
+  def marketing_email(user:, subject:, body:)
     @body = body
 
     mail(to: user.contact_email, subject: subject)

@@ -22,7 +22,7 @@ RSpec.describe UserNotification do
       applicant_will_perform_job_info
       failed_to_activate_invoice
       update_data_reminder
-      product_information
+      marketing
     ).freeze
   end
 
@@ -38,7 +38,7 @@ RSpec.describe UserNotification do
       new_applicant_job_info
       applicant_will_perform_job_info
       update_data_reminder
-      product_information
+      marketing
     ).freeze
   end
 
@@ -54,7 +54,7 @@ RSpec.describe UserNotification do
       new_job_comment
       job_match
       failed_to_activate_invoice
-      product_information
+      marketing
     ).freeze
   end
 

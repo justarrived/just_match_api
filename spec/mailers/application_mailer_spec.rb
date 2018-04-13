@@ -3,13 +3,13 @@
 require 'rails_helper'
 
 RSpec.describe ApplicationMailer, type: :mailer do
-  describe '#product_information_email' do
+  describe '#marketing_email' do
     let(:user) { FactoryBot.build_stubbed(:user) }
     let(:subject) { 'subject' }
     let(:body) { 'body' }
 
     let(:mail) do
-      described_class.product_information_email(user: user, subject: subject, body: body)
+      described_class.marketing_email(user: user, subject: subject, body: body)
     end
 
     it 'renders the subject' do
