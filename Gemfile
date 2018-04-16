@@ -140,7 +140,7 @@ group :development do
   gem 'spring', '~> 2.0'
   gem 'spring-commands-rspec', '~> 1.0'
   gem 'stackprof', '~> 0.2'
-  gem 'web-console', '~> 3.5'
+  gem 'web-console', '~> 3.6'
 end
 
 group :test, :docs do
