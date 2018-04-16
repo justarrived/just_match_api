@@ -4,6 +4,16 @@ HEAD
 -----------
 
 
+v2.98 - 2018-04-16
+----------
+* Bump `twilio-ruby` from 5.7.2 to 5.8.0
+* Bump `uglifier` from 4.1.8 to 4.1.9
+* Bump `web-console` from 3.5.1 to 3.6.0
+* Bump `dotenv-rails` from 2.2.1 to 2.2.2
+* Bump `puma` from 3.11.3 to 3.11.4
+* Bump `bootsnap` from 1.2.1 to 1.3.0
+
+
 v2.97 - 2018-04-13
 ----------
 __Enhancement__:
