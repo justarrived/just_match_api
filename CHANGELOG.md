@@ -3,6 +3,15 @@
 HEAD
 -----------
 
+v2.99 - 2018-04-19
+----------
+__Enhancement__:
+* Rename admin method to avoid naming conflict
+* Remove before_action definition for non-existing controller action
+* Remove document and image params from being logged
+* Fix a bunch of rubocop styling violations
+* Update ruby style guide rule set
+
 
 v2.98 - 2018-04-16
 ----------
