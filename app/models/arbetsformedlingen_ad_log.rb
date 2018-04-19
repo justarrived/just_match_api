@@ -5,7 +5,7 @@ class ArbetsformedlingenAdLog < ApplicationRecord
 end
 
 # rubocop:disable Metrics/LineLength
-
+#
 # == Schema Information
 #
 # Table name: arbetsformedlingen_ad_logs
@@ -24,3 +24,5 @@ end
 #
 #  fk_rails_...  (arbetsformedlingen_ad_id => arbetsformedlingen_ads.id)
 #
+#
+# rubocop:enable Metrics/LineLength

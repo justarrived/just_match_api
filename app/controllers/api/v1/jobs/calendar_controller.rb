@@ -17,7 +17,6 @@ module Api
     }
   }
 }'
-        # rubocop:enable Metrics/LineLength
         def google
           authorize(@job)
 

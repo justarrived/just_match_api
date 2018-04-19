@@ -52,7 +52,7 @@ columns do
       )
 
       table_for(job_user) do
-        values = %i(
+        %i(
           http_referrer utm_source utm_medium utm_campaign utm_term utm_content
         ).each do |attribute|
           value = job_user.public_send(attribute)
@@ -117,7 +117,8 @@ end
 
 panel 'CV' do
   div do
-    render_or_link_document(resume) || h3(I18n.t('admin.job_user.show.no_resume_uploaded'))
+    title = I18n.t('admin.job_user.show.no_resume_uploaded')
+    render_or_link_document(resume) || h3(title)
   end
 end
 

@@ -29,3 +29,4 @@ end
 #  communication_template_translations_communication_template_id_f  (communication_template_id => communication_templates.id)
 #  fk_rails_...                                                     (language_id => languages.id)
 #
+# rubocop:enable Metrics/LineLength

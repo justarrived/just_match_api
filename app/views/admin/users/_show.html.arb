@@ -147,7 +147,8 @@ end
 if user.candidate?
   panel 'CV' do
     div do
-      render_or_link_document(resume) || h3(I18n.t('admin.job_user.show.no_resume_uploaded'))
+      title = I18n.t('admin.job_user.show.no_resume_uploaded')
+      render_or_link_document(resume) || h3(title)
     end
   end
 

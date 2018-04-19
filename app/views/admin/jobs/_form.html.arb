@@ -4,7 +4,7 @@ url = if resource.persisted?
         admin_job_path(resource)
       else
         admin_jobs_path
-        end
+      end
 
 # rubocop:disable Metrics/LineLength
 active_admin_form_for(resource, url: url) do |f|
