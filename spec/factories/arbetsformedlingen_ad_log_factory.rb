@@ -26,3 +26,4 @@ end
 #
 #  fk_rails_...  (arbetsformedlingen_ad_id => arbetsformedlingen_ads.id)
 #
+# rubocop:enable Metrics/LineLength

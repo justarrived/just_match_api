@@ -11,7 +11,7 @@ class InstallBlazer < ActiveRecord::Migration[4.2]
       t.timestamps
     end
 
-    create_table :blazer_audits do |t|
+    create_table :blazer_audits do |t| # rubocop:disable Rails/CreateTableWithTimestamps
       t.references :user
       t.references :query
       t.text :statement

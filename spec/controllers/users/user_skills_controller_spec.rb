@@ -148,10 +148,7 @@ RSpec.describe Api::V1::Users::UserSkillsController, type: :controller do
   describe 'DELETE #destroy' do
     context 'authorized user' do
       let(:user) do
-        FactoryBot.create(:user_with_skills).tap do |user|
-          user.create_auth_token
-          user
-        end
+        FactoryBot.create(:user_with_skills).tap(&:create_auth_token)
       end
 
       it 'destroys the requested user_skill' do

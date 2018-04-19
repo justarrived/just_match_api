@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 significant_event_names_map = {
   'api/v1/contacts#create' => 'Submit contact form',
   'api/v1/documents#create' => 'Upload document',

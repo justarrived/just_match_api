@@ -88,8 +88,8 @@ module Dev
           find_or_initialize_by(user: user, interest: interests.sample).
           tap do |user_interest|
 
-          user_interest.level = Random.rand(5) + 1
-          user_interest.level_by_admin = Random.rand(5) + 1
+          user_interest.level = Random.rand(1..5)
+          user_interest.level_by_admin = Random.rand(1..5)
           user_interest.save
         end
       end

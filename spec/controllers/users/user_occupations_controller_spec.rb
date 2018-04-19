@@ -142,10 +142,7 @@ RSpec.describe Api::V1::Users::UserOccupationsController, type: :controller do
   describe 'DELETE #destroy' do
     context 'authorized user' do
       let(:user) do
-        FactoryBot.create(:user_with_occupations).tap do |user|
-          user.create_auth_token
-          user
-        end
+        FactoryBot.create(:user_with_occupations).tap(&:create_auth_token)
       end
 
       it 'destroys the requested user_occupation' do

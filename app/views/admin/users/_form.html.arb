@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 f.semantic_errors(*f.object.errors.keys)
 
 if user.persisted?

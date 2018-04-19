@@ -3,7 +3,7 @@
 module Api
   module V1
     class SkillsController < BaseController
-      before_action :set_skill, only: %i(show edit update destroy)
+      before_action :set_skill, only: %i(show update destroy)
 
       resource_description do
         short 'API for managing skills'

@@ -126,11 +126,7 @@ ActiveAdmin.register JobRequest do
 
     panel('Copy-pasta') do
       company_detail = lambda do |field, fallback|
-        if field.blank?
-          fallback.blank? ? '-' : fallback
-        else
-          field
-        end
+        field.presence || fallback.presence || '-'
       end
 
       company = job_request.company

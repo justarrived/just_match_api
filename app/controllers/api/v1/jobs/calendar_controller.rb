@@ -8,7 +8,6 @@ module Api
 
         api :GET, '/jobs/:job_id/calendar/google', 'List users'
         description 'Returns a jobs google calendar.'
-        # rubocop:disable Metrics/LineLength
         example '{
   "data": {
     "id": 1,
@@ -18,7 +17,6 @@ module Api
     }
   }
 }'
-        # rubocop:enable Metrics/LineLength
         def google
           authorize(@job)
 

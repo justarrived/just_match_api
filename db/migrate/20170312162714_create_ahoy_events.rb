@@ -2,7 +2,7 @@
 
 class CreateAhoyEvents < ActiveRecord::Migration[4.2]
   def change
-    create_table :ahoy_events do |t|
+    create_table :ahoy_events do |t| # rubocop:disable Rails/CreateTableWithTimestamps
       t.integer :visit_id
 
       # user

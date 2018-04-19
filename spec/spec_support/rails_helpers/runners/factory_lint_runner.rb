@@ -17,7 +17,7 @@ module FactoryLintRunner
     FactoryBot.lint(factories_to_lint)
     DatabaseCleaner.clean
     print "done \n"
-  rescue => e # rubocop:disable Lint/RescueWithoutErrorClass
+  rescue StandardError => e
     DatabaseCleaner.clean
     raise e
   end
