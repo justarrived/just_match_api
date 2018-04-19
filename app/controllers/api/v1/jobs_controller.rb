@@ -3,7 +3,7 @@
 module Api
   module V1
     class JobsController < BaseController
-      before_action :set_job, only: %i(show edit update matching_users)
+      before_action :set_job, only: %i(show update matching_users)
 
       resource_description do
         short 'API for managing jobs'
