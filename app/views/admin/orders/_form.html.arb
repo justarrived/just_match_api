@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # rubocop:disable Metrics/LineLength
 
 f.inputs do
@@ -47,7 +49,7 @@ f.inputs do
     f.has_many :order_documents, new_record: true do |ff|
       ff.semantic_errors(*ff.object.errors.keys)
 
-      ff.inputs( I18n.t('admin.order.form.document.label'), for: [:document, ff.object.document || Document.new]) do |fff|
+      ff.inputs(I18n.t('admin.order.form.document.label'), for: [:document, ff.object.document || Document.new]) do |fff|
         fff.input :document, required: true, as: :file
       end
     end

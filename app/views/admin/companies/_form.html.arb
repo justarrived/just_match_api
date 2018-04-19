@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 f.semantic_errors(*f.object.errors.keys)
 
 f.inputs I18n.t('admin.company.form.main_form_section_title') do

@@ -82,7 +82,7 @@ panel(I18n.t('admin.job.section_title.data')) do
 
     column do
       attributes_table_for(job) do
-        row :occupations do |job|
+        row :occupations do |_job|
           job_occupations.map do |jo|
             "#{jo.occupation.name} (#{jo.importance}, yxp: #{jo.years_of_experience})"
           end.join(', ')
@@ -121,7 +121,6 @@ tabs do
         end
       end
     end
-
   end
 
   tab(I18n.t('admin.job.section_title.content')) do

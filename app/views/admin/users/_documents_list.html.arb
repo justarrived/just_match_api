@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 ul do
   user_documents.each do |user_document|
     doc = user_document.document

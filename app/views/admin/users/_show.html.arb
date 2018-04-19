@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 columns do
   column do
     panel(I18n.t('admin.user.show.basic_info_title')) do
@@ -52,7 +53,7 @@ columns do
           )
         )
 
-        h3 I18n.t('admin.user.show.city', city: user.city) unless user.city.blank?
+        h3 I18n.t('admin.user.show.city', city: user.city) if user.city.present?
 
         h3 I18n.t('admin.user.show.tags')
         div do
@@ -68,7 +69,7 @@ columns do
 
         div do
           attributes_table_for(user) do
-            row :occupations do |user|
+            row :occupations do |_user|
               user_occupations.map do |user|
                 "#{user.occupation.name} (yxp: #{user.years_of_experience})"
               end.join(', ')

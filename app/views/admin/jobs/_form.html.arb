@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 url = if resource.persisted?
-          admin_job_path(resource)
-        else
-          admin_jobs_path
+        admin_job_path(resource)
+      else
+        admin_jobs_path
         end
 
 # rubocop:disable Metrics/LineLength
@@ -18,7 +18,6 @@ active_admin_form_for(resource, url: url) do |f|
         f.input(:job_end_date, as: :datetime_picker, label: I18n.t('admin.job.form.job_end_date_label'))
         f.input :owner, collection: User.company_users, hint: I18n.t('admin.job.form.owner_hint')
         f.input :company_contact, hint: I18n.t('admin.job.form.company_contact_hint')
-
       end
     end
 
@@ -128,7 +127,6 @@ active_admin_form_for(resource, url: url) do |f|
           end
         end
       end
-
     end
 
     tab(I18n.t('admin.job.section_title.content')) do

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 job_user_query = AdminHelpers::Link.query(:job_user_id, job_user.id)
 
 ul do

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 present_fields = %i(presentation_profile presentation_personality presentation_availability)
 
 if present_fields.any?(&:present?)

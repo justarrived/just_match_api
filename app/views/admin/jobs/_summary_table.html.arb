@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 table_for(jobs) do
   column(:name) { |job| link_to(job.name, admin_job_path(job)) }
   column :hours
