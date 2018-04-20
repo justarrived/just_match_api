@@ -3,6 +3,12 @@
 HEAD
 -----------
 
+
+v2.100 - 2018-04-20
+----------
+* Add Order#category validation
+
+
 v2.99 - 2018-04-19
 ----------
 __Enhancement__:
