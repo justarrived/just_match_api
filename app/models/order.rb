@@ -17,6 +17,7 @@ class Order < ApplicationRecord
   validates :delivery_user, presence: true
   validates :sales_user, presence: true
 
+  validate :validate_presence_of_category
   validate :validate_sales_and_delivery_user_not_equal
 
   scope :lost, (-> { where(lost: true) })
@@ -55,6 +56,15 @@ class Order < ApplicationRecord
         0.0
       end
     end.sum
+  end
+
+  def validate_presence_of_category
+    # We didn't always have this presence validation so for persisted orders
+    # that have no category we shouldn't validate
+    return if persisted? && category.blank?
+    return if category.present?
+
+    errors.add(:category, :blank)
   end
 
   def validate_sales_and_delivery_user_not_equal
