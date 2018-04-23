@@ -729,7 +729,7 @@ GEM
     uniform_notifier (1.11.0)
     user_agent_parser (2.4.1)
     uuidtools (2.1.5)
-    web-console (3.6.0)
+    web-console (3.6.1)
       actionview (>= 5.0)
       activemodel (>= 5.0)
       bindex (>= 0.4.0)
