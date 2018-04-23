@@ -4,6 +4,24 @@ HEAD
 -----------
 
 
+v2.100.1 - 2018-04-23
+----------
+__Tests__
+* Wrap partner-feed actions under I18n.with_locale to avoid leaking the locale change to other tests
+* Make a few tests less brittle (due to I18n)
+
+__Gem updates__:
+* Bump `database_cleaner` from 1.6.2 to 1.7.0
+* Bump `rubocop` from 0.54.0 to 0.55.0
+* Bump `twilio-ruby` from 5.8.0 to 5.8.1
+* Bump `web-console` from 3.6.0 to 3.6.1
+* Bump `activeadmin` from 1.2.1 to 1.3.0
+* Bump `aws-sdk-s3` from 1.9.0 to 1.9.1
+* Bump `annotate` from 2.7.2 to 2.7.3
+* Bump `dotenv-rails` from 2.2.2 to 2.3.0
+* Bump `uglifier` from 4.1.9 to 4.1.10
+
+
 v2.100 - 2018-04-20
 ----------
 * Add Order#category validation
