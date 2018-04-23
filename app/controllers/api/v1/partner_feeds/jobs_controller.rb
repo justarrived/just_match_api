@@ -44,43 +44,43 @@ module Api
         </source>
         XML_EXAMPLE
         def linkedin
-          I18n.locale = AppConfig.linkedin_default_locale
+          I18n.with_locale(AppConfig.linkedin_default_locale) do
+            jobs = Job.with_translations.
+                   linkedin_jobs.
+                   includes(:company).
+                   order(created_at: :desc).
+                   limit(AppConfig.linkedin_job_records_feed_limit)
 
-          jobs = Job.with_translations.
-                 linkedin_jobs.
-                 includes(:company).
-                 order(created_at: :desc).
-                 limit(AppConfig.linkedin_job_records_feed_limit)
-
-          render xml: LinkedinJobsSerializer.to_xml(jobs: jobs, locale: I18n.locale)
+            render xml: LinkedinJobsSerializer.to_xml(jobs: jobs, locale: I18n.locale)
+          end
         end
 
         api :GET, '/partner-feeds/jobs/blocketjobb', 'List jobs for Blocketjobb feed'
         description 'Returns a list of jobs for Blocketjobb to consume.'
         param :auth_token, String, desc: 'Auth token', required: true
         def blocketjobb
-          I18n.locale = AppConfig.blocketjobb_default_locale
+          I18n.with_locale(AppConfig.blocketjobb_default_locale) do
+            jobs = Job.with_translations.
+                   blocketjobb_jobs.
+                   includes(:company).
+                   order(created_at: :desc)
 
-          jobs = Job.with_translations.
-                 blocketjobb_jobs.
-                 includes(:company).
-                 order(created_at: :desc)
-
-          render xml: BlocketjobbJobsSerializer.to_xml(jobs: jobs, locale: I18n.locale)
+            render xml: BlocketjobbJobsSerializer.to_xml(jobs: jobs, locale: I18n.locale)
+          end
         end
 
         api :GET, '/partner-feeds/jobs/metrojobb', 'List jobs for Metrojobb feed'
         description 'Returns a list of jobs for Metrojobb to consume.'
         param :auth_token, String, desc: 'Auth token', required: true
         def metrojobb
-          I18n.locale = AppConfig.metrojobb_default_locale
+          I18n.with_locale(AppConfig.metrojobb_default_locale) do
+            jobs = Job.with_translations.
+                   metrojobb_jobs.
+                   includes(:company).
+                   order(created_at: :desc)
 
-          jobs = Job.with_translations.
-                 metrojobb_jobs.
-                 includes(:company).
-                 order(created_at: :desc)
-
-          render xml: MetrojobbJobsSerializer.to_xml(jobs: jobs, locale: I18n.locale)
+            render xml: MetrojobbJobsSerializer.to_xml(jobs: jobs, locale: I18n.locale)
+          end
         end
 
         private

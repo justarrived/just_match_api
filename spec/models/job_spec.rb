@@ -505,7 +505,7 @@ RSpec.describe Job, type: :model do
       job = FactoryBot.build(:job, category: nil)
       job.validate
 
-      expect(job.errors.messages[:category]).to include("can't be blank")
+      expect(job.errors.messages[:category]).to include(I18n.t('errors.messages.blank'))
     end
   end
 

@@ -100,7 +100,8 @@ RSpec.describe Api::V1::Chats::ChatMessagesController, type: :controller do
 
       it 'returns @message errors' do
         post :create, params: invalid_attributes
-        expect(assigns(:message).errors[:body]).to eq(["can't be blank"])
+        message = I18n.t('errors.messages.blank')
+        expect(assigns(:message).errors[:body]).to include(message)
       end
     end
   end
