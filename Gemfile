@@ -145,7 +145,7 @@ end
 
 group :test, :docs do
   gem 'codeclimate-test-reporter', '~> 1.0', require: false
-  gem 'database_cleaner', '~> 1.6'
+  gem 'database_cleaner', '~> 1.7'
   gem 'fuubar', '~> 2.3'
   gem 'rails-controller-testing', '~> 1.0'
   gem 'rb-readline', '~> 0.5'
