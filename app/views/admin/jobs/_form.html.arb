@@ -6,6 +6,12 @@ url = if resource.persisted?
         admin_jobs_path
       end
 
+unless resource.persisted?
+  resource.description = <<~DESC_MARKDOWN
+    Det innebär att du kommer att anställas av Just Arrived och kommer sedan arbeta som konsult hos företaget. [Läs mer om vad det innebär att arbeta som konsult här](https://app.justarrived.se/guide/section/3/att-jobba-i-sverige/article/41/att_jobba_som_konsult_hos_ett_bemanningsf%C3%B6retag).
+  DESC_MARKDOWN
+end
+
 # rubocop:disable Metrics/LineLength
 active_admin_form_for(resource, url: url) do |f|
   f.semantic_errors(*f.object.errors.keys)
