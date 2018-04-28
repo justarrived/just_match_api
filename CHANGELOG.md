@@ -4,6 +4,12 @@ HEAD
 -----------
 
 
+v2.101.0 - 2018-04-28
+----------
+__Admin__:
+* Add default job description to new job form
+
+
 v2.100.1 - 2018-04-23
 ----------
 __Tests__
