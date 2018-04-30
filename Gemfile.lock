@@ -553,7 +553,7 @@ GEM
     puma (3.11.4)
     pundit (1.1.0)
       activesupport (>= 3.0.0)
-    rack (2.0.4)
+    rack (2.0.5)
     rack-attack (5.2.0)
       rack
     rack-cors (1.0.2)
@@ -729,7 +729,7 @@ GEM
     uniform_notifier (1.11.0)
     user_agent_parser (2.4.1)
     uuidtools (2.1.5)
-    web-console (3.6.1)
+    web-console (3.6.2)
       actionview (>= 5.0)
       activemodel (>= 5.0)
       bindex (>= 0.4.0)
