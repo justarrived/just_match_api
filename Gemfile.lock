@@ -103,7 +103,7 @@ GEM
     annotate (2.7.3)
       activerecord (>= 3.2, < 6.0)
       rake (>= 10.4, < 13.0)
-    apipie-rails (0.5.7)
+    apipie-rails (0.5.8)
       rails (>= 4.1)
     arbetsformedlingen (0.4.1)
       builder (~> 3.2)
@@ -553,7 +553,7 @@ GEM
     puma (3.11.4)
     pundit (1.1.0)
       activesupport (>= 3.0.0)
-    rack (2.0.4)
+    rack (2.0.5)
     rack-attack (5.2.0)
       rack
     rack-cors (1.0.2)
