@@ -1,8 +1,13 @@
 # frozen_string_literal: true
 
-class Visit < ApplicationRecord
-  has_many :ahoy_events, class_name: 'Ahoy::Event', dependent: :nullify
-  belongs_to :user, optional: true
+module Ahoy
+  class Visit < ApplicationRecord
+    self.table_name = 'visits'
+
+    has_many :events, class_name: 'Ahoy::Event', dependent: :nullify
+    has_many :ahoy_events, class_name: 'Ahoy::Event', dependent: :nullify
+    belongs_to :user, optional: true
+  end
 end
 
 # == Schema Information
