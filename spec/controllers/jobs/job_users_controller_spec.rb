@@ -281,7 +281,7 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
         job = FactoryBot.create(:job_with_users, users_count: 1)
         user = job.users.first.tap(&:create_auth_token)
         job_user = job.job_users.first
-        job.job_users.first.update_attributes(accepted: true, will_perform: true)
+        job.job_users.first.update(accepted: true, will_perform: true)
 
         params = {
           auth_token: user.auth_token,
@@ -303,7 +303,7 @@ RSpec.describe Api::V1::Jobs::JobUsersController, type: :controller do
         job = FactoryBot.create(:job_with_users, users_count: 1)
         user = job.users.first.tap(&:create_auth_token)
         job_user = job.job_users.first
-        job.job_users.first.update_attributes(accepted: true)
+        job.job_users.first.update(accepted: true)
 
         params = {
           auth_token: user.auth_token,

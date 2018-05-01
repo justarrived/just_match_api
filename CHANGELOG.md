@@ -4,6 +4,120 @@ HEAD
 -----------
 
 
+v2.101.1 - 2018-05-01
+----------
+__Gem updates__:
+* Update `bootsnap` startup
+* Bump `rails` from 5.1.6 to 5.2.0
+* Bump `airbrake` from 7.2.1 to 7.3.0
+* Bump `webmock` from 3.3.0 to 3.4.0
+* Bump `twilio-ruby` from 5.8.1 to 5.9.0
+* Bump `ancestry` from 3.0.1 to 3.0.2
+* Bump `apipie-rails` from 0.5.7 to 0.5.8
+* Bump `web-console` from 3.6.1 to 3.6.2
+* Bump `dotenv-rails` from 2.3.0 to 2.4.0
+
+
+v2.101.0 - 2018-04-28
+----------
+__Admin__:
+* Add default job description to new job form
+
+
+v2.100.1 - 2018-04-23
+----------
+__Tests__
+* Wrap partner-feed actions under I18n.with_locale to avoid leaking the locale change to other tests
+* Make a few tests less brittle (due to I18n)
+
+__Gem updates__:
+* Bump `database_cleaner` from 1.6.2 to 1.7.0
+* Bump `rubocop` from 0.54.0 to 0.55.0
+* Bump `twilio-ruby` from 5.8.0 to 5.8.1
+* Bump `web-console` from 3.6.0 to 3.6.1
+* Bump `activeadmin` from 1.2.1 to 1.3.0
+* Bump `aws-sdk-s3` from 1.9.0 to 1.9.1
+* Bump `annotate` from 2.7.2 to 2.7.3
+* Bump `dotenv-rails` from 2.2.2 to 2.3.0
+* Bump `uglifier` from 4.1.9 to 4.1.10
+
+
+v2.100 - 2018-04-20
+----------
+* Add Order#category validation
+
+
+v2.99 - 2018-04-19
+----------
+__Enhancement__:
+* Rename admin method to avoid naming conflict
+* Remove before_action definition for non-existing controller action
+* Remove document and image params from being logged
+* Fix a bunch of rubocop styling violations
+* Update ruby style guide rule set
+
+
+v2.98 - 2018-04-16
+----------
+* Bump `twilio-ruby` from 5.7.2 to 5.8.0
+* Bump `uglifier` from 4.1.8 to 4.1.9
+* Bump `web-console` from 3.5.1 to 3.6.0
+* Bump `dotenv-rails` from 2.2.1 to 2.2.2
+* Bump `puma` from 3.11.3 to 3.11.4
+* Bump `bootsnap` from 1.2.1 to 1.3.0
+
+
+v2.97 - 2018-04-13
+----------
+__Enhancement__:
+* Add marketing notifier and allow users to ignored notification options
+* Add feature toggle for new applicant emails
+
+__Bugfix__:
+* Update PDFJS worker JS path
+
+
+v2.96 - 2018-04-09
+----------
+__Update gems__:
+* Bump aws-sdk-s3 from 1.8.2 to 1.9.0
+* Bump sidekiq from 5.1.2 to 5.1.3
+
+
+v2.95 - 2018-04-06
+----------
+__Enhancement__:
+* Move update of `user#frilans_finans_id` to sync service
+* Save the Frilans Finans user id on create
+* Add support for blank `ended_at` date in `EmploymentPeriod#ongoing`
+
+__Update gems__:
+* Depend on only `aws-sdk-s3` and not all of `aws-sdk`
+* [Security] Bump `rails-html-sanitizer` from 1.0.3 to 1.0.4
+* Bump `apipie-rails` from 0.5.6 to 0.5.7
+* Bump `arbetsformedlingen` from 0.3.0 to 0.4.1
+* Bump `bootsnap` from 1.1.8 to 1.2.1
+* Bump `bullet` from 5.7.3 to 5.7.5
+* Bump `byebug` from 10.0.0 to 10.0.2
+* Bump `derailed_benchmarks` from 1.3.2 to 1.3.4
+* Bump `fog` from 1.42.0 to 2.0.0
+* Bump `geocoder` from 1.4.6 to 1.4.7
+* Bump `httparty` from 0.16.0 to 0.16.2
+* Bump `i18n-tasks` from 0.9.20 to 0.9.21
+* Bump `lograge` from 0.9.0 to 0.10.0
+* Bump `loofah` from 2.2.0 to 2.2.2 - Fixes CVE-2018-8048 - Loofah XSS Vulnerability
+* Bump `newrelic_rpm` from 4.8.0.341 to 5.0.0.342
+* Bump `paperclip` from 5.2.1 to 6.0.0
+* Bump `puma` from 3.11.2 to 3.11.3
+* Bump `rack-attack` from 5.0.1 to 5.2.0
+* Bump `rails` from 5.1.5 to 5.1.6
+* Bump `rubocop` from 0.53.0 to 0.54.0
+* Bump `sidekiq` from 5.1.1 to 5.1.2
+* Bump `simplecov` from 0.15.1 to 0.16.1
+* Bump `twilio-ruby` from 5.7.0 to 5.7.2
+* Bump `uglifier` from 4.1.6 to 4.1.8
+
+
 v2.94 - 2018-03-09
 ----------
 __Admin__:

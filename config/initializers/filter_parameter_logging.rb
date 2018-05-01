@@ -14,4 +14,6 @@ Rails.application.config.filter_parameters += %i(
   account_number
   iban
   bic
+  document
+  image
 )

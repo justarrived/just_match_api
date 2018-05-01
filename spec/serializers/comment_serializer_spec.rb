@@ -42,8 +42,9 @@ RSpec.describe CommentSerializer, type: :serializer do
     end
   end
 end
-# rubocop:disable Metrics/LineLength
 
+# rubocop:disable Metrics/LineLength
+#
 # == Schema Information
 #
 # Table name: comments
@@ -68,3 +69,4 @@ end
 #  comments_owner_user_id_fk  (owner_user_id => users.id)
 #  fk_rails_...               (language_id => languages.id)
 #
+# rubocop:enable Metrics/LineLength

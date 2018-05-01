@@ -7,6 +7,8 @@ FactoryBot.define do
     association :sales_user, factory: :user
     association :delivery_user, factory: :user
 
+    category :freelance
+
     hourly_pay_rate 119.98
     invoice_hourly_pay_rate 1119.99
     hours 119.99

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 panel(I18n.t('admin.order.show.panel_title')) do
   current_order_value = order.current_order_value
 

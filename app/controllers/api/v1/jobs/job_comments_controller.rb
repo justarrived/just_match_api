@@ -5,7 +5,7 @@ module Api
     module Jobs
       class JobCommentsController < Api::V1::CommentsController
         before_action :set_commentable
-        before_action :set_comment, only: [:show]
+        before_action :set_comment, only: [:show] # rubocop:disable Rails/LexicallyScopedActionFilter, Metrics/LineLength
 
         after_action :verify_authorized, only: []
 

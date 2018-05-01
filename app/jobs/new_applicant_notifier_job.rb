@@ -2,6 +2,8 @@
 
 class NewApplicantNotifierJob < ApplicationJob
   def perform(job_user:)
+    return unless AppConfig.new_applicant_email_active?
+
     user = job_user.user
     job = job_user.job
 

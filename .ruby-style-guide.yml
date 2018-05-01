@@ -33,6 +33,14 @@ Naming/FileName:
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#snake-case-files
   Enabled: false
   Exclude: []
+Naming/MemoizedInstanceVariableName:
+  Description: Memoized method name should match memo instance variable name.
+  Enabled: false
+Naming/UncommunicativeMethodParamName:
+  Description: >-
+                Checks for method parameter names that contain capital letters,
+                end in numbers, or do not meet a minimal length.
+  Enabled: false
 Style/GuardClause:
   Description: Check for conditionals that can be replaced with guard clauses
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#no-nested-conditionals
@@ -120,7 +128,12 @@ Style/StringLiteralsInInterpolation:
   SupportedStyles:
   - single_quotes
   - double_quotes
-Style/TrailingCommaInLiteral:
+Style/TrailingCommaInArrayLiteral:
+  Description: Checks for trailing comma in parameter lists and literals.
+  StyleGuide: https://github.com/bbatsov/ruby-style-guide#no-trailing-array-commas
+  Enabled: true
+  EnforcedStyleForMultiline: no_comma
+Style/TrailingCommaInHashLiteral:
   Description: Checks for trailing comma in parameter lists and literals.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#no-trailing-array-commas
   Enabled: true

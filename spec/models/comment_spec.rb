@@ -30,3 +30,4 @@ end
 #  comments_owner_user_id_fk  (owner_user_id => users.id)
 #  fk_rails_...               (language_id => languages.id)
 #
+# rubocop:enable Metrics/LineLength

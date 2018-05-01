@@ -3,6 +3,32 @@
 require 'rails_helper'
 
 RSpec.describe Order, type: :model do
+  describe '#validate_presence_of_category' do
+    context 'when persisted' do
+      it 'adds no error even if category is blank' do
+        order = FactoryBot.create(:order)
+        order.validate
+
+        expect(order.errors[:category]).to be_empty
+      end
+    end
+
+    it 'adds *no* error if category is present' do
+      order = Order.new
+      order.category = :freelance
+      order.validate
+
+      expect(order.errors[:category]).to be_empty
+    end
+
+    it 'adds error if category is blank' do
+      order = Order.new
+      order.validate
+
+      expect(order.errors[:category]).to include(I18n.t('errors.messages.blank'))
+    end
+  end
+
   describe '#validate_sales_and_delivery_user_not_equal' do
     it 'adds no error if sales_user is not present' do
       order = Order.new

@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 f.semantic_errors(*f.object.errors.keys)
 
+# rubocop:disable Metrics/LineLength
 f.inputs I18n.t('admin.company.form.main_form_section_title') do
   f.input :name, hint: 'Please check https://allabolag.se for the formal company name and their organisation number.'
   f.input :display_name, hint: 'The name you want users to read.'
@@ -14,7 +17,8 @@ f.inputs I18n.t('admin.company.form.main_form_section_title') do
 
   f.input :sales_user, collection: User.sales_users
 
-  f.h3 safe_join(['&nbsp;'.html_safe, 'Billing address'])
+  html_space = '&nbsp;'.html_safe # rubocop:disable Rails/OutputSafety
+  f.h3 safe_join([html_space, 'Billing address'])
 
   f.input :street
   f.input :zip
@@ -57,3 +61,4 @@ f.inputs I18n.t('admin.company.form.main_form_section_title') do
 end
 
 f.actions
+# rubocop:enable Metrics/LineLength

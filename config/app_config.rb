@@ -27,6 +27,13 @@ class AppConfig
     'api.justarrived.se'
   end
 
+  def self.new_applicant_email_active?
+    value = env['NEW_APPLICANT_EMAIL_ACTIVE']
+    return true if value.nil?
+
+    truthy?(value)
+  end
+
   def self.cv_template_url
     'https://justarrived.se/assets/files/CV-template.docx'
   end

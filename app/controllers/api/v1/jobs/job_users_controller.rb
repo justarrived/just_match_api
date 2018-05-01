@@ -6,8 +6,8 @@ module Api
       class JobUsersController < BaseController
         before_action :require_user
         before_action :set_job
-        before_action :set_job_user, only: %i(show update destroy)
-        before_action :set_user, only: %i(show update destroy)
+        before_action :set_job_user, only: %i(show destroy)
+        before_action :set_user, only: %i(show destroy)
 
         resource_description do
           resource_id 'job_users'

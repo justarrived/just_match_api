@@ -9,4 +9,10 @@ class ApplicationMailer < ActionMailer::Base
   layout 'layouts_mailer/default'
 
   include MailerHelper
+
+  def marketing_email(user:, subject:, body:)
+    @body = body
+
+    mail(to: user.contact_email, subject: subject)
+  end
 end

@@ -16,7 +16,7 @@ function initPDFjs() {
   var pdfjs = window['pdfjs-dist/build/pdf'];
 
   // The workerSrc property shall be specified.
-  pdfjs.GlobalWorkerOptions.workerSrc = '//mozilla.github.io/pdf.js/build/pdf.worker.js';
+  pdfjs.GlobalWorkerOptions.workerSrc = '//cdn.jsdelivr.net/npm/pdfjs-dist/build/pdf.worker.min.js';
 
   var url = canvas.attributes['data-url'].value;
 

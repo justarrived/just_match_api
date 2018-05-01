@@ -9,23 +9,25 @@ end
 
 ruby '2.5.0'
 
-gem 'rails', '5.1.5' # Ruby on Rails MVC framework
+gem 'rails', '5.2.0' # Ruby on Rails MVC framework
 
-gem 'bootsnap', '~> 1.2', require: false # Optimize Rails boot time
+gem 'bootsnap', '>= 1.3', require: false # Optimize Rails boot time
 
 # TEXT PROCESSING
 gem 'kramdown', '~> 1.16' # Markdown <> HTML
 gem 'rinku', '~> 2.0.4' # Autolink
 
 # SERVER
-gem 'lograge', '~> 0.9' # Less verbose Rails log in production
+gem 'lograge', '~> 0.10' # Less verbose Rails log in production
 gem 'puma', '~> 3.11' # App server
 
 # Analytics
 gem 'ahoy_matey', '~> 2.0'
 
+gem 'loofah', '~> 2.2' # HTML sanitizer
+
 # STORAGE
-gem 'aws-sdk', '~> 2.10' # Upload images to AWS S3
+gem 'aws-sdk-s3', '~> 1.9' # Upload images to AWS S3
 gem 'pg', '~> 0.21' # Use postgresql as the database for Active Record
 gem 'redis-activesupport', '~> 5.0' # To use Redis as the cache store for rack-attack
 
@@ -33,7 +35,7 @@ gem 'redis-activesupport', '~> 5.0' # To use Redis as the cache store for rack-a
 gem 'association_count', '~> 1.0' # Simple count for ActiveRecord associations
 
 # RACK MIDDLEWARE
-gem 'rack-attack', '~> 5.1' # Throttle API usage
+gem 'rack-attack', '~> 5.2' # Throttle API usage
 gem 'rack-cors', '~> 1.0', require: 'rack/cors' # Configure CORS
 gem 'rack-timeout', '~> 0.4' # Kill requests that run for too long
 
@@ -41,8 +43,8 @@ gem 'rack-timeout', '~> 0.4' # Kill requests that run for too long
 gem 'sidekiq', '< 6' # Background worker (Redis-backed)
 
 # MONITORING
-gem 'airbrake', '~> 7.2' # Error catcher and reporter
-gem 'newrelic_rpm', '~> 4.7' # Performance monitoring
+gem 'airbrake', '~> 7.3' # Error catcher and reporter
+gem 'newrelic_rpm', '~> 5.0' # Performance monitoring
 
 # DATABASE / MODELS
 gem 'ancestry', '~> 3.0' # Organize records in a tree structure
@@ -66,7 +68,7 @@ gem 'pundit', '~> 1.1' # Authorization policies
 gem 'active_admin_filters_visibility', github: 'activeadmin-plugins/active_admin_filters_visibility'
 gem 'active_admin_scoped_collection_actions', github: 'activeadmin-plugins/active_admin_scoped_collection_actions'
 gem 'active_admin_theme', '~> 1.0' # activeadmin theme
-gem 'activeadmin', '~> 1.2' # Admin interface
+gem 'activeadmin', '~> 1.3' # Admin interface
 gem 'blazer', '~> 1.8' # Explore data with SQL
 gem 'chosen-rails', '~> 1.8' # Needed for autocomplete select input for activeadmin
 gem 'inherited_resources', '~> 1.8' # activeadmin Rails 5
@@ -84,7 +86,7 @@ gem 'frilans_finans_api', '~> 0.4' # Interact with Frilans Finans API
 # NOTIFICATIONS
 gem 'email_reply_parser', '~> 0.5' # Parse reply emails
 gem 'mail', '~> 2.6', '>= 2.6.6' # General email functionality
-gem 'twilio-ruby', '~> 5.7' # Send SMS notifications
+gem 'twilio-ruby', '~> 5.9' # Send SMS notifications
 
 # GEO/LOCALE/LANGUAGE UTILS
 gem 'banktools-se', '~> 2.6' # Validate Swedish bank account
@@ -116,13 +118,13 @@ group :development, :test, :docs do
   gem 'bullet', '~> 5.7'
   gem 'byebug', '~> 10.0'
   gem 'consistency_fail', '~> 0.3'
-  gem 'dotenv-rails', '~> 2.2'
+  gem 'dotenv-rails', '~> 2.4'
   gem 'factory_bot_rails', '~> 4.8'
   gem 'fog', '~> 2.0' # Cloud services gem, in production the aws-sdk gem is used
   gem 'immigrant', '~> 0.3'
   gem 'rspec-rails', '~> 3.7'
   gem 'rspec_junit_formatter', '~> 0.2'
-  gem 'rubocop', '~> 0.53', require: false
+  gem 'rubocop', '~> 0.55', require: false
 end
 
 group :development do
@@ -138,17 +140,17 @@ group :development do
   gem 'spring', '~> 2.0'
   gem 'spring-commands-rspec', '~> 1.0'
   gem 'stackprof', '~> 0.2'
-  gem 'web-console', '~> 3.5'
+  gem 'web-console', '~> 3.6'
 end
 
 group :test, :docs do
   gem 'codeclimate-test-reporter', '~> 1.0', require: false
-  gem 'database_cleaner', '~> 1.6'
+  gem 'database_cleaner', '~> 1.7'
   gem 'fuubar', '~> 2.3'
   gem 'rails-controller-testing', '~> 1.0'
   gem 'rb-readline', '~> 0.5'
   gem 'rspec-activemodel-mocks', '~> 1.0'
-  gem 'simplecov', '~> 0.13', require: false
+  gem 'simplecov', '~> 0.16', require: false
   gem 'timecop', '~> 0.8'
-  gem 'webmock', '~> 3.3'
+  gem 'webmock', '~> 3.4'
 end

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 job_query = AdminHelpers::Link.query(:job_id, job.id)
 hired_job_users = job.job_users.includes(:user).will_perform
 

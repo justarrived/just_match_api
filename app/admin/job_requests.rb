@@ -27,15 +27,15 @@ ActiveAdmin.register JobRequest do
     redirect_to collection_path, notice: I18n.t('admin.job_request.batch.finished')
   end
 
-  member_action :clone, method: :get do
+  member_action :clone_job_request, method: :get do
     base_job = JobRequest.find(params[:id])
     @job_request = base_job.dup
 
     render :new, layout: false
   end
 
-  action_item :clone, only: :show do
-    path = clone_admin_job_request_path(id: job_request.id)
+  action_item :clone_job_request, only: :show do
+    path = clone_job_request_admin_job_request_path(id: job_request.id)
     link_to(I18n.t('admin.job_request.clone'), path)
   end
 
@@ -126,11 +126,7 @@ ActiveAdmin.register JobRequest do
 
     panel('Copy-pasta') do
       company_detail = lambda do |field, fallback|
-        if field.blank?
-          fallback.blank? ? '-' : fallback
-        else
-          field
-        end
+        field.presence || fallback.presence || '-'
       end
 
       company = job_request.company

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 panel I18n.t('admin.chat.name') do
   h4 link_to(I18n.t('admin.chat.support_chat'), admin_chat_path(support_chat))
   support_chat.messages.last(5).reverse_each do |message|

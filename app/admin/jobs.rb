@@ -145,7 +145,7 @@ ActiveAdmin.register Job do
     link_to title, resource.google_calendar_template_url
   end
 
-  member_action :clone, method: :get do
+  member_action :clone_job, method: :get do
     base_job = Job.find(params[:id])
     @job = base_job.dup
     @job.cloned = true
@@ -161,8 +161,8 @@ ActiveAdmin.register Job do
     render :new, layout: false
   end
 
-  action_item :clone, only: :show do
-    link_to(I18n.t('admin.job.clone'), clone_admin_job_path(id: job.id))
+  action_item :clone_job, only: :show do
+    link_to(I18n.t('admin.job.clone'), clone_job_admin_job_path(id: job.id))
   end
 
   action_item :create_arbetsformedlingen_ad, only: :show, if: -> { !resource.arbetsformedlingen_ad } do # rubocop:disable Metrics/LineLength
