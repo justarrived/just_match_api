@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Ahoy
-  class Store < Ahoy::DatabaseStore
+  class Store < DatabaseStore
     def visit_model
       Visit
     end
