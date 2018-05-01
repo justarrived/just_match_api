@@ -9,9 +9,9 @@ end
 
 ruby '2.5.0'
 
-gem 'rails', '5.1.6' # Ruby on Rails MVC framework
+gem 'rails', '5.2.0' # Ruby on Rails MVC framework
 
-gem 'bootsnap', '~> 1.3', require: false # Optimize Rails boot time
+gem 'bootsnap', '>= 1.3', require: false # Optimize Rails boot time
 
 # TEXT PROCESSING
 gem 'kramdown', '~> 1.16' # Markdown <> HTML
@@ -43,7 +43,7 @@ gem 'rack-timeout', '~> 0.4' # Kill requests that run for too long
 gem 'sidekiq', '< 6' # Background worker (Redis-backed)
 
 # MONITORING
-gem 'airbrake', '~> 7.2' # Error catcher and reporter
+gem 'airbrake', '~> 7.3' # Error catcher and reporter
 gem 'newrelic_rpm', '~> 5.0' # Performance monitoring
 
 # DATABASE / MODELS
@@ -86,7 +86,7 @@ gem 'frilans_finans_api', '~> 0.4' # Interact with Frilans Finans API
 # NOTIFICATIONS
 gem 'email_reply_parser', '~> 0.5' # Parse reply emails
 gem 'mail', '~> 2.6', '>= 2.6.6' # General email functionality
-gem 'twilio-ruby', '~> 5.8' # Send SMS notifications
+gem 'twilio-ruby', '~> 5.9' # Send SMS notifications
 
 # GEO/LOCALE/LANGUAGE UTILS
 gem 'banktools-se', '~> 2.6' # Validate Swedish bank account
@@ -118,7 +118,7 @@ group :development, :test, :docs do
   gem 'bullet', '~> 5.7'
   gem 'byebug', '~> 10.0'
   gem 'consistency_fail', '~> 0.3'
-  gem 'dotenv-rails', '~> 2.3'
+  gem 'dotenv-rails', '~> 2.4'
   gem 'factory_bot_rails', '~> 4.8'
   gem 'fog', '~> 2.0' # Cloud services gem, in production the aws-sdk gem is used
   gem 'immigrant', '~> 0.3'
@@ -145,12 +145,12 @@ end
 
 group :test, :docs do
   gem 'codeclimate-test-reporter', '~> 1.0', require: false
-  gem 'database_cleaner', '~> 1.6'
+  gem 'database_cleaner', '~> 1.7'
   gem 'fuubar', '~> 2.3'
   gem 'rails-controller-testing', '~> 1.0'
   gem 'rb-readline', '~> 0.5'
   gem 'rspec-activemodel-mocks', '~> 1.0'
   gem 'simplecov', '~> 0.16', require: false
   gem 'timecop', '~> 0.8'
-  gem 'webmock', '~> 3.3'
+  gem 'webmock', '~> 3.4'
 end

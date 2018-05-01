@@ -4,6 +4,44 @@ HEAD
 -----------
 
 
+v2.101.1 - 2018-05-01
+----------
+__Gem updates__:
+* Update `bootsnap` startup
+* Bump `rails` from 5.1.6 to 5.2.0
+* Bump `airbrake` from 7.2.1 to 7.3.0
+* Bump `webmock` from 3.3.0 to 3.4.0
+* Bump `twilio-ruby` from 5.8.1 to 5.9.0
+* Bump `ancestry` from 3.0.1 to 3.0.2
+* Bump `apipie-rails` from 0.5.7 to 0.5.8
+* Bump `web-console` from 3.6.1 to 3.6.2
+* Bump `dotenv-rails` from 2.3.0 to 2.4.0
+
+
+v2.101.0 - 2018-04-28
+----------
+__Admin__:
+* Add default job description to new job form
+
+
+v2.100.1 - 2018-04-23
+----------
+__Tests__
+* Wrap partner-feed actions under I18n.with_locale to avoid leaking the locale change to other tests
+* Make a few tests less brittle (due to I18n)
+
+__Gem updates__:
+* Bump `database_cleaner` from 1.6.2 to 1.7.0
+* Bump `rubocop` from 0.54.0 to 0.55.0
+* Bump `twilio-ruby` from 5.8.0 to 5.8.1
+* Bump `web-console` from 3.6.0 to 3.6.1
+* Bump `activeadmin` from 1.2.1 to 1.3.0
+* Bump `aws-sdk-s3` from 1.9.0 to 1.9.1
+* Bump `annotate` from 2.7.2 to 2.7.3
+* Bump `dotenv-rails` from 2.2.2 to 2.3.0
+* Bump `uglifier` from 4.1.9 to 4.1.10
+
+
 v2.100 - 2018-04-20
 ----------
 * Add Order#category validation

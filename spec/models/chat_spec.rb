@@ -92,7 +92,7 @@ RSpec.describe Chat, type: :model do
         FactoryBot.create(:language)
         messsage = chat.create_message(author: nil, body: nil, language_id: nil)
         expect(messsage.valid?).to eq(false)
-        expect(messsage.errors[:author]).to include("can't be blank")
+        expect(messsage.errors[:author]).to include(I18n.t('errors.messages.required'))
       end
     end
   end
