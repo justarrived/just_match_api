@@ -4,6 +4,20 @@ HEAD
 -----------
 
 
+v2.101.1 - 2018-05-01
+----------
+__Gem updates__:
+* Update `bootsnap` startup
+* Bump `rails` from 5.1.6 to 5.2.0
+* Bump `airbrake` from 7.2.1 to 7.3.0
+* Bump `webmock` from 3.3.0 to 3.4.0
+* Bump `twilio-ruby` from 5.8.1 to 5.9.0
+* Bump `ancestry` from 3.0.1 to 3.0.2
+* Bump `apipie-rails` from 0.5.7 to 0.5.8
+* Bump `web-console` from 3.6.1 to 3.6.2
+* Bump `dotenv-rails` from 2.3.0 to 2.4.0
+
+
 v2.101.0 - 2018-04-28
 ----------
 __Admin__:
