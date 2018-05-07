@@ -9,6 +9,7 @@ sv:
       settings: Inställningar
       guide: Guide
       misc: Övrigt
+    actions_row_title: Åtgärder
     hired_suffix: '(anställd)'
     batch_action_confirm: Är du säker?
     action_confirm: Är du säker?
@@ -240,8 +241,7 @@ sv:
       not_paid: Obetalt
       show:
         general: Generellt
-        frilans_finans: Frilans FInans
-        dates: Datum
+        frilans_finans: Frilans Finans Info
     chat:
       name: Chatt
       support_chat: Supportchat
@@ -270,8 +270,8 @@ sv:
       push_ff_user_success: användaren skickad till Frilans Finans (HTTP %{status})
       push_ff_user_failed: användaren misslyckades att skickas till Frilans Finans (HTTP %{status})
       push_frilans_finans_btn: Skicka till Frilans Finans
-      anonymize_action: Anonymisera!
-      anonymized_success: Anonymisering av användaren lyckades.
+      anonymize_action: Anonymisera användaren!
+      anonymized_success: Användaren har blivit anonymiserad.
       resume_search_label: CV-sök
       batch_form:
         tag_added_notice: 'La till "%{name}".'
@@ -336,6 +336,13 @@ sv:
     send_employment_certificate:
       post_btn: Skicka anställningscertifikat
       msg: Förfrågan om anställningscertifikat skickat. Användare kommer få ett email från Frilans Finans.
+    ff_remove_id:
+      title: '[FARLIGT] Annulera Frilans Finans Faktura'
+      action_confirm: Är du säker? (Gör bara det här när du aktiverat en faktura som du behöver annullera.)
+      action_success: 'Tog bort Frilans Finans ID. Du kan nu skapa om fakturan.'
+      invalid_invoice_delete: Något gick fel. Kunde inte radera %{invoice_id}. Kontakta en admin.
+      invoice_blank_error: Du kan inte annullera en Frilans Finans Faktura om den inte blivit aktiverad.
+      invalid: Kan inte ta bort Frilans Finans ID. Kontakta en admin.
     ff_remote_sync:
       msg_multiple: Lyckades synka
       msg: Lyckades synka.
@@ -347,7 +354,7 @@ sv:
         subject_hint: 'Ämnesrad för den här template:n (du kan använda variabler här..)'
         body_hint: 'Innehåll för den här template:n (du kan använda variabler här..)'
     counts:
-      job_digests: Har %{count} jobb bevakningar
+      job_digests: Har %{count} job digests
       documents: Har %{count} dokument
       applications: Har %{count} ansökningar
       applicants: Har %{count} ansökande

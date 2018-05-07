@@ -11,21 +11,21 @@ sv:
     applicant_will_perform_job_info:
       subject: Grattis till ditt jobb!
       body: |
-        Grattis %{name} till att ha fått jobbet “%{job_name}”!
+          Grattis %{name} till att ha fått jobbet “%{job_name}”!
 
-        Jobbet är på %{address}, den %{job_start_date}
+          Jobbet är på %{address}, den %{job_start_date}
 
-        Kontaktperson: %{contact_person_name}, %{contact_person_phone}
+          Kontaktperson: %{contact_person_name}, %{contact_person_phone}
 
-        Du hittar mer information om jobbet på %{job_user_url}.
+          Du hittar mer information om jobbet på %{job_user_url}.
 
-        Se till att vara i tid (!) och att du jobbar de tider som är avtalade. Om företaget frågar om du kan jobba mer än det som är sagt, så kan du säga nej. Du får också självklart säga ja, och får då lön för det.
+          Se till att vara i tid (!) och att du jobbar de tider som är avtalade. Om företaget frågar om du kan jobba mer än det som är sagt, så kan du säga nej. Du får också självklart säga ja, och får då lön för det.
 
-        Din kontaktperson hos Just Arrived för detta jobb är %{ja_contact_name} ring henne/honom på %{ja_contact_phone} om du har några frågor, eller maila henne/honom på %{ja_contact_email}.
+          Din kontaktperson hos Just Arrived för detta jobb är %{ja_contact_name} ring henne/honom på %{ja_contact_phone} om du har några frågor, eller maila henne/honom på %{ja_contact_email}.
 
-        Om lönen:
-        En faktura kommer aktiveras 2-5 dagar efter att din tidrapport är inne. Efter detta kommer det ta upp till 30 dagar.
-        (Förutsatt att du har angett korrekt information om bankkonto m.m.)
+          Om lönen:
+          En faktura kommer aktiveras 2-5 dagar efter att din tidrapport är inne. Efter detta kommer det ta upp till 30 dagar.
+          (Förutsatt att du har angett korrekt information om bankkonto m.m.)
     applicant_will_perform:
       subject: Grattis! Den accepterade användare för ditt jobb har konfirmerat.
       congrats_line: Grattis!
@@ -43,34 +43,34 @@ sv:
       total_gross_salary_unit: 'kr/h innan skatt'
       address_title: 'Adress:'
       sms: |
-        Nytt jobberbjudande!
-        Du behöver bekräfta, inom %{confirmation_time_hours} om du vill ha jobbet “%{job_name}”, gå till %{job_user_url} för att bekräfta. Vänligen notera att detta är ett avtal som du signerar genom att bekräfta.
+          Nytt jobberbjudande!
+          Du behöver bekräfta, inom %{confirmation_time_hours} om du vill ha jobbet “%{job_name}”, gå till %{job_user_url} för att bekräfta. Vänligen notera att detta är ett avtal som du signerar genom att bekräfta.
       body_start: |
-        Hej %{user_name}!
+          Hej %{user_name}!
 
-        Du har blivit erbjuden jobbet “%{job_name}”! Om du vill ha jobbet så måste du bekräfta att du vill göra det!
-        Vänligen observera att om du bekräftar så har du signerat ett avtal, så se till att du noggrannt läser följande information om jobbet först.:
+          Du har blivit erbjuden jobbet “%{job_name}”! Om du vill ha jobbet så måste du bekräfta att du vill göra det!
+          Vänligen observera att om du bekräftar så har du signerat ett avtal, så se till att du noggrannt läser följande information om jobbet först.:
       body_end: |
-        Du bekräftar här: %{job_user_url}, och du behöver göra det inom %{confirmation_time_hours} timmar!
-        (om du inte gör det så kommer någon annan få chansen den här gången)
+          Du bekräftar här: %{job_user_url}, och du behöver göra det inom %{confirmation_time_hours} timmar!
+          (om du inte gör det så kommer någon annan få chansen den här gången)
       body_middle: |
-        Jobbet: %{job_name}
-        När: %{job_start_date} - %{job_end_date}
-        Timmar: %{total_hours}
-        Lön: %{hourly_gross_salary} kr/h före skatt
-        Total lön: %{total_salary} kr/h före skatt
-        Var: %{address}
+          Jobbet: %{job_name}
+          När: %{job_start_date} - %{job_end_date}
+          Timmar: %{total_hours}
+          Lön: %{hourly_gross_salary} kr/h före skatt
+          Total lön: %{total_salary} kr/h före skatt
+          Var: %{address}
     job_ask_for_information:
       update_profile_cta: Uppdatera din profil
       subject: Gör färdigt din ansökan
       body: |
-        Hej %{user_name}!
+          Hej %{user_name}!
 
-        Vi försöker matcha dig med ett jobb och vill skulle vilja veta lite mer om dina färdigheter inom:
+          Vi försöker matcha dig med ett jobb och vill skulle vilja veta lite mer om dina färdigheter inom:
 
-        %{skill_names}.
+          %{skill_names}.
 
-        Var god gå till %{user_edit_url} och uppdatera din profil med informationen ovan. Det kommer öka dina chanser att bli matchad till ett job.
+          Var god gå till %{user_edit_url} och uppdatera din profil med informationen ovan. Det kommer öka dina chanser att bli matchad till ett job.
     changed_password:
       subject: Ditt Just Arrived lösenord har blivit ändrat
       body_header: Hej %{name}, ditt Just Arrived lösenord har blivit ändrat. Om det här inte var du, var god kontakta Just Arrived på help@justarrived.se
@@ -110,16 +110,16 @@ sv:
     invoice_created:
       subject: Kommande lön
       body: |
-        Hej %{name}!
+          Hej %{name}!
 
-        Idag aktiverades fakturan för ditt jobb “%{job_name}” . Detta betyder att du bör ha din lön på ditt konto inom 30 dagar.
+          Idag aktiverades fakturan för ditt jobb “%{job_name}” . Detta betyder att du bör ha din lön på ditt konto inom 30 dagar.
 
-        Du kommer även att få en specifikation på din lön från Frilans Finans.
+          Du kommer även att få en specifikation på din lön från Frilans Finans.
 
-        Kontakta oss på %{support_email} om frågor eller problem uppstår.
+          Kontakta oss på %{support_email} om frågor eller problem uppstår.
 
-        Har du sett till att betygsätta din jobberfarenhet på Just Arrived, och berättat för oss om din upplevelse?
-        Kom ihåg att din upplevelse är viktig för oss!
+          Har du sett till att betygsätta din jobberfarenhet på Just Arrived, och berättat för oss om din upplevelse?
+          Kom ihåg att din upplevelse är viktig för oss!
     magic_login_link:
       subject: Magisk login-länk
       login_line: Klicka på knappen nedan för att logga in på Just Arrived
@@ -127,16 +127,16 @@ sv:
     new_applicant_job_info:
       subject: Du har sökt ett jobb
       body: |
-        Hej %{name}!
+          Hej %{name}!
 
-        Vi är glada för att se att du har sökt jobbet “%{job_name}” via Just Arrived!
+          Vi är glada för att se att du har sökt jobbet “%{job_name}” via Just Arrived!
 
-        Det här är vad du behöver veta om vad som händer nu:
-        Om du får ett jobberbjudande så kommer du få ett email och ett sms. Vänligen notera att du måste bekräfta att du kommer utföra jobbet, och så snart som möjligt. Om du inte bekräftar inom den angivna tiden, så kommer någon annan att få jobberbjudandet.
+          Det här är vad du behöver veta om vad som händer nu:
+          Om du får ett jobberbjudande så kommer du få ett email och ett sms. Vänligen notera att du måste bekräfta att du kommer utföra jobbet, och så snart som möjligt. Om du inte bekräftar inom den angivna tiden, så kommer någon annan att få jobberbjudandet.
 
-        Vi har många användare och ansökningar till våra jobb, så bli inte nedslagen om någon annan får jobbet den här gången. Nästa gång kan det vara du!
+          Vi har många användare och ansökningar till våra jobb, så bli inte nedslagen om någon annan får jobbet den här gången. Nästa gång kan det vara du!
 
-        Din bästa chans att få ett jobb är att logga in ofta, söka jobb ofta, och se till att din profil är uppdaterad! Vi är övertygade om att du kommer få ett jobb som passar din profil snart!
+          Din bästa chans att få ett jobb är att logga in ofta, söka jobb ofta, och se till att din profil är uppdaterad! Vi är övertygade om att du kommer få ett jobb som passar din profil snart!
       body_fillout_notice: 'För att vi ska kunna matcha dig med ett jobb behöver vi veta lite mer om dina färdigheter i:'
       body_cv_fillout_notice: Om du laddar upp ett CV ökar det dina chanser att bli matchad till ett jobb. Du kan ladda upp ditt CV på din profilsida.
       body_edit_profile: Uppdatera din profil här %{url}
@@ -163,47 +163,47 @@ sv:
       login_cta: Logga in och kom igång
       subject: Välkommen till Just Arrived!
       body: |
-        Hej %{user_name}!
+          Hej %{user_name}!
 
-        Vi är så glada för att du vill söka jobb via Just Arrived!
-        Här är lite information som du behöver veta:
+          Vi är så glada för att du vill söka jobb via Just Arrived!
+          Här är lite information som du behöver veta:
 
-        Just Arrived kan inte garantera någon jobb, men vi kan garantera att vi kommer göra vårt allra bästa för att se till att det alltid finns jobb att söka till på vår tjänst! Vi förmedlar allt från jobb som varar en dag, till deltid- eller heltidsjobb, men de flesta av våra jobb är kortare.
-        Just nu förmedlar Just Arrived jobb i Stockholm och Göteborg. Vi hoppas nå andra städer snart, så om du bor i en annan stad, ha tålamod och se till att din profil är uppdaterad!
-        Om du får ett jobb via oss är helt upp till dig! Ju fler jobb du söker, och ju snabbare du söker till dem, desto större är chansen att du får något jobb.
+          Just Arrived kan inte garantera någon jobb, men vi kan garantera att vi kommer göra vårt allra bästa för att se till att det alltid finns jobb att söka till på vår tjänst! Vi förmedlar allt från jobb som varar en dag, till deltid- eller heltidsjobb, men de flesta av våra jobb är kortare.
+          Just nu förmedlar Just Arrived jobb i Stockholm och Göteborg. Vi hoppas nå andra städer snart, så om du bor i en annan stad, ha tålamod och se till att din profil är uppdaterad!
+          Om du får ett jobb via oss är helt upp till dig! Ju fler jobb du söker, och ju snabbare du söker till dem, desto större är chansen att du får något jobb.
 
-        Här är vad du kan göra för att öka dina chanser att få jobb:
+          Här är vad du kan göra för att öka dina chanser att få jobb:
 
-        - Uppdatera din profil - ju mer information vi har om dig, desto bättre. Är ditt CV uppdaterat? Om inte, hitta inspiration hos vår CV-mall %{cv_template_url}
-        - Logga in ofta och sök de nya jobb som du tycker är intressanta, det finns självklart ingen gräns för hur många jobb du kan söka till!
-        - Om du blir erbjuden ett jobb - så kommer du behöva bekräfta att du kommer göra det! Om du inte bekräftar i tid så kommer någon annan få chansen.
+          - Uppdatera din profil - ju mer information vi har om dig, desto bättre. Är ditt CV uppdaterat? Om inte, hitta inspiration hos vår CV-mall %{cv_template_url}
+          - Logga in ofta och sök de nya jobb som du tycker är intressanta, det finns självklart ingen gräns för hur många jobb du kan söka till!
+          - Om du blir erbjuden ett jobb - så kommer du behöva bekräfta att du kommer göra det! Om du inte bekräftar i tid så kommer någon annan få chansen.
 
-        Du hittar mycket mer information i vår FAQ: %{faq_url}.
+          Du hittar mycket mer information i vår FAQ: %{faq_url}.
 
-        Logga in på tjänsten och kom igång: %{login_url}.
+          Logga in på tjänsten och kom igång: %{login_url}.
     applicant_rejected:
       find_jobs_cta: Hitta fler jobb
       subject: Någon annan fick chansen den här gången
       body: |
-        Hej %{user_name},
+          Hej %{user_name},
 
-        Den här gången fick någon annan jobbet “%{job_name}”.
-        Tänk på att vi har många människor som söker till varje jobb, och nästa gång kan det vara du som får ett jobb !
+          Den här gången fick någon annan jobbet “%{job_name}”.
+          Tänk på att vi har många människor som söker till varje jobb, och nästa gång kan det vara du som får ett jobb !
 
-        Här är några av de säkraste sätten att öka chansen för att det blir du nästa gång!
+          Här är några av de säkraste sätten att öka chansen för att det blir du nästa gång!
 
-        - Det viktigaste är att logga in och söka ofta. Ju tidigare du söker till ett jobb desto bättre!
-        - Håll din profil uppdaterad! Varje förmåga och all information spelar roll. Vi är säkra på att det finns saker som du är bra på men inte har berättat för oss om än!
-        - Om någonting är oklart, eller om du behöver hjälp, tveka inte att kontakta oss på %{support_email} eller kolla in %{faq_link}.
+          - Det viktigaste är att logga in och söka ofta. Ju tidigare du söker till ett jobb desto bättre!
+          - Håll din profil uppdaterad! Varje förmåga och all information spelar roll. Vi är säkra på att det finns saker som du är bra på men inte har berättat för oss om än!
+          - Om någonting är oklart, eller om du behöver hjälp, tveka inte att kontakta oss på %{support_email} eller kolla in %{faq_link}.
     google_calendar_link_name: Lägg till på Google Calendar
     update_data_reminder:
       subject: Vi försöker matcha dig till ett jobb, uppdatera din profil!
       introduction_body: |
-        Hej,
+          Hej,
 
-        Du sökte nyligen jobbet "%{job_name}".
+          Du sökte nyligen jobbet "%{job_name}".
 
-        Vi håller just nu på att gå igenom alla ansökningar och för att vi bäst ska kunna matcha dig behöver vi lite mer information.
+          Vi håller just nu på att gå igenom alla ansökningar och för att vi bäst ska kunna matcha dig behöver vi lite mer information.
       cv_upload_body: 'Ladda upp ditt CV här: %{url}.'
       competence_list_title: 'Din kompetensnivå i:'
       competence_update_body: 'Du kan uppdatera dina kompetenser genom att gå till din profilsida: %{url}.'
