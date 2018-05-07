@@ -19,7 +19,7 @@ active_admin_form_for(resource, url: url) do |f|
   columns do
     column do
       f.inputs(I18n.t('admin.job.section_title.basic')) do
-        f.input :name, hint: I18n.t('admin.job.form.name_hint')
+        f.input :name, hint: I18n.t('admin.job.form.name_hint', input_html: { autocomplete: 'off' })
         f.input(:job_date, as: :datetime_picker, label: I18n.t('admin.job.form.job_date_label'))
         f.input(:job_end_date, as: :datetime_picker, label: I18n.t('admin.job.form.job_end_date_label'))
         f.input :owner, collection: User.company_users, hint: I18n.t('admin.job.form.owner_hint')
@@ -53,9 +53,9 @@ active_admin_form_for(resource, url: url) do |f|
   columns do
     column do
       f.inputs(I18n.t('admin.job.section_title.invoice')) do
-        f.input :customer_hourly_price, hint: I18n.t('admin.job.form.customer_hourly_price_hint')
-        f.input :hourly_pay, hint: I18n.t('admin.job.form.hourly_pay_hint')
-        f.input :hours
+        f.input :customer_hourly_price, hint: I18n.t('admin.job.form.customer_hourly_price_hint'), input_html: { autocomplete: 'off' }
+        f.input :hourly_pay, hint: I18n.t('admin.job.form.hourly_pay_hint'), input_html: { autocomplete: 'off' }
+        f.input :hours, input_html: { autocomplete: 'off' }
         f.input :number_to_fill, hint: 'How many positions do you want to fill?'
         f.input :full_time
         f.input :invoice_comment, hint: 'This will be displayed on the invoice from Frilans Finans', input_html: { rows: 4 }
@@ -64,14 +64,15 @@ active_admin_form_for(resource, url: url) do |f|
 
     column do
       f.inputs(I18n.t('admin.job.section_title.address')) do
-        f.input :street
-        f.input :zip
-        f.input :city
+        f.input :street, input_html: { autocomplete: 'off' }
+        f.input :zip, input_html: { autocomplete: 'off' }
+        f.input :city, input_html: { autocomplete: 'off' }
         f.input(
           :municipality,
           as: :select,
           collection: Arbetsformedlingen::MunicipalityCode.to_form_array(name_only: true),
-          hint: I18n.t('admin.job.form.municipality_hint')
+          hint: I18n.t('admin.job.form.municipality_hint'),
+          input_html: { autocomplete: 'off' }
         )
       end
     end
@@ -118,18 +119,18 @@ active_admin_form_for(resource, url: url) do |f|
       columns do
         column do
           f.inputs(I18n.t('admin.job.section_title.dates')) do
-            f.input :last_application_at, as: :datetime_picker
+            f.input :last_application_at, as: :datetime_picker, input_html: { autocomplete: 'off' }
             # If the job has *not* been saved then set the current
             # time as the publish date
             # f.object.publish_at = Time.zone.now unless f.object.persisted?
-            f.input :publish_at, as: :datetime_picker
-            f.input :unpublish_at, as: :datetime_picker
+            f.input :publish_at, as: :datetime_picker, input_html: { autocomplete: 'off' }
+            f.input :unpublish_at, as: :datetime_picker, input_html: { autocomplete: 'off' }
           end
         end
 
         column do
           f.inputs(I18n.t('admin.job.section_title.settings')) do
-            f.input :preview_key, hint: I18n.t('admin.job.form.preview_key_hint')
+            f.input :preview_key, hint: I18n.t('admin.job.form.preview_key_hint'), input_html: { autocomplete: 'off' }
           end
         end
       end
