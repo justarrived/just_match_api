@@ -38,7 +38,7 @@ end
 #  filled_hours                   :decimal(, )
 #  name                           :string
 #  category                       :integer
-#  company_id                     :integer
+#  company_id                     :bigint(8)
 #  sales_user_id                  :integer
 #  delivery_user_id               :integer
 #  previous_order_id              :integer

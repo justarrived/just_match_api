@@ -28,9 +28,9 @@ end
 #
 # Table name: utalk_codes
 #
-#  id         :integer          not null, primary key
+#  id         :bigint(8)        not null, primary key
 #  code       :string
-#  user_id    :integer
+#  user_id    :bigint(8)
 #  claimed_at :datetime
 #  created_at :datetime         not null
 #  updated_at :datetime         not null

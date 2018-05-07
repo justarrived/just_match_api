@@ -10,8 +10,8 @@ end
 #
 # Table name: guide_section_article_translations
 #
-#  id                       :integer          not null, primary key
-#  language_id              :integer
+#  id                       :bigint(8)        not null, primary key
+#  language_id              :bigint(8)
 #  guide_section_article_id :integer
 #  locale                   :string
 #  title                    :string

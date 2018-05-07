@@ -10,10 +10,10 @@ end
 #
 # Table name: occupation_translations
 #
-#  id            :integer          not null, primary key
+#  id            :bigint(8)        not null, primary key
 #  name          :string
-#  occupation_id :integer
-#  language_id   :integer
+#  occupation_id :bigint(8)
+#  language_id   :bigint(8)
 #  locale        :string
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null

@@ -10,12 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180201214942) do
+ActiveRecord::Schema.define(version: 2018_05_07_105534) do
 
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
   enable_extension "hstore"
   enable_extension "pg_stat_statements"
+  enable_extension "plpgsql"
   enable_extension "unaccent"
 
   create_table "active_admin_comments", id: :serial, force: :cascade do |t|
@@ -372,6 +372,7 @@ ActiveRecord::Schema.define(version: 20180201214942) do
     t.boolean "express_payment", default: false
     t.datetime "ff_last_synced_at"
     t.integer "ff_invoice_number"
+    t.string "ff_remote_id"
     t.index ["job_user_id"], name: "index_frilans_finans_invoices_on_job_user_id"
   end
 

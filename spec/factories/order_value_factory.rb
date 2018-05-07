@@ -20,8 +20,8 @@ end
 #
 # Table name: order_values
 #
-#  id                      :integer          not null, primary key
-#  order_id                :integer
+#  id                      :bigint(8)        not null, primary key
+#  order_id                :bigint(8)
 #  previous_order_value_id :integer
 #  change_comment          :text
 #  change_reason_category  :integer

@@ -19,9 +19,9 @@ end
 #
 # Table name: user_occupations
 #
-#  id                  :integer          not null, primary key
-#  occupation_id       :integer
-#  user_id             :integer
+#  id                  :bigint(8)        not null, primary key
+#  occupation_id       :bigint(8)
+#  user_id             :bigint(8)
 #  years_of_experience :integer
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null

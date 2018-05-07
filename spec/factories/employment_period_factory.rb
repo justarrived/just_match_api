@@ -16,9 +16,9 @@ end
 #
 # Table name: employment_periods
 #
-#  id                 :integer          not null, primary key
-#  job_id             :integer
-#  user_id            :integer
+#  id                 :bigint(8)        not null, primary key
+#  job_id             :bigint(8)
+#  user_id            :bigint(8)
 #  employer_signed_at :datetime
 #  employee_signed_at :datetime
 #  started_at         :datetime
