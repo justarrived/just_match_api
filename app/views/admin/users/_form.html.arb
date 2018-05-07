@@ -4,19 +4,19 @@ f.semantic_errors(*f.object.errors.keys)
 
 if user.persisted?
   f.inputs I18n.t('admin.user.form.details') do
-    f.input :email
-    f.input :password, hint: I18n.t('admin.user.form.password.hint')
-    f.input :first_name
-    f.input :last_name
-    f.input :gender
+    f.input :email, input_html: { autocomplete: 'off' }
+    f.input :password, hint: I18n.t('admin.user.form.password.hint'), input_html: { autocomplete: 'new-password' } # rubocop:disable Metrics/LineLength
+    f.input :first_name, input_html: { autocomplete: 'off' }
+    f.input :last_name, input_html: { autocomplete: 'off' }
+    f.input :gender, input_html: { autocomplete: 'off' }
     f.input :system_language, hint: I18n.t('admin.user.form.language.hint'), collection: Language.system_languages.order(:en_name) # rubocop:disable Metrics/LineLength
-    f.input :phone
-    f.input :ssn
-    f.input :street
-    f.input :city
-    f.input :zip
-    f.input :skype_username
-    f.input :description
+    f.input :phone, input_html: { autocomplete: 'off' }
+    f.input :ssn, input_html: { autocomplete: 'off' }
+    f.input :street, input_html: { autocomplete: 'off' }
+    f.input :city, input_html: { autocomplete: 'off' }
+    f.input :zip, input_html: { autocomplete: 'off' }
+    f.input :skype_username, input_html: { autocomplete: 'off' }
+    f.input :description, input_html: { autocomplete: 'off' }
   end
 
   f.actions
@@ -33,38 +33,30 @@ if user.persisted?
       ff.input :ended_at, as: :datetime_picker
       ff.input :percentage
 
-      ff.input :job, collection: Job.with_translations
+      ff.input :job, collection: jobs
 
-      ff.input :employer_signed_at, as: :datetime_picker, collection: User.delivery_users
       ff.input :employee_signed_at, as: :datetime_picker
     end
 
     f.has_many :user_occupations, allow_destroy: false, new_record: true do |ff|
       ff.semantic_errors(*ff.object.errors.keys)
 
-      ff.input :occupation, as: :select, collection: Occupation.with_translations
+      ff.input :occupation, as: :select, collection: occupations
       ff.input :years_of_experience, as: :select, collection: 0..100
     end
 
     f.has_many :user_languages, allow_destroy: false, new_record: true do |ff|
       ff.semantic_errors(*ff.object.errors.keys)
 
-      ff.input :language, as: :select, collection: Language.order(:en_name)
+      ff.input :language, as: :select, collection: languages
       ff.input :proficiency_by_admin, as: :select, collection: UserLanguage::PROFICIENCY_RANGE # rubocop:disable Metrics/LineLength
     end
 
     f.has_many :user_skills, allow_destroy: false, new_record: true do |ff|
       ff.semantic_errors(*ff.object.errors.keys)
 
-      ff.input :skill, as: :select, collection: Skill.with_translations
+      ff.input :skill, as: :select, collection: skills
       ff.input :proficiency_by_admin, as: :select, collection: UserSkill::PROFICIENCY_RANGE # rubocop:disable Metrics/LineLength
-    end
-
-    f.has_many :user_interests, allow_destroy: false, new_record: true do |ff|
-      ff.semantic_errors(*ff.object.errors.keys)
-
-      ff.input :interest, as: :select, collection: Interest.with_translations
-      ff.input :level_by_admin, as: :select, collection: UserInterest::LEVEL_RANGE
     end
 
     f.has_many :user_documents, allow_destroy: false, new_record: true do |ff|
@@ -81,8 +73,8 @@ if user.persisted?
     f.has_many :feedbacks, new_record: true do |ff|
       ff.semantic_errors(*ff.object.errors.keys)
 
-      ff.input :job, collection: Job.with_translations
-      ff.input :title
+      ff.input :job, collection: jobs
+      ff.input :title, input_html: { autocomplete: 'off' }
       ff.input :body
     end
 
@@ -99,7 +91,7 @@ if user.persisted?
     f.input :current_status
     f.input :at_und
     f.input :arrived_at, as: :datetime_picker
-    f.input :country_of_origin
+    f.input :country_of_origin, input_html: { autocomplete: 'off' }
     f.input :arbetsformedlingen_registered_at, as: :datetime_picker
   end
 
@@ -119,16 +111,16 @@ if user.persisted?
   f.actions
 
   f.inputs I18n.t('admin.user.form.payment_attributes') do
-    f.input :account_clearing_number
-    f.input :account_number
+    f.input :account_clearing_number, input_html: { autocomplete: 'off' }
+    f.input :account_number, input_html: { autocomplete: 'off' }
   end
 
   f.actions
 
   f.inputs I18n.t('admin.user.form.misc') do
     f.input :company
-    f.input :next_of_kin_name
-    f.input :next_of_kin_phone
+    f.input :next_of_kin_name, input_html: { autocomplete: 'off' }
+    f.input :next_of_kin_phone, input_html: { autocomplete: 'off' }
     f.input :ignored_notifications, as: :select, collection: UserNotification.names, multiple: true # rubocop:disable Metrics/LineLength
   end
 
@@ -141,20 +133,20 @@ if user.persisted?
   end
 else
   f.inputs I18n.t('admin.user.form.create_user') do
-    f.input :email
-    f.input :password
-    f.input :first_name
-    f.input :last_name
-    f.input :gender
+    f.input :email, input_html: { autocomplete: 'off' }
+    f.input :password, input_html: { autocomplete: 'new-password' }
+    f.input :first_name, input_html: { autocomplete: 'off' }
+    f.input :last_name, input_html: { autocomplete: 'off' }
+    f.input :gender, input_html: { autocomplete: 'off' }
     f.input :system_language, hint: I18n.t('admin.user.form.language.hint'), collection: Language.system_languages.order(:en_name) # rubocop:disable Metrics/LineLength
     f.input :company
     f.input :managed, hint: I18n.t('admin.user.form.managed.hint')
-    f.input :phone
-    f.input :ssn
-    f.input :street
-    f.input :city
-    f.input :zip
-    f.input :skype_username
+    f.input :phone, input_html: { autocomplete: 'off' }
+    f.input :ssn, input_html: { autocomplete: 'off' }
+    f.input :street, input_html: { autocomplete: 'off' }
+    f.input :city, input_html: { autocomplete: 'off' }
+    f.input :zip, input_html: { autocomplete: 'off' }
+    f.input :skype_username, input_html: { autocomplete: 'off' }
   end
 end
 

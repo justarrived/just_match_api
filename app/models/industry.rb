@@ -17,10 +17,10 @@ end
 #
 # Table name: industries
 #
-#  id          :integer          not null, primary key
+#  id          :bigint(8)        not null, primary key
 #  name        :string
 #  ancestry    :string
-#  language_id :integer
+#  language_id :bigint(8)
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #

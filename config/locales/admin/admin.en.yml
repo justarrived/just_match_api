@@ -9,6 +9,7 @@ en:
       settings: Settings
       guide: Guide
       misc: Misc
+    actions_row_title: Actions
     yes_answer: Yes
     no_answer: No
     hired_suffix: '(hired)'
@@ -242,8 +243,7 @@ en:
       not_paid: Not paid
       show:
         general: General
-        frilans_finans: Frilans Finans
-        dates: Dates
+        frilans_finans: Frilans Finans Info
     chat:
       name: Chat
       support_chat: Support chat
@@ -338,6 +338,13 @@ en:
     send_employment_certificate:
       post_btn: Send employment certificate
       msg: Request for employment certificate sent. The user will receive an email from Frilans Finans.
+    ff_remove_id:
+      title: '[DANGEROUS] Anul Frilans Finans Invoice'
+      action_confirm: Are you sure? (Only use this when you've activated an invoice that you need to cancel.)
+      action_success: 'Successfully removed Frilans Finans ID. You can now re-create the invoice.'
+      invalid_invoice_delete: Something went wrong. Could not delete associated invoice %{invoice_id}. Please contact an admin.
+      invoice_blank_error: You can't reset an Frilans Finans invoice unless its been activated.
+      invalid: Could not remove Frilans Finans ID. Please contact an admin.
     ff_remote_sync:
       msg_multiple: Synced successfully.
       msg: Synced successfully.

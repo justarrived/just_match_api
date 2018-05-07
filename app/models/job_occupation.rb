@@ -20,9 +20,9 @@ end
 #
 # Table name: job_occupations
 #
-#  id                  :integer          not null, primary key
-#  job_id              :integer
-#  occupation_id       :integer
+#  id                  :bigint(8)        not null, primary key
+#  job_id              :bigint(8)
+#  occupation_id       :bigint(8)
 #  years_of_experience :integer
 #  importance          :integer
 #  created_at          :datetime         not null

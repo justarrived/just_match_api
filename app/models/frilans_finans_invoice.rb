@@ -32,6 +32,8 @@ class FrilansFinansInvoice < ApplicationRecord
       where('jobs.job_end_date > ? AND jobs.job_end_date < ?', start, finish)
   })
 
+  before_validation :set_default_ff_remote_id
+
   validate :validates_job_user_will_perform, on: :create
   validate :validate_job_frilans_finans_job
 
@@ -53,6 +55,30 @@ class FrilansFinansInvoice < ApplicationRecord
   def display_name
     name = " (#{ff_status_name})" if ff_status_name
     "##{id} #{human_model_name}#{name}"
+  end
+
+  def annulable?
+    return false unless invoice
+    return false unless frilans_finans_id
+
+    true
+  end
+
+  def remote_id
+    ff_remote_id.presence || id.to_s
+  end
+
+  def set_remote_id
+    self.ff_remote_id = SecureGenerator.uuid
+  end
+
+  def set_default_ff_remote_id
+    # NOTE: Don't generate remote ID if record is already persisted, since
+    # older FrilansFinansInvoice's used their DB id instead
+    return if persisted?
+    return if ff_remote_id
+
+    set_remote_id
   end
 
   def ff_status_name(with_id: false)
@@ -102,6 +128,7 @@ end
 #  express_payment    :boolean          default(FALSE)
 #  ff_last_synced_at  :datetime
 #  ff_invoice_number  :integer
+#  ff_remote_id       :string
 #
 # Indexes
 #

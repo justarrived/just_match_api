@@ -30,9 +30,9 @@ end
 #
 # Table name: guide_section_articles
 #
-#  id               :integer          not null, primary key
-#  language_id      :integer
-#  guide_section_id :integer
+#  id               :bigint(8)        not null, primary key
+#  language_id      :bigint(8)
+#  guide_section_id :bigint(8)
 #  order            :integer
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null

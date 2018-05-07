@@ -287,7 +287,21 @@ ActiveAdmin.register User do
   end
 
   form do |f|
-    render partial: 'admin/users/form', locals: { f: f }
+    jobs = Job.with_translations
+    delivery_users = User.delivery_users
+    occupations = Occupation.with_translations
+    languages = Language.order(:en_name)
+    skills = Skill.with_translations
+
+    locals = {
+      f: f,
+      jobs: jobs,
+      delivery_users: delivery_users,
+      occupations: occupations,
+      languages: languages,
+      skills: skills
+    }
+    render partial: 'admin/users/form', locals: locals
   end
 
   include AdminHelpers::MachineTranslation::Actions
@@ -454,6 +468,7 @@ ActiveAdmin.register User do
 
     def find_resource
       User.includes(
+        employment_periods: [job: :translations],
         jobs: %i(translations language),
         user_documents: %i(document),
         user_skills: %i(skill),

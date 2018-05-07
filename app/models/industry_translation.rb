@@ -10,10 +10,10 @@ end
 #
 # Table name: industry_translations
 #
-#  id          :integer          not null, primary key
+#  id          :bigint(8)        not null, primary key
 #  name        :string
-#  industry_id :integer
-#  language_id :integer
+#  industry_id :bigint(8)
+#  language_id :bigint(8)
 #  locale      :string
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null

@@ -15,6 +15,7 @@ gem 'bootsnap', '>= 1.3', require: false # Optimize Rails boot time
 
 # TEXT PROCESSING
 gem 'kramdown', '~> 1.16' # Markdown <> HTML
+gem 'loofah', '~> 2.2' # HTML sanitizer
 gem 'rinku', '~> 2.0.4' # Autolink
 
 # SERVER
@@ -23,8 +24,6 @@ gem 'puma', '~> 3.11' # App server
 
 # Analytics
 gem 'ahoy_matey', '~> 1.6'
-
-gem 'loofah', '~> 2.2' # HTML sanitizer
 
 # STORAGE
 gem 'aws-sdk-s3', '~> 1.9' # Upload images to AWS S3

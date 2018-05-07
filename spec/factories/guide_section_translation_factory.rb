@@ -14,13 +14,13 @@ end
 #
 # Table name: guide_section_translations
 #
-#  id                :integer          not null, primary key
+#  id                :bigint(8)        not null, primary key
 #  locale            :string
 #  title             :string
 #  slug              :string
 #  short_description :string
-#  guide_section_id  :integer
-#  language_id       :integer
+#  guide_section_id  :bigint(8)
+#  language_id       :bigint(8)
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #
