@@ -1,0 +1,60 @@
+# frozen_string_literal: true
+
+columns do
+  column do
+    h3 I18n.t('admin.frilans_finans_invoice.show.general')
+    panel(I18n.t('admin.frilans_finans_invoice.show.general')) do
+      attributes_table_for(frilans_finans_invoice) do
+        row :id
+        row :activated
+        row :just_arrived_contact
+        row :user
+        row :job
+        row :job_user
+        row :invoice
+        row(:updated_at) { datetime_ago_in_words(frilans_finans_invoice.updated_at) }
+        row(:created_at) { datetime_ago_in_words(frilans_finans_invoice.created_at) }
+        row(:ff_last_synced_at) { datetime_ago_in_words(frilans_finans_invoice.created_at) } # rubocop:disable Metrics/LineLength
+        row('Frilans Finans ID', &:frilans_finans_id)
+        if frilans_finans_invoice.annulable?
+          row(I18n.t('admin.actions_row_title')) do
+            title = I18n.t('admin.ff_remove_id.title')
+            path = remove_frilans_finans_id_admin_frilans_finans_invoice_path(resource)
+            confirm = I18n.t('admin.ff_remove_id.action_confirm')
+
+            link_to(title, path, method: :post, data: { confirm: confirm })
+          end
+        end
+      end
+    end
+  end
+
+  column do
+    h3 I18n.t('admin.frilans_finans_invoice.show.frilans_finans')
+    panel(I18n.t('admin.frilans_finans_invoice.show.frilans_finans')) do
+      attributes_table_for(frilans_finans_invoice) do
+        row :ff_amount
+        row :ff_status do
+          frilans_finans_invoice.ff_status_name(with_id: true)
+        end
+        row :ff_pre_report
+        row :ff_gross_salary
+        row :ff_net_salary
+        row :ff_payment_status do
+          frilans_finans_invoice.ff_payment_status_name(with_id: true)
+        end
+        row :ff_approval_status do
+          frilans_finans_invoice.ff_approval_status_name(with_id: true)
+        end
+
+        row :express_payment
+        row :ff_sent_at
+        row :ff_last_synced_at
+        row :ff_invoice_number
+        row('Frilans Finans ID', &:frilans_finans_id)
+      end
+    end
+  end
+end
+
+active_admin_comments_for(frilans_finans_invoice)

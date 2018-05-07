@@ -27,6 +27,7 @@ ActiveAdmin.register FrilansFinansInvoice do
   filter :ff_gross_salary
   filter :ff_sent_at
 
+  # rubocop:disable Metrics/LineLength
   confirm_msg = I18n.t('admin.confirm_dialog_title')
   batch_action :sync_with_frilans_finans, confirm: confirm_msg do |ids|
     collection.where(id: ids).find_each(batch_size: 500).each do |ff_invoice|
@@ -41,7 +42,37 @@ ActiveAdmin.register FrilansFinansInvoice do
     redirect_to collection_path, notice: message
   end
 
-  member_action :sync_with_frilans_finans, method: :post do
+  member_action :remove_frilans_finans_id, method: :post, confirm: confirm_msg do
+    ff_invoice = resource
+    invoice = ff_invoice.invoice
+
+    unless invoice
+      message = I18n.t('admin.ff_remove_id.invoice_blank_error')
+      redirect_to(resource_path(ff_invoice), alert: message)
+      return
+    end
+
+    unless invoice.destroy
+      message = I18n.t('admin.ff_remove_id.invalid_invoice_delete')
+      redirect_to(resource_path(ff_invoice), alert: message)
+      return
+    end
+
+    ff_invoice.frilans_finans_id = nil
+    ff_invoice.set_remote_id
+    ff_invoice.save
+
+    if ff_invoice.errors.any?
+      message_parts = [I18n.t('admin.ff_remove_id.invalid')] + ff_invoice.errors.full_messages
+      redirect_to(resource_path(resource), alert: message_parts.join(', '))
+      return
+    end
+
+    message = I18n.t('admin.ff_remove_id.action_success')
+    redirect_to(resource_path(ff_invoice), notice: message)
+  end
+
+  member_action :sync_with_frilans_finans, method: :post, if: proc { AppConfig.frilans_finans_active? } do
     ff_invoice = resource
 
     if ff_invoice.frilans_finans_id
@@ -60,7 +91,7 @@ ActiveAdmin.register FrilansFinansInvoice do
     link_to title, path, method: :post
   end
 
-  member_action :send_employment_certificate, method: :post do
+  member_action :send_employment_certificate, method: :post, if: proc { AppConfig.frilans_finans_active? } do
     ff_invoice = resource
     attributes = { invoice_ids: [ff_invoice.frilans_finans_id] }
     FrilansFinansAPI::EmploymentCertificate.create(attributes: attributes)
@@ -90,7 +121,7 @@ ActiveAdmin.register FrilansFinansInvoice do
     end
   end
 
-  action_item :view, only: :show, if: -> { !resource.invoice } do
+  action_item :view, only: :show, if: -> { !resource.invoice && AppConfig.frilans_finans_active? } do
     title = safe_join([
                         envelope_icon_png(html_class: 'btn-icon'),
                         I18n.t('admin.create_invoice.post_btn')
@@ -99,6 +130,7 @@ ActiveAdmin.register FrilansFinansInvoice do
     path = create_invoice_admin_frilans_finans_invoice_path(resource)
     link_to title, path, method: :post
   end
+  # rubocop:enable Metrics/LineLength
 
   index do
     selectable_column
@@ -123,58 +155,13 @@ ActiveAdmin.register FrilansFinansInvoice do
     actions
   end
 
-  show do
-    h3 I18n.t('admin.frilans_finans_invoice.show.general')
-    attributes_table do
-      row :id
-      row :activated
-      row :ff_invoice_number
-      row :ff_amount
-      row :ff_gross_salary
-      row :ff_status do
-        frilans_finans_invoice.ff_status_name(with_id: true)
-      end
-      row :frilans_finans_id
-      row :just_arrived_contact
-      row :user
-      row :job
-      row :job_user
-      row :invoice
-    end
-
-    h3 I18n.t('admin.frilans_finans_invoice.show.frilans_finans')
-    attributes_table do
-      row :ff_amount
-      row :ff_status do
-        frilans_finans_invoice.ff_status_name(with_id: true)
-      end
-      row :ff_pre_report
-      row :ff_gross_salary
-      row :ff_net_salary
-      row :ff_payment_status do
-        frilans_finans_invoice.ff_payment_status_name(with_id: true)
-      end
-      row :ff_approval_status do
-        frilans_finans_invoice.ff_approval_status_name(with_id: true)
-      end
-
-      row :express_payment
-      row :ff_sent_at
-      row :ff_last_synced_at
-    end
-
-    h3 I18n.t('admin.frilans_finans_invoice.show.dates')
-    attributes_table do
-      row :ff_last_synced_at
-      row(:updated_at) { datetime_ago_in_words(frilans_finans_invoice.updated_at) }
-      row(:created_at) { datetime_ago_in_words(frilans_finans_invoice.created_at) }
-    end
-
-    active_admin_comments
+  show do |frilans_finans_invoice|
+    locals = { frilans_finans_invoice: frilans_finans_invoice }
+    render partial: 'admin/frilans_finans_invoices/show', locals: locals
   end
 
   permit_params do
-    %i(activated job_user_id express_payment)
+    %i(express_payment)
   end
 
   csv do
