@@ -4,6 +4,27 @@ HEAD
 -----------
 
 
+v2.102.0 - 2018-05-08
+----------
+__Enhancement__:
+* Update database annotations
+* Add missing sv-translation key
+* Pull translations from Transifex
+
+__Admin__:
+* Add add `autocomplete=off` to a bunch of job fields
+* Add support for annulable Frilans Finans Invoices
+* Refactor admin user form and add autocomplete=off to a bunch of fields
+* Extract Frilans Finans Invoice show view to its own partial
+
+__Gem updates__:
+* Bump `honey_format` from 0.3.0 to 0.5.0
+* Bump `webmock` from 3.4.0 to 3.4.1
+* Bump `airbrake` from 7.3.0 to 7.3.1
+* Bump `newrelic_rpm` from 5.0 to 5.1
+* Bump `pg` from 0.21.0 to 1.0.0
+
+
 v2.101.1 - 2018-05-01
 ----------
 __Gem updates__:
