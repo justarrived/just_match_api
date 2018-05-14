@@ -88,7 +88,7 @@ gem 'mail', '~> 2.6', '>= 2.6.6' # General email functionality
 gem 'twilio-ruby', '~> 5.10' # Send SMS notifications
 
 # GEO/LOCALE/LANGUAGE UTILS
-gem 'banktools-se', '~> 2.6' # Validate Swedish bank account
+gem 'banktools-se', '~> 3.0' # Validate Swedish bank account
 gem 'countries', '~> 2.1', require: 'countries/global' # Country data in various locales
 gem 'geocoder', '~> 1.4' # Geocode resources
 gem 'global_phone', '~> 1.0' # Format cell phone numbers
