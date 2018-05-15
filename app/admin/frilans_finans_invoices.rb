@@ -59,6 +59,7 @@ ActiveAdmin.register FrilansFinansInvoice do
     end
 
     ff_invoice.frilans_finans_id = nil
+    ff_invoice.activated = false
     ff_invoice.set_remote_id
     ff_invoice.save
 
