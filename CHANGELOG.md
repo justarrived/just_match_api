@@ -4,6 +4,19 @@ HEAD
 -----------
 
 
+v2.102.1 - 2018-05-15
+----------
+__Bugfix__:
+* When annulling an invoice make sure to mark it as non-active
+
+__Enhancement__:
+* Bump `banktools-se` from 2.6.3 to 3.0.0
+* Bump `twilio-ruby` from 5.9.0 to 5.10.0
+* Bump `aws-sdk-s3` from 1.9.1 to 1.10.0
+* Bump `honey_format` from 0.5.0 to 0.6.0
+* Bump `airbrake` from 7.3.1 to 7.3.3
+
+
 v2.102.0 - 2018-05-08
 ----------
 __Enhancement__:
