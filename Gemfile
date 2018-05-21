@@ -36,7 +36,7 @@ gem 'association_count', '~> 1.0' # Simple count for ActiveRecord associations
 # RACK MIDDLEWARE
 gem 'rack-attack', '~> 5.2' # Throttle API usage
 gem 'rack-cors', '~> 1.0', require: 'rack/cors' # Configure CORS
-gem 'rack-timeout', '~> 0.4' # Kill requests that run for too long
+gem 'rack-timeout', '~> 0.5' # Kill requests that run for too long
 
 # BACKGROUND JOBS
 gem 'sidekiq', '< 6' # Background worker (Redis-backed)
