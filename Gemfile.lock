@@ -720,7 +720,7 @@ GEM
     tilt (2.0.8)
     timecop (0.9.1)
     trollop (2.1.2)
-    twilio-ruby (5.10.0)
+    twilio-ruby (5.10.1)
       faraday (~> 0.9)
       jwt (>= 1.5, <= 2.5)
       nokogiri (>= 1.6, < 2.0)
