@@ -60,7 +60,7 @@ gem 'paperclip', '~> 6.0' # Image handler
 gem 'httparty', '~> 0.16' # Make HTTP requests with ease
 
 # SECURITY
-gem 'bcrypt', '~> 3.1.11', require: true # Encrypt passwords
+gem 'bcrypt', '~> 3.1.12', require: true # Encrypt passwords
 gem 'pundit', '~> 1.1' # Authorization policies
 
 # ADMIN
