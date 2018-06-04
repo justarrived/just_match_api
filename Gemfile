@@ -14,7 +14,7 @@ gem 'rails', '5.2.0' # Ruby on Rails MVC framework
 gem 'bootsnap', '>= 1.3', require: false # Optimize Rails boot time
 
 # TEXT PROCESSING
-gem 'kramdown', '~> 1.16' # Markdown <> HTML
+gem 'kramdown', '~> 1.17' # Markdown <> HTML
 gem 'loofah', '~> 2.2' # HTML sanitizer
 gem 'rinku', '~> 2.0.4' # Autolink
 

@@ -491,7 +491,7 @@ GEM
       activerecord
       kaminari-core (= 1.1.1)
     kaminari-core (1.1.1)
-    kramdown (1.16.2)
+    kramdown (1.17.0)
     launchy (2.4.3)
       addressable (~> 2.3)
     letter_opener (1.6.0)
@@ -808,7 +808,7 @@ DEPENDENCIES
   inherited_resources (~> 1.8)
   jsonapi_helpers (~> 0.2)
   kaminari (~> 1.1)
-  kramdown (~> 1.16)
+  kramdown (~> 1.17)
   letter_opener (~> 1.6)
   listen (~> 3.1)
   lograge (~> 0.10)
