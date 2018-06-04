@@ -104,7 +104,7 @@ GEM
     airbrake-ruby (2.10.0)
     ancestry (3.0.2)
       activerecord (>= 3.2.0)
-    annotate (2.7.3)
+    annotate (2.7.4)
       activerecord (>= 3.2, < 6.0)
       rake (>= 10.4, < 13.0)
     apipie-rails (0.5.8)
