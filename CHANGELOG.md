@@ -4,6 +4,34 @@ HEAD
 -----------
 
 
+v2.103.0 - 2018-06-07
+----------
+__Enhancement__:
+* Don't consider applicants of started jobs rejected
+* Set Rack timeout from env var since setting configuring on `Rack::Timeout` is now unsupported
+* Update test to reflect new business rule
+
+__Admin__:
+* Add Job info to Frilans Finans Invoice show view
+* Improve displaying of job user status on admin index page
+* Sync FF Invoice after first remote create - avoids "double tap" on remote sync
+
+__Gem updates__:
+* Bump `annotate` from 2.7.3 to 2.7.4
+* Bump `aws-sdk-s3` from 1.12.0 to 1.13.0
+* Bump `bcrypt` from 3.1.11 to 3.1.12
+* Bump `factory_bot_rails` from 4.8.2 to 4.10.0
+* Bump `geocoder` from 1.4.7 to 1.4.9
+* Bump `honey_format` from 0.6.0 to 0.8.2
+* Bump `kramdown` from 1.16.2 to 1.17.0
+* Bump `rack-timeout` from 0.4.2 to 0.5.1
+* Bump `rspec_junit_formatter` from 0.3.0 to 0.4.1
+* Bump `rubocop` from 0.55.0 to 0.56.0
+* Bump `twilio-ruby` from 5.10.0 to 5.10.2
+* Bump `uglifier` from 4.1.10 to 4.1.11
+* Bump `webmock` from 3.4.1 to 3.4.2
+
+
 v2.102.1 - 2018-05-15
 ----------
 __Bugfix__:
