@@ -157,7 +157,10 @@ ActiveAdmin.register FrilansFinansInvoice do
   end
 
   show do |frilans_finans_invoice|
-    locals = { frilans_finans_invoice: frilans_finans_invoice }
+    locals = {
+      frilans_finans_invoice: frilans_finans_invoice,
+      job: frilans_finans_invoice.job
+    }
     render partial: 'admin/frilans_finans_invoices/show', locals: locals
   end
 
