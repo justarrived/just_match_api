@@ -395,6 +395,10 @@ class Job < ApplicationRecord
     applicant.will_perform
   end
 
+  def hourly_gross_salary
+    hourly_pay.gross_salary
+  end
+
   def gross_amount
     hourly_pay.gross_salary * hours
   end
@@ -455,10 +459,6 @@ class Job < ApplicationRecord
 
   def applicants
     job_users
-  end
-
-  def hourly_gross_salary
-    hourly_pay.gross_salary
   end
 
   def workdays
