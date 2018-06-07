@@ -57,7 +57,7 @@ module AdminHelper
     color = '#323537' # black
     font_weight = 'normal'
 
-    if status == 'Not pre-reported!'
+    if ['Not pre-reported!', 'Not signed by user!'].include?(status)
       color = 'red'
       font_weight = 'bold'
     elsif status == 'Paid'
