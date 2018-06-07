@@ -244,6 +244,7 @@ en:
       show:
         general: General
         frilans_finans: Frilans Finans Info
+        job: Job Info
     chat:
       name: Chat
       support_chat: Support chat

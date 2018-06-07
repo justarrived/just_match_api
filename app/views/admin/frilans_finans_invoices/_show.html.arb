@@ -55,6 +55,27 @@ columns do
       end
     end
   end
+
+  column do
+    h3 I18n.t('admin.frilans_finans_invoice.show.job')
+    panel(I18n.t('admin.frilans_finans_invoice.show.job')) do
+      attributes_table_for(job) do
+        row :display_name do |job|
+          link_to(job.display_name, admin_job_path)
+        end
+        row :company
+        row :hours
+        row :hourly_gross_salary
+        row :invoice_amount
+        row :gross_amount
+        row :net_amount
+        row :customer_invoice_amount
+        row :invoice_specification do |job|
+          simple_format(job.invoice_specification)
+        end
+      end
+    end
+  end
 end
 
 active_admin_comments_for(frilans_finans_invoice)

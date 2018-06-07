@@ -8,10 +8,10 @@ RSpec.describe JobUser, type: :model do
   end
 
   describe '#application_status' do
-    it 'returns rejected if job is started and applicant is not hired' do
+    it 'returns applied if job is started and applicant is not hired' do
       job = FactoryBot.build(:job, job_date: 2.weeks.ago)
       job_user = FactoryBot.build(:job_user, job: job, will_perform: false)
-      expect(job_user.application_status).to eq(:rejected)
+      expect(job_user.application_status).to eq(:applied)
     end
 
     it 'returns withdrawn if applicant has withdrawn' do

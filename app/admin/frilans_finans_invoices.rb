@@ -31,11 +31,12 @@ ActiveAdmin.register FrilansFinansInvoice do
   confirm_msg = I18n.t('admin.confirm_dialog_title')
   batch_action :sync_with_frilans_finans, confirm: confirm_msg do |ids|
     collection.where(id: ids).find_each(batch_size: 500).each do |ff_invoice|
-      if ff_invoice.frilans_finans_id
-        SyncFrilansFinansInvoiceService.call(frilans_finans_invoice: ff_invoice)
-      else
+      unless ff_invoice.frilans_finans_id
         CreateFrilansFinansInvoiceService.create(ff_invoice: ff_invoice)
+        ff_invoice.reload
       end
+
+      SyncFrilansFinansInvoiceService.call(frilans_finans_invoice: ff_invoice)
     end
 
     message = I18n.t('admin.ff_remote_sync.msg_multiple')
@@ -157,7 +158,10 @@ ActiveAdmin.register FrilansFinansInvoice do
   end
 
   show do |frilans_finans_invoice|
-    locals = { frilans_finans_invoice: frilans_finans_invoice }
+    locals = {
+      frilans_finans_invoice: frilans_finans_invoice,
+      job: frilans_finans_invoice.job
+    }
     render partial: 'admin/frilans_finans_invoices/show', locals: locals
   end
 
