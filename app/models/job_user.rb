@@ -86,7 +86,7 @@ class JobUser < ApplicationRecord
 
   def current_status
     if job.started?
-      return 'Rejected' unless will_perform
+      return 'Not signed by user!' unless will_perform
 
       ff_status = frilans_finans_invoice&.ff_payment_status_name
       return ff_status if ff_status
@@ -104,8 +104,6 @@ class JobUser < ApplicationRecord
   end
 
   def application_status
-    return :rejected if job.started? && !will_perform
-
     return :withdrawn if application_withdrawn
     return :hired if will_perform
     return :offered if accepted
