@@ -132,7 +132,7 @@ group :development do
   gem 'binding_of_caller', '~> 0.8'
   gem 'derailed_benchmarks', '~> 1.3'
   gem 'i18n-tasks', '~> 0.9.21'
-  gem 'i18n_generators', '~> 2.1'
+  gem 'i18n_generators', '~> 2.2'
   gem 'letter_opener', '~> 1.6'
   gem 'listen', '~> 3.1'
   gem 'memory_profiler', '~> 0.9'
