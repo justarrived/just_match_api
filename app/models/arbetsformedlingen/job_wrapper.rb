@@ -154,7 +154,7 @@ module Arbetsformedlingen
 
     def build_publication
       @af_models[:publication] ||= Arbetsformedlingen::Publication.new(
-        unpublish_at: job.last_application_at || job.job_date,
+        unpublish_at: job.last_application_at || job.job_end_date || job.job_date,
         name: AppConfig.arbetsformedlingen_default_publisher_name,
         email: AppConfig.arbetsformedlingen_default_publisher_email
       )
