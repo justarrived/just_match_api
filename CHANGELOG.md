@@ -3,6 +3,24 @@
 HEAD
 -----------
 
+v2.104.0 - 2018-06-19
+----------
+__Enhancement__:
+* Remove exact salary from job salary summary
+* Include the backtrace by default when exceptions are thrown in Sidekiq jobs
+* Update Heroku airbrake identifier in app.json
+
+__Gem updates__:
+* Bump `redis-activesupport` from 5.0.4 to 5.0.5
+* Bump `airbrake` from 7.3.3 to 7.3.4
+* Bump `i18n_generators` from 2.1.1 to 2.2.0
+* Bump `rubocop` from 0.57.1 to 0.57.2
+* Bump `aws-sdk-s3` from 1.13.0 to 1.14.0
+* Bump `rubocop` from 0.56.0 to 0.57.1
+* Bump `twilio-ruby` from 5.10.2 to 5.10.3
+* Bump `honey_format` from 0.8.2 to 0.12.0
+* Bump `newrelic_rpm` from 5.1.0.344 to 5.2.0.345
+
 
 v2.103.0 - 2018-06-07
 ----------
