@@ -3,6 +3,13 @@
 HEAD
 -----------
 
+
+v2.105.0 - 2018-06-19
+----------
+__Enhancement__:
+* Keep ads on AF for longer
+
+
 v2.104.0 - 2018-06-19
 ----------
 __Enhancement__:
