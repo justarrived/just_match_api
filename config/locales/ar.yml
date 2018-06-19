@@ -197,7 +197,7 @@ ar:
   job:
     applicant_description_title: أنت
     requirements_description_title: المتطلبات
-    salary_summary: راتب سيتم تحديده على %{hourly_gross_salary_with_unit}.
+    salary_summary: راتب سيتم تحديده على.
     schedule_summary: أول يوم عمل لك سيكون في %{start_date}.
     tasks_description_title: مهام العمل
   texter:

@@ -306,10 +306,7 @@ class Job < ApplicationRecord
   end
 
   def salary_summary
-    I18n.t(
-      'job.salary_summary',
-      hourly_gross_salary_with_unit: hourly_pay.gross_salary_with_unit
-    )
+    I18n.t('job.salary_summary')
   end
 
   def frilans_finans_job?

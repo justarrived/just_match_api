@@ -205,7 +205,7 @@ sv:
   job:
     applicant_description_title: Du är
     requirements_description_title: Krav
-    salary_summary: Du kommer ha fast lön på %{hourly_gross_salary_with_unit}.
+    salary_summary: Du kommer ha fast lön på.
     schedule_summary: Din första arbetsdag kommer vara %{start_date}.
     tasks_description_title: Arbetsuppgifter
   texter:
