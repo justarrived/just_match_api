@@ -698,9 +698,9 @@ RSpec.describe Job, type: :model do
   end
 
   describe '#salary_summary' do
-    it 'returns salary summary that includes the gross hourly pay' do
+    it 'returns salary summary that does not include the gross hourly pay' do
       I18n.with_locale(:sv) do
-        expect(FactoryBot.build(:job).salary_summary).to include('100 SEK/timmen')
+        expect(FactoryBot.build(:job).salary_summary).not_to include('100 SEK/timmen')
       end
     end
   end
