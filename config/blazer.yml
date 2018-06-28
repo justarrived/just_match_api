@@ -85,7 +85,7 @@ audit: true
 # change the time zone
 time_zone: 'Stockholm'
 
-before_action: :authenticate_admin
+before_action_method: :authenticate_admin
 
 # class name of the user model
 user_class: User
