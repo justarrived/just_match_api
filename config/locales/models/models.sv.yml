@@ -180,7 +180,7 @@ sv:
         translations: Översättningar
         users: Användare
         website: Webbplats
-        zip: Blixtlås
+        zip: Postnummer
       company_image:
         company: :activerecord.models.company
         image_content_type: Bildinnehåll typ
@@ -419,7 +419,7 @@ sv:
         upcoming: Kommande
         users: Användare
         verified: Verifierade
-        zip: Blixtlås
+        zip: Postnummer
         zip_latitude: Zip latitud
         zip_longitude: Zip longitud
       job_digest:
@@ -747,7 +747,7 @@ sv:
         verified: Verifierade
         welcome_app_last_checked_at: Welcome app senast kollat den
         written_comments: Skriftliga kommentarer
-        zip: Blixtlås
+        zip: Postnummer
         zip_latitude: Zip latitud
         zip_longitude: Zip longitud
       user_document:

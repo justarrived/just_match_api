@@ -62,7 +62,7 @@ ti:
         street: ጎደና
         users: ተጠቃሚ
         website: መርበብ-ሓበሬታ
-        zip: Blixtlås (ሻርኔራ ወይ መኽፈቲ - ዚፕ)
+        zip: Postnummer (ሻርኔራ ወይ መኽፈቲ - ዚፕ)
       company_image:
         image_content_type: ዓይነት ትሕዝቶ-ስእሊ
         image_file_name: ናይ ፋይል ስም ስእሊ
@@ -134,7 +134,7 @@ ti:
         street: ጎደና
         users: ተጠቃሚ
         verified: ዝተረጋገጸ
-        zip: Blixtlås (ሻርኔራ ወይ መኽፈቲ - ዚፕ)
+        zip: Postnummer (ሻርኔራ ወይ መኽፈቲ - ዚፕ)
         zip_latitude: Zip latitud (ግዳማዊ ዚፕ)
         zip_longitude: Zip longitud (ትኹላዊ ዚፕ)
       job_request:
@@ -222,7 +222,7 @@ ti:
         user_skills: ክእለት ወይ ሙያ ናይ ተጠቃሚ
         verified: ዝተረጋገጸ
         written_comments: ናይ ጽሑፍ ርእይቶ
-        zip: Blixtlås (ሻርኔራ ወይ መኽፈቲ - ዚፕ)
+        zip: Postnummer (ሻርኔራ ወይ መኽፈቲ - ዚፕ)
         zip_latitude: Zip latitud (ግዳማዊ ዚፕ)
         zip_longitude: Zip longitud (ትኹላዊ ዚፕ)
       user_document:
