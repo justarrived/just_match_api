@@ -4,6 +4,33 @@ HEAD
 -----------
 
 
+v2.106.0 - 2018-07-05
+----------
+__Admin__:
+* Fix broken link on FF show page
+* Update copy
+
+__Enhancement__:
+* Rename `before_action` to `before_action_method` in blazer config
+
+__Gem updates__:
+* Bump `rack-attack` from 5.3.1 to 5.3.2
+* Bump `honey_format` from 0.12.0 to 0.16.0
+* Bump `apipie-rails` from 0.5.8 to 0.5.9
+* Bump `stackprof` from 0.2.11 to 0.2.12
+* Bump `uglifier` from 4.1.12 to 4.1.13
+* Bump `aws-sdk-s3` from 1.14.0 to 1.16.0
+* Smarter job user status
+* Bump `twilio-ruby` from 5.10.3 to 5.10.5
+* Bump `rack-attack` from 5.2.0 to 5.3.1
+* Bump `uglifier` from 4.1.11 to 4.1.12
+* Bump `dotenv-rails` from 2.4.0 to 2.5.0
+* Rename LICENSE file
+* Bump `sprockets` from 3.7.1 to 3.7.2
+* Update `airbrake` heroku addon name in app.json
+* Bump `blazer` from 1.8.2 to 1.9.0
+
+
 v2.105.0 - 2018-06-19
 ----------
 __Enhancement__:
