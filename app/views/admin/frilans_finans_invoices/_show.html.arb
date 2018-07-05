@@ -61,7 +61,7 @@ columns do
     panel(I18n.t('admin.frilans_finans_invoice.show.job')) do
       attributes_table_for(job) do
         row :display_name do |job|
-          link_to(job.display_name, admin_job_path)
+          link_to(job.display_name, admin_job_path(job))
         end
         row :company
         row :hours
