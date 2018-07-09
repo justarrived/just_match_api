@@ -34,7 +34,7 @@ gem 'redis-activesupport', '~> 5.0' # To use Redis as the cache store for rack-a
 gem 'association_count', '~> 1.0' # Simple count for ActiveRecord associations
 
 # RACK MIDDLEWARE
-gem 'rack-attack', '~> 5.3' # Throttle API usage
+gem 'rack-attack', '~> 5.4' # Throttle API usage
 gem 'rack-cors', '~> 1.0', require: 'rack/cors' # Configure CORS
 gem 'rack-timeout', '~> 0.5' # Kill requests that run for too long
 
