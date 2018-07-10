@@ -3,6 +3,16 @@
 HEAD
 -----------
 
+
+v2.108.0 - 2018-07-10
+----------
+__Gem updates__:
+* Bump `rubocop` from 0.57.2 to 0.58.0
+* Bump `rack-attack` from 5.3.2 to 5.4.0
+* Bump `twilio-ruby` from 5.10.5 to 5.10.6
+* Bump `uglifier` from 4.1.13 to 4.1.14
+
+
 v2.107.0 - 2018-07-06
 ----------
 * Bump Ruby version from 2.5.0 to 2.5.1
