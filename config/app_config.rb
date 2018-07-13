@@ -15,6 +15,10 @@ class AppConfig
     @env = AppEnv.new
   end
 
+  def self.keep_applicant_data_years
+    Integer(env.fetch('KEEP_APPLICANT_DATA_YEARS', 2))
+  end
+
   def self.apache_tika_url
     env['APACHE_TIKA_URL']
   end

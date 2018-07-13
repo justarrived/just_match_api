@@ -154,6 +154,11 @@
       "description": "URL to a Apache Tika server (required for document text extraction)",
       "value": "",
       "required": false
+    },
+    "KEEP_APPLICANT_DATA_YEARS": {
+      "description": "Keep applicant data for X number of years",
+      "value": "2",
+      "required": false
     }
   },
   "addons": ["sendgrid:starter", "scheduler:standard", "heroku-redis:hobby-dev", "airbrake:hrk-free-2018"],
