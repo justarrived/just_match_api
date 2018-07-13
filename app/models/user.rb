@@ -255,6 +255,10 @@ class User < ApplicationRecord
     jobs.any?
   end
 
+  def last_application_at
+    job_users.last&.updated_at
+  end
+
   def support_chat_activated?
     verified || super_admin || admin || just_arrived_staffing
   end
@@ -278,22 +282,6 @@ class User < ApplicationRecord
     return email unless managed
 
     ManagedEmailAddress.call(email: email, id: "user#{id}")
-  end
-
-  def anonymize
-    assign_attributes(
-      id: -1,
-      anonymized: true,
-      first_name: 'Anonymous',
-      last_name: 'User',
-      email: 'anonymous@example.com',
-      description: 'This user is anonymous.',
-      street: 'XYZXYZ XX',
-      zip: 'XYZX YZ',
-      ssn: 'XYZXYZXYZX',
-      company: candidate? ? nil : company.anonymize
-    )
-    self
   end
 
   def average_score(round: nil)
@@ -437,6 +425,24 @@ class User < ApplicationRecord
     BitmaskField.from_mask(ignored_notifications_mask, UserNotification.names)
   end
 
+  def anonymize
+    self.id = -1
+    anonymize_attributes
+    company.anonymize if company?
+    self
+  end
+
+  def earliest_anonymization_at
+    return 1000.years.ago unless last_application_at
+
+    last_application_at + AppConfig.keep_applicant_data_years.years
+  end
+
+  def anonymization_allowed?
+    return false if Time.zone.now < earliest_anonymization_at
+    true
+  end
+
   def anonymize_attributes
     assign_attributes(
       anonymized: true,
@@ -444,16 +450,24 @@ class User < ApplicationRecord
       last_name: 'User',
       email: "ghost+#{SecureGenerator.token(length: 64)}@example.com",
       phone: nil,
-      description: 'This user has been deleted.',
+      description: 'This user is anonymous.',
       street: nil,
-      ssn: nil
+      ssn: nil,
+      country_of_origin: nil,
+      latitude: nil,
+      longitude: nil,
+      account_clearing_number: nil,
+      account_number: nil,
+      linkedin_url: nil,
+      facebook_url: nil,
+      skype_username: nil,
+      next_of_kin_name: nil,
+      next_of_kin_phone: nil,
+      presentation_profile: nil,
+      presentation_personality: nil,
+      presentation_availability: nil,
+      one_time_token: nil
     )
-  end
-
-  def reset!
-    # Update the users attributes and don't validate
-    anonymize_attributes
-    save!(validate: false)
   end
 
   def create_auth_token

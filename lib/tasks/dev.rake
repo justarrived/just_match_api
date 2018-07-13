@@ -130,7 +130,9 @@ namespace :dev do
       )
       puts 'done!'
       print "Anonymizing #{User.count} users..."
-      User.find_each(batch_size: 500).each(&:reset!)
+      User.find_each(batch_size: 500).each do |user|
+        AnonymizeUserService.call(user, force: true)
+      end
       puts 'anonymized!'
       print 'Set admin user email to admin@example.com..'
       User.admins.first&.update(email: 'admin@example.com')

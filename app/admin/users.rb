@@ -200,8 +200,19 @@ ActiveAdmin.register User do
 
   member_action :anonymize_user, method: :post do
     user = resource
-    user.reset!
-    redirect_to admin_users_path, notice: I18n.t('admin.user.anonymized_success')
+    if user.anonymization_allowed?
+      wait_days = AppConfig.anonymization_delay_days
+      AnonymizeUserJob.set(wait: wait_days.days).perform_later(user)
+      notice = I18n.t('admin.user.anonymized_success', days: wait_days)
+
+      redirect_to admin_user_path(user), notice: notice
+    else
+      date = user.last_application_at.to_date
+      earliest_date = user.earliest_anonymization_at.to_date
+      notice = I18n.t('admin.user.anonymized_failed', application_date: date, earliest_date: earliest_date) # rubocop:disable Metrics/LineLength
+
+      redirect_to admin_user_path(user), alert: notice
+    end
   end
 
   # Create sections on the index screen

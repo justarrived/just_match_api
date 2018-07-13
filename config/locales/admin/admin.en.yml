@@ -274,7 +274,8 @@ en:
       push_ff_user_failed: user pushed to Frilans Finans failed (HTTP %{status})
       push_frilans_finans_btn: Push to Frilans Finans
       anonymize_action: Anonymize user!
-      anonymized_success: User successfully anonymized.
+      anonymized_success: User queued for anonymization, will be anonymized in a %{days} day(s).
+      anonymized_failed: User can not be anonymized, since they have applied for a job on %{application_date} and we need to keep the data for longer according to the current discrimination law. Earilest possible anonymization date is %{earliest_date}.
       resume_search_label: Search resumés
       batch_form:
         tag_added_notice: 'Added "%{name}".'

@@ -3,6 +3,35 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
+  describe '#anonymization_allowed?' do
+    it 'returns true user has no appilcations' do
+      user = FactoryBot.build_stubbed(:user)
+      expect(user.anonymization_allowed?).to eq(true)
+    end
+
+    it 'returns true user has appilcations that are old enough' do
+      user = FactoryBot.create(:user)
+      FactoryBot.create(
+        :job_user,
+        user: user,
+        created_at: 5.years.ago,
+        updated_at: 5.years.ago
+      )
+      expect(user.anonymization_allowed?).to eq(true)
+    end
+
+    it 'returns false user has appilcations that are *not* old enough' do
+      user = FactoryBot.create(:user)
+      FactoryBot.create(
+        :job_user,
+        user: user,
+        created_at: 1.year.ago,
+        updated_at: 1.year.ago
+      )
+      expect(user.anonymization_allowed?).to eq(false)
+    end
+  end
+
   describe '#frilans_finans_users' do
     it 'returns users with frilans finans id set' do
       FactoryBot.create(:user, frilans_finans_id: nil)
@@ -147,33 +176,6 @@ RSpec.describe User, type: :model do
       expect do
         user.frilans_finans_id!
       end.to raise_error(User::MissingFrilansFinansIdError)
-    end
-  end
-
-  describe '#reset!' do
-    it 'resets all personal user attributes' do
-      user = FactoryBot.create(:user)
-      old_email = user.email
-      old_zip = user.zip
-
-      user.reset!
-
-      expect(user.name).to eq('Ghost User')
-      expect(user.email).not_to eq(old_email)
-      expect(user.phone).to be_nil
-      expect(user.description).to eq('This user has been deleted.')
-      expect(user.street).to be_nil
-      expect(user.zip).to eq(old_zip)
-      expect(user.ssn).to be_nil
-    end
-
-    it 'does *not* reset frilans_finans_id' do
-      user = FactoryBot.create(:user)
-      old_ff_id = user.frilans_finans_id
-
-      user.reset!
-
-      expect(user.frilans_finans_id).to eq(old_ff_id)
     end
   end
 
