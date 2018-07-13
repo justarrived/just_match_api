@@ -444,9 +444,23 @@ class User < ApplicationRecord
       last_name: 'User',
       email: "ghost+#{SecureGenerator.token(length: 64)}@example.com",
       phone: nil,
-      description: 'This user has been deleted.',
+      description: 'This user is anonymous.',
       street: nil,
-      ssn: nil
+      ssn: nil,
+      country_of_origin: nil,
+      latitude: nil,
+      longitude: nil,
+      account_clearing_number: nil,
+      account_number: nil,
+      linkedin_url: nil,
+      facebook_url: nil,
+      skype_username: nil,
+      next_of_kin_name: nil,
+      next_of_kin_phone: nil,
+      presentation_profile: nil,
+      presentation_personality: nil,
+      presentation_availability: nil,
+      one_time_token: nil
     )
   end
 
