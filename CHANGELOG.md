@@ -4,6 +4,15 @@ HEAD
 -----------
 
 
+__Enhancement__:
+* Delay user anonymization for a few days if the users changes there mind or if an admin does it accidentally (then we have some time to undo it)
+* Check if we are allowed to anonymize user (due to Swedish discrimination law)
+* Configuration values to make it easy to update how long the retention period is
+* Deeper anonymization of user attributes
+* Don't auto-translate user content, since we typically never use that and if we need to admins can do it manually from the UI
+* :hocho: `DELETE /users/:id` - not supported in frontend so no use of supporting it
+
+
 v2.108.0 - 2018-07-10
 ----------
 __Gem updates__:
