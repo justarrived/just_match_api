@@ -15,6 +15,10 @@ class AppConfig
     @env = AppEnv.new
   end
 
+  def self.sidekiq_web_enabled?
+    Rails.env.development?
+  end
+
   def self.anonymization_delay_days
     Integer(env.fetch('ANONYMIZATION_DELAY_DAYS', 3))
   end

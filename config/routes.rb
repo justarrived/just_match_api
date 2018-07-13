@@ -3,6 +3,13 @@
 require 'admin_subdomain'
 
 Rails.application.routes.draw do
+  # In production we run the Sidekiq Web UI on a separate server
+  if AppConfig.sidekiq_web_enabled?
+    require 'sidekiq/web'
+    mount Sidekiq::Web => '/sidekiq'
+    Sidekiq::Web.set :session_secret, Rails.application.secrets[:secret_key_base]
+  end
+
   constraints(AdminSubdomain) do
     ActiveAdmin.routes(self)
   end
