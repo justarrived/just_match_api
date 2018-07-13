@@ -365,54 +365,6 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     end
   end
 
-  describe 'DELETE #destroy' do
-    context 'authorized' do
-      it 'destroys the requested user' do
-        params = {
-          auth_token: logged_in_user.auth_token,
-          user_id: logged_in_user.to_param
-        }
-
-        delete :destroy, params: params
-        logged_in_user.reload
-        expect(logged_in_user.name).to eq('Ghost User')
-      end
-
-      it 'returns no content status' do
-        params = {
-          auth_token: logged_in_user.auth_token,
-          user_id: logged_in_user.to_param
-        }
-
-        delete :destroy, params: params
-        expect(response.status).to eq(204)
-      end
-    end
-
-    context 'not allowed' do
-      it 'does not destroy the requested user' do
-        first_name = 'Some user'
-
-        user = FactoryBot.create(:user, first_name: first_name)
-        params = {
-          auth_token: logged_in_user.auth_token,
-          user_id: user.to_param
-        }
-        delete :destroy, params: params
-        logged_in_user.reload
-        expect(user.first_name).to eq(first_name)
-      end
-
-      it 'returns not forbidden status' do
-        user = FactoryBot.create(:user)
-        params = { auth_token: logged_in_user.auth_token, user_id: user.to_param }
-
-        delete :destroy, params: params
-        expect(response.status).to eq(403)
-      end
-    end
-  end
-
   describe 'POST #images' do
     let(:category) { UserImage::CATEGORIES.keys.last }
     let(:valid_attributes) do

@@ -6,7 +6,7 @@ module Api
   module V1
     class UsersController < BaseController
       SET_USER_ACTIONS = %i(
-        show edit update destroy matching_jobs jobs missing_traits available_notifications
+        show edit update matching_jobs jobs missing_traits available_notifications
       ).freeze
       before_action :set_user, only: SET_USER_ACTIONS
 
@@ -213,17 +213,6 @@ module Api
         else
           api_render_errors(@user)
         end
-      end
-
-      api :DELETE, '/users/:id', 'Delete user'
-      description 'Deletes user user if the user is allowed.'
-      error code: 401, desc: 'Unauthorized'
-      error code: 404, desc: 'Not found'
-      def destroy
-        authorize(@user)
-
-        @user.reset!
-        head :no_content
       end
 
       api :POST, '/users/images/', 'User images'
