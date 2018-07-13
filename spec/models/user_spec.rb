@@ -3,6 +3,35 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
+  describe '#anonymization_allowed?' do
+    it 'returns true user has no appilcations' do
+      user = FactoryBot.build_stubbed(:user)
+      expect(user.anonymization_allowed?).to eq(true)
+    end
+
+    it 'returns true user has appilcations that are old enough' do
+      user = FactoryBot.create(:user)
+      FactoryBot.create(
+        :job_user,
+        user: user,
+        created_at: 5.years.ago,
+        updated_at: 5.years.ago
+      )
+      expect(user.anonymization_allowed?).to eq(true)
+    end
+
+    it 'returns false user has appilcations that are *not* old enough' do
+      user = FactoryBot.create(:user)
+      FactoryBot.create(
+        :job_user,
+        user: user,
+        created_at: 1.year.ago,
+        updated_at: 1.year.ago
+      )
+      expect(user.anonymization_allowed?).to eq(false)
+    end
+  end
+
   describe '#frilans_finans_users' do
     it 'returns users with frilans finans id set' do
       FactoryBot.create(:user, frilans_finans_id: nil)

@@ -432,6 +432,13 @@ class User < ApplicationRecord
     self
   end
 
+  def anonymization_allowed?
+    last_application_date = last_application_at || 1000.years.ago
+    return false if last_application_date > AppConfig.keep_applicant_data_years.years.ago
+
+    true
+  end
+
   def anonymize_attributes
     assign_attributes(
       anonymized: true,
