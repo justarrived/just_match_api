@@ -15,6 +15,10 @@ class AppConfig
     @env = AppEnv.new
   end
 
+  def self.anonymization_delay_days
+    Integer(env.fetch('ANONYMIZATION_DELAY_DAYS', 3))
+  end
+
   def self.keep_applicant_data_years
     Integer(env.fetch('KEEP_APPLICANT_DATA_YEARS', 2))
   end

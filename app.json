@@ -159,6 +159,11 @@
       "description": "Keep applicant data for X number of years",
       "value": "2",
       "required": false
+    },
+    "ANONYMIZATION_DELAY_DAYS": {
+      "description": "Wait for X number of days before performing the anonymization",
+      "value": "3",
+      "required": false
     }
   },
   "addons": ["sendgrid:starter", "scheduler:standard", "heroku-redis:hobby-dev", "airbrake:hrk-free-2018"],
