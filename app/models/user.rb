@@ -255,6 +255,10 @@ class User < ApplicationRecord
     jobs.any?
   end
 
+  def last_application_at
+    job_users.last&.updated_at
+  end
+
   def support_chat_activated?
     verified || super_admin || admin || just_arrived_staffing
   end
