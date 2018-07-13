@@ -179,33 +179,6 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe '#reset!' do
-    it 'resets all personal user attributes' do
-      user = FactoryBot.create(:user)
-      old_email = user.email
-      old_zip = user.zip
-
-      user.reset!
-
-      expect(user.name).to eq('Ghost User')
-      expect(user.email).not_to eq(old_email)
-      expect(user.phone).to be_nil
-      expect(user.description).to eq('This user has been deleted.')
-      expect(user.street).to be_nil
-      expect(user.zip).to eq(old_zip)
-      expect(user.ssn).to be_nil
-    end
-
-    it 'does *not* reset frilans_finans_id' do
-      user = FactoryBot.create(:user)
-      old_ff_id = user.frilans_finans_id
-
-      user.reset!
-
-      expect(user.frilans_finans_id).to eq(old_ff_id)
-    end
-  end
-
   describe '#accepted_applicant_for_owner?' do
     let(:owner) { FactoryBot.create(:company_user) }
     let(:user) { FactoryBot.create(:user) }

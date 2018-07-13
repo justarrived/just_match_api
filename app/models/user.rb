@@ -470,12 +470,6 @@ class User < ApplicationRecord
     )
   end
 
-  def reset!
-    # Update the users attributes and don't validate
-    anonymize_attributes
-    save!(validate: false)
-  end
-
   def create_auth_token
     token = Token.new
     auth_tokens << token
