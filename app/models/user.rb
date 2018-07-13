@@ -432,14 +432,14 @@ class User < ApplicationRecord
     self
   end
 
-  def earlist_anonymization_at
+  def earliest_anonymization_at
     return 1000.years.ago unless last_application_at
 
     last_application_at + AppConfig.keep_applicant_data_years.years
   end
 
   def anonymization_allowed?
-    return false if Time.zone.now < earlist_anonymization_at
+    return false if Time.zone.now < earliest_anonymization_at
     true
   end
 
