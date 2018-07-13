@@ -280,22 +280,6 @@ class User < ApplicationRecord
     ManagedEmailAddress.call(email: email, id: "user#{id}")
   end
 
-  def anonymize
-    assign_attributes(
-      id: -1,
-      anonymized: true,
-      first_name: 'Anonymous',
-      last_name: 'User',
-      email: 'anonymous@example.com',
-      description: 'This user is anonymous.',
-      street: 'XYZXYZ XX',
-      zip: 'XYZX YZ',
-      ssn: 'XYZXYZXYZX',
-      company: candidate? ? nil : company.anonymize
-    )
-    self
-  end
-
   def average_score(round: nil)
     received_ratings.average_score(round: round)
   end
@@ -435,6 +419,13 @@ class User < ApplicationRecord
 
   def ignored_notifications
     BitmaskField.from_mask(ignored_notifications_mask, UserNotification.names)
+  end
+
+  def anonymize
+    self.id = -1
+    anonymize_attributes
+    company.anonymize if company?
+    self
   end
 
   def anonymize_attributes
