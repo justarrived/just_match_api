@@ -48,7 +48,7 @@ class User < ApplicationRecord
   has_one :digest_subscriber, dependent: :destroy
   has_many :job_digests, through: :digest_subscriber
 
-  has_many :employment_periods
+  has_many :employment_periods, dependent: :destroy
 
   has_many :feedbacks, dependent: :destroy
 
