@@ -57,7 +57,8 @@ module Api
         def destroy
           uuid = params[:digest_subscriber_id]
           digest_subscriber = DigestSubscriber.find_by!(uuid: uuid)
-          digest_subscriber.soft_destroy!
+          digest_subscriber.mark_destroyed
+          digest_subscriber.save!
 
           head :no_content
         end

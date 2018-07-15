@@ -39,8 +39,8 @@ class JobDigest < ApplicationRecord
     errors.add(:subscriber, :invalid)
   end
 
-  def soft_destroy!
-    update!(deleted_at: Time.zone.now)
+  def mark_destroyed
+    self.deleted_at = Time.zone.now
   end
 
   def coordinates?

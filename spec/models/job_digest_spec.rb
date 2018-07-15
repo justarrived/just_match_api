@@ -22,12 +22,12 @@ RSpec.describe JobDigest, type: :model do
     end
   end
 
-  describe '#soft_destroy!' do
+  describe '#mark_destroyed' do
     it 'sets #deleted_at to the current time' do
       time = Time.zone.now
       Timecop.freeze(time) do
         digest = FactoryBot.create(:job_digest)
-        digest.soft_destroy!
+        digest.mark_destroyed
 
         expect(digest.deleted_at).to eq(time)
       end

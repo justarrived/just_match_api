@@ -23,8 +23,8 @@ class DigestSubscriber < ApplicationRecord
     "##{id || 'unsaved'} #{display}"
   end
 
-  def soft_destroy!
-    update!(deleted_at: Time.zone.now)
+  def mark_destroyed
+    self.deleted_at = Time.zone.now
   end
 
   def contact_email
