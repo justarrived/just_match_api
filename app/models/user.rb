@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
+  boolean_as_time :anonymized
+
   include Geocodable
   include SkillMatchable
 
@@ -445,6 +447,7 @@ class User < ApplicationRecord
 
   def anonymize_attributes
     assign_attributes(
+      anonymized_at: Time.zone.now,
       anonymized: true,
       first_name: 'Ghost',
       last_name: 'User',
@@ -628,6 +631,7 @@ end
 #  has_welcome_app_account          :boolean          default(FALSE)
 #  welcome_app_last_checked_at      :datetime
 #  public_profile                   :boolean          default(FALSE)
+#  anonymized_at                    :datetime
 #
 # Indexes
 #

@@ -589,6 +589,7 @@ end
 #  has_welcome_app_account          :boolean          default(FALSE)
 #  welcome_app_last_checked_at      :datetime
 #  public_profile                   :boolean          default(FALSE)
+#  anonymized_at                    :datetime
 #
 # Indexes
 #
