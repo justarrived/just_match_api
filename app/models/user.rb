@@ -145,8 +145,8 @@ class User < ApplicationRecord
       where('job_users.id IS NOT NULL AND job_users.will_perform = true').
       distinct
   })
-  scope :anonymized, (-> { where(anonymized: true) })
-  scope :not_anonymized, (-> { where(anonymized: false) })
+  scope :anonymized, (-> { where.not(anonymized_at: nil) })
+  scope :not_anonymized, (-> { where(anonymized_at: nil) })
   scope :verified, (-> { where(verified: true) })
   scope :needs_welcome_app_update, (lambda {
     scope = regular_users.where(welcome_app_last_checked_at: nil).
