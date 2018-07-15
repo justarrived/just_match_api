@@ -3,6 +3,21 @@
 require 'rails_helper'
 
 RSpec.describe EmailAddress do
+  describe '::random' do
+    it 'generates random valid email address' do
+      email = described_class.random
+
+      expect(described_class.valid?(email)).to eq(true)
+    end
+
+    it 'does not generate the same email' do
+      email = described_class.random
+      email1 = described_class.random
+
+      expect(email).not_to eq(email1)
+    end
+  end
+
   describe '#valid?' do
     [
       # data, expected
