@@ -4,6 +4,11 @@ HEAD
 -----------
 
 
+v2.110.0 - 2018-07-16
+----------
+- Drop `User#anonymized` column
+
+
 v2.109.0 - 2018-07-16
 ----------
 __Enhancement__:
