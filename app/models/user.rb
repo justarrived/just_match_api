@@ -450,7 +450,7 @@ class User < ApplicationRecord
       anonymized: true,
       first_name: 'Ghost',
       last_name: 'User',
-      email: "ghost+#{SecureGenerator.token(length: 64)}@example.com",
+      email: EmailAddress.random,
       phone: nil,
       description: 'This user is anonymous.',
       competence_text: nil,
