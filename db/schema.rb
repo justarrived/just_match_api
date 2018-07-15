@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_07_105534) do
+ActiveRecord::Schema.define(version: 2018_07_15_222712) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -1095,6 +1095,7 @@ ActiveRecord::Schema.define(version: 2018_05_07_105534) do
     t.boolean "has_welcome_app_account", default: false
     t.datetime "welcome_app_last_checked_at"
     t.boolean "public_profile", default: false
+    t.datetime "anonymized_at"
     t.index ["company_id"], name: "index_users_on_company_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["frilans_finans_id"], name: "index_users_on_frilans_finans_id", unique: true
