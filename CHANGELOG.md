@@ -4,7 +4,10 @@ HEAD
 -----------
 
 
+v2.109.0 - 2018-07-16
+----------
 __Enhancement__:
+* Add `User#anonymized_at` datetime column (default: nil)
 * Delay user anonymization for a few days if the users changes there mind or if an admin does it accidentally (then we have some time to undo it)
 * Check if we are allowed to anonymize user (due to Swedish discrimination law)
 * Configuration values to make it easy to update how long the retention period is
