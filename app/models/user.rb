@@ -452,7 +452,7 @@ class User < ApplicationRecord
       last_name: 'User',
       email: EmailAddress.random,
       phone: nil,
-      description: 'This user is anonymous.',
+      description: '<This user is anonymous.>',
       competence_text: nil,
       job_experience: nil,
       education: nil,
