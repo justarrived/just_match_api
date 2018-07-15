@@ -24,6 +24,7 @@ class DigestSubscriber < ApplicationRecord
   end
 
   def mark_destroyed
+    self.email = EmailAddress.random if email
     self.deleted_at = Time.zone.now
   end
 

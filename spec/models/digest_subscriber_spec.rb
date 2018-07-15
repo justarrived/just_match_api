@@ -20,6 +20,22 @@ RSpec.describe DigestSubscriber, type: :model do
   end
 
   describe '#mark_destroyed' do
+    it 'leaves email as nil if digest subscriber belongs to a user' do
+      user = FactoryBot.build_stubbed(:user, id: 1)
+      digest = FactoryBot.build_stubbed(:digest_subscriber, user: user, email: nil)
+      digest.mark_destroyed
+
+      expect(digest.email).to be_nil
+    end
+
+    it 'anonymizes email' do
+      email = 'joe@example.com'
+      digest = FactoryBot.build_stubbed(:digest_subscriber, email: email)
+      digest.mark_destroyed
+
+      expect(digest.email).not_to eq(email)
+    end
+
     it 'sets #deleted_at to the current time' do
       time = Time.zone.now
       Timecop.freeze(time) do
