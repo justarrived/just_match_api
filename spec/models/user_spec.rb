@@ -740,7 +740,6 @@ end
 #  latitude                         :float
 #  longitude                        :float
 #  language_id                      :integer
-#  anonymized                       :boolean          default(FALSE)
 #  password_hash                    :string
 #  password_salt                    :string
 #  admin                            :boolean          default(FALSE)

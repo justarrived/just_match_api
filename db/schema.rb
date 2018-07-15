@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_15_222712) do
+ActiveRecord::Schema.define(version: 2018_07_15_225114) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -1046,7 +1046,6 @@ ActiveRecord::Schema.define(version: 2018_07_15_222712) do
     t.float "latitude"
     t.float "longitude"
     t.integer "language_id"
-    t.boolean "anonymized", default: false
     t.string "password_hash"
     t.string "password_salt"
     t.boolean "admin", default: false
