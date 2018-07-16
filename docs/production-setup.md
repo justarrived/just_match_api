@@ -28,6 +28,14 @@ rails sweepers:update_job_filled_status
 
 updates all job filled statuses, by checking if there is a confirmed user for the job.
 
+__Anonymize users__
+
+```
+rails sweepers:anonymize_users
+```
+
+anonymize all users that are marked for anonymization or should be cleaned up because lack of activity.
+
 __Cleanup__
 
 Can be run more seldom, however once a day is recommended.
