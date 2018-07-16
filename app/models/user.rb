@@ -148,7 +148,13 @@ class User < ApplicationRecord
       where.not(phone: [nil, '']).
       left_joins(job_users: :job).
       where('job_users.id IS NOT NULL AND job_users.will_perform = true').
-      where('jobs.direct_recruitment_job = false AND jobs.staffing_company_id IS NULL').
+      where(
+        <<~SQL
+          jobs.direct_recruitment_job = false
+          AND jobs.staffing_company_id IS NULL
+          AND jobs.cancelled = false
+        SQL
+      ).
       distinct
   })
   scope :anonymized, (-> { where.not(anonymized_at: nil) })
