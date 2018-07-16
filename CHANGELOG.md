@@ -4,6 +4,25 @@ HEAD
 -----------
 
 
+v2.112.0 - 2018-07-17
+----------
+__Admin__:
+* Update job filled status automatically
+
+__Enhancement__:
+* __User Anonymization__
+  + `AnonymizeUserService`; Remove/Scrub/Anonymize
+    - translations
+    - job user application messages
+    - feedbacks
+    - digest subscribers
+    - documents
+* Add `rails sweepers:anonymize_users` rake task
+* Add `User#anonymization_requested_at`
+* Add `EmailAddress::random` method
+* Make `JobUserSweeper` work better with non-FF jobs
+
+
 v2.111.0 - 2018-07-16
 ----------
 __Enhancement__:
