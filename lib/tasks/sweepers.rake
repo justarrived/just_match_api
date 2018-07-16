@@ -21,7 +21,7 @@ namespace :sweepers do
 
   task anonymize_users: :environment do |task_name|
     wrap_sweeper_task(task_name) do
-      UserSweeper.anonymize_users
+      Sweepers::UserSweeper.anonymize_users
     end
   end
 
