@@ -4,6 +4,23 @@ HEAD
 -----------
 
 
+v2.111.0 - 2018-07-16
+----------
+__Enhancement__:
+* Only create user @ Frilans Finans if user has applied and been accepted for a freelance job
+
+__Gem updates__:
+* Bump `faker` from 1.8.7 to 1.9.1
+* Bump `honey_format` from 0.16.0 to 0.17.0
+* Bump `uglifier` from 4.1.14 to 4.1.15
+* Bump `puma` from 3.11.4 to 3.12.0
+* Bump `bootsnap` from 1.3.0 to 1.3.1
+* Bump `twilio-ruby` from 5.10.6 to 5.10.7
+* Bump `rubocop` from 0.58.0 to 0.58.1
+* Bump `redis-activesupport` from 5.0.5 to 5.0.7
+* Bump `aws-sdk-s3` from 1.16.0 to 1.17.0
+
+
 v2.110.0 - 2018-07-16
 ----------
 - Drop `User#anonymized` column
