@@ -135,14 +135,13 @@ class User < ApplicationRecord
   })
   scope :frilans_finans_users, (-> { where.not(frilans_finans_id: nil) })
   scope :needs_frilans_finans_id, (lambda {
-    # TODO: We should add an additional where-clause to only select jobs
-    #       that are "freelance"-jobs
     not_anonymized.
       regular_users.
       where(frilans_finans_id: nil).
       where.not(phone: [nil, '']).
-      left_joins(:job_users).
+      left_joins(job_users: :job).
       where('job_users.id IS NOT NULL AND job_users.will_perform = true').
+      where('jobs.direct_recruitment_job = false AND jobs.staffing_company_id IS NULL').
       distinct
   })
   scope :anonymized, (-> { where.not(anonymized_at: nil) })
