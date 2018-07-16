@@ -193,6 +193,7 @@ end
 #  welcome_app_last_checked_at      :datetime
 #  public_profile                   :boolean          default(FALSE)
 #  anonymized_at                    :datetime
+#  anonymization_requested_at       :datetime
 #
 # Indexes
 #

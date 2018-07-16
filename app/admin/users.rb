@@ -211,6 +211,9 @@ ActiveAdmin.register User do
       earliest_date = user.earliest_anonymization_at.to_date
       notice = I18n.t('admin.user.anonymized_failed', application_date: date, earliest_date: earliest_date) # rubocop:disable Metrics/LineLength
 
+      user.anonymization_requested_at = Time.zone.now
+      user.save!
+
       redirect_to admin_user_path(user), alert: notice
     end
   end

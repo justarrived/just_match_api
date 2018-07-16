@@ -3,7 +3,7 @@
 class AnonymizeUserService
   def self.call(user, force: false, delete_document_inline: false)
     if !force && !user.anonymization_allowed?
-      raise(ArgumentError, 'not allowed to anonymize user!')
+      return Result.new(anonymized?: false, user: user)
     end
 
     user.anonymize_attributes
@@ -31,5 +31,7 @@ class AnonymizeUserService
     else
       RemoveDocumentsJob.perform_later(ids: document_ids)
     end
+
+    Result.new(anonymized?: true, user: user)
   end
 end
