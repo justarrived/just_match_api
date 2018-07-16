@@ -146,7 +146,8 @@ module Api
         def destroy
           authorize(@job_digest)
 
-          @job_digest.soft_destroy!
+          @job_digest.mark_destroyed
+          @job_digest.save!
 
           head :no_content
         end

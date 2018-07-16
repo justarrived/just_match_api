@@ -133,6 +133,13 @@ class User < ApplicationRecord
   scope :valid_one_time_tokens, (lambda {
     where('one_time_token_expires_at > ?', Time.zone.now)
   })
+  scope :needs_anonymization, (lambda {
+    min_time_ago = AppConfig.keep_applicant_data_years.years.ago
+
+    left_joins(:job_users).
+      where('job_users.id IS NULL OR job_users.created_at < ?', min_time_ago).
+      not_anonymized.where.not(anonymization_requested_at: nil)
+  })
   scope :frilans_finans_users, (-> { where.not(frilans_finans_id: nil) })
   scope :needs_frilans_finans_id, (lambda {
     not_anonymized.
@@ -141,7 +148,13 @@ class User < ApplicationRecord
       where.not(phone: [nil, '']).
       left_joins(job_users: :job).
       where('job_users.id IS NOT NULL AND job_users.will_perform = true').
-      where('jobs.direct_recruitment_job = false AND jobs.staffing_company_id IS NULL').
+      where(
+        <<~SQL
+          jobs.direct_recruitment_job = false
+          AND jobs.staffing_company_id IS NULL
+          AND jobs.cancelled = false
+        SQL
+      ).
       distinct
   })
   scope :anonymized, (-> { where.not(anonymized_at: nil) })
@@ -445,31 +458,24 @@ class User < ApplicationRecord
   end
 
   def anonymize_attributes
-    assign_attributes(
+    nil_fields = %i[
+      phone
+      competence_text job_experience education street ssn country_of_origin
+      latitude longitude account_clearing_number account_number
+      linkedin_url facebook_url skype_username next_of_kin_name next_of_kin_phone
+      interview_comment one_time_token
+      presentation_profile presentation_personality presentation_availability
+    ].zip([nil]).to_h
+
+    data = {
       anonymized_at: Time.zone.now,
-      anonymized: true,
       first_name: 'Ghost',
       last_name: 'User',
-      email: "ghost+#{SecureGenerator.token(length: 64)}@example.com",
-      phone: nil,
-      description: 'This user is anonymous.',
-      street: nil,
-      ssn: nil,
-      country_of_origin: nil,
-      latitude: nil,
-      longitude: nil,
-      account_clearing_number: nil,
-      account_number: nil,
-      linkedin_url: nil,
-      facebook_url: nil,
-      skype_username: nil,
-      next_of_kin_name: nil,
-      next_of_kin_phone: nil,
-      presentation_profile: nil,
-      presentation_personality: nil,
-      presentation_availability: nil,
-      one_time_token: nil
-    )
+      email: EmailAddress.random,
+      description: '<This user is anonymous.>'
+    }.merge!(nil_fields)
+
+    assign_attributes(data)
   end
 
   def create_auth_token
@@ -630,6 +636,7 @@ end
 #  welcome_app_last_checked_at      :datetime
 #  public_profile                   :boolean          default(FALSE)
 #  anonymized_at                    :datetime
+#  anonymization_requested_at       :datetime
 #
 # Indexes
 #

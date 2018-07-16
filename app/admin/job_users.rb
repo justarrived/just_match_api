@@ -269,8 +269,20 @@ ActiveAdmin.register JobUser do
     job_user.set_translation(translation_params)
   end
 
+  set_job_filled_status = lambda do |job_user|
+    return unless job_user.persisted? && job_user.valid?
+    job = job_user.job
+
+    # update job fill status
+    if job_user.public_send(job.accept_method_sym) && !job.filled
+      job.filled = true
+      job.save!
+    end
+  end
+
   after_save do |job_user|
     set_job_user_translation.call(job_user, permitted_params)
+    set_job_filled_status.call(job_user)
   end
 
   sidebar :app, only: %i(show edit) do

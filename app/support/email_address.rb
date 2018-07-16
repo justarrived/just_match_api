@@ -3,6 +3,10 @@
 class EmailAddress
   EMAIL_REGEX = /\A.+@.+\..+\z/
 
+  def self.random
+    "ghost+#{SecureGenerator.token(length: 64)}@example.com"
+  end
+
   def self.normalize(email)
     Mail::Address.new(email)
       &.address

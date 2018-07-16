@@ -275,7 +275,7 @@ en:
       push_frilans_finans_btn: Push to Frilans Finans
       anonymize_action: Anonymize user!
       anonymized_success: User queued for anonymization, will be anonymized in a %{days} day(s).
-      anonymized_failed: User can not be anonymized, since they have applied for a job on %{application_date} and we need to keep the data for longer according to the current discrimination law. Earilest possible anonymization date is %{earliest_date}.
+      anonymized_failed: Only contact details could be removed (no risk that we'll contact them by accident). User applied for a job on %{application_date}. We will fully anonymize on %{earliest_date} unless the user applies for another job.
       resume_search_label: Search resumés
       batch_form:
         tag_added_notice: 'Added "%{name}".'

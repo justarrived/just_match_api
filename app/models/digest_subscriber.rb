@@ -23,8 +23,9 @@ class DigestSubscriber < ApplicationRecord
     "##{id || 'unsaved'} #{display}"
   end
 
-  def soft_destroy!
-    update!(deleted_at: Time.zone.now)
+  def mark_destroyed
+    self.email = EmailAddress.random if email
+    self.deleted_at = Time.zone.now
   end
 
   def contact_email

@@ -458,6 +458,12 @@ class Job < ApplicationRecord
     job_users
   end
 
+  def accept_method_sym
+    return :will_perform if frilans_finans_job?
+
+    :accepted_at
+  end
+
   def workdays
     return if job_date.nil? || job_end_date.nil?
 

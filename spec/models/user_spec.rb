@@ -3,6 +3,22 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
+  describe '::needs_anonymization' do
+    # rubocop:disable Metrics/LineLength
+    it 'returns users that should be anonymized' do
+      FactoryBot.create(:user)
+      FactoryBot.create(:user, anonymization_requested_at: 1.day.ago, anonymized_at: 1.hour.ago)
+      user_with_applications = FactoryBot.create(:user, anonymization_requested_at: 1.day.ago)
+      FactoryBot.create(:job_user, user: user_with_applications)
+
+      anonymize_user = FactoryBot.create(:user, anonymization_requested_at: 1.day.ago)
+      FactoryBot.create(:job_user, user: anonymize_user, created_at: 9.years.ago)
+
+      expect(User.needs_anonymization).to eq([anonymize_user])
+    end
+    # rubocop:enable Metrics/LineLength
+  end
+
   describe '#anonymization_allowed?' do
     it 'returns true user has no appilcations' do
       user = FactoryBot.build_stubbed(:user)
@@ -789,6 +805,7 @@ end
 #  welcome_app_last_checked_at      :datetime
 #  public_profile                   :boolean          default(FALSE)
 #  anonymized_at                    :datetime
+#  anonymization_requested_at       :datetime
 #
 # Indexes
 #

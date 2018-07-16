@@ -740,7 +740,8 @@ en:
         account_clearing_number: Account clearing number  #g
         account_number: Account number  #g
         admin: Admin  #g
-        anonymized: Anonymized  #g
+        anonymization_requested_at: Anonymization requested at  #g
+        anonymized_at: Anonymized at  #g
         arbetsformedlingen_registered_at: Arbetsformedlingen registered at  #g
         arrived_at: Arrived at  #g
         at_und: AT-und  #g

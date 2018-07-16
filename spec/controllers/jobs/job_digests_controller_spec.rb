@@ -192,7 +192,8 @@ RSpec.describe Api::V1::Jobs::JobDigestsController, type: :controller do
       end
 
       it 'updates a deleted JobDigest and marks it as non-deleted' do
-        job_digest.soft_destroy!
+        job_digest.mark_destroyed
+        job_digest.save!
         expect(job_digest.deleted_at).not_to be_nil
 
         patch :update, params: valid_attributes
