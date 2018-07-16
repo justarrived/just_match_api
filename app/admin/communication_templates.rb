@@ -3,6 +3,8 @@
 ActiveAdmin.register CommunicationTemplate do
   menu parent: 'Settings'
 
+  actions :index, :show
+
   include AdminHelpers::MachineTranslation::Actions
 
   index do

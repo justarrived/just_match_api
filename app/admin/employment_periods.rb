@@ -3,6 +3,8 @@
 ActiveAdmin.register EmploymentPeriod do
   menu parent: 'Users'
 
+  actions :index, :show, :new, :create, :edit, :update
+
   filter :started_at
   filter :ended_at
   filter :percentage

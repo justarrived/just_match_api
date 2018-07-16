@@ -2,4 +2,6 @@
 
 ActiveAdmin.register FrilansFinansTerm do
   menu parent: 'Misc'
+
+  actions :index, :show
 end

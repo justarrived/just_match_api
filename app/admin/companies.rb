@@ -3,6 +3,8 @@
 ActiveAdmin.register Company do
   menu parent: 'Jobs'
 
+  actions :index, :show, :new, :create, :edit, :update
+
   batch_action :destroy, false
 
   scope :all, default: true

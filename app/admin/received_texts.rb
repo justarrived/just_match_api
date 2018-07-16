@@ -3,6 +3,8 @@
 ActiveAdmin.register ReceivedText do
   menu parent: 'Misc', priority: 4
 
+  actions :index, :show
+
   index do
     column :from_number
     column :to_number

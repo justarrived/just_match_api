@@ -3,6 +3,8 @@
 ActiveAdmin.register Language do
   menu parent: 'Settings'
 
+  actions :index, :show, :new, :create, :edit, :update
+
   scope :all
   scope :system_languages, default: true
   scope :rtl_languages

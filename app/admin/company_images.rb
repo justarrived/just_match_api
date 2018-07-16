@@ -3,6 +3,8 @@
 ActiveAdmin.register CompanyImage do
   menu parent: 'Misc', priority: 3
 
+  actions :index, :show, :new, :create, :edit, :update
+
   index do
     selectable_column
 

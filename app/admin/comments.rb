@@ -3,6 +3,8 @@
 ActiveAdmin.register Comment do
   menu parent: 'Misc'
 
+  actions :index, :show
+
   filter :commentable_type
   filter :language
   filter :body

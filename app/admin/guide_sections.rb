@@ -3,6 +3,8 @@
 ActiveAdmin.register GuideSection do
   menu parent: 'Guide', label: 'Sections', priority: 1
 
+  actions :index, :show, :new, :create, :edit, :update
+
   show do
     attributes_table do
       row :language

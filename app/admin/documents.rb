@@ -3,6 +3,8 @@
 ActiveAdmin.register Document do
   menu parent: 'Users'
 
+  actions :index, :show, :new, :create, :edit, :update
+
   filter :created_at
   filter :document_file_name
   filter :document_content_type

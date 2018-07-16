@@ -3,6 +3,8 @@
 ActiveAdmin.register Filter do
   menu parent: 'Filters', priority: 1
 
+  actions :index, :show, :new, :create, :edit, :update
+
   batch_action_confirm_msg = I18n.t('admin.confirm_dialog_title')
   batch_action :update_users, confirm: batch_action_confirm_msg do |ids|
     Filter.where(id: ids).each do |filter|

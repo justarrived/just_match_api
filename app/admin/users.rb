@@ -3,6 +3,8 @@
 ActiveAdmin.register User do
   menu parent: 'Users', priority: 1
 
+  actions :index, :show, :new, :create, :edit, :update
+
   actions :all, except: [:destroy]
   batch_action :destroy, false
 

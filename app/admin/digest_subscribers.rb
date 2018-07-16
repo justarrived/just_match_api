@@ -3,6 +3,8 @@
 ActiveAdmin.register DigestSubscriber do
   menu parent: 'Job Digests', priority: 1
 
+  actions :index, :show, :new, :create, :edit, :update
+
   permit_params do
     %i[
       email
