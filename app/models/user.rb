@@ -133,6 +133,9 @@ class User < ApplicationRecord
   scope :valid_one_time_tokens, (lambda {
     where('one_time_token_expires_at > ?', Time.zone.now)
   })
+  scope :needs_anonymization, (lambda {
+    not_anonymized.where.not(anonymization_requested_at: nil)
+  })
   scope :frilans_finans_users, (-> { where.not(frilans_finans_id: nil) })
   scope :needs_frilans_finans_id, (lambda {
     not_anonymized.
