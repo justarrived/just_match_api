@@ -212,7 +212,7 @@ ActiveAdmin.register User do
       notice = I18n.t('admin.user.anonymized_failed', application_date: date, earliest_date: earliest_date) # rubocop:disable Metrics/LineLength
 
       user.anonymization_requested_at = Time.zone.now
-      user.save!
+      DestroyUserContactService.call(user)
 
       redirect_to admin_user_path(user), alert: notice
     end
