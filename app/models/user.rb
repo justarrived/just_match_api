@@ -445,35 +445,24 @@ class User < ApplicationRecord
   end
 
   def anonymize_attributes
-    assign_attributes(
+    nil_fields = %i[
+      phone
+      competence_text job_experience education street ssn country_of_origin
+      latitude longitude account_clearing_number account_number
+      linkedin_url facebook_url skype_username next_of_kin_name next_of_kin_phone
+      interview_comment one_time_token
+      presentation_profile presentation_personality presentation_availability
+    ].zip([nil]).to_h
+
+    data = {
       anonymized_at: Time.zone.now,
-      anonymized: true,
       first_name: 'Ghost',
       last_name: 'User',
       email: EmailAddress.random,
-      phone: nil,
-      description: '<This user is anonymous.>',
-      competence_text: nil,
-      job_experience: nil,
-      education: nil,
-      street: nil,
-      ssn: nil,
-      country_of_origin: nil,
-      latitude: nil,
-      longitude: nil,
-      account_clearing_number: nil,
-      account_number: nil,
-      linkedin_url: nil,
-      facebook_url: nil,
-      skype_username: nil,
-      next_of_kin_name: nil,
-      next_of_kin_phone: nil,
-      interview_comment: nil,
-      presentation_profile: nil,
-      presentation_personality: nil,
-      presentation_availability: nil,
-      one_time_token: nil
-    )
+      description: '<This user is anonymous.>'
+    }.merge!(nil_fields)
+
+    assign_attributes(data)
   end
 
   def create_auth_token
