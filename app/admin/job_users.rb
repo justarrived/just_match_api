@@ -273,14 +273,8 @@ ActiveAdmin.register JobUser do
     return unless job_user.persisted? && job_user.valid?
     job = job_user.job
 
-    accept_method = if job.frilans_finans_job?
-                      :will_perform
-                    else
-                      :accepted_at
-                    end
-
     # update job fill status
-    if job_user.public_send(accept_method) && !job.filled
+    if job_user.public_send(job.accept_method_sym) && !job.filled
       job.filled = true
       job.save!
     end
