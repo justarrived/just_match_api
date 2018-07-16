@@ -23,7 +23,12 @@ module Sweepers
 
     def self.update_job_filled(scope = Job)
       scope.unfilled.includes(:job_users).find_each(batch_size: 500) do |job|
-        confirmed_job_user = job.job_users.detect(&:will_perform)
+        accept_method = if job.frilans_finans_job?
+                          :will_perform
+                        else
+                          :accepted_at
+                        end
+        confirmed_job_user = job.job_users.detect(&accept_method)
         next if confirmed_job_user.nil?
 
         job.filled = true
