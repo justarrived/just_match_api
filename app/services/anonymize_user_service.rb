@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class AnonymizeUserService
+  Result = Struct.new(:anonymized?, :user, keyword_init: true)
+
   def self.call(user, force: false, delete_document_inline: false)
     if !force && !user.anonymization_allowed?
       return Result.new(anonymized?: false, user: user)
