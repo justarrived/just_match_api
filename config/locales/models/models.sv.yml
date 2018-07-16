@@ -667,7 +667,8 @@ sv:
         account_clearing_number: Kontoclearningnummer
         account_number: Kontonummer
         admin: Administration
-        anonymized: Anonym
+        anonymization_requested_at: Anonymiserings bergärdes den  #g
+        anonymized_at: Anonymiserades den  #g
         arbetsformedlingen_registered_at: Arbetsförmedligen registrerat den
         arrived_at: Anlände den
         at_und: AT-UND
