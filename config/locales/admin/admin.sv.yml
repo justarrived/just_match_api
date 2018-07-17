@@ -240,6 +240,7 @@ sv:
       show:
         general: Generellt
         frilans_finans: Frilans Finans Info
+        job: Jobbinfo
     chat:
       name: Chatt
       support_chat: Supportchat
@@ -268,7 +269,8 @@ sv:
       push_ff_user_failed: användaren misslyckades att skickas till Frilans Finans (HTTP %{status})
       push_frilans_finans_btn: Skicka till Frilans Finans
       anonymize_action: Anonymisera användaren!
-      anonymized_success: Användaren har blivit anonymiserad.
+      anonymized_success: '%{days}Anonymisering av användaren kommer ske om dag(ar).'
+      anonymized_failed: Endast kontaktuppgifter kunde tas bort - kommer ske om %{days} dag(ar). Användaren sökte ett job på %{application_date}. Vi kommer fullständigt anonymisera användaren på %{earliest_date} så länge hen inte söker ett till jobb.
       resume_search_label: CV-sök
       batch_form:
         tag_added_notice: 'La till "%{name}".'

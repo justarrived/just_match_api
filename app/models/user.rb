@@ -133,10 +133,11 @@ class User < ApplicationRecord
   })
   scope :needs_anonymization, (lambda {
     min_time_ago = AppConfig.keep_applicant_data_years.years.ago
+    anonymize_at = Time.zone.now + AppConfig.anonymization_delay_days.days
 
     left_joins(:job_users).
       where('job_users.id IS NULL OR job_users.created_at < ?', min_time_ago).
-      not_anonymized.where.not(anonymization_requested_at: nil)
+      not_anonymized.where('anonymization_requested_at < ?', anonymize_at)
   })
   scope :frilans_finans_users, (-> { where.not(frilans_finans_id: nil) })
   scope :needs_frilans_finans_id, (lambda {
@@ -569,59 +570,59 @@ end
 #
 # Table name: users
 #
-#  id                               :integer          not null, primary key
-#  email                            :string
-#  phone                            :string
-#  description                      :text
+#  account_clearing_number          :string
+#  account_number                   :string
+#  admin                            :boolean          default(FALSE)
+#  anonymization_requested_at       :datetime
+#  anonymized_at                    :datetime
+#  arbetsformedlingen_registered_at :date
+#  arrived_at                       :date
+#  at_und                           :integer
+#  banned                           :boolean          default(FALSE)
+#  city                             :string
+#  company_id                       :integer
+#  competence_text                  :text
+#  country_of_origin                :string
 #  created_at                       :datetime         not null
-#  updated_at                       :datetime         not null
-#  latitude                         :float
-#  longitude                        :float
+#  current_status                   :integer
+#  description                      :text
+#  education                        :text
+#  email                            :string
+#  first_name                       :string
+#  frilans_finans_id                :integer
+#  frilans_finans_payment_details   :boolean          default(FALSE)
+#  gender                           :integer
+#  id                               :integer          not null, primary key
+#  ignored_notifications_mask       :integer
+#  interview_comment                :text
+#  interviewed_at                   :datetime
+#  interviewed_by_user_id           :integer
+#  job_experience                   :text
+#  just_arrived_staffing            :boolean          default(FALSE)
 #  language_id                      :integer
+#  last_name                        :string
+#  latitude                         :float
+#  linkedin_url                     :string
+#  longitude                        :float
+#  managed                          :boolean          default(FALSE)
+#  next_of_kin_name                 :string
+#  next_of_kin_phone                :string
+#  one_time_token                   :string
+#  one_time_token_expires_at        :datetime
 #  password_hash                    :string
 #  password_salt                    :string
-#  admin                            :boolean          default(FALSE)
+#  phone                            :string
+#  presentation_availability        :text
+#  presentation_personality         :text
+#  presentation_profile             :text
+#  ssn                              :string
 #  street                           :string
+#  super_admin                      :boolean          default(FALSE)
+#  system_language_id               :integer
+#  updated_at                       :datetime         not null
 #  zip                              :string
 #  zip_latitude                     :float
 #  zip_longitude                    :float
-#  first_name                       :string
-#  last_name                        :string
-#  ssn                              :string
-#  company_id                       :integer
-#  banned                           :boolean          default(FALSE)
-#  job_experience                   :text
-#  education                        :text
-#  one_time_token                   :string
-#  one_time_token_expires_at        :datetime
-#  ignored_notifications_mask       :integer
-#  frilans_finans_id                :integer
-#  frilans_finans_payment_details   :boolean          default(FALSE)
-#  competence_text                  :text
-#  current_status                   :integer
-#  at_und                           :integer
-#  arrived_at                       :date
-#  country_of_origin                :string
-#  managed                          :boolean          default(FALSE)
-#  account_clearing_number          :string
-#  account_number                   :string
-#  interview_comment                :text
-#  next_of_kin_name                 :string
-#  next_of_kin_phone                :string
-#  arbetsformedlingen_registered_at :date
-#  city                             :string
-#  interviewed_by_user_id           :integer
-#  interviewed_at                   :datetime
-#  just_arrived_staffing            :boolean          default(FALSE)
-#  super_admin                      :boolean          default(FALSE)
-#  gender                           :integer
-#  presentation_profile             :text
-#  presentation_personality         :text
-#  presentation_availability        :text
-#  system_language_id               :integer
-#  linkedin_url                     :string
-#  anonymized_at                    :datetime
-#  anonymization_requested_at       :datetime
 #
 # Indexes
 #

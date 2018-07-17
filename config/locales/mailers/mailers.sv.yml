@@ -124,6 +124,50 @@ sv:
       subject: Magisk login-länk
       login_line: Klicka på knappen nedan för att logga in på Just Arrived
       login_cta: Logga in på Just Arrived
+    full_anonymization_queued:
+      subject: Ditt konto har markerats för anonymisering.
+      body: |
+          Hej,
+
+          Ditt konto har blivit market för anonymisering.
+
+          Ditt konto kommer vara helt anonymiserat %{anonymization_date}.  Notera att det kan finnas en chans att du får något email av oss innan dess. Under den här tiden kan du också kontakta oss för att stoppa anonymiseringen ifall du skulle ångra dig av någon anledning.
+
+          När vi har genomfört anonymiseringen kommer du få ett email av oss som konfirmation, det kommer vara den sista gången du hör från oss, så länge som du inte väljer att registrera dig igen.
+
+          Vi är ledsna för att se gå - lycka till!
+
+          Hälsningar,
+          Team Just Arrived
+    partial_anonymization_queued:
+      subject: Ditt konto har blivit markerat för anonymisering.
+      body: |
+          Hej,
+
+          Ditt konto har blivit markerat för anonymisering.
+
+          NOTERA däremot att vi kan inte helt anonymisera ditt konto, eftersom du sökte ett job på %{last_application_date} och enligt svensk lag måste vi behålla ansökningsdatan några år.
+
+          Vi kommer anonymisera dina kontaktuppgifter så vi inte kan kontakta dig igen från och med %{partial_anonymization_date}. Fram tills dess kan du kontakta oss och stoppa anonymiseringen ifall du skulle ångra dig av någon anledning.
+
+          Ditt konto kommer automatiskt att bli fullt anonymiserat på %{anonymization_date}.
+
+          Vi är ledsna att sig dig gå - lycka till!
+
+          Hälsningar,
+          Team Just Arrived
+    anonymization_performed_confirmation:
+      subject: Ditt konto har blivit helt anonymiserat.
+      body: |
+          Hej,
+
+          Ditt konto har blivit fullt anonymiserat - vi har tagit bort all personlig information.
+          Det här är det sista mailet du får av oss, så länge du inte väljer att registrera dig igen.
+
+          Vi är ledsna att se dig gå - stort lycka till!
+
+          Hälsningar,
+          Team Just Arrived
     new_applicant_job_info:
       subject: Du har sökt ett jobb
       body: |

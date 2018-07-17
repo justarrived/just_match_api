@@ -3,10 +3,12 @@
 class AnonymizeUserService
   Result = Struct.new(:anonymized?, :user, keyword_init: true)
 
-  def self.call(user, force: false, delete_document_inline: false)
+  def self.call(user, force: false, run_async: true, notify: false)
     if !force && !user.anonymization_allowed?
       return Result.new(anonymized?: false, user: user)
     end
+
+    email = user.email
 
     user.anonymize_attributes
     user.save!
@@ -28,10 +30,14 @@ class AnonymizeUserService
       ud.document_id
     end
 
-    if delete_document_inline
-      RemoveDocumentService.call(document_ids)
-    else
-      RemoveDocumentsJob.perform_later(ids: document_ids)
+    ExecuteService.call(RemoveDocumentService.to_s, document_ids, run_async: run_async)
+    ExecuteService.call(RemoveUserImagesService.to_s, user, run_async: run_async)
+
+    if notify
+      DeliverNotification.call(
+        UserMailer.anonymization_performed_confirmation_email(email: email),
+        user.locale
+      )
     end
 
     Result.new(anonymized?: true, user: user)

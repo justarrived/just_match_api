@@ -180,7 +180,7 @@ sv:
         translations: Översättningar
         users: Användare
         website: Webbplats
-        zip: Postnummer
+        zip: Blixtlås
       company_image:
         company: :activerecord.models.company
         image_content_type: Bildinnehåll typ
@@ -666,8 +666,8 @@ sv:
         account_clearing_number: Kontoclearningnummer
         account_number: Kontonummer
         admin: Administration
-        anonymization_requested_at: Anonymiserings bergärdes den  #g
-        anonymized_at: Anonymiserades den  #g
+        anonymization_requested_at: Anonymiserings bergärdes den
+        anonymized_at: Anonymiserades den
         arbetsformedlingen_registered_at: Arbetsförmedligen registrerat den
         arrived_at: Anlände den
         at_und: AT-UND
@@ -741,7 +741,7 @@ sv:
         user_tags: Användartaggar
         utalk_code: :activerecord.models.utalk_code
         written_comments: Skriftliga kommentarer
-        zip: Postnummer
+        zip: Blixtlås
         zip_latitude: Zip latitud
         zip_longitude: Zip longitud
       user_document:

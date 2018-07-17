@@ -707,6 +707,7 @@ ActiveRecord::Schema.define(version: 2018_07_17_011528) do
     t.integer "staffing_company_id"
     t.boolean "cloned", default: false
     t.datetime "filled_at"
+    t.boolean "verified"
     t.index ["category_id"], name: "index_jobs_on_category_id"
     t.index ["hourly_pay_id"], name: "index_jobs_on_hourly_pay_id"
     t.index ["language_id"], name: "index_jobs_on_language_id"
@@ -1089,6 +1090,12 @@ ActiveRecord::Schema.define(version: 2018_07_17_011528) do
     t.string "linkedin_url"
     t.datetime "anonymized_at"
     t.datetime "anonymization_requested_at"
+    t.boolean "verified"
+    t.boolean "public_profile"
+    t.datetime "welcome_app_last_checked_at"
+    t.boolean "has_welcome_app_account"
+    t.string "facebook_url"
+    t.string "skype_username"
     t.index ["company_id"], name: "index_users_on_company_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["frilans_finans_id"], name: "index_users_on_frilans_finans_id", unique: true

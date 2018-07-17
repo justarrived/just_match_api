@@ -62,7 +62,7 @@ ti:
         street: ጎደና
         users: ተጠቃሚ
         website: መርበብ-ሓበሬታ
-        zip: Postnummer (ሻርኔራ ወይ መኽፈቲ - ዚፕ)
+        zip: Blixtlås (ሻርኔራ ወይ መኽፈቲ - ዚፕ)
       company_image:
         image_content_type: ዓይነት ትሕዝቶ-ስእሊ
         image_file_name: ናይ ፋይል ስም ስእሊ
@@ -134,6 +134,7 @@ ti:
         street: ጎደና
         users: ተጠቃሚ
         zip: Postnummer (ሻርኔራ ወይ መኽፈቲ - ዚፕ)
+        verified: ዝተረጋገጸ
         zip_latitude: Zip latitud (ግዳማዊ ዚፕ)
         zip_longitude: Zip longitud (ትኹላዊ ዚፕ)
       job_request:
@@ -191,7 +192,6 @@ ti:
         users: ተጠቃሚ
       user:
         admin: ምምሕዳር
-        anonymized: ዘይግሉጽ ወይ ሕቡእ (ኣኖኒሞስ)
         banned: ክልኩል
         chat_users: ተጠቃሚ ናይ ቻት
         chats: የዕልል (ቻት ይገብር)
@@ -220,7 +220,7 @@ ti:
         user_languages: ቋንቋ ናይ ተጠቃሚ
         user_skills: ክእለት ወይ ሙያ ናይ ተጠቃሚ
         written_comments: ናይ ጽሑፍ ርእይቶ
-        zip: Postnummer (ሻርኔራ ወይ መኽፈቲ - ዚፕ)
+        zip: Blixtlås (ሻርኔራ ወይ መኽፈቲ - ዚፕ)
         zip_latitude: Zip latitud (ግዳማዊ ዚፕ)
         zip_longitude: Zip longitud (ትኹላዊ ዚፕ)
       user_document:

@@ -197,7 +197,6 @@ ar:
         token: بطاقة
       user:
         admin: المدير
-        anonymized: مجهول
         banned: مُنِع
         chat_users: لدردشة المستخدمون
         chats: دردشات
