@@ -90,13 +90,13 @@ sv:
       active_admin/comment:
         author: :activerecord.models.author
         author_type: Författartyp
-        body: Kropp
+        body: Innehåll
         namespace: Namespace
         resource: :activerecord.models.resource
         resource_type: Resurstyp
       active_admin_comment:
         author_type: Författartyp
-        body: Kropp
+        body: Innehåll
         namespace: Namespace
         resource: :activerecord.models.resource
         resource_type: Resurstyp
@@ -141,7 +141,7 @@ sv:
         chat: :activerecord.models.chat
         user: :activerecord.models.user
       comment:
-        body: Kropp
+        body: Innehåll
         commentable: :activerecord.models.commentable
         commentable_type: Commentable typ
         hidden: Dold
@@ -149,18 +149,18 @@ sv:
         owner: :activerecord.models.owner
         translations: Översättningar
       comment_translation:
-        body: Kropp
+        body: Innehåll
         comment: :activerecord.models.comment
         language: :activerecord.models.language
         locale: Locale
       communication_template:
-        body: Kropp
+        body: Innehåll
         category: Kategori
         language: :activerecord.models.language
         subject: Ämnesrad
         translations: Översättningar
       communication_template_translation:
-        body: Kropp
+        body: Innehåll
         communication_template: :activerecord.models.communication_template
         language: :activerecord.models.language
         locale: Locale
@@ -203,7 +203,7 @@ sv:
         locale: Locale
         short_description: Kort beskrivning
       contact:
-        body: Kropp
+        body: Innehåll
         email: E-post
         name: Namn
       currency:
@@ -246,7 +246,7 @@ sv:
         locale: Locale
         question: Fråga
       feedback:
-        body: Kropp
+        body: Innehåll
         job: :activerecord.models.job
         title: Titel
         user: :activerecord.models.user
@@ -290,7 +290,7 @@ sv:
         just_arrived_contact: :activerecord.models.just_arrived_contact
         user: :activerecord.models.user
       frilans_finans_term:
-        body: Kropp
+        body: Innehåll
         company: Företag
       guide_image:
         image_content_type: Bildinnehåll typ
@@ -310,7 +310,7 @@ sv:
         translations: Översättningar
       guide_section_article_translation:
         article: :activerecord.models.article
-        body: Kropp
+        body: Innehåll
         language: :activerecord.models.language
         locale: Locale
         short_description: Kort beskrivning
@@ -558,13 +558,13 @@ sv:
         proficiency_by_admin: Skicklighet satt av admin
       message:
         author: :activerecord.models.author
-        body: Kropp
+        body: Innehåll
         chat: :activerecord.models.chat
         integer: Heltal
         language: :activerecord.models.language
         translations: Översättningar
       message_translation:
-        body: Kropp
+        body: Innehåll
         language: :activerecord.models.language
         locale: Locale
         message: :activerecord.models.message
@@ -626,13 +626,13 @@ sv:
         text_body: Text body
         to_address: Till adress
       received_text:
-        body: Kropp
+        body: Innehåll
         from_number: Från nummer
         to_number: Till nummer
       recruiter_activity:
         activity: :activerecord.models.activity
         author: :activerecord.models.author
-        body: Kropp
+        body: Innehåll
         document: :activerecord.models.document
         user: :activerecord.models.user
       skill:
