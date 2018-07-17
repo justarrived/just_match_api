@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 # Usage:
+#   require 'migrate_data/migrate_interview_comment_data'
 #   MigrateInteviewCommentData.up(activity_id: 1, author_id: 12)
 class MigrateInteviewCommentData
   def self.up(activity_id:, author_id:, scope: User)

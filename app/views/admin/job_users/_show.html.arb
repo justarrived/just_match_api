@@ -18,18 +18,8 @@ columns do
         content_tag(:p, user_tag_badges(user: user))
       end
 
-      h3 I18n.t('admin.user.show.interview_comment')
-      div do
-        if user.interview_comment.blank?
-          content_tag(:em, I18n.t('admin.user.show.no_interview_comment_explain'))
-        else
-          simple_format(user.interview_comment)
-        end
-
-        user.recruitment_activities.reverse_each do |recruitment_activity|
-          recruitment_activity.body.truncate(80)
-        end
-      end
+      h3 I18n.t('admin.user.show.recruiter_activity')
+      render partial: 'admin/recruiter_activities/simple_list', locals: { recruiter_activities: recruiter_activities } # rubocop:disable Metrics/LineLength
 
       br
 

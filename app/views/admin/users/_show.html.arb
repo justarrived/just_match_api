@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+recruiter_activities = user.recruiter_activities.order(id: :desc).includes(:activity, :author) # rubocop:disable Metrics/LineLength
+
 columns do
   column do
     panel(I18n.t('admin.user.show.basic_info_title')) do
@@ -22,13 +24,8 @@ columns do
         row :facebook_url
       end
 
-      if user.interview_comment.present?
-        h4 I18n.t('admin.user.show.interview_comment')
-        div do
-          simple_format(user.interview_comment)
-        end
-      end
-
+      h3 I18n.t('admin.user.show.recruiter_activity')
+      render partial: 'admin/recruiter_activities/simple_list', locals: { recruiter_activities: recruiter_activities } # rubocop:disable Metrics/LineLength
       render partial: 'admin/users/customer_presentation_fields', locals: { user: user }
 
       div do

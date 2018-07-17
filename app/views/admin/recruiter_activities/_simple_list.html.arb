@@ -1,0 +1,10 @@
+# frozen_string_literal: true
+
+# rubocop:disable Metrics/LineLength
+recruiter_activities.each do |r_activity|
+  strong "#{r_activity.activity.name} - #{user.first_name}, #{r_activity.created_at.to_date} "
+  span link_to(I18n.t('admin.actions.view'), admin_recruiter_activity_path(r_activity))
+
+  para r_activity.body&.truncate(80)
+end
+# rubocop:enable Metrics/LineLength
