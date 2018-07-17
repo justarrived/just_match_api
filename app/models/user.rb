@@ -135,10 +135,11 @@ class User < ApplicationRecord
   })
   scope :needs_anonymization, (lambda {
     min_time_ago = AppConfig.keep_applicant_data_years.years.ago
+    anonymize_at = Time.zone.now + AppConfig.anonymization_delay_days.days
 
     left_joins(:job_users).
       where('job_users.id IS NULL OR job_users.created_at < ?', min_time_ago).
-      not_anonymized.where.not(anonymization_requested_at: nil)
+      not_anonymized.where('anonymization_requested_at < ?', anonymize_at)
   })
   scope :frilans_finans_users, (-> { where.not(frilans_finans_id: nil) })
   scope :needs_frilans_finans_id, (lambda {

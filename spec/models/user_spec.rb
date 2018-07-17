@@ -8,10 +8,10 @@ RSpec.describe User, type: :model do
     it 'returns users that should be anonymized' do
       FactoryBot.create(:user)
       FactoryBot.create(:user, anonymization_requested_at: 1.day.ago, anonymized_at: 1.hour.ago)
-      user_with_applications = FactoryBot.create(:user, anonymization_requested_at: 1.day.ago)
+      user_with_applications = FactoryBot.create(:user, anonymization_requested_at: 1.week.ago)
       FactoryBot.create(:job_user, user: user_with_applications)
 
-      anonymize_user = FactoryBot.create(:user, anonymization_requested_at: 1.day.ago)
+      anonymize_user = FactoryBot.create(:user, anonymization_requested_at: 1.week.ago)
       FactoryBot.create(:job_user, user: anonymize_user, created_at: 9.years.ago)
 
       expect(User.needs_anonymization).to eq([anonymize_user])
