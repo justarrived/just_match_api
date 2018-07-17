@@ -3,9 +3,14 @@
 HEAD
 -----------
 
+v2.114.1 - 2018-07-18
+----------
+__Enhancement__:
+* Pull I18n from Transifex
+
 v2.114.0 - 2018-07-18
 ----------
-__Admin__
+__Admin__:
 * Add search by recruiter activity author
 
 
