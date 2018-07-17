@@ -46,26 +46,31 @@ class UserMailer < ApplicationMailer
     mail(to: user.contact_email, subject: subject)
   end
 
-  def full_anonymization_queued_email(user:)
-    @anonymization_date = Date.new(2015, 1, 1)
+  def full_anonymization_queued_email(user:, anonymization_date:)
+    @anonymization_date = anonymization_date.to_date
 
     subject = I18n.t('mailer.full_anonymization_queued.subject')
-    mail(to: user.contact_email, subject: subject)
+    mail(to: user.email, subject: subject)
   end
 
-  def partial_anonymization_queued_email(user:)
-    @last_application_date = Date.new(2015, 1, 1)
-    @partial_anonymization_date = Date.new(2015, 1, 1)
-    @anonymization_date = Date.new(2015, 1, 1)
+  def partial_anonymization_queued_email(
+    user:,
+    last_application_date:,
+    partial_anonymization_date:,
+    anonymization_date:
+  )
+    @last_application_date = last_application_date
+    @partial_anonymization_date = partial_anonymization_date
+    @anonymization_date = anonymization_date
 
     subject = I18n.t('mailer.partial_anonymization_queued.subject')
-    mail(to: user.contact_email, subject: subject)
+    mail(to: user.email, subject: subject)
   end
 
-  def anonymization_performed_confirmation_email(user:)
+  def anonymization_performed_confirmation_email(email:)
     @disable_notification_settings = true
 
     subject = I18n.t('mailer.anonymization_performed_confirmation.subject')
-    mail(to: user.contact_email, subject: subject)
+    mail(to: email, subject: subject)
   end
 end
