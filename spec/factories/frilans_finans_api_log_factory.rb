@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :frilans_finans_api_log do
     status 1
     status_name 'MyString'

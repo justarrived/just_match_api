@@ -7,10 +7,10 @@ RSpec.describe JobSkillPolicy do
     allow_any_instance_of(User).to receive(:persisted?).and_return(true)
   end
 
-  let(:admin) { FactoryGirl.build(:admin_user) }
-  let(:user) { FactoryGirl.build(:user) }
-  let(:owner) { FactoryGirl.build(:user) }
-  let(:skill) { FactoryGirl.build(:skill) }
+  let(:admin) { FactoryBot.build(:admin_user) }
+  let(:user) { FactoryBot.build(:user) }
+  let(:owner) { FactoryBot.build(:user) }
+  let(:skill) { FactoryBot.build(:skill) }
   let(:job) { mock_model(Job, owner: owner) }
   let(:policy) { described_class.new(policy_context, nil) }
 

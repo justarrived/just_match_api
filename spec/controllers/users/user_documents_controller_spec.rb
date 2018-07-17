@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::Users::UserDocumentsController, type: :controller do
-  let(:user) { FactoryGirl.create(:admin_user) }
+  let(:user) { FactoryBot.create(:admin_user) }
   let(:valid_session) do
     allow_any_instance_of(described_class).
       to(receive(:current_user).
@@ -13,14 +13,14 @@ RSpec.describe Api::V1::Users::UserDocumentsController, type: :controller do
 
   describe 'GET #index' do
     it 'lists user documents' do
-      user_document = FactoryGirl.create(:user_document, user: user)
+      user_document = FactoryBot.create(:user_document, user: user)
       get :index, params: { user_id: user }, session: valid_session
       expect(assigns(:user_documents).first).to eq(user_document)
     end
   end
 
   describe 'POST #create' do
-    let(:document) { FactoryGirl.create(:document) }
+    let(:document) { FactoryBot.create(:document) }
     let(:valid_params) do
       {
         user_id: user.to_param,

@@ -5,8 +5,8 @@ require 'rails_helper'
 RSpec.describe Api::V1::TermsAgreementsController, type: :controller do
   describe 'GET #current' do
     it 'returns the last terms of agreement' do
-      FactoryGirl.create(:terms_agreement)
-      terms = FactoryGirl.create(:terms_agreement)
+      FactoryBot.create(:terms_agreement)
+      terms = FactoryBot.create(:terms_agreement)
       get :current
       expect(assigns(:terms_agreement)).to eq(terms)
     end
@@ -14,9 +14,9 @@ RSpec.describe Api::V1::TermsAgreementsController, type: :controller do
 
   describe 'GET #current_company' do
     it 'returns the last terms of agreement' do
-      ff_company_term = FactoryGirl.create(:frilans_finans_term, company: true)
-      terms = FactoryGirl.create(:terms_agreement, frilans_finans_term: ff_company_term)
-      FactoryGirl.create(:terms_agreement)
+      ff_company_term = FactoryBot.create(:frilans_finans_term, company: true)
+      terms = FactoryBot.create(:terms_agreement, frilans_finans_term: ff_company_term)
+      FactoryBot.create(:terms_agreement)
       get :current_company
       expect(assigns(:terms_agreement)).to eq(terms)
     end

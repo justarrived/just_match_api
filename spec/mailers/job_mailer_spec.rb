@@ -427,8 +427,8 @@ RSpec.describe JobMailer, type: :mailer do
   end
 
   describe '#job_cancelled_email' do
-    let(:user) { FactoryGirl.build(:user) }
-    let(:job) { FactoryGirl.build(:job) }
+    let(:user) { FactoryBot.build(:user) }
+    let(:job) { FactoryBot.build(:job) }
     let(:mail) { described_class.job_cancelled_email(user: user, job: job) }
 
     it 'has both text and html part' do
@@ -459,9 +459,9 @@ RSpec.describe JobMailer, type: :mailer do
   end
 
   describe '#new_job_comment_email' do
-    let(:owner) { FactoryGirl.build(:user) }
-    let(:job) { FactoryGirl.build(:job, owner: owner) }
-    let(:comment) { FactoryGirl.build(:comment) }
+    let(:owner) { FactoryBot.build(:user) }
+    let(:job) { FactoryBot.build(:job, owner: owner) }
+    let(:comment) { FactoryBot.build(:comment) }
     let(:mail) { described_class.new_job_comment_email(comment: comment, job: job) }
 
     it 'has both text and html part' do
@@ -488,9 +488,9 @@ RSpec.describe JobMailer, type: :mailer do
   end
 
   describe '#ask_for_information_email' do
-    let(:job) { FactoryGirl.build(:job, owner: owner) }
-    let(:user) { FactoryGirl.build(:user) }
-    let(:skills) { [FactoryGirl.create(:skill), FactoryGirl.create(:skill)] }
+    let(:job) { FactoryBot.build(:job, owner: owner) }
+    let(:user) { FactoryBot.build(:user) }
+    let(:skills) { [FactoryBot.create(:skill), FactoryBot.create(:skill)] }
     let(:mail) do
       described_class.ask_for_information_email(user: user, job: job, skills: skills)
     end

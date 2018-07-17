@@ -18,7 +18,7 @@ RSpec.describe CreateDigestSubscriberService do
       end
 
       it 'returns persisted, DigestSubscriber if user is present and valid' do
-        user_id = FactoryGirl.create(:user).id
+        user_id = FactoryBot.create(:user).id
         expect do
           described_class.call(current_user: User.new(admin: true), user_id: user_id)
         end.to change(DigestSubscriber, :count).by(1)
@@ -28,7 +28,7 @@ RSpec.describe CreateDigestSubscriberService do
     context 'finds' do
       it 'returns persisted, DigestSubscriber if email is present' do
         email = 'something@example.com'
-        FactoryGirl.create(:digest_subscriber, email: email)
+        FactoryBot.create(:digest_subscriber, email: email)
         subscriber = nil
 
         expect do
@@ -39,8 +39,8 @@ RSpec.describe CreateDigestSubscriberService do
       end
 
       it 'returns persisted, DigestSubscriber if email is present and a user already has that email' do # rubocop:disable Metrics/LineLength
-        user = FactoryGirl.create(:user)
-        FactoryGirl.create(:digest_subscriber, user: user, email: nil)
+        user = FactoryBot.create(:user)
+        FactoryBot.create(:digest_subscriber, user: user, email: nil)
         subscriber = nil
 
         expect do
@@ -55,7 +55,7 @@ RSpec.describe CreateDigestSubscriberService do
 
       it 'returns persisted, DigestSubscriber if email is present and reinstates DigestSubscriber if previously deleted' do # rubocop:disable Metrics/LineLength
         email = 'something@example.com'
-        old_subscriber = FactoryGirl.create(
+        old_subscriber = FactoryBot.create(
           :digest_subscriber, email: email, deleted_at: Time.zone.now
         )
         subscriber = nil
@@ -71,8 +71,8 @@ RSpec.describe CreateDigestSubscriberService do
       end
 
       it 'returns persisted, DigestSubscriber if user is present and valid' do
-        user = FactoryGirl.create(:user)
-        subscriber = FactoryGirl.create(:digest_subscriber, user: user, email: nil)
+        user = FactoryBot.create(:user)
+        subscriber = FactoryBot.create(:digest_subscriber, user: user, email: nil)
         subscriber = nil
 
         expect do
@@ -83,9 +83,9 @@ RSpec.describe CreateDigestSubscriberService do
       end
 
       it 'returns non-persisted, invalid, DigestSubscriber if user is present and tries to set anothers users id' do # rubocop:disable Metrics/LineLength
-        user = FactoryGirl.create(:user)
-        other_user = FactoryGirl.create(:user)
-        subscriber = FactoryGirl.create(:digest_subscriber, user: other_user, email: nil)
+        user = FactoryBot.create(:user)
+        other_user = FactoryBot.create(:user)
+        subscriber = FactoryBot.create(:digest_subscriber, user: other_user, email: nil)
         subscriber = nil
 
         expect do
@@ -97,9 +97,9 @@ RSpec.describe CreateDigestSubscriberService do
       end
 
       it 'returns persisted, valid, DigestSubscriber if user is present and tries to set anothers users id and user is admin' do # rubocop:disable Metrics/LineLength
-        user = FactoryGirl.create(:admin_user)
-        other_user = FactoryGirl.create(:user)
-        subscriber = FactoryGirl.create(:digest_subscriber, user: other_user, email: nil)
+        user = FactoryBot.create(:admin_user)
+        other_user = FactoryBot.create(:user)
+        subscriber = FactoryBot.create(:digest_subscriber, user: other_user, email: nil)
         subscriber = nil
 
         expect do
@@ -111,8 +111,8 @@ RSpec.describe CreateDigestSubscriberService do
       end
 
       it 'returns persisted, valid, DigestSubscriber if a logged in user tries to create a new subscriber with their user email' do # rubocop:disable Metrics/LineLength
-        user = FactoryGirl.create(:user)
-        subscriber = FactoryGirl.create(:digest_subscriber, user: user, email: nil)
+        user = FactoryBot.create(:user)
+        subscriber = FactoryBot.create(:digest_subscriber, user: user, email: nil)
         subscriber = nil
 
         expect do

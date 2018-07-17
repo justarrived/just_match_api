@@ -10,12 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170929154939) do
+ActiveRecord::Schema.define(version: 2018_07_17_204238) do
 
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
   enable_extension "hstore"
   enable_extension "pg_stat_statements"
+  enable_extension "plpgsql"
   enable_extension "unaccent"
 
   create_table "active_admin_comments", id: :serial, force: :cascade do |t|
@@ -30,6 +30,12 @@ ActiveRecord::Schema.define(version: 20170929154939) do
     t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id"
     t.index ["namespace"], name: "index_active_admin_comments_on_namespace"
     t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
+  end
+
+  create_table "activities", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "addresses", force: :cascade do |t|
@@ -205,6 +211,7 @@ ActiveRecord::Schema.define(version: 20170929154939) do
     t.string "municipality"
     t.boolean "staffing_agency", default: false
     t.string "display_name"
+    t.integer "sales_user_id"
     t.index ["cin"], name: "index_companies_on_cin", unique: true
     t.index ["frilans_finans_id"], name: "index_companies_on_frilans_finans_id", unique: true
   end
@@ -282,6 +289,20 @@ ActiveRecord::Schema.define(version: 20170929154939) do
     t.text "text_content"
   end
 
+  create_table "employment_periods", force: :cascade do |t|
+    t.bigint "job_id"
+    t.bigint "user_id"
+    t.datetime "employer_signed_at"
+    t.datetime "employee_signed_at"
+    t.datetime "started_at"
+    t.datetime "ended_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.decimal "percentage"
+    t.index ["job_id"], name: "index_employment_periods_on_job_id"
+    t.index ["user_id"], name: "index_employment_periods_on_user_id"
+  end
+
   create_table "faq_translations", id: :serial, force: :cascade do |t|
     t.string "locale"
     t.text "question"
@@ -357,6 +378,7 @@ ActiveRecord::Schema.define(version: 20170929154939) do
     t.boolean "express_payment", default: false
     t.datetime "ff_last_synced_at"
     t.integer "ff_invoice_number"
+    t.string "ff_remote_id"
     t.index ["job_user_id"], name: "index_frilans_finans_invoices_on_job_user_id"
   end
 
@@ -365,6 +387,60 @@ ActiveRecord::Schema.define(version: 20170929154939) do
     t.boolean "company", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "guide_images", force: :cascade do |t|
+    t.string "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "image_file_name"
+    t.string "image_content_type"
+    t.integer "image_file_size"
+    t.datetime "image_updated_at"
+  end
+
+  create_table "guide_section_article_translations", force: :cascade do |t|
+    t.bigint "language_id"
+    t.integer "guide_section_article_id"
+    t.string "locale"
+    t.string "title"
+    t.string "slug"
+    t.string "short_description"
+    t.string "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["language_id"], name: "index_guide_section_article_translations_on_language_id"
+  end
+
+  create_table "guide_section_articles", force: :cascade do |t|
+    t.bigint "language_id"
+    t.bigint "guide_section_id"
+    t.integer "order"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["guide_section_id"], name: "index_guide_section_articles_on_guide_section_id"
+    t.index ["language_id"], name: "index_guide_section_articles_on_language_id"
+  end
+
+  create_table "guide_section_translations", force: :cascade do |t|
+    t.string "locale"
+    t.string "title"
+    t.string "slug"
+    t.string "short_description"
+    t.bigint "guide_section_id"
+    t.bigint "language_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["guide_section_id"], name: "index_guide_section_translations_on_guide_section_id"
+    t.index ["language_id"], name: "index_guide_section_translations_on_language_id"
+  end
+
+  create_table "guide_sections", force: :cascade do |t|
+    t.integer "order"
+    t.bigint "language_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["language_id"], name: "index_guide_sections_on_language_id"
   end
 
   create_table "hourly_pays", id: :serial, force: :cascade do |t|
@@ -603,10 +679,8 @@ ActiveRecord::Schema.define(version: 20170929154939) do
     t.boolean "hidden", default: false
     t.integer "category_id"
     t.integer "hourly_pay_id"
-    t.boolean "verified", default: false
     t.datetime "job_end_date"
     t.boolean "cancelled", default: false
-    t.boolean "filled", default: false
     t.string "short_description"
     t.boolean "featured", default: false
     t.boolean "upcoming", default: false
@@ -637,6 +711,9 @@ ActiveRecord::Schema.define(version: 20170929154939) do
     t.boolean "publish_on_metrojobb", default: false
     t.string "metrojobb_category"
     t.integer "staffing_company_id"
+    t.boolean "cloned", default: false
+    t.datetime "filled_at"
+    t.boolean "verified"
     t.index ["category_id"], name: "index_jobs_on_category_id"
     t.index ["hourly_pay_id"], name: "index_jobs_on_hourly_pay_id"
     t.index ["language_id"], name: "index_jobs_on_language_id"
@@ -798,6 +875,20 @@ ActiveRecord::Schema.define(version: 20170929154939) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "recruiter_activities", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "activity_id"
+    t.text "body"
+    t.bigint "document_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "author_id"
+    t.index ["activity_id"], name: "index_recruiter_activities_on_activity_id"
+    t.index ["author_id"], name: "index_recruiter_activities_on_author_id"
+    t.index ["document_id"], name: "index_recruiter_activities_on_document_id"
+    t.index ["user_id"], name: "index_recruiter_activities_on_user_id"
+  end
+
   create_table "skill_filters", id: :serial, force: :cascade do |t|
     t.integer "filter_id"
     t.integer "skill_id"
@@ -920,6 +1011,16 @@ ActiveRecord::Schema.define(version: 20170929154939) do
     t.index ["user_id"], name: "index_user_languages_on_user_id"
   end
 
+  create_table "user_occupations", force: :cascade do |t|
+    t.bigint "occupation_id"
+    t.bigint "user_id"
+    t.integer "years_of_experience"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["occupation_id"], name: "index_user_occupations_on_occupation_id"
+    t.index ["user_id"], name: "index_user_occupations_on_user_id"
+  end
+
   create_table "user_skills", id: :serial, force: :cascade do |t|
     t.integer "user_id"
     t.integer "skill_id"
@@ -965,7 +1066,6 @@ ActiveRecord::Schema.define(version: 20170929154939) do
     t.float "latitude"
     t.float "longitude"
     t.integer "language_id"
-    t.boolean "anonymized", default: false
     t.string "password_hash"
     t.string "password_salt"
     t.boolean "admin", default: false
@@ -993,8 +1093,6 @@ ActiveRecord::Schema.define(version: 20170929154939) do
     t.boolean "managed", default: false
     t.string "account_clearing_number"
     t.string "account_number"
-    t.boolean "verified", default: false
-    t.string "skype_username"
     t.text "interview_comment"
     t.string "next_of_kin_name"
     t.string "next_of_kin_phone"
@@ -1010,16 +1108,29 @@ ActiveRecord::Schema.define(version: 20170929154939) do
     t.text "presentation_availability"
     t.integer "system_language_id"
     t.string "linkedin_url"
-    t.string "facebook_url"
-    t.boolean "has_welcome_app_account", default: false
+    t.datetime "anonymized_at"
+    t.datetime "anonymization_requested_at"
+    t.boolean "verified"
+    t.boolean "public_profile"
     t.datetime "welcome_app_last_checked_at"
-    t.boolean "public_profile", default: false
+    t.boolean "has_welcome_app_account"
+    t.string "facebook_url"
+    t.string "skype_username"
     t.index ["company_id"], name: "index_users_on_company_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["frilans_finans_id"], name: "index_users_on_frilans_finans_id", unique: true
     t.index ["language_id"], name: "index_users_on_language_id"
     t.index ["one_time_token"], name: "index_users_on_one_time_token", unique: true
     t.index ["system_language_id"], name: "index_users_on_system_language_id"
+  end
+
+  create_table "utalk_codes", force: :cascade do |t|
+    t.string "code"
+    t.bigint "user_id"
+    t.datetime "claimed_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_utalk_codes_on_user_id"
   end
 
   create_table "visits", id: :serial, force: :cascade do |t|
@@ -1071,12 +1182,15 @@ ActiveRecord::Schema.define(version: 20170929154939) do
   add_foreign_key "communication_template_translations", "communication_templates", name: "communication_template_translations_communication_template_id_f"
   add_foreign_key "communication_template_translations", "languages"
   add_foreign_key "communication_templates", "languages"
+  add_foreign_key "companies", "users", column: "sales_user_id", name: "companies_sales_user_id_fk"
   add_foreign_key "company_images", "companies"
   add_foreign_key "company_industries", "companies"
   add_foreign_key "company_industries", "industries"
   add_foreign_key "company_translations", "companies"
   add_foreign_key "company_translations", "languages"
   add_foreign_key "digest_subscribers", "users"
+  add_foreign_key "employment_periods", "jobs"
+  add_foreign_key "employment_periods", "users"
   add_foreign_key "faq_translations", "faqs"
   add_foreign_key "faq_translations", "languages"
   add_foreign_key "faqs", "languages"
@@ -1085,6 +1199,13 @@ ActiveRecord::Schema.define(version: 20170929154939) do
   add_foreign_key "filter_users", "filters"
   add_foreign_key "filter_users", "users"
   add_foreign_key "frilans_finans_invoices", "job_users"
+  add_foreign_key "guide_section_article_translations", "guide_section_articles"
+  add_foreign_key "guide_section_article_translations", "languages"
+  add_foreign_key "guide_section_articles", "guide_sections"
+  add_foreign_key "guide_section_articles", "languages"
+  add_foreign_key "guide_section_translations", "guide_sections"
+  add_foreign_key "guide_section_translations", "languages"
+  add_foreign_key "guide_sections", "languages"
   add_foreign_key "industries", "languages"
   add_foreign_key "industry_translations", "industries"
   add_foreign_key "industry_translations", "languages"
@@ -1145,6 +1266,9 @@ ActiveRecord::Schema.define(version: 20170929154939) do
   add_foreign_key "ratings", "jobs", name: "ratings_job_id_fk"
   add_foreign_key "ratings", "users", column: "from_user_id", name: "ratings_from_user_id_fk"
   add_foreign_key "ratings", "users", column: "to_user_id", name: "ratings_to_user_id_fk"
+  add_foreign_key "recruiter_activities", "activities"
+  add_foreign_key "recruiter_activities", "documents"
+  add_foreign_key "recruiter_activities", "users"
   add_foreign_key "skill_filters", "filters"
   add_foreign_key "skill_filters", "skills", name: "skill_filters_skill_id_fk"
   add_foreign_key "skill_translations", "languages"
@@ -1162,6 +1286,8 @@ ActiveRecord::Schema.define(version: 20170929154939) do
   add_foreign_key "user_interests", "users"
   add_foreign_key "user_languages", "languages"
   add_foreign_key "user_languages", "users"
+  add_foreign_key "user_occupations", "occupations"
+  add_foreign_key "user_occupations", "users"
   add_foreign_key "user_skills", "skills"
   add_foreign_key "user_skills", "users"
   add_foreign_key "user_tags", "tags"
@@ -1172,5 +1298,6 @@ ActiveRecord::Schema.define(version: 20170929154939) do
   add_foreign_key "users", "languages"
   add_foreign_key "users", "languages", column: "system_language_id", name: "users_system_language_id_fk"
   add_foreign_key "users", "users", column: "interviewed_by_user_id", name: "users_interviewed_by_user_id_fk"
+  add_foreign_key "utalk_codes", "users"
   add_foreign_key "visits", "users", name: "visits_user_id_fk"
 end

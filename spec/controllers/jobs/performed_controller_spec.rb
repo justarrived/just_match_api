@@ -3,10 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::Jobs::PerformedController, type: :controller do
-  let(:user) { FactoryGirl.create(:user_with_tokens) }
-  let(:job) { FactoryGirl.create(:passed_job, owner: owner) }
-  let(:owner) { FactoryGirl.create(:user) }
-  let(:job_user) { FactoryGirl.create(:job_user_will_perform, job: job, user: user) }
+  let(:user) { FactoryBot.create(:user_with_tokens) }
+  let(:job) { FactoryBot.create(:passed_job, owner: owner) }
+  let(:owner) { FactoryBot.create(:user) }
+  let(:job_user) { FactoryBot.create(:job_user_will_perform, job: job, user: user) }
 
   it 'updates the requested job user' do
     params = {
@@ -22,8 +22,8 @@ RSpec.describe Api::V1::Jobs::PerformedController, type: :controller do
   end
 
   it 'nil notifies owner when updated #performed is set to true' do
-    job = FactoryGirl.create(:passed_job, owner: user)
-    job_user = FactoryGirl.create(:job_user_will_perform, job: job)
+    job = FactoryBot.create(:passed_job, owner: user)
+    job_user = FactoryBot.create(:job_user_will_perform, job: job)
     user = job_user.user
     user.create_auth_token
     params = {

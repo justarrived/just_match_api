@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :arbetsformedlingen_ad_log do
     association :arbetsformedlingen_ad
     response ''
@@ -26,3 +26,4 @@ end
 #
 #  fk_rails_...  (arbetsformedlingen_ad_id => arbetsformedlingen_ads.id)
 #
+# rubocop:enable Metrics/LineLength

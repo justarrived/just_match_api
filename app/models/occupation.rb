@@ -5,6 +5,11 @@ class Occupation < ApplicationRecord
 
   belongs_to :language
 
+  scope :order_by_name, (lambda { |direction: :asc|
+    dir = direction.to_s == 'desc' ? 'DESC' : 'ASC'
+    order("occupation_translations.name #{dir}")
+  })
+
   include Translatable
   translates :name
 
@@ -17,10 +22,10 @@ end
 #
 # Table name: occupations
 #
-#  id          :integer          not null, primary key
+#  id          :bigint(8)        not null, primary key
 #  name        :string
 #  ancestry    :string
-#  language_id :integer
+#  language_id :bigint(8)
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #

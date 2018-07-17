@@ -1,11 +1,13 @@
 # frozen_string_literal: true
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :order do
     association :job_request
     association :company
     association :sales_user, factory: :user
     association :delivery_user, factory: :user
+
+    category :freelance
 
     hourly_pay_rate 119.98
     invoice_hourly_pay_rate 1119.99
@@ -36,7 +38,7 @@ end
 #  filled_hours                   :decimal(, )
 #  name                           :string
 #  category                       :integer
-#  company_id                     :integer
+#  company_id                     :bigint(8)
 #  sales_user_id                  :integer
 #  delivery_user_id               :integer
 #  previous_order_id              :integer

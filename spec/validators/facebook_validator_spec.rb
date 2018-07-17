@@ -26,6 +26,14 @@ RSpec.describe LinkedinValidator do
     end
 
     it 'fails when its an invalid facebook_url and adds the default error message' do
+      test_model.facebook_url = 'https:/faceook.com/buren'
+      test_model.valid?
+
+      error_msg = I18n.t('errors.validators.facebook_url')
+      expect(test_model.errors[:facebook_url]).to eq([error_msg])
+    end
+
+    it 'fails when its an invalid facebook_url and adds the default error message' do
       test_model.facebook_url = 'wat'
       test_model.valid?
 

@@ -24,15 +24,18 @@ module Api
             languages: [Struct.new(:id).new(1)],
             languages_hint: 'any skill hint',
             skills: [Struct.new(:id).new(1)],
-            skills_hint: 'any skill hint'
+            skills_hint: 'any skill hint',
+            occupations: [Struct.new(:id).new(1)],
+            occupations_hint: 'any occupation hint',
+            missing_cv: true
           ).to_h
         )
         def missing_traits
-          missing = Queries::MissingUserTraits
-          missing_skills = missing.skills(user: @user, skills: @job.skills)
-          missing_languages = missing.languages(user: @user, languages: @job.languages)
+          missing = Queries::MissingUserTraits.new(user: @user)
+          missing_skills = missing.skills(skills: @job.skills)
+          missing_languages = missing.languages(languages: @job.languages)
+          missing_occupations = missing.occupations(occupations: @job.occupations)
           missing_user_attributes = missing.attributes(
-            user: @user,
             attributes: %i(ssn street zip city phone)
           )
 
@@ -41,7 +44,10 @@ module Api
             skills: missing_skills,
             skills_hint: I18n.t('user.missing_job_skills_trait'),
             languages: missing_languages,
-            languages_hint: I18n.t('user.missing_job_languages_trait')
+            languages_hint: I18n.t('user.missing_job_languages_trait'),
+            occupations: missing_occupations,
+            occupations_hint: I18n.t('user.missing_job_occupations_trait'),
+            missing_cv: missing.cv?
           )
           render json: response
         end

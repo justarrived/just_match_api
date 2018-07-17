@@ -26,6 +26,14 @@ RSpec.describe LinkedinValidator do
     end
 
     it 'fails when its an invalid linkedin_url and adds the default error message' do
+      test_model.linkedin_url = 'https:/www.linkedin.com/buren'
+      test_model.valid?
+
+      error_msg = I18n.t('errors.validators.linkedin_url')
+      expect(test_model.errors[:linkedin_url]).to eq([error_msg])
+    end
+
+    it 'fails when its an invalid linkedin_url and adds the default error message' do
       test_model.linkedin_url = 'wat'
       test_model.valid?
 

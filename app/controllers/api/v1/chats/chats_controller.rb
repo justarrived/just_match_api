@@ -5,7 +5,7 @@ module Api
     module Chats
       class ChatsController < BaseController
         before_action :require_user
-        before_action :set_chat, only: %i(show update)
+        before_action :set_chat, only: %i(show)
 
         after_action :verify_authorized, only: []
 

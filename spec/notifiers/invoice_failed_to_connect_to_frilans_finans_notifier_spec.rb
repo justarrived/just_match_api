@@ -8,7 +8,7 @@ RSpec.describe InvoiceFailedToConnectToFrilansFinansNotifier, type: :mailer do
 
   it 'must work' do
     # Create an admin to send the email to
-    user = FactoryGirl.create(:super_admin_user)
+    user = FactoryBot.create(:super_admin_user)
 
     allow(AdminMailer).to receive(:invoice_failed_to_connect_to_frilans_finans_email).
       and_return(mailer)

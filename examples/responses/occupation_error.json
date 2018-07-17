@@ -1,14 +1,3 @@
 {
-  "errors": [
-    {
-      "status": 422,
-      "source": {
-        "pointer": "/data/attributes/language"
-      },
-      "detail": "can't be blank",
-      "meta": {
-        "type": "blank"
-      }
-    }
-  ]
+  "errors": {}
 }

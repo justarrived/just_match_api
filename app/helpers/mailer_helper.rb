@@ -10,7 +10,7 @@ module MailerHelper
   end
 
   def frontend_mail_url(name, **args)
-    args[:utm_medium] = UTM_MAILER_MEDIUM
+    args[:utm_medium] ||= UTM_MAILER_MEDIUM
     FrontendRouter.draw(name, **args)
   end
 

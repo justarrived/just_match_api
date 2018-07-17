@@ -3,7 +3,7 @@
 module Api
   module V1
     class JobsController < BaseController
-      before_action :set_job, only: %i(show edit update matching_users)
+      before_action :set_job, only: %i(show update matching_users)
 
       resource_description do
         short 'API for managing jobs'
@@ -17,6 +17,7 @@ module Api
         owner company company.company_images language category hourly_pay comments
         job_languages job_languages.language job_skills job_skills.skill
         responsible_recruiter responsible_recruiter.user_images
+        job_occupations job_occupations.occupation
       ).freeze
 
       api :GET, '/jobs', 'List jobs'
@@ -27,7 +28,7 @@ module Api
         authorize(Job)
 
         jobs_index = Index::JobsIndex.new(self, current_user)
-        jobs_scope = jobs_index_scope(Job.uncancelled.published)
+        jobs_scope = jobs_index_scope(Job.not_cloned.uncancelled.published)
         @jobs = jobs_index.jobs(jobs_scope)
 
         api_render(@jobs, total: jobs_index.count)
@@ -79,15 +80,8 @@ module Api
 
         @job = Job.new(job_attributes)
 
-        owner = nil
-        owner_id = jsonapi_params[:owner_id].to_i
-        if owner_id.zero?
-          owner = current_user
-          ActiveSupport::Deprecation.warn('Not explicitly setting the owner_id as part of the payload has been deprecated please set a owner_id.') # rubocop:disable Metrics/LineLength
-        else
-          owner = User.scope_for(current_user).find_by(id: jsonapi_params[:owner_user_id])
-        end
-        @job.owner = owner
+        owner_id = jsonapi_params[:owner_user_id]
+        @job.owner = User.scope_for(current_user).find_by(id: owner_id)
 
         if hourly_pay = @job.hourly_pay
           invoice_amount = PayCalculator.rate_excluding_vat(hourly_pay.gross_salary)
@@ -213,7 +207,7 @@ module Api
         scope = if key = params[:preview_key].presence
                   scope.where(preview_key: key)
                 else
-                  scope.published
+                  scope.without_preview_key
                 end
 
         @job = scope.find(params[:job_id])

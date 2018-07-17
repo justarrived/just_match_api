@@ -2,7 +2,9 @@
 
 namespace :docs do
   task api_examples: :environment do
+    # rubocop:disable Rails/UnknownEnv
     fail 'Can only generate docs when Rails is in docs env.' unless Rails.env.docs?
+    # rubocop:enable Rails/UnknownEnv
 
     %w(drop create schema:load).each { |task| Rake::Task["db:#{task}"].invoke }
     # load Geocoder stubs (otherwise will end up making tons of network requests..)

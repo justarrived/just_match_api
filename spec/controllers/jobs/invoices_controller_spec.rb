@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::Jobs::InvoicesController, type: :controller do
-  let(:job_user) { FactoryGirl.create(:job_user_passed_job) }
+  let(:job_user) { FactoryBot.create(:job_user_passed_job) }
   let(:user) { job_user.user }
   let(:job) { job_user.job }
   let(:logged_in_user) { job.owner.tap(&:create_auth_token) }
@@ -37,7 +37,7 @@ RSpec.describe Api::V1::Jobs::InvoicesController, type: :controller do
 
       context 'already created' do
         it 'returns 422 unprocessable entity' do
-          FactoryGirl.create(:invoice, job_user: job_user)
+          FactoryBot.create(:invoice, job_user: job_user)
           post :create, params: valid_params
           expect(response.status).to eq(422)
         end
@@ -45,7 +45,7 @@ RSpec.describe Api::V1::Jobs::InvoicesController, type: :controller do
         it 'does *not* notify user' do
           allow(InvoiceCreatedNotifier).to receive(:call).
             with(job: job, user: user)
-          FactoryGirl.create(:invoice, job_user: job_user)
+          FactoryBot.create(:invoice, job_user: job_user)
           post :create, params: valid_params
           expect(InvoiceCreatedNotifier).not_to have_received(:call)
         end

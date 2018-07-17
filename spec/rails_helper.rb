@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 ENV['RAILS_ENV'] ||= 'test'
-require File.expand_path('../../config/environment', __FILE__)
+require File.expand_path('../config/environment', __dir__)
 
 if Rails.env.production?
   abort('The Rails environment is running in production mode!')
@@ -37,18 +37,18 @@ RSpec.configure do |config|
   # Filter lines from Rails gems in backtraces.
   config.filter_rails_from_backtrace!
 
-  factory_girl_stats = FactoryGirlStats.new
+  factory_bot_stats = FactoryBotStats.new
   # Before the test suite is run
   config.before(:suite) do
     UtmUrlBuilder.default_utm_source = nil
-    factory_girl_stats = FactoryGirlStats.new
+    factory_bot_stats = FactoryBotStats.new
 
     begin
       # Since we're using Spring we must reload all factories
-      # see: https://github.com/thoughtbot/factory_girl/blob/master/GETTING_STARTED.md#rails-preloaders-and-rspec
-      FactoryGirl.reload
+      # see: https://github.com/thoughtbot/factory_bot/blob/master/GETTING_STARTED.md#rails-preloaders-and-rspec
+      FactoryBot.reload
 
-      FactoryStatsRunner.start(factory_girl_stats)
+      FactoryStatsRunner.start(factory_bot_stats)
 
       FactoryLintRunner.run
 
@@ -62,7 +62,7 @@ RSpec.configure do |config|
   config.after(:suite) do
     FileUtils.rm_rf(Dir[Rails.root.join('spec', 'test_files').to_s])
 
-    FactoryStatsRunner.finish(factory_girl_stats)
+    FactoryStatsRunner.finish(factory_bot_stats)
     RubocopRunner.run
     CheckDBIndexesRunner.run
     CheckDBUniqIndexesRunner.run

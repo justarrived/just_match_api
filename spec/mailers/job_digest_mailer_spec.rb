@@ -38,7 +38,7 @@ RSpec.describe JobDigestMailer, type: :mailer do
     )
   end
 
-  describe '#new_job_digest_email' do
+  describe '#digest_email' do
     let(:mail) do
       described_class.digest_email(jobs: jobs, job_digest: job_digest)
     end
@@ -74,7 +74,7 @@ RSpec.describe JobDigestMailer, type: :mailer do
 
     it 'includes job links in email body' do
       jobs.each do |job|
-        link = FrontendRouter.draw(:job, id: job.id, utm_campaign: 'digest_email')
+        link = FrontendRouter.draw(:job, id: job.id)
         expect(mail).to match_email_body(link)
       end
     end

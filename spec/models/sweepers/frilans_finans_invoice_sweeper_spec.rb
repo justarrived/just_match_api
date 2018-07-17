@@ -5,9 +5,9 @@ require 'rails_helper'
 RSpec.describe Sweepers::FrilansFinansInvoiceSweeper do
   describe '#create_frilans_finans' do
     it 'calls CreateFrilansFinansInvoiceService for the right invoices' do
-      FactoryGirl.create(:frilans_finans_invoice, frilans_finans_id: nil)
-      FactoryGirl.create(:frilans_finans_invoice, frilans_finans_id: nil)
-      FactoryGirl.create(:frilans_finans_invoice, frilans_finans_id: 1337)
+      FactoryBot.create(:frilans_finans_invoice, frilans_finans_id: nil)
+      FactoryBot.create(:frilans_finans_invoice, frilans_finans_id: nil)
+      FactoryBot.create(:frilans_finans_invoice, frilans_finans_id: 1337)
       allow(CreateFrilansFinansInvoiceService).to receive(:create)
       described_class.create_frilans_finans
       expect(CreateFrilansFinansInvoiceService).to have_received(:create).twice
@@ -15,17 +15,17 @@ RSpec.describe Sweepers::FrilansFinansInvoiceSweeper do
   end
 
   describe '#activate_frilans_finans' do
-    let(:passed_job) { FactoryGirl.create(:passed_job) }
-    let(:job_user) { FactoryGirl.create(:job_user_passed_job) }
+    let(:passed_job) { FactoryBot.create(:passed_job) }
+    let(:job_user) { FactoryBot.create(:job_user_passed_job) }
     let(:job_user_with_invoice) do
-      FactoryGirl.create(
+      FactoryBot.create(
         :job_user_will_perform,
         job: passed_job
       )
     end
     let(:frilans_finans_id) { 1 }
     let(:ff_invoice) do
-      FactoryGirl.create(
+      FactoryBot.create(
         :frilans_finans_invoice,
         job_user: job_user_with_invoice,
         frilans_finans_id: frilans_finans_id
@@ -33,7 +33,7 @@ RSpec.describe Sweepers::FrilansFinansInvoiceSweeper do
     end
 
     it 'activates all Frilans Finans invoices that need activation' do
-      job_user_with_invoice.invoice = FactoryGirl.create(
+      job_user_with_invoice.invoice = FactoryBot.create(
         :invoice,
         job_user: job_user_with_invoice,
         frilans_finans_invoice: ff_invoice
@@ -58,7 +58,7 @@ RSpec.describe Sweepers::FrilansFinansInvoiceSweeper do
       let(:frilans_finans_id) { 123 }
 
       it 'sends notifiation' do
-        job_user_with_invoice.invoice = FactoryGirl.create(
+        job_user_with_invoice.invoice = FactoryBot.create(
           :invoice,
           job_user: job_user_with_invoice,
           frilans_finans_invoice: ff_invoice

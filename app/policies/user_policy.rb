@@ -65,6 +65,10 @@ class UserPolicy < ApplicationPolicy
     admin_or_self?
   end
 
+  def available_notifications?
+    admin_or_self?
+  end
+
   def notifications?
     true
   end

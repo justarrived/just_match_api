@@ -7,9 +7,9 @@ RSpec.describe UserLanguagePolicy do
     allow_any_instance_of(User).to receive(:persisted?).and_return(true)
   end
 
-  let(:user) { FactoryGirl.build(:user) }
-  let(:other_user) { FactoryGirl.build(:user) }
-  let(:admin_user) { FactoryGirl.build(:admin_user) }
+  let(:user) { FactoryBot.build(:user) }
+  let(:other_user) { FactoryBot.build(:user) }
+  let(:admin_user) { FactoryBot.build(:admin_user) }
 
   permissions :index?, :show? do
     context '"self" user' do

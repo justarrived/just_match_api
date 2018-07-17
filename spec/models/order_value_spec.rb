@@ -105,8 +105,8 @@ RSpec.describe OrderValue, type: :model do
     end
 
     it 'returns calculated value tolal filled is blank' do
-      order = FactoryGirl.create(:order)
-      order_value = FactoryGirl.build(
+      order = FactoryBot.create(:order)
+      order_value = FactoryBot.build(
         :order_value,
         order: order,
         total_sold: 100,
@@ -130,8 +130,8 @@ RSpec.describe OrderValue, type: :model do
 
   describe '#calculate_total_filled_value' do
     it 'returns total value' do
-      order = FactoryGirl.create(:order)
-      FactoryGirl.create(
+      order = FactoryBot.create(:order)
+      FactoryBot.create(
         :job,
         filled: true,
         customer_hourly_price: 400.0,
@@ -139,7 +139,7 @@ RSpec.describe OrderValue, type: :model do
         hours: 40
       )
 
-      order_value = FactoryGirl.build(:order_value, order: order)
+      order_value = FactoryBot.build(:order_value, order: order)
 
       expect(order_value.calculate_total_filled_value).to eq(16_000.0)
     end
@@ -150,8 +150,8 @@ end
 #
 # Table name: order_values
 #
-#  id                      :integer          not null, primary key
-#  order_id                :integer
+#  id                      :bigint(8)        not null, primary key
+#  order_id                :bigint(8)
 #  previous_order_value_id :integer
 #  change_comment          :text
 #  change_reason_category  :integer

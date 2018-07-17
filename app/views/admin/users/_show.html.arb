@@ -1,4 +1,7 @@
 # frozen_string_literal: true
+
+recruiter_activities = user.recruiter_activities.order(id: :desc).includes(:activity, :author) # rubocop:disable Metrics/LineLength
+
 columns do
   column do
     panel(I18n.t('admin.user.show.basic_info_title')) do
@@ -21,13 +24,7 @@ columns do
         row :facebook_url
       end
 
-      if user.interview_comment.present?
-        h4 I18n.t('admin.user.show.interview_comment')
-        div do
-          simple_format(user.interview_comment)
-        end
-      end
-
+      render partial: 'admin/recruiter_activities/simple_list', locals: { recruiter_activities: recruiter_activities, user: user } # rubocop:disable Metrics/LineLength
       render partial: 'admin/users/customer_presentation_fields', locals: { user: user }
 
       div do
@@ -45,11 +42,35 @@ columns do
   if user.candidate?
     column do
       panel I18n.t('admin.user.show.candidate_summary') do
-        h3 I18n.t('admin.user.show.city', city: user.city) unless user.city.blank?
+        h3(
+          link_to(
+            I18n.t('admin.user.total_job_applications', count: total_job_applications),
+            user_applications_path(user)
+          )
+        )
+
+        h3 I18n.t('admin.user.show.city', city: user.city) if user.city.present?
 
         h3 I18n.t('admin.user.show.tags')
         div do
           content_tag(:p, user_tag_badges(user: user))
+        end
+
+        render(
+          partial: 'admin/employment_periods/simple_list',
+          locals: {
+            employment_periods: user.employment_periods.reverse
+          }
+        )
+
+        div do
+          attributes_table_for(user) do
+            row :occupations do |_user|
+              user_occupations.map do |user|
+                "#{user.occupation.name} (yxp: #{user.years_of_experience})"
+              end.join(', ')
+            end
+          end
         end
 
         h3 I18n.t('admin.user.show.skills')
@@ -99,9 +120,9 @@ columns do
         render(
           partial: 'admin/users/jobs_tables',
           locals: {
-            ongoing_jobs: user.employed_for_jobs.ongoing,
-            future_jobs: user.jobs.future,
-            previous_performed_jobs: user.employed_for_jobs.passed
+            ongoing_jobs: user.employed_for_jobs.ongoing.with_translations,
+            future_jobs: user.jobs.future.with_translations,
+            previous_performed_jobs: user.employed_for_jobs.passed.with_translations
           }
         )
 
@@ -120,6 +141,13 @@ columns do
 end
 
 if user.candidate?
+  panel 'CV' do
+    div do
+      title = I18n.t('admin.job_user.show.no_resume_uploaded')
+      render_or_link_document(resume) || h3(title)
+    end
+  end
+
   panel(I18n.t('admin.user.show.candidate_status')) do
     attributes_table_for(user) do
       row :current_status
@@ -211,8 +239,8 @@ panel I18n.t('admin.user.show.misc') do
     row :zip_latitude
     row :zip_longitude
 
-    row :created_at { datetime_ago_in_words(user.created_at) }
-    row :updated_at { datetime_ago_in_words(user.updated_at) }
+    row(:created_at) { datetime_ago_in_words(user.created_at) }
+    row(:updated_at) { datetime_ago_in_words(user.updated_at) }
   end
 end
 

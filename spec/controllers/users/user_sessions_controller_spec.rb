@@ -25,7 +25,7 @@ RSpec.describe Api::V1::Users::UserSessionsController, type: :controller do
       context 'with email given' do
         before(:each) do
           attrs = { email: email, password: password }
-          FactoryGirl.create(:user, attrs)
+          FactoryBot.create(:user, attrs)
         end
 
         it 'should work with uppercase email address' do
@@ -68,7 +68,7 @@ RSpec.describe Api::V1::Users::UserSessionsController, type: :controller do
       context 'with phone given' do
         it 'should return success status' do
           password = '12345678'
-          user = FactoryGirl.create(:user, password: password)
+          user = FactoryBot.create(:user, password: password)
           valid_attributes = {
             data: {
               attributes: {
@@ -106,7 +106,7 @@ RSpec.describe Api::V1::Users::UserSessionsController, type: :controller do
     context 'banned user' do
       before(:each) do
         attrs = { email: 'someone@example.com', password: '12345678', banned: true }
-        FactoryGirl.create(:user, attrs)
+        FactoryBot.create(:user, attrs)
       end
 
       it 'returns forbidden status' do
@@ -125,7 +125,7 @@ RSpec.describe Api::V1::Users::UserSessionsController, type: :controller do
 
     context 'login with one time token' do
       let(:user) do
-        u = FactoryGirl.create(:user)
+        u = FactoryBot.create(:user)
         u.generate_one_time_token
         u.save!
         u
@@ -155,14 +155,14 @@ RSpec.describe Api::V1::Users::UserSessionsController, type: :controller do
   describe 'DELETE #token' do
     context 'valid user' do
       it 'should return success status' do
-        user = FactoryGirl.create(:user_with_tokens, email: 'someone@example.com')
+        user = FactoryBot.create(:user_with_tokens, email: 'someone@example.com')
         token = user.auth_token
         delete :destroy, params: { id: token }
         expect(response.status).to eq(204)
       end
 
       it 'destroys users auth token' do
-        user = FactoryGirl.create(:user, email: 'someone@example.com')
+        user = FactoryBot.create(:user, email: 'someone@example.com')
         token = user.create_auth_token
         auth_token = token.token
         expect(user.auth_tokens.first.expired?).to eq(false)
@@ -174,7 +174,7 @@ RSpec.describe Api::V1::Users::UserSessionsController, type: :controller do
 
     context 'no such user auth_token' do
       it 'should return 404 not found' do
-        FactoryGirl.create(:user_with_tokens, email: 'someone@example.com')
+        FactoryBot.create(:user_with_tokens, email: 'someone@example.com')
         delete :destroy, params: { id: 'dasds' }
         expect(response.status).to eq(404)
       end
@@ -184,7 +184,7 @@ RSpec.describe Api::V1::Users::UserSessionsController, type: :controller do
   describe 'POST #magic_link' do
     context 'valid phone' do
       let(:valid_params) do
-        FactoryGirl.create(:user_with_tokens, phone: '073 500 0000')
+        FactoryBot.create(:user_with_tokens, phone: '073 500 0000')
         {
           data: {
             attributes: {

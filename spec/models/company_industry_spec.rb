@@ -9,9 +9,9 @@ end
 #
 # Table name: company_industries
 #
-#  id          :integer          not null, primary key
-#  company_id  :integer
-#  industry_id :integer
+#  id          :bigint(8)        not null, primary key
+#  company_id  :bigint(8)
+#  industry_id :bigint(8)
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #

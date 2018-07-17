@@ -10,7 +10,7 @@ RSpec.describe UpdateUserWelcomeAppStatusService do
     end
 
     let(:user) do
-      FactoryGirl.create(
+      FactoryBot.create(
         :user,
         email: 'buren@example.com',
         has_welcome_app_account: true,

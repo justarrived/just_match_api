@@ -2,7 +2,7 @@
 
 class CreateVisits < ActiveRecord::Migration[4.2]
   def change
-    create_table :visits do |t|
+    create_table :visits do |t| # rubocop:disable Rails/CreateTableWithTimestamps
       t.string :visit_token
       t.string :visitor_token
 

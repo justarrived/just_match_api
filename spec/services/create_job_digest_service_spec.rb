@@ -10,7 +10,7 @@ RSpec.describe CreateJobDigestService do
   describe '::call' do
     it 'can find job_digest subscriber using its UUID' do
       digest = nil
-      subscriber = FactoryGirl.create(:digest_subscriber)
+      subscriber = FactoryBot.create(:digest_subscriber)
 
       expect do
         digest = described_class.call(
@@ -26,7 +26,7 @@ RSpec.describe CreateJobDigestService do
     end
 
     it 'sends digest created notification' do
-      subscriber = FactoryGirl.create(:digest_subscriber)
+      subscriber = FactoryBot.create(:digest_subscriber)
 
       allow(DigestCreatedNotifier).to receive(:call).and_return(nil)
       digest = described_class.call(
@@ -41,7 +41,7 @@ RSpec.describe CreateJobDigestService do
 
     it 'can create job digest occupations' do
       digest = nil
-      occupation = FactoryGirl.create(:occupation)
+      occupation = FactoryBot.create(:occupation)
 
       expect do
         digest = described_class.call(
@@ -76,7 +76,7 @@ RSpec.describe CreateJobDigestService do
     it 'can find job_digest subscriber using email' do
       digest = nil
       email = 'email@example.com'
-      FactoryGirl.create(:digest_subscriber, email: email)
+      FactoryBot.create(:digest_subscriber, email: email)
 
       expect do
         digest = described_class.call(

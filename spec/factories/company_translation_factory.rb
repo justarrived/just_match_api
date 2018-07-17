@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :company_translation do
     short_description 'MyText'
     description 'MyText'
@@ -12,12 +12,12 @@ end
 #
 # Table name: company_translations
 #
-#  id                :integer          not null, primary key
+#  id                :bigint(8)        not null, primary key
 #  locale            :string
 #  short_description :string
 #  description       :text
-#  language_id       :integer
-#  company_id        :integer
+#  language_id       :bigint(8)
+#  company_id        :bigint(8)
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #

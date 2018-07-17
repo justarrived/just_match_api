@@ -5,8 +5,8 @@ require 'rails_helper'
 RSpec.describe UserJobMatchNotifier, type: :mailer do
   let(:mailer) { Struct.new(:deliver_later).new(nil) }
   let(:job) { mock_model Job, owner: owner }
-  let(:user) { FactoryGirl.build(:user) }
-  let(:owner) { FactoryGirl.build(:user) }
+  let(:user) { FactoryBot.build(:user) }
+  let(:owner) { FactoryBot.build(:user) }
 
   it 'must work' do
     allow(JobMailer).to receive(:job_match_email).and_return(mailer)

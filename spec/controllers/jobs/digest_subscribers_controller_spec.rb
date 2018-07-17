@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::Jobs::DigestSubscribersController, type: :controller do
   describe 'GET #show' do
-    let(:subscriber) { FactoryGirl.create(:digest_subscriber) }
+    let(:subscriber) { FactoryBot.create(:digest_subscriber) }
 
     it 'returns 200 when found' do
       get :show, params: { digest_subscriber_id: subscriber.uuid }
@@ -13,13 +13,13 @@ RSpec.describe Api::V1::Jobs::DigestSubscribersController, type: :controller do
     end
 
     context 'param is user id' do
-      let(:admin_user) { FactoryGirl.create(:admin_user) }
+      let(:admin_user) { FactoryBot.create(:admin_user) }
 
       it 'returns 200 when found' do
         allow_any_instance_of(described_class).
           to(receive(:current_user).
           and_return(admin_user))
-        FactoryGirl.create(:digest_subscriber, user: admin_user, email: nil)
+        FactoryBot.create(:digest_subscriber, user: admin_user, email: nil)
 
         get :show, params: { digest_subscriber_id: admin_user.id }
 
@@ -35,7 +35,7 @@ RSpec.describe Api::V1::Jobs::DigestSubscribersController, type: :controller do
   end
 
   describe 'POST #create' do
-    let(:job_digest) { FactoryGirl.create(:job_digest) }
+    let(:job_digest) { FactoryBot.create(:job_digest) }
 
     context 'with valid params' do
       it 'creates a new JobDigest' do
@@ -52,8 +52,8 @@ RSpec.describe Api::V1::Jobs::DigestSubscribersController, type: :controller do
       end
 
       it 'returns existing JobDigest if user email already exists' do
-        user = FactoryGirl.create(:user, email: 'digest-email@example.com')
-        FactoryGirl.create(:digest_subscriber, user: user, email: nil)
+        user = FactoryBot.create(:user, email: 'digest-email@example.com')
+        FactoryBot.create(:digest_subscriber, user: user, email: nil)
 
         allow_any_instance_of(described_class).
           to(receive(:current_user).
@@ -72,8 +72,8 @@ RSpec.describe Api::V1::Jobs::DigestSubscribersController, type: :controller do
       end
 
       it 'returns existing JobDigest if user id already exists and user is logged in' do
-        user = FactoryGirl.create(:user, email: 'digest-email@example.com')
-        FactoryGirl.create(:digest_subscriber, user: user, email: nil)
+        user = FactoryBot.create(:user, email: 'digest-email@example.com')
+        FactoryBot.create(:digest_subscriber, user: user, email: nil)
         allow_any_instance_of(described_class).
           to(receive(:current_user).
           and_return(user))
@@ -101,7 +101,7 @@ RSpec.describe Api::V1::Jobs::DigestSubscribersController, type: :controller do
 
   describe 'DELETE #destroy' do
     it 'marks digest_subscriber as deleted if found by uuid' do
-      subscriber = FactoryGirl.create(:digest_subscriber)
+      subscriber = FactoryBot.create(:digest_subscriber)
 
       expect do
         delete :destroy, params: { digest_subscriber_id: subscriber.uuid }
@@ -113,7 +113,7 @@ RSpec.describe Api::V1::Jobs::DigestSubscribersController, type: :controller do
     end
 
     it 'returns 404 status when digest_subscriber_id is found by #id' do
-      id = FactoryGirl.create(:digest_subscriber).id
+      id = FactoryBot.create(:digest_subscriber).id
       delete :destroy, params: { digest_subscriber_id: id }
       expect(response.status).to eq(404)
     end

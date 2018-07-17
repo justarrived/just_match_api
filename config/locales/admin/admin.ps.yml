@@ -1,0 +1,58 @@
+ps:
+  admin:
+    menu:
+      jobs: دنده
+      users: کارونکی
+      chats: غږیدل
+    job_name: دنده
+    user_name: کارونکی
+    job_user_name: د دندې کارونکی
+    name: نوم
+    recent_jobs:
+      name: نوم
+      hours: ساعتونه
+      hourly_pay: ساعتوار نرخ
+    my_unfilled_jobs:
+      name: نوم
+    unfilled_urgent_jobs:
+      name: نوم
+    my_unfilled_urgent_jobs:
+      name: نوم
+    recent_job_users:
+      accepted: منل شوی
+      will_perform: ترسره به شي
+      job: دنده
+      user: کارونکی
+    no_invoice_job_users:
+      job: دنده
+      user: کارونکی
+    order:
+      form:
+        change_comment:
+          label: نظر
+    job:
+      checklist_sidebar:
+        description: شرح
+      name: نوم
+      description: شرح
+      section_title:
+        invoice: رسید
+      show:
+        applicant_description:
+          short_name: د دندې کارونکی
+    chat:
+      name: غږیدل
+      form:
+        messages_title: پیغامات
+    user:
+      system_language: د سیسټم ژبه
+      name: نوم
+      email: بریښنالیک
+      company: سوداګري
+      verified: تایید شوی
+      description: شرح
+      education: روزنه
+      job_experience: د کار تجربه
+      show:
+        skills: مهارتونه
+        languages: ژبه

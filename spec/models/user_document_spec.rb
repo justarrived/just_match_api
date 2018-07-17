@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe UserDocument, type: :model do
-  described_class::CATEGORIES.each do |name, _value|
+  described_class::CATEGORIES.each_key do |name|
     it "has field name translation for document category: #{name}" do
       key = "user_document.categories.#{name}"
       expect(I18n.t(key)).not_to include('translation missing')

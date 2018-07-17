@@ -6,11 +6,11 @@ RSpec.describe AskForJobInformationNotifier, type: :mailer do
   describe '::call' do
     let(:mailer) { Struct.new(:deliver_later).new(nil) }
     let(:job) do
-      FactoryGirl.create(:job).tap do |j|
-        j.skills = [FactoryGirl.create(:skill)]
+      FactoryBot.create(:job).tap do |j|
+        j.skills = [FactoryBot.create(:skill)]
       end
     end
-    let(:job_user) { FactoryGirl.build(:job_user, job: job) }
+    let(:job_user) { FactoryBot.build(:job_user, job: job) }
 
     it 'sends email' do
       allow(JobMailer).to receive(:ask_for_information_email).and_return(mailer)

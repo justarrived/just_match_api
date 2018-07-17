@@ -4,8 +4,8 @@ require 'rails_helper'
 
 RSpec.describe SetUserInterestsService do
   describe '::call' do
-    let(:user) { FactoryGirl.create(:user) }
-    let(:interest) { FactoryGirl.create(:interest) }
+    let(:user) { FactoryBot.create(:user) }
+    let(:interest) { FactoryBot.create(:interest) }
     let(:level) { 4 }
     let(:interest_param) do
       [{ id: interest.id, level: level }]

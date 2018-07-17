@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 class CreateJobApplicationService
-  def self.call(job_user:, attributes:, job_owner:)
-    user = job_user.user
-    job = job_user.job
+  def self.call(job_user:, attributes:)
     job_user.assign_attributes(attributes)
     job_user.application_withdrawn = false
     job_user.language = Language.find_by(id: attributes[:language_id])
@@ -16,15 +14,8 @@ class CreateJobApplicationService
         )
       end
 
-      missing_traits = Queries::MissingUserTraits
-      missing_skills = missing_traits.skills(user: user, skills: job.skills)
-      missing_languages = missing_traits.languages(user: user, languages: job.languages)
-      NewApplicantNotifier.call(
-        job_user: job_user,
-        owner: job_owner,
-        skills: missing_skills,
-        languages: missing_languages
-      )
+      NewApplicantNotifierJob.perform_later(job_user: job_user)
+      UpdateApplicantDataReminderJob.set(wait: 3.days).perform_later(job_user: job_user)
     end
 
     job_user

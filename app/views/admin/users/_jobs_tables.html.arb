@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 if defined?(ongoing_jobs) && ongoing_jobs.any?
   h3 I18n.t('admin.user.show.ongoing_jobs')
   render partial: 'admin/jobs/summary_table', locals: { jobs: ongoing_jobs }

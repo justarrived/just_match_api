@@ -3,17 +3,17 @@
 require 'rails_helper'
 
 RSpec.describe UserSkill, type: :model do
-  let(:user) { FactoryGirl.create(:user) }
-  let(:skill) { FactoryGirl.create(:skill) }
+  let(:user) { FactoryBot.create(:user) }
+  let(:skill) { FactoryBot.create(:skill) }
 
   describe '#touched_by_admin?' do
     it 'returns true if proficiency_by_admin is set' do
-      user_skill = FactoryGirl.build(:user_skill, proficiency_by_admin: 7)
+      user_skill = FactoryBot.build(:user_skill, proficiency_by_admin: 7)
       expect(user_skill.touched_by_admin?).to eq(true)
     end
 
     it 'returns false if proficiency_by_admin is not set' do
-      user_skill = FactoryGirl.build(:user_skill, proficiency_by_admin: nil)
+      user_skill = FactoryBot.build(:user_skill, proficiency_by_admin: nil)
       expect(user_skill.touched_by_admin?).to eq(false)
     end
   end

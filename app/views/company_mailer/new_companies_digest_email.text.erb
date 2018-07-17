@@ -1,0 +1,7 @@
+New companies
+
+<% @companies.each do |company| %>
+<%= company.name %>
+<%= admin_company_url(company) %>
+
+<% end %>

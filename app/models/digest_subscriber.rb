@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class DigestSubscriber < ApplicationRecord
+  boolean_as_time :deleted
+
   belongs_to :user, optional: true
 
   has_many :job_digests, dependent: :destroy
@@ -21,8 +23,9 @@ class DigestSubscriber < ApplicationRecord
     "##{id || 'unsaved'} #{display}"
   end
 
-  def soft_destroy!
-    update!(deleted_at: Time.zone.now)
+  def mark_destroyed
+    self.email = EmailAddress.random if email
+    self.deleted_at = Time.zone.now
   end
 
   def contact_email
@@ -71,11 +74,11 @@ end
 #
 # Table name: digest_subscribers
 #
-#  id         :integer          not null, primary key
+#  id         :bigint(8)        not null, primary key
 #  email      :string
 #  uuid       :string(36)
 #  deleted_at :datetime
-#  user_id    :integer
+#  user_id    :bigint(8)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #

@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe CompanySerializer, type: :serializer do
   context 'Individual Resource Representation' do
-    let(:resource) { FactoryGirl.build(:company, id: '1') }
+    let(:resource) { FactoryBot.build(:company, id: '1') }
     let(:serialization) { JsonApiSerializer.serialize(resource) }
 
     subject do
@@ -55,9 +55,14 @@ end
 #  municipality      :string
 #  staffing_agency   :boolean          default(FALSE)
 #  display_name      :string
+#  sales_user_id     :integer
 #
 # Indexes
 #
 #  index_companies_on_cin                (cin) UNIQUE
 #  index_companies_on_frilans_finans_id  (frilans_finans_id) UNIQUE
+#
+# Foreign Keys
+#
+#  companies_sales_user_id_fk  (sales_user_id => users.id)
 #

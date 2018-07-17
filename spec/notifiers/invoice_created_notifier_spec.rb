@@ -5,8 +5,8 @@ require 'rails_helper'
 RSpec.describe InvoiceCreatedNotifier, type: :mailer do
   let(:mailer) { Struct.new(:deliver_later).new(nil) }
   let(:job) { mock_model Job, owner: owner, accepted_applicant: user }
-  let(:user) { FactoryGirl.build(:user) }
-  let(:owner) { FactoryGirl.build(:user) }
+  let(:user) { FactoryBot.build(:user) }
+  let(:owner) { FactoryBot.build(:user) }
 
   it 'must work' do
     allow(InvoiceMailer).to receive(:invoice_created_email).and_return(mailer)

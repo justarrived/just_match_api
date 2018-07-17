@@ -3,8 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe UserTag, type: :model do
-  let(:user) { FactoryGirl.create(:user) }
-  let(:tag) { FactoryGirl.create(:tag) }
+  let(:user) { FactoryBot.create(:user) }
+  let(:tag) { FactoryBot.create(:tag) }
 
   describe '#safe_create' do
     it 'can create user tag' do

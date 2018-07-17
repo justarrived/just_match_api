@@ -1,0 +1,11 @@
+# frozen_string_literal: true
+
+ff_invoice = f.object
+
+f.semantic_errors(*ff_invoice.errors.keys)
+
+f.inputs do
+  f.input :express_payment
+end
+
+f.actions

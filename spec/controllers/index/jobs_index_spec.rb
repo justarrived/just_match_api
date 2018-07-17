@@ -7,12 +7,12 @@ RSpec.describe Index::JobsIndex do
   # here between the database and JobsIndex, we should try to fix that later on..
   let!(:setup_jobs) do
     [
-      FactoryGirl.create(:job, users: [user, other_user]),
-      FactoryGirl.create(:job, users: [other_user])
+      FactoryBot.create(:job, users: [user, other_user]),
+      FactoryBot.create(:job, users: [other_user])
     ]
   end
-  let(:user) { FactoryGirl.create(:user) }
-  let(:other_user) { FactoryGirl.create(:user) }
+  let(:user) { FactoryBot.create(:user) }
+  let(:other_user) { FactoryBot.create(:user) }
 
   describe '#filter_job_user_jobs' do
     context 'returns job scope untouched' do

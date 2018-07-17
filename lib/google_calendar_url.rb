@@ -26,6 +26,6 @@ class GoogleCalendarUrl
   end
 
   def self.uri_encode(text)
-    URI.encode(text || '')
+    CGI.escape(text.to_s)
   end
 end

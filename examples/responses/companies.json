@@ -4,7 +4,6 @@
       "id": "1",
       "type": "companies",
       "attributes": {
-        "name": "A company",
         "website": "https://example.com",
         "cin": "5560360793",
         "street": "A street",
@@ -12,6 +11,7 @@
         "city": "Stockholm",
         "phone": null,
         "email": "test@example.com",
+        "name": "A company",
         "short_description": null,
         "description": null,
         "description_html": null,

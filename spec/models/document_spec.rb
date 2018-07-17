@@ -17,7 +17,7 @@ RSpec.describe Document, type: :model do
   end
 
   describe '#generate_one_time_token' do
-    let(:document) { FactoryGirl.build(:document) }
+    let(:document) { FactoryBot.build(:document) }
 
     it 'generates one time token' do
       document.generate_one_time_token
@@ -38,7 +38,7 @@ RSpec.describe Document, type: :model do
   describe '#find_by_one_time_token' do
     context 'token still valid' do
       it 'finds and returns document' do
-        document = FactoryGirl.create(:document)
+        document = FactoryBot.create(:document)
         document.generate_one_time_token
         document.save!
 
@@ -49,7 +49,7 @@ RSpec.describe Document, type: :model do
 
     context 'token expired' do
       it 'returns nil' do
-        document = FactoryGirl.create(:document)
+        document = FactoryBot.create(:document)
         document.generate_one_time_token
         document.save!
 

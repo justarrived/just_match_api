@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe OccupationSerializer, type: :serializer do
   context 'Individual Resource Representation' do
-    let(:resource) { FactoryGirl.build(:occupation, id: '1') }
+    let(:resource) { FactoryBot.build(:occupation, id: '1') }
     let(:serialization) { JsonApiSerializer.serialize(resource) }
 
     subject do
@@ -39,10 +39,10 @@ end
 #
 # Table name: occupations
 #
-#  id          :integer          not null, primary key
+#  id          :bigint(8)        not null, primary key
 #  name        :string
 #  ancestry    :string
-#  language_id :integer
+#  language_id :bigint(8)
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #

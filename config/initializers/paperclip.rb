@@ -12,3 +12,5 @@ if Rails.env.test?
   paperclip_path = "spec/test_files/#{paper_part}"
   Paperclip::Attachment.default_options[:path] = paperclip_path
 end
+
+Paperclip::DataUriAdapter.register

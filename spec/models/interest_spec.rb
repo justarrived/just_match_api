@@ -11,7 +11,7 @@ RSpec.describe Interest, type: :model do
       end
 
       it 'returns interest array' do
-        interest = FactoryGirl.create(:interest_with_translation)
+        interest = FactoryBot.create(:interest_with_translation)
         interest_array = described_class.to_form_array(include_blank: false)
         expect(interest_array).to eq([[interest.name, interest.id]])
       end
@@ -26,7 +26,7 @@ RSpec.describe Interest, type: :model do
       end
 
       it 'returns interest array' do
-        interest = FactoryGirl.create(:interest_with_translation)
+        interest = FactoryBot.create(:interest_with_translation)
         interest_array = described_class.to_form_array(include_blank: true)
         expect(interest_array).to eq([[label, nil], [interest.name, interest.id]])
       end

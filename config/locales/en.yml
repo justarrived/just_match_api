@@ -21,6 +21,8 @@ en:
     unauthorized: You are not authorized to perform this action.
     bad_json_format: "There was a problem in the JSON you submitted: %{error_class}"
     not_acceptable_response: The format is not acceptable.
+    utalk_code:
+      no_unclaimed: no unclaimed Utalk codes available
     rate_limit:
       details: Throttle limit reached. Retry later.
     bank_account:
@@ -46,7 +48,7 @@ en:
     chat:
       number_of_users: a chat must consist of between %{min}-%{max} number of users
     frilans_finans_invoice:
-      job_is_frilans_finans_job: job must be a Frilans Finans job
+      job_is_frilans_finans_job: must be a Frilans Finans job
     invoice:
       job_started: job start time must be in the passed before an invoice can be created
       job_user_accepted: user must be the accepted applicant before an invoice can be created
@@ -55,10 +57,12 @@ en:
     digest_subscriber:
       email_belongs_to_user_account: already belongs to a user account
     job:
+      job_end_date_presence: job end date must be present unless the job is a direct recruitment
       job_date_in_the_past: must be in the future
       hourly_pay_active: must be active
       update_not_allowed_when_accepted: job can't be updated as it has been accepted by the user
       job_end_date_after_job_date: must be after job date
+      job_end_date_presence: must be present unless job is a direct recruitment
       last_application_at_on_publish_to_blocketjobb: last application at must be set if job is to be published to Blocketjobb
       last_application_at_on_publish_to_metrojobb: last application at must be set if job is to be published to Metrojobb
       last_application_at_on_publish_to_linkedin: last application at must be set if job is to be published to LinkedIN
@@ -72,6 +76,7 @@ en:
       hours_lower_bound: must be at least %{min_hours} hour(s) per day
       hours_upper_bound: can't be more than %{max_hours} hours per day
       owner_must_belong_to_company: owner must belong to a company
+      not_cloned_when_published: "can't publish a cloned job"
     job_user:
       terms_agreement_consent_required: you must accept the terms of agreement to apply for this job
       terms_agreement_not_found: no such terms agreement
@@ -84,7 +89,7 @@ en:
       job_request_company_match: must be the same company as job request
       sales_and_delivery_user_equal: sales and delivery user can't be the same user
     order_value:
-      must_be_able_to_calulate_total: either total OR hourly_price, hours_per_month and number_of_months needs to be present
+      must_be_able_to_calulate_total: either total OR hourly price, hours per month and number of months needs to be present
       hourly_price_presence: must be present if total is blank
       hours_per_month_presence: must be present if total is blank
       number_of_months_presence: must be present if total is blank
@@ -137,6 +142,8 @@ en:
     missing_job_languages_trait: above you can find some relevant languages for this job that you haven't added yet
     missing_languages_trait: here you can add some selected language skills that we really want to know more about
     missing_skills_trait: here you can add some selected skills that we really want to know more about
+    missing_occupations_trait: here you can add some selected occupations that we really want to know more about
+    missing_job_occupations_trait: above you can find some relevant occupations for this job that you haven't added yet
     statuses:
       asylum_seeker: Asylum seeker
       asylum_seeker_description: Asylum seeker
@@ -169,6 +176,8 @@ en:
     new_applicant_job_info: Job apply info
     applicant_will_perform_job_info: Job confirmation info
     failed_to_activate_invoice: Failed to activate invoice
+    update_data_reminder: Update application data reminder
+    marketing: Marketing from Just Arrived
   user_document:
     categories:
       cv: CV
@@ -198,7 +207,7 @@ en:
   job:
     applicant_description_title: You are
     requirements_description_title: Requirements
-    salary_summary: Your salary will be fixed at %{hourly_gross_salary_with_unit}.
+    salary_summary: Fixed salary.
     schedule_summary: Your first work day will be on %{start_date}.
     tasks_description_title: Work assignments
   texter:

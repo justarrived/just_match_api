@@ -9,8 +9,8 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     {
       data: {
         attributes: {
-          skill_ids: [{ id: FactoryGirl.create(:skill).id, proficiency: 4 }],
-          interest_ids: [{ id: FactoryGirl.create(:interest).id, level: 4 }],
+          skill_ids: [{ id: FactoryBot.create(:skill).id, proficiency: 4 }],
+          interest_ids: [{ id: FactoryBot.create(:interest).id, level: 4 }],
           email: 'someone@example.com',
           first_name: 'Some user',
           last_name: 'name',
@@ -37,25 +37,25 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     }
   end
 
-  let(:logged_in_user) { FactoryGirl.create(:user_with_tokens) }
+  let(:logged_in_user) { FactoryBot.create(:user_with_tokens) }
 
   describe 'GET #index' do
     it 'assigns all users as @users' do
-      user = FactoryGirl.create(:user)
-      admin = FactoryGirl.create(:user_with_tokens, admin: true)
+      user = FactoryBot.create(:user)
+      admin = FactoryBot.create(:user_with_tokens, admin: true)
       process :index, method: :get, params: { auth_token: admin.auth_token }
       expect(assigns(:users)).to include(user)
     end
 
     context 'not authorized' do
       it 'does not assigns all users as @users' do
-        FactoryGirl.create(:user)
+        FactoryBot.create(:user)
         process :index, method: :get
         expect(assigns(:users)).to eq(nil)
       end
 
       it 'returns 401 status' do
-        FactoryGirl.create(:user)
+        FactoryBot.create(:user)
         process :index, method: :get
         expect(response.status).to eq(401)
       end
@@ -64,13 +64,13 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
   describe 'GET #show' do
     it 'assigns the requested user as @user' do
-      user = FactoryGirl.create(:user_with_tokens)
+      user = FactoryBot.create(:user_with_tokens)
       get :show, params: { auth_token: user.auth_token, user_id: user.to_param }
       expect(assigns(:user)).to eq(user)
     end
 
     it 'returns 401 status' do
-      user = FactoryGirl.create(:user)
+      user = FactoryBot.create(:user)
       get :show, params: { user_id: user.to_param }
       expect(response.status).to eq(401)
     end
@@ -171,7 +171,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       end
 
       context 'user image tokens' do
-        let(:user_image) { FactoryGirl.create(:user_image) }
+        let(:user_image) { FactoryBot.create(:user_image) }
 
         it 'can add user image' do
           token = user_image.one_time_token
@@ -249,7 +249,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       end
 
       context 'unauthorized/forbidden' do
-        let(:user) { FactoryGirl.create(:user) }
+        let(:user) { FactoryBot.create(:user) }
 
         it 'does not update the requested user' do
           old_name = user.first_name
@@ -298,7 +298,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       end
 
       context 'with user interests' do
-        let(:interest) { FactoryGirl.create(:interest) }
+        let(:interest) { FactoryBot.create(:interest) }
         let(:interest_id) { interest.id }
         let(:new_attributes) do
           {
@@ -320,6 +320,30 @@ RSpec.describe Api::V1::UsersController, type: :controller do
           expect(user_interest.level).to eq(3)
         end
       end
+
+      context 'with user occupations' do
+        let(:occupation) { FactoryBot.create(:occupation) }
+        let(:occupation_id) { occupation.id }
+        let(:new_attributes) do
+          {
+            auth_token: logged_in_user.auth_token,
+            data: {
+              attributes: {
+                occupation_ids: [{ id: occupation_id, years_of_experience: 3 }]
+              }
+            }
+          }
+        end
+
+        it 'creates from occupation list of id and years_of_experience' do
+          params = { user_id: logged_in_user.to_param }.merge(new_attributes)
+          put :update, params: params
+
+          user_occupation = assigns(:user).user_occupations.first
+          expect(user_occupation.occupation.id).to eq(occupation_id)
+          expect(user_occupation.years_of_experience).to eq(3)
+        end
+      end
     end
 
     context 'with invalid params' do
@@ -337,54 +361,6 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         params = { user_id: logged_in_user.to_param }.merge(invalid_attributes)
         put :update, params: params
         expect(response.status).to eq(422)
-      end
-    end
-  end
-
-  describe 'DELETE #destroy' do
-    context 'authorized' do
-      it 'destroys the requested user' do
-        params = {
-          auth_token: logged_in_user.auth_token,
-          user_id: logged_in_user.to_param
-        }
-
-        delete :destroy, params: params
-        logged_in_user.reload
-        expect(logged_in_user.name).to eq('Ghost User')
-      end
-
-      it 'returns no content status' do
-        params = {
-          auth_token: logged_in_user.auth_token,
-          user_id: logged_in_user.to_param
-        }
-
-        delete :destroy, params: params
-        expect(response.status).to eq(204)
-      end
-    end
-
-    context 'not allowed' do
-      it 'does not destroy the requested user' do
-        first_name = 'Some user'
-
-        user = FactoryGirl.create(:user, first_name: first_name)
-        params = {
-          auth_token: logged_in_user.auth_token,
-          user_id: user.to_param
-        }
-        delete :destroy, params: params
-        logged_in_user.reload
-        expect(user.first_name).to eq(first_name)
-      end
-
-      it 'returns not forbidden status' do
-        user = FactoryGirl.create(:user)
-        params = { auth_token: logged_in_user.auth_token, user_id: user.to_param }
-
-        delete :destroy, params: params
-        expect(response.status).to eq(403)
       end
     end
   end
@@ -434,8 +410,8 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
   describe 'GET #matching_jobs' do
     it 'returns 200 status for admin user' do
-      user = FactoryGirl.create(:user)
-      admin = FactoryGirl.create(:user_with_tokens, admin: true)
+      user = FactoryBot.create(:user)
+      admin = FactoryBot.create(:user_with_tokens, admin: true)
       get :show, params: { auth_token: admin.auth_token, user_id: user.to_param }
       expect(response.status).to eq(200)
     end
@@ -445,11 +421,11 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     it 'returns the missing traits' do
       Language.find_or_create_by(lang_code: :en)
       sv = Language.find_or_create_by(lang_code: :sv)
-      skill = FactoryGirl.create(:skill, high_priority: true)
+      skill = FactoryBot.create(:skill, high_priority: true)
 
-      user = FactoryGirl.create(:user, city: nil)
+      user = FactoryBot.create(:user, city: nil)
       user.languages = [sv]
-      admin = FactoryGirl.create(:user_with_tokens, admin: true)
+      admin = FactoryBot.create(:user_with_tokens, admin: true)
       params = { auth_token: admin.auth_token, user_id: user.to_param }
       get :missing_traits, params: params
 
@@ -463,6 +439,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         'hint' => I18n.t('user.missing_skills_trait')
       }
 
+      expect(response.body).to be_jsonapi_attribute('cv', {})
       expect(response.body).to be_jsonapi_attribute('city', {})
       expect(response.body).to be_jsonapi_attribute('language_ids', language_hash)
       expect(response.body).to be_jsonapi_attribute('skill_ids', skill_hash)
@@ -471,13 +448,13 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
   describe 'GET #notifications' do
     it 'returns 200 status' do
-      user = FactoryGirl.create(:user)
+      user = FactoryBot.create(:user)
       get :notifications, params: { user_id: user.to_param }
       expect(response.status).to eq(200)
     end
 
     it 'correct response body' do
-      user = FactoryGirl.create(:user)
+      user = FactoryBot.create(:user)
       get :notifications, params: { user_id: user.to_param }
 
       result = JSON.parse(response.body)['data']
@@ -488,20 +465,50 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
         expect(description).to eq(I18n.t("notifications.#{id}"))
         expect(type).to eq('user_notifications')
-        expect(User::NOTIFICATIONS).to include(id)
+        expect(UserNotification.names).to include(id)
+      end
+    end
+  end
+
+  describe 'GET #available_notifications' do
+    let(:user) { FactoryBot.create(:user_with_tokens) }
+    let(:valid_params) do
+      {
+        user_id: user.to_param,
+        auth_token: user.auth_token
+      }
+    end
+
+    it 'returns 200 status' do
+      get :available_notifications, params: valid_params
+      expect(response.status).to eq(200)
+    end
+
+    it 'correct response body' do
+      get :available_notifications, params: valid_params
+
+      result = JSON.parse(response.body)['data']
+      result.each do |json_object|
+        id = json_object['id']
+        description = json_object.dig('attributes', 'description')
+        type = json_object['type']
+
+        expect(description).to eq(I18n.t("notifications.#{id}"))
+        expect(type).to eq('user_notifications')
+        expect(UserNotification.names).to include(id)
       end
     end
   end
 
   describe 'GET #statuses' do
     it 'returns 200 status' do
-      user = FactoryGirl.create(:user)
+      user = FactoryBot.create(:user)
       get :statuses, params: { user_id: user.to_param }
       expect(response.status).to eq(200)
     end
 
     it 'correct response body' do
-      user = FactoryGirl.create(:user)
+      user = FactoryBot.create(:user)
       get :statuses, params: { user_id: user.to_param }
 
       result = JSON.parse(response.body)['data']
@@ -524,64 +531,65 @@ end
 #
 # Table name: users
 #
-#  id                               :integer          not null, primary key
-#  email                            :string
-#  phone                            :string
-#  description                      :text
+#  account_clearing_number          :string
+#  account_number                   :string
+#  admin                            :boolean          default(FALSE)
+#  anonymization_requested_at       :datetime
+#  anonymized_at                    :datetime
+#  arbetsformedlingen_registered_at :date
+#  arrived_at                       :date
+#  at_und                           :integer
+#  banned                           :boolean          default(FALSE)
+#  city                             :string
+#  company_id                       :integer
+#  competence_text                  :text
+#  country_of_origin                :string
 #  created_at                       :datetime         not null
-#  updated_at                       :datetime         not null
-#  latitude                         :float
-#  longitude                        :float
+#  current_status                   :integer
+#  description                      :text
+#  education                        :text
+#  email                            :string
+#  facebook_url                     :string
+#  first_name                       :string
+#  frilans_finans_id                :integer
+#  frilans_finans_payment_details   :boolean          default(FALSE)
+#  gender                           :integer
+#  has_welcome_app_account          :boolean
+#  id                               :integer          not null, primary key
+#  ignored_notifications_mask       :integer
+#  interview_comment                :text
+#  interviewed_at                   :datetime
+#  interviewed_by_user_id           :integer
+#  job_experience                   :text
+#  just_arrived_staffing            :boolean          default(FALSE)
 #  language_id                      :integer
-#  anonymized                       :boolean          default(FALSE)
+#  last_name                        :string
+#  latitude                         :float
+#  linkedin_url                     :string
+#  longitude                        :float
+#  managed                          :boolean          default(FALSE)
+#  next_of_kin_name                 :string
+#  next_of_kin_phone                :string
+#  one_time_token                   :string
+#  one_time_token_expires_at        :datetime
 #  password_hash                    :string
 #  password_salt                    :string
-#  admin                            :boolean          default(FALSE)
+#  phone                            :string
+#  presentation_availability        :text
+#  presentation_personality         :text
+#  presentation_profile             :text
+#  public_profile                   :boolean
+#  skype_username                   :string
+#  ssn                              :string
 #  street                           :string
+#  super_admin                      :boolean          default(FALSE)
+#  system_language_id               :integer
+#  updated_at                       :datetime         not null
+#  verified                         :boolean
+#  welcome_app_last_checked_at      :datetime
 #  zip                              :string
 #  zip_latitude                     :float
 #  zip_longitude                    :float
-#  first_name                       :string
-#  last_name                        :string
-#  ssn                              :string
-#  company_id                       :integer
-#  banned                           :boolean          default(FALSE)
-#  job_experience                   :text
-#  education                        :text
-#  one_time_token                   :string
-#  one_time_token_expires_at        :datetime
-#  ignored_notifications_mask       :integer
-#  frilans_finans_id                :integer
-#  frilans_finans_payment_details   :boolean          default(FALSE)
-#  competence_text                  :text
-#  current_status                   :integer
-#  at_und                           :integer
-#  arrived_at                       :date
-#  country_of_origin                :string
-#  managed                          :boolean          default(FALSE)
-#  account_clearing_number          :string
-#  account_number                   :string
-#  verified                         :boolean          default(FALSE)
-#  skype_username                   :string
-#  interview_comment                :text
-#  next_of_kin_name                 :string
-#  next_of_kin_phone                :string
-#  arbetsformedlingen_registered_at :date
-#  city                             :string
-#  interviewed_by_user_id           :integer
-#  interviewed_at                   :datetime
-#  just_arrived_staffing            :boolean          default(FALSE)
-#  super_admin                      :boolean          default(FALSE)
-#  gender                           :integer
-#  presentation_profile             :text
-#  presentation_personality         :text
-#  presentation_availability        :text
-#  system_language_id               :integer
-#  linkedin_url                     :string
-#  facebook_url                     :string
-#  has_welcome_app_account          :boolean          default(FALSE)
-#  welcome_app_last_checked_at      :datetime
-#  public_profile                   :boolean          default(FALSE)
 #
 # Indexes
 #

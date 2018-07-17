@@ -29,13 +29,13 @@ RSpec.describe Queries::Filter do
       subject { described_class }
 
       it 'can return extact match' do
-        category = FactoryGirl.create(:category, name: 'watman')
+        category = FactoryBot.create(:category, name: 'watman')
         result = subject.filter(Category, { name: 'watman' }, {})
         expect(result).to eq([category])
       end
 
       it 'does *not* return if not an exact match' do
-        FactoryGirl.create(:category, name: 'watman')
+        FactoryBot.create(:category, name: 'watman')
         result = subject.filter(Category, { name: 'wat' }, {})
         expect(result).to eq([])
       end
@@ -45,13 +45,13 @@ RSpec.describe Queries::Filter do
       subject { described_class }
 
       it 'can return extact match' do
-        category = FactoryGirl.create(:category, name: 'watman')
+        category = FactoryBot.create(:category, name: 'watman')
         result = subject.filter(Category, { name: 'watman' }, {})
         expect(result).to eq([category])
       end
 
       it 'can return if starts_with match' do
-        category = FactoryGirl.create(:category, name: 'watman')
+        category = FactoryBot.create(:category, name: 'watman')
         result = subject.filter(Category, { name: 'wat' }, name: :starts_with)
         expect(result).to eq([category])
       end
@@ -61,9 +61,9 @@ RSpec.describe Queries::Filter do
       subject { described_class }
 
       it 'returns correct results' do
-        skill = FactoryGirl.create(:skill_with_translation, name: 'watman')
-        skill1 = FactoryGirl.create(:skill_with_translation, name: 'wat1')
-        FactoryGirl.create(:skill_with_translation, name: 'tawnam')
+        skill = FactoryBot.create(:skill_with_translation, name: 'watman')
+        skill1 = FactoryBot.create(:skill_with_translation, name: 'wat1')
+        FactoryBot.create(:skill_with_translation, name: 'tawnam')
 
         filter = { name: { translated: :starts_with } }
         result = subject.filter(Skill, { name: 'wat' }, filter)
@@ -75,9 +75,9 @@ RSpec.describe Queries::Filter do
       subject { described_class }
 
       it 'returns correct results' do
-        occupation = FactoryGirl.create(:occupation_with_translation, name: 'watman')
-        occupation1 = FactoryGirl.create(:occupation_with_translation, name: 'wat1', parent: occupation) # rubocop:disable Metrics/LineLength
-        FactoryGirl.create(:occupation_with_translation, name: 'tawnam')
+        occupation = FactoryBot.create(:occupation_with_translation, name: 'watman')
+        occupation1 = FactoryBot.create(:occupation_with_translation, name: 'wat1', parent: occupation) # rubocop:disable Metrics/LineLength
+        FactoryBot.create(:occupation_with_translation, name: 'tawnam')
 
         filter = { parent_id: { column: :ancestry } }
         result = subject.filter(Occupation, { parent_id: occupation.to_param }, filter)
@@ -89,9 +89,9 @@ RSpec.describe Queries::Filter do
       subject { described_class }
 
       it 'returns correct results' do
-        skill = FactoryGirl.create(:skill)
-        skill1 = FactoryGirl.create(:skill)
-        FactoryGirl.create(:skill)
+        skill = FactoryBot.create(:skill)
+        skill1 = FactoryBot.create(:skill)
+        FactoryBot.create(:skill)
 
         filter = { id: :in_list }
         result = subject.filter(Skill, { id: [skill.id, skill1.id].join(',') }, filter)

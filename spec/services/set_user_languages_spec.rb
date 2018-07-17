@@ -4,8 +4,8 @@ require 'rails_helper'
 
 RSpec.describe SetUserLanguagesService do
   describe '::call' do
-    let(:user) { FactoryGirl.create(:user) }
-    let(:language) { FactoryGirl.create(:language) }
+    let(:user) { FactoryBot.create(:user) }
+    let(:language) { FactoryBot.create(:language) }
     let(:proficiency) { 4 }
     let(:language_param) do
       [{ id: language.id, proficiency: proficiency }]

@@ -10,8 +10,8 @@ RSpec.describe CreateTranslationsService do
     end
 
     it 'does not create duplicate translations' do
-      language = FactoryGirl.create(:language)
-      translation = FactoryGirl.create(:message_translation, language: language)
+      language = FactoryBot.create(:language)
+      translation = FactoryBot.create(:message_translation, language: language)
       result = described_class.call(
         translation: translation, from: :sv, languages: [language]
       )
@@ -20,9 +20,9 @@ RSpec.describe CreateTranslationsService do
 
     context 'translation language unknown' do
       it 'creates translation' do
-        translation = FactoryGirl.create(:message_translation, language: nil)
+        translation = FactoryBot.create(:message_translation, language: nil)
         result = described_class.call(
-          translation: translation, from: :sv, languages: [FactoryGirl.create(:language)]
+          translation: translation, from: :sv, languages: [FactoryBot.create(:language)]
         )
         expect(result.first.translation.body).to eq('Taw')
       end
@@ -33,7 +33,7 @@ RSpec.describe CreateTranslationsService do
     context 'when changed arg is nil' do
       it 'returns all attributes' do
         message_body = 'Watman'
-        translation = FactoryGirl.create(:message_translation, body: message_body)
+        translation = FactoryBot.create(:message_translation, body: message_body)
         service = described_class.new(translation: translation, from: :sv, changed: nil)
         attributes = service.attributes_for_translation
         expect(attributes).to eq('body' => message_body)
@@ -42,7 +42,7 @@ RSpec.describe CreateTranslationsService do
 
     it 'returns all attributes in changed array (of strings)' do
       name = 'Watman'
-      translation = FactoryGirl.create(:job_translation, name: name)
+      translation = FactoryBot.create(:job_translation, name: name)
       service = described_class.new(
         translation: translation,
         from: :sv,
@@ -54,7 +54,7 @@ RSpec.describe CreateTranslationsService do
 
     it 'returns all attributes in changed array (of symbols)' do
       name = 'Watman'
-      translation = FactoryGirl.create(:job_translation, name: name)
+      translation = FactoryBot.create(:job_translation, name: name)
       service = described_class.new(
         translation: translation,
         from: :sv,
@@ -67,8 +67,8 @@ RSpec.describe CreateTranslationsService do
 
   describe '#set_translation' do
     it 'creates a translation' do
-      translation = FactoryGirl.create(:message_translation, body: 'Watman')
-      language = FactoryGirl.create(:language)
+      translation = FactoryBot.create(:message_translation, body: 'Watman')
+      language = FactoryBot.create(:language)
       service = described_class.new(
         translation: translation,
         from: :sv

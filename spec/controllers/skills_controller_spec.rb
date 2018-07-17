@@ -8,8 +8,8 @@ RSpec.describe Api::V1::SkillsController, type: :controller do
   end
 
   let(:valid_attributes) do
-    FactoryGirl.create(:admin_user)
-    lang_id = FactoryGirl.create(:language).id
+    FactoryBot.create(:admin_user)
+    lang_id = FactoryBot.create(:language).id
     {
       data: {
         attributes: {
@@ -34,7 +34,7 @@ RSpec.describe Api::V1::SkillsController, type: :controller do
 
   describe 'GET #index' do
     it 'assigns all skills as @skills' do
-      skill = FactoryGirl.create(:skill)
+      skill = FactoryBot.create(:skill)
       process :index, method: :get
       expect(assigns(:skills)).to eq([skill])
     end
@@ -42,7 +42,7 @@ RSpec.describe Api::V1::SkillsController, type: :controller do
 
   describe 'GET #show' do
     it 'assigns the requested skill as @skill' do
-      skill = FactoryGirl.create(:skill)
+      skill = FactoryBot.create(:skill)
       get :show, params: { id: skill.to_param }
       expect(assigns(:skill)).to eq(skill)
     end
@@ -106,7 +106,7 @@ RSpec.describe Api::V1::SkillsController, type: :controller do
 
       it 'updates the requested skill' do
         allow_any_instance_of(User).to receive(:admin?).and_return(true)
-        skill = FactoryGirl.create(:skill)
+        skill = FactoryBot.create(:skill)
         put :update, params: { id: skill.to_param }.merge(new_attributes)
         skill.reload
         expect(skill.original_name).to eq('New skill name')
@@ -114,21 +114,21 @@ RSpec.describe Api::V1::SkillsController, type: :controller do
 
       it 'assigns the requested skill as @skill' do
         allow_any_instance_of(User).to receive(:admin?).and_return(true)
-        skill = FactoryGirl.create(:skill)
+        skill = FactoryBot.create(:skill)
         put :update, params: { id: skill.to_param }.merge(new_attributes)
         expect(assigns(:skill)).to eq(skill)
       end
 
       it 'returns 200' do
         allow_any_instance_of(User).to receive(:admin?).and_return(true)
-        skill = FactoryGirl.create(:skill)
+        skill = FactoryBot.create(:skill)
         put :update, params: { id: skill.to_param }.merge(new_attributes)
         expect(response.status).to eq(200)
       end
 
       context 'user not allowed' do
         it 'returns forbidden status' do
-          skill = FactoryGirl.create(:skill)
+          skill = FactoryBot.create(:skill)
           allow_any_instance_of(User).to receive(:admin?).and_return(false)
           post :update, params: { id: skill.to_param }.merge(new_attributes)
           expect(response.status).to eq(403)
@@ -139,7 +139,7 @@ RSpec.describe Api::V1::SkillsController, type: :controller do
     context 'with invalid params' do
       it 'returns 200' do
         allow_any_instance_of(User).to receive(:admin?).and_return(true)
-        skill = FactoryGirl.create(:skill)
+        skill = FactoryBot.create(:skill)
         put :update, params: { id: skill.to_param }.merge(invalid_attributes)
         expect(response.status).to eq(200)
       end
@@ -149,7 +149,7 @@ RSpec.describe Api::V1::SkillsController, type: :controller do
   describe 'DELETE #destroy' do
     it 'destroys the requested skill' do
       allow_any_instance_of(User).to receive(:admin?).and_return(true)
-      skill = FactoryGirl.create(:skill)
+      skill = FactoryBot.create(:skill)
       expect do
         delete :destroy, params: { id: skill.to_param }
       end.to change(Skill, :count).by(-1)
@@ -157,14 +157,14 @@ RSpec.describe Api::V1::SkillsController, type: :controller do
 
     it 'redirects to the skills list' do
       allow_any_instance_of(User).to receive(:admin?).and_return(true)
-      skill = FactoryGirl.create(:skill)
+      skill = FactoryBot.create(:skill)
       delete :destroy, params: { id: skill.to_param }
       expect(response.status).to eq(204)
     end
 
     context 'user not allowed' do
       it 'returns forbidden status' do
-        skill = FactoryGirl.create(:skill)
+        skill = FactoryBot.create(:skill)
         allow_any_instance_of(User).to receive(:admin?).and_return(false)
         delete :destroy, params: { id: skill.to_param, skill: valid_attributes }
         expect(response.status).to eq(403)

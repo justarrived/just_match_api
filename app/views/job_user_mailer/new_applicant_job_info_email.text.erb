@@ -11,8 +11,10 @@
   <%= name %>
   <% end %>
 <% end %>
+<% if @missing_cv %>
+<%= I18n.t('mailer.new_applicant_job_info.body_cv_fillout_notice') %>
 
-
+<% end %>
 <%= I18n.t(
   'mailer.new_applicant_job_info.body_edit_profile',
   url: @user_edit_url

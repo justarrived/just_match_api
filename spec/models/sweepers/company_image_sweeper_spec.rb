@@ -4,13 +4,13 @@ require 'rails_helper'
 
 RSpec.describe Sweepers::CompanyImageSweeper do
   describe '#destroy_orphans' do
-    let(:company) { FactoryGirl.create(:company) }
+    let(:company) { FactoryBot.create(:company) }
 
     it 'destroys all orphanes' do
-      FactoryGirl.create(:company_image)
-      FactoryGirl.create(:company_image, created_at: 2.days.ago)
-      FactoryGirl.create(:company_image, created_at: 2.days.ago)
-      FactoryGirl.create(:company_image, company: company)
+      FactoryBot.create(:company_image)
+      FactoryBot.create(:company_image, created_at: 2.days.ago)
+      FactoryBot.create(:company_image, created_at: 2.days.ago)
+      FactoryBot.create(:company_image, company: company)
 
       expect do
         described_class.destroy_orphans

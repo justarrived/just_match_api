@@ -6,25 +6,41 @@ RSpec.describe DigestSubscriber, type: :model do
   describe '#contact_email' do
     it 'returns the email if there is no user' do
       the_email = 'some@example.com'
-      subscriber = FactoryGirl.build_stubbed(:digest_subscriber, email: the_email)
+      subscriber = FactoryBot.build_stubbed(:digest_subscriber, email: the_email)
 
       expect(subscriber.contact_email).to eq(the_email)
     end
 
     it 'returns the users contact email if there is a user' do
-      user = FactoryGirl.build_stubbed(:user)
-      subscriber = FactoryGirl.build(:digest_subscriber, email: nil, user: user)
+      user = FactoryBot.build_stubbed(:user)
+      subscriber = FactoryBot.build(:digest_subscriber, email: nil, user: user)
 
       expect(subscriber.contact_email).to eq(user.email)
     end
   end
 
-  describe '#soft_destroy!' do
+  describe '#mark_destroyed' do
+    it 'leaves email as nil if digest subscriber belongs to a user' do
+      user = FactoryBot.build_stubbed(:user, id: 1)
+      digest = FactoryBot.build_stubbed(:digest_subscriber, user: user, email: nil)
+      digest.mark_destroyed
+
+      expect(digest.email).to be_nil
+    end
+
+    it 'anonymizes email' do
+      email = 'joe@example.com'
+      digest = FactoryBot.build_stubbed(:digest_subscriber, email: email)
+      digest.mark_destroyed
+
+      expect(digest.email).not_to eq(email)
+    end
+
     it 'sets #deleted_at to the current time' do
       time = Time.zone.now
       Timecop.freeze(time) do
-        digest = FactoryGirl.create(:digest_subscriber)
-        digest.soft_destroy!
+        digest = FactoryBot.create(:digest_subscriber)
+        digest.mark_destroyed
 
         expect(digest.deleted_at).to eq(time)
       end
@@ -43,7 +59,7 @@ RSpec.describe DigestSubscriber, type: :model do
 
   describe 'validates_user_and_email_both_not_presence' do
     it 'adds error if both user AND email are present' do
-      jds = described_class.new(user: FactoryGirl.build_stubbed(:user), email: 'some')
+      jds = described_class.new(user: FactoryBot.build_stubbed(:user), email: 'some')
       jds.validate
 
       expect(jds.errors[:user]).not_to be_empty
@@ -76,11 +92,11 @@ end
 #
 # Table name: digest_subscribers
 #
-#  id         :integer          not null, primary key
+#  id         :bigint(8)        not null, primary key
 #  email      :string
 #  uuid       :string(36)
 #  deleted_at :datetime
-#  user_id    :integer
+#  user_id    :bigint(8)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #

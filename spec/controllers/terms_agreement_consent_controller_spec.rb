@@ -3,9 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::TermsAgreementConsentsController, type: :controller do
-  let(:user) { FactoryGirl.create(:user_with_tokens) }
-  let(:job) { FactoryGirl.create(:job) }
-  let(:terms) { FactoryGirl.create(:terms_agreement) }
+  let(:user) { FactoryBot.create(:user_with_tokens) }
+  let(:job) { FactoryBot.create(:job) }
+  let(:terms) { FactoryBot.create(:terms_agreement) }
   let(:valid_params) do
     {
       auth_token: user.auth_token,

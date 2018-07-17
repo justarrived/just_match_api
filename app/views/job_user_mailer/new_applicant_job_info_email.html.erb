@@ -13,6 +13,8 @@
   </ul>
 <% end %>
 
+<%= simple_format I18n.t('mailer.new_applicant_job_info.body_cv_fillout_notice') if @missing_cv %>
+
 <%= render(
   'mailer_partials/action_button',
   url: @user_edit_url,

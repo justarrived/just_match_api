@@ -5,11 +5,13 @@ require 'rails_helper'
 RSpec.describe Api::V1::PartnerFeeds::JobsController, type: :controller do
   describe 'GET #linkedin' do
     it 'returns linkedin jobs' do
-      job = FactoryGirl.create(
+      job = FactoryBot.create(
         :job_with_translation,
         translation_locale: :en,
         publish_on_linkedin: true,
-        last_application_at: 2.days.from_now
+        last_application_at: 2.days.from_now,
+        publish_at: Time.current,
+        job_occupations: [FactoryBot.create(:job_occupation)]
       )
       allow(AppConfig).to receive(:default_staffing_company_id).and_return(job.company.id)
       token = 'nososecret'
@@ -45,13 +47,13 @@ RSpec.describe Api::V1::PartnerFeeds::JobsController, type: :controller do
     end
 
     it 'returns 401 Unquthorized if an invalid key is passed' do
-      FactoryGirl.create(:job)
+      FactoryBot.create(:job)
       get :linkedin, params: { auth_token: 'thewrongkey' }
       expect(response.status).to eq(401)
     end
 
     it 'returns 401 Unquthorized if an no key is passed' do
-      FactoryGirl.create(:job)
+      FactoryBot.create(:job)
       get :linkedin
       expect(response.status).to eq(401)
     end
@@ -64,7 +66,7 @@ RSpec.describe Api::V1::PartnerFeeds::JobsController, type: :controller do
 
       request.content_type = 'application/json'
 
-      job = FactoryGirl.create(:job)
+      job = FactoryBot.create(:published_job)
       allow(AppConfig).to receive(:default_staffing_company_id).and_return(job.company.id)
 
       get :blocketjobb, params: { auth_token: token }
@@ -72,13 +74,13 @@ RSpec.describe Api::V1::PartnerFeeds::JobsController, type: :controller do
     end
 
     it 'returns 401 Unquthorized if an invalid key is passed' do
-      FactoryGirl.create(:job)
+      FactoryBot.create(:job)
       get :blocketjobb, params: { auth_token: 'thewrongkey' }
       expect(response.status).to eq(401)
     end
 
     it 'returns 401 Unquthorized if an no key is passed' do
-      FactoryGirl.create(:job)
+      FactoryBot.create(:job)
       get :blocketjobb
       expect(response.status).to eq(401)
     end
@@ -86,13 +88,15 @@ RSpec.describe Api::V1::PartnerFeeds::JobsController, type: :controller do
 
   describe 'GET #metrojobb' do
     it 'generates correct XML' do
-      job_model = FactoryGirl.create(
+      job_model = FactoryBot.create(
         :job_with_translation,
         translation_locale: :en,
         publish_on_metrojobb: true,
         last_application_at: 2.days.from_now,
-        metrojobb_category: MetrojobbCategories.to_form_array.last.first,
-        municipality: 'Stockholm'
+        metrojobb_category: MetrojobbCategories.to_form_array.first.first,
+        municipality: 'Stockholm',
+        publish_at: Time.current,
+        job_occupations: [FactoryBot.create(:job_occupation)]
       )
       job = Metrojobb::JobWrapper.new(job: job_model, staffing_company: job_model.company)
       allow(AppConfig).to receive(:default_staffing_company_id).and_return(job_model.company.id) # rubocop:disable Metrics/LineLength
@@ -114,7 +118,7 @@ RSpec.describe Api::V1::PartnerFeeds::JobsController, type: :controller do
       expect(xml.css('externalApplication').text).to include('true')
 
       expect(xml.css('region id').text).to include('180')
-      expect(xml.css('category id').text).to include('2402')
+      expect(xml.css('category id').text).to include('1')
     end
 
     context 'auth' do
@@ -124,7 +128,7 @@ RSpec.describe Api::V1::PartnerFeeds::JobsController, type: :controller do
 
         request.content_type = 'application/json'
 
-        job = FactoryGirl.create(:job)
+        job = FactoryBot.create(:published_job)
         allow(AppConfig).to receive(:default_staffing_company_id).and_return(job.company.id) # rubocop:disable Metrics/LineLength
 
         get :metrojobb, params: { auth_token: token }
@@ -132,13 +136,13 @@ RSpec.describe Api::V1::PartnerFeeds::JobsController, type: :controller do
       end
 
       it 'returns 401 Unquthorized if an invalid key is passed' do
-        FactoryGirl.create(:job)
+        FactoryBot.create(:job)
         get :metrojobb, params: { auth_token: 'thewrongkey' }
         expect(response.status).to eq(401)
       end
 
       it 'returns 401 Unquthorized if an no key is passed' do
-        FactoryGirl.create(:job)
+        FactoryBot.create(:job)
         get :metrojobb
         expect(response.status).to eq(401)
       end

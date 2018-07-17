@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class HourlyPay < ApplicationRecord
-  has_many :jobs
+  has_many :jobs, dependent: :restrict_with_error
 
   validates :gross_salary, presence: true, numericality: { only_integer: true }
 

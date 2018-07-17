@@ -4,10 +4,10 @@ require 'rails_helper'
 
 RSpec.describe NewChatMessageNotifier, type: :mailer do
   let(:mailer) { Struct.new(:deliver_later).new(nil) }
-  let(:user) { FactoryGirl.create(:user) }
-  let(:author) { FactoryGirl.create(:user) }
-  let(:message) { FactoryGirl.create(:message, author: author) }
-  let(:chat) { FactoryGirl.create(:chat, users: [user, author]) }
+  let(:user) { FactoryBot.create(:user) }
+  let(:author) { FactoryBot.create(:user) }
+  let(:message) { FactoryBot.create(:message, author: author) }
+  let(:chat) { FactoryBot.create(:chat, users: [user, author]) }
 
   it 'sends notifications' do
     allow(ChatMailer).to receive(:new_message_email).and_return(mailer)

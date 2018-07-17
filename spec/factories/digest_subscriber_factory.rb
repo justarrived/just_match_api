@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :digest_subscriber do
     sequence :email do |n|
       "subscriber#{n}@example.com"
@@ -23,11 +23,11 @@ end
 #
 # Table name: digest_subscribers
 #
-#  id         :integer          not null, primary key
+#  id         :bigint(8)        not null, primary key
 #  email      :string
 #  uuid       :string(36)
 #  deleted_at :datetime
-#  user_id    :integer
+#  user_id    :bigint(8)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #

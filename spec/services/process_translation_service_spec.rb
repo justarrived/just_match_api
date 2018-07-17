@@ -9,13 +9,13 @@ RSpec.describe ProcessTranslationService do
 
   describe '::call' do
     it 'returns nil for blank text' do
-      translation = FactoryGirl.create(:message_translation, body: '  ')
+      translation = FactoryBot.create(:message_translation, body: '  ')
       expect(described_class.call(translation: translation)).to be_nil
     end
 
     it 'returns nil if source language can not be determined' do
       detection = detection_struct.new('en', 'en', 1, false)
-      translation = FactoryGirl.create(:message_translation, language: nil)
+      translation = FactoryBot.create(:message_translation, language: nil)
       allow(DetectLanguage).to receive(:call).and_return(detection)
 
       expect(described_class.call(translation: translation)).to be_nil
@@ -23,7 +23,7 @@ RSpec.describe ProcessTranslationService do
 
     it 'enqueues create translations job' do
       detection = detection_struct.new('en', 'en', 1, true)
-      translation = FactoryGirl.create(:message_translation, language: nil)
+      translation = FactoryBot.create(:message_translation, language: nil)
       allow(DetectLanguage).to receive(:call).and_return(detection)
 
       job_args = { translation: translation, from: 'en', changed: nil }
@@ -34,7 +34,7 @@ RSpec.describe ProcessTranslationService do
   end
 
   describe '::detect_locale' do
-    let(:translation) { FactoryGirl.build(:message_translation) }
+    let(:translation) { FactoryBot.build(:message_translation) }
 
     it 'returns detected locale if it can be determined' do
       detection = detection_struct.new('en', 'en', 1, true)
@@ -64,7 +64,7 @@ RSpec.describe ProcessTranslationService do
   end
 
   describe '::track_detection' do
-    let(:translation) { FactoryGirl.build(:message_translation) }
+    let(:translation) { FactoryBot.build(:message_translation) }
 
     it 'creates detection event' do
       expect do

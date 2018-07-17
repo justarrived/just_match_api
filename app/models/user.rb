@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
+  boolean_as_time :anonymized
+
   include Geocodable
   include SkillMatchable
 
@@ -43,31 +45,43 @@ class User < ApplicationRecord
   belongs_to :company, optional: true
   belongs_to :interviewed_by, optional: true, class_name: 'User', foreign_key: 'interviewed_by_user_id' # rubocop:disable Metrics/LineLength
 
-  has_one :digest_subscriber
+  has_one :utalk_code, dependent: :nullify
+
+  # rubocop:disable Metrics/LineLength
+  has_many :owner_recruiter_activities, class_name: 'RecruiterActivity', foreign_key: 'author_id', inverse_of: :author, dependent: :restrict_with_error
+  has_many :recruiter_activities, class_name: 'RecruiterActivity', foreign_key: 'user_id', inverse_of: :user, dependent: :restrict_with_error
+  # rubocop:enable Metrics/LineLength
+
+  has_one :digest_subscriber, dependent: :destroy
   has_many :job_digests, through: :digest_subscriber
 
-  has_many :feedbacks
+  has_many :employment_periods, dependent: :nullify
 
-  has_many :filter_users
+  has_many :feedbacks, dependent: :destroy
+
+  has_many :filter_users, dependent: :destroy
   has_many :filters, through: :filter_users
 
-  has_many :user_documents
+  has_many :user_documents, dependent: :destroy
   has_many :documents, through: :user_documents
 
-  has_many :user_tags
+  has_many :user_occupations, dependent: :destroy
+  has_many :occupations, through: :user_occupations
+
+  has_many :user_tags, dependent: :destroy
   has_many :tags, through: :user_tags
 
   has_many :auth_tokens, class_name: 'Token', dependent: :destroy
 
-  has_many :user_skills
+  has_many :user_skills, dependent: :destroy
   has_many :skills, through: :user_skills
 
-  has_many :user_interests
+  has_many :user_interests, dependent: :destroy
   has_many :interests, through: :user_interests
 
-  has_many :owned_jobs, class_name: 'Job', foreign_key: 'owner_user_id'
+  has_many :owned_jobs, class_name: 'Job', foreign_key: 'owner_user_id', dependent: :restrict_with_error # rubocop:disable Metrics/LineLength
 
-  has_many :job_users
+  has_many :job_users, dependent: :restrict_with_error
   has_many :jobs, through: :job_users
   has_many :employed_for_jobs, lambda {
     joins(:job_users).where('job_users.will_perform = true').distinct
@@ -76,17 +90,19 @@ class User < ApplicationRecord
   has_many :user_languages, dependent: :destroy
   has_many :languages, through: :user_languages
 
-  has_many :written_comments, class_name: 'Comment', foreign_key: 'owner_user_id'
+  has_many :written_comments, class_name: 'Comment', foreign_key: 'owner_user_id', dependent: :destroy # rubocop:disable Metrics/LineLength
 
-  has_many :chat_users
+  has_many :chat_users, dependent: :destroy
   has_many :chats, through: :chat_users
 
-  has_many :messages, class_name: 'Message', foreign_key: 'author_id'
+  has_many :messages, class_name: 'Message', foreign_key: 'author_id', dependent: :destroy
 
-  has_many :user_images
+  has_many :user_images, dependent: :destroy
 
-  has_many :given_ratings, class_name: 'Rating', foreign_key: 'from_user_id'
-  has_many :received_ratings, class_name: 'Rating', foreign_key: 'to_user_id'
+  has_many :given_ratings, class_name: 'Rating', foreign_key: 'from_user_id', dependent: :destroy # rubocop:disable Metrics/LineLength
+  has_many :received_ratings, class_name: 'Rating', foreign_key: 'to_user_id', dependent: :destroy # rubocop:disable Metrics/LineLength
+
+  can_count :job_users
 
   validates :system_language, presence: true
   validates :email, presence: true, uniqueness: true, email: true
@@ -122,15 +138,33 @@ class User < ApplicationRecord
   scope :valid_one_time_tokens, (lambda {
     where('one_time_token_expires_at > ?', Time.zone.now)
   })
+  scope :needs_anonymization, (lambda {
+    min_time_ago = AppConfig.keep_applicant_data_years.years.ago
+    anonymize_at = Time.zone.now + AppConfig.anonymization_delay_days.days
+
+    left_joins(:job_users).
+      where('job_users.id IS NULL OR job_users.created_at < ?', min_time_ago).
+      not_anonymized.where('anonymization_requested_at < ?', anonymize_at)
+  })
   scope :frilans_finans_users, (-> { where.not(frilans_finans_id: nil) })
   scope :needs_frilans_finans_id, (lambda {
     not_anonymized.
       regular_users.
       where(frilans_finans_id: nil).
-      where.not(phone: [nil, ''])
+      where.not(phone: [nil, '']).
+      left_joins(job_users: :job).
+      where('job_users.id IS NOT NULL AND job_users.will_perform = true').
+      where(
+        <<~SQL
+          jobs.direct_recruitment_job = false
+          AND jobs.staffing_company_id IS NULL
+          AND jobs.cancelled = false
+        SQL
+      ).
+      distinct
   })
-  scope :anonymized, (-> { where(anonymized: true) })
-  scope :not_anonymized, (-> { where(anonymized: false) })
+  scope :anonymized, (-> { where.not(anonymized_at: nil) })
+  scope :not_anonymized, (-> { where(anonymized_at: nil) })
   scope :verified, (-> { where(verified: true) })
   scope :needs_welcome_app_update, (lambda {
     scope = regular_users.where(welcome_app_last_checked_at: nil).
@@ -154,29 +188,11 @@ class User < ApplicationRecord
 
   # NOTE: This is necessary for nested activeadmin has_many form
   accepts_nested_attributes_for :user_skills, :user_languages, :user_interests,
-                                :user_documents, :feedbacks
+                                :user_documents, :user_occupations, :feedbacks,
+                                :employment_periods
   accepts_nested_attributes_for :user_tags, allow_destroy: true
 
-  # Don't change the order or remove any items in the array,
-  # only additions are allowed
-  NOTIFICATIONS = %w(
-    accepted_applicant_confirmation_overdue
-    accepted_applicant_withdrawn
-    applicant_accepted
-    applicant_will_perform
-    invoice_created
-    job_user_performed
-    job_cancelled
-    new_applicant
-    user_job_match
-    new_chat_message
-    new_job_comment
-    applicant_rejected
-    job_match
-    new_applicant_job_info
-    applicant_will_perform_job_info
-    failed_to_activate_invoice
-  ).freeze
+  NOTIFICATIONS = UserNotification.names
 
   ransacker :first_name, type: :string do
     Arel.sql('unaccent("first_name")')
@@ -259,6 +275,10 @@ class User < ApplicationRecord
     jobs.any?
   end
 
+  def last_application_at
+    job_users.last&.updated_at
+  end
+
   def support_chat_activated?
     verified || super_admin || admin || just_arrived_staffing
   end
@@ -282,22 +302,6 @@ class User < ApplicationRecord
     return email unless managed
 
     ManagedEmailAddress.call(email: email, id: "user#{id}")
-  end
-
-  def anonymize
-    assign_attributes(
-      id: -1,
-      anonymized: true,
-      first_name: 'Anonymous',
-      last_name: 'User',
-      email: 'anonymous@example.com',
-      description: 'This user is anonymous.',
-      street: 'XYZXYZ XX',
-      zip: 'XYZX YZ',
-      ssn: 'XYZXYZXYZX',
-      company: candidate? ? nil : company.anonymize
-    )
-    self
   end
 
   def average_score(round: nil)
@@ -433,30 +437,51 @@ class User < ApplicationRecord
   end
 
   def ignored_notifications=(notifications)
-    self.ignored_notifications_mask = BitmaskField.to_mask(notifications, NOTIFICATIONS)
+    mask = BitmaskField.to_mask(notifications, UserNotification.names)
+    self.ignored_notifications_mask = mask
   end
 
   def ignored_notifications
-    BitmaskField.from_mask(ignored_notifications_mask, NOTIFICATIONS)
+    BitmaskField.from_mask(ignored_notifications_mask, UserNotification.names)
+  end
+
+  def anonymize
+    self.id = -1
+    anonymize_attributes
+    company.anonymize if company?
+    self
+  end
+
+  def earliest_anonymization_at
+    return 1000.years.ago unless last_application_at
+
+    last_application_at + AppConfig.keep_applicant_data_years.years
+  end
+
+  def anonymization_allowed?
+    return false if Time.zone.now < earliest_anonymization_at
+    true
   end
 
   def anonymize_attributes
-    assign_attributes(
-      anonymized: true,
+    nil_fields = %i[
+      phone
+      competence_text job_experience education street ssn country_of_origin
+      latitude longitude account_clearing_number account_number
+      linkedin_url facebook_url skype_username next_of_kin_name next_of_kin_phone
+      interview_comment one_time_token
+      presentation_profile presentation_personality presentation_availability
+    ].zip([nil]).to_h
+
+    data = {
+      anonymized_at: Time.zone.now,
       first_name: 'Ghost',
       last_name: 'User',
-      email: "ghost+#{SecureGenerator.token(length: 64)}@example.com",
-      phone: nil,
-      description: 'This user has been deleted.',
-      street: nil,
-      ssn: nil
-    )
-  end
+      email: EmailAddress.random,
+      description: '<This user is anonymous.>'
+    }.merge!(nil_fields)
 
-  def reset!
-    # Update the users attributes and don't validate
-    anonymize_attributes
-    save!(validate: false)
+    assign_attributes(data)
   end
 
   def create_auth_token
@@ -559,64 +584,65 @@ end
 #
 # Table name: users
 #
-#  id                               :integer          not null, primary key
-#  email                            :string
-#  phone                            :string
-#  description                      :text
+#  account_clearing_number          :string
+#  account_number                   :string
+#  admin                            :boolean          default(FALSE)
+#  anonymization_requested_at       :datetime
+#  anonymized_at                    :datetime
+#  arbetsformedlingen_registered_at :date
+#  arrived_at                       :date
+#  at_und                           :integer
+#  banned                           :boolean          default(FALSE)
+#  city                             :string
+#  company_id                       :integer
+#  competence_text                  :text
+#  country_of_origin                :string
 #  created_at                       :datetime         not null
-#  updated_at                       :datetime         not null
-#  latitude                         :float
-#  longitude                        :float
+#  current_status                   :integer
+#  description                      :text
+#  education                        :text
+#  email                            :string
+#  facebook_url                     :string
+#  first_name                       :string
+#  frilans_finans_id                :integer
+#  frilans_finans_payment_details   :boolean          default(FALSE)
+#  gender                           :integer
+#  has_welcome_app_account          :boolean
+#  id                               :integer          not null, primary key
+#  ignored_notifications_mask       :integer
+#  interview_comment                :text
+#  interviewed_at                   :datetime
+#  interviewed_by_user_id           :integer
+#  job_experience                   :text
+#  just_arrived_staffing            :boolean          default(FALSE)
 #  language_id                      :integer
-#  anonymized                       :boolean          default(FALSE)
+#  last_name                        :string
+#  latitude                         :float
+#  linkedin_url                     :string
+#  longitude                        :float
+#  managed                          :boolean          default(FALSE)
+#  next_of_kin_name                 :string
+#  next_of_kin_phone                :string
+#  one_time_token                   :string
+#  one_time_token_expires_at        :datetime
 #  password_hash                    :string
 #  password_salt                    :string
-#  admin                            :boolean          default(FALSE)
+#  phone                            :string
+#  presentation_availability        :text
+#  presentation_personality         :text
+#  presentation_profile             :text
+#  public_profile                   :boolean
+#  skype_username                   :string
+#  ssn                              :string
 #  street                           :string
+#  super_admin                      :boolean          default(FALSE)
+#  system_language_id               :integer
+#  updated_at                       :datetime         not null
+#  verified                         :boolean
+#  welcome_app_last_checked_at      :datetime
 #  zip                              :string
 #  zip_latitude                     :float
 #  zip_longitude                    :float
-#  first_name                       :string
-#  last_name                        :string
-#  ssn                              :string
-#  company_id                       :integer
-#  banned                           :boolean          default(FALSE)
-#  job_experience                   :text
-#  education                        :text
-#  one_time_token                   :string
-#  one_time_token_expires_at        :datetime
-#  ignored_notifications_mask       :integer
-#  frilans_finans_id                :integer
-#  frilans_finans_payment_details   :boolean          default(FALSE)
-#  competence_text                  :text
-#  current_status                   :integer
-#  at_und                           :integer
-#  arrived_at                       :date
-#  country_of_origin                :string
-#  managed                          :boolean          default(FALSE)
-#  account_clearing_number          :string
-#  account_number                   :string
-#  verified                         :boolean          default(FALSE)
-#  skype_username                   :string
-#  interview_comment                :text
-#  next_of_kin_name                 :string
-#  next_of_kin_phone                :string
-#  arbetsformedlingen_registered_at :date
-#  city                             :string
-#  interviewed_by_user_id           :integer
-#  interviewed_at                   :datetime
-#  just_arrived_staffing            :boolean          default(FALSE)
-#  super_admin                      :boolean          default(FALSE)
-#  gender                           :integer
-#  presentation_profile             :text
-#  presentation_personality         :text
-#  presentation_availability        :text
-#  system_language_id               :integer
-#  linkedin_url                     :string
-#  facebook_url                     :string
-#  has_welcome_app_account          :boolean          default(FALSE)
-#  welcome_app_last_checked_at      :datetime
-#  public_profile                   :boolean          default(FALSE)
 #
 # Indexes
 #

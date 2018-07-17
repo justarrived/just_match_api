@@ -4,10 +4,10 @@ require 'rails_helper'
 
 RSpec.describe ChatMailer, type: :mailer do
   describe '#new_message_email' do
-    let(:user) { FactoryGirl.create(:user) }
-    let(:author) { FactoryGirl.create(:user) }
-    let(:chat) { FactoryGirl.create(:chat, users: [user, author]) }
-    let(:message) { FactoryGirl.create(:message, author: author) }
+    let(:user) { FactoryBot.create(:user) }
+    let(:author) { FactoryBot.create(:user) }
+    let(:chat) { FactoryBot.create(:chat, users: [user, author]) }
+    let(:message) { FactoryBot.create(:message, author: author) }
 
     let(:mail) do
       described_class.new_message_email(

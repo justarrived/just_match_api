@@ -12,7 +12,7 @@ RSpec.describe Api::V1::Jobs::JobSkillsController, type: :controller do
   end
 
   let(:valid_session) do
-    user = FactoryGirl.create(:user_with_tokens, company: FactoryGirl.create(:company))
+    user = FactoryBot.create(:user_with_tokens, company: FactoryBot.create(:company))
     allow_any_instance_of(described_class).
       to(receive(:current_user).
       and_return(user))
@@ -21,7 +21,7 @@ RSpec.describe Api::V1::Jobs::JobSkillsController, type: :controller do
 
   describe 'GET #index' do
     it 'assigns all user skills as @skills' do
-      job = FactoryGirl.create(:job_with_skills, skills_count: 1)
+      job = FactoryBot.create(:job_with_skills, skills_count: 1)
       job_skill = job.job_skills.first
       get :index, params: { job_id: job.to_param }
       expect(assigns(:job_skills)).to eq([job_skill])
@@ -30,7 +30,7 @@ RSpec.describe Api::V1::Jobs::JobSkillsController, type: :controller do
 
   describe 'GET #show' do
     it 'assigns the requested user skill as @skill' do
-      job = FactoryGirl.create(:job_with_skills, skills_count: 1)
+      job = FactoryBot.create(:job_with_skills, skills_count: 1)
       job_skill = job.job_skills.first
       params = { job_id: job.to_param, job_skill_id: job_skill.to_param }
       get :show, params: params
@@ -38,7 +38,7 @@ RSpec.describe Api::V1::Jobs::JobSkillsController, type: :controller do
     end
 
     it 'assigns the requested user as @user' do
-      job = FactoryGirl.create(:job_with_skills, skills_count: 1)
+      job = FactoryBot.create(:job_with_skills, skills_count: 1)
       job_skill = job.job_skills.first
       params = { job_id: job.to_param, job_skill_id: job_skill.to_param }
       get :show, params: params
@@ -49,11 +49,11 @@ RSpec.describe Api::V1::Jobs::JobSkillsController, type: :controller do
   describe 'POST #create' do
     context 'with valid params' do
       context 'logged in' do
-        let(:user) { FactoryGirl.create(:company_user).tap(&:create_auth_token) }
+        let(:user) { FactoryBot.create(:company_user).tap(&:create_auth_token) }
 
         it 'creates a new JobSkill' do
-          job = FactoryGirl.create(:job, owner: user)
-          skill = FactoryGirl.create(:skill)
+          job = FactoryBot.create(:job, owner: user)
+          skill = FactoryBot.create(:skill)
           params = {
             auth_token: user.auth_token,
             job_id: job.to_param,
@@ -65,8 +65,8 @@ RSpec.describe Api::V1::Jobs::JobSkillsController, type: :controller do
         end
 
         it 'assigns a newly created user_skill as @job_skill' do
-          job = FactoryGirl.create(:job, owner: user)
-          skill = FactoryGirl.create(:skill)
+          job = FactoryBot.create(:job, owner: user)
+          skill = FactoryBot.create(:skill)
           params = {
             auth_token: user.auth_token,
             job_id: job.to_param,
@@ -78,8 +78,8 @@ RSpec.describe Api::V1::Jobs::JobSkillsController, type: :controller do
         end
 
         it 'returns created status' do
-          job = FactoryGirl.create(:job, owner: user)
-          skill = FactoryGirl.create(:skill)
+          job = FactoryBot.create(:job, owner: user)
+          skill = FactoryBot.create(:skill)
           params = {
             auth_token: user.auth_token,
             job_id: job.to_param,
@@ -92,8 +92,8 @@ RSpec.describe Api::V1::Jobs::JobSkillsController, type: :controller do
 
       context 'not logged in' do
         it 'does not create a new JobSkill' do
-          job = FactoryGirl.create(:job)
-          skill = FactoryGirl.create(:skill)
+          job = FactoryBot.create(:job)
+          skill = FactoryBot.create(:skill)
           params = {
             auth_token: 'wat',
             job_id: job.to_param,
@@ -107,10 +107,10 @@ RSpec.describe Api::V1::Jobs::JobSkillsController, type: :controller do
     end
 
     context 'with invalid params' do
-      let(:user) { FactoryGirl.create(:company_user).tap(&:create_auth_token) }
+      let(:user) { FactoryBot.create(:company_user).tap(&:create_auth_token) }
 
       it 'assigns a newly created but unsaved job_skill as @job_skill' do
-        job = FactoryGirl.create(:job, owner: user)
+        job = FactoryBot.create(:job, owner: user)
         params = {
           auth_token: user.auth_token,
           job_id: job.to_param,
@@ -121,7 +121,7 @@ RSpec.describe Api::V1::Jobs::JobSkillsController, type: :controller do
       end
 
       it 'returns unprocessable entity status' do
-        job = FactoryGirl.create(:job, owner: user)
+        job = FactoryBot.create(:job, owner: user)
         params = {
           auth_token: user.auth_token,
           job_id: job.to_param,
@@ -135,10 +135,10 @@ RSpec.describe Api::V1::Jobs::JobSkillsController, type: :controller do
 
   describe 'DELETE #destroy' do
     context 'logged in user is owner' do
-      let(:user) { FactoryGirl.create(:company_user).tap(&:create_auth_token) }
+      let(:user) { FactoryBot.create(:company_user).tap(&:create_auth_token) }
 
       it 'destroys the requested job_skill' do
-        job = FactoryGirl.create(:job_with_skills, owner: user)
+        job = FactoryBot.create(:job_with_skills, owner: user)
         job_skill = job.job_skills.first
         params = {
           auth_token: user.auth_token,
@@ -151,7 +151,7 @@ RSpec.describe Api::V1::Jobs::JobSkillsController, type: :controller do
       end
 
       it 'returns no content status' do
-        job = FactoryGirl.create(:job_with_skills, owner: user)
+        job = FactoryBot.create(:job_with_skills, owner: user)
         job_skill = job.job_skills.first
         params = {
           auth_token: user.auth_token,
@@ -165,7 +165,7 @@ RSpec.describe Api::V1::Jobs::JobSkillsController, type: :controller do
 
     context 'logged in user is NOT owner' do
       it 'destroys the requested job_skill' do
-        job = FactoryGirl.create(:job_with_skills)
+        job = FactoryBot.create(:job_with_skills)
         job_skill = job.job_skills.first
         params = {
           auth_token: 'wat',
@@ -178,9 +178,9 @@ RSpec.describe Api::V1::Jobs::JobSkillsController, type: :controller do
       end
 
       it 'returns no content status' do
-        job = FactoryGirl.create(:job_with_skills)
+        job = FactoryBot.create(:job_with_skills)
         job_skill = job.job_skills.first
-        random_user = FactoryGirl.create(:user_with_tokens)
+        random_user = FactoryBot.create(:user_with_tokens)
         params = {
           auth_token: random_user.auth_token,
           job_id: job.to_param,

@@ -5,7 +5,7 @@ class JobRequest < ApplicationRecord
   belongs_to :delivery_user, optional: true, class_name: 'User', foreign_key: 'delivery_user_id' # rubocop:disable Metrics/LineLength
   belongs_to :sales_user, optional: true, class_name: 'User', foreign_key: 'sales_user_id'
 
-  has_one :order
+  has_one :order, dependent: :restrict_with_error
 
   scope :finished, (-> { where(finished: true) })
   scope :pending, (-> { where(finished: false) })

@@ -1,0 +1,18 @@
+#!/bin/bash
+
+set -euo pipefail
+IFS=$'\n\t'
+
+cd "$(dirname "$0")/.."
+
+echo -e '\n== Migrating database =='
+bin/rails db:migrate
+
+echo -e '\n== Annotating files from database schema =='
+bundle exec annotate
+
+echo -e '\n== Init test migration =='
+RAILS_ENV=test bin/rails db:migrate &
+
+echo -e '\n== Update model translation-keys =='
+script/build-model-translations

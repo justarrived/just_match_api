@@ -21,7 +21,7 @@ class CompanyImage < ApplicationRecord
   scope :valid_one_time_tokens, (lambda {
     where('one_time_token_expires_at > ?', Time.zone.now)
   })
-  scope :orhpans, (-> () { where(company: nil) })
+  scope :orhpans, (-> { where(company: nil) })
   scope :over_aged_orphans, (lambda {
     orhpans.where('created_at < ?', MAX_HOURS_AGE_AS_ORPHAN.hours.ago)
   })

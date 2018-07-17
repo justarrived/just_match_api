@@ -31,11 +31,11 @@ RSpec.describe 'Admin' do
       describe '#index' do
         subject do
           password = '12345678'
-          user = FactoryGirl.create(:admin_user, password: password)
+          user = FactoryBot.create(:admin_user, password: password)
           request.env['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Basic.encode_credentials(user.email, password) # rubocop:disable Metrics/LineLength
           get :index
         end
-        it { expect(subject).to be_success }
+        it { expect(subject).to be_successful }
       end
 
       show_ignores = %(Comment Ratings)
@@ -43,13 +43,13 @@ RSpec.describe 'Admin' do
         describe '#show' do
           subject do
             password = '12345678'
-            user = FactoryGirl.create(:admin_user, password: password)
+            user = FactoryBot.create(:admin_user, password: password)
             request.env['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Basic.encode_credentials(user.email, password) # rubocop:disable Metrics/LineLength
 
-            resource = FactoryGirl.create(model_name.constantize.model_name.singular)
+            resource = FactoryBot.create(model_name.constantize.model_name.singular)
             get :show, params: { id: resource.id }
           end
-          it { expect(subject).to be_success }
+          it { expect(subject).to be_successful }
         end
       end
     end

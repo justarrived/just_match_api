@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :job_request do
     association :sales_user, factory: :user
     company_name 'MyString'

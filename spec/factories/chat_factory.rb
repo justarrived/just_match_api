@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :chat do
     # chat_with_users will create job skills after the user has been created
     factory :chat_with_users do

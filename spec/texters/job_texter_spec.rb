@@ -4,10 +4,10 @@ require 'rails_helper'
 
 RSpec.describe JobTexter do
   let(:last_name) { 'Doe' }
-  let(:user) { FactoryGirl.build(:user, last_name: last_name) }
+  let(:user) { FactoryBot.build(:user, last_name: last_name) }
   let(:job_name) { 'A job name' }
-  let(:job) { FactoryGirl.build(:job, name: job_name) }
-  let(:job_user) { FactoryGirl.build(:job_user, job: job, user: user) }
+  let(:job) { FactoryBot.build(:job, name: job_name) }
+  let(:job_user) { FactoryBot.build(:job_user, job: job, user: user) }
 
   before(:each) do
     allow(AppSecrets).to receive(:twilio_account_sid).and_return('notsosecret')

@@ -8,6 +8,8 @@ class JobDigest < ApplicationRecord
 
   DEFAULT_MAX_DISTANCE = 100
 
+  boolean_as_time :deleted
+
   before_validation :set_max_distance
   before_validation :set_locale
 
@@ -37,14 +39,19 @@ class JobDigest < ApplicationRecord
     errors.add(:subscriber, :invalid)
   end
 
-  def soft_destroy!
-    update!(deleted_at: Time.zone.now)
+  def mark_destroyed
+    self.deleted_at = Time.zone.now
   end
 
   def coordinates?
     return false if addresses.empty?
 
     addresses.any?(&:coordinates?)
+  end
+
+  def user_id
+    return unless user
+    user.id
   end
 
   def email
@@ -66,12 +73,12 @@ end
 #
 # Table name: job_digests
 #
-#  id                     :integer          not null, primary key
+#  id                     :bigint(8)        not null, primary key
 #  notification_frequency :integer
 #  max_distance           :float
 #  locale                 :string(10)
 #  deleted_at             :datetime
-#  digest_subscriber_id   :integer
+#  digest_subscriber_id   :bigint(8)
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #

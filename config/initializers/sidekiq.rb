@@ -4,6 +4,8 @@ require 'airbrake/sidekiq'
 # Respect current locale when sending background emails
 require 'sidekiq/middleware/i18n'
 
+Sidekiq.default_worker_options = { 'backtrace' => true }
+
 if Rails.env.production?
   redis_url = AppConfig.redis_url
   redis_timeout = AppConfig.redis_timeout

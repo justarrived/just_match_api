@@ -9,13 +9,13 @@ RSpec.describe FrilansFinans::UserWrapper do
 
     it 'returns the correct attributes' do
       id = 73
-      user = FactoryGirl.build(
+      user = FactoryBot.build(
         :user,
         id: 73,
         ssn: '890101-0101',
         account_clearing_number: account_clearing_number,
         account_number: account_number,
-        system_language: FactoryGirl.build(:language)
+        system_language: FactoryBot.build(:language)
       )
       result = described_class.attributes(user)
       expected = {
@@ -41,8 +41,8 @@ RSpec.describe FrilansFinans::UserWrapper do
 
     context 'when ssn is nil' do
       it 'returns no social_security_number key' do
-        user = FactoryGirl.build(
-          :user, ssn: nil, system_language: FactoryGirl.build(:language)
+        user = FactoryBot.build(
+          :user, ssn: nil, system_language: FactoryBot.build(:language)
         )
         result = described_class.attributes(user)
         expect(result.key?(:social_security_number)).to eq(false)
@@ -51,8 +51,8 @@ RSpec.describe FrilansFinans::UserWrapper do
 
     context 'when ssn is blank string' do
       it 'returns no social_security_number key' do
-        user = FactoryGirl.build(
-          :user, ssn: ' ', system_language: FactoryGirl.build(:language)
+        user = FactoryBot.build(
+          :user, ssn: ' ', system_language: FactoryBot.build(:language)
         )
         result = described_class.attributes(user)
         expect(result.key?(:social_security_number)).to eq(false)
@@ -60,16 +60,16 @@ RSpec.describe FrilansFinans::UserWrapper do
     end
 
     it 'returns the empty street string if no street present' do
-      user = FactoryGirl.build(
-        :user, street: nil, system_language: FactoryGirl.build(:language)
+      user = FactoryBot.build(
+        :user, street: nil, system_language: FactoryBot.build(:language)
       )
       result = described_class.attributes(user)
       expect(result[:street]).to eq('')
     end
 
     it 'returns the empty zip string if no zip present' do
-      user = FactoryGirl.build(
-        :user, zip: nil, system_language: FactoryGirl.build(:language)
+      user = FactoryBot.build(
+        :user, zip: nil, system_language: FactoryBot.build(:language)
       )
       result = described_class.attributes(user)
       expect(result[:zip]).to eq('')
@@ -84,12 +84,12 @@ RSpec.describe FrilansFinans::UserWrapper do
 
   describe '::notification_language' do
     it 'returns SE if language is Swedish' do
-      sv_lang = FactoryGirl.build(:language, lang_code: 'sv')
+      sv_lang = FactoryBot.build(:language, lang_code: 'sv')
       expect(described_class.notification_language(sv_lang)).to eq('sv')
     end
 
     it 'returns EN for non-Swedish languages' do
-      lang = FactoryGirl.build(:language)
+      lang = FactoryBot.build(:language)
       expect(described_class.notification_language(lang)).to eq('en')
     end
   end

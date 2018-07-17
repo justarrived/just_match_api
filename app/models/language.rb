@@ -1,13 +1,11 @@
 # frozen_string_literal: true
 
 class Language < ApplicationRecord
-  has_many :user_languages
+  has_many :user_languages, dependent: :destroy
   has_many :users, through: :user_languages
 
-  has_many :jobs
+  has_many :job_languages, dependent: :destroy
   has_many :jobs, through: :job_languages
-
-  has_many :jobs
 
   validates :lang_code, uniqueness: true, presence: true
 

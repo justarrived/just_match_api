@@ -40,8 +40,8 @@ RSpec.describe Api::V1::Companies::CompanyImagesController, type: :controller do
   end
 
   describe 'GET #show' do
-    let(:company) { FactoryGirl.create(:company) }
-    let(:company_image) { FactoryGirl.create(:company_image, company: company) }
+    let(:company) { FactoryBot.create(:company) }
+    let(:company_image) { FactoryBot.create(:company_image, company: company) }
 
     it 'returns user image' do
       params = { company_id: company.to_param, id: company_image.to_param }

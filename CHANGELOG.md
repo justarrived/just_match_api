@@ -3,6 +3,1110 @@
 HEAD
 -----------
 
+v2.114.1 - 2018-07-18
+----------
+__Enhancement__:
+* Pull I18n from Transifex
+
+v2.114.0 - 2018-07-18
+----------
+__Admin__:
+* Add search by recruiter activity author
+
+
+v2.113.0 - 2018-07-18
+----------
+__Admin__:
+* Add index filter of recruiter activity to user and applicant
+* Add load optimization for recruiter activity form
+* Add "New recruiter activity" link to simple list
+* Display recruitment activity instead of user interview comment
+* Implement Recruiter Activity form
+* Refactor anon-user action to use `ExecuteService::call`
+* Remove unused scopes from user index
+* Add `user#anonymized_at` and `#anonymization_requested_at` filter
+* Limit what actions are available
+* Improved user anon queue notice
+
+__Enhancement__:
+* Add `MigrateFeedbacksData`
+* Add `MigrateInterviewCommentData`
+* Add `FAST` variable to `script/server` that skips `$ script/update`
+* Run migrations for `Activity` and `RecruiterActivity`
+* Generate `Activity` and `RecruiterActivity` models
+* Sort model annotations
+* Pull I18n from `Transifex`
+* Update admin locale
+* Refactor `UserSweeper` to use `ExecuteService`
+* Send anonymization notifications
+* Remove `AnonymizeUserJob`
+* Add anonymization notification emails
+* Delay minimal user anonymization for 3 days
+* Wait for configured amount of time after anonymization request
+
+
+v2.112.0 - 2018-07-17
+----------
+__Admin__:
+* Update job filled status automatically
+
+__Enhancement__:
+* __User Anonymization__
+  + `AnonymizeUserService`; Remove/Scrub/Anonymize
+    - translations
+    - job user application messages
+    - feedbacks
+    - digest subscribers
+    - documents
+* Add `rails sweepers:anonymize_users` rake task
+* Add `User#anonymization_requested_at`
+* Add `EmailAddress::random` method
+* Make `JobUserSweeper` work better with non-FF jobs
+
+
+v2.111.0 - 2018-07-16
+----------
+__Enhancement__:
+* Only create user @ Frilans Finans if user has applied and been accepted for a freelance job
+
+__Gem updates__:
+* Bump `faker` from 1.8.7 to 1.9.1
+* Bump `honey_format` from 0.16.0 to 0.17.0
+* Bump `uglifier` from 4.1.14 to 4.1.15
+* Bump `puma` from 3.11.4 to 3.12.0
+* Bump `bootsnap` from 1.3.0 to 1.3.1
+* Bump `twilio-ruby` from 5.10.6 to 5.10.7
+* Bump `rubocop` from 0.58.0 to 0.58.1
+* Bump `redis-activesupport` from 5.0.5 to 5.0.7
+* Bump `aws-sdk-s3` from 1.16.0 to 1.17.0
+
+
+v2.110.0 - 2018-07-16
+----------
+- Drop `User#anonymized` column
+
+
+v2.109.0 - 2018-07-16
+----------
+__Enhancement__:
+* Add `User#anonymized_at` datetime column (default: nil)
+* Delay user anonymization for a few days if the users changes there mind or if an admin does it accidentally (then we have some time to undo it)
+* Check if we are allowed to anonymize user (due to Swedish discrimination law)
+* Configuration values to make it easy to update how long the retention period is
+* Deeper anonymization of user attributes
+* Don't auto-translate user content, since we typically never use that and if we need to admins can do it manually from the UI
+* :hocho: `DELETE /users/:id` - not supported in frontend so no use of supporting it
+
+
+v2.108.0 - 2018-07-10
+----------
+__Gem updates__:
+* Bump `rubocop` from 0.57.2 to 0.58.0
+* Bump `rack-attack` from 5.3.2 to 5.4.0
+* Bump `twilio-ruby` from 5.10.5 to 5.10.6
+* Bump `uglifier` from 4.1.13 to 4.1.14
+
+
+v2.107.0 - 2018-07-06
+----------
+* Bump Ruby version from 2.5.0 to 2.5.1
+
+
+v2.106.0 - 2018-07-05
+----------
+__Admin__:
+* Fix broken link on FF show page
+* Update copy
+
+__Enhancement__:
+* Rename `before_action` to `before_action_method` in blazer config
+
+__Gem updates__:
+* Bump `rack-attack` from 5.3.1 to 5.3.2
+* Bump `honey_format` from 0.12.0 to 0.16.0
+* Bump `apipie-rails` from 0.5.8 to 0.5.9
+* Bump `stackprof` from 0.2.11 to 0.2.12
+* Bump `uglifier` from 4.1.12 to 4.1.13
+* Bump `aws-sdk-s3` from 1.14.0 to 1.16.0
+* Smarter job user status
+* Bump `twilio-ruby` from 5.10.3 to 5.10.5
+* Bump `rack-attack` from 5.2.0 to 5.3.1
+* Bump `uglifier` from 4.1.11 to 4.1.12
+* Bump `dotenv-rails` from 2.4.0 to 2.5.0
+* Rename LICENSE file
+* Bump `sprockets` from 3.7.1 to 3.7.2
+* Update `airbrake` heroku addon name in app.json
+* Bump `blazer` from 1.8.2 to 1.9.0
+
+
+v2.105.0 - 2018-06-19
+----------
+__Enhancement__:
+* Keep ads on AF for longer
+
+
+v2.104.0 - 2018-06-19
+----------
+__Enhancement__:
+* Remove exact salary from job salary summary
+* Include the backtrace by default when exceptions are thrown in Sidekiq jobs
+* Update Heroku airbrake identifier in app.json
+
+__Gem updates__:
+* Bump `redis-activesupport` from 5.0.4 to 5.0.5
+* Bump `airbrake` from 7.3.3 to 7.3.4
+* Bump `i18n_generators` from 2.1.1 to 2.2.0
+* Bump `rubocop` from 0.57.1 to 0.57.2
+* Bump `aws-sdk-s3` from 1.13.0 to 1.14.0
+* Bump `rubocop` from 0.56.0 to 0.57.1
+* Bump `twilio-ruby` from 5.10.2 to 5.10.3
+* Bump `honey_format` from 0.8.2 to 0.12.0
+* Bump `newrelic_rpm` from 5.1.0.344 to 5.2.0.345
+
+
+v2.103.0 - 2018-06-07
+----------
+__Enhancement__:
+* Don't consider applicants of started jobs rejected
+* Set Rack timeout from env var since setting configuring on `Rack::Timeout` is now unsupported
+* Update test to reflect new business rule
+
+__Admin__:
+* Add Job info to Frilans Finans Invoice show view
+* Improve displaying of job user status on admin index page
+* Sync FF Invoice after first remote create - avoids "double tap" on remote sync
+
+__Gem updates__:
+* Bump `annotate` from 2.7.3 to 2.7.4
+* Bump `aws-sdk-s3` from 1.12.0 to 1.13.0
+* Bump `bcrypt` from 3.1.11 to 3.1.12
+* Bump `factory_bot_rails` from 4.8.2 to 4.10.0
+* Bump `geocoder` from 1.4.7 to 1.4.9
+* Bump `honey_format` from 0.6.0 to 0.8.2
+* Bump `kramdown` from 1.16.2 to 1.17.0
+* Bump `rack-timeout` from 0.4.2 to 0.5.1
+* Bump `rspec_junit_formatter` from 0.3.0 to 0.4.1
+* Bump `rubocop` from 0.55.0 to 0.56.0
+* Bump `twilio-ruby` from 5.10.0 to 5.10.2
+* Bump `uglifier` from 4.1.10 to 4.1.11
+* Bump `webmock` from 3.4.1 to 3.4.2
+
+
+v2.102.1 - 2018-05-15
+----------
+__Bugfix__:
+* When annulling an invoice make sure to mark it as non-active
+
+__Enhancement__:
+* Bump `banktools-se` from 2.6.3 to 3.0.0
+* Bump `twilio-ruby` from 5.9.0 to 5.10.0
+* Bump `aws-sdk-s3` from 1.9.1 to 1.10.0
+* Bump `honey_format` from 0.5.0 to 0.6.0
+* Bump `airbrake` from 7.3.1 to 7.3.3
+
+
+v2.102.0 - 2018-05-08
+----------
+__Enhancement__:
+* Update database annotations
+* Add missing sv-translation key
+* Pull translations from Transifex
+
+__Admin__:
+* Add add `autocomplete=off` to a bunch of job fields
+* Add support for annulable Frilans Finans Invoices
+* Refactor admin user form and add autocomplete=off to a bunch of fields
+* Extract Frilans Finans Invoice show view to its own partial
+
+__Gem updates__:
+* Bump `honey_format` from 0.3.0 to 0.5.0
+* Bump `webmock` from 3.4.0 to 3.4.1
+* Bump `airbrake` from 7.3.0 to 7.3.1
+* Bump `newrelic_rpm` from 5.0 to 5.1
+* Bump `pg` from 0.21.0 to 1.0.0
+
+
+v2.101.1 - 2018-05-01
+----------
+__Gem updates__:
+* Update `bootsnap` startup
+* Bump `rails` from 5.1.6 to 5.2.0
+* Bump `airbrake` from 7.2.1 to 7.3.0
+* Bump `webmock` from 3.3.0 to 3.4.0
+* Bump `twilio-ruby` from 5.8.1 to 5.9.0
+* Bump `ancestry` from 3.0.1 to 3.0.2
+* Bump `apipie-rails` from 0.5.7 to 0.5.8
+* Bump `web-console` from 3.6.1 to 3.6.2
+* Bump `dotenv-rails` from 2.3.0 to 2.4.0
+
+
+v2.101.0 - 2018-04-28
+----------
+__Admin__:
+* Add default job description to new job form
+
+
+v2.100.1 - 2018-04-23
+----------
+__Tests__
+* Wrap partner-feed actions under I18n.with_locale to avoid leaking the locale change to other tests
+* Make a few tests less brittle (due to I18n)
+
+__Gem updates__:
+* Bump `database_cleaner` from 1.6.2 to 1.7.0
+* Bump `rubocop` from 0.54.0 to 0.55.0
+* Bump `twilio-ruby` from 5.8.0 to 5.8.1
+* Bump `web-console` from 3.6.0 to 3.6.1
+* Bump `activeadmin` from 1.2.1 to 1.3.0
+* Bump `aws-sdk-s3` from 1.9.0 to 1.9.1
+* Bump `annotate` from 2.7.2 to 2.7.3
+* Bump `dotenv-rails` from 2.2.2 to 2.3.0
+* Bump `uglifier` from 4.1.9 to 4.1.10
+
+
+v2.100 - 2018-04-20
+----------
+* Add Order#category validation
+
+
+v2.99 - 2018-04-19
+----------
+__Enhancement__:
+* Rename admin method to avoid naming conflict
+* Remove before_action definition for non-existing controller action
+* Remove document and image params from being logged
+* Fix a bunch of rubocop styling violations
+* Update ruby style guide rule set
+
+
+v2.98 - 2018-04-16
+----------
+* Bump `twilio-ruby` from 5.7.2 to 5.8.0
+* Bump `uglifier` from 4.1.8 to 4.1.9
+* Bump `web-console` from 3.5.1 to 3.6.0
+* Bump `dotenv-rails` from 2.2.1 to 2.2.2
+* Bump `puma` from 3.11.3 to 3.11.4
+* Bump `bootsnap` from 1.2.1 to 1.3.0
+
+
+v2.97 - 2018-04-13
+----------
+__Enhancement__:
+* Add marketing notifier and allow users to ignored notification options
+* Add feature toggle for new applicant emails
+
+__Bugfix__:
+* Update PDFJS worker JS path
+
+
+v2.96 - 2018-04-09
+----------
+__Update gems__:
+* Bump aws-sdk-s3 from 1.8.2 to 1.9.0
+* Bump sidekiq from 5.1.2 to 5.1.3
+
+
+v2.95 - 2018-04-06
+----------
+__Enhancement__:
+* Move update of `user#frilans_finans_id` to sync service
+* Save the Frilans Finans user id on create
+* Add support for blank `ended_at` date in `EmploymentPeriod#ongoing`
+
+__Update gems__:
+* Depend on only `aws-sdk-s3` and not all of `aws-sdk`
+* [Security] Bump `rails-html-sanitizer` from 1.0.3 to 1.0.4
+* Bump `apipie-rails` from 0.5.6 to 0.5.7
+* Bump `arbetsformedlingen` from 0.3.0 to 0.4.1
+* Bump `bootsnap` from 1.1.8 to 1.2.1
+* Bump `bullet` from 5.7.3 to 5.7.5
+* Bump `byebug` from 10.0.0 to 10.0.2
+* Bump `derailed_benchmarks` from 1.3.2 to 1.3.4
+* Bump `fog` from 1.42.0 to 2.0.0
+* Bump `geocoder` from 1.4.6 to 1.4.7
+* Bump `httparty` from 0.16.0 to 0.16.2
+* Bump `i18n-tasks` from 0.9.20 to 0.9.21
+* Bump `lograge` from 0.9.0 to 0.10.0
+* Bump `loofah` from 2.2.0 to 2.2.2 - Fixes CVE-2018-8048 - Loofah XSS Vulnerability
+* Bump `newrelic_rpm` from 4.8.0.341 to 5.0.0.342
+* Bump `paperclip` from 5.2.1 to 6.0.0
+* Bump `puma` from 3.11.2 to 3.11.3
+* Bump `rack-attack` from 5.0.1 to 5.2.0
+* Bump `rails` from 5.1.5 to 5.1.6
+* Bump `rubocop` from 0.53.0 to 0.54.0
+* Bump `sidekiq` from 5.1.1 to 5.1.2
+* Bump `simplecov` from 0.15.1 to 0.16.1
+* Bump `twilio-ruby` from 5.7.0 to 5.7.2
+* Bump `uglifier` from 4.1.6 to 4.1.8
+
+
+v2.94 - 2018-03-09
+----------
+__Admin__:
+* Add "Are you sure?" prompt when anonymizing a user
+
+
+v2.93 - 2018-03-09
+----------
+__Admin__:
+* Add anonymise user action to User show page
+* Add job digest to user sidebar and better display of a job digest
+* Revert "Admin: Lock the PDFJS version loaded to 2.0.419"
+
+__Enhancement__:
+* Add `Trädgårdsarbetare` to `MetrojobbCategories`
+* Unpublish metrojobb on job end date instead of job start date. Closes #1389
+
+__Gem update__:
+* Bump honey_format from 0.2.1 to 0.3.0
+
+
+v2.92 - 2018-03-07
+----------
+__Admin__:
+* Update PDFJS initialization to work with latest PDFJS version
+* Lock the PDFJS version loaded to 2.0.419
+
+
+v2.91 - 2018-03-06
+----------
+__Admin__:
+* Add CV to user show page
+
+__Enhancement__:
+* Update job request mailer to include more info
+* Update NumberFormatter spec to expect , instead of ،
+* Add bundle exec to annotate command in `script/migrate`
+
+__Bugfix__:
+* Fix facebook & linkedin url validators for urls starting with http:/exampl.. Closes #1432
+
+__Gem updates__:
+* Bump `rails` from 5.1.4 to 5.1.5
+* Bump `metrojobb` from 0.5.1 to 0.6.1
+* Bump `rubocop` from 0.52.1 to 0.53.0
+* Bump `geocoder` from 1.4.5 to 1.4.6
+* Bump `twilio-ruby` from 5.6.4 to 5.7.0
+* Bump `google-cloud-translate` from 1.1.0 to 1.2.0
+* Bump `rails-i18n` from 5.1.0 to 5.1.1
+* Bump `blazer` from 1.8.0 to 1.8.2
+* Bump `twilio-ruby` from 5.6.3 to 5.6.4
+
+
+v2.90 - 2018-02-22
+----------
+__Enhancement__:
+* Re-add some Metrojobb categories
+
+
+v2.89 - 2018-02-22
+----------
+__Enhancement__:
+* Decrease default batch size from 1000 to 500
+
+__Bugfix__:
+* Update Metrojobb category map
+
+
+v2.88 - 2018-02-21
+----------
+* Update bad Ruby 2.5 syntax
+
+
+v2.87 - 2018-02-21
+----------
+__Ruby 2.5 upgrade__:
+* Update `NumberFormatter` methods to be backwards compatible with Ruby 2.5 new feature #7688
+* Set rubocop target ruby version to 2.4 since 2.4 is not supported yet
+* Update syntax to be Ruby 2.5 compliant
+* Update Ruby 2.4 references to Ruby 2.5
+* Update Ruby 2.4 => 2.5
+
+__Gem updates__:
+* Bump memory_profiler from 0.9.8 to 0.9.10
+* Bump httparty from 0.15.7 to 0.16.0
+* Bump airbrake from 7.2.0 to 7.2.1
+
+
+v2.86 - 2018-02-13
+----------
+__Admin__:
+* :hocho: job user search bug. Closes [issue #1419](https://github.com/justarrived/just_match_api/issues/1419)
+
+__Enhancement__:
+* Add methods to count user => job users with ease
+* Add AssociationCount methods to all activerecord models
+* Add association_count gem
+
+__Gem updates__:
+* Bump sidekiq from 5.1.0 to 5.1.1
+* Bump uglifier from 4.1.5 to 4.1.6
+* Bump countries from 2.1.3 to 2.1.4
+* Bump httparty from 0.15.6 to 0.15.7
+* Bump twilio-ruby from 5.6.2 to 5.6.3
+
+v2.85 - 2018-02-09
+----------
+v2.85 - 2018-02-09
+----------
+__Admin/Bugfix__:
+* Update group by SQL-clauses for user/job/applicant listings
+
+
+v2.84 - 2018-02-09
+----------
+__Enhancement__:
+* Remove presence validation on `EmploymentPeriod#ended_at`
+
+__Gem updates__:
+* Bump `chosen-rails` from 1.8.2 to 1.8.3
+* Bump `codeclimate-test-reporter` from 1.0.7 to 1.0.8
+* Bump `sidekiq` from 5.0.5 to 5.1.0
+* Bump `dry-core` from 0.4.2 to 0.4.3
+
+
+v2.83 - 2018-02-04
+----------
+__Admin__:
+* Improved EmploymentPeriod listing
+* Reverse employment period order
+* Add employment period percentage to user permitted params
+
+__Enhancement__:
+* Validate job end date presence unless the job is a direct recruitment
+* Pull translations from Transifex
+* Fix job validation error message
+* Add percentage translation
+* Add `EmploymentPeriod#ongoing?`
+
+
+v2.82 - 2018-02-02
+----------
+__Admin__:
+* Display total job applications on job user index view
+
+__Enhancement__:
+* Memory optimization: Bump `dry-core` and `dry-types`. Cuts `arbetsformedligen` gem memory footprint by ~40% :rocket:
+
+__Gem updates__:
+* Bump `dry-core` and `dry-types`.
+
+
+v2.81 - 2018-02-02
+----------
+__Admin__:
+* Add employment period percentage to user and job user show views
+* Pluralize `app/admin/*` model files
+
+
+v2.80 - 2018-02-01
+----------
+__Admin__:
+* Add employment period to user, job and applicants views and user form
+* Add total applications info to job user and user view
+* Add total applications to user view
+* Eager load tags in job user index view :rocket:
+* Support datetime pickers in dynamically added admin forms
+
+__Enhancement__:
+* Explicitly register Paperclip data URI adapter
+
+__Gem updates__:
+* Bump `twilio-ruby` from 5.6.0 to 5.6.1
+* Bump `byebug` from 9.1.0 to 10.0.0
+* Bump `paperclip` from 5.1.0 to 5.2.1
+* Bump `uglifier` from 4.1.3 to 4.1.5
+
+
+v2.79 - 2018-01-27
+----------
+__Bugfix__:
+* Fix `Job::last_application_at` scope to properly find jobs with no job_end_date specified
+
+
+v2.78 - 2018-01-26
+----------
+__Admin__:
+* Add `Occupation#language` to form
+* Add `Occupation#language_id` to permitted params
+
+__Enhancement__:
+* Pull translations from Transifex
+
+__Gem updates__:
+* Bump `puma` from 3.11.0 to 3.11.2
+* Bump `i18n-tasks` from 0.9.19 to 0.9.20
+* Bump `webmock` from 3.2.1 to 3.3.0
+* Bump `bullet` from 5.7.1 to 5.7.2
+
+
+v2.77 - 2018-01-20
+----------
+__Admin__:
+* Various (minor) enhancements :lipstick:
+* Update applicant index view
+
+__Enhancement__:
+* Add lograge initializer that adds support for Rails-5 api-only mode
+
+__Gem updates__:
+* Bump `activeadmin` from 1.2.0 to 1.2.1
+* Bump `lograge` from 0.7.1 to 0.9.0
+* Bump `airbrake` from 7.1.1 to 7.2.0
+* Bump `binding_of_caller` from 0.7.3 to 0.8.0
+* Bump `letter_opener` from 1.5.0 to 1.6.0
+
+
+v2.76 - 2018-01-16
+----------
+__Admin__:
+* Add `lograge` initializer that adds support for Rails v5 api-only mode
+
+__Gem updates__:
+* Bump `activeadmin` from 1.2.0 to 1.2.1
+* Bump `lograge` from 0.7.1 to 0.9.0
+* Bump `airbrake` from 7.1.1 to 7.2.0
+* Bump `binding_of_caller` from 0.7.3 to 0.8.0
+* Bump `letter_opener` from 1.5.0 to 1.6.0
+
+
+v2.75 - 2018-01-10
+----------
+__Admin__:
+* Localize menu
+* :rocket: faster comment display on applicant index page
+* Remove irrelevant relations links
+* Update admin link helper to work with default url options
+
+__Enhancement__:
+* Pull translations from Transifex
+* Remove unused I18n-keys and add model attributes I18n
+* Update I18n-tasks config to include additional locale files
+* Use `script/migrate` in `script/update`
+* Add `script/migrate` that takes care of the process of migrating the database
+* Add `script/build-model-translations`
+* Add `admin.*locale*.yml` files
+* Rename `admin/en.yml` => `admin/admin.en.yml`
+* Set admin locale based on user setting
+
+
+v2.74 - 2018-01-09
+----------
+__API__:
+* Add `job#schema_org` key to serializer that contains the JSON-ld for a JobPosition
+
+__Admin__:
+* Allow destroy for company industries
+
+__Enhancement__:
+* .ruby-style-guide :lipstick:
+* Run rails app:upgrade-> Rails 5.1
+
+
+v2.73 - 2018-01-09
+----------
+* Bump `activeadmin` from 1.1.0 to 1.2.0
+* Bump `airbrake` from 7.1.0 to 7.1.1
+* Bump `bootsnap` from 1.1.5 to 1.1.7
+* Bump `bootsnap` from 1.1.7 to 1.1.8
+* Bump `bullet` from 5.7.0 to 5.7.1
+* Bump `chosen-rails` from 1.5.2 to 1.8.2
+* Bump `countries` from 2.1.2 to 2.1.3
+* Bump `faker` from 1.8.4 to 1.8.7
+* Bump `fuubar` from 2.2.0 to 2.3.1
+* Bump `letter_opener` from 1.4.1 to 1.5.0
+* Bump `newrelic_rpm` from 4.6.0.338 to 4.7.1.340
+* Bump `rubocop` from 0.51.0 to 0.52.0
+* Bump `rubocop` from 0.52.0 to 0.52.1
+* Bump `twilio-ruby` from 5.5.1 to 5.6.0
+* Bump `uglifier` from 4.0.2 to 4.1.2
+* Bump `uglifier` from 4.1.2 to 4.1.3
+* Bump `webmock` from 3.1.1 to 3.2.1
+
+
+v2.72 - 2017-12-14
+----------
+__Admin__:
+* Update filters for occupation/skill/interest/tag models
+
+
+v2.71 - 2017-12-13
+----------
+__Admin__:
+* Prepend "Failed to" if user activity failed
+* Add direct link to job applicants on dashboard
+
+__Gem updates__:
+* Bump `apipie-rails` from 0.5.5 to 0.5.6
+* Bump `uglifier` from 4.0.1 to 4.0.2
+
+
+v2.70 - 2017-12-04
+----------
+__API__:
+* Respond with 200 and empty data instead of 404 for user/:id/utalk_code
+
+__Admin__:
+* Link to all guide image URL sizes on show page
+
+__Gem update__:
+* Bump `uglifier` from 3.2.0 to 4.0.1
+* Bump `inherited_resources` from 1.7.2 to 1.8.0
+* Bump `kramdown` from 1.15.0 to 1.16.2
+* Bump `geocoder` from 1.4.4 to 1.4.5
+* Bump `twilio-ruby` from 5.5.0 to 5.5.1
+* Bump `bullet` from 5.6.1 to 5.7.0
+* Bump `rinku` from 2.0.3 to 2.0.4
+
+
+v2.69 - 2017-11-30
+----------
+* Add `GuideImage` model
+
+
+v2.68 - 2017-11-29
+----------
+__API__:
+* Add `UtalkCode#signup_url`
+
+
+v2.67 - 2017-11-28
+----------
+__Admin__:
+* Add `UtalkCode` resource
+
+
+v2.66 - 2017-11-27
+----------
+__API__:
+* Allow users to accept staffing jobs
+* Return 201 created status instead of 200 when a user signs a contract
+
+__Admin__:
+* Update `job#skills` form input Skill scope
+
+__Enhancement__:
+* Convert `SignJobUserService` to use an instance of if-self internally
+
+__Update gem__:
+* Bump `stackprof` from 0.2.10 to 0.2.11
+* Bump `active_admin_scoped_collection_actions` from 04cdcb to a6311e
+
+
+v2.65 - 2017-11-23
+----------
+__API__:
+* :hocho: N+1 SQL-queries in sections #index action
+* Reload user after user update action
+
+__Enhancement__:
+* Update `User::needs_frilans_finans_id` to only return user with an accepted applicant
+* Update i18n
+* Utilize User occupations in emails etc
+
+__Update gem__:
+* `puma`
+* `rspec-rails`
+
+
+v2.64 - 2017-11-21
+----------
+__API__:
+* Add occupations relation to user serializer
+* Allow users to delete user occupations
+* Expose user occupations to user create/update actions
+* Add user occupations to allowed includes
+
+__Admin__:
+* Update job user index filters
+
+__Enhancement__:
+* Specify more job user relations through user
+
+
+v2.63 - 2017-11-20
+----------
+__Admin__:
+* Rename Job user to Applicant in I18n files
+
+__Update gems__:
+* twilio-ruby
+* newrelic_rpm
+* google-cloud-translate
+* active_model_serializers
+* webmock
+
+
+v2.62 - 2017-11-19
+----------
+__API__:
+* Add job occupations `/jobs` to allowed includes
+* Add `JobOccupationSerializer` and add `job_occupations` relation to `JobSerializer`
+
+__Enhancement__:
+* Update `UtalkCode`::unclaimed scope to handle cases where the parent user has been deleted
+* Add dependent option to all `has_one` and `has_many` relations
+* Remove column and all references to `UserOccpuaton#importance`
+* Use `CGI::escape` instead of `URI::encode` in `GoogleCalendarUrl`
+* Freeze constants in serializers
+* :lipstick: Use safe navigation &. over &&
+* rubocop :lipstick:
+
+
+v2.61 - 2017-11-17
+----------
+__API__:
+* Implement `/users/:id/utalk-codes` endpoint
+* Add `/users/:id/occupations` RESTful endpoint
+* Add `UserOccpation` model and serializer
+* Add `ClaimUtalkCodeService`
+* Create `UtalkCode` model
+
+__Docs__:
+* Re-generate API doc examples
+
+
+v2.60 - 2017-11-17
+----------
+__Admin__:
+* Render resume PDFs on job user view
+* Add `User#interviewed_at` to user form
+
+
+v2.59 - 2017-11-16
+----------
+__API__:
+* Return CV as a part of the missing user traits data
+* Update the order of missing user traits serializer
+
+__Admin__:
+* Add resume search to job user index view
+* Convert date input field as string to datepicker
+
+__Enhancement__:
+* Add additional test for `SendJobDigestNotificationsService`
+* Update sv locale
+* Update missing traits api docs
+
+__Gem update__:
+* Bump `twilio-ruby` from 5.4.4 to 5.4.5
+* Bump `personnummer` from 0.0.9 to 0.1.0
+
+
+v2.58 - 2017-11-09
+----------
+__Enhancement__:
+* Pull translations from Transifex
+* Remove `active_admin_datetimepicker` gem from gemfile
+
+
+v2.57 - 2017-11-09
+----------
+__Enhancement__:
+* Add `Rack::Deflater` for static asset compression
+* Pull translations from Transifex
+* :hocho: typo in en translation
+* :hocho: digest subscribert mailer typos
+* :hocho: double key-entry in job seed
+* Add update notification settings URL to mail footer
+
+
+v2.56 - 2017-11-08
+----------
+__Admin__:
+* `Order#display_name` :lipstick:
+
+__Enhancement__:
+* Add `UserNotification` class and refactor user
+* :hocho: typo in English translation
+* Update job seed
+
+
+v2.55 - 2017-11-06
+----------
+__Admin__:
+* Easier translations edit & overview for guide sections and guide section articles
+* Add language to section translation index dashboard
+
+__Update gem__:
+* Bump twilio-ruby from 5.4.3 to 5.4.4
+* Bump apipie-rails from 0.5.4 to 0.5.5
+* Bump i18n-tasks from 0.9.18 to 0.9.19
+
+
+v2.54 - 2017-11-03
+----------
+__Admin__:
+* Add Company#sales_user_id to permitted params
+* :hocho: N+1 queries on job show page :rocket:
+* Avoid extra string allocation in user view
+* Styling fix
+
+__Enhancement__:
+* Extract notification logic from job user creation service to a background job
+* Implement update applicant data reminder service and notifier
+* New email `JobUser#update_data_reminder_email`
+* Add `UpdateApplicantDataReminderJob`
+* Update mailer `I18n`
+* Link to `/update-profile`
+* Refactor `Queries::MissingUserTraits` to be instantiated
+* Re-add sprockets/railtie require statement to app config
+* Add `MissingUserTraits#cv?`
+
+__Gem update__:
+* :hocho: `active_admin_datetimepicker` gem and replace it with our own implementation
+* Bump `activeadmin` from e6228e to 1.1.0
+* Bump mail 2.6.6 => 2.7
+
+
+v2.53 - 2017-11-01
+----------
+__Admin__:
+* Display the latest job user comment
+
+__Enhancement__:
+* Add `user_id` and email to analytics data on send job digest email
+
+__Gem update__:
+* Rename `FactoryGirl` => `FactoryBot`
+* Bump `rspec-rails` from 3.6.1 to 3.7.1
+* Update factory_bot_rails gem to ~> 4.8
+
+
+v2.52 - 2017-10-31
+----------
+__API__:
+* Add `/ahoy/events` endpoint
+
+__Enhancement__:
+* Refactor `UrlValidator` to use `AbsoluteUrl` class
+* Add `AbsoluteUrl` class
+
+__Admin__:
+* Add user latest activity sidebar to user & job user
+* :hocho: N+1 queries :rocket:
+
+
+v2.51 - 2017-10-30
+----------
+__API__:
+* Update `/user/notifications` to include the correct i18n JSON-structure
+* Add `job#frilans_finans_job` attribute to jobs API type
+
+__Enhancement__:
+* Use https protocol in AppConfig#cv_template_url
+
+__Gem update__:
+* Bump arbetsformedlingen gem
+  - Update PushArbetsformedlingenAdService to use new API
+* Bump database_cleaner from 1.6.1 to 1.6.2
+* Bump twilio-ruby from 5.4.2 to 5.4.3
+
+
+v2.50 - 2017-10-28
+----------
+__Enhancement__:
+* Add company filter to order index
+
+__Admin__:
+* Track send job digest email for analytics purposes
+
+__Gem update__:
+* Bump `binding_of_caller` from 0.7.2 to 0.7.3
+* Bump `rubocop` from 0.50.0 to 0.51.0
+* Bump `twilio-ruby` from 5.4.0 to 5.4.2
+* Bump `kaminari` from 1.1.0 to 1.1.1
+* Bump `airbrake` from 7.0.3 to 7.1.0
+* Bump `rack-cors` from 1.0.1 to 1.0.2
+* Bump `redis-activesupport` from 5.0.3 to 5.0.4
+
+
+v2.49 - 2017-10-23
+----------
+__Admin__:
+* Remove duplicated input for municipality in job form
+* Add company sales user to index and show view
+
+
+v2.48 - 2017-10-20
+----------
+* Add `Company#sales_user`
+
+
+v2.47 - 2017-10-19
+----------
+__API__:
+* Add `body_html` to `GuideSectionArticleSerializer`
+
+__Admin__:
+* Custom GuideSectionArticleTranslation form
+
+
+v2.46 - 2017-10-18
+----------
+__Admin__:
+* Add job user active admin comments to index dashboard
+* Simpler handling of guide translations
+* Add active admin comment model
+
+__API__:
+* Fix misspelled allowed include for guide section article
+
+__Enhancement__:
+* Update job subscription mail copy
+* Update mailer copy from Job Digest emails
+* Pull translations from Transifex
+* Don't send job cancelled notifications to users that have withdrawn their application. Closes #1221
+
+
+v2.45 - 2017-10-17
+----------
+__Admin__:
+* Add job user active admin comments to index dashboard
+* Add active admin comment model
+
+
+v2.44 - 2017-10-16
+----------
+* Bump `better_errors` from 2.3.0 to 2.4.0
+* Bump `twilio-ruby` from 5.3.1 to 5.4.0
+* Bump `kaminari` from 1.0.1 to 1.1.0
+* Bump `airbrake` from 7.0.2 to 7.0.3
+
+
+v2.43 - 2017-10-16
+----------
+__API__:
+* Add /guides/* routes
+* Add missing self-links to guides serializers
+* Implement guides/* endpoints
+
+__DB__:
+* Add Guide section & article JSON serializers
+* Add GuideSection model
+* Add GuideSectionArticle model
+* Add GuideSectionArticleTranslation model
+* Add GuideSectionTranslation model
+
+__Admin__:
+* Add admin comments to guide section article
+* Remove duplicates fields from job form
+* Remove reference to removed Article#next_article relation
+* Update guide model CRUD views
+
+__Enhancement__:
+* Don't send new companies digest if there are no new companies
+* Validate that a cloned job can't be published
+
+
+v2.42 - 2017-10-10
+----------
+__Admin__:
+* Add `Order#previous_order_id` to permitted params
+
+__Enhancement__:
+* Raketask: `digests:new_companies`
+* Create new company digest mailer
+
+__Update gem__:
+* Bump webmock from 3.0.1 to 3.1.0
+* Bump twilio-ruby from 5.3.0 to 5.3.1
+* Bump bootsnap from 1.1.3 to 1.1.5
+
+
+v2.41 - 2017-10-06
+----------
+__Enhancement__:
+* Remove street and zip from Job presence validations and add city to pub. validations
+
+__Bugfix__:
+* API: Fix sort by job#filled
+* Update job scope for job show
+* Update order to sort jobs on filled_at and not filled
+
+
+v2.40 - 2017-10-05
+----------
+__Bugfix__:
+* API: treat Job#filled as a fake attribute in API search
+
+
+v2.39 - 2017-10-05
+----------
+__API__:
+* Don't include cloned jobs in /jobs
+
+__Enhancement__:
+* Add `Job#filled_at` column
+* Custom UTM-source for job digest emails
+* Add job publish validations
+* Remove `Job#filled` boolean column
+* Don't update the `boolean_as_time` timestamp if already set
+* Convert all usage of `jobs.filled` boolean DB column to `jobs.filled_at`
+
+v2.37/38 - 2017-10-05
+----------
+__Admin__:
+
+* :hocho: N+1 queries in job form :rocket:
+* Add applicants link to Latest applicants sidebar
+* Job#cloned input
+* Improve job data checklist sidebar
+* Rewrite job form
+* Rewrite job show page
+
+__Enhancement__:
+* Add `ApplicationRecord#boolean_as_time` method that enables a time column to act as a boolean
+* Add Job#cloned (boolean, default: false)
+* Don't send cloned jobs in job digests
+* Only validate `Job#category` if `Job#frilans_finans_job?` is true
+* Refactor DigestSubscriber and JobDigest to use ::boolean_as_time
+* Remove job date in future validation
+* Remove `Job#description` presence validation
+* Remove payslip explain URL from invoice mailer, since it does not exist
+* Update JobSeed to include all required attributes
+
+__API__:
+* Remove deprecated feature in jobs controller
+
+__Update gem__:
+* Update sidekiq 5.0.4 => 5.0.5
+
+
+v2.36 - 2017-10-03
+----------
+__Enhancement__:
+
+* Revert "Add unfilled and uncancelled scope to job published scope"
+* Allow applications for jobs that have 'started', but not 'ended'
+
+
+v2.35 - 2017-10-03
+----------
+__Admin__:
+
+* Add additional fields to invoice CSV export
+
+__API__:
+
+* Allow filtering Job#cancelled in /jobs
+* Rename `FrilansFinansApi` => `FrilansFinansAPI`
+
+__Update gem__:
+
+* Extract `frilans_finans_api` to its own remote gem
+* Extract `json_api_helpers` to its own remote gem
+* Bump `airbrake` from 7.0.0 to 7.0.2
+* Bump `fog` from 1.41.0 to 1.42.0
+* Bump `twilio`-ruby from 5.2.3 to 5.3.0
+
+__Docs__:
+
+* Update docs/README
+* Add digest subscriber API docs
+* Update job digest API docs
+
+
 v2.34 - 2017-09-29
 ----------
 __API__:

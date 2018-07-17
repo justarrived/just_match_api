@@ -50,11 +50,6 @@ RSpec.describe Jobs::Dates do
         expect(dates.open_for_applications?).to eq(true)
       end
 
-      it 'returns false if starts_at is in the past' do
-        dates = described_class.new(starts_at: Date.new(1099, 1, 1))
-        expect(dates.open_for_applications?).to eq(false)
-      end
-
       it 'returns true if starts_at is nil and ends_at is in the future' do
         dates = described_class.new(ends_at: Date.new(3099, 1, 1))
         expect(dates.open_for_applications?).to eq(true)

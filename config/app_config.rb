@@ -15,6 +15,18 @@ class AppConfig
     @env = AppEnv.new
   end
 
+  def self.sidekiq_web_enabled?
+    Rails.env.development?
+  end
+
+  def self.anonymization_delay_days
+    Integer(env.fetch('ANONYMIZATION_DELAY_DAYS', 3))
+  end
+
+  def self.keep_applicant_data_years
+    Integer(env.fetch('KEEP_APPLICANT_DATA_YEARS', 2))
+  end
+
   def self.apache_tika_url
     env['APACHE_TIKA_URL']
   end
@@ -27,12 +39,15 @@ class AppConfig
     'api.justarrived.se'
   end
 
-  def self.payslip_explain_url
-    'http://justarrived.se/payslip/'
+  def self.new_applicant_email_active?
+    value = env['NEW_APPLICANT_EMAIL_ACTIVE']
+    return true if value.nil?
+
+    truthy?(value)
   end
 
   def self.cv_template_url
-    'http://justarrived.se/assets/files/CV-template.docx'
+    'https://justarrived.se/assets/files/CV-template.docx'
   end
 
   def self.default_staffing_company_id
@@ -160,10 +175,6 @@ class AppConfig
     truthy?(env['FRILANS_FINANS_ACTIVE'])
   end
 
-  def self.validate_job_date_in_future_inactive?
-    truthy?(env['VALIDATE_JOB_DATE_IN_FUTURE_INACTIVE'])
-  end
-
   def self.cors_whitelist
     env.
       fetch('CORS_WHITELIST', '').
@@ -191,6 +202,10 @@ class AppConfig
     production? && admin_google_analytics_tracking_id.present?
   end
 
+  def self.new_companies_digest_receiver_email
+    env['NEW_COMPANIES_DIGEST_RECEIVER_EMAIL']
+  end
+
   # Application config
 
   def self.aws_region
@@ -214,10 +229,6 @@ class AppConfig
   end
 
   # Application Server
-
-  def self.rack_timeout
-    Integer(env.fetch('RACK_TIMEOUT', 15)) # seconds
-  end
 
   def self.db_pool
     env['DB_POOL']

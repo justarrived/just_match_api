@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe JobSerializer, type: :serializer do
   context 'Individual Resource Representation' do
-    let(:resource) { FactoryGirl.build(:job, id: '17') }
+    let(:resource) { FactoryBot.build(:job, id: '17') }
     let(:serialization) { JsonApiSerializer.serialize(resource) }
 
     subject do
@@ -17,6 +17,7 @@ RSpec.describe JobSerializer, type: :serializer do
       gross_amount_delimited net_amount_delimited description_html
       last_application_at_in_words open_for_applications starts_in_the_future
       tasks_description_html applicant_description_html requirements_description_html
+      frilans_finans_job schema_org
     )
     (JobPolicy::ATTRIBUTES - ignore_fields).each do |attribute|
       it "has #{attribute.to_s.humanize.downcase}" do
@@ -42,6 +43,11 @@ RSpec.describe JobSerializer, type: :serializer do
       expect(subject).to have_jsonapi_attribute('translated_text', value)
     end
 
+    it 'has schema_org contains @type: JobPosting' do
+      value = subject.dig('data', 'attributes', 'schema_org', 'job_position')['@type']
+      expect(value).to eq('JobPosting')
+    end
+
     it 'has net_amount_with_currency' do
       expect(subject).to have_jsonapi_attribute('net_amount_with_currency', '2,100 SEK')
     end
@@ -65,8 +71,12 @@ RSpec.describe JobSerializer, type: :serializer do
       expect(subject).to have_jsonapi_attribute('currency', 'SEK')
     end
 
+    it 'has frilans_finans_job' do
+      expect(subject).to have_jsonapi_attribute('frilans_finans_job', true)
+    end
+
     %w(
-      owner company language category hourly_pay job_languages job_skills
+      owner company language category hourly_pay job_languages job_skills job_occupations
     ).each do |relationship|
       it "has #{relationship} relationship" do
         expect(subject).to have_jsonapi_relationship(relationship)
@@ -83,58 +93,59 @@ end
 #
 # Table name: jobs
 #
-#  id                           :integer          not null, primary key
-#  description                  :text
-#  job_date                     :datetime
-#  hours                        :float
-#  name                         :string
+#  applicant_description        :text
+#  blocketjobb_category         :string
+#  cancelled                    :boolean          default(FALSE)
+#  car_required                 :boolean          default(FALSE)
+#  category_id                  :integer
+#  city                         :string
+#  cloned                       :boolean          default(FALSE)
+#  company_contact_user_id      :integer
 #  created_at                   :datetime         not null
-#  updated_at                   :datetime         not null
-#  owner_user_id                :integer
+#  customer_hourly_price        :decimal(, )
+#  description                  :text
+#  direct_recruitment_job       :boolean          default(FALSE)
+#  featured                     :boolean          default(FALSE)
+#  filled_at                    :datetime
+#  full_time                    :boolean          default(FALSE)
+#  hidden                       :boolean          default(FALSE)
+#  hourly_pay_id                :integer
+#  hours                        :float
+#  id                           :integer          not null, primary key
+#  invoice_comment              :text
+#  job_date                     :datetime
+#  job_end_date                 :datetime
+#  just_arrived_contact_user_id :integer
+#  language_id                  :integer
+#  last_application_at          :datetime
 #  latitude                     :float
 #  longitude                    :float
-#  language_id                  :integer
+#  metrojobb_category           :string
+#  municipality                 :string
+#  name                         :string
+#  number_to_fill               :integer          default(1)
+#  order_id                     :integer
+#  owner_user_id                :integer
+#  preview_key                  :string
+#  publish_at                   :datetime
+#  publish_on_blocketjobb       :boolean          default(FALSE)
+#  publish_on_linkedin          :boolean          default(FALSE)
+#  publish_on_metrojobb         :boolean          default(FALSE)
+#  requirements_description     :text
+#  salary_type                  :integer          default("fixed")
+#  short_description            :string
+#  staffing_company_id          :integer
+#  staffing_job                 :boolean          default(FALSE)
 #  street                       :string
+#  swedish_drivers_license      :string
+#  tasks_description            :text
+#  unpublish_at                 :datetime
+#  upcoming                     :boolean          default(FALSE)
+#  updated_at                   :datetime         not null
+#  verified                     :boolean
 #  zip                          :string
 #  zip_latitude                 :float
 #  zip_longitude                :float
-#  hidden                       :boolean          default(FALSE)
-#  category_id                  :integer
-#  hourly_pay_id                :integer
-#  verified                     :boolean          default(FALSE)
-#  job_end_date                 :datetime
-#  cancelled                    :boolean          default(FALSE)
-#  filled                       :boolean          default(FALSE)
-#  short_description            :string
-#  featured                     :boolean          default(FALSE)
-#  upcoming                     :boolean          default(FALSE)
-#  company_contact_user_id      :integer
-#  just_arrived_contact_user_id :integer
-#  city                         :string
-#  staffing_job                 :boolean          default(FALSE)
-#  direct_recruitment_job       :boolean          default(FALSE)
-#  order_id                     :integer
-#  municipality                 :string
-#  number_to_fill               :integer          default(1)
-#  full_time                    :boolean          default(FALSE)
-#  swedish_drivers_license      :string
-#  car_required                 :boolean          default(FALSE)
-#  salary_type                  :integer          default("fixed")
-#  publish_on_linkedin          :boolean          default(FALSE)
-#  publish_on_blocketjobb       :boolean          default(FALSE)
-#  last_application_at          :datetime
-#  blocketjobb_category         :string
-#  publish_at                   :datetime
-#  unpublish_at                 :datetime
-#  tasks_description            :text
-#  applicant_description        :text
-#  requirements_description     :text
-#  preview_key                  :string
-#  customer_hourly_price        :decimal(, )
-#  invoice_comment              :text
-#  publish_on_metrojobb         :boolean          default(FALSE)
-#  metrojobb_category           :string
-#  staffing_company_id          :integer
 #
 # Indexes
 #

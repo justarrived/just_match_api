@@ -14,6 +14,7 @@ class LinkedinValidator < ActiveModel::EachValidator
   def valid_linkedin_url?(url)
     uri = URI.parse(url)
     return false unless uri.absolute?
+    return false if uri.host.nil?
     return false unless uri.host.include?('linkedin.com')
 
     true

@@ -10,7 +10,7 @@ end
 #
 # Table name: addresses
 #
-#  id           :integer          not null, primary key
+#  id           :bigint(8)        not null, primary key
 #  street1      :string
 #  street2      :string
 #  city         :string

@@ -6,8 +6,8 @@ module Api
       class JobUsersController < BaseController
         before_action :require_user
         before_action :set_job
-        before_action :set_job_user, only: %i(show update destroy)
-        before_action :set_user, only: %i(show update destroy)
+        before_action :set_job_user, only: %i(show destroy)
+        before_action :set_user, only: %i(show destroy)
 
         resource_description do
           resource_id 'job_users'
@@ -113,8 +113,7 @@ module Api
           job_user = JobUser.find_or_initialize_by(user: user, job: @job)
           @job_user = CreateJobApplicationService.call(
             job_user: job_user,
-            attributes: job_user_attributes,
-            job_owner: @job.owner
+            attributes: job_user_attributes
           )
 
           if @job_user.valid?

@@ -7,7 +7,7 @@ class UpdateUserService
 
   attr_reader :user, :params, :old_email
 
-  def initialize(user:, params:, language_ids:, skill_ids:, interest_ids:)
+  def initialize(user:, params:, language_ids:, skill_ids:, interest_ids:, occupation_ids:) # rubocop:disable Metrics/LineLength
     @user = user
     @params = params
     @old_email = @user.email
@@ -15,6 +15,7 @@ class UpdateUserService
     @language_ids = language_ids
     @skill_ids = skill_ids
     @interest_ids = interest_ids
+    @occupation_ids = occupation_ids
   end
 
   def call
@@ -49,7 +50,8 @@ class UpdateUserService
       user: user,
       language_ids_param: @language_ids,
       skill_ids_param: @skill_ids,
-      interest_ids_param: @interest_ids
+      interest_ids_param: @interest_ids,
+      occupation_ids_param: @occupation_ids
     )
   end
 

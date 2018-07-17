@@ -279,11 +279,11 @@ module Api
       after_action :track_request
       after_action :verify_authorized
 
-      rescue_from Pundit::NotAuthorizedError, with: :user_forbidden
-      rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+      rescue_from Pundit::NotAuthorizedError, with: :render_user_forbidden
+      rescue_from ActiveRecord::RecordNotFound, with: :render_record_not_found
       rescue_from ExpiredTokenError, with: :expired_token
       rescue_from NoSuchTokenError, with: :no_such_token
-      rescue_from InvalidAuthTokenError, with: :invalid_auth_token
+      rescue_from InvalidAuthTokenError, with: :render_invalid_auth_token
 
       def append_info_to_payload(payload)
         super
@@ -394,17 +394,21 @@ module Api
         render json: serialized_model, status: status
       end
 
-      def record_not_found
+      def render_record_not_found
         render json: NotFound.add, status: :not_found
       end
 
       def require_user
         return if logged_in?
 
+        render_login_required
+      end
+
+      def render_login_required
         render json: LoginRequired.add, status: :unauthorized
       end
 
-      def user_forbidden
+      def render_user_forbidden
         status = nil
         errors = JsonApiErrors.new
 
@@ -429,7 +433,7 @@ module Api
         render json: NoSuchToken.add.to_json, status: status
       end
 
-      def invalid_auth_token
+      def render_invalid_auth_token
         status = 401 # unauthorized
         render json: InvalidAuthToken.add.to_json, status: status
       end

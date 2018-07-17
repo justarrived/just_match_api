@@ -1,0 +1,46 @@
+<%= simple_format(
+  I18n.t(
+    'mailer.update_data_reminder.introduction_body',
+    job_name: link_to(@job.name.truncate(30), @job_url)
+  ).html_safe
+) %>
+
+<% if @missing_cv %>
+  <%= simple_format(
+    I18n.t(
+      'mailer.update_data_reminder.cv_upload_body',
+      url: link_to(
+        I18n.t('mailer.update_data_reminder.update_cv_link'),
+        @user_edit_url
+      )
+    ).html_safe
+  ) %>
+<% end %>
+
+<% if @competence_names.any? %>
+  <%= simple_format I18n.t('mailer.update_data_reminder.competence_list_title') %>
+
+  <ul>
+  <% @competence_names.each do |name| %>
+    <li><%= name %></li>
+  <% end %>
+  </ul>
+
+  <%= simple_format(
+    I18n.t(
+      'mailer.update_data_reminder.competence_update_body',
+      url: link_to(
+        I18n.t('mailer.update_data_reminder.update_competences_link'),
+        @user_edit_url
+      )
+    ).html_safe
+  ) %>
+<% end %>
+
+<%= render(
+  'mailer_partials/action_button',
+  url: @user_edit_url,
+  title: I18n.t('mailer.update_data_reminder.body_edit_profile_cta')
+) %>
+
+<p><%= I18n.t('mailer.signoff') %></p>

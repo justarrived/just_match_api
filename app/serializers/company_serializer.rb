@@ -6,7 +6,7 @@ class CompanySerializer < ApplicationSerializer
 
   link(:self) { api_v1_company_url(object) }
 
-  attribute :name { object.display_name }
+  attribute(:name) { object.display_name }
 
   attribute :short_description do
     object.original_short_description
@@ -52,9 +52,14 @@ end
 #  municipality      :string
 #  staffing_agency   :boolean          default(FALSE)
 #  display_name      :string
+#  sales_user_id     :integer
 #
 # Indexes
 #
 #  index_companies_on_cin                (cin) UNIQUE
 #  index_companies_on_frilans_finans_id  (frilans_finans_id) UNIQUE
+#
+# Foreign Keys
+#
+#  companies_sales_user_id_fk  (sales_user_id => users.id)
 #

@@ -3,6 +3,13 @@
 require 'admin_subdomain'
 
 Rails.application.routes.draw do
+  # In production we run the Sidekiq Web UI on a separate server
+  if AppConfig.sidekiq_web_enabled?
+    require 'sidekiq/web'
+    mount Sidekiq::Web => '/sidekiq'
+    Sidekiq::Web.set :session_secret, Rails.application.secrets[:secret_key_base]
+  end
+
   constraints(AdminSubdomain) do
     ActiveAdmin.routes(self)
   end
@@ -14,6 +21,10 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      namespace :ahoy do
+        resources :events
+      end
+
       resources :jobs, param: :job_id, only: %i(index show create update) do
         collection do
           resources :job_digests, param: :job_digest_id, module: :jobs, path: :digests, only: %i(create) do
@@ -61,7 +72,7 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :users, param: :user_id, only: %i(index show create update destroy) do
+      resources :users, param: :user_id, only: %i(index show create update) do
         member do
           resources :messages, module: :users, only: %i(create index)
           resources :user_chats, path: :chats, module: :users, only: %i(index show) do
@@ -70,10 +81,13 @@ Rails.application.routes.draw do
             end
           end
 
+          resources :utalk_codes, path: 'utalk-codes', module: :users, only: %i[index create]
+
           get :matching_jobs, path: 'matching-jobs'
           resources :user_jobs, path: :jobs, module: :users, only: [:index]
           resources :owned_jobs, path: 'owned-jobs', module: :users, only: [:index]
           resources :user_skills, param: :user_skill_id, module: :users, path: :skills, only: %i(index show create destroy)
+          resources :user_occupations, param: :user_occupation_id, module: :users, path: :occupations, only: %i(index show create destroy)
           resources :user_interests, param: :user_interest_id, module: :users, path: :interests, only: %i(index show create destroy)
           resources :user_languages, param: :user_language_id, module: :users, path: :languages, only: %i(index show create destroy)
           resources :user_images, module: :users, path: :images, only: %i(show create)
@@ -81,6 +95,7 @@ Rails.application.routes.draw do
           resources :user_documents, module: :users, path: :documents, only: %i(index create)
 
           get :missing_traits, path: 'missing-traits'
+          get :available_notifications, path: 'available-notifications'
         end
 
         collection do
@@ -160,6 +175,14 @@ Rails.application.routes.draw do
           get :linkedin
           get :blocketjobb
           get :metrojobb
+        end
+      end
+
+      namespace :guides do
+        resources :guide_sections, param: :section_id, path: :sections, only: %i(index show) do
+          member do
+            resources :guide_section_articles, param: :article_id, path: :articles, only: %i(index show)
+          end
         end
       end
     end

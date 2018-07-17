@@ -24,6 +24,7 @@ end
 #  express_payment    :boolean          default(FALSE)
 #  ff_last_synced_at  :datetime
 #  ff_invoice_number  :integer
+#  ff_remote_id       :string
 #
 # Indexes
 #

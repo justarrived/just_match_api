@@ -5,12 +5,12 @@ require 'rails_helper'
 RSpec.describe UserInterest, type: :model do
   describe '#touched_by_admin?' do
     it 'returns true if level_by_admin is set' do
-      user_interest = FactoryGirl.build(:user_interest, level_by_admin: 7)
+      user_interest = FactoryBot.build(:user_interest, level_by_admin: 7)
       expect(user_interest.touched_by_admin?).to eq(true)
     end
 
     it 'returns false if level_by_admin is not set' do
-      user_interest = FactoryGirl.build(:user_interest, level_by_admin: nil)
+      user_interest = FactoryBot.build(:user_interest, level_by_admin: nil)
       expect(user_interest.touched_by_admin?).to eq(false)
     end
   end

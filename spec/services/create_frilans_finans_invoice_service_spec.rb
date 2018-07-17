@@ -6,14 +6,14 @@ RSpec.describe CreateFrilansFinansInvoiceService do
   before(:each) { stub_frilans_finans_auth_request }
 
   let(:base_uri) { FrilansFinansAPI.config.base_uri }
-  let(:company) { FactoryGirl.create(:company, frilans_finans_id: 1) }
+  let(:company) { FactoryBot.create(:company, frilans_finans_id: 1) }
   let(:job) do
-    owner = FactoryGirl.create(:user, company: company)
-    FactoryGirl.create(:passed_job, owner: owner)
+    owner = FactoryBot.create(:user, company: company)
+    FactoryBot.create(:passed_job, owner: owner)
   end
   let(:user_ff_id) { 11 }
-  let(:job_user) { FactoryGirl.create(:job_user_passed_job, job: job, user: user) }
-  let(:user) { FactoryGirl.create(:user, frilans_finans_id: user_ff_id) }
+  let(:job_user) { FactoryBot.create(:job_user_passed_job, job: job, user: user) }
+  let(:user) { FactoryBot.create(:user, frilans_finans_id: user_ff_id) }
   let(:ff_invoice) { job_user.frilans_finans_invoice }
 
   let(:frilans_api_klass) { FrilansFinansAPI::Invoice }
@@ -66,7 +66,7 @@ RSpec.describe CreateFrilansFinansInvoiceService do
 
   context 'no company frilans finans id' do
     let(:user_ff_id) { 173 }
-    let(:company) { FactoryGirl.create(:company, frilans_finans_id: nil) }
+    let(:company) { FactoryBot.create(:company, frilans_finans_id: nil) }
 
     it 'calls missing company frilans finans id notifier' do
       allow(InvoiceMissingCompanyFrilansFinansIdNotifier).to receive(:call)
@@ -105,12 +105,12 @@ RSpec.describe CreateFrilansFinansInvoiceService do
     let(:user_ff_id) { 4 }
 
     let(:job) do
-      company = FactoryGirl.create(:company, frilans_finans_id: 2)
-      owner = FactoryGirl.create(:user, company: company)
-      FactoryGirl.create(:passed_job, owner: owner)
+      company = FactoryBot.create(:company, frilans_finans_id: 2)
+      owner = FactoryBot.create(:user, company: company)
+      FactoryBot.create(:passed_job, owner: owner)
     end
 
-    let(:user) { FactoryGirl.create(:user, frilans_finans_id: 2222) }
+    let(:user) { FactoryBot.create(:user, frilans_finans_id: 2222) }
 
     subject do
       isolate_frilans_finans_client(FrilansFinansAPI::NilClient) do

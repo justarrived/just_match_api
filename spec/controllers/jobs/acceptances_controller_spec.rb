@@ -4,10 +4,10 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::Jobs::AcceptancesController, type: :controller do
   let(:new_attributes) { {} }
-  let(:user) { FactoryGirl.create(:company_user).tap(&:create_auth_token) }
+  let(:user) { FactoryBot.create(:company_user).tap(&:create_auth_token) }
 
   it 'notifies user when updated JobUser#accepted is set to true' do
-    job = FactoryGirl.create(:job_with_users, users_count: 1, owner: user)
+    job = FactoryBot.create(:job_with_users, users_count: 1, owner: user)
     job_user = job.job_users.first
     params = {
       auth_token: user.auth_token,
@@ -22,7 +22,7 @@ RSpec.describe Api::V1::Jobs::AcceptancesController, type: :controller do
   end
 
   it 'sets job user accepted to true' do
-    job = FactoryGirl.create(:job_with_users, users_count: 1, owner: user)
+    job = FactoryBot.create(:job_with_users, users_count: 1, owner: user)
     job_user = job.job_users.first
 
     params = {
@@ -39,7 +39,7 @@ RSpec.describe Api::V1::Jobs::AcceptancesController, type: :controller do
   end
 
   it 'returns 200 ok status' do
-    job = FactoryGirl.create(:job_with_users, users_count: 1, owner: user)
+    job = FactoryBot.create(:job_with_users, users_count: 1, owner: user)
     job_user = job.job_users.first
     params = {
       auth_token: user.auth_token,

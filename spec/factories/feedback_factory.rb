@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :feedback do
     association :user
     association :job
@@ -13,9 +13,9 @@ end
 #
 # Table name: feedbacks
 #
-#  id         :integer          not null, primary key
-#  user_id    :integer
-#  job_id     :integer
+#  id         :bigint(8)        not null, primary key
+#  user_id    :bigint(8)
+#  job_id     :bigint(8)
 #  title      :string
 #  body       :text
 #  created_at :datetime         not null

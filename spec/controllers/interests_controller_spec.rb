@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe Api::V1::InterestsController, type: :controller do
   describe 'GET #index' do
     it 'assigns all interests as @interests' do
-      interest = FactoryGirl.create(:interest)
+      interest = FactoryBot.create(:interest)
       process :index, method: :get
       expect(assigns(:interests)).to eq([interest])
     end
@@ -13,7 +13,7 @@ RSpec.describe Api::V1::InterestsController, type: :controller do
 
   describe 'GET #show' do
     it 'assigns the requested interest as @interest' do
-      interest = FactoryGirl.create(:interest)
+      interest = FactoryBot.create(:interest)
       get :show, params: { id: interest.to_param }
       expect(assigns(:interest)).to eq(interest)
     end

@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::Users::UserImagesController, type: :controller do
   describe 'POST #create' do
-    let(:user) { FactoryGirl.create(:user) }
+    let(:user) { FactoryBot.create(:user) }
     let(:category) { UserImage::CATEGORIES.keys.last }
     let(:valid_params) do
       {
@@ -55,8 +55,8 @@ RSpec.describe Api::V1::Users::UserImagesController, type: :controller do
   end
 
   describe 'GET #show' do
-    let(:user) { FactoryGirl.create(:user_with_tokens) }
-    let(:user_image) { FactoryGirl.create(:user_image, user: user) }
+    let(:user) { FactoryBot.create(:user_with_tokens) }
+    let(:user_image) { FactoryBot.create(:user_image, user: user) }
 
     it 'returns user image' do
       params = {

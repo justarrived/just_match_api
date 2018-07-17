@@ -5,8 +5,8 @@ require 'rails_helper'
 RSpec.describe ArbetsformedlingenAd, type: :model do
   describe '#validate_job_data_for_arbetsformedlingen' do
     it 'adds error if the job data is *not* valid for Arbetsformedlingen' do
-      job = FactoryGirl.build(:job, number_to_fill: nil)
-      ad = FactoryGirl.build(:arbetsformedlingen_ad, job: job, published: true)
+      job = FactoryBot.build(:job, number_to_fill: nil)
+      ad = FactoryBot.build(:arbetsformedlingen_ad, job: job, published: true)
 
       allow(AppConfig).to receive(:default_staffing_company_id).and_return(job.company.id)
 
@@ -15,7 +15,7 @@ RSpec.describe ArbetsformedlingenAd, type: :model do
     end
 
     it 'adds *no* error if the job data is valid for Arbetsformedlingen' do
-      ad = FactoryGirl.build(:arbetsformedlingen_ad)
+      ad = FactoryBot.build(:arbetsformedlingen_ad)
       ad.validate
       expect(ad.errors).to be_empty
     end

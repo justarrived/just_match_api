@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :frilans_finans_invoice do
     sequence :frilans_finans_id do |n|
       n
@@ -31,6 +31,7 @@ end
 #  express_payment    :boolean          default(FALSE)
 #  ff_last_synced_at  :datetime
 #  ff_invoice_number  :integer
+#  ff_remote_id       :string
 #
 # Indexes
 #

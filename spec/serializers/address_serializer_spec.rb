@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe AddressSerializer, type: :serializer do
   context 'Individual Resource Representation' do
-    let(:resource) { FactoryGirl.build(:address, id: '1') }
+    let(:resource) { FactoryBot.build(:address, id: '1') }
     let(:serialization) { JsonApiSerializer.serialize(resource) }
 
     subject do
@@ -28,7 +28,7 @@ end
 #
 # Table name: addresses
 #
-#  id           :integer          not null, primary key
+#  id           :bigint(8)        not null, primary key
 #  street1      :string
 #  street2      :string
 #  city         :string

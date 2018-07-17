@@ -7,7 +7,7 @@ RSpec.describe CompanyPolicy do
     allow_any_instance_of(User).to receive(:persisted?).and_return(true)
   end
 
-  let(:company) { FactoryGirl.build(:company) }
+  let(:company) { FactoryBot.build(:company) }
   let(:policy) { described_class.new(nil, company) }
 
   permissions :index? do

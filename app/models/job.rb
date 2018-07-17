@@ -21,10 +21,12 @@ class Job < ApplicationRecord
   MIN_HOURS_PER_DAY = 0.5
   MAX_HOURS_PER_DAY = 12
 
+  boolean_as_time :filled
+
   belongs_to :order, optional: true
   has_one :job_request, through: :order
   belongs_to :language, optional: true
-  belongs_to :category
+  belongs_to :category, optional: true
   belongs_to :hourly_pay
   belongs_to :owner, class_name: 'User', foreign_key: 'owner_user_id'
   # rubocop:disable Metrics/LineLength
@@ -33,32 +35,33 @@ class Job < ApplicationRecord
   belongs_to :staffing_company, class_name: 'Company', foreign_key: 'staffing_company_id', optional: true
   # rubocop:enable Metrics/LineLength
 
-  has_one :company, through: :owner
-  has_one :arbetsformedlingen_ad
+  has_many :employment_periods, dependent: :nullify
 
-  has_many :job_occupations
+  has_one :company, through: :owner
+  has_one :arbetsformedlingen_ad, dependent: :restrict_with_error
+
+  has_many :job_occupations, dependent: :destroy
   has_many :occupations, through: :job_occupations
 
-  has_many :job_skills
+  has_many :job_skills, dependent: :destroy
   has_many :skills, through: :job_skills
 
-  has_many :job_languages
+  has_many :job_languages, dependent: :destroy
   has_many :languages, through: :job_languages
 
-  has_many :job_users
+  has_many :job_users, dependent: :restrict_with_error
   has_many :users, through: :job_users
 
-  has_many :comments, as: :commentable
+  has_many :comments, as: :commentable, dependent: :destroy
 
   before_validation :set_normalized_swedish_drivers_license
 
   validates :hourly_pay, presence: true
-  validates :category, presence: true
+  validates :category, presence: true, if: :frilans_finans_job?
   validates :name, presence: true, on: :create # Virtual attribute
-  validates :description, presence: true, on: :create # Virtual attribute
-  validates :street, length: { minimum: 1 }, allow_blank: false
+  validates :street, length: { minimum: 1 }, allow_blank: true
   validates :city, length: { minimum: 1 }, allow_blank: true
-  validates :zip, length: { minimum: 5 }, allow_blank: false
+  validates :zip, length: { minimum: 5 }, allow_blank: true
   validates :preview_key, uniqueness: true, allow_blank: true
   validates :municipality, swedish_municipality: true
   validates :swedish_drivers_license, swedish_drivers_license: true
@@ -70,6 +73,7 @@ class Job < ApplicationRecord
   validates :metrojobb_category, inclusion: Metrojobb::Category.names, allow_nil: true, if: :publish_on_metrojobb # rubocop:disable Metrics/LineLength
   validates :customer_hourly_price, presence: true, numericality: { greater_than_or_equal_to: 0 }, on: :create # rubocop:disable Metrics/LineLength
 
+  validate :validate_job_required_data_on_publish
   validate :validate_job_end_date_after_job_date
   validate :validate_last_application_at_on_publish_to_blocketjobb
   validate :validate_last_application_at_on_publish_to_metrojobb
@@ -84,13 +88,12 @@ class Job < ApplicationRecord
   validate :validate_within_allowed_hours
   validate :validate_owner_belongs_to_company, unless: -> { AppConfig.allow_regular_users_to_create_jobs? } # rubocop:disable Metrics/LineLength
 
-  validate :validate_job_date_in_future, unless: -> { Rails.configuration.x.validate_job_date_in_future_inactive } # rubocop:disable Metrics/LineLength
-
+  scope :not_cloned, (-> { where(cloned: false) })
   scope :visible, (-> { where(hidden: false) })
   scope :cancelled, (-> { where(cancelled: true) })
   scope :uncancelled, (-> { where(cancelled: false) })
-  scope :filled, (-> { uncancelled.where(filled: true) })
-  scope :unfilled, (-> { where(filled: false) })
+  scope :filled, (-> { uncancelled.where.not(filled_at: nil) })
+  scope :unfilled, (-> { where(filled_at: nil) })
   scope :upcoming, (-> { where(upcoming: true) })
   scope :featured, (-> { where(featured: true) })
   scope :applied_jobs, (lambda { |user_id|
@@ -119,7 +122,7 @@ class Job < ApplicationRecord
     last_app_at_scope = after(:last_application_at, Time.zone.now).
                           or(where(last_application_at: nil))
     last_app_at_scope.
-      after(:job_date, Time.zone.now).
+      where('job_end_date IS NULL OR job_end_date > ?', Time.zone.now).
       unfilled.
       uncancelled
   })
@@ -138,8 +141,6 @@ class Job < ApplicationRecord
       or(after(:unpublish_at, Time.zone.now))
 
     scope.visible.
-      unfilled.
-      uncancelled.
       without_preview_key.
       where.not(publish_at: nil).
       before(:publish_at, Time.zone.now)
@@ -305,14 +306,11 @@ class Job < ApplicationRecord
   end
 
   def salary_summary
-    I18n.t(
-      'job.salary_summary',
-      hourly_gross_salary_with_unit: hourly_pay.gross_salary_with_unit
-    )
+    I18n.t('job.salary_summary')
   end
 
   def frilans_finans_job?
-    !staffing_company_id && !direct_recruitment_job
+    staffing_company_id.blank? && !direct_recruitment_job
   end
 
   def started?
@@ -380,11 +378,11 @@ class Job < ApplicationRecord
   end
 
   def fill_position
-    update(filled: true)
+    update(filled_at: Time.current)
   end
 
   def fill_position!
-    update!(filled: true)
+    update!(filled_at: Time.current)
   end
 
   def locked_for_changes?
@@ -392,6 +390,10 @@ class Job < ApplicationRecord
     return false unless applicant
 
     applicant.will_perform
+  end
+
+  def hourly_gross_salary
+    hourly_pay.gross_salary
   end
 
   def gross_amount
@@ -456,8 +458,10 @@ class Job < ApplicationRecord
     job_users
   end
 
-  def hourly_gross_salary
-    hourly_pay.gross_salary
+  def accept_method_sym
+    return :will_perform if frilans_finans_job?
+
+    :accepted_at
   end
 
   def workdays
@@ -481,11 +485,20 @@ class Job < ApplicationRecord
     )
   end
 
-  def validate_job_date_in_future
-    return unless job_date_changed?
-    return if job_date.nil? || job_date > Time.zone.now
+  def validate_job_required_data_on_publish
+    return unless publish_at
+    return if publish_at_was # don't validate a previously published job
 
-    errors.add(:job_date, I18n.t('errors.job.job_date_in_the_past'))
+    if job_end_date.nil? && !direct_recruitment_job
+      errors.add(:job_end_date, I18n.t('errors.job.job_end_date_presence'))
+    end
+
+    errors.add(:short_description, :blank) if short_description.blank?
+    errors.add(:description, :blank) if description.blank?
+    errors.add(:street, :blank) if street.blank?
+    errors.add(:city, :blank) if city.blank?
+    errors.add(:zip, :blank) if zip.blank?
+    errors.add(:occupations, :required) if persisted? && occupations.length.zero?
   end
 
   def validate_job_end_date_after_job_date
@@ -566,6 +579,13 @@ class Job < ApplicationRecord
     errors.add(:company, message)
   end
 
+  def validate_not_cloned_when_published
+    return unless cloned
+    return unless publish_at
+
+    errors.add(:publish_at, I18n.t('errors.job.not_cloned_when_published'))
+  end
+
   def validate_hourly_pay_active
     return if hourly_pay.nil? || hourly_pay.active
 
@@ -600,58 +620,59 @@ end
 #
 # Table name: jobs
 #
-#  id                           :integer          not null, primary key
-#  description                  :text
-#  job_date                     :datetime
-#  hours                        :float
-#  name                         :string
+#  applicant_description        :text
+#  blocketjobb_category         :string
+#  cancelled                    :boolean          default(FALSE)
+#  car_required                 :boolean          default(FALSE)
+#  category_id                  :integer
+#  city                         :string
+#  cloned                       :boolean          default(FALSE)
+#  company_contact_user_id      :integer
 #  created_at                   :datetime         not null
-#  updated_at                   :datetime         not null
-#  owner_user_id                :integer
+#  customer_hourly_price        :decimal(, )
+#  description                  :text
+#  direct_recruitment_job       :boolean          default(FALSE)
+#  featured                     :boolean          default(FALSE)
+#  filled_at                    :datetime
+#  full_time                    :boolean          default(FALSE)
+#  hidden                       :boolean          default(FALSE)
+#  hourly_pay_id                :integer
+#  hours                        :float
+#  id                           :integer          not null, primary key
+#  invoice_comment              :text
+#  job_date                     :datetime
+#  job_end_date                 :datetime
+#  just_arrived_contact_user_id :integer
+#  language_id                  :integer
+#  last_application_at          :datetime
 #  latitude                     :float
 #  longitude                    :float
-#  language_id                  :integer
+#  metrojobb_category           :string
+#  municipality                 :string
+#  name                         :string
+#  number_to_fill               :integer          default(1)
+#  order_id                     :integer
+#  owner_user_id                :integer
+#  preview_key                  :string
+#  publish_at                   :datetime
+#  publish_on_blocketjobb       :boolean          default(FALSE)
+#  publish_on_linkedin          :boolean          default(FALSE)
+#  publish_on_metrojobb         :boolean          default(FALSE)
+#  requirements_description     :text
+#  salary_type                  :integer          default("fixed")
+#  short_description            :string
+#  staffing_company_id          :integer
+#  staffing_job                 :boolean          default(FALSE)
 #  street                       :string
+#  swedish_drivers_license      :string
+#  tasks_description            :text
+#  unpublish_at                 :datetime
+#  upcoming                     :boolean          default(FALSE)
+#  updated_at                   :datetime         not null
+#  verified                     :boolean
 #  zip                          :string
 #  zip_latitude                 :float
 #  zip_longitude                :float
-#  hidden                       :boolean          default(FALSE)
-#  category_id                  :integer
-#  hourly_pay_id                :integer
-#  verified                     :boolean          default(FALSE)
-#  job_end_date                 :datetime
-#  cancelled                    :boolean          default(FALSE)
-#  filled                       :boolean          default(FALSE)
-#  short_description            :string
-#  featured                     :boolean          default(FALSE)
-#  upcoming                     :boolean          default(FALSE)
-#  company_contact_user_id      :integer
-#  just_arrived_contact_user_id :integer
-#  city                         :string
-#  staffing_job                 :boolean          default(FALSE)
-#  direct_recruitment_job       :boolean          default(FALSE)
-#  order_id                     :integer
-#  municipality                 :string
-#  number_to_fill               :integer          default(1)
-#  full_time                    :boolean          default(FALSE)
-#  swedish_drivers_license      :string
-#  car_required                 :boolean          default(FALSE)
-#  salary_type                  :integer          default("fixed")
-#  publish_on_linkedin          :boolean          default(FALSE)
-#  publish_on_blocketjobb       :boolean          default(FALSE)
-#  last_application_at          :datetime
-#  blocketjobb_category         :string
-#  publish_at                   :datetime
-#  unpublish_at                 :datetime
-#  tasks_description            :text
-#  applicant_description        :text
-#  requirements_description     :text
-#  preview_key                  :string
-#  customer_hourly_price        :decimal(, )
-#  invoice_comment              :text
-#  publish_on_metrojobb         :boolean          default(FALSE)
-#  metrojobb_category           :string
-#  staffing_company_id          :integer
 #
 # Indexes
 #

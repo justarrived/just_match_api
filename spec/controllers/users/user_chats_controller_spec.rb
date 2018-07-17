@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::Users::UserChatsController, type: :controller do
-  let(:user) { FactoryGirl.create(:user_with_tokens) }
+  let(:user) { FactoryBot.create(:user_with_tokens) }
 
   describe 'GET #index' do
     context 'with valid params' do
@@ -15,7 +15,7 @@ RSpec.describe Api::V1::Users::UserChatsController, type: :controller do
       end
 
       it 'assigns all chats as @chats' do
-        chat = FactoryGirl.create(:chat, users: [user])
+        chat = FactoryBot.create(:chat, users: [user])
         get :index, params: valid_params
         expect(assigns(:chats)).to eq([chat])
       end
@@ -24,7 +24,7 @@ RSpec.describe Api::V1::Users::UserChatsController, type: :controller do
 
   describe 'GET #show' do
     context 'with valid params' do
-      let(:chat) { FactoryGirl.create(:chat, users: [user]) }
+      let(:chat) { FactoryBot.create(:chat, users: [user]) }
       let(:valid_params) do
         {
           auth_token: user.auth_token,
@@ -47,8 +47,8 @@ RSpec.describe Api::V1::Users::UserChatsController, type: :controller do
       end
 
       it 'assigns chat as @chat' do
-        admin_user = FactoryGirl.create(:admin_user)
-        chat = FactoryGirl.create(:chat, users: [user, admin_user])
+        admin_user = FactoryBot.create(:admin_user)
+        chat = FactoryBot.create(:chat, users: [user, admin_user])
         get :support_chat, params: valid_params
         expect(assigns(:chat)).to eq(chat)
       end

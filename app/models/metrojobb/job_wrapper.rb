@@ -51,7 +51,7 @@ module Metrojobb
     end
 
     def to_date
-      DateFormatter.new.yyyy_mm_dd(job.last_application_at || job.job_date)
+      DateFormatter.new.yyyy_mm_dd(job.last_application_at || job.job_end_date)
     end
 
     def external_logo_url

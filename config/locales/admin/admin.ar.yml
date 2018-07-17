@@ -1,0 +1,62 @@
+ar:
+  admin:
+    menu:
+      jobs: أعمال
+      users: المستخدمون
+      chats: دردشات
+    job_name: عمل
+    user_name: المستخدم
+    job_user_name: طالب وظيفة
+    name: الاسم
+    recent_jobs:
+      name: الاسم
+      hours: ساعات
+      hourly_pay: أجر الساعة
+    my_unfilled_jobs:
+      name: الاسم
+    unfilled_urgent_jobs:
+      name: الاسم
+    my_unfilled_urgent_jobs:
+      name: الاسم
+    recent_job_users:
+      accepted: مقبول
+      will_perform: سينفّذ
+      job: عمل
+      user: المستخدم
+    no_invoice_job_users:
+      job: عمل
+      user: المستخدم
+    order:
+      form:
+        change_comment:
+          label: تعليق
+    job:
+      checklist_sidebar:
+        description: وصف
+      name: الاسم
+      description: وصف
+      section_title:
+        invoice: فاتورة
+      show:
+        applicant_description:
+          short_name: طالب وظيفة
+        requirements_description:
+          short_name: المتطلبات
+    chat:
+      name: دردشة
+      form:
+        messages_title: رسائل
+    user:
+      system_language: 'لغة النظام '
+      name: الاسم
+      email: بريد إلكتروني
+      company: شركة
+      verified: مؤكدة
+      description: وصف
+      education: التعليم
+      job_experience: خبرة عمل
+      show:
+        skills: مهارات
+        languages: لغات
+        profile: الملف
+        presentation_profile: الملف

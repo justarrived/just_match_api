@@ -6,7 +6,7 @@ RSpec.describe Tag, type: :model do
   describe '#display_name' do
     it 'returns correct display name' do
       id = 7373
-      tag = FactoryGirl.build(:tag, id: id)
+      tag = FactoryBot.build(:tag, id: id)
 
       expect(tag.display_name).to eq("##{id} #{tag.name}")
     end
@@ -20,7 +20,7 @@ RSpec.describe Tag, type: :model do
       end
 
       it 'returns tag array' do
-        tag = FactoryGirl.create(:tag)
+        tag = FactoryBot.create(:tag)
         tag_array = described_class.to_form_array(include_blank: false)
         expect(tag_array).to eq([[tag.name, tag.id]])
       end
@@ -35,7 +35,7 @@ RSpec.describe Tag, type: :model do
       end
 
       it 'returns tag array' do
-        tag = FactoryGirl.create(:tag)
+        tag = FactoryBot.create(:tag)
         tag_array = described_class.to_form_array(include_blank: true)
         expect(tag_array).to eq([[label, nil], [tag.name, tag.id]])
       end

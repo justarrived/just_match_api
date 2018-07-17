@@ -4,8 +4,8 @@ require 'rails_helper'
 
 RSpec.describe SetUserSkillsService do
   describe '::call' do
-    let(:user) { FactoryGirl.create(:user) }
-    let(:skill) { FactoryGirl.create(:skill) }
+    let(:user) { FactoryBot.create(:user) }
+    let(:skill) { FactoryBot.create(:skill) }
     let(:proficiency) { 4 }
     let(:skill_param) do
       [{ id: skill.id, proficiency: proficiency }]
@@ -26,7 +26,7 @@ RSpec.describe SetUserSkillsService do
 
     context 'update' do
       let(:proficiency) { 5 }
-      let(:other_skill) { FactoryGirl.create(:skill, id: 13_000) }
+      let(:other_skill) { FactoryBot.create(:skill, id: 13_000) }
 
       it 'existing skill' do
         expect(user.user_skills).to be_empty

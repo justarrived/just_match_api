@@ -3,11 +3,56 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
+  describe '::needs_anonymization' do
+    # rubocop:disable Metrics/LineLength
+    it 'returns users that should be anonymized' do
+      FactoryBot.create(:user)
+      FactoryBot.create(:user, anonymization_requested_at: 1.day.ago, anonymized_at: 1.hour.ago)
+      user_with_applications = FactoryBot.create(:user, anonymization_requested_at: 1.week.ago)
+      FactoryBot.create(:job_user, user: user_with_applications)
+
+      anonymize_user = FactoryBot.create(:user, anonymization_requested_at: 1.week.ago)
+      FactoryBot.create(:job_user, user: anonymize_user, created_at: 9.years.ago)
+
+      expect(User.needs_anonymization).to eq([anonymize_user])
+    end
+    # rubocop:enable Metrics/LineLength
+  end
+
+  describe '#anonymization_allowed?' do
+    it 'returns true user has no appilcations' do
+      user = FactoryBot.build_stubbed(:user)
+      expect(user.anonymization_allowed?).to eq(true)
+    end
+
+    it 'returns true user has appilcations that are old enough' do
+      user = FactoryBot.create(:user)
+      FactoryBot.create(
+        :job_user,
+        user: user,
+        created_at: 5.years.ago,
+        updated_at: 5.years.ago
+      )
+      expect(user.anonymization_allowed?).to eq(true)
+    end
+
+    it 'returns false user has appilcations that are *not* old enough' do
+      user = FactoryBot.create(:user)
+      FactoryBot.create(
+        :job_user,
+        user: user,
+        created_at: 1.year.ago,
+        updated_at: 1.year.ago
+      )
+      expect(user.anonymization_allowed?).to eq(false)
+    end
+  end
+
   describe '#frilans_finans_users' do
     it 'returns users with frilans finans id set' do
-      FactoryGirl.create(:user, frilans_finans_id: nil)
-      first = FactoryGirl.create(:user, frilans_finans_id: 10)
-      last = FactoryGirl.create(:user, frilans_finans_id: 11)
+      FactoryBot.create(:user, frilans_finans_id: nil)
+      first = FactoryBot.create(:user, frilans_finans_id: 10)
+      last = FactoryBot.create(:user, frilans_finans_id: 11)
       frilans_users = described_class.frilans_finans_users
 
       expect(frilans_users.count).to eq(2)
@@ -31,7 +76,7 @@ RSpec.describe User, type: :model do
 
   describe '#contact_email' do
     context 'not managed' do
-      let(:user) { FactoryGirl.build(:user, managed: false) }
+      let(:user) { FactoryBot.build(:user, managed: false) }
 
       it 'returns users email' do
         expect(user.contact_email).to eq(user.email)
@@ -40,7 +85,7 @@ RSpec.describe User, type: :model do
 
     context 'managed' do
       let(:user_id) { 73 }
-      let(:user) { FactoryGirl.build(:user, id: user_id, managed: true) }
+      let(:user) { FactoryBot.build(:user, id: user_id, managed: true) }
       let(:env_map) do
         {
           MANAGED_EMAIL_USERNAME: 'address',
@@ -58,7 +103,7 @@ RSpec.describe User, type: :model do
 
   it 'normalizes phone before validation (so unique checks work properly)' do
     phone = '073 5000 000'
-    FactoryGirl.create(:user, phone: phone)
+    FactoryBot.create(:user, phone: phone)
     user = User.new(phone: phone)
     user.validate
     expect(user.errors[:phone]).to eq(['has already been taken'])
@@ -122,7 +167,7 @@ RSpec.describe User, type: :model do
   end
 
   describe 'geocodable' do
-    let(:user) { FactoryGirl.create(:user) }
+    let(:user) { FactoryBot.create(:user) }
 
     it 'geocodes by exact address' do
       expect(user.latitude).to eq(40.7143528)
@@ -138,50 +183,23 @@ RSpec.describe User, type: :model do
   describe '#frilans_finans_id!' do
     it 'returns frilans_finans_id if one is set' do
       id = 7
-      user = FactoryGirl.build(:user, frilans_finans_id: id)
+      user = FactoryBot.build(:user, frilans_finans_id: id)
       expect(user.frilans_finans_id!).to eq(id)
     end
 
     it 'returns frilans_finans_id if one is set' do
-      user = FactoryGirl.build(:user, frilans_finans_id: nil)
+      user = FactoryBot.build(:user, frilans_finans_id: nil)
       expect do
         user.frilans_finans_id!
       end.to raise_error(User::MissingFrilansFinansIdError)
     end
   end
 
-  describe '#reset!' do
-    it 'resets all personal user attributes' do
-      user = FactoryGirl.create(:user)
-      old_email = user.email
-      old_zip = user.zip
-
-      user.reset!
-
-      expect(user.name).to eq('Ghost User')
-      expect(user.email).not_to eq(old_email)
-      expect(user.phone).to be_nil
-      expect(user.description).to eq('This user has been deleted.')
-      expect(user.street).to be_nil
-      expect(user.zip).to eq(old_zip)
-      expect(user.ssn).to be_nil
-    end
-
-    it 'does *not* reset frilans_finans_id' do
-      user = FactoryGirl.create(:user)
-      old_ff_id = user.frilans_finans_id
-
-      user.reset!
-
-      expect(user.frilans_finans_id).to eq(old_ff_id)
-    end
-  end
-
   describe '#accepted_applicant_for_owner?' do
-    let(:owner) { FactoryGirl.create(:company_user) }
-    let(:user) { FactoryGirl.create(:user) }
+    let(:owner) { FactoryBot.create(:company_user) }
+    let(:user) { FactoryBot.create(:user) }
 
-    let(:job) { FactoryGirl.create(:job, owner: owner) }
+    let(:job) { FactoryBot.create(:job, owner: owner) }
 
     it 'returns true when user is an accepted applicant for a job owner' do
       allow(JobUser).to receive(:accepted_jobs_for).and_return([job])
@@ -202,14 +220,14 @@ RSpec.describe User, type: :model do
 
     it 'returns correct locale for user that has a language' do
       lang_code = 'wa'
-      language = FactoryGirl.build(:language, lang_code: lang_code)
-      user = FactoryGirl.build(:user, system_language: language)
+      language = FactoryBot.build(:language, lang_code: lang_code)
+      user = FactoryBot.build(:user, system_language: language)
       expect(user.locale).to eq(lang_code)
     end
   end
 
   describe '#banned' do
-    let(:user) { FactoryGirl.create(:user) }
+    let(:user) { FactoryBot.create(:user) }
 
     it 'destroys all auth tokens when user is banned' do
       user.create_auth_token
@@ -221,9 +239,9 @@ RSpec.describe User, type: :model do
   end
 
   describe '#add_image_by_token=' do
-    let(:user) { FactoryGirl.create(:user) }
-    let(:user_image) { FactoryGirl.create(:user_image) }
-    let(:user_image1) { FactoryGirl.create(:user_image) }
+    let(:user) { FactoryBot.create(:user) }
+    let(:user_image) { FactoryBot.create(:user_image) }
+    let(:user_image1) { FactoryBot.create(:user_image) }
 
     it 'can set image from token' do
       user.add_image_by_token = user_image.one_time_token
@@ -280,7 +298,7 @@ RSpec.describe User, type: :model do
   end
 
   describe '#generate_one_time_token' do
-    let(:user) { FactoryGirl.build(:user) }
+    let(:user) { FactoryBot.build(:user) }
 
     it 'generates one time token' do
       user.generate_one_time_token
@@ -301,7 +319,7 @@ RSpec.describe User, type: :model do
   describe '#find_by_one_time_token' do
     context 'token still valid' do
       it 'finds and returns user' do
-        user = FactoryGirl.create(:user)
+        user = FactoryBot.create(:user)
         user.generate_one_time_token
         user.save!
 
@@ -312,7 +330,7 @@ RSpec.describe User, type: :model do
 
     context 'token expired' do
       it 'returns nil' do
-        user = FactoryGirl.create(:user)
+        user = FactoryBot.create(:user)
         user.generate_one_time_token
         user.save!
 
@@ -328,7 +346,7 @@ RSpec.describe User, type: :model do
     context 'incorrect password' do
       it 'returns nil' do
         password = '12345678'
-        user = FactoryGirl.create(:user, password: password)
+        user = FactoryBot.create(:user, password: password)
         email = user.email
 
         found_user = User.find_by_credentials(
@@ -343,7 +361,7 @@ RSpec.describe User, type: :model do
       context 'correct' do
         it 'finds and returns user' do
           password = '12345678'
-          user = FactoryGirl.create(:user, password: password)
+          user = FactoryBot.create(:user, password: password)
           email = user.email
 
           found_user = User.find_by_credentials(email_or_phone: email, password: password)
@@ -354,7 +372,7 @@ RSpec.describe User, type: :model do
       context 'incorrect' do
         it 'returns nil' do
           password = '12345678'
-          user = FactoryGirl.create(:user, password: password)
+          user = FactoryBot.create(:user, password: password)
           email = user.email + '1'
 
           found_user = User.find_by_credentials(email_or_phone: email, password: password)
@@ -367,7 +385,7 @@ RSpec.describe User, type: :model do
       context 'correct' do
         it 'finds and returns user' do
           password = '12345678'
-          user = FactoryGirl.create(:user, password: password)
+          user = FactoryBot.create(:user, password: password)
           phone = user.phone
 
           found_user = User.find_by_credentials(email_or_phone: phone, password: password)
@@ -376,7 +394,7 @@ RSpec.describe User, type: :model do
 
         it 'finds and returns user given a non-normalized phone number' do
           password = '12345678'
-          user = FactoryGirl.create(:user, password: password)
+          user = FactoryBot.create(:user, password: password)
           phone = user.phone.insert(3, '-  ') # Make user phone number non-normalized
 
           found_user = User.find_by_credentials(email_or_phone: phone, password: password)
@@ -386,7 +404,7 @@ RSpec.describe User, type: :model do
         context 'incorrect' do
           it 'returns nil' do
             password = '12345678'
-            user = FactoryGirl.create(:user, password: password)
+            user = FactoryBot.create(:user, password: password)
             phone = user.phone + '1'
 
             found_user = User.find_by_credentials(
@@ -420,23 +438,29 @@ RSpec.describe User, type: :model do
           new_applicant_job_info
           applicant_will_perform_job_info
           failed_to_activate_invoice
+          update_data_reminder
+          marketing
         )
-        expect(User::NOTIFICATIONS).to eq(expected)
+        expect(UserNotification.names).to eq(expected)
       end
 
-      it 'has corresponding notifier klass for each item' do
+      it 'has corresponding notifier class for each item' do
         # these notifications are sent in other notifiers
         ignore = %w(
           applicant_rejected job_match new_applicant_job_info
-          applicant_will_perform_job_info
+          applicant_will_perform_job_info update_data_reminder
         )
-        (User::NOTIFICATIONS - ignore).each do |notification|
+        (UserNotification.names - ignore).each do |notification|
           expect { "#{notification.camelize}Notifier".constantize }.to_not raise_error
         end
       end
 
+      it 'has corresponding notifier class UpdateApplicantDataReminderNotifier' do
+        expect { UpdateApplicantDataReminderNotifier }.to_not raise_error
+      end
+
       it 'has corresponding I18n for each notification' do
-        User::NOTIFICATIONS.each do |notification|
+        UserNotification.names.each do |notification|
           translation = I18n.t("notifications.#{notification}")
           expect(translation).not_to match('translation missing:')
         end
@@ -446,31 +470,31 @@ RSpec.describe User, type: :model do
     describe '#ignored_notification?' do
       it 'returns true when is ignored' do
         ignored = 'new_applicant'
-        user = FactoryGirl.build(:user, ignored_notifications: [ignored])
+        user = FactoryBot.build(:user, ignored_notifications: [ignored])
         expect(user.ignored_notification?(ignored)).to eq(true)
       end
 
       it 'returns false when *not* ignored' do
-        user = FactoryGirl.build(:user)
+        user = FactoryBot.build(:user)
         expect(user.ignored_notification?('new_applicant')).to eq(false)
       end
     end
 
     it 'can set mask' do
       ignored = %w(new_applicant)
-      user = FactoryGirl.build(:user, ignored_notifications: ignored)
+      user = FactoryBot.build(:user, ignored_notifications: ignored)
       expect(user.ignored_notifications).to eq(ignored)
     end
 
     it 'can set default mask' do
-      user = FactoryGirl.build(:user)
+      user = FactoryBot.build(:user)
       expect(user.ignored_notifications).to eq([])
     end
   end
 
   describe 'validate email address format' do
     it 'adds error if language is not in available locale' do
-      user = FactoryGirl.build(:user, email: 'buren@')
+      user = FactoryBot.build(:user, email: 'buren@')
       user.validate
 
       message = user.errors.messages[:email]
@@ -478,7 +502,7 @@ RSpec.describe User, type: :model do
     end
 
     it 'adds *no* error if language is not in available locale' do
-      user = FactoryGirl.build(:user, email: 'watman@example.com')
+      user = FactoryBot.build(:user, email: 'watman@example.com')
       user.validate
 
       message = user.errors.messages[:email]
@@ -488,8 +512,8 @@ RSpec.describe User, type: :model do
 
   describe '#validate_language_id_in_available_locale' do
     it 'adds error if language is not in available locale' do
-      language = FactoryGirl.create(:language, lang_code: 'aa')
-      user = FactoryGirl.build(:user, system_language: language)
+      language = FactoryBot.create(:language, lang_code: 'aa')
+      user = FactoryBot.build(:user, system_language: language)
       user.validate
 
       message = user.errors.messages[:system_language_id]
@@ -497,8 +521,8 @@ RSpec.describe User, type: :model do
     end
 
     it 'adds *no* error if language is not in available locale' do
-      language = FactoryGirl.create(:language, lang_code: 'en')
-      user = FactoryGirl.build(:user, system_language: language)
+      language = FactoryBot.create(:language, lang_code: 'en')
+      user = FactoryBot.build(:user, system_language: language)
       user.validate
 
       message = user.errors.messages[:system_language_id]
@@ -510,7 +534,7 @@ RSpec.describe User, type: :model do
     let(:error_message) { I18n.t('errors.user.arrived_at_must_be_in_past') }
 
     it 'adds error if arrived_at is in the future' do
-      user = FactoryGirl.build(:user, arrived_at: 2.days.from_now.to_date)
+      user = FactoryBot.build(:user, arrived_at: 2.days.from_now.to_date)
       user.validate
 
       message = user.errors.messages[:arrived_at]
@@ -518,7 +542,7 @@ RSpec.describe User, type: :model do
     end
 
     it 'adds *no* error if arrived at is a blank string' do
-      user = FactoryGirl.build(:user, arrived_at: ' ')
+      user = FactoryBot.build(:user, arrived_at: ' ')
       user.validate_arrival_date_in_past
 
       message = user.errors.messages[:arrived_at]
@@ -526,7 +550,7 @@ RSpec.describe User, type: :model do
     end
 
     it 'adds *no* error if arrived_at is in the past' do
-      user = FactoryGirl.build(:user, arrived_at: 2.days.ago.to_date)
+      user = FactoryBot.build(:user, arrived_at: 2.days.ago.to_date)
       user.validate
 
       message = user.errors.messages[:arrived_at]
@@ -534,7 +558,7 @@ RSpec.describe User, type: :model do
     end
 
     it 'adds *no* error if arrived_at is nil' do
-      user = FactoryGirl.build(:user, arrived_at: nil)
+      user = FactoryBot.build(:user, arrived_at: nil)
       user.validate
 
       message = user.errors.messages[:arrived_at]
@@ -546,7 +570,7 @@ RSpec.describe User, type: :model do
     let(:error_message) { I18n.t('errors.user.must_be_valid_phone_number_format') }
 
     it 'adds error if format of phone is not valid' do
-      user = FactoryGirl.build(:user, phone: '000123456789')
+      user = FactoryBot.build(:user, phone: '000123456789')
       user.validate
 
       message = user.errors.messages[:phone]
@@ -554,7 +578,7 @@ RSpec.describe User, type: :model do
     end
 
     it 'adds *no* error if phone format is valid' do
-      user = FactoryGirl.build(:user)
+      user = FactoryBot.build(:user)
       user.validate
 
       message = user.errors.messages[:phone]
@@ -572,7 +596,7 @@ RSpec.describe User, type: :model do
     let(:error_message) { I18n.t('errors.user.must_be_swedish_ssn') }
 
     it 'adds error if format of ssn is not valid' do
-      user = FactoryGirl.build(:user, ssn: '00012')
+      user = FactoryBot.build(:user, ssn: '00012')
       user.validate
 
       message = user.errors.messages[:ssn]
@@ -580,7 +604,7 @@ RSpec.describe User, type: :model do
     end
 
     it 'adds *no* error if ssn format is valid' do
-      user = FactoryGirl.build(:user, ssn: '8908030334')
+      user = FactoryBot.build(:user, ssn: '8908030334')
       user.validate
 
       message = user.errors.messages[:ssn]
@@ -592,7 +616,7 @@ RSpec.describe User, type: :model do
     let(:error_message) { I18n.t('errors.user.must_be_swedish_phone_number') }
 
     it 'adds error if phone number is not Swedish' do
-      user = FactoryGirl.build(:user, phone: '+1123456789')
+      user = FactoryBot.build(:user, phone: '+1123456789')
       user.validate
 
       message = user.errors.messages[:phone]
@@ -600,7 +624,7 @@ RSpec.describe User, type: :model do
     end
 
     it 'adds *no* error if phone number is Swedish' do
-      user = FactoryGirl.build(:user)
+      user = FactoryBot.build(:user)
       user.validate
 
       message = user.errors.messages[:phone]
@@ -610,7 +634,7 @@ RSpec.describe User, type: :model do
 
   describe '#validate_swedish_bank_account' do
     it 'adds *no* error if bank account is valid' do
-      user = FactoryGirl.build(
+      user = FactoryBot.build(
         :user,
         account_clearing_number: '8000-2',
         account_number: '0000000000'
@@ -622,7 +646,7 @@ RSpec.describe User, type: :model do
     end
 
     it 'adds error if bank account is invalid' do
-      user = FactoryGirl.build(
+      user = FactoryBot.build(
         :user,
         account_clearing_number: '0',
         account_number: '8'
@@ -643,7 +667,7 @@ RSpec.describe User, type: :model do
     end
 
     it 'adds error if bank account is invalid (only one field set)' do
-      user = FactoryGirl.build(
+      user = FactoryBot.build(
         :user,
         account_clearing_number: '0'
       )
@@ -658,7 +682,7 @@ RSpec.describe User, type: :model do
     let(:error_message) { I18n.t('errors.general.must_be_valid_date') }
 
     it 'adds error if arrived at is not a valid date' do
-      user = FactoryGirl.build(:user, arrived_at: '1')
+      user = FactoryBot.build(:user, arrived_at: '1')
       user.validate_arrived_at_date
 
       message = user.errors.messages[:arrived_at]
@@ -666,7 +690,7 @@ RSpec.describe User, type: :model do
     end
 
     it 'adds *no* error if arrived at is a blank string' do
-      user = FactoryGirl.build(:user, arrived_at: ' ')
+      user = FactoryBot.build(:user, arrived_at: ' ')
       user.validate_arrived_at_date
 
       message = user.errors.messages[:arrived_at]
@@ -674,7 +698,7 @@ RSpec.describe User, type: :model do
     end
 
     it 'adds *no* error if arrived at is a valid date' do
-      user = FactoryGirl.build(:user, arrived_at: '2016-01-01')
+      user = FactoryBot.build(:user, arrived_at: '2016-01-01')
       user.validate_arrived_at_date
 
       message = user.errors.messages[:arrived_at]
@@ -682,7 +706,7 @@ RSpec.describe User, type: :model do
     end
 
     it 'adds *no* error if arrived at is nil' do
-      user = FactoryGirl.build(:user, arrived_at: nil)
+      user = FactoryBot.build(:user, arrived_at: nil)
       user.validate_arrived_at_date
 
       message = user.errors.messages[:arrived_at]
@@ -693,7 +717,7 @@ RSpec.describe User, type: :model do
   describe '#find_token' do
     context 'valid token' do
       it 'returns token' do
-        token = FactoryGirl.create(:token)
+        token = FactoryBot.create(:token)
 
         expect(User.find_token(token.token)).to eq(token)
       end
@@ -701,7 +725,7 @@ RSpec.describe User, type: :model do
 
     context 'expired token' do
       it 'returns nil' do
-        token = FactoryGirl.create(:expired_token)
+        token = FactoryBot.create(:expired_token)
 
         expect(User.find_token(token.token)).to be_nil
       end
@@ -709,7 +733,7 @@ RSpec.describe User, type: :model do
   end
 
   it 'has translations for all User statuses' do
-    User::STATUSES.keys.each do |status_name|
+    User::STATUSES.each_key do |status_name|
       name = I18n.t("user.statuses.#{status_name}", locale: :en)
       description = I18n.t("user.statuses.#{status_name}_description", locale: :en)
 
@@ -723,64 +747,65 @@ end
 #
 # Table name: users
 #
-#  id                               :integer          not null, primary key
-#  email                            :string
-#  phone                            :string
-#  description                      :text
+#  account_clearing_number          :string
+#  account_number                   :string
+#  admin                            :boolean          default(FALSE)
+#  anonymization_requested_at       :datetime
+#  anonymized_at                    :datetime
+#  arbetsformedlingen_registered_at :date
+#  arrived_at                       :date
+#  at_und                           :integer
+#  banned                           :boolean          default(FALSE)
+#  city                             :string
+#  company_id                       :integer
+#  competence_text                  :text
+#  country_of_origin                :string
 #  created_at                       :datetime         not null
-#  updated_at                       :datetime         not null
-#  latitude                         :float
-#  longitude                        :float
+#  current_status                   :integer
+#  description                      :text
+#  education                        :text
+#  email                            :string
+#  facebook_url                     :string
+#  first_name                       :string
+#  frilans_finans_id                :integer
+#  frilans_finans_payment_details   :boolean          default(FALSE)
+#  gender                           :integer
+#  has_welcome_app_account          :boolean
+#  id                               :integer          not null, primary key
+#  ignored_notifications_mask       :integer
+#  interview_comment                :text
+#  interviewed_at                   :datetime
+#  interviewed_by_user_id           :integer
+#  job_experience                   :text
+#  just_arrived_staffing            :boolean          default(FALSE)
 #  language_id                      :integer
-#  anonymized                       :boolean          default(FALSE)
+#  last_name                        :string
+#  latitude                         :float
+#  linkedin_url                     :string
+#  longitude                        :float
+#  managed                          :boolean          default(FALSE)
+#  next_of_kin_name                 :string
+#  next_of_kin_phone                :string
+#  one_time_token                   :string
+#  one_time_token_expires_at        :datetime
 #  password_hash                    :string
 #  password_salt                    :string
-#  admin                            :boolean          default(FALSE)
+#  phone                            :string
+#  presentation_availability        :text
+#  presentation_personality         :text
+#  presentation_profile             :text
+#  public_profile                   :boolean
+#  skype_username                   :string
+#  ssn                              :string
 #  street                           :string
+#  super_admin                      :boolean          default(FALSE)
+#  system_language_id               :integer
+#  updated_at                       :datetime         not null
+#  verified                         :boolean
+#  welcome_app_last_checked_at      :datetime
 #  zip                              :string
 #  zip_latitude                     :float
 #  zip_longitude                    :float
-#  first_name                       :string
-#  last_name                        :string
-#  ssn                              :string
-#  company_id                       :integer
-#  banned                           :boolean          default(FALSE)
-#  job_experience                   :text
-#  education                        :text
-#  one_time_token                   :string
-#  one_time_token_expires_at        :datetime
-#  ignored_notifications_mask       :integer
-#  frilans_finans_id                :integer
-#  frilans_finans_payment_details   :boolean          default(FALSE)
-#  competence_text                  :text
-#  current_status                   :integer
-#  at_und                           :integer
-#  arrived_at                       :date
-#  country_of_origin                :string
-#  managed                          :boolean          default(FALSE)
-#  account_clearing_number          :string
-#  account_number                   :string
-#  verified                         :boolean          default(FALSE)
-#  skype_username                   :string
-#  interview_comment                :text
-#  next_of_kin_name                 :string
-#  next_of_kin_phone                :string
-#  arbetsformedlingen_registered_at :date
-#  city                             :string
-#  interviewed_by_user_id           :integer
-#  interviewed_at                   :datetime
-#  just_arrived_staffing            :boolean          default(FALSE)
-#  super_admin                      :boolean          default(FALSE)
-#  gender                           :integer
-#  presentation_profile             :text
-#  presentation_personality         :text
-#  presentation_availability        :text
-#  system_language_id               :integer
-#  linkedin_url                     :string
-#  facebook_url                     :string
-#  has_welcome_app_account          :boolean          default(FALSE)
-#  welcome_app_last_checked_at      :datetime
-#  public_profile                   :boolean          default(FALSE)
 #
 # Indexes
 #

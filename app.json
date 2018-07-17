@@ -154,9 +154,19 @@
       "description": "URL to a Apache Tika server (required for document text extraction)",
       "value": "",
       "required": false
+    },
+    "KEEP_APPLICANT_DATA_YEARS": {
+      "description": "Keep applicant data for X number of years",
+      "value": "2",
+      "required": false
+    },
+    "ANONYMIZATION_DELAY_DAYS": {
+      "description": "Wait for X number of days before performing the anonymization",
+      "value": "3",
+      "required": false
     }
   },
-  "addons": ["sendgrid:starter", "scheduler:standard", "heroku-redis:hobby-dev", "airbrake:free-hrku"],
+  "addons": ["sendgrid:starter", "scheduler:standard", "heroku-redis:hobby-dev", "airbrake:hrk-free-2018"],
   "scripts": {
     "postdeploy": "bundle exec rails db:migrate db:seed"
   }

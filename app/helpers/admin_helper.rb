@@ -1,6 +1,14 @@
 # frozen_string_literal: true
 
 module AdminHelper
+  def render_or_link_document(document)
+    if document&.pdf?
+      content_tag(:canvas, nil, id: 'pdf-document', 'data-url': document.url)
+    elsif document
+      download_link_to(url: document.url, file_name: document.document_file_name)
+    end
+  end
+
   def safe_pretty_print_json(json_string)
     content_tag :pre, begin
       hash = JSON.parse(json_string)
@@ -18,6 +26,10 @@ module AdminHelper
     percentage = order_value.filled_percentage(round: 1)
 
     "#{percentage || '-'}% (#{total_filled || '-'}/#{total_sold || '-'})"
+  end
+
+  def user_applications_path(user)
+    admin_job_users_path + AdminHelpers::Link.query(:user_id, user.id)
   end
 
   def link_to_job_preview(job, utm_medium: nil)
@@ -38,14 +50,14 @@ module AdminHelper
   end
 
   def markdown_to_html(markdown)
-    ::StringFormatter.new.to_html(markdown)&.html_safe
+    ::StringFormatter.new.to_html(markdown)&.html_safe # rubocop:disable Rails/OutputSafety, Metrics/LineLength
   end
 
   def job_user_current_status_badge(status)
     color = '#323537' # black
     font_weight = 'normal'
 
-    if status == 'Not pre-reported!'
+    if ['Not pre-reported!', 'Not signed by user!'].include?(status)
       color = 'red'
       font_weight = 'bold'
     elsif status == 'Paid'
@@ -135,12 +147,12 @@ module AdminHelper
     )
   end
 
-  def job_skills_badges(job_skills:)
+  def job_skills_badges(job_skills:, join_with: ' ')
     links = job_skills.map do |job_skill|
       job_skill_badge(skill: job_skill.skill, job_skill: job_skill)
     end
 
-    safe_join(links, ' ')
+    safe_join(links, join_with)
   end
 
   def job_skill_badge(skill:, job_skill: nil)

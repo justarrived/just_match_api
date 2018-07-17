@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :occupation do
     name 'MyString'
     association :language
@@ -24,10 +24,10 @@ end
 #
 # Table name: occupations
 #
-#  id          :integer          not null, primary key
+#  id          :bigint(8)        not null, primary key
 #  name        :string
 #  ancestry    :string
-#  language_id :integer
+#  language_id :bigint(8)
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #

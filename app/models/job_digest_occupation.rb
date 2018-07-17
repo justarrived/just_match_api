@@ -9,9 +9,9 @@ end
 #
 # Table name: job_digest_occupations
 #
-#  id            :integer          not null, primary key
-#  job_digest_id :integer
-#  occupation_id :integer
+#  id            :bigint(8)        not null, primary key
+#  job_digest_id :bigint(8)
+#  occupation_id :bigint(8)
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #

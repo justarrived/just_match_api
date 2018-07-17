@@ -121,7 +121,7 @@ module Api
           authorize(@job_digest)
 
           @job_digest.assign_attributes(job_digest_params)
-          @job_digest.deleted_at = nil
+          @job_digest.deleted = false
 
           if @job_digest.save
             @job_digest.addresses = addresses_params.map { |params| Address.new(params) }
@@ -146,7 +146,8 @@ module Api
         def destroy
           authorize(@job_digest)
 
-          @job_digest.soft_destroy!
+          @job_digest.mark_destroyed
+          @job_digest.save!
 
           head :no_content
         end

@@ -1,4 +1,8 @@
+<p>
+  <%= link_to 'View job request', admin_job_request_url(@job_request_id) %>
+</p>
 
+<h3><strong>Sales user:</strong> <%= @sales_user&.name || '<Unknown>' %></h3>
 <h3><strong>Short name:</strong> <%= @short_name %></h3>
 <p><strong>Company name:</strong> <%= @company_name %></p>
 <p><strong>Comment:</strong> <%= @comment %></p>

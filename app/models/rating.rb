@@ -7,7 +7,7 @@ class Rating < ApplicationRecord
   belongs_to :to_user, class_name: 'User', foreign_key: 'to_user_id'
   belongs_to :job
 
-  has_one :comment, as: :commentable
+  has_one :comment, as: :commentable, dependent: :destroy
 
   validates :job, presence: true
 

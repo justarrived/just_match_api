@@ -8,6 +8,14 @@ class SendJobDigestNotificationsService
       next if matching_jobs.empty?
 
       JobsDigestNotifier.call(jobs: matching_jobs[0...max_jobs], job_digest: job_digest)
+      data = {
+        user_id: job_digest.user_id,
+        email: job_digest.email,
+        job_digest_id: job_digest.id,
+        matching_job_ids: matching_jobs.map(&:id)
+      }
+      Analytics.track(:sent_job_digest_email, data: data)
+
       total_sent += 1
     end
     total_sent

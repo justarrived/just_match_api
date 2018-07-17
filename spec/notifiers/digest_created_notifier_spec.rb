@@ -5,8 +5,8 @@ require 'rails_helper'
 RSpec.describe DigestCreatedNotifier, type: :mailer do
   let(:mailer) { Struct.new(:deliver_later).new(nil) }
   let(:email) { 'watman@example.com' }
-  let(:subscriber) { FactoryGirl.build_stubbed(:digest_subscriber, email: email) }
-  let(:job_digest) { FactoryGirl.build_stubbed(:job_digest, subscriber: subscriber) }
+  let(:subscriber) { FactoryBot.build_stubbed(:digest_subscriber, email: email) }
+  let(:job_digest) { FactoryBot.build_stubbed(:job_digest, subscriber: subscriber) }
 
   it 'must work' do
     allow(JobDigestMailer).to receive(:digest_created_email).and_return(mailer)

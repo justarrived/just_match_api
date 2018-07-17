@@ -6,7 +6,7 @@ module Api
   module V1
     class UsersController < BaseController
       SET_USER_ACTIONS = %i(
-        show edit update destroy matching_jobs jobs missing_traits
+        show edit update matching_jobs jobs missing_traits available_notifications
       ).freeze
       before_action :set_user, only: SET_USER_ACTIONS
 
@@ -22,6 +22,7 @@ module Api
         user_languages user_languages.language language languages company user_images
         user_skills skills user_skills.skill user_documents user_documents.document
         user_interests user_interests.interest interests
+        user_occupations user_occupations.occupation occupations
       ).freeze
 
       api :GET, '/users', 'List users'
@@ -75,7 +76,7 @@ module Api
           param :zip, String, desc: 'Zip code'
           param :city, String, desc: 'City'
           param :ssn, String, desc: 'Social Security Number (10 characters)'
-          param :ignored_notifications, Array, of: 'ignored notifications', desc: "List of ignored notifications. Any of: #{User::NOTIFICATIONS.map { |n| "`#{n}`" }.join(', ')}"
+          param :ignored_notifications, Array, of: 'ignored notifications', desc: "List of ignored notifications. Any of: #{UserNotification.names.map { |n| "`#{n}`" }.join(', ')}"
           param :company_id, Integer, desc: 'Company id for user'
           param :system_language_id, Integer, desc: 'System language id for user (SMS/emails etc will be sent in this language)', required: true
           param :language_id, Integer, desc: 'Language id for the text fields'
@@ -83,12 +84,16 @@ module Api
             param :id, Integer, desc: 'Language id', required: true
             param :proficiency, UserLanguage::PROFICIENCY_RANGE.to_a, desc: 'Language proficiency'
           end
+          param :occupation_ids, Array, of: Hash, desc: 'List of occupation ids' do
+            param :id, Integer, desc: 'Occupation id', required: true
+            param :years_of_experience, (1..100).to_a, desc: 'Years of experience'
+          end
           param :skill_ids, Array, of: Hash, desc: 'List of skill ids' do
             param :id, Integer, desc: 'Skill id', required: true
             param :proficiency, UserSkill::PROFICIENCY_RANGE.to_a, desc: 'Skill proficiency'
           end
           param :interest_ids, Array, of: Hash, desc: 'List of interest ids' do
-            param :id, Integer, desc: 'Level id', required: true
+            param :id, Integer, desc: 'Interest id', required: true
             param :proficiency, UserInterest::LEVEL_RANGE.to_a, desc: 'Interest level'
           end
           param :user_image_one_time_tokens, Array, of: 'UserImage one time tokens', desc: 'User image one time tokens'
@@ -118,6 +123,7 @@ module Api
           language_ids: jsonapi_params[:language_ids],
           skill_ids: jsonapi_params[:skill_ids],
           interest_ids: jsonapi_params[:interest_ids],
+          occupation_ids: jsonapi_params[:occupation_ids],
           image_tokens: jsonapi_params[:user_image_one_time_tokens]
         )
 
@@ -152,12 +158,16 @@ module Api
           param :zip, String, desc: 'Zip code'
           param :city, String, desc: 'City'
           param :ssn, String, desc: 'Social Security Number (10 characters)'
-          param :ignored_notifications, Array, of: 'ignored notifications', desc: "List of ignored notifications. Any of: #{User::NOTIFICATIONS.map { |n| "`#{n}`" }.join(', ')}"
+          param :ignored_notifications, Array, of: 'ignored notifications', desc: "List of ignored notifications. Any of: #{UserNotification.names.map { |n| "`#{n}`" }.join(', ')}"
           param :system_language_id, Integer, desc: 'System language id for user (SMS/emails etc will be sent in this language)'
           param :language_id, Integer, desc: 'Language id for the text fields'
           param :language_ids, Array, of: Hash, desc: 'Languages that the user knows (if specified this will completely replace the users languages)' do
             param :id, Integer, desc: 'Language id', required: true
             param :proficiency, UserLanguage::PROFICIENCY_RANGE.to_a, desc: 'Language proficiency'
+          end
+          param :occupation_ids, Array, of: Hash, desc: 'List of occupation ids' do
+            param :id, Integer, desc: 'Occupation id', required: true
+            param :years_of_experience, (1..100).to_a, desc: 'Years of experience'
           end
           param :skill_ids, Array, of: Hash, desc: 'List of skill ids' do
             param :id, Integer, desc: 'Skill id', required: true
@@ -192,25 +202,17 @@ module Api
           params: user_params,
           language_ids: jsonapi_params[:language_ids],
           skill_ids: jsonapi_params[:skill_ids],
-          interest_ids: jsonapi_params[:interest_ids]
+          interest_ids: jsonapi_params[:interest_ids],
+          occupation_ids: jsonapi_params[:occupation_ids]
         )
+
+        @user.reload
 
         if @user.errors.empty?
           api_render(@user)
         else
           api_render_errors(@user)
         end
-      end
-
-      api :DELETE, '/users/:id', 'Delete user'
-      description 'Deletes user user if the user is allowed.'
-      error code: 401, desc: 'Unauthorized'
-      error code: 404, desc: 'Not found'
-      def destroy
-        authorize(@user)
-
-        @user.reset!
-        head :no_content
       end
 
       api :POST, '/users/images/', 'User images'
@@ -252,6 +254,19 @@ module Api
         render json: Job.uncancelled.matches_user(@user)
       end
 
+      api :GET, '/users/:user_id/available-notifications', 'Show relevant user notifications' # rubocop:disable Metrics/LineLength
+      description 'Returns a list of notifications relevant for user.'
+      example JSON.pretty_generate(UserNotificationsSerializer.serializable_resource.to_h) # rubocop:disable Metrics/LineLength
+      def available_notifications
+        authorize(@user)
+
+        resource = UserNotificationsSerializer.serializable_resource(
+          notifications: UserNotification.names(user_role: @user.primary_role)
+        )
+
+        render json: resource
+      end
+
       api :GET, '/users/notifications', 'Show all possible user notifications'
       description 'Returns a list of all possible user notifications.'
       example JSON.pretty_generate(UserNotificationsSerializer.serializable_resource.to_h) # rubocop:disable Metrics/LineLength
@@ -291,29 +306,39 @@ module Api
         MissingUserTraitsSerializer.serialize(
           user_attributes: %i(street city zip),
           languages: [Struct.new(:id).new(1)],
-          languages_hint: 'any language hint'
+          languages_hint: 'any language hint',
+          skills: [Struct.new(:id).new(1)],
+          skills_hint: 'any skill hint',
+          occupations: [Struct.new(:id).new(1)],
+          occupations_hint: 'any occupation hint',
+          missing_cv: true
         ).to_h
       )
       def missing_traits
         authorize(@user)
-        missing_traits = Queries::MissingUserTraits
+        missing_traits = Queries::MissingUserTraits.new(user: @user)
 
         missing_attributes = missing_traits.attributes(
-          user: @user,
           attributes: %i(ssn street zip city phone)
         )
         languages = Language.common_working_languages_for(country: :se)
-        missing_languages = missing_traits.languages(user: @user, languages: languages)
+        missing_languages = missing_traits.languages(languages: languages)
 
         skills = Skill.high_priority
-        missing_skills = missing_traits.skills(user: @user, skills: skills)
+        missing_skills = missing_traits.skills(skills: skills)
+
+        occupations = Occupation.roots
+        missing_occupations = missing_traits.occupations(occupations: occupations)
 
         response = MissingUserTraitsSerializer.serialize(
           user_attributes: missing_attributes,
           languages: missing_languages,
           languages_hint: I18n.t('user.missing_languages_trait'),
           skills: missing_skills,
-          skills_hint: I18n.t('user.missing_skills_trait')
+          skills_hint: I18n.t('user.missing_skills_trait'),
+          occupations: missing_occupations,
+          occupations_hint: I18n.t('user.missing_occupations_trait'),
+          missing_cv: missing_traits.cv?
         )
         render json: response
       end

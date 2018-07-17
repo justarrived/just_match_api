@@ -16,7 +16,7 @@ require 'active_record/railtie'
 require 'action_controller/railtie'
 require 'action_mailer/railtie'
 require 'action_view/railtie' # Needed for Rails mailers
-# require 'sprockets/railtie'
+require 'sprockets/railtie'
 # require "rails/test_unit/railtie"
 
 require_relative '../lib/middleware/catch_unknown_format_errors'
@@ -51,6 +51,7 @@ module JustMatch
     config.api_only = false
 
     config.middleware.insert_before Rack::Head, CatchJsonParseErrors
+    config.middleware.insert_after ActionDispatch::Static, Rack::Deflater
     config.middleware.insert_after CatchJsonParseErrors, CatchUnknownFormatErrors
     config.middleware.use Rack::Attack
 
@@ -67,7 +68,6 @@ module JustMatch
 
     # rubocop:disable Metrics/LineLength
     config.x.frilans_finans = AppConfig.frilans_finans_active?
-    config.x.validate_job_date_in_future_inactive = AppConfig.validate_job_date_in_future_inactive?
     config.x.send_sms_notifications = AppConfig.send_sms_notifications?
     config.x.validate_swedish_ssn = AppConfig.validate_swedish_ssn
     config.x.invoice_company_frilans_finans_id = AppConfig.invoice_company_frilans_finans_id

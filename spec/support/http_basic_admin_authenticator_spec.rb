@@ -20,7 +20,7 @@ RSpec.describe HttpBasicAdminAuthenticator do
     let(:password) { TestHttpAuthModule::PASSWORD }
 
     it 'returns admin when correct email and password' do
-      admin = FactoryGirl.create(:admin_user, email: email, password: password)
+      admin = FactoryBot.create(:admin_user, email: email, password: password)
       expect(subject).to eq(admin)
     end
 

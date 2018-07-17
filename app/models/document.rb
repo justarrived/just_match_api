@@ -6,10 +6,10 @@ class Document < ApplicationRecord
 
   ONE_TIME_TOKEN_VALID_FOR_HOURS = 10
 
-  has_many :user_documents
+  has_many :user_documents, dependent: :restrict_with_error
   has_many :users, through: :user_documents
 
-  has_many :order_documents
+  has_many :order_documents, dependent: :restrict_with_error
   has_many :orders, through: :order_documents
 
   before_create :generate_one_time_token
@@ -33,6 +33,10 @@ class Document < ApplicationRecord
   end
 
   delegate :url, to: :document
+
+  def pdf?
+    document_content_type == 'application/pdf'
+  end
 
   def generate_one_time_token
     self.one_time_token_expires_at = Time.zone.now + ONE_TIME_TOKEN_VALID_FOR_HOURS.hours

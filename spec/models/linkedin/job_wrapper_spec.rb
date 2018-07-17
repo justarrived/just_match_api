@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Linkedin::JobWrapper do
-  let(:job) { FactoryGirl.build(:job, id: 73) }
+  let(:job) { FactoryBot.build(:job, id: 73) }
   let(:job_wrapper) { described_class.new(job: job) }
 
   describe '#description' do

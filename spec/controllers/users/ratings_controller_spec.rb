@@ -3,16 +3,16 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::Users::RatingsController, type: :controller do
-  let(:owner) { FactoryGirl.create(:user) }
-  let(:user) { FactoryGirl.create(:user_with_tokens) }
+  let(:owner) { FactoryBot.create(:user) }
+  let(:user) { FactoryBot.create(:user_with_tokens) }
   let(:job) do
-    job = FactoryGirl.create(:passed_job, owner: owner)
-    job_user = FactoryGirl.create(:job_user_will_perform, job: job, user: user)
-    FactoryGirl.create(:invoice, job_user: job_user)
+    job = FactoryBot.create(:passed_job, owner: owner)
+    job_user = FactoryBot.create(:job_user_will_perform, job: job, user: user)
+    FactoryBot.create(:invoice, job_user: job_user)
     job
   end
   let!(:rating) do
-    FactoryGirl.create(:rating, to_user: user, from_user: owner, job: job, score: 3)
+    FactoryBot.create(:rating, to_user: user, from_user: owner, job: job, score: 3)
   end
 
   let(:valid_params) { { auth_token: user.auth_token, user_id: user.to_param } }

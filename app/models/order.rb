@@ -7,23 +7,24 @@ class Order < ApplicationRecord
   belongs_to :delivery_user, optional: true, class_name: 'User', foreign_key: 'delivery_user_id' # rubocop:disable Metrics/LineLength
   belongs_to :sales_user, optional: true, class_name: 'User', foreign_key: 'sales_user_id'
 
-  has_many :jobs
-  has_many :order_documents
+  has_many :jobs, dependent: :nullify
+  has_many :order_documents, dependent: :destroy
   has_many :documents, through: :order_documents
 
-  has_many :order_values
+  has_many :order_values, dependent: :destroy
 
   validates :company, presence: true
   validates :delivery_user, presence: true
   validates :sales_user, presence: true
 
+  validate :validate_presence_of_category
   validate :validate_sales_and_delivery_user_not_equal
 
   scope :lost, (-> { where(lost: true) })
   scope :unlost, (-> { where(lost: false) })
   scope :unfilled, (lambda {
     joins('LEFT OUTER JOIN jobs ON orders.id = jobs.order_id').
-      where('jobs.id IS NULL OR (jobs.filled = false AND jobs.cancelled = false)').
+      where('jobs.id IS NULL OR (jobs.filled_at IS NULL AND jobs.cancelled = false)').
       distinct
   })
   scope :filled, (-> { where.not(id: unfilled.map(&:id)) })
@@ -57,6 +58,15 @@ class Order < ApplicationRecord
     end.sum
   end
 
+  def validate_presence_of_category
+    # We didn't always have this presence validation so for persisted orders
+    # that have no category we shouldn't validate
+    return if persisted? && category.blank?
+    return if category.present?
+
+    errors.add(:category, :blank)
+  end
+
   def validate_sales_and_delivery_user_not_equal
     return unless sales_user
     return unless delivery_user
@@ -68,7 +78,7 @@ class Order < ApplicationRecord
   end
 
   def display_name
-    "Order: ##{id || 'unsaved'} #{name&.presence || job_request&.short_name || 'Order'}"
+    "Order ##{id || 'unsaved'} #{name&.presence || job_request&.short_name || 'Order'}"
   end
 
   def filled_jobs
@@ -108,7 +118,7 @@ end
 #  filled_hours                   :decimal(, )
 #  name                           :string
 #  category                       :integer
-#  company_id                     :integer
+#  company_id                     :bigint(8)
 #  sales_user_id                  :integer
 #  delivery_user_id               :integer
 #  previous_order_id              :integer

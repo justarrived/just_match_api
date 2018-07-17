@@ -44,8 +44,8 @@
       "admin": false,
       "anonymized": false,
       "ignored_notifications": [
-        "applicant_will_perform_job_info",
-        "failed_to_activate_invoice"
+        "failed_to_activate_invoice",
+        "update_data_reminder"
       ],
       "frilans_finans_payment_details": false,
       "ssn": "8901010000",

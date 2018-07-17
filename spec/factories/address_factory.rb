@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :address do
     street1 'MyString'
     street2 nil
@@ -15,7 +15,7 @@ end
 #
 # Table name: addresses
 #
-#  id           :integer          not null, primary key
+#  id           :bigint(8)        not null, primary key
 #  street1      :string
 #  street2      :string
 #  city         :string

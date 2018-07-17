@@ -4,13 +4,13 @@ require 'rails_helper'
 
 RSpec.describe Sweepers::UserImageSweeper do
   describe '#destroy_orphans' do
-    let(:user) { FactoryGirl.create(:user) }
+    let(:user) { FactoryBot.create(:user) }
 
     it 'destroys all orphanes' do
-      FactoryGirl.create(:user_image)
-      FactoryGirl.create(:user_image, created_at: 2.days.ago)
-      FactoryGirl.create(:user_image, created_at: 2.days.ago)
-      FactoryGirl.create(:user_image, user: user)
+      FactoryBot.create(:user_image)
+      FactoryBot.create(:user_image, created_at: 2.days.ago)
+      FactoryBot.create(:user_image, created_at: 2.days.ago)
+      FactoryBot.create(:user_image, user: user)
 
       expect do
         described_class.destroy_orphans

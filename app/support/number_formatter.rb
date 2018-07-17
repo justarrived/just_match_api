@@ -5,7 +5,7 @@ class NumberFormatter
 
   def to_delimited(number, locale: I18n.locale, precision: 0)
     number_with_delimiter(
-      number.round(precision),
+      number.to_f.round(precision),
       locale: locale
     )
   end
@@ -14,7 +14,7 @@ class NumberFormatter
     return if number.blank?
 
     formatted_number = number_with_delimiter(
-      number.round(precision),
+      number.to_f.round(precision),
       locale: locale
     )
 

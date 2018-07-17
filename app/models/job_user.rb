@@ -7,11 +7,26 @@ class JobUser < ApplicationRecord
   belongs_to :job
   belongs_to :language, optional: true
 
+  has_one :just_arrived_contact, through: :job
   has_one :company_contact, through: :job
   has_one :owner, through: :job
   has_one :company, through: :job
-  has_one :invoice
-  has_one :frilans_finans_invoice
+  has_one :invoice, dependent: :restrict_with_error
+  has_one :frilans_finans_invoice, dependent: :restrict_with_error
+
+  has_many :active_admin_comments, as: :resource, dependent: :destroy
+
+  has_many :user_tags, through: :user
+  has_many :tags, through: :user_tags
+
+  has_many :user_skills, through: :user
+  has_many :skills, through: :user_skills
+
+  has_many :user_languages, through: :user
+  has_many :languages, through: :user_languages
+
+  has_many :user_occupations, through: :user
+  has_many :occupations, through: :user_occupations
 
   validates :user, presence: true
   validates :job, presence: true
@@ -66,12 +81,12 @@ class JobUser < ApplicationRecord
   end
 
   def name
-    "##{id} Job User"
+    "##{id} #{I18n.t('activerecord.models.job_user')}"
   end
 
   def current_status
     if job.started?
-      return 'Rejected' unless will_perform
+      return 'Not signed by user!' if accepted && !will_perform
 
       ff_status = frilans_finans_invoice&.ff_payment_status_name
       return ff_status if ff_status
@@ -89,8 +104,6 @@ class JobUser < ApplicationRecord
   end
 
   def application_status
-    return :rejected if job.started? && !will_perform
-
     return :withdrawn if application_withdrawn
     return :hired if will_perform
     return :offered if accepted
@@ -112,7 +125,7 @@ class JobUser < ApplicationRecord
   end
 
   def validate_applicant_not_owner_of_job
-    if job && job.owner == user
+    if job&.owner == user
       message = I18n.t('errors.job_user.not_owner_of_job')
       errors.add(:user, message)
     end
@@ -143,7 +156,7 @@ class JobUser < ApplicationRecord
   end
 
   def validate_job_started_before_performed
-    return if job && job.started?
+    return if job&.started?
     return unless performed
 
     message = I18n.t('errors.job_user.performed_before_job_started')

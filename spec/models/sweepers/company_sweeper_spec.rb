@@ -3,13 +3,13 @@
 require 'rails_helper'
 
 RSpec.describe Sweepers::CompanySweeper do
-  let(:a_user) { FactoryGirl.create(:user, frilans_finans_id: nil) }
-  let(:user) { FactoryGirl.create(:user, frilans_finans_id: 10) }
+  let(:a_user) { FactoryBot.create(:user, frilans_finans_id: nil) }
+  let(:user) { FactoryBot.create(:user, frilans_finans_id: 10) }
 
   describe '#create_frilans_finans' do
     it 'sets company frilans finans id' do
       isolate_frilans_finans_client(FrilansFinansAPI::FixtureClient) do
-        company = FactoryGirl.create(:company, users: [user, a_user])
+        company = FactoryBot.create(:company, users: [user, a_user])
 
         described_class.create_frilans_finans
         company.reload
@@ -18,7 +18,7 @@ RSpec.describe Sweepers::CompanySweeper do
     end
 
     it 'does nothing when frilans finans returns nil' do
-      company = FactoryGirl.create(:company, users: [user, a_user])
+      company = FactoryBot.create(:company, users: [user, a_user])
 
       isolate_frilans_finans_client(FrilansFinansAPI::NilClient) do
         described_class.create_frilans_finans

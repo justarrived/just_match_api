@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe Api::V1::HourlyPaysController, type: :controller do
   describe 'GET #index' do
     it 'returns hourly pays' do
-      hourly_pay = FactoryGirl.create(:hourly_pay, active: true)
+      hourly_pay = FactoryBot.create(:hourly_pay, active: true)
       get :index
       expect(assigns(:hourly_pays)).to eq([hourly_pay])
     end
@@ -13,7 +13,7 @@ RSpec.describe Api::V1::HourlyPaysController, type: :controller do
 
   describe 'GET #show' do
     it 'returns hourly pay' do
-      hourly_pay = FactoryGirl.create(:hourly_pay, active: true)
+      hourly_pay = FactoryBot.create(:hourly_pay, active: true)
       get :show, params: { id: hourly_pay.id }
       expect(assigns(:hourly_pay)).to eq(hourly_pay)
     end

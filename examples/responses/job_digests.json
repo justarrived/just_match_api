@@ -5,11 +5,20 @@
       "type": "job_digests",
       "attributes": {
         "notification_frequency": "daily",
-        "city": "Stockholm"
+        "max_distance": 100.0
       },
       "relationships": {
-        "digest_subscriber": {
-          "data": null
+        "subscriber": {
+          "data": {
+            "id": "2",
+            "type": "digest_subscribers"
+          }
+        },
+        "occupations": {
+          "data": []
+        },
+        "addresses": {
+          "data": []
         }
       }
     }
