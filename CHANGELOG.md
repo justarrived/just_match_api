@@ -3,6 +3,11 @@
 HEAD
 -----------
 
+v2.114.0 - 2018-07-18
+----------
+__Admin__
+* Add search by rectruiter activity author
+
 
 v2.113.0 - 2018-07-18
 ----------
