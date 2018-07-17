@@ -698,6 +698,7 @@ en:
 
       recruiter_activity:
         activity: :activerecord.models.activity  #g
+        author: :activerecord.models.author  #g
         body: Body  #g
         document: :activerecord.models.document  #g
         user: :activerecord.models.user  #g
@@ -805,6 +806,7 @@ en:
         one_time_token: One time token  #g
         one_time_token_expires_at: One time token expires at  #g
         owned_jobs: Owned jobs  #g
+        owner_recruiter_activities: Owner recruiter activities  #g
         password_hash: Password hash  #g
         password_salt: Password salt  #g
         phone: Phone  #g
@@ -813,6 +815,7 @@ en:
         presentation_profile: Presentation profile  #g
         public_profile: Public profile  #g
         received_ratings: Received ratings  #g
+        recruiter_activities: Recruiter activities  #g
         skills: Skills  #g
         skype_username: Skype username  #g
         ssn: Ssn  #g
