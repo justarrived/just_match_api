@@ -45,15 +45,17 @@ RSpec.describe Sweepers::UserSweeper do
   describe '::anonymize_users' do
     it 'calls AnonymizeUserService for each user that needs anonymiztion' do
       user = FactoryBot.create(:user)
-      anonymize_user = FactoryBot.create(:user, anonymization_requested_at: 1.day.ago)
+      anon_user = FactoryBot.create(:user, anonymization_requested_at: 1.day.ago)
 
       expect do
         described_class.anonymize_users
-      end.to have_enqueued_job(AnonymizeUserJob).with(anonymize_user)
+      end.to have_enqueued_job(ServiceRunnerJob).
+        with(AnonymizeUserService.to_s, anon_user, {})
 
       expect do
         described_class.anonymize_users
-      end.not_to have_enqueued_job(AnonymizeUserJob).with(user)
+      end.not_to have_enqueued_job(ServiceRunnerJob).
+        with(AnonymizeUserService.to_s, user, {})
     end
   end
 end
