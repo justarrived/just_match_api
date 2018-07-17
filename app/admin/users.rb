@@ -202,8 +202,9 @@ ActiveAdmin.register User do
 
   member_action :anonymize_user, method: :post do
     user = resource
+    wait_days = AppConfig.anonymization_delay_days
+
     if user.anonymization_allowed?
-      wait_days = AppConfig.anonymization_delay_days
       AnonymizeUserJob.set(wait: wait_days.days).perform_later(user)
       notice = I18n.t('admin.user.anonymized_success', days: wait_days)
 
@@ -214,7 +215,10 @@ ActiveAdmin.register User do
       notice = I18n.t('admin.user.anonymized_failed', application_date: date, earliest_date: earliest_date) # rubocop:disable Metrics/LineLength
 
       user.anonymization_requested_at = Time.zone.now
-      DestroyUserContactService.call(user)
+      ServiceRunnerJob.set(wait: wait_days.days).perform_later(
+        DestroyUserContactService.to_s,
+        user
+      )
 
       redirect_to admin_user_path(user), alert: notice
     end
