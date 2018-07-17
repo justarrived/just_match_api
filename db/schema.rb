@@ -673,7 +673,6 @@ ActiveRecord::Schema.define(version: 2018_07_16_165303) do
     t.boolean "hidden", default: false
     t.integer "category_id"
     t.integer "hourly_pay_id"
-    t.boolean "verified", default: false
     t.datetime "job_end_date"
     t.boolean "cancelled", default: false
     t.string "short_description"
@@ -708,6 +707,7 @@ ActiveRecord::Schema.define(version: 2018_07_16_165303) do
     t.integer "staffing_company_id"
     t.boolean "cloned", default: false
     t.datetime "filled_at"
+    t.boolean "verified"
     t.index ["category_id"], name: "index_jobs_on_category_id"
     t.index ["hourly_pay_id"], name: "index_jobs_on_hourly_pay_id"
     t.index ["language_id"], name: "index_jobs_on_language_id"
@@ -1073,8 +1073,6 @@ ActiveRecord::Schema.define(version: 2018_07_16_165303) do
     t.boolean "managed", default: false
     t.string "account_clearing_number"
     t.string "account_number"
-    t.boolean "verified", default: false
-    t.string "skype_username"
     t.text "interview_comment"
     t.string "next_of_kin_name"
     t.string "next_of_kin_phone"
@@ -1090,12 +1088,14 @@ ActiveRecord::Schema.define(version: 2018_07_16_165303) do
     t.text "presentation_availability"
     t.integer "system_language_id"
     t.string "linkedin_url"
-    t.string "facebook_url"
-    t.boolean "has_welcome_app_account", default: false
-    t.datetime "welcome_app_last_checked_at"
-    t.boolean "public_profile", default: false
     t.datetime "anonymized_at"
     t.datetime "anonymization_requested_at"
+    t.boolean "verified"
+    t.boolean "public_profile"
+    t.datetime "welcome_app_last_checked_at"
+    t.boolean "has_welcome_app_account"
+    t.string "facebook_url"
+    t.string "skype_username"
     t.index ["company_id"], name: "index_users_on_company_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["frilans_finans_id"], name: "index_users_on_frilans_finans_id", unique: true
