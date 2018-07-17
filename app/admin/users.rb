@@ -226,8 +226,6 @@ ActiveAdmin.register User do
   scope :company_users
   scope :regular_users, default: true
   scope :needs_frilans_finans_id
-  scope :managed_users
-  scope :verified
 
   # rubocop:disable Metrics/LineLength
   filter :near_address, label: I18n.t('admin.filter.near_address'), as: :string
