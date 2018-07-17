@@ -29,9 +29,12 @@ fa:
       taken: پیشتر گرفته شده
       model_invalid: 'نامعتبر است %{errors}'
       too_long:
+        one: بیش از حد طولانی است (حداکثر %{count} کاراکتر)
         other: بیش از حد طولانی است (حداکثر %{count} کاراکتر)
       too_short:
+        one: بیش از حد کوتاه است (حداقل %{count} کاراکتر)
         other: بیش از حد کوتاه است (حداقل %{count} کاراکتر)
       wrong_length:
+        one: طول آن غلط است (باید %{count} کاراکتر باشد)
         other: طول آن غلط است (باید %{count} کاراکتر باشد)
       other_than: باید بغیر از  %{count} باشد

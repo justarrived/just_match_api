@@ -175,7 +175,7 @@ sv:
     applicant_will_perform_job_info: Information om jobbkonfirmering
     failed_to_activate_invoice: Aktivering av fakturan misslyckades
     update_data_reminder: Påminelse på uppdatering av ansökingsdata
-    marketing: Marketing från Just Arrived
+    marketing: Markandsföring från Just Arrived
   user_document:
     categories:
       cv: CV
@@ -205,7 +205,7 @@ sv:
   job:
     applicant_description_title: Du är
     requirements_description_title: Krav
-    salary_summary: Du kommer ha fast lön på.
+    salary_summary: Fast lön.
     schedule_summary: Din första arbetsdag kommer vara %{start_date}.
     tasks_description_title: Arbetsuppgifter
   texter:
