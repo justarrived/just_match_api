@@ -24,7 +24,7 @@ ActiveAdmin.register RecruiterActivity do
       f.has_many :document, new_record: I18n.t('admin.recruiter_activity.new_document_title') do |b|
         b.input :document, as: :file, hint: I18n.t('admin.recruiter_activity.document_hint')
       end
-      f.input :author, collection: User.delivery_users, selected: current_active_admin_user.id
+      f.input :author, collection: User.admins, selected: current_active_admin_user.id
     end
 
     f.actions

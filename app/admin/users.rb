@@ -252,6 +252,7 @@ ActiveAdmin.register User do
   filter :documents_text_content_cont, as: :string, label: I18n.t('admin.user.resume_search_label')
   filter :recruiter_activities_body_cont, as: :string, label: I18n.t('admin.recruiter_activity.filter_body_label') # rubocop:disable Metrics/LineLength
   filter :recruiter_activities_activity_id_eq, as: :select, collection: -> { Activity.all.order(name: :asc) }, label: I18n.t('admin.recruiter_activity.filter_activity_label') # rubocop:disable Metrics/LineLength
+  filter :recruiter_activities_author_id_eq, as: :select, collection: -> { User.admins }, label: I18n.t('admin.recruiter_activity.filter_author_label') # rubocop:disable Metrics/LineLength
   filter :tags, collection: -> { Tag.order(:name) }
 
   filter :occupations, collection: -> { Occupation.with_translations.order_by_name }
