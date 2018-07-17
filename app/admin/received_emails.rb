@@ -3,6 +3,8 @@
 ActiveAdmin.register ReceivedEmail do
   menu parent: 'Misc', priority: 5
 
+  actions :index, :show
+
   index do
     column :from_address
     column :to_address

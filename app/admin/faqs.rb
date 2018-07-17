@@ -3,6 +3,8 @@
 ActiveAdmin.register Faq do
   menu parent: 'Misc'
 
+  actions :index, :show, :new, :create, :edit, :update
+
   include AdminHelpers::MachineTranslation::Actions
 
   set_faq_translation = lambda do |faq, permitted_params|

@@ -3,6 +3,8 @@
 ActiveAdmin.register GuideImage do
   menu parent: 'Guide', priority: 5
 
+  actions :index, :show, :new, :create, :edit, :update
+
   index do
     selectable_column
 

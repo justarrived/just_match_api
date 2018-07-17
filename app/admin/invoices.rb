@@ -3,6 +3,8 @@
 ActiveAdmin.register Invoice do
   menu parent: 'Jobs', if: proc { current_active_admin_user.super_admin? }
 
+  actions :index, :show, :new, :create, :edit, :update
+
   batch_action :destroy, false
 
   scope :all, default: true

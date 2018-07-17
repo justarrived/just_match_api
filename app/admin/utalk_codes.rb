@@ -3,6 +3,8 @@
 ActiveAdmin.register UtalkCode do
   menu parent: 'Misc'
 
+  actions :index, :show
+
   permit_params do
     %i[
       code

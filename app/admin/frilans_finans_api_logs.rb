@@ -3,6 +3,8 @@
 ActiveAdmin.register FrilansFinansApiLog do
   menu parent: 'Misc', priority: 2
 
+  actions :index, :show
+
   scope :all, default: true
   scope :created
   scope :success

@@ -3,6 +3,8 @@
 ActiveAdmin.register ArbetsformedlingenAd do
   menu parent: 'Jobs'
 
+  actions :index, :show, :new, :create, :edit, :update
+
   config.batch_actions = false
 
   scope :all, default: true

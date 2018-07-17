@@ -3,6 +3,8 @@
 ActiveAdmin.register Chat do
   menu parent: 'Chats', url: -> { admin_chats_path(order: 'updated_at_desc') }
 
+  actions :index, :show, :new, :create, :edit, :update
+
   batch_action :destroy, false
 
   filter :users

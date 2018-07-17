@@ -3,6 +3,8 @@
 ActiveAdmin.register GuideSectionArticle do
   menu parent: 'Guide', label: 'Articles', priority: 2
 
+  actions :index, :show, :new, :create, :edit, :update
+
   filter :section, collection: -> { GuideSection.with_translations }
   filter :language, collection: -> { Language.system_languages }
   filter :translations_title_cont, as: :string, label: 'Title'

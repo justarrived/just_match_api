@@ -3,6 +3,8 @@
 ActiveAdmin.register FilterUser do
   menu parent: 'Filters', priority: 2
 
+  actions :index, :show, :new, :create, :edit, :update
+
   filter :filter, collection: -> { Filter.order(:name) }
   filter :created_at
 

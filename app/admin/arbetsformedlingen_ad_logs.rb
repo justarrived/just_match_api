@@ -2,4 +2,6 @@
 
 ActiveAdmin.register ArbetsformedlingenAdLog do
   menu parent: 'Misc'
+
+  actions :index, :show
 end

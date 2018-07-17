@@ -3,6 +3,8 @@
 ActiveAdmin.register Token do
   menu parent: 'Users'
 
+  actions :index, :show
+
   filter :user
   filter :created_at
 
