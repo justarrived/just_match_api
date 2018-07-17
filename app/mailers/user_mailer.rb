@@ -45,4 +45,27 @@ class UserMailer < ApplicationMailer
     subject = I18n.t('mailer.magic_login_link.subject')
     mail(to: user.contact_email, subject: subject)
   end
+
+  def full_anonymization_queued_email(user:)
+    @anonymization_date = Date.new(2015, 1, 1)
+
+    subject = I18n.t('mailer.full_anonymization_queued.subject')
+    mail(to: user.contact_email, subject: subject)
+  end
+
+  def partial_anonymization_queued_email(user:)
+    @last_application_date = Date.new(2015, 1, 1)
+    @partial_anonymization_date = Date.new(2015, 1, 1)
+    @anonymization_date = Date.new(2015, 1, 1)
+
+    subject = I18n.t('mailer.partial_anonymization_queued.subject')
+    mail(to: user.contact_email, subject: subject)
+  end
+
+  def anonymization_performed_confirmation_email(user:)
+    @disable_notification_settings = true
+
+    subject = I18n.t('mailer.anonymization_performed_confirmation.subject')
+    mail(to: user.contact_email, subject: subject)
+  end
 end

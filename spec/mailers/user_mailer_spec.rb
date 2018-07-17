@@ -120,4 +120,35 @@ RSpec.describe UserMailer, type: :mailer do
       expect(mail).to match_email_body(url)
     end
   end
+
+  [
+    # rubocop:disable Metrics/LineLength
+    # mail method, subject
+    ['full_anonymization_queued_email', 'You account has been marked for anonymization.'],
+    ['partial_anonymization_queued_email', 'You account has been marked for partial anonymization.'],
+    ['anonymization_performed_confirmation_email', 'Your account has been fully anonymized.']
+    # rubocop:enable Metrics/LineLength
+  ].each do |data|
+    mail_method, subject = data
+
+    describe "##{mail_method}" do
+      let(:mail) { described_class.public_send(mail_method, user: user) }
+
+      it 'has both text and html part' do
+        expect(mail).to be_multipart_email(true)
+      end
+
+      it 'renders the subject' do
+        expect(mail.subject).to eql(subject)
+      end
+
+      it 'renders the receiver email' do
+        expect(mail.to).to eql([user.contact_email])
+      end
+
+      it 'renders the sender email' do
+        expect(mail.from).to eql(['no-reply@justarrived.se'])
+      end
+    end
+  end
 end

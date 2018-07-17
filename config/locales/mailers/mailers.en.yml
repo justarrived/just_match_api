@@ -127,6 +127,50 @@ en:
       subject: Magic sign-in link
       login_line: Click the button below to login at Just Arrived
       login_cta: Login at Just Arrived
+    full_anonymization_queued:
+      subject: You account has been marked for anonymization.
+      body: |
+        Hi,
+
+        You account has been marked for anonymization.
+
+        Your account will be fully anonymized on %{anonymization_date}. please note that until then you might receive emails from us. During this time you can also contact us and stop the anonymization if you for some reason change your mind.
+
+        When we've executed the anonymization you will receive an email confirmation, which will be the last time you here from us, unless you decide to signup again.
+
+        We're sad to see you go - best of luck in the future!
+
+        Sincerely,
+        Team Just Arrived
+    partial_anonymization_queued:
+      subject: You account has been marked for partial anonymization.
+      body: |
+        Hi,
+
+        You account has been marked for anonymization.
+
+        HOWEVER, please note that we're not allowed to fully anonymize your account, since you last applied for a job on %{last_application_date} and Swedish law states that we must keep applicant data for a few years.
+
+        We will anonymize your contact details and make sure we don't contact you again, starting on %{partial_anonymization_date}. During this time you can also contact us and stop the anonymization if you for some reason change your mind.
+
+        Your account will automatically be fully anonymized on %{anonymization_date}.
+
+        We're sad to see you go - best of luck in the future!
+
+        Sincerely,
+        Team Just Arrived
+    anonymization_performed_confirmation:
+      subject: Your account has been fully anonymized.
+      body: |
+        Hi,
+
+        Your account has been completely anonymized - we've removed ALL your personal details.
+        This will be the last email you receive from us, unless you decide to signup again.
+
+        We're sad to see you go - best of luck in the future!
+
+        Sincerely,
+        Team Just Arrived
     new_applicant_job_info:
       subject: You applied for a job
       body: |

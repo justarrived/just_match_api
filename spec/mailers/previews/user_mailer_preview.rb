@@ -21,4 +21,16 @@ class UserMailerPreview < ActionMailer::Preview
     user.generate_one_time_token
     UserMailer.magic_login_link_email(user: user)
   end
+
+  def full_anonymization_queued_email
+    UserMailer.full_anonymization_queued_email(user: User.first)
+  end
+
+  def partial_anonymization_queued_email
+    UserMailer.partial_anonymization_queued_email(user: User.first)
+  end
+
+  def anonymization_performed_confirmation_email
+    UserMailer.anonymization_performed_confirmation_email(user: User.first)
+  end
 end

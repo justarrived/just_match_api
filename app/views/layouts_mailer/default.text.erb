@@ -1,5 +1,8 @@
 <%= yield %>
 
+
+<% unless @disable_notification_settings %>
 ---
 
 <%= I18n.t('mailer.update_settings') %> - <%= frontend_mail_url(:user_notification_settings_edit, utm_content: 'footer') %>
+<% end %>
