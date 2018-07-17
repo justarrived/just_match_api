@@ -781,9 +781,6 @@ en:
         given_ratings: Given ratings  #g
         ignored_notifications_mask: Ignored notifications mask  #g
         interests: Interests  #g
-        interview_comment: Interview comment  #g
-        interviewed_at: Interviewed at  #g
-        interviewed_by: :activerecord.models.interviewed_by  #g
         job_digests: Job digests  #g
         job_experience: Job experience  #g
         job_users: Applicants  #g

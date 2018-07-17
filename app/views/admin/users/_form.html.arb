@@ -77,8 +77,6 @@ if user.persisted?
       ff.input :body
     end
 
-    f.input :interview_comment
-    f.input :interviewed_at, as: :datetime_picker
     f.input :job_experience
     f.input :education
     f.input :competence_text

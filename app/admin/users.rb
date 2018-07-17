@@ -405,7 +405,7 @@ ActiveAdmin.register User do
   permit_params do
     extras = [
       :password, :language_id, :company_id, :managed, :frilans_finans_payment_details,
-      :interview_comment, :banned, :just_arrived_staffing,
+      :banned, :just_arrived_staffing,
       :presentation_profile, :presentation_personality, :presentation_availability,
       :language_ids, :skill_ids, ignored_notifications: []
     ]

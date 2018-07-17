@@ -155,8 +155,6 @@ end
 #  gender                           :integer
 #  id                               :integer          not null, primary key
 #  ignored_notifications_mask       :integer
-#  interviewed_at                   :datetime
-#  interviewed_by_user_id           :integer
 #  job_experience                   :text
 #  just_arrived_staffing            :boolean          default(FALSE)
 #  language_id                      :integer
@@ -195,8 +193,7 @@ end
 #
 # Foreign Keys
 #
-#  fk_rails_...                     (company_id => companies.id)
-#  fk_rails_...                     (language_id => languages.id)
-#  users_interviewed_by_user_id_fk  (interviewed_by_user_id => users.id)
-#  users_system_language_id_fk      (system_language_id => languages.id)
+#  fk_rails_...                 (company_id => companies.id)
+#  fk_rails_...                 (language_id => languages.id)
+#  users_system_language_id_fk  (system_language_id => languages.id)
 #

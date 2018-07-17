@@ -42,7 +42,6 @@ class User < ApplicationRecord
   belongs_to :system_language, class_name: 'Language', foreign_key: 'system_language_id'
   belongs_to :language, optional: true
   belongs_to :company, optional: true
-  belongs_to :interviewed_by, optional: true, class_name: 'User', foreign_key: 'interviewed_by_user_id' # rubocop:disable Metrics/LineLength
 
   has_one :utalk_code, dependent: :nullify
 
@@ -460,7 +459,7 @@ class User < ApplicationRecord
       competence_text job_experience education street ssn country_of_origin
       latitude longitude account_clearing_number account_number
       linkedin_url next_of_kin_name next_of_kin_phone
-      interview_comment one_time_token
+      one_time_token
       presentation_profile presentation_personality presentation_availability
     ].zip([nil]).to_h
 
@@ -599,8 +598,6 @@ end
 #  gender                           :integer
 #  id                               :integer          not null, primary key
 #  ignored_notifications_mask       :integer
-#  interviewed_at                   :datetime
-#  interviewed_by_user_id           :integer
 #  job_experience                   :text
 #  just_arrived_staffing            :boolean          default(FALSE)
 #  language_id                      :integer
@@ -639,8 +636,7 @@ end
 #
 # Foreign Keys
 #
-#  fk_rails_...                     (company_id => companies.id)
-#  fk_rails_...                     (language_id => languages.id)
-#  users_interviewed_by_user_id_fk  (interviewed_by_user_id => users.id)
-#  users_system_language_id_fk      (system_language_id => languages.id)
+#  fk_rails_...                 (company_id => companies.id)
+#  fk_rails_...                 (language_id => languages.id)
+#  users_system_language_id_fk  (system_language_id => languages.id)
 #

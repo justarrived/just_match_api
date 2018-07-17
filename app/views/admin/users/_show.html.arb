@@ -24,16 +24,6 @@ columns do
 
       render partial: 'admin/recruiter_activities/simple_list', locals: { recruiter_activities: recruiter_activities, user: user } # rubocop:disable Metrics/LineLength
       render partial: 'admin/users/customer_presentation_fields', locals: { user: user }
-
-      div do
-        content_tag(:p) do
-          strong(
-            [
-              user.interviewed_at&.to_date, user.interviewed_by&.name
-            ].compact.join(', ')
-          )
-        end
-      end
     end
   end
 

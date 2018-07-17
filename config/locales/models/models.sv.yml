@@ -706,9 +706,6 @@ sv:
         given_ratings: Givna betyg
         ignored_notifications_mask: Ignoreras aviseringar maskera
         interests: Intressen
-        interview_comment: Intervjukommentar
-        interviewed_at: Intervjuad den
-        interviewed_by: :activerecord.models.interviewed_by
         job_digests: Jobbsammanfattning
         job_experience: Arbetserfarenhet
         job_users: Ansökande
