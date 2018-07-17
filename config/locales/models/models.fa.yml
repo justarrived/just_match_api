@@ -192,7 +192,6 @@ fa:
         users: کاربران
       user:
         admin: مدیر سایت
-        anonymized: ناشناس شده
         banned: ممنوع
         chat_users: کاربران چت
         chats: چت

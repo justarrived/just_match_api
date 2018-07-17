@@ -111,6 +111,7 @@
                        frontend_mail_url(:root, utm_content: 'footer'),
                        style: 'color:#999999;font-size:12px;text-align:center;'
                      ) %>
+                     <% unless @disable_notification_settings %>
                      <br />
                      <br />
                      <i>
@@ -120,6 +121,7 @@
                          style: 'color:#999999;font-size:12px;text-align:center;'
                        ) %>
                      </i>
+                     <% end %>
                   </td>
                 </tr>
               </table>

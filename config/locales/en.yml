@@ -207,7 +207,7 @@ en:
   job:
     applicant_description_title: You are
     requirements_description_title: Requirements
-    salary_summary: Your salary will be fixed at.
+    salary_summary: Fixed salary.
     schedule_summary: Your first work day will be on %{start_date}.
     tasks_description_title: Work assignments
   texter:

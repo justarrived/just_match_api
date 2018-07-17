@@ -202,20 +202,39 @@ ActiveAdmin.register User do
 
   member_action :anonymize_user, method: :post do
     user = resource
-    if user.anonymization_allowed?
-      wait_days = AppConfig.anonymization_delay_days
-      AnonymizeUserJob.set(wait: wait_days.days).perform_later(user)
-      notice = I18n.t('admin.user.anonymized_success', days: wait_days)
+    wait_days = AppConfig.anonymization_delay_days
 
+    if user.anonymization_allowed?
+      ExecuteService.call(AnonymizeUserService, user, notify: true, wait: wait_days.days)
+      DeliverNotification.call(
+        UserMailer.full_anonymization_queued_email(
+          user: user,
+          anonymization_date: (Time.zone.now + wait_days.days).to_s
+        ),
+        user.locale
+      )
+
+      notice = I18n.t('admin.user.anonymized_success', days: wait_days)
       redirect_to admin_user_path(user), notice: notice
     else
       date = user.last_application_at.to_date
       earliest_date = user.earliest_anonymization_at.to_date
-      notice = I18n.t('admin.user.anonymized_failed', application_date: date, earliest_date: earliest_date) # rubocop:disable Metrics/LineLength
 
       user.anonymization_requested_at = Time.zone.now
-      DestroyUserContactService.call(user)
+      user.save!
 
+      ExecuteService.call(DestroyUserContactService, user, wait: wait_days.days)
+      DeliverNotification.call(
+        UserMailer.partial_anonymization_queued_email(
+          user: user,
+          last_application_date: date.to_s,
+          partial_anonymization_date: (Time.zone.now + wait_days.days).to_date.to_s,
+          anonymization_date: earliest_date.to_s
+        ),
+        user.locale
+      )
+
+      notice = I18n.t('admin.user.anonymized_failed', days: wait_days, application_date: date, earliest_date: earliest_date) # rubocop:disable Metrics/LineLength
       redirect_to admin_user_path(user), alert: notice
     end
   end

@@ -10,7 +10,7 @@ module Sweepers
 
     def self.anonymize_users(scope = User)
       scope.needs_anonymization.find_each(batch_size: 500) do |user|
-        AnonymizeUserJob.perform_later(user)
+        ExecuteService.call(AnonymizeUserService, user)
       end
     end
   end

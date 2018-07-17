@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe UserMailer, type: :mailer do
-  let(:user) { mock_model User, first_name: 'User', name: 'User', contact_email: 'user@example.com' } # rubocop:disable Metrics/LineLength
+  let(:user) { mock_model User, first_name: 'User', name: 'User', contact_email: 'user@example.com', email: 'user@example.com' } # rubocop:disable Metrics/LineLength
   let(:owner) { mock_model User, name: 'Owner', contact_email: 'owner@example.com' }
   let(:job) { mock_model Job, name: 'Job name' }
 
@@ -118,6 +118,81 @@ RSpec.describe UserMailer, type: :mailer do
     it 'includes users reset password url' do
       url = FrontendRouter.draw(:magic_login_link, token: user.one_time_token)
       expect(mail).to match_email_body(url)
+    end
+  end
+
+  describe '#anonymization_performed_confirmation_email' do
+    let(:email) { 'joe@example.com' }
+    let(:mail) do
+      described_class.anonymization_performed_confirmation_email(email: email)
+    end
+
+    it 'has both text and html part' do
+      expect(mail).to be_multipart_email(true)
+    end
+
+    it 'renders the subject' do
+      expect(mail.subject).to eql('Your account has been fully anonymized.')
+    end
+
+    it 'renders the receiver email' do
+      expect(mail.to).to eql([email])
+    end
+
+    it 'renders the sender email' do
+      expect(mail.from).to eql(['no-reply@justarrived.se'])
+    end
+  end
+
+  describe '#full_anonymization_queued_email' do
+    let(:mail) do
+      described_class.full_anonymization_queued_email(
+        user: user, anonymization_date: Date.new(2018, 1, 1)
+      )
+    end
+
+    it 'has both text and html part' do
+      expect(mail).to be_multipart_email(true)
+    end
+
+    it 'renders the subject' do
+      expect(mail.subject).to eql('You account has been marked for anonymization.')
+    end
+
+    it 'renders the receiver email' do
+      expect(mail.to).to eql([user.email])
+    end
+
+    it 'renders the sender email' do
+      expect(mail.from).to eql(['no-reply@justarrived.se'])
+    end
+  end
+
+  describe '#partial_anonymization_queued_email' do
+    let(:mail) do
+      described_class.partial_anonymization_queued_email(
+        user: user,
+        last_application_date: Date.new(2018, 1, 1),
+        partial_anonymization_date: Date.new(2018, 1, 1),
+        anonymization_date: Date.new(2018, 1, 1)
+      )
+    end
+
+    it 'has both text and html part' do
+      expect(mail).to be_multipart_email(true)
+    end
+
+    it 'renders the subject' do
+      subject = 'You account has been marked for partial anonymization.'
+      expect(mail.subject).to eql(subject)
+    end
+
+    it 'renders the receiver email' do
+      expect(mail.to).to eql([user.contact_email])
+    end
+
+    it 'renders the sender email' do
+      expect(mail.from).to eql(['no-reply@justarrived.se'])
     end
   end
 end
