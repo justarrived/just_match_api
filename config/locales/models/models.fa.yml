@@ -28,6 +28,8 @@ fa:
         body: پیکر
       active_admin_comment:
         body: پیکر
+      activity:
+        name: نام
       address:
         latitude: عرض جغرافیایی
         longitude: طول جغرافیایی
@@ -178,6 +180,8 @@ fa:
       rating:
         score: نمره
       received_text:
+        body: پیکر
+      recruiter_activity:
         body: پیکر
       skill:
         job_skills: مهارت های شغلی

@@ -9,6 +9,9 @@ sv:
       settings: Inställningar
       guide: Guide
       misc: Övrigt
+    actions:
+      view: Visa
+      new_resource: Ny %{resource}
     actions_row_title: Åtgärder
     hired_suffix: '(anställd)'
     batch_action_confirm: Är du säker?
@@ -323,12 +326,11 @@ sv:
         status_flags: Status flagga
         candidate_status: Kandidatstatus
         misc: Admindetaljer
-        interview_comment: Intervjukommentar
+        recruiter_activity: Rekryteraraktivitet
         presentation_title: Presentation
         presentation_profile: Profi
         presentation_personality: Personlighet
         presentation_availability: Tillgänglighet
-        no_interview_comment_explain: Ingen intervju har genomförts.
         ongoing_jobs: Pågående jobb
         future_jobs: Sökta jobb
         previous_performed_jobs: Tidigare genomförda jobb
@@ -349,6 +351,12 @@ sv:
       msg_multiple: Lyckades synka
       msg: Lyckades synka.
       post_btn: Synka med Frilans Finans
+    recruiter_activity:
+      filter_body_label: Rekryteraraktivitet
+      filter_activity_label: Rekryteraraktivitetstyp
+      activity_hint: 'Du kan lägga till nya aktiviteter genom att gå till Inställingar >> Aktiviteter'
+      new_document_title: Ladda upp dokument
+      document_hint: 'Du kan bara  ladda upp ett dokument.'
     communication_template:
       form:
         details: Detaljer

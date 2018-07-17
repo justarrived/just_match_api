@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_16_165303) do
+ActiveRecord::Schema.define(version: 2018_07_17_204238) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -30,6 +30,12 @@ ActiveRecord::Schema.define(version: 2018_07_16_165303) do
     t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id"
     t.index ["namespace"], name: "index_active_admin_comments_on_namespace"
     t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
+  end
+
+  create_table "activities", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "addresses", force: :cascade do |t|
@@ -869,6 +875,20 @@ ActiveRecord::Schema.define(version: 2018_07_16_165303) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "recruiter_activities", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "activity_id"
+    t.text "body"
+    t.bigint "document_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "author_id"
+    t.index ["activity_id"], name: "index_recruiter_activities_on_activity_id"
+    t.index ["author_id"], name: "index_recruiter_activities_on_author_id"
+    t.index ["document_id"], name: "index_recruiter_activities_on_document_id"
+    t.index ["user_id"], name: "index_recruiter_activities_on_user_id"
+  end
+
   create_table "skill_filters", id: :serial, force: :cascade do |t|
     t.integer "filter_id"
     t.integer "skill_id"
@@ -1246,6 +1266,9 @@ ActiveRecord::Schema.define(version: 2018_07_16_165303) do
   add_foreign_key "ratings", "jobs", name: "ratings_job_id_fk"
   add_foreign_key "ratings", "users", column: "from_user_id", name: "ratings_from_user_id_fk"
   add_foreign_key "ratings", "users", column: "to_user_id", name: "ratings_to_user_id_fk"
+  add_foreign_key "recruiter_activities", "activities"
+  add_foreign_key "recruiter_activities", "documents"
+  add_foreign_key "recruiter_activities", "users"
   add_foreign_key "skill_filters", "filters"
   add_foreign_key "skill_filters", "skills", name: "skill_filters_skill_id_fk"
   add_foreign_key "skill_translations", "languages"

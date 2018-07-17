@@ -9,6 +9,9 @@ en:
       settings: Settings
       guide: Guide
       misc: Misc
+    actions:
+      view: View
+      new_resource: New %{resource}
     actions_row_title: Actions
     yes_answer: Yes
     no_answer: No
@@ -325,12 +328,11 @@ en:
         status_flags: Status flags
         candidate_status: Candidate status
         misc: Admin details
-        interview_comment: Interview comment
+        recruiter_activity: Recruiter activity
         presentation_title: Presentation
         presentation_profile: Profile
         presentation_personality: Personality
         presentation_availability: Availability
-        no_interview_comment_explain: No interview has been conducted.
         ongoing_jobs: Ongoing jobs
         future_jobs: Applied for jobs
         previous_performed_jobs: Previously performed jobs
@@ -351,6 +353,12 @@ en:
       msg_multiple: Synced successfully.
       msg: Synced successfully.
       post_btn: Sync with Frilans Finans
+    recruiter_activity:
+      filter_body_label: Recruiter activity
+      filter_activity_label: Recruiter activity type
+      activity_hint: 'You can create additonal activities if you goto Settings >> Activities'
+      new_document_title: Upload document
+      document_hint: 'You can only upload one document.'
     communication_template:
       form:
         details: Details
