@@ -24,8 +24,7 @@ columns do
         row :facebook_url
       end
 
-      h3 I18n.t('admin.user.show.recruiter_activity')
-      render partial: 'admin/recruiter_activities/simple_list', locals: { recruiter_activities: recruiter_activities } # rubocop:disable Metrics/LineLength
+      render partial: 'admin/recruiter_activities/simple_list', locals: { recruiter_activities: recruiter_activities, user: user } # rubocop:disable Metrics/LineLength
       render partial: 'admin/users/customer_presentation_fields', locals: { user: user }
 
       div do
