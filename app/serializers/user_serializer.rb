@@ -155,7 +155,6 @@ end
 #  gender                           :integer
 #  id                               :integer          not null, primary key
 #  ignored_notifications_mask       :integer
-#  interview_comment                :text
 #  interviewed_at                   :datetime
 #  interviewed_by_user_id           :integer
 #  job_experience                   :text
