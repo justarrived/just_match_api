@@ -25,6 +25,10 @@ columns do
         else
           simple_format(user.interview_comment)
         end
+
+        user.recruitment_activities.reverse_each do |recruitment_activity|
+          recruitment_activity.body.truncate(80)
+        end
       end
 
       br

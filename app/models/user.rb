@@ -47,6 +47,11 @@ class User < ApplicationRecord
 
   has_one :utalk_code, dependent: :nullify
 
+  # rubocop:disable Metrics/LineLength
+  has_many :owner_recruiter_activities, class_name: 'RecruiterActivity', foreign_key: 'author_id', inverse_of: :author, dependent: :restrict_with_error
+  has_many :recruiter_activities, class_name: 'RecruiterActivity', foreign_key: 'user_id', inverse_of: :user, dependent: :restrict_with_error
+  # rubocop:enable Metrics/LineLength
+
   has_one :digest_subscriber, dependent: :destroy
   has_many :job_digests, through: :digest_subscriber
 

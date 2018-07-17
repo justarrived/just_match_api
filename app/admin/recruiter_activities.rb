@@ -5,7 +5,7 @@ ActiveAdmin.register RecruiterActivity do
 
   permit_params do
     [
-      :body, :user_id, :activity_id,
+      :body, :user_id, :author_id, :activity_id,
       document_attributes: %i[id document]
     ]
   end
@@ -16,11 +16,12 @@ ActiveAdmin.register RecruiterActivity do
 
     f.inputs(f.object.display_name) do
       f.input :activity, collection: Activity.order(name: :asc), hint: I18n.t('admin.recruiter_activity.activity_hint')
-      f.input :user, collection: User.delivery_users, selected: current_active_admin_user.id
+      f.input :user, collection: User.regular_users, selected: f.object.user&.id || params[:user_id]
+      f.input :body
       f.has_many :document, new_record: I18n.t('admin.recruiter_activity.new_document_title') do |b|
         b.input :document, as: :file, hint: I18n.t('admin.recruiter_activity.document_hint')
       end
-      f.input :body
+      f.input :author, collection: User.delivery_users, selected: current_active_admin_user.id
     end
 
     f.actions

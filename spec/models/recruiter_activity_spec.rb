@@ -11,6 +11,7 @@ end
 # Table name: recruiter_activities
 #
 #  activity_id :bigint(8)
+#  author_id   :integer
 #  body        :text
 #  created_at  :datetime         not null
 #  document_id :bigint(8)
@@ -21,6 +22,7 @@ end
 # Indexes
 #
 #  index_recruiter_activities_on_activity_id  (activity_id)
+#  index_recruiter_activities_on_author_id    (author_id)
 #  index_recruiter_activities_on_document_id  (document_id)
 #  index_recruiter_activities_on_user_id      (user_id)
 #
