@@ -615,7 +615,6 @@ end
 #  account_clearing_number          :string
 #  account_number                   :string
 #  verified                         :boolean          default(FALSE)
-#  skype_username                   :string
 #  interview_comment                :text
 #  next_of_kin_name                 :string
 #  next_of_kin_phone                :string
@@ -631,7 +630,6 @@ end
 #  presentation_availability        :text
 #  system_language_id               :integer
 #  linkedin_url                     :string
-#  facebook_url                     :string
 #  has_welcome_app_account          :boolean          default(FALSE)
 #  welcome_app_last_checked_at      :datetime
 #  public_profile                   :boolean          default(FALSE)
