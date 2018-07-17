@@ -250,8 +250,8 @@ ActiveAdmin.register User do
   filter :near_address, label: I18n.t('admin.filter.near_address'), as: :string
   filter :first_name_or_last_name_cont, as: :string, label: I18n.t('admin.user.name')
   filter :documents_text_content_cont, as: :string, label: I18n.t('admin.user.resume_search_label')
-  filter :interview_comment
-  filter :recruiter_activities_body_cont, as: :string
+  filter :recruiter_activities_body_cont, as: :string, label: I18n.t('admin.recruiter_activity.filter_body_label') # rubocop:disable Metrics/LineLength
+  filter :recruiter_activities_activity_id_eq, as: :select, collection: -> { Activity.all.order(name: :asc) }, label: I18n.t('admin.recruiter_activity.filter_activity_label') # rubocop:disable Metrics/LineLength
   filter :tags, collection: -> { Tag.order(:name) }
 
   filter :occupations, collection: -> { Occupation.with_translations.order_by_name }

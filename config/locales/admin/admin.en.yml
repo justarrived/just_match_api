@@ -354,6 +354,8 @@ en:
       msg: Synced successfully.
       post_btn: Sync with Frilans Finans
     recruiter_activity:
+      filter_body_label: Recruiter activity
+      filter_activity_label: Recruiter activity type
       activity_hint: 'You can create additonal activities if you goto Settings >> Activities'
       new_document_title: Upload document
       document_hint: 'You can only upload one document.'
