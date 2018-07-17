@@ -257,10 +257,10 @@ ActiveAdmin.setup do |config|
       menu.add id: 'Users', label: -> { I18n.t('admin.menu.users') }, priority: 3
       menu.add id: 'Sales', label: -> { I18n.t('admin.menu.sales') }, priority: 4
       # rubocop:disable Metrics/LineLength
-      menu.add id: 'Filters', label: -> { I18n.t('admin.menu.filters') }, priority: 5, if: proc { current_active_admin_user.super_admin? }
-      menu.add id: 'Chats', label: -> { I18n.t('admin.menu.chats') }, priority: 6, if: proc { current_active_admin_user.super_admin? }
       menu.add id: 'Settings', label: -> { I18n.t('admin.menu.settings') }, priority: 9, if: proc { current_active_admin_user.super_admin? }
       menu.add id: 'Guide', label: -> { I18n.t('admin.menu.guide') }, priority: 10, if: proc { current_active_admin_user.super_admin? }
+      menu.add id: 'Filters', label: -> { I18n.t('admin.menu.filters') }, priority: 5, if: proc { current_active_admin_user.super_admin? }
+      menu.add id: 'Chats', label: -> { I18n.t('admin.menu.chats') }, priority: 6, if: proc { current_active_admin_user.super_admin? }
       menu.add id: 'Misc', label: -> { I18n.t('admin.menu.misc') }, priority: 11, if: proc { current_active_admin_user.super_admin? }
       # rubocop:enable Metrics/LineLength
     end
