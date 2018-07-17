@@ -28,6 +28,8 @@ ku:
         body: Laş
       active_admin_comment:
         body: Laş
+      activity:
+        name: Nav
       address:
         latitude: Panexet
         longitude: Dirêjexet
@@ -177,6 +179,8 @@ ku:
       rating:
         score: Kirin
       received_text:
+        body: Laş
+      recruiter_activity:
         body: Laş
       skill:
         job_skills: Tecrîbeyên karî

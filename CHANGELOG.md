@@ -3,6 +3,47 @@
 HEAD
 -----------
 
+v2.114.1 - 2018-07-18
+----------
+__Enhancement__:
+* Pull I18n from Transifex
+
+v2.114.0 - 2018-07-18
+----------
+__Admin__:
+* Add search by recruiter activity author
+
+
+v2.113.0 - 2018-07-18
+----------
+__Admin__:
+* Add index filter of recruiter activity to user and applicant
+* Add load optimization for recruiter activity form
+* Add "New recruiter activity" link to simple list
+* Display recruitment activity instead of user interview comment
+* Implement Recruiter Activity form
+* Refactor anon-user action to use `ExecuteService::call`
+* Remove unused scopes from user index
+* Add `user#anonymized_at` and `#anonymization_requested_at` filter
+* Limit what actions are available
+* Improved user anon queue notice
+
+__Enhancement__:
+* Add `MigrateFeedbacksData`
+* Add `MigrateInterviewCommentData`
+* Add `FAST` variable to `script/server` that skips `$ script/update`
+* Run migrations for `Activity` and `RecruiterActivity`
+* Generate `Activity` and `RecruiterActivity` models
+* Sort model annotations
+* Pull I18n from `Transifex`
+* Update admin locale
+* Refactor `UserSweeper` to use `ExecuteService`
+* Send anonymization notifications
+* Remove `AnonymizeUserJob`
+* Add anonymization notification emails
+* Delay minimal user anonymization for 3 days
+* Wait for configured amount of time after anonymization request
+
 
 v2.112.0 - 2018-07-17
 ----------

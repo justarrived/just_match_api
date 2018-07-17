@@ -7,8 +7,13 @@ cd "$(dirname "$0")/.."
 # script/server: Launch the application and any extra required processes
 #                locally.
 
-# ensure everything in the app is up to date.
-script/update
+FAST=${FAST:-}
+if [[ -z $FAST ]]; then
+  # ensure everything in the app is up to date.
+  script/update
+else
+  echo '== Fast boot enabled - skipping $ script/update =='
+fi
 
 RACK_ENV=${RACK_ENV:-development}
 

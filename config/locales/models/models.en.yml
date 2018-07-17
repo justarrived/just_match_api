@@ -3,6 +3,7 @@ en:
     models:
       active_admin/comment: Active admin comment  #g
       active_admin_comment: Active admin comment  #g
+      activity: Activity  #g
       address: Address  #g
       ahoy/event: Ahoy event  #g
       arbetsformedlingen_ad: Arbetsförmedlingen ad  #g
@@ -66,6 +67,7 @@ en:
       rating: Rating  #g
       received_email: Received email  #g
       received_text: Received text  #g
+      recruiter_activity: Recruiter activity  #g
       skill: Skill  #g
       skill_filter: Skill filter  #g
       skill_translation: Skill translation  #g
@@ -100,6 +102,9 @@ en:
         namespace: Namespace  #g
         resource: :activerecord.models.resource  #g
         resource_type: Resource type  #g
+
+      activity:
+        name: Name  #g
 
       address:
         city: City  #g
@@ -690,6 +695,13 @@ en:
         from_number: From number  #g
         to_number: To number  #g
 
+      recruiter_activity:
+        activity: :activerecord.models.activity  #g
+        author: :activerecord.models.author  #g
+        body: Body  #g
+        document: :activerecord.models.document  #g
+        user: :activerecord.models.user  #g
+
       skill:
         color: Color  #g
         high_priority: High priority  #g
@@ -791,6 +803,7 @@ en:
         one_time_token: One time token  #g
         one_time_token_expires_at: One time token expires at  #g
         owned_jobs: Owned jobs  #g
+        owner_recruiter_activities: Owner recruiter activities  #g
         password_hash: Password hash  #g
         password_salt: Password salt  #g
         phone: Phone  #g
@@ -798,6 +811,7 @@ en:
         presentation_personality: Presentation personality  #g
         presentation_profile: Presentation profile  #g
         received_ratings: Received ratings  #g
+        recruiter_activities: Recruiter activities  #g
         skills: Skills  #g
         ssn: Ssn  #g
         street: Street  #g

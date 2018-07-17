@@ -28,6 +28,8 @@ ps:
         body: بدن
       active_admin_comment:
         body: بدن
+      activity:
+        name: نوم
       address:
         latitude: عرض البلد
         longitude: طول البلد
@@ -177,6 +179,8 @@ ps:
       rating:
         score: کول
       received_text:
+        body: بدن
+      recruiter_activity:
         body: بدن
       skill:
         job_skills: کاري تجربه

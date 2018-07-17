@@ -28,6 +28,8 @@ ti:
         body: ሰብነት ወይ ኣካል
       active_admin_comment:
         body: ሰብነት ወይ ኣካል
+      activity:
+        name: ስም
       address:
         latitude: Latitud (ግዳማዊ ናይ ሓሳብ መስመር)
         longitude: Longitud (ትኹላዊ ናይ ሓሳብ መስመር)
@@ -178,6 +180,8 @@ ti:
       rating:
         score: ግበር ወይ ስራሕ
       received_text:
+        body: ሰብነት ወይ ኣካል
+      recruiter_activity:
         body: ሰብነት ወይ ኣካል
       skill:
         job_skills: ናይ ስራሕ ተሞክሮታት

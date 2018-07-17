@@ -8,6 +8,7 @@ class AnonymizeUserService
       return Result.new(anonymized?: false, user: user)
     end
 
+    document_ids = []
     email = user.email
 
     user.anonymize_attributes
@@ -21,13 +22,17 @@ class AnonymizeUserService
       job_user.set_translation(apply_message: '<The user has been deleted.>')
     end
 
+    user.recruiter_activities.each do |ra|
+      document_ids << ra.document_id if ra.document_id
+      ra.destroy!
+    end
     user.feedbacks.each(&:destroy!)
     user.digest_subscriber(&:mark_destroyed)&.save!
 
     # Remove user documents
-    document_ids = user.user_documents.map do |ud|
+    user.user_documents.each do |ud|
+      document_ids << ud.document_id
       ud.destroy!
-      ud.document_id
     end
 
     ExecuteService.call(RemoveDocumentService.to_s, document_ids, run_async: run_async)
