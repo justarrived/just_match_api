@@ -234,7 +234,7 @@ ActiveAdmin.register User do
         user.locale
       )
 
-      notice = I18n.t('admin.user.anonymized_failed', application_date: date, earliest_date: earliest_date) # rubocop:disable Metrics/LineLength
+      notice = I18n.t('admin.user.anonymized_failed', days: wait_days, application_date: date, earliest_date: earliest_date) # rubocop:disable Metrics/LineLength
       redirect_to admin_user_path(user), alert: notice
     end
   end
