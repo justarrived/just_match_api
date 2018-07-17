@@ -111,7 +111,6 @@ class User < ApplicationRecord
   validates :frilans_finans_id, uniqueness: true, allow_nil: true
   validates :country_of_origin, inclusion: { in: ISO3166::Country.translations.keys }, allow_blank: true # rubocop:disable Metrics/LineLength
   validates :linkedin_url, linkedin: true
-  validates :facebook_url, facebook: true
 
   validate :validate_arrived_at_date
   validate :validate_language_id_in_available_locale
@@ -462,7 +461,7 @@ class User < ApplicationRecord
       phone
       competence_text job_experience education street ssn country_of_origin
       latitude longitude account_clearing_number account_number
-      linkedin_url facebook_url skype_username next_of_kin_name next_of_kin_phone
+      linkedin_url skype_username next_of_kin_name next_of_kin_phone
       interview_comment one_time_token
       presentation_profile presentation_personality presentation_availability
     ].zip([nil]).to_h

@@ -19,7 +19,6 @@ columns do
         row :zip
         row :ssn
         row :linkedin_url
-        row :facebook_url
       end
 
       if user.interview_comment.present?

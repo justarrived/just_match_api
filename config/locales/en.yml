@@ -121,7 +121,6 @@ en:
       unrevertable: can't revert %{field}
       swedish_municipality: must be a known swedish municipality
       linkedin_url: must be a LinkedIN URL
-      facebook_url: must be a Facebook URL
       url: must be an URL
       drivers_license: must consist of only valid drivers license codes
   invalid_credentials: Invalid credentials.

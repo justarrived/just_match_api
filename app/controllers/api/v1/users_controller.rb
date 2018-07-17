@@ -108,7 +108,6 @@ module Api
           param :next_of_kin_phone, String, desc: 'Next of kin phone'
           param :arbetsformedlingen_registered_at, Date, desc: 'Arbetsförmedlingen registered at'
           param :linkedin_url, String, desc: 'Users LinkedIN URL'
-          param :facebook_url, String, desc: 'Users Facebook URL'
           # rubocop:enable Metrics/LineLength
         end
       end
@@ -189,7 +188,6 @@ module Api
           param :next_of_kin_phone, String, desc: 'Next of kin phone'
           param :arbetsformedlingen_registered_at, Date, desc: 'Arbetsförmedlingen registered at'
           param :linkedin_url, String, desc: 'Users LinkedIN URL'
-          param :facebook_url, String, desc: 'Users Facebook URL'
           # rubocop:enable Metrics/LineLength
         end
       end
@@ -372,7 +370,7 @@ module Api
           :first_name, :last_name, :email, :phone, :description, :job_experience,
           :education, :ssn, :street, :city, :zip, :language_id, :company_id,
           :competence_text, :current_status, :at_und, :arrived_at, :country_of_origin,
-          :skype_username, :gender, :bank_account, :linkedin_url, :facebook_url,
+          :skype_username, :gender, :bank_account, :linkedin_url,
           :public_profile,
           :system_language_id, ignored_notifications: []
         ]

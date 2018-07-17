@@ -119,7 +119,6 @@ sv:
       unrevertable: kan inte återställa %{field}
       swedish_municipality: måste vara en giltig svensk kommun
       linkedin_url: måste vara en giltig LinkedIN URL
-      facebook_url: måste vara en giltig Facebook URL
       url: måste vara en URL
       drivers_license: får bara innehålla giltiga körkortsbeteckningar
   invalid_credentials: Fel referenser.
