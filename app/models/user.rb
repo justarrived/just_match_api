@@ -461,7 +461,7 @@ class User < ApplicationRecord
       phone
       competence_text job_experience education street ssn country_of_origin
       latitude longitude account_clearing_number account_number
-      linkedin_url skype_username next_of_kin_name next_of_kin_phone
+      linkedin_url next_of_kin_name next_of_kin_phone
       interview_comment one_time_token
       presentation_profile presentation_personality presentation_availability
     ].zip([nil]).to_h

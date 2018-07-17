@@ -15,7 +15,6 @@ if user.persisted?
     f.input :street, input_html: { autocomplete: 'off' }
     f.input :city, input_html: { autocomplete: 'off' }
     f.input :zip, input_html: { autocomplete: 'off' }
-    f.input :skype_username, input_html: { autocomplete: 'off' }
     f.input :description, input_html: { autocomplete: 'off' }
   end
 
@@ -146,7 +145,6 @@ else
     f.input :street, input_html: { autocomplete: 'off' }
     f.input :city, input_html: { autocomplete: 'off' }
     f.input :zip, input_html: { autocomplete: 'off' }
-    f.input :skype_username, input_html: { autocomplete: 'off' }
   end
 end
 

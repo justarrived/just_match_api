@@ -12,7 +12,6 @@ columns do
         row :name
         row :email
         row :phone
-        row :skype_username
         row :gender
         row :street
         row :city

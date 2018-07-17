@@ -102,7 +102,6 @@ module Api
           param :gender, User::GENDER.keys, desc: 'Gender'
           param :arrived_at, String, desc: 'Arrived at date'
           param :country_of_origin, String, desc: 'Country of origin (alpha-2 code)'
-          param :skype_username, String, desc: 'Skype username'
           param :bank_account, String, desc: 'User bank account number'
           param :next_of_kin_name, String, desc: 'Next of kin name'
           param :next_of_kin_phone, String, desc: 'Next of kin phone'
@@ -182,7 +181,6 @@ module Api
           param :gender, User::GENDER.keys, desc: 'Gender'
           param :arrived_at, String, desc: 'Arrived at date'
           param :country_of_origin, String, desc: 'Country of origin'
-          param :skype_username, String, desc: 'Skype username'
           param :bank_account, String, desc: 'User bank account number'
           param :next_of_kin_name, String, desc: 'Next of kin name'
           param :next_of_kin_phone, String, desc: 'Next of kin phone'
@@ -370,7 +368,7 @@ module Api
           :first_name, :last_name, :email, :phone, :description, :job_experience,
           :education, :ssn, :street, :city, :zip, :language_id, :company_id,
           :competence_text, :current_status, :at_und, :arrived_at, :country_of_origin,
-          :skype_username, :gender, :bank_account, :linkedin_url,
+          :gender, :bank_account, :linkedin_url,
           :public_profile,
           :system_language_id, ignored_notifications: []
         ]
