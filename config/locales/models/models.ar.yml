@@ -30,6 +30,8 @@ ar:
         body: جسم
       active_admin_comment:
         body: جسم
+      activity:
+        name: الاسم
       address:
         latitude: خط العرض
         longitude: خط الطول
@@ -181,6 +183,8 @@ ar:
       rating:
         score: فِعْل
       received_text:
+        body: جسم
+      recruiter_activity:
         body: جسم
       skill:
         job_skills: خبرات عمل

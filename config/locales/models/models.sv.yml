@@ -3,6 +3,7 @@ sv:
     models:
       active_admin/comment: Active admin comment
       active_admin_comment: Active admin comment
+      activity: Aktivitet
       address: Adress
       ahoy/event: Ahoy event
       arbetsformedlingen_ad: Arbetsförmedlingen annons
@@ -66,6 +67,7 @@ sv:
       rating: Betyg
       received_email: Mottagna emai
       received_text: Mottagna SMS
+      recruiter_activity: Rekryteraraktivitet
       skill: Skicklighet
       skill_filter: Kompetensfilter
       skill_translation: Kompetensöversättning
@@ -98,6 +100,8 @@ sv:
         namespace: Namespace
         resource: :activerecord.models.resource
         resource_type: Resurstyp
+      activity:
+        name: Namn
       address:
         city: Stad
         country_code: Landskod
@@ -625,6 +629,12 @@ sv:
         body: Kropp
         from_number: Från nummer
         to_number: Till nummer
+      recruiter_activity:
+        activity: :activerecord.models.activity
+        author: :activerecord.models.author
+        body: Kropp
+        document: :activerecord.models.document
+        user: :activerecord.models.user
       skill:
         color: Färg
         high_priority: Hög prioritet
@@ -721,6 +731,7 @@ sv:
         one_time_token: En gång token
         one_time_token_expires_at: En gång token går ut på
         owned_jobs: Ägda jobb
+        owner_recruiter_activities: Skapare av rekryteraraktiviteter
         password_hash: Lösenord hash
         password_salt: Lösenord salt
         phone: Telefon
@@ -729,6 +740,7 @@ sv:
         presentation_profile: Presentation profil
         public_profile: Publik profil
         received_ratings: Mottagna betyg
+        recruiter_activities: Rekryteraraktiviteter
         skills: Färdigheter
         skype_username: Skypeanvändarnamn
         ssn: Ssn
