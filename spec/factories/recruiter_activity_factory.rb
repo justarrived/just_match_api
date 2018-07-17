@@ -3,6 +3,7 @@
 FactoryBot.define do
   factory :recruiter_activity do
     association :user
+    association :author, factory: :user
     association :activity
     body 'MyText'
     document nil

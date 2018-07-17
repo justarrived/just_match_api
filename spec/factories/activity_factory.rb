@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :activity do
-    name 'MyString'
+    sequence(:name) { |n| "Activity ##{n}" }
   end
 end
 
