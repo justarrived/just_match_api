@@ -1,8 +1,12 @@
 # frozen_string_literal: true
 
-
 class Activity < ApplicationRecord
   validates :name, presence: true, uniqueness: true
+
+  # ActiveAdmin display name
+  def display_name
+    name
+  end
 end
 
 # == Schema Information

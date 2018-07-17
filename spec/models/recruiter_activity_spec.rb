@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-
 require 'rails_helper'
 
 RSpec.describe RecruiterActivity, type: :model do

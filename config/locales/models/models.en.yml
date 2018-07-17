@@ -3,6 +3,7 @@ en:
     models:
       active_admin/comment: Active admin comment  #g
       active_admin_comment: Active admin comment  #g
+      activity: Activity  #g
       address: Address  #g
       ahoy/event: Ahoy event  #g
       arbetsformedlingen_ad: Arbetsförmedlingen ad  #g
@@ -66,6 +67,7 @@ en:
       rating: Rating  #g
       received_email: Received email  #g
       received_text: Received text  #g
+      recruiter_activity: Recruiter activity  #g
       skill: Skill  #g
       skill_filter: Skill filter  #g
       skill_translation: Skill translation  #g
@@ -100,6 +102,9 @@ en:
         namespace: Namespace  #g
         resource: :activerecord.models.resource  #g
         resource_type: Resource type  #g
+
+      activity:
+        name: Name  #g
 
       address:
         city: City  #g
@@ -690,6 +695,12 @@ en:
         body: Body  #g
         from_number: From number  #g
         to_number: To number  #g
+
+      recruiter_activity:
+        activity: :activerecord.models.activity  #g
+        body: Body  #g
+        document: :activerecord.models.document  #g
+        user: :activerecord.models.user  #g
 
       skill:
         color: Color  #g
