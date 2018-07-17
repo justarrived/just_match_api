@@ -97,7 +97,6 @@ if user.persisted?
   f.actions
 
   f.inputs I18n.t('admin.user.form.status_flags') do
-    f.input :verified
     f.input :admin
     f.input :super_admin
     f.input :anonymized

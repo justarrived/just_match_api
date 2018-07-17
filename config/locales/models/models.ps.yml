@@ -133,7 +133,6 @@ ps:
         skills: مهارتونه
         street: کوڅه
         users: کارونکی
-        verified: تایید شوی
         zip: زیپر
         zip_latitude: د زیپ عرض البلد
         zip_longitude: د زیپ طول البلد
@@ -220,7 +219,6 @@ ps:
         user_images: د کارونکي عکسونه
         user_languages: د کارونکي ژبه
         user_skills: د کارونکي مهارتونه
-        verified: تایید شوی
         written_comments: لیکلي نظرونه
         zip: زیپر
         zip_latitude: د زیپ عرض البلد

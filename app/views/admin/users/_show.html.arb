@@ -92,8 +92,6 @@ columns do
 
         h3 I18n.t('admin.user.show.average_score', score: user.average_score || '-')
 
-        h3 I18n.t('admin.user.show.verified', verified: user.verified)
-
         if cv = user.user_documents.cv.last&.document
           h3 safe_join(
             [
@@ -200,7 +198,6 @@ columns do
         row :managed
         row :anonymized
         row :banned
-        row :verified
         row :just_arrived_staffing
       end
     end

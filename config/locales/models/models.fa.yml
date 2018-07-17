@@ -133,7 +133,6 @@ fa:
         skills: مهارت ها
         street: خیابان
         users: کاربران
-        verified: تایید شده
         zip: کُد پستی
         zip_latitude: عرض جغرافیایی کُد پستی
         zip_longitude: طول جغرافیایی کُد پستی
@@ -221,7 +220,6 @@ fa:
         user_images: تصاویر کاربر
         user_languages: زبان کاربر
         user_skills: مهارت های کاربر
-        verified: تایید شده
         written_comments: نظرات کتبی
         zip: کُد پستی
         zip_latitude: عرض جغرافیایی کُد پستی

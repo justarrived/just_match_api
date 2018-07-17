@@ -4,7 +4,7 @@ class JobSerializer < ApplicationSerializer
   attributes %i(
     id job_date hours created_at updated_at owner_user_id
     latitude longitude language_id street zip zip_latitude zip_longitude
-    hidden category_id hourly_pay_id verified job_end_date cancelled filled
+    hidden category_id hourly_pay_id job_end_date cancelled filled
     featured upcoming language_id gross_amount net_amount city currency
     full_street_address direct_recruitment_job application_url
     swedish_drivers_license car_required last_application_at full_time publish_at
@@ -203,7 +203,6 @@ end
 #  hidden                       :boolean          default(FALSE)
 #  category_id                  :integer
 #  hourly_pay_id                :integer
-#  verified                     :boolean          default(FALSE)
 #  job_end_date                 :datetime
 #  cancelled                    :boolean          default(FALSE)
 #  short_description            :string

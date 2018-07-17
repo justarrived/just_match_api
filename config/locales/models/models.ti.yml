@@ -133,7 +133,6 @@ ti:
         skills: ክእለት ወይ ሙያ
         street: ጎደና
         users: ተጠቃሚ
-        verified: ዝተረጋገጸ
         zip: Postnummer (ሻርኔራ ወይ መኽፈቲ - ዚፕ)
         zip_latitude: Zip latitud (ግዳማዊ ዚፕ)
         zip_longitude: Zip longitud (ትኹላዊ ዚፕ)
@@ -220,7 +219,6 @@ ti:
         user_images: ናይ ተጠቃሚ ስእሊ
         user_languages: ቋንቋ ናይ ተጠቃሚ
         user_skills: ክእለት ወይ ሙያ ናይ ተጠቃሚ
-        verified: ዝተረጋገጸ
         written_comments: ናይ ጽሑፍ ርእይቶ
         zip: Postnummer (ሻርኔራ ወይ መኽፈቲ - ዚፕ)
         zip_latitude: Zip latitud (ግዳማዊ ዚፕ)

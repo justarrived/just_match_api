@@ -418,7 +418,6 @@ sv:
         unpublish_at: Avpublicerat den
         upcoming: Kommande
         users: Användare
-        verified: Verifierade
         zip: Postnummer
         zip_latitude: Zip latitud
         zip_longitude: Zip longitud
@@ -741,7 +740,6 @@ sv:
         user_skills: Användar färdigheter
         user_tags: Användartaggar
         utalk_code: :activerecord.models.utalk_code
-        verified: Verifierade
         written_comments: Skriftliga kommentarer
         zip: Postnummer
         zip_latitude: Zip latitud

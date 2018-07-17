@@ -461,7 +461,6 @@ en:
         unpublish_at: Unpublish at  #g
         upcoming: Upcoming  #g
         users: Users  #g
-        verified: Verified  #g
         zip: Zip  #g
         zip_latitude: Zip latitude  #g
         zip_longitude: Zip longitude  #g
@@ -814,7 +813,6 @@ en:
         user_skills: User skills  #g
         user_tags: User tags  #g
         utalk_code: :activerecord.models.utalk_code  #g
-        verified: Verified  #g
         written_comments: Written comments  #g
         zip: Zip  #g
         zip_latitude: Zip latitude  #g

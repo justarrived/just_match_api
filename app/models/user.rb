@@ -157,7 +157,6 @@ class User < ApplicationRecord
   })
   scope :anonymized, (-> { where.not(anonymized_at: nil) })
   scope :not_anonymized, (-> { where(anonymized_at: nil) })
-  scope :verified, (-> { where(verified: true) })
 
   # NOTE: Figure out a good way to validate :current_status, :at_und and :gender
   #       see https://github.com/rails/rails/issues/13971
@@ -266,7 +265,7 @@ class User < ApplicationRecord
   end
 
   def support_chat_activated?
-    verified || super_admin || admin || just_arrived_staffing
+    super_admin || admin || just_arrived_staffing
   end
 
   def all_attributes
@@ -606,7 +605,6 @@ end
 #  managed                          :boolean          default(FALSE)
 #  account_clearing_number          :string
 #  account_number                   :string
-#  verified                         :boolean          default(FALSE)
 #  interview_comment                :text
 #  next_of_kin_name                 :string
 #  next_of_kin_phone                :string

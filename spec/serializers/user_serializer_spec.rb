@@ -89,7 +89,6 @@ end
 #  managed                          :boolean          default(FALSE)
 #  account_clearing_number          :string
 #  account_number                   :string
-#  verified                         :boolean          default(FALSE)
 #  interview_comment                :text
 #  next_of_kin_name                 :string
 #  next_of_kin_phone                :string

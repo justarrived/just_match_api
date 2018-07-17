@@ -10,7 +10,7 @@ class UserSerializer < ApplicationSerializer
     zip zip_latitude zip_longitude first_name last_name name ssn banned
     company_id one_time_token one_time_token_expires_at just_arrived_staffing
     ignored_notifications_mask frilans_finans_id frilans_finans_payment_details
-    current_status at_und arrived_at country_of_origin managed verified
+    current_status at_und arrived_at country_of_origin managed
     account_clearing_number account_number gender full_street_address
     support_chat_activated linkedin_url bank_account
   ) + EXTRA_ATTRIBUTES
@@ -167,7 +167,6 @@ end
 #  managed                          :boolean          default(FALSE)
 #  account_clearing_number          :string
 #  account_number                   :string
-#  verified                         :boolean          default(FALSE)
 #  interview_comment                :text
 #  next_of_kin_name                 :string
 #  next_of_kin_phone                :string

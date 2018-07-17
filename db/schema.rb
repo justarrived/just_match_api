@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_17_010126) do
+ActiveRecord::Schema.define(version: 2018_07_17_011528) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -673,7 +673,6 @@ ActiveRecord::Schema.define(version: 2018_07_17_010126) do
     t.boolean "hidden", default: false
     t.integer "category_id"
     t.integer "hourly_pay_id"
-    t.boolean "verified", default: false
     t.datetime "job_end_date"
     t.boolean "cancelled", default: false
     t.string "short_description"
@@ -1073,7 +1072,6 @@ ActiveRecord::Schema.define(version: 2018_07_17_010126) do
     t.boolean "managed", default: false
     t.string "account_clearing_number"
     t.string "account_number"
-    t.boolean "verified", default: false
     t.text "interview_comment"
     t.string "next_of_kin_name"
     t.string "next_of_kin_phone"
