@@ -6,7 +6,7 @@ HEAD
 v2.114.0 - 2018-07-18
 ----------
 __Admin__
-* Add search by rectruiter activity author
+* Add search by recruiter activity author
 
 
 v2.113.0 - 2018-07-18
