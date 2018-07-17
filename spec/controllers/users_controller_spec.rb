@@ -583,7 +583,6 @@ end
 #  presentation_availability        :text
 #  system_language_id               :integer
 #  linkedin_url                     :string
-#  public_profile                   :boolean          default(FALSE)
 #  anonymized_at                    :datetime
 #  anonymization_requested_at       :datetime
 #

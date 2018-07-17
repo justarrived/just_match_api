@@ -287,8 +287,6 @@ sv:
         presentation_inputs: Kundpresentation
         misc: Övrigt
         create_user: Skapa användare
-        public_profile:
-          hint: Om användaren kommer vara publikt synlig
         language:
           hint: Standardspråk för all användarkommunikation.
         managed:
