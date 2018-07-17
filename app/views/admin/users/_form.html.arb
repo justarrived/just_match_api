@@ -69,14 +69,6 @@ if user.persisted?
       end
     end
 
-    f.has_many :feedbacks, new_record: true do |ff|
-      ff.semantic_errors(*ff.object.errors.keys)
-
-      ff.input :job, collection: jobs
-      ff.input :title, input_html: { autocomplete: 'off' }
-      ff.input :body
-    end
-
     f.input :job_experience
     f.input :education
     f.input :competence_text

@@ -418,7 +418,6 @@ ActiveAdmin.register User do
       user_tags_attributes: %i(id tag_id _destroy),
       user_documents_attributes: [:id, :category, { document_attributes: [:document] }],
       user_occupations_attributes: %i(occupation_id years_of_experience),
-      feedbacks_attributes: %i(id job_id title body),
       employment_periods_attributes: %i(
         id
         job_id

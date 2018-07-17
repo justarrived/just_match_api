@@ -55,8 +55,6 @@ class User < ApplicationRecord
 
   has_many :employment_periods, dependent: :nullify
 
-  has_many :feedbacks, dependent: :destroy
-
   has_many :filter_users, dependent: :destroy
   has_many :filters, through: :filter_users
 
@@ -178,7 +176,7 @@ class User < ApplicationRecord
 
   # NOTE: This is necessary for nested activeadmin has_many form
   accepts_nested_attributes_for :user_skills, :user_languages, :user_interests,
-                                :user_documents, :user_occupations, :feedbacks,
+                                :user_documents, :user_occupations,
                                 :employment_periods
   accepts_nested_attributes_for :user_tags, allow_destroy: true
 

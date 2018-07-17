@@ -26,7 +26,6 @@ en:
       employment_period: Employment period  #g
       faq: Faq  #g
       faq_translation: Faq translation  #g
-      feedback: Feedback  #g
       filter: Filter  #g
       filter_user: Filter user  #g
       frilans_finans_api_log: Frilans Finans API log  #g
@@ -270,12 +269,6 @@ en:
         language: :activerecord.models.language  #g
         locale: Locale  #g
         question: Question  #g
-
-      feedback:
-        body: Body  #g
-        job: :activerecord.models.job  #g
-        title: Title  #g
-        user: :activerecord.models.user  #g
 
       filter:
         filter_users: Filter users  #g
@@ -772,7 +765,6 @@ en:
         email: Email  #g
         employed_for_jobs: Employed for jobs  #g
         employment_periods: Employment periods  #g
-        feedbacks: Feedbacks  #g
         filter_users: Filter users  #g
         filters: Filters  #g
         first_name: First name  #g

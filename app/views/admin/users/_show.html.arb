@@ -111,16 +111,6 @@ columns do
             previous_performed_jobs: user.employed_for_jobs.passed.with_translations
           }
         )
-
-        hr
-        h3 I18n.t('admin.user.show.feedbacks')
-        div do
-          user.feedbacks.each do |feedback|
-            h4 feedback.title
-            div { simple_format(feedback.body) }
-            hr
-          end
-        end
       end
     end
   end

@@ -309,7 +309,6 @@ sv:
         tags: Taggar
         skills: Färdigheter
         filters: I filter
-        feedbacks: Given feedback
         city: 'Stad: %{city}'
         basic_info_title: Grundläggande information
         candidate_summary: Kandidatsummering
