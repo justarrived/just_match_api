@@ -347,6 +347,7 @@ sv:
     recruiter_activity:
       filter_body_label: Rekryteraraktivitet
       filter_activity_label: Rekryteraraktivitetstyp
+      filter_author_label: Rekryteraraktivitets författare
       activity_hint: 'Du kan lägga till nya aktiviteter genom att gå till Inställingar >> Aktiviteter'
       new_document_title: Ladda upp dokument
       document_hint: 'Du kan bara  ladda upp ett dokument.'
