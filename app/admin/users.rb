@@ -256,6 +256,8 @@ ActiveAdmin.register User do
   filter :translations_competence_text_cont, as: :string, label: I18n.t('admin.user.competence_text')
   filter :translations_job_experience_cont, as: :string, label: I18n.t('admin.user.job_experience')
   # rubocop:enable Metrics/LineLength
+  filter :anonymized_at
+  filter :anonymization_requested_at
   filter :id
   filter :email
   filter :phone
