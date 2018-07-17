@@ -11,7 +11,6 @@ class User < ApplicationRecord
   MIN_PASSWORD_LENGTH = AppConfig.min_password_length
   MAX_PASSWORD_LENGTH = AppConfig.max_password_length
   ONE_TIME_TOKEN_VALID_FOR_HOURS = AppConfig.user_one_time_token_valid_for_hours
-  DAYS_BETWEEN_WELCOME_CHECKS = AppConfig.days_between_welcome_checks
 
   LOCATE_BY = {
     address: { lat: :latitude, long: :longitude }.freeze
@@ -159,12 +158,6 @@ class User < ApplicationRecord
   scope :anonymized, (-> { where.not(anonymized_at: nil) })
   scope :not_anonymized, (-> { where(anonymized_at: nil) })
   scope :verified, (-> { where(verified: true) })
-  scope :needs_welcome_app_update, (lambda {
-    scope = regular_users.where(welcome_app_last_checked_at: nil).
-            or(before(:welcome_app_last_checked_at, DAYS_BETWEEN_WELCOME_CHECKS.days.ago))
-
-    scope.where(has_welcome_app_account: false)
-  })
 
   # NOTE: Figure out a good way to validate :current_status, :at_und and :gender
   #       see https://github.com/rails/rails/issues/13971
@@ -629,8 +622,6 @@ end
 #  presentation_availability        :text
 #  system_language_id               :integer
 #  linkedin_url                     :string
-#  has_welcome_app_account          :boolean          default(FALSE)
-#  welcome_app_last_checked_at      :datetime
 #  public_profile                   :boolean          default(FALSE)
 #  anonymized_at                    :datetime
 #  anonymization_requested_at       :datetime

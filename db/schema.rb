@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_17_003232) do
+ActiveRecord::Schema.define(version: 2018_07_17_004746) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -1089,8 +1089,6 @@ ActiveRecord::Schema.define(version: 2018_07_17_003232) do
     t.text "presentation_availability"
     t.integer "system_language_id"
     t.string "linkedin_url"
-    t.boolean "has_welcome_app_account", default: false
-    t.datetime "welcome_app_last_checked_at"
     t.boolean "public_profile", default: false
     t.datetime "anonymized_at"
     t.datetime "anonymization_requested_at"

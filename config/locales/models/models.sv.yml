@@ -695,7 +695,6 @@ sv:
         frilans_finans_payment_details: Frilans Finans betaluppgifter
         gender: Kön
         given_ratings: Givna betyg
-        has_welcome_app_account: Har Welcome app konto
         ignored_notifications_mask: Ignoreras aviseringar maskera
         interests: Intressen
         interview_comment: Intervjukommentar
@@ -744,7 +743,6 @@ sv:
         user_tags: Användartaggar
         utalk_code: :activerecord.models.utalk_code
         verified: Verifierade
-        welcome_app_last_checked_at: Welcome app senast kollat den
         written_comments: Skriftliga kommentarer
         zip: Postnummer
         zip_latitude: Zip latitud

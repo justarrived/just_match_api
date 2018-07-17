@@ -12,8 +12,7 @@ class UserSerializer < ApplicationSerializer
     ignored_notifications_mask frilans_finans_id frilans_finans_payment_details
     current_status at_und arrived_at country_of_origin managed verified
     account_clearing_number account_number gender full_street_address
-    support_chat_activated linkedin_url bank_account
-    has_welcome_app_account welcome_app_last_checked_at public_profile
+    support_chat_activated linkedin_url bank_account public_profile
   ) + EXTRA_ATTRIBUTES
 
   link(:self) { api_v1_user_url(object) }
@@ -184,8 +183,6 @@ end
 #  presentation_availability        :text
 #  system_language_id               :integer
 #  linkedin_url                     :string
-#  has_welcome_app_account          :boolean          default(FALSE)
-#  welcome_app_last_checked_at      :datetime
 #  public_profile                   :boolean          default(FALSE)
 #  anonymized_at                    :datetime
 #  anonymization_requested_at       :datetime

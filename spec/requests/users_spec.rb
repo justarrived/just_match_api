@@ -67,8 +67,6 @@ end
 #  presentation_availability        :text
 #  system_language_id               :integer
 #  linkedin_url                     :string
-#  has_welcome_app_account          :boolean          default(FALSE)
-#  welcome_app_last_checked_at      :datetime
 #  public_profile                   :boolean          default(FALSE)
 #  anonymized_at                    :datetime
 #  anonymization_requested_at       :datetime

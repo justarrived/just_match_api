@@ -768,7 +768,6 @@ en:
         frilans_finans_payment_details: Frilans Finans payment details  #g
         gender: Gender  #g
         given_ratings: Given ratings  #g
-        has_welcome_app_account: Has Welcome app account  #g
         ignored_notifications_mask: Ignored notifications mask  #g
         interests: Interests  #g
         interview_comment: Interview comment  #g
@@ -817,7 +816,6 @@ en:
         user_tags: User tags  #g
         utalk_code: :activerecord.models.utalk_code  #g
         verified: Verified  #g
-        welcome_app_last_checked_at: Welcome app last checked at  #g
         written_comments: Written comments  #g
         zip: Zip  #g
         zip_latitude: Zip latitude  #g

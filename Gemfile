@@ -77,8 +77,6 @@ gem 'arbetsformedlingen', '~> 0.4' # Gem for publishing jobs to Arbetsformedling
 
 gem 'metrojobb', '~> 0.6', '>= 0.6.1' # Gem for building a feed for Metrojobb
 
-gem 'welcome_app', path: 'lib/welcome_app' # Interact with WelcomeApp!
-
 # Invoices
 gem 'frilans_finans_api', '~> 0.4' # Interact with Frilans Finans API
 
