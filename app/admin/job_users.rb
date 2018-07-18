@@ -268,7 +268,7 @@ ActiveAdmin.register JobUser do
     recruiter_activities = job_user.user.
                            recruiter_activities.
                            order(id: :desc).
-                           includes(:activity, :author)
+                           includes(:activity, :author, job: %i[translations language])
 
     locals = {
       job_user: job_user,

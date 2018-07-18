@@ -309,7 +309,7 @@ ActiveAdmin.register User do
     resume = user.user_documents.cv.last&.document
     recruiter_activities = user.recruiter_activities.
                            order(id: :desc).
-                           includes(:activity, :author)
+                           includes(:activity, :author, job: %i[translations language])
 
     locals = {
       support_chat: support_chat,
