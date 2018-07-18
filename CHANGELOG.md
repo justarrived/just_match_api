@@ -4,6 +4,17 @@ HEAD
 -----------
 
 
+v3.1.0 - 2018-07-18
+----------
+__Admin__:
+* Reuse existing Arbetsformedlingen ad instance
+* Add jobs to dashboard that soon are to be closed for appliaction
+* Move user recruiter activities query to controller
+* Automatically sync job arbetsformedlingen ad to Arbetsformedligen API
+* Inline jobs arbetsformedlingen ad form
+* Add arbetsformedlingen ad publish boolean to jobs form
+
+
 v3.0.0 - 2018-07-18
 ----------
 __Admin__:
