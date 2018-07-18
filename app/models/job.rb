@@ -23,8 +23,6 @@ class Job < ApplicationRecord
 
   boolean_as_time :filled
 
-  attr_accessor :arbetsformedlingen_occupation
-
   belongs_to :order, optional: true
   has_one :job_request, through: :order
   belongs_to :language, optional: true
