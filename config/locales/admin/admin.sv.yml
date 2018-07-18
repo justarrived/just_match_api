@@ -63,9 +63,6 @@ sv:
       title: Mina senaste jobb
       name: Namn
       filled: Tillsatt
-      start_date: Startdatum
-      hours: Timmar
-      hourly_pay: Timlön
     my_unfilled_jobs:
       title: Mina otillsatta jobb
       name: Namn
