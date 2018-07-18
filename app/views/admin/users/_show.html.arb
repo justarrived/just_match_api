@@ -85,8 +85,6 @@ columns do
           content_tag(:p, user_languages_badges(user_languages: user.user_languages))
         end
 
-        h3 I18n.t('admin.user.show.average_score', score: user.average_score || '-')
-
         if cv = user.user_documents.cv.last&.document
           h3 safe_join(
             [
