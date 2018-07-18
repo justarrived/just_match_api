@@ -96,7 +96,7 @@ ActiveAdmin.register ArbetsformedlingenAd do
     end
   end
 
-  action_item :push_to_arbetsformedlingen, only: :show, if: -> { AppConfig.arbetsformedlingen_active? } do
+  action_item :push_to_arbetsformedlingen, only: :show, if: -> { AppConfig.arbetsformedlingen_active? } do # rubocop:disable Metrics/LineLength
     link_to(
       I18n.t('admin.arbetsformedlingen_ad.push.button'),
       push_to_arbetsformedlingen_admin_arbetsformedlingen_ad_path(id: resource.id),
