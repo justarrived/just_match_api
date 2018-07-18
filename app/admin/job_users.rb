@@ -183,7 +183,8 @@ ActiveAdmin.register JobUser do
 
     if job_user.update(shortlisted: true)
       notice = 'Applicant has been shortlisted.'
-      redirect_to resource_path(resource), notice: notice
+      query = AdminHelpers::Link.query(:job_id, job_user.job.id) + "&scope=shortlisted"
+      redirect_to(collection_path + query, notice: notice)
     else
       notice = 'Could *not* shortlist applicant.'
       redirect_to resource_path(resource), alert: notice
