@@ -356,7 +356,7 @@ sv:
         job_user: :activerecord.models.job_user
         user: :activerecord.models.user
       job:
-        applicant_description: Ansökandebeskrivning
+        applicant_description: Kandidatbeskrivning
         arbetsformedlingen_ad: :activerecord.models.arbetsformedlingen_ad
         blocketjobb_category: Blocketjobbkategori
         cancelled: Abrutet
@@ -384,7 +384,7 @@ sv:
         job_occupations: Jobbyrken
         job_request: :activerecord.models.job_requests
         job_skills: Arbetserfarenheter
-        job_users: Ansökande
+        job_users: Kandidat
         just_arrived_contact: :activerecord.models.just_arrived_contact
         language: :activerecord.models.language
         languages: Språk
@@ -478,7 +478,7 @@ sv:
         proficiency_by_admin: Skicklighet satt av admin
         skill: :activerecord.models.skill
       job_translation:
-        applicant_description: Ansökandebeskrivning
+        applicant_description: Kandidatbeskrivning
         description: Beskrivning
         job: :activerecord.models.job
         language: :activerecord.models.language
@@ -491,7 +491,7 @@ sv:
         accepted: Accepterad
         accepted_at: Accepteras på
         active_admin_comments: Active admin kommentarer
-        application_withdrawn: Ansökand återkallad
+        application_withdrawn: Ansökan tillbakadragen
         apply_message: Ansökningsmeddelande
         company: :activerecord.models.company
         company_contact: :activerecord.models.company_contact
@@ -701,7 +701,7 @@ sv:
         interests: Intressen
         job_digests: Jobbsammanfattning
         job_experience: Arbetserfarenhet
-        job_users: Ansökande
+        job_users: Kandidater
         jobs: Jobb
         just_arrived_staffing: Just Arrived bemanning
         language: :activerecord.models.language
