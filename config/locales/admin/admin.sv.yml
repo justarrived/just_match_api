@@ -63,6 +63,9 @@ sv:
       title: Mina senaste jobb
       name: Namn
       filled: Tillsatt
+      start_date: Startdatum
+      hours: Timmar
+      hourly_pay: Timlön
     my_unfilled_jobs:
       title: Mina otillsatta jobb
       name: Namn
@@ -184,7 +187,7 @@ sv:
       clone: Klona
       section_title:
         address: Adress
-        basic: Bas
+        basic: Grundläggande information
         internal: Intern
         invoice: Faktura
         data: Data
@@ -316,7 +319,7 @@ sv:
         status_flags: Status flagga
         candidate_status: Kandidatstatus
         misc: Admindetaljer
-        recruiter_activity: Rekryteraraktivitet
+        recruiter_activity: Aktivitetslogg
         presentation_title: Presentation
         presentation_profile: Profi
         presentation_personality: Personlighet
@@ -342,9 +345,9 @@ sv:
       msg: Lyckades synka.
       post_btn: Synka med Frilans Finans
     recruiter_activity:
-      filter_body_label: Rekryteraraktivitet
-      filter_activity_label: Rekryteraraktivitetstyp
-      filter_author_label: Rekryteraraktivitets författare
+      filter_body_label: Aktivitetslogg
+      filter_activity_label: Aktivitetslogg-typ
+      filter_author_label: Aktivitetsloggs-författare
       activity_hint: 'Du kan lägga till nya aktiviteter genom att gå till Inställingar >> Aktiviteter'
       new_document_title: Ladda upp dokument
       document_hint: 'Du kan bara  ladda upp ett dokument.'
