@@ -188,7 +188,7 @@ ActiveAdmin.register JobUser do
 
     if job_user.update(shortlisted: true)
       notice = I18n.t('admin.job_user.shortlist.success')
-      query = AdminHelpers::Link.query(:job_id, job_user.job.id) + "&scope=shortlisted"
+      query = AdminHelpers::Link.query(:job_id, job_user.job.id) + '&scope=shortlisted'
       redirect_to(collection_path + query, notice: notice)
     else
       notice = I18n.t('admin.job_user.shortlist.fail')
