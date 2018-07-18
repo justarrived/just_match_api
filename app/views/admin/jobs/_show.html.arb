@@ -164,17 +164,25 @@ tabs do
 
   tab(I18n.t('admin.job.section_title.job_boards')) do
     attributes_table_for(job) do
+      af_ad = job.arbetsformedlingen_ad
+
       row :municipality
       row :swedish_drivers_license
       row :car_required
 
+      row :arbetsformedlingen_ad do
+        link_to(
+          "#{af_ad.display_name} (published: #{af_ad.published})",
+          admin_arbetsformedlingen_ad_path(af_ad)
+        )
+      end
       row :publish_on_linkedin
       row :publish_on_blocketjobb
       row :blocketjobb_category
       row :publish_on_metrojobb
       row :metrojobb_category
 
-      if af_ad = job.arbetsformedlingen_ad
+      if af_ad
         link_to(
           I18n.t('admin.job.show_arbetsformedlingen_ad'),
           admin_arbetsformedlingen_ad_path(af_ad)

@@ -111,11 +111,21 @@ ActiveAdmin.register Job do
     job.set_translation(translation_params, language)
   end
 
+  before_save do |job|
+    if af_ad = job.arbetsformedlingen_ad
+      af_ad.published = af_ad.published && job.open_for_applications?
+    end
+  end
+
   after_save do |job|
     if job.persisted? && job.valid?
       set_job_translation.call(job, permitted_params)
 
       JobCancelledJob.perform_later(job: job) if job.cancelled_saved_to_true?
+
+      if af_ad = job.arbetsformedlingen_ad
+        ExecuteService.call(PushArbetsformedlingenAdService, af_ad)
+      end
     end
   end
 
@@ -381,7 +391,7 @@ ActiveAdmin.register Job do
       job_skills_attributes: %i(skill_id proficiency proficiency_by_admin),
       job_languages_attributes: %i(language_id proficiency proficiency_by_admin),
       job_occupations_attributes: %i(occupation_id importance years_of_experience),
-      arbetsformedlingen_ad_attributes: %i(occupation published _destroy)
+      arbetsformedlingen_ad_attributes: %i(occupation publish _destroy)
     ]
     JobPolicy::FULL_ATTRIBUTES + extras
   end
