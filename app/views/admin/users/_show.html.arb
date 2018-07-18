@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-recruiter_activities = user.recruiter_activities.order(id: :desc).includes(:activity, :author) # rubocop:disable Metrics/LineLength
-
 columns do
   column do
     panel(I18n.t('admin.user.show.basic_info_title')) do

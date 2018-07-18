@@ -212,8 +212,14 @@ ActiveAdmin.register JobUser do
     support_chat = Chat.find_or_create_support_chat(job_user.user)
     resume = user.user_documents.cv.last&.document
 
+    recruiter_activities = job_user.user.
+                           recruiter_activities.
+                           order(id: :desc).
+                           includes(:activity, :author)
+
     locals = {
       job_user: job_user,
+      recruiter_activities: recruiter_activities,
       total_job_applications: user.job_users.count,
       support_chat: support_chat,
       user: user,

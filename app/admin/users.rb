@@ -307,11 +307,16 @@ ActiveAdmin.register User do
                        includes(occupation: %i[translations language])
 
     resume = user.user_documents.cv.last&.document
+    recruiter_activities = user.recruiter_activities.
+                           order(id: :desc).
+                           includes(:activity, :author)
+
     locals = {
       support_chat: support_chat,
       user_occupations: user_occupations,
       total_job_applications: user.job_users.count,
-      resume: resume
+      resume: resume,
+      recruiter_activities: recruiter_activities
     }
 
     render partial: 'admin/users/show', locals: locals
