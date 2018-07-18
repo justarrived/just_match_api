@@ -22,6 +22,7 @@ class Job < ApplicationRecord
   MAX_HOURS_PER_DAY = 12
 
   boolean_as_time :filled
+  boolean_as_time :published_on_arbetsformedlingen
 
   belongs_to :order, optional: true
   has_one :job_request, through: :order
