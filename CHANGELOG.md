@@ -4,6 +4,12 @@ HEAD
 -----------
 
 
+__Admin__:
+* Improve applicant view
+* Call notifier instead of the mailer directly
+* Add full URL-param to force full applicant view
+
+
 v3.1.0 - 2018-07-18
 ----------
 __Admin__:
