@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_17_204238) do
+ActiveRecord::Schema.define(version: 2018_07_18_001633) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -322,17 +322,6 @@ ActiveRecord::Schema.define(version: 2018_07_17_204238) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["language_id"], name: "index_faqs_on_language_id"
-  end
-
-  create_table "feedbacks", force: :cascade do |t|
-    t.bigint "user_id"
-    t.bigint "job_id"
-    t.string "title"
-    t.text "body"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["job_id"], name: "index_feedbacks_on_job_id"
-    t.index ["user_id"], name: "index_feedbacks_on_user_id"
   end
 
   create_table "filter_users", id: :serial, force: :cascade do |t|
@@ -713,7 +702,7 @@ ActiveRecord::Schema.define(version: 2018_07_17_204238) do
     t.integer "staffing_company_id"
     t.boolean "cloned", default: false
     t.datetime "filled_at"
-    t.boolean "verified"
+    t.datetime "published_on_arbetsformedlingen_at"
     t.index ["category_id"], name: "index_jobs_on_category_id"
     t.index ["hourly_pay_id"], name: "index_jobs_on_hourly_pay_id"
     t.index ["language_id"], name: "index_jobs_on_language_id"
@@ -1093,13 +1082,10 @@ ActiveRecord::Schema.define(version: 2018_07_17_204238) do
     t.boolean "managed", default: false
     t.string "account_clearing_number"
     t.string "account_number"
-    t.text "interview_comment"
     t.string "next_of_kin_name"
     t.string "next_of_kin_phone"
     t.date "arbetsformedlingen_registered_at"
     t.string "city"
-    t.integer "interviewed_by_user_id"
-    t.datetime "interviewed_at"
     t.boolean "just_arrived_staffing", default: false
     t.boolean "super_admin", default: false
     t.integer "gender"
@@ -1110,12 +1096,6 @@ ActiveRecord::Schema.define(version: 2018_07_17_204238) do
     t.string "linkedin_url"
     t.datetime "anonymized_at"
     t.datetime "anonymization_requested_at"
-    t.boolean "verified"
-    t.boolean "public_profile"
-    t.datetime "welcome_app_last_checked_at"
-    t.boolean "has_welcome_app_account"
-    t.string "facebook_url"
-    t.string "skype_username"
     t.index ["company_id"], name: "index_users_on_company_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["frilans_finans_id"], name: "index_users_on_frilans_finans_id", unique: true
@@ -1194,8 +1174,6 @@ ActiveRecord::Schema.define(version: 2018_07_17_204238) do
   add_foreign_key "faq_translations", "faqs"
   add_foreign_key "faq_translations", "languages"
   add_foreign_key "faqs", "languages"
-  add_foreign_key "feedbacks", "jobs"
-  add_foreign_key "feedbacks", "users"
   add_foreign_key "filter_users", "filters"
   add_foreign_key "filter_users", "users"
   add_foreign_key "frilans_finans_invoices", "job_users"
@@ -1297,7 +1275,6 @@ ActiveRecord::Schema.define(version: 2018_07_17_204238) do
   add_foreign_key "users", "companies"
   add_foreign_key "users", "languages"
   add_foreign_key "users", "languages", column: "system_language_id", name: "users_system_language_id_fk"
-  add_foreign_key "users", "users", column: "interviewed_by_user_id", name: "users_interviewed_by_user_id_fk"
   add_foreign_key "utalk_codes", "users"
   add_foreign_key "visits", "users", name: "visits_user_id_fk"
 end
