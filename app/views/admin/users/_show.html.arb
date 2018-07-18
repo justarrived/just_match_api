@@ -19,9 +19,16 @@ columns do
         row :ssn
         row :linkedin_url
       end
+    end
 
-      render partial: 'admin/recruiter_activities/simple_list', locals: { recruiter_activities: recruiter_activities, user: user } # rubocop:disable Metrics/LineLength
-      render partial: 'admin/users/customer_presentation_fields', locals: { user: user }
+    panel RecruiterActivity.model_name.human do
+      render(
+        partial: 'admin/recruiter_activities/simple_list',
+        locals: {
+          recruiter_activities: recruiter_activities,
+          user: user
+        }
+      )
     end
   end
 
@@ -48,6 +55,10 @@ columns do
             employment_periods: user.employment_periods.reverse
           }
         )
+
+        br
+        render partial: 'admin/users/customer_presentation_fields', locals: { user: user }
+        br
 
         div do
           attributes_table_for(user) do
