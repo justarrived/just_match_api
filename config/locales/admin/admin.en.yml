@@ -86,6 +86,7 @@ en:
       status: Status
       id: ID
     recent_job_users:
+      title: Recent applications
       accepted: Accepted
       will_perform: Will perform
       job: Job
