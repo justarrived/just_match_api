@@ -164,6 +164,8 @@ ActiveAdmin.register JobUser do
 
     if job_user.update(accepted_at: Time.zone.now)
       owner = job_user.job.owner
+      job_user.job.update(filled: true)
+
       ApplicantAcceptedNotifier.call(job_user: job_user, owner: owner)
       ExecuteService.call(SendApplicantRejectNotificationsService, job_user)
 
