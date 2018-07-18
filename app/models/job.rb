@@ -24,6 +24,8 @@ class Job < ApplicationRecord
   boolean_as_time :filled
   boolean_as_time :published_on_arbetsformedlingen
 
+  attr_accessor :arbetsformedlingen_occupation
+
   belongs_to :order, optional: true
   has_one :job_request, through: :order
   belongs_to :language, optional: true
@@ -79,6 +81,8 @@ class Job < ApplicationRecord
   validate :validate_last_application_at_on_publish_to_blocketjobb
   validate :validate_last_application_at_on_publish_to_metrojobb
   validate :validate_last_application_at_on_publish_to_linkedin
+  validate :validate_last_application_at_on_published_on_arbetsformedlingen
+  validate :validate_arbetsformedlingen_occupation
   validate :validate_municipality_presence_on_publish_to_blocketjobb
   validate :validate_municipality_presence_on_publish_to_metrojobb
   validate :validate_blocketjobb_category_presence_on_publish_to_blocketjobb
@@ -530,6 +534,22 @@ class Job < ApplicationRecord
 
     message = I18n.t('errors.job.last_application_at_on_publish_to_linkedin')
     errors.add(:last_application_at, message)
+  end
+
+  def validate_last_application_at_on_published_on_arbetsformedlingen
+    return unless published_on_arbetsformedlingen
+    return if last_application_at.present?
+
+    message = I18n.t('errors.job.validate_last_application_at_on_published_on_arbetsformedlingen') # rubocop:disable Metrics/LineLength
+    errors.add(:last_application_at, message)
+  end
+
+  def validate_arbetsformedlingen_occupation
+    return unless published_on_arbetsformedlingen
+    return if arbetsformedlingen_occupation
+
+    message = I18n.t('errors.job.validate_arbetsformedlingen_occupation')
+    errors.add(:arbetsformedlingen_occupation, message)
   end
 
   def validate_municipality_presence_on_publish_to_blocketjobb

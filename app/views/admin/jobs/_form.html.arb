@@ -163,6 +163,9 @@ active_admin_form_for(resource, url: url) do |f|
         f.input :car_required
         hr
 
+        af_occupation = f.object.arbetsformedlingen_occupation.presence || job.arbetsformedlingen_ad&.occupation # rubocop:disable Metrics/LineLength
+        f.input :arbetsformedlingen_occupation, collection: Arbetsformedlingen::OccupationCode.to_form_array(name_only: true), selected: af_occupation # rubocop:disable Metrics/LineLength
+        f.input :published_on_arbetsformedlingen, as: :boolean
         f.input :publish_on_linkedin, hint: I18n.t('admin.job.form.publish_on_linkedin.hint')
         f.input :publish_on_blocketjobb, hint: I18n.t('admin.job.form.publish_on_blocketjobb.hint')
         f.input :blocketjobb_category, collection: BlocketjobbCategories.to_form_array, hint: I18n.t('admin.job.form.blocketjobb_category.hint')
