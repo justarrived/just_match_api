@@ -226,7 +226,7 @@ ActiveAdmin.register JobUser do
       resume: resume
     }
 
-    if job_user.job.ended?
+    if job_user.job.ended? && params[:full].blank?
       render partial: 'job_ended_view', locals: locals
     else
       render partial: 'show', locals: locals
