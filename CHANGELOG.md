@@ -3,6 +3,28 @@
 HEAD
 -----------
 
+
+v3.0.0 - 2018-07-18
+----------
+__Admin__:
+* Update main navigation link order
+
+__Enhancement__:
+* Update I18n from Transifex
+* Update circle.yml Ruby version to 2.5.1
+* :hocho: `Feedback` model
+* :hocho: old importers and data migrators
+* :hocho: user inteview fields
+* :hocho: `User#interview_comment` migration
+* :hocho: `User` `and` Job `#verified` fields
+* :hocho: `User#public_profile`
+* :hocho: Welcome App integration
+* :hocho: `User#skype_username`
+* :hocho: `User#facebook_url`
+* :hocho: script/cibuild in favour of circle.yml
+* CircleCI v2 config update
+
+
 v2.114.1 - 2018-07-18
 ----------
 __Enhancement__:
