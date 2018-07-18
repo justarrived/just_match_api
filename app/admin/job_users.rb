@@ -190,8 +190,8 @@ ActiveAdmin.register JobUser do
     end
   end
 
-  scope 'Long list', :all
-  scope :visible, default: true
+  scope :all
+  scope :long_list, default: true
   scope :shortlisted
   scope :accepted
 
