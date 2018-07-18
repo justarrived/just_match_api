@@ -169,11 +169,17 @@ ActiveAdmin.register JobUser do
       ApplicantAcceptedNotifier.call(job_user: job_user, owner: owner)
       ExecuteService.call(SendApplicantRejectNotificationsService, job_user)
 
+      params = {
+        employment_period: {
+          job_id: job_user.job.id,
+          user_id: job_user.user.id
+        }
+      }
       notice = I18n.t('admin.job_user.accept_and_notify_all.success')
-      redirect_to resource_path(resource), notice: notice
+      redirect_to new_admin_employment_period_path(params), notice: notice
     else
       notice = I18n.t('admin.job_user.accept_and_notify_all.fail')
-      redirect_to resource_path(resource), alert: notice
+      redirect_to resource_path(job_user), alert: notice
     end
   end
 

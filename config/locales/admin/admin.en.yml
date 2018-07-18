@@ -139,7 +139,7 @@ en:
       update_profile_reminder_notification:
         success: Update profile reminder notification sent.
       accept_and_notify_all:
-        success: 'Applicant has been accepted and all users have been notified.'
+        success: 'Applicant has been accepted and all users have been notified. Now you can create an employment period.'
         fail: 'Could *not* accept applicant.'
       reject_and_notify:
         success: 'Applicant has been rejected and notified.'
