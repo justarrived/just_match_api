@@ -14,28 +14,16 @@ columns do
         row :name
         row :email
         row :phone
-        row :skype_username
         row :gender
         row :street
         row :city
         row :zip
         row :ssn
         row :linkedin_url
-        row :facebook_url
       end
 
       render partial: 'admin/recruiter_activities/simple_list', locals: { recruiter_activities: recruiter_activities, user: user } # rubocop:disable Metrics/LineLength
       render partial: 'admin/users/customer_presentation_fields', locals: { user: user }
-
-      div do
-        content_tag(:p) do
-          strong(
-            [
-              user.interviewed_at&.to_date, user.interviewed_by&.name
-            ].compact.join(', ')
-          )
-        end
-      end
     end
   end
 
@@ -90,8 +78,6 @@ columns do
 
         h3 I18n.t('admin.user.show.average_score', score: user.average_score || '-')
 
-        h3 I18n.t('admin.user.show.verified', verified: user.verified)
-
         if cv = user.user_documents.cv.last&.document
           h3 safe_join(
             [
@@ -125,16 +111,6 @@ columns do
             previous_performed_jobs: user.employed_for_jobs.passed.with_translations
           }
         )
-
-        hr
-        h3 I18n.t('admin.user.show.feedbacks')
-        div do
-          user.feedbacks.each do |feedback|
-            h4 feedback.title
-            div { simple_format(feedback.body) }
-            hr
-          end
-        end
       end
     end
   end
@@ -193,13 +169,11 @@ columns do
   column do
     panel(I18n.t('admin.user.show.status_flags')) do
       attributes_table_for(user) do
-        row :public_profile
         row :super_admin
         row :admin
         row :managed
         row :anonymized
         row :banned
-        row :verified
         row :just_arrived_staffing
       end
     end

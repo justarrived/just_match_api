@@ -16,7 +16,6 @@ sv:
     hired_suffix: '(anställd)'
     batch_action_confirm: Är du säker?
     action_confirm: Är du säker?
-    verified_selected: Verifiera markerade.
     job_name: Jobb
     user_name: Användare
     job_user_name: Sökande
@@ -221,7 +220,6 @@ sv:
         direct_recruitment_job_hint: Sätt bara det här värdet ifall jobbet är en direktrekrytering
         category_hint: 'Det här fältet används bara av försäkringsskäl'
         hidden_hint: 'Om iklickat kommer jobbet inte returneras till klienter'
-        verified_hint: 'Om i klickat så har en admin verifierat jobbet'
         upcoming_hint: 'Om i klickat så kommer viss jobbinformation inte skickas till klienter'
         cancelled_hint: 'Om i klickat antas jobbet vara avbrutet'
         filled_hint: 'Om i klickat så har jobbet blivit tillsatt'
@@ -262,7 +260,6 @@ sv:
       email: E-post
       company: Företag
       locale: Locale
-      verified: Verifierade
       description: Beskrivning
       education: Utbildning
       competence_text: Kompetenser
@@ -292,8 +289,6 @@ sv:
         presentation_inputs: Kundpresentation
         misc: Övrigt
         create_user: Skapa användare
-        public_profile:
-          hint: Om användaren kommer vara publikt synlig
         language:
           hint: Standardspråk för all användarkommunikation.
         managed:
@@ -311,11 +306,9 @@ sv:
         ff_id_not_found_msg: Inget Frilans Finans konto kunde hittas för den här användaren.
       show:
         interests: Intressen
-        verified: 'Verifierade: %{verified}'
         tags: Taggar
         skills: Färdigheter
         filters: I filter
-        feedbacks: Given feedback
         city: 'Stad: %{city}'
         basic_info_title: Grundläggande information
         candidate_summary: Kandidatsummering

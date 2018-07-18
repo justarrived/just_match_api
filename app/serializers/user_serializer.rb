@@ -10,10 +10,9 @@ class UserSerializer < ApplicationSerializer
     zip zip_latitude zip_longitude first_name last_name name ssn banned
     company_id one_time_token one_time_token_expires_at just_arrived_staffing
     ignored_notifications_mask frilans_finans_id frilans_finans_payment_details
-    current_status at_und arrived_at country_of_origin managed verified
+    current_status at_und arrived_at country_of_origin managed
     account_clearing_number account_number gender full_street_address
-    support_chat_activated linkedin_url bank_account facebook_url
-    has_welcome_app_account welcome_app_last_checked_at public_profile
+    support_chat_activated linkedin_url bank_account
   ) + EXTRA_ATTRIBUTES
 
   link(:self) { api_v1_user_url(object) }

@@ -44,7 +44,6 @@ active_admin_form_for(resource, url: url) do |f|
         f.input :filled, as: :boolean, hint: I18n.t('admin.job.form.filled_hint')
         f.input :cancelled, hint: I18n.t('admin.job.form.cancelled_hint')
         f.input :hidden, hint: I18n.t('admin.job.form.hidden_hint')
-        # f.input :verified, hint: I18n.t('admin.job.form.verified_hint')
         # f.input :upcoming, hint: I18n.t('admin.job.form.upcoming_hint')
       end
     end

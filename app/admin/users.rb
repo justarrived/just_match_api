@@ -126,12 +126,6 @@ ActiveAdmin.register User do
     redirect_to collection_path, notice: notice.join(' ')
   end
 
-  batch_action :verify, confirm: I18n.t('admin.batch_action_confirm') do |ids|
-    collection.where(id: ids).map { |u| u.update(verified: true) }
-
-    redirect_to collection_path, notice: I18n.t('admin.verified_selected')
-  end
-
   batch_action :managed, confirm: I18n.t('admin.batch_action_confirm') do |ids|
     collection.where(id: ids).map { |u| u.update(managed: true) }
 
@@ -411,7 +405,7 @@ ActiveAdmin.register User do
   permit_params do
     extras = [
       :password, :language_id, :company_id, :managed, :frilans_finans_payment_details,
-      :verified, :interview_comment, :banned, :just_arrived_staffing,
+      :banned, :just_arrived_staffing,
       :presentation_profile, :presentation_personality, :presentation_availability,
       :language_ids, :skill_ids, ignored_notifications: []
     ]
@@ -424,7 +418,6 @@ ActiveAdmin.register User do
       user_tags_attributes: %i(id tag_id _destroy),
       user_documents_attributes: [:id, :category, { document_attributes: [:document] }],
       user_occupations_attributes: %i(occupation_id years_of_experience),
-      feedbacks_attributes: %i(id job_id title body),
       employment_periods_attributes: %i(
         id
         job_id

@@ -39,7 +39,6 @@ columns do
         row(:filled) { status_tag(job.filled) }
         row :cancelled
         # row :hidden
-        # row :verified
         # row :upcoming
       end
     end

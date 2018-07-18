@@ -26,7 +26,6 @@ class AnonymizeUserService
       document_ids << ra.document_id if ra.document_id
       ra.destroy!
     end
-    user.feedbacks.each(&:destroy!)
     user.digest_subscriber(&:mark_destroyed)&.save!
 
     # Remove user documents
