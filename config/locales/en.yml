@@ -66,7 +66,6 @@ en:
       last_application_at_on_publish_to_blocketjobb: last application at must be set if job is to be published to Blocketjobb
       last_application_at_on_publish_to_metrojobb: last application at must be set if job is to be published to Metrojobb
       last_application_at_on_publish_to_linkedin: last application at must be set if job is to be published to LinkedIN
-      validate_arbetsformedlingen_occupation: Arbetsförmedlingen occupation must be present when published on arbetsformedlingen
       municipality_presence_on_publish_to_blocketjobb: municipality must be filled if job is to be published to Blocketjobb
       blocketjobb_category_presence_on_publish_to_blocketjobb: blocketjobb category must be filled if job is to be published on Blocketjobb
       company_presence_on_publish_to_blocketjobb: company must be filled (through the owner) if the job is to be published on Blocketjobb
