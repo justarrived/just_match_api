@@ -23,7 +23,7 @@ jobs:
           RUN_NESTED_GEMS_SPECS: true
           RAILS_EAGER_LOAD_IN_TEST: true
           DISABLE_SPRING: 1
-          LINT_FACTORY: true
+          LINT_FACTORY: false
           RUBOCOP: false
           CHECK_DB_INDEXES: false
           CHECK_DB_UNIQ_INDEXES: false
