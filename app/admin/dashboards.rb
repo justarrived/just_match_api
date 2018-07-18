@@ -79,7 +79,7 @@ ActiveAdmin.register_page 'Dashboard' do
       end
 
       column do
-        panel link_to(I18n.t('admin.my_soon_last_application_end_jobs.title'), admin_jobs_path) do
+        panel link_to(I18n.t('admin.my_soon_last_application_end_jobs.title'), admin_jobs_path) do # rubocop:disable Metrics/LineLength
           scope = Job.with_translations.
                   uncancelled.
                   unfilled.
@@ -104,7 +104,7 @@ ActiveAdmin.register_page 'Dashboard' do
               link_to(truncate(job.display_name), admin_job_path(job))
             end
 
-            column(I18n.t('admin.my_soon_last_application_end_jobs.last_application_at')) do |job|
+            column(I18n.t('admin.my_soon_last_application_end_jobs.last_application_at')) do |job| # rubocop:disable Metrics/LineLength
               now_time = Time.now.utc
               job_date = job.job_date
 

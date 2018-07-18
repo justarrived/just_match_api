@@ -19,9 +19,16 @@ columns do
         row :ssn
         row :linkedin_url
       end
+    end
 
-      render partial: 'admin/recruiter_activities/simple_list', locals: { recruiter_activities: recruiter_activities, user: user } # rubocop:disable Metrics/LineLength
-      render partial: 'admin/users/customer_presentation_fields', locals: { user: user }
+    panel RecruiterActivity.model_name.human do
+      render(
+        partial: 'admin/recruiter_activities/simple_list',
+        locals: {
+          recruiter_activities: recruiter_activities,
+          user: user
+        }
+      )
     end
   end
 
@@ -49,6 +56,10 @@ columns do
           }
         )
 
+        br
+        render partial: 'admin/users/customer_presentation_fields', locals: { user: user }
+        br
+
         div do
           attributes_table_for(user) do
             row :occupations do |_user|
@@ -73,8 +84,6 @@ columns do
         div do
           content_tag(:p, user_languages_badges(user_languages: user.user_languages))
         end
-
-        h3 I18n.t('admin.user.show.average_score', score: user.average_score || '-')
 
         if cv = user.user_documents.cv.last&.document
           h3 safe_join(

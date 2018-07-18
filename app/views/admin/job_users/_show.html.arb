@@ -4,7 +4,7 @@ h1 job_user.current_status
 columns do
   column do
     panel I18n.t('admin.job_user.show.user_details') do
-      h3 link_to("#{user.name} #{"(#{user.city})" if user.city}", admin_user_path(user)) # rubocop:disable Metrics/LineLength
+      h3 link_to("#{user.name} #{"(#{user.city})" if user.city}", admin_user_path(user))
 
       h3 I18n.t('admin.user.show.tags')
       h3(
@@ -17,11 +17,16 @@ columns do
       div do
         content_tag(:p, user_tag_badges(user: user))
       end
-
     end
 
     panel RecruiterActivity.model_name.human do
-      render partial: 'admin/recruiter_activities/simple_list', locals: { recruiter_activities: recruiter_activities, user: job_user.user } # rubocop:disable Metrics/LineLength
+      render(
+        partial: 'admin/recruiter_activities/simple_list',
+        locals: {
+          recruiter_activities: recruiter_activities,
+          user: job_user.user
+        }
+      )
     end
 
     if user.employment_periods.any?

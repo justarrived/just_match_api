@@ -63,6 +63,10 @@ sv:
       title: Mina senaste jobb
       name: Namn
       filled: Tillsatt
+    my_soon_last_application_end_jobs:
+      title: Sista ansökningsdag
+      name: Namn
+      last_application_at: Sista ansökningsdag
     my_unfilled_jobs:
       title: Mina otillsatta jobb
       name: Namn
@@ -80,6 +84,7 @@ sv:
       status: Status
       id: ID
     recent_job_users:
+      title: Nya ansökningar
       accepted: Accepterad
       will_perform: Kommer att utföra
       job: Jobb
@@ -130,6 +135,17 @@ sv:
         finished: Markerad som avslutad
     job_user:
       apply_message: Ansökningsmeddelande
+      update_profile_reminder_notification:
+        success: Notifikation för att uppdatera profilen skickad.
+      accept_and_notify_all:
+        success: 'Kandidaten har blivit accepterad och alla användare har blivit notifierade. Nu kan du skapa en anställningsperiod.'
+        fail: 'Kunde *inte* acceptera kandidaten.'
+      reject_and_notify:
+        success: 'Kandidaten har blivit nekad och notifierad.'
+        fail: 'Kunde *inte* neka kandidat.'
+      shortlist:
+        success: 'Kandidaten är shortlistad.'
+        fail: 'Kunde *inte* shortlista kandidat.'
       batch_action:
         ask_for_job_information:
           confirm: Är du säker på att du vill notifiera alla användare som saknar jobbkompetenser att fylla i det som saknas?
@@ -138,12 +154,12 @@ sv:
           confirm: Är du säker på att du vill shortlist:a de här användarna?
           success:
             one: Shortlist:ade en ansökan.
-            other: Shortlist:ade %{count}ansökningar.
+            other: Shortlist:ade %{count}kandidater.
         reject:
           confirm: Är du säker på att du vill avslå de här ansökningarna?
           success:
             one: Avvisade en ansökan.
-            other: Avvisade %{count}ansökningar.
+            other: Avvisade %{count}kandidater.
         accepted:
           success_msg: 'Accepterade %{success_count}användar(e), ignorerade %{ignore_count}användar(e) som redan var accepterade.'
           fail_msg: 'Misslyckades att acceptera %{fail_count}användare: ansökings IDs: %{fail_ids}. Lyckades acceptera%{success_count}användare, ignorerade %{ignore_count} användare som redan var accepterade. '
@@ -151,7 +167,7 @@ sv:
         user_details: Användardetaljer
         match_details: Matchningsdetaljer
         job_details: Jobbdetaljer
-        created_at: Skapades %{date}
+        created_at: Ansökte %{date}
         apply_message: Ansökningsmeddelande
         no_apply_message: Inget ansökningsmeddelande.
         no_resume_uploaded: Inget CV uppladdat
@@ -184,7 +200,7 @@ sv:
       clone: Klona
       section_title:
         address: Adress
-        basic: Bas
+        basic: Grundläggande information
         internal: Intern
         invoice: Faktura
         data: Data
@@ -316,7 +332,7 @@ sv:
         status_flags: Status flagga
         candidate_status: Kandidatstatus
         misc: Admindetaljer
-        recruiter_activity: Rekryteraraktivitet
+        recruiter_activity: Aktivitetslogg
         presentation_title: Presentation
         presentation_profile: Profi
         presentation_personality: Personlighet
@@ -342,9 +358,9 @@ sv:
       msg: Lyckades synka.
       post_btn: Synka med Frilans Finans
     recruiter_activity:
-      filter_body_label: Rekryteraraktivitet
-      filter_activity_label: Rekryteraraktivitetstyp
-      filter_author_label: Rekryteraraktivitets författare
+      filter_body_label: Aktivitetslogg
+      filter_activity_label: Aktivitetslogg-typ
+      filter_author_label: Aktivitetsloggs-författare
       activity_hint: 'Du kan lägga till nya aktiviteter genom att gå till Inställingar >> Aktiviteter'
       new_document_title: Ladda upp dokument
       document_hint: 'Du kan bara  ladda upp ett dokument.'
@@ -358,14 +374,12 @@ sv:
       job_digests: Har %{count} job digests
       documents: Har %{count} dokument
       applications: Har %{count} ansökningar
-      applicants: Har %{count} ansökande
+      applicants: Har %{count} kandidater
       written_messages: Har skrivit %{count} meddelande
       translations: Har %{count} översättningar
       images: Har %{count} bilder
       sessions: Har %{count} loginsessioner
       chats: Har %{count} chattar
-      received_ratings: Har mottagit %{count} betyg
-      given_ratings: Har gett %{count} betyg
       owned_jobs: Äger %{count} jobb
   active_admin:
     clone_model: "Klona %{model}"

@@ -66,7 +66,7 @@ sv:
       rating: Betyg
       received_email: Mottagna emai
       received_text: Mottagna SMS
-      recruiter_activity: Rekryteraraktivitet
+      recruiter_activity: Aktivitetslogg
       skill: Skicklighet
       skill_filter: Kompetensfilter
       skill_translation: Kompetensöversättning
@@ -183,7 +183,7 @@ sv:
         translations: Översättningar
         users: Användare
         website: Webbplats
-        zip: Blixtlås
+        zip: Postnummer
       company_image:
         company: :activerecord.models.company
         image_content_type: Bildinnehåll typ
@@ -416,7 +416,7 @@ sv:
         unpublish_at: Avpublicerat den
         upcoming: Kommande
         users: Användare
-        zip: Blixtlås
+        zip: Postnummer
         zip_latitude: Zip latitud
         zip_longitude: Zip longitud
       job_digest:
@@ -627,6 +627,7 @@ sv:
         author: :activerecord.models.author
         body: Innehåll
         document: :activerecord.models.document
+        job: :activerecord.models.job
         user: :activerecord.models.user
       skill:
         color: Färg
@@ -718,17 +719,17 @@ sv:
         one_time_token: En gång token
         one_time_token_expires_at: En gång token går ut på
         owned_jobs: Ägda jobb
-        owner_recruiter_activities: Skapare av rekryteraraktiviteter
+        owner_recruiter_activities: Skapare av aktivitetslogg
         password_hash: Lösenord hash
         password_salt: Lösenord salt
         phone: Telefon
-        presentation_availability: Presentation tillgänglighet
-        presentation_personality: Presentation personlighet
-        presentation_profile: Presentation profil
+        presentation_availability: Kundpresentation tillgänglighet
+        presentation_personality: Kundpresentation personlighet
+        presentation_profile: Kundpresentation profile
         received_ratings: Mottagna betyg
-        recruiter_activities: Rekryteraraktiviteter
+        recruiter_activities: Aktivitetslogg
         skills: Färdigheter
-        ssn: Ssn
+        ssn: Personnummer
         street: Gata
         super_admin: Super admin
         system_language: :activerecord.models.system_language
@@ -743,7 +744,7 @@ sv:
         user_tags: Användartaggar
         utalk_code: :activerecord.models.utalk_code
         written_comments: Skriftliga kommentarer
-        zip: Blixtlås
+        zip: Postnummer
         zip_latitude: Zip latitud
         zip_longitude: Zip longitud
       user_document:

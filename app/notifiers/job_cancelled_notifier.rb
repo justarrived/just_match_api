@@ -2,9 +2,7 @@
 
 class JobCancelledNotifier < BaseNotifier
   def self.call(job:)
-    job_users = job.job_users.
-                not_withdrawn.
-                includes(:user)
+    job_users = job.job_users.long_list.includes(:user)
 
     job_users.each do |job_user|
       user = job_user.user

@@ -141,57 +141,63 @@ ActiveAdmin.register JobUser do
 
     AskForJobInformationJob.perform_later(job_user)
 
-    notice = 'Update profile reminder notification sent.'
+    notice = I18n.t('admin.job_user.update_profile_reminder_notification.success')
     redirect_to resource_path(resource), notice: notice
   end
 
-  # TODO: Consider creating :reject variant that does not notifiy
   member_action :reject_and_notify, method: :post do
     job_user = resource
 
     if job_user.update(rejected: true)
       ApplicantRejectedNotifier.call(job_user)
 
-      notice = 'Applicant has been rejected and notified.'
+      notice = I18n.t('admin.job_user.reject_and_notify.success')
       redirect_to resource_path(resource), notice: notice
     else
-      notice = 'Could *not* reject applicant.'
+      notice = I18n.t('admin.job_user.reject_and_notify.fail')
       redirect_to resource_path(resource), alert: notice
     end
   end
 
-  # TODO: Consider creating :accept variant that does not notifiy
   member_action :accept_and_notify_all, method: :post do
     job_user = resource
 
     if job_user.update(accepted_at: Time.zone.now)
       owner = job_user.job.owner
+      job_user.job.update(filled: true)
+
       ApplicantAcceptedNotifier.call(job_user: job_user, owner: owner)
       ExecuteService.call(SendApplicantRejectNotificationsService, job_user)
 
-      notice = 'Applicant has been accepted and all users have been notified.'
-      redirect_to resource_path(resource), notice: notice
+      params = {
+        employment_period: {
+          job_id: job_user.job.id,
+          user_id: job_user.user.id
+        }
+      }
+      notice = I18n.t('admin.job_user.accept_and_notify_all.success')
+      redirect_to new_admin_employment_period_path(params), notice: notice
     else
-      notice = 'Could *not* accept applicant.'
-      redirect_to resource_path(resource), alert: notice
+      notice = I18n.t('admin.job_user.accept_and_notify_all.fail')
+      redirect_to resource_path(job_user), alert: notice
     end
   end
 
-  # TODO: Consider creating a :shortlist_and_notify variant
   member_action :shortlist, method: :post do
     job_user = resource
 
     if job_user.update(shortlisted: true)
-      notice = 'Applicant has been shortlisted.'
-      redirect_to resource_path(resource), notice: notice
+      notice = I18n.t('admin.job_user.shortlist.success')
+      query = AdminHelpers::Link.query(:job_id, job_user.job.id) + '&scope=shortlisted'
+      redirect_to(collection_path + query, notice: notice)
     else
-      notice = 'Could *not* shortlist applicant.'
+      notice = I18n.t('admin.job_user.shortlist.fail')
       redirect_to resource_path(resource), alert: notice
     end
   end
 
-  scope 'Long list', :all
-  scope :visible, default: true
+  scope :all
+  scope :long_list, default: true
   scope :shortlisted
   scope :accepted
 
@@ -268,7 +274,7 @@ ActiveAdmin.register JobUser do
     recruiter_activities = job_user.user.
                            recruiter_activities.
                            order(id: :desc).
-                           includes(:activity, :author)
+                           includes(:activity, :author, job: %i[translations language])
 
     locals = {
       job_user: job_user,

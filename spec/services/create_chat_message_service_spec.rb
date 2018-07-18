@@ -27,19 +27,15 @@ RSpec.describe CreateChatMessageService do
       subject
       expect(NewChatMessageNotifier).to have_received(:call).once
     end
+
+    it 'sends message to admin' do
+      allow(DeliverNotification).to receive(:call)
+      subject
+      expect(DeliverNotification).to have_received(:call).once
+    end
   end
 
   describe '#send_notification?' do
-    context 'invalid message' do
-      it 'returns false' do
-        result = described_class.send_notification?(
-          message: Message.new,
-          last_message: nil
-        )
-        expect(result).to eq(false)
-      end
-    end
-
     context 'valid message' do
       it 'returns true if last_message is nil' do
         message = FactoryBot.create(:message)

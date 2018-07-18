@@ -693,6 +693,7 @@ en:
         author: :activerecord.models.author  #g
         body: Body  #g
         document: :activerecord.models.document  #g
+        job: :activerecord.models.job  #g
         user: :activerecord.models.user  #g
 
       skill:

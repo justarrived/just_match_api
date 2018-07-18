@@ -86,6 +86,7 @@ en:
       status: Status
       id: ID
     recent_job_users:
+      title: Recent applications
       accepted: Accepted
       will_perform: Will perform
       job: Job
@@ -136,6 +137,17 @@ en:
         finished: Marked as finished
     job_user:
       apply_message: Apply message
+      update_profile_reminder_notification:
+        success: Update profile reminder notification sent.
+      accept_and_notify_all:
+        success: 'Applicant has been accepted and all users have been notified. Now you can create an employment period.'
+        fail: 'Could *not* accept applicant.'
+      reject_and_notify:
+        success: 'Applicant has been rejected and notified.'
+        fail: 'Could *not* reject applicant.'
+      shortlist:
+        success: 'Applicant has been shortlisted.'
+        fail: 'Could *not* shortlist applicant.'
       batch_action:
         ask_for_job_information:
           confirm: Are you sure you want to notify all users that are missing job skills to fill those out?
@@ -370,8 +382,6 @@ en:
       images: Has %{count} images
       sessions: Has %{count} login sessions
       chats: Has %{count} chats
-      received_ratings: Has received %{count} ratings
-      given_ratings: Has given %{count} ratings
       owned_jobs: Owns %{count} jobs
 
   active_admin:

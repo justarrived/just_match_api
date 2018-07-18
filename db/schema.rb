@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_17_231705) do
+ActiveRecord::Schema.define(version: 2018_07_18_130915) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -871,9 +871,11 @@ ActiveRecord::Schema.define(version: 2018_07_17_231705) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "author_id"
+    t.bigint "job_id"
     t.index ["activity_id"], name: "index_recruiter_activities_on_activity_id"
     t.index ["author_id"], name: "index_recruiter_activities_on_author_id"
     t.index ["document_id"], name: "index_recruiter_activities_on_document_id"
+    t.index ["job_id"], name: "index_recruiter_activities_on_job_id"
     t.index ["user_id"], name: "index_recruiter_activities_on_user_id"
   end
 
@@ -1245,6 +1247,7 @@ ActiveRecord::Schema.define(version: 2018_07_17_231705) do
   add_foreign_key "ratings", "users", column: "to_user_id", name: "ratings_to_user_id_fk"
   add_foreign_key "recruiter_activities", "activities"
   add_foreign_key "recruiter_activities", "documents"
+  add_foreign_key "recruiter_activities", "jobs"
   add_foreign_key "recruiter_activities", "users"
   add_foreign_key "skill_filters", "filters"
   add_foreign_key "skill_filters", "skills", name: "skill_filters_skill_id_fk"
