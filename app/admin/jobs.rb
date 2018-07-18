@@ -391,7 +391,7 @@ ActiveAdmin.register Job do
       job_skills_attributes: %i(skill_id proficiency proficiency_by_admin),
       job_languages_attributes: %i(language_id proficiency proficiency_by_admin),
       job_occupations_attributes: %i(occupation_id importance years_of_experience),
-      arbetsformedlingen_ad_attributes: %i(occupation publish _destroy)
+      arbetsformedlingen_ad_attributes: %i(id occupation publish _destroy)
     ]
     JobPolicy::FULL_ATTRIBUTES + extras
   end
