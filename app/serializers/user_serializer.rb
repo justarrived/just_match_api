@@ -10,10 +10,9 @@ class UserSerializer < ApplicationSerializer
     zip zip_latitude zip_longitude first_name last_name name ssn banned
     company_id one_time_token one_time_token_expires_at just_arrived_staffing
     ignored_notifications_mask frilans_finans_id frilans_finans_payment_details
-    current_status at_und arrived_at country_of_origin managed verified
+    current_status at_und arrived_at country_of_origin managed
     account_clearing_number account_number gender full_street_address
-    support_chat_activated linkedin_url bank_account facebook_url
-    has_welcome_app_account welcome_app_last_checked_at public_profile
+    support_chat_activated linkedin_url bank_account
   ) + EXTRA_ATTRIBUTES
 
   link(:self) { api_v1_user_url(object) }
@@ -150,17 +149,12 @@ end
 #  description                      :text
 #  education                        :text
 #  email                            :string
-#  facebook_url                     :string
 #  first_name                       :string
 #  frilans_finans_id                :integer
 #  frilans_finans_payment_details   :boolean          default(FALSE)
 #  gender                           :integer
-#  has_welcome_app_account          :boolean
 #  id                               :integer          not null, primary key
 #  ignored_notifications_mask       :integer
-#  interview_comment                :text
-#  interviewed_at                   :datetime
-#  interviewed_by_user_id           :integer
 #  job_experience                   :text
 #  just_arrived_staffing            :boolean          default(FALSE)
 #  language_id                      :integer
@@ -179,15 +173,11 @@ end
 #  presentation_availability        :text
 #  presentation_personality         :text
 #  presentation_profile             :text
-#  public_profile                   :boolean
-#  skype_username                   :string
 #  ssn                              :string
 #  street                           :string
 #  super_admin                      :boolean          default(FALSE)
 #  system_language_id               :integer
 #  updated_at                       :datetime         not null
-#  verified                         :boolean
-#  welcome_app_last_checked_at      :datetime
 #  zip                              :string
 #  zip_latitude                     :float
 #  zip_longitude                    :float
@@ -203,8 +193,7 @@ end
 #
 # Foreign Keys
 #
-#  fk_rails_...                     (company_id => companies.id)
-#  fk_rails_...                     (language_id => languages.id)
-#  users_interviewed_by_user_id_fk  (interviewed_by_user_id => users.id)
-#  users_system_language_id_fk      (system_language_id => languages.id)
+#  fk_rails_...                 (company_id => companies.id)
+#  fk_rails_...                 (language_id => languages.id)
+#  users_system_language_id_fk  (system_language_id => languages.id)
 #

@@ -64,7 +64,6 @@ module Api
           param :first_name, String, desc: 'First name', required: true
           param :last_name, String, desc: 'Last name', required: true
           param :consent, [true], desc: 'Terms of agreement consent', required: true
-          param :public_profile, [true, false], desc: 'Display user publically'
           param :description, String, desc: 'Description'
           param :job_experience, String, desc: 'Job experience'
           param :education, String, desc: 'Education'
@@ -102,13 +101,11 @@ module Api
           param :gender, User::GENDER.keys, desc: 'Gender'
           param :arrived_at, String, desc: 'Arrived at date'
           param :country_of_origin, String, desc: 'Country of origin (alpha-2 code)'
-          param :skype_username, String, desc: 'Skype username'
           param :bank_account, String, desc: 'User bank account number'
           param :next_of_kin_name, String, desc: 'Next of kin name'
           param :next_of_kin_phone, String, desc: 'Next of kin phone'
           param :arbetsformedlingen_registered_at, Date, desc: 'Arbetsförmedlingen registered at'
           param :linkedin_url, String, desc: 'Users LinkedIN URL'
-          param :facebook_url, String, desc: 'Users Facebook URL'
           # rubocop:enable Metrics/LineLength
         end
       end
@@ -148,7 +145,6 @@ module Api
           param :first_name, String, desc: 'First name'
           param :last_name, String, desc: 'Last name'
           param :description, String, desc: 'Description'
-          param :public_profile, [true, false], desc: 'Display user publically'
           param :job_experience, String, desc: 'Job experience'
           param :education, String, desc: 'Education'
           param :competence_text, String, desc: 'Competences'
@@ -183,13 +179,11 @@ module Api
           param :gender, User::GENDER.keys, desc: 'Gender'
           param :arrived_at, String, desc: 'Arrived at date'
           param :country_of_origin, String, desc: 'Country of origin'
-          param :skype_username, String, desc: 'Skype username'
           param :bank_account, String, desc: 'User bank account number'
           param :next_of_kin_name, String, desc: 'Next of kin name'
           param :next_of_kin_phone, String, desc: 'Next of kin phone'
           param :arbetsformedlingen_registered_at, Date, desc: 'Arbetsförmedlingen registered at'
           param :linkedin_url, String, desc: 'Users LinkedIN URL'
-          param :facebook_url, String, desc: 'Users Facebook URL'
           # rubocop:enable Metrics/LineLength
         end
       end
@@ -372,8 +366,7 @@ module Api
           :first_name, :last_name, :email, :phone, :description, :job_experience,
           :education, :ssn, :street, :city, :zip, :language_id, :company_id,
           :competence_text, :current_status, :at_und, :arrived_at, :country_of_origin,
-          :skype_username, :gender, :bank_account, :linkedin_url, :facebook_url,
-          :public_profile,
+          :gender, :bank_account, :linkedin_url,
           :system_language_id, ignored_notifications: []
         ]
         jsonapi_params.permit(*whitelist)

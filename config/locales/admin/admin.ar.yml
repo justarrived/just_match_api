@@ -51,7 +51,6 @@ ar:
       name: الاسم
       email: بريد إلكتروني
       company: شركة
-      verified: مؤكدة
       description: وصف
       education: التعليم
       job_experience: خبرة عمل

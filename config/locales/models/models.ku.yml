@@ -92,8 +92,6 @@ ku:
       faq_translation:
         answer: Bersiv
         question: Pirs
-      feedback:
-        body: Laş
       filter:
         languages: Ziman
         name: Nav
@@ -135,7 +133,6 @@ ku:
         skills: Qabilîyet
         street: Kolan
         users: Bikarîner
-        verified: Tesdîqkirî
         zip: Zincîrkirî
         zip_latitude: Zip panexet
         zip_longitude: Zip dirêjexet
@@ -223,7 +220,6 @@ ku:
         user_images: Wêneyên bikarînerî
         user_languages: Zimanê bikarînerî
         user_skills: Qabilîyetên bikarînerî
-        verified: Tesdîqkirî
         written_comments: Têbînîyên nivîskî
         zip: Zincîrkirî
         zip_latitude: Zip panexet

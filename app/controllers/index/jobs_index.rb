@@ -10,11 +10,11 @@ module Index
     }.freeze
     TRANSFORMABLE_FILTERS = TRANSFORMABLE_FILTERS.merge(job_date: :date_range).freeze
     ALLOWED_FILTERS = %i(
-      id name description hours created_at job_date verified filled featured cancelled
+      id name description hours created_at job_date filled featured cancelled
       staffing_company_id direct_recruitment_job open_for_applications job_user.user_id
     ).freeze
     SORTABLE_FIELDS = %i(
-      hours job_date name verified filled featured created_at updated_at
+      hours job_date name filled featured created_at updated_at
       direct_recruitment_job staffing_company_id
     ).freeze
 

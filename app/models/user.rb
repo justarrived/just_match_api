@@ -11,7 +11,6 @@ class User < ApplicationRecord
   MIN_PASSWORD_LENGTH = AppConfig.min_password_length
   MAX_PASSWORD_LENGTH = AppConfig.max_password_length
   ONE_TIME_TOKEN_VALID_FOR_HOURS = AppConfig.user_one_time_token_valid_for_hours
-  DAYS_BETWEEN_WELCOME_CHECKS = AppConfig.days_between_welcome_checks
 
   LOCATE_BY = {
     address: { lat: :latitude, long: :longitude }.freeze
@@ -43,7 +42,6 @@ class User < ApplicationRecord
   belongs_to :system_language, class_name: 'Language', foreign_key: 'system_language_id'
   belongs_to :language, optional: true
   belongs_to :company, optional: true
-  belongs_to :interviewed_by, optional: true, class_name: 'User', foreign_key: 'interviewed_by_user_id' # rubocop:disable Metrics/LineLength
 
   has_one :utalk_code, dependent: :nullify
 
@@ -56,8 +54,6 @@ class User < ApplicationRecord
   has_many :job_digests, through: :digest_subscriber
 
   has_many :employment_periods, dependent: :nullify
-
-  has_many :feedbacks, dependent: :destroy
 
   has_many :filter_users, dependent: :destroy
   has_many :filters, through: :filter_users
@@ -116,7 +112,6 @@ class User < ApplicationRecord
   validates :frilans_finans_id, uniqueness: true, allow_nil: true
   validates :country_of_origin, inclusion: { in: ISO3166::Country.translations.keys }, allow_blank: true # rubocop:disable Metrics/LineLength
   validates :linkedin_url, linkedin: true
-  validates :facebook_url, facebook: true
 
   validate :validate_arrived_at_date
   validate :validate_language_id_in_available_locale
@@ -165,13 +160,6 @@ class User < ApplicationRecord
   })
   scope :anonymized, (-> { where.not(anonymized_at: nil) })
   scope :not_anonymized, (-> { where(anonymized_at: nil) })
-  scope :verified, (-> { where(verified: true) })
-  scope :needs_welcome_app_update, (lambda {
-    scope = regular_users.where(welcome_app_last_checked_at: nil).
-            or(before(:welcome_app_last_checked_at, DAYS_BETWEEN_WELCOME_CHECKS.days.ago))
-
-    scope.where(has_welcome_app_account: false)
-  })
 
   # NOTE: Figure out a good way to validate :current_status, :at_und and :gender
   #       see https://github.com/rails/rails/issues/13971
@@ -188,7 +176,7 @@ class User < ApplicationRecord
 
   # NOTE: This is necessary for nested activeadmin has_many form
   accepts_nested_attributes_for :user_skills, :user_languages, :user_interests,
-                                :user_documents, :user_occupations, :feedbacks,
+                                :user_documents, :user_occupations,
                                 :employment_periods
   accepts_nested_attributes_for :user_tags, allow_destroy: true
 
@@ -280,7 +268,7 @@ class User < ApplicationRecord
   end
 
   def support_chat_activated?
-    verified || super_admin || admin || just_arrived_staffing
+    super_admin || admin || just_arrived_staffing
   end
 
   def all_attributes
@@ -468,8 +456,8 @@ class User < ApplicationRecord
       phone
       competence_text job_experience education street ssn country_of_origin
       latitude longitude account_clearing_number account_number
-      linkedin_url facebook_url skype_username next_of_kin_name next_of_kin_phone
-      interview_comment one_time_token
+      linkedin_url next_of_kin_name next_of_kin_phone
+      one_time_token
       presentation_profile presentation_personality presentation_availability
     ].zip([nil]).to_h
 
@@ -602,17 +590,12 @@ end
 #  description                      :text
 #  education                        :text
 #  email                            :string
-#  facebook_url                     :string
 #  first_name                       :string
 #  frilans_finans_id                :integer
 #  frilans_finans_payment_details   :boolean          default(FALSE)
 #  gender                           :integer
-#  has_welcome_app_account          :boolean
 #  id                               :integer          not null, primary key
 #  ignored_notifications_mask       :integer
-#  interview_comment                :text
-#  interviewed_at                   :datetime
-#  interviewed_by_user_id           :integer
 #  job_experience                   :text
 #  just_arrived_staffing            :boolean          default(FALSE)
 #  language_id                      :integer
@@ -631,15 +614,11 @@ end
 #  presentation_availability        :text
 #  presentation_personality         :text
 #  presentation_profile             :text
-#  public_profile                   :boolean
-#  skype_username                   :string
 #  ssn                              :string
 #  street                           :string
 #  super_admin                      :boolean          default(FALSE)
 #  system_language_id               :integer
 #  updated_at                       :datetime         not null
-#  verified                         :boolean
-#  welcome_app_last_checked_at      :datetime
 #  zip                              :string
 #  zip_latitude                     :float
 #  zip_longitude                    :float
@@ -655,8 +634,7 @@ end
 #
 # Foreign Keys
 #
-#  fk_rails_...                     (company_id => companies.id)
-#  fk_rails_...                     (language_id => languages.id)
-#  users_interviewed_by_user_id_fk  (interviewed_by_user_id => users.id)
-#  users_system_language_id_fk      (system_language_id => languages.id)
+#  fk_rails_...                 (company_id => companies.id)
+#  fk_rails_...                 (language_id => languages.id)
+#  users_system_language_id_fk  (system_language_id => languages.id)
 #

@@ -15,7 +15,6 @@ if user.persisted?
     f.input :street, input_html: { autocomplete: 'off' }
     f.input :city, input_html: { autocomplete: 'off' }
     f.input :zip, input_html: { autocomplete: 'off' }
-    f.input :skype_username, input_html: { autocomplete: 'off' }
     f.input :description, input_html: { autocomplete: 'off' }
   end
 
@@ -70,16 +69,6 @@ if user.persisted?
       end
     end
 
-    f.has_many :feedbacks, new_record: true do |ff|
-      ff.semantic_errors(*ff.object.errors.keys)
-
-      ff.input :job, collection: jobs
-      ff.input :title, input_html: { autocomplete: 'off' }
-      ff.input :body
-    end
-
-    f.input :interview_comment
-    f.input :interviewed_at, as: :datetime_picker
     f.input :job_experience
     f.input :education
     f.input :competence_text
@@ -98,8 +87,6 @@ if user.persisted?
   f.actions
 
   f.inputs I18n.t('admin.user.form.status_flags') do
-    f.input :public_profile, hint: I18n.t('admin.user.form.public_profile.hint')
-    f.input :verified
     f.input :admin
     f.input :super_admin
     f.input :anonymized
@@ -146,7 +133,6 @@ else
     f.input :street, input_html: { autocomplete: 'off' }
     f.input :city, input_html: { autocomplete: 'off' }
     f.input :zip, input_html: { autocomplete: 'off' }
-    f.input :skype_username, input_html: { autocomplete: 'off' }
   end
 end
 

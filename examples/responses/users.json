@@ -31,7 +31,6 @@
         },
         "gender": null,
         "linkedin_url": null,
-        "facebook_url": null,
         "phone": "+46735000008",
         "street": "Bankgatan 14C",
         "city": "Lund",
@@ -59,9 +58,7 @@
         "full_street_address": "Bankgatan 14C, 223 52, Lund, Sverige",
         "just_arrived_staffing": false,
         "support_chat_activated": false,
-        "bank_account": null,
-        "has_welcome_app_account": false,
-        "public_profile": false
+        "bank_account": null
       },
       "relationships": {
         "company": {

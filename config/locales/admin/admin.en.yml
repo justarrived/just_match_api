@@ -18,7 +18,6 @@ en:
     hired_suffix: '(hired)'
     batch_action_confirm: Are you sure?
     action_confirm: Are you sure?
-    verified_selected: Verified selected.
     job_name: Job
     user_name: User
     job_user_name: Applicant
@@ -223,7 +222,6 @@ en:
         direct_recruitment_job_hint: Only check this if this is a direct recruitment
         category_hint: 'This field is only used for insurance purposes'
         hidden_hint: 'If checked the job will not be returned to clients'
-        verified_hint: 'If checked an admin has verified the job'
         upcoming_hint: 'If checked certain job info will not be returned to clients'
         cancelled_hint: 'If checked the job is deemed cancelled'
         filled_hint: 'If checked it marks that the job has a hired user'
@@ -264,7 +262,6 @@ en:
       email: Email
       company: Company
       locale: Locale
-      verified: Verified
       description: Description
       education: Education
       competence_text: Competences
@@ -294,8 +291,6 @@ en:
         presentation_inputs: Customer presentation
         misc: Misc
         create_user: Create user
-        public_profile:
-          hint: If the user will be publically accessable
         language:
           hint: Default language for user all notifications will be sent in this language.
         managed:
@@ -313,11 +308,9 @@ en:
         ff_id_not_found_msg: No Frilans Finans account could be found for this user.
       show:
         interests: Interests
-        verified: 'Verified: %{verified}'
         tags: Tags
         skills: Skills
         filters: In filters
-        feedbacks: Given feedback
         city: 'City: %{city}'
         basic_info_title: Basic information
         candidate_summary: Candidate summary

@@ -26,7 +26,6 @@ en:
       employment_period: Employment period  #g
       faq: Faq  #g
       faq_translation: Faq translation  #g
-      feedback: Feedback  #g
       filter: Filter  #g
       filter_user: Filter user  #g
       frilans_finans_api_log: Frilans Finans API log  #g
@@ -271,12 +270,6 @@ en:
         locale: Locale  #g
         question: Question  #g
 
-      feedback:
-        body: Body  #g
-        job: :activerecord.models.job  #g
-        title: Title  #g
-        user: :activerecord.models.user  #g
-
       filter:
         filter_users: Filter users  #g
         interest_filters: Interest filters  #g
@@ -466,7 +459,6 @@ en:
         unpublish_at: Unpublish at  #g
         upcoming: Upcoming  #g
         users: Users  #g
-        verified: Verified  #g
         zip: Zip  #g
         zip_latitude: Zip latitude  #g
         zip_longitude: Zip longitude  #g
@@ -773,20 +765,14 @@ en:
         email: Email  #g
         employed_for_jobs: Employed for jobs  #g
         employment_periods: Employment periods  #g
-        facebook_url: Facebook URL  #g
-        feedbacks: Feedbacks  #g
         filter_users: Filter users  #g
         filters: Filters  #g
         first_name: First name  #g
         frilans_finans_payment_details: Frilans Finans payment details  #g
         gender: Gender  #g
         given_ratings: Given ratings  #g
-        has_welcome_app_account: Has Welcome app account  #g
         ignored_notifications_mask: Ignored notifications mask  #g
         interests: Interests  #g
-        interview_comment: Interview comment  #g
-        interviewed_at: Interviewed at  #g
-        interviewed_by: :activerecord.models.interviewed_by  #g
         job_digests: Job digests  #g
         job_experience: Job experience  #g
         job_users: Applicants  #g
@@ -813,11 +799,9 @@ en:
         presentation_availability: Presentation availability  #g
         presentation_personality: Presentation personality  #g
         presentation_profile: Presentation profile  #g
-        public_profile: Public profile  #g
         received_ratings: Received ratings  #g
         recruiter_activities: Recruiter activities  #g
         skills: Skills  #g
-        skype_username: Skype username  #g
         ssn: Ssn  #g
         street: Street  #g
         super_admin: Super admin  #g
@@ -832,8 +816,6 @@ en:
         user_skills: User skills  #g
         user_tags: User tags  #g
         utalk_code: :activerecord.models.utalk_code  #g
-        verified: Verified  #g
-        welcome_app_last_checked_at: Welcome app last checked at  #g
         written_comments: Written comments  #g
         zip: Zip  #g
         zip_latitude: Zip latitude  #g
