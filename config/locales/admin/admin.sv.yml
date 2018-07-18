@@ -380,8 +380,6 @@ sv:
       images: Har %{count} bilder
       sessions: Har %{count} loginsessioner
       chats: Har %{count} chattar
-      received_ratings: Har mottagit %{count} betyg
-      given_ratings: Har gett %{count} betyg
       owned_jobs: Äger %{count} jobb
   active_admin:
     clone_model: "Klona %{model}"

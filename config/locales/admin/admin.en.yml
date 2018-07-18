@@ -382,8 +382,6 @@ en:
       images: Has %{count} images
       sessions: Has %{count} login sessions
       chats: Has %{count} chats
-      received_ratings: Has received %{count} ratings
-      given_ratings: Has given %{count} ratings
       owned_jobs: Owns %{count} jobs
 
   active_admin:
