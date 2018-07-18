@@ -9,7 +9,7 @@ RSpec.describe Api::V1::Jobs::DigestSubscribersController, type: :controller do
     it 'returns 200 when found' do
       get :show, params: { digest_subscriber_id: subscriber.uuid }
 
-      expect(response).to be_success
+      expect(response).to be_successful
     end
 
     context 'param is user id' do
