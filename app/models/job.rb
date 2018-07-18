@@ -38,7 +38,7 @@ class Job < ApplicationRecord
   has_many :employment_periods, dependent: :nullify
 
   has_one :company, through: :owner
-  has_one :arbetsformedlingen_ad, dependent: :restrict_with_error
+  has_one :arbetsformedlingen_ad, dependent: :destroy
 
   has_many :job_occupations, dependent: :destroy
   has_many :occupations, through: :job_occupations
@@ -174,7 +174,8 @@ class Job < ApplicationRecord
              :applicant_description, :requirements_description
 
   # NOTE: This is necessary for nested activeadmin has_many form
-  accepts_nested_attributes_for :job_skills, :job_languages, :job_occupations
+  accepts_nested_attributes_for :job_skills, :job_languages, :job_occupations,
+                                :arbetsformedlingen_ad
 
   ransacker :city, type: :string do
     Arel.sql('unaccent("city")')

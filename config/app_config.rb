@@ -64,6 +64,10 @@ class AppConfig
     Integer(env.fetch('LINKEDIN_JOB_RECORDS_FEED_LIMIT', 300))
   end
 
+  def self.arbetsformedlingen_active?
+    truthy?(env['ARBETSFORMEDLINGEN_ACTIVE'])
+  end
+
   def self.arbetsformedlingen_default_locale
     env.fetch('ARBETSFORMEDLINGEN_DEFAULT_LOCALE', 'sv')
   end
@@ -267,6 +271,6 @@ class AppConfig
   # private
 
   def self.truthy?(value)
-    [true, 'true', 'enabled', 'enable', 'yes', 'y'].include?(value)
+    %w[true t enabled enable yes y 1].include?(value.to_s)
   end
 end

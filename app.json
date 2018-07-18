@@ -110,6 +110,21 @@
       "value": "",
       "required": false
     },
+    "ARBETSFORMEDLINGEN_ACTIVE": {
+      "description": "Arbetsförmedlingen integration active",
+      "value": "",
+      "required": false
+    },
+    "ARBETSFORMEDLINGEN_DEFAULT_PUBLISHER_EMAIL": {
+      "description": "Arbetsförmedlingen default publisher email",
+      "value": "",
+      "required": false
+    },
+    "ARBETSFORMEDLINGEN_DEFAULT_PUBLISHER_NAME": {
+      "description": "Arbetsförmedlingen default publisher name",
+      "value": "",
+      "required": false
+    },
     "FRILANS_FINANS_ACTIVE": {
       "description": "Frilans Finans integration active",
       "value": "false",

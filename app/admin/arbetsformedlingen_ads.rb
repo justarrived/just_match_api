@@ -3,7 +3,7 @@
 ActiveAdmin.register ArbetsformedlingenAd do
   menu parent: 'Jobs'
 
-  actions :index, :show, :new, :create, :edit, :update
+  actions :all, except: %i[destroy]
 
   config.batch_actions = false
 
@@ -78,7 +78,7 @@ ActiveAdmin.register ArbetsformedlingenAd do
     render :new, layout: false
   end
 
-  member_action :push_to_arbetsformedlingen, method: :post do
+  member_action :push_to_arbetsformedlingen, method: :post, if: -> { AppConfig.arbetsformedlingen_active? } do # rubocop:disable Metrics/LineLength
     ad = resource
 
     result = PushArbetsformedlingenAdService.call(ad)
@@ -96,7 +96,7 @@ ActiveAdmin.register ArbetsformedlingenAd do
     end
   end
 
-  action_item :push_to_arbetsformedlingen, only: :show do
+  action_item :push_to_arbetsformedlingen, only: :show, if: -> { AppConfig.arbetsformedlingen_active? } do # rubocop:disable Metrics/LineLength
     link_to(
       I18n.t('admin.arbetsformedlingen_ad.push.button'),
       push_to_arbetsformedlingen_admin_arbetsformedlingen_ad_path(id: resource.id),
@@ -115,7 +115,7 @@ ActiveAdmin.register ArbetsformedlingenAd do
 
     def find_resource
       I18n.with_locale(AppConfig.arbetsformedlingen_default_locale) do
-        ArbetsformedlingenAd.where(id: params[:id]).first!
+        ArbetsformedlingenAd.where(id: params[:id]).last!
       end
     end
   end
