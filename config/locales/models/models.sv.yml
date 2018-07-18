@@ -26,7 +26,6 @@ sv:
       employment_period: Anställningsperiod
       faq: Faq
       faq_translation: FAQ översättning
-      feedback: Feedback
       filter: Filter
       filter_user: Filteranvändare
       frilans_finans_api_log: Frilans Finans API logg
@@ -245,11 +244,6 @@ sv:
         language: :activerecord.models.language
         locale: Locale
         question: Fråga
-      feedback:
-        body: Innehåll
-        job: :activerecord.models.job
-        title: Titel
-        user: :activerecord.models.user
       filter:
         filter_users: Filteranvändare
         interest_filters: Intressefilter
@@ -422,7 +416,6 @@ sv:
         unpublish_at: Avpublicerat den
         upcoming: Kommande
         users: Användare
-        verified: Verifierade
         zip: Blixtlås
         zip_latitude: Zip latitud
         zip_longitude: Zip longitud
@@ -698,20 +691,14 @@ sv:
         email: E-post
         employed_for_jobs: Anställd för jobb
         employment_periods: Anställningsperioder
-        facebook_url: Facebook URL
-        feedbacks: Feedbacks
         filter_users: Filteranvändare
         filters: Filter
         first_name: Förnamn
         frilans_finans_payment_details: Frilans Finans betaluppgifter
         gender: Kön
         given_ratings: Givna betyg
-        has_welcome_app_account: Har Welcome app konto
         ignored_notifications_mask: Ignoreras aviseringar maskera
         interests: Intressen
-        interview_comment: Intervjukommentar
-        interviewed_at: Intervjuad den
-        interviewed_by: :activerecord.models.interviewed_by
         job_digests: Jobbsammanfattning
         job_experience: Arbetserfarenhet
         job_users: Ansökande
@@ -738,11 +725,9 @@ sv:
         presentation_availability: Presentation tillgänglighet
         presentation_personality: Presentation personlighet
         presentation_profile: Presentation profil
-        public_profile: Publik profil
         received_ratings: Mottagna betyg
         recruiter_activities: Rekryteraraktiviteter
         skills: Färdigheter
-        skype_username: Skypeanvändarnamn
         ssn: Ssn
         street: Gata
         super_admin: Super admin
@@ -757,8 +742,6 @@ sv:
         user_skills: Användar färdigheter
         user_tags: Användartaggar
         utalk_code: :activerecord.models.utalk_code
-        verified: Verifierade
-        welcome_app_last_checked_at: Welcome app senast kollat den
         written_comments: Skriftliga kommentarer
         zip: Blixtlås
         zip_latitude: Zip latitud

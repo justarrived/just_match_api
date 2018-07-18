@@ -270,10 +270,6 @@ ActiveAdmin.register_page 'Dashboard' do
       column do
         panel link_to(I18n.t('admin.recent_users.title'), admin_users_path) do
           table_for User.includes(:system_language).order(created_at: :desc).limit(20) do
-            column(I18n.t('admin.user.verified')) do |user|
-              status_tag(user.verified)
-            end
-
             column(I18n.t('admin.user.locale')) do |user|
               truncate(user.locale)
             end

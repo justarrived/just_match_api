@@ -15,7 +15,7 @@ class UserPolicy < ApplicationPolicy
     id first_name description description_html education education_html
     job_experience job_experience_html competence_text competence_text_html
     language_id zip zip_latitude zip_longitude primary_role translated_text
-    gender system_language_id linkedin_url facebook_url
+    gender system_language_id linkedin_url
   ).freeze
 
   ACCEPTED_APPLICANT_ATTRIBUTES = ATTRIBUTES + %i(
@@ -26,9 +26,9 @@ class UserPolicy < ApplicationPolicy
     created_at updated_at admin anonymized ignored_notifications
     frilans_finans_payment_details ssn current_status at_und arrived_at
     country_of_origin auth_token account_clearing_number account_number
-    skype_username next_of_kin_name next_of_kin_phone full_street_address
+    next_of_kin_name next_of_kin_phone full_street_address
     arbetsformedlingen_registered_at just_arrived_staffing support_chat_activated
-    bank_account has_welcome_app_account public_profile
+    bank_account
   )).freeze
 
   attr_reader :accepted_applicant

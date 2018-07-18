@@ -13,12 +13,6 @@ namespace :sweepers do
     end
   end
 
-  task update_users_welcome_app_status: :environment do |task_name|
-    wrap_sweeper_task(task_name) do
-      UpdateUsersWelcomeAppStatusJob.perform_later
-    end
-  end
-
   task anonymize_users: :environment do |task_name|
     wrap_sweeper_task(task_name) do
       Sweepers::UserSweeper.anonymize_users

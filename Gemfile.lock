@@ -17,12 +17,6 @@ GIT
   specs:
     mailcheck (1.0.0)
 
-PATH
-  remote: lib/welcome_app
-  specs:
-    welcome_app (0.1.0)
-      httparty (~> 0.13)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -850,7 +844,6 @@ DEPENDENCIES
   uglifier (~> 4.1)
   web-console (~> 3.6)
   webmock (~> 3.4)
-  welcome_app!
   yagni_json_encoder (~> 1.0)
 
 RUBY VERSION

@@ -163,14 +163,6 @@ class AppConfig
     Integer(env.fetch('MIN_PASSWORD_LENGTH', 6))
   end
 
-  def self.days_between_welcome_checks
-    Integer(env.fetch('DAYS_BETWEEN_WELCOME_CHECKS', 7))
-  end
-
-  def self.welcome_app_active?
-    truthy?(env['WELCOME_APP_ACTIVE'])
-  end
-
   def self.frilans_finans_active?
     truthy?(env['FRILANS_FINANS_ACTIVE'])
   end

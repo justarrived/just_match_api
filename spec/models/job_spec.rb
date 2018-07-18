@@ -768,7 +768,6 @@ end
 #  unpublish_at                 :datetime
 #  upcoming                     :boolean          default(FALSE)
 #  updated_at                   :datetime         not null
-#  verified                     :boolean
 #  zip                          :string
 #  zip_latitude                 :float
 #  zip_longitude                :float

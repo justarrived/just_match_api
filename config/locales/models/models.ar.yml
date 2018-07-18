@@ -94,8 +94,6 @@ ar:
       faq_translation:
         answer: جواب
         question: سؤال
-      feedback:
-        body: جسم
       filter:
         languages: لغات
         name: الاسم
@@ -137,7 +135,6 @@ ar:
         skills: مهارات
         street: شارع
         users: المستخدمون
-        verified: مؤكدة
         zip: الرمز البريدي
         zip_latitude: الرمز البريدي حسب خطّ العرض
         zip_longitude: الرمز البريدي حسب خط الطول
@@ -230,7 +227,6 @@ ar:
         user_images: صور المستخدم
         user_languages: لغة المستخدم
         user_skills: مهارات المستخدم
-        verified: مؤكدة
         written_comments: تعليقات سابقة
         zip: الرمز البريدي
         zip_latitude: الرمز البريدي حسب خط العرض
