@@ -4,9 +4,7 @@ class SendApplicantRejectNotificationsService
   def self.call(signed_job_user)
     job_users = signed_job_user.job.
                 job_users.
-                not_accepted.
-                not_withdrawn.
-                unrejected.
+                long_list.
                 includes(:user)
 
     job_users.each do |job_user|
