@@ -72,7 +72,7 @@ ActiveAdmin.register JobUser do
     job_users.map do |job_user|
       unless job_user.rejected
         job_user.update(rejected: true)
-        JobMailer.applicant_rejected_email(job_user: job_user).deliver_later
+        ApplicantRejectedNotifier.call(job_user)
       end
     end
 
