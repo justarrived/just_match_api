@@ -376,12 +376,12 @@ ActiveAdmin.register Job do
       :number_to_fill, :order_id, :full_time, :swedish_drivers_license, :car_required,
       :publish_on_linkedin, :publish_on_blocketjobb, :blocketjobb_category,
       :publish_on_metrojobb, :metrojobb_category, :cloned,
-      :published_on_arbetsformedlingen, :arbetsformedlingen_occupation,
       :salary_type, :preview_key, :customer_hourly_price, :invoice_comment,
       :staffing_company_id,
       job_skills_attributes: %i(skill_id proficiency proficiency_by_admin),
       job_languages_attributes: %i(language_id proficiency proficiency_by_admin),
-      job_occupations_attributes: %i(occupation_id importance years_of_experience)
+      job_occupations_attributes: %i(occupation_id importance years_of_experience),
+      arbetsformedlingen_ad_attributes: %i(occupation published _destroy)
     ]
     JobPolicy::FULL_ATTRIBUTES + extras
   end

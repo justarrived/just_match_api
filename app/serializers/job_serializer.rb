@@ -185,59 +185,58 @@ end
 #
 # Table name: jobs
 #
-#  applicant_description              :text
-#  blocketjobb_category               :string
-#  cancelled                          :boolean          default(FALSE)
-#  car_required                       :boolean          default(FALSE)
-#  category_id                        :integer
-#  city                               :string
-#  cloned                             :boolean          default(FALSE)
-#  company_contact_user_id            :integer
-#  created_at                         :datetime         not null
-#  customer_hourly_price              :decimal(, )
-#  description                        :text
-#  direct_recruitment_job             :boolean          default(FALSE)
-#  featured                           :boolean          default(FALSE)
-#  filled_at                          :datetime
-#  full_time                          :boolean          default(FALSE)
-#  hidden                             :boolean          default(FALSE)
-#  hourly_pay_id                      :integer
-#  hours                              :float
-#  id                                 :integer          not null, primary key
-#  invoice_comment                    :text
-#  job_date                           :datetime
-#  job_end_date                       :datetime
-#  just_arrived_contact_user_id       :integer
-#  language_id                        :integer
-#  last_application_at                :datetime
-#  latitude                           :float
-#  longitude                          :float
-#  metrojobb_category                 :string
-#  municipality                       :string
-#  name                               :string
-#  number_to_fill                     :integer          default(1)
-#  order_id                           :integer
-#  owner_user_id                      :integer
-#  preview_key                        :string
-#  publish_at                         :datetime
-#  publish_on_blocketjobb             :boolean          default(FALSE)
-#  publish_on_linkedin                :boolean          default(FALSE)
-#  publish_on_metrojobb               :boolean          default(FALSE)
-#  published_on_arbetsformedlingen_at :datetime
-#  requirements_description           :text
-#  salary_type                        :integer          default("fixed")
-#  short_description                  :string
-#  staffing_company_id                :integer
-#  staffing_job                       :boolean          default(FALSE)
-#  street                             :string
-#  swedish_drivers_license            :string
-#  tasks_description                  :text
-#  unpublish_at                       :datetime
-#  upcoming                           :boolean          default(FALSE)
-#  updated_at                         :datetime         not null
-#  zip                                :string
-#  zip_latitude                       :float
-#  zip_longitude                      :float
+#  applicant_description        :text
+#  blocketjobb_category         :string
+#  cancelled                    :boolean          default(FALSE)
+#  car_required                 :boolean          default(FALSE)
+#  category_id                  :integer
+#  city                         :string
+#  cloned                       :boolean          default(FALSE)
+#  company_contact_user_id      :integer
+#  created_at                   :datetime         not null
+#  customer_hourly_price        :decimal(, )
+#  description                  :text
+#  direct_recruitment_job       :boolean          default(FALSE)
+#  featured                     :boolean          default(FALSE)
+#  filled_at                    :datetime
+#  full_time                    :boolean          default(FALSE)
+#  hidden                       :boolean          default(FALSE)
+#  hourly_pay_id                :integer
+#  hours                        :float
+#  id                           :integer          not null, primary key
+#  invoice_comment              :text
+#  job_date                     :datetime
+#  job_end_date                 :datetime
+#  just_arrived_contact_user_id :integer
+#  language_id                  :integer
+#  last_application_at          :datetime
+#  latitude                     :float
+#  longitude                    :float
+#  metrojobb_category           :string
+#  municipality                 :string
+#  name                         :string
+#  number_to_fill               :integer          default(1)
+#  order_id                     :integer
+#  owner_user_id                :integer
+#  preview_key                  :string
+#  publish_at                   :datetime
+#  publish_on_blocketjobb       :boolean          default(FALSE)
+#  publish_on_linkedin          :boolean          default(FALSE)
+#  publish_on_metrojobb         :boolean          default(FALSE)
+#  requirements_description     :text
+#  salary_type                  :integer          default("fixed")
+#  short_description            :string
+#  staffing_company_id          :integer
+#  staffing_job                 :boolean          default(FALSE)
+#  street                       :string
+#  swedish_drivers_license      :string
+#  tasks_description            :text
+#  unpublish_at                 :datetime
+#  upcoming                     :boolean          default(FALSE)
+#  updated_at                   :datetime         not null
+#  zip                          :string
+#  zip_latitude                 :float
+#  zip_longitude                :float
 #
 # Indexes
 #

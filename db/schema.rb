@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_18_001633) do
+ActiveRecord::Schema.define(version: 2018_07_17_231705) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -702,7 +702,6 @@ ActiveRecord::Schema.define(version: 2018_07_18_001633) do
     t.integer "staffing_company_id"
     t.boolean "cloned", default: false
     t.datetime "filled_at"
-    t.datetime "published_on_arbetsformedlingen_at"
     t.index ["category_id"], name: "index_jobs_on_category_id"
     t.index ["hourly_pay_id"], name: "index_jobs_on_hourly_pay_id"
     t.index ["language_id"], name: "index_jobs_on_language_id"

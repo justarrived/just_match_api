@@ -3,7 +3,7 @@
 ActiveAdmin.register ArbetsformedlingenAd do
   menu parent: 'Jobs'
 
-  actions :index, :show, :new, :create, :edit, :update
+  actions :all, except: %i[destroy]
 
   config.batch_actions = false
 

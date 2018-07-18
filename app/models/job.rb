@@ -22,7 +22,6 @@ class Job < ApplicationRecord
   MAX_HOURS_PER_DAY = 12
 
   boolean_as_time :filled
-  boolean_as_time :published_on_arbetsformedlingen
 
   attr_accessor :arbetsformedlingen_occupation
 
@@ -41,7 +40,7 @@ class Job < ApplicationRecord
   has_many :employment_periods, dependent: :nullify
 
   has_one :company, through: :owner
-  has_one :arbetsformedlingen_ad, dependent: :restrict_with_error
+  has_one :arbetsformedlingen_ad, dependent: :destroy
 
   has_many :job_occupations, dependent: :destroy
   has_many :occupations, through: :job_occupations
@@ -81,8 +80,6 @@ class Job < ApplicationRecord
   validate :validate_last_application_at_on_publish_to_blocketjobb
   validate :validate_last_application_at_on_publish_to_metrojobb
   validate :validate_last_application_at_on_publish_to_linkedin
-  validate :validate_last_application_at_on_published_on_arbetsformedlingen
-  validate :validate_arbetsformedlingen_occupation
   validate :validate_municipality_presence_on_publish_to_blocketjobb
   validate :validate_municipality_presence_on_publish_to_metrojobb
   validate :validate_blocketjobb_category_presence_on_publish_to_blocketjobb
@@ -179,7 +176,8 @@ class Job < ApplicationRecord
              :applicant_description, :requirements_description
 
   # NOTE: This is necessary for nested activeadmin has_many form
-  accepts_nested_attributes_for :job_skills, :job_languages, :job_occupations
+  accepts_nested_attributes_for :job_skills, :job_languages, :job_occupations,
+                                :arbetsformedlingen_ad
 
   ransacker :city, type: :string do
     Arel.sql('unaccent("city")')
@@ -536,22 +534,6 @@ class Job < ApplicationRecord
     errors.add(:last_application_at, message)
   end
 
-  def validate_last_application_at_on_published_on_arbetsformedlingen
-    return unless published_on_arbetsformedlingen
-    return if last_application_at.present?
-
-    message = I18n.t('errors.job.validate_last_application_at_on_published_on_arbetsformedlingen') # rubocop:disable Metrics/LineLength
-    errors.add(:last_application_at, message)
-  end
-
-  def validate_arbetsformedlingen_occupation
-    return unless published_on_arbetsformedlingen
-    return if arbetsformedlingen_occupation
-
-    message = I18n.t('errors.job.validate_arbetsformedlingen_occupation')
-    errors.add(:arbetsformedlingen_occupation, message)
-  end
-
   def validate_municipality_presence_on_publish_to_blocketjobb
     return unless publish_on_blocketjobb
     return if municipality.present?
@@ -641,59 +623,58 @@ end
 #
 # Table name: jobs
 #
-#  applicant_description              :text
-#  blocketjobb_category               :string
-#  cancelled                          :boolean          default(FALSE)
-#  car_required                       :boolean          default(FALSE)
-#  category_id                        :integer
-#  city                               :string
-#  cloned                             :boolean          default(FALSE)
-#  company_contact_user_id            :integer
-#  created_at                         :datetime         not null
-#  customer_hourly_price              :decimal(, )
-#  description                        :text
-#  direct_recruitment_job             :boolean          default(FALSE)
-#  featured                           :boolean          default(FALSE)
-#  filled_at                          :datetime
-#  full_time                          :boolean          default(FALSE)
-#  hidden                             :boolean          default(FALSE)
-#  hourly_pay_id                      :integer
-#  hours                              :float
-#  id                                 :integer          not null, primary key
-#  invoice_comment                    :text
-#  job_date                           :datetime
-#  job_end_date                       :datetime
-#  just_arrived_contact_user_id       :integer
-#  language_id                        :integer
-#  last_application_at                :datetime
-#  latitude                           :float
-#  longitude                          :float
-#  metrojobb_category                 :string
-#  municipality                       :string
-#  name                               :string
-#  number_to_fill                     :integer          default(1)
-#  order_id                           :integer
-#  owner_user_id                      :integer
-#  preview_key                        :string
-#  publish_at                         :datetime
-#  publish_on_blocketjobb             :boolean          default(FALSE)
-#  publish_on_linkedin                :boolean          default(FALSE)
-#  publish_on_metrojobb               :boolean          default(FALSE)
-#  published_on_arbetsformedlingen_at :datetime
-#  requirements_description           :text
-#  salary_type                        :integer          default("fixed")
-#  short_description                  :string
-#  staffing_company_id                :integer
-#  staffing_job                       :boolean          default(FALSE)
-#  street                             :string
-#  swedish_drivers_license            :string
-#  tasks_description                  :text
-#  unpublish_at                       :datetime
-#  upcoming                           :boolean          default(FALSE)
-#  updated_at                         :datetime         not null
-#  zip                                :string
-#  zip_latitude                       :float
-#  zip_longitude                      :float
+#  applicant_description        :text
+#  blocketjobb_category         :string
+#  cancelled                    :boolean          default(FALSE)
+#  car_required                 :boolean          default(FALSE)
+#  category_id                  :integer
+#  city                         :string
+#  cloned                       :boolean          default(FALSE)
+#  company_contact_user_id      :integer
+#  created_at                   :datetime         not null
+#  customer_hourly_price        :decimal(, )
+#  description                  :text
+#  direct_recruitment_job       :boolean          default(FALSE)
+#  featured                     :boolean          default(FALSE)
+#  filled_at                    :datetime
+#  full_time                    :boolean          default(FALSE)
+#  hidden                       :boolean          default(FALSE)
+#  hourly_pay_id                :integer
+#  hours                        :float
+#  id                           :integer          not null, primary key
+#  invoice_comment              :text
+#  job_date                     :datetime
+#  job_end_date                 :datetime
+#  just_arrived_contact_user_id :integer
+#  language_id                  :integer
+#  last_application_at          :datetime
+#  latitude                     :float
+#  longitude                    :float
+#  metrojobb_category           :string
+#  municipality                 :string
+#  name                         :string
+#  number_to_fill               :integer          default(1)
+#  order_id                     :integer
+#  owner_user_id                :integer
+#  preview_key                  :string
+#  publish_at                   :datetime
+#  publish_on_blocketjobb       :boolean          default(FALSE)
+#  publish_on_linkedin          :boolean          default(FALSE)
+#  publish_on_metrojobb         :boolean          default(FALSE)
+#  requirements_description     :text
+#  salary_type                  :integer          default("fixed")
+#  short_description            :string
+#  staffing_company_id          :integer
+#  staffing_job                 :boolean          default(FALSE)
+#  street                       :string
+#  swedish_drivers_license      :string
+#  tasks_description            :text
+#  unpublish_at                 :datetime
+#  upcoming                     :boolean          default(FALSE)
+#  updated_at                   :datetime         not null
+#  zip                          :string
+#  zip_latitude                 :float
+#  zip_longitude                :float
 #
 # Indexes
 #
