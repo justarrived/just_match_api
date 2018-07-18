@@ -92,8 +92,6 @@ ps:
       faq_translation:
         answer: ځواب ورکول
         question: پوښتنه
-      feedback:
-        body: بدن
       filter:
         languages: ژبه
         name: نوم

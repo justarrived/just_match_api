@@ -26,7 +26,6 @@ sv:
       employment_period: Anställningsperiod
       faq: Faq
       faq_translation: FAQ översättning
-      feedback: Feedback
       filter: Filter
       filter_user: Filteranvändare
       frilans_finans_api_log: Frilans Finans API logg
@@ -245,11 +244,6 @@ sv:
         language: :activerecord.models.language
         locale: Locale
         question: Fråga
-      feedback:
-        body: Innehåll
-        job: :activerecord.models.job
-        title: Titel
-        user: :activerecord.models.user
       filter:
         filter_users: Filteranvändare
         interest_filters: Intressefilter
@@ -422,7 +416,7 @@ sv:
         unpublish_at: Avpublicerat den
         upcoming: Kommande
         users: Användare
-        zip: Postnummer
+        zip: Blixtlås
         zip_latitude: Zip latitud
         zip_longitude: Zip longitud
       job_digest:
@@ -697,7 +691,6 @@ sv:
         email: E-post
         employed_for_jobs: Anställd för jobb
         employment_periods: Anställningsperioder
-        feedbacks: Feedbacks
         filter_users: Filteranvändare
         filters: Filter
         first_name: Förnamn

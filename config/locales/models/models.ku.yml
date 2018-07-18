@@ -92,8 +92,6 @@ ku:
       faq_translation:
         answer: Bersiv
         question: Pirs
-      feedback:
-        body: Laş
       filter:
         languages: Ziman
         name: Nav

@@ -92,8 +92,6 @@ fa:
       faq_translation:
         answer: پاسخ
         question: سوال
-      feedback:
-        body: پیکر
       filter:
         languages: زبان ها
         name: نام

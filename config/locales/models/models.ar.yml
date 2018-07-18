@@ -94,8 +94,6 @@ ar:
       faq_translation:
         answer: جواب
         question: سؤال
-      feedback:
-        body: جسم
       filter:
         languages: لغات
         name: الاسم

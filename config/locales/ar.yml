@@ -114,7 +114,6 @@ ar:
       unrevertable: غير ممكن إعادة تعيين %{field}
       swedish_municipality: يجب أن تكون بلدية سويدية معروفة
       linkedin_url: يجب تحديد رابط الLinkedIN
-      facebook_url: يجب تحديد رابط الFacebook
       url: يجب تحديد الرابط
       drivers_license: يجب أن تتكون فقط من رمز ترخيص صالح للسائق
   invalid_credentials: مراجع خاطئة

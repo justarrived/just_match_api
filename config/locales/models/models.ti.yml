@@ -92,8 +92,6 @@ ti:
       faq_translation:
         answer: መልሲ
         question: ሕቶ
-      feedback:
-        body: ሰብነት ወይ ኣካል
       filter:
         languages: ቋንቋ
         name: ስም
@@ -135,8 +133,7 @@ ti:
         skills: ክእለት ወይ ሙያ
         street: ጎደና
         users: ተጠቃሚ
-        zip: Postnummer (ሻርኔራ ወይ መኽፈቲ - ዚፕ)
-        verified: ዝተረጋገጸ
+        zip: Blixtlås (ሻርኔራ ወይ መኽፈቲ - ዚፕ)
         zip_latitude: Zip latitud (ግዳማዊ ዚፕ)
         zip_longitude: Zip longitud (ትኹላዊ ዚፕ)
       job_request:
