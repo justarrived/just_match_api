@@ -74,6 +74,8 @@ $ script/test spec/models/user_spec.rb:31
 $ COVERAGE=true script/test
 ```
 
+We use CircleCI for CI.
+
 ## Docs
 
 __Public JSON API documentation__
