@@ -65,9 +65,10 @@ en:
       title: My recent jobs
       name: Name
       filled: Filled
-      start_date: Start date
-      hours: Hours
-      hourly_pay: Hourly pay
+    my_soon_last_application_end_jobs:
+      title: Last application
+      name: Name
+      last_application_at: Last application
     my_unfilled_jobs:
       title: My unfilled jobs
       name: Name

@@ -30,27 +30,6 @@ ActiveAdmin.register_page 'Dashboard' do
               link_to(truncate(job.display_name), admin_job_path(job))
             end
 
-            column(I18n.t('admin.recent_jobs.hours')) do |job|
-              job.hours.round(0)
-            end
-
-            column(I18n.t('admin.recent_jobs.hourly_pay')) do |job|
-              job.hourly_pay.gross_salary
-            end
-
-            column(I18n.t('admin.recent_jobs.start_date')) do |job|
-              now_time = Time.now.utc
-              job_date = job.job_date
-
-              time_in_words = distance_of_time_in_words(now_time, job_date)
-
-              if now_time > job_date
-                I18n.t('admin.time_ago', time: time_in_words)
-              else
-                I18n.t('admin.time_from_now', time: time_in_words)
-              end
-            end
-
             column(I18n.t('admin.recent_jobs.filled')) do |job|
               status_tag(job.filled)
             end
@@ -84,6 +63,48 @@ ActiveAdmin.register_page 'Dashboard' do
             end
 
             column(I18n.t('admin.my_unfilled_jobs.start_date')) do |job|
+              now_time = Time.now.utc
+              job_date = job.job_date
+
+              time_in_words = distance_of_time_in_words(now_time, job_date)
+
+              if now_time > job_date
+                I18n.t('admin.time_ago', time: time_in_words)
+              else
+                I18n.t('admin.time_from_now', time: time_in_words)
+              end
+            end
+          end
+        end
+      end
+
+      column do
+        panel link_to(I18n.t('admin.my_soon_last_application_end_jobs.title'), admin_jobs_path) do
+          scope = Job.with_translations.
+                  uncancelled.
+                  unfilled.
+                  where(just_arrived_contact: authenticated_admin).
+                  between(:last_application_at, 1.week.ago, 2.weeks.from_now).
+                  left_joins(:job_users).
+                  select('jobs.*, count(job_users.id) as job_users_count').
+                  group('jobs.id, job_users.job_id').
+                  order(created_at: :desc).
+                  limit(20)
+
+          table_for(scope) do
+            column(:applicants) do |job|
+              column_content = safe_join([
+                                           user_icon_png(html_class: 'table-column-icon'),
+                                           job.job_users_count
+                                         ])
+              column_content
+            end
+
+            column(I18n.t('admin.my_soon_last_application_end_jobs.name')) do |job|
+              link_to(truncate(job.display_name), admin_job_path(job))
+            end
+
+            column(I18n.t('admin.my_soon_last_application_end_jobs.last_application_at')) do |job|
               now_time = Time.now.utc
               job_date = job.job_date
 
