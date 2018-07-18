@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+recruiter_activities = job_user.user.recruiter_activities.order(id: :desc).includes(:activity, :author) # rubocop:disable Metrics/LineLength
+
 h1 job_user.current_status
 columns do
   column do
