@@ -10,8 +10,8 @@ ps:
     name: نوم
     recent_jobs:
       name: نوم
-      hours: ساعتونه
-      hourly_pay: ساعتوار نرخ
+    my_soon_last_application_end_jobs:
+      name: نوم
     my_unfilled_jobs:
       name: نوم
     unfilled_urgent_jobs:

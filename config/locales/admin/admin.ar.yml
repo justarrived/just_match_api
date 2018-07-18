@@ -10,8 +10,8 @@ ar:
     name: الاسم
     recent_jobs:
       name: الاسم
-      hours: ساعات
-      hourly_pay: أجر الساعة
+    my_soon_last_application_end_jobs:
+      name: الاسم
     my_unfilled_jobs:
       name: الاسم
     unfilled_urgent_jobs:

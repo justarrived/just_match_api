@@ -10,8 +10,8 @@ ti:
     name: ስም
     recent_jobs:
       name: ስም
-      hours: ሰዓታት
-      hourly_pay: ብሰዓት ዝኽፈል ደሞዝ
+    my_soon_last_application_end_jobs:
+      name: ስም
     my_unfilled_jobs:
       name: ስም
     unfilled_urgent_jobs:

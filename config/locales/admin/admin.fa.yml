@@ -10,8 +10,8 @@ fa:
     name: نام
     recent_jobs:
       name: نام
-      hours: ساعت ها
-      hourly_pay: پرداخت ساعتی
+    my_soon_last_application_end_jobs:
+      name: نام
     my_unfilled_jobs:
       name: نام
     unfilled_urgent_jobs:

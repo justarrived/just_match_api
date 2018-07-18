@@ -627,6 +627,7 @@ sv:
         author: :activerecord.models.author
         body: Innehåll
         document: :activerecord.models.document
+        job: :activerecord.models.job
         user: :activerecord.models.user
       skill:
         color: Färg

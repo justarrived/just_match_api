@@ -10,8 +10,8 @@ ku:
     name: Nav
     recent_jobs:
       name: Nav
-      hours: Saet
-      hourly_pay: Meaşê bisaetan
+    my_soon_last_application_end_jobs:
+      name: Nav
     my_unfilled_jobs:
       name: Nav
     unfilled_urgent_jobs:
