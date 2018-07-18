@@ -47,7 +47,7 @@ class JobUser < ApplicationRecord
 
   before_validation :accepted_at_setter
 
-  scope :long_list, (-> { unrejected.not_withdrawn.not_shortlisted })
+  scope :long_list, (-> { unrejected.not_withdrawn.not_shortlisted.not_accepted })
   scope :unrejected, (-> { where(rejected: false) })
   scope :shortlisted, (-> { where(shortlisted: true) })
   scope :not_shortlisted, (-> { where(shortlisted: false) })
