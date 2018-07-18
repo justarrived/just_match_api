@@ -11,7 +11,7 @@ The code follows most Rails conventions. If you've worked with Rails before the 
 
 * __Technology__
   - Ruby 2.5
-  - Ruby on Rails 5.1
+  - Ruby on Rails 5.2
   - PostgreSQL 9.5
   - Redis 3
 

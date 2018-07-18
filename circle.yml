@@ -23,7 +23,7 @@ jobs:
           RUN_NESTED_GEMS_SPECS: true
           RAILS_EAGER_LOAD_IN_TEST: true
           DISABLE_SPRING: 1
-          LINT_FACTORY: true
+          LINT_FACTORY: false
           RUBOCOP: false
           CHECK_DB_INDEXES: false
           CHECK_DB_UNIQ_INDEXES: false
@@ -39,14 +39,14 @@ jobs:
       # Restore bundle cache
       - restore_cache:
           keys:
-            - gem-cache-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+            - gem-cache-{{ checksum "Gemfile.lock" }}
 
       # Bundle install dependencies
       - run: bundle install --path vendor/bundle
 
       # Store bundle cache
       - save_cache:
-          key: gem-cache-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+          key: gem-cache-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
 
