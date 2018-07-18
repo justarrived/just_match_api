@@ -18,7 +18,7 @@ columns do
         content_tag(:p, user_tag_badges(user: user))
       end
 
-      # render partial: 'admin/recruiter_activities/simple_list', locals: { recruiter_activities: recruiter_activities, user: job_user.user } # rubocop:disable Metrics/LineLength
+      render partial: 'admin/recruiter_activities/simple_list', locals: { recruiter_activities: recruiter_activities, user: job_user.user } # rubocop:disable Metrics/LineLength
 
       br
 
