@@ -141,26 +141,24 @@ ActiveAdmin.register JobUser do
 
     AskForJobInformationJob.perform_later(job_user)
 
-    notice = 'Update profile reminder notification sent.'
+    notice = I18n.t('admin.job_user.update_profile_reminder_notification.success')
     redirect_to resource_path(resource), notice: notice
   end
 
-  # TODO: Consider creating :reject variant that does not notifiy
   member_action :reject_and_notify, method: :post do
     job_user = resource
 
     if job_user.update(rejected: true)
       ApplicantRejectedNotifier.call(job_user)
 
-      notice = 'Applicant has been rejected and notified.'
+      notice = I18n.t('admin.job_user.reject_and_notify.success')
       redirect_to resource_path(resource), notice: notice
     else
-      notice = 'Could *not* reject applicant.'
+      notice = I18n.t('admin.job_user.reject_and_notify.fail')
       redirect_to resource_path(resource), alert: notice
     end
   end
 
-  # TODO: Consider creating :accept variant that does not notifiy
   member_action :accept_and_notify_all, method: :post do
     job_user = resource
 
@@ -169,24 +167,23 @@ ActiveAdmin.register JobUser do
       ApplicantAcceptedNotifier.call(job_user: job_user, owner: owner)
       ExecuteService.call(SendApplicantRejectNotificationsService, job_user)
 
-      notice = 'Applicant has been accepted and all users have been notified.'
+      notice = I18n.t('admin.job_user.accept_and_notify_all.success')
       redirect_to resource_path(resource), notice: notice
     else
-      notice = 'Could *not* accept applicant.'
+      notice = I18n.t('admin.job_user.accept_and_notify_all.fail')
       redirect_to resource_path(resource), alert: notice
     end
   end
 
-  # TODO: Consider creating a :shortlist_and_notify variant
   member_action :shortlist, method: :post do
     job_user = resource
 
     if job_user.update(shortlisted: true)
-      notice = 'Applicant has been shortlisted.'
+      notice = I18n.t('admin.job_user.shortlist.success')
       query = AdminHelpers::Link.query(:job_id, job_user.job.id) + "&scope=shortlisted"
       redirect_to(collection_path + query, notice: notice)
     else
-      notice = 'Could *not* shortlist applicant.'
+      notice = I18n.t('admin.job_user.shortlist.fail')
       redirect_to resource_path(resource), alert: notice
     end
   end
