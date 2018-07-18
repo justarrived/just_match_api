@@ -77,16 +77,4 @@ ul do
       admin_user_images_path + user_query
     )
   )
-  li(
-    link_to(
-      I18n.t('admin.counts.received_ratings', count: user.received_ratings.count),
-      admin_ratings_path + to_user_query
-    )
-  )
-  li(
-    link_to(
-      I18n.t('admin.counts.given_ratings', count: user.given_ratings.count),
-      admin_ratings_path + from_user_query
-    )
-  )
 end
