@@ -21,7 +21,12 @@ class SignJobUserService
 
     job.fill_position
     call_frilans_finans_actions
-    send_notifications
+
+    ApplicantWillPerformNotifier.call(job_user: job_user, owner: job_owner)
+    ExecuteService.call(SendApplicantRejectNotificationsService, job_user)
+
+    # Reject all other job users
+    job_users.update_all(rejected: true) # rubocop:disable Rails/SkipsModelValidations
 
     job_user
   end
@@ -36,29 +41,5 @@ class SignJobUserService
     )
 
     FrilansFinansInvoice.create!(job_user: job_user)
-  end
-
-  def send_notifications
-    ApplicantWillPerformNotifier.call(job_user: job_user, owner: job_owner)
-    reject_non_accepted_applicants(job_user)
-  end
-
-  def reject_non_accepted_applicants(signed_job_user)
-    job_users = signed_job_user.job.
-                job_users.
-                not_accepted.
-                not_withdrawn.
-                unrejected.
-                includes(:user)
-
-    job_users.each do |job_user|
-      next if signed_job_user == job_user
-
-      ApplicantRejectedNotifier.call(job_user: job_user)
-    end
-
-    # Reject all other job users
-    job_users.update_all(rejected: true) # rubocop:disable Rails/SkipsModelValidations
-    job_users
   end
 end

@@ -79,7 +79,6 @@ if user.persisted?
   f.inputs I18n.t('admin.user.form.immigration_status') do
     f.input :current_status
     f.input :at_und
-    f.input :arrived_at, as: :datetime_picker
     f.input :country_of_origin, input_html: { autocomplete: 'off' }
     f.input :arbetsformedlingen_registered_at, as: :datetime_picker
   end

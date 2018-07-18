@@ -1,0 +1,14 @@
+confirm_msg = I18n.t('admin.action_confirm')
+
+ul do
+  li link_to('Accept and notify all concerned users', accept_and_notify_all_admin_job_user_path(job_user), method: :post, data: { confirm: confirm_msg })
+  # li link_to('Accept user', '#', method: :post, data: { confirm: confirm_msg })
+  br
+  li link_to('Shortlist user', shortlist_admin_job_user_path(job_user), method: :post, data: { confirm: confirm_msg })
+  li link_to('Reject user', reject_and_notify_admin_job_user_path(job_user), method: :post, data: { confirm: confirm_msg })
+  br
+  li link_to('Ask for job information notifiation', update_profile_reminder_notification_admin_job_user_path(job_user), method: :post, data: { confirm: confirm_msg })
+
+end
+
+strong link_to('View full details', admin_job_user_path(job_user, full: true))  

@@ -19,7 +19,7 @@ ActiveAdmin.register JobUser do
         next
       end
 
-      if job_user.update(accepted: true)
+      if job_user.update(accepted_at: Time.zone.now)
         owner = job_user.job.owner
         success_count += 1
         ApplicantAcceptedNotifier.call(job_user: job_user, owner: owner)
@@ -136,11 +136,64 @@ ActiveAdmin.register JobUser do
     end
   end
 
-  scope :all
+  member_action :update_profile_reminder_notification, method: :post do
+    job_user = resource
+
+    AskForJobInformationJob.perform_later(job_user)
+
+    notice = 'Update profile reminder notification sent.'
+    redirect_to resource_path(resource), notice: notice
+  end
+
+  # TODO: Consider creating :reject variant that does not notifiy
+  member_action :reject_and_notify, method: :post do
+    job_user = resource
+
+    if job_user.update(rejected: true)
+      ApplicantRejectedNotifier.call(job_user)
+
+      notice = 'Applicant has been rejected and notified.'
+      redirect_to resource_path(resource), notice: notice
+    else
+      notice = 'Could *not* reject applicant.'
+      redirect_to resource_path(resource), alert: notice
+    end
+  end
+
+  # TODO: Consider creating :accept variant that does not notifiy
+  member_action :accept_and_notify_all, method: :post do
+    job_user = resource
+
+    if job_user.update(accepted_at: Time.zone.now)
+      owner = job_user.job.owner
+      ApplicantAcceptedNotifier.call(job_user: job_user, owner: owner)
+      ExecuteService.call(SendApplicantRejectNotificationsService, job_user)
+
+      notice = 'Applicant has been accepted and all users have been notified.'
+      redirect_to resource_path(resource), notice: notice
+    else
+      notice = 'Could *not* accept applicant.'
+      redirect_to resource_path(resource), alert: notice
+    end
+  end
+
+  # TODO: Consider creating a :shortlist_and_notify variant
+  member_action :shortlist, method: :post do
+    job_user = resource
+
+    if job_user.update(shortlisted: true)
+      notice = 'Applicant has been shortlisted.'
+      redirect_to resource_path(resource), notice: notice
+    else
+      notice = 'Could *not* shortlist applicant.'
+      redirect_to resource_path(resource), alert: notice
+    end
+  end
+
+  scope 'Long list', :all
   scope :visible, default: true
   scope :shortlisted
-  scope :will_perform
-  scope :not_pre_reported
+  scope :accepted
 
   filter :just_arrived_contact, collection: -> { User.delivery_users }
   filter :user_documents_text_content_cont, as: :string, label: I18n.t('admin.user.resume_search_label') # rubocop:disable Metrics/LineLength
@@ -236,6 +289,10 @@ ActiveAdmin.register JobUser do
   end
 
   include AdminHelpers::MachineTranslation::Actions
+
+  sidebar :actions, only: %i(show edit), priority: 1 do
+    render partial: 'admin/job_users/actions', locals: { job_user: job_user }
+  end
 
   sidebar :job_user_relations, only: %i(show edit) do
     render partial: 'admin/job_users/relations_list', locals: { job_user: job_user }

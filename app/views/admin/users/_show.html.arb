@@ -126,7 +126,6 @@ if user.candidate?
     attributes_table_for(user) do
       row :current_status
       row :at_und
-      row :arrived_at
       row :country_of_origin
     end
   end

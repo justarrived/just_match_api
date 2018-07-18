@@ -157,7 +157,7 @@ en:
         user_details: User details
         match_details: Match details
         job_details: Job details
-        created_at: Created at %{date}
+        created_at: Applied %{date}
         apply_message: Apply message
         no_apply_message: No apply message.
         no_resume_uploaded: No resumé uploaded
