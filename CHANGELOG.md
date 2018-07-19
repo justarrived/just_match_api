@@ -4,6 +4,28 @@ HEAD
 -----------
 
 
+v3.3.0 - 2018-07-19
+----------
+__Admin__:
+* Add long list scope to job users
+* Remove rating related relations from sidebar
+* Remove average user score
+* Clearer RecruiterActivity view
+* Redirect to new employment period after applicant accept
+* Set job#filled to true after accepting applicant
+* Add I18n for applicant member actions
+* Redirect to job applicants view after shortlisting
+
+__Enhancement__:
+* :hocho: dead I18n-strings
+* Pull translations
+* Add missing admin I18n-key
+* Update service and notifier to user `JobUser::long_list` scope
+* Improved `JobUser::long_list` scope
+* Send notification to main support user for each new chat message not authored by an admin
+* Add `RecruiterActivity#job` relation (optional)
+
+
 v3.2.0 - 2018-07-18
 ----------
 __Admin__:
