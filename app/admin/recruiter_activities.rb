@@ -10,6 +10,19 @@ ActiveAdmin.register RecruiterActivity do
     ]
   end
 
+  show do
+    attributes_table do
+      row :id
+      row :activity
+      row :user
+      row :job
+      row :document
+      row :updated_at
+      row :created_at
+      row(:body) { |ra| simple_format(ra.body.to_s) }
+    end
+  end
+
   # rubocop:disable Metrics/LineLength
   form do |f|
     f.semantic_errors(*f.object.errors.keys)
