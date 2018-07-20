@@ -3,6 +3,11 @@
 HEAD
 -----------
 
+v3.3.1 - 2018-07-20
+----------
+__Admin__:
+* Custom Recruiter Activity show view
+
 
 v3.3.0 - 2018-07-19
 ----------
