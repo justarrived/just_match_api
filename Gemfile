@@ -61,7 +61,7 @@ gem 'httparty', '~> 0.16' # Make HTTP requests with ease
 
 # SECURITY
 gem 'bcrypt', '~> 3.1.12', require: true # Encrypt passwords
-gem 'pundit', '~> 1.1' # Authorization policies
+gem 'pundit', '~> 2.0' # Authorization policies
 
 # ADMIN
 gem 'active_admin_filters_visibility', github: 'activeadmin-plugins/active_admin_filters_visibility'
