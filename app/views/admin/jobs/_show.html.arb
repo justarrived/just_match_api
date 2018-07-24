@@ -170,10 +170,12 @@ tabs do
       row :car_required
 
       row :arbetsformedlingen_ad do
-        link_to(
-          "#{af_ad.display_name} (published: #{af_ad.published})",
-          admin_arbetsformedlingen_ad_path(af_ad)
-        )
+        if af_ad
+          link_to(
+            "#{af_ad.display_name} (published: #{af_ad.published})",
+            admin_arbetsformedlingen_ad_path(af_ad)
+          )
+        end
       end
       row :publish_on_linkedin
       row :publish_on_blocketjobb
