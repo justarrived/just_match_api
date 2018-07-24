@@ -3,7 +3,6 @@
 module Index
   class BaseIndex
     delegate :params, to: :controller
-    delegate :policy_scope, to: :controller
     delegate :included_resources, to: :controller
     delegate :included_resource?, to: :controller
 
@@ -82,6 +81,13 @@ module Index
         transformable = self.class::TRANSFORMABLE_FILTERS
         JsonApiFilterParams.build(params[:filter], filterable_fields, transformable)
       end
+    end
+
+    private
+
+    def policy_scope(records)
+      # We need to use #send here since #policy_scope is a protected method
+      controller.send(:policy_scope, records)
     end
   end
 end
