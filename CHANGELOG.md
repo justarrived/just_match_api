@@ -3,6 +3,18 @@
 HEAD
 -----------
 
+
+v3.3.2 - 2018-07-24
+----------
+__Admin__:
+* Handle case where AF ad is nil in jobs
+
+__Gem updates__:
+* Bump `memory_profiler` from 0.9.10 to 0.9.11
+* Bump `twilio-ruby` from 5.10.7 to 5.11.1
+* Bump `uglifier` from 4.1.15 to 4.1.16
+
+
 v3.3.1 - 2018-07-20
 ----------
 __Admin__:
