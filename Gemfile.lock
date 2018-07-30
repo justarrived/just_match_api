@@ -101,7 +101,7 @@ GEM
     annotate (2.7.4)
       activerecord (>= 3.2, < 6.0)
       rake (>= 10.4, < 13.0)
-    apipie-rails (0.5.9)
+    apipie-rails (0.5.10)
       rails (>= 4.1)
     arbetsformedlingen (0.4.1)
       builder (~> 3.2)
@@ -563,7 +563,7 @@ GEM
     rack-cors (1.0.2)
     rack-protection (2.0.1)
       rack
-    rack-test (1.0.0)
+    rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rack-timeout (0.5.1)
     rails (5.2.0)
