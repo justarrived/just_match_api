@@ -17,12 +17,20 @@ OptionParser.new do |parser|
     options[:remote] = value
   end
 
-  parser.on('--branch=master', String, 'The local branch you want to deploy (default: master).') do |value|
+  parser.on('--tag=v1.0.0', String, 'The local tag you want to deploy.') do |value|
+    options[:tag] = value
+  end
+
+  parser.on('--branch=master', String, 'The local branch you want to deploy.') do |value|
     options[:branch] = value
   end
 
   parser.on('--[no-]db-migrate', 'Run database migrations (default: true).') do |value|
     options[:db_migrate] = value
+  end
+
+  parser.on('--[no-]track-deploy', 'Track deploy (default: true).') do |value|
+    options[:track_deploy] = value
   end
 
   parser.on('-h', '--help', 'How to use') do
@@ -32,24 +40,30 @@ OptionParser.new do |parser|
 end.parse!
 # rubocop:enable Metrics/LineLength
 
-remote = options.fetch(:remote, 'production')
-branch = options.fetch(:branch, 'master')
-db_migrate = options.fetch(:db_migrate, true)
-
 # Main
 require_relative '../lib/script_cli'
+require_relative '../config/version'
 
 cli = ScriptCLI.new
-cli.puts "== Deploying application - #{branch} to #{remote} =="
+tag = options.fetch(:tag, "v#{JustMatch::VERSION}")
 
-# deploy code to Heroku
-cli.system_call("git push #{remote} #{branch}:master")
+remote = options.fetch(:remote, 'production')
+branch = options.fetch(:branch, nil)
+db_migrate = options.fetch(:db_migrate, true)
+track_deploy = options.fetch(:track_deploy, true)
 
-# run migrations
+cli.puts "== Deploying application - #{branch || tag} to #{remote} (migrate: #{db_migrate}) ==" # rubocop:disable Metrics/LineLength
+
+# NOTE: heroku needs ^{} custom syntax when deploying from a git tag
+branch_or_tag = branch || "#{tag}^{}"
+cli.system_call("git push --force #{remote} #{branch_or_tag}:master")
+
 if db_migrate
   cli.system_call("heroku run rails db:migrate --remote #{remote}")
 end
 
-# cli.system_call('script/trackdeploy')
+if track_deploy
+  cli.system_call('script/trackdeploy')
+end
 
-cli.puts "== Application deployed - #{branch} to #{remote} =="
+cli.puts "== Application deployed - #{branch || tag} to #{remote} =="
