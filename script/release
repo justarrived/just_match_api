@@ -1,0 +1,36 @@
+#!/usr/bin/env ruby
+
+# frozen_string_literal: true
+
+require_relative '../lib/script_cli'
+cli = ScriptCLI.new
+
+cli.puts '== Creating application release =='
+
+require_relative '../config/version'
+version = JustMatch::VERSION
+
+# check git status
+status = cli.system_call('git status --porcelain')
+%w[config/version.rb CHANGELOG.md README.md LICENSE].each do |file|
+  if status.lines.detect { |line| line.include?(file) }
+    cli.die!("#{file} must be commited - please add and commit the file and try again")
+  end
+end
+
+# make sure we have all tags published on default remote
+cli.system_call('git fetch --tags')
+
+# get all git tags
+tags = cli.system_call('git tag --list')
+if tags.split("\n").include?("v#{version}")
+  cli.die!('Version already exists - please bump version constant(s) in config/version.rb if you wish to create a new release.') # rubocop:disable Metrics/LineLength
+end
+
+# create a new git tag
+cli.system_call("git tag -a v#{version} -m 'Version #{version}'")
+
+# push git tag to default remote
+cli.system_call('git push --tags')
+
+cli.puts '== Application release created =='
