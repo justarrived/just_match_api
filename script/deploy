@@ -1,22 +1,55 @@
-#!/bin/bash
-set -euo pipefail
-IFS=$'\n\t'
+#!/usr/bin/env ruby
 
-cd "$(dirname "$0")/.."
+# frozen_string_literal: true
 
 # script/deploy: Deploy the application.
 
-die () {
-  echo >&2 "$@"
-  exit 1
-}
+# Parse CLI arguments
+require 'optparse'
 
-[ "$#" -eq 1 ] || die "first argument <remote> required, $# provided"
-remote="$1"
+options = {}
+# rubocop:disable Metrics/LineLength
+OptionParser.new do |parser|
+  parser.banner = 'Usage: script/deploy --help'
+  parser.default_argv = ARGV
 
-echo -e "\n== Deploying application to $remote =="
-git push "$remote" master
-heroku run rails db:migrate --remote="$remote"
+  parser.on('--remote=production', String, 'The remote to deploy to (default: production).') do |value|
+    options[:remote] = value
+  end
 
-script/trackdeploy
-echo -e '\n== Deploy done =='
+  parser.on('--branch=master', String, 'The local branch you want to deploy (default: master).') do |value|
+    options[:branch] = value
+  end
+
+  parser.on('--[no-]db-migrate', 'Run database migrations (default: true).') do |value|
+    options[:db_migrate] = value
+  end
+
+  parser.on('-h', '--help', 'How to use') do
+    puts parser
+    exit
+  end
+end.parse!
+# rubocop:enable Metrics/LineLength
+
+remote = options.fetch(:remote, 'production')
+branch = options.fetch(:branch, 'master')
+db_migrate = options.fetch(:db_migrate, true)
+
+# Main
+require_relative '../lib/script_cli'
+
+cli = ScriptCLI.new
+cli.puts "== Deploying application - #{branch} to #{remote} =="
+
+# deploy code to Heroku
+cli.system_call("git push #{remote} #{branch}:master")
+
+# run migrations
+if db_migrate
+  cli.system_call("heroku run rails db:migrate --remote #{remote}")
+end
+
+# cli.system_call('script/trackdeploy')
+
+cli.puts "== Application deployed - #{branch} to #{remote} =="
