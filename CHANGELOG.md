@@ -4,6 +4,18 @@ HEAD
 -----------
 
 
+v3.3.3 - 2018-07-24
+----------
+__Gem updates__:
+* Bump `twilio-ruby` from 5.11.1 to 5.11.2
+* Bump `uglifier` from 4.1.16 to 4.1.17
+* Bump `paperclip` from 6.0.0 to 6.1.0
+* Bump `apipie-rails` from 0.5.9 to 0.5.10
+* Bump `rubocop` from 0.58.1 to 0.58.2
+* Bump `pundit` from 1.1.0 to 2.0.0
+  - Update `BaseIndex` to correctly call protected pundit method on controller
+
+
 v3.3.2 - 2018-07-24
 ----------
 __Admin__:
