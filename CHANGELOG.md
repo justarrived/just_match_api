@@ -4,6 +4,21 @@ HEAD
 -----------
 
 
+v3.3.4 - 2018-08-01
+----------
+__Enhancement__:
+* `ScriptCLI` - helper class for scripts
+* `script/release` - create and publish a release
+* `script/deploy` - proper CLI
+  + deploy tag or branch
+  + deploy w/ or w/o database migrations
+  + deploys to production with migrations by default
+* Replace `VERSION` file with `config/version.rb`
+
+__Admin__:
+* Footer meta data :lipstick:
+
+
 v3.3.3 - 2018-08-01
 ----------
 __Gem updates__:
