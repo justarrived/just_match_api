@@ -16,11 +16,11 @@ class ScriptCLI
     exit(1)
   end
 
-  def system_call(command)
+  def system_call(command, puts: false)
     puts("$ #{command}")
     return '' if noop?
 
-    `#{command}`
+    `#{command}`.tap { |output| puts(output) if puts }
   end
 
   def noop?
