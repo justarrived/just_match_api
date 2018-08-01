@@ -15,9 +15,9 @@ module Admin
 
       para safe_join(
         [
-          "Version: #{JustMatch::VERSION}",
-          safe_join(['Commit: ', changelog_link || '-']),
-          "Released at: #{released_at}"
+          "Version #{JustMatch::VERSION}",
+          safe_join(['Commit ', changelog_link || '-']),
+          "Released at #{released_at}"
         ],
         ', '
       )

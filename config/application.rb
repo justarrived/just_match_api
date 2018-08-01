@@ -8,6 +8,7 @@ require 'rails'
 require_relative 'app_env'
 require_relative 'app_config'
 require_relative 'app_secrets'
+require_relative 'version'
 
 # Pick the frameworks you want:
 require 'active_model/railtie'
@@ -26,8 +27,6 @@ require_relative '../lib/i18n/i18n_meta'
 Bundler.require(*Rails.groups)
 
 module JustMatch
-  VERSION = File.read('VERSION').strip
-
   class Application < Rails::Application
     config.time_zone = 'Stockholm'
 
