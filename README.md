@@ -121,9 +121,12 @@ There are a few convenience commands
 * `script/bootstrap` - installs/updates all dependencies
 * `script/setup` - sets up a project to be used for the first time
 * `script/update` - updates a project to run at its current version
+* `script/migrate` - run local database migrations
 * `script/server` - starts app
 * `script/test` - runs tests
 * `script/console` - opens a console
+* `script/release` - create and publish application release
+* `script/deploy` - deploy application
 * `script/docs` - generate docs
 * `script/pull-translations` - pull translation from Transifex
 * `script/push-translations` - push translation to Transifex
