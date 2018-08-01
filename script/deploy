@@ -63,7 +63,7 @@ if db_migrate
 end
 
 if track_deploy
-  cli.system_call('script/trackdeploy')
+  cli.system_call('script/trackdeploy', puts: true)
 end
 
 cli.puts "== Application deployed - #{branch || tag} to #{remote} =="

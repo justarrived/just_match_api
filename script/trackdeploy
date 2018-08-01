@@ -33,7 +33,7 @@ trackdeploy() {
     -d $data \
     "https://airbrake.io/api/v4/projects/${project_id}/deploys?key=${project_key}"
 
-  echo 'Pushed deploy information to Airbrake'
+  echo '== Pushed deploy information to Airbrake =='
 }
 
 trackdeploy
