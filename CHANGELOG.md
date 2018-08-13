@@ -4,6 +4,17 @@ HEAD
 -----------
 
 
+v3.3.7 - 2018-08-13
+----------
+__Admin__:
+* I18n for job user actions sidebar
+* Add job user create_frilans_finans_invoice member action
+* Set JobUser#accepted in batch action
+
+__Enhancement__:
+* Pull translations from Transifex
+
+
 v3.3.6 - 2018-08-13
 ----------
 __Admin__:
