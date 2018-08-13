@@ -6,23 +6,21 @@ job = job_user.job
 
 # rubocop:disable Metrics/LineLength
 ul do
-  # TODO: Add I18n
-  li link_to('Accept and notify all concerned users', accept_and_notify_all_admin_job_user_path(job_user), method: :post, data: { confirm: confirm_msg })
-  # li link_to('Accept user', '#', method: :post, data: { confirm: confirm_msg })
+  li link_to(I18n.t('admin.job_user.actions.accept_and_notify_all'), accept_and_notify_all_admin_job_user_path(job_user), method: :post, data: { confirm: confirm_msg })
   br
-  li link_to('Shortlist user', shortlist_admin_job_user_path(job_user), method: :post, data: { confirm: confirm_msg })
-  li link_to('Reject user', reject_and_notify_admin_job_user_path(job_user), method: :post, data: { confirm: confirm_msg })
+  li link_to(I18n.t('admin.job_user.actions.shortlist'), shortlist_admin_job_user_path(job_user), method: :post, data: { confirm: confirm_msg })
+  li link_to(I18n.t('admin.job_user.actions.reject'), reject_and_notify_admin_job_user_path(job_user), method: :post, data: { confirm: confirm_msg })
   br
-  li link_to('Ask for job information notifiation', update_profile_reminder_notification_admin_job_user_path(job_user), method: :post, data: { confirm: confirm_msg })
+  li link_to(I18n.t('admin.job_user.actions.ask_for_job_information'), update_profile_reminder_notification_admin_job_user_path(job_user), method: :post, data: { confirm: confirm_msg })
   br
   if ff_invoice = job_user.frilans_finans_invoice
     li link_to(ff_invoice.display_name, resource_path(ff_invoice))
   elsif job&.frilans_finans_job? && job_user.will_perform
-    li link_to('Create Frilans Finans Invoice', create_frilans_finans_invoice_admin_job_user_path(job_user), method: :post, data: { confirm: confirm_msg })
+    li link_to(I18n.t('admin.job_user.actions.create_frilans_finans_invoice'), create_frilans_finans_invoice_admin_job_user_path(job_user), method: :post, data: { confirm: confirm_msg })
   else
-    li em('Frilans Finans Invoice can not be created for this applicant.')
+    li em(I18n.t('admin.job_user.actions.frilans_finans_create_invalid'))
   end
 end
 
-strong link_to('View full details', admin_job_user_path(job_user, full: true))
+strong link_to(I18n.t('admin.job_user.actions.view_full_details'), admin_job_user_path(job_user, full: true))
 # rubocop:enable Metrics/LineLength
