@@ -196,6 +196,19 @@ ActiveAdmin.register JobUser do
     end
   end
 
+  member_action :create_frilans_finans_invoice, method: :post do
+    job_user = resource
+
+    ff_invoice = FrilansFinansInvoice.new(job_user: job_user)
+    if ff_invoice.save
+      notice = I18n.t('admin.job_user.create_frilans_finans_invoice.success')
+      redirect_to admin_frilans_finans_invoice_path(ff_invoice), notice: notice
+    else
+      notice = I18n.t('admin.job_user.create_frilans_finans_invoice.fail')
+      redirect_to resource_path(job_user), alert: notice
+    end
+  end
+
   scope :all
   scope :long_list, default: true
   scope :shortlisted

@@ -136,6 +136,9 @@ en:
         cancelled: Marked as cancelled
         finished: Marked as finished
     job_user:
+      create_frilans_finans_invoice:
+        success: 'Successfully created Frilans Finans Invoice'
+        fail: 'Could *not* create Frilans Finans Invoice'
       apply_message: Apply message
       update_profile_reminder_notification:
         success: Update profile reminder notification sent.
