@@ -19,7 +19,7 @@ ActiveAdmin.register JobUser do
         next
       end
 
-      if job_user.update(accepted_at: Time.zone.now)
+      if job_user.update(accepted_at: Time.zone.now, accepted: true)
         owner = job_user.job.owner
         success_count += 1
         ApplicantAcceptedNotifier.call(job_user: job_user, owner: owner)
