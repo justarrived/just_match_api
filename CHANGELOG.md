@@ -3,6 +3,26 @@
 HEAD
 -----------
 
+v3.3.5 - 2018-08-13
+----------
+__Enhancement__:
+* Add migrate, release and deploy script to README section
+* Puts result of `script/trackdeploy` in `script/deploy`
+* Add `ScriptCLI#system_call` puts boolean argument
+
+__Gem updates__:
+* Bump `uglifier` from 4.1.17 to 4.1.18
+* Bump `sidekiq` from 5.1.3 to 5.2.1
+* Bump `inherited_resources` from 1.8.0 to 1.9.0
+* Bump `twilio-ruby` from 5.12.0 to 5.12.1
+* Bump `airbrake` from 7.3.4 to 7.3.5
+* Bump `i18n-tasks` from 0.9.21 to 0.9.23
+* Bump `fuubar` from 2.3.1 to 2.3.2
+* Bump `rspec-rails` from 3.7.2 to 3.8.0
+* Bump `newrelic_rpm` from 5.2.0.345 to 5.3.0.346
+* Bump `twilio-ruby` from 5.11.2 to 5.12.0
+* Bump `honey_format` from 0.17.0 to 0.18.0
+
 
 v3.3.4 - 2018-08-01
 ----------
