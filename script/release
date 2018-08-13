@@ -31,6 +31,7 @@ end
 cli.system_call("git tag -a v#{version} -m 'Version #{version}'")
 
 # push git tag to default remote
-cli.system_call('git push --tags')
+cli.system_call('git push origin master')
+cli.system_call('git push origin --tags')
 
-cli.puts '== Application release created =='
+cli.puts "== Application release #{JustMatch::VERSION} created =="
