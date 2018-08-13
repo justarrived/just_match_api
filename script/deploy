@@ -52,7 +52,7 @@ branch = options.fetch(:branch, nil)
 db_migrate = options.fetch(:db_migrate, true)
 track_deploy = options.fetch(:track_deploy, true)
 
-cli.puts "== Deploying application - #{branch || tag} to #{remote} (migrate: #{db_migrate}) ==" # rubocop:disable Metrics/LineLength
+cli.puts "== Deploying application #{branch || tag} to #{remote} (migrate: #{db_migrate}) ==" # rubocop:disable Metrics/LineLength
 
 # NOTE: heroku needs ^{} custom syntax when deploying from a git tag
 branch_or_tag = branch || "#{tag}^{}"
@@ -66,4 +66,4 @@ if track_deploy
   cli.system_call('script/trackdeploy', puts: true)
 end
 
-cli.puts "== Application deployed - #{branch || tag} to #{remote} =="
+cli.puts "== Application deployed #{branch || tag} to #{remote} =="
