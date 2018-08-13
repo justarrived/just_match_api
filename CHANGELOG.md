@@ -3,6 +3,14 @@
 HEAD
 -----------
 
+v3.3.6 - 2018-08-13
+----------
+__Admin__:
+* Set JobUser#accept to true in accept_and_notify_action
+
+__Enhancement__:
+* `script/release` :lipstick:
+
 v3.3.5 - 2018-08-13
 ----------
 __Enhancement__:
