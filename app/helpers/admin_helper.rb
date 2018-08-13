@@ -82,7 +82,7 @@ module AdminHelper
   def datetime_ago_in_words(datetime)
     created_at = datetime.strftime('%A at %H:%M, %B %d, %Y')
     time_ago_in_words = distance_of_time_in_words(Time.zone.now, datetime)
-    "#{time_ago_in_words} ago on #{created_at}"
+    I18n.t('admin.datetime_ago_in_words', words: time_ago_in_words, date: created_at)
   end
 
   def download_link_to(url:, file_name:, title: I18n.t('admin.download'))

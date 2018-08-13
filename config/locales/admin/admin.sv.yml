@@ -21,6 +21,7 @@ sv:
     job_user_name: Sökande
     time_ago: '%{time} sen'
     time_from_now: '%{time}från nu'
+    datetime_ago_in_words: '%{words}sen på %{date}'
     download: Ladda ner
     upload: Ladda up
     name: Namn

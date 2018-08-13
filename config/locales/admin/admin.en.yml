@@ -23,6 +23,7 @@ en:
     job_user_name: Applicant
     time_ago: '%{time} ago'
     time_from_now: '%{time} from now'
+    datetime_ago_in_words: '%{words} ago on %{date}'
     download: Download
     upload: Upload
     name: Name

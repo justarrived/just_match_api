@@ -35,6 +35,6 @@ table_for(events) do
   end
   column :time_ago do |event|
     time_ago = distance_of_time_in_words(Time.zone.now, event.time)
-    "#{time_ago} ago"
+    I18n.t('admin.time_ago', time: time_ago)
   end
 end

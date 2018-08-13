@@ -24,7 +24,7 @@ ActiveAdmin.register Chat do
     end
     column(:message_count) { |chat| chat.messages.length }
     column(:last_message_at, sortable: :updated_at) do |chat|
-      distance_of_time_in_words(Time.zone.now, chat.updated_at) + ' ago'
+      I18n.t('admin.time_ago', time: distance_of_time_in_words(Time.zone.now, chat.updated_at)) # rubocop:disable Metrics/LineLength
     end
 
     actions
