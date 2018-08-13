@@ -162,7 +162,7 @@ ActiveAdmin.register JobUser do
   member_action :accept_and_notify_all, method: :post do
     job_user = resource
 
-    if job_user.update(accepted_at: Time.zone.now)
+    if job_user.update(accepted_at: Time.zone.now, accepted: true)
       owner = job_user.job.owner
       job_user.job.update(filled: true)
 
