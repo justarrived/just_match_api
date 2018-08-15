@@ -40,6 +40,16 @@ RSpec.describe Api::V1::ContactsController, type: :controller do
         post :create, params: valid_attributes
         expect(ContactNotifier).to have_received(:call)
       end
+
+      it 'allows expired user token' do
+        user = FactoryBot.create(:user)
+        token = FactoryBot.create(:expired_token, user: user)
+        value = token.token
+        request.headers['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Token.encode_credentials(value) # rubocop:disable Metrics/LineLength
+
+        post :create, params: valid_attributes
+        expect(response.status).to eq(201)
+      end
     end
 
     context 'with invalid params' do

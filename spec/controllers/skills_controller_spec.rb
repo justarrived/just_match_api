@@ -38,6 +38,16 @@ RSpec.describe Api::V1::SkillsController, type: :controller do
       process :index, method: :get
       expect(assigns(:skills)).to eq([skill])
     end
+
+    it 'allows expired user token' do
+      user = FactoryBot.create(:user)
+      token = FactoryBot.create(:expired_token, user: user)
+      value = token.token
+      request.headers['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Token.encode_credentials(value) # rubocop:disable Metrics/LineLength
+
+      get :index
+      expect(response.status).to eq(200)
+    end
   end
 
   describe 'GET #show' do
@@ -45,6 +55,17 @@ RSpec.describe Api::V1::SkillsController, type: :controller do
       skill = FactoryBot.create(:skill)
       get :show, params: { id: skill.to_param }
       expect(assigns(:skill)).to eq(skill)
+    end
+
+    it 'allows expired user token' do
+      user = FactoryBot.create(:user)
+      token = FactoryBot.create(:expired_token, user: user)
+      value = token.token
+      request.headers['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Token.encode_credentials(value) # rubocop:disable Metrics/LineLength
+
+      skill = FactoryBot.create(:skill)
+      get :show, params: { id: skill.to_param }
+      expect(response.status).to eq(200)
     end
   end
 

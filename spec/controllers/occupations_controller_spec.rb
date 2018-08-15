@@ -29,6 +29,16 @@ RSpec.describe Api::V1::OccupationsController, type: :controller do
       expect(assigns(:occupations)).to eq([occupation2])
       expect(response.status).to eq(200)
     end
+
+    it 'allows expired user token' do
+      user = FactoryBot.create(:user)
+      token = FactoryBot.create(:expired_token, user: user)
+      value = token.token
+      request.headers['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Token.encode_credentials(value) # rubocop:disable Metrics/LineLength
+
+      get :index
+      expect(response.status).to eq(200)
+    end
   end
 
   describe 'GET #show' do
@@ -36,6 +46,17 @@ RSpec.describe Api::V1::OccupationsController, type: :controller do
       occupation = FactoryBot.create(:occupation)
       get :show, params: { id: occupation.to_param }
       expect(assigns(:occupation)).to eq(occupation)
+      expect(response.status).to eq(200)
+    end
+
+    it 'allows expired user token' do
+      user = FactoryBot.create(:user)
+      token = FactoryBot.create(:expired_token, user: user)
+      value = token.token
+      request.headers['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Token.encode_credentials(value) # rubocop:disable Metrics/LineLength
+
+      occupation = FactoryBot.create(:occupation)
+      get :show, params: { id: occupation.to_param }
       expect(response.status).to eq(200)
     end
   end

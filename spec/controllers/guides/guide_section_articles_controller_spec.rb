@@ -9,6 +9,17 @@ RSpec.describe Api::V1::Guides::GuideSectionArticlesController, type: :controlle
       get :index, params: { section_id: article.section.id }
       expect(assigns(:articles)).to eq([article])
     end
+
+    it 'allows expired user token' do
+      user = FactoryBot.create(:user)
+      token = FactoryBot.create(:expired_token, user: user)
+      value = token.token
+      request.headers['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Token.encode_credentials(value) # rubocop:disable Metrics/LineLength
+
+      article = FactoryBot.create(:guide_section_article)
+      get :index, params: { section_id: article.section.id }
+      expect(response.code).to eq("200")
+    end
   end
 
   describe 'GET #show' do
@@ -29,6 +40,18 @@ RSpec.describe Api::V1::Guides::GuideSectionArticlesController, type: :controlle
       get :show, params: params
 
       expect(assigns(:article)).to eq(article)
+    end
+
+    it 'allows expired user token' do
+      user = FactoryBot.create(:user)
+      token = FactoryBot.create(:expired_token, user: user)
+      value = token.token
+      request.headers['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Token.encode_credentials(value) # rubocop:disable Metrics/LineLength
+
+      article = FactoryBot.create(:guide_section_article)
+      get :show, params: { section_id: article.section.id, article_id: article.id }
+
+      expect(response.code).to eq("200")
     end
   end
 end

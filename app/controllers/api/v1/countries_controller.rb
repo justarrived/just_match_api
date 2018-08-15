@@ -56,6 +56,12 @@ module Api
         countries = CountriesSerializer.serializable_resource(filter: filter)
         render json: countries
       end
+
+      protected
+
+      def allow_expired_auth_token?
+        %w[index].include?(params['action'])
+      end
     end
   end
 end

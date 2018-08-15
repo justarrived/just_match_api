@@ -59,6 +59,16 @@ RSpec.describe Api::V1::JobsController, type: :controller do
       end
       expect(job_hours_count).to eq([10, 7, 5])
     end
+
+    it 'allows expired user token' do
+      user = FactoryBot.create(:user)
+      token = FactoryBot.create(:expired_token, user: user)
+      value = token.token
+      request.headers['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Token.encode_credentials(value) # rubocop:disable Metrics/LineLength
+
+      get :index
+      expect(response.status).to eq(200)
+    end
   end
 
   describe 'GET #show' do
@@ -66,6 +76,17 @@ RSpec.describe Api::V1::JobsController, type: :controller do
       job = FactoryBot.create(:published_job)
       get :show, params: { job_id: job.to_param }
       expect(assigns(:job)).to eq(job)
+    end
+
+    it 'allows expired user token' do
+      user = FactoryBot.create(:user)
+      token = FactoryBot.create(:expired_token, user: user)
+      value = token.token
+      request.headers['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Token.encode_credentials(value) # rubocop:disable Metrics/LineLength
+
+      job = FactoryBot.create(:published_job)
+      get :show, params: { job_id: job.to_param }
+      expect(response.status).to eq(200)
     end
 
     context 'job with preview key' do

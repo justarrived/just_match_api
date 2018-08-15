@@ -189,6 +189,12 @@ module Api
         render json: User.matches_job(@job)
       end
 
+      protected
+
+      def allow_expired_auth_token?
+        %w[index show].include?(params['action'])
+      end
+
       private
 
       def set_job
