@@ -61,6 +61,12 @@ module Api
           end
         end
 
+        protected
+
+        def allow_expired_auth_token?
+          %w[create].include?(params['action'])
+        end
+
         private
 
         def set_user

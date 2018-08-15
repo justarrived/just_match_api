@@ -41,6 +41,15 @@ RSpec.describe Api::V1::Users::ChangePasswordController, type: :controller do
 
         expect(assigns(:user).auth_tokens.length).to be_zero
       end
+
+      it 'allows expired user token' do
+        token = FactoryBot.create(:expired_token, user: user)
+        value = token.token
+        request.headers['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Token.encode_credentials(value) # rubocop:disable Metrics/LineLength
+
+        post :create, params: valid_attributes
+        expect(response.status).to eq(200)
+      end
     end
 
     context 'valid one time token' do

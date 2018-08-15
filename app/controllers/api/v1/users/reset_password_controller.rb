@@ -32,6 +32,12 @@ module Api
           # places that exposes what emails are in the system
           render json: {}, status: :accepted
         end
+
+        protected
+
+        def allow_expired_auth_token?
+          %w[create].include?(params['action'])
+        end
       end
     end
   end

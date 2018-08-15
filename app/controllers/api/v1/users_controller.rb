@@ -337,6 +337,12 @@ module Api
         render json: response
       end
 
+      protected
+
+      def allow_expired_auth_token?
+        %w[genders notifications statuses].include?(params['action'])
+      end
+
       private
 
       def respond_with_invalid_image_content_type

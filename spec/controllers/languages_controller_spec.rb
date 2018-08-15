@@ -29,6 +29,16 @@ RSpec.describe Api::V1::LanguagesController, type: :controller do
       process :index, method: :get
       expect(assigns(:languages)).to eq([language])
     end
+
+    it 'allows expired user token' do
+      user = FactoryBot.create(:user)
+      token = FactoryBot.create(:expired_token, user: user)
+      value = token.token
+      request.headers['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Token.encode_credentials(value) # rubocop:disable Metrics/LineLength
+
+      process :index, method: :get
+      expect(response.status).to eq(200)
+    end
   end
 
   describe 'GET #show' do

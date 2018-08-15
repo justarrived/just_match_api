@@ -37,6 +37,12 @@ module Api
 
         api_render(@occupation)
       end
+
+      protected
+
+      def allow_expired_auth_token?
+        %w[index show].include?(params['action'])
+      end
     end
   end
 end

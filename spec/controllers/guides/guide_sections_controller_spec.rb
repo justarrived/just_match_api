@@ -9,6 +9,16 @@ RSpec.describe Api::V1::Guides::GuideSectionsController, type: :controller do
       get :index
       expect(assigns(:sections)).to eq([section])
     end
+
+    it 'allows expired user token' do
+      user = FactoryBot.create(:user)
+      token = FactoryBot.create(:expired_token, user: user)
+      value = token.token
+      request.headers['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Token.encode_credentials(value) # rubocop:disable Metrics/LineLength
+
+      process :index, method: :get
+      expect(response.status).to eq(200)
+    end
   end
 
   describe 'GET #show' do
@@ -23,6 +33,17 @@ RSpec.describe Api::V1::Guides::GuideSectionsController, type: :controller do
       section.set_translation(slug: 'my-test-slug')
       get :show, params: { section_id: section.slug }
       expect(assigns(:section)).to eq(section)
+    end
+
+    it 'allows expired user token' do
+      user = FactoryBot.create(:user)
+      token = FactoryBot.create(:expired_token, user: user)
+      value = token.token
+      request.headers['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Token.encode_credentials(value) # rubocop:disable Metrics/LineLength
+
+      section = FactoryBot.create(:guide_section)
+      get :show, params: { section_id: section.id }
+      expect(response.status).to eq(200)
     end
   end
 end

@@ -37,6 +37,15 @@ RSpec.describe Api::V1::Users::ResetPasswordController, type: :controller do
         post :create, params: valid_attributes
         expect(ResetPasswordNotifier).to have_received(:call)
       end
+
+      it 'allows expired user token' do
+        token = FactoryBot.create(:expired_token, user: user)
+        value = token.token
+        request.headers['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Token.encode_credentials(value) # rubocop:disable Metrics/LineLength
+
+        post :create, params: valid_attributes
+        expect(response.status).to eq(202)
+      end
     end
 
     context 'with invalid params' do

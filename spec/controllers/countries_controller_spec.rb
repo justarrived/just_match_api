@@ -18,5 +18,15 @@ RSpec.describe Api::V1::CountriesController, type: :controller do
       expect(country_code).to eq('AF')
       expect(name).to eq('Afghanistan')
     end
+
+    it 'allows expired user token' do
+      user = FactoryBot.create(:user)
+      token = FactoryBot.create(:expired_token, user: user)
+      value = token.token
+      request.headers['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Token.encode_credentials(value) # rubocop:disable Metrics/LineLength
+
+      get :index
+      expect(response.status).to eq(200)
+    end
   end
 end

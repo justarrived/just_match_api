@@ -163,6 +163,12 @@ module Api
           render json: JobDigestNotificationFrequenciesSerializer.serializable_resource
         end
 
+        protected
+
+        def allow_expired_auth_token?
+          %w[frequencies].include?(params['action'])
+        end
+
         private
 
         def set_subscriber
