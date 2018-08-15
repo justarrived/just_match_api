@@ -18,7 +18,7 @@ RSpec.describe Api::V1::Guides::GuideSectionArticlesController, type: :controlle
 
       article = FactoryBot.create(:guide_section_article)
       get :index, params: { section_id: article.section.id }
-      expect(response.code).to eq("200")
+      expect(response.status).to eq(200)
     end
   end
 
@@ -51,7 +51,7 @@ RSpec.describe Api::V1::Guides::GuideSectionArticlesController, type: :controlle
       article = FactoryBot.create(:guide_section_article)
       get :show, params: { section_id: article.section.id, article_id: article.id }
 
-      expect(response.code).to eq("200")
+      expect(response.status).to eq(200)
     end
   end
 end

@@ -37,7 +37,7 @@ RSpec.describe Api::V1::LanguagesController, type: :controller do
       request.headers['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Token.encode_credentials(value) # rubocop:disable Metrics/LineLength
 
       process :index, method: :get
-      expect(response.code).to eq("200")
+      expect(response.status).to eq(200)
     end
   end
 

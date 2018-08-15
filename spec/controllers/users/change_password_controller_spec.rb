@@ -48,7 +48,7 @@ RSpec.describe Api::V1::Users::ChangePasswordController, type: :controller do
         request.headers['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Token.encode_credentials(value) # rubocop:disable Metrics/LineLength
 
         post :create, params: valid_attributes
-        expect(response.code).to eq("200")
+        expect(response.status).to eq(200)
       end
     end
 

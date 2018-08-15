@@ -17,7 +17,7 @@ RSpec.describe Api::V1::Guides::GuideSectionsController, type: :controller do
       request.headers['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Token.encode_credentials(value) # rubocop:disable Metrics/LineLength
 
       process :index, method: :get
-      expect(response.code).to eq("200")
+      expect(response.status).to eq(200)
     end
   end
 
@@ -43,7 +43,7 @@ RSpec.describe Api::V1::Guides::GuideSectionsController, type: :controller do
 
       section = FactoryBot.create(:guide_section)
       get :show, params: { section_id: section.id }
-      expect(response.code).to eq("200")
+      expect(response.status).to eq(200)
     end
   end
 end
