@@ -472,6 +472,10 @@ module Api
         request.headers['X-API-ACT-AS-USER']
       end
 
+      def allow_expired_auth_token?
+        false
+      end
+
       private
 
       def deprecations_meta
@@ -502,7 +506,7 @@ module Api
         token = Token.find_by(token: auth_token)
         return if token.nil?
         # return raise NoSuchTokenError if token.nil?
-        return raise ExpiredTokenError if token.expired?
+        return raise ExpiredTokenError if !allow_expired_auth_token? && token.expired?
 
         user = token.user
 
