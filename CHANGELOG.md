@@ -4,6 +4,17 @@ HEAD
 -----------
 
 
+v3.3.8 - 2018-08-15
+----------
+__Admin__:
+* Improve I18n
+
+__Enhancement__:
+* Add `allow_expired_auth_token?` to all actions
+* Add ability to allow expired user auth tokens
+* `script/release` output :lipstick:
+
+
 v3.3.7 - 2018-08-13
 ----------
 __Admin__:
