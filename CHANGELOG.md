@@ -4,6 +4,11 @@ HEAD
 -----------
 
 
+v3.3.9 - 2018-08-18
+----------
+* Allow expired token in all session controller methods
+
+
 v3.3.8 - 2018-08-15
 ----------
 __Admin__:
