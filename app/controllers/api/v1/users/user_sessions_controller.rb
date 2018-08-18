@@ -105,6 +105,12 @@ module Api
           render json: {}, status: :accepted
         end
 
+        protected
+
+        def allow_expired_auth_token?
+          %w[create destroy magic_link].include?(params['action'])
+        end
+
         private
 
         def user_from_token

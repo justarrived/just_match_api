@@ -63,6 +63,16 @@ RSpec.describe Api::V1::Users::UserSessionsController, type: :controller do
           jsonapi_params = JsonApiDeserializer.parse(json)
           expect(jsonapi_params['user_id']).not_to be_nil
         end
+
+        it 'allows expired user token' do
+          user = FactoryBot.create(:user)
+          token = FactoryBot.create(:expired_token, user: user)
+          value = token.token
+          request.headers['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Token.encode_credentials(value) # rubocop:disable Metrics/LineLength
+
+          post :create, params: valid_attributes
+          expect(response.status).to eq(201)
+        end
       end
 
       context 'with phone given' do
@@ -110,6 +120,16 @@ RSpec.describe Api::V1::Users::UserSessionsController, type: :controller do
       end
 
       it 'returns forbidden status' do
+        post :create, params: valid_attributes
+        expect(response.status).to eq(403)
+      end
+
+      it 'allows expired user token' do
+        user = FactoryBot.create(:user)
+        token = FactoryBot.create(:expired_token, user: user)
+        value = token.token
+        request.headers['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Token.encode_credentials(value) # rubocop:disable Metrics/LineLength
+
         post :create, params: valid_attributes
         expect(response.status).to eq(403)
       end
