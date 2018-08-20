@@ -116,7 +116,7 @@ group :development, :test, :docs do
   gem 'byebug', '~> 10.0'
   gem 'consistency_fail', '~> 0.3'
   gem 'dotenv-rails', '~> 2.5'
-  gem 'factory_bot_rails', '~> 4.10'
+  gem 'factory_bot_rails', '~> 4.11'
   gem 'fog', '~> 2.0' # Cloud services gem, in production the aws-sdk gem is used
   gem 'immigrant', '~> 0.3'
   gem 'rspec-rails', '~> 3.8'
