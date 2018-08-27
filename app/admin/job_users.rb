@@ -201,6 +201,7 @@ ActiveAdmin.register JobUser do
 
     ff_invoice = FrilansFinansInvoice.new(job_user: job_user)
     if ff_invoice.save
+      SyncUserAndFrilansFinansInvoiceJob.perform_later(ff_invoice)
       notice = I18n.t('admin.job_user.create_frilans_finans_invoice.success')
       redirect_to admin_frilans_finans_invoice_path(ff_invoice), notice: notice
     else
