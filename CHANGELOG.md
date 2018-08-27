@@ -4,7 +4,12 @@ HEAD
 -----------
 
 
-v3.4.0 - 2018-08-18
+v3.5.0 - 2018-08-27
+----------
+* :hocho: Remove auto translation jobs
+
+
+v3.4.0 - 2018-08-27
 ----------
 __Enhancement__:
 * Pull translations from Transifex
