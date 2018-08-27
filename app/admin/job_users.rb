@@ -201,8 +201,19 @@ ActiveAdmin.register JobUser do
 
     ff_invoice = FrilansFinansInvoice.new(job_user: job_user)
     if ff_invoice.save
-      SyncUserAndFrilansFinansInvoiceJob.perform_later(ff_invoice)
-      notice = I18n.t('admin.job_user.create_frilans_finans_invoice.success')
+      missing_ff_attributes = job_user.user.missing_attributes_for_ff_invoice
+      notice = nil
+
+      if missing_ff_attributes.any?
+        notice = I18n.t(
+          'admin.job_user.create_frilans_finans_invoice.success_with_ff_sync_note',
+          attributes: missing_ff_attributes.join(', ')
+        )
+      else
+        notice = I18n.t('admin.job_user.create_frilans_finans_invoice.success')
+        SyncUserAndFrilansFinansInvoiceJob.perform_later(ff_invoice)
+      end
+
       redirect_to admin_frilans_finans_invoice_path(ff_invoice), notice: notice
     else
       notice = I18n.t('admin.job_user.create_frilans_finans_invoice.fail')
