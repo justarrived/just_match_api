@@ -33,12 +33,7 @@ class UpdateUserService
   end
 
   def set_translations
-    user.set_translation(params).tap do |result|
-      ProcessTranslationJob.perform_later(
-        translation: result.translation,
-        changed: result.changed_fields
-      )
-    end
+    user.set_translation(params)
   end
 
   def enqueue_email_updated_events

@@ -89,13 +89,7 @@ module Api
         end
 
         if @job.save
-          @job.set_translation(job_attributes).tap do |result|
-            ProcessTranslationJob.perform_later(
-              translation: result.translation,
-              changed: result.changed_fields
-            )
-          end
-
+          @job.set_translation(job_attributes)
           @job.skills = Skill.where(id: jsonapi_params[:skill_ids])
 
           owner = @job.owner
@@ -161,12 +155,7 @@ module Api
         end
 
         if @job.save
-          @job.set_translation(job_attributes).tap do |result|
-            ProcessTranslationJob.perform_later(
-              translation: result.translation,
-              changed: result.changed_fields
-            )
-          end
+          @job.set_translation(job_attributes)
           JobCancelledJob.perform_later(job: @job) if @job.cancelled_saved_to_true?
 
           @job.reload

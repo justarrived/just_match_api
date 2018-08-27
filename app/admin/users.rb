@@ -392,12 +392,7 @@ ActiveAdmin.register User do
       education: permitted_params.dig(:user, :education),
       competence_text: permitted_params.dig(:user, :competence_text)
     }
-    user.set_translation(translation_params).tap do |result|
-      ProcessTranslationJob.perform_later(
-        translation: result.translation,
-        changed: result.changed_fields
-      )
-    end
+    user.set_translation(translation_params)
   end
 
   after_save do |user|
