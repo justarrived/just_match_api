@@ -195,6 +195,19 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe '#missing_attributes_for_ff_invoice' do
+    it 'returns attributes that are missing to create a user valid for Frilans Finans Invoice' do # rubocop:disable Metrics/LineLength
+      user = FactoryBot.build_stubbed(:user)
+      expected = %w[account_clearing_number account_number]
+      expect(user.missing_attributes_for_ff_invoice).to eq(expected)
+    end
+
+    it 'returns an empty list if valid' do
+      user = FactoryBot.build_stubbed(:user, account_clearing_number: '1', account_number: '1') # rubocop:disable Metrics/LineLength
+      expect(user.missing_attributes_for_ff_invoice).to eq(%w[])
+    end
+  end
+
   describe '#accepted_applicant_for_owner?' do
     let(:owner) { FactoryBot.create(:company_user) }
     let(:user) { FactoryBot.create(:user) }
