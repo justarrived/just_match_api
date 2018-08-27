@@ -9,8 +9,6 @@ class CreateChatMessageService
     message = chat.create_message(author: author, body: body, language_id: language_id)
     return message unless message.valid?
 
-    ProcessTranslationJob.perform_later(translation: message.original_translation)
-
     if send_notification?(message: message, last_message: last_chat_message)
       NewChatMessageNotifier.call(chat: chat, message: message, author: author)
     end

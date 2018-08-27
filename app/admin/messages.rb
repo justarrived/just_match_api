@@ -41,12 +41,7 @@ ActiveAdmin.register Message do
   end
 
   after_save do |message|
-    set_message_translation.call(message, permitted_params).tap do |result|
-      ProcessTranslationJob.perform_later(
-        translation: result.translation,
-        changed: result.changed_fields
-      )
-    end
+    set_message_translation.call(message, permitted_params)
   end
 
   permit_params do
