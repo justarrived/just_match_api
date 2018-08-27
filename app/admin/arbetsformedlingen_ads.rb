@@ -45,7 +45,7 @@ ActiveAdmin.register ArbetsformedlingenAd do
       logs.reverse_each do |log|
         h4 log.updated_at
         log.response['messages'].each do |message|
-          para message['message']
+          para message['detail']
           if message['error_code']
             em I18n.t(
               'admin.arbetsformedlingen_ad_log.af_error_code_msg',
