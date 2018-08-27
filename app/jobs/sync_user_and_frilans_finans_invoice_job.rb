@@ -18,8 +18,8 @@ class SyncUserAndFrilansFinansInvoiceJob < ApplicationJob
     # Create/sync the frilans_finans_invoice with Frilans Finans
     ff_invoice.reload
     unless ff_invoice.frilans_finans_id
-     CreateFrilansFinansInvoiceService.create(ff_invoice: ff_invoice)
-     ff_invoice.reload
+      CreateFrilansFinansInvoiceService.create(ff_invoice: ff_invoice)
+      ff_invoice.reload
     end
 
     SyncFrilansFinansInvoiceService.call(frilans_finans_invoice: ff_invoice)
