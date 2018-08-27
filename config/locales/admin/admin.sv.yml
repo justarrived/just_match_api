@@ -144,7 +144,8 @@ sv:
         frilans_finans_create_invalid: 'Frilans Finans Faktura kan inte skapas för den här ansökningen.'
         view_full_details: 'Visa detaljerad information'
       create_frilans_finans_invoice:
-        success: 'Lyckades skapa Frilans Finans Faktura'
+        success: 'Lyckades skapa Frilans Finans Faktura, synk med Frilans Finans har satts igång.'
+        success_with_ff_sync_note: 'Lyckades skapa Frilans Finans Faktura. DOCK kunde vi *inte* synka med Frilans Finans eftersom de här fälten på användaren är tomma: %{attributes}.'
         fail: 'Kunde *inte* skapa Frilans Finans Faktura'
       apply_message: Ansökningsmeddelande
       update_profile_reminder_notification:
