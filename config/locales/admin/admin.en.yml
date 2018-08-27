@@ -146,7 +146,7 @@ en:
         frilans_finans_create_invalid: 'Frilans Finans Invoice can not be created for this applicant.'
         view_full_details: 'View full details'
       create_frilans_finans_invoice:
-        success: 'Successfully created and synked Frilans Finans Invoice'
+        success: 'Successfully created Frilans Finans Invoice'
         fail: 'Could *not* create Frilans Finans Invoice'
       apply_message: Apply message
       update_profile_reminder_notification:
