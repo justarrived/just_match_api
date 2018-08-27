@@ -4,6 +4,27 @@ HEAD
 -----------
 
 
+v3.4.0 - 2018-08-18
+----------
+__Enhancement__:
+* Pull translations from Transifex
+
+__Admin__:
+* Fix arbetsformedlingen ad log message
+* Smarter sync logic for user that is not valid for FF invoicing
+* Add SyncUserAndFFInvoice job after FF invoice create
+* Make sure to synk the FF Invoice after creating it
+
+__Gem updates__:
+* Bump i18n-tasks from 0.9.23 to 0.9.24
+* Bump twilio-ruby from 5.12.2 to 5.12.3
+* Bump chosen-rails from 1.8.3 to 1.8.7
+* Bump twilio-ruby from 5.12.1 to 5.12.2
+* Bump bullet from 5.7.5 to 5.7.6
+* Bump activeadmin from 1.3.0 to 1.3.1
+* Bump factory_bot_rails from 4.10.0 to 4.11.0
+
+
 v3.3.9 - 2018-08-18
 ----------
 * Allow expired token in all session controller methods
