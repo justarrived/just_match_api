@@ -79,11 +79,12 @@ ActiveAdmin.register FrilansFinansInvoice do
   member_action :sync_with_frilans_finans, method: :post, if: proc { AppConfig.frilans_finans_active? } do
     ff_invoice = resource
 
-    if ff_invoice.frilans_finans_id
-      SyncFrilansFinansInvoiceService.call(frilans_finans_invoice: ff_invoice)
-    else
+    unless ff_invoice.frilans_finans_id
       CreateFrilansFinansInvoiceService.create(ff_invoice: ff_invoice)
+      ff_invoice.reload
     end
+
+    SyncFrilansFinansInvoiceService.call(frilans_finans_invoice: ff_invoice)
 
     message = I18n.t('admin.ff_remote_sync.msg')
     redirect_to(resource_path(resource), notice: message)
