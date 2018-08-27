@@ -129,7 +129,7 @@ group :development do
   gem 'better_errors', '~> 2.4'
   gem 'binding_of_caller', '~> 0.8'
   gem 'derailed_benchmarks', '~> 1.3'
-  gem 'i18n-tasks', '~> 0.9.23'
+  gem 'i18n-tasks', '~> 0.9.24'
   gem 'i18n_generators', '~> 2.2'
   gem 'letter_opener', '~> 1.6'
   gem 'listen', '~> 3.1'
