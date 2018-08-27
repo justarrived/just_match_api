@@ -337,6 +337,15 @@ class User < ApplicationRecord
     system_language.lang_code
   end
 
+  def missing_attributes_for_ff_invoice
+    %w[
+      email
+      ssn
+      account_clearing_number
+      account_number
+    ].select { |attribute| public_send(attribute).blank? }
+  end
+
   def frilans_finans_id!
     frilans_finans_id || begin
       fail(MissingFrilansFinansIdError, "User ##{id} has no Frilans Finans id!")
