@@ -4,6 +4,11 @@ HEAD
 -----------
 
 
+v3.5.1 - 2018-08-28
+----------
+* Fix JobUser#current_status for non Frilans Finans jobs
+
+
 v3.5.0 - 2018-08-27
 ----------
 * :hocho: Remove auto translation jobs
