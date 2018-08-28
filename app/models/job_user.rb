@@ -86,7 +86,7 @@ class JobUser < ApplicationRecord
   end
 
   def current_status
-    if job.started?
+    if job.started? && job.frilans_finans_job?
       return 'Not signed by user!' if accepted && !will_perform
 
       ff_status = frilans_finans_invoice&.ff_payment_status_name
