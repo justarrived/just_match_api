@@ -726,7 +726,7 @@ GEM
     uniform_notifier (1.11.0)
     user_agent_parser (2.4.1)
     uuidtools (2.1.5)
-    web-console (3.6.2)
+    web-console (3.7.0)
       actionview (>= 5.0)
       activemodel (>= 5.0)
       bindex (>= 0.4.0)
@@ -833,7 +833,7 @@ DEPENDENCIES
   timecop (~> 0.8)
   twilio-ruby (~> 5.12)
   uglifier (~> 4.1)
-  web-console (~> 3.6)
+  web-console (~> 3.7)
   webmock (~> 3.4)
   yagni_json_encoder (~> 1.0)
 
