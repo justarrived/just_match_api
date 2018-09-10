@@ -31,7 +31,7 @@ gem 'pg', '~> 1.1' # Use postgresql as the database for Active Record
 gem 'redis-activesupport', '~> 5.0' # To use Redis as the cache store for rack-attack
 
 # ACTIVERECORD
-gem 'association_count', '~> 1.0' # Simple count for ActiveRecord associations
+gem 'association_count', '~> 1.1' # Simple count for ActiveRecord associations
 
 # RACK MIDDLEWARE
 gem 'rack-attack', '~> 5.4' # Throttle API usage
