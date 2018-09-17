@@ -4,9 +4,33 @@ HEAD
 -----------
 
 
+v3.5.2 - 2018-09-17
+----------
+* Bump `google-cloud-translate` from 1.2.1 to 1.2.3
+* Bump `derailed_benchmarks` from 1.3.4 to 1.3.5
+* Bump `newrelic_rpm` from 5.3.0.346 to 5.4.0.347
+* Bump `bootsnap` from 1.3.1 to 1.3.2
+* Bump `uglifier` from 4.1.18 to 4.1.19
+* Bump `rubocop` from 0.59.0 to 0.59.1
+* Bump `rails` from 5.2.0 to 5.2.1
+* Bump `arbetsformedlingen` from 0.4.1 to 0.5.0
+* Bump `association_count` from 1.0.0 to 1.1.0
+* Bump `rubocop` from 0.58.2 to 0.59.0
+* Bump `factory_bot_rails` from 4.11.0 to 4.11.1
+* Bump `aws-sdk-s3` from 1.17.1 to 1.19.0
+* Bump `pg` from 1.1.2 to 1.1.3
+* Bump `twilio-ruby` from 5.12.3 to 5.12.4
+* Bump `pg` from 1.0.0 to 1.1.2
+* Bump `web-console` from 3.6.2 to 3.7.0
+* Bump `aws-sdk-s3` from 1.17.0 to 1.17.1
+* Bump `better_errors` from 2.4.0 to 2.5.0
+* Bump `google-cloud-translate` from 1.2.0 to 1.2.1
+* Bump `geocoder` from 1.4.9 to 1.5.0
+
+
 v3.5.1 - 2018-08-28
 ----------
-* Fix JobUser#current_status for non Frilans Finans jobs
+* Fix `JobUser#current_status` for non Frilans Finans jobs
 
 
 v3.5.0 - 2018-08-27
