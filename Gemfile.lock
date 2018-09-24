@@ -436,7 +436,7 @@ GEM
       multi_xml (>= 0.5.2)
     i18n (0.9.5)
       concurrent-ruby (~> 1.0)
-    i18n-tasks (0.9.24)
+    i18n-tasks (0.9.25)
       activesupport (>= 4.0.2)
       ast (>= 2.1.0)
       erubi
@@ -783,7 +783,7 @@ DEPENDENCIES
   google-cloud-translate (~> 1.2)
   honey_format (~> 0.18)
   httparty (~> 0.16)
-  i18n-tasks (~> 0.9.24)
+  i18n-tasks (~> 0.9.25)
   i18n_data (~> 0.8)
   i18n_generators (~> 2.2)
   iban-tools (~> 1.1)
