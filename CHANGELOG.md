@@ -4,6 +4,17 @@ HEAD
 -----------
 
 
+v3.5.3 - 2018-09-26
+----------
+* Bump `arbetsformedlingen` from 0.5.0 to 0.6.0
+* Bump `aws-sdk-s3` from 1.19.0 to 1.20.0
+* Bump `rspec-activemodel-mocks` from 1.0.3 to 1.1.0
+* Bump `sidekiq` from 5.2.1 to 5.2.2
+* Bump `google-cloud-translate` from 1.2.3 to 1.2.4
+* Bump `twilio-ruby` from 5.12.4 to 5.13.0
+* Bump `i18n-tasks` from 0.9.24 to 0.9.25
+
+
 v3.5.2 - 2018-09-17
 ----------
 * Bump `google-cloud-translate` from 1.2.1 to 1.2.3
