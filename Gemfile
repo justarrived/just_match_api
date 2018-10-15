@@ -42,7 +42,7 @@ gem 'rack-timeout', '~> 0.5' # Kill requests that run for too long
 gem 'sidekiq', '< 6' # Background worker (Redis-backed)
 
 # MONITORING
-gem 'airbrake', '~> 7.3' # Error catcher and reporter
+gem 'airbrake', '~> 7.4' # Error catcher and reporter
 gem 'newrelic_rpm', '~> 5.4' # Performance monitoring
 
 # DATABASE / MODELS
