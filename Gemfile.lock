@@ -499,7 +499,7 @@ GEM
     loofah (2.2.2)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
-    mail (2.7.0)
+    mail (2.7.1)
       mini_mime (>= 0.1.1)
     marcel (0.3.2)
       mimemagic (~> 0.3.2)
@@ -796,7 +796,7 @@ DEPENDENCIES
   listen (~> 3.1)
   lograge (~> 0.10)
   loofah (~> 2.2)
-  mail (~> 2.6, >= 2.6.6)
+  mail (~> 2.7)
   mailcheck!
   maruku (~> 0.7)
   memory_profiler (~> 0.9)
