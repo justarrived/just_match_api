@@ -4,6 +4,31 @@ HEAD
 -----------
 
 
+v3.5.4 - 2018-11-05
+----------
+__Bugfix__:
+* Fix argument error when rejecting a candidate Closes #1682
+
+__Gem updates__:
+* Bump `active_model_serializers` from 0.10.7 to 0.10.8
+* Bump `airbrake` from 7.3.5 to 7.4.0
+* Bump `ancestry` from 3.0.2 to 3.0.4
+* Bump `apipie-rails` from 0.5.10 to 0.5.13
+* Bump `aws-sdk-s3` from 1.20.0 to 1.23.1
+* Bump `bullet` from 5.7.6 to 5.8.1
+* Bump `consistency_fail` from 0.3.5 to 0.3.7
+* Bump `i18n-tasks` from 0.9.25 to 0.9.27
+* Bump `loofah` from 2.2.2 to 2.2.3
+* Bump `mail` from 2.7.0 to 2.7.1
+* Bump `memory_profiler` from 0.9.11 to 0.9.12
+* Bump `nokogiri` from 1.8.4 to 1.8.5
+* Bump `rack-attack` from 5.4.0 to 5.4.2
+* Bump `rails-i18n` from 5.1.1 to 5.1.2
+* Bump `rspec-rails` from 3.8.0 to 3.8.1
+* Bump `rubocop` from 0.59.1 to 0.60.0
+* Bump `twilio-ruby` from 5.13.0 to 5.15.2
+
+
 v3.5.3 - 2018-09-26
 ----------
 * Bump `arbetsformedlingen` from 0.5.0 to 0.6.0
