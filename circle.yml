@@ -4,7 +4,7 @@ jobs:
     parallelism: 3
     working_directory: ~/just_match
     docker:
-      - image: circleci/ruby:2.5.1-node
+      - image: circleci/ruby:2.5.3-node
         environment:
           PGHOST: 127.0.0.1
           PGUSER: just_match
