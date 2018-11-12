@@ -181,6 +181,8 @@ GEM
     crass (1.0.4)
     database_cleaner (1.7.0)
     debug_inspector (0.0.3)
+    declarative (0.0.10)
+    declarative-option (0.1.0)
     derailed_benchmarks (1.3.5)
       benchmark-ips (~> 2)
       get_process_mem (~> 0)
@@ -191,7 +193,7 @@ GEM
       thor (~> 0.19)
     diff-lcs (1.3)
     docile (1.3.0)
-    domain_name (0.5.20170404)
+    domain_name (0.5.20180417)
       unf (>= 0.0.5, < 1.0.0)
     dotenv (2.5.0)
     dotenv-rails (2.5.0)
@@ -227,7 +229,7 @@ GEM
     email_reply_parser (0.5.9)
     errbase (0.1.0)
     erubi (1.7.1)
-    excon (0.60.0)
+    excon (0.62.0)
     execjs (2.7.0)
     factory_bot (4.11.1)
       activesupport (>= 3.0.0)
@@ -243,7 +245,7 @@ GEM
     ffi (1.9.25)
     fission (0.5.0)
       CFPropertyList (~> 2.2)
-    fog (2.0.0)
+    fog (2.1.0)
       fog-aliyun (>= 0.1.0)
       fog-atmos
       fog-aws (>= 0.6.0)
@@ -254,7 +256,7 @@ GEM
       fog-dnsimple (~> 1.0)
       fog-dynect (~> 0.0.2)
       fog-ecloud (~> 0.1)
-      fog-google (<= 0.1.0)
+      fog-google (~> 1.0)
       fog-internet-archive
       fog-joyent
       fog-json
@@ -278,9 +280,9 @@ GEM
       fog-xml (~> 0.1.1)
       ipaddress (~> 0.5)
       json (~> 2.0)
-    fog-aliyun (0.2.0)
-      fog-core (~> 1.27)
-      fog-json (~> 1.0)
+    fog-aliyun (0.3.2)
+      fog-core
+      fog-json
       ipaddress (~> 0.8)
       xml-simple (~> 1.1)
     fog-atmos (0.1.0)
@@ -291,10 +293,11 @@ GEM
       fog-json (~> 1.0)
       fog-xml (~> 0.1)
       ipaddress (~> 0.8)
-    fog-brightbox (0.14.0)
-      fog-core (~> 1.22)
+    fog-brightbox (0.16.1)
+      dry-inflector
+      fog-core
       fog-json
-      inflecto (~> 0.0.2)
+      mime-types
     fog-cloudatcost (0.1.2)
       fog-core (~> 1.36)
       fog-json (~> 1.0)
@@ -304,10 +307,10 @@ GEM
       builder
       excon (~> 0.58)
       formatador (~> 0.2)
-    fog-digitalocean (0.3.0)
-      fog-core (~> 1.42)
-      fog-json (>= 1.0)
-      fog-xml (>= 0.1)
+    fog-digitalocean (0.4.0)
+      fog-core
+      fog-json
+      fog-xml
       ipaddress (>= 0.5)
     fog-dnsimple (1.0.0)
       fog-core (~> 1.38)
@@ -319,10 +322,11 @@ GEM
     fog-ecloud (0.3.0)
       fog-core
       fog-xml
-    fog-google (0.1.0)
-      fog-core
-      fog-json
-      fog-xml
+    fog-google (1.8.1)
+      fog-core (<= 2.1.0)
+      fog-json (~> 1.2.0)
+      fog-xml (~> 0.1.0)
+      google-api-client (~> 0.23.0)
     fog-internet-archive (0.0.1)
       fog-core
       fog-json
@@ -330,28 +334,29 @@ GEM
     fog-joyent (0.0.1)
       fog-core (~> 1.42)
       fog-json (>= 1.0)
-    fog-json (1.0.2)
-      fog-core (~> 1.0)
+    fog-json (1.2.0)
+      fog-core
       multi_json (~> 1.10)
-    fog-local (0.5.0)
+    fog-local (0.6.0)
       fog-core (>= 1.27, < 3.0)
-    fog-openstack (0.1.24)
-      fog-core (~> 1.40)
+    fog-openstack (0.3.9)
+      fog-core (>= 1.45, <= 2.1.0)
       fog-json (>= 1.0)
       ipaddress (>= 0.8)
-    fog-ovirt (0.1.3)
-      fog-core (~> 1.45)
+    fog-ovirt (1.1.2)
+      fog-core
       fog-json
-      fog-xml (~> 0.1.1)
+      fog-xml
+      ovirt-engine-sdk (>= 4.1.3)
       rbovirt (~> 0.1.5)
-    fog-powerdns (0.1.1)
-      fog-core (~> 1.27)
-      fog-json (~> 1.0)
-      fog-xml (~> 0.1)
+    fog-powerdns (0.2.0)
+      fog-core
+      fog-json
+      fog-xml
     fog-profitbricks (4.1.1)
       fog-core (~> 1.42)
       fog-json (~> 1.0)
-    fog-rackspace (0.1.5)
+    fog-rackspace (0.1.6)
       fog-core (>= 1.35)
       fog-json (>= 1.0)
       fog-xml (>= 0.1)
@@ -385,12 +390,13 @@ GEM
     fog-voxel (0.1.0)
       fog-core
       fog-xml
-    fog-vsphere (2.0.0)
+    fog-vsphere (2.4.0)
       fog-core
       rbvmomi (~> 1.9)
-    fog-xenserver (0.3.0)
+    fog-xenserver (1.0.0)
       fog-core
       fog-xml
+      xmlrpc
     fog-xml (0.1.3)
       fog-core
       nokogiri (>= 1.5.11, < 2.0.0)
@@ -408,6 +414,14 @@ GEM
     global_phone (1.0.1)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
+    google-api-client (0.23.9)
+      addressable (~> 2.5, >= 2.5.1)
+      googleauth (>= 0.5, < 0.7.0)
+      httpclient (>= 2.8.1, < 3.0)
+      mime-types (~> 3.0)
+      representable (~> 3.0)
+      retriable (>= 2.0, < 4.0)
+      signet (~> 0.9)
     google-cloud-core (1.2.7)
       google-cloud-env (~> 1.0)
     google-cloud-env (1.0.5)
@@ -434,6 +448,7 @@ GEM
       domain_name (~> 0.5)
     httparty (0.16.2)
       multi_xml (>= 0.5.2)
+    httpclient (2.8.3)
     i18n (0.9.5)
       concurrent-ruby (~> 1.0)
     i18n-tasks (0.9.27)
@@ -452,7 +467,6 @@ GEM
     iban-tools (1.1.0)
     immigrant (0.3.6)
       activerecord (>= 3.0)
-    inflecto (0.0.2)
     inherited_resources (1.9.0)
       actionpack (>= 4.2, < 5.3)
       has_scope (~> 0.6)
@@ -510,9 +524,9 @@ GEM
     metrojobb (0.6.1)
       activemodel (~> 5.0)
       builder (~> 3.2)
-    mime-types (3.1)
+    mime-types (3.2.2)
       mime-types-data (~> 3.2015)
-    mime-types-data (3.2016.0521)
+    mime-types-data (3.2018.0812)
     mimemagic (0.3.2)
     mini_mime (1.0.1)
     mini_portile2 (2.3.0)
@@ -530,6 +544,8 @@ GEM
       mini_portile2 (~> 2.3.0)
     oj (2.18.5)
     os (1.0.0)
+    ovirt-engine-sdk (4.2.5)
+      json (>= 1, < 3)
     paperclip (6.1.0)
       activemodel (>= 4.2.0)
       activesupport (>= 4.2.0)
@@ -597,10 +613,10 @@ GEM
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
     rb-readline (0.5.5)
-    rbovirt (0.1.5)
+    rbovirt (0.1.7)
       nokogiri
       rest-client (> 1.7.0)
-    rbvmomi (1.11.7)
+    rbvmomi (1.13.0)
       builder (~> 3.0)
       json (>= 1.8)
       nokogiri (~> 1.5)
@@ -612,6 +628,10 @@ GEM
     redis-store (1.5.0)
       redis (>= 2.2, < 5)
     referer-parser (0.3.0)
+    representable (3.0.4)
+      declarative (< 0.1.0)
+      declarative-option (< 0.2.0)
+      uber (< 0.2.0)
     request_store (1.4.1)
       rack (>= 1.4)
     responders (2.4.0)
@@ -621,6 +641,7 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
+    retriable (3.1.2)
     rinku (2.0.4)
     rspec-activemodel-mocks (1.1.0)
       activemodel (>= 3.0)
@@ -704,13 +725,14 @@ GEM
     thread_safe (0.3.6)
     tilt (2.0.8)
     timecop (0.9.1)
-    trollop (2.1.2)
+    trollop (2.9.9)
     twilio-ruby (5.15.2)
       faraday (~> 0.9)
       jwt (>= 1.5, <= 2.5)
       nokogiri (>= 1.6, < 2.0)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
+    uber (0.1.0)
     uglifier (4.1.19)
       execjs (>= 0.3.0, < 3)
     unf (0.1.4)
@@ -734,6 +756,7 @@ GEM
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.3)
     xml-simple (1.1.5)
+    xmlrpc (0.3.0)
     yagni_json_encoder (1.0.0)
       activesupport (>= 4.1.0)
       oj (~> 2.18.5)
@@ -775,7 +798,7 @@ DEPENDENCIES
   faker (~> 1.9)
   fast_blank (~> 1.0)
   fast_xs (~> 0.8)
-  fog (~> 2.0)
+  fog (~> 2.1)
   frilans_finans_api (~> 0.4)
   fuubar (~> 2.3)
   geocoder (~> 1.5)
