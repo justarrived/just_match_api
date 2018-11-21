@@ -42,7 +42,7 @@ ActiveAdmin.register ArbetsformedlingenAd do
     end
 
     panel I18n.t('admin.arbetsformedlingen_ad_log.name') do
-      logs.reverse_each do |log|
+      logs.each do |log|
         h4 log.updated_at
         log.response['messages'].each do |message|
           para message['detail']
