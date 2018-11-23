@@ -313,6 +313,8 @@ ActiveAdmin.setup do |config|
   #
   # config.include_default_association_filters = true
 
-  config.view_factory.footer = Admin::ActiveAdminFooter
+  require 'byebug'
+  byebug
+  config.footer = Admin::ActiveAdminFooter
   config.view_factory.header = Admin::ActiveAdminHeader
 end
