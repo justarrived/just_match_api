@@ -3,6 +3,21 @@
 require 'admin/active_admin_footer'
 require 'admin/active_admin_header'
 
+class ActiveAdmin::Views::Pages::Base
+  def build(*args)
+    set_attribute :lang, I18n.locale
+    build_active_admin_head
+    add_extras_to_head
+    build_page
+  end
+
+  def add_extras_to_head
+    within head do
+      text_node(Admin::ActiveAdminHeader.to_s)
+    end
+  end
+end
+
 ActiveAdmin.setup do |config|
   # == Site Title
   #
@@ -313,8 +328,5 @@ ActiveAdmin.setup do |config|
   #
   # config.include_default_association_filters = true
 
-  require 'byebug'
-  byebug
   config.footer = Admin::ActiveAdminFooter
-  config.view_factory.header = Admin::ActiveAdminHeader
 end
