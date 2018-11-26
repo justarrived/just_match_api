@@ -50,7 +50,7 @@ GEM
       activemodel (>= 4.1, < 6)
       case_transform (>= 0.2)
       jsonapi-renderer (>= 0.1.1.beta1, < 0.3)
-    activeadmin (1.4.0)
+    activeadmin (1.4.1)
       arbre (>= 1.1.1)
       coffee-rails
       formtastic (~> 3.1)
