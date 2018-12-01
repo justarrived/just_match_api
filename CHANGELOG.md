@@ -4,6 +4,42 @@ HEAD
 -----------
 
 
+v3.6.0 - 2018-12-01
+----------
+__Enhancement__:
+* Fix argument error when rejecting a candidate Closes #1682
+* Upgrade to Ruby 2.5.3
+* Admin: Reverse Arbetsformedlingen Ad log order
+* Admin: Downgrade activeadmin from 1.4 to 1.3.x, due to regression - see [activeadmin/activeadmin#5611](https://github.com/activeadmin/activeadmin/pull/5611).
+
+__Gem updates__:
+* Downgrade activeadmin from 1.4 to 1.3.x, due to regression.
+* [Security] Bump loofah from 2.2.2 to 2.2.3
+* [Security] Bump nokogiri from 1.8.4 to 1.8.5
+* [Security] Bump rack from 2.0.5 to 2.0.6
+* Bump active_model_serializers from 0.10.7 to 0.10.8
+* Bump activeadmin from 1.3.1 to 1.4.0
+* Bump airbrake from 7.3.5 to 7.4.0
+* Bump ancestry from 3.0.2 to 3.0.5
+* Bump apipie-rails from 0.5.10 to 0.5.14
+* Bump aws-sdk-s3 from 1.20.0 to 1.25.0
+* Bump bullet from 5.7.6 to 5.8.1
+* Bump consistency_fail from 0.3.5 to 0.3.7
+* Bump fog from 2.0.0 to 2.1.0
+* Bump httparty from 0.16.2 to 0.16.3
+* Bump i18n-tasks from 0.9.25 to 0.9.27
+* Bump mail from 2.7.0 to 2.7.1
+* Bump memory_profiler from 0.9.11 to 0.9.12
+* Bump newrelic_rpm from 5.4.0.347 to 5.5.0.348
+* Bump rack-attack from 5.4.0 to 5.4.2
+* Bump rails-i18n from 5.1.1 to 5.1.2
+* Bump rspec-rails from 3.8.0 to 3.8.1
+* Bump rubocop from 0.59.1 to 0.60.0
+* Bump sidekiq from 5.2.2 to 5.2.3
+* Bump twilio-ruby from 5.13.0 to 5.16.0
+* Bump uglifier from 4.1.19 to 4.1.20
+
+
 v3.5.4 - 2018-11-05
 ----------
 __Bugfix__:
