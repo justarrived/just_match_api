@@ -156,7 +156,7 @@ RSpec.describe UserMailer, type: :mailer do
     end
 
     it 'renders the subject' do
-      expect(mail.subject).to eql('You account has been marked for anonymization.')
+      expect(mail.subject).to eql('Your account has been marked for anonymization.')
     end
 
     it 'renders the receiver email' do
@@ -183,7 +183,7 @@ RSpec.describe UserMailer, type: :mailer do
     end
 
     it 'renders the subject' do
-      subject = 'You account has been marked for partial anonymization.'
+      subject = 'Your account has been marked for partial anonymization.'
       expect(mail.subject).to eql(subject)
     end
 
