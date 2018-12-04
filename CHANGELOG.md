@@ -4,6 +4,17 @@ HEAD
 -----------
 
 
+v3.6.1 - 2018-12-04
+----------
+* :hocho: typo "You account has.." => "Your account has..."
+
+__Gem enhancements__:
+* Bump activeadmin from 1.3.1 to 1.4.3
+* Bump rails-controller-testing from 1.0.2 to 1.0.3
+* Bump twilio-ruby from 5.16.0 to 5.17.0
+* Bump aws-sdk-s3 from 1.25.0 to 1.29.0
+
+
 v3.6.0 - 2018-12-01
 ----------
 __Enhancement__:
