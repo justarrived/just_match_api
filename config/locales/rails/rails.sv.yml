@@ -2,10 +2,11 @@ sv:
   activerecord:
     errors:
       messages:
-        record_invalid: 'Validation failed: %{errors}'
+        record_invalid: 'Validering misslyckades: %{errors}'
         restrict_dependent_destroy:
-          one: Cannot delete record because a dependent %{record} exists
-          many: Cannot delete record because dependent %{record} exist
+          one: Kan inte ta bort resursen eftersom %{record} beror på den här resursen
+          many: Kan inte ta bort resursen eftersom %{record} beror på den här resursen
+          other: Kan inte ta bort resursen eftersom %{record} beror på den här resursen
   errors:
     format: "%{attribute} %{message}"
     messages:

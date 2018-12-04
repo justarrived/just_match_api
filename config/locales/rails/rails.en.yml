@@ -7,6 +7,7 @@ en:
         restrict_dependent_destroy:
           one: Cannot delete record because a dependent %{record} exists
           many: Cannot delete record because dependent %{record} exist
+          other: Cannot delete record because dependent %{record} exist
   errors:
     format: "%{attribute} %{message}"
     messages:
