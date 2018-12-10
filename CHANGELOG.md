@@ -4,6 +4,25 @@ HEAD
 -----------
 
 
+v3.6.2 - 2018-12-10
+----------
+__Enhancement__:
+* Add i18n keys
+
+__Gem enhancements__:
+* Bump rails from 5.2.1.1 to
+* Bump Ransack to 2.2.1 for compatibility with latest Rails
+* Bump rails from 5.2.1.1 to 5.2.2
+* Bump arbetsformedlingen from 0.6.0 to 0.7.0
+* Bump honey_format from 0.18.0 to 0.19.0
+* Bump rails-controller-testing from 1.0.3 to 1.0.4
+* Bump rubocop from 0.60.0 to 0.61.1
+* Bump aws-sdk-s3 from 1.29.0 to 1.30.0
+* Bump rails from 5.2.1 to 5.2.2
+* Bump i18n-tasks from 0.9.27 to 0.9.28
+* Bump bullet from 5.8.1 to 5.9.0
+
+
 v3.6.1 - 2018-12-04
 ----------
 * :hocho: typo "You account has.." => "Your account has..."
