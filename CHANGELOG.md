@@ -4,9 +4,17 @@ HEAD
 -----------
 
 
+v3.6.4 - 2018-12-25
+----------
+* Prepare for [activeadmin/activeadmin#5590](https://github.com/activeadmin/activeadmin/pull/5590) `<head>` feature
+* Fix regression in ActiveAdmin, where our custom footer was ignored
+
+
 v3.6.3 - 2018-12-25
 ----------
 * Remove `i18n.fallbacks` from production config since its already present
+
+__Gem enhancements__:
 * Bump countries from 2.2.0 to 3.0.0
 * Bump countries from 2.1.4 to 2.2.0
 * Bump letter_opener from 1.6.0 to 1.7.0

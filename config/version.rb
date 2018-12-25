@@ -4,6 +4,6 @@ module JustMatch
   VERSION = [
     MAJOR_VERSION = 3,
     MINOR_VERSION = 6,
-    PATCH_VERSION = 3
+    PATCH_VERSION = 4
   ].join('.')
 end
