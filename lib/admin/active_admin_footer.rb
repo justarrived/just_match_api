@@ -9,14 +9,14 @@ module Admin
       changelog_link = nil
       unless commit_sha == '-'
         url = "https://github.com/justarrived/just_match_api/tree/#{commit_sha}"
-        changelog_link = '<a href="%s">GitHub</a>' % [url]
+        changelog_link = format('<a href="%s">GitHub</a>', url)
       end
 
       [
         "Version #{JustMatch::VERSION}",
         "Commit #{changelog_link || '-'}",
         "Released at #{released_at}"
-      ].join(', ').html_safe
+      ].join(', ').html_safe # rubocop:disable Rails/OutputSafety
     end
   end
 end
