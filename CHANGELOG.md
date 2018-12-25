@@ -4,6 +4,15 @@ HEAD
 -----------
 
 
+v3.6.3 - 2018-12-25
+----------
+* Remove `i18n.fallbacks` from production config since its already present
+* Bump countries from 2.2.0 to 3.0.0
+* Bump countries from 2.1.4 to 2.2.0
+* Bump letter_opener from 1.6.0 to 1.7.0
+* Bump newrelic_rpm from 5.5.0.348 to 5.6.0.349
+
+
 v3.6.2 - 2018-12-10
 ----------
 __Enhancement__:
