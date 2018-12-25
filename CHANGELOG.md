@@ -5,7 +5,7 @@ HEAD
 
 
 v3.6.4 - 2018-12-25
-----------
+----------
 * Prepare for [activeadmin/activeadmin#5590](https://github.com/activeadmin/activeadmin/pull/5590) `<head>` feature
 * Fix regression in ActiveAdmin, where our custom footer was ignored
 
@@ -14,7 +14,7 @@ v3.6.3 - 2018-12-25
 ----------
 * Remove `i18n.fallbacks` from production config since its already present
 
-__Gem enhancements__:
+__Gems__:
 * Bump countries from 2.2.0 to 3.0.0
 * Bump countries from 2.1.4 to 2.2.0
 * Bump letter_opener from 1.6.0 to 1.7.0
@@ -26,7 +26,7 @@ v3.6.2 - 2018-12-10
 __Enhancement__:
 * Add i18n keys
 
-__Gem enhancements__:
+__Gems__:
 * Bump rails from 5.2.1.1 to
 * Bump Ransack to 2.2.1 for compatibility with latest Rails
 * Bump rails from 5.2.1.1 to 5.2.2
@@ -44,7 +44,7 @@ v3.6.1 - 2018-12-04
 ----------
 * :hocho: typo "You account has.." => "Your account has..."
 
-__Gem enhancements__:
+__Gems__:
 * Bump activeadmin from 1.3.1 to 1.4.3
 * Bump rails-controller-testing from 1.0.2 to 1.0.3
 * Bump twilio-ruby from 5.16.0 to 5.17.0
@@ -59,7 +59,7 @@ __Enhancement__:
 * Admin: Reverse Arbetsformedlingen Ad log order
 * Admin: Downgrade activeadmin from 1.4 to 1.3.x, due to regression - see [activeadmin/activeadmin#5611](https://github.com/activeadmin/activeadmin/pull/5611).
 
-__Gem updates__:
+__Gems__:
 * Downgrade activeadmin from 1.4 to 1.3.x, due to regression.
 * [Security] Bump loofah from 2.2.2 to 2.2.3
 * [Security] Bump nokogiri from 1.8.4 to 1.8.5
@@ -92,7 +92,7 @@ v3.5.4 - 2018-11-05
 __Bugfix__:
 * Fix argument error when rejecting a candidate Closes #1682
 
-__Gem updates__:
+__Gems__:
 * Bump `active_model_serializers` from 0.10.7 to 0.10.8
 * Bump `airbrake` from 7.3.5 to 7.4.0
 * Bump `ancestry` from 3.0.2 to 3.0.4
@@ -168,7 +168,7 @@ __Admin__:
 * Add SyncUserAndFFInvoice job after FF invoice create
 * Make sure to synk the FF Invoice after creating it
 
-__Gem updates__:
+__Gems__:
 * Bump i18n-tasks from 0.9.23 to 0.9.24
 * Bump twilio-ruby from 5.12.2 to 5.12.3
 * Bump chosen-rails from 1.8.3 to 1.8.7
@@ -221,7 +221,7 @@ __Enhancement__:
 * Puts result of `script/trackdeploy` in `script/deploy`
 * Add `ScriptCLI#system_call` puts boolean argument
 
-__Gem updates__:
+__Gems__:
 * Bump `uglifier` from 4.1.17 to 4.1.18
 * Bump `sidekiq` from 5.1.3 to 5.2.1
 * Bump `inherited_resources` from 1.8.0 to 1.9.0
@@ -252,7 +252,7 @@ __Admin__:
 
 v3.3.3 - 2018-08-01
 ----------
-__Gem updates__:
+__Gems__:
 * Bump `twilio-ruby` from 5.11.1 to 5.11.2
 * Bump `uglifier` from 4.1.16 to 4.1.17
 * Bump `paperclip` from 6.0.0 to 6.1.0
@@ -267,7 +267,7 @@ v3.3.2 - 2018-07-24
 __Admin__:
 * Handle case where AF ad is nil in jobs
 
-__Gem updates__:
+__Gems__:
 * Bump `memory_profiler` from 0.9.10 to 0.9.11
 * Bump `twilio-ruby` from 5.10.7 to 5.11.1
 * Bump `uglifier` from 4.1.15 to 4.1.16
@@ -410,7 +410,7 @@ v2.111.0 - 2018-07-16
 __Enhancement__:
 * Only create user @ Frilans Finans if user has applied and been accepted for a freelance job
 
-__Gem updates__:
+__Gems__:
 * Bump `faker` from 1.8.7 to 1.9.1
 * Bump `honey_format` from 0.16.0 to 0.17.0
 * Bump `uglifier` from 4.1.14 to 4.1.15
@@ -441,7 +441,7 @@ __Enhancement__:
 
 v2.108.0 - 2018-07-10
 ----------
-__Gem updates__:
+__Gems__:
 * Bump `rubocop` from 0.57.2 to 0.58.0
 * Bump `rack-attack` from 5.3.2 to 5.4.0
 * Bump `twilio-ruby` from 5.10.5 to 5.10.6
@@ -462,7 +462,7 @@ __Admin__:
 __Enhancement__:
 * Rename `before_action` to `before_action_method` in blazer config
 
-__Gem updates__:
+__Gems__:
 * Bump `rack-attack` from 5.3.1 to 5.3.2
 * Bump `honey_format` from 0.12.0 to 0.16.0
 * Bump `apipie-rails` from 0.5.8 to 0.5.9
@@ -493,7 +493,7 @@ __Enhancement__:
 * Include the backtrace by default when exceptions are thrown in Sidekiq jobs
 * Update Heroku airbrake identifier in app.json
 
-__Gem updates__:
+__Gems__:
 * Bump `redis-activesupport` from 5.0.4 to 5.0.5
 * Bump `airbrake` from 7.3.3 to 7.3.4
 * Bump `i18n_generators` from 2.1.1 to 2.2.0
@@ -517,7 +517,7 @@ __Admin__:
 * Improve displaying of job user status on admin index page
 * Sync FF Invoice after first remote create - avoids "double tap" on remote sync
 
-__Gem updates__:
+__Gems__:
 * Bump `annotate` from 2.7.3 to 2.7.4
 * Bump `aws-sdk-s3` from 1.12.0 to 1.13.0
 * Bump `bcrypt` from 3.1.11 to 3.1.12
@@ -559,7 +559,7 @@ __Admin__:
 * Refactor admin user form and add autocomplete=off to a bunch of fields
 * Extract Frilans Finans Invoice show view to its own partial
 
-__Gem updates__:
+__Gems__:
 * Bump `honey_format` from 0.3.0 to 0.5.0
 * Bump `webmock` from 3.4.0 to 3.4.1
 * Bump `airbrake` from 7.3.0 to 7.3.1
@@ -569,7 +569,7 @@ __Gem updates__:
 
 v2.101.1 - 2018-05-01
 ----------
-__Gem updates__:
+__Gems__:
 * Update `bootsnap` startup
 * Bump `rails` from 5.1.6 to 5.2.0
 * Bump `airbrake` from 7.2.1 to 7.3.0
@@ -593,7 +593,7 @@ __Tests__
 * Wrap partner-feed actions under I18n.with_locale to avoid leaking the locale change to other tests
 * Make a few tests less brittle (due to I18n)
 
-__Gem updates__:
+__Gems__:
 * Bump `database_cleaner` from 1.6.2 to 1.7.0
 * Bump `rubocop` from 0.54.0 to 0.55.0
 * Bump `twilio-ruby` from 5.8.0 to 5.8.1
@@ -698,7 +698,7 @@ __Enhancement__:
 * Add `Trädgårdsarbetare` to `MetrojobbCategories`
 * Unpublish metrojobb on job end date instead of job start date. Closes #1389
 
-__Gem update__:
+__Gems__:
 * Bump honey_format from 0.2.1 to 0.3.0
 
 
@@ -722,7 +722,7 @@ __Enhancement__:
 __Bugfix__:
 * Fix facebook & linkedin url validators for urls starting with http:/exampl.. Closes #1432
 
-__Gem updates__:
+__Gems__:
 * Bump `rails` from 5.1.4 to 5.1.5
 * Bump `metrojobb` from 0.5.1 to 0.6.1
 * Bump `rubocop` from 0.52.1 to 0.53.0
@@ -763,7 +763,7 @@ __Ruby 2.5 upgrade__:
 * Update Ruby 2.4 references to Ruby 2.5
 * Update Ruby 2.4 => 2.5
 
-__Gem updates__:
+__Gems__:
 * Bump memory_profiler from 0.9.8 to 0.9.10
 * Bump httparty from 0.15.7 to 0.16.0
 * Bump airbrake from 7.2.0 to 7.2.1
@@ -779,7 +779,7 @@ __Enhancement__:
 * Add AssociationCount methods to all activerecord models
 * Add association_count gem
 
-__Gem updates__:
+__Gems__:
 * Bump sidekiq from 5.1.0 to 5.1.1
 * Bump uglifier from 4.1.5 to 4.1.6
 * Bump countries from 2.1.3 to 2.1.4
@@ -799,7 +799,7 @@ v2.84 - 2018-02-09
 __Enhancement__:
 * Remove presence validation on `EmploymentPeriod#ended_at`
 
-__Gem updates__:
+__Gems__:
 * Bump `chosen-rails` from 1.8.2 to 1.8.3
 * Bump `codeclimate-test-reporter` from 1.0.7 to 1.0.8
 * Bump `sidekiq` from 5.0.5 to 5.1.0
@@ -829,7 +829,7 @@ __Admin__:
 __Enhancement__:
 * Memory optimization: Bump `dry-core` and `dry-types`. Cuts `arbetsformedligen` gem memory footprint by ~40% :rocket:
 
-__Gem updates__:
+__Gems__:
 * Bump `dry-core` and `dry-types`.
 
 
@@ -852,7 +852,7 @@ __Admin__:
 __Enhancement__:
 * Explicitly register Paperclip data URI adapter
 
-__Gem updates__:
+__Gems__:
 * Bump `twilio-ruby` from 5.6.0 to 5.6.1
 * Bump `byebug` from 9.1.0 to 10.0.0
 * Bump `paperclip` from 5.1.0 to 5.2.1
@@ -874,7 +874,7 @@ __Admin__:
 __Enhancement__:
 * Pull translations from Transifex
 
-__Gem updates__:
+__Gems__:
 * Bump `puma` from 3.11.0 to 3.11.2
 * Bump `i18n-tasks` from 0.9.19 to 0.9.20
 * Bump `webmock` from 3.2.1 to 3.3.0
@@ -890,7 +890,7 @@ __Admin__:
 __Enhancement__:
 * Add lograge initializer that adds support for Rails-5 api-only mode
 
-__Gem updates__:
+__Gems__:
 * Bump `activeadmin` from 1.2.0 to 1.2.1
 * Bump `lograge` from 0.7.1 to 0.9.0
 * Bump `airbrake` from 7.1.1 to 7.2.0
@@ -903,7 +903,7 @@ v2.76 - 2018-01-16
 __Admin__:
 * Add `lograge` initializer that adds support for Rails v5 api-only mode
 
-__Gem updates__:
+__Gems__:
 * Bump `activeadmin` from 1.2.0 to 1.2.1
 * Bump `lograge` from 0.7.1 to 0.9.0
 * Bump `airbrake` from 7.1.1 to 7.2.0
@@ -946,6 +946,7 @@ __Enhancement__:
 
 v2.73 - 2018-01-09
 ----------
+__Gems__:
 * Bump `activeadmin` from 1.1.0 to 1.2.0
 * Bump `airbrake` from 7.1.0 to 7.1.1
 * Bump `bootsnap` from 1.1.5 to 1.1.7
@@ -977,7 +978,7 @@ __Admin__:
 * Prepend "Failed to" if user activity failed
 * Add direct link to job applicants on dashboard
 
-__Gem updates__:
+__Gems__:
 * Bump `apipie-rails` from 0.5.5 to 0.5.6
 * Bump `uglifier` from 4.0.1 to 4.0.2
 
@@ -990,7 +991,7 @@ __API__:
 __Admin__:
 * Link to all guide image URL sizes on show page
 
-__Gem update__:
+__Gems__:
 * Bump `uglifier` from 3.2.0 to 4.0.1
 * Bump `inherited_resources` from 1.7.2 to 1.8.0
 * Bump `kramdown` from 1.15.0 to 1.16.2
@@ -1129,7 +1130,7 @@ __Enhancement__:
 * Update sv locale
 * Update missing traits api docs
 
-__Gem update__:
+__Gems__:
 * Bump `twilio-ruby` from 5.4.4 to 5.4.5
 * Bump `personnummer` from 0.0.9 to 0.1.0
 
@@ -1194,7 +1195,7 @@ __Enhancement__:
 * Re-add sprockets/railtie require statement to app config
 * Add `MissingUserTraits#cv?`
 
-__Gem update__:
+__Gems__:
 * :hocho: `active_admin_datetimepicker` gem and replace it with our own implementation
 * Bump `activeadmin` from e6228e to 1.1.0
 * Bump mail 2.6.6 => 2.7
@@ -1208,7 +1209,7 @@ __Admin__:
 __Enhancement__:
 * Add `user_id` and email to analytics data on send job digest email
 
-__Gem update__:
+__Gems__:
 * Rename `FactoryGirl` => `FactoryBot`
 * Bump `rspec-rails` from 3.6.1 to 3.7.1
 * Update factory_bot_rails gem to ~> 4.8
@@ -1237,7 +1238,7 @@ __API__:
 __Enhancement__:
 * Use https protocol in AppConfig#cv_template_url
 
-__Gem update__:
+__Gems__:
 * Bump arbetsformedlingen gem
   - Update PushArbetsformedlingenAdService to use new API
 * Bump database_cleaner from 1.6.1 to 1.6.2
@@ -1252,7 +1253,7 @@ __Enhancement__:
 __Admin__:
 * Track send job digest email for analytics purposes
 
-__Gem update__:
+__Gems__:
 * Bump `binding_of_caller` from 0.7.2 to 0.7.3
 * Bump `rubocop` from 0.50.0 to 0.51.0
 * Bump `twilio-ruby` from 5.4.0 to 5.4.2
@@ -1528,7 +1529,7 @@ __Admin__:
 * Update admin hint for job attributes
 * Limit filter scope for Job#staffing_company
 
-__Gem update__:
+__Gems__:
 
 * Bump active_admin_scoped_collection_actions from 59ca05 to 04cdcb
 * Bump airbrake from 6.2.1 to 7.0.0
@@ -1553,7 +1554,7 @@ __Enhancement__:
 * Visible jobs should not be cancelled
 * Unfilled jobs starting within 10 days dashboard
 
-__Gem update__:
+__Gems__:
 * Update metrojobb
 
 
@@ -1577,7 +1578,7 @@ __Enhancement__:
 __Bugfix__:
 * Update `OrderValue::CATEGORIES` and remove duplicate enum value
 
-__Gem updates__
+__Gems__
 * Bump rubocop from 0.49.1 to 0.50.0
 * Bump twilio-ruby from 5.2.2 to 5.2.3
 
@@ -1637,7 +1638,7 @@ __Enhancement__:
 - Pull transifex translations
 - Add `Job#invoice_comment` column
 
-__Gem update__:
+__Gems__:
 
 - rails 5.1.3 => 5.1.4
 - apipie-rails
