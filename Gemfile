@@ -149,5 +149,5 @@ group :test, :docs do
   gem 'rspec-activemodel-mocks', '~> 1.1'
   gem 'simplecov', '~> 0.16', require: false
   gem 'timecop', '~> 0.8'
-  gem 'webmock', '~> 3.4'
+  gem 'webmock', '~> 3.5'
 end

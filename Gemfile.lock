@@ -439,7 +439,7 @@ GEM
     has_scope (0.7.2)
       actionpack (>= 4.1)
       activesupport (>= 4.1)
-    hashdiff (0.3.7)
+    hashdiff (0.3.8)
     heapy (0.1.4)
     highline (2.0.0)
     honey_format (0.19.0)
@@ -747,7 +747,7 @@ GEM
       activemodel (>= 5.0)
       bindex (>= 0.4.0)
       railties (>= 5.0)
-    webmock (3.4.2)
+    webmock (3.5.1)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
       hashdiff
@@ -851,7 +851,7 @@ DEPENDENCIES
   twilio-ruby (~> 5.17)
   uglifier (~> 4.1)
   web-console (~> 3.7)
-  webmock (~> 3.4)
+  webmock (~> 3.5)
   yagni_json_encoder (~> 1.0)
 
 RUBY VERSION
