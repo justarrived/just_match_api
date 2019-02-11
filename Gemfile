@@ -90,7 +90,7 @@ gem 'banktools-se', '~> 3.0' # Validate Swedish bank account
 gem 'countries', '~> 3.0', require: 'countries/global' # Country data in various locales
 gem 'geocoder', '~> 1.5' # Geocode resources
 gem 'global_phone', '~> 1.0' # Format cell phone numbers
-gem 'google-cloud-translate', '~> 1.2' # Translate with Google Translate API
+gem 'google-cloud-translate', '~> 1.3' # Translate with Google Translate API
 gem 'i18n_data', '~> 0.8' # Language and country names in various languages
 gem 'iban-tools', '~> 1.1' # Validate IBAN
 gem 'mailcheck', github: 'mailcheck/mailcheck-ruby' # Email suggestions for common email spelling misstakes
