@@ -113,7 +113,7 @@ gem 'honey_format', '~> 0.19' # Simple CSV reading
 # DEVELOPMENT/TEST/DOCS
 group :development, :test, :docs do
   gem 'bullet', '~> 5.9'
-  gem 'byebug', '~> 10.0'
+  gem 'byebug', '~> 11.0'
   gem 'consistency_fail', '~> 0.3'
   gem 'dotenv-rails', '~> 2.6'
   gem 'factory_bot_rails', '~> 4.11'
