@@ -522,7 +522,7 @@ GEM
       mimemagic (~> 0.3.2)
     maruku (0.7.3)
     memoist (0.16.0)
-    memory_profiler (0.9.12)
+    memory_profiler (0.9.13)
     method_source (0.9.2)
     metrojobb (0.6.1)
       activemodel (~> 5.0)
