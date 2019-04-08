@@ -70,7 +70,7 @@ gem 'active_admin_theme', '~> 1.0' # activeadmin theme
 gem 'activeadmin', '~> 1.4.3', '>= 1.4.3' # Admin interface - we need to require >= 1.4.3, since < v1.4.3 has this regression https://github.com/activeadmin/activeadmin/pull/5611
 gem 'blazer', '~> 2.0' # Explore data with SQL
 gem 'chosen-rails', '~> 1.8' # Needed for autocomplete select input for activeadmin
-gem 'inherited_resources', '~> 1.9' # activeadmin Rails 5
+gem 'inherited_resources', '~> 1.10' # activeadmin Rails 5
 gem 'uglifier', '~> 4.1' # Needed for activeadmin assets compilation
 
 gem 'arbetsformedlingen', '~> 0.7' # Gem for publishing jobs to Arbetsformedlingen (Swedish Employment Service)
