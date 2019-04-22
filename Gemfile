@@ -19,7 +19,7 @@ gem 'loofah', '~> 2.2' # HTML sanitizer
 gem 'rinku', '~> 2.0.5' # Autolink
 
 # SERVER
-gem 'lograge', '~> 0.10' # Less verbose Rails log in production
+gem 'lograge', '~> 0.11' # Less verbose Rails log in production
 gem 'puma', '~> 3.12' # App server
 
 # Analytics
