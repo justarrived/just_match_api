@@ -139,7 +139,7 @@ GEM
     bindex (0.5.0)
     binding_of_caller (0.8.0)
       debug_inspector (>= 0.0.1)
-    blazer (2.0.1)
+    blazer (2.0.2)
       activerecord (>= 4.2)
       chartkick
       railties (>= 4.2)
@@ -154,7 +154,7 @@ GEM
     byebug (11.0.1)
     case_transform (0.2)
       activesupport
-    chartkick (3.0.2)
+    chartkick (3.1.0)
     chosen-rails (1.8.7)
       coffee-rails (>= 3.2)
       railties (>= 3.0)
