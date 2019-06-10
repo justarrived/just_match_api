@@ -102,7 +102,7 @@ GEM
     annotate (2.7.5)
       activerecord (>= 3.2, < 7.0)
       rake (>= 10.4, < 13.0)
-    apipie-rails (0.5.15)
+    apipie-rails (0.5.16)
       rails (>= 4.1)
     arbetsformedlingen (0.7.0)
       builder (~> 3.2)
