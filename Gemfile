@@ -147,7 +147,7 @@ group :test, :docs do
   gem 'rails-controller-testing', '~> 1.0'
   gem 'rb-readline', '~> 0.5'
   gem 'rspec-activemodel-mocks', '~> 1.1'
-  gem 'simplecov', '~> 0.16', require: false
+  gem 'simplecov', '~> 0.17', require: false
   gem 'timecop', '~> 0.8'
   gem 'webmock', '~> 3.5'
 end
