@@ -93,9 +93,9 @@ GEM
       safely_block (>= 0.1.1)
       user_agent_parser
       uuidtools
-    airbrake (9.3.0)
-      airbrake-ruby (~> 4.5)
-    airbrake-ruby (4.5.0)
+    airbrake (9.4.4)
+      airbrake-ruby (~> 4.6)
+    airbrake-ruby (4.6.0)
       rbtree3 (~> 0.5)
     ancestry (3.0.6)
       activerecord (>= 3.2.0)
@@ -772,7 +772,7 @@ DEPENDENCIES
   active_model_serializers (~> 0.10)
   activeadmin (~> 1.4.3, >= 1.4.3)
   ahoy_matey (~> 1.6)
-  airbrake (~> 9.3)
+  airbrake (~> 9.4)
   ancestry (~> 3.0)
   annotate (~> 2.7)
   apipie-rails (~> 0.5)
