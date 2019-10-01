@@ -67,7 +67,7 @@ gem 'pundit', '~> 2.0' # Authorization policies
 gem 'active_admin_filters_visibility', github: 'activeadmin-plugins/active_admin_filters_visibility'
 gem 'active_admin_scoped_collection_actions', github: 'activeadmin-plugins/active_admin_scoped_collection_actions'
 gem 'active_admin_theme', '~> 1.0' # activeadmin theme
-gem 'activeadmin', '~> 1.4.3', '>= 1.4.3' # Admin interface - we need to require >= 1.4.3, since < v1.4.3 has this regression https://github.com/activeadmin/activeadmin/pull/5611
+gem 'activeadmin', '~> 2.3.1' # Admin interface - we need to require >= 1.4.3, since < v1.4.3 has this regression https://github.com/activeadmin/activeadmin/pull/5611
 gem 'blazer', '~> 2.1' # Explore data with SQL
 gem 'chosen-rails', '~> 1.8' # Needed for autocomplete select input for activeadmin
 gem 'inherited_resources', '~> 1.10' # activeadmin Rails 5
