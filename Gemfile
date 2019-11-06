@@ -15,7 +15,7 @@ gem 'bootsnap', '>= 1.3', require: false # Optimize Rails boot time
 
 # TEXT PROCESSING
 gem 'kramdown', '~> 1.17' # Markdown <> HTML
-gem 'loofah', '~> 2.2' # HTML sanitizer
+gem 'loofah', '~> 2.3' # HTML sanitizer
 gem 'rinku', '~> 2.0.6' # Autolink
 
 # SERVER
