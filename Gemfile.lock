@@ -230,7 +230,7 @@ GEM
     email_reply_parser (0.5.9)
     errbase (0.1.1)
     erubi (1.8.0)
-    excon (0.62.0)
+    excon (0.71.0)
     execjs (2.7.0)
     factory_bot (4.11.1)
       activesupport (>= 3.0.0)
