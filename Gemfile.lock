@@ -559,7 +559,7 @@ GEM
     personnummer (0.1.0)
     pg (1.1.4)
     public_suffix (3.0.3)
-    puma (3.12.2)
+    puma (3.12.3)
     pundit (2.0.1)
       activesupport (>= 3.0.0)
     rack (2.0.8)
